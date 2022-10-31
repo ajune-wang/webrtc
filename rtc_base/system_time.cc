@@ -69,29 +69,67 @@ int64_t SystemTimeNanos() {
 #elif defined(WINUWP)
   ticks = WinUwpSystemTimeNanos();
 #elif defined(WEBRTC_WIN)
-  // TODO(webrtc:14601): Fix the volatile increment instead of suppressing the
-  // warning.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-volatile"
-  static volatile LONG last_timegettime = 0;
-  static volatile int64_t num_wrap_timegettime = 0;
-  volatile LONG* last_timegettime_ptr = &last_timegettime;
-  DWORD now = timeGetTime();
-  // Atomically update the last gotten time
-  DWORD old = InterlockedExchange(last_timegettime_ptr, now);
-  if (now < old) {
-    // If now is earlier than old, there may have been a race between threads.
-    // 0x0fffffff ~3.1 days, the code will not take that long to execute
-    // so it must have been a wrap around.
-    if (old > 0xf0000000 && now < 0x0fffffff) {
-      num_wrap_timegettime++;
-    }
+  // Code based on Chromium's base/time/time_win.cc
+
+  // A structure holding the most significant bits of "last seen" and a
+  // "rollover" counter.
+  union LastTimeAndRolloversState {
+    // The state as a single 32-bit opaque value.
+    std::atomic<int32_t> as_opaque_32{0};
+
+    // The state as usable values.
+    struct {
+      // The top 8-bits of the "last" time. This is enough to check for
+      // rollovers and the small bit-size means fewer CompareAndSwap operations
+      // to store changes in state, which in turn makes for fewer retries.
+      uint8_t last_8;
+      // A count of the number of detected rollovers. Using this as bits 47-32
+      // of the upper half of a 64-bit value results in a 48-bit tick counter.
+      // This extends the total rollover period from about 49 days to about 8800
+      // years while still allowing it to be stored with last_8 in a single
+      // 32-bit value.
+      uint16_t rollovers;
+    } as_values;
+  };
+  static std::atomic<int32_t> last_time_and_rollovers = 0;
+  static_assert(
+      sizeof(LastTimeAndRolloversState) <= sizeof(last_time_and_rollovers),
+      "LastTimeAndRolloversState does not fit in a single atomic word");
+
+  LastTimeAndRolloversState state;
+  DWORD now_ms;  // DWORD is always unsigned 32 bits.
+
+  while (true) {
+    // Fetch the "now" and "last" tick values, updating "last" with "now" and
+    // incrementing the "rollovers" counter if the tick-value has wrapped back
+    // around. Atomic operations ensure that both "last" and "rollovers" are
+    // always updated together.
+    int32_t original = last_time_and_rollovers.load(std::memory_order_acquire);
+    state.as_opaque_32 = original;
+    now_ms = timeGetTime();
+    uint8_t now_8 = static_cast<uint8_t>(now_ms >> 24);
+    if (now_8 < state.as_values.last_8)
+      ++state.as_values.rollovers;
+    state.as_values.last_8 = now_8;
+
+    // If the state hasn't changed, exit the loop.
+    if (state.as_opaque_32 == original)
+      break;
+
+    // Save the changed state. If the existing value is unchanged from the
+    // original, exit the loop.
+    int32_t check = last_time_and_rollovers.compare_exchange_strong(
+        original, state.as_opaque_32, std::memory_order_release);
+    if (check == original)
+      break;
+
+    // Another thread has done something in between so retry from the top.
   }
-  ticks = now + (num_wrap_timegettime << 32);
-  // TODO(deadbeef): Calculate with nanosecond precision. Otherwise, we're
-  // just wasting a multiply and divide when doing Time() on Windows.
-  ticks = ticks * kNumNanosecsPerMillisec;
-#pragma clang diagnostic pop
+
+  ticks = static_cast<int64_t>(now_ms);
+  ticks += static_cast<int64_t>(state.as_values.rollovers) << 32;
+  ticks *= kNumNanosecsPerMillisec;
+
 #else
 #error Unsupported platform.
 #endif

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "484dadb4_b0447994",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-31T09:43:45Z",
+      "side": 1,
+      "message": "SVC tests seem to be less flaky (12 green shards!).\nPlus their seems to be enough bots.\nhttps://chromium-swarm.appspot.com/botlist?f\u003dcores%3A12\u0026f\u003dos%3AMac-12\u0026f\u003dcpu%3Ax86-64\u0026f\u003dpool%3Achromium.tests",
+      "revId": "d3921a8a573658f28206525af4fff81b48eead85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

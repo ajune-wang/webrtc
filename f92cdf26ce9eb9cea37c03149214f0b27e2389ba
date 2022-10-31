@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f475cdb_b420f181",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-31T13:31:00Z",
+      "side": 1,
+      "message": "I think we still want to address a few more things in the cxx17 file:\n- Many symbols are defined in multiple locations in the canonical STL I used ( https://github.com/PeterFeicht/cppreference-doc ). Could be fixed upstream, we could remove duplicate definitions if we agree on the canonical header to be used most of the time.\n- Some symbols like std::swap are used in too many places, should we remove them?",
+      "revId": "f92cdf26ce9eb9cea37c03149214f0b27e2389ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

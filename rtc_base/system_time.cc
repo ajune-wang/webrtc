@@ -14,6 +14,7 @@
 
 #include <stdint.h>
 
+#include <atomic>
 #include <limits>
 
 #if defined(WEBRTC_POSIX)
@@ -69,29 +70,58 @@ int64_t SystemTimeNanos() {
 #elif defined(WINUWP)
   ticks = WinUwpSystemTimeNanos();
 #elif defined(WEBRTC_WIN)
-  // TODO(webrtc:14601): Fix the volatile increment instead of suppressing the
-  // warning.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-volatile"
-  static volatile LONG last_timegettime = 0;
-  static volatile int64_t num_wrap_timegettime = 0;
-  volatile LONG* last_timegettime_ptr = &last_timegettime;
-  DWORD now = timeGetTime();
-  // Atomically update the last gotten time
-  DWORD old = InterlockedExchange(last_timegettime_ptr, now);
-  if (now < old) {
-    // If now is earlier than old, there may have been a race between threads.
-    // 0x0fffffff ~3.1 days, the code will not take that long to execute
-    // so it must have been a wrap around.
-    if (old > 0xf0000000 && now < 0x0fffffff) {
-      num_wrap_timegettime++;
-    }
+  // Code based on Chromium's base/time/time_win.cc
+  // The implementation calls timeGetTime(). The problem is that
+  // this function returns a 32-bit time, which wraps around roughly every
+  // 49 days. The code below tracks the number of "rollovers" that have
+  // occurred, in a tread safe manner.
+
+  // A structure holding the 8 most significant bits of the last
+  // timestamp, followed by a 24 bit rollover counter. By encoding
+  // both in the same atomic variable, we ensure that both are always
+  // updated together.
+  static std::atomic<uint32_t> last_8_and_rollover_count = 0;
+
+  uint32_t rollover_count;
+  DWORD now_ms;  // DWORD is always unsigned 32 bits.
+
+  while (true) {
+    // Fetch (8 most significant bits of) last time, and the rollover count.
+    uint32_t original =
+        last_8_and_rollover_count.load(std::memory_order_acquire);
+    uint8_t last_8 = static_cast<uint8_t>(original >> 24);
+    rollover_count = original & 0x00FFFFFF;
+
+    // Get curent time and update rollover_count if it has wrapped around.
+    now_ms = timeGetTime();
+    uint8_t now_8 = static_cast<uint8_t>(now_ms >> 24);
+    if (now_8 < last_8)
+      ++rollover_count;
+
+    // Update state with 8 most significant bits of current time,
+    // followed by 24 bits of rollover counter.
+    uint32_t new_state =
+        (static_cast<uint32_t>(now_8) << 24) + (rollover_count & 0x00FFFFFF);
+
+    // If the state hasn't changed, exit the loop. (Likely. The top 8 bits of a
+    // 32-bit millisecond timestamp only changes once every 4.6 hours, and
+    // rollover only occurs once every 49 days.)
+    if (new_state == original)
+      break;
+
+    // Save the new state if no other thread has changed the original value.
+    uint32_t check = last_8_and_rollover_count.compare_exchange_strong(
+        original, new_state, std::memory_order_release);
+    if (check == original)
+      break;
+
+    // Another thread has done something in between so retry from the top.
   }
-  ticks = now + (num_wrap_timegettime << 32);
-  // TODO(deadbeef): Calculate with nanosecond precision. Otherwise, we're
-  // just wasting a multiply and divide when doing Time() on Windows.
-  ticks = ticks * kNumNanosecsPerMillisec;
-#pragma clang diagnostic pop
+
+  ticks = static_cast<int64_t>(now_ms);
+  ticks += static_cast<int64_t>(rollover_count) << 32;
+  ticks *= kNumNanosecsPerMillisec;
+
 #else
 #error Unsupported platform.
 #endif

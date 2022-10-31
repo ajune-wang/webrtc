@@ -55,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "601bb1e9_b3952b6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-31T14:19:20Z",
+      "side": 1,
+      "message": "Undid mapping changes here, will create another change for them.",
+      "parentUuid": "01e7e2eb_83a833dc",
+      "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "22ffd93f_4233171c",
         "filename": "api/units/data_rate.h",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "writtenOn": "2022-10-31T14:12:48Z",
       "side": 1,
       "message": "While I don\u0027t really like those, since they are compatible with both IWYU and clangd, we should definitely try to add those.",
+      "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09fe0f23_e9449fd2",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-31T14:19:20Z",
+      "side": 1,
+      "message": "keeping those pragma in code also helps iwyu when it runs in different code base (and thus can\u0027t rely on mappings file in webrtc)",
+      "parentUuid": "22ffd93f_4233171c",
       "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -28,6 +28,13 @@
       },
     },
   },
+  'cores-8': {
+    'swarming': {
+      'dimensions': {
+        'cores': '8',
+      }
+    }
+  },
   'cores-12': {
     'swarming': {
       'dimensions': {

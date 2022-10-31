@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "234305ff_41335e5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-31T11:06:14Z",
+      "side": 1,
+      "message": "Do we need to do a disable + re-enable WPT test dance to avoid import to chromium breakage?",
+      "revId": "35e697e4cb60c4ba0ee949d23853be4e693d71cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

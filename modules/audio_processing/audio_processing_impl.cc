@@ -1095,9 +1095,26 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   RTC_DCHECK_LE(
       !!submodules_.echo_controller + !!submodules_.echo_control_mobile, 1);
 
+  // Read the input volume to adjust (if any). If the input volume is emulated,
+  // adjust the emulated volume; otherwise, adjust the applied input volume.
+  absl::optional<int> input_volume_to_adjust =
+      capture_.emulated_input_volume.has_value()
+          ? capture_.emulated_input_volume
+          : capture_.applied_input_volume;
+  // Invalidate any previously recommended input volume which will be updated by
+  // the active input volume controller (if any).
+  capture_.recommended_input_volume = absl::nullopt;
+
+  if (capture_.applied_input_volume.has_value()) {
+    applied_input_volume_stats_reporter_.UpdateStatistics(
+        *capture_.applied_input_volume);
+  }
   data_dumper_->DumpRaw(
       "applied_input_volume",
       capture_.applied_input_volume.value_or(kUnspecifiedDataDumpInputVolume));
+  data_dumper_->DumpRaw(
+      "emulated_input_volume",
+      capture_.emulated_input_volume.value_or(kUnspecifiedDataDumpInputVolume));
 
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
   AudioBuffer* linear_aec_buffer = capture_.linear_aec_output.get();
@@ -1110,12 +1127,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (submodules_.capture_levels_adjuster) {
-    if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
+    if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled &&
+        capture_.emulated_input_volume.has_value()) {
       // When the input volume is emulated, retrieve the volume applied to the
       // input audio and notify that to APM so that the volume is passed to the
       // active AGC.
-      set_stream_analog_level_locked(
-          submodules_.capture_levels_adjuster->GetAnalogMicGainLevel());
+      submodules_.capture_levels_adjuster->SetAnalogMicGainLevel(
+          *capture_.emulated_input_volume);
     }
     submodules_.capture_levels_adjuster->ApplyPreLevelAdjustment(
         *capture_buffer);
@@ -1134,15 +1152,11 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
                                 levels.peak, 1, RmsLevel::kMinLevelDb, 64);
   }
 
-  if (capture_.applied_input_volume.has_value()) {
-    applied_input_volume_stats_reporter_.UpdateStatistics(
-        *capture_.applied_input_volume);
-  }
-
   if (submodules_.echo_controller) {
     // Determine if the echo path gain has changed by checking all the gains
     // applied before AEC.
-    capture_.echo_path_gain_change = capture_.applied_input_volume_changed;
+    capture_.echo_path_gain_change = capture_.applied_input_volume_changed ||
+                                     capture_.emulated_input_volume_changed;
 
     // Detect and flag any change in the capture level adjustment pre-gain.
     if (submodules_.capture_levels_adjuster) {
@@ -1166,6 +1180,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (submodules_.agc_manager) {
+    if (input_volume_to_adjust.has_value()) {
+      submodules_.agc_manager->set_stream_analog_level(*input_volume_to_adjust);
+    }
     submodules_.agc_manager->AnalyzePreProcess(*capture_buffer);
   }
 
@@ -1193,6 +1210,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (submodules_.gain_control) {
+    if (!submodules_.agc_manager && input_volume_to_adjust.has_value()) {
+      RETURN_ON_ERR(submodules_.gain_control->set_stream_analog_level(
+          *input_volume_to_adjust));
+    }
     RETURN_ON_ERR(
         submodules_.gain_control->AnalyzeCaptureAudio(*capture_buffer));
   }
@@ -1240,6 +1261,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   if (submodules_.agc_manager) {
     submodules_.agc_manager->Process(*capture_buffer);
+    if (input_volume_to_adjust.has_value()) {
+      capture_.recommended_input_volume =
+          submodules_.agc_manager->recommended_analog_level();
+    }
 
     absl::optional<int> new_digital_gain =
         submodules_.agc_manager->GetDigitalComressionGain();
@@ -1249,9 +1274,12 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (submodules_.gain_control) {
-    // TODO(peah): Add reporting from AEC3 whether there is echo.
     RETURN_ON_ERR(submodules_.gain_control->ProcessCaptureAudio(
         capture_buffer, /*stream_has_echo*/ false));
+    if (!submodules_.agc_manager && input_volume_to_adjust.has_value()) {
+      capture_.recommended_input_volume =
+          submodules_.gain_control->stream_analog_level();
+    }
   }
 
   if (submodule_states_.CaptureMultiBandProcessingPresent() &&
@@ -1364,12 +1392,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   // Pass stats for reporting.
   stats_reporter_.UpdateStatistics(capture_.stats);
 
-  UpdateRecommendedInputVolumeLocked();
-  if (capture_.recommended_input_volume.has_value()) {
-    recommended_input_volume_stats_reporter_.UpdateStatistics(
-        *capture_.recommended_input_volume);
-  }
-
   if (submodules_.capture_levels_adjuster) {
     submodules_.capture_levels_adjuster->ApplyPostLevelAdjustment(
         *capture_buffer);
@@ -1378,9 +1400,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       // If the input volume emulation is used, retrieve the recommended input
       // volume and set that to emulate the input volume on the next processed
       // audio frame.
-      RTC_DCHECK(capture_.recommended_input_volume.has_value());
-      submodules_.capture_levels_adjuster->SetAnalogMicGainLevel(
-          *capture_.recommended_input_volume);
+      capture_.emulated_input_volume_changed =
+          capture_.emulated_input_volume != capture_.recommended_input_volume;
+      capture_.emulated_input_volume = capture_.recommended_input_volume;
     }
   }
 
@@ -1400,6 +1422,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   capture_.was_stream_delay_set = false;
 
+  if (capture_.recommended_input_volume.has_value()) {
+    recommended_input_volume_stats_reporter_.UpdateStatistics(
+        *capture_.recommended_input_volume);
+  }
   data_dumper_->DumpRaw("recommended_input_volume",
                         capture_.recommended_input_volume.value_or(
                             kUnspecifiedDataDumpInputVolume));
@@ -1619,21 +1645,6 @@ void AudioProcessingImpl::set_stream_analog_level_locked(int level) {
       capture_.applied_input_volume.has_value() &&
       *capture_.applied_input_volume != level;
   capture_.applied_input_volume = level;
-
-  // Invalidate any previously recommended input volume which will be updated by
-  // `ProcessStream()`.
-  capture_.recommended_input_volume = absl::nullopt;
-
-  if (submodules_.agc_manager) {
-    submodules_.agc_manager->set_stream_analog_level(level);
-    return;
-  }
-
-  if (submodules_.gain_control) {
-    int error = submodules_.gain_control->set_stream_analog_level(level);
-    RTC_DCHECK_EQ(kNoError, error);
-    return;
-  }
 }
 
 int AudioProcessingImpl::recommended_stream_analog_level() const {
@@ -1643,35 +1654,19 @@ int AudioProcessingImpl::recommended_stream_analog_level() const {
   }
   // Input volume to recommend when `set_stream_analog_level()` is not called.
   constexpr int kFallBackInputVolume = 255;
+  int applied_input_volume_or_fallback =
+      capture_.applied_input_volume.value_or(kFallBackInputVolume);
+  // When the input volume is emulated, hide the recommended volume and return
+  // the applied one so that no "external" input volume change occurs.
+  if (submodules_.capture_levels_adjuster &&
+      config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
+    return applied_input_volume_or_fallback;
+  }
   // When APM has no input volume to recommend, return the latest applied input
   // volume that has been observed in order to possibly produce no input volume
-  // change. If no applied input volume has been observed, return a fall-back
-  // value.
+  // change.
   return capture_.recommended_input_volume.value_or(
-      capture_.applied_input_volume.value_or(kFallBackInputVolume));
-}
-
-void AudioProcessingImpl::UpdateRecommendedInputVolumeLocked() {
-  if (!capture_.applied_input_volume.has_value()) {
-    // When `set_stream_analog_level()` is not called, no input level can be
-    // recommended.
-    capture_.recommended_input_volume = absl::nullopt;
-    return;
-  }
-
-  if (submodules_.agc_manager) {
-    capture_.recommended_input_volume =
-        submodules_.agc_manager->recommended_analog_level();
-    return;
-  }
-
-  if (submodules_.gain_control) {
-    capture_.recommended_input_volume =
-        submodules_.gain_control->stream_analog_level();
-    return;
-  }
-
-  capture_.recommended_input_volume = capture_.applied_input_volume;
+      applied_input_volume_or_fallback);
 }
 
 bool AudioProcessingImpl::CreateAndAttachAecDump(absl::string_view file_name,
@@ -2002,7 +1997,7 @@ void AudioProcessingImpl::InitializeCaptureLevelsAdjuster() {
       config_.capture_level_adjustment.enabled) {
     // Use both the pre-amplifier and the capture level adjustment gains as
     // pre-gains.
-    float pre_gain = 1.f;
+    float pre_gain = 1.0f;
     if (config_.pre_amplifier.enabled) {
       pre_gain *= config_.pre_amplifier.fixed_gain_factor;
     }
@@ -2016,6 +2011,10 @@ void AudioProcessingImpl::InitializeCaptureLevelsAdjuster() {
             config_.capture_level_adjustment.analog_mic_gain_emulation
                 .initial_level,
             pre_gain, config_.capture_level_adjustment.post_gain_factor);
+    if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
+      capture_.emulated_input_volume =
+          submodules_.capture_levels_adjuster->GetAnalogMicGainLevel();
+    }
   } else {
     submodules_.capture_levels_adjuster.reset();
   }
@@ -2183,7 +2182,8 @@ AudioProcessingImpl::ApmCaptureState::ApmCaptureState()
       prev_pre_adjustment_gain(-1.0f),
       playout_volume(-1),
       prev_playout_volume(-1),
-      applied_input_volume_changed(false) {}
+      applied_input_volume_changed(false),
+      emulated_input_volume_changed(false) {}
 
 AudioProcessingImpl::ApmCaptureState::~ApmCaptureState() = default;
 

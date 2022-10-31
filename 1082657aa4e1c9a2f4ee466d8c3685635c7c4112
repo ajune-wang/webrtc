@@ -16,6 +16,23 @@
       "message": "as promised, tests. It is a mess but putting a DCHECK really helped find the cases.",
       "revId": "1082657aa4e1c9a2f4ee466d8c3685635c7c4112",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef42bea_17f20986",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-31T10:40:16Z",
+      "side": 1,
+      "message": "with followup to explore deadbeef suggestion,\nof creating the tiebreaker at lower level to avoid having to set it all the time.",
+      "revId": "1082657aa4e1c9a2f4ee466d8c3685635c7c4112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

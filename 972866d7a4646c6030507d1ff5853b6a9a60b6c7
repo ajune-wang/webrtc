@@ -34,6 +34,40 @@
       "parentUuid": "2bcd63a1_6afb18b9",
       "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01e7e2eb_83a833dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-31T14:12:48Z",
+      "side": 1,
+      "message": "I think the pragmas are definitely worth adding, not convinced about all the mapping changes though.\nCould you make a second CL (or stash it until we resolve the discussion on my IWYU my CL)?",
+      "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22ffd93f_4233171c",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-31T14:12:48Z",
+      "side": 1,
+      "message": "While I don\u0027t really like those, since they are compatible with both IWYU and clangd, we should definitely try to add those.",
+      "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

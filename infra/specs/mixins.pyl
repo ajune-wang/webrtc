@@ -59,6 +59,13 @@
       }
     }
   },
+  'cores-6': {
+    'swarming': {
+      'dimensions': {
+        'cores': '6'
+      }
+    }
+  },
   'hammerhead': {
     'swarming': {
       'dimensions': {

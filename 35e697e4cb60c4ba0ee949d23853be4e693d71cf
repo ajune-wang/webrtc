@@ -16,6 +16,24 @@
       "message": "Do we need to do a disable + re-enable WPT test dance to avoid import to chromium breakage?",
       "revId": "35e697e4cb60c4ba0ee949d23853be4e693d71cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2344d53d_215f593a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-10-31T11:11:31Z",
+      "side": 1,
+      "message": "The tests are marked as [ pass fail ] in the TestExpectations currently. Once this merges into Chrome I will update the expectations before removing that line.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/TestExpectations;l\u003d3831\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc-stats/hardware-capability-stats.https-expected.txt",
+      "parentUuid": "234305ff_41335e5c",
+      "revId": "35e697e4cb60c4ba0ee949d23853be4e693d71cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

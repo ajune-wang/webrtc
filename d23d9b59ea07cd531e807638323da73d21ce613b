@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9d37ca3_0e216259",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-31T17:00:59Z",
+      "side": 1,
+      "message": "If unused, let\u0027s remove. This is supposed to be an internal interface.\n(I do wonder what sends PLI if this doesn\u0027t....)",
+      "revId": "d23d9b59ea07cd531e807638323da73d21ce613b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

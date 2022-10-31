@@ -150,6 +150,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "722e5064_95a3ed1e",
+        "filename": "DIR_METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-10-31T12:24:50Z",
+      "side": 1,
+      "message": "How did the followup go?",
+      "parentUuid": "ec3ef31e_ae76740a",
+      "range": {
+        "startLine": 3,
+        "startChar": 13,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "7bf1c87b9b53ce0736f07ecd3909a692bec4e602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9439995_0c9386c3",
         "filename": "DIR_METADATA",
         "patchSetId": 1

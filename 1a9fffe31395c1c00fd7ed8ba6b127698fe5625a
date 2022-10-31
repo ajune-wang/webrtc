@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e1946a_c58359f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-31T14:24:27Z",
+      "side": 1,
+      "message": "an alternative approach to https://webrtc-review.googlesource.com/c/src/+/280742",
+      "revId": "1a9fffe31395c1c00fd7ed8ba6b127698fe5625a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

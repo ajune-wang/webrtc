@@ -163,8 +163,6 @@ class AudioProcessingImpl : public AudioProcessing {
 
   void set_stream_analog_level_locked(int level)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
-  void UpdateRecommendedInputVolumeLocked()
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
   void OverrideSubmoduleCreationForTesting(
       const ApmSubmoduleCreationOverrides& overrides);
@@ -380,6 +378,10 @@ class AudioProcessingImpl : public AudioProcessing {
   // Struct containing the Config specifying the behavior of APM.
   AudioProcessing::Config config_;
 
+  // When true, any active input volume controllers adjust the input volume
+  // emulated internally in APM and not the "externally" applied input volume.
+  bool emulate_input_volume_;
+
   // Overrides for testing the exclusion of some submodules from the build.
   ApmSubmoduleCreationOverrides submodule_creation_overrides_
       RTC_GUARDED_BY(mutex_capture_);
@@ -479,6 +481,7 @@ class AudioProcessingImpl : public AudioProcessing {
     // that audio is acquired. Unspecified when no input volume can be
     // recommended.
     absl::optional<int> recommended_input_volume;
+    bool recommended_input_volume_changed;
   } capture_ RTC_GUARDED_BY(mutex_capture_);
 
   struct ApmCaptureNonLockedState {

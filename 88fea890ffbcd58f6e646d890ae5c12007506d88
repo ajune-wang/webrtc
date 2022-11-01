@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df102701_cd6c9220",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-01T13:12:52Z",
+      "side": 1,
+      "message": "Thanks Per! I\u0027ve done a small change in two unit tests to address your comment. Can you please take a look? Thanks!",
+      "revId": "88fea890ffbcd58f6e646d890ae5c12007506d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

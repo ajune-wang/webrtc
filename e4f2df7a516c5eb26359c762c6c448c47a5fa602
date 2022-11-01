@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c990a73_4c039b8e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-01T13:12:52Z",
+      "side": 1,
+      "message": "That\u0027s a good point! I added two changes to address this:\n\n1) Modified the tests `EnableClippingPredictorEnablesClippingPredictor` `DisableClippingPredictorDisablesClippingPredictor` and the helper function `CreateInputVolumeController` to better reflect the config construction we use in production.\n\n2) Updated the TODO to better reflect when we can remove this function, i.e., once the constructor doesn\u0027t need it anymore. The nearly-default config is passed onwards to the `ClippingPredictor` construction (also used by `AgcManagerDirect`) so the hardcoding of the config should happen there.",
+      "parentUuid": "9d2fb78b_7587dff7",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d16537d2_63624382",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 13

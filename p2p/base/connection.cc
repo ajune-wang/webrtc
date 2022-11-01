@@ -1526,6 +1526,12 @@ ConnectionInfo Connection::stats() {
   stats_.total_round_trip_time_ms = total_round_trip_time_ms_;
   stats_.current_round_trip_time_ms = current_round_trip_time_ms_;
   stats_.remote_candidate = remote_candidate();
+  if (last_data_received_ > 0) {
+    stats_.last_data_received = webrtc::Timestamp::Millis(last_data_received_);
+  }
+  if (last_send_data_ > 0) {
+    stats_.last_data_sent = webrtc::Timestamp::Millis(last_send_data_);
+  }
   return stats_;
 }
 

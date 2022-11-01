@@ -193,6 +193,30 @@
       },
       "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e648b1b_cfb78002",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-01T13:20:59Z",
+      "side": 1,
+      "message": "After the offline discussion, part of the issues discussed in this thread are not relevant anymore. We decided to leave `set_stream_key_pressed()` unchanged and not to add `key_pressed` as argument in the newly added overload of `ProcessStream()`. Because of this, the preference is to add a `ProcessStream()` overload instead of adding optional arguments to the existing method; in this way, we don\u0027t have to handle the case where, for example, the applied input volume is not passed and a non-null pointer to write the recommended input volume is passed.",
+      "parentUuid": "4729a7cb_19e5087b",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

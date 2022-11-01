@@ -16,6 +16,24 @@
       "message": "The \u0027--\u0027 is needed to ensure the following child args are passed on to the test binaries via the fuchsia test_runner.py script. This could probably be done more elegantly like in the flag_compatibility script but this works for now.",
       "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c672dbf6_5e03deb3",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-01T09:51:28Z",
+      "side": 1,
+      "message": "I think it\u0027s better here than in the flags_compatibility.\nThis CL looks good but there is still an issue with the isolated-script-test-output flags:\nfuchsia test_runner expects \u0027-\u0027 when WebRTC tests expects \u0027_\u0027. So when the flags_compatibility is called before the test_runner, the test_runner fails and if it\u0027s not called the WebRTC test fails.\nNot sure what would be a \"clean\" solution here.",
+      "parentUuid": "dcfb1aaa_fd7f2a13",
+      "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

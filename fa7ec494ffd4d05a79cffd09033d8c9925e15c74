@@ -16,6 +16,23 @@
       "message": "lgtm\nTo really cover this type of bug I think we should also add an integration test, to make sure frames are received after a reconfiguration with ulpfec enable. But that can be done in a follow-up to expedite this fix.",
       "revId": "fa7ec494ffd4d05a79cffd09033d8c9925e15c74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85d2a747_3566b751",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-11-01T09:06:01Z",
+      "side": 1,
+      "message": "Thanks for catching and fixing! 😊",
+      "revId": "fa7ec494ffd4d05a79cffd09033d8c9925e15c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

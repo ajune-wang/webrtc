@@ -1057,7 +1057,7 @@ TEST(AudioProcessingImplTest,
 // emulator.
 // TODO(bugs.webrtc.org/14581): Enable when APM fixed to let this test pass.
 TEST(AudioProcessingImplTest,
-     DISABLED_RecommendAppliedInputVolumeWithNoAgcWithEmulation) {
+     RecommendAppliedInputVolumeWithNoAgcWithEmulation) {
   auto apm =
       AudioProcessingBuilder()
           .SetConfig({.capture_level_adjustment = {.enabled = true,
@@ -1078,8 +1078,7 @@ TEST(AudioProcessingImplTest,
 // active controller must only adjust the internally emulated volume and leave
 // the externally applied volume unchanged.
 // TODO(bugs.webrtc.org/14581): Enable when APM fixed to let this test pass.
-TEST(AudioProcessingImplTest,
-     DISABLED_RecommendAppliedInputVolumeWithAgcWithEmulation) {
+TEST(AudioProcessingImplTest, RecommendAppliedInputVolumeWithAgcWithEmulation) {
   auto apm =
       AudioProcessingBuilder()
           .SetConfig({.capture_level_adjustment = {.enabled = true,

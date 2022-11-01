@@ -87,24 +87,16 @@ class CustomProcessing;
 // Usage example, omitting error checking:
 // AudioProcessing* apm = AudioProcessingBuilder().Create();
 //
+// // Sample config.
 // AudioProcessing::Config config;
+// config.high_pass_filter.enabled = true;
 // config.echo_canceller.enabled = true;
 // config.echo_canceller.mobile_mode = false;
-//
-// config.gain_controller1.enabled = true;
-// config.gain_controller1.mode =
-// AudioProcessing::Config::GainController1::kAdaptiveAnalog;
-// config.gain_controller1.analog_level_minimum = 0;
-// config.gain_controller1.analog_level_maximum = 255;
-//
 // config.gain_controller2.enabled = true;
-//
-// config.high_pass_filter.enabled = true;
-//
 // apm->ApplyConfig(config)
 //
-// apm->noise_reduction()->set_level(kHighSuppression);
-// apm->noise_reduction()->Enable(true);
+// // Set the initial `delay` in ms between far-end and near-end.
+// apm->set_stream_delay_ms(delay_ms);
 //
 // // Start a voice call...
 //
@@ -112,15 +104,9 @@ class CustomProcessing;
 // apm->ProcessReverseStream(render_frame);
 //
 // // ... Capture frame arrives from the audio HAL ...
-// // Call required set_stream_ functions.
+// // Set any known far-end - near-end delay when it changes.
 // apm->set_stream_delay_ms(delay_ms);
-// apm->set_stream_analog_level(analog_level);
-//
-// apm->ProcessStream(capture_frame);
-//
-// // Call required stream_ functions.
-// analog_level = apm->recommended_stream_analog_level();
-// has_voice = apm->stream_has_voice();
+// apm->ProcessStream(<capture frame arguments>);
 //
 // // Repeat render and capture processing for the duration of the call...
 // // Start a new call...
@@ -128,6 +114,16 @@ class CustomProcessing;
 //
 // // Close the application...
 // delete apm;
+//
+// Alternative for "Capture frame arrives from the audio HAL" on platforms with
+// input volume (only for capture frames with samples in the floating point
+// format).
+//
+// // ... Capture frame arrives from the audio HAL ...
+// int recommended_input_volume;
+// apm->ProcessStream(<capture frame arguments>, applied_input_volume,
+//                    &recommended_input_volume);
+// hal->UpdateInputVolume(recommended_input_volume);
 //
 class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
  public:
@@ -543,6 +539,25 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
                             const StreamConfig& output_config,
                             float* const* dest) = 0;
 
+  // Accepts deinterleaved float audio with the range [-1, 1]. Each element of
+  // `src` points to a channel buffer, arranged according to `input_stream`. At
+  // output, the channels will be arranged according to `output_stream` in
+  // `dest`.
+  //
+  // The output must have one channel or as many channels as the input. `src`
+  // and `dest` may use the same memory, if desired.
+  //
+  // Reads `applied_input_volume`, which is the known input volume used when the
+  // audio content in `src` was acquired.
+  // Computes a recommended input volume and writes `recommended_input_volume`.
+  // If input volume adjustment is disabled, recommends `applied_input_volume`.
+  virtual int ProcessStream(const float* const* src,
+                            const StreamConfig& input_config,
+                            const StreamConfig& output_config,
+                            float* const* dest,
+                            int applied_input_volume,
+                            int& recommended_input_volume) = 0;
+
   // Accepts and produces a ~10 ms frame of interleaved 16 bit integer audio for
   // the reverse direction audio stream as specified in `input_config` and
   // `output_config`. `src` and `dest` may use the same memory, if desired.
@@ -574,12 +589,16 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // This must be called prior to ProcessStream() if and only if adaptive analog
   // gain control is enabled, to pass the current analog level from the audio
   // HAL. Must be within the range [0, 255].
+  // TODO(bugs.webrtc.org/14581): Deprecated. Use `ProcessStream()` overload
+  // with the applied input volume argument.
   virtual void set_stream_analog_level(int level) = 0;
 
   // When an analog mode is set, this should be called after
   // `set_stream_analog_level()` and `ProcessStream()` to obtain the recommended
   // new analog level for the audio HAL. It is the user's responsibility to
   // apply this level.
+  // TODO(bugs.webrtc.org/14581): Deprecated. Use `ProcessStream()` overload
+  // with the recommended input volume argument.
   virtual int recommended_stream_analog_level() const = 0;
 
   // This must be called if and only if echo processing is enabled.

@@ -760,18 +760,8 @@ int AudioProcessingImpl::MaybeInitializeCapture(
   return kNoError;
 }
 
-int AudioProcessingImpl::ProcessStream(const float* const* src,
-                                       const StreamConfig& input_config,
-                                       const StreamConfig& output_config,
-                                       float* const* dest) {
-  TRACE_EVENT0("webrtc", "AudioProcessing::ProcessStream_StreamConfig");
-  if (!src || !dest) {
-    return kNullPointerError;
-  }
-
-  RETURN_ON_ERR(MaybeInitializeCapture(input_config, output_config));
-
-  MutexLock lock_capture(&mutex_capture_);
+int AudioProcessingImpl::ProcessStreamLocked(const float* const* src,
+                                             float* const* dest) {
   DenormalDisabler denormal_disabler(use_denormal_disabler_);
 
   if (aec_dump_) {
@@ -794,6 +784,62 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
   if (aec_dump_) {
     RecordProcessedCaptureStream(dest);
   }
+
+  return kNoError;
+}
+
+int AudioProcessingImpl::ProcessStream(const float* const* src,
+                                       const StreamConfig& input_config,
+                                       const StreamConfig& output_config,
+                                       float* const* dest) {
+  TRACE_EVENT0("webrtc", "AudioProcessing::ProcessStream_StreamConfig");
+  if (!src || !dest) {
+    return kNullPointerError;
+  }
+  RETURN_ON_ERR(MaybeInitializeCapture(input_config, output_config));
+  MutexLock lock_capture(&mutex_capture_);
+
+  // TODO(bugs.webrtc.org/14581): Clear `capture_.applied_input_volume` when
+  // `set_stream_analog_level()` is removed.
+
+  RETURN_ON_ERR(ProcessStreamLocked(src, dest));
+
+  return kNoError;
+}
+
+int AudioProcessingImpl::ProcessStream(const float* const* src,
+                                       const StreamConfig& input_config,
+                                       const StreamConfig& output_config,
+                                       float* const* dest,
+                                       int applied_input_volume,
+                                       int& recommended_input_volume) {
+  TRACE_EVENT0("webrtc", "AudioProcessing::ProcessStream_StreamConfig");
+  if (!src || !dest) {
+    return kNullPointerError;
+  }
+  RETURN_ON_ERR(MaybeInitializeCapture(input_config, output_config));
+  MutexLock lock_capture(&mutex_capture_);
+
+  // Set the input volume applied when the current frame was captured.
+  RTC_DCHECK_GE(applied_input_volume, kMinInputVolume);
+  RTC_DCHECK_LE(applied_input_volume, kMaxInputVolume);
+  capture_.applied_input_volume_changed =
+      capture_.applied_input_volume.has_value() &&
+      *capture_.applied_input_volume != applied_input_volume;
+  capture_.applied_input_volume = applied_input_volume;
+  // TODO(bugs.webrtc.org/14581): Remove once switched to the new API.
+  capture_.applied_input_volume_updated = true;
+
+  RETURN_ON_ERR(ProcessStreamLocked(src, dest));
+
+  // Recommend an input volume for the next frame to process.
+  // When APM has no input volume to recommend, return the latest applied input
+  // volume that has been observed in order to possibly produce no input volume
+  // change.
+  RTC_DCHECK(capture_.applied_input_volume.has_value());
+  recommended_input_volume = capture_.recommended_input_volume.value_or(
+      *capture_.applied_input_volume);
+
   return kNoError;
 }
 

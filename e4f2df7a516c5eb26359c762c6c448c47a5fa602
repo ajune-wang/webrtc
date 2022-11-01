@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d2fb78b_7587dff7",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-01T10:18:30Z",
+      "side": 1,
+      "message": "I see. That\u0027s fine. \n\nBut there is no point at all in even in this CL keeping the unittests for a behavior which is in practice never used, and there is no intention in keeping.\n\n\nOn the other hand, does this mean that the above behavior is not tested in the unittests? I.e., do the tests cover what  CreateClippingPredictorConfig produces?\n(If not, there is a concern with this CL in that the tests don\u0027t test what is used in production)",
+      "parentUuid": "42dbc7e3_7f36da07",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d16537d2_63624382",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 13
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "The purpose of this CL is to introduce a minimum set of changes that make use of the existing unit tests and refactor \u0026 change the behavior in the follow-up CLs. Therefore some of the parameters follow the AgcManagerDirect configuration.\n\nEventually (see the full relation chain for all the refactoring and logic change steps), the logic should look like this: https://webrtc-review.googlesource.com/c/src/+/280943. I\u0027m doing the modification in small steps so that we can easily verify the new behaviour of all steps that are not pure refactoring.",
       "parentUuid": "d16537d2_63624382",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 44
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34158cff_0af06c1b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-01T10:18:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfb13734_f690d43c",
       "range": {
         "startLine": 358,
         "startChar": 0,
@@ -176,6 +224,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2486d66_427af852",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-01T10:18:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2719ef8_221ac63e",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 91,
+        "endChar": 14
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18b6ea57_c9ec9342",
@@ -213,6 +285,30 @@
       "side": 1,
       "message": "ditto",
       "parentUuid": "18b6ea57_c9ec9342",
+      "range": {
+        "startLine": 217,
+        "startChar": 7,
+        "endLine": 217,
+        "endChar": 14
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e9e6355_acebe37e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-01T10:18:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d96ddd7_26e3ed7a",
       "range": {
         "startLine": 217,
         "startChar": 7,

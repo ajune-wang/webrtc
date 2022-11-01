@@ -16,6 +16,23 @@
       "message": "Thanks Per! I\u0027ve addressed your comments, can you please take a look?",
       "revId": "ec3b9b8c1b7813d6d754de41885f90a03a0a80ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92f5d915_101328dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-01T10:18:30Z",
+      "side": 1,
+      "message": "Thanks for the clarifications!\nStill LGTM",
+      "revId": "ec3b9b8c1b7813d6d754de41885f90a03a0a80ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

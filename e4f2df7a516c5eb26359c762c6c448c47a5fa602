@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42dbc7e3_7f36da07",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-01T10:03:21Z",
+      "side": 1,
+      "message": "The AGC1 clipping predictor config is passed to the InputVolumeController constructor and the non-hardcoded parameters are needed in the unit tests.\n\nThe config is created in the unittest file without this method (see line 53 \u0026 59, patchset 14). The plan is to hardcode the parameters and remove this function (as well as passing this config to the constructor) in a later CL once the use is first removed from the unit tests.",
+      "parentUuid": "24cdabbc_48b118e7",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d16537d2_63624382",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 13
@@ -71,6 +95,30 @@
       "writtenOn": "2022-10-31T20:26:57Z",
       "side": 1,
       "message": "If I understand correctly we have\n\nif (disable_digital_adaptive_)  then\n  const int residual_gain \u003d\n      rtc::SafeClamp(rms_error, -kMaxResidualGainChange,\n                     kMaxResidualGainChange);\n\n\nif (!disable_digital_adaptive_)  then\n const int residual_gain \u003d\n      rtc::SafeClamp(min_digital_gain_db_, -kMaxResidualGainChange,\n                     kMaxResidualGainChange);\n\n(unless the upper-clamp on line 355 kicks in)\n\n\nThat means, that if disable_digital_adaptive_ is false, then the residual gain is basically constant.\n\nThat is fine, but the computations on line 354 together with lines 358-359 makes the exact behavior for this quite complicated (looks more complicated that it should have to be since there is a clamp of something that is already clamped)",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 44
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb13734_f690d43c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-01T10:03:21Z",
+      "side": 1,
+      "message": "The purpose of this CL is to introduce a minimum set of changes that make use of the existing unit tests and refactor \u0026 change the behavior in the follow-up CLs. Therefore some of the parameters follow the AgcManagerDirect configuration.\n\nEventually (see the full relation chain for all the refactoring and logic change steps), the logic should look like this: https://webrtc-review.googlesource.com/c/src/+/280943. I\u0027m doing the modification in small steps so that we can easily verify the new behaviour of all steps that are not pure refactoring.",
+      "parentUuid": "d16537d2_63624382",
       "range": {
         "startLine": 358,
         "startChar": 0,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2719ef8_221ac63e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-01T10:03:21Z",
+      "side": 1,
+      "message": "That\u0027s a good point! I suggest we rename this in a later CL. It\u0027s a pure refactoring change so it\u0027ll be easy to do in a separate CL.",
+      "parentUuid": "821c4fad_bf2c2c27",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 91,
+        "endChar": 14
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18b6ea57_c9ec9342",
         "filename": "modules/audio_processing/agc2/input_volume_controller.h",
         "patchSetId": 13
@@ -117,6 +189,30 @@
       "writtenOn": "2022-10-31T20:26:57Z",
       "side": 1,
       "message": "As above. It does not sound to me like any processing is being done.",
+      "range": {
+        "startLine": 217,
+        "startChar": 7,
+        "endLine": 217,
+        "endChar": 14
+      },
+      "revId": "e4f2df7a516c5eb26359c762c6c448c47a5fa602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d96ddd7_26e3ed7a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-01T10:03:21Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "18b6ea57_c9ec9342",
       "range": {
         "startLine": 217,
         "startChar": 7,

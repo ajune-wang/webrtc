@@ -16,6 +16,74 @@
       "message": "follow-up to https://webrtc-review.googlesource.com/c/src/+/274169\nLogic changes split into future CL, same for actual checking of rids",
       "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "934159b1_140843d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T10:12:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure there are no functional changes here.\n\nMost of this is just changing the API, but....",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c394e63_5cf06727",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T10:12:01Z",
+      "side": 1,
+      "message": "Does this work well if # of layers has been renegotiated (down)?",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c09e07ac_b61b295c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2005,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T10:12:01Z",
+      "side": 1,
+      "message": "What does next_frame_types_ affect?\nThis is a functional change (if it has any effect) - do we have tests?",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29f4317_64b52cd8",
+        "filename": "video/video_stream_encoder_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T10:12:01Z",
+      "side": 1,
+      "message": "Is the comment wrong now?",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

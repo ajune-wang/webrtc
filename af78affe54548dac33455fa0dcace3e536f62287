@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0debf4b0_f0dfb064",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T12:05:43Z",
+      "side": 1,
+      "message": "roll prepared in https://chromium.googlesource.com/chromium/src/+/70641e9ba125ae9e3ad76a348c88f2bdab13ad8a",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b76d0476_894c5299",
@@ -118,6 +135,24 @@
       "writtenOn": "2022-11-02T09:11:19Z",
       "side": 1,
       "message": "nit: I prefer explicit .has_value()",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e65238e_9e2bc5bd",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T12:05:43Z",
+      "side": 1,
+      "message": "past hbos did not. We can clean this up in one go as a separate change. For consistency!",
+      "parentUuid": "b5c4edf8_0713a846",
       "revId": "af78affe54548dac33455fa0dcace3e536f62287",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

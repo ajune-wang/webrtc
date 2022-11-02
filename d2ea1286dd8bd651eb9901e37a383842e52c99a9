@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa3d4097_df2ac27a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-02T13:53:14Z",
+      "side": 1,
+      "message": "Let\u0027s abandon this CL: The new parameter will be removed in https://webrtc-review.googlesource.com/c/src/+/280962.",
+      "revId": "d2ea1286dd8bd651eb9901e37a383842e52c99a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,40 @@
       "message": "why does CreateDtlsTransport set the ice config? Nobody knows...",
       "revId": "cce0d2a01e438593ceb25ad9407d1c012011d47b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5a68bd_e61f93ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T10:41:08Z",
+      "side": 1,
+      "message": "I have an overactive imagination. Found a way in which this could mess up, and thought of a way to test if it happens.",
+      "revId": "cce0d2a01e438593ceb25ad9407d1c012011d47b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f8c8598_e3543fc5",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T10:41:08Z",
+      "side": 1,
+      "message": "I do wonder how this will play with the factories. If dtls_transport_factory is set, and it does NOT return the passed-in ice transport in its ice_transport() accessor, this will go badly.\n\nCan you put a DCHECK(dtls-\u003eice_transport() \u003d\u003d ice) in there and see if this ever happens in tests?",
+      "revId": "cce0d2a01e438593ceb25ad9407d1c012011d47b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

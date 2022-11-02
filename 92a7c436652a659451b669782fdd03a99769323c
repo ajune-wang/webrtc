@@ -16,6 +16,167 @@
       "message": "+ Sam",
       "revId": "92a7c436652a659451b669782fdd03a99769323c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93a16988_4cac9fe4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "It looks like there is now only one caller of `set_stream_analog_level_locked`, and the hop `set_...`\u003d\u003e`set_..._locked` is unnecessary. The functions can be merged.",
+      "range": {
+        "startLine": 1656,
+        "startChar": 0,
+        "endLine": 1661,
+        "endChar": 69
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e59321_ceb8eb99",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "Do we support calling set_stream_analog_level multiple times in succession? Asking since that will overwrite applied_input_volume_changed.",
+      "range": {
+        "startLine": 1664,
+        "startChar": 0,
+        "endLine": 1666,
+        "endChar": 46
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22b48f53_12cfaff5",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "I suggest grouping this with the similar variables in `ApmCaptureState`.\n - fewer \"loose\" member variables is better since APM state is so complex\n - it should be guarded by the capture lock",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 0
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a06a9af7_2cd16f0a",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "As discussed, I found the name of this field confusing since we also have `applied_input_volume_changed`. `applied_input_volume_changed` also needs a comment so it is clear how it is different from this one.\n\n(you suggested renaming this one - that would also help. something like `applied_input_volume_reported` or `set_stream_analog_level_called`)",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 38
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41fe651a_dccb98ee",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "These variables are used for both 1) emulation and 2) API input volume communication. For example, tThe recommended input volume `recommended_input_volume` is not recommended by `recommended_stream_analog_level()` when emulation is enabled. Some of my confusion is probably down to naming: `applied_input_volume` is (now) always an external volume while recommended_input_volume is different things, but there\u0027s nothing about the names that indicate this. `input_volume_to_adjust` doesn\u0027t give any hint if it is the current volume that the AGC should adjust (produce a new recommendation for) or if it is the new volume that the level adjuster should apply, or something else.\n\nIt would be easier for me to follow if the external communication logic / variables were decoupled from the actual volume work within ProcessStream. Something like:\n\n1) rename these variables to something that excludes the emulation, like  `reported_external_input_volume` and `recommended_external_input_volume`\n\n2) do not use APM state to carry the new recommended volume. Instead (if possible) feed it directly from AGC to capture level adjuster in the current frame:\n\n```\nProcessCaptureStreamLocked() {\nif (emulate_volume_)\n  capture_level_adjuster.SetGain(agc.GetRecommendedVolume());\n\napplied_input_volume \u003d emulate_volume_\n        ? capture_level_adjuster.GetAnalogMicGainLevel()\n        : reported_external_input_volume;\n\nagc.SetAnalogGain(applied_input_volume);\n\ncapture_.recommended_external_input_volume \u003d emulate_volume_\n        ? reported_external_input_volume\n        : agc.GetRecommendedVolume();\n}\n```\n\nOr, if we do have to cache the recommended-for-emulation volume between calls, can we use a separate variable?\n```\nProcessCaptureStreamLocked() {\nif (emulate_volume_)\n  capture_level_adjuster.SetGain(recommended_emulation_volume);\n\n// \"applied input volume\" now really means the volume that was applied\n// most recently.\napplied_input_volume \u003d emulate_volume_\n        ? capture_level_adjuster.GetAnalogMicGainLevel()\n        : reported_external_input_volume;\nagc.SetAnalogGain(applied_input_volume);\n\n// Set volumes to report in API / carry to next frame\nif (emulate_volume_) {\n    capture_.recommended_emulation_volume \u003d agc.GetRecommendedVolume();\n    capture_.recommended_external_input_volume \u003d\n            capture_.reported_external_input_volume;\n} else {\n    capture_.recommended_emulation_volume \u003d absl::nullopt;\n    capture_.recommended_external_input_volume \u003d\n    agc.GetRecommendedVolume();\n}\n```",
+      "range": {
+        "startLine": 476,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 38
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ae54c9_64e8cf8d",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "Can this TODO be removed now?",
+      "range": {
+        "startLine": 1058,
+        "startChar": 0,
+        "endLine": 1058,
+        "endChar": 76
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caf4eb93_f99a994d",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-02T10:49:29Z",
+      "side": 1,
+      "message": "Can this TODO be removed now?",
+      "range": {
+        "startLine": 1080,
+        "startChar": 0,
+        "endLine": 1080,
+        "endChar": 76
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14123790_1baa84c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-02T09:11:19Z",
+      "side": 1,
+      "message": "Remember to update peerconnection_getstats.js in chromium before landing",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b76d0476_894c5299",
@@ -49,6 +66,41 @@
       "side": 1,
       "message": "I agree it is iffy but this is a pattern used not only here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/receive_statistics_impl.cc;l\u003d41;drc\u003d3ffc2f307ac29a2a3467237538e785af59bf1b12;bpv\u003d1;bpt\u003d1\nand ofc it was a subtle clock bug so I only noticed when actually testing in chrome.\n\nI suspect the reason for using the relative clock is (apart from being high resolution) that it is cheaper.",
       "parentUuid": "b76d0476_894c5299",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e720c247_eadde2bc",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-02T09:11:19Z",
+      "side": 1,
+      "message": "Alright, well if its an existing pattern...",
+      "parentUuid": "01196889_200d0616",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c4edf8_0713a846",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-02T09:11:19Z",
+      "side": 1,
+      "message": "nit: I prefer explicit .has_value()",
       "revId": "af78affe54548dac33455fa0dcace3e536f62287",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -244,6 +244,7 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
     RtcpCnameCallback* rtcp_cname_callback,
     NackPeriodicProcessor* nack_periodic_processor,
     OnCompleteFrameCallback* complete_frame_callback,
+    RtcpSenderReportStatsCallback* rtcp_sender_report_stats_callback,
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
     const FieldTrialsView& field_trials,
@@ -281,6 +282,7 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
           event_log)),
       nack_periodic_processor_(nack_periodic_processor),
       complete_frame_callback_(complete_frame_callback),
+      rtcp_sender_report_stats_callback_(rtcp_sender_report_stats_callback),
       keyframe_request_method_(config_.rtp.keyframe_method),
       // TODO(bugs.webrtc.org/10336): Let `rtcp_feedback_buffer_` communicate
       // directly with `rtp_rtcp_`.
@@ -1185,6 +1187,12 @@ bool RtpVideoStreamReceiver2::DeliverRtcp(const uint8_t* rtcp_packet,
       capture_clock_offset_updater_.SetRemoteToLocalClockOffset(
           *remote_to_local_clock_offset);
     }
+  }
+
+  absl::optional<RtcpSenderReportStats> rtcp_sr_stats =
+      rtp_rtcp_->GetSenderReportStats();
+  if (rtcp_sr_stats.has_value()) {
+    rtcp_sender_report_stats_callback_->OnSenderReport(*rtcp_sr_stats);
   }
 
   return true;

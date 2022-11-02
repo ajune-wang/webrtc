@@ -563,6 +563,49 @@ CreateRemoteOutboundAudioStreamStats(
   return stats;
 }
 
+std::unique_ptr<RTCRemoteOutboundRtpStreamStats>
+CreateRemoteOutboundVideoStreamStats(
+    const cricket::VideoReceiverInfo& video_receiver_info,
+    const std::string& mid,
+    const RTCInboundRTPStreamStats& inbound_video_stats,
+    const std::string& transport_id) {
+  if (!video_receiver_info.last_sender_report_timestamp_ms.has_value()) {
+    // Cannot create `RTCRemoteOutboundRtpStreamStats` when the RTCP SR arrival
+    // timestamp is not available - i.e., until the first sender report is
+    // received.
+    return nullptr;
+  }
+  RTC_DCHECK_GT(video_receiver_info.sender_reports_reports_count, 0);
+
+  // Create.
+  auto stats = std::make_unique<RTCRemoteOutboundRtpStreamStats>(
+      /*id=*/RTCRemoteOutboundRTPStreamStatsIDFromSSRC(
+          cricket::MEDIA_TYPE_VIDEO, video_receiver_info.ssrc()),
+      /*timestamp_us=*/rtc::kNumMicrosecsPerMillisec *
+          video_receiver_info.last_sender_report_timestamp_ms.value());
+
+  // Populate.
+  // - RTCRtpStreamStats.
+  stats->ssrc = video_receiver_info.ssrc();
+  stats->kind = "video";
+  stats->transport_id = transport_id;
+  if (inbound_video_stats.codec_id.is_defined()) {
+    stats->codec_id = *inbound_video_stats.codec_id;
+  }
+  // - RTCSentRtpStreamStats.
+  stats->packets_sent = video_receiver_info.sender_reports_packets_sent;
+  stats->bytes_sent = video_receiver_info.sender_reports_bytes_sent;
+  // - RTCRemoteOutboundRtpStreamStats.
+  stats->local_id = inbound_video_stats.id();
+  RTC_DCHECK(
+      video_receiver_info.last_sender_report_remote_timestamp_ms.has_value());
+  stats->remote_timestamp = static_cast<double>(
+      video_receiver_info.last_sender_report_remote_timestamp_ms.value());
+  stats->reports_sent = video_receiver_info.sender_reports_reports_count;
+
+  return stats;
+}
+
 void SetInboundRTPStreamStatsFromVideoReceiverInfo(
     const std::string& transport_id,
     const std::string& mid,
@@ -2068,7 +2111,7 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
   std::string mid = *stats.mid;
   std::string transport_id = RTCTransportStatsIDFromTransportChannel(
       *stats.transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-  // Inbound
+  // Inbound and remote-outbound.
   for (const cricket::VideoReceiverInfo& video_receiver_info :
        stats.track_media_info_map.video_media_info()->receivers) {
     if (!video_receiver_info.connected())
@@ -2092,6 +2135,24 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
                                      .value());
       inbound_video->track_identifier = video_track->id();
     }
+
+    // Remote-outbound
+    auto remote_outbound_video = CreateRemoteOutboundVideoStreamStats(
+        video_receiver_info, mid, *inbound_video, transport_id);
+    // Add stats.
+    if (remote_outbound_video) {
+      // When the remote outbound stats are available, the remote ID for the
+      // local inbound stats is set.
+      auto* remote_outbound_video_ptr =
+          report->TryAddStats(std::move(remote_outbound_video));
+      if (remote_outbound_video_ptr) {
+        inbound_video->remote_id = remote_outbound_video_ptr->id();
+      } else {
+        RTC_LOG(LS_ERROR) << "Unable to add video 'remote-outbound-rtp' to "
+                          << "report, ID is not unique.";
+      }
+    }
+
     if (!report->TryAddStats(std::move(inbound_video))) {
       RTC_LOG(LS_ERROR)
           << "Unable to add video 'inbound-rtp' to report, ID is not unique.";

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98511447_b705f207",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-02T08:37:35Z",
+      "side": 1,
+      "message": "Kind of nit picking, but a suggestion to avoid the \"delta\"",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76d0476_894c5299",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-02T08:37:35Z",
+      "side": 1,
+      "message": "The `delta_internal_unix_epoch_ms_` is probably fine, but it feels a bit iffy to mix different clock implementations.\n\nWhat if you had a `last_data_received_utc_` instead?\n\nOr to reduce risk of updating one instead of the other, put both in a struct and update both at the same time.",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

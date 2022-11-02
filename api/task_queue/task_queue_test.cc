@@ -9,13 +9,16 @@
  */
 #include "api/task_queue/task_queue_test.h"
 
+#include <initializer_list>
 #include <memory>
 
 #include "absl/cleanup/cleanup.h"
 #include "absl/strings/string_view.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "system_wrappers/include/clock.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/event.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/ref_counter.h"
 #include "rtc_base/time_utils.h"
 
@@ -268,6 +271,128 @@ TEST_P(TaskQueueTest, PostTwoWithSharedUnprotectedState) {
     EXPECT_EQ(state.state, 0);
   });
   EXPECT_TRUE(done.Wait(TimeDelta::Seconds(1)));
+}
+
+enum WorkType { Work, Sleep };
+class Pattern {
+ public:
+  struct Element {
+    int queue;
+    TimeDelta length;
+    WorkType work;
+  };
+  Pattern(std::initializer_list<Element> elements) : elements_(elements) {}
+
+  std::vector<Element> elements_;
+};
+
+void RunStep(
+    std::vector<std::unique_ptr<TaskQueueBase, TaskQueueDeleter>>& task_queues,
+    Pattern& pattern,
+    int counter,
+    int tq_offset,
+    bool singlethread) {
+  int pattern_index = counter % pattern.elements_.size();
+  const auto& element = pattern.elements_[pattern_index];
+  TaskQueueBase* tq = 
+      task_queues[(tq_offset + element.queue) % task_queues.size()].get();
+  if (singlethread)
+    tq = task_queues[tq_offset].get();
+  tq->PostTask([&, tq_offset = tq_offset, counter = counter,
+                singlethread = singlethread] {
+    // RTC_LOG(LS_ERROR) << " time " << Clock::GetRealTimeClock()->CurrentTime() << " pattern " << &pattern << " threadid " << pthread_self();
+    if (element.work == Work) {
+      auto begin = Clock::GetRealTimeClock()->CurrentTime();
+      while (Clock::GetRealTimeClock()->CurrentTime() <
+             begin + element.length) {
+      }
+    } else {
+      usleep((element.length).us());
+    }
+    RunStep(task_queues, pattern, counter + 1, tq_offset, singlethread);
+  });
+}
+
+void RandomCPUNoise(
+    std::vector<std::unique_ptr<TaskQueueBase, TaskQueueDeleter>>& task_queues,
+    TimeDelta delay) {
+  task_queues[0]->PostTask([&, delay] {
+    usleep(delay.us());
+    RandomCPUNoise(task_queues, delay);
+  });
+}
+
+void DoRunTest(bool singlethread, std::unique_ptr<webrtc::TaskQueueFactory> factory) {
+
+  std::vector<std::unique_ptr<TaskQueueBase, TaskQueueDeleter>> task_queues;
+  for (int i = 0; i != 6 /*std::thread::hardware_concurrency()*/; i++) {
+    task_queues.push_back(CreateTaskQueue(factory, "Worker"));
+  }
+
+  // Pattern hoppy1({
+  //     {0, TimeDelta::Micros(250), Work},
+  //     {0, TimeDelta::Micros(250), Sleep},
+  // });
+  Pattern hoppy1({
+      {0, TimeDelta::Micros(1000 - 590), Work},
+      {3, TimeDelta::Micros(60), Work},
+      {1, TimeDelta::Micros(70), Work},
+      {3, TimeDelta::Micros(50), Work},
+      {2, TimeDelta::Micros(40), Work},
+      {1, TimeDelta::Micros(60), Work},
+      {3, TimeDelta::Micros(70), Work},
+      {2, TimeDelta::Micros(50), Work},
+      {1, TimeDelta::Micros(30), Work},
+      {2, TimeDelta::Micros(60), Work},
+      {3, TimeDelta::Micros(90), Work},
+      {1, TimeDelta::Micros(10), Work},  // 1000 us
+      {0, TimeDelta::Micros(16000), Sleep},
+  });
+  Pattern hoppy2({
+      {0, TimeDelta::Micros(1000 - 590), Work},
+      {3, TimeDelta::Micros(60), Work},
+      {1, TimeDelta::Micros(70), Work},
+      {3, TimeDelta::Micros(50), Work},
+      {2, TimeDelta::Micros(40), Work},
+      {1, TimeDelta::Micros(60), Work},
+      {3, TimeDelta::Micros(70), Work},
+      {2, TimeDelta::Micros(50), Work},
+      {1, TimeDelta::Micros(30), Work},
+      {2, TimeDelta::Micros(60), Work},
+      {3, TimeDelta::Micros(90), Work},
+      {1, TimeDelta::Micros(10), Work},  // 1000 us
+      {0, TimeDelta::Micros(10000), Sleep},
+  });
+  // Pattern hoppy3({
+  //     {0, TimeDelta::Millis(2), Work},
+  //     {3, TimeDelta::Micros(60), Work},
+  //     {1, TimeDelta::Micros(70), Work},
+  //     {3, TimeDelta::Micros(50), Work},
+  //     {2, TimeDelta::Micros(40), Work},
+  //     {1, TimeDelta::Micros(60), Work},
+  //     {3, TimeDelta::Micros(70), Work},
+  //     {2, TimeDelta::Micros(50), Work},
+  //     {1, TimeDelta::Micros(30), Work},
+  //     {2, TimeDelta::Micros(60), Work},
+  //     {3, TimeDelta::Micros(90), Work},
+  //     {1, TimeDelta::Micros(10), Work},  // 2000 + 590 = 2590 us
+  //     {0, TimeDelta::Micros(18500 - 2590), Sleep},
+  // });
+
+  RunStep(task_queues, hoppy1, 0, 0, singlethread);
+  RunStep(task_queues, hoppy2, 0, 2, singlethread);
+  RandomCPUNoise(task_queues, TimeDelta::Seconds(1)/750);
+  // RunStep(task_queues, hoppy2, 0, 4, singlethread);
+  rtc::Event done;
+  done.Wait(rtc::Event::kForever);
+}
+
+TEST_P(TaskQueueTest, TPSingle) {
+  DoRunTest(true, GetParam()(nullptr));
+}
+
+TEST_P(TaskQueueTest, TPMulti) {
+  DoRunTest(false, GetParam()(nullptr));
 }
 
 // TaskQueueTest is a set of tests for any implementation of the TaskQueueBase.

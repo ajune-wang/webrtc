@@ -33,6 +33,24 @@
       "message": "The `delta_internal_unix_epoch_ms_` is probably fine, but it feels a bit iffy to mix different clock implementations.\n\nWhat if you had a `last_data_received_utc_` instead?\n\nOr to reduce risk of updating one instead of the other, put both in a struct and update both at the same time.",
       "revId": "af78affe54548dac33455fa0dcace3e536f62287",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01196889_200d0616",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T08:55:55Z",
+      "side": 1,
+      "message": "I agree it is iffy but this is a pattern used not only here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/receive_statistics_impl.cc;l\u003d41;drc\u003d3ffc2f307ac29a2a3467237538e785af59bf1b12;bpv\u003d1;bpt\u003d1\nand ofc it was a subtle clock bug so I only noticed when actually testing in chrome.\n\nI suspect the reason for using the relative clock is (apart from being high resolution) that it is cheaper.",
+      "parentUuid": "b76d0476_894c5299",
+      "revId": "af78affe54548dac33455fa0dcace3e536f62287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

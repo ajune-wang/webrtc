@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd511dbb_795f6eeb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T09:46:43Z",
+      "side": 1,
+      "message": "why does CreateDtlsTransport set the ice config? Nobody knows...",
+      "revId": "cce0d2a01e438593ceb25ad9407d1c012011d47b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

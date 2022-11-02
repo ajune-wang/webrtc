@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3b97c36_302a975e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T10:53:07Z",
+      "side": 1,
+      "message": "I assume it does - resized here whenever reconfigured:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d1273?q\u003dvideo%2Fvideo_stream_encoder.cc",
+      "parentUuid": "6c394e63_5cf06727",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c09e07ac_b61b295c",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 5
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f59894d_2289ddfc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2005,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T10:53:07Z",
+      "side": 1,
+      "message": "ah... the \"non-functional\" split is worded a bit awkward.\n\nThere are no changes in *behavior* because the layer below this (which is eiher the simulcast encoder adapter or the vp8/openh264 encoder) ignores this. See https://webrtc-review.googlesource.com/c/src/+/281002 which blew up (good tests!) so I split that out.\n\nClarified in the commit message.",
+      "parentUuid": "c09e07ac_b61b295c",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e29f4317_64b52cd8",
         "filename": "video/video_stream_encoder_interface.h",
         "patchSetId": 5
@@ -82,6 +118,24 @@
       "writtenOn": "2022-11-02T10:12:01Z",
       "side": 1,
       "message": "Is the comment wrong now?",
+      "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5698aa98_9d9cfa32",
+        "filename": "video/video_stream_encoder_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-02T10:53:07Z",
+      "side": 1,
+      "message": "updated, it is now used for\na/ signaling from the remote receiver when receiving RTCP\nb/ generateKeyFrame\nThe first case is something where I would like to use layers for per-ssrc PLIs but that is a fair bit more involved.",
+      "parentUuid": "e29f4317_64b52cd8",
       "revId": "30f11bbdc4c5f6556e4e6bd6aaff2f5d7ab54244",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

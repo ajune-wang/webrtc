@@ -33,6 +33,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>  // for strcmp
 
 #include <type_traits>
 #include <utility>
@@ -148,20 +149,20 @@ RTC_SAFECMP_MAKE_OP(GeOp, >=)
 
 }  // namespace safe_cmp_impl
 
-#define RTC_SAFECMP_MAKE_FUN(name)                                            \
-  template <typename T1, typename T2>                                         \
-  constexpr                                                                   \
-      typename std::enable_if<IsIntlike<T1>::value && IsIntlike<T2>::value,   \
-                              bool>::type Safe##name(T1 a, T2 b) {            \
-    /* Unary plus here turns enums into real integral types. */               \
-    return safe_cmp_impl::Cmp<safe_cmp_impl::name##Op>(+a, +b);               \
-  }                                                                           \
-  template <typename T1, typename T2>                                         \
-  constexpr                                                                   \
-      typename std::enable_if<!IsIntlike<T1>::value || !IsIntlike<T2>::value, \
-                              bool>::type Safe##name(const T1& a,             \
-                                                     const T2& b) {           \
-    return safe_cmp_impl::name##Op::Op(a, b);                                 \
+#define RTC_SAFECMP_MAKE_FUN(name)                                          \
+  template <typename T1, typename T2>                                       \
+  constexpr                                                                 \
+      typename std::enable_if<IsIntlike<T1>::value && IsIntlike<T2>::value, \
+                              bool>::type Safe##name(T1 a, T2 b) {          \
+    /* Unary plus here turns enums into real integral types. */             \
+    return safe_cmp_impl::Cmp<safe_cmp_impl::name##Op>(+a, +b);             \
+  }                                                                         \
+  template <typename T1, typename T2>                                       \
+  constexpr typename std::enable_if<                                        \
+      (!IsIntlike<T1>::value || !IsIntlike<T2>::value) &&                   \
+          !(IsCStringLike<T1>::value && IsCStringLike<T2>::value),          \
+      bool>::type Safe##name(const T1& a, const T2& b) {                    \
+    return safe_cmp_impl::name##Op::Op(a, b);                               \
   }
 RTC_SAFECMP_MAKE_FUN(Eq)
 RTC_SAFECMP_MAKE_FUN(Ne)
@@ -170,6 +171,21 @@ RTC_SAFECMP_MAKE_FUN(Le)
 RTC_SAFECMP_MAKE_FUN(Gt)
 RTC_SAFECMP_MAKE_FUN(Ge)
 #undef RTC_SAFECMP_MAKE_FUN
+
+template <typename T1, typename T2>
+typename std::enable_if<(IsCStringLike<T1>::value && IsCStringLike<T2>::value),
+                        bool>::type
+SafeEq(const T1& a, const T2& b) {
+  return ((a == nullptr) == (b == nullptr)) &&
+         (a == nullptr || strcmp(a, b) == 0);
+}
+
+template <typename T1, typename T2>
+typename std::enable_if<(IsCStringLike<T1>::value && IsCStringLike<T2>::value),
+                        bool>::type
+SafeNe(const T1& a, const T2& b) {
+  return !SafeEq(a, b);
+}
 
 }  // namespace rtc
 

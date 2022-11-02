@@ -112,6 +112,15 @@ struct IsIntlike {
       std::is_integral<X>::value || type_traits_impl::IsIntEnum<X>::value;
 };
 
+template <typename T>
+struct IsCStringLike {
+ private:
+  using X = typename std::decay_t<T>;
+
+ public:
+  static constexpr bool value =
+      std::is_same_v<X, char*> || std::is_same_v<X, const char*>;
+};
 namespace test_enum_intlike {
 
 enum E1 { e1 };
@@ -132,6 +141,11 @@ static_assert(!IsIntlike<E3>::value, "");
 static_assert(IsIntlike<int>::value, "");
 static_assert(!IsIntlike<float>::value, "");
 static_assert(!IsIntlike<S>::value, "");
+static_assert(!IsIntlike<char*>::value, "");
+static_assert(!IsIntlike<const char*>::value, "");
+
+static_assert(IsCStringLike<const char*>::value, "");
+static_assert(!IsCStringLike<S>::value, "");
 
 }  // namespace test_enum_intlike
 

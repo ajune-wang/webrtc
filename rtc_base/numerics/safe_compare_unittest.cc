@@ -12,6 +12,7 @@
 
 #include <limits>
 
+#include "absl/strings/string_view.h"
 #include "test/gtest.h"
 
 namespace rtc {
@@ -390,6 +391,35 @@ TEST(SafeCmpTest, Enum) {
   static_assert(SafeEq(13u, e3), "");
   static_assert(SafeEq(13, e4), "");
   static_assert(SafeEq(13u, e4), "");
+}
+
+TEST(SafeCmpTest, String) {
+  const char* c1 = "42";
+  const char c2[] = "42";
+  std::string c3("42");
+  absl::string_view c4("42");
+
+  EXPECT_TRUE(SafeEq(c1, c1));
+  EXPECT_TRUE(SafeEq(c1, c2));
+  EXPECT_TRUE(SafeEq(c1, c3));
+  EXPECT_TRUE(SafeEq(c1, c4));
+  EXPECT_TRUE(SafeEq(c2, c1));
+  EXPECT_TRUE(SafeEq(c2, c2));
+  EXPECT_TRUE(SafeEq(c2, c3));
+  EXPECT_TRUE(SafeEq(c2, c4));
+  EXPECT_TRUE(SafeEq(c3, c1));
+  EXPECT_TRUE(SafeEq(c3, c2));
+  EXPECT_TRUE(SafeEq(c3, c3));
+  EXPECT_TRUE(SafeEq(c3, c4));
+  EXPECT_TRUE(SafeEq(c4, c1));
+  EXPECT_TRUE(SafeEq(c4, c2));
+  EXPECT_TRUE(SafeEq(c4, c3));
+  EXPECT_TRUE(SafeEq(c4, c4));
+
+  EXPECT_FALSE(SafeEq("43", c1));
+  EXPECT_FALSE(SafeEq("43", c2));
+  EXPECT_FALSE(SafeEq("43", c3));
+  EXPECT_FALSE(SafeEq("43", c4));
 }
 
 }  // namespace rtc

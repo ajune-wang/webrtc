@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "819e65d5_0cb1248d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-02T12:37:13Z",
+      "side": 1,
+      "message": "The Bot refused to run due to CL ownership (Bad Bot!)\nSo we\u0027ll just have to submit and see. Failure should be obvious, if it happens.",
+      "revId": "43b660fdfd01e846f3863e9f1aee5630efb93e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

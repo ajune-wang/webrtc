@@ -199,7 +199,7 @@ class ABSL_DEPRECATED("") ModuleRtpRtcpImpl
   // Within this list, the ReportBlockData::RTCPReportBlock::source_ssrc(),
   // which is the SSRC of the corresponding outbound RTP stream, is unique.
   std::vector<ReportBlockData> GetLatestReportBlockData() const override;
-  absl::optional<SenderReportStats> GetSenderReportStats() const override;
+  absl::optional<RtcpSenderReportStats> GetSenderReportStats() const override;
   // Round trip time statistics computed from the XR block contained in the last
   // report.
   absl::optional<NonSenderRttStats> GetNonSenderRttStats() const override;

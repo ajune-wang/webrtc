@@ -28,7 +28,6 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
 #include "modules/rtp_rtcp/source/video_fec_generator.h"
-#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 
@@ -151,26 +150,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     std::string rid;
   };
 
-  // Stats for RTCP sender reports (SR) for a specific SSRC.
-  // Refer to https://tools.ietf.org/html/rfc3550#section-6.4.1.
-  struct SenderReportStats {
-    // Arrival NTP timestamp for the last received RTCP SR.
-    NtpTime last_arrival_timestamp;
-    // Received (a.k.a., remote) NTP timestamp for the last received RTCP SR.
-    NtpTime last_remote_timestamp;
-    // Total number of RTP data packets transmitted by the sender since starting
-    // transmission up until the time this SR packet was generated. The count
-    // should be reset if the sender changes its SSRC identifier.
-    uint32_t packets_sent;
-    // Total number of payload octets (i.e., not including header or padding)
-    // transmitted in RTP data packets by the sender since starting transmission
-    // up until the time this SR packet was generated. The count should be reset
-    // if the sender changes its SSRC identifier.
-    uint64_t bytes_sent;
-    // Total number of RTCP SR blocks received.
-    // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent.
-    uint64_t reports_count;
-  };
   // Stats about the non-sender SSRC, based on RTCP extended reports (XR).
   // Refer to https://datatracker.ietf.org/doc/html/rfc3611#section-2.
   struct NonSenderRttStats {
@@ -409,7 +388,8 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // that pair.
   virtual std::vector<ReportBlockData> GetLatestReportBlockData() const = 0;
   // Returns stats based on the received RTCP SRs.
-  virtual absl::optional<SenderReportStats> GetSenderReportStats() const = 0;
+  virtual absl::optional<RtcpSenderReportStats> GetSenderReportStats()
+      const = 0;
   // Returns non-sender RTT stats, based on DLRR.
   virtual absl::optional<NonSenderRttStats> GetNonSenderRttStats() const = 0;
 

@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "absl/strings/string_view.h"
+#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 
@@ -71,6 +72,34 @@ class RtcpCnameCallback {
   virtual ~RtcpCnameCallback() = default;
 
   virtual void OnCname(uint32_t ssrc, absl::string_view cname) = 0;
+};
+
+// Stats for RTCP sender reports (SR) for a specific SSRC.
+// Refer to https://tools.ietf.org/html/rfc3550#section-6.4.1.
+struct RtcpSenderReportStats {
+  // Arrival NTP timestamp for the last received RTCP SR.
+  NtpTime last_arrival_timestamp;
+  // Received (a.k.a., remote) NTP timestamp for the last received RTCP SR.
+  NtpTime last_remote_timestamp;
+  // Total number of RTP data packets transmitted by the sender since starting
+  // transmission up until the time this SR packet was generated. The count
+  // should be reset if the sender changes its SSRC identifier.
+  uint32_t packets_sent;
+  // Total number of payload octets (i.e., not including header or padding)
+  // transmitted in RTP data packets by the sender since starting transmission
+  // up until the time this SR packet was generated. The count should be reset
+  // if the sender changes its SSRC identifier.
+  uint64_t bytes_sent;
+  // Total number of RTCP SR blocks received.
+  // https://www.w3.org/TR/webrtc-stats/#dom-rtcremoteoutboundrtpstreamstats-reportssent.
+  uint64_t reports_count;
+};
+
+class RtcpSenderReportStatsCallback {
+ public:
+  virtual ~RtcpSenderReportStatsCallback() = default;
+
+  virtual void OnSenderReport(const RtcpSenderReportStats& rtcp_sr_stats) = 0;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c36bb83_e8067ce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20054
+      },
+      "writtenOn": "2022-11-02T19:06:24Z",
+      "side": 1,
+      "message": "PTAL. Found some savings by un-virtualizing functions that are not overridden. Does this seem like a reasonable change? Also, spotted more cases in the rest of the header file in derived classes. If worthwhile, should those be addressed in this CL or a new one?",
+      "revId": "0f99e462ff46d9ab8a37cb736174ece24628e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -79,6 +79,30 @@
       },
       "revId": "49e4324c78c294fe1a4fe9bc93a1e1c4d8b1d7a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e38f79f_54418c89",
+        "filename": "rtc_base/system_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-11-02T13:34:23Z",
+      "side": 1,
+      "message": "Wow, great catch!\n\nI didn\u0027t check the spec too closely since this is copied from chromium https://source.chromium.org/chromium/chromium/src/+/main:base/time/time_win.cc;l\u003d459;drc\u003de4622aaeccea84652488d1822c28c78b7115684f\n\nIt seems like the current comparison would (nearly) always fail, thus repeating the loop (regardless of whether there are any competing threads). However, if there was no competing thread, then the last8_and_rollover_count was updated so the next iteration of the loop would exit early due to `new_state\u003d\u003doriginal`. (If the previous iteration changed the top 8 bits of the timestamp, then the next rollover or change to the most significant bits won\u0027t happen for another 2^24 milliseconds, or 4.6 hours).\n\nI\u0027ll update this code shortly. The chromium implementation will have to be a separate CL.",
+      "parentUuid": "43c991c2_e68d8932",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 18
+      },
+      "revId": "49e4324c78c294fe1a4fe9bc93a1e1c4d8b1d7a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

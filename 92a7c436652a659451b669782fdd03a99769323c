@@ -20,6 +20,115 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "096f6aa0_f82b61fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "Thanks for the CL.\n\nI added some initial comments.",
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c5becd_82823a75",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "IMO it would be better to have one single source-of-truth.\nWith using emulate_input_volume_, there is now two separate pieces of code/data that keeps track whether the input volume should be emulated: emulate_input_volume_ and config_.\n\nI think introduces unneccessary risk in that they could differ, adds uncertainty for the reader and makes things more complicated.\n\nMy suggestion is to therefore remove emulate_input_volume_ and instead each time check config_.",
+      "range": {
+        "startLine": 563,
+        "startChar": 2,
+        "endLine": 563,
+        "endChar": 23
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c00974_f76048f0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "How important is it to keep track of whether the input volume has been set since the last call?\nWhat this code is adding is to provide support for a case where the input volume can be applied sometimes, but not all the time.\n\n-That is not something that we want should happen (either it should be always applied or never applied)\n-That is not something that we have in any current platform.\n\nTherefore I\u0027d suggest that the support for having the input volume sometimes applied is dropped since it does not make any of the code behavior safer, and it complicates the code.",
+      "range": {
+        "startLine": 1110,
+        "startChar": 16,
+        "endLine": 1110,
+        "endChar": 44
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef70a56_8cc62d45",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "This does not look right.\nWhy should we flag an echo path change when we set a new recommended input volume?\nWe don\u0027t yet know whether the applied input volume will change due to that recommended input volume so there may in practice be no echo path change.",
+      "range": {
+        "startLine": 1178,
+        "startChar": 10,
+        "endLine": 1178,
+        "endChar": 52
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27777fa_0e67c4e2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "If this fails, it\u0027ll bypass all the rest of the processing (due to RETURN_ON_ERR), which is quite a change from past behavior. Is this safe, and is it what we want?",
+      "range": {
+        "startLine": 1232,
+        "startChar": 5,
+        "endLine": 1233,
+        "endChar": 36
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93a16988_4cac9fe4",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -66,6 +175,122 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42b99f1b_dc01eb2e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "Good point!\nI don\u0027t think we do. However, there is no real risk involved for the code behavior, so I\u0027d say that we should allow it, since it simplifies the rest of the code.",
+      "parentUuid": "a1e59321_ceb8eb99",
+      "range": {
+        "startLine": 1664,
+        "startChar": 0,
+        "endLine": 1666,
+        "endChar": 46
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b9161a6_56fd50cf",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "The logic in this function is fairly intricate and one question I have is whether we really need it.\n\nWouldn\u0027t it be sufficient to just store the received input volume in a state variable, let the AGCs operate on that directly to store their recommended volumes, and then have this function simply return it?\n\nI agree that that approach will give incorrect behavior if the methods are not properly called, but so will the new approach applied here.",
+      "range": {
+        "startLine": 1672,
+        "startChar": 0,
+        "endLine": 1676,
+        "endChar": 3
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d196399_ce458e66",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1680,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "If we intend to keep this, why not just set kFallBackInputVolume\u003dkMaxInputVolume (which is 255).\n\nThe extra 2 lines verifying that can then be removed.",
+      "range": {
+        "startLine": 1678,
+        "startChar": 1,
+        "endLine": 1680,
+        "endChar": 61
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "963e4974_a68701e2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1683,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "This change also means that if no AGC is present and no emulation is used, kFallBackInputVolume will be returned. Please update the comment with that.",
+      "range": {
+        "startLine": 1683,
+        "startChar": 5,
+        "endLine": 1683,
+        "endChar": 39
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb688c3a_958e48f8",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "This is a fairly complicated one-line statement with two value_or nested.\nFor readability/understanding of the code I think it is better to split this into a standard if-statement so that the different alternatives instead are explicitly spelled out.",
+      "range": {
+        "startLine": 1691,
+        "startChar": 2,
+        "endLine": 1692,
+        "endChar": 40
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22b48f53_12cfaff5",
         "filename": "modules/audio_processing/audio_processing_impl.h",
         "patchSetId": 4
@@ -77,6 +302,30 @@
       "writtenOn": "2022-11-02T10:49:29Z",
       "side": 1,
       "message": "I suggest grouping this with the similar variables in `ApmCaptureState`.\n - fewer \"loose\" member variables is better since APM state is so complex\n - it should be guarded by the capture lock",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 0
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6210242d_7eb766f5",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:47:52Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "22b48f53_12cfaff5",
       "range": {
         "startLine": 380,
         "startChar": 0,

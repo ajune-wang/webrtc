@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "434f6ff8_f3a7302e",
+        "filename": "api/test/track_id_stream_info_map.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-03T15:10:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc0acad8_352a78a4",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "6e49ed5cce78bf9d19cc79ddf6d264a2beb0d2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9e095ef_912bd987",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Moved to the class level to avoid repetition. About optional - don\u0027t know how it\u0027s better to say. They will be presented on the metrics if the field make sense for the metric. Like for video stream it doesn\u0027t make sense to have audio metadata, so it won\u0027t be there.",
       "parentUuid": "c9e095ef_912bd987",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "6e49ed5cce78bf9d19cc79ddf6d264a2beb0d2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed67c14_b0bb862e",
+        "filename": "test/pc/e2e/metric_metadata_keys.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-03T15:10:17Z",
+      "side": 1,
+      "message": "SG, one last nit is \"present\" instead of \"presented\" (IIUC).",
+      "parentUuid": "d7cbb108_caacbc8b",
       "range": {
         "startLine": 18,
         "startChar": 4,

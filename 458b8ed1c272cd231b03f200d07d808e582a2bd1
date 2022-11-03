@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62063c44_43f09616",
+        "filename": "api/test/pclf/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-03T15:07:41Z",
+      "side": 1,
+      "message": "Overall this LG, one thing to check with Artem is the introduction of the pclf/ folder.\n\nI welcome it, but it would be better to agree on that and plan a follow-up where we also move things under https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/pc/ to a pclf folder, etc..\n\nLike put the framework in dedicated folders.\n\nArtem, WDYT?",
+      "revId": "458b8ed1c272cd231b03f200d07d808e582a2bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

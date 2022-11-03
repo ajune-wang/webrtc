@@ -16,6 +16,24 @@
       "message": "I\u0027m assuming that the assert that caused the revert was in line 13 not line 14. I don\u0027t see any way how the assert in line 14 can fail.\n\nI\u0027ve modified this so that it should build for is_chromeos but I don\u0027t know how to test this. I\u0027ve also added another \u0027|| is_chromeos\u0027 based on the result of crbug.com/1332905. @alcooper does that make sense?",
       "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0602c385_2b335a52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-03T17:02:07Z",
+      "side": 1,
+      "message": "I would assume the bots should help with the is_chromeos issue, so I\u0027ll trigger those now. I\u0027m reaching out to @terelius@webrtc.org to figure out what we need to do here as it appears to be an internal builder that failed.",
+      "parentUuid": "9efa2847_9cdff170",
+      "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

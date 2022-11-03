@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b10e29_af46107e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-03T13:23:53Z",
+      "side": 1,
+      "message": "asking you first since hta reviews way too many of my CLs\n\nReviewing PS1 (moves tiebreaker to PA) and PS2 (removes the argument from the PA session) might be easier to follow.\n\nAs a next step it should be safe to rename the tie breaker to \"port allocator random\" but I still haven\u0027t followed the breadcrumbs enough to figure out where the port which speaks stun and needs the actual tiebreaker gets it from.",
+      "revId": "ee0c7bf7ff852b70d3a758803a14f14711c41446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

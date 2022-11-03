@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b72810d_75f5bcc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-03T08:08:38Z",
+      "side": 1,
+      "message": "Satisfying current hbos style preferences :-)",
+      "revId": "dd3c128edf627a581e65ac0ae5c3d30146b0f3cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

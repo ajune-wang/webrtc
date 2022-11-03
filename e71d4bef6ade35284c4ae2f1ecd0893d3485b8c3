@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744bf3fb_8859a735",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-03T13:32:53Z",
+      "side": 1,
+      "message": "Was this from an RTC_CHECK_EQ(a, b) call?\nWhat was the type of the two arguments?\nWant to understand exactly what we\u0027re trying to fix here.",
+      "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

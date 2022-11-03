@@ -34,6 +34,24 @@
       "parentUuid": "744bf3fb_8859a735",
       "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52578f81_1b35bbb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-03T14:34:48Z",
+      "side": 1,
+      "message": "Hm. According to hbos@ this is actually indication that you caught a real bug - those two pointers are supposed to be compared for equality; if they point to two different strings, something\u0027s wrong.\n\nThis instance should probably have been written RTC_DCHECK(a \u003d\u003d b) rather than using the _EQ operator, to make it plain that this was the intent.\n\nWhat happens if one of the arguments is a non-null-terminated string?",
+      "parentUuid": "22fb9a6f_e79f4d51",
+      "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -23,7 +23,7 @@
 #include "api/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/test/create_peer_connection_quality_test_frame_generator.h"
-#include "api/test/peerconnection_quality_test_fixture.h"
+#include "api/test/pclf/media_configuration.h"
 #include "api/transport/network_control.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
@@ -42,7 +42,7 @@ class PeerConfigurerImpl final
  public:
   using VideoSource =
       absl::variant<std::unique_ptr<test::FrameGeneratorInterface>,
-                    PeerConnectionE2EQualityTestFixture::CapturingDeviceIndex>;
+                    CapturingDeviceIndex>;
 
   PeerConfigurerImpl(rtc::Thread* network_thread,
                      rtc::NetworkManager* network_manager,
@@ -54,12 +54,12 @@ class PeerConfigurerImpl final
         params_(std::make_unique<Params>()),
         configurable_params_(std::make_unique<ConfigurableParams>()) {}
 
+  // Implementation of PeerConnectionE2EQualityTestFixture::PeerConfigurer.
   PeerConfigurer* SetName(absl::string_view name) override {
     params_->name = std::string(name);
     return this;
   }
 
-  // Implementation of PeerConnectionE2EQualityTestFixture::PeerConfigurer.
   PeerConfigurer* SetTaskQueueFactory(
       std::unique_ptr<TaskQueueFactory> task_queue_factory) override {
     components_->pcf_dependencies->task_queue_factory =
@@ -124,36 +124,31 @@ class PeerConfigurerImpl final
     return this;
   }
 
-  PeerConfigurer* AddVideoConfig(
-      PeerConnectionE2EQualityTestFixture::VideoConfig config) override {
+  PeerConfigurer* AddVideoConfig(VideoConfig config) override {
     video_sources_.push_back(
         CreateSquareFrameGenerator(config, /*type=*/absl::nullopt));
     configurable_params_->video_configs.push_back(std::move(config));
     return this;
   }
   PeerConfigurer* AddVideoConfig(
-      PeerConnectionE2EQualityTestFixture::VideoConfig config,
+      VideoConfig config,
       std::unique_ptr<test::FrameGeneratorInterface> generator) override {
     configurable_params_->video_configs.push_back(std::move(config));
     video_sources_.push_back(std::move(generator));
     return this;
   }
-  PeerConfigurer* AddVideoConfig(
-      PeerConnectionE2EQualityTestFixture::VideoConfig config,
-      PeerConnectionE2EQualityTestFixture::CapturingDeviceIndex index)
-      override {
+  PeerConfigurer* AddVideoConfig(VideoConfig config,
+                                 CapturingDeviceIndex index) override {
     configurable_params_->video_configs.push_back(std::move(config));
     video_sources_.push_back(index);
     return this;
   }
   PeerConfigurer* SetVideoSubscription(
-      PeerConnectionE2EQualityTestFixture::VideoSubscription subscription)
-      override {
+      VideoSubscription subscription) override {
     configurable_params_->video_subscription = std::move(subscription);
     return this;
   }
-  PeerConfigurer* SetAudioConfig(
-      PeerConnectionE2EQualityTestFixture::AudioConfig config) override {
+  PeerConfigurer* SetAudioConfig(AudioConfig config) override {
     params_->audio_config = std::move(config);
     return this;
   }
@@ -214,8 +209,7 @@ class PeerConfigurerImpl final
     return this;
   }
   PeerConfigurer* SetVideoCodecs(
-      std::vector<PeerConnectionE2EQualityTestFixture::VideoCodecConfig>
-          video_codecs) override {
+      std::vector<VideoCodecConfig> video_codecs) override {
     params_->video_codecs = std::move(video_codecs);
     return this;
   }

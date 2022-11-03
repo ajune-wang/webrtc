@@ -52,6 +52,24 @@
       "parentUuid": "22fb9a6f_e79f4d51",
       "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c15058_b6cb0883",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-03T21:39:21Z",
+      "side": 1,
+      "message": "This isn\u0027t triggered by existing code, so it\u0027s not as serious a bug as you\u0027d be concerned. (Comparing two static C strings with same address is fine).\n\nAccording to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/stats/rtc_stats.h;drc\u003d44798fcb6d921c4a8fee8331289021a3b25b4450;bpv\u003d1;bpt\u003d1;l\u003d88 , current uses of `cast_to` are `cast_to\u003cRTCTransportStats\u003e`, `cast_to\u003cRTCCodecStats\u003e`, `cast_to\u003cRTCOutboundRTPStreamStats\u003e` and `cast_to\u003cRTCInboundRTPStreamStats\u003e`, all of which is fine.\n\nI\u0027m trying to `cast_to\u003cRTCMediaSourceStats\u003e` from https://webrtc-review.googlesource.com/c/src/+/281300/3. This is because `RTCAudioSourceStats` and `RTCVideoSourceStats` have the same `type()` but different number of members. To do that, I need to compare the content equality of the C string, not the address equality.",
+      "parentUuid": "52578f81_1b35bbb9",
+      "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

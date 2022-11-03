@@ -22,11 +22,6 @@ namespace webrtc {
 namespace webrtc_pc_e2e {
 namespace {
 
-using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
-using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
-using RunParams = PeerConnectionE2EQualityTestFixture::RunParams;
-using VideoCodecConfig = PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
-
 // List of default names of generic participants according to
 // https://en.wikipedia.org/wiki/Alice_and_Bob
 constexpr absl::string_view kDefaultNames[] = {"alice", "bob",  "charlie",
@@ -83,9 +78,7 @@ void PeerParamsPreprocessor::SetDefaultValuesForMissingParams(
   }
 
   if (params->video_codecs.empty()) {
-    params->video_codecs.push_back(
-        PeerConnectionE2EQualityTestFixture::VideoCodecConfig(
-            cricket::kVp8CodecName));
+    params->video_codecs.push_back(VideoCodecConfig(cricket::kVp8CodecName));
   }
 }
 

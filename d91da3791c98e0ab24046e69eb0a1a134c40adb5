@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbd1371a_08fe918b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-11-03T11:33:19Z",
+      "side": 1,
+      "message": "Fixed downstreams.\nPTAL",
+      "revId": "d91da3791c98e0ab24046e69eb0a1a134c40adb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

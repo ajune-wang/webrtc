@@ -853,7 +853,7 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
     stats.capture_start_ntp_time_ms_ = capture_start_ntp_time_ms_;
   }
 
-  absl::optional<RtpRtcpInterface::SenderReportStats> rtcp_sr_stats =
+  absl::optional<RtcpSenderReportStats> rtcp_sr_stats =
       rtp_rtcp_->GetSenderReportStats();
   if (rtcp_sr_stats.has_value()) {
     stats.last_sender_report_timestamp_ms =

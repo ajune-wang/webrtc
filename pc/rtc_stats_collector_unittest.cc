@@ -751,6 +751,19 @@ class RTCStatsCollectorTest : public ::testing::Test {
         cricket::SsrcReceiverInfo());
     video_media_info.receivers[0].local_stats[0].ssrc = 4;
     video_media_info.receivers[0].codec_payload_type = recv_codec.payload_type;
+    // remote-outbound-rtp
+    graph.remote_outbound_rtp_id = "ROV4";
+    video_media_info.receivers[0].last_sender_report_timestamp_ms =
+        kRemoteOutboundStatsTimestampMs;
+    video_media_info.receivers[0].last_sender_report_remote_timestamp_ms =
+        kRemoteOutboundStatsRemoteTimestampMs;
+    video_media_info.receivers[0].sender_reports_packets_sent =
+        kRemoteOutboundStatsPacketsSent;
+    video_media_info.receivers[0].sender_reports_bytes_sent =
+        kRemoteOutboundStatsBytesSent;
+    video_media_info.receivers[0].sender_reports_reports_count =
+        kRemoteOutboundStatsReportsCount;
+
     // transport
     graph.transport_id = "TTransportName1";
     pc_->AddVideoChannel("VideoMid", "TransportName", video_media_info);
@@ -773,8 +786,8 @@ class RTCStatsCollectorTest : public ::testing::Test {
     // Expected stats graph:
     //
     //  +--- track (sender)      stream (remote stream) ---> track (receiver)
-    //  |             ^                                        ^
-    //  |             |                                        |
+    //  |             ^              +---> remote-outbound     ^
+    //  |             |              |                         |
     //  | +--------- outbound-rtp   inbound-rtp ---------------+
     //  | |           |        |     |       |
     //  | |           v        v     v       v
@@ -784,7 +797,7 @@ class RTCStatsCollectorTest : public ::testing::Test {
 
     // Verify the stats graph is set up correctly.
     graph.full_report = stats_->GetStatsReport();
-    EXPECT_EQ(graph.full_report->size(), 10u);
+    EXPECT_EQ(graph.full_report->size(), 11u);
     EXPECT_TRUE(graph.full_report->Get(graph.send_codec_id));
     EXPECT_TRUE(graph.full_report->Get(graph.recv_codec_id));
     EXPECT_TRUE(graph.full_report->Get(graph.outbound_rtp_id));
@@ -795,6 +808,7 @@ class RTCStatsCollectorTest : public ::testing::Test {
     EXPECT_TRUE(graph.full_report->Get(graph.remote_stream_id));
     EXPECT_TRUE(graph.full_report->Get(graph.peer_connection_id));
     EXPECT_TRUE(graph.full_report->Get(graph.media_source_id));
+    EXPECT_TRUE(graph.full_report->Get(graph.remote_outbound_rtp_id));
     const auto& sender_track =
         graph.full_report->Get(graph.sender_track_id)
             ->cast_to<DEPRECATED_RTCMediaStreamTrackStats>();
@@ -810,6 +824,7 @@ class RTCStatsCollectorTest : public ::testing::Test {
     EXPECT_EQ(*inbound_rtp.codec_id, graph.recv_codec_id);
     EXPECT_EQ(*inbound_rtp.track_id, graph.receiver_track_id);
     EXPECT_EQ(*inbound_rtp.transport_id, graph.transport_id);
+    EXPECT_EQ(*inbound_rtp.remote_id, graph.remote_outbound_rtp_id);
 
     return graph;
   }
@@ -3695,6 +3710,22 @@ TEST_F(RTCStatsCollectorTest, RTCRemoteOutboundRtpAudioStreamStatsCollected) {
             kRemoteOutboundStatsReportsCount);
 }
 
+TEST_F(RTCStatsCollectorTest, RTCRemoteOutboundRtpVideoStreamStatsCollected) {
+  ExampleStatsGraph graph = SetupExampleStatsGraphForSelectorTests();
+  ASSERT_TRUE(graph.full_report->Get(graph.remote_outbound_rtp_id));
+  const auto& remote_outbound_rtp =
+      graph.full_report->Get(graph.remote_outbound_rtp_id)
+          ->cast_to<RTCRemoteOutboundRtpStreamStats>();
+  EXPECT_EQ(remote_outbound_rtp.timestamp_us(),
+            kRemoteOutboundStatsTimestampMs * rtc::kNumMicrosecsPerMillisec);
+  EXPECT_FLOAT_EQ(*remote_outbound_rtp.remote_timestamp,
+                  static_cast<double>(kRemoteOutboundStatsRemoteTimestampMs));
+  EXPECT_EQ(*remote_outbound_rtp.packets_sent, kRemoteOutboundStatsPacketsSent);
+  EXPECT_EQ(*remote_outbound_rtp.bytes_sent, kRemoteOutboundStatsBytesSent);
+  EXPECT_EQ(*remote_outbound_rtp.reports_sent,
+            kRemoteOutboundStatsReportsCount);
+}
+
 TEST_F(RTCStatsCollectorTest,
        RTCVideoSourceStatsNotCollectedForSenderWithoutTrack) {
   const uint32_t kSsrc = 4;
@@ -3818,7 +3849,7 @@ TEST_F(RTCStatsCollectorTest, GetStatsWithReceiverSelector) {
   rtc::scoped_refptr<const RTCStatsReport> receiver_report =
       stats_->GetStatsReportWithReceiverSelector(graph.receiver);
   EXPECT_TRUE(receiver_report);
-  EXPECT_EQ(receiver_report->size(), 4u);
+  EXPECT_EQ(receiver_report->size(), 5u);
   EXPECT_EQ(receiver_report->timestamp_us(), graph.full_report->timestamp_us());
   EXPECT_FALSE(receiver_report->Get(graph.send_codec_id));
   EXPECT_TRUE(receiver_report->Get(graph.recv_codec_id));

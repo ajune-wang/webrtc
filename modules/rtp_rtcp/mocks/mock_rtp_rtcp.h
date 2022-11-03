@@ -144,7 +144,7 @@ class MockRtpRtcpInterface : public RtpRtcpInterface {
               GetLatestReportBlockData,
               (),
               (const, override));
-  MOCK_METHOD(absl::optional<SenderReportStats>,
+  MOCK_METHOD(absl::optional<RtcpSenderReportStats>,
               GetSenderReportStats,
               (),
               (const, override));

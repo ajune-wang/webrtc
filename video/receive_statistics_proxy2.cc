@@ -736,6 +736,19 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
   stats_.rtcp_packet_type_counts = packet_counter;
 }
 
+void ReceiveStatisticsProxy::OnSenderReport(
+    const RtcpSenderReportStats& rtcp_sr_stats) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
+  stats_.last_sender_report_timestamp_ms =
+      rtcp_sr_stats.last_arrival_timestamp.ToMs() - rtc::kNtpJan1970Millisecs;
+  stats_.last_sender_report_remote_timestamp_ms =
+      rtcp_sr_stats.last_remote_timestamp.ToMs() - rtc::kNtpJan1970Millisecs;
+
+  stats_.sender_reports_packets_sent = rtcp_sr_stats.packets_sent;
+  stats_.sender_reports_bytes_sent = rtcp_sr_stats.bytes_sent;
+  stats_.sender_reports_reports_count = rtcp_sr_stats.reports_count;
+}
+
 void ReceiveStatisticsProxy::OnCname(uint32_t ssrc, absl::string_view cname) {
   RTC_DCHECK_RUN_ON(&main_thread_);
   // TODO(pbos): Handle both local and remote ssrcs here and RTC_DCHECK that we

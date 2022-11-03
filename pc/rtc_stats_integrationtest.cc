@@ -1029,10 +1029,29 @@ class RTCStatsReportVerifier {
     VerifyRTCRTPStreamStats(remote_outbound_stream, verifier);
     VerifyRTCSentRTPStreamStats(remote_outbound_stream, verifier);
     verifier.TestMemberIsIDReference(remote_outbound_stream.local_id,
-                                     RTCOutboundRTPStreamStats::kType);
+                                     RTCInboundRTPStreamStats::kType);
     verifier.TestMemberIsNonNegative<double>(
         remote_outbound_stream.remote_timestamp);
     verifier.TestMemberIsDefined(remote_outbound_stream.reports_sent);
+    verifier.TestMemberIsDefined(remote_outbound_stream.kind);
+    if (remote_outbound_stream.kind.is_defined() &&
+        *remote_outbound_stream.kind == "audio") {
+      verifier.TestMemberIsNonNegative<double>(
+          remote_outbound_stream.round_trip_time);
+      verifier.TestMemberIsDefined(
+          remote_outbound_stream.round_trip_time_measurements);
+      verifier.TestMemberIsNonNegative<double>(
+          remote_outbound_stream.total_round_trip_time);
+    } else {
+      // TODO(bugs.webrtc.org/12529): Implement round_trip_time for video
+      EXPECT_EQ(*remote_outbound_stream.kind, "video");
+      verifier.TestMemberIsUndefined(remote_outbound_stream.round_trip_time);
+      verifier.TestMemberIsUndefined(
+          remote_outbound_stream.round_trip_time_measurements);
+      verifier.TestMemberIsUndefined(
+          remote_outbound_stream.total_round_trip_time);
+    }
+
     return verifier.ExpectAllMembersSuccessfullyTested();
   }
 

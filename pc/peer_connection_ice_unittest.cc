@@ -85,7 +85,6 @@ using ::testing::Values;
 
 constexpr int kIceCandidatesTimeout = 10000;
 constexpr int64_t kWaitTimeout = 10000;
-constexpr uint64_t kTiebreakerDefault = 44444;
 
 class PeerConnectionWrapperForIceTest : public PeerConnectionWrapper {
  public:
@@ -1427,7 +1426,6 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
         new cricket::FakePortAllocator(rtc::Thread::Current(),
                                        packet_socket_factory_.get()));
     port_allocator_ = port_allocator.get();
-    port_allocator_->SetIceTiebreaker(kTiebreakerDefault);
     PeerConnectionDependencies pc_dependencies(&observer_);
     pc_dependencies.allocator = std::move(port_allocator);
     auto result = pc_factory_->CreatePeerConnectionOrError(

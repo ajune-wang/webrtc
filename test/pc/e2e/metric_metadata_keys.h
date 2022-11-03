@@ -15,9 +15,20 @@ namespace webrtc_pc_e2e {
 
 class MetricMetadataKey {
  public:
+  // Presented if applicable. Represents on peer with whom the metric is
+  // associated.
   static constexpr char kPeerMetadataKey[] = "peer";
-  static constexpr char kStreamMetadataKey[] = "stream";
+  // Presented if applicable. Represents sender of the media stream.
+  static constexpr char kSenderMetadataKey[] = "sender";
+  // Presented if applicable. Represents receiver of the media stream.
   static constexpr char kReceiverMetadataKey[] = "receiver";
+  // Presented if applicable. Represents name of the audio stream.
+  static constexpr char kAudioStreamMetadataKey[] = "audio_stream";
+  // Presented if applicable. Represents name of the video stream.
+  static constexpr char kVideoStreamMetadataKey[] = "video_stream";
+  // Presented if applicable. Represents name of the sync group to which stream
+  // belongs.
+  static constexpr char kPeerSyncGroupMetadataKey[] = "peer_sync_group";
 
  private:
   MetricMetadataKey() = default;
@@ -25,6 +36,8 @@ class MetricMetadataKey {
 
 class SampleMetadataKey {
  public:
+  // Presented if applicable. Represents a frame ID with which data point is
+  // associated.
   static constexpr char kFrameIdMetadataKey[] = "frame_id";
 
  private:

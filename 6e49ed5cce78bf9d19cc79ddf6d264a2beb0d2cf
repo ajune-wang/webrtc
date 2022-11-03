@@ -141,6 +141,30 @@
       },
       "revId": "6e49ed5cce78bf9d19cc79ddf6d264a2beb0d2cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b3e9d8a_5a4a23f3",
+        "filename": "test/pc/e2e/metric_metadata_keys.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-03T15:41:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ed67c14_b0bb862e",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "6e49ed5cce78bf9d19cc79ddf6d264a2beb0d2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

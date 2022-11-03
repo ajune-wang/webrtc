@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73f28550_b659308f",
+        "filename": "api/test/track_id_stream_info_map.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-03T12:35:07Z",
+      "side": 1,
+      "message": "Maybe sync_group_label to be in line with stream_label (or remove _label from stream as well)?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "6e49ed5cce78bf9d19cc79ddf6d264a2beb0d2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9e095ef_912bd987",
+        "filename": "test/pc/e2e/metric_metadata_keys.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-03T12:35:07Z",
+      "side": 1,
+      "message": "Maybe change this to \"Optional\"?",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "6e49ed5cce78bf9d19cc79ddf6d264a2beb0d2cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

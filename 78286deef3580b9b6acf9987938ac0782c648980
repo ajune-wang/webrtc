@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b0c8cb_657d5ff9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-03T11:49:43Z",
+      "side": 1,
+      "message": "reland without changes? Thank you!",
+      "revId": "78286deef3580b9b6acf9987938ac0782c648980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

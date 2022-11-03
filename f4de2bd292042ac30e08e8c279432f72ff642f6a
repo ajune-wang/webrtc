@@ -108,6 +108,29 @@
       },
       "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3033aca6_8d0858a2",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-03T15:18:09Z",
+      "side": 1,
+      "message": "you may want to document here as well how to interpret the sign of the argument\n\nsomething like this:\n\n```\n// Adjusts the recommended input volume upwards/downwards depending on\n// whether `rms_error_dbfs` is positive/negative.\n```",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 46
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -101,7 +101,7 @@ PortAllocator::PortAllocator()
       step_delay_(kDefaultStepDelay),
       allow_tcp_listen_(true),
       candidate_filter_(CF_ALL),
-      tiebreaker_(0) {
+      tiebreaker_(rtc::CreateRandomId64()) {
   // The allocator will be attached to a thread in Initialize.
   thread_checker_.Detach();
 }
@@ -207,13 +207,6 @@ bool PortAllocator::SetConfiguration(
         std::unique_ptr<PortAllocatorSession>(pooled_session));
   }
   return true;
-}
-
-void PortAllocator::SetIceTiebreaker(uint64_t tiebreaker) {
-  tiebreaker_ = tiebreaker;
-  for (auto& pooled_session : pooled_sessions_) {
-    pooled_session->set_ice_tiebreaker(tiebreaker_);
-  }
 }
 
 std::unique_ptr<PortAllocatorSession> PortAllocator::CreateSession(

@@ -381,7 +381,6 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
                         const absl::optional<int>&
                             stun_candidate_keepalive_interval = absl::nullopt);
 
-  void SetIceTiebreaker(uint64_t tiebreaker);
   uint64_t IceTiebreaker() const { return tiebreaker_; }
 
   const ServerAddresses& stun_servers() const {

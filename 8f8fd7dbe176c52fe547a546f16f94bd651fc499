@@ -34,6 +34,29 @@
       "parentUuid": "94c37352_992bec92",
       "revId": "8f8fd7dbe176c52fe547a546f16f94bd651fc499",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60458b0e_714ec11a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-03T07:55:11Z",
+      "side": 1,
+      "message": "I\u0027d suggest moving these above the line 817.\nWith that change the lines 817-820 can also be moved into the common ProcessStreamLocked method as it matches what is done on lines 796-800\n\nThe reason for that change is that the initialization/error-handling of APM is quite complicated/distributed already and it is good to, if possible, keep it in one place.",
+      "range": {
+        "startLine": 822,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 47
+      },
+      "revId": "8f8fd7dbe176c52fe547a546f16f94bd651fc499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

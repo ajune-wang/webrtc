@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99cb35f7_edfb1785",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-04T10:00:09Z",
+      "side": 1,
+      "message": "googletest\u0027s EXPECT_DEATH internally calls `fork()` and checks whether the statement causes a crash in the child process, so there is no problem.\n\nOther parts of the code also use multiple `EXPECT_DEATH` statements in the following link:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/used_ids_unittest.cc;l\u003d174;drc\u003dc24a2189d72b2bf37e91ffe99605912de4d633a7",
+      "parentUuid": "af33ea29_01806eed",
+      "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b035651_ff41caed",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-11-04T09:34:00Z",
       "side": 1,
       "message": "I think this shows that using the \"static const char kType[]\" for type checks is fundamentally flawed when it comes to hierarchies.\n\nIdea for a follow-up CL to fix this: Can we have an enum class with all the enums?\n\nThat way there is just one type value for kMediaSource, and casting from between audio/video and its parent would not DCHECK fail?\n\ntype() could return a string based on a lookup table mapping enums to strings.\nkType could eventually be deleted, but probably needed until dependencies stop using it",
+      "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f33c34b5_915dd426",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-04T10:00:09Z",
+      "side": 1,
+      "message": "I also prefer to use enums instead of this workarounds.",
+      "parentUuid": "9b035651_ff41caed",
       "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

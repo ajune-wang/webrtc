@@ -176,28 +176,6 @@ struct RunParams {
   absl::optional<EchoEmulationConfig> echo_emulation_config;
 };
 
-// Contains parameters, that describe how long framework should run quality
-// test.
-struct RunParams {
-  explicit RunParams(TimeDelta run_duration) : run_duration(run_duration) {}
-
-  // Specifies how long the test should be run. This time shows how long
-  // the media should flow after connection was established and before
-  // it will be shut downed.
-  TimeDelta run_duration;
-
-  // If set to true peers will be able to use Flex FEC, otherwise they won't
-  // be able to negotiate it even if it's enabled on per peer level.
-  bool enable_flex_fec_support = false;
-  // If true will set conference mode in SDP media section for all video
-  // tracks for all peers.
-  bool use_conference_mode = false;
-  // If specified echo emulation will be done, by mixing the render audio into
-  // the capture signal. In such case input signal will be reduced by half to
-  // avoid saturation or compression in the echo path simulation.
-  absl::optional<EchoEmulationConfig> echo_emulation_config;
-};
-
 }  // namespace webrtc_pc_e2e
 }  // namespace webrtc
 

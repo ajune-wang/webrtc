@@ -94,7 +94,6 @@ rtc_library("peer_configurer") {
     "../../../api:create_peer_connection_quality_test_frame_generator",
     "../../../api:fec_controller_api",
     "../../../api:packet_socket_factory",
-    "../../../api:peer_connection_quality_test_fixture_api",
     "../../../api:peer_network_dependencies",
     "../../../api/audio:audio_mixer_api",
     "../../../api/rtc_event_log",

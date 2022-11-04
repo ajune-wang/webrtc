@@ -12,4 +12,12 @@
 
 #include "api/test/pclf/peer_configurer.h"
 
+namespace webrtc {
+namespace webrtc_pc_e2e {
+
+using PeerConfigurerImpl = ::webrtc::webrtc_pc_e2e::PeerConfigurer;
+
+}  // namespace webrtc_pc_e2e
+}  // namespace webrtc
+
 #endif  // TEST_PC_E2E_PEER_CONFIGURER_H_

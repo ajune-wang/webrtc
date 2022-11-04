@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4828dc6c_f704cf15",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-04T14:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c33bc1_2b0d0ac7",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 26
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d6e3c6d_0d3cf451",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-11-03T15:13:26Z",
       "side": 1,
       "message": "nit: speech_level_dbfs",
+      "range": {
+        "startLine": 162,
+        "startChar": 14,
+        "endLine": 162,
+        "endChar": 26
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "379d15ef_de1be34d",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-04T14:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d6e3c6d_0d3cf451",
       "range": {
         "startLine": 162,
         "startChar": 14,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce250319_795fc66a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-04T14:15:28Z",
+      "side": 1,
+      "message": "Did you mean renaming `rms_error` as `rms_error_dbfs`? I\u0027ve renamed it here and in a few other places.",
+      "parentUuid": "b4741511_d944927d",
+      "range": {
+        "startLine": 167,
+        "startChar": 6,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6dde91e9_61527223",
         "filename": "modules/audio_processing/agc2/input_volume_controller.h",
         "patchSetId": 2
@@ -100,6 +172,30 @@
       "writtenOn": "2022-11-03T15:13:26Z",
       "side": 1,
       "message": "nit: dBFS (https://en.wikipedia.org/wiki/DBFS)",
+      "range": {
+        "startLine": 57,
+        "startChar": 34,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0bfb574_59c2c9ab",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-04T14:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dde91e9_61527223",
       "range": {
         "startLine": 57,
         "startChar": 34,
@@ -123,6 +219,30 @@
       "writtenOn": "2022-11-03T15:18:09Z",
       "side": 1,
       "message": "you may want to document here as well how to interpret the sign of the argument\n\nsomething like this:\n\n```\n// Adjusts the recommended input volume upwards/downwards depending on\n// whether `rms_error_dbfs` is positive/negative.\n```",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 46
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db6585ca_9367c06f",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-04T14:15:28Z",
+      "side": 1,
+      "message": "Thank you! Did you mean the argument should be renamed as well? I\u0027ve now renamed it here and in the other methods that are called from here.",
+      "parentUuid": "3033aca6_8d0858a2",
       "range": {
         "startLine": 220,
         "startChar": 0,

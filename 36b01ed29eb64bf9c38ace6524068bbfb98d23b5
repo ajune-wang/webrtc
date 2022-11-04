@@ -34,6 +34,29 @@
       "parentUuid": "9efa2847_9cdff170",
       "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8414538c_e42f51d3",
+        "filename": "modules/portal/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-04T20:36:41Z",
+      "side": 1,
+      "message": "I filed an internal bug; however I think it\u0027s a holiday for the folks I\u0027d expect to follow up on it. It *does* look like just converting this to if statements which wrap the whole file would be a sufficient workaround. If we haven\u0027t heard back from the team by Tuesday or Wednesday next, maybe we can move forward with that.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

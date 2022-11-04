@@ -682,11 +682,13 @@ public class PeerConnectionEndToEndTest {
     // have those.
     PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
     options.networkIgnoreMask = 0;
-    PeerConnectionFactory factory = PeerConnectionFactory.builder()
-                                        .setOptions(options)
-                                        .setVideoEncoderFactory(new SoftwareVideoEncoderFactory())
-                                        .setVideoDecoderFactory(new SoftwareVideoDecoderFactory())
-                                        .createPeerConnectionFactory();
+    PeerConnectionFactory factory =
+        PeerConnectionFactory.builder()
+            .setOptions(options)
+            .setVideoEncoderFactory(new SoftwareVideoEncoderFactory())
+            .setVideoDecoderFactory(
+                BuiltinVideoDecoderFactoryFactory().createNativeVideoDecoderFactory())
+            .createPeerConnectionFactory();
 
     List<PeerConnection.IceServer> iceServers = new ArrayList<>();
     iceServers.add(

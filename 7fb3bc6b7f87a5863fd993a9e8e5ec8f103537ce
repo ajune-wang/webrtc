@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f4b9c0_b55eb7c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-04T12:13:23Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "7fb3bc6b7f87a5863fd993a9e8e5ec8f103537ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bae3e0c3_fae76ca2",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cc4bc05_e4f2869c",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-04T12:13:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bae3e0c3_fae76ca2",
+      "range": {
+        "startLine": 180,
+        "startChar": 55,
+        "endLine": 180,
+        "endChar": 78
+      },
+      "revId": "7fb3bc6b7f87a5863fd993a9e8e5ec8f103537ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4f1fe0f_879e5a15",
@@ -54,6 +95,30 @@
       "writtenOn": "2022-11-04T12:05:06Z",
       "side": 1,
       "message": "arm64 (arm is less because the instruction set is leaner).",
+      "range": {
+        "startLine": 181,
+        "startChar": 69,
+        "endLine": 181,
+        "endChar": 72
+      },
+      "revId": "7fb3bc6b7f87a5863fd993a9e8e5ec8f103537ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8841ba04_b76239e4",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-04T12:13:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4f1fe0f_879e5a15",
       "range": {
         "startLine": 181,
         "startChar": 69,

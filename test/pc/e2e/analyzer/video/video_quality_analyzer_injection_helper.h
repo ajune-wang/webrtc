@@ -20,7 +20,7 @@
 
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
-#include "api/test/peerconnection_quality_test_fixture.h"
+#include "api/test/pclf/media_configuration.h"
 #include "api/test/stats_observer_interface.h"
 #include "api/test/video_quality_analyzer_interface.h"
 #include "api/video/video_frame.h"
@@ -43,7 +43,7 @@ namespace webrtc_pc_e2e {
 // VideoQualityAnalyzerInterface into PeerConnection pipeline.
 class VideoQualityAnalyzerInjectionHelper : public StatsObserverInterface {
  public:
-  using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
+  using VideoConfig = ::webrtc::webrtc_pc_e2e::VideoConfig;
 
   VideoQualityAnalyzerInjectionHelper(
       Clock* clock,
@@ -81,8 +81,7 @@ class VideoQualityAnalyzerInjectionHelper : public StatsObserverInterface {
       absl::string_view peer_name);
   std::unique_ptr<AnalyzingVideoSink> CreateVideoSink(
       absl::string_view peer_name,
-      const PeerConnectionE2EQualityTestFixture::VideoSubscription&
-          subscription);
+      const VideoSubscription& subscription);
 
   void Start(std::string test_case_name,
              rtc::ArrayView<const std::string> peer_names,

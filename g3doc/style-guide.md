@@ -173,6 +173,15 @@ headers you need.
 
 [goog-forward-declarations]: https://google.github.io/styleguide/cppguide.html#Forward_Declarations
 
+### RTTI and dynamic_cast
+
+The Google style guide [permits the use of dynamic_cast](https://google.github.io/styleguide/cppguide.html#Run-Time_Type_Information__RTTI_).
+
+However, WebRTC does not permit it. WebRTC is compiled without the -frtti flag,
+the overhead of adding it is on the order of 220 Kbytes (for Android Arm).
+
+Use static_cast and take your own steps to ensure type safety.
+
 ## C
 
 There's a substantial chunk of legacy C code in WebRTC, and a lot of it is old

@@ -236,7 +236,7 @@
     'android_debug_static_bot_x64': ['android', 'debug_static_bot', 'x64'],
     'android_debug_static_bot_x86': ['android', 'debug_static_bot', 'x86'],
     'android_pure_release_bot_arm': ['android', 'pure_release_bot', 'arm'],
-    'android_pure_release_bot_arm64': ['android', 'pure_release_bot', 'arm64'],
+    'android_pure_release_bot_arm64': ['android', 'pure_release_bot', 'arm64', 'rtti'],
     'android_release_bot_arm': ['android', 'release_bot', 'arm'],
     'android_release_bot_arm64': ['android', 'release_bot', 'arm64'],
     'android_release_bot_arm_reclient': ['android', 'release_bot_reclient', 'arm'],

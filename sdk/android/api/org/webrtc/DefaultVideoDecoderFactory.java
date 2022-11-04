@@ -19,7 +19,8 @@ import java.util.LinkedHashSet;
  */
 public class DefaultVideoDecoderFactory implements VideoDecoderFactory {
   private final VideoDecoderFactory hardwareVideoDecoderFactory;
-  private final VideoDecoderFactory softwareVideoDecoderFactory = new SoftwareVideoDecoderFactory();
+  private final VideoDecoderFactory softwareVideoDecoderFactory =
+      BuiltinVideoDecoderFactoryFactory.createNativeVideoDecoderFactory();
   private final @Nullable VideoDecoderFactory platformSoftwareVideoDecoderFactory;
 
   /**

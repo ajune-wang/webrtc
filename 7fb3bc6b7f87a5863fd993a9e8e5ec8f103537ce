@@ -16,6 +16,52 @@
       "message": "Didn\u0027t we have a \"preview\" button for .md files?",
       "revId": "7fb3bc6b7f87a5863fd993a9e8e5ec8f103537ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae3e0c3_fae76ca2",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-04T12:05:06Z",
+      "side": 1,
+      "message": "with -fno-rtti (-frtti is the default but WebRTC and Chromium override it).",
+      "range": {
+        "startLine": 180,
+        "startChar": 55,
+        "endLine": 180,
+        "endChar": 78
+      },
+      "revId": "7fb3bc6b7f87a5863fd993a9e8e5ec8f103537ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f1fe0f_879e5a15",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-04T12:05:06Z",
+      "side": 1,
+      "message": "arm64 (arm is less because the instruction set is leaner).",
+      "range": {
+        "startLine": 181,
+        "startChar": 69,
+        "endLine": 181,
+        "endChar": 72
+      },
+      "revId": "7fb3bc6b7f87a5863fd993a9e8e5ec8f103537ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

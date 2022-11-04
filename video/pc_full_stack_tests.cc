@@ -19,6 +19,8 @@
 #include "api/test/frame_generator_interface.h"
 #include "api/test/metrics/global_metrics_logger_and_exporter.h"
 #include "api/test/network_emulation_manager.h"
+#include "api/test/pclf/media_configuration.h"
+#include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
 #include "api/test/simulated_network.h"
 #include "api/test/time_controller.h"
@@ -33,21 +35,8 @@
 
 namespace webrtc {
 
-using EmulatedSFUConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::EmulatedSFUConfig;
 using PeerConfigurer =
     webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::PeerConfigurer;
-using RunParams = webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::RunParams;
-using VideoConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoConfig;
-using AudioConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::AudioConfig;
-using ScreenShareConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::ScreenShareConfig;
-using VideoSimulcastConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
-using VideoCodecConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
 
 namespace {
 

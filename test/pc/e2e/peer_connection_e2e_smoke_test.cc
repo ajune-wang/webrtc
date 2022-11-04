@@ -18,6 +18,8 @@
 #include "api/test/create_peerconnection_quality_test_fixture.h"
 #include "api/test/metrics/global_metrics_logger_and_exporter.h"
 #include "api/test/network_emulation_manager.h"
+#include "api/test/pclf/media_configuration.h"
+#include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
 #include "call/simulated_network.h"
 #include "system_wrappers/include/field_trial.h"
@@ -39,21 +41,7 @@ namespace {
 
 class PeerConnectionE2EQualityTestSmokeTest : public ::testing::Test {
  public:
-  using EmulatedSFUConfig =
-      PeerConnectionE2EQualityTestFixture::EmulatedSFUConfig;
   using PeerConfigurer = PeerConnectionE2EQualityTestFixture::PeerConfigurer;
-  using RunParams = PeerConnectionE2EQualityTestFixture::RunParams;
-  using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
-  using VideoCodecConfig =
-      PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
-  using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
-  using ScreenShareConfig =
-      PeerConnectionE2EQualityTestFixture::ScreenShareConfig;
-  using ScrollingParams = PeerConnectionE2EQualityTestFixture::ScrollingParams;
-  using VideoSimulcastConfig =
-      PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
-  using EchoEmulationConfig =
-      PeerConnectionE2EQualityTestFixture::EchoEmulationConfig;
 
   void SetUp() override {
     network_emulation_ = CreateNetworkEmulationManager();

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af33ea29_01806eed",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-04T09:34:00Z",
+      "side": 1,
+      "message": "Do you need to split these up into separate tests? If we do the correct thing and die, we wouldn\u0027t run the rest of the lines of the test so we have no test coverage for that?",
+      "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b035651_ff41caed",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-04T09:34:00Z",
+      "side": 1,
+      "message": "I think this shows that using the \"static const char kType[]\" for type checks is fundamentally flawed when it comes to hierarchies.\n\nIdea for a follow-up CL to fix this: Can we have an enum class with all the enums?\n\nThat way there is just one type value for kMediaSource, and casting from between audio/video and its parent would not DCHECK fail?\n\ntype() could return a string based on a lookup table mapping enums to strings.\nkType could eventually be deleted, but probably needed until dependencies stop using it",
+      "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -70,6 +70,24 @@
       "parentUuid": "52578f81_1b35bbb9",
       "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f3f61dc_c710a3bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-04T07:30:12Z",
+      "side": 1,
+      "message": "I see - I think this is not supposed to work according to the design. But I\u0027ll let hbos@ take this further.",
+      "parentUuid": "d3c15058_b6cb0883",
+      "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

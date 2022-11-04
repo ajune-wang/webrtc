@@ -17,7 +17,8 @@ import java.util.LinkedHashSet;
 /** Helper class that combines HW and SW encoders. */
 public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
   private final VideoEncoderFactory hardwareVideoEncoderFactory;
-  private final VideoEncoderFactory softwareVideoEncoderFactory = new SoftwareVideoEncoderFactory();
+  private final VideoEncoderFactory softwareVideoEncoderFactory =
+      BuiltinVideoEncoderFactoryFactory.CreateBuiltinVideoEncoderFactory();
 
   /** Create encoder factory using default hardware encoder factory. */
   public DefaultVideoEncoderFactory(

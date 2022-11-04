@@ -46,15 +46,9 @@ class RTC_EXPORT Metronome {
 
   virtual ~Metronome() = default;
 
-  // Adds a tick listener to the metronome. Once this method has returned
-  // OnTick will be invoked on each metronome tick. A listener may
-  // only be added to the metronome once.
-  virtual void AddListener(TickListener* listener) = 0;
-
-  // Removes the tick listener from the metronome. Once this method has returned
-  // OnTick will never be called again. This method must not be called from
-  // within OnTick.
-  virtual void RemoveListener(TickListener* listener) = 0;
+  // TODO(xxx): Make permanent.
+  // Requests a call to `callback` on the next tick.
+  virtual void RequestCallOnNextTick(absl::AnyInvocable<void() &&> callback) {}
 
   // Returns the current tick period of the metronome.
   virtual TimeDelta TickPeriod() const = 0;

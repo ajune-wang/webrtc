@@ -19,6 +19,8 @@
 #include "api/test/frame_generator_interface.h"
 #include "api/test/metrics/global_metrics_logger_and_exporter.h"
 #include "api/test/network_emulation_manager.h"
+#include "api/test/pclf/media_configuration.h"
+#include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
 #include "api/test/simulated_network.h"
 #include "api/test/time_controller.h"
@@ -33,21 +35,15 @@
 
 namespace webrtc {
 
-using EmulatedSFUConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::EmulatedSFUConfig;
+using EmulatedSFUConfig = ::webrtc::webrtc_pc_e2e::EmulatedSFUConfig;
 using PeerConfigurer =
     webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::PeerConfigurer;
-using RunParams = webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::RunParams;
-using VideoConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoConfig;
-using AudioConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::AudioConfig;
-using ScreenShareConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::ScreenShareConfig;
-using VideoSimulcastConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
-using VideoCodecConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
+using RunParams = ::webrtc::webrtc_pc_e2e::RunParams;
+using VideoConfig = ::webrtc::webrtc_pc_e2e::VideoConfig;
+using AudioConfig = ::webrtc::webrtc_pc_e2e::AudioConfig;
+using ScreenShareConfig = ::webrtc::webrtc_pc_e2e::ScreenShareConfig;
+using VideoSimulcastConfig = ::webrtc::webrtc_pc_e2e::VideoSimulcastConfig;
+using VideoCodecConfig = ::webrtc::webrtc_pc_e2e::VideoCodecConfig;
 
 namespace {
 

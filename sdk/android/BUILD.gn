@@ -520,6 +520,8 @@ if (is_android) {
   rtc_android_library("swcodecs_java") {
     visibility = [ "*" ]
     sources = [
+      "api/org/webrtc/BuiltinVideoDecoderFactoryFactory.java",
+      "api/org/webrtc/BuiltinVideoEncoderFactoryFactory.java",
       "api/org/webrtc/SoftwareVideoDecoderFactory.java",
       "api/org/webrtc/SoftwareVideoEncoderFactory.java",
     ]
@@ -621,6 +623,8 @@ if (current_os == "linux" || is_android) {
     sources = [
       "src/jni/android_video_track_source.cc",
       "src/jni/android_video_track_source.h",
+      "src/jni/builtin_video_decoder_factory_factory.cc",
+      "src/jni/builtin_video_encoder_factory_factory.cc",
       "src/jni/encoded_image.cc",
       "src/jni/encoded_image.h",
       "src/jni/h264_utils.cc",
@@ -665,6 +669,8 @@ if (current_os == "linux" || is_android) {
       "../../api/video:video_frame",
       "../../api/video:video_frame_type",
       "../../api/video:video_rtp_headers",
+      "../../api/video_codecs:builtin_video_decoder_factory",
+      "../../api/video_codecs:builtin_video_encoder_factory",
       "../../api/video_codecs:rtc_software_fallback_wrappers",
       "../../api/video_codecs:video_codecs_api",
       "../../common_video",
@@ -1684,6 +1690,8 @@ if (is_android) {
   robolectric_binary("android_sdk_junit_tests") {
     sources = [
       "tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+      "tests/src/org/webrtc/BuiltinVideoDecoderFactoryFactoryTest.java",
+      "tests/src/org/webrtc/BuiltinVideoEncoderFactoryFactoryTest.java",
       "tests/src/org/webrtc/CameraEnumerationTest.java",
       "tests/src/org/webrtc/CodecTestHelper.java",
       "tests/src/org/webrtc/CryptoOptionsTest.java",

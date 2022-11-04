@@ -34,7 +34,7 @@ constexpr absl::string_view kDefaultNames[] = {"alice", "bob",  "charlie",
 
 }  // namespace
 
-PeerConfigurerImpl::PeerConfigurerImpl(
+PeerConfigurer::PeerConfigurer(
     const PeerNetworkDependencies& network_dependencies)
     : components_(std::make_unique<InjectableComponents>(
           network_dependencies.network_thread,
@@ -43,175 +43,175 @@ PeerConfigurerImpl::PeerConfigurerImpl(
       params_(std::make_unique<Params>()),
       configurable_params_(std::make_unique<ConfigurableParams>()) {}
 
-PeerConfigurer* PeerConfigurerImpl::SetName(absl::string_view name) {
+PeerConfigurer* PeerConfigurer::SetName(absl::string_view name) {
   params_->name = std::string(name);
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::SetTaskQueueFactory(
+PeerConfigurer* PeerConfigurer::SetTaskQueueFactory(
     std::unique_ptr<TaskQueueFactory> task_queue_factory) {
   components_->pcf_dependencies->task_queue_factory =
       std::move(task_queue_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetCallFactory(
+PeerConfigurer* PeerConfigurer::SetCallFactory(
     std::unique_ptr<CallFactoryInterface> call_factory) {
   components_->pcf_dependencies->call_factory = std::move(call_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetEventLogFactory(
+PeerConfigurer* PeerConfigurer::SetEventLogFactory(
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory) {
   components_->pcf_dependencies->event_log_factory =
       std::move(event_log_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetFecControllerFactory(
+PeerConfigurer* PeerConfigurer::SetFecControllerFactory(
     std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory) {
   components_->pcf_dependencies->fec_controller_factory =
       std::move(fec_controller_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetNetworkControllerFactory(
+PeerConfigurer* PeerConfigurer::SetNetworkControllerFactory(
     std::unique_ptr<NetworkControllerFactoryInterface>
         network_controller_factory) {
   components_->pcf_dependencies->network_controller_factory =
       std::move(network_controller_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetVideoEncoderFactory(
+PeerConfigurer* PeerConfigurer::SetVideoEncoderFactory(
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory) {
   components_->pcf_dependencies->video_encoder_factory =
       std::move(video_encoder_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetVideoDecoderFactory(
+PeerConfigurer* PeerConfigurer::SetVideoDecoderFactory(
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory) {
   components_->pcf_dependencies->video_decoder_factory =
       std::move(video_decoder_factory);
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::SetAsyncResolverFactory(
+PeerConfigurer* PeerConfigurer::SetAsyncResolverFactory(
     std::unique_ptr<webrtc::AsyncResolverFactory> async_resolver_factory) {
   components_->pc_dependencies->async_resolver_factory =
       std::move(async_resolver_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetRTCCertificateGenerator(
+PeerConfigurer* PeerConfigurer::SetRTCCertificateGenerator(
     std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator) {
   components_->pc_dependencies->cert_generator = std::move(cert_generator);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetSSLCertificateVerifier(
+PeerConfigurer* PeerConfigurer::SetSSLCertificateVerifier(
     std::unique_ptr<rtc::SSLCertificateVerifier> tls_cert_verifier) {
   components_->pc_dependencies->tls_cert_verifier =
       std::move(tls_cert_verifier);
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::AddVideoConfig(VideoConfig config) {
+PeerConfigurer* PeerConfigurer::AddVideoConfig(VideoConfig config) {
   video_sources_.push_back(
       CreateSquareFrameGenerator(config, /*type=*/absl::nullopt));
   configurable_params_->video_configs.push_back(std::move(config));
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::AddVideoConfig(
+PeerConfigurer* PeerConfigurer::AddVideoConfig(
     VideoConfig config,
     std::unique_ptr<test::FrameGeneratorInterface> generator) {
   configurable_params_->video_configs.push_back(std::move(config));
   video_sources_.push_back(std::move(generator));
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::AddVideoConfig(VideoConfig config,
-                                                   CapturingDeviceIndex index) {
+PeerConfigurer* PeerConfigurer::AddVideoConfig(VideoConfig config,
+                                               CapturingDeviceIndex index) {
   configurable_params_->video_configs.push_back(std::move(config));
   video_sources_.push_back(index);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetVideoSubscription(
+PeerConfigurer* PeerConfigurer::SetVideoSubscription(
     VideoSubscription subscription) {
   configurable_params_->video_subscription = std::move(subscription);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetAudioConfig(AudioConfig config) {
+PeerConfigurer* PeerConfigurer::SetAudioConfig(AudioConfig config) {
   params_->audio_config = std::move(config);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetUseUlpFEC(bool value) {
+PeerConfigurer* PeerConfigurer::SetUseUlpFEC(bool value) {
   params_->use_ulp_fec = value;
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetUseFlexFEC(bool value) {
+PeerConfigurer* PeerConfigurer::SetUseFlexFEC(bool value) {
   params_->use_flex_fec = value;
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetVideoEncoderBitrateMultiplier(
+PeerConfigurer* PeerConfigurer::SetVideoEncoderBitrateMultiplier(
     double multiplier) {
   params_->video_encoder_bitrate_multiplier = multiplier;
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetNetEqFactory(
+PeerConfigurer* PeerConfigurer::SetNetEqFactory(
     std::unique_ptr<NetEqFactory> neteq_factory) {
   components_->pcf_dependencies->neteq_factory = std::move(neteq_factory);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetAudioProcessing(
+PeerConfigurer* PeerConfigurer::SetAudioProcessing(
     rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
   components_->pcf_dependencies->audio_processing = audio_processing;
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetAudioMixer(
+PeerConfigurer* PeerConfigurer::SetAudioMixer(
     rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer) {
   components_->pcf_dependencies->audio_mixer = audio_mixer;
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::SetUseNetworkThreadAsWorkerThread() {
+PeerConfigurer* PeerConfigurer::SetUseNetworkThreadAsWorkerThread() {
   components_->worker_thread = components_->network_thread;
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::SetRtcEventLogPath(std::string path) {
+PeerConfigurer* PeerConfigurer::SetRtcEventLogPath(std::string path) {
   params_->rtc_event_log_path = std::move(path);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetAecDumpPath(std::string path) {
+PeerConfigurer* PeerConfigurer::SetAecDumpPath(std::string path) {
   params_->aec_dump_path = std::move(path);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetRTCConfiguration(
+PeerConfigurer* PeerConfigurer::SetRTCConfiguration(
     PeerConnectionInterface::RTCConfiguration configuration) {
   params_->rtc_configuration = std::move(configuration);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetRTCOfferAnswerOptions(
+PeerConfigurer* PeerConfigurer::SetRTCOfferAnswerOptions(
     PeerConnectionInterface::RTCOfferAnswerOptions options) {
   params_->rtc_offer_answer_options = std::move(options);
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetBitrateSettings(
+PeerConfigurer* PeerConfigurer::SetBitrateSettings(
     BitrateSettings bitrate_settings) {
   params_->bitrate_settings = bitrate_settings;
   return this;
 }
-PeerConfigurer* PeerConfigurerImpl::SetVideoCodecs(
+PeerConfigurer* PeerConfigurer::SetVideoCodecs(
     std::vector<VideoCodecConfig> video_codecs) {
   params_->video_codecs = std::move(video_codecs);
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::SetIceTransportFactory(
+PeerConfigurer* PeerConfigurer::SetIceTransportFactory(
     std::unique_ptr<IceTransportFactory> factory) {
   components_->pc_dependencies->ice_transport_factory = std::move(factory);
   return this;
 }
 
-PeerConfigurer* PeerConfigurerImpl::SetPortAllocatorExtraFlags(
+PeerConfigurer* PeerConfigurer::SetPortAllocatorExtraFlags(
     uint32_t extra_flags) {
   params_->port_allocator_extra_flags = extra_flags;
   return this;
 }
-std::unique_ptr<InjectableComponents> PeerConfigurerImpl::ReleaseComponents() {
+std::unique_ptr<InjectableComponents> PeerConfigurer::ReleaseComponents() {
   RTC_CHECK(components_);
   auto components = std::move(components_);
   components_ = nullptr;
@@ -220,7 +220,7 @@ std::unique_ptr<InjectableComponents> PeerConfigurerImpl::ReleaseComponents() {
 
 // Returns Params and transfer ownership to the caller.
 // Can be called once.
-std::unique_ptr<Params> PeerConfigurerImpl::ReleaseParams() {
+std::unique_ptr<Params> PeerConfigurer::ReleaseParams() {
   RTC_CHECK(params_);
   auto params = std::move(params_);
   params_ = nullptr;
@@ -230,7 +230,7 @@ std::unique_ptr<Params> PeerConfigurerImpl::ReleaseParams() {
 // Returns ConfigurableParams and transfer ownership to the caller.
 // Can be called once.
 std::unique_ptr<ConfigurableParams>
-PeerConfigurerImpl::ReleaseConfigurableParams() {
+PeerConfigurer::ReleaseConfigurableParams() {
   RTC_CHECK(configurable_params_);
   auto configurable_params = std::move(configurable_params_);
   configurable_params_ = nullptr;
@@ -239,8 +239,7 @@ PeerConfigurerImpl::ReleaseConfigurableParams() {
 
 // Returns video sources and transfer frame generators ownership to the
 // caller. Can be called once.
-std::vector<PeerConfigurerImpl::VideoSource>
-PeerConfigurerImpl::ReleaseVideoSources() {
+std::vector<PeerConfigurer::VideoSource> PeerConfigurer::ReleaseVideoSources() {
   auto video_sources = std::move(video_sources_);
   video_sources_.clear();
   return video_sources;
@@ -278,7 +277,7 @@ PeerParamsPreprocessor::PeerParamsPreprocessor()
     : peer_names_provider_("peer_", kDefaultNames) {}
 
 void PeerParamsPreprocessor::SetDefaultValuesForMissingParams(
-    PeerConfigurerImpl& peer) {
+    PeerConfigurer& peer) {
   Params* params = peer.params();
   ConfigurableParams* configurable_params = peer.configurable_params();
   peer_names_provider_.MaybeSetName(params->name);
@@ -299,7 +298,7 @@ void PeerParamsPreprocessor::SetDefaultValuesForMissingParams(
   }
 }
 
-void PeerParamsPreprocessor::ValidateParams(const PeerConfigurerImpl& peer) {
+void PeerParamsPreprocessor::ValidateParams(const PeerConfigurer& peer) {
   const Params& p = peer.params();
   RTC_CHECK_GT(p.video_encoder_bitrate_multiplier, 0.0);
   // Each peer should at least support 1 video codec.

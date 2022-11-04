@@ -88,6 +88,24 @@
       "parentUuid": "d3c15058_b6cb0883",
       "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ef3a15_3d92d1ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-04T13:29:10Z",
+      "side": 1,
+      "message": "The kType comparison is not supposed to be a string comparison, but an address comparison. The idea was that the same variable would act both as a unique identifier (its address) and as a type string (the value that the address points to).\n\nAs you\u0027ve seen, having kType is flawed when trying to up-cast to a parent class for an RTCStats hierarchy. But that is an existing problem... let\u0027s discuss in your other CL how to fix that (I suggested to migrate from const char[] to an enum).\n\nRegarding unblocking changes to RTC_DCHECK_EQ, if need be, feel free to change to RTC_DCHECK(type() \u003d\u003d T::kType) if that helps? Not sure if this is a blocker or not",
+      "parentUuid": "4f3f61dc_c710a3bf",
+      "revId": "e71d4bef6ade35284c4ae2f1ecd0893d3485b8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -507,7 +507,10 @@ rtc_source_set("peer_network_dependencies") {
 rtc_source_set("peer_connection_quality_test_fixture_api") {
   visibility = [ "*" ]
   testonly = true
-  sources = [ "test/peerconnection_quality_test_fixture.h" ]
+  sources = [
+    "test/peerconnection_quality_test_fixture.cc",
+    "test/peerconnection_quality_test_fixture.h",
+  ]
 
   deps = [
     ":array_view",
@@ -528,7 +531,10 @@ rtc_source_set("peer_connection_quality_test_fixture_api") {
     ":video_quality_analyzer_api",
     "../media:rtc_media_base",
     "../modules/audio_processing:api",
+    "../modules/video_coding/svc:scalability_mode_util",
+    "../modules/video_coding/svc:scalability_structures",
     "../rtc_base:checks",
+    "../rtc_base:macromagic",
     "../rtc_base:rtc_base",
     "../rtc_base:stringutils",
     "../rtc_base:threading",
@@ -539,6 +545,7 @@ rtc_source_set("peer_connection_quality_test_fixture_api") {
     "task_queue",
     "test/pclf:media_configuration",
     "test/pclf:media_quality_test_params",
+    "test/pclf:peer_configurer",
     "test/video:video_frame_writer",
     "transport:network_control",
     "units:time_delta",

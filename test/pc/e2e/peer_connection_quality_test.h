@@ -19,6 +19,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/test/audio_quality_analyzer_interface.h"
 #include "api/test/metrics/metrics_logger.h"
+#include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/pclf/peer_configurer.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
@@ -44,11 +45,6 @@ namespace webrtc_pc_e2e {
 class PeerConnectionE2EQualityTest
     : public PeerConnectionE2EQualityTestFixture {
  public:
-  using RunParams = PeerConnectionE2EQualityTestFixture::RunParams;
-  using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
-  using VideoSimulcastConfig =
-      PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
-  using PeerConfigurer = PeerConnectionE2EQualityTestFixture::PeerConfigurer;
   using QualityMetricsReporter =
       PeerConnectionE2EQualityTestFixture::QualityMetricsReporter;
 
@@ -127,7 +123,7 @@ class PeerConnectionE2EQualityTest
   std::unique_ptr<TestActivitiesExecutor> executor_;
   test::MetricsLogger* const metrics_logger_;
 
-  std::vector<std::unique_ptr<PeerConfigurerImpl>> peer_configurations_;
+  std::vector<std::unique_ptr<PeerConfigurer>> peer_configurations_;
   std::vector<PeerHandleImpl> peer_handles_;
 
   std::unique_ptr<TestPeer> alice_;

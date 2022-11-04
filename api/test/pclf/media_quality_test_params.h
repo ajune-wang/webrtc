@@ -22,7 +22,7 @@
 #include "api/field_trials_view.h"
 #include "api/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "api/task_queue/task_queue_factory.h"
-#include "api/test/peerconnection_quality_test_fixture.h"
+#include "api/test/pclf/media_configuration.h"
 #include "api/transport/network_control.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
@@ -154,6 +154,28 @@ struct ConfigurableParams {
   PeerConnectionE2EQualityTestFixture::VideoSubscription video_subscription =
       PeerConnectionE2EQualityTestFixture::VideoSubscription()
           .SubscribeToAllPeers();
+};
+
+// Contains parameters, that describe how long framework should run quality
+// test.
+struct RunParams {
+  explicit RunParams(TimeDelta run_duration) : run_duration(run_duration) {}
+
+  // Specifies how long the test should be run. This time shows how long
+  // the media should flow after connection was established and before
+  // it will be shut downed.
+  TimeDelta run_duration;
+
+  // If set to true peers will be able to use Flex FEC, otherwise they won't
+  // be able to negotiate it even if it's enabled on per peer level.
+  bool enable_flex_fec_support = false;
+  // If true will set conference mode in SDP media section for all video
+  // tracks for all peers.
+  bool use_conference_mode = false;
+  // If specified echo emulation will be done, by mixing the render audio into
+  // the capture signal. In such case input signal will be reduced by half to
+  // avoid saturation or compression in the echo path simulation.
+  absl::optional<EchoEmulationConfig> echo_emulation_config;
 };
 
 }  // namespace webrtc_pc_e2e

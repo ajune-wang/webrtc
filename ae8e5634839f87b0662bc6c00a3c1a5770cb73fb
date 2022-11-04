@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9164cf32_1a9c83fd",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-04T13:52:56Z",
+      "side": 1,
+      "message": "but I am not changing that, this is a pre-existing condition.\n\nLong-term, hopefully before too long, we *may* be able to remove the id argument and have it generated randomly on the inside (this may be a bit tricky since we  rely on structured ids to generate somethingId in \"linked\" places.",
+      "parentUuid": "e60c9ce8_e8150174",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "856ccf8a_1c45a48e",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 3

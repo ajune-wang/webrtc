@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4d1eb9_21dd9905",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-04T11:58:07Z",
+      "side": 1,
+      "message": "Wow, magic!",
+      "parentUuid": "99cb35f7_edfb1785",
+      "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b035651_ff41caed",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "I also prefer to use enums instead of this workarounds.",
       "parentUuid": "9b035651_ff41caed",
+      "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3a14e84_b0bd98ef",
+        "filename": "stats/rtc_stats_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-04T11:58:07Z",
+      "side": 1,
+      "message": "Let\u0027s do that then! :) better than adding more complexity.\n\nLately I\u0027ve got a feeling that we could get rid of string dependencies in a lot of places and end up saving performance, so if the only reason to ever convert type to a string is for logging purposes I\u0027d be happy",
+      "parentUuid": "f33c34b5_915dd426",
       "revId": "d8c8e89c4a7fd49a4b8c2b7ebf80deaeffd0c69c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

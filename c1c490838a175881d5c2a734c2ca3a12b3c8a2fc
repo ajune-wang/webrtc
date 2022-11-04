@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67effe90_63976dbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-04T17:04:06Z",
+      "side": 1,
+      "message": "Downstream issues seems caused by the chain of CLs, correct?",
+      "revId": "c1c490838a175881d5c2a734c2ca3a12b3c8a2fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

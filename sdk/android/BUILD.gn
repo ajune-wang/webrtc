@@ -520,6 +520,8 @@ if (is_android) {
   rtc_android_library("swcodecs_java") {
     visibility = [ "*" ]
     sources = [
+      "api/org/webrtc/BuiltinVideoDecoderFactoryFactory.java",
+      "api/org/webrtc/BuiltinVideoEncoderFactoryFactory.java",
       "api/org/webrtc/SoftwareVideoDecoderFactory.java",
       "api/org/webrtc/SoftwareVideoEncoderFactory.java",
     ]
@@ -700,6 +702,23 @@ if (current_os == "linux" || is_android) {
     ]
   }
 
+  rtc_library("builtin_video_codec_factories_jni") {
+    visibility = [ "*" ]
+    allow_poison = [ "software_video_codecs" ]
+    sources = [
+      "src/jni/builtin_video_decoder_factory_factory.cc",
+      "src/jni/builtin_video_encoder_factory_factory.cc",
+    ]
+
+    deps = [
+      ":base_jni",
+      ":generated_builtin_video_codec_factories_jni",
+      ":native_api_jni",
+      "../../api/video_codecs:builtin_video_decoder_factory",
+      "../../api/video_codecs:builtin_video_encoder_factory",
+    ]
+  }
+
   rtc_library("peerconnection_jni") {
     # Do not depend on this target externally unless you absolute have to. It is
     # made public because we don't have a proper NDK yet. Header APIs here are not
@@ -829,8 +848,8 @@ if (current_os == "linux" || is_android) {
     visibility = [ "*" ]
     allow_poison = [ "software_video_codecs" ]
     deps = [
+      ":builtin_video_codec_factories_jni",
       ":swcodecs_jni",
-      ":video_jni",
     ]
   }
 
@@ -1283,6 +1302,15 @@ if (current_os == "linux" || is_android) {
     jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
   }
 
+  generate_jni("generated_builtin_video_codec_factories_jni") {
+    sources = [
+      "api/org/webrtc/BuiltinVideoDecoderFactoryFactory.java",
+      "api/org/webrtc/BuiltinVideoEncoderFactoryFactory.java",
+    ]
+    namespace = "webrtc::jni"
+    jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  }
+
   generate_jni("generated_video_jni") {
     sources = [
       "api/org/webrtc/EncodedImage.java",
@@ -1684,6 +1712,8 @@ if (is_android) {
   robolectric_binary("android_sdk_junit_tests") {
     sources = [
       "tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+      "tests/src/org/webrtc/BuiltinVideoDecoderFactoryFactoryTest.java",
+      "tests/src/org/webrtc/BuiltinVideoEncoderFactoryFactoryTest.java",
       "tests/src/org/webrtc/CameraEnumerationTest.java",
       "tests/src/org/webrtc/CodecTestHelper.java",
       "tests/src/org/webrtc/CryptoOptionsTest.java",

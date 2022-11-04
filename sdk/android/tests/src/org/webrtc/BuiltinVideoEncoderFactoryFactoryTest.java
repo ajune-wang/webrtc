@@ -1,0 +1,29 @@
+/*
+ *  Copyright 2022 The WebRTC Project Authors. All rights reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+package org.webrtc;
+
+import static com.google.common.truth.Truth.assertThat;
+
+import androidx.test.runner.AndroidJUnit4;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
+
+@RunWith(AndroidJUnit4.class)
+@Config(manifest = Config.NONE)
+public class BuiltinVideoEncoderFactoryFactoryTest {
+  @Test
+  public void createBuiltVideoEncoderFactory_createsFactory() {
+    VideoEncoderFactory factory =
+        BuiltinVideoEncoderFactoryFactory.CreateBuiltinVideoEncoderFactory();
+    assertThat(factory).isNotNull();
+  }
+}

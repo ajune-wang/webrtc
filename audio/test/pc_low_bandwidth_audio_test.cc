@@ -20,6 +20,8 @@
 #include "api/test/metrics/metrics_exporter.h"
 #include "api/test/metrics/stdout_metrics_exporter.h"
 #include "api/test/network_emulation_manager.h"
+#include "api/test/pclf/media_configuration.h"
+#include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
 #include "api/test/simulated_network.h"
 #include "api/test/time_controller.h"
@@ -37,9 +39,8 @@ namespace test {
 
 using PeerConfigurer =
     webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::PeerConfigurer;
-using RunParams = webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::RunParams;
-using AudioConfig =
-    webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::AudioConfig;
+using RunParams = ::webrtc::webrtc_pc_e2e::RunParams;
+using AudioConfig = ::webrtc::webrtc_pc_e2e::AudioConfig;
 
 namespace {
 

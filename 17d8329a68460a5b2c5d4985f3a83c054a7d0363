@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d808793_5083e431",
+        "filename": "api/test/pclf/peer_configurer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-06T22:24:16Z",
+      "side": 1,
+      "message": "Please double check that all documentation from old API is propagated to this class.",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdd426c6_6a9dd86e",
+        "filename": "api/test/pclf/peer_configurer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-06T22:24:16Z",
+      "side": 1,
+      "message": "It will be good to remove this one, I think",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 65
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb750483_588e7339",
+        "filename": "api/test/pclf/peer_configurer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-06T22:24:16Z",
+      "side": 1,
+      "message": "Just noticed this one. Maybe it shouldn\u0027t be part of API, as it is part of the internal fixture implementation and users shouldn\u0027t use this class.\n\nThe same for DefaultNamesProvider",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 2
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d545bd_afc7c291",
+        "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-06T22:24:16Z",
+      "side": 1,
+      "message": "You can do just \"using ::webrtc::webrtc_pc_e2e::PeerConfigurer\", because now it\u0027s not inside any other class. The same below",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 63
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01bef90b_301b1df8",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-06T22:24:16Z",
+      "side": 1,
+      "message": "You can do just \"using ::webrtc::webrtc_pc_e2e::PeerConfigurer\", because now it\u0027s not inside any other class. The same below",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0027dcc6_c738915b",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-06T22:24:16Z",
+      "side": 1,
+      "message": "You can do just \"using ::webrtc::webrtc_pc_e2e::EmulatedSFUConfig\", because now it\u0027s not inside any other class. The same below",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 69
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

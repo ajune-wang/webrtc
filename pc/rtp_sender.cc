@@ -700,6 +700,24 @@ RTCError VideoRtpSender::GenerateKeyFrame(
   // TODO(crbug.com/1354101): check that rids are a subset of this senders rids
   // (or empty).
   if (video_media_channel() && ssrc_ && !stopped_) {
+    auto parameters = GetParameters();
+    for (const auto& rid : rids) {
+      if (rid.empty()) {
+        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                             "Attempted to specify an empty rid.");
+      }
+      auto it =
+          std::find_if(parameters.encodings.begin(), parameters.encodings.end()
+
+                                                         ,
+                       [rid](const RtpEncodingParameters& parameters) {
+                         return parameters.rid == rid;
+                       });
+      if (it == parameters.encodings.end()) {
+        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                             "Attempted to specify a rid not configured.");
+      }
+    }
     worker_thread_->PostTask([&, rids] {
       video_media_channel()->GenerateSendKeyFrame(ssrc_, rids);
     });

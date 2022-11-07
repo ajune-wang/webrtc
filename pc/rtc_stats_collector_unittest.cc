@@ -3929,7 +3929,11 @@ class RTCTestStats : public RTCStats {
   RTCStatsMember<int32_t> dummy_stat;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCTestStats, RTCStats, "test-stats", &dummy_stat)
+WEBRTC_RTCSTATS_IMPL(RTCTestStats,
+                     RTCStats,
+                     "test-stats",
+                     kChildStats,
+                     &dummy_stat)
 
 // Overrides the stats collection to verify thread usage and that the resulting
 // partial reports are merged.

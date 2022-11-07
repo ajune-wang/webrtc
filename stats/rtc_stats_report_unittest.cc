@@ -23,10 +23,18 @@ class RTCTestStats1 : public RTCStats {
   RTCTestStats1(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us), integer("integer") {}
 
+  static bool classof(const RTCStats& stats) {
+    return stats.StatsKind() == RTCStats::kDataChannelStats;
+  }
+
   RTCStatsMember<int32_t> integer;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCTestStats1, RTCStats, "test-stats-1", &integer)
+WEBRTC_RTCSTATS_IMPL(RTCTestStats1,
+                     RTCStats,
+                     "test-stats-1",
+                     kDataChannelStats,
+                     &integer)
 
 class RTCTestStats2 : public RTCStats {
  public:
@@ -35,10 +43,18 @@ class RTCTestStats2 : public RTCStats {
   RTCTestStats2(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us), number("number") {}
 
+  static bool classof(const RTCStats& stats) {
+    return stats.StatsKind() == RTCStats::kVideoSourceStats;
+  }
+
   RTCStatsMember<double> number;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCTestStats2, RTCStats, "test-stats-2", &number)
+WEBRTC_RTCSTATS_IMPL(RTCTestStats2,
+                     RTCStats,
+                     "test-stats-2",
+                     kVideoSourceStats,
+                     &number)
 
 class RTCTestStats3 : public RTCStats {
  public:
@@ -47,10 +63,18 @@ class RTCTestStats3 : public RTCStats {
   RTCTestStats3(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us), string("string") {}
 
+  static bool classof(const RTCStats& stats) {
+    return stats.StatsKind() == RTCStats::kRemoteCandidateStats;
+  }
+
   RTCStatsMember<std::string> string;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCTestStats3, RTCStats, "test-stats-3", &string)
+WEBRTC_RTCSTATS_IMPL(RTCTestStats3,
+                     RTCStats,
+                     "test-stats-3",
+                     kRemoteCandidateStats,
+                     &string)
 
 TEST(RTCStatsReport, AddAndGetStats) {
   rtc::scoped_refptr<RTCStatsReport> report =

@@ -17,6 +17,7 @@ namespace webrtc {
 WEBRTC_RTCSTATS_IMPL(RTCTestStats,
                      RTCStats,
                      "test-stats",
+                     kChildStats,
                      &m_bool,
                      &m_int32,
                      &m_uint32,

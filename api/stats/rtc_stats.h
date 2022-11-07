@@ -55,6 +55,47 @@ class RTCStatsMemberInterface;
 // }
 class RTC_EXPORT RTCStats {
  public:
+  // This enum is used to describe the type of the RTCStats class.
+  // The order of the enums is important.
+  enum StatsKindType {
+    kCertificateStats,
+    kCodecStats,
+    kDataChannelStats,
+    kIceCandidatePairStats,
+    kIceCandidateStats  // RTCIceCandidateStats is a base class of
+                        // RTCLocalIceCandidateStats and
+                        // RTCRemoteIceCandidateStats
+    ,
+    kLocalCandidateStats,
+    kRemoteCandidateStats,
+    kMediaStreamStats,
+    kMediaStreamTrackStats,
+    kPeerConnectionStats,
+    kRtpStreamStats  // RTCRtpStreamStats is a base class of
+                     // RTCReceivedRtpStreamStats, RTCSentRtpStreamStats
+    ,
+    kReceivedRtpStreamStats  // RTCReceivedRtpStreamStats is a base class of
+                             // RTCInboundRTPStreamStats and
+                             // RTCRemoteInboundRtpStreamStats
+    ,
+    kInboundRTPStreamStats,
+    kRemoteInboundRtpStreamStats,
+    kSentRtpStreamStats  // RTCSentRtpStreamStats is a base class of
+                         // RTCOutboundRTPStreamStats and
+                         // RTCRemoteOutboundRtpStreamStats
+    ,
+    kOutboundRTPStreamStats,
+    kRemoteOutboundRtpStreamStats,
+    kMediaSourceStats  // RTCMediaSourceStats is a base class of
+                       // RTCAudioSourceStats and RTCVideoSourceStats
+    ,
+    kAudioSourceStats,
+    kVideoSourceStats,
+    kTransportStats,
+    kChildStats /* For test */,
+    kGrandChildStats /* For test */
+  };
+
   RTCStats(const std::string& id, int64_t timestamp_us)
       : id_(id), timestamp_us_(timestamp_us) {}
   RTCStats(std::string&& id, int64_t timestamp_us)
@@ -68,6 +109,7 @@ class RTC_EXPORT RTCStats {
   int64_t timestamp_us() const { return timestamp_us_; }
   // Returns the static member variable `kType` of the implementing class.
   virtual const char* type() const = 0;
+  virtual StatsKindType StatsKind() const = 0;
   // Returns a vector of pointers to all the `RTCStatsMemberInterface` members
   // of this class. This allows for iteration of members. For a given class,
   // `Members` always returns the same members in the same order.
@@ -84,9 +126,10 @@ class RTC_EXPORT RTCStats {
 
   // Downcasts the stats object to an `RTCStats` subclass `T`. DCHECKs that the
   // object is of type `T`.
+  // Implementations of RTCStats should implement the 'classof' member function.
   template <typename T>
   const T& cast_to() const {
-    RTC_DCHECK_EQ(type(), T::kType);
+    RTC_DCHECK(T::classof(*this));
     return static_cast<const T&>(*this);
   }
 
@@ -153,9 +196,10 @@ class RTC_EXPORT RTCStats {
   static const char kType[];                                            \
                                                                         \
   std::unique_ptr<webrtc::RTCStats> copy() const override;              \
-  const char* type() const override
+  const char* type() const override;                                    \
+  RTCStats::StatsKindType StatsKind() const override
 
-#define WEBRTC_RTCSTATS_IMPL(this_class, parent_class, type_str, ...)          \
+#define WEBRTC_RTCSTATS_IMPL(this_class, parent_class, type_str, kind, ...)    \
   const char this_class::kType[] = type_str;                                   \
                                                                                \
   std::unique_ptr<webrtc::RTCStats> this_class::copy() const {                 \
@@ -163,6 +207,10 @@ class RTC_EXPORT RTCStats {
   }                                                                            \
                                                                                \
   const char* this_class::type() const { return this_class::kType; }           \
+                                                                               \
+  RTCStats::StatsKindType this_class::StatsKind() const {                      \
+    return RTCStats::kind;                                                     \
+  }                                                                            \
                                                                                \
   std::vector<const webrtc::RTCStatsMemberInterface*>                          \
   this_class::MembersOfThisObjectAndAncestors(                                 \

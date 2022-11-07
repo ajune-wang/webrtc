@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f8fda41_c587d573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-07T15:16:55Z",
+      "side": 1,
+      "message": "Good change!\n\nYou may want somebody with Java readability take a look as well.",
+      "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

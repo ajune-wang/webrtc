@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9ef52b5_1a21061e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-07T11:49:13Z",
+      "side": 1,
+      "message": "nit - I dont think this is a roll-forward... You are maybe relanding a previously reverted cl.",
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "572e7687_6a932f17",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-07T11:49:13Z",
+      "side": 1,
+      "message": "I you want to care about the max, you will also need to update the constraint. It changes based on configured streams and can change depending on selected ice candidate. See SendSideBandwidthEstimation. \n\nIt may be easier to continue to not care and let SendSideBandwidthEstimation::UpdateTargetBitrate take care about that max configured bitrate?",
+      "range": {
+        "startLine": 205,
+        "startChar": 19,
+        "endLine": 205,
+        "endChar": 30
+      },
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b03c553_91fa9ae2",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-07T11:49:13Z",
+      "side": 1,
+      "message": "Maybe name SetMinMaxBitrate and combine?",
+      "range": {
+        "startLine": 250,
+        "startChar": 39,
+        "endLine": 250,
+        "endChar": 52
+      },
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6129d017_c24f1fae",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-07T11:49:13Z",
+      "side": 1,
+      "message": "Update the loss based bwe here? Different network routes can have different max/min.",
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

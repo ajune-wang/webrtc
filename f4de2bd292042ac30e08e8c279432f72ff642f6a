@@ -159,6 +159,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12ec445_a7d749a3",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-07T09:28:42Z",
+      "side": 1,
+      "message": "Yup.",
+      "parentUuid": "ce250319_795fc66a",
+      "range": {
+        "startLine": 167,
+        "startChar": 6,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dde91e9_61527223",
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "Thank you! Did you mean the argument should be renamed as well? I\u0027ve now renamed it here and in the other methods that are called from here.",
       "parentUuid": "3033aca6_8d0858a2",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 46
+      },
+      "revId": "f4de2bd292042ac30e08e8c279432f72ff642f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cf62350_4072996b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-07T09:28:42Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "db6585ca_9367c06f",
       "range": {
         "startLine": 220,
         "startChar": 0,

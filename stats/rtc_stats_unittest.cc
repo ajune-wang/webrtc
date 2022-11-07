@@ -15,6 +15,7 @@
 #include <cstring>
 #include <iostream>
 
+#include "api/stats/rtcstats_objects.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/json.h"
 #include "stats/test/rtc_test_stats.h"
@@ -46,10 +47,19 @@ class RTCChildStats : public RTCStats {
   RTCChildStats(const std::string& id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us), child_int("childInt") {}
 
+  static bool classof(const RTCStats& stats) {
+    return stats.StatsKind() >= RTCStats::kChildStats &&
+           stats.StatsKind() <= RTCStats::kGrandChildStats;
+  }
+
   RTCStatsMember<int32_t> child_int;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCChildStats, RTCStats, "child-stats", &child_int)
+WEBRTC_RTCSTATS_IMPL(RTCChildStats,
+                     RTCStats,
+                     "child-stats",
+                     kChildStats,
+                     &child_int)
 
 class RTCGrandChildStats : public RTCChildStats {
  public:
@@ -58,12 +68,17 @@ class RTCGrandChildStats : public RTCChildStats {
   RTCGrandChildStats(const std::string& id, int64_t timestamp_us)
       : RTCChildStats(id, timestamp_us), grandchild_int("grandchildInt") {}
 
+  static bool classof(const RTCStats& stats) {
+    return stats.StatsKind() == RTCStats::kGrandChildStats;
+  }
+
   RTCStatsMember<int32_t> grandchild_int;
 };
 
 WEBRTC_RTCSTATS_IMPL(RTCGrandChildStats,
                      RTCChildStats,
                      "grandchild-stats",
+                     kGrandChildStats,
                      &grandchild_int)
 
 TEST(RTCStatsTest, RTCStatsAndMembers) {
@@ -541,6 +556,84 @@ TEST(RTCStatsDeathTest, ValueOfUndefinedMember) {
 TEST(RTCStatsDeathTest, InvalidCasting) {
   RTCGrandChildStats stats("grandchild", 0.0);
   EXPECT_DEATH(stats.cast_to<RTCChildStats>(), "");
+}
+
+TEST(RTCStatsDeathTest, CheckCasting) {
+  // Commented out cases should be resolved.
+
+  RTCCertificateStats rtc_certificate_stats("", 0);
+  const RTCStats* stats_ptr = &rtc_certificate_stats;
+  stats_ptr->cast_to<RTCCertificateStats>();
+
+  RTCCodecStats rtc_codec_stats("", 0);
+  stats_ptr = &rtc_codec_stats;
+  stats_ptr->cast_to<RTCCodecStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCCertificateStats>(), "");
+
+  RTCDataChannelStats rtc_data_channel_stats("", 0);
+  stats_ptr = &rtc_data_channel_stats;
+  stats_ptr->cast_to<RTCDataChannelStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCCodecStats>(), "");
+
+  RTCIceCandidatePairStats rtc_ice_candidate_pair_stats("", 0);
+  stats_ptr = &rtc_ice_candidate_pair_stats;
+  stats_ptr->cast_to<RTCIceCandidatePairStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCDataChannelStats>(), "");
+
+  RTCLocalIceCandidateStats rtc_local_ice_candidate_stats("", 0);
+  stats_ptr = &rtc_local_ice_candidate_stats;
+  stats_ptr->cast_to<RTCLocalIceCandidateStats>();
+  stats_ptr->cast_to<RTCIceCandidateStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCIceCandidatePairStats>(), "");
+
+  RTCPeerConnectionStats rtc_peer_connection_stats("", 0);
+  stats_ptr = &rtc_peer_connection_stats;
+  stats_ptr->cast_to<RTCPeerConnectionStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCLocalIceCandidateStats>(), "");
+
+  RTCInboundRTPStreamStats rtc_inbound_rtp_stream_stats("", 0);
+  stats_ptr = &rtc_inbound_rtp_stream_stats;
+  stats_ptr->cast_to<RTCInboundRTPStreamStats>();
+  stats_ptr->cast_to<RTCReceivedRtpStreamStats>();
+  stats_ptr->cast_to<RTCRTPStreamStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCPeerConnectionStats>(), "");
+
+  RTCOutboundRTPStreamStats rtc_outbound_rtp_stream_stats("", 0);
+  stats_ptr = &rtc_outbound_rtp_stream_stats;
+  stats_ptr->cast_to<RTCOutboundRTPStreamStats>();
+  stats_ptr->cast_to<RTCRTPStreamStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCInboundRTPStreamStats>(), "");
+
+  RTCRemoteInboundRtpStreamStats rtc_remote_inbound_rtp_stream_stats("", 0);
+  stats_ptr = &rtc_remote_inbound_rtp_stream_stats;
+  stats_ptr->cast_to<RTCRemoteInboundRtpStreamStats>();
+  stats_ptr->cast_to<RTCReceivedRtpStreamStats>();
+  stats_ptr->cast_to<RTCRTPStreamStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCOutboundRTPStreamStats>(), "");
+
+  RTCRemoteOutboundRtpStreamStats rtc_remote_outbound_rtp_stream_stats("", 0);
+  stats_ptr = &rtc_remote_outbound_rtp_stream_stats;
+  stats_ptr->cast_to<RTCRemoteOutboundRtpStreamStats>();
+  stats_ptr->cast_to<RTCSentRtpStreamStats>();
+  stats_ptr->cast_to<RTCRTPStreamStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCRemoteInboundRtpStreamStats>(), "");
+
+  RTCAudioSourceStats rtc_audio_source_stats("", 0);
+  stats_ptr = &rtc_audio_source_stats;
+  stats_ptr->cast_to<RTCAudioSourceStats>();
+  stats_ptr->cast_to<RTCMediaSourceStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCRemoteOutboundRtpStreamStats>(), "");
+
+  RTCVideoSourceStats rtc_video_source_stats("", 0);
+  stats_ptr = &rtc_video_source_stats;
+  stats_ptr->cast_to<RTCVideoSourceStats>();
+  stats_ptr->cast_to<RTCMediaSourceStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCAudioSourceStats>(), "");
+
+  RTCTransportStats rtc_transport_stats("", 0);
+  stats_ptr = &rtc_transport_stats;
+  stats_ptr->cast_to<RTCTransportStats>();
+  EXPECT_DEATH(stats_ptr->cast_to<RTCMediaSourceStats>(), "");
 }
 
 #endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)

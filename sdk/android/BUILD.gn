@@ -886,6 +886,7 @@ if (current_os == "linux" || is_android) {
     visibility = [ "*" ]
     allow_poison = [ "software_video_codecs" ]
     deps = [
+      ":generated_swcodecs_jni",
       ":libvpx_vp8_jni",
       ":libvpx_vp9_jni",
     ]
@@ -1351,6 +1352,16 @@ if (current_os == "linux" || is_android) {
 
     namespace = "webrtc::jni"
     jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  }
+
+  generated_jni_library("generated_swcodecs_jni") {
+    sources = [
+      "api/org/webrtc/SoftwareVideoDecoderFactory.java",
+      "api/org/webrtc/SoftwareVideoEncoderFactory.java",
+    ]
+
+    namespace = "webrtc::jni"
+    jni_generator_includes = [ "//sdk/android/src/jni/jni_generator_helper.h" ]
   }
 
   generate_jni("generated_peerconnection_jni") {

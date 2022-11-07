@@ -16,40 +16,49 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
+  private static final String TAG = "SoftwareVideoDecoderFactory";
+
+  private final long nativeFactory;
+
+  public SoftwareVideoDecoderFactory() {
+    long nativeFactory = 0;
+    try {
+      nativeFactory = nativeCreateFactory();
+    } catch (UnsatisfiedLinkError e) {
+      Logging.e(TAG, "Attempting to create the native factory without the native code", e);
+    }
+    this.nativeFactory = nativeFactory;
+  }
+
   @Nullable
   @Override
-  public VideoDecoder createDecoder(VideoCodecInfo codecInfo) {
-    String codecName = codecInfo.getName();
-
-    if (codecName.equalsIgnoreCase(VideoCodecMimeType.VP8.name())) {
-      return new LibvpxVp8Decoder();
+  public VideoDecoder createDecoder(VideoCodecInfo info) {
+    if (this.nativeFactory == 0) {
+      Logging.e(TAG, "Failed to create video decoder. Native decoder factory is not available.");
+      return null;
     }
-    if (codecName.equalsIgnoreCase(VideoCodecMimeType.VP9.name())
-        && LibvpxVp9Decoder.nativeIsSupported()) {
-      return new LibvpxVp9Decoder();
-    }
-    if (codecName.equalsIgnoreCase(VideoCodecMimeType.AV1.name())) {
-      return new Dav1dDecoder();
-    }
-
-    return null;
+    return new WrappedNativeVideoDecoder() {
+      @Override
+      public long createNativeVideoDecoder() {
+        return nativeCreateDecoder(nativeFactory, info);
+      }
+    };
   }
 
   @Override
   public VideoCodecInfo[] getSupportedCodecs() {
-    return supportedCodecs();
-  }
-
-  static VideoCodecInfo[] supportedCodecs() {
-    List<VideoCodecInfo> codecs = new ArrayList<VideoCodecInfo>();
-
-    codecs.add(new VideoCodecInfo(VideoCodecMimeType.VP8.name(), new HashMap<>()));
-    if (LibvpxVp9Decoder.nativeIsSupported()) {
-      codecs.add(new VideoCodecInfo(VideoCodecMimeType.VP9.name(), new HashMap<>()));
+    if (this.nativeFactory == 0) {
+      Logging.e(
+          TAG, "Failed to query supported decoders. Native decoder factory is not available.");
+      return new VideoCodecInfo[0];
     }
-
-    codecs.add(new VideoCodecInfo(VideoCodecMimeType.AV1.name(), new HashMap<>()));
-
-    return codecs.toArray(new VideoCodecInfo[codecs.size()]);
+    return nativeGetSupportedCodecs(nativeFactory).toArray(new VideoCodecInfo[0]);
   }
+
+  private static native long nativeCreateFactory();
+
+  private static native long nativeCreateDecoder(long factory, VideoCodecInfo videoCodecInfo);
+
+  private static native List<VideoCodecInfo> nativeGetSupportedCodecs(long factory);
+}
 }

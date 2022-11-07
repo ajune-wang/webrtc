@@ -16,6 +16,23 @@
       "message": "Good change!\n\nYou may want somebody with Java readability take a look as well.",
       "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7106892b_ad6b3254",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-07T15:33:16Z",
+      "side": 1,
+      "message": "Xavier, could you please take a look?",
+      "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -19,6 +19,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
+#include "api/test/pclf/media_configuration.h"
 #include "api/video/i420_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -38,8 +39,6 @@ namespace {
 
 using EmulatedSFUConfigMap =
     ::webrtc::webrtc_pc_e2e::QualityAnalyzingVideoEncoder::EmulatedSFUConfigMap;
-using VideoSubscription = ::webrtc::webrtc_pc_e2e::
-    PeerConnectionE2EQualityTestFixture::VideoSubscription;
 
 class AnalyzingFramePreprocessor
     : public test::TestVideoCapturer::FramePreprocessor {

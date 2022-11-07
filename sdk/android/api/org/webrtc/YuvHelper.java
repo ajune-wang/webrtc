@@ -182,6 +182,35 @@ public class YuvHelper {
         dstStrideU, dstV, dstStrideV, srcWidth, srcHeight, rotationMode);
   }
 
+  public static void I420Scale(int srcWidth, int srcHeight, ByteBuffer srcY, int srcStrideY,
+      ByteBuffer srcU, int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dst,
+      int dstWidth, int dstHeight, int dstStrideY, int dstSliceHeightY, int dstStrideU,
+      int dstSliceHeightU, int dstStrideV, int dstSliceHeightV) {
+    final int chromaWidth = (dstWidth + 1) / 2;
+    final int chromaHeight = (dstHeight + 1) / 2;
+
+    final int dstStartY = 0;
+    final int dstEndY = dstStartY + dstStrideY * dstHeight;
+    final int dstStartU = dstStartY + dstStrideY * dstSliceHeightY;
+    final int dstEndU = dstStartU + dstStrideU * chromaHeight;
+    final int dstStartV = dstStartU + dstStrideU * dstSliceHeightU;
+    final int dstEndV = dstStartV + dstStrideU * (chromaHeight - 1) + chromaWidth;
+
+    dst.limit(dstEndY);
+    dst.position(dstStartY);
+    final ByteBuffer dstYBuffer = dst.slice();
+    dst.limit(dstEndU);
+    dst.position(dstStartU);
+    final ByteBuffer dstUBuffer = dst.slice();
+    dst.limit(dstEndV);
+    dst.position(dstStartV);
+    final ByteBuffer dstVBuffer = dst.slice();
+
+    nativeI420Scale(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, srcWidth, srcHeight,
+        dstYBuffer, dstStrideY, dstUBuffer, dstStrideU, dstVBuffer, dstStrideV, dstWidth,
+        dstHeight);
+  }
+
   private static native void nativeCopyPlane(
       ByteBuffer src, int srcStride, ByteBuffer dst, int dstStride, int width, int height);
   private static native void nativeI420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
@@ -194,6 +223,10 @@ public class YuvHelper {
       int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int srcWidth, int srcHeight,
       int rotationMode);
+  private static native void nativeI420Scale(ByteBuffer srcYBuffer, int srcYStride,
+      ByteBuffer srcUBuffer, int srcUStride, ByteBuffer srcVBuffer, int srcVStride, int srcWidth,
+      int srcHeight, ByteBuffer dstYBuffer, int dstYStride, ByteBuffer dstUBuffer, int dstUStride,
+      ByteBuffer dstVBuffer, int dstVStride, int dstWidth, int dstHeight);
   private static native void nativeABGRToI420(ByteBuffer src, int srcStride, ByteBuffer dstY,
       int dstStrideY, ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width,
       int height);

@@ -33,24 +33,67 @@ import org.junit.runners.Parameterized.Parameters;
 /** Unit tests for {@link AndroidVideoDecoder}. */
 @RunWith(Parameterized.class)
 public final class AndroidVideoDecoderInstrumentationTest {
-  @Parameters(name = "{0};useEglContext={1}")
-  public static Collection<Object[]> parameters() {
-    return Arrays.asList(new Object[] {/*codecName=*/"VP8", /*useEglContext=*/false},
-        new Object[] {/*codecName=*/"VP8", /*useEglContext=*/true},
-        new Object[] {/*codecName=*/"H264", /*useEglContext=*/false},
-        new Object[] {/*codecName=*/"H264", /*useEglContext=*/true});
+  private enum BufferType {
+    I420,
+    TEXTURE,
+  }
+
+  private static class Params {
+    String codecName;
+    boolean useEglContext;
+    BufferType bufferType;
+    int inputFrameMultiplier;
+
+    Params(
+        String codecName, boolean useEglContext, BufferType bufferType, int inputFrameMultiplier) {
+      this.codecName = codecName;
+      this.useEglContext = useEglContext;
+      this.bufferType = bufferType;
+      this.inputFrameMultiplier = inputFrameMultiplier;
+    }
+
+    @Override
+    public String toString() {
+      return codecName + (useEglContext ? "With" : "Without") + "EglContext_" + bufferType.name()
+          + "x" + inputFrameMultiplier;
+    }
+  }
+
+  private static final List<String> CODEC_NAMES = Arrays.asList("VP8", "H264");
+  private static final List<Boolean> USE_EGL_CONTEXT = Arrays.asList(false, true);
+  private static final List<BufferType> BUFFER_TYPES =
+      Arrays.asList(BufferType.I420, BufferType.TEXTURE);
+  private static final List<Integer> INPUT_FRAME_MULTIPLIERS = Arrays.asList(1, 2);
+
+  @Parameters(name = "{0}")
+  public static Collection<Params> parameters() {
+    List<Params> result = new ArrayList();
+    for (String codecName : CODEC_NAMES) {
+      for (Boolean useEglContext : USE_EGL_CONTEXT) {
+        for (BufferType bufferType : BUFFER_TYPES) {
+          for (Integer inputFrameMultiplier : INPUT_FRAME_MULTIPLIERS) {
+            result.add(new Params(codecName, useEglContext, bufferType, inputFrameMultiplier));
+          }
+        }
+      }
+    }
+    return result;
   }
 
   private final VideoCodecInfo codecType;
   private final boolean useEglContext;
+  private final BufferType bufferType;
+  private final Integer inputFrameMultiplier;
 
-  public AndroidVideoDecoderInstrumentationTest(String codecName, boolean useEglContext) {
-    if (codecName.equals("H264")) {
+  public AndroidVideoDecoderInstrumentationTest(Params params) {
+    if (params.codecName.equals("H264")) {
       this.codecType = H264Utils.DEFAULT_H264_BASELINE_PROFILE_CODEC;
     } else {
-      this.codecType = new VideoCodecInfo(codecName, new HashMap<>());
+      this.codecType = new VideoCodecInfo(params.codecName, new HashMap<>());
     }
-    this.useEglContext = useEglContext;
+    this.useEglContext = params.useEglContext;
+    this.bufferType = params.bufferType;
+    this.inputFrameMultiplier = params.inputFrameMultiplier;
   }
 
   private static final String TAG = "AndroidVideoDecoderInstrumentationTest";
@@ -58,7 +101,7 @@ public final class AndroidVideoDecoderInstrumentationTest {
   private static final int TEST_FRAME_COUNT = 10;
   private static final int TEST_FRAME_WIDTH = 640;
   private static final int TEST_FRAME_HEIGHT = 360;
-  private VideoFrame.I420Buffer[] TEST_FRAMES;
+  private VideoFrame.Buffer[] TEST_FRAMES;
 
   private static final boolean ENABLE_INTEL_VP8_ENCODER = true;
   private static final boolean ENABLE_H264_HIGH_PROFILE = true;
@@ -83,7 +126,7 @@ public final class AndroidVideoDecoderInstrumentationTest {
       frameQueue.offer(frame);
     }
 
-    public void assertFrameDecoded(EncodedImage testImage, VideoFrame.I420Buffer testBuffer) {
+    public void assertFrameDecoded(EncodedImage testImage, VideoFrame.Buffer testBuffer) {
       VideoFrame decodedFrame = poll();
       VideoFrame.Buffer decodedBuffer = decodedFrame.getBuffer();
       assertEquals(testImage.encodedWidth, decodedBuffer.getWidth());
@@ -105,14 +148,24 @@ public final class AndroidVideoDecoderInstrumentationTest {
     }
   }
 
-  private static VideoFrame.I420Buffer[] generateTestFrames() {
-    VideoFrame.I420Buffer[] result = new VideoFrame.I420Buffer[TEST_FRAME_COUNT];
+  private static VideoFrame.Buffer[] generateTestFrames(
+      EglBase.Context eglContext, BufferType bufferType, Integer inputFrameMultiplier) {
+    VideoFrame.Buffer[] result = new VideoFrame.Buffer[TEST_FRAME_COUNT];
     for (int i = 0; i < TEST_FRAME_COUNT; i++) {
-      result[i] = JavaI420Buffer.allocate(
-          getAlignedNumber(TEST_FRAME_WIDTH, HardwareVideoEncoderTest.getPixelAlignmentRequired()),
-          getAlignedNumber(
-              TEST_FRAME_HEIGHT, HardwareVideoEncoderTest.getPixelAlignmentRequired()));
+      VideoFrame.I420Buffer i420Buffer =
+          JavaI420Buffer.allocate(getAlignedNumber(TEST_FRAME_WIDTH * inputFrameMultiplier,
+                                      HardwareVideoEncoderTest.getPixelAlignmentRequired()),
+              getAlignedNumber(TEST_FRAME_HEIGHT * inputFrameMultiplier,
+                  HardwareVideoEncoderTest.getPixelAlignmentRequired()));
       // TODO(sakal): Generate content for the test frames.
+      switch (bufferType) {
+        case I420:
+          result[i] = i420Buffer;
+          break;
+        case TEXTURE:
+          result[i] = VideoFrameBufferTest.createOesTextureBuffer(eglContext, i420Buffer);
+          break;
+      }
     }
     return result;
   }
@@ -159,17 +212,20 @@ public final class AndroidVideoDecoderInstrumentationTest {
   public void setUp() {
     NativeLibrary.initialize(new NativeLibrary.DefaultLoader(), TestConstants.NATIVE_LIBRARY);
 
-    TEST_FRAMES = generateTestFrames();
-
     eglBase = EglBase.createEgl14(EglBase.CONFIG_PLAIN);
     eglBase.createDummyPbufferSurface();
     eglBase.makeCurrent();
+
+    TEST_FRAMES = generateTestFrames(eglBase.getEglBaseContext(), bufferType, inputFrameMultiplier);
 
     encodeTestFrames();
   }
 
   @After
   public void tearDown() {
+    for (VideoFrame.Buffer buffer : TEST_FRAMES) {
+      buffer.release();
+    }
     eglBase.release();
   }
 

@@ -109,6 +109,7 @@ PeerConnectionFactory::PeerConnectionFactory(
                             &dependencies) {}
 
 PeerConnectionFactory::~PeerConnectionFactory() {
+  worker_thread()->BlockingCall([metronome = std::move(metronome_)] {});
   RTC_DCHECK_RUN_ON(signaling_thread());
 }
 

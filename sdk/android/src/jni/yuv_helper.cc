@@ -130,6 +130,42 @@ void JNI_YuvHelper_I420Rotate(JNIEnv* jni,
                      static_cast<libyuv::RotationMode>(rotation_mode));
 }
 
+static void JNI_YuvHelper_I420Scale(
+    JNIEnv* env,
+    const base::android::JavaParamRef<jobject>& srcYBuffer,
+    jint srcYStride,
+    const base::android::JavaParamRef<jobject>& srcUBuffer,
+    jint srcUStride,
+    const base::android::JavaParamRef<jobject>& srcVBuffer,
+    jint srcVStride,
+    jint srcWidth,
+    jint srcHeight,
+    const base::android::JavaParamRef<jobject>& dstYBuffer,
+    jint dstYStride,
+    const base::android::JavaParamRef<jobject>& dstUBuffer,
+    jint dstUStride,
+    const base::android::JavaParamRef<jobject>& dstVBuffer,
+    jint dstVStride,
+    jint dstWidth,
+    jint dstHeight) {
+  const uint8_t* srcYData =
+      static_cast<uint8_t*>(env->GetDirectBufferAddress(srcYBuffer.obj()));
+  const uint8_t* srcUData =
+      static_cast<uint8_t*>(env->GetDirectBufferAddress(srcUBuffer.obj()));
+  const uint8_t* srcVData =
+      static_cast<uint8_t*>(env->GetDirectBufferAddress(srcVBuffer.obj()));
+  uint8_t* dstYData =
+      static_cast<uint8_t*>(env->GetDirectBufferAddress(dstYBuffer.obj()));
+  uint8_t* dstUData =
+      static_cast<uint8_t*>(env->GetDirectBufferAddress(dstUBuffer.obj()));
+  uint8_t* dstVData =
+      static_cast<uint8_t*>(env->GetDirectBufferAddress(dstVBuffer.obj()));
+  libyuv::I420Scale(srcYData, srcYStride, srcUData, srcUStride, srcVData,
+                    srcVStride, srcWidth, srcHeight, dstYData, dstYStride,
+                    dstUData, dstUStride, dstVData, dstVStride, dstWidth,
+                    dstHeight, libyuv::kFilterBilinear);
+}
+
 void JNI_YuvHelper_ABGRToI420(JNIEnv* jni,
                               const JavaParamRef<jobject>& j_src,
                               jint src_stride,

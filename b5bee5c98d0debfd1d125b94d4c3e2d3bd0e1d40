@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5477e8df_bb003d0d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-11-07T13:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "572e7687_6a932f17",
+      "range": {
+        "startLine": 205,
+        "startChar": 19,
+        "endLine": 205,
+        "endChar": 30
+      },
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b03c553_91fa9ae2",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdd9f63c_fbf7bfa1",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-11-07T13:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b03c553_91fa9ae2",
+      "range": {
+        "startLine": 250,
+        "startChar": 39,
+        "endLine": 250,
+        "endChar": 52
+      },
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6129d017_c24f1fae",
@@ -77,6 +125,24 @@
       "writtenOn": "2022-11-07T11:49:13Z",
       "side": 1,
       "message": "Update the loss based bwe here? Different network routes can have different max/min.",
+      "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd48597f_0f859ebb",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-11-07T13:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6129d017_c24f1fae",
       "revId": "b5bee5c98d0debfd1d125b94d4c3e2d3bd0e1d40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

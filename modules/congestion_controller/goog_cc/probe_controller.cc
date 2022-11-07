@@ -103,8 +103,8 @@ ProbeControllerConfig::ProbeControllerConfig(
       allocation_probe_max("alloc_probe_max", DataRate::PlusInfinity()),
       min_probe_packets_sent("min_probe_packets_sent", 5),
       min_probe_duration("min_probe_duration", TimeDelta::Millis(15)),
-      limit_probe_target_rate_to_loss_bwe("limit_probe_target_rate_to_loss_bwe",
-                                          false),
+      probe_if_bandwidth_is_loss_limited("probe_if_bandwidth_is_loss_limited",
+                                         false),
       skip_if_estimate_larger_than_fraction_of_max(
           "skip_if_est_larger_than_fraction_of_max",
           0.0) {
@@ -117,7 +117,7 @@ ProbeControllerConfig::ProbeControllerConfig(
        &probe_if_estimate_lower_than_network_state_estimate_ratio,
        &estimate_lower_than_network_state_estimate_probing_interval,
        &network_state_probe_scale, &network_state_probe_duration,
-       &min_probe_packets_sent, &limit_probe_target_rate_to_loss_bwe,
+       &min_probe_packets_sent, &probe_if_bandwidth_is_loss_limited,
        &skip_if_estimate_larger_than_fraction_of_max},
       key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
 
@@ -274,13 +274,14 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateExponentialProbing(
 
 std::vector<ProbeClusterConfig> ProbeController::SetEstimatedBitrate(
     DataRate bitrate,
-    bool bwe_limited_due_to_packet_loss,
+    BandwidthLimitedCause bandwidth_limited_cause,
     Timestamp at_time) {
-  if (bwe_limited_due_to_packet_loss != bwe_limited_due_to_packet_loss_ &&
-      config_.limit_probe_target_rate_to_loss_bwe) {
+  bandwidth_limited_cause_ = bandwidth_limited_cause;
+  if (bandwidth_limited_cause_ ==
+          BandwidthLimitedCause::kLossLimitedBweDecreasing &&
+      config_.probe_if_bandwidth_is_loss_limited) {
     state_ = State::kProbingComplete;
   }
-  bwe_limited_due_to_packet_loss_ = bwe_limited_due_to_packet_loss;
   if (bitrate < kBitrateDropThreshold * estimated_bitrate_) {
     time_of_last_large_drop_ = at_time;
     bitrate_before_last_large_drop_ = estimated_bitrate_;
@@ -375,7 +376,7 @@ void ProbeController::SetNetworkStateEstimate(
 
 void ProbeController::Reset(Timestamp at_time) {
   network_available_ = true;
-  bwe_limited_due_to_packet_loss_ = false;
+  bandwidth_limited_cause_ = BandwidthLimitedCause::kDelayBasedLimited;
   state_ = State::kInit;
   min_bitrate_to_probe_further_ = DataRate::PlusInfinity();
   time_last_probing_initiated_ = Timestamp::Zero();
@@ -409,7 +410,7 @@ bool ProbeController::TimeForNetworkStateProbe(Timestamp at_time) const {
   }
 
   bool probe_due_to_low_estimate =
-      !bwe_limited_due_to_packet_loss_ &&
+      bandwidth_limited_cause_ == BandwidthLimitedCause::kDelayBasedLimited &&
       estimated_bitrate_ <
           config_.probe_if_estimate_lower_than_network_state_estimate_ratio *
               network_estimate_->link_capacity_upper;
@@ -449,8 +450,12 @@ std::vector<ProbeClusterConfig> ProbeController::Process(Timestamp at_time) {
     return {};
   }
   if (TimeForAlrProbe(at_time) || TimeForNetworkStateProbe(at_time)) {
-    return InitiateProbing(
-        at_time, {estimated_bitrate_ * config_.alr_probe_scale}, true);
+    DataRate suggested_probe = estimated_bitrate_ * config_.alr_probe_scale;
+    if (config_.probe_if_bandwidth_is_loss_limited &&
+        bandwidth_limited_cause_ != BandwidthLimitedCause::kDelayBasedLimited) {
+      suggested_probe = estimated_bitrate_;
+    }
+    return InitiateProbing(at_time, {suggested_probe}, true);
   }
   return std::vector<ProbeClusterConfig>();
 }
@@ -470,8 +475,9 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
   }
 
   DataRate max_probe_bitrate = max_bitrate_;
-  if (bwe_limited_due_to_packet_loss_ &&
-      config_.limit_probe_target_rate_to_loss_bwe) {
+  if (bandwidth_limited_cause_ ==
+          BandwidthLimitedCause::kLossLimitedBweDecreasing &&
+      config_.probe_if_bandwidth_is_loss_limited) {
     max_probe_bitrate = std::min(estimated_bitrate_, max_bitrate_);
   }
   if (config_.network_state_estimate_probing_interval->IsFinite() &&

@@ -81,6 +81,30 @@
       },
       "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db721ecc_dcc61130",
+        "filename": "modules/portal/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-07T17:17:50Z",
+      "side": 1,
+      "message": "(Note that by \u0027whole file\u0027 I do mean to include the imports; here\u0027s an example: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/BUILD.gn;l\u003d9;drc\u003daafcc43440b7fba1064a4f00019fc8e60e0cc4e3)",
+      "parentUuid": "b9033648_0185c44f",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

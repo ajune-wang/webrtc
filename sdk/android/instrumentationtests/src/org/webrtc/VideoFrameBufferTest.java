@@ -219,7 +219,7 @@ public class VideoFrameBufferTest {
           final VideoFrame.TextureBuffer textureBuffer = listener.waitForTextureBuffer();
           surfaceTextureHelper.stopListening();
           surfaceTextureHelper.dispose();
-
+          eglBase.release();
           return textureBuffer;
         });
     renderThread.quit();

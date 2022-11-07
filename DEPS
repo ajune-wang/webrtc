@@ -54,7 +54,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@e3bca95dbc08d3879eadc39a66141210e85ee76f',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@38080027ded6b80f8f121e748ae8ecc60d9314b4',
+    'https://chromium.googlesource.com/chromium/src/third_party@cfaccb2dcbfbfdcb2016e87fb355f5681bbc2fe8',
 
   'src/buildtools/linux64': {
     'packages': [

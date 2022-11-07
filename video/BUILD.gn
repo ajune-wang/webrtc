@@ -942,6 +942,7 @@ if (rtc_include_tests) {
       "config:encoder_config",
       "config:streams_config",
       "config:video_config_tests",
+      "//third_party/googletest:gmock",
     ]
     absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",

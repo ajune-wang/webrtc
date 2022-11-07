@@ -57,6 +57,30 @@
       },
       "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9033648_0185c44f",
+        "filename": "modules/portal/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-07T17:16:39Z",
+      "side": 1,
+      "message": "Mirko\u0027s comment on the internal bug was that their preferred approach for now is to wrap the whole file in an if statement.",
+      "parentUuid": "8414538c_e42f51d3",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "36b01ed29eb64bf9c38ace6524068bbfb98d23b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

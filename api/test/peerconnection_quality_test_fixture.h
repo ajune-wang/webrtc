@@ -20,6 +20,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/base/macros.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
@@ -132,9 +133,13 @@ class PeerConnectionE2EQualityTestFixture {
   // `network_dependencies` are used to provide networking for peer's peer
   // connection. Members must be non-null.
   // `configurer` function will be used to configure peer in the call.
+  ABSL_DEPRECATED("Use the other AddPeer() instead.")
   virtual PeerHandle* AddPeer(
       const PeerNetworkDependencies& network_dependencies,
-      rtc::FunctionView<void(PeerConfigurer*)> configurer) = 0;
+      rtc::FunctionView<void(PeerConfigurer*)> configurer) {
+    return nullptr;
+  }
+  virtual void AddPeer(std::unique_ptr<PeerConfigurer> configurer) {}
 
   // Runs the media quality test, which includes setting up the call with
   // configured participants, running it according to provided `run_params` and

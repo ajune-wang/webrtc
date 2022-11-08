@@ -82,7 +82,7 @@ const char* const RTCIceTransportState::kFailed = "failed";
 const char* const RTCIceTransportState::kClosed = "closed";
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCCertificateStats, RTCStats, "certificate",
+WEBRTC_RTCSTATS_IMPL(RTCCertificateStats, RTCStats, kCertificate,
     &fingerprint,
     &fingerprint_algorithm,
     &base64_certificate,
@@ -105,7 +105,7 @@ RTCCertificateStats::RTCCertificateStats(const RTCCertificateStats& other) =
 RTCCertificateStats::~RTCCertificateStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCCodecStats, RTCStats, "codec",
+WEBRTC_RTCSTATS_IMPL(RTCCodecStats, RTCStats, kCodec,
     &transport_id,
     &payload_type,
     &mime_type,
@@ -131,7 +131,7 @@ RTCCodecStats::RTCCodecStats(const RTCCodecStats& other) = default;
 RTCCodecStats::~RTCCodecStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCDataChannelStats, RTCStats, "data-channel",
+WEBRTC_RTCSTATS_IMPL(RTCDataChannelStats, RTCStats, kDataChannel,
     &label,
     &protocol,
     &data_channel_identifier,
@@ -163,7 +163,7 @@ RTCDataChannelStats::RTCDataChannelStats(const RTCDataChannelStats& other) =
 RTCDataChannelStats::~RTCDataChannelStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCIceCandidatePairStats, RTCStats, "candidate-pair",
+WEBRTC_RTCSTATS_IMPL(RTCIceCandidatePairStats, RTCStats, kCandidatePair,
     &transport_id,
     &local_candidate_id,
     &remote_candidate_id,
@@ -228,7 +228,7 @@ RTCIceCandidatePairStats::RTCIceCandidatePairStats(
 RTCIceCandidatePairStats::~RTCIceCandidatePairStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCIceCandidateStats, RTCStats, "abstract-ice-candidate",
+WEBRTC_RTCSTATS_ABSTRACT_IMPL(RTCIceCandidateStats, RTCStats,
     &transport_id,
     &is_remote,
     &network_type,
@@ -282,7 +282,8 @@ RTCIceCandidateStats::RTCIceCandidateStats(const RTCIceCandidateStats& other) =
 
 RTCIceCandidateStats::~RTCIceCandidateStats() {}
 
-const char RTCLocalIceCandidateStats::kType[] = "local-candidate";
+const RTCStatsType RTCLocalIceCandidateStats::kStatsType =
+    RTCStatsType::kLocalCandidate;
 
 RTCLocalIceCandidateStats::RTCLocalIceCandidateStats(const std::string& id,
                                                      int64_t timestamp_us)
@@ -296,11 +297,12 @@ std::unique_ptr<RTCStats> RTCLocalIceCandidateStats::copy() const {
   return std::make_unique<RTCLocalIceCandidateStats>(*this);
 }
 
-const char* RTCLocalIceCandidateStats::type() const {
-  return kType;
+RTCStatsType RTCLocalIceCandidateStats::StatsType() const {
+  return RTCLocalIceCandidateStats::kStatsType;
 }
 
-const char RTCRemoteIceCandidateStats::kType[] = "remote-candidate";
+const RTCStatsType RTCRemoteIceCandidateStats::kStatsType =
+    RTCStatsType::kRemoteCandidate;
 
 RTCRemoteIceCandidateStats::RTCRemoteIceCandidateStats(const std::string& id,
                                                        int64_t timestamp_us)
@@ -314,12 +316,13 @@ std::unique_ptr<RTCStats> RTCRemoteIceCandidateStats::copy() const {
   return std::make_unique<RTCRemoteIceCandidateStats>(*this);
 }
 
-const char* RTCRemoteIceCandidateStats::type() const {
-  return kType;
+RTCStatsType RTCRemoteIceCandidateStats::StatsType() const {
+  return RTCRemoteIceCandidateStats::kStatsType;
 }
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(DEPRECATED_RTCMediaStreamStats, RTCStats, "stream",
+WEBRTC_RTCSTATS_IMPL(DEPRECATED_RTCMediaStreamStats, RTCStats,
+    kDEPRECATED_Stream,
     &stream_identifier,
     &track_ids)
 // clang-format on
@@ -342,7 +345,8 @@ DEPRECATED_RTCMediaStreamStats::DEPRECATED_RTCMediaStreamStats(
 DEPRECATED_RTCMediaStreamStats::~DEPRECATED_RTCMediaStreamStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(DEPRECATED_RTCMediaStreamTrackStats, RTCStats, "track",
+WEBRTC_RTCSTATS_IMPL(DEPRECATED_RTCMediaStreamTrackStats, RTCStats,
+                     kDEPRECATED_Track,
                      &track_identifier,
                      &media_source_id,
                      &remote_source,
@@ -419,7 +423,7 @@ DEPRECATED_RTCMediaStreamTrackStats::DEPRECATED_RTCMediaStreamTrackStats(
 DEPRECATED_RTCMediaStreamTrackStats::~DEPRECATED_RTCMediaStreamTrackStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCPeerConnectionStats, RTCStats, "peer-connection",
+WEBRTC_RTCSTATS_IMPL(RTCPeerConnectionStats, RTCStats, kPeerConnection,
     &data_channels_opened,
     &data_channels_closed)
 // clang-format on
@@ -440,7 +444,7 @@ RTCPeerConnectionStats::RTCPeerConnectionStats(
 RTCPeerConnectionStats::~RTCPeerConnectionStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCRTPStreamStats, RTCStats, "rtp",
+WEBRTC_RTCSTATS_ABSTRACT_IMPL(RTCRTPStreamStats, RTCStats,
     &ssrc,
     &kind,
     &track_id,
@@ -467,8 +471,8 @@ RTCRTPStreamStats::RTCRTPStreamStats(const RTCRTPStreamStats& other) = default;
 RTCRTPStreamStats::~RTCRTPStreamStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(
-    RTCReceivedRtpStreamStats, RTCRTPStreamStats, "received-rtp",
+WEBRTC_RTCSTATS_ABSTRACT_IMPL(
+    RTCReceivedRtpStreamStats, RTCRTPStreamStats,
     &jitter,
     &packets_lost)
 // clang-format on
@@ -489,8 +493,8 @@ RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(
 RTCReceivedRtpStreamStats::~RTCReceivedRtpStreamStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(
-    RTCSentRtpStreamStats, RTCRTPStreamStats, "sent-rtp",
+WEBRTC_RTCSTATS_ABSTRACT_IMPL(
+    RTCSentRtpStreamStats, RTCRTPStreamStats,
     &packets_sent,
     &bytes_sent)
 // clang-format on
@@ -512,7 +516,7 @@ RTCSentRtpStreamStats::~RTCSentRtpStreamStats() {}
 
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(
-    RTCInboundRTPStreamStats, RTCReceivedRtpStreamStats, "inbound-rtp",
+    RTCInboundRTPStreamStats, RTCReceivedRtpStreamStats, kInboundRtp,
     &track_identifier,
     &mid,
     &remote_id,
@@ -645,7 +649,7 @@ RTCInboundRTPStreamStats::~RTCInboundRTPStreamStats() {}
 
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(
-    RTCOutboundRTPStreamStats, RTCRTPStreamStats, "outbound-rtp",
+    RTCOutboundRTPStreamStats, RTCRTPStreamStats, kOutboundRtp,
     &media_source_id,
     &remote_id,
     &mid,
@@ -725,7 +729,7 @@ RTCOutboundRTPStreamStats::~RTCOutboundRTPStreamStats() {}
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(
     RTCRemoteInboundRtpStreamStats, RTCReceivedRtpStreamStats,
-        "remote-inbound-rtp",
+    kRemoteInboundRtp,
     &local_id,
     &round_trip_time,
     &fraction_lost,
@@ -755,8 +759,7 @@ RTCRemoteInboundRtpStreamStats::~RTCRemoteInboundRtpStreamStats() {}
 
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(
-    RTCRemoteOutboundRtpStreamStats, RTCSentRtpStreamStats,
-    "remote-outbound-rtp",
+    RTCRemoteOutboundRtpStreamStats, RTCSentRtpStreamStats, kRemoteOutboundRtp,
     &local_id,
     &remote_timestamp,
     &reports_sent,
@@ -787,7 +790,7 @@ RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
 RTCRemoteOutboundRtpStreamStats::~RTCRemoteOutboundRtpStreamStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCMediaSourceStats, RTCStats, "parent-media-source",
+WEBRTC_RTCSTATS_ABSTRACT_IMPL(RTCMediaSourceStats, RTCStats,
     &track_identifier,
     &kind)
 // clang-format on
@@ -807,7 +810,7 @@ RTCMediaSourceStats::RTCMediaSourceStats(const RTCMediaSourceStats& other) =
 RTCMediaSourceStats::~RTCMediaSourceStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCAudioSourceStats, RTCMediaSourceStats, "media-source",
+WEBRTC_RTCSTATS_IMPL(RTCAudioSourceStats, RTCMediaSourceStats,  kAudioSource,
     &audio_level,
     &total_audio_energy,
     &total_samples_duration,
@@ -833,7 +836,7 @@ RTCAudioSourceStats::RTCAudioSourceStats(const RTCAudioSourceStats& other) =
 RTCAudioSourceStats::~RTCAudioSourceStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCVideoSourceStats, RTCMediaSourceStats, "media-source",
+WEBRTC_RTCSTATS_IMPL(RTCVideoSourceStats, RTCMediaSourceStats, kVideoSource,
     &width,
     &height,
     &frames,
@@ -857,7 +860,7 @@ RTCVideoSourceStats::RTCVideoSourceStats(const RTCVideoSourceStats& other) =
 RTCVideoSourceStats::~RTCVideoSourceStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCTransportStats, RTCStats, "transport",
+WEBRTC_RTCSTATS_IMPL(RTCTransportStats, RTCStats, kTransport,
     &bytes_sent,
     &packets_sent,
     &bytes_received,

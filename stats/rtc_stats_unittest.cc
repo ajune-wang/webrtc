@@ -15,6 +15,7 @@
 #include <cstring>
 #include <iostream>
 
+#include "api/stats/rtcstats_objects.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/json.h"
 #include "stats/test/rtc_test_stats.h"
@@ -49,7 +50,7 @@ class RTCChildStats : public RTCStats {
   RTCStatsMember<int32_t> child_int;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCChildStats, RTCStats, "child-stats", &child_int)
+WEBRTC_RTCSTATS_IMPL(RTCChildStats, RTCStats, kLocalCandidate, &child_int)
 
 class RTCGrandChildStats : public RTCChildStats {
  public:
@@ -63,7 +64,7 @@ class RTCGrandChildStats : public RTCChildStats {
 
 WEBRTC_RTCSTATS_IMPL(RTCGrandChildStats,
                      RTCChildStats,
-                     "grandchild-stats",
+                     kVideoSource,
                      &grandchild_int)
 
 TEST(RTCStatsTest, RTCStatsAndMembers) {

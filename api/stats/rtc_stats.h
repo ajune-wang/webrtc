@@ -29,11 +29,40 @@ namespace webrtc {
 
 class RTCStatsMemberInterface;
 
+// RTCStatsType enum indicates the type of the object that the RTCStats object
+// represents. See https://w3c.github.io/webrtc-stats/#rtcstatstype-str*
+enum class RTCStatsType {
+  kCodec,
+  kInboundRtp,
+  kOutboundRtp,
+  kRemoteInboundRtp,
+  kRemoteOutboundRtp,
+  // media-source type with kind() is "audio"
+  kAudioSource,
+  // media-source type with kind() is "video"
+  kVideoSource,
+  // TODO(bugs.webrtc.org/xxxx): Not implemented
+  kMediaPlayout,
+  kPeerConnection,
+  kDataChannel,
+  // TODO(https://crbug.com/webrtc/14419): "stream" is deprecated, delete when
+  // upstream no longer depends on it.
+  kDEPRECATED_Stream,
+  // TODO(https://crbug.com/webrtc/14175): "track" is deprecated, delete when
+  // upstream no longer depends on it.
+  kDEPRECATED_Track,
+  kTransport,
+  kCandidatePair,
+  kLocalCandidate,
+  kRemoteCandidate,
+  kCertificate
+};
+
 // Abstract base class for RTCStats-derived dictionaries, see
 // https://w3c.github.io/webrtc-stats/.
 //
 // All derived classes must have the following static variable defined:
-//   static const char kType[];
+//   static const webrtc::RTCStatsType kStatsType;
 // It is used as a unique class identifier and a string representation of the
 // class type, see https://w3c.github.io/webrtc-stats/#rtcstatstype-str*.
 // Use the `WEBRTC_RTCSTATS_IMPL` macro when implementing subclasses, see macro
@@ -66,8 +95,10 @@ class RTC_EXPORT RTCStats {
   const std::string& id() const { return id_; }
   // Time relative to the UNIX epoch (Jan 1, 1970, UTC), in microseconds.
   int64_t timestamp_us() const { return timestamp_us_; }
-  // Returns the static member variable `kType` of the implementing class.
-  virtual const char* type() const = 0;
+  // Returns the string representation of `kType` of the implementing class.
+  const char* type() const { return StatsTypeToString(StatsType()); }
+  // Returns the type of the object that the RTCStats object represents.
+  virtual RTCStatsType StatsType() const { RTC_CHECK_NOTREACHED(); }
   // Returns a vector of pointers to all the `RTCStatsMemberInterface` members
   // of this class. This allows for iteration of members. For a given class,
   // `Members` always returns the same members in the same order.
@@ -86,9 +117,12 @@ class RTC_EXPORT RTCStats {
   // object is of type `T`.
   template <typename T>
   const T& cast_to() const {
-    RTC_DCHECK_EQ(type(), T::kType);
+    RTC_DCHECK_EQ(StatsType(), T::kStatsType);
     return static_cast<const T&>(*this);
   }
+
+  // Returns the string representation of given `RTCStatsType`
+  static const char* StatsTypeToString(RTCStatsType stats_type);
 
  protected:
   // Gets a vector of all members of this `RTCStats` object, including members
@@ -105,6 +139,9 @@ class RTC_EXPORT RTCStats {
 // All `RTCStats` classes should use these macros.
 // `WEBRTC_RTCSTATS_DECL` is placed in a public section of the class definition.
 // `WEBRTC_RTCSTATS_IMPL` is placed outside the class definition (in a .cc).
+// `WEBRTC_RTCSTATS_ABSTRACT_DECL` and `WEBRTC_RTCSTATS_ABSTRACT_IMPL` are
+// similar to `WEBRTC_RTCSTATS_DECL` and `WEBRTC_RTCSTATS_IMPL` respectively,
+// but it is used for abstract classes, like `RTCRTPStreamStats`.
 //
 // These macros declare (in _DECL) and define (in _IMPL) the static `kType` and
 // overrides methods as required by subclasses of `RTCStats`: `copy`, `type` and
@@ -143,27 +180,21 @@ class RTC_EXPORT RTCStats {
 //         bar("bar") {
 //   }
 //
-#define WEBRTC_RTCSTATS_DECL()                                          \
+#define WEBRTC_RTCSTATS_ABSTRACT_DECL()                                 \
  protected:                                                             \
   std::vector<const webrtc::RTCStatsMemberInterface*>                   \
   MembersOfThisObjectAndAncestors(size_t local_var_additional_capacity) \
-      const override;                                                   \
-                                                                        \
- public:                                                                \
-  static const char kType[];                                            \
-                                                                        \
-  std::unique_ptr<webrtc::RTCStats> copy() const override;              \
-  const char* type() const override
+      const override
 
-#define WEBRTC_RTCSTATS_IMPL(this_class, parent_class, type_str, ...)          \
-  const char this_class::kType[] = type_str;                                   \
-                                                                               \
-  std::unique_ptr<webrtc::RTCStats> this_class::copy() const {                 \
-    return std::make_unique<this_class>(*this);                                \
-  }                                                                            \
-                                                                               \
-  const char* this_class::type() const { return this_class::kType; }           \
-                                                                               \
+#define WEBRTC_RTCSTATS_DECL()                  \
+  WEBRTC_RTCSTATS_ABSTRACT_DECL();              \
+                                                \
+ public:                                        \
+  static const webrtc::RTCStatsType kStatsType; \
+  RTCStatsType StatsType() const override;      \
+  std::unique_ptr<webrtc::RTCStats> copy() const override
+
+#define WEBRTC_RTCSTATS_ABSTRACT_IMPL(this_class, parent_class, ...)           \
   std::vector<const webrtc::RTCStatsMemberInterface*>                          \
   this_class::MembersOfThisObjectAndAncestors(                                 \
       size_t local_var_additional_capacity) const {                            \
@@ -183,23 +214,15 @@ class RTC_EXPORT RTCStats {
     return local_var_members_vec;                                              \
   }
 
-// A version of WEBRTC_RTCSTATS_IMPL() where "..." is omitted, used to avoid a
-// compile error on windows. This is used if the stats dictionary does not
-// declare any members of its own (but perhaps its parent dictionary does).
-#define WEBRTC_RTCSTATS_IMPL_NO_MEMBERS(this_class, parent_class, type_str) \
-  const char this_class::kType[] = type_str;                                \
-                                                                            \
-  std::unique_ptr<webrtc::RTCStats> this_class::copy() const {              \
-    return std::make_unique<this_class>(*this);                             \
-  }                                                                         \
-                                                                            \
-  const char* this_class::type() const { return this_class::kType; }        \
-                                                                            \
-  std::vector<const webrtc::RTCStatsMemberInterface*>                       \
-  this_class::MembersOfThisObjectAndAncestors(                              \
-      size_t local_var_additional_capacity) const {                         \
-    return parent_class::MembersOfThisObjectAndAncestors(0);                \
-  }
+#define WEBRTC_RTCSTATS_IMPL(this_class, parent_class, kind, ...)         \
+  WEBRTC_RTCSTATS_ABSTRACT_IMPL(this_class, parent_class, __VA_ARGS__)    \
+  const webrtc::RTCStatsType this_class::kStatsType = RTCStatsType::kind; \
+                                                                          \
+  std::unique_ptr<webrtc::RTCStats> this_class::copy() const {            \
+    return std::make_unique<this_class>(*this);                           \
+  }                                                                       \
+                                                                          \
+  RTCStatsType this_class::StatsType() const { return kStatsType; }
 
 // Non-standard stats members can be exposed to the JavaScript API in Chrome
 // e.g. through origin trials. The group ID can be used by the blink layer to

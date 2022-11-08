@@ -98,7 +98,7 @@ class RTC_EXPORT RTCStatsReport final
   template <typename T>
   const T* GetAs(const std::string& id) const {
     const RTCStats* stats = Get(id);
-    if (!stats || stats->type() != T::kType) {
+    if (!stats || stats->StatsType() != T::kStatsType) {
       return nullptr;
     }
     return &stats->cast_to<const T>();
@@ -120,7 +120,7 @@ class RTC_EXPORT RTCStatsReport final
   std::vector<const T*> GetStatsOfType() const {
     std::vector<const T*> stats_of_type;
     for (const RTCStats& stats : *this) {
-      if (stats.type() == T::kType)
+      if (stats.StatsType() == T::kStatsType)
         stats_of_type.push_back(&stats.cast_to<const T>());
     }
     return stats_of_type;

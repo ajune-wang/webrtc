@@ -642,8 +642,8 @@ class RTCStatsCollectorWrapper {
     EXPECT_TRUE_WAIT(callback->report() != nullptr, kGetStatsReportTimeoutMs);
     int64_t after = rtc::TimeUTCMicros();
     for (const RTCStats& stats : *callback->report()) {
-      if (stats.type() == RTCRemoteInboundRtpStreamStats::kType ||
-          stats.type() == RTCRemoteOutboundRtpStreamStats::kType) {
+      if (stats.StatsType() == RTCRemoteInboundRtpStreamStats::kStatsType ||
+          stats.StatsType() == RTCRemoteOutboundRtpStreamStats::kStatsType) {
         // Ignore remote timestamps.
         continue;
       }
@@ -3672,7 +3672,7 @@ TEST_F(RTCStatsCollectorTest,
       << "No reports have been generated.";
   for (const auto& stats : *report) {
     SCOPED_TRACE(stats.id());
-    EXPECT_NE(stats.type(), RTCRemoteOutboundRtpStreamStats::kType);
+    EXPECT_NE(stats.StatsType(), RTCRemoteOutboundRtpStreamStats::kStatsType);
   }
 }
 
@@ -3868,9 +3868,13 @@ TEST_F(RTCStatsCollectorTest, StatsReportedOnZeroSsrc) {
       report->GetStatsOfType<DEPRECATED_RTCMediaStreamTrackStats>();
   EXPECT_EQ(1U, track_stats.size());
 
-  std::vector<const RTCRTPStreamStats*> rtp_stream_stats =
-      report->GetStatsOfType<RTCRTPStreamStats>();
-  EXPECT_EQ(0U, rtp_stream_stats.size());
+  std::vector<const RTCOutboundRTPStreamStats*> outbound_stream_stats =
+      report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  std::vector<const RTCRemoteInboundRtpStreamStats*>
+      remote_inbound_stream_stats =
+          report->GetStatsOfType<RTCRemoteInboundRtpStreamStats>();
+  EXPECT_EQ(0U,
+            outbound_stream_stats.size() + remote_inbound_stream_stats.size());
 }
 
 TEST_F(RTCStatsCollectorTest, DoNotCrashOnSsrcChange) {
@@ -3929,7 +3933,7 @@ class RTCTestStats : public RTCStats {
   RTCStatsMember<int32_t> dummy_stat;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCTestStats, RTCStats, "test-stats", &dummy_stat)
+WEBRTC_RTCSTATS_IMPL(RTCTestStats, RTCStats, kCodec, &dummy_stat)
 
 // Overrides the stats collection to verify thread usage and that the resulting
 // partial reports are merged.

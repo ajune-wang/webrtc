@@ -228,9 +228,9 @@ class RTC_EXPORT RTCIceCandidatePairStats final : public RTCStats {
 
 // https://w3c.github.io/webrtc-stats/#icecandidate-dict*
 class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
- public:
-  WEBRTC_RTCSTATS_DECL();
+  WEBRTC_RTCSTATS_ABSTRACT_DECL();
 
+ public:
   RTCIceCandidateStats(const RTCIceCandidateStats& other);
   ~RTCIceCandidateStats() override;
 
@@ -266,26 +266,26 @@ class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
 
 // In the spec both local and remote varieties are of type RTCIceCandidateStats.
 // But here we define them as subclasses of `RTCIceCandidateStats` because the
-// `kType` need to be different ("RTCStatsType type") in the local/remote case.
-// https://w3c.github.io/webrtc-stats/#rtcstatstype-str*
-// This forces us to have to override copy() and type().
+// `kStatsType` need to be different ("RTCStatsType type") in the local/remote
+// case. https://w3c.github.io/webrtc-stats/#rtcstatstype-str* This forces us to
+// have to override copy() and StatsType().
 class RTC_EXPORT RTCLocalIceCandidateStats final : public RTCIceCandidateStats {
  public:
-  static const char kType[];
+  static const RTCStatsType kStatsType;
   RTCLocalIceCandidateStats(const std::string& id, int64_t timestamp_us);
   RTCLocalIceCandidateStats(std::string&& id, int64_t timestamp_us);
   std::unique_ptr<RTCStats> copy() const override;
-  const char* type() const override;
+  RTCStatsType StatsType() const override;
 };
 
 class RTC_EXPORT RTCRemoteIceCandidateStats final
     : public RTCIceCandidateStats {
  public:
-  static const char kType[];
+  static const RTCStatsType kStatsType;
   RTCRemoteIceCandidateStats(const std::string& id, int64_t timestamp_us);
   RTCRemoteIceCandidateStats(std::string&& id, int64_t timestamp_us);
   std::unique_ptr<RTCStats> copy() const override;
-  const char* type() const override;
+  RTCStatsType StatsType() const override;
 };
 
 // TODO(https://crbug.com/webrtc/14419): Delete this class, it's deprecated.
@@ -369,9 +369,9 @@ class RTC_EXPORT RTCPeerConnectionStats final : public RTCStats {
 
 // https://w3c.github.io/webrtc-stats/#streamstats-dict*
 class RTC_EXPORT RTCRTPStreamStats : public RTCStats {
- public:
-  WEBRTC_RTCSTATS_DECL();
+  WEBRTC_RTCSTATS_ABSTRACT_DECL();
 
+ public:
   RTCRTPStreamStats(const RTCRTPStreamStats& other);
   ~RTCRTPStreamStats() override;
 
@@ -392,9 +392,9 @@ class RTC_EXPORT RTCRTPStreamStats : public RTCStats {
 
 // https://www.w3.org/TR/webrtc-stats/#receivedrtpstats-dict*
 class RTC_EXPORT RTCReceivedRtpStreamStats : public RTCRTPStreamStats {
- public:
-  WEBRTC_RTCSTATS_DECL();
+  WEBRTC_RTCSTATS_ABSTRACT_DECL();
 
+ public:
   RTCReceivedRtpStreamStats(const RTCReceivedRtpStreamStats& other);
   ~RTCReceivedRtpStreamStats() override;
 
@@ -408,9 +408,9 @@ class RTC_EXPORT RTCReceivedRtpStreamStats : public RTCRTPStreamStats {
 
 // https://www.w3.org/TR/webrtc-stats/#sentrtpstats-dict*
 class RTC_EXPORT RTCSentRtpStreamStats : public RTCRTPStreamStats {
- public:
-  WEBRTC_RTCSTATS_DECL();
+  WEBRTC_RTCSTATS_ABSTRACT_DECL();
 
+ public:
   RTCSentRtpStreamStats(const RTCSentRtpStreamStats& other);
   ~RTCSentRtpStreamStats() override;
 
@@ -594,9 +594,9 @@ class RTC_EXPORT RTCRemoteOutboundRtpStreamStats final
 
 // https://w3c.github.io/webrtc-stats/#dom-rtcmediasourcestats
 class RTC_EXPORT RTCMediaSourceStats : public RTCStats {
- public:
-  WEBRTC_RTCSTATS_DECL();
+  WEBRTC_RTCSTATS_ABSTRACT_DECL();
 
+ public:
   RTCMediaSourceStats(const RTCMediaSourceStats& other);
   ~RTCMediaSourceStats() override;
 

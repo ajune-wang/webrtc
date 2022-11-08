@@ -161,6 +161,47 @@ std::string RTCStats::ToJson() const {
   return sb.Release();
 }
 
+const char* RTCStats::StatsTypeToString(RTCStatsType stats_type) {
+  switch (stats_type) {
+    case RTCStatsType::kCodec:
+      return "codec";
+    case RTCStatsType::kInboundRtp:
+      return "inbound-rtp";
+    case RTCStatsType::kOutboundRtp:
+      return "outbound-rtp";
+    case RTCStatsType::kRemoteInboundRtp:
+      return "remote-inbound-rtp";
+    case RTCStatsType::kRemoteOutboundRtp:
+      return "remote-outbound-rtp";
+    case RTCStatsType::kAudioSource:
+      [[fallthrough]];
+    case RTCStatsType::kVideoSource:
+      return "media-source";
+    case RTCStatsType::kMediaPlayout:
+      return "media-playout";
+    case RTCStatsType::kPeerConnection:
+      return "peer-connection";
+    case RTCStatsType::kDataChannel:
+      return "data-channel";
+    case RTCStatsType::kDEPRECATED_Stream:
+      return "stream";
+    case RTCStatsType::kDEPRECATED_Track:
+      return "track";
+    case RTCStatsType::kTransport:
+      return "transport";
+    case RTCStatsType::kCandidatePair:
+      return "candidate-pair";
+    case RTCStatsType::kLocalCandidate:
+      return "local-candidate";
+    case RTCStatsType::kRemoteCandidate:
+      return "remote-candidate";
+    case RTCStatsType::kCertificate:
+      return "certificate";
+  }
+  RTC_DCHECK_NOTREACHED();
+  return "";
+}
+
 std::vector<const RTCStatsMemberInterface*> RTCStats::Members() const {
   return MembersOfThisObjectAndAncestors(0);
 }

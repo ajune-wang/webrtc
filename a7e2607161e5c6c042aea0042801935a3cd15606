@@ -106,6 +106,24 @@
       "parentUuid": "7a7f3e54_4c0558c5",
       "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f67dbc0_723daad6",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-11-08T17:56:57Z",
+      "side": 1,
+      "message": "It\u0027s hack enabled by a hack :\u003d)",
+      "parentUuid": "86b11da2_c5752fc6",
+      "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

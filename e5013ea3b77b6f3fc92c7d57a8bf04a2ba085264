@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "673c7dad_63120a6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-08T16:34:37Z",
+      "side": 1,
+      "message": "Reland Diff LGTM",
+      "revId": "e5013ea3b77b6f3fc92c7d57a8bf04a2ba085264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d1250c5_2659f741",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-11-08T10:21:30Z",
       "side": 1,
       "message": "I noticed that I was still adding \"+common_video\" to DEPS. That\u0027s obviously wrong now. If I remember correctly, then some checker complained about the missing \"+common_video\" in the past, but not after the move to modules/ so I\u0027m not sure if \"+modules/portal\" is necessary here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "e5013ea3b77b6f3fc92c7d57a8bf04a2ba085264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71c556d5_d44bcf9e",
+        "filename": "modules/desktop_capture/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-08T16:34:37Z",
+      "side": 1,
+      "message": "I think it\u0027s likely that modules may implicitly be allowed to depend on other modules (e.g. peers of themselves); but since common_video is one level higher, that that was not implicitly allowed and needed to be explicitly allowed. I think it\u0027s okay to remove.",
+      "parentUuid": "9d1250c5_2659f741",
       "range": {
         "startLine": 2,
         "startChar": 2,

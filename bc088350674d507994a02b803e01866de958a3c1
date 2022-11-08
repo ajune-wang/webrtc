@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4439888_e2adc27c",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-11-08T11:15:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "972690a9_613839a5",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "337ebe92_8684629f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-11-08T09:28:07Z",
       "side": 1,
       "message": "Do this need to be blocking? Cant you just post to the worker thread? \nThe worker thread should guarantee that the closure is deleted. (but I guess it does not guarantee that it happens on the thread itself?",
+      "range": {
+        "startLine": 112,
+        "startChar": 19,
+        "endLine": 112,
+        "endChar": 31
+      },
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c907715_e68a046a",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-11-08T11:15:42Z",
+      "side": 1,
+      "message": "PostTasked closures are unfortunately not (yet) guaranteed to be destroyed on the target queue. We do require that the metronome is destroyed there, concrete implementations have dependencies on that (see the WeakPtrFactory in https://chromium-review.googlesource.com/c/chromium/src/+/4006113).",
+      "parentUuid": "337ebe92_8684629f",
       "range": {
         "startLine": 112,
         "startChar": 19,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3230bac_3d3e33ff",
+        "filename": "pc/test/integration_test_helpers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-11-08T11:15:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d7279e_433e09d0",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "929f4e6d_c0b7ce16",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-11-08T09:46:32Z",
       "side": 1,
       "message": "nit: `if(!schedulers_.empty())`",
+      "range": {
+        "startLine": 186,
+        "startChar": 6,
+        "endLine": 186,
+        "endChar": 24
+      },
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e00b2f_93a55194",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-11-08T11:15:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "929f4e6d_c0b7ce16",
       "range": {
         "startLine": 186,
         "startChar": 6,

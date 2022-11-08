@@ -88,6 +88,24 @@
       "parentUuid": "ab241690_9530c5e2",
       "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86b11da2_c5752fc6",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-08T16:32:10Z",
+      "side": 1,
+      "message": "Ok now I understand, it works because flags_compatibility removes isolated-script-test-output and appends isolated_script_test_output at the end of the command line.\nSeems almost like a hack :)",
+      "parentUuid": "7a7f3e54_4c0558c5",
+      "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

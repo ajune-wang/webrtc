@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d1250c5_2659f741",
+        "filename": "modules/desktop_capture/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-11-08T10:21:30Z",
+      "side": 1,
+      "message": "I noticed that I was still adding \"+common_video\" to DEPS. That\u0027s obviously wrong now. If I remember correctly, then some checker complained about the missing \"+common_video\" in the past, but not after the move to modules/ so I\u0027m not sure if \"+modules/portal\" is necessary here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "e5013ea3b77b6f3fc92c7d57a8bf04a2ba085264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

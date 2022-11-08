@@ -33,6 +33,29 @@
       "message": "Xavier, could you please take a look?",
       "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bc1a576_7e0fa158",
+        "filename": "sdk/android/api/org/webrtc/SoftwareVideoDecoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-11-08T07:04:30Z",
+      "side": 1,
+      "message": "Shouldn’t we be more brutal and let that throw?\n\nIn which situation would that be ok to instantiate this factory without native code present?\n\nIf it’s for tests, we can either explicitly load a native lib (like you’re doing in the tests you add) or use a different (possibly fake) factory implementation.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

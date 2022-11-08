@@ -204,8 +204,13 @@ PeerConnectionE2EQualityTest::PeerHandle* PeerConnectionE2EQualityTest::AddPeer(
   return &peer_handles_.back();
 }
 
+void PeerConnectionE2EQualityTest::AddPeer(
+    std::unique_ptr<PeerConfigurer> configurer) {
+  peer_configurations_.push_back(std::move(configurer));
+}
+
 void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
-  webrtc::webrtc_pc_e2e::PeerParamsPreprocessor params_preprocessor;
+  PeerParamsPreprocessor params_preprocessor;
   for (auto& peer_configuration : peer_configurations_) {
     params_preprocessor.SetDefaultValuesForMissingParams(*peer_configuration);
     params_preprocessor.ValidateParams(*peer_configuration);

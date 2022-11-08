@@ -197,33 +197,6 @@ class PeerConfigurer {
   std::vector<VideoSource> video_sources_;
 };
 
-class PeerParamsPreprocessor {
- public:
-  PeerParamsPreprocessor();
-  ~PeerParamsPreprocessor();
-
-  // Set missing params to default values if it is required:
-  //  * Generate video stream labels if some of them are missing
-  //  * Generate audio stream labels if some of them are missing
-  //  * Set video source generation mode if it is not specified
-  //  * Video codecs under test
-  void SetDefaultValuesForMissingParams(PeerConfigurer& peer);
-
-  // Validate peer's parameters, also ensure uniqueness of all video stream
-  // labels.
-  void ValidateParams(const PeerConfigurer& peer);
-
- private:
-  class DefaultNamesProvider;
-  std::unique_ptr<DefaultNamesProvider> peer_names_provider_;
-
-  std::set<std::string> peer_names_;
-  std::set<std::string> video_labels_;
-  std::set<std::string> audio_labels_;
-  std::set<std::string> video_sync_groups_;
-  std::set<std::string> audio_sync_groups_;
-};
-
 }  // namespace webrtc_pc_e2e
 }  // namespace webrtc
 

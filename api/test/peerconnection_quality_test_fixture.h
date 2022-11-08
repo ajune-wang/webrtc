@@ -16,10 +16,12 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "absl/base/macros.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
@@ -132,9 +134,13 @@ class PeerConnectionE2EQualityTestFixture {
   // `network_dependencies` are used to provide networking for peer's peer
   // connection. Members must be non-null.
   // `configurer` function will be used to configure peer in the call.
+  ABSL_DEPRECATED("Use the other AddPeer() instead.")
   virtual PeerHandle* AddPeer(
       const PeerNetworkDependencies& network_dependencies,
-      rtc::FunctionView<void(PeerConfigurer*)> configurer) = 0;
+      rtc::FunctionView<void(PeerConfigurer*)> configurer) {
+    return nullptr;
+  }
+  virtual void AddPeer(std::unique_ptr<PeerConfigurer> configurer) {}
 
   // Runs the media quality test, which includes setting up the call with
   // configured participants, running it according to provided `run_params` and
@@ -150,6 +156,34 @@ class PeerConnectionE2EQualityTestFixture {
   // setup (offer/answer, ICE candidates exchange done and ICE connected) to
   // start of call tear down (PeerConnection closed).
   virtual TimeDelta GetRealTestDuration() const = 0;
+
+ protected:
+  class PeerParamsPreprocessor {
+   public:
+    PeerParamsPreprocessor();
+    ~PeerParamsPreprocessor();
+
+    // Set missing params to default values if it is required:
+    //  * Generate video stream labels if some of them are missing
+    //  * Generate audio stream labels if some of them are missing
+    //  * Set video source generation mode if it is not specified
+    //  * Video codecs under test
+    void SetDefaultValuesForMissingParams(PeerConfigurer& peer);
+
+    // Validate peer's parameters, also ensure uniqueness of all video stream
+    // labels.
+    void ValidateParams(const PeerConfigurer& peer);
+
+   private:
+    class DefaultNamesProvider;
+    std::unique_ptr<DefaultNamesProvider> peer_names_provider_;
+
+    std::set<std::string> peer_names_;
+    std::set<std::string> video_labels_;
+    std::set<std::string> audio_labels_;
+    std::set<std::string> video_sync_groups_;
+    std::set<std::string> audio_sync_groups_;
+  };
 };
 
 }  // namespace webrtc_pc_e2e

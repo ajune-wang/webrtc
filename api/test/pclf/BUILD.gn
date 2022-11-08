@@ -101,12 +101,8 @@ rtc_library("peer_configurer") {
     "../../../api/transport:network_control",
     "../../../api/video_codecs:video_codecs_api",
     "../../../modules/audio_processing:api",
-    "../../../modules/video_coding/svc:scalability_mode_util",
-    "../../../modules/video_coding/svc:scalability_structures",
     "../../../rtc_base",
-    "../../../rtc_base:macromagic",
     "../../../rtc_base:threading",
-    "../../../test:fileutils",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }

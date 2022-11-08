@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e821cbd_c889cdd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-08T09:35:50Z",
+      "side": 1,
+      "message": "Maybe add the config in waterfalls.pyl ?",
+      "revId": "a569f21530e4b8b5d1087776273b01bcd39d8415",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

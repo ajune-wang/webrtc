@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a363330c_bc69a1ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Are `kTypes` used outside of the WebRTC codebase? I couldn\u0027t find it in chromium code search. If it exists, it looks like I need to modify this CL somewhat.",
+      "parentUuid": "1ba175e7_76018de8",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4c17e05_b91012d2",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "writtenOn": "2022-11-08T10:04:24Z",
       "side": 1,
       "message": "Call it RTCStatsType, that\u0027s what it\u0027s called in the spec:\nhttps://w3c.github.io/webrtc-stats/#rtctatstype-*\n\nAlso with such an explicit name as RTCStatsType, I think I prefer this to be moved out of the class (put it above in the webrtc namespace)",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87e5ce1e_529fecc1",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4c17e05_b91012d2",
       "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -87,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "657b4dec_e38d37c7",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35af630b_14109472",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "922f00e0_9d70342e",
@@ -100,6 +154,24 @@
       "writtenOn": "2022-11-08T10:04:24Z",
       "side": 1,
       "message": "The comma belongs before the comment, e.g.\n\nkIceCandidateStats,  // Comment",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46733de9_6303f56f",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "922f00e0_9d70342e",
       "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -121,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0727c909_b43c37a7",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b7bc81b_8468d9af",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5513169_62852aa3",
@@ -134,6 +224,24 @@
       "writtenOn": "2022-11-08T10:04:24Z",
       "side": 1,
       "message": "After thinking about this some more, I must say I\u0027ve changed my mind about supporting DCHECK-safe upcasting or using cast_to\u003c\u003e for parent classes. Let me elaborate.\n\nI don\u0027t think we want to have types for the parent classes, only for the classes that stats object are instantiated as. E.g. a stats object can have type inbound-rtp or remote-inbound-rtp, but it would never have the type \"received-rtp-stream-stats\". This type is just editorial in the spec and not actually a stats object, and the parent class in C++ likewise is just to avoid repeating the same stats members in multiple places.\n\nThe problem with mixing both child types and parent types in the same type enum is that even if you handle all RTCStatsTypes defined in the spec, you\u0027ve not exhausted all the enum types in C++.\n  You also have a lot more complexity such as needing a virtual classof\u003c\u003e that you must remember to override everywhere, when in reality you can quite easily avoid the edge cases where being able to cast to a parent is needed.\n\nA stats parser *should* handle all stats types and then do a down-cast to the relevant RTCStatsType. It is only when we do this down-cast that we need to have DCHECKs. If we later up-cast, you don\u0027t need cast_to\u003c\u003e(), you already have compile-time safety in place when you up-cast.\n\nFor example `RTCMediaSourceStats* media_source \u003d video_source;` has compile-time safety. You should never prefer to `video_source-\u003ecast_to\u003cRTCMediaSourceStats\u003e()` anyway. Runtime safety is not as nice as compile time safety. There is also static_cast\u003c\u003e if there is some edge case I\u0027m not thinking about.\n\nI still think we should have an `enum class RTCStatsType`, but I think we should keep the casting as simple as possible and only support \"type \u003d\u003d kType\" like before.",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1c838a_4263d270",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5513169_62852aa3",
       "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -173,6 +281,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e91532b_b18cfb8a",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f50f4c61_3f92eca6",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9af26ff7_d3df7398",
@@ -186,6 +312,30 @@
       "writtenOn": "2022-11-08T12:05:07Z",
       "side": 1,
       "message": "If StatsKind() was instead static, this could be replaced with something like \n  \n  RTC_DCHECK_EQ(T::kStatsKind, this-\u003ekStatsKind);\n  \nThis would avoid having to have two methods implemented for the stats kind, as well as having to implement two methods.",
+      "range": {
+        "startLine": 132,
+        "startChar": 15,
+        "endLine": 132,
+        "endChar": 32
+      },
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a5d501_53bf36f0",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T22:43:38Z",
+      "side": 1,
+      "message": "I don\u0027t think expressions like `this-\u003ekStatsKind` can be done in C++. Added `RTCStatsType StatsType() const` member function as a virtual function with an effect similar to the above expression.",
+      "parentUuid": "9af26ff7_d3df7398",
       "range": {
         "startLine": 132,
         "startChar": 15,

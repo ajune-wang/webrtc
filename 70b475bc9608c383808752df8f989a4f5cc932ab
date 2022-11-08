@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bee1e3e_751e8c33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-08T09:11:16Z",
+      "side": 1,
+      "message": "LGTM\nLet\u0027s revert the DEPS file and submit this",
+      "revId": "70b475bc9608c383808752df8f989a4f5cc932ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

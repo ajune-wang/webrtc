@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e51340_f1acb17a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-08T13:10:05Z",
+      "side": 1,
+      "message": "Thanks for the review!\nRewriting takes some time, so I\u0027ll share the design of what I\u0027m going to rewrite in advance.\nIt seems like better design not to consider inheritance in enums. Right?\nI plan to declare an enum as below and replace `const char this_class::kType[]` whenever possible. WDTY?\n\n```\n// RTCStatsType enum. See\n// https://w3c.github.io/webrtc-stats/#rtcstatstype-str*\nenum class RTCStatsType {\n  kCodec,\n  kInboundRtp,\n  kOutboundRtp,\n  kRemoteInboundRtp,\n  kRemoteOutboundRtp,\n  // media-source type with kind() is \"audio\"\n  kAudioSource,\n  // media-source type with kind() is \"video\"\n  kVideoSource,\n  // TODO(bugs.webrtc.org/xxxx): Not implemented\n  kMediaPlayout,\n  kPeerConnection,\n  kDataChannel,\n  // TODO(https://crbug.com/webrtc/14419): \"stream\" is deprecated, delete when\n  // upstream no longer depends on it.\n  kDEPRECATED_Stream,\n  // TODO(https://crbug.com/webrtc/14175): \"track\" is deprecated, delete when\n  // upstream no longer depends on it.\n  kDEPRECATED_Track,\n  kTransport,\n  kCandidatePair,\n  kLocalCandidate,\n  kRemoteCandidate,\n  kCertificate\n};\n```",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4c17e05_b91012d2",

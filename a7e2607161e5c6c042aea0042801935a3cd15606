@@ -52,6 +52,24 @@
       "parentUuid": "c672dbf6_5e03deb3",
       "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab241690_9530c5e2",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-11-08T15:50:52Z",
+      "side": 1,
+      "message": "Fuchsia test_runner will not get the isolated-script-test-output flag that is.",
+      "parentUuid": "ab7eb571_0c10db1e",
+      "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

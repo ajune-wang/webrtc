@@ -308,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5658e7da_20c61c0a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-08T09:50:49Z",
+      "side": 1,
+      "message": "I see, In that case, should we just remove RETURN_ON_ERR( ? \n\nOr if the code is never run, why not just put a DCHECK and remove the code?",
+      "parentUuid": "f1bf42f9_02abbd8c",
+      "range": {
+        "startLine": 1232,
+        "startChar": 5,
+        "endLine": 1233,
+        "endChar": 36
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93a16988_4cac9fe4",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -485,6 +509,30 @@
       "side": 1,
       "message": "on one hand, it\u0027d be good to fix the APM behavior so that the disabled tests added in https://webrtc-review.googlesource.com/c/src/+/281184 pass; but on the other hand, it\u0027s safer to leave the deprecate code unchanged\n\nprobably better to leave unchanged and add the tests only for the new API: as you can see from the child CL https://webrtc-review.googlesource.com/c/src/+/279780/3/modules/audio_processing/audio_processing_impl.cc lines 839-841, all the complexity of this getter goes away when we switch to the new API\n\nI will rearrange the chain of CLs to reduce (or even remove) any changes to the deprecated code",
       "parentUuid": "4b9161a6_56fd50cf",
+      "range": {
+        "startLine": 1672,
+        "startChar": 0,
+        "endLine": 1676,
+        "endChar": 3
+      },
+      "revId": "92a7c436652a659451b669782fdd03a99769323c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb96c285_b5b6dc93",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-08T09:50:49Z",
+      "side": 1,
+      "message": "\", it\u0027s safer to leave the deprecate code unchanged\"\nWhat I rather meant was that the function becomes quite complicated with the extra logic that is added in this CL",
+      "parentUuid": "832207f1_e096262f",
       "range": {
         "startLine": 1672,
         "startChar": 0,

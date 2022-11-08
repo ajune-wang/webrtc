@@ -28,6 +28,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/array_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -215,7 +216,9 @@ static int stream_read(BIO* b, char* out, int outl) {
   BIO_clear_retry_flags(b);
   size_t read;
   int error;
-  StreamResult result = stream->Read(out, outl, &read, &error);
+  StreamResult result = stream->Read(
+      rtc::ArrayView<uint8_t>(reinterpret_cast<uint8_t*>(out), outl), read,
+      error);
   if (result == SR_SUCCESS) {
     return checked_cast<int>(read);
   } else if (result == SR_BLOCK) {
@@ -232,7 +235,9 @@ static int stream_write(BIO* b, const char* in, int inl) {
   BIO_clear_retry_flags(b);
   size_t written;
   int error;
-  StreamResult result = stream->Write(in, inl, &written, &error);
+  StreamResult result = stream->Write(
+      rtc::ArrayView<const uint8_t>(reinterpret_cast<const uint8_t*>(in), inl),
+      written, error);
   if (result == SR_SUCCESS) {
     return checked_cast<int>(written);
   } else if (result == SR_BLOCK) {
@@ -567,7 +572,10 @@ StreamResult OpenSSLStreamAdapter::Write(const void* data,
   switch (state_) {
     case SSL_NONE:
       // pass-through in clear text
-      return stream_->Write(data, data_len, written, error);
+      return stream_->Write(
+          rtc::ArrayView<const uint8_t>(reinterpret_cast<const uint8_t*>(data),
+                                        data_len),
+          *written, *error);
 
     case SSL_WAIT:
     case SSL_CONNECTING:
@@ -635,7 +643,9 @@ StreamResult OpenSSLStreamAdapter::Read(void* data,
   switch (state_) {
     case SSL_NONE:
       // pass-through in clear text
-      return stream_->Read(data, data_len, read, error);
+      return stream_->Read(
+          rtc::ArrayView<uint8_t>(reinterpret_cast<uint8_t*>(data), data_len),
+          *read, *error);
     case SSL_WAIT:
     case SSL_CONNECTING:
       return SR_BLOCK;

@@ -33,6 +33,23 @@
       "message": "Hey, I know you\u0027re on vacation today but could you take a look at this on Monday? Thanks",
       "revId": "0f99e462ff46d9ab8a37cb736174ece24628e0aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a314189_7f3c2006",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2022-11-08T01:02:10Z",
+      "side": 1,
+      "message": "I saw this discussion on chromium-dev and it pointed out that a hidden cost of vtable entries is the relocation fixups needed. This is relatively cheap on Windows (two bytes per relocation, everything shared between processes) but is some amount more on other platforms.\nhttps://groups.google.com/a/chromium.org/g/chromium-dev/c/jROTxMo_m2Q/m/4ZjC-VDpBAAJ?utm_medium\u003demail\u0026utm_source\u003dfooter",
+      "revId": "0f99e462ff46d9ab8a37cb736174ece24628e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c838d65_323cbc14",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/DefaultVideoEncoderFactoryTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-08T10:58:59Z",
+      "side": 1,
+      "message": "Had to update DefaultVideoEncoderFactoryTest due to changes in the codecs set supported by SoftwareVideoEncoderFactory.\n\nDefaultVideoEncoderFactory combines both SW and HW factories. We need to verify that the factory 1) preserves multiple codecs of the same type but different parameters and 2) removes extra codecs of the same type and the same parameters. I.e., only two tests are needed. Also, we don\u0027t really need to replicate H264 profiles to test (1). Arbitrary parameter name/value would work.",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "46cf8921334d133b8f3eff1726bfc22f46af4252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

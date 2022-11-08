@@ -56,6 +56,30 @@
       },
       "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e66517a8_8db38af4",
+        "filename": "sdk/android/api/org/webrtc/SoftwareVideoDecoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-08T09:02:46Z",
+      "side": 1,
+      "message": "You are right. The factories are not expected to be used without the native code. I removed try/catch and checks.",
+      "parentUuid": "3bc1a576_7e0fa158",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "4172e9f3e5b6c7504c815dcaf7a760f9c67b115f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

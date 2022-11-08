@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba175e7_76018de8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-08T13:34:14Z",
+      "side": 1,
+      "message": "Agree this is what we want!\n\nIf you do \"enum class RTCStats : uint32_t { ... }\" and \"kCode \u003d 0\" then you can have a const char* lookup table for all the stats names and use the enum value, converted to an index, for lookup to find the string. It could be exposed as an RTCStats::StatsTypeToString() and as soon as dependencies have migrated to using enum or enum-to-string then we could delete the old kType.",
+      "parentUuid": "53e51340_f1acb17a",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4c17e05_b91012d2",

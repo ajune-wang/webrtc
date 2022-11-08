@@ -118,6 +118,70 @@
       "message": "Could the tests be updated to use real RTCStatsTypes even if they are used in a test-only way? Would be nice not to have to expose test types in the API",
       "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f50f4c61_3f92eca6",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2022-11-08T12:05:07Z",
+      "side": 1,
+      "message": "I agree, I would prefer to not have these exposed here.",
+      "parentUuid": "463c5c45_81dc3af6",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9af26ff7_d3df7398",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2022-11-08T12:05:07Z",
+      "side": 1,
+      "message": "If StatsKind() was instead static, this could be replaced with something like \n  \n  RTC_DCHECK_EQ(T::kStatsKind, this-\u003ekStatsKind);\n  \nThis would avoid having to have two methods implemented for the stats kind, as well as having to implement two methods.",
+      "range": {
+        "startLine": 132,
+        "startChar": 15,
+        "endLine": 132,
+        "endChar": 32
+      },
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf19048c_23378d9c",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2022-11-08T12:05:07Z",
+      "side": 1,
+      "message": "It would be nice to have type_str and kind unified. For example, you could use an std::array here for the enum type,\n\n  constexpr size_t kNumStatsKindType \u003d StatsKindType::kTransportStats + 1;\n  constexpr std::array\u003cconst char [], kNumStatsKindType\u003e kStatTypeNames \u003d {\n    \"certificate\",\n    ...  \n  };\n\n  ...\n  constexpr char this_class:kType[] \u003d std::get\u003ckind\u003e(kStatTypeNames);\n  \n  \nThis could however be done in a follow-up CL.",
+      "range": {
+        "startLine": 203,
+        "startChar": 35,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

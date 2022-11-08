@@ -34,6 +34,24 @@
       "parentUuid": "dcfb1aaa_fd7f2a13",
       "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab7eb571_0c10db1e",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-11-08T15:48:29Z",
+      "side": 1,
+      "message": "Actually by adding the -- arg first, it will pass on isolated_script_test_output generate by flags_comparability as a child arg to the tests, if you look at the run for the trybot you can see that. The downside is that the fuchsia test_runner.py will not get the flag. Not sure that\u0027s a problem?",
+      "parentUuid": "c672dbf6_5e03deb3",
+      "revId": "a7e2607161e5c6c042aea0042801935a3cd15606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

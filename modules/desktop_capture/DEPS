@@ -1,4 +1,5 @@
 include_rules = [
+  "+modules/portal",
   "+system_wrappers",
   "+third_party/libyuv",
 ]

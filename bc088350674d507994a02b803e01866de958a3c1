@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc0e3e7c_a253549f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-08T09:28:07Z",
+      "side": 1,
+      "message": "Looks like a nice cleanup.",
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972690a9_613839a5",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-08T09:28:07Z",
+      "side": 1,
+      "message": "std::unique_ptr\u003cMetronome\u003e metronome_ GUARDED_BY(... or RUNS_ON... ) in the header?",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "337ebe92_8684629f",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-08T09:28:07Z",
+      "side": 1,
+      "message": "Do this need to be blocking? Cant you just post to the worker thread? \nThe worker thread should guarantee that the closure is deleted. (but I guess it does not guarantee that it happens on the thread itself?",
+      "range": {
+        "startLine": 112,
+        "startChar": 19,
+        "endLine": 112,
+        "endChar": 31
+      },
+      "revId": "bc088350674d507994a02b803e01866de958a3c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

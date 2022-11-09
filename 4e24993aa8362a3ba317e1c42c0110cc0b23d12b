@@ -36,6 +36,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9926352_69eac4c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-11-09T19:39:08Z",
+      "side": 1,
+      "message": "lgtm with Danil\u0027s comments addressed (particularly the notreached checks)",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39d767d8_e3d35b5a",

@@ -16,6 +16,57 @@
       "message": "I have one known wart still (there\u0027s an override of the Read method that overrides the old signature, not the new signature - interestingly, overriding a [[deprecated]] method does not give a compiler warning), but would like to take comments on the rest of the approach.",
       "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b908c58_e33a7ddf",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-11-09T16:09:03Z",
+      "side": 1,
+      "message": "Is it guaranteed that `written` and `error` are never null?\n\nI don\u0027t see checks above but below there are checks that indicate that they could be null.",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae46f73_90af66af",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-11-09T16:09:03Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "132ba661_6d2ec493",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-11-09T16:09:03Z",
+      "side": 1,
+      "message": "nit: can you add DCHECKs for `written` and `error` at the top of this function to make sure they\u0027re always valid?",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

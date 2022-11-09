@@ -55,6 +55,14 @@ bool DesktopCapturer::IsOccluded(const DesktopVector& pos) {
   return false;
 }
 
+bool DesktopCapturer::IsCursorEnabled() {
+  return is_cursor_enabled_;
+}
+
+void DesktopCapturer::EnableCursor(bool enable_cursor) {
+  is_cursor_enabled_ = enable_cursor;
+}
+
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateWindowCapturer(
     const DesktopCaptureOptions& options) {

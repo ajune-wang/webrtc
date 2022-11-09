@@ -163,6 +163,10 @@ class RTC_EXPORT DesktopCapturer {
   // The return value if `pos` is out of the scope of the source is undefined.
   virtual bool IsOccluded(const DesktopVector& pos);
 
+  // Controls the visibility of the system cursor
+  virtual void EnableCursor(bool enable_cursor);
+  virtual bool IsCursorEnabled();
+
   // Creates a DesktopCapturer instance which targets to capture windows.
   static std::unique_ptr<DesktopCapturer> CreateWindowCapturer(
       const DesktopCaptureOptions& options);
@@ -196,6 +200,9 @@ class RTC_EXPORT DesktopCapturer {
   // capture screens.
   static std::unique_ptr<DesktopCapturer> CreateRawScreenCapturer(
       const DesktopCaptureOptions& options);
+
+ private:
+  bool is_cursor_enabled_ = true;
 };
 
 }  // namespace webrtc

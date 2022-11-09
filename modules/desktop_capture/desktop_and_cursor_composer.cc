@@ -217,7 +217,7 @@ DesktopCaptureMetadata DesktopAndCursorComposer::GetMetadata() {
 void DesktopAndCursorComposer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {
-  if (frame && cursor_) {
+  if (IsCursorEnabled() && frame && cursor_) {
     if (!frame->may_contain_cursor() &&
         frame->rect().Contains(cursor_position_) &&
         !desktop_capturer_->IsOccluded(cursor_position_)) {

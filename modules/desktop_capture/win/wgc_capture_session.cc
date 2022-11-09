@@ -187,6 +187,15 @@ HRESULT WgcCaptureSession::StartCapture() {
     return hr;
   }
 
+  // Hide the system cursor,
+  // DesktopAndCursorComposer is responsible for drawing the cursor
+  ComPtr<ABI::Windows::Graphics::Capture::IGraphicsCaptureSession2> session2;
+  if (SUCCEEDED(session_->QueryInterface(
+          ABI::Windows::Graphics::Capture::IID_IGraphicsCaptureSession2,
+          &session2))) {
+    session2->put_IsCursorCaptureEnabled(false);
+  }
+
   hr = session_->StartCapture();
   if (FAILED(hr)) {
     RTC_LOG(LS_ERROR) << "Failed to start CaptureSession: " << hr;

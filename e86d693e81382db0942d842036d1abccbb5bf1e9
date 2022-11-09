@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f4eec4e_db8b0a65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20054
+      },
+      "writtenOn": "2022-11-09T16:34:50Z",
+      "side": 1,
+      "message": "PTAL. This CL un-virtualizes some functions in return for chrome.dll file size savings. I have been having trouble finding a reviewer. Let me know what you think as there are more instances that I could fix.",
+      "revId": "e86d693e81382db0942d842036d1abccbb5bf1e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

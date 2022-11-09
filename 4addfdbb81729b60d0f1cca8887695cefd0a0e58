@@ -93,6 +93,48 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c5073ac_7c70f0c5",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-09T23:20:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78f58229_a7769202",
+      "range": {
+        "startLine": 101,
+        "startChar": 41,
+        "endLine": 101,
+        "endChar": 68
+      },
+      "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "809554f3_bcf14b0d",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-09T23:20:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc0b285_a15a47cd",
+      "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3111e193_a6f19ecd",
@@ -106,6 +148,30 @@
       "writtenOn": "2022-11-09T09:39:11Z",
       "side": 1,
       "message": "Can replace if with switch now that the type is an enum",
+      "range": {
+        "startLine": 365,
+        "startChar": 6,
+        "endLine": 365,
+        "endChar": 8
+      },
+      "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315fa5ac_d2cb437b",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-09T23:20:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3111e193_a6f19ecd",
       "range": {
         "startLine": 365,
         "startChar": 6,

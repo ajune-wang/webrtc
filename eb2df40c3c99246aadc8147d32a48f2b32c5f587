@@ -18,6 +18,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e941ae_aa693bed",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T16:11:39Z",
+      "side": 1,
+      "message": "or rtc::MakeArrayView(\n\n(so that there is no need to write \"const uint8_t\" twice)\n\nSame for other places where you\u0027re calling ArrayView constructor after casting 1st parameter.",
+      "range": {
+        "startLine": 452,
+        "startChar": 20,
+        "endLine": 452,
+        "endChar": 49
+      },
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c087d0_829c9bd9",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T16:11:39Z",
+      "side": 1,
+      "message": "you can probably write just \u0027buf\u0027\nThere is an implicit conversion (by design) from `T value[N]` to rtc::ArrayView\u003cT\u003e with size N",
+      "range": {
+        "startLine": 707,
+        "startChar": 24,
+        "endLine": 707,
+        "endChar": 52
+      },
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef0704a_f2e5a219",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T16:11:39Z",
+      "side": 1,
+      "message": "prefer to cast directly to \u003cconst char*\u003e\n(to stress signal won\u0027t modify `buf`)",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b908c58_e33a7ddf",
@@ -52,6 +115,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7739b7b_38c5833a",
+        "filename": "rtc_base/ssl_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T16:11:39Z",
+      "side": 1,
+      "message": "if read \u003d\u003d 4096, then this would be out of bound array access.\nShould be ok for test code though.",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "132ba661_6d2ec493",
@@ -65,6 +145,46 @@
       "writtenOn": "2022-11-09T16:09:03Z",
       "side": 1,
       "message": "nit: can you add DCHECKs for `written` and `error` at the top of this function to make sure they\u0027re always valid?",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c36473_f196c84d",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T16:11:39Z",
+      "side": 1,
+      "message": "rtc::ArrayView\u003cconst uint8_t\u003e(block, tosend)\nor\nrtc::MakeArrayView(block, tosend)",
+      "range": {
+        "startLine": 866,
+        "startChar": 32,
+        "endLine": 866,
+        "endChar": 55
+      },
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df170d91_dab9ae4c",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T16:11:39Z",
+      "side": 1,
+      "message": "any reason to keep it dynamically allocated?\nseems trivial convert to stack:\nuint8_t packet[1600]; (and remove delete[] after the loop)",
       "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

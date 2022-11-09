@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde5f097_00e76086",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-09T18:42:13Z",
+      "side": 0,
+      "message": "Per the comment above, this then should be based on checking the DesktopCaptureOptions.",
+      "revId": "7dbd77c8b9228adfd3633be55a8a74b359958ff8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

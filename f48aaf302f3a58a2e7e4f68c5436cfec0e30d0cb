@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93f53ab_487905af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-11-09T11:45:32Z",
+      "side": 1,
+      "message": "I\u0027ll wait with this change until we figure out how to run it with \"gtest_parallel\". For now it just reverts the change it disabled it and attemps to make the tests more reliable.",
+      "revId": "f48aaf302f3a58a2e7e4f68c5436cfec0e30d0cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

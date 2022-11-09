@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b843904_06f0fc0e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-11-09T15:34:31Z",
+      "side": 1,
+      "message": "This code change addresses the off-by-one error mentioned in the CL description.\n\nThis is only to make an update every 100th frame to read better (after this change this would be configured by update_input_volume_wait_frames_ \u003d 100). The downside is that now update_input_volume_wait_frames_ \u003d 0 and update_input_volume_wait_frames_ \u003d 1 both have the same behaviour (i.e., an update allowed after every frame).",
+      "range": {
+        "startLine": 202,
+        "startChar": 6,
+        "endLine": 202,
+        "endChar": 41
+      },
+      "revId": "e6b968380a2a56ba6f90e39f01dee56bfb07dadc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

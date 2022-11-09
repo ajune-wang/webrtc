@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ade6d152_7c016d17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-11-09T15:38:08Z",
+      "side": 1,
+      "message": "Having the macro exposed seems a bit risky in general so it would be good if we could try to avoid that. I don\u0027t see a use-case for somebody adding their own stats type - WebRTC knows all of the possible types, along with their name and enum. It would probably be best to move these and undef them if possible to avoid usage.",
+      "parentUuid": "1b01d2f6_b8f60798",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4c17e05_b91012d2",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 1

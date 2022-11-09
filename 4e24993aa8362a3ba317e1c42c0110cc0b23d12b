@@ -16,6 +16,144 @@
       "message": "Think I caught them all - MakeArrayView made code more readable.",
       "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b683b11_df3f2d6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "found few more places",
+      "parentUuid": "e89649da_6d59cba2",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d767d8_e3d35b5a",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "code below this line is unreachable, was the intent to make it part of the TODO comment one line above?",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067c08c8_bffc721a",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "Write uses CHECK, Read uses DCHECK,\nwhich one do you find more reasonable?\n\neither of them imply no implementation.",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2316ff_be110c3f",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "may be [[deprecated(\"bugs.webrtc.org/14632\")]]",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de748d01_0da3c9a1",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "MakeArrayView\n(here and 2 more places below in this file)",
+      "range": {
+        "startLine": 170,
+        "startChar": 7,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "622a30fa_4bbf44c5",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "MakeArrayView",
+      "range": {
+        "startLine": 961,
+        "startChar": 15,
+        "endLine": 961,
+        "endChar": 33
+      },
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aa16369_fdcf5975",
+        "filename": "rtc_base/stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-09T19:11:48Z",
+      "side": 1,
+      "message": "MakeArrayView",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

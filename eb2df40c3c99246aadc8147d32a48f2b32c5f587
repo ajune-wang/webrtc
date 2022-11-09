@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4c0177_4c8a7403",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-09T14:15:45Z",
+      "side": 1,
+      "message": "I have one known wart still (there\u0027s an override of the Read method that overrides the old signature, not the new signature - interestingly, overriding a [[deprecated]] method does not give a compiler warning), but would like to take comments on the rest of the approach.",
+      "revId": "eb2df40c3c99246aadc8147d32a48f2b32c5f587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

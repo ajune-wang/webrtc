@@ -80,6 +80,30 @@
       },
       "revId": "e5013ea3b77b6f3fc92c7d57a8bf04a2ba085264",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ee36e29_3816d1e3",
+        "filename": "modules/desktop_capture/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-11-09T07:27:36Z",
+      "side": 1,
+      "message": "Ok, I\u0027ve removed it.",
+      "parentUuid": "71c556d5_d44bcf9e",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "e5013ea3b77b6f3fc92c7d57a8bf04a2ba085264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

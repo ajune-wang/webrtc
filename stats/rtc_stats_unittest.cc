@@ -15,6 +15,7 @@
 #include <cstring>
 #include <iostream>
 
+#include "api/stats/rtcstats_objects.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/json.h"
 #include "stats/test/rtc_test_stats.h"
@@ -44,19 +45,30 @@ class RTCChildStats : public RTCStats {
   WEBRTC_RTCSTATS_DECL();
 
   RTCChildStats(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), child_int("childInt") {}
+      : RTCStats(RTCChildStats::kStatsType, id, timestamp_us),
+        child_int("childInt") {}
+
+  RTCChildStats(RTCStatsType stats_type,
+                const std::string& id,
+                int64_t timestamp_us)
+      : RTCStats(stats_type, id, timestamp_us), child_int("childInt") {}
 
   RTCStatsMember<int32_t> child_int;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCChildStats, RTCStats, "child-stats", &child_int)
+WEBRTC_RTCSTATS_IMPL(RTCChildStats,
+                     RTCStats,
+                     "child-stats",
+                     kLocalCandidate,
+                     &child_int)
 
 class RTCGrandChildStats : public RTCChildStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
   RTCGrandChildStats(const std::string& id, int64_t timestamp_us)
-      : RTCChildStats(id, timestamp_us), grandchild_int("grandchildInt") {}
+      : RTCChildStats(RTCStatsType::kMediaSource, id, timestamp_us),
+        grandchild_int("grandchildInt") {}
 
   RTCStatsMember<int32_t> grandchild_int;
 };
@@ -64,6 +76,7 @@ class RTCGrandChildStats : public RTCChildStats {
 WEBRTC_RTCSTATS_IMPL(RTCGrandChildStats,
                      RTCChildStats,
                      "grandchild-stats",
+                     kMediaSource,
                      &grandchild_int)
 
 TEST(RTCStatsTest, RTCStatsAndMembers) {

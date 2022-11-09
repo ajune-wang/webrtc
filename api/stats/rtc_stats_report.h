@@ -23,6 +23,7 @@
 #include "api/ref_counted_base.h"
 #include "api/scoped_refptr.h"
 #include "api/stats/rtc_stats.h"
+#include "api/stats/rtcstats_objects.h"
 #include "api/units/timestamp.h"
 // TODO(tommi): Remove this include after fixing iwyu issue in chromium.
 // See: third_party/blink/renderer/platform/peerconnection/rtc_stats.cc
@@ -98,8 +99,31 @@ class RTC_EXPORT RTCStatsReport final
   template <typename T>
   const T* GetAs(const std::string& id) const {
     const RTCStats* stats = Get(id);
-    if (!stats || stats->type() != T::kType) {
+    if (!stats || stats->StatsType() != T::kStatsType) {
       return nullptr;
+    }
+    constexpr bool is_audio_source_stats =
+        std::is_same_v<RTCAudioSourceStats, std::remove_const_t<T>>;
+    constexpr bool is_video_source_stats =
+        std::is_same_v<RTCVideoSourceStats, std::remove_const_t<T>>;
+    if constexpr (is_audio_source_stats || is_video_source_stats) {
+      // RTCAudioSourceStats::kType and RTCVideoSourceStats::kStatsType both
+      // have the value kMediaSource, so distinguish them with `kind`.
+      const RTCStatsMember<std::string>& kind =
+          (static_cast<const RTCMediaSourceStats*>(stats))->kind;
+      if (kind.is_defined() && *kind == "audio") {
+        if constexpr (is_audio_source_stats) {
+          return &stats->cast_to<const T>();
+        } else {
+          return nullptr;
+        }
+      } else {
+        if constexpr (is_video_source_stats) {
+          return &stats->cast_to<const T>();
+        } else {
+          return nullptr;
+        }
+      }
     }
     return &stats->cast_to<const T>();
   }
@@ -120,8 +144,28 @@ class RTC_EXPORT RTCStatsReport final
   std::vector<const T*> GetStatsOfType() const {
     std::vector<const T*> stats_of_type;
     for (const RTCStats& stats : *this) {
-      if (stats.type() == T::kType)
+      if (stats.StatsType() == T::kStatsType) {
+        constexpr bool is_audio_source_stats =
+            std::is_same_v<RTCAudioSourceStats, std::remove_const_t<T>>;
+        constexpr bool is_video_source_stats =
+            std::is_same_v<RTCVideoSourceStats, std::remove_const_t<T>>;
+        if (is_audio_source_stats || is_video_source_stats) {
+          // RTCAudioSourceStats::kType and RTCVideoSourceStats::kStatsType both
+          // have the value kMediaSource, so distinguish them with `kind`.
+          const RTCStatsMember<std::string>& kind =
+              (static_cast<const RTCMediaSourceStats*>(&stats))->kind;
+          if (kind.is_defined() && *kind == "audio") {
+            if constexpr (!is_audio_source_stats) {
+              continue;
+            }
+          } else {
+            if constexpr (!is_video_source_stats) {
+              continue;
+            }
+          }
+        }
         stats_of_type.push_back(&stats.cast_to<const T>());
+      }
     }
     return stats_of_type;
   }

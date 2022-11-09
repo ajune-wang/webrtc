@@ -264,12 +264,12 @@ class RTCStatsVerifier {
   }
 
   void TestMemberIsIDReference(const RTCStatsMemberInterface& member,
-                               const char* expected_type) {
+                               RTCStatsType expected_type) {
     TestMemberIsIDReference(member, expected_type, false);
   }
 
   void TestMemberIsOptionalIDReference(const RTCStatsMemberInterface& member,
-                                       const char* expected_type) {
+                                       RTCStatsType expected_type) {
     TestMemberIsIDReference(member, expected_type, true);
   }
 
@@ -285,7 +285,7 @@ class RTCStatsVerifier {
 
  private:
   void TestMemberIsIDReference(const RTCStatsMemberInterface& member,
-                               const char* expected_type,
+                               RTCStatsType expected_type,
                                bool optional) {
     if (optional && !member.is_defined()) {
       MarkMemberTested(member, true);
@@ -299,7 +299,7 @@ class RTCStatsVerifier {
             member.cast_to<RTCStatsMember<std::string>>();
         const RTCStats* referenced_stats = report_->Get(*id);
         valid_reference =
-            referenced_stats && referenced_stats->type() == expected_type;
+            referenced_stats && referenced_stats->StatsType() == expected_type;
       } else if (member.type() == RTCStatsMemberInterface::kSequenceString) {
         // A vector of IDs.
         valid_reference = true;
@@ -307,7 +307,8 @@ class RTCStatsVerifier {
             member.cast_to<RTCStatsMember<std::vector<std::string>>>();
         for (const std::string& id : *ids) {
           const RTCStats* referenced_stats = report_->Get(id);
-          if (!referenced_stats || referenced_stats->type() != expected_type) {
+          if (!referenced_stats ||
+              referenced_stats->StatsType() != expected_type) {
             valid_reference = false;
             break;
           }
@@ -318,7 +319,7 @@ class RTCStatsVerifier {
         << stats_->type() << "." << member.name()
         << " is not a reference to an "
            "existing dictionary of type "
-        << expected_type << " (value: "
+        << RTCStats::StatsTypeToString(expected_type) << " (value: "
         << (member.is_defined() ? member.ValueToString() : "null") << ").";
     MarkMemberTested(member, valid_reference);
   }
@@ -331,28 +332,28 @@ class RTCStatsVerifier {
 
 class RTCStatsReportVerifier {
  public:
-  static std::set<const char*> StatsTypes() {
-    std::set<const char*> stats_types;
-    stats_types.insert(RTCCertificateStats::kType);
-    stats_types.insert(RTCCodecStats::kType);
-    stats_types.insert(RTCDataChannelStats::kType);
-    stats_types.insert(RTCIceCandidatePairStats::kType);
-    stats_types.insert(RTCLocalIceCandidateStats::kType);
-    stats_types.insert(RTCRemoteIceCandidateStats::kType);
-    stats_types.insert(DEPRECATED_RTCMediaStreamStats::kType);
-    stats_types.insert(DEPRECATED_RTCMediaStreamTrackStats::kType);
-    stats_types.insert(RTCPeerConnectionStats::kType);
-    stats_types.insert(RTCInboundRTPStreamStats::kType);
-    stats_types.insert(RTCOutboundRTPStreamStats::kType);
-    stats_types.insert(RTCTransportStats::kType);
+  static std::set<RTCStatsType> StatsTypes() {
+    std::set<RTCStatsType> stats_types;
+    stats_types.insert(RTCCertificateStats::kStatsType);
+    stats_types.insert(RTCCodecStats::kStatsType);
+    stats_types.insert(RTCDataChannelStats::kStatsType);
+    stats_types.insert(RTCIceCandidatePairStats::kStatsType);
+    stats_types.insert(RTCLocalIceCandidateStats::kStatsType);
+    stats_types.insert(RTCRemoteIceCandidateStats::kStatsType);
+    stats_types.insert(DEPRECATED_RTCMediaStreamStats::kStatsType);
+    stats_types.insert(DEPRECATED_RTCMediaStreamTrackStats::kStatsType);
+    stats_types.insert(RTCPeerConnectionStats::kStatsType);
+    stats_types.insert(RTCInboundRTPStreamStats::kStatsType);
+    stats_types.insert(RTCOutboundRTPStreamStats::kStatsType);
+    stats_types.insert(RTCTransportStats::kStatsType);
     return stats_types;
   }
 
   explicit RTCStatsReportVerifier(const RTCStatsReport* report)
       : report_(report) {}
 
-  void VerifyReport(std::vector<const char*> allowed_missing_stats) {
-    std::set<const char*> missing_stats = StatsTypes();
+  void VerifyReport(std::vector<RTCStatsType> allowed_missing_stats) {
+    std::set<RTCStatsType> missing_stats = StatsTypes();
     bool verify_successful = true;
     std::vector<const RTCTransportStats*> transport_stats =
         report_->GetStatsOfType<RTCTransportStats>();
@@ -360,71 +361,89 @@ class RTCStatsReportVerifier {
     std::string selected_candidate_pair_id =
         *transport_stats[0]->selected_candidate_pair_id;
     for (const RTCStats& stats : *report_) {
-      missing_stats.erase(stats.type());
-      if (stats.type() == RTCCertificateStats::kType) {
-        verify_successful &=
-            VerifyRTCCertificateStats(stats.cast_to<RTCCertificateStats>());
-      } else if (stats.type() == RTCCodecStats::kType) {
-        verify_successful &=
-            VerifyRTCCodecStats(stats.cast_to<RTCCodecStats>());
-      } else if (stats.type() == RTCDataChannelStats::kType) {
-        verify_successful &=
-            VerifyRTCDataChannelStats(stats.cast_to<RTCDataChannelStats>());
-      } else if (stats.type() == RTCIceCandidatePairStats::kType) {
-        verify_successful &= VerifyRTCIceCandidatePairStats(
-            stats.cast_to<RTCIceCandidatePairStats>(),
-            stats.id() == selected_candidate_pair_id);
-      } else if (stats.type() == RTCLocalIceCandidateStats::kType) {
-        verify_successful &= VerifyRTCLocalIceCandidateStats(
-            stats.cast_to<RTCLocalIceCandidateStats>());
-      } else if (stats.type() == RTCRemoteIceCandidateStats::kType) {
-        verify_successful &= VerifyRTCRemoteIceCandidateStats(
-            stats.cast_to<RTCRemoteIceCandidateStats>());
-      } else if (stats.type() == DEPRECATED_RTCMediaStreamStats::kType) {
-        verify_successful &= DEPRECATED_VerifyRTCMediaStreamStats(
-            stats.cast_to<DEPRECATED_RTCMediaStreamStats>());
-      } else if (stats.type() == DEPRECATED_RTCMediaStreamTrackStats::kType) {
-        verify_successful &= VerLegacyifyRTCMediaStreamTrackStats(
-            stats.cast_to<DEPRECATED_RTCMediaStreamTrackStats>());
-      } else if (stats.type() == RTCPeerConnectionStats::kType) {
-        verify_successful &= VerifyRTCPeerConnectionStats(
-            stats.cast_to<RTCPeerConnectionStats>());
-      } else if (stats.type() == RTCInboundRTPStreamStats::kType) {
-        verify_successful &= VerifyRTCInboundRTPStreamStats(
-            stats.cast_to<RTCInboundRTPStreamStats>());
-      } else if (stats.type() == RTCOutboundRTPStreamStats::kType) {
-        verify_successful &= VerifyRTCOutboundRTPStreamStats(
-            stats.cast_to<RTCOutboundRTPStreamStats>());
-      } else if (stats.type() == RTCRemoteInboundRtpStreamStats::kType) {
-        verify_successful &= VerifyRTCRemoteInboundRtpStreamStats(
-            stats.cast_to<RTCRemoteInboundRtpStreamStats>());
-      } else if (stats.type() == RTCRemoteOutboundRtpStreamStats::kType) {
-        verify_successful &= VerifyRTCRemoteOutboundRTPStreamStats(
-            stats.cast_to<RTCRemoteOutboundRtpStreamStats>());
-      } else if (stats.type() == RTCAudioSourceStats::kType) {
-        // RTCAudioSourceStats::kType and RTCVideoSourceStats::kType both have
-        // the value "media-source", but they are distinguishable with pointer
-        // equality (==). In JavaScript they would be distinguished with `kind`.
-        verify_successful &=
-            VerifyRTCAudioSourceStats(stats.cast_to<RTCAudioSourceStats>());
-      } else if (stats.type() == RTCVideoSourceStats::kType) {
-        // RTCAudioSourceStats::kType and RTCVideoSourceStats::kType both have
-        // the value "media-source", but they are distinguishable with pointer
-        // equality (==). In JavaScript they would be distinguished with `kind`.
-        verify_successful &=
-            VerifyRTCVideoSourceStats(stats.cast_to<RTCVideoSourceStats>());
-      } else if (stats.type() == RTCTransportStats::kType) {
-        verify_successful &=
-            VerifyRTCTransportStats(stats.cast_to<RTCTransportStats>());
-      } else {
-        EXPECT_TRUE(false) << "Unrecognized stats type: " << stats.type();
-        verify_successful = false;
+      missing_stats.erase(stats.StatsType());
+      switch (stats.StatsType()) {
+        case RTCStatsType::kCertificate:
+          verify_successful &=
+              VerifyRTCCertificateStats(stats.cast_to<RTCCertificateStats>());
+          break;
+        case RTCStatsType::kCodec:
+          verify_successful &=
+              VerifyRTCCodecStats(stats.cast_to<RTCCodecStats>());
+          break;
+        case RTCStatsType::kDataChannel:
+          verify_successful &=
+              VerifyRTCDataChannelStats(stats.cast_to<RTCDataChannelStats>());
+          break;
+        case RTCStatsType::kCandidatePair:
+          verify_successful &= VerifyRTCIceCandidatePairStats(
+              stats.cast_to<RTCIceCandidatePairStats>(),
+              stats.id() == selected_candidate_pair_id);
+          break;
+        case RTCStatsType::kLocalCandidate:
+          verify_successful &= VerifyRTCLocalIceCandidateStats(
+              stats.cast_to<RTCLocalIceCandidateStats>());
+          break;
+        case RTCStatsType::kRemoteCandidate:
+          verify_successful &= VerifyRTCRemoteIceCandidateStats(
+              stats.cast_to<RTCRemoteIceCandidateStats>());
+          break;
+        case RTCStatsType::kDEPRECATED_Stream:
+          verify_successful &= DEPRECATED_VerifyRTCMediaStreamStats(
+              stats.cast_to<DEPRECATED_RTCMediaStreamStats>());
+          break;
+        case RTCStatsType::kDEPRECATED_Track:
+          verify_successful &= VerLegacyifyRTCMediaStreamTrackStats(
+              stats.cast_to<DEPRECATED_RTCMediaStreamTrackStats>());
+          break;
+        case RTCStatsType::kPeerConnection:
+          verify_successful &= VerifyRTCPeerConnectionStats(
+              stats.cast_to<RTCPeerConnectionStats>());
+          break;
+        case RTCStatsType::kInboundRtp:
+          verify_successful &= VerifyRTCInboundRTPStreamStats(
+              stats.cast_to<RTCInboundRTPStreamStats>());
+          break;
+        case RTCStatsType::kOutboundRtp:
+          verify_successful &= VerifyRTCOutboundRTPStreamStats(
+              stats.cast_to<RTCOutboundRTPStreamStats>());
+          break;
+        case RTCStatsType::kRemoteInboundRtp:
+          verify_successful &= VerifyRTCRemoteInboundRtpStreamStats(
+              stats.cast_to<RTCRemoteInboundRtpStreamStats>());
+          break;
+        case RTCStatsType::kRemoteOutboundRtp:
+          verify_successful &= VerifyRTCRemoteInboundRtpStreamStats(
+              stats.cast_to<RTCRemoteInboundRtpStreamStats>());
+          break;
+        case RTCStatsType::kMediaSource: {
+          // RTCAudioSourceStats::kType and RTCVideoSourceStats::kStatsType both
+          // have the value kMediaSource, so distinguish them with `kind`.
+          const RTCStatsMember<std::string>& kind =
+              (static_cast<const RTCMediaSourceStats*>(&stats))->kind;
+          ASSERT_TRUE(kind.is_defined());
+          if (*kind == "audio") {
+            verify_successful &=
+                VerifyRTCAudioSourceStats(stats.cast_to<RTCAudioSourceStats>());
+          } else {
+            verify_successful &=
+                VerifyRTCVideoSourceStats(stats.cast_to<RTCVideoSourceStats>());
+          }
+        } break;
+        case RTCStatsType::kTransport:
+          verify_successful &=
+              VerifyRTCTransportStats(stats.cast_to<RTCTransportStats>());
+          break;
+        default:
+          EXPECT_TRUE(false) << "Unrecognized stats type: " << stats.type();
+          verify_successful = false;
       }
     }
-    for (const char* missing : missing_stats) {
+    for (RTCStatsType missing : missing_stats) {
       if (!absl::c_linear_search(allowed_missing_stats, missing)) {
         verify_successful = false;
-        EXPECT_TRUE(false) << "Missing expected stats type: " << missing;
+        EXPECT_TRUE(false) << "Missing expected stats type: "
+                           << static_cast<int>(missing);
       }
     }
     EXPECT_TRUE(verify_successful)
@@ -438,14 +457,14 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsDefined(certificate.fingerprint_algorithm);
     verifier.TestMemberIsDefined(certificate.base64_certificate);
     verifier.TestMemberIsOptionalIDReference(certificate.issuer_certificate_id,
-                                             RTCCertificateStats::kType);
+                                             RTCCertificateStats::kStatsType);
     return verifier.ExpectAllMembersSuccessfullyTested();
   }
 
   bool VerifyRTCCodecStats(const RTCCodecStats& codec) {
     RTCStatsVerifier verifier(report_.get(), &codec);
     verifier.TestMemberIsIDReference(codec.transport_id,
-                                     RTCTransportStats::kType);
+                                     RTCTransportStats::kStatsType);
     verifier.TestMemberIsDefined(codec.payload_type);
     verifier.TestMemberIsDefined(codec.mime_type);
     verifier.TestMemberIsPositive<uint32_t>(codec.clock_rate);
@@ -478,11 +497,11 @@ class RTCStatsReportVerifier {
       bool is_selected_pair) {
     RTCStatsVerifier verifier(report_.get(), &candidate_pair);
     verifier.TestMemberIsIDReference(candidate_pair.transport_id,
-                                     RTCTransportStats::kType);
+                                     RTCTransportStats::kStatsType);
     verifier.TestMemberIsIDReference(candidate_pair.local_candidate_id,
-                                     RTCLocalIceCandidateStats::kType);
+                                     RTCLocalIceCandidateStats::kStatsType);
     verifier.TestMemberIsIDReference(candidate_pair.remote_candidate_id,
-                                     RTCRemoteIceCandidateStats::kType);
+                                     RTCRemoteIceCandidateStats::kStatsType);
     verifier.TestMemberIsDefined(candidate_pair.state);
     verifier.TestMemberIsNonNegative<uint64_t>(candidate_pair.priority);
     verifier.TestMemberIsDefined(candidate_pair.nominated);
@@ -525,7 +544,7 @@ class RTCStatsReportVerifier {
   bool VerifyRTCIceCandidateStats(const RTCIceCandidateStats& candidate) {
     RTCStatsVerifier verifier(report_.get(), &candidate);
     verifier.TestMemberIsIDReference(candidate.transport_id,
-                                     RTCTransportStats::kType);
+                                     RTCTransportStats::kStatsType);
     verifier.TestMemberIsDefined(candidate.is_remote);
     if (*candidate.is_remote) {
       verifier.TestMemberIsUndefined(candidate.network_type);
@@ -567,7 +586,8 @@ class RTCStatsReportVerifier {
     RTCStatsVerifier verifier(report_.get(), &media_stream);
     verifier.TestMemberIsDefined(media_stream.stream_identifier);
     verifier.TestMemberIsIDReference(
-        media_stream.track_ids, DEPRECATED_RTCMediaStreamTrackStats::kType);
+        media_stream.track_ids,
+        DEPRECATED_RTCMediaStreamTrackStats::kStatsType);
     return verifier.ExpectAllMembersSuccessfullyTested();
   }
 
@@ -599,7 +619,7 @@ class RTCStatsReportVerifier {
             media_stream_track.frames_dropped);
       } else {
         verifier.TestMemberIsIDReference(media_stream_track.media_source_id,
-                                         RTCVideoSourceStats::kType);
+                                         RTCVideoSourceStats::kStatsType);
         // Local tracks have no jitter buffer.
         verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
         verifier.TestMemberIsUndefined(
@@ -662,7 +682,7 @@ class RTCStatsReportVerifier {
             media_stream_track.removed_samples_for_acceleration);
       } else {
         verifier.TestMemberIsIDReference(media_stream_track.media_source_id,
-                                         RTCAudioSourceStats::kType);
+                                         RTCAudioSourceStats::kStatsType);
         // Local audio tracks have no jitter buffer.
         verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
         verifier.TestMemberIsUndefined(
@@ -718,18 +738,19 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsDefined(stream.kind);
     // Some legacy metrics are only defined for some of the RTP types in the
     // hierarcy.
-    if (stream.type() == RTCInboundRTPStreamStats::kType ||
-        stream.type() == RTCOutboundRTPStreamStats::kType) {
+    if (stream.StatsType() == RTCInboundRTPStreamStats::kStatsType ||
+        stream.StatsType() == RTCOutboundRTPStreamStats::kStatsType) {
       verifier.TestMemberIsDefined(stream.media_type);
       verifier.TestMemberIsIDReference(
-          stream.track_id, DEPRECATED_RTCMediaStreamTrackStats::kType);
+          stream.track_id, DEPRECATED_RTCMediaStreamTrackStats::kStatsType);
     } else {
       verifier.TestMemberIsUndefined(stream.media_type);
       verifier.TestMemberIsUndefined(stream.track_id);
     }
     verifier.TestMemberIsIDReference(stream.transport_id,
-                                     RTCTransportStats::kType);
-    verifier.TestMemberIsIDReference(stream.codec_id, RTCCodecStats::kType);
+                                     RTCTransportStats::kStatsType);
+    verifier.TestMemberIsIDReference(stream.codec_id,
+                                     RTCCodecStats::kStatsType);
   }
 
   void VerifyRTCSentRTPStreamStats(const RTCSentRtpStreamStats& sent_stream,
@@ -744,7 +765,7 @@ class RTCStatsReportVerifier {
     RTCStatsVerifier verifier(report_.get(), &inbound_stream);
     VerifyRTCReceivedRtpStreamStats(inbound_stream, verifier);
     verifier.TestMemberIsOptionalIDReference(
-        inbound_stream.remote_id, RTCRemoteOutboundRtpStreamStats::kType);
+        inbound_stream.remote_id, RTCRemoteOutboundRtpStreamStats::kStatsType);
     verifier.TestMemberIsDefined(inbound_stream.mid);
     verifier.TestMemberIsDefined(inbound_stream.track_identifier);
     if (inbound_stream.kind.is_defined() && *inbound_stream.kind == "video") {
@@ -913,7 +934,7 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsDefined(outbound_stream.active);
     if (outbound_stream.kind.is_defined() && *outbound_stream.kind == "video") {
       verifier.TestMemberIsIDReference(outbound_stream.media_source_id,
-                                       RTCVideoSourceStats::kType);
+                                       RTCVideoSourceStats::kStatsType);
       verifier.TestMemberIsNonNegative<uint32_t>(outbound_stream.fir_count);
       verifier.TestMemberIsNonNegative<uint32_t>(outbound_stream.pli_count);
       if (*outbound_stream.frames_encoded > 0) {
@@ -925,12 +946,12 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(outbound_stream.fir_count);
       verifier.TestMemberIsUndefined(outbound_stream.pli_count);
       verifier.TestMemberIsIDReference(outbound_stream.media_source_id,
-                                       RTCAudioSourceStats::kType);
+                                       RTCAudioSourceStats::kStatsType);
       verifier.TestMemberIsUndefined(outbound_stream.qp_sum);
     }
     verifier.TestMemberIsNonNegative<uint32_t>(outbound_stream.nack_count);
     verifier.TestMemberIsOptionalIDReference(
-        outbound_stream.remote_id, RTCRemoteInboundRtpStreamStats::kType);
+        outbound_stream.remote_id, RTCRemoteInboundRtpStreamStats::kStatsType);
     verifier.TestMemberIsNonNegative<uint32_t>(outbound_stream.packets_sent);
     verifier.TestMemberIsNonNegative<double>(
         outbound_stream.total_packet_send_delay);
@@ -1013,7 +1034,7 @@ class RTCStatsReportVerifier {
     VerifyRTCReceivedRtpStreamStats(remote_inbound_stream, verifier);
     verifier.TestMemberIsDefined(remote_inbound_stream.fraction_lost);
     verifier.TestMemberIsIDReference(remote_inbound_stream.local_id,
-                                     RTCOutboundRTPStreamStats::kType);
+                                     RTCOutboundRTPStreamStats::kStatsType);
     verifier.TestMemberIsNonNegative<double>(
         remote_inbound_stream.round_trip_time);
     verifier.TestMemberIsNonNegative<double>(
@@ -1029,7 +1050,7 @@ class RTCStatsReportVerifier {
     VerifyRTCRTPStreamStats(remote_outbound_stream, verifier);
     VerifyRTCSentRTPStreamStats(remote_outbound_stream, verifier);
     verifier.TestMemberIsIDReference(remote_outbound_stream.local_id,
-                                     RTCOutboundRTPStreamStats::kType);
+                                     RTCOutboundRTPStreamStats::kStatsType);
     verifier.TestMemberIsNonNegative<double>(
         remote_outbound_stream.remote_timestamp);
     verifier.TestMemberIsDefined(remote_outbound_stream.reports_sent);
@@ -1041,10 +1062,11 @@ class RTCStatsReportVerifier {
     verifier->TestMemberIsDefined(media_source.track_identifier);
     verifier->TestMemberIsDefined(media_source.kind);
     if (media_source.kind.is_defined()) {
-      EXPECT_TRUE((*media_source.kind == "audio" &&
-                   media_source.type() == RTCAudioSourceStats::kType) ||
-                  (*media_source.kind == "video" &&
-                   media_source.type() == RTCVideoSourceStats::kType));
+      EXPECT_TRUE(
+          (*media_source.kind == "audio" &&
+           media_source.StatsType() == RTCAudioSourceStats::kStatsType) ||
+          (*media_source.kind == "video" &&
+           media_source.StatsType() == RTCVideoSourceStats::kStatsType));
     }
   }
 
@@ -1087,14 +1109,14 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsNonNegative<uint64_t>(transport.bytes_received);
     verifier.TestMemberIsNonNegative<uint64_t>(transport.packets_received);
     verifier.TestMemberIsOptionalIDReference(transport.rtcp_transport_stats_id,
-                                             RTCTransportStats::kType);
+                                             RTCTransportStats::kStatsType);
     verifier.TestMemberIsDefined(transport.dtls_state);
     verifier.TestMemberIsIDReference(transport.selected_candidate_pair_id,
-                                     RTCIceCandidatePairStats::kType);
+                                     RTCIceCandidatePairStats::kStatsType);
     verifier.TestMemberIsIDReference(transport.local_certificate_id,
-                                     RTCCertificateStats::kType);
+                                     RTCCertificateStats::kStatsType);
     verifier.TestMemberIsIDReference(transport.remote_certificate_id,
-                                     RTCCertificateStats::kType);
+                                     RTCCertificateStats::kStatsType);
     verifier.TestMemberIsDefined(transport.tls_version);
     verifier.TestMemberIsDefined(transport.dtls_cipher);
     verifier.TestMemberIsDefined(transport.dtls_role);
@@ -1142,14 +1164,14 @@ TEST_F(RTCStatsIntegrationTest, GetStatsWithSenderSelector) {
   ASSERT_FALSE(caller_->pc()->GetSenders().empty());
   rtc::scoped_refptr<const RTCStatsReport> report =
       GetStatsFromCaller(caller_->pc()->GetSenders()[0]);
-  std::vector<const char*> allowed_missing_stats = {
+  std::vector<RTCStatsType> allowed_missing_stats = {
       // TODO(hbos): Include RTC[Audio/Video]ReceiverStats when implemented.
       // TODO(hbos): Include RTCRemoteOutboundRtpStreamStats when implemented.
       // TODO(hbos): Include RTCRtpContributingSourceStats when implemented.
-      RTCInboundRTPStreamStats::kType,
-      RTCPeerConnectionStats::kType,
-      DEPRECATED_RTCMediaStreamStats::kType,
-      RTCDataChannelStats::kType,
+      RTCInboundRTPStreamStats::kStatsType,
+      RTCPeerConnectionStats::kStatsType,
+      DEPRECATED_RTCMediaStreamStats::kStatsType,
+      RTCDataChannelStats::kStatsType,
   };
   RTCStatsReportVerifier(report.get()).VerifyReport(allowed_missing_stats);
   EXPECT_TRUE(report->size());
@@ -1161,14 +1183,14 @@ TEST_F(RTCStatsIntegrationTest, GetStatsWithReceiverSelector) {
   ASSERT_FALSE(caller_->pc()->GetReceivers().empty());
   rtc::scoped_refptr<const RTCStatsReport> report =
       GetStatsFromCaller(caller_->pc()->GetReceivers()[0]);
-  std::vector<const char*> allowed_missing_stats = {
+  std::vector<RTCStatsType> allowed_missing_stats = {
       // TODO(hbos): Include RTC[Audio/Video]SenderStats when implemented.
       // TODO(hbos): Include RTCRemoteInboundRtpStreamStats when implemented.
       // TODO(hbos): Include RTCRtpContributingSourceStats when implemented.
-      RTCOutboundRTPStreamStats::kType,
-      RTCPeerConnectionStats::kType,
-      DEPRECATED_RTCMediaStreamStats::kType,
-      RTCDataChannelStats::kType,
+      RTCOutboundRTPStreamStats::kStatsType,
+      RTCPeerConnectionStats::kStatsType,
+      DEPRECATED_RTCMediaStreamStats::kStatsType,
+      RTCDataChannelStats::kStatsType,
   };
   RTCStatsReportVerifier(report.get()).VerifyReport(allowed_missing_stats);
   EXPECT_TRUE(report->size());

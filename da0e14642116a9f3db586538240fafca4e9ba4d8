@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb35807_33a1f346",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-09T16:41:35Z",
+      "side": 1,
+      "message": "LGTM with one small change",
+      "revId": "da0e14642116a9f3db586538240fafca4e9ba4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9fadf2e_00c01339",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-09T16:41:35Z",
+      "side": 1,
+      "message": "Prefer \u003d default for both of these",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 35
+      },
+      "revId": "da0e14642116a9f3db586538240fafca4e9ba4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

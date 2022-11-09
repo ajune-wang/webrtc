@@ -34,6 +34,24 @@
       "parentUuid": "d93f53ab_487905af",
       "revId": "f48aaf302f3a58a2e7e4f68c5436cfec0e30d0cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e29b85_302d749e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-09T15:43:25Z",
+      "side": 1,
+      "message": "If this CL makes the tests more reliable it SGTM.\nNote that with https://webrtc-review.googlesource.com/c/src/+/282820 PipeWire tests will be retried 3 times before failing, it should reduce the flakiness.",
+      "parentUuid": "68bc4b7a_36c5cfd3",
+      "revId": "f48aaf302f3a58a2e7e4f68c5436cfec0e30d0cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

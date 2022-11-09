@@ -963,8 +963,9 @@ const std::string& ProduceIceCandidateStats(int64_t timestamp_us,
     stats = candidate_stats.get();
     report->AddStats(std::move(candidate_stats));
   }
-  RTC_DCHECK_EQ(stats->type(), is_local ? RTCLocalIceCandidateStats::kType
-                                        : RTCRemoteIceCandidateStats::kType);
+  RTC_DCHECK_EQ(stats->StatsType(),
+                is_local ? RTCLocalIceCandidateStats::kStatsType
+                         : RTCRemoteIceCandidateStats::kStatsType);
   return stats->id();
 }
 
@@ -1250,7 +1251,7 @@ rtc::scoped_refptr<RTCStatsReport> CreateReportFilteredBySelector(
           DEPRECATED_RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(
               kDirectionOutbound, sender_selector->AttachmentId());
       for (const auto& stats : *report) {
-        if (stats.type() != RTCOutboundRTPStreamStats::kType)
+        if (stats.StatsType() != RTCOutboundRTPStreamStats::kStatsType)
           continue;
         const auto& outbound_rtp = stats.cast_to<RTCOutboundRTPStreamStats>();
         if (outbound_rtp.track_id.is_defined() &&
@@ -1270,7 +1271,7 @@ rtc::scoped_refptr<RTCStatsReport> CreateReportFilteredBySelector(
           DEPRECATED_RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(
               kDirectionInbound, receiver_selector->AttachmentId());
       for (const auto& stats : *report) {
-        if (stats.type() != RTCInboundRTPStreamStats::kType)
+        if (stats.StatsType() != RTCInboundRTPStreamStats::kStatsType)
           continue;
         const auto& inbound_rtp = stats.cast_to<RTCInboundRTPStreamStats>();
         if (inbound_rtp.track_id.is_defined() &&

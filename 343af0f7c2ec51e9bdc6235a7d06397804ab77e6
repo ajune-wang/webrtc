@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba0a436e_330f5dd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-09T09:09:46Z",
+      "side": 1,
+      "message": "There are some internal code bases that reference kType, yes. I can help migrate them if we land the new way in one CL and removing the old way in a follow-up CL.\n\nIn Chromium there is one use of RTCTestStats (defined in webrtc but used in a blink_unittests), which does use kType:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_peer_connection_handler_test.cc;l\u003d959;drc\u003dff63daf908d72fa58e8a0b4265c24e9a6344ee76",
+      "parentUuid": "a363330c_bc69a1ac",
+      "revId": "343af0f7c2ec51e9bdc6235a7d06397804ab77e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4c17e05_b91012d2",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 1

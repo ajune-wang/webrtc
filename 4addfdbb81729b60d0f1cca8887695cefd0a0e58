@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50a429e9_e5f3e6ba",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-09T09:09:46Z",
+      "side": 1,
+      "message": "More opinions on this \"media-source\" edge case, but I think we\u0027re close to what we want now. Sorry if I\u0027m going back and forth a bit.\n\nThe upside if having separate kAudioSource and kVideoSource is that the DCHECK would prevent you from incorrectly casting between audio and video and you would know the exact type already. The downside is that, as previously discussed, you can\u0027t cast to RTCMediaSourceStats. But also we now have an RTCStatsType that deviates from the spec, which only has a single \"media-source\" and forces you to look at kind().\n\nIn light of this, I think I still would prefer to have a single kMediaSource type here and the same type be used by all three dictionaries (RTCMediaSourceStats, RTCAudioSourceStats, RTCVideoSourceStats all returning kMediaSource).\n\nThis would allow you to do things which are both consistent with the spec and what I think people would expect to work, e.g:\n\n```\nif (stats-\u003eStatsType() \u003d\u003d RTCMediaSource::kType) {\n  const auto\u0026 media_source \u003d stats-\u003ecast_to\u003cRTCMediaSource\u003e();\n  /* parse common stats */\n  if (media_source-\u003ekind() \u003d\u003d RTCMediaStreamTrackKind::kAudio) {\n    const auto\u0026 audio_source \u003d media_source-\u003ecast_to\u003cRTCAudioSourceStats\u003e();\n    /* parse audio stats */\n  } else {\n    const auto\u0026 video_source \u003d media_source-\u003ecast_to\u003cRTCVideoSourceStats\u003e();\n    /* parse video stats */\n  }\n}\n```\n\nSure, the DCHECK would not be able to catch incorrect usage like `audio_source-\u003ecast_to\u003cRTCVideoSourceStats\u003e()`... but hey, it\u0027s just a DCHECK, it does not need to be bullet proof.",
+      "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab2d7fd4_4cac0f84",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 4
@@ -14,6 +31,23 @@
       "writtenOn": "2022-11-09T08:34:38Z",
       "side": 1,
       "message": "The media-playout is from https://github.com/w3c/webrtc-stats/pull/682, but there doesn\u0027t seem to be a corresponding bug on bugs.webrtc.org.\n@hbos@webrtc.org, will you file this?",
+      "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc0b285_a15a47cd",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-09T09:09:46Z",
+      "side": 1,
+      "message": "If stats_type_ is a private member that is initialized in the constructor this can be non-virtual.\n\nIt can be initialized like so:\n```\nRTCCertificateStats::RTCCertificateStats(std::string\u0026\u0026 id, int64_t timestamp_us)\n    : RTCStats(RTCCertificateStats::kType, std::move(id), timestamp_us),\n      ...\n```",
       "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

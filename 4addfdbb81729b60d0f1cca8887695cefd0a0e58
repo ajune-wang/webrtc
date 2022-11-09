@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4550eaa_bb44f938",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-09T09:27:09Z",
+      "side": 1,
+      "message": "If we wanted it to be bullet proof we could probably add a virtual type safety helper that is overriden by audio/video sources and called by cast_to, but maybe that\u0027s overkill?",
+      "parentUuid": "50a429e9_e5f3e6ba",
+      "revId": "4addfdbb81729b60d0f1cca8887695cefd0a0e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab2d7fd4_4cac0f84",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 4

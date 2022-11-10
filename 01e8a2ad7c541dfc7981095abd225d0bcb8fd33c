@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee47d9c0_283f6549",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-10T14:00:34Z",
+      "side": 0,
+      "message": "This breaks current bwe_limited_due_to_packet_loss_ behaviour.",
+      "revId": "01e8a2ad7c541dfc7981095abd225d0bcb8fd33c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

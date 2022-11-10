@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40f662c4_9eefb790",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20089
+      },
+      "writtenOn": "2022-11-10T13:57:11Z",
+      "side": 1,
+      "message": "henrika@: I added the `display_id` to the `DesktopCapturer` as precondition for [1]. PTAL.\n\n[1] https://chromium-review.googlesource.com/c/chromium/src/+/4020313",
+      "revId": "7035b1f861add8ac6bedc76143076abc75ae7783",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

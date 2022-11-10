@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd2cd72_9b639221",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T10:52:23Z",
+      "side": 1,
+      "message": "When running the internal_tests bots, I got confirmation that the old interfaces are being called from downstream code, so I had to restore the backwards-compatibility functions in openssl_adapter.\n\nNow the tests pass.\n\nPTAL.",
+      "revId": "bcd4e3396a066c43b2df92ebbcc0e9fe0a5bdcba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

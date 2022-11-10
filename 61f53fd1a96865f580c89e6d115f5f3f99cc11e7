@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ebc29f6_08dd1825",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-10T10:20:56Z",
+      "side": 1,
+      "message": "This feels strange. Dont just return. Ensure estimated_bitrate_ is updated etc. \nYou can change the state_ to something. Maybe add a new disabled state.",
+      "range": {
+        "startLine": 293,
+        "startChar": 6,
+        "endLine": 293,
+        "endChar": 30
+      },
+      "revId": "61f53fd1a96865f580c89e6d115f5f3f99cc11e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b5c83a_33b15b0d",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-10T10:20:56Z",
+      "side": 1,
+      "message": "It might be better to keep the limiting in InitiateProbing. As you can see, there are multiple calls to InitiateProbing for variouse reasons. \n\nIe- max allocated bitrate change, Upper bitrate change etc.",
+      "range": {
+        "startLine": 468,
+        "startChar": 8,
+        "endLine": 468,
+        "endChar": 32
+      },
+      "revId": "61f53fd1a96865f580c89e6d115f5f3f99cc11e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

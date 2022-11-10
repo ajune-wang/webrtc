@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de19a37f_0ff08cd8",
+        "filename": "api/test/pclf/peer_configurer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-10T00:35:43Z",
+      "side": 1,
+      "message": "Is required for user to have this class public? Because as I see test writers don\u0027t need to access this class. In such case it\u0027s better to keep it private. We don\u0027t want to move to the API what isn\u0027t needed to the test writer to use framework.",
+      "parentUuid": "ee344648_40524495",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 2
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25d545bd_afc7c291",
         "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
         "patchSetId": 7

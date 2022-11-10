@@ -166,6 +166,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87e3036c_2e36a61b",
+        "filename": "api/test/pclf/peer_configurer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T08:50:53Z",
+      "side": 1,
+      "message": "I moved the code inside the protected section of PeerConnectionE2EQualityTestFixture.\nWDYT ?",
+      "parentUuid": "de19a37f_0ff08cd8",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 2
+      },
+      "revId": "17d8329a68460a5b2c5d4985f3a83c054a7d0363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25d545bd_afc7c291",

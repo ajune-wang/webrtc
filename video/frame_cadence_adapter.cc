@@ -71,6 +71,8 @@ class PassthroughAdapterMode : public AdapterMode {
                int frames_scheduled_for_processing,
                const VideoFrame& frame) override {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
+	RTC_LOG(LS_ERROR) << "!!!! PassthroughAdapterMode::" << __func__ << " this "
+                       << this << " ts: " << frame.timestamp() << " buffer: " << frame.video_frame_buffer().get();
     callback_->OnFrame(post_time, frames_scheduled_for_processing, frame);
   }
 
@@ -651,8 +653,8 @@ void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
   // This method is called on the network thread under Chromium, or other
   // various contexts in test.
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
-  RTC_DLOG(LS_VERBOSE) << "FrameCadenceAdapterImpl::" << __func__ << " this "
-                       << this;
+  RTC_LOG(LS_ERROR) << "!!!! FrameCadenceAdapterImpl::" << __func__ << " this "
+                       << this << " ts: " << frame.timestamp() << " buffer: " << frame.video_frame_buffer().get();
 
   // Local time in webrtc time base.
   Timestamp post_time = clock_->CurrentTime();

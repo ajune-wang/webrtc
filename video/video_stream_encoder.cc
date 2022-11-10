@@ -1682,6 +1682,8 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   input_state_provider_.OnFrameSizeObserved(video_frame.size());
 
+  RTC_LOG(LS_ERROR) << "!!! MaybeEncodeVideoFrame buffer: " << video_frame.video_frame_buffer().get();
+
   if (!last_frame_info_ || video_frame.width() != last_frame_info_->width ||
       video_frame.height() != last_frame_info_->height ||
       video_frame.is_texture() != last_frame_info_->is_texture) {
@@ -1755,10 +1757,12 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     // Storing references to a native buffer risks blocking frame capture.
     if (video_frame.video_frame_buffer()->type() !=
         VideoFrameBuffer::Type::kNative) {
+	  RTC_LOG(LS_ERROR) << "!!!! Stored as a pending frame: " << video_frame.video_frame_buffer().get();
       pending_frame_ = video_frame;
       pending_frame_post_time_us_ = time_when_posted_us;
     } else {
       // Ensure that any previously stored frame is dropped.
+	  RTC_LOG(LS_ERROR) << "!!!! Freed Pending frame";
       pending_frame_.reset();
       accumulated_update_rect_.Union(video_frame.update_rect());
       accumulated_update_rect_is_valid_ &= video_frame.has_update_rect();
@@ -1775,10 +1779,12 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
         VideoFrameBuffer::Type::kNative) {
       if (pending_frame_)
         TraceFrameDropStart();
+	  RTC_LOG(LS_ERROR) << "!!!! Stored as a pending frame: " << video_frame.video_frame_buffer().get();
       pending_frame_ = video_frame;
       pending_frame_post_time_us_ = time_when_posted_us;
     } else {
       // Ensure that any previously stored frame is dropped.
+	  RTC_LOG(LS_ERROR) << "!!!! Freed pending frame";
       pending_frame_.reset();
       TraceFrameDropStart();
       accumulated_update_rect_.Union(video_frame.update_rect());
@@ -1789,6 +1795,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     return;
   }
 
+  RTC_LOG(LS_ERROR) << "!!!! Freed pending frame";
   pending_frame_.reset();
 
   frame_dropper_.Leak(framerate_fps);
@@ -2279,6 +2286,7 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
           clock_->CurrentTime().us() - pending_frame_post_time_us_;
       if (pending_time_us < kPendingFrameTimeoutMs * 1000)
         EncodeVideoFrame(*pending_frame_, pending_frame_post_time_us_);
+	  RTC_LOG(LS_ERROR) << "!!!! Freed pending frame";
       pending_frame_.reset();
     } else if (!video_is_suspended && !pending_frame_ &&
                encoder_paused_and_dropped_frame_) {

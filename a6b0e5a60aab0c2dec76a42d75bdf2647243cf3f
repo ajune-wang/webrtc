@@ -105,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce3cdd10_03767260",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f769ec0_d27311d0",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4929a21e_bb24fe24",
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "I don\u0027t really grasp the ownership transfer you\u0027re referring to.\nFrom what I understand the network dependencies are still owned by network_links.first.\nAlso just to be sure, this was already an issue with the former code right ?",
       "parentUuid": "4929a21e_bb24fe24",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "961c0de4_690691b6",
+        "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:55:19Z",
+      "side": 1,
+      "message": "Investigating the code, I *think* the network_dependencies() function is here:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/test/network_emulation_manager.h;drc\u003de4c1b1cbed9a57d13e957885305c76426aa41154;l\u003d135\n\nIt returns a PeerNetworkDependencies object (a struct) by value, and std::make_unique\u003c\u003e is creating the PeerConfigurer object it returns a std::unique_ptr to.\nThat means it\u0027s OK, I was misreading the code, thinking it wrapped the object rather than creating it.",
+      "parentUuid": "6749b7f5_751d61d2",
       "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

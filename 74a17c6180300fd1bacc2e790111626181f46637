@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dfcc876_931aaa9e",
+        "filename": "test/pc/e2e/peer_configurer.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-10T10:47:46Z",
+      "side": 1,
+      "message": "We might need to mention PeerParamsPreprocessor here for a while too",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 67
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1116d851_846b368d",
+        "filename": "test/pc/e2e/peer_params_preprocessor.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-10T10:47:46Z",
+      "side": 1,
+      "message": "It\u0027s ok to do it in other CL, but will really appreciate if you can add some tests for both classes",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 28
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1101f286_9fd44bd9",
+        "filename": "test/pc/e2e/peer_params_preprocessor.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-10T10:47:46Z",
+      "side": 1,
+      "message": "You can actually now define this class in the header",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 28
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

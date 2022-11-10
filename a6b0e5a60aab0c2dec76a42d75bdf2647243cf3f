@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f550f7d_2ce947f6",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T14:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae8bee30_bf1094b8",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "855dd64a_a4009f52",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-11-10T14:06:08Z",
       "side": 1,
       "message": "Suggest RTC_CHECK_NOTREACHED here, so that we catch nonsense early.",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3596a85_32431a04",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T14:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855dd64a_a4009f52",
       "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -82,6 +118,24 @@
       "writtenOn": "2022-11-10T14:06:08Z",
       "side": 1,
       "message": "This is bad code, because it transfers ownership without moving from the source.\nEither TODO(): add ReleaseNetworkDependencies() function or actually change the network_links.first object (whatever type that is) to have an accessor that returns a std::unique_ptr.",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6749b7f5_751d61d2",
+        "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T14:43:41Z",
+      "side": 1,
+      "message": "I don\u0027t really grasp the ownership transfer you\u0027re referring to.\nFrom what I understand the network dependencies are still owned by network_links.first.\nAlso just to be sure, this was already an issue with the former code right ?",
+      "parentUuid": "4929a21e_bb24fe24",
       "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

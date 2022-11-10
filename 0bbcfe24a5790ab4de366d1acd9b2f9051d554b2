@@ -16,6 +16,24 @@
       "message": "This code is getting more ugly than I expected...",
       "revId": "0bbcfe24a5790ab4de366d1acd9b2f9051d554b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b1cb62f_4457885b",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-10T09:51:47Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this is the right approach. It turns out that pointer comparison is the simplest way to solve this. If we use an enum, we can switch to a switch statement, but the presence of audio/video sources complicates downcasting and visitor patterns.\n\nIf I don\u0027t have a good idea to improve it, I\u0027m thinking of abandon this CL.",
+      "parentUuid": "942511fc_94dacaef",
+      "revId": "0bbcfe24a5790ab4de366d1acd9b2f9051d554b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

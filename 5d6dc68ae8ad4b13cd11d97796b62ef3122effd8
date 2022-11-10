@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "770dc878_849fe561",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-10T11:47:09Z",
+      "side": 1,
+      "message": "This does not need to be virtual, you can return StatsTypeToString(stats_type_)",
+      "revId": "5d6dc68ae8ad4b13cd11d97796b62ef3122effd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def4c9fb_58dc5d30",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-10T11:47:09Z",
+      "side": 1,
+      "message": "Add a TODO to delete this in favor of kStatsType",
+      "revId": "5d6dc68ae8ad4b13cd11d97796b62ef3122effd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

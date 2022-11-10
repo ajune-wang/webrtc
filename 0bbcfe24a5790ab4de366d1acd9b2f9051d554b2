@@ -34,6 +34,24 @@
       "parentUuid": "942511fc_94dacaef",
       "revId": "0bbcfe24a5790ab4de366d1acd9b2f9051d554b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eae0008_3533a0dc",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-10T11:47:09Z",
+      "side": 1,
+      "message": "Agreed this is getting too complicated. This stuff is really tricky! 😮\n\nAfter much thinking about this, here is another idea as a POC that may be possible to apply to the real thing.\n\n```\nenum class Type {\n  kMedia,\n  kOtherOne,\n};\n\nclass Stats;\n\ntemplate\u003ctypename T\u003e\nT* CastTo(Stats* thiz);\n\nclass Stats {\n public:\n  virtual ~Stats() {}\n\n  virtual Type type() const \u003d 0;\n\n  template\u003ctypename T\u003e\n  T* cast_to() {\n    return CastTo\u003cT\u003e(this);\n  }\n};\n\nenum Kind {\n  kAudio,\n  kVideo,\n};\n\nclass Media : public Stats {\n public:\n  static constexpr Type kType \u003d Type::kMedia;\n  Type type() const override { return Media::kType; }\n  virtual Kind kind() const \u003d 0;\n};\n\nclass Audio : public Media {\n public:\n  Type type() const override { return Media::kType; }\n  Kind kind() const override { return Kind::kAudio; }\n};\n\nclass Video : public Media {\n public:\n  Type type() const override { return Media::kType; }\n  Kind kind() const override { return Kind::kVideo; }\n};\n\nclass OtherOne : public Stats {\n public:\n  static constexpr Type kType \u003d Type::kOtherOne;\n  Type type() const override { return OtherOne::kType; }\n};\n\ntemplate\u003ctypename T\u003e\nT* CastTo(Stats* thiz) {\n  // Default implementation.\n  return thiz-\u003etype() \u003d\u003d T::kType ? static_cast\u003cT*\u003e(thiz) : nullptr;\n}\n\ntemplate\u003c\u003e\nAudio* CastTo(Stats* thiz) {\n  Media* media \u003d CastTo\u003cMedia\u003e(thiz);\n  if (!media)\n    return nullptr;\n  return media-\u003ekind() \u003d\u003d Kind::kAudio ? static_cast\u003cAudio*\u003e(thiz) : nullptr;\n}\n\ntemplate\u003c\u003e\nVideo* CastTo(Stats* thiz) {\n  Media* media \u003d CastTo\u003cMedia\u003e(thiz);\n  if (!media)\n    return nullptr;\n  return media-\u003ekind() \u003d\u003d Kind::kVideo ? static_cast\u003cVideo*\u003e(thiz) : nullptr;\n}\n\nTEST(FooTest, Hack) {\n  Audio audio;\n  Stats* s \u003d \u0026audio;\n\n  RTC_LOG(LS_ERROR) \u003c\u003c \"audio (should be non-null): \" \u003c\u003c s-\u003ecast_to\u003cAudio\u003e();\n  RTC_LOG(LS_ERROR) \u003c\u003c \"media (should be non-null): \" \u003c\u003c s-\u003ecast_to\u003cMedia\u003e();\n  RTC_LOG(LS_ERROR) \u003c\u003c \"video (should be null):     \" \u003c\u003c s-\u003ecast_to\u003cVideo\u003e();\n}\n```\n\nSomething similar would also need to happen for RTCReceivedRtpStreamStats matching for both \"inbound-rtp\" and \"remote-inbound-rtp\", but that kan be done in the same pattern as Kind, but with a Locality { kLocal, kRemote } instead.\n\nBut I don\u0027t know if you want to give this a go or if you want to abandon the CL...",
+      "parentUuid": "0b1cb62f_4457885b",
+      "revId": "0bbcfe24a5790ab4de366d1acd9b2f9051d554b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

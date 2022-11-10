@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "312b3a5d_4e3d117e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2022-11-10T14:34:19Z",
+      "side": 1,
+      "message": "Could you point out the CL where you\u0027ll be using it?",
+      "revId": "9cc0dcf5479a376fc73c61a41f073750e4e17511",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

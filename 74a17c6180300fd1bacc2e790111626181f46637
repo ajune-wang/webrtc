@@ -212,6 +212,30 @@
       },
       "revId": "74a17c6180300fd1bacc2e790111626181f46637",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed1239a1_e71d287f",
+        "filename": "test/pc/e2e/peer_params_preprocessor.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-10T11:30:30Z",
+      "side": 1,
+      "message": "I more consider DefaultNamesProvider as independent piece from PeerParamsPreprocessor. But it\u0027s fine to keep it as is for now also.",
+      "parentUuid": "5445c3ee_af98f4a8",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 28
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

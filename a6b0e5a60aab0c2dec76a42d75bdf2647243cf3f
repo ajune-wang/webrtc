@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9df922_4b6c8de8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:06:08Z",
+      "side": 1,
+      "message": "Not happy, because it seeems to be a halfway point. We now require AddPeer to take a std::unique_ptr (good), but we\u0027re still taking it from another object that returns it by raw pointer (no indication of transfer of ownership).\n\nCan we get the next level of std::unique_ptr at the same time?",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae8bee30_bf1094b8",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:06:08Z",
+      "side": 1,
+      "message": "Recommendation is to use [[deprecated]] as long as it formats nicely.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/g3doc/style-guide.md (the version on https://chromium.googlesource.com/external/webrtc/+/HEAD/g3doc/style-guide.md#deprecation is out of date).",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855dd64a_a4009f52",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:06:08Z",
+      "side": 1,
+      "message": "Suggest RTC_CHECK_NOTREACHED here, so that we catch nonsense early.",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f769ec0_d27311d0",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:06:08Z",
+      "side": 1,
+      "message": "And here. Add \"TODO(bug): make pure virtual once all subclasses implement it\".\n\nSince this is a new API, you might want to make the default implementation call the old API (and dance around with #pragma to make it work).",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4929a21e_bb24fe24",
+        "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T14:06:08Z",
+      "side": 1,
+      "message": "This is bad code, because it transfers ownership without moving from the source.\nEither TODO(): add ReleaseNetworkDependencies() function or actually change the network_links.first object (whatever type that is) to have an accessor that returns a std::unique_ptr.",
+      "revId": "a6b0e5a60aab0c2dec76a42d75bdf2647243cf3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

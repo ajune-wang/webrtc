@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4d47f1_29a254c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "Thanks for catching the last few opportunities for MakeArrayView!\n\nAfter the success of RTC_CHECK_NOTREACHED for the backwards-compatible functions (I had been afraid of downstream), I decided to move that approach to the interface definition - this way, downstream can delete the old functions immediately when they convert.\n\nAlso changed another test function into using ArrayView directly.\nHope this is ready to land now!",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39d767d8_e3d35b5a",
@@ -66,6 +83,24 @@
       "writtenOn": "2022-11-09T19:11:48Z",
       "side": 1,
       "message": "code below this line is unreachable, was the intent to make it part of the TODO comment one line above?",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c910b42_97b47ce8",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "actually I thought there was a chance that internal builds would flake out on the DCHECK. Now that it hasn\u0027t, I can just delete the rest of the code and leave the CHECK in.\n\nOn second thought, I moved this method to the interface. That will allow downstream users that convert to delete the deprecated method immediately.",
+      "parentUuid": "39d767d8_e3d35b5a",
       "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -89,6 +124,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "218d5ae4_23afb6f3",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "Going for CHECK, since this code should never be called, and we need to ensure that any usage is caught fast.",
+      "parentUuid": "067c08c8_bffc721a",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fd2316ff_be110c3f",
         "filename": "rtc_base/openssl_stream_adapter.h",
         "patchSetId": 5
@@ -100,6 +153,24 @@
       "writtenOn": "2022-11-09T19:11:48Z",
       "side": 1,
       "message": "may be [[deprecated(\"bugs.webrtc.org/14632\")]]",
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84dd9641_2985e96a",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "Moved to StreamInterface and so marked.",
+      "parentUuid": "fd2316ff_be110c3f",
       "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -117,6 +188,30 @@
       "writtenOn": "2022-11-09T19:11:48Z",
       "side": 1,
       "message": "MakeArrayView\n(here and 2 more places below in this file)",
+      "range": {
+        "startLine": 170,
+        "startChar": 7,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab11de83_7892df2d",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de748d01_0da3c9a1",
       "range": {
         "startLine": 170,
         "startChar": 7,
@@ -150,6 +245,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ae4ddf_899ef953",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "622a30fa_4bbf44c5",
+      "range": {
+        "startLine": 961,
+        "startChar": 15,
+        "endLine": 961,
+        "endChar": 33
+      },
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8aa16369_fdcf5975",
@@ -163,6 +282,30 @@
       "writtenOn": "2022-11-09T19:11:48Z",
       "side": 1,
       "message": "MakeArrayView",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "4e24993aa8362a3ba317e1c42c0110cc0b23d12b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15275628_e1e726f8",
+        "filename": "rtc_base/stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-10T06:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8aa16369_fdcf5975",
       "range": {
         "startLine": 35,
         "startChar": 19,

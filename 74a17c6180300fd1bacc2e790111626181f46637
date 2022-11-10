@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a43dcd5e_7cd3dc7a",
+        "filename": "test/pc/e2e/peer_configurer.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T10:51:58Z",
+      "side": 1,
+      "message": "I think including peer_params_preprocessor should be enough here.",
+      "parentUuid": "5dfcc876_931aaa9e",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 67
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1116d851_846b368d",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a56a2af5_dc3c90dc",
+        "filename": "test/pc/e2e/peer_params_preprocessor.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T10:51:58Z",
+      "side": 1,
+      "message": "In another CL sounds good.\nSeems it\u0027s not the only module that doesn\u0027t have unit tests.",
+      "parentUuid": "1116d851_846b368d",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 28
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1101f286_9fd44bd9",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-10T10:47:46Z",
       "side": 1,
       "message": "You can actually now define this class in the header",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 28
+      },
+      "revId": "74a17c6180300fd1bacc2e790111626181f46637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfbfe60e_653c7c9e",
+        "filename": "test/pc/e2e/peer_params_preprocessor.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-10T10:51:58Z",
+      "side": 1,
+      "message": "Why not keep this implementation hidden ?",
+      "parentUuid": "1101f286_9fd44bd9",
       "range": {
         "startLine": 60,
         "startChar": 8,

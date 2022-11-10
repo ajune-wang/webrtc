@@ -521,6 +521,17 @@ class AudioProcessingImpl : public AudioProcessing {
     SwapQueue<AudioProcessingStats> stats_message_queue_;
   } stats_reporter_;
 
+  enum class InputVolumeControllerType {
+    kLegacyAgc1,
+    kLegacyAgcManagerDirect,
+    kInputVolumeController,
+    kNone,
+  };
+
+  // Returns the active input volume control type based on the config and
+  // created submodules.
+  InputVolumeControllerType ActiveInputVolumeController() const;
+
   std::vector<int16_t> aecm_render_queue_buffer_ RTC_GUARDED_BY(mutex_render_);
   std::vector<int16_t> aecm_capture_queue_buffer_
       RTC_GUARDED_BY(mutex_capture_);

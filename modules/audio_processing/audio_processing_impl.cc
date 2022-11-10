@@ -836,16 +836,16 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
         // TODO(bugs.chromium.org/9138): Log setting handling by Aec Dump.
         break;
       case RuntimeSetting::Type::kCaptureCompressionGain: {
-        if (!submodules_.agc_manager) {
+        // Is this a correct interpretation of `if (!submodules_.agc_manager)`?
+        if (ActiveInputVolumeController() ==
+            InputVolumeControllerType::kLegacyAgc1) {
           float value;
           setting.GetFloat(&value);
           int int_value = static_cast<int>(value + .5f);
           config_.gain_controller1.compression_gain_db = int_value;
-          if (submodules_.gain_control) {
-            int error =
-                submodules_.gain_control->set_compression_gain_db(int_value);
-            RTC_DCHECK_EQ(kNoError, error);
-          }
+          int error =
+              submodules_.gain_control->set_compression_gain_db(int_value);
+          RTC_DCHECK_EQ(kNoError, error);
         }
         break;
       }
@@ -941,7 +941,7 @@ void AudioProcessingImpl::QueueBandedRenderAudio(AudioBuffer* audio) {
     }
   }
 
-  if (!submodules_.agc_manager && submodules_.gain_control) {
+  if (ActiveInputVolumeController() == InputVolumeControllerType::kLegacyAgc1) {
     GainControlImpl::PackRenderAudioBuffer(*audio, &agc_render_queue_buffer_);
     // Insert the samples into the queue.
     if (!agc_render_signal_queue_->Insert(&agc_render_queue_buffer_)) {
@@ -1037,7 +1037,11 @@ void AudioProcessingImpl::EmptyQueuedRenderAudioLocked() {
     }
   }
 
-  if (submodules_.gain_control) {
+  const auto active_input_volume_controller = ActiveInputVolumeController();
+  if (active_input_volume_controller ==
+          InputVolumeControllerType::kLegacyAgcManagerDirect ||
+      active_input_volume_controller ==
+          InputVolumeControllerType::kLegacyAgc1) {
     while (agc_render_signal_queue_->Remove(&agc_capture_queue_buffer_)) {
       submodules_.gain_control->ProcessRenderAudio(agc_capture_queue_buffer_);
     }
@@ -1165,7 +1169,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     submodules_.echo_controller->AnalyzeCapture(capture_buffer);
   }
 
-  if (submodules_.agc_manager) {
+  const auto active_input_volume_controller = ActiveInputVolumeController();
+  if (active_input_volume_controller ==
+      InputVolumeControllerType::kLegacyAgcManagerDirect) {
     submodules_.agc_manager->AnalyzePreProcess(*capture_buffer);
   }
 
@@ -1192,7 +1198,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
                                           /*use_split_band_data=*/true);
   }
 
-  if (submodules_.gain_control) {
+  if (active_input_volume_controller ==
+          InputVolumeControllerType::kLegacyAgcManagerDirect ||
+      active_input_volume_controller ==
+          InputVolumeControllerType::kLegacyAgc1) {
     RETURN_ON_ERR(
         submodules_.gain_control->AnalyzeCaptureAudio(*capture_buffer));
   }
@@ -1238,17 +1247,21 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     }
   }
 
-  if (submodules_.agc_manager) {
+  if (active_input_volume_controller ==
+      InputVolumeControllerType::kLegacyAgcManagerDirect) {
     submodules_.agc_manager->Process(*capture_buffer);
 
     absl::optional<int> new_digital_gain =
         submodules_.agc_manager->GetDigitalComressionGain();
-    if (new_digital_gain && submodules_.gain_control) {
+    if (new_digital_gain) {
       submodules_.gain_control->set_compression_gain_db(*new_digital_gain);
     }
   }
 
-  if (submodules_.gain_control) {
+  if (active_input_volume_controller ==
+          InputVolumeControllerType::kLegacyAgcManagerDirect ||
+      active_input_volume_controller ==
+          InputVolumeControllerType::kLegacyAgc1) {
     // TODO(peah): Add reporting from AEC3 whether there is echo.
     RETURN_ON_ERR(submodules_.gain_control->ProcessCaptureAudio(
         capture_buffer, /*stream_has_echo*/ false));
@@ -1290,7 +1303,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       float transient_suppressor_voice_probability = 1.0f;
       switch (transient_suppressor_vad_mode_) {
         case TransientSuppressor::VadMode::kDefault:
-          if (submodules_.agc_manager) {
+          if (active_input_volume_controller ==
+              InputVolumeControllerType::kLegacyAgcManagerDirect) {
             transient_suppressor_voice_probability =
                 submodules_.agc_manager->voice_probability();
           }
@@ -1630,15 +1644,19 @@ void AudioProcessingImpl::set_stream_analog_level_locked(int level) {
   // `ProcessStream()`.
   capture_.recommended_input_volume = absl::nullopt;
 
-  if (submodules_.agc_manager) {
-    submodules_.agc_manager->set_stream_analog_level(level);
-    return;
-  }
-
-  if (submodules_.gain_control) {
-    int error = submodules_.gain_control->set_stream_analog_level(level);
-    RTC_DCHECK_EQ(kNoError, error);
-    return;
+  switch (ActiveInputVolumeController()) {
+    case InputVolumeControllerType::kInputVolumeController:
+      // TODO(webtc:7494): Once available, add a call to GainController2.
+      break;
+    case InputVolumeControllerType::kLegacyAgcManagerDirect:
+      submodules_.agc_manager->set_stream_analog_level(level);
+      break;
+    case InputVolumeControllerType::kLegacyAgc1:
+      RTC_DCHECK_EQ(submodules_.gain_control->set_stream_analog_level(level),
+                    kNoError);
+      break;
+    case InputVolumeControllerType::kNone:
+      break;
   }
 }
 
@@ -1665,19 +1683,22 @@ void AudioProcessingImpl::UpdateRecommendedInputVolumeLocked() {
     return;
   }
 
-  if (submodules_.agc_manager) {
-    capture_.recommended_input_volume =
-        submodules_.agc_manager->recommended_analog_level();
-    return;
+  switch (ActiveInputVolumeController()) {
+    case InputVolumeControllerType::kInputVolumeController:
+      // TODO(webtc:7494): Once available, add a call to GainController2.
+      break;
+    case InputVolumeControllerType::kLegacyAgcManagerDirect:
+      capture_.recommended_input_volume =
+          submodules_.agc_manager->recommended_analog_level();
+      break;
+    case InputVolumeControllerType::kLegacyAgc1:
+      capture_.recommended_input_volume =
+          submodules_.gain_control->stream_analog_level();
+      break;
+    case InputVolumeControllerType::kNone:
+      capture_.recommended_input_volume = capture_.applied_input_volume;
+      break;
   }
-
-  if (submodules_.gain_control) {
-    capture_.recommended_input_volume =
-        submodules_.gain_control->stream_analog_level();
-    return;
-  }
-
-  capture_.recommended_input_volume = capture_.applied_input_volume;
 }
 
 bool AudioProcessingImpl::CreateAndAttachAecDump(absl::string_view file_name,
@@ -2094,11 +2115,24 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
           ? static_cast<int>(submodules_.echo_control_mobile->routing_mode())
           : 0;
 
-  apm_config.agc_enabled = !!submodules_.gain_control;
+  const auto active_input_volume_controller = ActiveInputVolumeController();
 
-  apm_config.agc_mode = submodules_.gain_control
-                            ? static_cast<int>(submodules_.gain_control->mode())
-                            : GainControl::kAdaptiveAnalog;
+  apm_config.agc_enabled =
+      active_input_volume_controller != InputVolumeControllerType::kNone;
+
+  switch (active_input_volume_controller) {
+    case InputVolumeControllerType::kLegacyAgcManagerDirect:
+    case InputVolumeControllerType::kLegacyAgc1:
+      apm_config.agc_mode = static_cast<int>(submodules_.gain_control->mode());
+      break;
+    case InputVolumeControllerType::kInputVolumeController:
+    case InputVolumeControllerType::kNone:
+      // TODO(webrtc:7494): Write a value that reflects that no input volume
+      // controller is used. This mimics the previous default mode.
+      apm_config.agc_mode = GainControl::kAdaptiveAnalog;
+      break;
+  }
+
   apm_config.agc_limiter_enabled =
       submodules_.gain_control ? submodules_.gain_control->is_limiter_enabled()
                                : false;
@@ -2217,6 +2251,28 @@ void AudioProcessingImpl::ApmStatsReporter::UpdateStatistics(
   bool stats_message_passed = stats_message_queue_.Insert(&stats_to_queue);
   // If the message queue is full, discard the new stats.
   static_cast<void>(stats_message_passed);
+}
+
+AudioProcessingImpl::InputVolumeControllerType
+AudioProcessingImpl::ActiveInputVolumeController() const {
+  // Use AGC2 InputVolumecontroller: Check both the submodule and config.
+  if (submodules_.gain_controller2 && config_.gain_controller2.enabled &&
+      config_.gain_controller2.input_volume_controller.enabled) {
+    return InputVolumeControllerType::kInputVolumeController;
+  }
+
+  // Use AGC1 analog controller: Check both the submodules and config.
+  if (submodules_.gain_control && config_.gain_controller1.enabled) {
+    if (submodules_.agc_manager &&
+        config_.gain_controller1.analog_gain_controller.enabled) {
+      return InputVolumeControllerType::kLegacyAgcManagerDirect;
+    } else {
+      return InputVolumeControllerType::kLegacyAgc1;
+    }
+  }
+
+  // Use none of the analog controllers.
+  return InputVolumeControllerType::kNone;
 }
 
 }  // namespace webrtc

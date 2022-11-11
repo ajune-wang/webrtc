@@ -16,6 +16,23 @@
       "message": "I\u0027ll wait a few days, also need to land an internal change to make internal_compile_lite happy, but feel free to rubber stamp in the meantime",
       "revId": "01f30a5dcbbd6468f66fc1de6c51b5a57de08cf2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86e7d02_4091e9ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-11T13:52:52Z",
+      "side": 1,
+      "message": "will +1 once all the bots clear",
+      "revId": "01f30a5dcbbd6468f66fc1de6c51b5a57de08cf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

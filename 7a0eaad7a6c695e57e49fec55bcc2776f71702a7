@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cdde4de_e96a8b6d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-11T16:36:03Z",
+      "side": 1,
+      "message": "Alessio, do you have opinions here?\n\n\n\nI don\u0027t know the answer, one difference I can see is that if we have no agc_manager and no gain_control, the AGC1 config is still updated before this CL change but not after, which may influence processing if future reconfiguration does enable the AGC. Whether that is reasonable depends on what the kCaptureCompressionGain runtime setting is for.",
+      "range": {
+        "startLine": 839,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 79
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ad392a4_7f5e4688",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1

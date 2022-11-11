@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b29ff1d1_093801e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "Thanks Hanna!\n\nI have some comments. Several are just nits, the remaining ones boil down to one recommendation. I would avoid unsafe changes that may change the APM behavior and hence I\u0027d only use the newly added function where it improves readability. After all, the legacy AGC sub-modules will be removed and the helper function added in this CL as well. Happy to discuss offline if needed.",
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad392a4_7f5e4688",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "nit: input_volume_controller_type",
+      "range": {
+        "startLine": 1172,
+        "startChar": 13,
+        "endLine": 1172,
+        "endChar": 43
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf63ffd6_a57e651f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "It looks like the correct thing to do, but I would discard this change since it changes behavior when `submodules_.gain_control` is used to apply a fixed or a digital adaptive gain - namely, `AnalyzeCaptureAudio()` won\u0027t be called anymore.",
+      "range": {
+        "startLine": 1201,
+        "startChar": 6,
+        "endLine": 1204,
+        "endChar": 48
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "134afa06_328bad2d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "I\u0027m not aware of any config where `AgcManagerDirect` is used as a digital controllar, but I would leave this unchanged to stay on the safe side",
+      "range": {
+        "startLine": 1250,
+        "startChar": 6,
+        "endLine": 1251,
+        "endChar": 56
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25f698af_0d6c606a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "Discard this change since it changes behavior when submodules_.gain_control is used to apply a fixed or a digital adaptive gain - namely, ProcessCaptureAudio() won\u0027t be called anymore.",
+      "range": {
+        "startLine": 1261,
+        "startChar": 6,
+        "endLine": 1264,
+        "endChar": 48
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1c81fb_6c9a55d4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "same here, discard since the voice probability, in theory, is needed even when AgcManagerDirect doesn\u0027t operate as input volume controller",
+      "range": {
+        "startLine": 1306,
+        "startChar": 14,
+        "endLine": 1307,
+        "endChar": 64
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2906b61_4e3717b2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2134,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "I would leave this unchanged for safety",
+      "range": {
+        "startLine": 2118,
+        "startChar": 0,
+        "endLine": 2134,
+        "endChar": 3
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c89e7ca_62ba4975",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2269,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "```\nelse if (config_.gain_controller1.mode \u003d\u003d AudioProcessing::Config::GainController1::kAdaptiveAnalog)\n```",
+      "range": {
+        "startLine": 2269,
+        "startChar": 6,
+        "endLine": 2269,
+        "endChar": 10
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e8d369f_424f10bd",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "great choice! good to clarify that this option will disappear",
+      "range": {
+        "startLine": 526,
+        "startChar": 5,
+        "endLine": 526,
+        "endChar": 11
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "351f1dbf_b638a4ed",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "nit: let\u0027s add some comments, in particular for the enum entries so that it\u0027s clear which APM submodule each entry refers to.\n\n```\n  // Indicates which APM submodule (if any) handles the input volume\n  // adjustment.\n  enum class InputVolumeControllerType {\n    kLegacyAgc1,              // Handled by `Submodules::gain_control`.\n    kLegacyAgcManagerDirect,  // Handled by `Submodules::agc_manager`.\n    kInputVolumeController,   // Handled by `Submodules::gain_controller2`.\n    kNone,                    // Disabled.\n  };\n```",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 10
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11432fba_8b59ae49",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 531,
+        "startChar": 17,
+        "endLine": 531,
+        "endChar": 23
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad2daf91_8506d26f",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 1,
+      "message": "nit: GetInputVolumeControllerType\n\nas `InputVolumeControllerType::kNone` means inactive",
+      "range": {
+        "startLine": 533,
+        "startChar": 28,
+        "endLine": 533,
+        "endChar": 55
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

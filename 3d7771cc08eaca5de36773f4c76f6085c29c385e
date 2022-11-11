@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9448cc59_aa158053",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-11T14:38:41Z",
+      "side": 0,
+      "message": "DCHECK(submodules_.gain_control)",
+      "range": {
+        "startLine": 1246,
+        "startChar": 24,
+        "endLine": 1246,
+        "endChar": 52
+      },
+      "revId": "3d7771cc08eaca5de36773f4c76f6085c29c385e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

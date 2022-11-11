@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77914e2f_fe65f5eb",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-11-11T20:54:25Z",
+      "side": 1,
+      "message": "Yes, I too feel hesitant to this change.\nAt the least, we should make sure that the intended behavior of adl-004-drop-stable  is maintained.\nFrom what I recall, the purpose of setting that gain during runtime is to use it as a fixed gain.\n\nIt we don\u0027t want to support it, I think we should try to deprecate it. But if we should support it, we should preserve that functionality in some way moving forward.",
+      "parentUuid": "5cdde4de_e96a8b6d",
+      "range": {
+        "startLine": 839,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 79
+      },
+      "revId": "7a0eaad7a6c695e57e49fec55bcc2776f71702a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ad392a4_7f5e4688",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34e169ed_a6326299",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-11T10:49:29Z",
+      "side": 1,
+      "message": "I\u0027ll wait a few days, also need to land an internal change to make internal_compile_lite happy, but feel free to rubber stamp in the meantime",
+      "revId": "01f30a5dcbbd6468f66fc1de6c51b5a57de08cf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1071,7 +1071,14 @@ TEST_F(CallPerfTest, MAYBE_Min_Bitrate_VideoAndAudio) {
 void CallPerfTest::TestEncodeFramerate(VideoEncoderFactory* encoder_factory,
                                        absl::string_view payload_name,
                                        const std::vector<int>& max_framerates) {
+// TODO(bugs.webrtc.org/14656): On macOS11, FrameGeneratorCapturer is affected
+// by a lack of precision around OS timers and frame rate is flaky (like other
+// metrics). Remove when fixed.
+#if !defined(WEBRTC_MAC)
   static constexpr double kAllowedFpsDiff = 1.5;
+#else
+  static constexpr double kAllowedFpsDiff = 5;
+#endif
   static constexpr TimeDelta kMinGetStatsInterval = TimeDelta::Millis(400);
   static constexpr TimeDelta kMinRunTime = TimeDelta::Seconds(15);
   static constexpr DataRate kMaxBitrate = DataRate::KilobitsPerSec(1000);

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "483cfccb_d9797727",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20079
+      },
+      "writtenOn": "2022-11-12T17:27:36Z",
+      "side": 1,
+      "message": "I have signed individual CLA and has been added to the corporate cla account (https://groups.google.com/g/canon-google-cla) so CLA checks should now pass.",
+      "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

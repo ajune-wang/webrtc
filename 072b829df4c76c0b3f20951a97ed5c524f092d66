@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca792fc2_7275d649",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-13T15:21:03Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 16
+      },
+      "revId": "072b829df4c76c0b3f20951a97ed5c524f092d66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

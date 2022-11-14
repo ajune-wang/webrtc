@@ -16,6 +16,23 @@
       "message": "I have signed individual CLA and has been added to the corporate cla account (https://groups.google.com/g/canon-google-cla) so CLA checks should now pass.",
       "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1082020_e2c14f26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-14T11:17:37Z",
+      "side": 1,
+      "message": "Surprised it was not done before if it was this easy ... did something change in the Linux drivers (so that we need to be aware of driver versions), or did it always work?\n\nAre there tests that exercise this functionality?\n\nApproving since I\u0027m the \"second set of eyes\" on this one.",
+      "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

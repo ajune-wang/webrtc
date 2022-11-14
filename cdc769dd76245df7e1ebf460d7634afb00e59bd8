@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83e1ac8_4adee305",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-14T18:28:15Z",
+      "side": 1,
+      "message": "How does this differ from/why should it not be a ScreenId?",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "cdc769dd76245df7e1ebf460d7634afb00e59bd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

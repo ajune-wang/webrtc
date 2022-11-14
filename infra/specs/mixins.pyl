@@ -248,6 +248,14 @@
       'args': ['--nologs']
     }
   },
+  'pixel-2': {
+    'swarming': {
+      'dimensions': {
+        'device_type': 'Pixel 2 (walleye)',
+        'os': 'Android'
+      }
+    }
+  },
   'quick-perf-tests': {
     '$mixin_append': {
       'args':

@@ -105,6 +105,12 @@ class RTC_EXPORT DesktopCaptureOptions {
     detect_updated_region_ = detect_updated_region;
   }
 
+  // Flag indicating that the capturer should capture system cursor
+  bool is_cursor_enabled() const { return is_cursor_enabled_; }
+  void set_is_cursor_enabled(bool is_cursor_enabled) {
+    is_cursor_enabled_ = is_cursor_enabled;
+  }
+
 #if defined(WEBRTC_WIN)
   // Enumerating windows owned by the current process on Windows has some
   // complications due to |GetWindowText*()| APIs potentially causing a
@@ -237,6 +243,7 @@ class RTC_EXPORT DesktopCaptureOptions {
 #endif
   bool disable_effects_ = true;
   bool detect_updated_region_ = false;
+  bool is_cursor_enabled_ = true;
 #if defined(WEBRTC_USE_PIPEWIRE)
   bool allow_pipewire_ = false;
   bool pipewire_use_damage_region_ = true;

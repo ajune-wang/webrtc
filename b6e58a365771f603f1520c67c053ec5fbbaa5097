@@ -110,6 +110,30 @@
       },
       "revId": "b6e58a365771f603f1520c67c053ec5fbbaa5097",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04be2b6_3857f5f5",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-11-14T15:06:51Z",
+      "side": 1,
+      "message": "We discuss offline, I was referring to setting it to inactive at the start but it is not feasible here.",
+      "parentUuid": "73832ca0_4e549970",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 27
+      },
+      "revId": "b6e58a365771f603f1520c67c053ec5fbbaa5097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

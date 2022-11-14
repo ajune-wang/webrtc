@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2b66a24_599624dc",
+        "filename": "infra/specs/mixins.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-14T15:49:06Z",
+      "side": 1,
+      "message": "Here is where walleye is defined.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 4
+      },
+      "revId": "409ac93d20e4901e049845cbca53f73a21812a27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5cd97a_1c9eaa79",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-14T15:49:06Z",
+      "side": 1,
+      "message": "walleye should be enough here, marshmallow was used to defined a device_os which doesn\u0027t seem needed for pixel-2.",
+      "range": {
+        "startLine": 405,
+        "startChar": 22,
+        "endLine": 405,
+        "endChar": 29
+      },
+      "revId": "409ac93d20e4901e049845cbca53f73a21812a27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

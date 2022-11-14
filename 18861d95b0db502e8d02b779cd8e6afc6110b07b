@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "222919b1_b9432675",
+        "filename": "test/pc/e2e/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-14T10:10:42Z",
+      "side": 1,
+      "message": "as a quick workaround, let\u0027s keep default_video_quality_analyzer.h here as well.",
+      "range": {
+        "startLine": 509,
+        "startChar": 4,
+        "endLine": 510,
+        "endChar": 59
+      },
+      "revId": "18861d95b0db502e8d02b779cd8e6afc6110b07b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

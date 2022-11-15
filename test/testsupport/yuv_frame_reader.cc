@@ -14,6 +14,7 @@
 
 #include "api/scoped_refptr.h"
 #include "api/video/i420_buffer.h"
+#include "api/video/video_frame.h"
 #include "rtc_base/logging.h"
 #include "test/frame_utils.h"
 #include "test/testsupport/file_utils.h"
@@ -164,6 +165,19 @@ rtc::scoped_refptr<I420Buffer> YuvFrameReaderImpl::ReadFrame() {
   rescaled_buffer->ScaleFrom(*buffer.get());
 
   return rescaled_buffer;
+}
+
+absl::optional<VideoFrame> YuvFrameReaderImpl::ReadFrame(size_t frame_num) {
+  if (frame_num >= number_of_frames_) {
+    return absl::nullopt;
+  }
+
+  long current_pos = ftell(input_file_);
+  fseek(input_file_, frame_num * frame_size_bytes_, SEEK_SET);
+  auto buffer = ReadFrame();
+  fseek(input_file_, current_pos, SEEK_SET);
+
+  return VideoFrame::Builder().set_video_frame_buffer(buffer).build();
 }
 
 void YuvFrameReaderImpl::Close() {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b913360_6e089fb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2022-11-15T00:07:19Z",
+      "side": 1,
+      "message": "PTAL - and maybe suggest a reviewer for m/v/BUILD.gn",
+      "revId": "cfa8cb43ee2410272837245930d754397e8612de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

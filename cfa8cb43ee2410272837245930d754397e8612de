@@ -16,6 +16,23 @@
       "message": "PTAL - and maybe suggest a reviewer for m/v/BUILD.gn",
       "revId": "cfa8cb43ee2410272837245930d754397e8612de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "326f6d85_994b18e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-15T08:15:23Z",
+      "side": 1,
+      "message": "LGTM for BUILD.gn",
+      "revId": "cfa8cb43ee2410272837245930d754397e8612de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

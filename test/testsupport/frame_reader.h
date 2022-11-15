@@ -17,6 +17,7 @@
 
 #include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
+#include "api/test/video/video_frame_reader.h"
 
 namespace webrtc {
 class I420Buffer;
@@ -46,7 +47,7 @@ class FrameReader {
   virtual int NumberOfFrames() = 0;
 };
 
-class YuvFrameReaderImpl : public FrameReader {
+class YuvFrameReaderImpl : public FrameReader, public VideoFrameReader {
  public:
   enum class RepeatMode { kSingle, kRepeat, kPingPong };
   class DropperUtil {
@@ -77,6 +78,7 @@ class YuvFrameReaderImpl : public FrameReader {
   ~YuvFrameReaderImpl() override;
   bool Init() override;
   rtc::scoped_refptr<I420Buffer> ReadFrame() override;
+  std::unique_ptr<VideoFrame> ReadFrame(size_t frame_num) override;
   void Close() override;
   size_t FrameLength() override;
   int NumberOfFrames() override;

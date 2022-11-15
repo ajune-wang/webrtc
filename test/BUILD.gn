@@ -442,6 +442,7 @@ rtc_library("video_test_support") {
     ":video_test_common",
     "../api:scoped_refptr",
     "../api:sequence_checker",
+    "../api/test/video:video_frame_reader",
     "../api/test/video:video_frame_writer",
     "../api/video:encoded_image",
     "../api/video:video_frame",

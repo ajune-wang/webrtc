@@ -941,20 +941,44 @@ if (rtc_include_tests) {
     ]
   }
 
-  rtc_library("videocodec_test_fixture_api") {
+  rtc_library("videocodec_test_stats_api") {
     visibility = [ "*" ]
     testonly = true
     sources = [
-      "test/videocodec_test_fixture.h",
       "test/videocodec_test_stats.cc",
       "test/videocodec_test_stats.h",
     ]
     deps = [
-      "../modules/video_coding:video_codec_interface",
       "../rtc_base:stringutils",
       "video:video_frame_type",
+    ]
+  }
+
+  rtc_library("videocodec_test_fixture_api") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [ "test/videocodec_test_fixture.h" ]
+    deps = [
+      ":videocodec_test_stats_api",
+      "../modules/video_coding:video_codec_interface",
       "video_codecs:video_codecs_api",
     ]
+  }
+
+  rtc_library("video_codec_tester_api") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [ "test/video_codec_tester.h" ]
+    deps = [
+      ":videocodec_test_stats_api",
+      "../modules/video_coding:video_codec_interface",
+      "../test:video_test_support",
+      "test/video:video_frame_reader",
+      "video:encoded_image",
+      "video:video_frame",
+      "video_codecs:video_codecs_api",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/functional:any_invocable" ]
   }
 
   rtc_library("create_videocodec_test_fixture_api") {

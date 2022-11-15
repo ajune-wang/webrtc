@@ -52,9 +52,10 @@ class GainController2 {
   // Analyzes `audio_buffer` before `Process()` is called so that the analysis
   // can be performed before digital processing operations take place (e.g.,
   // echo cancellation). The analysis consists of input clipping detection and
-  // prediction (if enabled). The value of `applied_input_volume` is limited to
-  // [0, 255].
-  void Analyze(int applied_input_volume, const AudioBuffer& audio_buffer);
+  // prediction (if enabled). If input volume controller is enabled, the value
+  // of `applied_input_volume` should be non-empty and limited to [0, 255].
+  void Analyze(absl::optional<int> applied_input_volume,
+               const AudioBuffer& audio_buffer);
 
   // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
   // If the internal VAD is used, `speech_probability` is ignored. Otherwise

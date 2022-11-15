@@ -130,13 +130,20 @@ void GainController2::SetFixedGainDb(float gain_db) {
   fixed_gain_applier_.SetGainFactor(gain_factor);
 }
 
-void GainController2::Analyze(int applied_input_volume,
+void GainController2::Analyze(absl::optional<int> applied_input_volume,
                               const AudioBuffer& audio_buffer) {
-  RTC_DCHECK_GE(applied_input_volume, 0);
-  RTC_DCHECK_LE(applied_input_volume, 255);
-
   if (input_volume_controller_) {
-    input_volume_controller_->set_stream_analog_level(applied_input_volume);
+    if (!applied_input_volume.has_value()) {
+      RTC_LOG(LS_ERROR) << "AGC2: Applied input volume not available.";
+      return;
+    }
+
+    if (*applied_input_volume < 0 || *applied_input_volume > 255) {
+      RTC_LOG(LS_ERROR) << "AGC2: Applied input volume not applicable.";
+      return;
+    }
+
+    input_volume_controller_->set_stream_analog_level(*applied_input_volume);
     input_volume_controller_->AnalyzePreProcess(audio_buffer);
   }
 }

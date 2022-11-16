@@ -355,7 +355,7 @@ void PictureIdTest::TestPictureIdIncreaseAfterRecreateStreams(
       observer_->ResetObservedSsrcs();
 
       CreateVideoSendStreams();
-      GetVideoSendStream()->Start();
+      GetVideoSendStream()->SetSendStatePerRtpStream({true});
       CreateFrameGeneratorCapturer(kFrameRate, kFrameMaxWidth, kFrameMaxHeight);
     });
 

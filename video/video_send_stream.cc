@@ -209,7 +209,7 @@ VideoSendStream::~VideoSendStream() {
   transport_->DestroyRtpVideoSender(rtp_video_sender_);
 }
 
-void VideoSendStream::UpdateActiveSimulcastLayers(
+void VideoSendStream::SetSendStatePerRtpStream(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
 
@@ -232,33 +232,15 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
     }
   }
   active_layers_string << "}";
-  RTC_LOG(LS_INFO) << "UpdateActiveSimulcastLayers: "
+  RTC_LOG(LS_INFO) << "SetSendStatePerRtpStream: "
                    << active_layers_string.str();
 
   rtp_transport_queue_->RunOrPost(
       SafeTask(transport_queue_safety_, [this, active_layers] {
-        send_stream_.UpdateActiveSimulcastLayers(active_layers);
+        send_stream_.SetSendStatePerRtpStream(active_layers);
       }));
 
   running_ = running;
-}
-
-void VideoSendStream::Start() {
-  RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_DLOG(LS_INFO) << "VideoSendStream::Start";
-  if (running_)
-    return;
-
-  running_ = true;
-
-  // It is expected that after VideoSendStream::Start has been called, incoming
-  // frames are not dropped in VideoStreamEncoder. To ensure this, Start has to
-  // be synchronized.
-  // TODO(tommi): ^^^ Validate if this still holds.
-  rtp_transport_queue_->RunSynchronous([this] {
-    transport_queue_safety_->SetAlive();
-    send_stream_.Start();
-  });
 }
 
 void VideoSendStream::Stop() {

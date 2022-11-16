@@ -78,8 +78,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
   void DeliverRtcp(const uint8_t* packet, size_t length);
 
   // webrtc::VideoSendStream implementation.
-  void UpdateActiveSimulcastLayers(std::vector<bool> active_layers) override;
-  void Start() override;
+  void SetSendStatePerRtpStream(std::vector<bool> active_layers) override;
   void Stop() override;
   bool started() override;
 

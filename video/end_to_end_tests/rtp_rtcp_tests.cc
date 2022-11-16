@@ -340,7 +340,7 @@ void RtpRtcpEndToEndTest::TestRtpStatePreservation(
 
       // Re-create VideoSendStream with only one stream.
       CreateVideoSendStream(one_stream);
-      GetVideoSendStream()->Start();
+      GetVideoSendStream()->SetSendStatePerRtpStream({true});
       if (provoke_rtcpsr_before_rtp) {
         // Rapid Resync Request forces sending RTCP Sender Report back.
         // Using this request speeds up this test because then there is no need
@@ -575,7 +575,7 @@ TEST_F(RtpRtcpEndToEndTest, DISABLED_TestFlexfecRtpStatePreservation) {
     DestroyVideoSendStreams();
     observer.ResetPacketCount();
     CreateVideoSendStreams();
-    GetVideoSendStream()->Start();
+    GetVideoSendStream()->SetSendStatePerRtpStream({true});
     CreateFrameGeneratorCapturer(kFrameRate, kFrameMaxWidth, kFrameMaxHeight);
   });
 

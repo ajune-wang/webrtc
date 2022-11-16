@@ -215,11 +215,13 @@ class VideoSendStream {
   // Note: This starts stream activity if it is inactive and one of the layers
   // is active. This stops stream activity if it is active and all layers are
   // inactive.
-  virtual void UpdateActiveSimulcastLayers(std::vector<bool> active_layers) = 0;
+  // `active_layers` should have the same size as the number of configured
+  // simulcast layers or one if only one rtp stream is used.
+  virtual void SetSendStatePerRtpStream(std::vector<bool> active_layers) = 0;
 
   // Starts stream activity.
   // When a stream is active, it can receive, process and deliver packets.
-  virtual void Start() = 0;
+  // virtual void Start() { SetSendStatePerRtpStream({true}); }
   // Stops stream activity.
   // When a stream is stopped, it can't receive, process or deliver packets.
   virtual void Stop() = 0;
@@ -227,9 +229,9 @@ class VideoSendStream {
   // Accessor for determining if the stream is active. This is an inexpensive
   // call that must be made on the same thread as `Start()` and `Stop()` methods
   // are called on and will return `true` iff activity has been started either
-  // via `Start()` or `UpdateActiveSimulcastLayers()`. If activity is either
+  // via `Start()` or `SetSendStatePerRtpStream()`. If activity is either
   // stopped or is in the process of being stopped as a result of a call to
-  // either `Stop()` or `UpdateActiveSimulcastLayers()` where all layers were
+  // either `Stop()` or `SetSendStatePerRtpStream()` where all layers were
   // deactivated, the return value will be `false`.
   virtual bool started() = 0;
 

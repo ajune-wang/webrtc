@@ -159,8 +159,8 @@ TEST_F(VideoSendStreamTest, CanStartStartedStream) {
     test::NullTransport transport;
     CreateSendConfig(1, 0, 0, &transport);
     CreateVideoStreams();
-    GetVideoSendStream()->Start();
-    GetVideoSendStream()->Start();
+    GetVideoSendStream()->SetSendStatePerRtpStream({true});
+    GetVideoSendStream()->SetSendStatePerRtpStream({true});
     DestroyStreams();
     DestroyCalls();
   });
@@ -2336,7 +2336,7 @@ TEST_F(VideoSendStreamTest, EncoderIsProperlyInitializedAndDestroyed) {
         // Encoder should not be released before destroying the VideoSendStream.
         EXPECT_FALSE(IsReleased());
         EXPECT_TRUE(IsReadyForEncode());
-        stream_->Start();
+        stream_->SetSendStatePerRtpStream({true});
       });
 
       // Sanity check, make sure we still encode frames with this encoder.

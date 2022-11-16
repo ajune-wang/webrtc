@@ -553,7 +553,7 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
     DestroyVideoSendStreams();
     CreateVideoSendStream(encoder_config_with_screenshare);
     SetVideoDegradation(DegradationPreference::BALANCED);
-    GetVideoSendStream()->Start();
+    GetVideoSendStream()->SetSendStatePerRtpStream({true});
   });
 
   // Continue to run test but now with screenshare.

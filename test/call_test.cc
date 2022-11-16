@@ -592,7 +592,7 @@ void CallTest::Start() {
 
 void CallTest::StartVideoStreams() {
   for (VideoSendStream* video_send_stream : video_send_streams_)
-    video_send_stream->Start();
+    video_send_stream->SetSendStatePerRtpStream({true});
   for (VideoReceiveStreamInterface* video_recv_stream : video_receive_streams_)
     video_recv_stream->Start();
 }

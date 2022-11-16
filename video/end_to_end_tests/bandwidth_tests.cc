@@ -362,7 +362,7 @@ TEST_F(BandwidthEndToEndTest, ReportsSetEncoderRates) {
         WaitForEncoderTargetBitrateMatchStats();
         send_stream_->Stop();
         WaitForStatsReportZeroTargetBitrate();
-        send_stream_->Start();
+        send_stream_->StartPerRtpStream({true});
         WaitForEncoderTargetBitrateMatchStats();
       });
     }

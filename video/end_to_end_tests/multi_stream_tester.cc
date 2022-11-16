@@ -97,7 +97,7 @@ void MultiStreamTester::RunTest() {
 
       send_streams[i] = sender_call->CreateVideoSendStream(
           send_config.Copy(), encoder_config.Copy());
-      send_streams[i]->Start();
+      send_streams[i]->StartPerRtpStream({true});
 
       VideoReceiveStreamInterface::Config receive_config(
           receiver_transport.get());

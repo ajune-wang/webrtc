@@ -267,7 +267,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
 
       ConfigureEncoder(configs[i], &encoder_factory);
       CreateVideoSendStreams();
-      GetVideoSendStream()->Start();
+      GetVideoSendStream()->StartPerRtpStream({true});
       CreateFrameGeneratorCapturer(kFps, kWidth / 2, kHeight / 2);
       ConnectVideoSourcesToStreams();
     });

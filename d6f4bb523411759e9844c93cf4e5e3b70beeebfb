@@ -33,6 +33,41 @@
       "message": "Surprised it was not done before if it was this easy ... did something change in the Linux drivers (so that we need to be aware of driver versions), or did it always work?\n\nAre there tests that exercise this functionality?\n\nApproving since I\u0027m the \"second set of eyes\" on this one.",
       "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b6b681_e836c6c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20079
+      },
+      "writtenOn": "2022-11-16T14:49:02Z",
+      "side": 1,
+      "message": "\u003e Surprised it was not done before if it was this easy ... did something change in the Linux drivers (so that we need to be aware of driver versions), or did it always work?\n\u003e \n\nAs far as I can tell, this has been always the case and is that simple.\n\nDuring the public in-person Ubuntu Summit conference in Prague a few weeks back, I have personally seen rebuilt browsers with similar patch applied to out-of-date/vendored libwebrtc that managed to correctly establish video communication and talk over this protocol with google hangouts and jitsi meet.\n\nObviously these formats are tested for presence with ioctl, and it might be just the case that the original authors of the code didn\u0027t have access to a camera with this format available by default hence this supported case got skipped. Note that all of libwebrtc, kernel, certain webcams support this format.\n\n\n\u003e Are there tests that exercise this functionality?\n\u003e \n\nI have not found any existing tests that excercise via unit or integration tests the modules/video_capture portions of libwebrtc.\n\nIt should be possible to test these with mocks, LD_PRELOAD, and/or something like libcamerify which is a wrapper binary that allows to expose v4l2 compat to underlying apps, entirely in userspace. Or we can use something like v4l2loopback to generate suitable video devices on generic linux.\n\nI do want to add more unit \u0026 integration tests, to ensure these things don\u0027t regress and ensure that all formats remain usable on generic linux.\n\nNote that most distros \u0026 browsers have some excercise/integration tests for this; but not yet for this format type as it hasn\u0027t been yet exposed.\n\n\u003e Approving since I\u0027m the \"second set of eyes\" on this one.",
+      "parentUuid": "f1082020_e2c14f26",
+      "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9f40d0f_ae09dfb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20079
+      },
+      "writtenOn": "2022-11-16T14:49:02Z",
+      "side": 1,
+      "message": "Answering review comments about this patch series.",
+      "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

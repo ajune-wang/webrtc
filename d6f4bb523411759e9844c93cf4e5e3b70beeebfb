@@ -68,6 +68,24 @@
       "message": "Answering review comments about this patch series.",
       "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6dde73_48194104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19369
+      },
+      "writtenOn": "2022-11-16T15:05:46Z",
+      "side": 1,
+      "message": "The NV12 support could be validated with \u0027vivid\u0027 (sudo modprobe vivid) .. but I\u0027m not sure how you \u0027enforce\u0027 it to use NV12 here in this layer - you might have to simply build with all the other non-NV12 formats removed to be sure you only support NV12. Vivid test drivers will happily give you NV12 data from the vivid-000-vid-cap device node.\n\nIt should be the first video node reported under vivid in `v4l2-ctl --list-devices`\n\nVivid can be used to test other pixel formats too, and has a very large range of formats it can generate (see `v4l2-ctl -d /dev/video6 --list-formats`, where /dev/video6 is the video node you identify as your vivid-000-vid-cap node).",
+      "parentUuid": "31b6b681_e836c6c1",
+      "revId": "d6f4bb523411759e9844c93cf4e5e3b70beeebfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

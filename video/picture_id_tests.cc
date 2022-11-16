@@ -355,7 +355,9 @@ void PictureIdTest::TestPictureIdIncreaseAfterRecreateStreams(
       observer_->ResetObservedSsrcs();
 
       CreateVideoSendStreams();
-      GetVideoSendStream()->Start();
+      std::vector<bool> active_rtp_streams(
+          GetVideoSendConfig()->rtp.ssrcs.size(), true);
+      GetVideoSendStream()->StartPerRtpStream(active_rtp_streams);
       CreateFrameGeneratorCapturer(kFrameRate, kFrameMaxWidth, kFrameMaxHeight);
     });
 

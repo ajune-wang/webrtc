@@ -35,6 +35,10 @@ class VideoCodecTestStatsImpl : public VideoCodecTestStats {
   FrameStatistics* GetFrame(size_t frame_number, size_t spatial_idx);
   FrameStatistics* GetFrameWithTimestamp(size_t timestamp, size_t spatial_idx);
 
+  // Creates FrameStatisticts if it doesn't exists and/or returns
+  // created/existing FrameStatisticts.
+  FrameStatistics* GetOrAddFrame(size_t timestamp_rtp, size_t spatial_idx);
+
   // Implements VideoCodecTestStats.
   std::vector<FrameStatistics> GetFrameStatistics() override;
   std::vector<VideoStatistics> SliceAndCalcLayerVideoStatistic(

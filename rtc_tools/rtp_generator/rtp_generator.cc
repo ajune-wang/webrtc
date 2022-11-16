@@ -262,7 +262,7 @@ void RtpGenerator::GenerateRtpDump(const std::string& rtp_dump_path) {
   call_->SignalChannelNetworkState(webrtc::MediaType::VIDEO,
                                    webrtc::kNetworkUp);
   for (VideoSendStream* send_stream : video_send_streams_) {
-    send_stream->Start();
+    send_stream->StartPerRtpStream({true});
   }
 
   // Spinlock until all the durations end.

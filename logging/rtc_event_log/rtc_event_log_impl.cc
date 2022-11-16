@@ -60,7 +60,6 @@ RtcEventLogImpl::RtcEventLogImpl(RtcEventLog::EncodingType encoding_type,
       num_config_events_written_(0),
       last_output_ms_(rtc::TimeMillis()),
       output_scheduled_(false),
-      logging_state_started_(false),
       task_queue_(
           std::make_unique<rtc::TaskQueue>(task_queue_factory->CreateTaskQueue(
               "rtc_event_log",
@@ -68,7 +67,7 @@ RtcEventLogImpl::RtcEventLogImpl(RtcEventLog::EncodingType encoding_type,
 
 RtcEventLogImpl::~RtcEventLogImpl() {
   // If we're logging to the output, this will stop that. Blocking function.
-  if (logging_state_started_) {
+  if (logging_state_started_.test()) {
     logging_state_checker_.Detach();
     StopLogging();
   }
@@ -96,7 +95,7 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
                    << timestamp_us << ", " << utc_time_us << ").";
 
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
-  logging_state_started_ = true;
+  logging_state_started_.test_and_set();
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
   task_queue_->PostTask([this, output_period_ms, timestamp_us, utc_time_us,
                          output = std::move(output)]() mutable {
@@ -126,7 +125,7 @@ void RtcEventLogImpl::StopLogging() {
 
 void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
-  logging_state_started_ = false;
+  logging_state_started_.clear();
   task_queue_->PostTask([this, callback] {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     if (event_output_) {
@@ -141,18 +140,31 @@ void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
 void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
   RTC_CHECK(event);
 
-  // Binding to `this` is safe because `this` outlives the `task_queue_`.
-  task_queue_->PostTask([this, event = std::move(event)]() mutable {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
+  if (!logging_state_started_.test()) {
+    // Run on current thread if logging not started.
     LogToMemory(std::move(event));
-    if (event_output_)
-      ScheduleOutput();
-  });
+  } else {
+    // Binding to `this` is safe because `this` outlives the `task_queue_`.
+    task_queue_->PostTask([this, event = std::move(event)]() mutable {
+      RTC_DCHECK_RUN_ON(task_queue_.get());
+      // Shouldn't lose events if we have an output.
+      RTC_DCHECK(!(event_output_ && ShouldDrainBuffer()));
+      LogToMemory(std::move(event));
+      if (event_output_)
+        ScheduleOutput();
+    });
+  }
+}
+
+bool RtcEventLogImpl::ShouldDrainBuffer() {
+  MutexLock lock(&events_history_mutex_);
+  return (history_.size() >= kMaxEventsInHistory) ||
+         (config_history_.size() >= kMaxEventsInConfigHistory);
 }
 
 void RtcEventLogImpl::ScheduleOutput() {
   RTC_DCHECK(event_output_ && event_output_->IsActive());
-  if (history_.size() >= kMaxEventsInHistory) {
+  if (ShouldDrainBuffer()) {
     // We have to emergency drain the buffer. We can't wait for the scheduled
     // output task because there might be other event incoming before that.
     LogEventsFromMemoryToOutput();
@@ -188,19 +200,20 @@ void RtcEventLogImpl::ScheduleOutput() {
 }
 
 void RtcEventLogImpl::LogToMemory(std::unique_ptr<RtcEvent> event) {
+  MutexLock lock(&events_history_mutex_);
   std::deque<std::unique_ptr<RtcEvent>>& container =
       event->IsConfigEvent() ? config_history_ : history_;
   const size_t container_max_size =
       event->IsConfigEvent() ? kMaxEventsInConfigHistory : kMaxEventsInHistory;
 
   if (container.size() >= container_max_size) {
-    RTC_DCHECK(!event_output_);  // Shouldn't lose events if we have an output.
     container.pop_front();
   }
   container.push_back(std::move(event));
 }
 
 void RtcEventLogImpl::LogEventsFromMemoryToOutput() {
+  MutexLock lock(&events_history_mutex_);
   RTC_DCHECK(event_output_ && event_output_->IsActive());
   last_output_ms_ = rtc::TimeMillis();
 

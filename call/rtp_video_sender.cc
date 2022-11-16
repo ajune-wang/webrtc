@@ -480,20 +480,17 @@ RtpVideoSender::~RtpVideoSender() {
   RTC_DCHECK(!registered_for_feedback_);
 }
 
-void RtpVideoSender::SetActive(bool active) {
+void RtpVideoSender::Stop() {
   RTC_DCHECK_RUN_ON(&transport_checker_);
   MutexLock lock(&mutex_);
-  if (active_ == active)
+  if (!active_)
     return;
 
-  const std::vector<bool> active_modules(rtp_streams_.size(), active);
+  const std::vector<bool> active_modules(rtp_streams_.size(), false);
   SetActiveModulesLocked(active_modules);
 
   auto* feedback_provider = transport_->GetStreamFeedbackProvider();
-  if (active && !registered_for_feedback_) {
-    feedback_provider->RegisterStreamFeedbackObserver(rtp_config_.ssrcs, this);
-    registered_for_feedback_ = true;
-  } else if (!active && registered_for_feedback_) {
+  if (registered_for_feedback_) {
     feedback_provider->DeRegisterStreamFeedbackObserver(this);
     registered_for_feedback_ = false;
   }
@@ -513,6 +510,12 @@ void RtpVideoSender::SetActiveModulesLocked(
   for (size_t i = 0; i < active_modules.size(); ++i) {
     if (active_modules[i]) {
       active_ = true;
+      if (!registered_for_feedback_) {
+        auto* feedback_provider = transport_->GetStreamFeedbackProvider();
+        feedback_provider->RegisterStreamFeedbackObserver(rtp_config_.ssrcs,
+                                                          this);
+        registered_for_feedback_ = true;
+      }
     }
 
     RtpRtcpInterface& rtp_module = *rtp_streams_[i].rtp_rtcp;

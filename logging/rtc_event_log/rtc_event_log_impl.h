@@ -50,7 +50,7 @@ class RtcEventLogImpl final : public RtcEventLog {
   void Log(std::unique_ptr<RtcEvent> event) override;
 
  private:
-  void LogToMemory(std::unique_ptr<RtcEvent> event) RTC_RUN_ON(task_queue_);
+  void LogToMemory(std::unique_ptr<RtcEvent> event);
   void LogEventsFromMemoryToOutput() RTC_RUN_ON(task_queue_);
 
   void StopOutput() RTC_RUN_ON(task_queue_);
@@ -64,12 +64,15 @@ class RtcEventLogImpl final : public RtcEventLog {
 
   void ScheduleOutput() RTC_RUN_ON(task_queue_);
 
+  bool ShouldDrainBuffer() RTC_RUN_ON(task_queue_);
+
   // History containing all past configuration events.
   std::deque<std::unique_ptr<RtcEvent>> config_history_
-      RTC_GUARDED_BY(*task_queue_);
+      RTC_GUARDED_BY(events_history_mutex_);
 
   // History containing the most recent (non-configuration) events (~10s).
-  std::deque<std::unique_ptr<RtcEvent>> history_ RTC_GUARDED_BY(*task_queue_);
+  std::deque<std::unique_ptr<RtcEvent>> history_
+      RTC_GUARDED_BY(events_history_mutex_);
 
   std::unique_ptr<RtcEventLogEncoder> event_encoder_
       RTC_GUARDED_BY(*task_queue_);
@@ -81,13 +84,20 @@ class RtcEventLogImpl final : public RtcEventLog {
   bool output_scheduled_ RTC_GUARDED_BY(*task_queue_);
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker logging_state_checker_;
-  bool logging_state_started_ RTC_GUARDED_BY(logging_state_checker_);
+#if !defined(__cpp_lib_atomic_value_initialization) || \
+    __cpp_lib_atomic_value_initialization < 201911L
+  std::atomic_flag logging_state_started_ = ATOMIC_FLAG_INIT;
+#else
+  std::atomic_flag logging_state_started_;
+#endif
 
   // Since we are posting tasks bound to `this`,  it is critical that the event
   // log and its members outlive `task_queue_`. Keep the `task_queue_`
   // last to ensure it destructs first, or else tasks living on the queue might
   // access other members after they've been torn down.
   std::unique_ptr<rtc::TaskQueue> task_queue_;
+
+  mutable Mutex events_history_mutex_;
 };
 
 }  // namespace webrtc

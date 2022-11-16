@@ -95,13 +95,11 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   RtpVideoSender(const RtpVideoSender&) = delete;
   RtpVideoSender& operator=(const RtpVideoSender&) = delete;
 
-  // RtpVideoSender will only route packets if being active, all packets will be
-  // dropped otherwise.
-  void SetActive(bool active) RTC_LOCKS_EXCLUDED(mutex_) override;
   // Sets the sending status of the rtp modules and appropriately sets the
   // payload router to active if any rtp modules are active.
   void SetActiveModules(std::vector<bool> active_modules)
       RTC_LOCKS_EXCLUDED(mutex_) override;
+  void Stop() RTC_LOCKS_EXCLUDED(mutex_) override;
   bool IsActive() RTC_LOCKS_EXCLUDED(mutex_) override;
 
   void OnNetworkAvailability(bool network_available)

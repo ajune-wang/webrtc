@@ -1028,6 +1028,7 @@ if (!build_with_chromium) {
       "../../../api:peer_connection_quality_test_fixture_api",
       "../../../api:rtc_stats_api",
       "../../../api:scoped_refptr",
+      "../../../api:sequence_checker",
       "../../../api/numerics",
       "../../../api/test/metrics:metric",
       "../../../api/test/metrics:metrics_logger",
@@ -1041,6 +1042,7 @@ if (!build_with_chromium) {
       "../../../rtc_base:rtc_event",
       "../../../rtc_base:stringutils",
       "../../../rtc_base/synchronization:mutex",
+      "../../../rtc_base/system:no_unique_address",
       "../../../system_wrappers:field_trial",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]

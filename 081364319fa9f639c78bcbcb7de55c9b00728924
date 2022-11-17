@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54fa41a_72878331",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-17T10:34:42Z",
+      "side": 1,
+      "message": "Covering this change with a unit test is rather not trivial. I would like to skip this part given that we are planning to refactor the video codec tests.\n\nI ran VideoCodecTestMediaCodecRateAdaptation::DISABLED_RateAdaptation and checked that target frame- and bitrate are set correctly in frame stats.",
+      "revId": "081364319fa9f639c78bcbcb7de55c9b00728924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "There will be ~6700 times(for 3X3 call) and ~5800 times(for 1:1 call) of PostTask in 10 s for rtc_event_log before this CL event when logging doesn\u0027t start, which means this CL will recude PostTask by ~670 times/s(for 3X3 call) and ~580 times/s(for 1:1 call) when logging doesn\u0027t start.",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142053f8_c92d6acd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-11-17T14:12:08Z",
+      "side": 1,
+      "message": "Thanks for looking into this!\n\nHowever, I wonder if you\u0027ve measured the performance impact on something user visible, e.g. power? If so, could you share those results? (This CL removes unnecessary PostTask, but introduces extra locks which could cause contention, for example.)",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

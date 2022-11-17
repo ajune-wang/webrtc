@@ -16,6 +16,24 @@
       "message": "will look into this even though it is unclear how that can happen",
       "revId": "9eb1ff3ac00fd3dce597fb2392309d424d6c2f38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357883ea_2a193f4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-17T10:50:57Z",
+      "side": 1,
+      "message": "so the undefined behavior is easy to \"fix\" by moving the bit_offset inside the loop.\n\nBut that means the documentation was \"correct\" before and parsing more than one RTP stream (each with up to four layers) was supported? However, only one byte was ever serialized because active_spatial_layers is restricted to a size of four. So what happens if the serialization code sets NS \u003e 1...\n\nI\u0027ll go write some tests.\n\nIt also means that #tl is not byte-aligned per stream but as a whole?",
+      "parentUuid": "0bf8a38d_01bfc67d",
+      "revId": "9eb1ff3ac00fd3dce597fb2392309d424d6c2f38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

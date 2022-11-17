@@ -25,6 +25,7 @@
 #include "api/frame_transformer_interface.h"
 #include "api/neteq/neteq_factory.h"
 #include "api/transport/rtp/rtp_source.h"
+#include "api/units/timestamp.h"
 #include "call/rtp_packet_sink_interface.h"
 #include "call/syncable.h"
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
@@ -68,8 +69,8 @@ struct CallReceiveStatistics {
   // Note that the timestamps below correspond to the time elapsed since the
   // Unix epoch.
   // https://w3c.github.io/webrtc-stats/#remoteoutboundrtpstats-dict*
-  absl::optional<int64_t> last_sender_report_timestamp_ms;
-  absl::optional<int64_t> last_sender_report_remote_timestamp_ms;
+  absl::optional<Timestamp> last_sender_report_timestamp;
+  absl::optional<Timestamp> last_sender_report_remote_timestamp;
   uint32_t sender_reports_packets_sent = 0;
   uint64_t sender_reports_bytes_sent = 0;
   uint64_t sender_reports_reports_count = 0;

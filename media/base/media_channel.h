@@ -30,6 +30,7 @@
 #include "api/transport/data_channel_transport_interface.h"
 #include "api/transport/rtp/rtp_source.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
@@ -476,6 +477,13 @@ struct MediaReceiverInfo {
   absl::optional<int> codec_payload_type;
   std::vector<SsrcReceiverInfo> local_stats;
   std::vector<SsrcSenderInfo> remote_stats;
+  // Remote outbound stats derived by the received RTCP sender reports.
+  // https://w3c.github.io/webrtc-stats/#remoteoutboundrtpstats-dict*
+  absl::optional<webrtc::Timestamp> last_sender_report_timestamp;
+  absl::optional<webrtc::Timestamp> last_sender_report_remote_timestamp;
+  uint32_t sender_reports_packets_sent = 0;
+  uint64_t sender_reports_bytes_sent = 0;
+  uint64_t sender_reports_reports_count = 0;
 };
 
 struct VoiceSenderInfo : public MediaSenderInfo {
@@ -553,13 +561,7 @@ struct VoiceReceiverInfo : public MediaReceiverInfo {
   // longer than 150 ms).
   int32_t interruption_count = 0;
   int32_t total_interruption_duration_ms = 0;
-  // Remote outbound stats derived by the received RTCP sender reports.
-  // https://w3c.github.io/webrtc-stats/#remoteoutboundrtpstats-dict*
-  absl::optional<int64_t> last_sender_report_timestamp_ms;
-  absl::optional<int64_t> last_sender_report_remote_timestamp_ms;
-  uint32_t sender_reports_packets_sent = 0;
-  uint64_t sender_reports_bytes_sent = 0;
-  uint64_t sender_reports_reports_count = 0;
+  // TODO(bugs.webrtc.org/12529): Move to MediaReceiverInfo.
   absl::optional<webrtc::TimeDelta> round_trip_time;
   webrtc::TimeDelta total_round_trip_time = webrtc::TimeDelta::Zero();
   int round_trip_time_measurements = 0;

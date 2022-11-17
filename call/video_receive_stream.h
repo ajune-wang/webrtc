@@ -22,6 +22,7 @@
 #include "api/crypto/crypto_options.h"
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
+#include "api/units/timestamp.h"
 #include "api/video/recordable_encoded_frame.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame.h"
@@ -149,6 +150,16 @@ class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
     // Timing frame info: all important timestamps for a full lifetime of a
     // single 'timing frame'.
     absl::optional<webrtc::TimingFrameInfo> timing_frame_info;
+
+    // Remote outbound stats derived by the received RTCP sender reports.
+    // Note that the timestamps below correspond to the time elapsed since the
+    // Unix epoch.
+    // https://w3c.github.io/webrtc-stats/#remoteoutboundrtpstats-dict*
+    absl::optional<Timestamp> last_sender_report_timestamp;
+    absl::optional<Timestamp> last_sender_report_remote_timestamp;
+    uint32_t sender_reports_packets_sent = 0;
+    uint64_t sender_reports_bytes_sent = 0;
+    uint64_t sender_reports_reports_count = 0;
   };
 
   struct Config {

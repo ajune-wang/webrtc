@@ -853,14 +853,15 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
     stats.capture_start_ntp_time_ms_ = capture_start_ntp_time_ms_;
   }
 
-  absl::optional<RtpRtcpInterface::SenderReportStats> rtcp_sr_stats =
+  absl::optional<RtcpSenderReportStats> rtcp_sr_stats =
       rtp_rtcp_->GetSenderReportStats();
   if (rtcp_sr_stats.has_value()) {
-    stats.last_sender_report_timestamp_ms =
-        rtcp_sr_stats->last_arrival_timestamp.ToMs() -
-        rtc::kNtpJan1970Millisecs;
-    stats.last_sender_report_remote_timestamp_ms =
-        rtcp_sr_stats->last_remote_timestamp.ToMs() - rtc::kNtpJan1970Millisecs;
+    stats.last_sender_report_timestamp =
+        webrtc::Timestamp::Millis(rtcp_sr_stats->last_arrival_timestamp.ToMs() -
+                                  rtc::kNtpJan1970Millisecs);
+    stats.last_sender_report_remote_timestamp =
+        webrtc::Timestamp::Millis(rtcp_sr_stats->last_remote_timestamp.ToMs() -
+                                  rtc::kNtpJan1970Millisecs);
     stats.sender_reports_packets_sent = rtcp_sr_stats->packets_sent;
     stats.sender_reports_bytes_sent = rtcp_sr_stats->bytes_sent;
     stats.sender_reports_reports_count = rtcp_sr_stats->reports_count;

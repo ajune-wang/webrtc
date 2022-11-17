@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "163ea859_fdfbad4d",
+        "filename": "test/pc/e2e/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-17T09:50:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "608d758c_ac68627d",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "26ff382fde63a9355dc2aad332dc20ad9fa6bd25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37c20e63_9f04c3eb",

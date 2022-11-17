@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "608d758c_ac68627d",
+        "filename": "test/pc/e2e/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-17T09:14:53Z",
+      "side": 1,
+      "message": "It was there, so it is why I kept it without any extra file optimisation besides targets movement. As I see we can squash it with previous if, but I probably will prefer to do this squash together with full cleanup of this build file (reorder targets, check if need all these ifs and try to simplify it). WDYT?",
+      "parentUuid": "f26dd3aa_871720d3",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "26ff382fde63a9355dc2aad332dc20ad9fa6bd25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37c20e63_9f04c3eb",
         "filename": "test/pc/e2e/analyzer/video/BUILD.gn",
         "patchSetId": 3

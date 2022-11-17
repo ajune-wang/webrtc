@@ -16,6 +16,24 @@
       "message": "Hi, folks. Could you take a look once more?\n\nOn PS4, I converted the timestamp type from `int64_t` to `webrtc::Timestamp` and removed the `_ms` suffix. No behavior change is intended.",
       "revId": "3502ee0870841e0c58738d6fe03145fe9f2a82c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655ec09d_2ec7b864",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-17T13:36:12Z",
+      "side": 1,
+      "message": "Still LGTM. Thanks for this change!",
+      "parentUuid": "0bc85800_d607d7dc",
+      "revId": "3502ee0870841e0c58738d6fe03145fe9f2a82c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

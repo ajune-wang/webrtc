@@ -515,9 +515,9 @@ std::vector<ReportBlockData> ModuleRtpRtcpImpl2::GetLatestReportBlockData()
   return rtcp_receiver_.GetLatestReportBlockData();
 }
 
-absl::optional<RtpRtcpInterface::SenderReportStats>
-ModuleRtpRtcpImpl2::GetSenderReportStats() const {
-  SenderReportStats stats;
+absl::optional<RtcpSenderReportStats> ModuleRtpRtcpImpl2::GetSenderReportStats()
+    const {
+  RtcpSenderReportStats stats;
   uint32_t remote_timestamp_secs;
   uint32_t remote_timestamp_frac;
   uint32_t arrival_timestamp_secs;

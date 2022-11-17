@@ -47,7 +47,8 @@ struct VideoFrameMetaData;
 
 class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
                                public RtcpCnameCallback,
-                               public RtcpPacketTypeCounterObserver {
+                               public RtcpPacketTypeCounterObserver,
+                               public RtcpSenderReportStatsCallback {
  public:
   ReceiveStatisticsProxy(uint32_t remote_ssrc,
                          Clock* clock,
@@ -106,6 +107,8 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   void RtcpPacketTypesCounterUpdated(
       uint32_t ssrc,
       const RtcpPacketTypeCounter& packet_counter) override;
+
+  void OnSenderReport(const RtcpSenderReportStats& rtcp_sr_stats) override;
 
   void OnRttUpdate(int64_t avg_rtt_ms);
 

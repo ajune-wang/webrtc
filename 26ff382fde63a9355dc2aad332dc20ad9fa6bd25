@@ -69,6 +69,30 @@
       },
       "revId": "26ff382fde63a9355dc2aad332dc20ad9fa6bd25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d8b6ea7_c53b5180",
+        "filename": "test/pc/e2e/analyzer/video/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-17T09:30:33Z",
+      "side": 1,
+      "message": "Done. I though that they depend on some test only target, but looks like they are not. Thank you 😊",
+      "parentUuid": "37c20e63_9f04c3eb",
+      "range": {
+        "startLine": 334,
+        "startChar": 2,
+        "endLine": 399,
+        "endChar": 3
+      },
+      "revId": "26ff382fde63a9355dc2aad332dc20ad9fa6bd25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -575,6 +575,8 @@ TEST_F(RtpRtcpEndToEndTest, DISABLED_TestFlexfecRtpStatePreservation) {
     DestroyVideoSendStreams();
     observer.ResetPacketCount();
     CreateVideoSendStreams();
+    std::vector<bool> active_rtp_streams(GetVideoSendConfig()->rtp.ssrcs.size(),
+                                         true);
     GetVideoSendStream()->Start();
     CreateFrameGeneratorCapturer(kFrameRate, kFrameMaxWidth, kFrameMaxHeight);
   });

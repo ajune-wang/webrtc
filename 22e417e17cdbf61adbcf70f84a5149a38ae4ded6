@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0df44f_ff5e60d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2022-11-17T12:55:48Z",
+      "side": 1,
+      "message": "Hi Danil,\nPlease take a look at this simple CL when you\u0027re back.",
+      "revId": "22e417e17cdbf61adbcf70f84a5149a38ae4ded6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

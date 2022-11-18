@@ -51,6 +51,24 @@
       "parentUuid": "142053f8_c92d6acd",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a5d325_0a8d38a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-11-18T07:47:19Z",
+      "side": 1,
+      "message": "As for your concern about the use of locks:\n\nWhen logging starts – \nAlthough ’LogToMemory‘ and ’ScheduleOutput‘ both have the lock, they won’t be blocked for they are posted to a same task queue.\n\nWhen logging doesn’t start – \nFor there are only pop_front and push_back  main operations in ’LogToMemory‘ and ’LogToMemory‘ is a void function with no need for any return, which mean ’LogToMemory‘ will complete in a very short time and almost won’t lead to any block.\nAnd the original code use PostTask for ’LogToMemory‘, there is also a lock and operation of push in the original PostTasks, see:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/task_queue_libevent.cc;l\u003d206\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/task_queue_stdlib.cc;l\u003d161\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/task_queue_win.cc;l\u003d221\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/thread.cc;l\u003d496\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/time_controller/simulated_task_queue.cc;l\u003d70\nhttps://source.chromium.org/chromium/chromium/src/+/main:base/task/sequence_manager/task_queue_impl.cc;drc\u003d603337a74bf04efd536b251a7f2b4eb44fe153a9;l\u003d422\nWe just move the lock in PostTask out to ‘LogToMemory’ and do the push operation.",
+      "parentUuid": "25f30e04_2cd532d1",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

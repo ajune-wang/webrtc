@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b122ea6a_e20c3061",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20054
+      },
+      "writtenOn": "2022-11-18T17:51:57Z",
+      "side": 1,
+      "message": "PTAL. Fixed the rest of the wasteful virtuals in this header file.",
+      "revId": "66fdcba2ff95bebeed3c8f982a9f882941dfb81b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

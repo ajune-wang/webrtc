@@ -33,6 +33,24 @@
       "message": "Thanks for looking into this!\n\nHowever, I wonder if you\u0027ve measured the performance impact on something user visible, e.g. power? If so, could you share those results? (This CL removes unnecessary PostTask, but introduces extra locks which could cause contention, for example.)",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25f30e04_2cd532d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-11-18T01:54:56Z",
+      "side": 1,
+      "message": "I have measured power effect on Intel ADL (ChromeOS):\nFor 3x3 call: Package power can be reduced from 3.13 w to 3.05 w, gaining 0.08 w(2.6%) power saving;\nFor 1:1 call: Package Power can be reduced from 2.55 w to 2.52 w, gaining 0.03 w(1.2%) power saving.",
+      "parentUuid": "142053f8_c92d6acd",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

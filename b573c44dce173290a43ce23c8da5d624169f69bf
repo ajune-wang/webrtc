@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f15e41f1_65088987",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-11-18T15:53:12Z",
+      "side": 1,
+      "message": "There is still more work to be done, like Fuchsia needs to implement an API for system clock, tests need to updated to have the right conditions for fuchsia and network capabilities need to be investigated (many network tests fail). \n\nBut this I hope is the last major test fixture issue.",
+      "revId": "b573c44dce173290a43ce23c8da5d624169f69bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd02dda8_8528121b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-18T10:29:09Z",
+      "side": 1,
+      "message": "Could you please add one sentence summary before the detailed description? Like:\n\nDo not create DtmfSender for video sender.\n\n\u003cDetailed description\u003e",
+      "revId": "c805f9ce9703b5e48683e546a238d712ac711caa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f857a6_65f544d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-18T10:29:09Z",
+      "side": 1,
+      "message": "Looks good. Just one note on the description.",
+      "revId": "c805f9ce9703b5e48683e546a238d712ac711caa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

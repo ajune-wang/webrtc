@@ -16,6 +16,23 @@
       "message": "This apparently passes internal_tests with only an unrelated error, so I think I have found all the internal dependencies.\n\nIntended to be submitted on Dec 1 (because that\u0027s the date I put into the PSA), but might as well collect the approvals now.",
       "revId": "c040bc4b49cd54f1df2750c967b3d4a28f7d7ce2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df83b4a5_90efd63d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-18T07:17:49Z",
+      "side": 1,
+      "message": "Let\u0027s wait for the bot to finish but LGTM, things look OK.",
+      "revId": "c040bc4b49cd54f1df2750c967b3d4a28f7d7ce2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

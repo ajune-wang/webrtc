@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a2e60fd_567d70ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-18T06:54:49Z",
+      "side": 1,
+      "message": "This apparently passes internal_tests with only an unrelated error, so I think I have found all the internal dependencies.\n\nIntended to be submitted on Dec 1 (because that\u0027s the date I put into the PSA), but might as well collect the approvals now.",
+      "revId": "c040bc4b49cd54f1df2750c967b3d4a28f7d7ce2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

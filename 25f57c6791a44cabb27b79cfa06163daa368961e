@@ -22,6 +22,30 @@
       },
       "revId": "25f57c6791a44cabb27b79cfa06163daa368961e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab24399f_098b4621",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-18T17:41:37Z",
+      "side": 1,
+      "message": "When there is a simulcast of SVC we will get multiple encoded images for frame leading to multiple QP values. Added a comment to the code.",
+      "parentUuid": "bb8aaf25_ea291983",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 18
+      },
+      "revId": "25f57c6791a44cabb27b79cfa06163daa368961e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

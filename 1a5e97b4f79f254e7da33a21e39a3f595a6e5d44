@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "713df7dc_c44df709",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-18T20:11:17Z",
+      "side": 1,
+      "message": "The number of calls to AddEndpointStats/AddUplinkStats/AddDownlinkStats the accumulator is going to wait. If called more than expected, the program will crash.",
+      "range": {
+        "startLine": 90,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "1a5e97b4f79f254e7da33a21e39a3f595a6e5d44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

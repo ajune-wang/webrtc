@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8981c4ab_cbacc62d",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-18T20:11:17Z",
+      "side": 1,
+      "message": "Let\u0027s document is a bit more then (see other comment).",
+      "parentUuid": "7fb336f7_f1fc5605",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 33
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "415f380d_989e5720",
         "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
         "patchSetId": 2
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "If client will try to add stats they will hit a check on line 136. The idea is that we collect all stats on the single thread and at the end move collected stats into a map guarded by lock. I wanted to avoid getting lock every time until the stats are fully collected.\n\nIf you think that it is overkill, I can simplify it to have mutex-protected stats only.",
       "parentUuid": "415f380d_989e5720",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 5
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc484b6_cdfa432b",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-18T20:11:17Z",
+      "side": 1,
+      "message": "No, this is fine.",
+      "parentUuid": "9fcfaeb8_ab557f59",
       "range": {
         "startLine": 139,
         "startChar": 0,

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5bb182b_6f51bd4f",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-18T17:39:04Z",
+      "side": 1,
+      "message": "Yep, you are right. Added a doc string.",
+      "parentUuid": "ae3ba6ac_57fd165e",
+      "range": {
+        "startLine": 91,
+        "startChar": 43,
+        "endLine": 91,
+        "endChar": 70
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b852153_348da70a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-17T08:20:02Z",
       "side": 1,
       "message": "Maybe it is worth adding a DCHECK or a CHECK on a bool (stats_released) and crash if we call this more than once?",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 3
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8702939_04929db7",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-18T17:39:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b852153_348da70a",
       "range": {
         "startLine": 128,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fb336f7_f1fc5605",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-18T17:39:04Z",
+      "side": 1,
+      "message": "It\u0027s responsibility of the user of this object to call it required amount of times for required stats.",
+      "parentUuid": "cc311d9d_a1a57ef3",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 33
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "415f380d_989e5720",
         "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
         "patchSetId": 2
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-17T08:20:02Z",
       "side": 1,
       "message": "Why do we need this?\n\nWhat happens if the client keeps calling Add*Stats() after this happened (n_stats_ has been moved at that point). If we need this to make it available outside of the network thread in a safe manner, WDYT about blocking also the writes to the now moved map?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 5
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fcfaeb8_ab557f59",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-18T17:39:04Z",
+      "side": 1,
+      "message": "If client will try to add stats they will hit a check on line 136. The idea is that we collect all stats on the single thread and at the end move collected stats into a map guarded by lock. I wanted to avoid getting lock every time until the stats are fully collected.\n\nIf you think that it is overkill, I can simplify it to have mutex-protected stats only.",
+      "parentUuid": "415f380d_989e5720",
       "range": {
         "startLine": 139,
         "startChar": 0,

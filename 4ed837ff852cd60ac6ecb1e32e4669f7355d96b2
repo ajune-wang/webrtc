@@ -56,6 +56,30 @@
       },
       "revId": "4ed837ff852cd60ac6ecb1e32e4669f7355d96b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "929e3f21_9697f53a",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-11-18T19:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "939f6801_0b9916ba",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "4ed837ff852cd60ac6ecb1e32e4669f7355d96b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

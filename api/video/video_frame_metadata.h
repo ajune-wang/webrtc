@@ -12,6 +12,8 @@
 #define API_VIDEO_VIDEO_FRAME_METADATA_H_
 
 #include <cstdint>
+#include <map>
+#include <string>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
@@ -45,7 +47,11 @@ class VideoFrameMetadata {
     return decode_target_indications_;
   }
 
+  std::map<std::string, std::string> ToMap() const { return as_map_; }
+
  private:
+  std::map<std::string, std::string> as_map_;
+
   int16_t width_;
   int16_t height_;
   absl::optional<int64_t> frame_id_;

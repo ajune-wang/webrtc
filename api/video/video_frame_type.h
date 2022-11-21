@@ -21,6 +21,17 @@ enum class VideoFrameType {
   kVideoFrameDelta = 4,
 };
 
+inline const char* VideoFrameTypeToString(VideoFrameType video_frame_type) {
+  switch (video_frame_type) {
+    case VideoFrameType::kEmptyFrame:
+      return "empty";
+    case VideoFrameType::kVideoFrameKey:
+      return "key-frame";
+    case VideoFrameType::kVideoFrameDelta:
+      return "delta-frame";
+  }
+}
+
 }  // namespace webrtc
 
 #endif  // API_VIDEO_VIDEO_FRAME_TYPE_H_

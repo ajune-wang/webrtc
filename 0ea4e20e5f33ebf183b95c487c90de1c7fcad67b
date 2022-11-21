@@ -190,6 +190,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "799ab4f6_24b0ba25",
+        "filename": "test/pc/e2e/stats_based_network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-21T09:03:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1de49d1_fd529e02",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 33
+      },
+      "revId": "0ea4e20e5f33ebf183b95c487c90de1c7fcad67b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "415f380d_989e5720",

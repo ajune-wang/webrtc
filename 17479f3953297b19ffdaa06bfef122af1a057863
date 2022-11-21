@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c263260_50a4b1f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-11-21T15:44:02Z",
+      "side": 1,
+      "message": "Hi Per, PTAL!\n\nThis CL also makes the return happen earlier when the format is correct.",
+      "revId": "17479f3953297b19ffdaa06bfef122af1a057863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

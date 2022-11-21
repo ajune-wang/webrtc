@@ -56,6 +56,30 @@
       },
       "revId": "37d859b972854d1242cdd40d4b70ec6597a07ce5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45188079_2860a710",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-11-21T11:58:51Z",
+      "side": 1,
+      "message": "There are still test that use it so it can not be annotated as deprecated as is. It was not obvious for some of the remaining tests how many layers it was actually using and the tests did not care. So I will leave as is for now.",
+      "parentUuid": "30f96065_c2a3d26d",
+      "range": {
+        "startLine": 212,
+        "startChar": 22,
+        "endLine": 212,
+        "endChar": 27
+      },
+      "revId": "37d859b972854d1242cdd40d4b70ec6597a07ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

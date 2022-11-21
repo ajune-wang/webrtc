@@ -23,6 +23,21 @@ namespace webrtc {
 
 class RTPSenderVideo;
 
+struct TransformableVideoFrameMetadata {
+  bool is_keyframe;
+  uint16_t width;
+  uint16_t height;
+  VideoRotation rotation;
+  VideoContentType content_type;
+  bool is_last_frame_in_picture;
+  uint8_t simulcastIdx;
+  VideoCodecType codec;
+  
+}
+
+std::unique_ptr<TransformableVideoFrameInterface> MakeTransformableVideoFrame(
+  int payload_type, uint32_t rtp_timestamp, uint32_t ssrc, bool is_keyframe, const TransformableVideoFrameInterface& original);
+
 // Delegates calls to FrameTransformerInterface to transform frames, and to
 // RTPSenderVideo to send the transformed frames. Ensures thread-safe access to
 // the sender.

@@ -10,6 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h"
 
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -92,6 +93,32 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
   const uint32_t ssrc_;
 };
 }  // namespace
+
+
+std::unique_ptr<TransformableVideoFrameInterface> MakeTransformableVideoFrame(
+  int payload_type, uint32_t rtp_timestamp, uint32_t ssrc, bool is_keyframe,
+  const TransformableVideoFrameInterface& original
+) {
+  EncodedImage encoded_image;
+  encoded_image._frameType = is_keyframe ? VideoFrameType::kVideoFrameKey : VideoFrameType::kVideoFrameDelta;
+  encoded_image.SetEncodedData(EncodedImageBuffer::Create());
+
+  const TransformableVideoSenderFrame& original_video_frame = static_cast<const TransformableVideoSenderFrame&>(original);
+
+  RTPVideoHeader video_header(original_video_frame.GetHeader());
+
+
+  video_header.frame_type = is_keyframe ? VideoFrameType::kVideoFrameKey : VideoFrameType::kVideoFrameDelta;
+
+  return std::make_unique<TransformableVideoSenderFrame>(
+      encoded_image,
+      video_header,
+      payload_type,
+      original_video_frame.GetCodecType(),
+      rtp_timestamp,
+      absl::optional<int64_t>(),
+      ssrc);
+}
 
 RTPSenderVideoFrameTransformerDelegate::RTPSenderVideoFrameTransformerDelegate(
     RTPSenderVideo* sender,

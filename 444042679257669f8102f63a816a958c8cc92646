@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "438c1606_1884a7cb",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-21T23:17:05Z",
+      "side": 0,
+      "message": "Can you try to remove the min_bitrate_bps field out of these 2 structs and see what breaks?\n\nMight need to be done as a separate CL. That should make it possible to tell if they are used in downstream projects.",
+      "revId": "444042679257669f8102f63a816a958c8cc92646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d558d194_86555db1",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-11-21T22:55:28Z",
       "side": 0,
       "message": "Note that max_bitrate_bps can set the send_codec_spec-\u003etarget_bitrate_bps in ComputeSendBitrate above.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1065,
+        "endChar": 78
+      },
+      "revId": "444042679257669f8102f63a816a958c8cc92646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f2d4965_a060e0ce",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-21T23:17:05Z",
+      "side": 0,
+      "message": "ComputeSendBitrate (line 176) doesn\u0027t modify the spec.info.max_bitrate.\nDo you mean the SetMaxSendBitrate function?\n\nI find it code-wise uncomfortable to have both an UpdateAllowedBitraterRnge function and a SetMaxSendBitrate. If they get out of alignment (as they seemingly have), this produces hard-to-catch errors.",
+      "parentUuid": "d558d194_86555db1",
       "range": {
         "startLine": 1065,
         "startChar": 0,

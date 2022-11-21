@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f444e4_7e08e356",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-21T23:17:05Z",
+      "side": 1,
+      "message": "Can you add a test that actually verifies the new behavior?\n\nIt\u0027s not clear which call could cause a crash when the bitrate was negative, or that we can verify that it\u0027s fixed.",
+      "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b95a399_4142b03e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-21T23:17:05Z",
+      "side": 1,
+      "message": "I\u0027m happy to remove min bitrate if nothing depends on it, but I don\u0027t think we know that (the c++ interface is not controlled by specs).\nBut I think you should do that as a separate CL, and do it more brutally - remove all struct fields that refer to it, so that all code that depends on tweaking min bitrate will fail to compile.",
+      "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19dd4512_c0706abf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-21T23:17:05Z",
+      "side": 1,
+      "message": "Mumble. OK to make code shorter, but I don\u0027t understand why this has the result that you desire - and the changes in the tests don\u0027t check the behavior you\u0027re trying to handle.",
+      "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

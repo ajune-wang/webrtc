@@ -170,6 +170,10 @@ class RTCPSender final {
   void SetTmmbn(std::vector<rtcp::TmmbItem> bounding_set)
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 
+  std::vector<uint32_t> Csrcs() const {
+        MutexLock lock(&mutex_rtcp_sender_);
+          return csrcs_;
+      }
   void SetCsrcs(const std::vector<uint32_t>& csrcs)
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 

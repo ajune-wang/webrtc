@@ -356,7 +356,7 @@ int32_t ChannelSend::SendData(AudioFrameType frameType,
     frame_transformer_delegate_->Transform(
         frameType, payloadType, rtp_timestamp, rtp_rtcp_->StartTimestamp(),
         payloadData, payloadSize, absolute_capture_timestamp_ms,
-        rtp_rtcp_->SSRC());
+        rtp_rtcp_->SSRC(), rtp_rtcp_->Csrcs());
     return 0;
   }
   return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,
@@ -922,7 +922,7 @@ void ChannelSend::InitFrameTransformerDelegate(
   ChannelSendFrameTransformerDelegate::SendFrameCallback send_audio_callback =
       [this](AudioFrameType frameType, uint8_t payloadType,
              uint32_t rtp_timestamp, rtc::ArrayView<const uint8_t> payload,
-             int64_t absolute_capture_timestamp_ms) {
+             int64_t absolute_capture_timestamp_ms, std::vector<uint32_t> csrcs) {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,
                             absolute_capture_timestamp_ms);

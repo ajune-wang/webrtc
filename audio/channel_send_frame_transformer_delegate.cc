@@ -24,14 +24,16 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
                                   const uint8_t* payload_data,
                                   size_t payload_size,
                                   int64_t absolute_capture_timestamp_ms,
-                                  uint32_t ssrc)
+                                  uint32_t ssrc,
+                                  std::vector<uint32_t> csrcs)
       : frame_type_(frame_type),
         payload_type_(payload_type),
         rtp_timestamp_(rtp_timestamp),
         rtp_start_timestamp_(rtp_start_timestamp),
         payload_(payload_data, payload_size),
         absolute_capture_timestamp_ms_(absolute_capture_timestamp_ms),
-        ssrc_(ssrc) {}
+        ssrc_(ssrc),
+        csrcs_(csrcs) {}
   ~TransformableOutgoingAudioFrame() override = default;
   rtc::ArrayView<const uint8_t> GetData() const override { return payload_; }
   void SetData(rtc::ArrayView<const uint8_t> data) override {
@@ -50,6 +52,8 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
   }
   Direction GetDirection() const override { return Direction::kSender; }
 
+  std::vector<uint32_t> GetCsrcs() const { return csrcs_; }
+
  private:
   AudioFrameType frame_type_;
   uint8_t payload_type_;
@@ -58,6 +62,7 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
   rtc::Buffer payload_;
   int64_t absolute_capture_timestamp_ms_;
   uint32_t ssrc_;
+  std::vector<uint32_t> csrcs_;
 };
 }  // namespace
 
@@ -90,11 +95,12 @@ void ChannelSendFrameTransformerDelegate::Transform(
     const uint8_t* payload_data,
     size_t payload_size,
     int64_t absolute_capture_timestamp_ms,
-    uint32_t ssrc) {
+    uint32_t ssrc,
+    std::vector<uint32_t> csrcs) {
   frame_transformer_->Transform(
       std::make_unique<TransformableOutgoingAudioFrame>(
           frame_type, payload_type, rtp_timestamp, rtp_start_timestamp,
-          payload_data, payload_size, absolute_capture_timestamp_ms, ssrc));
+          payload_data, payload_size, absolute_capture_timestamp_ms, ssrc, csrcs));
 }
 
 void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
@@ -124,7 +130,8 @@ void ChannelSendFrameTransformerDelegate::SendFrame(
                        transformed_frame->GetTimestamp() -
                            transformed_frame->GetStartTimestamp(),
                        transformed_frame->GetData(),
-                       transformed_frame->GetAbsoluteCaptureTimestampMs());
+                       transformed_frame->GetAbsoluteCaptureTimestampMs(),
+                       transformed_frame->GetCsrcs());
 }
 
 }  // namespace webrtc

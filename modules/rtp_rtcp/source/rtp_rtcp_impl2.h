@@ -106,6 +106,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   void SetNonSenderRttMeasurement(bool enabled) override;
 
   uint32_t SSRC() const override { return rtcp_sender_.SSRC(); }
+  std::vector<uint32_t> Csrcs() const { return rtcp_sender_.Csrcs(); }
 
   // Semantically identical to `SSRC()` but must be called on the packet
   // delivery thread/tq and returns the ssrc that maps to

@@ -9,6 +9,7 @@
  */
 
 #include <memory>
+#include <regex>
 
 #include "absl/debugging/failure_signal_handler.h"
 #include "absl/debugging/symbolize.h"
@@ -16,11 +17,28 @@
 #include "test/gmock.h"
 #include "test/test_main_lib.h"
 
+std::vector<std::string> ReplaceDashesByUnderscores(int argc, char* argv[]) {
+  std::vector<std::string> args(argv, argv + argc);
+  for (size_t i = 1; i < argc; ++i) {
+    std::regex_replace(args[i], std::regex("[^-]-"), "$1_");
+  }
+  return args;
+}
+
+std::vector<char*> VectorOfStringsToPointers(std::vector<std::string>& input) {
+  std::vector<char*> output(input.size());
+  for (size_t i = 0; i < input.size(); ++i) {
+    output[i] = &(input[i][0]);
+  }
+  return output;
+}
+
 int main(int argc, char* argv[]) {
   // Initialize the symbolizer to get a human-readable stack trace
   absl::InitializeSymbolizer(argv[0]);
   testing::InitGoogleMock(&argc, argv);
-  absl::ParseCommandLine(argc, argv);
+  std::vector<std::string> new_argv = ReplaceDashesByUnderscores(argc, argv);
+  absl::ParseCommandLine(argc, &VectorOfStringsToPointers(new_argv)[0]);
 
 // This absl handler use unsupported features/instructions on Fuchsia
 #if !defined(WEBRTC_FUCHSIA)

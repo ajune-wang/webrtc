@@ -66,6 +66,9 @@ ABSL_FLAG(
 
 #endif
 
+ABSL_FLAG(std::string, use_vulkan, "", "");
+ABSL_FLAG(std::string, write_compiled_tests_json_to_writable_path, "", "");
+ABSL_FLAG(std::string, test_launcher_bot_mode, "", "");
 ABSL_FLAG(std::string,
           isolated_script_test_output,
           "",

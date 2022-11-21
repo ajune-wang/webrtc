@@ -146,8 +146,8 @@ class InputVolumeController final {
 
   const int num_capture_channels_;
 
-  // If not empty, the value is used to override the minimum input volume.
-  const absl::optional<int> min_mic_level_override_;
+  // Minimum input volume that can be recommended.
+  const int min_input_volume_;
 
   // TODO(bugs.webrtc.org/7494): Create a separate member for the applied input
   // volume.

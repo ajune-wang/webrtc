@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5320bdf_da350b7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-11-21T15:34:41Z",
+      "side": 1,
+      "message": "The first CL is finally merged, so I\u0027m back to work on this.\n@ilnik, can you please start the dry-run again?",
+      "revId": "132d9494dbb320b928737206fe2c2461d38cfa32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

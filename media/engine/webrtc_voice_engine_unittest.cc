@@ -444,6 +444,10 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
     return GetSendStreamConfig(ssrc).send_codec_spec->target_bitrate_bps;
   }
 
+  int GetStreamMaxBitrate(int32_t ssrc) {
+    return GetSendStreamConfig(ssrc).max_bitrate_bps;
+  }
+
   const absl::optional<std::string>& GetAudioNetworkAdaptorConfig(
       int32_t ssrc) {
     return GetSendStreamConfig(ssrc).audio_network_adaptor_config;
@@ -471,6 +475,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
 
     // Verify that the codec settings have the expected bitrate.
     EXPECT_EQ(expected_codec_bitrate, GetCodecBitrate(kSsrcX));
+    EXPECT_EQ(expected_codec_bitrate, GetStreamMaxBitrate(kSsrcX));
   }
 
   void SetSendCodecsShouldWorkForBitrates(const char* min_bitrate_kbps,

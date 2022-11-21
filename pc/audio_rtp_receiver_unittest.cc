@@ -55,8 +55,16 @@ class AudioRtpReceiverTest : public ::testing::Test {
   cricket::MockVoiceMediaChannel media_channel_;
 };
 
-TEST_F(AudioRtpReceiverTest, SetOutputVolumeIsCalled) {
+TEST(AudioRtpReceiverTestTest, SetOutputVolumeIsCalled2) {
+  // std::atomic_int set_volume_calls(0);
+  // EXPECT_TRUE_WAIT(set_volume_calls == 1, kTimeOut);
+  rtc::Thread::Current()->PostTask([] {});
+  rtc::Thread::Current()->ProcessMessages(0);
+}
+
+TEST_F(AudioRtpReceiverTest, SetOutputVolumeIsCalled3) {
   std::atomic_int set_volume_calls(0);
+  rtc::Thread::Current();
 
   EXPECT_CALL(media_channel_, SetOutputVolume(kSsrc, kDefaultVolume))
       .WillOnce(InvokeWithoutArgs([&] {

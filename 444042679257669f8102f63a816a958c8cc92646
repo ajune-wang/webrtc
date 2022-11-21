@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d558d194_86555db1",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-11-21T22:55:28Z",
+      "side": 0,
+      "message": "Note that max_bitrate_bps can set the send_codec_spec-\u003etarget_bitrate_bps in ComputeSendBitrate above.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1065,
+        "endChar": 78
+      },
+      "revId": "444042679257669f8102f63a816a958c8cc92646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -250,6 +250,24 @@
       "parentUuid": "cfa4da9d_9031c4a9",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41af939f_1bef0712",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:19:35Z",
+      "side": 1,
+      "message": "Cleaning up my \"action required\" CLs, I think this can be \"abandoned\"?",
+      "parentUuid": "9910bf83_74a46a96",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16fbab32_1d64f69c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-11-22T11:04:55Z",
+      "side": 1,
+      "message": "Thanks for fixing this!",
+      "revId": "e98f91b497eed471f35854bfae822866f1e592fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0986bd5_e773062b",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-11-22T11:04:55Z",
+      "side": 1,
+      "message": "nit: prefer pixelBufferPool to pbPool. Readable names are usually better.",
+      "range": {
+        "startLine": 414,
+        "startChar": 27,
+        "endLine": 414,
+        "endChar": 33
+      },
+      "revId": "e98f91b497eed471f35854bfae822866f1e592fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a33402f_c0cef009",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-11-22T11:04:55Z",
+      "side": 1,
+      "message": "Can we extract this into a method that either returns a pixelBuffer or nil? That way we\u0027ll have a bit less duplication.",
+      "range": {
+        "startLine": 414,
+        "startChar": 6,
+        "endLine": 419,
+        "endChar": 46
+      },
+      "revId": "e98f91b497eed471f35854bfae822866f1e592fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

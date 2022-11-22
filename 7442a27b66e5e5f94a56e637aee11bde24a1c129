@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade16da5_65bc2752",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:47:22Z",
+      "side": 1,
+      "message": "Also if you\u0027re editing the commit message can you remove the trailing space from this line and the line above (shows up as pink in the diff, so I assume there\u0027s one there)",
+      "range": {
+        "startLine": 10,
+        "startChar": 74,
+        "endLine": 10,
+        "endChar": 75
+      },
+      "revId": "7442a27b66e5e5f94a56e637aee11bde24a1c129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbace108_49341a83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:47:22Z",
+      "side": 1,
+      "message": "I *think* the presubmit check on the CQ is not happy about the empty newline here. If you remove it it should be okay.",
+      "revId": "7442a27b66e5e5f94a56e637aee11bde24a1c129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "80a76a4e_a000b27c",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d4cd9ab_e66bc18a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-22T09:25:26Z",
+      "side": 1,
+      "message": "LGTM % missing \"Bug: \" in the CL desc and CQ being happy.",
+      "revId": "84da9d85ec1662ad7603db7737e2c885105fd3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

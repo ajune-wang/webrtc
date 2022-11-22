@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "249ab7c1_2b392a4b",
+        "filename": "test/test_main.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-22T09:25:26Z",
+      "side": 1,
+      "message": "Because in such case the element would not start with --, right?",
+      "parentUuid": "5777602d_cebec9b2",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 56
+      },
+      "revId": "6955cabb2340fec5ba8bd4921b822855e8aa1cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "529673c4_ca238940",

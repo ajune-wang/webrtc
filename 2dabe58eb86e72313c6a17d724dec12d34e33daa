@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d80471ef_daf6e334",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T21:19:07Z",
+      "side": 1,
+      "message": "I think I\u0027d prefer to have this just be broadly available with a public enum that needs translation then rather than introduce two ways of hiding the cursor, since there\u0027s already a CL proposing a way to hide the cursor.\n\nIt also probably wouldn\u0027t be unreasonable to just have the cursor metadata always sent from this capturer and a bool to simply control if it\u0027s composited into the stream (like the other CL); if the higher level wants to discard the cursor, they can just discard the metadata rather than using it.\n\nWould the latter be sufficient for you?",
+      "parentUuid": "29fd6a78_78961ebd",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 69
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c015da8b_d0d241ca",
         "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
         "patchSetId": 1

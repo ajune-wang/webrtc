@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0241dba_5a1465da",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-22T20:19:40Z",
+      "side": 1,
+      "message": "Guarded it with ifdef now.",
+      "parentUuid": "5408c1e5_217fe2d9",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 4
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bdc1ea2_55dd5dbd",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29fd6a78_78961ebd",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-22T20:19:40Z",
+      "side": 1,
+      "message": "For my purposes I need option to get the cursor as metadata as well as embed it into the stream without any metadata.",
+      "parentUuid": "8bdc1ea2_55dd5dbd",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 69
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c015da8b_d0d241ca",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-11-22T19:09:55Z",
       "side": 1,
       "message": "I think you updated the only in webrtc caller of this. So maybe a bug to remove the default value once this has rolled to remoting and the optional value can be removed?",
+      "range": {
+        "startLine": 77,
+        "startChar": 64,
+        "endLine": 78,
+        "endChar": 67
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9db22813_fb7e407e",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-22T20:19:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c015da8b_d0d241ca",
       "range": {
         "startLine": 77,
         "startChar": 64,

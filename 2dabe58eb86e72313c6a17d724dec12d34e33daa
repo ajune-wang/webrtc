@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5408c1e5_217fe2d9",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:09:55Z",
+      "side": 1,
+      "message": "Depending on the reconciliation with the existing CL, this may be more broadly used. If it *is* I don\u0027t think we should re-use the Wayland values (and would unfortunately need to map in that capturer for setting values to the underlying API). If it *is not* I think the definition should be behind an ifdef.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 4
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bdc1ea2_55dd5dbd",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:09:55Z",
+      "side": 1,
+      "message": "I had another change recently that wanted to expose the ability to hide the cursor as well: https://webrtc-review.googlesource.com/c/src/+/282861\n\nDo you need all three modes or do you just want to toggle hidden?",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 69
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c015da8b_d0d241ca",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:09:55Z",
+      "side": 1,
+      "message": "I think you updated the only in webrtc caller of this. So maybe a bug to remove the default value once this has rolled to remoting and the optional value can be removed?",
+      "range": {
+        "startLine": 77,
+        "startChar": 64,
+        "endLine": 78,
+        "endChar": 67
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

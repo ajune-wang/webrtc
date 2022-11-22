@@ -16,6 +16,98 @@
       "message": "LGTM % missing \"Bug: \" in the CL desc and CQ being happy.",
       "revId": "84da9d85ec1662ad7603db7737e2c885105fd3ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "484f1bce_31d0000e",
+        "filename": "test/test_main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-22T09:46:27Z",
+      "side": 1,
+      "message": "nit: maybe add a new line after and before namespace begin/end\n\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "84da9d85ec1662ad7603db7737e2c885105fd3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef55b82_8daf3b97",
+        "filename": "test/test_main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-22T09:46:27Z",
+      "side": 1,
+      "message": "Add #include \u003cvector\u003e",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "84da9d85ec1662ad7603db7737e2c885105fd3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c1126ec_70ec945f",
+        "filename": "test/test_main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-22T09:46:27Z",
+      "side": 1,
+      "message": "Add #include \u003cstring\u003e",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "84da9d85ec1662ad7603db7737e2c885105fd3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7895dcd0_671fbef6",
+        "filename": "test/test_main.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-11-22T09:46:27Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "84da9d85ec1662ad7603db7737e2c885105fd3ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

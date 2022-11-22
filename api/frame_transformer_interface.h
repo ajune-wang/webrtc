@@ -11,12 +11,15 @@
 #ifndef API_FRAME_TRANSFORMER_INTERFACE_H_
 #define API_FRAME_TRANSFORMER_INTERFACE_H_
 
+#include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "api/scoped_refptr.h"
 #include "api/video/encoded_frame.h"
 #include "api/video/video_frame_metadata.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/ref_count.h"
 
 namespace webrtc {
@@ -46,6 +49,15 @@ class TransformableFrameInterface {
   // sender frames to allow received frames to be directly re-transmitted on
   // other PeerConnectionss.
   virtual Direction GetDirection() const { return Direction::kUnknown; }
+
+  virtual std::map<std::string, std::string> ToMap() const {
+    RTC_CHECK(false) << "Not overriden...";
+    return {};
+  }
+  virtual bool FromMap(const std::map<std::string, std::string>& map) {
+    RTC_CHECK(false) << "Not overriden...";
+    return false;
+  }
 };
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {
@@ -62,6 +74,10 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
   virtual std::vector<uint8_t> GetAdditionalData() const = 0;
 
   virtual const VideoFrameMetadata& GetMetadata() const = 0;
+
+  std::map<std::string, std::string> ToMap() const override {
+    return GetMetadata().ToMap();
+  }
 };
 
 // Extends the TransformableFrameInterface to expose audio-specific information.

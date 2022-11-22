@@ -70,6 +70,15 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
 
   const VideoFrameMetadata& GetMetadata() const override { return metadata_; }
 
+  bool FromMap(const std::map<std::string, std::string>& map) override {
+    bool success = metadata_.FromMap(map);
+    // Sync up stuff that is duplicated in multiple places.
+    header_ = metadata_.GetRTPVideoHeader();
+    frame_type_ = header_.frame_type;
+    codec_type_ = header_.codec;
+    return success;
+  }
+
   const RTPVideoHeader& GetHeader() const { return header_; }
   uint8_t GetPayloadType() const override { return payload_type_; }
   absl::optional<VideoCodecType> GetCodecType() const { return codec_type_; }
@@ -83,11 +92,11 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
 
  private:
   rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
-  const RTPVideoHeader header_;
-  const VideoFrameMetadata metadata_;
-  const VideoFrameType frame_type_;
+  RTPVideoHeader header_;
+  VideoFrameMetadata metadata_;
+  VideoFrameType frame_type_;
   const uint8_t payload_type_;
-  const absl::optional<VideoCodecType> codec_type_ = absl::nullopt;
+  absl::optional<VideoCodecType> codec_type_ = absl::nullopt;
   const uint32_t timestamp_;
   const int64_t capture_time_ms_;
   const absl::optional<int64_t> expected_retransmission_time_ms_;

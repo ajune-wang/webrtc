@@ -21,6 +21,21 @@ enum VideoRotation {
   kVideoRotation_270 = 270
 };
 
+inline const char* VideoRotationToString(VideoRotation video_rotation) {
+  switch (video_rotation) {
+    case VideoRotation::kVideoRotation_0:
+      return "0";
+    case VideoRotation::kVideoRotation_90:
+      return "90";
+    case VideoRotation::kVideoRotation_180:
+      return "180";
+    case VideoRotation::kVideoRotation_270:
+      return "270";
+    default:
+      return "UNKNOWN";
+  }
+}
+
 }  // namespace webrtc
 
 #endif  // API_VIDEO_VIDEO_ROTATION_H_

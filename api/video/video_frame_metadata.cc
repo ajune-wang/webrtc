@@ -15,7 +15,7 @@
 namespace webrtc {
 
 VideoFrameMetadata::VideoFrameMetadata(const RTPVideoHeader& header)
-    : width_(header.width), height_(header.height) {
+    : as_map_(header.ToMap()), width_(header.width), height_(header.height) {
   if (header.generic) {
     frame_id_ = header.generic->frame_id;
     spatial_index_ = header.generic->spatial_index;

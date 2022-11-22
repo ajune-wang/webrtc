@@ -11,7 +11,9 @@
 #ifndef API_FRAME_TRANSFORMER_INTERFACE_H_
 #define API_FRAME_TRANSFORMER_INTERFACE_H_
 
+#include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "api/scoped_refptr.h"
@@ -46,6 +48,12 @@ class TransformableFrameInterface {
   // sender frames to allow received frames to be directly re-transmitted on
   // other PeerConnectionss.
   virtual Direction GetDirection() const { return Direction::kUnknown; }
+
+  virtual std::map<std::string, std::string> ToMap() const {
+    std::map<std::string, std::string> map;
+    map["warning"] = "you need to override ToMap...";
+    return map;
+  }
 };
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {
@@ -62,6 +70,10 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
   virtual std::vector<uint8_t> GetAdditionalData() const = 0;
 
   virtual const VideoFrameMetadata& GetMetadata() const = 0;
+
+  std::map<std::string, std::string> ToMap() const override {
+    return GetMetadata().ToMap();
+  }
 };
 
 // Extends the TransformableFrameInterface to expose audio-specific information.

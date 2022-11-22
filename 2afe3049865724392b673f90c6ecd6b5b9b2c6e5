@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0a91ebc_38432adf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-11-22T19:16:16Z",
+      "side": 1,
+      "message": "Sorry for not being descriptive enough. The crash is in audio send stream which is configured with a non-positive max_bitrate_bps. I added test expectations that verifies that the proper max_bitrate_bps is set. There are already tests that sets the max bitrate with expectations, including setting it to 0 (which is the same as setting any negative value). Will update cl description.",
+      "parentUuid": "51f444e4_7e08e356",
+      "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b95a399_4142b03e",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-21T23:17:05Z",
       "side": 1,
       "message": "I\u0027m happy to remove min bitrate if nothing depends on it, but I don\u0027t think we know that (the c++ interface is not controlled by specs).\nBut I think you should do that as a separate CL, and do it more brutally - remove all struct fields that refer to it, so that all code that depends on tweaking min bitrate will fail to compile.",
+      "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f270cbb_c7c01cb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-11-22T19:16:16Z",
+      "side": 1,
+      "message": "See other comment.",
+      "parentUuid": "3b95a399_4142b03e",
       "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

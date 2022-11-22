@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "43b31372_db15a1af",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-11-22T19:16:16Z",
+      "side": 0,
+      "message": "The min bitrate is also used on the video side where I have less confidence that it is not used (RtpEncodingParameters are used for both audio and video).\n\nI can also keep it, but I cannot make any guarantees that the code will not crash when set :)",
+      "parentUuid": "438c1606_1884a7cb",
+      "revId": "444042679257669f8102f63a816a958c8cc92646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d558d194_86555db1",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 5
@@ -55,6 +73,30 @@
       "side": 0,
       "message": "ComputeSendBitrate (line 176) doesn\u0027t modify the spec.info.max_bitrate.\nDo you mean the SetMaxSendBitrate function?\n\nI find it code-wise uncomfortable to have both an UpdateAllowedBitraterRnge function and a SetMaxSendBitrate. If they get out of alignment (as they seemingly have), this produces hard-to-catch errors.",
       "parentUuid": "d558d194_86555db1",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1065,
+        "endChar": 78
+      },
+      "revId": "444042679257669f8102f63a816a958c8cc92646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09df86f_f9d46dde",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-11-22T19:16:16Z",
+      "side": 0,
+      "message": "You are right, functions calling ComputeSendBitrate is setting send_codec_spec-\u003etarget_bitrate_bps.\n\nI agree, we have too many ways to configure bitrates and they do not look compatible to me.",
+      "parentUuid": "8f2d4965_a060e0ce",
       "range": {
         "startLine": 1065,
         "startChar": 0,

@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85df94eb_e9d556fa",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 20129
+      },
+      "writtenOn": "2022-11-22T22:47:58Z",
+      "side": 1,
+      "message": "I originally had that but got line length warnings. Happy to change it back if that\u0027s your pref (not sure how strictly code formatting is followed in the project)",
+      "parentUuid": "a0986bd5_e773062b",
+      "range": {
+        "startLine": 414,
+        "startChar": 27,
+        "endLine": 414,
+        "endChar": 33
+      },
+      "revId": "e98f91b497eed471f35854bfae822866f1e592fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a33402f_c0cef009",
         "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
         "patchSetId": 1

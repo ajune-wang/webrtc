@@ -20,6 +20,16 @@ enum class VideoContentType : uint8_t {
   SCREENSHARE = 1,
 };
 
+inline const char* VideoContentTypeToString(
+    VideoContentType video_content_type) {
+  switch (video_content_type) {
+    case VideoContentType::UNSPECIFIED:
+      return "unspecified";
+    case VideoContentType::SCREENSHARE:
+      return "screenshare";
+  }
+}
+
 namespace videocontenttypehelpers {
 bool SetExperimentId(VideoContentType* content_type, uint8_t experiment_id);
 bool SetSimulcastId(VideoContentType* content_type, uint8_t simulcast_id);

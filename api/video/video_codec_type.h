@@ -24,6 +24,25 @@ enum VideoCodecType {
   kVideoCodecMultiplex,
 };
 
+inline const char* VideoCodecTypeToString(VideoCodecType video_codec_type) {
+  switch (video_codec_type) {
+    case VideoCodecType::kVideoCodecGeneric:
+      return "generic";
+    case VideoCodecType::kVideoCodecVP8:
+      return "VP8";
+    case VideoCodecType::kVideoCodecVP9:
+      return "VP9";
+    case VideoCodecType::kVideoCodecAV1:
+      return "AV1";
+    case VideoCodecType::kVideoCodecH264:
+      return "H264";
+    case VideoCodecType::kVideoCodecMultiplex:
+      return "Multiplex";
+    default:
+      return "UNKNOWN";
+  }
+}
+
 }  // namespace webrtc
 
 #endif  // API_VIDEO_VIDEO_CODEC_TYPE_H_

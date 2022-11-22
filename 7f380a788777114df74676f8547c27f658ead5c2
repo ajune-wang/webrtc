@@ -16,6 +16,24 @@
       "message": "Hmmm. the test failures look unrelated to me. Something with a timeout, I think? I don\u0027t really understand the test results. @ilnik?",
       "revId": "7f380a788777114df74676f8547c27f658ead5c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e81202_9d4a160e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-11-22T10:13:25Z",
+      "side": 1,
+      "message": "Nothing looks failed to me. There might\u0027ve been some flaky failures yesterday, which were resolved by automatic retries. I can only see two runs still scheduled and everything else is green.",
+      "parentUuid": "11f47d05_8aca2d3d",
+      "revId": "7f380a788777114df74676f8547c27f658ead5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

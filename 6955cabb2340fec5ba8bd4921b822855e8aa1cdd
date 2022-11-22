@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4276580_404c46cf",
+        "filename": "test/test_main.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-22T08:55:11Z",
+      "side": 1,
+      "message": "Do we always have an \u003d as a separator?\n\nI am thinking about the \"--foo bar\" use case.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 56
+      },
+      "revId": "6955cabb2340fec5ba8bd4921b822855e8aa1cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "529673c4_ca238940",
+        "filename": "test/test_main.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-11-22T08:55:11Z",
+      "side": 1,
+      "message": "I wonder if it makes sense to keep this in a variable as well (I am not sure if ParseCommandLine has any assumption on the lifetime of the 2nd param, but here we are taking the address of a temporary).",
+      "range": {
+        "startLine": 51,
+        "startChar": 31,
+        "endLine": 51,
+        "endChar": 78
+      },
+      "revId": "6955cabb2340fec5ba8bd4921b822855e8aa1cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

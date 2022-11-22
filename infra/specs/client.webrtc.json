@@ -2097,10 +2097,6 @@
   "Fuchsia Release": {
     "isolated_scripts": [
       {
-        "args": [
-          "--",
-          "--undefok=use-vulkan"
-        ],
         "isolate_name": "audio_decoder_unittests",
         "merge": {
           "args": [],
@@ -2108,7 +2104,8 @@
         },
         "name": "audio_decoder_unittests",
         "resultdb": {
-          "result_format": "json"
+          "enable": true,
+          "has_native_resultdb_integration": true
         },
         "swarming": {
           "can_use_on_swarming_builders": true,
@@ -2122,10 +2119,6 @@
         "test_id_prefix": "ninja://modules/audio_coding:audio_decoder_unittests/"
       },
       {
-        "args": [
-          "--",
-          "--undefok=use-vulkan"
-        ],
         "isolate_name": "common_audio_unittests",
         "merge": {
           "args": [],
@@ -2133,7 +2126,8 @@
         },
         "name": "common_audio_unittests",
         "resultdb": {
-          "result_format": "json"
+          "enable": true,
+          "has_native_resultdb_integration": true
         },
         "swarming": {
           "can_use_on_swarming_builders": true,
@@ -2147,10 +2141,6 @@
         "test_id_prefix": "ninja://common_audio:common_audio_unittests/"
       },
       {
-        "args": [
-          "--",
-          "--undefok=use-vulkan"
-        ],
         "isolate_name": "common_video_unittests",
         "merge": {
           "args": [],
@@ -2158,7 +2148,8 @@
         },
         "name": "common_video_unittests",
         "resultdb": {
-          "result_format": "json"
+          "enable": true,
+          "has_native_resultdb_integration": true
         },
         "swarming": {
           "can_use_on_swarming_builders": true,
@@ -2172,10 +2163,6 @@
         "test_id_prefix": "ninja://common_video:common_video_unittests/"
       },
       {
-        "args": [
-          "--",
-          "--undefok=use-vulkan"
-        ],
         "isolate_name": "dcsctp_unittests",
         "merge": {
           "args": [],
@@ -2183,7 +2170,8 @@
         },
         "name": "dcsctp_unittests",
         "resultdb": {
-          "result_format": "json"
+          "enable": true,
+          "has_native_resultdb_integration": true
         },
         "swarming": {
           "can_use_on_swarming_builders": true,
@@ -2197,10 +2185,6 @@
         "test_id_prefix": "ninja://net/dcsctp:dcsctp_unittests/"
       },
       {
-        "args": [
-          "--",
-          "--undefok=use-vulkan"
-        ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
           "args": [],
@@ -2208,7 +2192,8 @@
         },
         "name": "low_bandwidth_audio_test",
         "resultdb": {
-          "result_format": "json"
+          "enable": true,
+          "has_native_resultdb_integration": true
         },
         "swarming": {
           "can_use_on_swarming_builders": true,
@@ -2220,6 +2205,116 @@
           ]
         },
         "test_id_prefix": "ninja://audio:low_bandwidth_audio_test/"
+      },
+      {
+        "isolate_name": "rtc_media_unittests",
+        "merge": {
+          "args": [],
+          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
+        },
+        "name": "rtc_media_unittests",
+        "resultdb": {
+          "enable": true,
+          "has_native_resultdb_integration": true
+        },
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "cpu": "x86-64",
+              "os": "Ubuntu-18.04"
+            }
+          ]
+        },
+        "test_id_prefix": "ninja://media:rtc_media_unittests/"
+      },
+      {
+        "isolate_name": "rtc_unittests",
+        "merge": {
+          "args": [],
+          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
+        },
+        "name": "rtc_unittests",
+        "resultdb": {
+          "enable": true,
+          "has_native_resultdb_integration": true
+        },
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "cpu": "x86-64",
+              "os": "Ubuntu-18.04"
+            }
+          ]
+        },
+        "test_id_prefix": "ninja://:rtc_unittests/"
+      },
+      {
+        "isolate_name": "system_wrappers_unittests",
+        "merge": {
+          "args": [],
+          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
+        },
+        "name": "system_wrappers_unittests",
+        "resultdb": {
+          "enable": true,
+          "has_native_resultdb_integration": true
+        },
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "cpu": "x86-64",
+              "os": "Ubuntu-18.04"
+            }
+          ]
+        },
+        "test_id_prefix": "ninja://system_wrappers:system_wrappers_unittests/"
+      },
+      {
+        "isolate_name": "test_support_unittests",
+        "merge": {
+          "args": [],
+          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
+        },
+        "name": "test_support_unittests",
+        "resultdb": {
+          "enable": true,
+          "has_native_resultdb_integration": true
+        },
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "cpu": "x86-64",
+              "os": "Ubuntu-18.04"
+            }
+          ]
+        },
+        "test_id_prefix": "ninja://test:test_support_unittests/"
+      },
+      {
+        "isolate_name": "tools_unittests",
+        "merge": {
+          "args": [],
+          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
+        },
+        "name": "tools_unittests",
+        "resultdb": {
+          "enable": true,
+          "has_native_resultdb_integration": true
+        },
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "cpu": "x86-64",
+              "os": "Ubuntu-18.04"
+            }
+          ]
+        },
+        "test_id_prefix": "ninja://rtc_tools:tools_unittests/"
       }
     ]
   },
@@ -9003,7 +9098,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9051,7 +9145,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9098,7 +9191,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9145,7 +9237,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9192,7 +9283,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9239,7 +9329,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9287,7 +9376,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9335,7 +9423,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9382,7 +9469,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9429,7 +9515,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9476,7 +9561,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9524,7 +9608,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9572,7 +9655,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9620,7 +9702,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9669,7 +9750,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9716,7 +9796,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9763,7 +9842,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9810,7 +9888,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9857,7 +9934,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9905,7 +9981,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -9952,7 +10027,6 @@
           "iPhone X",
           "--version",
           "12.4",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10003,7 +10077,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10051,7 +10124,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10098,7 +10170,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10145,7 +10216,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10192,7 +10262,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10239,7 +10308,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10287,7 +10355,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10335,7 +10402,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10382,7 +10448,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10429,7 +10494,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10476,7 +10540,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10524,7 +10587,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10572,7 +10634,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10620,7 +10681,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10669,7 +10729,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10716,7 +10775,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10763,7 +10821,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10810,7 +10867,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10857,7 +10913,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10905,7 +10960,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -10952,7 +11006,6 @@
           "iPhone X",
           "--version",
           "13.6",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11003,7 +11056,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11051,7 +11103,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11098,7 +11149,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11145,7 +11195,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11192,7 +11241,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11239,7 +11287,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11287,7 +11334,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11335,7 +11381,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11382,7 +11427,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11429,7 +11473,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11476,7 +11519,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11524,7 +11566,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11572,7 +11613,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11620,7 +11660,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11669,7 +11708,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11716,7 +11754,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11763,7 +11800,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11810,7 +11846,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11857,7 +11892,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11905,7 +11939,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",
@@ -11952,7 +11985,6 @@
           "iPhone X",
           "--version",
           "14.5",
-          "--undefok=write-compiled-tests-json-to-writable-path",
           "--xcode-build-version",
           "13c100",
           "--out-dir",

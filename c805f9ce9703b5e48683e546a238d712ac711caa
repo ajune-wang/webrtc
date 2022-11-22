@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3b48280f_a06e6b87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-11-22T09:49:33Z",
+      "side": 1,
+      "message": "Thanks for the review Sergey!.\nJust modified the commit message",
+      "parentUuid": "fd02dda8_8528121b",
+      "revId": "c805f9ce9703b5e48683e546a238d712ac711caa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d5f857a6_65f544d5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1

@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9662e75_4da6e923",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-22T19:50:35Z",
+      "side": 1,
+      "message": "What I mean is - add a test that actually attempts to set a negative max bitrate - one that would have caused a crash before you fixed the bug.\n\nIf there was a crash with zero, and there was a test with zero, the test would already have crashed before this CL, right?",
+      "parentUuid": "a0a91ebc_38432adf",
+      "revId": "2afe3049865724392b673f90c6ecd6b5b9b2c6e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b95a399_4142b03e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7850b63a_32e613b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 20054
+      },
+      "writtenOn": "2022-11-22T20:33:33Z",
+      "side": 1,
+      "message": "Yes. It has to do with the created vtable slots when using virtual. It adds up when the virtual is within a class hierarchy. You can read more about it here:\nhttps://devblogs.microsoft.com/performance-diagnostics/sizebench-a-new-tool-for-analyzing-windows-binary-size/\n\nI re-ran my tests and got the same size saving results. There are 6 virtual functions and 2 derived class, and 3 affected classes total. At 8 bytes per vtable entry, this would total up to 144 bytes + 36 bytes of reloc savings. The rest of the savings most likely come from improved code generation due to making direct calls instead of virtual ones.",
+      "parentUuid": "8e227eb6_0ad61362",
+      "revId": "66fdcba2ff95bebeed3c8f982a9f882941dfb81b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b122ea6a_e20c3061",

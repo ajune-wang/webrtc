@@ -33,6 +33,20 @@ namespace webrtc {
 // capturers.
 class RTC_EXPORT DesktopCaptureOptions {
  public:
+#if defined(WEBRTC_USE_PIPEWIRE)
+  // Values are set based on cursor mode property in
+  // xdg-desktop-portal/screencast
+  // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml
+  enum class CursorMode : uint32_t {
+    // Mouse cursor will not be included in any form
+    kHidden = 0b01,
+    // Mouse cursor will be part of the screen content
+    kEmbedded = 0b10,
+    // Mouse cursor information will be send separately in form of metadata
+    kMetadata = 0b100
+  };
+#endif
+
   // Returns instance of DesktopCaptureOptions with default parameters. On Linux
   // also initializes X window connection. x_display() will be set to null if
   // X11 connection failed (e.g. DISPLAY isn't set).
@@ -201,6 +215,11 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool pipewire_use_damage_region() const {
     return pipewire_use_damage_region_;
   }
+
+  void set_cursor_capture_mode(CursorMode cursor_mode) {
+    cursor_mode_ = cursor_mode;
+  }
+  CursorMode get_cursor_capture_mode() const { return cursor_mode_; }
 #endif
 
  private:
@@ -240,6 +259,7 @@ class RTC_EXPORT DesktopCaptureOptions {
 #if defined(WEBRTC_USE_PIPEWIRE)
   bool allow_pipewire_ = false;
   bool pipewire_use_damage_region_ = true;
+  CursorMode cursor_mode_ = CursorMode::kMetadata;
   uint32_t width_ = 0;
   uint32_t height_ = 0;
 #endif

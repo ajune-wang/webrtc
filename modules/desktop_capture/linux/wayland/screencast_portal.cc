@@ -49,16 +49,19 @@ ScreenCastPortal::ScreenCastPortal(CaptureType type, PortalNotifier* notifier)
                        notifier,
                        OnProxyRequested,
                        OnSourcesRequestResponseSignal,
-                       this) {}
+                       this,
+                       DesktopCaptureOptions::CursorMode::kMetadata) {}
 
 ScreenCastPortal::ScreenCastPortal(
     CaptureType type,
     PortalNotifier* notifier,
     ProxyRequestResponseHandler proxy_request_response_handler,
     SourcesRequestResponseSignalHandler sources_request_response_signal_handler,
-    gpointer user_data)
+    gpointer user_data,
+    DesktopCaptureOptions::CursorMode cursor_mode)
     : notifier_(notifier),
       capture_source_type_(ToCaptureSourceType(type)),
+      cursor_mode_(cursor_mode),
       proxy_request_response_handler_(proxy_request_response_handler),
       sources_request_response_signal_handler_(
           sources_request_response_signal_handler),

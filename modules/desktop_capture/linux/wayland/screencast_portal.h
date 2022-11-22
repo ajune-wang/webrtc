@@ -15,6 +15,7 @@
 
 #include <string>
 
+#include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/linux/wayland/portal_request_response.h"
 #include "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h"
@@ -37,18 +38,6 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
                const char* signal_name,
                GVariant* parameters,
                gpointer user_data);
-
-  // Values are set based on cursor mode property in
-  // xdg-desktop-portal/screencast
-  // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml
-  enum class CursorMode : uint32_t {
-    // Mouse cursor will not be included in any form
-    kHidden = 0b01,
-    // Mouse cursor will be part of the screen content
-    kEmbedded = 0b10,
-    // Mouse cursor information will be send separately in form of metadata
-    kMetadata = 0b100
-  };
 
   // Values are set based on persist mode property in
   // xdg-desktop-portal/screencast
@@ -84,7 +73,11 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
                    ProxyRequestResponseHandler proxy_request_response_handler,
                    SourcesRequestResponseSignalHandler
                        sources_request_response_signal_handler,
-                   gpointer user_data);
+                   gpointer user_data,
+                   // TODO(chromium:1291247): Remove the default option once
+                   // downstream has been adjusted.
+                   DesktopCaptureOptions::CursorMode cursor_mode =
+                       DesktopCaptureOptions::CursorMode::kMetadata);
 
   ~ScreenCastPortal();
 
@@ -140,7 +133,8 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   CaptureSourceType capture_source_type_ =
       ScreenCastPortal::CaptureSourceType::kScreen;
 
-  CursorMode cursor_mode_ = ScreenCastPortal::CursorMode::kMetadata;
+  DesktopCaptureOptions::CursorMode cursor_mode_ =
+      DesktopCaptureOptions::CursorMode::kMetadata;
 
   PersistMode persist_mode_ = ScreenCastPortal::PersistMode::kDoNotPersist;
 

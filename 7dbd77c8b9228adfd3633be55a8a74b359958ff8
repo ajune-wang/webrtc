@@ -16,6 +16,24 @@
       "message": "Per the comment above, this then should be based on checking the DesktopCaptureOptions.",
       "revId": "7dbd77c8b9228adfd3633be55a8a74b359958ff8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97cf0f00_4f3e0d79",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "dde5f097_00e76086",
+      "revId": "7dbd77c8b9228adfd3633be55a8a74b359958ff8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

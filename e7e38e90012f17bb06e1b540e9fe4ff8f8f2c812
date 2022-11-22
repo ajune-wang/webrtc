@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66e1f25c_e9c023c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c9edb79_16ac48c6",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9a8c1b9_db30f76a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-09T18:42:13Z",
       "side": 1,
       "message": "NIT: Finish the statement with constraint and then put a colon and this on the following line to keep the relevant data to 80 chars, e.g.\n\n```\nThis is a change needed to implement the \u0027never\u0027 cursor constriant:\n\u003curl\u003e\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 54,
+        "endLine": 9,
+        "endChar": 130
+      },
+      "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e939d49_62a8cc00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a8c1b9_db30f76a",
       "range": {
         "startLine": 9,
         "startChar": 54,
@@ -64,6 +112,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61f327e_53099458",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d4ab023_999f40d7",
+      "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1718ff14_88cc4ac5",
@@ -77,6 +143,24 @@
       "writtenOn": "2022-11-09T18:42:13Z",
       "side": 1,
       "message": "It doesn\u0027t actually look like anything in WebRTC code creates this DesktopAndCursorComposer, unless I\u0027m missing something. So the higher level actually has the choice to create it or not; and thus I don\u0027t think we should add this bool here, as it would only add extra overhead to create this object and then have it not really do anything.",
+      "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2047a756_83cfa40f",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1718ff14_88cc4ac5",
       "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -104,6 +188,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c286830_d1ef8e80",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3f8e82_9dd2d439",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 0
+      },
+      "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3cd6f22_917eab54",
@@ -117,6 +225,30 @@
       "writtenOn": "2022-11-09T18:42:13Z",
       "side": 1,
       "message": "If the system has the capability to capture the cursor, I think we should prefer that; as it\u0027s likely to be more efficient than anything that we do. I think this instead should check the DesktopCaptureOptions (which will likely need to be plumbed in to the screen capturer from WgcCapturerWin::CreateRaw*Capturer and then down to this from there).",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 3
+      },
+      "revId": "e7e38e90012f17bb06e1b540e9fe4ff8f8f2c812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c69c99a_26756c3b",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3cd6f22_917eab54",
       "range": {
         "startLine": 190,
         "startChar": 0,

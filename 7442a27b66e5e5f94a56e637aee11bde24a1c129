@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80a76a4e_a000b27c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t reply earlier. Gerritt doesn\u0027t send any comments until you hit \"reply\" (so you may see them saved as drafts) and it also doesn\u0027t notify me if you only upload a new patchset, so I didn\u0027t know you\u0027d made the changes I\u0027d requested.\n\nI think this seems fine; but I did get a separate patchset today to do something very similar but with an enum: https://webrtc-review.googlesource.com/c/src/+/284780 (which is what actually caused me to double check this CL and saw you\u0027d made the requested updates)\n\nIf they don\u0027t need the full enum, then we\u0027ll land this and have them update their use cases. If they *do* need the full enum I\u0027ll have them land that and could either ask them to update the Windows code accordingly or leave that to you if you\u0027d prefer.",
+      "revId": "7442a27b66e5e5f94a56e637aee11bde24a1c129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f767bb1_0c2cb6ee",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-22T19:17:43Z",
+      "side": 1,
+      "message": "I think we\u0027re okay to assume that it\u0027s enabled by default and only try to disable it if needed.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 3
+      },
+      "revId": "7442a27b66e5e5f94a56e637aee11bde24a1c129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

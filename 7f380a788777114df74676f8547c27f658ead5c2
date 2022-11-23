@@ -34,6 +34,24 @@
       "parentUuid": "11f47d05_8aca2d3d",
       "revId": "7f380a788777114df74676f8547c27f658ead5c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f760d73_aecce724",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-11-23T13:51:20Z",
+      "side": 1,
+      "message": "Now something failed:\n\n```\n#\n# Fatal error in: ..\\..\\modules\\video_capture\\video_capture_impl.cc, line 99\n# last system error: 1104\n# Check failed: !_rawDataCallBack\n#\n```\n\nThat\u0027s a new check. I\u0027m quite certain that this happens because _rawDataCallBack was never initialized. I\u0027ve fixed that now.\n@ilnik, can you please start the dry-run again?",
+      "parentUuid": "60e81202_9d4a160e",
+      "revId": "7f380a788777114df74676f8547c27f658ead5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

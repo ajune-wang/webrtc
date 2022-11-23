@@ -16,6 +16,86 @@
       "message": "Can you please help review the following changes to propagate RTP timestamp offset from RTPSender class to RtpSenderEgress class? Different RTP timestamp offsets in the two classes cause wrong timestamps to be carried in LossNotification messages to video encoders.",
       "revId": "a98937bac67a0628e10d0435b9c76baccd4ea09e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8967754_8a9a2593",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-23T11:51:26Z",
+      "side": 1,
+      "message": "SetUp should be called by the test framework, should be no need to call it manually.",
+      "revId": "a98937bac67a0628e10d0435b9c76baccd4ea09e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7a00ff3_36718bb6",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-23T11:51:26Z",
+      "side": 1,
+      "message": "prefer /*capture_time_ms\u003d*/0 style to help clang-tidy check name matches\nhttps://clang.llvm.org/extra/clang-tidy/checks/bugprone/argument-comment.html",
+      "range": {
+        "startLine": 719,
+        "startChar": 23,
+        "endLine": 719,
+        "endChar": 47
+      },
+      "revId": "a98937bac67a0628e10d0435b9c76baccd4ea09e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "914dfda8_4c364089",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-23T11:51:26Z",
+      "side": 1,
+      "message": "don\u0027t use c-cast\nprefer \"1u\" or, if you want write type explicetly, \nsize_t{1}\n\nBut here two expectations might be better to collapse into single one:\nEXPECT_THAT(sender_.impl_-\u003eGetSent...({seqno}),\nElementsAre(Field(\u0026RtpSequenceNumberMap::Info::timestamp, media_rtp_ts));",
+      "range": {
+        "startLine": 723,
+        "startChar": 29,
+        "endLine": 723,
+        "endChar": 40
+      },
+      "revId": "a98937bac67a0628e10d0435b9c76baccd4ea09e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f55c3580_a0d91851",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-23T11:51:26Z",
+      "side": 1,
+      "message": "SetUp is not designed to run more than once within the test,\nmay be call SetRtpState directly instead of hiding it into generic helper",
+      "revId": "a98937bac67a0628e10d0435b9c76baccd4ea09e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

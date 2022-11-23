@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ffad513_4dd98b5c",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T20:54:31Z",
+      "side": 1,
+      "message": "I think we had said we wanted to make this false; and then I\u0027d update WGC as a bug?",
+      "range": {
+        "startLine": 251,
+        "startChar": 33,
+        "endLine": 251,
+        "endChar": 37
+      },
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7c02994_65b2175a",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T20:54:31Z",
+      "side": 1,
+      "message": "At some point I wonder if it\u0027s not easier to just pass a reference to the options...",
+      "range": {
+        "startLine": 75,
+        "startChar": 30,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca62e346_42f87261",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T20:54:31Z",
+      "side": 1,
+      "message": "Can you re-add the TODO about cleaning this default arg up?",
+      "range": {
+        "startLine": 82,
+        "startChar": 1,
+        "endLine": 88,
+        "endChar": 56
+      },
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

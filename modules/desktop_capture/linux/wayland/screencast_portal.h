@@ -140,7 +140,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   CaptureSourceType capture_source_type_ =
       ScreenCastPortal::CaptureSourceType::kScreen;
 
-  CursorMode cursor_mode_ = ScreenCastPortal::CursorMode::kMetadata;
+  CursorMode cursor_mode_ = CursorMode::kMetadata;
 
   PersistMode persist_mode_ = ScreenCastPortal::PersistMode::kDoNotPersist;
 

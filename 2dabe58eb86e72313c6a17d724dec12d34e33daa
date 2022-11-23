@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdfeebf2_3b0f4c9c",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d80471ef_daf6e334",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 69
+      },
+      "revId": "2dabe58eb86e72313c6a17d724dec12d34e33daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c015da8b_d0d241ca",

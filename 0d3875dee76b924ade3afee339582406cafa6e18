@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0afd0d4b_64417e87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T20:35:05Z",
+      "side": 1,
+      "message": "Adjusted the implementation based on our offline chat. PTAL when you get a chance.",
+      "revId": "0d3875dee76b924ade3afee339582406cafa6e18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

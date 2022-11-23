@@ -10,18 +10,33 @@
 
 #include "api/video/video_frame_metadata.h"
 
-#include "modules/rtp_rtcp/source/rtp_video_header.h"
-
 namespace webrtc {
 
 VideoFrameMetadata::VideoFrameMetadata(const RTPVideoHeader& header)
-    : width_(header.width), height_(header.height) {
-  if (header.generic) {
-    frame_id_ = header.generic->frame_id;
-    spatial_index_ = header.generic->spatial_index;
-    temporal_index_ = header.generic->temporal_index;
-    frame_dependencies_ = header.generic->dependencies;
-    decode_target_indications_ = header.generic->decode_target_indications;
+    : header_(header) {
+  SyncSuperflousStates();
+}
+
+std::map<std::string, std::string> VideoFrameMetadata::ToMap() const {
+  return header_.ToMap();
+}
+
+bool VideoFrameMetadata::FromMap(
+    const std::map<std::string, std::string>& map) {
+  bool success = header_.FromMap(map);
+  SyncSuperflousStates();
+  return success;
+}
+
+void VideoFrameMetadata::SyncSuperflousStates() {
+  width_ = header_.width;
+  height_ = header_.height;
+  if (header_.generic) {
+    frame_id_ = header_.generic->frame_id;
+    spatial_index_ = header_.generic->spatial_index;
+    temporal_index_ = header_.generic->temporal_index;
+    frame_dependencies_ = header_.generic->dependencies;
+    decode_target_indications_ = header_.generic->decode_target_indications;
   }
 }
 

@@ -25,6 +25,11 @@ namespace webrtc {
 
 class RTPSenderVideo;
 
+std::unique_ptr<TransformableVideoFrameInterface>
+CreateTransformableVideoFrameForSender(int payload_type,
+                                       uint32_t rtp_timestamp,
+                                       uint32_t ssrc);
+
 // Delegates calls to FrameTransformerInterface to transform frames, and to
 // RTPSenderVideo to send the transformed frames. Ensures thread-safe access to
 // the sender.

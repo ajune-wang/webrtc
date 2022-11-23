@@ -16,6 +16,69 @@
       "message": "Adjusted the implementation based on our offline chat. PTAL when you get a chance.",
       "revId": "0d3875dee76b924ade3afee339582406cafa6e18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be5d9a54_647faef8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T20:41:02Z",
+      "side": 1,
+      "message": "LGTM with minor rename and tweaking of the comment.",
+      "revId": "0d3875dee76b924ade3afee339582406cafa6e18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d73718b3_0e5e95ec",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T20:41:02Z",
+      "side": 1,
+      "message": "Consider something like:\n\nIndicates that the capturer should try to include the cursor in the frame. If it is able to do so it will set `DesktopFrame::may_contain_cursor()`. Not all capturers will support including the cursor. If this value is false or the cursor otherwise cannot be included in the frame, then cursor metadata will be sent, though the capturer may choose to always send cursor metadata.",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 70
+      },
+      "revId": "0d3875dee76b924ade3afee339582406cafa6e18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa65280_8e92c615",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T20:41:02Z",
+      "side": 1,
+      "message": "NIT: remove is_",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 10
+      },
+      "revId": "0d3875dee76b924ade3afee339582406cafa6e18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

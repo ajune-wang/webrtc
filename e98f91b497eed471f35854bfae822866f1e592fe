@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "26305e54_cc3c60f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-23T00:33:06Z",
+      "side": 1,
+      "message": "nit: Could you change the commit message to a more descriptive summary?\n\nhttps://chromium.googlesource.com/chromium/src/+/main/docs/contributing.md#uploading-a-change-for-review",
+      "revId": "e98f91b497eed471f35854bfae822866f1e592fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "16fbab32_1d64f69c",
@@ -55,6 +72,30 @@
       "side": 1,
       "message": "I originally had that but got line length warnings. Happy to change it back if that\u0027s your pref (not sure how strictly code formatting is followed in the project)",
       "parentUuid": "a0986bd5_e773062b",
+      "range": {
+        "startLine": 414,
+        "startChar": 27,
+        "endLine": 414,
+        "endChar": 33
+      },
+      "revId": "e98f91b497eed471f35854bfae822866f1e592fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30316497_8c0525f2",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-23T00:33:06Z",
+      "side": 1,
+      "message": "If changing a variable name makes the lines longer, you can reformat the changes using `git cl format`.\n\nhttps://chromium.googlesource.com/chromium/src/+/main/docs/clang_format.md",
+      "parentUuid": "85df94eb_e9d556fa",
       "range": {
         "startLine": 414,
         "startChar": 27,

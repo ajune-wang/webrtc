@@ -60,6 +60,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1393bebb_e880bf77",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-11-23T21:24:20Z",
+      "side": 1,
+      "message": "https://webrtc-review.googlesource.com/c/src/+/284780 Added this as `prefer_cursor_embedded`\n\nSo I think you will just need to:\n1) Rebase\n2) Revert your changes to desktop_capture_options.h\n3) Find/Replace `is_cursor_enabled()` with `prefer_cursor_embedded()` in the other files\n\nAnd address the other comment I\u0027d left about only trying to *disable* the embedding if this is false\n\nand then you\u0027ll be in good shape to land it! Don\u0027t forget to send a \"reply\" once you\u0027ve got an updated patchset so I can take a second look!\n\nThanks!",
+      "range": {
+        "startLine": 108,
+        "startChar": 1,
+        "endLine": 112,
+        "endChar": 3
+      },
+      "revId": "7442a27b66e5e5f94a56e637aee11bde24a1c129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f767bb1_0c2cb6ee",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 3

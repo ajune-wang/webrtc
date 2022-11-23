@@ -49,16 +49,20 @@ ScreenCastPortal::ScreenCastPortal(CaptureType type, PortalNotifier* notifier)
                        notifier,
                        OnProxyRequested,
                        OnSourcesRequestResponseSignal,
-                       this) {}
+                       this,
+                       /*is_cursor_captured=*/true) {}
 
 ScreenCastPortal::ScreenCastPortal(
     CaptureType type,
     PortalNotifier* notifier,
     ProxyRequestResponseHandler proxy_request_response_handler,
     SourcesRequestResponseSignalHandler sources_request_response_signal_handler,
-    gpointer user_data)
+    gpointer user_data,
+    bool is_cursor_captured)
     : notifier_(notifier),
       capture_source_type_(ToCaptureSourceType(type)),
+      cursor_mode_(is_cursor_captured ? CursorMode::kMetadata
+                                      : CursorMode::kHidden),
       proxy_request_response_handler_(proxy_request_response_handler),
       sources_request_response_signal_handler_(
           sources_request_response_signal_handler),

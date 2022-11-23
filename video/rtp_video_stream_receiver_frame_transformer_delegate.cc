@@ -54,6 +54,10 @@ class TransformableVideoReceiverFrame
 
   const VideoFrameMetadata& GetMetadata() const override { return metadata_; }
 
+  bool FromMap(const std::map<std::string, std::string>& map) override {
+    return metadata_.FromMap(map);
+  }
+
   std::unique_ptr<RtpFrameObject> ExtractFrame() && {
     return std::move(frame_);
   }
@@ -62,7 +66,7 @@ class TransformableVideoReceiverFrame
 
  private:
   std::unique_ptr<RtpFrameObject> frame_;
-  const VideoFrameMetadata metadata_;
+  VideoFrameMetadata metadata_;
   const uint32_t ssrc_;
 };
 }  // namespace

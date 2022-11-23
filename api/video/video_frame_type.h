@@ -11,6 +11,8 @@
 #ifndef API_VIDEO_VIDEO_FRAME_TYPE_H_
 #define API_VIDEO_VIDEO_FRAME_TYPE_H_
 
+#include <string>
+
 namespace webrtc {
 
 enum class VideoFrameType {
@@ -20,6 +22,33 @@ enum class VideoFrameType {
   kVideoFrameKey = 3,
   kVideoFrameDelta = 4,
 };
+
+inline const char* VideoFrameTypeToString(VideoFrameType video_frame_type) {
+  switch (video_frame_type) {
+    case VideoFrameType::kEmptyFrame:
+      return "empty";
+    case VideoFrameType::kVideoFrameKey:
+      return "key-frame";
+    case VideoFrameType::kVideoFrameDelta:
+      return "delta-frame";
+  }
+}
+
+inline bool VideoFrameTypeFromString(std::string str, VideoFrameType* ret) {
+  if (str == "empty") {
+    *ret = VideoFrameType::kEmptyFrame;
+    return true;
+  }
+  if (str == "key-frame") {
+    *ret = VideoFrameType::kVideoFrameKey;
+    return true;
+  }
+  if (str == "delta-frame") {
+    *ret = VideoFrameType::kVideoFrameDelta;
+    return true;
+  }
+  return false;
+}
 
 }  // namespace webrtc
 

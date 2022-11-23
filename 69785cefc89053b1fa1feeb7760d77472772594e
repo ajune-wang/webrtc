@@ -45,6 +45,30 @@
       },
       "revId": "69785cefc89053b1fa1feeb7760d77472772594e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9727b232_e903a79c",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T17:00:17Z",
+      "side": 1,
+      "message": "I am reverting back to always sending metadata.",
+      "parentUuid": "daec96cf_b9163127",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 42
+      },
+      "revId": "69785cefc89053b1fa1feeb7760d77472772594e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

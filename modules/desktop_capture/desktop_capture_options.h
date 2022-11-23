@@ -105,6 +105,13 @@ class RTC_EXPORT DesktopCaptureOptions {
     detect_updated_region_ = detect_updated_region;
   }
 
+  // Indicates that the cursor should be captured in the frame (either directly
+  // or via compositing). If false, then cursor metadata will be sent.
+  bool is_prefer_cursor_embedded() const { return prefer_cursor_embedded_; }
+  void set_prefer_cursor_embedded(bool prefer_cursor_embedded) {
+    prefer_cursor_embedded_ = prefer_cursor_embedded;
+  }
+
 #if defined(WEBRTC_WIN)
   // Enumerating windows owned by the current process on Windows has some
   // complications due to |GetWindowText*()| APIs potentially causing a
@@ -237,6 +244,7 @@ class RTC_EXPORT DesktopCaptureOptions {
 #endif
   bool disable_effects_ = true;
   bool detect_updated_region_ = false;
+  bool prefer_cursor_embedded_ = true;
 #if defined(WEBRTC_USE_PIPEWIRE)
   bool allow_pipewire_ = false;
   bool pipewire_use_damage_region_ = true;

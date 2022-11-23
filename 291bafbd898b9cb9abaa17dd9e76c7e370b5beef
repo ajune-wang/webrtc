@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d876ff3_4c2a2c1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T20:56:39Z",
+      "side": 1,
+      "message": "Stopping CQ to address comments.",
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ffad513_4dd98b5c",

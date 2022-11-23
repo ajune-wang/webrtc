@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87920ca3_0d9d9cc4",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T21:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ffad513_4dd98b5c",
+      "range": {
+        "startLine": 251,
+        "startChar": 33,
+        "endLine": 251,
+        "endChar": 37
+      },
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7c02994_65b2175a",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f0723d_40d89d7e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T21:17:20Z",
+      "side": 1,
+      "message": "Ack. I tried it and it doesn\u0027t compile (potentially due to a cycle between CaptureOptions -\u003e SharedScreenCastStream). Will skip for this CL though.",
+      "parentUuid": "d7c02994_65b2175a",
+      "range": {
+        "startLine": 75,
+        "startChar": 30,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca62e346_42f87261",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-11-23T20:54:31Z",
       "side": 1,
       "message": "Can you re-add the TODO about cleaning this default arg up?",
+      "range": {
+        "startLine": 82,
+        "startChar": 1,
+        "endLine": 88,
+        "endChar": 56
+      },
+      "revId": "291bafbd898b9cb9abaa17dd9e76c7e370b5beef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30086187_abad5d4d",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-11-23T21:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca62e346_42f87261",
       "range": {
         "startLine": 82,
         "startChar": 1,

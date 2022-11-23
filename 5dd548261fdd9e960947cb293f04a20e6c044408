@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3b4a487_6c4bb901",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-23T11:34:06Z",
+      "side": 0,
+      "message": "I need to think more about it - I find it an important invariant:\n\n(has_receiveied(begin_sequence_number_) \u0026\u0026 has_received(end_sequence_number)) || is_empty())\n\nMy 1st reaction was to suggest to adjust begin_sequence_number to the 1st received packet. However I\u0027m not sure it is the right approach - that would ignore acked packets in the range (sequence_number, begin_sequence_number_)\n\nlet me think a bit more - there are also some fuzzer timeout issues where this class becomes bottleneck and I had some ideas how to optimize it for usecases fuzzer finds.\n\n(btw, may be fuzzer should be adjusted to catch this issue too, i.e. should behave as if there was V2 of the transport feedback rtcp message)",
+      "revId": "5dd548261fdd9e960947cb293f04a20e6c044408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

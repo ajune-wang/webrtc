@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d05d95_247a762e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-11-23T09:22:13Z",
+      "side": 1,
+      "message": "Can you please help review the following changes to propagate RTP timestamp offset from RTPSender class to RtpSenderEgress class? Different RTP timestamp offsets in the two classes cause wrong timestamps to be carried in LossNotification messages to video encoders.",
+      "revId": "a98937bac67a0628e10d0435b9c76baccd4ea09e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

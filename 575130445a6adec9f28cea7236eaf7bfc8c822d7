@@ -50,6 +50,41 @@
       "message": "Hi, sorry for late reply.\nReading the code,\n1) I can\u0027t find that the tie-breaker is surfaced to sdp/JS,\n2) I though that it might be the same if you have several ice transports (i.e not using BUNDLE), but it seems not to be.\n3) It is only using when receiving/sending ice-pings\n\nSummary: I see no reason why it should exist in anywhere except Port and p2p_transport_channel. I therefor suggest letting p2p_transport_channel\ncreating it \"privately\".\n\nOne thing to double check is that there is no scenario in which the tiebreaker changes during the life-time of p2p_transport_channel. I think not, but I suggest double checking.\n\nHow does that sound ? Am I missing something ?",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7b92cb7_a79d10bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-24T08:09:39Z",
+      "side": 1,
+      "message": "Yes, the tiebreaker is exposed, but not in JS or SDP.",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a74f2e7_a106b530",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-24T08:09:39Z",
+      "side": 1,
+      "message": "The tiebreaker is exposed in ICE packets. https://www.rfc-editor.org/rfc/rfc5245#section-7.1.2.2",
+      "parentUuid": "a0a9be56_b6d89419",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

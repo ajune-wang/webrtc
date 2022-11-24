@@ -85,6 +85,24 @@
       "parentUuid": "a0a9be56_b6d89419",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dbc1300_8b36a279",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-11-24T08:15:25Z",
+      "side": 1,
+      "message": "yes 😊\nthis is why I suggest moving it down to layers that do send/recv stun-packets...",
+      "parentUuid": "e7b92cb7_a79d10bf",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

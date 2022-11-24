@@ -103,6 +103,24 @@
       "parentUuid": "e7b92cb7_a79d10bf",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4282b8ab_6b523777",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-24T08:46:54Z",
+      "side": 1,
+      "message": "I think currently the tie breaker is the same for multiple ice transport which share the same jsep transport controller (i.e. from the same peerconnection). But I don\u0027t think it needs to be from a protocol perspective. Reviving an ICE restart is nice but not required either. Now whether we need the tie breaking in WebRTC even...\n\nAgree on the direction but you are thinking two CLs ahead :-)\n\nThe tie breaker is used in two ways currently which makes it confusing. I think they are separate but the tests will tell (hopefully):\n1/ in PortAllocator for creating the foundation. I plan to rename that to \"port allcoator random\" and internalize it.\n2/ in the ICE Transport as the tie breaker value set over the wire. That can indeed be created by the transport itself and not the controller.\n\nThose changes aren\u0027t complicated but will cause a significant amount of churn in the tests.",
+      "parentUuid": "7a74f2e7_a106b530",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

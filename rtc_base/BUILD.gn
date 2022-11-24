@@ -609,6 +609,25 @@ rtc_library("rtc_task_queue") {
   ]
 }
 
+rtc_library("rtc_inline_task_queue_adapter") {
+  visibility = [ "*" ]
+  sources = [
+    "inline_task_queue_adapter.cc",
+    "inline_task_queue_adapter.h",
+  ]
+  deps = [
+    ":macromagic",
+    ":refcount",
+    "../api:make_ref_counted",
+    "../api:scoped_refptr",
+    "../api/task_queue",
+    "../api/units:time_delta",
+    "synchronization:mutex",
+    "system:rtc_export",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/functional:any_invocable" ]
+}
+
 rtc_source_set("rtc_operations_chain") {
   visibility = [ "*" ]
   sources = [

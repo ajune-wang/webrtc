@@ -25,6 +25,7 @@
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder.h"
+#include "rtc_base/inline_task_queue_adapter.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread_annotations.h"
@@ -87,7 +88,7 @@ class RtcEventLogImpl final : public RtcEventLog {
   // log and its members outlive `task_queue_`. Keep the `task_queue_`
   // last to ensure it destructs first, or else tasks living on the queue might
   // access other members after they've been torn down.
-  std::unique_ptr<rtc::TaskQueue> task_queue_;
+  const std::unique_ptr<InlineTaskQueueAdapter, TaskQueueDeleter> task_queue_;
 };
 
 }  // namespace webrtc

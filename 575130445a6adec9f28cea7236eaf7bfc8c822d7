@@ -33,6 +33,23 @@
       "message": "i had totally missed this, sorry!\nlooking at it today (you can remove poor hta@ from first round)",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0a9be56_b6d89419",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-11-24T08:06:08Z",
+      "side": 1,
+      "message": "Hi, sorry for late reply.\nReading the code,\n1) I can\u0027t find that the tie-breaker is surfaced to sdp/JS,\n2) I though that it might be the same if you have several ice transports (i.e not using BUNDLE), but it seems not to be.\n3) It is only using when receiving/sending ice-pings\n\nSummary: I see no reason why it should exist in anywhere except Port and p2p_transport_channel. I therefor suggest letting p2p_transport_channel\ncreating it \"privately\".\n\nOne thing to double check is that there is no scenario in which the tiebreaker changes during the life-time of p2p_transport_channel. I think not, but I suggest double checking.\n\nHow does that sound ? Am I missing something ?",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -414,8 +414,17 @@ std::vector<webrtc::VideoStream> GetNormalSimulcastLayers(
 
     layers[s].max_framerate = kDefaultVideoMaxFramerate;
 
+    // Make sure width and height be even. So hardware encode can be used by
+    // simulcast. More info: https://crbug.com/1275453
     width /= 2;
+    if (width % 2 == 1) {
+      width -= 1;
+    }
+
     height /= 2;
+    if (height % 2 == 1) {
+      height -= 1;
+    }
 
     if (s == 0) {
       break;

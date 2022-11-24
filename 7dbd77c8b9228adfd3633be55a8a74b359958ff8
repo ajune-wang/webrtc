@@ -34,6 +34,24 @@
       "parentUuid": "dde5f097_00e76086",
       "revId": "7dbd77c8b9228adfd3633be55a8a74b359958ff8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98d8c62c_cfa17c94",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 20074
+      },
+      "writtenOn": "2022-11-24T16:41:54Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "dde5f097_00e76086",
+      "revId": "7dbd77c8b9228adfd3633be55a8a74b359958ff8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

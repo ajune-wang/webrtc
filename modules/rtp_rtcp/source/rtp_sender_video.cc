@@ -479,12 +479,17 @@ bool RTPSenderVideo::SendVideo(
                           FrameTypeToString(video_header.frame_type));
   RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
 
-  if (video_header.frame_type == VideoFrameType::kEmptyFrame)
+  if (video_header.frame_type == VideoFrameType::kEmptyFrame) {
+    RTC_LOG(LS_ERROR) << "SendVideo Dropping empty frame";
     return true;
+  }
 
-  if (payload.empty())
+  if (payload.empty()) {
+    RTC_LOG(LS_ERROR) << "SendVideo Dropping empty payload";
     return false;
+  }
   if (!rtp_sender_->SendingMedia()) {
+    RTC_LOG(LS_ERROR) << "SendVideo Dropping not sending";
     return false;
   }
 
@@ -629,6 +634,7 @@ bool RTPSenderVideo::SendVideo(
     if (frame_encryptor_->Encrypt(
             cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(), additional_data,
             payload, encrypted_video_payload, &bytes_written) != 0) {
+      RTC_LOG(LS_ERROR) << "SendVideo Dropping encrypt";
       return false;
     }
 
@@ -653,8 +659,10 @@ bool RTPSenderVideo::SendVideo(
           : false;
   const size_t num_packets = packetizer->NumPackets();
 
-  if (num_packets == 0)
+  if (num_packets == 0) {
+    RTC_LOG(LS_ERROR) << "SendVideo Dropping no packets";
     return false;
+  }
 
   bool first_frame = first_frame_sent_();
   std::vector<std::unique_ptr<RtpPacketToSend>> rtp_packets;
@@ -681,8 +689,10 @@ bool RTPSenderVideo::SendVideo(
 
     packet->set_first_packet_of_frame(i == 0);
 
-    if (!packetizer->NextPacket(packet.get()))
+    if (!packetizer->NextPacket(packet.get())) {
+      RTC_LOG(LS_ERROR) << "SendVideo Dropping no next packet";
       return false;
+    }
     RTC_DCHECK_LE(packet->payload_size(), expected_payload_capacity);
 
     packet->set_allow_retransmission(allow_retransmission);

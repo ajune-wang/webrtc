@@ -12,11 +12,14 @@
 #define API_VIDEO_VIDEO_FRAME_METADATA_H_
 
 #include <cstdint>
+#include <map>
+#include <string>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/transport/rtp/dependency_descriptor.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 
 namespace webrtc {
 
@@ -30,6 +33,7 @@ class VideoFrameMetadata {
   VideoFrameMetadata(const VideoFrameMetadata&) = default;
   VideoFrameMetadata& operator=(const VideoFrameMetadata&) = default;
 
+  const RTPVideoHeader& GetRTPVideoHeader() const { return header_; }
   uint16_t GetWidth() const { return width_; }
   uint16_t GetHeight() const { return height_; }
   absl::optional<int64_t> GetFrameId() const { return frame_id_; }
@@ -45,7 +49,14 @@ class VideoFrameMetadata {
     return decode_target_indications_;
   }
 
+  std::map<std::string, std::string> ToMap() const;
+  bool FromMap(const std::map<std::string, std::string>& map);
+
  private:
+  // The true state.
+  RTPVideoHeader header_;
+  // Everything below is just a copy of values extracted from `header_`...
+  void SyncSuperflousStates();
   int16_t width_;
   int16_t height_;
   absl::optional<int64_t> frame_id_;

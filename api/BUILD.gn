@@ -349,9 +349,23 @@ rtc_source_set("frame_transformer_interface") {
   deps = [
     ":make_ref_counted",
     ":scoped_refptr",
+    "../rtc_base:checks",
     "../rtc_base:refcount",
     "video:encoded_frame",
     "video:video_frame_metadata",
+  ]
+}
+
+rtc_source_set("transformable_video_frame_create") {
+  visibility = [ "*" ]
+  sources = [
+    "transformable_video_frame_create.cc",
+    "transformable_video_frame_create.h",
+  ]
+  deps = [
+    ":frame_transformer_interface",
+    "../modules/rtp_rtcp:rtp_rtcp",
+    "../rtc_base/system:rtc_export",
   ]
 }
 

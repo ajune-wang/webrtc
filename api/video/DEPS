@@ -64,4 +64,8 @@ specific_include_rules = {
   "video_frame_matchers\.h": [
     "+test/gmock.h",
   ],
+
+  "video_frame_metadata.h": [
+    "+modules/rtp_rtcp/source/rtp_video_header.h",
+  ],
 }

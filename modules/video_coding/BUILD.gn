@@ -777,6 +777,7 @@ rtc_library("webrtc_vp9") {
     "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings:strings",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
   if (rtc_build_libvpx) {
     deps += [ rtc_libvpx_dir ]

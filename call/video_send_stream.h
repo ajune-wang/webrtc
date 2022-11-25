@@ -30,6 +30,7 @@
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
 #include "api/video/video_stream_encoder_settings.h"
+#include "api/video_codecs/scalability_mode.h"
 #include "call/rtp_config.h"
 #include "common_video/frame_counts.h"
 #include "common_video/include/quality_limitation_reason.h"
@@ -143,6 +144,7 @@ class VideoSendStream {
     uint32_t frames_sent = 0;
     uint32_t huge_frames_sent = 0;
     absl::optional<bool> power_efficient_encoder;
+    absl::optional<ScalabilityMode> scalability_mode;
   };
 
   struct Config {

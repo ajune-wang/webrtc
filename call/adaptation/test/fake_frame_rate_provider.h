@@ -29,7 +29,7 @@ class MockVideoStreamEncoderObserver : public VideoStreamEncoderObserver {
               (override));
   MOCK_METHOD(void,
               OnEncoderImplementationChanged,
-              (EncoderImplementation),
+              (const VideoEncoder::EncoderInfo&),
               (override));
   MOCK_METHOD(void, OnFrameDropped, (DropReason), (override));
   MOCK_METHOD(void,

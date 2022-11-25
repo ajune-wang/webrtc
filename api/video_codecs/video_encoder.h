@@ -24,6 +24,7 @@
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_frame.h"
+#include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/video_codec.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
@@ -259,6 +260,9 @@ class RTC_EXPORT VideoEncoder {
     // Indicates whether or not QP value encoder writes into frame/slice/tile
     // header can be interpreted as average frame/slice/tile QP.
     absl::optional<bool> is_qp_trusted;
+
+    // Current scalability mode used.
+    absl::optional<ScalabilityMode> scalability_mode;
   };
 
   struct RTC_EXPORT RateControlParameters {

@@ -16,6 +16,23 @@
       "message": "I\u0027m a little bit suspicious of adding the Set() methods but not the tests that exercise them, but appreciate that this is more naturally added in the CL that exposes SetMetadata().\n\nApproved.",
       "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66aac34c_4aa76728",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2022-11-25T11:32:45Z",
+      "side": 1,
+      "message": "I have a weak feeling that it would be to have the VideoFrameMetadata own this logic, with From(RTPVideoHeader) and ToRTPVideoHeader() methods, but it\u0027s not enough to actually block this and have the discussion.\nLGTM!",
+      "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

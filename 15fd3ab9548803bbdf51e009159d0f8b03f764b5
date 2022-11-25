@@ -16,6 +16,24 @@
       "message": "+Mirko any idea why the chromium bots don\u0027t like moving stuff from .h to .cc?",
       "revId": "15fd3ab9548803bbdf51e009159d0f8b03f764b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a27228_ecd7e44f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-25T13:41:44Z",
+      "side": 1,
+      "message": "you might want to annotate this class with RTC_EXPORT to support component build",
+      "parentUuid": "1ca70ad1_4db6f598",
+      "revId": "15fd3ab9548803bbdf51e009159d0f8b03f764b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -415,27 +415,6 @@ int32_t H264EncoderImpl::Encode(
   }
   RTC_CHECK(frame_buffer->type() == VideoFrameBuffer::Type::kI420 ||
             frame_buffer->type() == VideoFrameBuffer::Type::kI420A);
-
-  bool send_key_frame = false;
-  for (size_t i = 0; i < configurations_.size(); ++i) {
-    if (configurations_[i].key_frame_request && configurations_[i].sending) {
-      send_key_frame = true;
-      break;
-    }
-  }
-
-  if (!send_key_frame && frame_types) {
-    for (size_t i = 0; i < configurations_.size(); ++i) {
-      const size_t simulcast_idx =
-          static_cast<size_t>(configurations_[i].simulcast_idx);
-      if (configurations_[i].sending && simulcast_idx < frame_types->size() &&
-          (*frame_types)[simulcast_idx] == VideoFrameType::kVideoFrameKey) {
-        send_key_frame = true;
-        break;
-      }
-    }
-  }
-
   RTC_DCHECK_EQ(configurations_[0].width, frame_buffer->width());
   RTC_DCHECK_EQ(configurations_[0].height, frame_buffer->height());
 
@@ -486,6 +465,14 @@ int32_t H264EncoderImpl::Encode(
         continue;
       }
     }
+    // Send a key frame either when this layer is configured to require one
+    // or we have explicitly been asked to.
+    const size_t simulcast_idx =
+        static_cast<size_t>(configurations_[i].simulcast_idx);
+    bool send_key_frame =
+        configurations_[i].key_frame_request ||
+        (frame_types && simulcast_idx < frame_types->size() &&
+         (*frame_types)[simulcast_idx] == VideoFrameType::kVideoFrameKey);
     if (send_key_frame) {
       // API doc says ForceIntraFrame(false) does nothing, but calling this
       // function forces a key frame regardless of the `bIDR` argument's value.

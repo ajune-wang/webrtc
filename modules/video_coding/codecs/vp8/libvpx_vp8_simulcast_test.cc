@@ -39,6 +39,10 @@ TEST(LibvpxVp8SimulcastTest, TestKeyFrameRequestsOnAllStreams) {
   fixture->TestKeyFrameRequestsOnAllStreams();
 }
 
+TEST(LibvpxVp8SimulcastTest, TestKeyFrameRequestsOnSpecificStreams) {
+  // For VP8 this is a no-op.
+}
+
 TEST(LibvpxVp8SimulcastTest, TestPaddingAllStreams) {
   auto fixture = CreateSpecificSimulcastTestFixture();
   fixture->TestPaddingAllStreams();

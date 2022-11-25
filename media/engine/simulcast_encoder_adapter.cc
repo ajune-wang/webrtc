@@ -466,7 +466,7 @@ int SimulcastEncoderAdapter::Encode(
     if (layer.is_keyframe_needed()) {
       // This is legacy behavior, generating a keyframe on all layers
       // when generating one for a layer that became active for the first time
-      // or after being disabled
+      // or after being disabled.
       is_keyframe_needed = true;
       break;
     }
@@ -500,14 +500,12 @@ int SimulcastEncoderAdapter::Encode(
       keyframe_requested = true;
     } else if (frame_types) {
       if (bypass_mode_) {
-        // In bypass mode, requesting a key frame on any layer triggers a
-        // key frame request on all layers.
-        for (const auto& frame_type : *frame_types) {
-          if (frame_type == VideoFrameType::kVideoFrameKey) {
-            std::fill(stream_frame_types.begin(), stream_frame_types.end(),
-                      VideoFrameType::kVideoFrameKey);
+        // In bypass mode, we effectively pass on frame_types.
+        for (size_t i = 0;
+             i < frame_types->size() && i < stream_frame_types.size(); i++) {
+          stream_frame_types[i] = (*frame_types)[i];
+          if (stream_frame_types[i] == VideoFrameType::kVideoFrameKey) {
             keyframe_requested = true;
-            break;
           }
         }
       } else {

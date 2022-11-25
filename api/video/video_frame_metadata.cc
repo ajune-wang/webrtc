@@ -14,6 +14,14 @@ namespace webrtc {
 
 VideoFrameMetadata::VideoFrameMetadata() = default;
 
+VideoFrameType VideoFrameMetadata::GetFrameType() const {
+  return frame_type_;
+}
+
+void VideoFrameMetadata::SetFrameType(VideoFrameType frame_type) {
+  frame_type_ = frame_type;
+}
+
 uint16_t VideoFrameMetadata::GetWidth() const {
   return width_;
 }
@@ -73,6 +81,32 @@ void VideoFrameMetadata::SetDecodeTargetIndications(
     rtc::ArrayView<const DecodeTargetIndication> decode_target_indications) {
   decode_target_indications_.assign(decode_target_indications.begin(),
                                     decode_target_indications.end());
+}
+
+bool VideoFrameMetadata::GetIsFirstPacketInFrame() const {
+  return is_first_packet_in_frame_;
+}
+
+void VideoFrameMetadata::SetIsFirstPacketInFrame(
+    bool is_first_packet_in_frame) {
+  is_first_packet_in_frame_ = is_first_packet_in_frame;
+}
+
+bool VideoFrameMetadata::GetIsLastPacketInFrame() const {
+  return is_last_packet_in_frame_;
+}
+
+void VideoFrameMetadata::SetIsLastPacketInFrame(bool is_last_packet_in_frame) {
+  is_last_packet_in_frame_ = is_last_packet_in_frame;
+}
+
+bool VideoFrameMetadata::GetIsLastFrameInPicture() const {
+  return is_last_frame_in_picture_;
+}
+
+void VideoFrameMetadata::SetIsLastFrameInPicture(
+    bool is_last_frame_in_picture) {
+  is_last_frame_in_picture_ = is_last_frame_in_picture;
 }
 
 }  // namespace webrtc

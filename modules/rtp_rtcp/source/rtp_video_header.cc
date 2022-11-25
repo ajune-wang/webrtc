@@ -23,6 +23,7 @@ RTPVideoHeader::~RTPVideoHeader() = default;
 
 VideoFrameMetadata RTPVideoHeader::GetAsMetadata() const {
   VideoFrameMetadata metadata;
+  metadata.SetFrameType(frame_type);
   metadata.SetWidth(width);
   metadata.SetHeight(height);
   if (generic) {

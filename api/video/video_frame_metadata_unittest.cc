@@ -10,6 +10,7 @@
 
 #include "api/video/video_frame_metadata.h"
 
+#include "api/video/video_frame_type.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -19,6 +20,16 @@ namespace {
 
 using ::testing::ElementsAre;
 using ::testing::IsEmpty;
+
+// TODO(https://crbug.com/webrtc/14709): Move all of these tests to
+// rtp_video_header_unittest.cc, they're excercising GetAsMetadata().
+
+TEST(VideoFrameMetadata, GetFrameTypeReturnsCorrectValue) {
+  RTPVideoHeader video_header;
+  video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  VideoFrameMetadata metadata = video_header.GetAsMetadata();
+  EXPECT_EQ(metadata.GetFrameType(), VideoFrameType::kVideoFrameKey);
+}
 
 TEST(VideoFrameMetadata, GetWidthReturnsCorrectValue) {
   RTPVideoHeader video_header;
@@ -114,6 +125,27 @@ TEST(VideoFrameMetadata,
   VideoFrameMetadata metadata = video_header.GetAsMetadata();
   ASSERT_FALSE(video_header.generic);
   EXPECT_THAT(metadata.GetDecodeTargetIndications(), IsEmpty());
+}
+
+TEST(VideoFrameMetadata, GetIsFirstPacketInFrameReturnsCorrectValue) {
+  RTPVideoHeader video_header;
+  video_header.is_first_packet_in_frame = true;
+  VideoFrameMetadata metadata = video_header.GetAsMetadata();
+  EXPECT_TRUE(metadata.GetIsFirstPacketInFrame());
+}
+
+TEST(VideoFrameMetadata, GetIsLastPacketInFrameReturnsCorrectValue) {
+  RTPVideoHeader video_header;
+  video_header.is_last_packet_in_frame = true;
+  VideoFrameMetadata metadata = video_header.GetAsMetadata();
+  EXPECT_TRUE(metadata.GetIsLastPacketInFrame());
+}
+
+TEST(VideoFrameMetadata, GetIsLastFrameInPictureReturnsCorrectValue) {
+  RTPVideoHeader video_header;
+  video_header.is_last_frame_in_picture = false;
+  VideoFrameMetadata metadata = video_header.GetAsMetadata();
+  EXPECT_FALSE(metadata.GetIsLastFrameInPicture());
 }
 
 }  // namespace

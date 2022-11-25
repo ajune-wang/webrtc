@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "437203f6_354406a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-25T11:13:51Z",
+      "side": 1,
+      "message": "I\u0027m a little bit suspicious of adding the Set() methods but not the tests that exercise them, but appreciate that this is more naturally added in the CL that exposes SetMetadata().\n\nApproved.",
+      "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

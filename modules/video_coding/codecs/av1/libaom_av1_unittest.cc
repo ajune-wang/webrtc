@@ -323,6 +323,20 @@ TEST_P(LibaomAv1SvcTest, SetRatesMatchMeasuredBitrate) {
                                            param.configured_bitrates));
 }
 
+TEST_P(LibaomAv1SvcTest, ScalabilityModeSetInEncoderInfo) {
+  const SvcTestParam param = GetParam();
+  std::unique_ptr<VideoEncoder> encoder = CreateLibaomAv1Encoder();
+  ASSERT_TRUE(encoder);
+  VideoCodec codec_settings = DefaultCodecSettings();
+  codec_settings.SetScalabilityMode(param.GetScalabilityMode());
+  codec_settings.maxFramerate = 30;
+  ASSERT_EQ(encoder->InitEncode(&codec_settings, DefaultEncoderSettings()),
+            WEBRTC_VIDEO_CODEC_OK);
+
+  EXPECT_THAT(encoder->GetEncoderInfo().scalability_mode,
+              ::testing::Optional(param.GetScalabilityMode()));
+}
+
 INSTANTIATE_TEST_SUITE_P(
     Svc,
     LibaomAv1SvcTest,

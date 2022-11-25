@@ -984,6 +984,8 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsNonNegative<uint32_t>(
           outbound_stream.huge_frames_sent);
       verifier.MarkMemberTested(outbound_stream.rid, true);
+      // VP8 and H264 don't set scalability modes so just mark this as tested.
+      verifier.MarkMemberTested(outbound_stream.scalability_mode, true);
     } else {
       verifier.TestMemberIsUndefined(outbound_stream.frames_encoded);
       verifier.TestMemberIsUndefined(outbound_stream.key_frames_encoded);
@@ -1005,6 +1007,7 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(outbound_stream.frame_width);
       verifier.TestMemberIsUndefined(outbound_stream.frames_sent);
       verifier.TestMemberIsUndefined(outbound_stream.huge_frames_sent);
+      verifier.TestMemberIsUndefined(outbound_stream.scalability_mode);
     }
     return verifier.ExpectAllMembersSuccessfullyTested();
   }

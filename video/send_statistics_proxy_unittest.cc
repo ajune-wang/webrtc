@@ -21,7 +21,9 @@
 #include "api/video/video_adaptation_reason.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_codec_type.h"
+#include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/video_codec.h"
+#include "api/video_codecs/video_encoder.h"
 #include "rtc_base/fake_clock.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
@@ -2813,13 +2815,17 @@ TEST_F(SendStatisticsProxyTest, FecBitrateNotReportedWhenNotEnabled) {
 
 TEST_F(SendStatisticsProxyTest, GetStatsReportsEncoderImplementationName) {
   const std::string kName = "encoderName";
-  statistics_proxy_->OnEncoderImplementationChanged(EncoderImplementation{
-      .name = kName,
-      .is_hardware_accelerated = true,
-  });
+  VideoEncoder::EncoderInfo info;
+  info.implementation_name = kName;
+  info.is_hardware_accelerated = true;
+  info.scalability_mode = ScalabilityMode::kL1T3;
+
+  statistics_proxy_->OnEncoderImplementationChanged(info);
   EXPECT_EQ(kName, statistics_proxy_->GetStats().encoder_implementation_name);
   EXPECT_THAT(statistics_proxy_->GetStats().power_efficient_encoder,
               ::testing::IsTrue());
+  EXPECT_THAT(statistics_proxy_->GetStats().scalability_mode,
+              ::testing::Optional(ScalabilityMode::kL1T3));
 }
 
 TEST_F(SendStatisticsProxyTest, Vp9SvcLowSpatialLayerDoesNotUpdateResolution) {
@@ -2874,8 +2880,10 @@ class ForcedFallbackTest : public SendStatisticsProxyTest {
 
  protected:
   void InsertEncodedFrames(int num_frames, int interval_ms) {
-    statistics_proxy_->OnEncoderImplementationChanged(
-        {.name = codec_name_, .is_hardware_accelerated = false});
+    VideoEncoder::EncoderInfo info;
+    info.implementation_name = codec_name_;
+    info.is_hardware_accelerated = false;
+    statistics_proxy_->OnEncoderImplementationChanged(info);
 
     // First frame is not updating stats, insert initial frame.
     if (statistics_proxy_->GetStats().frames_encoded == 0) {

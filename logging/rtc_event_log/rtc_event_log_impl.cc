@@ -152,32 +152,27 @@ void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
 
 void RtcEventLogImpl::ScheduleOutput() {
   RTC_DCHECK(event_output_ && event_output_->IsActive());
-  if (history_.size() >= kMaxEventsInHistory) {
-    // We have to emergency drain the buffer. We can't wait for the scheduled
-    // output task because there might be other event incoming before that.
-    LogEventsFromMemoryToOutput();
-    return;
-  }
-
   RTC_DCHECK(output_period_ms_.has_value());
-  if (*output_period_ms_ == kImmediateOutput) {
-    // We are already on the `task_queue_` so there is no reason to post a task
-    // if we want to output immediately.
-    LogEventsFromMemoryToOutput();
-    return;
-  }
-
-  if (!output_scheduled_) {
+  // Reasons for immediate drain:
+  // 1. history_.size() >= kMaxEventsInHistory. We have to drain the buffer
+  // immediately. We can't wait for the delayed scheduled output task because
+  // there might be other event incoming before that.
+  // 2. *output_period_ms_ == kImmediateOutput.
+  bool needs_immediate_drain = history_.size() >= kMaxEventsInHistory ||
+                               *output_period_ms_ == kImmediateOutput;
+  // Binding to `this` is safe because `this` outlives the `task_queue_`.
+  auto output_task = [this]() {
+    RTC_DCHECK_RUN_ON(task_queue_.get());
+    if (event_output_) {
+      RTC_DCHECK(event_output_->IsActive());
+      LogEventsFromMemoryToOutput();
+    }
+    output_scheduled_ = false;
+  };
+  if (needs_immediate_drain) {
+    task_queue_->PostTask(std::move(output_task));
+  } else if (!output_scheduled_) {
     output_scheduled_ = true;
-    // Binding to `this` is safe because `this` outlives the `task_queue_`.
-    auto output_task = [this]() {
-      RTC_DCHECK_RUN_ON(task_queue_.get());
-      if (event_output_) {
-        RTC_DCHECK(event_output_->IsActive());
-        LogEventsFromMemoryToOutput();
-      }
-      output_scheduled_ = false;
-    };
     const int64_t now_ms = rtc::TimeMillis();
     const int64_t time_since_output_ms = now_ms - last_output_ms_;
     const uint32_t delay = rtc::SafeClamp(

@@ -333,7 +333,6 @@ rtc_source_set("video_frame_metadata") {
   ]
   deps = [
     "..:array_view",
-    "../../modules/rtp_rtcp:rtp_video_header",
     "../transport/rtp:dependency_descriptor",
   ]
   absl_deps = [

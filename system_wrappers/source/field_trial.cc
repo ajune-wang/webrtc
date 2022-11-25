@@ -168,12 +168,12 @@ const char* GetFieldTrialString() {
   return trials_init_string;
 }
 
-ScopedGlobalFieldTrialsForTesting::ScopedGlobalFieldTrialsForTesting(
+ScopedFieldTrialKeysForTesting::ScopedFieldTrialKeysForTesting(
     flat_set<std::string> keys) {
   TestKeys() = std::move(keys);
 }
 
-ScopedGlobalFieldTrialsForTesting::~ScopedGlobalFieldTrialsForTesting() {
+ScopedFieldTrialKeysForTesting::~ScopedFieldTrialKeysForTesting() {
   TestKeys().clear();
 }
 

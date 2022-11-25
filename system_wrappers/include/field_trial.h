@@ -98,11 +98,13 @@ bool FieldTrialsStringIsValid(absl::string_view trials_string);
 std::string MergeFieldTrialsStrings(absl::string_view first,
                                     absl::string_view second);
 
-// RAII type that ensures global state is consistent between tests.
-class ScopedGlobalFieldTrialsForTesting {
+// RAII type that ensures global state of registered test keys is consistent
+// between tests. If you want consistent state of the global field trial string
+// you should use `webrtc::test::ScopedFieldTrials`.
+class ScopedFieldTrialKeysForTesting {
  public:
-  explicit ScopedGlobalFieldTrialsForTesting(flat_set<std::string> keys);
-  ~ScopedGlobalFieldTrialsForTesting();
+  explicit ScopedFieldTrialKeysForTesting(flat_set<std::string> keys);
+  ~ScopedFieldTrialKeysForTesting();
 };
 
 }  // namespace field_trial

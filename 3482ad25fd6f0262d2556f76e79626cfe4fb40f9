@@ -69,6 +69,29 @@
       "parentUuid": "66aac34c_4aa76728",
       "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "134a1a92_f2247427",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-25T12:15:20Z",
+      "side": 1,
+      "message": "either pass InlinedVector by value,\nbut better take `rtc::ArrayView\u003cconst int64_t\u003e` as the parameter\n\nand then assign:\nframe_dependencies_.assign(frame_dependencies.begin(), frame_dependencies.end())",
+      "range": {
+        "startLine": 48,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

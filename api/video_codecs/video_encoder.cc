@@ -11,8 +11,10 @@
 #include "api/video_codecs/video_encoder.h"
 
 #include <string.h>
+
 #include <algorithm>
 
+#include "api/video_codecs/scalability_mode.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 
@@ -185,6 +187,10 @@ std::string VideoEncoder::EncoderInfo::ToString() const {
   if (is_qp_trusted.has_value()) {
     oss << ", is_qp_trusted = " << is_qp_trusted.value();
   }
+  if (scalability_mode.has_value()) {
+    oss << ", scalability_mode = "
+        << ScalabilityModeToString(*scalability_mode);
+  }
   oss << "}";
   return oss.str();
 }
@@ -209,7 +215,8 @@ bool VideoEncoder::EncoderInfo::operator==(const EncoderInfo& rhs) const {
   if (supports_native_handle != rhs.supports_native_handle ||
       implementation_name != rhs.implementation_name ||
       has_trusted_rate_controller != rhs.has_trusted_rate_controller ||
-      is_hardware_accelerated != rhs.is_hardware_accelerated) {
+      is_hardware_accelerated != rhs.is_hardware_accelerated ||
+      scalability_mode != rhs.scalability_mode) {
     return false;
   }
 

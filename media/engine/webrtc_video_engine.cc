@@ -2656,6 +2656,7 @@ WebRtcVideoChannel::WebRtcVideoSendStream::GetPerLayerVideoSenderInfos(
     common_info.aggregated_framerate_sent = stats.encode_frame_rate;
     common_info.aggregated_huge_frames_sent = stats.huge_frames_sent;
     common_info.power_efficient_encoder = stats.power_efficient_encoder;
+    common_info.scalability_mode = stats.scalability_mode;
 
     // The normal case is that substreams are present, handled below. But if
     // substreams are missing (can happen before negotiated/connected where we

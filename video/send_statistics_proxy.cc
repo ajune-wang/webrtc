@@ -1053,12 +1053,13 @@ void SendStatisticsProxy::OnSendEncodedImage(
 }
 
 void SendStatisticsProxy::OnEncoderImplementationChanged(
-    EncoderImplementation implementation) {
+    const VideoEncoder::EncoderInfo& encoder_info) {
   MutexLock lock(&mutex_);
   encoder_changed_ = EncoderChangeEvent{stats_.encoder_implementation_name,
-                                        implementation.name};
-  stats_.encoder_implementation_name = implementation.name;
-  stats_.power_efficient_encoder = implementation.is_hardware_accelerated;
+                                        encoder_info.implementation_name};
+  stats_.encoder_implementation_name = encoder_info.implementation_name;
+  stats_.power_efficient_encoder = encoder_info.is_hardware_accelerated;
+  stats_.scalability_mode = encoder_info.scalability_mode;
 }
 
 int SendStatisticsProxy::GetInputFrameRate() const {

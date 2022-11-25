@@ -74,7 +74,7 @@ class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
                                   const CodecSpecificInfo* codec_info) = 0;
 
   virtual void OnEncoderImplementationChanged(
-      EncoderImplementation implementation) = 0;
+      const VideoEncoder::EncoderInfo& encoder_info) = 0;
 
   virtual void OnFrameDropped(DropReason reason) = 0;
 

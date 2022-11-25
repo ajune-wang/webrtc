@@ -1867,10 +1867,6 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
   if (info.implementation_name != encoder_info_.implementation_name ||
       info.is_hardware_accelerated != encoder_info_.is_hardware_accelerated) {
-    encoder_stats_observer_->OnEncoderImplementationChanged({
-        .name = info.implementation_name,
-        .is_hardware_accelerated = info.is_hardware_accelerated,
-    });
     if (bitrate_adjuster_) {
       // Encoder implementation changed, reset overshoot detector states.
       bitrate_adjuster_->Reset();
@@ -1878,6 +1874,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   }
 
   if (encoder_info_ != info) {
+    encoder_stats_observer_->OnEncoderImplementationChanged(info);
     OnEncoderSettingsChanged();
     stream_resource_manager_.ConfigureEncodeUsageResource();
     // Re-configure scalers when encoder info changed. Consider two cases:

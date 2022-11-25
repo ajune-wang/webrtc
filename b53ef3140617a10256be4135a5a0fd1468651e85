@@ -34,6 +34,24 @@
       "parentUuid": "bc9d8450_a350de10",
       "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0674a235_08504fe6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-11-25T10:06:59Z",
+      "side": 1,
+      "message": "It seems that the newly uploaded CL (change list) has been uploaded without any connection with the current one. To edit this change and upload correctly, you need to run `$ git cl issue 284240` before uploading, where 284240 is the number of this CL.\n\nThe full workflow for modifying this CL is as follows:\n\n1. Click the menu (3 dots) on the right side of this page -\u003e Click Download Patch.\n\n2. Copy the command from HTTP/Branch. it should look like this\n`$ git fetch https://webrtc.googlesource.com/src refs/changes/40/284240/2 \u0026\u0026 git checkout -b change-284240 FETCH_HEAD`\n\n3. Paste the above command into the terminal.\n\n4. Run the following command\n`$ git cl problem 284240`\n\nwhere 284240 is the number of this CL.\n\n5. Do whatever you want.\n\n6. Amend your commits into one. The commit message should contain `Change-Id: I2244e69e7f32b912021db0905b9d5867d0bf6357`.\n\n7. Run `$ git cl format \u0026\u0026 git cl presubmit` to make sure your changes are formatted correctly.\n\n8. Execute `$ git cl upload`.\n\nPerhaps this link will help.\n\nhttps://chromium.googlesource.com/chromium/src/+/main/docs/commit_checklist.md",
+      "parentUuid": "8f9d30cd_9e79f84f",
+      "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -171,6 +171,7 @@ const char* GetFieldTrialString() {
 ScopedGlobalFieldTrialsForTesting::ScopedGlobalFieldTrialsForTesting(
     flat_set<std::string> keys) {
   TestKeys() = std::move(keys);
+  InitFieldTrialsFromString(nullptr);
 }
 
 ScopedGlobalFieldTrialsForTesting::~ScopedGlobalFieldTrialsForTesting() {

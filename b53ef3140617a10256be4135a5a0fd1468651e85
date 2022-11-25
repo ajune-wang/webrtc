@@ -16,6 +16,24 @@
       "message": "I followed the directions here (https://webrtc.googlesource.com/src/+/refs/heads/main/docs/native-code/development/contributing.md), but my changes ended up on a whole new PR.\n\nhttps://webrtc-review.googlesource.com/c/src/+/285060\n\nIs there a way to fix this?",
       "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9d30cd_9e79f84f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-11-25T09:49:38Z",
+      "side": 1,
+      "message": "Did you amend your existing commit or make a new git commit? Usually one git commit \u003d\u003d one PR. We don\u0027t do the squash-and-commit workflow that\u0027s common on github for example.",
+      "parentUuid": "bc9d8450_a350de10",
+      "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

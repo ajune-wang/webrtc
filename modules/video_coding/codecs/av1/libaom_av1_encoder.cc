@@ -23,6 +23,7 @@
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
+#include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -797,6 +798,8 @@ VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {
   info.scaling_settings = VideoEncoder::ScalingSettings(kMinQindex, kMaxQindex);
   info.preferred_pixel_formats = {VideoFrameBuffer::Type::kI420,
                                   VideoFrameBuffer::Type::kNV12};
+  info.scalability_mode =
+      encoder_settings_.GetScalabilityMode().value_or(ScalabilityMode::kL1T1);
   if (SvcEnabled()) {
     for (int sid = 0; sid < svc_params_->number_spatial_layers; ++sid) {
       info.fps_allocation[sid].resize(svc_params_->number_temporal_layers);

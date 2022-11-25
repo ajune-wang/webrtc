@@ -12,6 +12,7 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_VP9_LIBVPX_VP9_ENCODER_H_
 #define MODULES_VIDEO_CODING_CODECS_VP9_LIBVPX_VP9_ENCODER_H_
 
+#include "api/video_codecs/scalability_mode.h"
 #ifdef RTC_ENABLE_VP9
 
 #include <array>
@@ -149,6 +150,7 @@ class LibvpxVp9Encoder : public VP9Encoder {
   VideoBitrateAllocation current_bitrate_allocation_;
   bool ss_info_needed_;
   bool force_all_active_layers_;
+  absl::optional<ScalabilityMode> scalability_mode_;
 
   std::unique_ptr<ScalableVideoController> svc_controller_;
   std::vector<FramerateControllerDeprecated> framerate_controller_;

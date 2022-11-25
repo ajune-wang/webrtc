@@ -14,12 +14,16 @@
 
 #include <memory>
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 WindowFinderWin::WindowFinderWin() = default;
 WindowFinderWin::~WindowFinderWin() = default;
 
 WindowId WindowFinderWin::GetWindowUnderPoint(DesktopVector point) {
+  RTC_LOG(LS_INFO) << __func__;
+
   HWND window = WindowFromPoint(POINT{point.x(), point.y()});
   if (!window) {
     return kNullWindowId;
@@ -40,6 +44,8 @@ WindowId WindowFinderWin::GetWindowUnderPoint(DesktopVector point) {
 // static
 std::unique_ptr<WindowFinder> WindowFinder::Create(
     const WindowFinder::Options& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<WindowFinderWin>();
 }
 

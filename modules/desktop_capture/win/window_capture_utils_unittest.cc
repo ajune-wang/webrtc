@@ -18,6 +18,7 @@
 
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/win/test_support/test_window.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
@@ -30,6 +31,8 @@ const WCHAR kWindowTitle[] = L"Window Capture Utils Test";
 
 std::unique_ptr<rtc::Thread> SetUpUnresponsiveWindow(std::mutex& mtx,
                                                      WindowInfo& info) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<rtc::Thread> window_thread;
   window_thread = rtc::Thread::Create();
   window_thread->SetName(kWindowThreadName, nullptr);

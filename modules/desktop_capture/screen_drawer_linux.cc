@@ -22,6 +22,7 @@
 #include "modules/desktop_capture/screen_drawer.h"
 #include "modules/desktop_capture/screen_drawer_lock_posix.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/sleep.h"
 
 namespace webrtc {
@@ -56,6 +57,8 @@ class ScreenDrawerLinux : public ScreenDrawer {
 };
 
 ScreenDrawerLinux::ScreenDrawerLinux() {
+  RTC_LOG(LS_INFO) << __func__;
+
   display_ = SharedXDisplay::CreateDefault();
   RTC_CHECK(display_.get());
   screen_num_ = DefaultScreen(display_->display());
@@ -101,15 +104,21 @@ ScreenDrawerLinux::ScreenDrawerLinux() {
 }
 
 ScreenDrawerLinux::~ScreenDrawerLinux() {
+  RTC_LOG(LS_INFO) << __func__;
+
   XUnmapWindow(display_->display(), window_);
   XDestroyWindow(display_->display(), window_);
 }
 
 DesktopRect ScreenDrawerLinux::DrawableRegion() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return rect_;
 }
 
 void ScreenDrawerLinux::DrawRectangle(DesktopRect rect, RgbaColor color) {
+  RTC_LOG(LS_INFO) << __func__;
+
   rect.Translate(-rect_.left(), -rect_.top());
   XColor xcolor;
   // X11 does not support Alpha.
@@ -128,24 +137,34 @@ void ScreenDrawerLinux::DrawRectangle(DesktopRect rect, RgbaColor color) {
 }
 
 void ScreenDrawerLinux::Clear() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DrawRectangle(rect_, RgbaColor(0, 0, 0));
 }
 
 // TODO(zijiehe): Find the right signal from X11 to indicate the finish of all
 // pending paintings.
 void ScreenDrawerLinux::WaitForPendingDraws() {
+  RTC_LOG(LS_INFO) << __func__;
+
   SleepMs(50);
 }
 
 bool ScreenDrawerLinux::MayDrawIncompleteShapes() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return true;
 }
 
 WindowId ScreenDrawerLinux::window_id() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return window_;
 }
 
 void ScreenDrawerLinux::BringToFront() {
+  RTC_LOG(LS_INFO) << __func__;
+
   Atom state_above = XInternAtom(display_->display(), "_NET_WM_STATE_ABOVE", 1);
   Atom window_state = XInternAtom(display_->display(), "_NET_WM_STATE", 1);
   if (state_above == None || window_state == None) {
@@ -171,11 +190,15 @@ void ScreenDrawerLinux::BringToFront() {
 
 // static
 std::unique_ptr<ScreenDrawerLock> ScreenDrawerLock::Create() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<ScreenDrawerLockPosix>();
 }
 
 // static
 std::unique_ptr<ScreenDrawer> ScreenDrawer::Create() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (SharedXDisplay::CreateDefault().get()) {
     return std::make_unique<ScreenDrawerLinux>();
   }

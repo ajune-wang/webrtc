@@ -32,6 +32,8 @@ bool HasActiveDisplay() {
 
 bool GetScreenList(DesktopCapturer::SourceList* screens,
                    std::vector<std::string>* device_names /* = nullptr */) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(screens->empty());
   RTC_DCHECK(!device_names || device_names->empty());
 
@@ -61,6 +63,8 @@ bool GetScreenList(DesktopCapturer::SourceList* screens,
 
 bool GetHmonitorFromDeviceIndex(const DesktopCapturer::SourceId device_index,
                                 HMONITOR* hmonitor) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // A device index of `kFullDesktopScreenId` or -1 represents all screens, an
   // HMONITOR of 0 indicates the same.
   if (device_index == kFullDesktopScreenId) {
@@ -123,6 +127,8 @@ DesktopRect GetMonitorRect(const HMONITOR monitor) {
 
 bool IsScreenValid(const DesktopCapturer::SourceId screen,
                    std::wstring* device_key) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (screen == kFullDesktopScreenId) {
     *device_key = L"";
     return true;
@@ -147,6 +153,8 @@ DesktopRect GetFullscreenRect() {
 
 DesktopRect GetScreenRect(const DesktopCapturer::SourceId screen,
                           const std::wstring& device_key) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (screen == kFullDesktopScreenId) {
     return GetFullscreenRect();
   }

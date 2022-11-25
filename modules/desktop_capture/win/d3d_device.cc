@@ -25,6 +25,8 @@ D3dDevice::D3dDevice(D3dDevice&& other) = default;
 D3dDevice::~D3dDevice() = default;
 
 bool D3dDevice::Initialize(const ComPtr<IDXGIAdapter>& adapter) {
+  RTC_LOG(LS_INFO) << __func__;
+
   dxgi_adapter_ = adapter;
   if (!dxgi_adapter_) {
     RTC_LOG(LS_WARNING) << "An empty IDXGIAdapter instance has been received.";
@@ -67,6 +69,8 @@ bool D3dDevice::Initialize(const ComPtr<IDXGIAdapter>& adapter) {
 
 // static
 std::vector<D3dDevice> D3dDevice::EnumDevices() {
+  RTC_LOG(LS_INFO) << __func__;
+
   ComPtr<IDXGIFactory1> factory;
   _com_error error =
       CreateDXGIFactory1(__uuidof(IDXGIFactory1),

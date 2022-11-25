@@ -16,6 +16,7 @@
 #include "absl/types/optional.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
 #include "video/render/video_render_frames.h"
 
@@ -50,6 +51,7 @@ void IncomingVideoStream::OnFrame(const VideoFrame& video_frame) {
 }
 
 void IncomingVideoStream::Dequeue() {
+  RTC_LOG(LS_INFO) << __func__;
   TRACE_EVENT0("webrtc", "IncomingVideoStream::Dequeue");
   RTC_DCHECK_RUN_ON(&incoming_render_queue_);
   absl::optional<VideoFrame> frame_to_render = render_buffers_.FrameToRender();

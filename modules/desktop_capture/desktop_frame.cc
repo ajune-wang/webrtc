@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "third_party/libyuv/include/libyuv/planar_functions.h"
 
 namespace webrtc {
@@ -33,6 +34,8 @@ DesktopFrame::DesktopFrame(DesktopSize size,
       stride_(stride),
       capture_time_ms_(0),
       capturer_id_(DesktopCapturerId::kUnknown) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(size_.width() >= 0);
   RTC_DCHECK(size_.height() >= 0);
 }
@@ -42,6 +45,8 @@ DesktopFrame::~DesktopFrame() = default;
 void DesktopFrame::CopyPixelsFrom(const uint8_t* src_buffer,
                                   int src_stride,
                                   const DesktopRect& dest_rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_CHECK(DesktopRect::MakeSize(size()).ContainsRect(dest_rect));
 
   uint8_t* dest = GetFrameDataAtPos(dest_rect.top_left());
@@ -53,6 +58,8 @@ void DesktopFrame::CopyPixelsFrom(const uint8_t* src_buffer,
 void DesktopFrame::CopyPixelsFrom(const DesktopFrame& src_frame,
                                   const DesktopVector& src_pos,
                                   const DesktopRect& dest_rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_CHECK(DesktopRect::MakeSize(src_frame.size())
                 .ContainsRect(
                     DesktopRect::MakeOriginSize(src_pos, dest_rect.size())));
@@ -64,6 +71,8 @@ void DesktopFrame::CopyPixelsFrom(const DesktopFrame& src_frame,
 bool DesktopFrame::CopyIntersectingPixelsFrom(const DesktopFrame& src_frame,
                                               double horizontal_scale,
                                               double vertical_scale) {
+  RTC_LOG(LS_INFO) << __func__;
+
   const DesktopVector& origin = top_left();
   const DesktopVector& src_frame_origin = src_frame.top_left();
 
@@ -103,6 +112,8 @@ bool DesktopFrame::CopyIntersectingPixelsFrom(const DesktopFrame& src_frame,
 }
 
 DesktopRect DesktopFrame::rect() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   const float scale = scale_factor();
   // Only scale the size.
   return DesktopRect::MakeXYWH(top_left().x(), top_left().y(),
@@ -110,6 +121,8 @@ DesktopRect DesktopFrame::rect() const {
 }
 
 float DesktopFrame::scale_factor() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   float scale = 1.0f;
 
 #if defined(WEBRTC_MAC) || defined(CHROMEOS)
@@ -123,10 +136,14 @@ float DesktopFrame::scale_factor() const {
 }
 
 uint8_t* DesktopFrame::GetFrameDataAtPos(const DesktopVector& pos) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return data() + stride() * pos.y() + DesktopFrame::kBytesPerPixel * pos.x();
 }
 
 void DesktopFrame::CopyFrameInfoFrom(const DesktopFrame& other) {
+  RTC_LOG(LS_INFO) << __func__;
+
   set_dpi(other.dpi());
   set_capture_time_ms(other.capture_time_ms());
   set_capturer_id(other.capturer_id());
@@ -136,6 +153,8 @@ void DesktopFrame::CopyFrameInfoFrom(const DesktopFrame& other) {
 }
 
 void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
+  RTC_LOG(LS_INFO) << __func__;
+
   set_dpi(other->dpi());
   set_capture_time_ms(other->capture_time_ms());
   set_capturer_id(other->capturer_id());
@@ -148,14 +167,20 @@ BasicDesktopFrame::BasicDesktopFrame(DesktopSize size)
     : DesktopFrame(size,
                    kBytesPerPixel * size.width(),
                    new uint8_t[kBytesPerPixel * size.width() * size.height()](),
-                   nullptr) {}
+                   nullptr) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 BasicDesktopFrame::~BasicDesktopFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   delete[] data_;
 }
 
 // static
 DesktopFrame* BasicDesktopFrame::CopyOf(const DesktopFrame& frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopFrame* result = new BasicDesktopFrame(frame.size());
   // TODO(crbug.com/1330019): Temporary workaround for a known libyuv crash when
   // the height or width is 0. Remove this once this change has been merged.
@@ -172,6 +197,8 @@ DesktopFrame* BasicDesktopFrame::CopyOf(const DesktopFrame& frame) {
 std::unique_ptr<DesktopFrame> SharedMemoryDesktopFrame::Create(
     DesktopSize size,
     SharedMemoryFactory* shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(shared_memory_factory);
 
   size_t buffer_size = size.height() * size.width() * kBytesPerPixel;
@@ -190,15 +217,21 @@ SharedMemoryDesktopFrame::SharedMemoryDesktopFrame(DesktopSize size,
     : DesktopFrame(size,
                    stride,
                    reinterpret_cast<uint8_t*>(shared_memory->data()),
-                   shared_memory) {}
+                   shared_memory) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 SharedMemoryDesktopFrame::SharedMemoryDesktopFrame(
     DesktopSize size,
     int stride,
     std::unique_ptr<SharedMemory> shared_memory)
-    : SharedMemoryDesktopFrame(size, stride, shared_memory.release()) {}
+    : SharedMemoryDesktopFrame(size, stride, shared_memory.release()) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 SharedMemoryDesktopFrame::~SharedMemoryDesktopFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   delete shared_memory_;
 }
 

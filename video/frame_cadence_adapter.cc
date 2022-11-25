@@ -70,6 +70,7 @@ class PassthroughAdapterMode : public AdapterMode {
   void OnFrame(Timestamp post_time,
                int frames_scheduled_for_processing,
                const VideoFrame& frame) override {
+    RTC_DLOG(LS_INFO) << "PassthroughAdapterMode::" << __func__;
     RTC_DCHECK_RUN_ON(&sequence_checker_);
     callback_->OnFrame(post_time, frames_scheduled_for_processing, frame);
   }

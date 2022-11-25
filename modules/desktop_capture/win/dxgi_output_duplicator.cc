@@ -68,6 +68,8 @@ DxgiOutputDuplicator::DxgiOutputDuplicator(const D3dDevice& device,
       output_(output),
       device_name_(rtc::ToUtf8(desc.DeviceName)),
       desktop_rect_(RECTToDesktopRect(desc.DesktopCoordinates)) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(output_);
   RTC_DCHECK(!desktop_rect_.is_empty());
   RTC_DCHECK_GT(desktop_rect_.width(), 0);
@@ -78,6 +80,8 @@ DxgiOutputDuplicator::DxgiOutputDuplicator(DxgiOutputDuplicator&& other) =
     default;
 
 DxgiOutputDuplicator::~DxgiOutputDuplicator() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (duplication_) {
     duplication_->ReleaseFrame();
   }
@@ -85,6 +89,8 @@ DxgiOutputDuplicator::~DxgiOutputDuplicator() {
 }
 
 bool DxgiOutputDuplicator::Initialize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (DuplicateOutput()) {
     if (desc_.DesktopImageInSystemMemory) {
       texture_.reset(new DxgiTextureMapping(duplication_.Get()));
@@ -99,6 +105,8 @@ bool DxgiOutputDuplicator::Initialize() {
 }
 
 bool DxgiOutputDuplicator::DuplicateOutput() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!duplication_);
   _com_error error =
       output_->DuplicateOutput(static_cast<IUnknown*>(device_.d3d_device()),
@@ -136,6 +144,8 @@ bool DxgiOutputDuplicator::DuplicateOutput() {
 }
 
 bool DxgiOutputDuplicator::ReleaseFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(duplication_);
   _com_error error = duplication_->ReleaseFrame();
   if (error.Error() != S_OK) {
@@ -149,6 +159,8 @@ bool DxgiOutputDuplicator::ReleaseFrame() {
 bool DxgiOutputDuplicator::Duplicate(Context* context,
                                      DesktopVector offset,
                                      SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(duplication_);
   RTC_DCHECK(texture_);
   RTC_DCHECK(target);
@@ -238,18 +250,24 @@ bool DxgiOutputDuplicator::Duplicate(Context* context,
 
 DesktopRect DxgiOutputDuplicator::GetTranslatedDesktopRect(
     DesktopVector offset) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRect result(DesktopRect::MakeSize(desktop_size()));
   result.Translate(offset);
   return result;
 }
 
 DesktopRect DxgiOutputDuplicator::GetUntranslatedDesktopRect() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return DesktopRect::MakeSize(desktop_size());
 }
 
 void DxgiOutputDuplicator::DetectUpdatedRegion(
     const DXGI_OUTDUPL_FRAME_INFO& frame_info,
     DesktopRegion* updated_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (DoDetectUpdatedRegion(frame_info, updated_region)) {
     // Make sure even a region returned by Windows API is out of the scope of
     // desktop_rect_, we still won't export it to the target DesktopFrame.
@@ -262,6 +280,8 @@ void DxgiOutputDuplicator::DetectUpdatedRegion(
 bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
     const DXGI_OUTDUPL_FRAME_INFO& frame_info,
     DesktopRegion* updated_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(updated_region);
   updated_region->Clear();
   if (frame_info.TotalMetadataBufferSize == 0) {
@@ -347,6 +367,8 @@ bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
 }
 
 void DxgiOutputDuplicator::Setup(Context* context) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(context->updated_region.is_empty());
   // Always copy entire monitor during the first Duplicate() function call.
   context->updated_region.AddRect(GetUntranslatedDesktopRect());
@@ -356,12 +378,16 @@ void DxgiOutputDuplicator::Setup(Context* context) {
 }
 
 void DxgiOutputDuplicator::Unregister(const Context* const context) {
+  RTC_LOG(LS_INFO) << __func__;
+
   auto it = std::find(contexts_.begin(), contexts_.end(), context);
   RTC_DCHECK(it != contexts_.end());
   contexts_.erase(it);
 }
 
 void DxgiOutputDuplicator::SpreadContextChange(const Context* const source) {
+  RTC_LOG(LS_INFO) << __func__;
+
   for (Context* dest : contexts_) {
     RTC_DCHECK(dest);
     if (dest != source) {
@@ -371,10 +397,14 @@ void DxgiOutputDuplicator::SpreadContextChange(const Context* const source) {
 }
 
 DesktopSize DxgiOutputDuplicator::desktop_size() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_rect_.size();
 }
 
 int64_t DxgiOutputDuplicator::num_frames_captured() const {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if !defined(NDEBUG)
   RTC_DCHECK_EQ(!!last_frame_, num_frames_captured_ > 0);
 #endif
@@ -382,6 +412,8 @@ int64_t DxgiOutputDuplicator::num_frames_captured() const {
 }
 
 void DxgiOutputDuplicator::TranslateRect(const DesktopVector& position) {
+  RTC_LOG(LS_INFO) << __func__;
+
   desktop_rect_.Translate(position);
   RTC_DCHECK_GE(desktop_rect_.left(), 0);
   RTC_DCHECK_GE(desktop_rect_.top(), 0);

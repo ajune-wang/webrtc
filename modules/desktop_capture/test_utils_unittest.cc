@@ -15,6 +15,7 @@
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "modules/desktop_capture/rgba_color.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -43,9 +44,13 @@ DoubleSizeDesktopFrame::DoubleSizeDesktopFrame(DesktopSize size)
           size,
           kBytesPerPixel * size.width() * 2,
           new uint8_t[kBytesPerPixel * size.width() * size.height() * 2],
-          nullptr) {}
+          nullptr) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DoubleSizeDesktopFrame::~DoubleSizeDesktopFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   delete[] data_;
 }
 

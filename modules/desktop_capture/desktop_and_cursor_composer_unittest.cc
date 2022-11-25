@@ -22,6 +22,7 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
 #include "rtc_base/arraysize.h"
+#include "rtc_base/logging.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -193,6 +194,8 @@ bool operator==(const DesktopRect& left, const DesktopRect& right) {
 }
 
 std::ostream& operator<<(std::ostream& out, const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   out << "{" << rect.left() << "+" << rect.top() << "-" << rect.width() << "x"
       << rect.height() << "}";
   return out;
@@ -200,6 +203,8 @@ std::ostream& operator<<(std::ostream& out, const DesktopRect& rect) {
 
 class DesktopAndCursorComposerTest : public ::testing::Test,
                                      public DesktopCapturer::Callback {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   explicit DesktopAndCursorComposerTest(bool include_cursor = true)
       : fake_screen_(new FakeScreenCapturer()),

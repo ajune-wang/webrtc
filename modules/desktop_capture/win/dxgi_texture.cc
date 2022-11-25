@@ -43,6 +43,8 @@ DxgiTexture::~DxgiTexture() = default;
 
 bool DxgiTexture::CopyFrom(const DXGI_OUTDUPL_FRAME_INFO& frame_info,
                            IDXGIResource* resource) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GT(frame_info.AccumulatedFrames, 0);
   RTC_DCHECK(resource);
   ComPtr<ID3D11Texture2D> texture;
@@ -63,6 +65,8 @@ bool DxgiTexture::CopyFrom(const DXGI_OUTDUPL_FRAME_INFO& frame_info,
 }
 
 const DesktopFrame& DxgiTexture::AsDesktopFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!frame_) {
     frame_.reset(new DxgiDesktopFrame(*this));
   }
@@ -70,11 +74,15 @@ const DesktopFrame& DxgiTexture::AsDesktopFrame() {
 }
 
 bool DxgiTexture::Release() {
+  RTC_LOG(LS_INFO) << __func__;
+
   frame_.reset();
   return DoRelease();
 }
 
 DXGI_MAPPED_RECT* DxgiTexture::rect() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return &rect_;
 }
 

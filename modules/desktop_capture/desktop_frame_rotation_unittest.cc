@@ -15,6 +15,7 @@
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/test_utils.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -32,7 +33,9 @@ ArrayDesktopFrame::ArrayDesktopFrame(DesktopSize size, uint32_t* data)
     : DesktopFrame(size,
                    size.width() * kBytesPerPixel,
                    reinterpret_cast<uint8_t*>(data),
-                   nullptr) {}
+                   nullptr) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 ArrayDesktopFrame::~ArrayDesktopFrame() = default;
 

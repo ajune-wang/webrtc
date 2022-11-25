@@ -146,6 +146,8 @@ WgcCapturerWin::WgcCapturerWin(
     : source_factory_(std::move(source_factory)),
       source_enumerator_(std::move(source_enumerator)),
       allow_delayed_capturable_check_(allow_delayed_capturable_check) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!core_messaging_library_)
     core_messaging_library_ = LoadLibraryW(kCoreMessagingDll);
 
@@ -157,6 +159,8 @@ WgcCapturerWin::WgcCapturerWin(
 }
 
 WgcCapturerWin::~WgcCapturerWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (core_messaging_library_)
     FreeLibrary(core_messaging_library_);
 }
@@ -165,6 +169,8 @@ WgcCapturerWin::~WgcCapturerWin() {
 std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options,
     bool allow_delayed_capturable_check) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<WgcCapturerWin>(
       std::make_unique<WgcWindowSourceFactory>(),
       std::make_unique<WindowEnumerator>(
@@ -175,16 +181,22 @@ std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
 // static
 std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<WgcCapturerWin>(
       std::make_unique<WgcScreenSourceFactory>(),
       std::make_unique<ScreenEnumerator>(), false);
 }
 
 bool WgcCapturerWin::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return source_enumerator_->FindAllSources(sources);
 }
 
 bool WgcCapturerWin::SelectSource(DesktopCapturer::SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   capture_source_ = source_factory_->CreateCaptureSource(id);
   if (allow_delayed_capturable_check_)
     return true;
@@ -193,6 +205,8 @@ bool WgcCapturerWin::SelectSource(DesktopCapturer::SourceId id) {
 }
 
 bool WgcCapturerWin::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!capture_source_)
     return false;
 
@@ -200,6 +214,8 @@ bool WgcCapturerWin::FocusOnSelectedSource() {
 }
 
 void WgcCapturerWin::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kWgcCapturerWin);
@@ -231,6 +247,8 @@ void WgcCapturerWin::Start(Callback* callback) {
 }
 
 void WgcCapturerWin::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
 
   if (!capture_source_) {
@@ -352,6 +370,8 @@ void WgcCapturerWin::CaptureFrame() {
 }
 
 bool WgcCapturerWin::IsSourceBeingCaptured(DesktopCapturer::SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::map<DesktopCapturer::SourceId, WgcCaptureSession>::iterator
       session_iter = ongoing_captures_.find(id);
   if (session_iter == ongoing_captures_.end())

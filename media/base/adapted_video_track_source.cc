@@ -15,6 +15,7 @@
 #include "api/video/video_frame_buffer.h"
 #include "api/video/video_rotation.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 
 namespace rtc {
@@ -38,6 +39,7 @@ bool AdaptedVideoTrackSource::GetStats(Stats* stats) {
 }
 
 void AdaptedVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
+  RTC_LOG(LS_INFO) << __func__;
   rtc::scoped_refptr<webrtc::VideoFrameBuffer> buffer(
       frame.video_frame_buffer());
   /* Note that this is a "best effort" approach to

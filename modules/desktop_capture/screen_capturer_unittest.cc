@@ -30,6 +30,8 @@ const int kTestSharedMemoryId = 123;
 namespace webrtc {
 
 class ScreenCapturerTest : public ::testing::Test {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   void SetUp() override {
     capturer_ = DesktopCapturer::CreateScreenCapturer(

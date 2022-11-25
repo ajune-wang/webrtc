@@ -11,6 +11,7 @@
 #include "modules/desktop_capture/desktop_frame_rotation.h"
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "third_party/libyuv/include/libyuv/rotate_argb.h"
 
 namespace webrtc {
@@ -18,6 +19,8 @@ namespace webrtc {
 namespace {
 
 libyuv::RotationMode ToLibyuvRotationMode(Rotation rotation) {
+  RTC_LOG(LS_INFO) << __func__;
+
   switch (rotation) {
     case Rotation::CLOCK_WISE_0:
       return libyuv::kRotate0;

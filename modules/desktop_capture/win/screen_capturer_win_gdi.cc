@@ -42,6 +42,8 @@ const wchar_t kDwmapiLibraryName[] = L"dwmapi.dll";
 
 ScreenCapturerWinGdi::ScreenCapturerWinGdi(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (options.disable_effects()) {
     // Load dwmapi.dll dynamically since it is not available on XP.
     if (!dwmapi_library_)
@@ -55,6 +57,8 @@ ScreenCapturerWinGdi::ScreenCapturerWinGdi(
 }
 
 ScreenCapturerWinGdi::~ScreenCapturerWinGdi() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (desktop_dc_)
     ReleaseDC(NULL, desktop_dc_);
   if (memory_dc_)
@@ -70,10 +74,14 @@ ScreenCapturerWinGdi::~ScreenCapturerWinGdi() {
 
 void ScreenCapturerWinGdi::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   shared_memory_factory_ = std::move(shared_memory_factory);
 }
 
 void ScreenCapturerWinGdi::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   TRACE_EVENT0("webrtc", "ScreenCapturerWinGdi::CaptureFrame");
   int64_t capture_start_time_nanos = rtc::TimeNanos();
 
@@ -108,10 +116,14 @@ void ScreenCapturerWinGdi::CaptureFrame() {
 }
 
 bool ScreenCapturerWinGdi::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return webrtc::GetScreenList(sources);
 }
 
 bool ScreenCapturerWinGdi::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   bool valid = IsScreenValid(id, &current_device_key_);
   if (valid)
     current_screen_id_ = id;
@@ -119,6 +131,8 @@ bool ScreenCapturerWinGdi::SelectSource(SourceId id) {
 }
 
 void ScreenCapturerWinGdi::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kScreenCapturerWinGdi);
@@ -133,6 +147,8 @@ void ScreenCapturerWinGdi::Start(Callback* callback) {
 }
 
 void ScreenCapturerWinGdi::PrepareCaptureResources() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Switch to the desktop receiving user input if different from the current
   // one.
   std::unique_ptr<Desktop> input_desktop(Desktop::GetInputDesktop());
@@ -186,6 +202,8 @@ void ScreenCapturerWinGdi::PrepareCaptureResources() {
 }
 
 bool ScreenCapturerWinGdi::CaptureImage() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRect screen_rect =
       GetScreenRect(current_screen_id_, current_device_key_);
   if (screen_rect.is_empty()) {

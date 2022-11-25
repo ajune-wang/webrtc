@@ -18,6 +18,7 @@
 
 #include "modules/desktop_capture/win/screen_capture_utils.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/win/get_activation_factory.h"
 
 using Microsoft::WRL::ComPtr;
@@ -26,10 +27,14 @@ namespace WGC = ABI::Windows::Graphics::Capture;
 namespace webrtc {
 
 WgcCaptureSource::WgcCaptureSource(DesktopCapturer::SourceId source_id)
-    : source_id_(source_id) {}
+    : source_id_(source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 WgcCaptureSource::~WgcCaptureSource() = default;
 
 bool WgcCaptureSource::IsCapturable() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // If we can create a capture item, then we can capture it. Unfortunately,
   // we can't cache this item because it may be created in a different COM
   // apartment than where capture will eventually start from.
@@ -38,10 +43,14 @@ bool WgcCaptureSource::IsCapturable() {
 }
 
 bool WgcCaptureSource::FocusOnSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return false;
 }
 
 ABI::Windows::Graphics::SizeInt32 WgcCaptureSource::GetSize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!item_)
     return {0, 0};
 
@@ -55,6 +64,8 @@ ABI::Windows::Graphics::SizeInt32 WgcCaptureSource::GetSize() {
 
 HRESULT WgcCaptureSource::GetCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_LOG(LS_INFO) << __func__;
+
   HRESULT hr = S_OK;
   if (!item_)
     hr = CreateCaptureItem(&item_);
@@ -70,6 +81,8 @@ WgcWindowSourceFactory::~WgcWindowSourceFactory() = default;
 
 std::unique_ptr<WgcCaptureSource> WgcWindowSourceFactory::CreateCaptureSource(
     DesktopCapturer::SourceId source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<WgcWindowSource>(source_id);
 }
 
@@ -78,14 +91,20 @@ WgcScreenSourceFactory::~WgcScreenSourceFactory() = default;
 
 std::unique_ptr<WgcCaptureSource> WgcScreenSourceFactory::CreateCaptureSource(
     DesktopCapturer::SourceId source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<WgcScreenSource>(source_id);
 }
 
 WgcWindowSource::WgcWindowSource(DesktopCapturer::SourceId source_id)
-    : WgcCaptureSource(source_id) {}
+    : WgcCaptureSource(source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 WgcWindowSource::~WgcWindowSource() = default;
 
 DesktopVector WgcWindowSource::GetTopLeft() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRect window_rect;
   if (!GetWindowRect(reinterpret_cast<HWND>(GetSourceId()), &window_rect))
     return DesktopVector();
@@ -94,6 +113,8 @@ DesktopVector WgcWindowSource::GetTopLeft() {
 }
 
 ABI::Windows::Graphics::SizeInt32 WgcWindowSource::GetSize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RECT window_rect;
   HRESULT hr = ::DwmGetWindowAttribute(
       reinterpret_cast<HWND>(GetSourceId()), DWMWA_EXTENDED_FRAME_BOUNDS,
@@ -106,6 +127,8 @@ ABI::Windows::Graphics::SizeInt32 WgcWindowSource::GetSize() {
 }
 
 bool WgcWindowSource::IsCapturable() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!IsWindowValidAndVisible(reinterpret_cast<HWND>(GetSourceId())))
     return false;
 
@@ -113,6 +136,8 @@ bool WgcWindowSource::IsCapturable() {
 }
 
 bool WgcWindowSource::FocusOnSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!IsWindowValidAndVisible(reinterpret_cast<HWND>(GetSourceId())))
     return false;
 
@@ -122,6 +147,8 @@ bool WgcWindowSource::FocusOnSource() {
 
 HRESULT WgcWindowSource::CreateCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!ResolveCoreWinRTDelayload())
     return E_FAIL;
 
@@ -147,6 +174,8 @@ HRESULT WgcWindowSource::CreateCaptureItem(
 
 WgcScreenSource::WgcScreenSource(DesktopCapturer::SourceId source_id)
     : WgcCaptureSource(source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Getting the HMONITOR could fail if the source_id is invalid. In that case,
   // we leave hmonitor_ uninitialized and `IsCapturable()` will fail.
   HMONITOR hmon;
@@ -157,6 +186,8 @@ WgcScreenSource::WgcScreenSource(DesktopCapturer::SourceId source_id)
 WgcScreenSource::~WgcScreenSource() = default;
 
 DesktopVector WgcScreenSource::GetTopLeft() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!hmonitor_)
     return DesktopVector();
 
@@ -164,6 +195,8 @@ DesktopVector WgcScreenSource::GetTopLeft() {
 }
 
 ABI::Windows::Graphics::SizeInt32 WgcScreenSource::GetSize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   ABI::Windows::Graphics::SizeInt32 size = WgcCaptureSource::GetSize();
   if (!hmonitor_ || (size.Width != 0 && size.Height != 0))
     return size;
@@ -173,6 +206,8 @@ ABI::Windows::Graphics::SizeInt32 WgcScreenSource::GetSize() {
 }
 
 bool WgcScreenSource::IsCapturable() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!hmonitor_)
     return false;
 
@@ -184,6 +219,8 @@ bool WgcScreenSource::IsCapturable() {
 
 HRESULT WgcScreenSource::CreateCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!hmonitor_)
     return E_ABORT;
 

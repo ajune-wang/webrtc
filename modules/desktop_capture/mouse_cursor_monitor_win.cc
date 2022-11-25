@@ -67,6 +67,8 @@ MouseCursorMonitorWin::MouseCursorMonitorWin(HWND window)
       callback_(NULL),
       mode_(SHAPE_AND_POSITION),
       desktop_dc_(NULL) {
+  RTC_LOG(LS_INFO) << __func__;
+
   memset(&last_cursor_, 0, sizeof(CURSORINFO));
 }
 
@@ -76,16 +78,22 @@ MouseCursorMonitorWin::MouseCursorMonitorWin(ScreenId screen)
       callback_(NULL),
       mode_(SHAPE_AND_POSITION),
       desktop_dc_(NULL) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GE(screen, kFullDesktopScreenId);
   memset(&last_cursor_, 0, sizeof(CURSORINFO));
 }
 
 MouseCursorMonitorWin::~MouseCursorMonitorWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (desktop_dc_)
     ReleaseDC(NULL, desktop_dc_);
 }
 
 void MouseCursorMonitorWin::Init(Callback* callback, Mode mode) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
 
@@ -96,6 +104,8 @@ void MouseCursorMonitorWin::Init(Callback* callback, Mode mode) {
 }
 
 void MouseCursorMonitorWin::Capture() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
 
   CURSORINFO cursor_info;
@@ -168,6 +178,8 @@ void MouseCursorMonitorWin::Capture() {
 }
 
 DesktopRect MouseCursorMonitorWin::GetScreenRect() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_NE(screen_, kInvalidScreenId);
   if (screen_ == kFullDesktopScreenId) {
     return DesktopRect::MakeXYWH(GetSystemMetrics(SM_XVIRTUALSCREEN),
@@ -197,17 +209,23 @@ DesktopRect MouseCursorMonitorWin::GetScreenRect() {
 MouseCursorMonitor* MouseCursorMonitor::CreateForWindow(
     const DesktopCaptureOptions& options,
     WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return new MouseCursorMonitorWin(reinterpret_cast<HWND>(window));
 }
 
 MouseCursorMonitor* MouseCursorMonitor::CreateForScreen(
     const DesktopCaptureOptions& options,
     ScreenId screen) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return new MouseCursorMonitorWin(screen);
 }
 
 std::unique_ptr<MouseCursorMonitor> MouseCursorMonitor::Create(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<MouseCursorMonitor>(
       CreateForScreen(options, kFullDesktopScreenId));
 }

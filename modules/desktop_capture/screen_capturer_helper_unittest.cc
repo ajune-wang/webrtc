@@ -10,11 +10,14 @@
 
 #include "modules/desktop_capture/screen_capturer_helper.h"
 
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 class ScreenCapturerHelperTest : public ::testing::Test {
+  RTC_LOG(LS_INFO) << __func__;
+
  protected:
   ScreenCapturerHelper capturer_helper_;
 };

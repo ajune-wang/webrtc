@@ -11,6 +11,7 @@
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/desktop_frame.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -34,20 +35,30 @@ class WindowCapturerNull : public DesktopCapturer {
   Callback* callback_ = nullptr;
 };
 
-WindowCapturerNull::WindowCapturerNull() {}
-WindowCapturerNull::~WindowCapturerNull() {}
+WindowCapturerNull::WindowCapturerNull() {
+  RTC_LOG(LS_INFO) << __func__;
+}
+WindowCapturerNull::~WindowCapturerNull() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 bool WindowCapturerNull::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Not implemented yet.
   return false;
 }
 
 bool WindowCapturerNull::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Not implemented yet.
   return false;
 }
 
 void WindowCapturerNull::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
 
@@ -55,6 +66,8 @@ void WindowCapturerNull::Start(Callback* callback) {
 }
 
 void WindowCapturerNull::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Not implemented yet.
   callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
 }
@@ -64,6 +77,8 @@ void WindowCapturerNull::CaptureFrame() {
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<DesktopCapturer>(new WindowCapturerNull());
 }
 

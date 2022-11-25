@@ -10,6 +10,7 @@
 
 #include "modules/desktop_capture/win/desktop_capture_utils.h"
 
+#include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
@@ -18,6 +19,8 @@ namespace utils {
 
 // Generates a human-readable string from a COM error.
 std::string ComErrorToString(const _com_error& error) {
+  RTC_LOG(LS_INFO) << __func__;
+
   char buffer[1024];
   rtc::SimpleStringBuilder string_builder(buffer);
   // Use _bstr_t to simplify the wchar to char conversion for ErrorMessage().

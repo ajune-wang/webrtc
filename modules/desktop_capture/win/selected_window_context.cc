@@ -10,6 +10,8 @@
 
 #include "modules/desktop_capture/win/selected_window_context.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 SelectedWindowContext::SelectedWindowContext(
@@ -19,15 +21,21 @@ SelectedWindowContext::SelectedWindowContext(
     : selected_window_(selected_window),
       selected_window_rect_(selected_window_rect),
       window_capture_helper_(window_capture_helper) {
+  RTC_LOG(LS_INFO) << __func__;
+
   selected_window_thread_id_ =
       GetWindowThreadProcessId(selected_window, &selected_window_process_id_);
 }
 
 bool SelectedWindowContext::IsSelectedWindowValid() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return selected_window_thread_id_ != 0;
 }
 
 bool SelectedWindowContext::IsWindowOwnedBySelectedWindow(HWND hwnd) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   // This check works for drop-down menus & dialog pop-up windows.
   if (GetAncestor(hwnd, GA_ROOTOWNER) == selected_window_) {
     return true;
@@ -44,15 +52,21 @@ bool SelectedWindowContext::IsWindowOwnedBySelectedWindow(HWND hwnd) const {
 }
 
 bool SelectedWindowContext::IsWindowOverlappingSelectedWindow(HWND hwnd) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return window_capture_helper_->AreWindowsOverlapping(hwnd, selected_window_,
                                                        selected_window_rect_);
 }
 
 HWND SelectedWindowContext::selected_window() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return selected_window_;
 }
 
 WindowCaptureHelperWin* SelectedWindowContext::window_capture_helper() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return window_capture_helper_;
 }
 

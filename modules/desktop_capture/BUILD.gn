@@ -37,6 +37,7 @@ rtc_library("primitives") {
   deps = [
     "../../api:scoped_refptr",
     "../../rtc_base:checks",
+    "../../rtc_base:logging",
     "../../rtc_base:refcount",
     "../../rtc_base/system:rtc_export",
     "//third_party/libyuv",

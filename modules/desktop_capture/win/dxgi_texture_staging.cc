@@ -25,11 +25,15 @@ using Microsoft::WRL::ComPtr;
 namespace webrtc {
 
 DxgiTextureStaging::DxgiTextureStaging(const D3dDevice& device)
-    : device_(device) {}
+    : device_(device) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DxgiTextureStaging::~DxgiTextureStaging() = default;
 
 bool DxgiTextureStaging::InitializeStage(ID3D11Texture2D* texture) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(texture);
   D3D11_TEXTURE2D_DESC desc = {0};
   texture->GetDesc(&desc);
@@ -81,6 +85,8 @@ bool DxgiTextureStaging::InitializeStage(ID3D11Texture2D* texture) {
 }
 
 void DxgiTextureStaging::AssertStageAndSurfaceAreSameObject() {
+  RTC_LOG(LS_INFO) << __func__;
+
   ComPtr<IUnknown> left;
   ComPtr<IUnknown> right;
   bool left_result = SUCCEEDED(stage_.As(&left));
@@ -93,6 +99,8 @@ void DxgiTextureStaging::AssertStageAndSurfaceAreSameObject() {
 bool DxgiTextureStaging::CopyFromTexture(
     const DXGI_OUTDUPL_FRAME_INFO& frame_info,
     ID3D11Texture2D* texture) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GT(frame_info.AccumulatedFrames, 0);
   RTC_DCHECK(texture);
 
@@ -118,6 +126,8 @@ bool DxgiTextureStaging::CopyFromTexture(
 }
 
 bool DxgiTextureStaging::DoRelease() {
+  RTC_LOG(LS_INFO) << __func__;
+
   _com_error error = surface_->Unmap();
   if (error.Error() != S_OK) {
     stage_.Reset();

@@ -14,39 +14,58 @@
 #include <utility>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 DesktopRegion::RowSpan::RowSpan(int32_t left, int32_t right)
-    : left(left), right(right) {}
+    : left(left), right(right) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopRegion::Row::Row(const Row&) = default;
 DesktopRegion::Row::Row(Row&&) = default;
 
 DesktopRegion::Row::Row(int32_t top, int32_t bottom)
-    : top(top), bottom(bottom) {}
+    : top(top), bottom(bottom) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
-DesktopRegion::Row::~Row() {}
+DesktopRegion::Row::~Row() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
-DesktopRegion::DesktopRegion() {}
+DesktopRegion::DesktopRegion() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopRegion::DesktopRegion(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   AddRect(rect);
 }
 
 DesktopRegion::DesktopRegion(const DesktopRect* rects, int count) {
+  RTC_LOG(LS_INFO) << __func__;
+
   AddRects(rects, count);
 }
 
 DesktopRegion::DesktopRegion(const DesktopRegion& other) {
+  RTC_LOG(LS_INFO) << __func__;
+
   *this = other;
 }
 
 DesktopRegion::~DesktopRegion() {
+  RTC_LOG(LS_INFO) << __func__;
+
   Clear();
 }
 
 DesktopRegion& DesktopRegion::operator=(const DesktopRegion& other) {
+  RTC_LOG(LS_INFO) << __func__;
+
   Clear();
   rows_ = other.rows_;
   for (Rows::iterator it = rows_.begin(); it != rows_.end(); ++it) {
@@ -58,6 +77,8 @@ DesktopRegion& DesktopRegion::operator=(const DesktopRegion& other) {
 }
 
 bool DesktopRegion::Equals(const DesktopRegion& region) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Iterate over rows of the tow regions and compare each row.
   Rows::const_iterator it1 = rows_.begin();
   Rows::const_iterator it2 = region.rows_.begin();
@@ -75,6 +96,8 @@ bool DesktopRegion::Equals(const DesktopRegion& region) const {
 }
 
 void DesktopRegion::Clear() {
+  RTC_LOG(LS_INFO) << __func__;
+
   for (Rows::iterator row = rows_.begin(); row != rows_.end(); ++row) {
     delete row->second;
   }
@@ -82,11 +105,15 @@ void DesktopRegion::Clear() {
 }
 
 void DesktopRegion::SetRect(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   Clear();
   AddRect(rect);
 }
 
 void DesktopRegion::AddRect(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (rect.is_empty())
     return;
 
@@ -142,12 +169,16 @@ void DesktopRegion::AddRect(const DesktopRect& rect) {
 }
 
 void DesktopRegion::AddRects(const DesktopRect* rects, int count) {
+  RTC_LOG(LS_INFO) << __func__;
+
   for (int i = 0; i < count; ++i) {
     AddRect(rects[i]);
   }
 }
 
 void DesktopRegion::MergeWithPrecedingRow(Rows::iterator row) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(row != rows_.end());
 
   if (row != rows_.begin()) {
@@ -166,6 +197,8 @@ void DesktopRegion::MergeWithPrecedingRow(Rows::iterator row) {
 }
 
 void DesktopRegion::AddRegion(const DesktopRegion& region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // TODO(sergeyu): This function is not optimized - potentially it can iterate
   // over rows of the two regions similar to how it works in Intersect().
   for (Iterator it(region); !it.IsAtEnd(); it.Advance()) {
@@ -175,6 +208,8 @@ void DesktopRegion::AddRegion(const DesktopRegion& region) {
 
 void DesktopRegion::Intersect(const DesktopRegion& region1,
                               const DesktopRegion& region2) {
+  RTC_LOG(LS_INFO) << __func__;
+
   Clear();
 
   Rows::const_iterator it1 = region1.rows_.begin();
@@ -226,6 +261,8 @@ void DesktopRegion::Intersect(const DesktopRegion& region1,
 void DesktopRegion::IntersectRows(const RowSpanSet& set1,
                                   const RowSpanSet& set2,
                                   RowSpanSet* output) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RowSpanSet::const_iterator it1 = set1.begin();
   RowSpanSet::const_iterator end1 = set1.end();
   RowSpanSet::const_iterator it2 = set2.begin();
@@ -261,18 +298,24 @@ void DesktopRegion::IntersectRows(const RowSpanSet& set1,
 }
 
 void DesktopRegion::IntersectWith(const DesktopRegion& region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRegion old_region;
   Swap(&old_region);
   Intersect(old_region, region);
 }
 
 void DesktopRegion::IntersectWith(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRegion region;
   region.AddRect(rect);
   IntersectWith(region);
 }
 
 void DesktopRegion::Subtract(const DesktopRegion& region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (region.rows_.empty())
     return;
 
@@ -362,12 +405,16 @@ void DesktopRegion::Subtract(const DesktopRegion& region) {
 }
 
 void DesktopRegion::Subtract(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRegion region;
   region.AddRect(rect);
   Subtract(region);
 }
 
 void DesktopRegion::Translate(int32_t dx, int32_t dy) {
+  RTC_LOG(LS_INFO) << __func__;
+
   Rows new_rows;
 
   for (Rows::iterator it = rows_.begin(); it != rows_.end(); ++it) {
@@ -394,21 +441,29 @@ void DesktopRegion::Translate(int32_t dx, int32_t dy) {
 }
 
 void DesktopRegion::Swap(DesktopRegion* region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   rows_.swap(region->rows_);
 }
 
 // static
 bool DesktopRegion::CompareSpanRight(const RowSpan& r, int32_t value) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return r.right < value;
 }
 
 // static
 bool DesktopRegion::CompareSpanLeft(const RowSpan& r, int32_t value) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return r.left < value;
 }
 
 // static
 void DesktopRegion::AddSpanToRow(Row* row, int left, int right) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // First check if the new span is located to the right of all existing spans.
   // This is an optimization to avoid binary search in the case when rectangles
   // are inserted sequentially from left to right.
@@ -456,6 +511,8 @@ void DesktopRegion::AddSpanToRow(Row* row, int left, int right) {
 
 // static
 bool DesktopRegion::IsSpanInRow(const Row& row, const RowSpan& span) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Find the first span that starts at or after `span.left` and then check if
   // it's the same span.
   RowSpanSet::const_iterator it = std::lower_bound(
@@ -467,6 +524,8 @@ bool DesktopRegion::IsSpanInRow(const Row& row, const RowSpan& span) {
 void DesktopRegion::SubtractRows(const RowSpanSet& set_a,
                                  const RowSpanSet& set_b,
                                  RowSpanSet* output) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!set_a.empty() && !set_b.empty());
 
   RowSpanSet::const_iterator it_b = set_b.begin();
@@ -502,6 +561,8 @@ DesktopRegion::Iterator::Iterator(const DesktopRegion& region)
     : region_(region),
       row_(region.rows_.begin()),
       previous_row_(region.rows_.end()) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!IsAtEnd()) {
     RTC_DCHECK_GT(row_->second->spans.size(), 0);
     row_span_ = row_->second->spans.begin();
@@ -509,13 +570,19 @@ DesktopRegion::Iterator::Iterator(const DesktopRegion& region)
   }
 }
 
-DesktopRegion::Iterator::~Iterator() {}
+DesktopRegion::Iterator::~Iterator() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 bool DesktopRegion::Iterator::IsAtEnd() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return row_ == region_.rows_.end();
 }
 
 void DesktopRegion::Iterator::Advance() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!IsAtEnd());
 
   while (true) {
@@ -549,6 +616,8 @@ void DesktopRegion::Iterator::Advance() {
 }
 
 void DesktopRegion::Iterator::UpdateCurrentRect() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Merge the current rectangle with the matching spans from later rows.
   int bottom;
   Rows::const_iterator bottom_row = row_;

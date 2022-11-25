@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/cropping_window_capturer.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer_differ_wrapper.h"
+#include "rtc_base/logging.h"
 
 #if defined(RTC_ENABLE_WIN_WGC)
 #include "modules/desktop_capture/win/wgc_capturer_win.h"
@@ -31,33 +32,49 @@ DesktopCapturer::~DesktopCapturer() = default;
 
 DelegatedSourceListController*
 DesktopCapturer::GetDelegatedSourceListController() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return nullptr;
 }
 
 void DesktopCapturer::SetSharedMemoryFactory(
-    std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {}
+    std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
-void DesktopCapturer::SetExcludedWindow(WindowId window) {}
+void DesktopCapturer::SetExcludedWindow(WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 bool DesktopCapturer::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return true;
 }
 
 bool DesktopCapturer::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return false;
 }
 
 bool DesktopCapturer::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return false;
 }
 
 bool DesktopCapturer::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return false;
 }
 
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(RTC_ENABLE_WIN_WGC)
   if (options.allow_wgc_capturer() && IsWgcSupported(CaptureType::kWindow)) {
     return WgcCapturerWin::CreateRawWindowCapturer(options);
@@ -81,6 +98,8 @@ std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateWindowCapturer(
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(RTC_ENABLE_WIN_WGC)
   if (options.allow_wgc_capturer() && IsWgcSupported(CaptureType::kScreen)) {
     return WgcCapturerWin::CreateRawScreenCapturer(options);
@@ -97,6 +116,8 @@ std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateScreenCapturer(
 
 #if defined(WEBRTC_USE_PIPEWIRE) || defined(WEBRTC_USE_X11)
 bool DesktopCapturer::IsRunningUnderWayland() {
+  RTC_LOG(LS_INFO) << __func__;
+
   const char* xdg_session_type = getenv("XDG_SESSION_TYPE");
   if (!xdg_session_type || strncmp(xdg_session_type, "wayland", 7) != 0)
     return false;

@@ -15,6 +15,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/test_utils.h"
 #include "rtc_base/arraysize.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -23,6 +24,8 @@ namespace {
 
 std::unique_ptr<DesktopFrame> CreateTestFrame(DesktopRect rect,
                                               int pixels_value) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopSize size = rect.size();
   auto frame = std::make_unique<BasicDesktopFrame>(size);
   frame->set_top_left(rect.top_left());

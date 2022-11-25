@@ -10,6 +10,8 @@
 
 #include "modules/desktop_capture/screen_drawer.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 namespace {
@@ -20,10 +22,14 @@ ScreenDrawerLock::ScreenDrawerLock() = default;
 ScreenDrawerLock::~ScreenDrawerLock() = default;
 
 ScreenDrawer::ScreenDrawer() {
+  RTC_LOG(LS_INFO) << __func__;
+
   g_screen_drawer_lock = ScreenDrawerLock::Create();
 }
 
 ScreenDrawer::~ScreenDrawer() {
+  RTC_LOG(LS_INFO) << __func__;
+
   g_screen_drawer_lock.reset();
 }
 

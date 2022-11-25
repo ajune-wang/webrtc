@@ -23,9 +23,13 @@ DesktopFrameWin::DesktopFrameWin(DesktopSize size,
                                  HBITMAP bitmap)
     : DesktopFrame(size, stride, data, shared_memory.get()),
       bitmap_(bitmap),
-      owned_shared_memory_(std::move(shared_memory)) {}
+      owned_shared_memory_(std::move(shared_memory)) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopFrameWin::~DesktopFrameWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DeleteObject(bitmap_);
 }
 
@@ -34,6 +38,8 @@ std::unique_ptr<DesktopFrameWin> DesktopFrameWin::Create(
     DesktopSize size,
     SharedMemoryFactory* shared_memory_factory,
     HDC hdc) {
+  RTC_LOG(LS_INFO) << __func__;
+
   int bytes_per_row = size.width() * kBytesPerPixel;
   int buffer_size = bytes_per_row * size.height();
 

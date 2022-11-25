@@ -10,9 +10,13 @@
 
 #include "modules/desktop_capture/resolution_tracker.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 bool ResolutionTracker::SetResolution(DesktopSize size) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!initialized_) {
     initialized_ = true;
     last_size_ = size;
@@ -28,6 +32,8 @@ bool ResolutionTracker::SetResolution(DesktopSize size) {
 }
 
 void ResolutionTracker::Reset() {
+  RTC_LOG(LS_INFO) << __func__;
+
   initialized_ = false;
 }
 

@@ -97,10 +97,16 @@ BOOL CALLBACK OwnedWindowCollector(HWND hwnd, LPARAM param) {
 
 WindowCapturerWinGdi::WindowCapturerWinGdi(
     bool enumerate_current_process_windows)
-    : enumerate_current_process_windows_(enumerate_current_process_windows) {}
-WindowCapturerWinGdi::~WindowCapturerWinGdi() {}
+    : enumerate_current_process_windows_(enumerate_current_process_windows) {
+  RTC_LOG(LS_INFO) << __func__;
+}
+WindowCapturerWinGdi::~WindowCapturerWinGdi() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 bool WindowCapturerWinGdi::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!window_capture_helper_.EnumerateCapturableWindows(
           sources, enumerate_current_process_windows_))
     return false;
@@ -116,6 +122,8 @@ bool WindowCapturerWinGdi::GetSourceList(SourceList* sources) {
 }
 
 bool WindowCapturerWinGdi::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   HWND window = reinterpret_cast<HWND>(id);
   if (!IsWindowValidAndVisible(window))
     return false;
@@ -128,6 +136,8 @@ bool WindowCapturerWinGdi::SelectSource(SourceId id) {
 }
 
 bool WindowCapturerWinGdi::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!window_)
     return false;
 
@@ -138,6 +148,8 @@ bool WindowCapturerWinGdi::FocusOnSelectedSource() {
 }
 
 bool WindowCapturerWinGdi::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopVector sys_pos = pos.add(GetFullscreenRect().top_left());
   HWND hwnd =
       reinterpret_cast<HWND>(window_finder_.GetWindowUnderPoint(sys_pos));
@@ -148,6 +160,8 @@ bool WindowCapturerWinGdi::IsOccluded(const DesktopVector& pos) {
 }
 
 void WindowCapturerWinGdi::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kWindowCapturerWinGdi);
@@ -156,6 +170,8 @@ void WindowCapturerWinGdi::Start(Callback* callback) {
 }
 
 void WindowCapturerWinGdi::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
   int64_t capture_start_time_nanos = rtc::TimeNanos();
 
@@ -179,6 +195,8 @@ void WindowCapturerWinGdi::CaptureFrame() {
 
 WindowCapturerWinGdi::CaptureResults WindowCapturerWinGdi::CaptureFrame(
     bool capture_owned_windows) {
+  RTC_LOG(LS_INFO) << __func__;
+
   TRACE_EVENT0("webrtc", "WindowCapturerWinGdi::CaptureFrame");
 
   if (!window_) {
@@ -396,6 +414,8 @@ WindowCapturerWinGdi::CaptureResults WindowCapturerWinGdi::CaptureFrame(
 // static
 std::unique_ptr<DesktopCapturer> WindowCapturerWinGdi::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<DesktopCapturer>(
       new WindowCapturerWinGdi(options.enumerate_current_process_windows()));
 }

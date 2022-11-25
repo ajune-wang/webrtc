@@ -12,13 +12,17 @@
 
 #include <utility>
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 WgcDesktopFrame::WgcDesktopFrame(DesktopSize size,
                                  int stride,
                                  std::vector<uint8_t>&& image_data)
     : DesktopFrame(size, stride, image_data.data(), nullptr),
-      image_data_(std::move(image_data)) {}
+      image_data_(std::move(image_data)) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 WgcDesktopFrame::~WgcDesktopFrame() = default;
 

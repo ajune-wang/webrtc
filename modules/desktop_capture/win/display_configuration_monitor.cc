@@ -11,10 +11,13 @@
 #include "modules/desktop_capture/win/display_configuration_monitor.h"
 
 #include "modules/desktop_capture/win/screen_capture_utils.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 bool DisplayConfigurationMonitor::IsChanged() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRect rect = GetFullscreenRect();
   if (!initialized_) {
     initialized_ = true;
@@ -31,6 +34,8 @@ bool DisplayConfigurationMonitor::IsChanged() {
 }
 
 void DisplayConfigurationMonitor::Reset() {
+  RTC_LOG(LS_INFO) << __func__;
+
   initialized_ = false;
 }
 

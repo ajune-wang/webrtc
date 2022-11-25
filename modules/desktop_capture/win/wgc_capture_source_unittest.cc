@@ -38,6 +38,8 @@ const int kSecondYCoord = 75;
 }  // namespace
 
 class WgcCaptureSourceTest : public ::testing::TestWithParam<CaptureType> {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   void SetUp() override {
     com_initializer_ =

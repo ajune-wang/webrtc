@@ -25,21 +25,31 @@ CroppingWindowCapturer::CroppingWindowCapturer(
       callback_(NULL),
       window_capturer_(DesktopCapturer::CreateRawWindowCapturer(options)),
       selected_window_(kNullWindowId),
-      excluded_window_(kNullWindowId) {}
+      excluded_window_(kNullWindowId) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
-CroppingWindowCapturer::~CroppingWindowCapturer() {}
+CroppingWindowCapturer::~CroppingWindowCapturer() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 void CroppingWindowCapturer::Start(DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   callback_ = callback;
   window_capturer_->Start(callback);
 }
 
 void CroppingWindowCapturer::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   window_capturer_->SetSharedMemoryFactory(std::move(shared_memory_factory));
 }
 
 void CroppingWindowCapturer::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (ShouldUseScreenCapturer()) {
     if (!screen_capturer_.get()) {
       screen_capturer_ = DesktopCapturer::CreateRawScreenCapturer(options_);
@@ -55,6 +65,8 @@ void CroppingWindowCapturer::CaptureFrame() {
 }
 
 void CroppingWindowCapturer::SetExcludedWindow(WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   excluded_window_ = window;
   if (screen_capturer_.get()) {
     screen_capturer_->SetExcludedWindow(window);
@@ -62,10 +74,14 @@ void CroppingWindowCapturer::SetExcludedWindow(WindowId window) {
 }
 
 bool CroppingWindowCapturer::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return window_capturer_->GetSourceList(sources);
 }
 
 bool CroppingWindowCapturer::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (window_capturer_->SelectSource(id)) {
     selected_window_ = id;
     return true;
@@ -74,12 +90,16 @@ bool CroppingWindowCapturer::SelectSource(SourceId id) {
 }
 
 bool CroppingWindowCapturer::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return window_capturer_->FocusOnSelectedSource();
 }
 
 void CroppingWindowCapturer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> screen_frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!ShouldUseScreenCapturer()) {
     RTC_LOG(LS_INFO) << "Window no longer on top when ScreenCapturer finishes";
     window_capturer_->CaptureFrame();
@@ -112,6 +132,8 @@ void CroppingWindowCapturer::OnCaptureResult(
 }
 
 bool CroppingWindowCapturer::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Returns true if either capturer returns true.
   if (window_capturer_->IsOccluded(pos)) {
     return true;
@@ -128,6 +150,8 @@ bool CroppingWindowCapturer::IsOccluded(const DesktopVector& pos) {
 // static
 std::unique_ptr<DesktopCapturer> CroppingWindowCapturer::CreateCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return DesktopCapturer::CreateWindowCapturer(options);
 }
 #endif

@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/differ_block.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -147,47 +148,69 @@ void CompareFrames(const DesktopFrame& old_frame,
 DesktopCapturerDifferWrapper::DesktopCapturerDifferWrapper(
     std::unique_ptr<DesktopCapturer> base_capturer)
     : base_capturer_(std::move(base_capturer)) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(base_capturer_);
 }
 
-DesktopCapturerDifferWrapper::~DesktopCapturerDifferWrapper() {}
+DesktopCapturerDifferWrapper::~DesktopCapturerDifferWrapper() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 void DesktopCapturerDifferWrapper::Start(DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   callback_ = callback;
   base_capturer_->Start(this);
 }
 
 void DesktopCapturerDifferWrapper::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->SetSharedMemoryFactory(std::move(shared_memory_factory));
 }
 
 void DesktopCapturerDifferWrapper::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->CaptureFrame();
 }
 
 void DesktopCapturerDifferWrapper::SetExcludedWindow(WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->SetExcludedWindow(window);
 }
 
 bool DesktopCapturerDifferWrapper::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->GetSourceList(sources);
 }
 
 bool DesktopCapturerDifferWrapper::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->SelectSource(id);
 }
 
 bool DesktopCapturerDifferWrapper::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->FocusOnSelectedSource();
 }
 
 bool DesktopCapturerDifferWrapper::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->IsOccluded(pos);
 }
 
 #if defined(WEBRTC_USE_GIO)
 DesktopCaptureMetadata DesktopCapturerDifferWrapper::GetMetadata() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->GetMetadata();
 }
 #endif  // defined(WEBRTC_USE_GIO)
@@ -195,6 +218,8 @@ DesktopCaptureMetadata DesktopCapturerDifferWrapper::GetMetadata() {
 void DesktopCapturerDifferWrapper::OnCaptureResult(
     Result result,
     std::unique_ptr<DesktopFrame> input_frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   int64_t start_time_nanos = rtc::TimeNanos();
   if (!input_frame) {
     callback_->OnCaptureResult(result, nullptr);

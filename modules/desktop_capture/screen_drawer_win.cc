@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "modules/desktop_capture/screen_drawer.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/sleep.h"
 
 namespace webrtc {
@@ -32,6 +33,8 @@ class ScreenDrawerLockWin : public ScreenDrawerLock {
 };
 
 ScreenDrawerLockWin::ScreenDrawerLockWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   while (true) {
     mutex_ = CreateMutex(NULL, FALSE, kMutexName);
     if (GetLastError() != ERROR_ALREADY_EXISTS && mutex_ != NULL) {
@@ -46,6 +49,8 @@ ScreenDrawerLockWin::ScreenDrawerLockWin() {
 }
 
 ScreenDrawerLockWin::~ScreenDrawerLockWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   CloseHandle(mutex_);
 }
 
@@ -105,6 +110,8 @@ ScreenDrawerWin::ScreenDrawerWin()
       rect_(GetScreenRect()),
       window_(CreateDrawerWindow(rect_)),
       hdc_(GetWindowDC(window_)) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // We do not need to handle any messages for the `window_`, so disable Windows
   // from processing windows ghosting feature.
   DisableProcessWindowsGhosting();
@@ -116,16 +123,22 @@ ScreenDrawerWin::ScreenDrawerWin()
 }
 
 ScreenDrawerWin::~ScreenDrawerWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   ReleaseDC(NULL, hdc_);
   DestroyWindow(window_);
   // Unfortunately there is no EnableProcessWindowsGhosting() API.
 }
 
 DesktopRect ScreenDrawerWin::DrawableRegion() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return rect_;
 }
 
 void ScreenDrawerWin::DrawRectangle(DesktopRect rect, RgbaColor color) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (rect.width() == 1 && rect.height() == 1) {
     // Rectangle function cannot draw a 1 pixel rectangle.
     DrawDot(rect.top_left(), color);
@@ -145,27 +158,37 @@ void ScreenDrawerWin::DrawRectangle(DesktopRect rect, RgbaColor color) {
 }
 
 void ScreenDrawerWin::Clear() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DrawRectangle(rect_, RgbaColor(0, 0, 0));
 }
 
 // TODO(zijiehe): Find the right signal to indicate the finish of all pending
 // paintings.
 void ScreenDrawerWin::WaitForPendingDraws() {
+  RTC_LOG(LS_INFO) << __func__;
+
   BringToFront();
   SleepMs(50);
 }
 
 bool ScreenDrawerWin::MayDrawIncompleteShapes() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return true;
 }
 
 WindowId ScreenDrawerWin::window_id() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return reinterpret_cast<WindowId>(window_);
 }
 
 void ScreenDrawerWin::DrawLine(DesktopVector start,
                                DesktopVector end,
                                RgbaColor color) {
+  RTC_LOG(LS_INFO) << __func__;
+
   POINT points[2];
   points[0].x = start.x();
   points[0].y = start.y();
@@ -176,10 +199,14 @@ void ScreenDrawerWin::DrawLine(DesktopVector start,
 }
 
 void ScreenDrawerWin::DrawDot(DesktopVector vect, RgbaColor color) {
+  RTC_LOG(LS_INFO) << __func__;
+
   SetPixel(hdc_, vect.x(), vect.y(), ColorToRef(color));
 }
 
 void ScreenDrawerWin::BringToFront() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (SetWindowPos(window_, HWND_TOPMOST, 0, 0, 0, 0,
                    SWP_NOMOVE | SWP_NOSIZE) != FALSE) {
     return;
@@ -198,11 +225,15 @@ void ScreenDrawerWin::BringToFront() {
 
 // static
 std::unique_ptr<ScreenDrawerLock> ScreenDrawerLock::Create() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<ScreenDrawerLock>(new ScreenDrawerLockWin());
 }
 
 // static
 std::unique_ptr<ScreenDrawer> ScreenDrawer::Create() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<ScreenDrawer>(new ScreenDrawerWin());
 }
 

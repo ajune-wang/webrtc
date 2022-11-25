@@ -32,12 +32,16 @@ using Microsoft::WRL::ComPtr;
 
 // static
 bool ScreenCapturerWinDirectx::IsSupported() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Forwards IsSupported() function call to DxgiDuplicatorController.
   return DxgiDuplicatorController::Instance()->IsSupported();
 }
 
 // static
 bool ScreenCapturerWinDirectx::RetrieveD3dInfo(D3dInfo* info) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Forwards SupportedFeatureLevels() function call to
   // DxgiDuplicatorController.
   return DxgiDuplicatorController::Instance()->RetrieveD3dInfo(info);
@@ -45,6 +49,8 @@ bool ScreenCapturerWinDirectx::RetrieveD3dInfo(D3dInfo* info) {
 
 // static
 bool ScreenCapturerWinDirectx::IsCurrentSessionSupported() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return DxgiDuplicatorController::IsCurrentSessionSupported();
 }
 
@@ -52,6 +58,8 @@ bool ScreenCapturerWinDirectx::IsCurrentSessionSupported() {
 bool ScreenCapturerWinDirectx::GetScreenListFromDeviceNames(
     const std::vector<std::string>& device_names,
     DesktopCapturer::SourceList* screens) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(screens->empty());
 
   DesktopCapturer::SourceList gdi_screens;
@@ -85,6 +93,8 @@ bool ScreenCapturerWinDirectx::GetScreenListFromDeviceNames(
 int ScreenCapturerWinDirectx::GetIndexFromScreenId(
     ScreenId id,
     const std::vector<std::string>& device_names) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopCapturer::SourceList screens;
   if (!GetScreenListFromDeviceNames(device_names, &screens)) {
     return -1;
@@ -102,11 +112,15 @@ int ScreenCapturerWinDirectx::GetIndexFromScreenId(
 }
 
 ScreenCapturerWinDirectx::ScreenCapturerWinDirectx()
-    : controller_(DxgiDuplicatorController::Instance()) {}
+    : controller_(DxgiDuplicatorController::Instance()) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 ScreenCapturerWinDirectx::~ScreenCapturerWinDirectx() = default;
 
 void ScreenCapturerWinDirectx::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kScreenCapturerWinDirectx);
@@ -116,10 +130,14 @@ void ScreenCapturerWinDirectx::Start(Callback* callback) {
 
 void ScreenCapturerWinDirectx::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   shared_memory_factory_ = std::move(shared_memory_factory);
 }
 
 void ScreenCapturerWinDirectx::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
   TRACE_EVENT0("webrtc", "ScreenCapturerWinDirectx::CaptureFrame");
 
@@ -198,6 +216,8 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
 }
 
 bool ScreenCapturerWinDirectx::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::vector<std::string> device_names;
   if (!controller_->GetDeviceNames(&device_names)) {
     return false;
@@ -207,6 +227,8 @@ bool ScreenCapturerWinDirectx::GetSourceList(SourceList* sources) {
 }
 
 bool ScreenCapturerWinDirectx::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (id == kFullDesktopScreenId) {
     current_screen_id_ = id;
     return true;

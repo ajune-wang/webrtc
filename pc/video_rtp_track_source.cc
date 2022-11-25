@@ -15,6 +15,7 @@
 #include <algorithm>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -38,6 +39,7 @@ rtc::VideoSinkInterface<VideoFrame>* VideoRtpTrackSource::sink() {
 void VideoRtpTrackSource::BroadcastRecordableEncodedFrame(
     const RecordableEncodedFrame& frame) const {
   MutexLock lock(&mu_);
+  RTC_LOG(LS_INFO) << __func__;
   for (rtc::VideoSinkInterface<RecordableEncodedFrame>* sink : encoded_sinks_) {
     sink->OnFrame(frame);
   }

@@ -9,21 +9,28 @@
  */
 
 #include "modules/desktop_capture/full_screen_application_handler.h"
+
 #include "rtc_base/logging.h"
 
 namespace webrtc {
 
 FullScreenApplicationHandler::FullScreenApplicationHandler(
     DesktopCapturer::SourceId sourceId)
-    : source_id_(sourceId) {}
+    : source_id_(sourceId) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopCapturer::SourceId FullScreenApplicationHandler::FindFullScreenWindow(
     const DesktopCapturer::SourceList&,
     int64_t) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return 0;
 }
 
 DesktopCapturer::SourceId FullScreenApplicationHandler::GetSourceId() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return source_id_;
 }
 

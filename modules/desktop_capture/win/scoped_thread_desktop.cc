@@ -11,17 +11,24 @@
 #include "modules/desktop_capture/win/scoped_thread_desktop.h"
 
 #include "modules/desktop_capture/win/desktop.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 ScopedThreadDesktop::ScopedThreadDesktop()
-    : initial_(Desktop::GetThreadDesktop()) {}
+    : initial_(Desktop::GetThreadDesktop()) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 ScopedThreadDesktop::~ScopedThreadDesktop() {
+  RTC_LOG(LS_INFO) << __func__;
+
   Revert();
 }
 
 bool ScopedThreadDesktop::IsSame(const Desktop& desktop) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (assigned_.get() != NULL) {
     return assigned_->IsSame(desktop);
   } else {
@@ -30,6 +37,8 @@ bool ScopedThreadDesktop::IsSame(const Desktop& desktop) {
 }
 
 void ScopedThreadDesktop::Revert() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (assigned_.get() != NULL) {
     initial_->SetThreadDesktop();
     assigned_.reset();
@@ -37,6 +46,8 @@ void ScopedThreadDesktop::Revert() {
 }
 
 bool ScopedThreadDesktop::SetThreadDesktop(Desktop* desktop) {
+  RTC_LOG(LS_INFO) << __func__;
+
   Revert();
 
   std::unique_ptr<Desktop> scoped_desktop(desktop);

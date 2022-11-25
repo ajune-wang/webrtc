@@ -20,6 +20,7 @@
 #include "modules/desktop_capture/win/screen_capture_utils.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
 #include "rtc_base/arraysize.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/logging.h"  // For RTC_LOG_GLE
 #include "rtc_base/string_utils.h"
 
@@ -46,6 +47,8 @@ bool CheckWindowClassName(HWND window, const wchar_t* class_name) {
 }
 
 std::string WindowText(HWND window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   size_t len = ::GetWindowTextLength(window);
   if (len == 0)
     return std::string();
@@ -64,6 +67,8 @@ DWORD WindowProcessId(HWND window) {
 }
 
 std::wstring FileNameFromPath(const std::wstring& path) {
+  RTC_LOG(LS_INFO) << __func__;
+
   auto found = path.rfind(L"\\");
   if (found == std::string::npos)
     return path;
@@ -78,6 +83,8 @@ DesktopCapturer::SourceList GetProcessWindows(
     const DesktopCapturer::SourceList& sources,
     DWORD processId,
     HWND window_to_exclude) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopCapturer::SourceList result;
   std::copy_if(sources.begin(), sources.end(), std::back_inserter(result),
                [&](DesktopCapturer::Source source) {
@@ -252,6 +259,8 @@ class OpenOfficeApplicationHandler : public FullScreenApplicationHandler {
 };
 
 std::wstring GetPathByWindowId(HWND window_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DWORD process_id = WindowProcessId(window_id);
   HANDLE process =
       ::OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, process_id);
@@ -273,6 +282,8 @@ std::wstring GetPathByWindowId(HWND window_id) {
 
 std::unique_ptr<FullScreenApplicationHandler>
 CreateFullScreenWinApplicationHandler(DesktopCapturer::SourceId source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<FullScreenApplicationHandler> result;
   HWND hwnd = reinterpret_cast<HWND>(source_id);
   std::wstring exe_path = GetPathByWindowId(hwnd);

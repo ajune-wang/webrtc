@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/fake_desktop_capturer.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -52,6 +53,8 @@ class BlankDetectorDesktopCapturerWrapperTest
 
 BlankDetectorDesktopCapturerWrapperTest::
     BlankDetectorDesktopCapturerWrapperTest() {
+  RTC_LOG(LS_INFO) << __func__;
+
   frame_generator_.size()->set(frame_width_, frame_height_);
   frame_generator_.set_desktop_frame_painter(&painter_);
   std::unique_ptr<DesktopCapturer> capturer(new FakeDesktopCapturer());
@@ -70,6 +73,8 @@ BlankDetectorDesktopCapturerWrapperTest::
 void BlankDetectorDesktopCapturerWrapperTest::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   last_result_ = result;
   last_frame_ = std::move(frame);
   num_frames_captured_++;
@@ -77,6 +82,8 @@ void BlankDetectorDesktopCapturerWrapperTest::OnCaptureResult(
 
 void BlankDetectorDesktopCapturerWrapperTest::PerfTest(
     DesktopCapturer* capturer) {
+  RTC_LOG(LS_INFO) << __func__;
+
   for (int i = 0; i < 10000; i++) {
     capturer->CaptureFrame();
     ASSERT_EQ(num_frames_captured_, i + 1);

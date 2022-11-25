@@ -20,6 +20,7 @@
 #include "modules/desktop_capture/differ_block.h"
 #include "modules/desktop_capture/fake_desktop_capturer.h"
 #include "modules/desktop_capture/mock_desktop_capturer_callback.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/random.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/cpu_features_wrapper.h"
@@ -36,6 +37,8 @@ template <template <typename, typename...> class T = std::initializer_list,
           typename... Rect>
 void AssertUpdatedRegionIs(const DesktopFrame& frame,
                            const T<DesktopRect, Rect...>& rects) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRegion region;
   for (const auto& rect : rects) {
     region.AddRect(rect);
@@ -51,6 +54,8 @@ template <template <typename, typename...> class T = std::initializer_list,
           typename... Rect>
 void AssertUpdatedRegionCovers(const DesktopFrame& frame,
                                const T<DesktopRect, Rect...>& rects) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRegion region;
   for (const auto& rect : rects) {
     region.AddRect(rect);
@@ -117,6 +122,8 @@ void ExecuteDifferWrapperCase(BlackWhiteDesktopFramePainter* frame_painter,
                               const T<DesktopRect, Rect...>& updated_region,
                               bool check_result,
                               bool exactly_match) {
+  RTC_LOG(LS_INFO) << __func__;
+
   EXPECT_CALL(*callback, OnCaptureResultPtr(DesktopCapturer::Result::SUCCESS,
                                             ::testing::_))
       .Times(1)

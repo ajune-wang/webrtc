@@ -17,12 +17,15 @@
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 class WindowCapturerTest : public ::testing::Test,
                            public DesktopCapturer::Callback {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   void SetUp() override {
     capturer_ = DesktopCapturer::CreateWindowCapturer(

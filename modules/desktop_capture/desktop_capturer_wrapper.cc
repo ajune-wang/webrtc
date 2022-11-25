@@ -13,47 +13,66 @@
 #include <utility>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 DesktopCapturerWrapper::DesktopCapturerWrapper(
     std::unique_ptr<DesktopCapturer> base_capturer)
     : base_capturer_(std::move(base_capturer)) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(base_capturer_);
 }
 
 DesktopCapturerWrapper::~DesktopCapturerWrapper() = default;
 
 void DesktopCapturerWrapper::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->Start(callback);
 }
 
 void DesktopCapturerWrapper::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->SetSharedMemoryFactory(std::move(shared_memory_factory));
 }
 
 void DesktopCapturerWrapper::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->CaptureFrame();
 }
 
 void DesktopCapturerWrapper::SetExcludedWindow(WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   base_capturer_->SetExcludedWindow(window);
 }
 
 bool DesktopCapturerWrapper::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->GetSourceList(sources);
 }
 
 bool DesktopCapturerWrapper::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->SelectSource(id);
 }
 
 bool DesktopCapturerWrapper::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->FocusOnSelectedSource();
 }
 
 bool DesktopCapturerWrapper::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return base_capturer_->IsOccluded(pos);
 }
 

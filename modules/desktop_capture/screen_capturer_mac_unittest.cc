@@ -20,6 +20,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/mac/desktop_configuration.h"
 #include "modules/desktop_capture/mock_desktop_capturer_callback.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 using ::testing::_;
@@ -29,6 +30,8 @@ using ::testing::Return;
 namespace webrtc {
 
 class ScreenCapturerMacTest : public ::testing::Test {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   // Verifies that the whole screen is initially dirty.
   void CaptureDoneCallback1(DesktopCapturer::Result result,
@@ -52,6 +55,8 @@ class ScreenCapturerMacTest : public ::testing::Test {
 void ScreenCapturerMacTest::CaptureDoneCallback1(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame>* frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   EXPECT_EQ(result, DesktopCapturer::Result::SUCCESS);
 
   MacDesktopConfiguration config = MacDesktopConfiguration::GetCurrent(
@@ -65,6 +70,8 @@ void ScreenCapturerMacTest::CaptureDoneCallback1(
 void ScreenCapturerMacTest::CaptureDoneCallback2(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame>* frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   EXPECT_EQ(result, DesktopCapturer::Result::SUCCESS);
 
   MacDesktopConfiguration config = MacDesktopConfiguration::GetCurrent(

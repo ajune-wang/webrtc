@@ -87,6 +87,8 @@ constexpr int kMaxTries = 50;
 
 class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
                            public DesktopCapturer::Callback {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   void SetUp() override {
     com_initializer_ =

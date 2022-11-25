@@ -14,6 +14,7 @@
 
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/desktop_frame.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -21,14 +22,20 @@ FakeDesktopCapturer::FakeDesktopCapturer() = default;
 FakeDesktopCapturer::~FakeDesktopCapturer() = default;
 
 void FakeDesktopCapturer::set_result(DesktopCapturer::Result result) {
+  RTC_LOG(LS_INFO) << __func__;
+
   result_ = result;
 }
 
 int FakeDesktopCapturer::num_frames_captured() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return num_frames_captured_;
 }
 
 int FakeDesktopCapturer::num_capture_attempts() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return num_capture_attempts_;
 }
 
@@ -37,14 +44,20 @@ int FakeDesktopCapturer::num_capture_attempts() const {
 // not take the ownership of `generator`.
 void FakeDesktopCapturer::set_frame_generator(
     DesktopFrameGenerator* generator) {
+  RTC_LOG(LS_INFO) << __func__;
+
   generator_ = generator;
 }
 
 void FakeDesktopCapturer::Start(DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   callback_ = callback;
 }
 
 void FakeDesktopCapturer::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   num_capture_attempts_++;
   if (generator_) {
     if (result_ != DesktopCapturer::Result::SUCCESS) {
@@ -68,16 +81,22 @@ void FakeDesktopCapturer::CaptureFrame() {
 
 void FakeDesktopCapturer::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   shared_memory_factory_ = std::move(shared_memory_factory);
 }
 
 bool FakeDesktopCapturer::GetSourceList(DesktopCapturer::SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   sources->push_back({kWindowId, "A-Fake-DesktopCapturer-Window"});
   sources->push_back({kScreenId});
   return true;
 }
 
 bool FakeDesktopCapturer::SelectSource(DesktopCapturer::SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return id == kWindowId || id == kScreenId || id == kFullDesktopScreenId;
 }
 

@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/desktop_frame_generator.h"
 #include "modules/desktop_capture/fake_desktop_capturer.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -27,6 +28,8 @@ namespace {
 
 std::unique_ptr<DesktopCapturer> CreateDesktopCapturer(
     PainterDesktopFrameGenerator* frame_generator) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<FakeDesktopCapturer> capturer(new FakeDesktopCapturer());
   capturer->set_frame_generator(frame_generator);
   return std::move(capturer);
@@ -45,9 +48,13 @@ class FakeSharedMemory : public SharedMemory {
 int FakeSharedMemory::next_id_ = 0;
 
 FakeSharedMemory::FakeSharedMemory(size_t size)
-    : SharedMemory(new char[size], size, 0, next_id_++) {}
+    : SharedMemory(new char[size], size, 0, next_id_++) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 FakeSharedMemory::~FakeSharedMemory() {
+  RTC_LOG(LS_INFO) << __func__;
+
   delete[] static_cast<char*>(data_);
 }
 
@@ -61,6 +68,8 @@ class FakeSharedMemoryFactory : public SharedMemoryFactory {
 
 std::unique_ptr<SharedMemory> FakeSharedMemoryFactory::CreateSharedMemory(
     size_t size) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<SharedMemory>(new FakeSharedMemory(size));
 }
 
@@ -68,6 +77,8 @@ std::unique_ptr<SharedMemory> FakeSharedMemoryFactory::CreateSharedMemory(
 
 class FallbackDesktopCapturerWrapperTest : public ::testing::Test,
                                            public DesktopCapturer::Callback {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   FallbackDesktopCapturerWrapperTest();
   ~FallbackDesktopCapturerWrapperTest() override = default;
@@ -86,6 +97,8 @@ class FallbackDesktopCapturerWrapperTest : public ::testing::Test,
 };
 
 FallbackDesktopCapturerWrapperTest::FallbackDesktopCapturerWrapperTest() {
+  RTC_LOG(LS_INFO) << __func__;
+
   frame_generator_.size()->set(1024, 768);
   std::unique_ptr<DesktopCapturer> main_capturer =
       CreateDesktopCapturer(&frame_generator_);
@@ -102,6 +115,8 @@ FallbackDesktopCapturerWrapperTest::FallbackDesktopCapturerWrapperTest() {
 void FallbackDesktopCapturerWrapperTest::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   results_.emplace_back(result, !!frame);
 }
 

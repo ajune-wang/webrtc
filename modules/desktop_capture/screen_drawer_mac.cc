@@ -14,16 +14,21 @@
 
 #include "modules/desktop_capture/screen_drawer.h"
 #include "modules/desktop_capture/screen_drawer_lock_posix.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 // static
 std::unique_ptr<ScreenDrawerLock> ScreenDrawerLock::Create() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<ScreenDrawerLockPosix>();
 }
 
 // static
 std::unique_ptr<ScreenDrawer> ScreenDrawer::Create() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return nullptr;
 }
 

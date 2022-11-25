@@ -655,6 +655,7 @@ int VideoReceiveStream2::GetBaseMinimumPlayoutDelayMs() const {
 }
 
 void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
+  RTC_LOG(LS_INFO) << __func__;
   VideoFrameMetaData frame_meta(video_frame, clock_->CurrentTime());
 
   // TODO(bugs.webrtc.org/10739): we should set local capture clock offset for

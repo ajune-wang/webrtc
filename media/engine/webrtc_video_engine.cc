@@ -3198,6 +3198,7 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::StartReceiveStream() {
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::OnFrame(
     const webrtc::VideoFrame& frame) {
   webrtc::MutexLock lock(&sink_lock_);
+  RTC_LOG(LS_INFO) << __func__;
 
   int64_t time_now_ms = rtc::TimeMillis();
   if (first_frame_timestamp_ < 0)

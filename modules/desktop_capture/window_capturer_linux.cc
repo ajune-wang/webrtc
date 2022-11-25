@@ -12,6 +12,7 @@
 
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
+#include "rtc_base/logging.h"
 
 #if defined(WEBRTC_USE_PIPEWIRE)
 #include "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h"
@@ -26,6 +27,8 @@ namespace webrtc {
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(WEBRTC_USE_PIPEWIRE)
   if (options.allow_pipewire() && BaseCapturerPipeWire::IsSupported()) {
     return std::make_unique<BaseCapturerPipeWire>(options,

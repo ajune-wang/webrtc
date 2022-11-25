@@ -47,6 +47,8 @@ static wchar_t kMagnifierWindowName[] = L"MagnifierWindow";
 
 ScreenCapturerWinMagnifier::ScreenCapturerWinMagnifier() = default;
 ScreenCapturerWinMagnifier::~ScreenCapturerWinMagnifier() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // DestroyWindow must be called before MagUninitialize. magnifier_window_ is
   // destroyed automatically when host_window_ is destroyed.
   if (host_window_)
@@ -63,6 +65,8 @@ ScreenCapturerWinMagnifier::~ScreenCapturerWinMagnifier() {
 }
 
 void ScreenCapturerWinMagnifier::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kScreenCapturerWinMagnifier);
@@ -76,10 +80,14 @@ void ScreenCapturerWinMagnifier::Start(Callback* callback) {
 
 void ScreenCapturerWinMagnifier::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   shared_memory_factory_ = std::move(shared_memory_factory);
 }
 
 void ScreenCapturerWinMagnifier::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
   if (!magnifier_initialized_) {
     RTC_LOG_F(LS_WARNING) << "Magnifier initialization failed.";
@@ -131,10 +139,14 @@ void ScreenCapturerWinMagnifier::CaptureFrame() {
 }
 
 bool ScreenCapturerWinMagnifier::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return webrtc::GetScreenList(sources);
 }
 
 bool ScreenCapturerWinMagnifier::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (IsScreenValid(id, &current_device_key_)) {
     current_screen_id_ = id;
     return true;
@@ -144,6 +156,8 @@ bool ScreenCapturerWinMagnifier::SelectSource(SourceId id) {
 }
 
 void ScreenCapturerWinMagnifier::SetExcludedWindow(WindowId excluded_window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   excluded_window_ = (HWND)excluded_window;
   if (excluded_window_ && magnifier_initialized_) {
     set_window_filter_list_func_(magnifier_window_, MW_FILTERMODE_EXCLUDE, 1,
@@ -152,6 +166,8 @@ void ScreenCapturerWinMagnifier::SetExcludedWindow(WindowId excluded_window) {
 }
 
 bool ScreenCapturerWinMagnifier::CaptureImage(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(magnifier_initialized_);
 
   // Set the magnifier control to cover the captured rect. The content of the
@@ -195,6 +211,8 @@ BOOL ScreenCapturerWinMagnifier::OnMagImageScalingCallback(
     RECT unclipped,
     RECT clipped,
     HRGN dirty) {
+  RTC_LOG(LS_INFO) << __func__;
+
   ScreenCapturerWinMagnifier* owner =
       reinterpret_cast<ScreenCapturerWinMagnifier*>(TlsGetValue(GetTlsIndex()));
   TlsSetValue(GetTlsIndex(), nullptr);
@@ -207,6 +225,8 @@ BOOL ScreenCapturerWinMagnifier::OnMagImageScalingCallback(
 // do not need to use LoadLibrary and GetProcAddress anymore. Use regular
 // include and function calls instead of a dynamical loaded library.
 bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!magnifier_initialized_);
 
   if (GetSystemMetrics(SM_CMONITORS) != 1) {
@@ -335,6 +355,8 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
 
 void ScreenCapturerWinMagnifier::OnCaptured(void* data,
                                             const MAGIMAGEHEADER& header) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopFrame* current_frame = queue_.current_frame();
 
   // Verify the format.
@@ -374,6 +396,8 @@ void ScreenCapturerWinMagnifier::OnCaptured(void* data,
 
 void ScreenCapturerWinMagnifier::CreateCurrentFrameIfNecessary(
     const DesktopSize& size) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // If the current buffer is from an older generation then allocate a new one.
   // Note that we can't reallocate other buffers at this point, since the caller
   // may still be reading from them.

@@ -15,6 +15,7 @@
 
 #include "modules/desktop_capture/desktop_region.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -34,6 +35,8 @@ class CroppedDesktopFrame : public DesktopFrame {
 std::unique_ptr<DesktopFrame> CreateCroppedDesktopFrame(
     std::unique_ptr<DesktopFrame> frame,
     const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(frame);
 
   DesktopRect intersection = DesktopRect::MakeSize(frame->size());
@@ -57,6 +60,8 @@ CroppedDesktopFrame::CroppedDesktopFrame(std::unique_ptr<DesktopFrame> frame,
                    frame->GetFrameDataAtPos(rect.top_left()),
                    frame->shared_memory()),
       frame_(std::move(frame)) {
+  RTC_LOG(LS_INFO) << __func__;
+
   MoveFrameInfoFrom(frame_.get());
   set_top_left(frame_->top_left().add(rect.top_left()));
   mutable_updated_region()->IntersectWith(rect);

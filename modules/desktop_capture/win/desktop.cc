@@ -17,9 +17,13 @@
 
 namespace webrtc {
 
-Desktop::Desktop(HDESK desktop, bool own) : desktop_(desktop), own_(own) {}
+Desktop::Desktop(HDESK desktop, bool own) : desktop_(desktop), own_(own) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 Desktop::~Desktop() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (own_ && desktop_ != NULL) {
     if (!::CloseDesktop(desktop_)) {
       RTC_LOG(LS_ERROR) << "Failed to close the owned desktop handle: "
@@ -29,6 +33,8 @@ Desktop::~Desktop() {
 }
 
 bool Desktop::GetName(std::wstring* desktop_name_out) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (desktop_ == NULL)
     return false;
 
@@ -50,6 +56,8 @@ bool Desktop::GetName(std::wstring* desktop_name_out) const {
 }
 
 bool Desktop::IsSame(const Desktop& other) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::wstring name;
   if (!GetName(&name))
     return false;
@@ -62,6 +70,8 @@ bool Desktop::IsSame(const Desktop& other) const {
 }
 
 bool Desktop::SetThreadDesktop() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!::SetThreadDesktop(desktop_)) {
     RTC_LOG(LS_ERROR) << "Failed to assign the desktop to the current thread: "
                       << GetLastError();
@@ -72,6 +82,8 @@ bool Desktop::SetThreadDesktop() const {
 }
 
 Desktop* Desktop::GetDesktop(const WCHAR* desktop_name) {
+  RTC_LOG(LS_INFO) << __func__;
+
   ACCESS_MASK desired_access = DESKTOP_CREATEMENU | DESKTOP_CREATEWINDOW |
                                DESKTOP_ENUMERATE | DESKTOP_HOOKCONTROL |
                                DESKTOP_WRITEOBJECTS | DESKTOP_READOBJECTS |
@@ -87,6 +99,8 @@ Desktop* Desktop::GetDesktop(const WCHAR* desktop_name) {
 }
 
 Desktop* Desktop::GetInputDesktop() {
+  RTC_LOG(LS_INFO) << __func__;
+
   HDESK desktop = OpenInputDesktop(
       0, FALSE, GENERIC_READ | GENERIC_WRITE | GENERIC_EXECUTE);
   if (desktop == NULL)
@@ -96,6 +110,8 @@ Desktop* Desktop::GetInputDesktop() {
 }
 
 Desktop* Desktop::GetThreadDesktop() {
+  RTC_LOG(LS_INFO) << __func__;
+
   HDESK desktop = ::GetThreadDesktop(GetCurrentThreadId());
   if (desktop == NULL) {
     RTC_LOG(LS_ERROR)

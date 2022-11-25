@@ -32,11 +32,15 @@ bool IsValidRect(const RECT& rect) {
 }  // namespace
 
 DxgiAdapterDuplicator::DxgiAdapterDuplicator(const D3dDevice& device)
-    : device_(device) {}
+    : device_(device) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 DxgiAdapterDuplicator::DxgiAdapterDuplicator(DxgiAdapterDuplicator&&) = default;
 DxgiAdapterDuplicator::~DxgiAdapterDuplicator() = default;
 
 bool DxgiAdapterDuplicator::Initialize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (DoInitialize()) {
     return true;
   }
@@ -45,6 +49,8 @@ bool DxgiAdapterDuplicator::Initialize() {
 }
 
 bool DxgiAdapterDuplicator::DoInitialize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   for (int i = 0;; i++) {
     ComPtr<IDXGIOutput> output;
     _com_error error =
@@ -111,6 +117,8 @@ bool DxgiAdapterDuplicator::DoInitialize() {
 }
 
 void DxgiAdapterDuplicator::Setup(Context* context) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(context->contexts.empty());
   context->contexts.resize(duplicators_.size());
   for (size_t i = 0; i < duplicators_.size(); i++) {
@@ -119,6 +127,8 @@ void DxgiAdapterDuplicator::Setup(Context* context) {
 }
 
 void DxgiAdapterDuplicator::Unregister(const Context* const context) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_EQ(context->contexts.size(), duplicators_.size());
   for (size_t i = 0; i < duplicators_.size(); i++) {
     duplicators_[i].Unregister(&context->contexts[i]);
@@ -127,6 +137,8 @@ void DxgiAdapterDuplicator::Unregister(const Context* const context) {
 
 bool DxgiAdapterDuplicator::Duplicate(Context* context,
                                       SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_EQ(context->contexts.size(), duplicators_.size());
   for (size_t i = 0; i < duplicators_.size(); i++) {
     if (!duplicators_[i].Duplicate(&context->contexts[i],
@@ -141,6 +153,8 @@ bool DxgiAdapterDuplicator::Duplicate(Context* context,
 bool DxgiAdapterDuplicator::DuplicateMonitor(Context* context,
                                              int monitor_id,
                                              SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GE(monitor_id, 0);
   RTC_DCHECK_LT(monitor_id, duplicators_.size());
   RTC_DCHECK_EQ(context->contexts.size(), duplicators_.size());
@@ -149,22 +163,30 @@ bool DxgiAdapterDuplicator::DuplicateMonitor(Context* context,
 }
 
 DesktopRect DxgiAdapterDuplicator::ScreenRect(int id) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GE(id, 0);
   RTC_DCHECK_LT(id, duplicators_.size());
   return duplicators_[id].desktop_rect();
 }
 
 const std::string& DxgiAdapterDuplicator::GetDeviceName(int id) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GE(id, 0);
   RTC_DCHECK_LT(id, duplicators_.size());
   return duplicators_[id].device_name();
 }
 
 int DxgiAdapterDuplicator::screen_count() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return static_cast<int>(duplicators_.size());
 }
 
 int64_t DxgiAdapterDuplicator::GetNumFramesCaptured() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   int64_t min = INT64_MAX;
   for (const auto& duplicator : duplicators_) {
     min = std::min(min, duplicator.num_frames_captured());
@@ -174,6 +196,8 @@ int64_t DxgiAdapterDuplicator::GetNumFramesCaptured() const {
 }
 
 void DxgiAdapterDuplicator::TranslateRect(const DesktopVector& position) {
+  RTC_LOG(LS_INFO) << __func__;
+
   desktop_rect_.Translate(position);
   RTC_DCHECK_GE(desktop_rect_.left(), 0);
   RTC_DCHECK_GE(desktop_rect_.top(), 0);

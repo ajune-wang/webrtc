@@ -21,6 +21,7 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -95,6 +96,8 @@ DesktopFrameWithCursor::DesktopFrameWithCursor(
                    frame->data(),
                    frame->shared_memory()),
       original_frame_(std::move(frame)) {
+  RTC_LOG(LS_INFO) << __func__;
+
   MoveFrameInfoFrom(original_frame_.get());
 
   DesktopVector image_pos = position.subtract(cursor.hotspot());
@@ -137,6 +140,8 @@ DesktopFrameWithCursor::DesktopFrameWithCursor(
 }
 
 DesktopFrameWithCursor::~DesktopFrameWithCursor() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Restore original content of the frame.
   if (restore_frame_) {
     DesktopRect target_rect = DesktopRect::MakeSize(restore_frame_->size());
@@ -152,12 +157,16 @@ DesktopAndCursorComposer::DesktopAndCursorComposer(
     std::unique_ptr<DesktopCapturer> desktop_capturer,
     const DesktopCaptureOptions& options)
     : DesktopAndCursorComposer(desktop_capturer.release(),
-                               MouseCursorMonitor::Create(options).release()) {}
+                               MouseCursorMonitor::Create(options).release()) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopAndCursorComposer::DesktopAndCursorComposer(
     DesktopCapturer* desktop_capturer,
     MouseCursorMonitor* mouse_monitor)
     : desktop_capturer_(desktop_capturer), mouse_monitor_(mouse_monitor) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(desktop_capturer_);
 }
 
@@ -166,11 +175,15 @@ DesktopAndCursorComposer::~DesktopAndCursorComposer() = default;
 std::unique_ptr<DesktopAndCursorComposer>
 DesktopAndCursorComposer::CreateWithoutMouseCursorMonitor(
     std::unique_ptr<DesktopCapturer> desktop_capturer) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::unique_ptr<DesktopAndCursorComposer>(
       new DesktopAndCursorComposer(desktop_capturer.release(), nullptr));
 }
 
 void DesktopAndCursorComposer::Start(DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   callback_ = callback;
   if (mouse_monitor_)
     mouse_monitor_->Init(this, MouseCursorMonitor::SHAPE_AND_POSITION);
@@ -179,37 +192,53 @@ void DesktopAndCursorComposer::Start(DesktopCapturer::Callback* callback) {
 
 void DesktopAndCursorComposer::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   desktop_capturer_->SetSharedMemoryFactory(std::move(shared_memory_factory));
 }
 
 void DesktopAndCursorComposer::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (mouse_monitor_)
     mouse_monitor_->Capture();
   desktop_capturer_->CaptureFrame();
 }
 
 void DesktopAndCursorComposer::SetExcludedWindow(WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   desktop_capturer_->SetExcludedWindow(window);
 }
 
 bool DesktopAndCursorComposer::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_capturer_->GetSourceList(sources);
 }
 
 bool DesktopAndCursorComposer::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_capturer_->SelectSource(id);
 }
 
 bool DesktopAndCursorComposer::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_capturer_->FocusOnSelectedSource();
 }
 
 bool DesktopAndCursorComposer::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_capturer_->IsOccluded(pos);
 }
 
 #if defined(WEBRTC_USE_GIO)
 DesktopCaptureMetadata DesktopAndCursorComposer::GetMetadata() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_capturer_->GetMetadata();
 }
 #endif  // defined(WEBRTC_USE_GIO)
@@ -217,6 +246,8 @@ DesktopCaptureMetadata DesktopAndCursorComposer::GetMetadata() {
 void DesktopAndCursorComposer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (frame && cursor_) {
     if (!frame->may_contain_cursor() &&
         frame->rect().Contains(cursor_position_) &&
@@ -248,12 +279,16 @@ void DesktopAndCursorComposer::OnCaptureResult(
 }
 
 void DesktopAndCursorComposer::OnMouseCursor(MouseCursor* cursor) {
+  RTC_LOG(LS_INFO) << __func__;
+
   cursor_changed_ = true;
   cursor_.reset(cursor);
 }
 
 void DesktopAndCursorComposer::OnMouseCursorPosition(
     const DesktopVector& position) {
+  RTC_LOG(LS_INFO) << __func__;
+
   cursor_position_ = position;
 }
 

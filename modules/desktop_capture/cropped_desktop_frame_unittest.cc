@@ -15,11 +15,14 @@
 
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 std::unique_ptr<DesktopFrame> CreateTestFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return std::make_unique<BasicDesktopFrame>(DesktopSize(10, 20));
 }
 

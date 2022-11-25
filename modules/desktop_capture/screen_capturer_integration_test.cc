@@ -16,6 +16,8 @@
 #include <memory>
 #include <utility>
 
+#include "rtc_base/logging.h"
+
 // TODO(zijiehe): Remove once flaky has been resolved.
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
@@ -78,6 +80,8 @@ bool ArePixelsColoredBy(const DesktopFrame& frame,
 }  // namespace
 
 class ScreenCapturerIntegrationTest : public ::testing::Test {
+  RTC_LOG(LS_INFO) << __func__;
+
  public:
   void SetUp() override {
     capturer_ = DesktopCapturer::CreateScreenCapturer(

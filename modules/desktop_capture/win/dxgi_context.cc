@@ -11,6 +11,7 @@
 #include "modules/desktop_capture/win/dxgi_context.h"
 
 #include "modules/desktop_capture/win/dxgi_duplicator_controller.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -22,10 +23,14 @@ DxgiAdapterContext::~DxgiAdapterContext() = default;
 DxgiFrameContext::DxgiFrameContext() = default;
 
 DxgiFrameContext::~DxgiFrameContext() {
+  RTC_LOG(LS_INFO) << __func__;
+
   Reset();
 }
 
 void DxgiFrameContext::Reset() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DxgiDuplicatorController::Instance()->Unregister(this);
   controller_id = 0;
 }

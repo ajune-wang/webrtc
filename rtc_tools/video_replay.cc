@@ -30,6 +30,7 @@
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/string_to_number.h"
 #include "rtc_base/strings/json.h"
 #include "rtc_base/time_utils.h"
@@ -207,6 +208,7 @@ class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
 
  private:
   void OnFrame(const VideoFrame& video_frame) override {
+    RTC_LOG(LS_INFO) << __func__;
     if (renderer_)
       renderer_->OnFrame(video_frame);
 

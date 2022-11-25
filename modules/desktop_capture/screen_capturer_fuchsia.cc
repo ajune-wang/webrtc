@@ -56,6 +56,8 @@ size_t RoundUpToMultiple(size_t value, size_t multiple) {
 
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (ScreenCapturerFuchsia::CheckRequirements()) {
     std::unique_ptr<ScreenCapturerFuchsia> capturer(
         new ScreenCapturerFuchsia());
@@ -66,10 +68,14 @@ std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawScreenCapturer(
 
 ScreenCapturerFuchsia::ScreenCapturerFuchsia()
     : component_context_(sys::ComponentContext::Create()) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(CheckRequirements());
 }
 
 ScreenCapturerFuchsia::~ScreenCapturerFuchsia() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // unmap virtual memory mapped pointers
   uint32_t virt_mem_bytes =
       buffer_collection_info_.settings.buffer_settings.size_bytes;
@@ -84,6 +90,8 @@ ScreenCapturerFuchsia::~ScreenCapturerFuchsia() {
 
 // TODO(fxbug.dev/100303): Remove this function when Flatland is the only API.
 bool ScreenCapturerFuchsia::CheckRequirements() {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<sys::ComponentContext> component_context =
       sys::ComponentContext::Create();
   fuchsia::ui::scenic::ScenicSyncPtr scenic;
@@ -103,6 +111,8 @@ bool ScreenCapturerFuchsia::CheckRequirements() {
 }
 
 void ScreenCapturerFuchsia::Start(Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   callback_ = callback;
@@ -113,6 +123,8 @@ void ScreenCapturerFuchsia::Start(Callback* callback) {
 }
 
 void ScreenCapturerFuchsia::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (fatal_error_) {
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
@@ -180,6 +192,8 @@ void ScreenCapturerFuchsia::CaptureFrame() {
 }
 
 bool ScreenCapturerFuchsia::GetSourceList(SourceList* screens) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(screens->size() == 0);
   // Fuchsia only supports single monitor display at this point
   screens->push_back({kFuchsiaScreenId, std::string("Fuchsia monitor")});
@@ -187,6 +201,8 @@ bool ScreenCapturerFuchsia::GetSourceList(SourceList* screens) {
 }
 
 bool ScreenCapturerFuchsia::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (id == kFuchsiaScreenId || id == kFullDesktopScreenId) {
     return true;
   }
@@ -195,6 +211,8 @@ bool ScreenCapturerFuchsia::SelectSource(SourceId id) {
 
 fuchsia::sysmem::BufferCollectionConstraints
 ScreenCapturerFuchsia::GetBufferConstraints() {
+  RTC_LOG(LS_INFO) << __func__;
+
   fuchsia::sysmem::BufferCollectionConstraints constraints;
   constraints.usage.cpu =
       fuchsia::sysmem::cpuUsageRead | fuchsia::sysmem::cpuUsageWrite;
@@ -226,6 +244,8 @@ ScreenCapturerFuchsia::GetBufferConstraints() {
 }
 
 void ScreenCapturerFuchsia::SetupBuffers() {
+  RTC_LOG(LS_INFO) << __func__;
+
   fuchsia::ui::scenic::ScenicSyncPtr scenic;
   zx_status_t status = component_context_->svc()->Connect(scenic.NewRequest());
   if (status != ZX_OK) {
@@ -406,6 +426,8 @@ void ScreenCapturerFuchsia::SetupBuffers() {
 
 uint32_t ScreenCapturerFuchsia::GetPixelsPerRow(
     const fuchsia::sysmem::ImageFormatConstraints& constraints) {
+  RTC_LOG(LS_INFO) << __func__;
+
   uint32_t stride = RoundUpToMultiple(
       std::max(constraints.min_bytes_per_row, width_ * kFuchsiaBytesPerPixel),
       constraints.bytes_per_row_divisor);

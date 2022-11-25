@@ -100,12 +100,18 @@ WgcCaptureSession::WgcCaptureSession(ComPtr<ID3D11Device> d3d11_device,
                                      ABI::Windows::Graphics::SizeInt32 size)
     : d3d11_device_(std::move(d3d11_device)),
       item_(std::move(item)),
-      size_(size) {}
+      size_(size) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 WgcCaptureSession::~WgcCaptureSession() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RemoveEventHandlers();
 }
 
 HRESULT WgcCaptureSession::StartCapture() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!is_capture_started_);
 
@@ -202,6 +208,8 @@ HRESULT WgcCaptureSession::StartCapture() {
 
 HRESULT WgcCaptureSession::GetFrame(
     std::unique_ptr<DesktopFrame>* output_frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   if (item_closed_) {
@@ -354,6 +362,8 @@ HRESULT WgcCaptureSession::CreateMappedTexture(
     ComPtr<ID3D11Texture2D> src_texture,
     UINT width,
     UINT height) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   D3D11_TEXTURE2D_DESC src_desc;
@@ -375,6 +385,8 @@ HRESULT WgcCaptureSession::CreateMappedTexture(
 HRESULT WgcCaptureSession::OnFrameArrived(
     WGC::IDirect3D11CaptureFramePool* sender,
     IInspectable* event_args) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK_LT(frames_in_pool_, kNumBuffers);
   ++frames_in_pool_;
@@ -384,6 +396,8 @@ HRESULT WgcCaptureSession::OnFrameArrived(
 
 HRESULT WgcCaptureSession::OnItemClosed(WGC::IGraphicsCaptureItem* sender,
                                         IInspectable* event_args) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   RTC_LOG(LS_INFO) << "Capture target has been closed.";
@@ -403,6 +417,8 @@ HRESULT WgcCaptureSession::OnItemClosed(WGC::IGraphicsCaptureItem* sender,
 }
 
 void WgcCaptureSession::RemoveEventHandlers() {
+  RTC_LOG(LS_INFO) << __func__;
+
   HRESULT hr;
   if (frame_pool_ && frame_arrived_token_) {
     hr = frame_pool_->remove_FrameArrived(*frame_arrived_token_);

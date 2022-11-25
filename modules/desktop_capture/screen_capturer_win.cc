@@ -19,12 +19,15 @@
 #include "modules/desktop_capture/win/screen_capturer_win_directx.h"
 #include "modules/desktop_capture/win/screen_capturer_win_gdi.h"
 #include "modules/desktop_capture/win/screen_capturer_win_magnifier.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 namespace {
 
 std::unique_ptr<DesktopCapturer> CreateScreenCapturerWinDirectx() {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<DesktopCapturer> capturer(new ScreenCapturerWinDirectx());
   capturer.reset(new BlankDetectorDesktopCapturerWrapper(
       std::move(capturer), RgbaColor(0, 0, 0, 0)));
@@ -36,6 +39,8 @@ std::unique_ptr<DesktopCapturer> CreateScreenCapturerWinDirectx() {
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<DesktopCapturer> capturer(new ScreenCapturerWinGdi(options));
   if (options.allow_directx_capturer()) {
     // `dxgi_duplicator_controller` should be alive in this scope to ensure it

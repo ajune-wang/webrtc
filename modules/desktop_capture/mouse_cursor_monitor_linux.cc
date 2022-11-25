@@ -12,6 +12,7 @@
 
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
+#include "rtc_base/logging.h"
 
 #if defined(WEBRTC_USE_X11)
 #include "modules/desktop_capture/linux/x11/mouse_cursor_monitor_x11.h"
@@ -27,6 +28,8 @@ namespace webrtc {
 MouseCursorMonitor* MouseCursorMonitor::CreateForWindow(
     const DesktopCaptureOptions& options,
     WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(WEBRTC_USE_X11)
   return MouseCursorMonitorX11::CreateForWindow(options, window);
 #else
@@ -38,6 +41,8 @@ MouseCursorMonitor* MouseCursorMonitor::CreateForWindow(
 MouseCursorMonitor* MouseCursorMonitor::CreateForScreen(
     const DesktopCaptureOptions& options,
     ScreenId screen) {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(WEBRTC_USE_X11)
   return MouseCursorMonitorX11::CreateForScreen(options, screen);
 #else
@@ -48,6 +53,8 @@ MouseCursorMonitor* MouseCursorMonitor::CreateForScreen(
 // static
 std::unique_ptr<MouseCursorMonitor> MouseCursorMonitor::Create(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(WEBRTC_USE_PIPEWIRE)
   if (options.allow_pipewire() && DesktopCapturer::IsRunningUnderWayland() &&
       options.screencast_stream()) {

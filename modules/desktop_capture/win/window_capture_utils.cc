@@ -10,6 +10,8 @@
 
 #include "modules/desktop_capture/win/window_capture_utils.h"
 
+#include "rtc_base/logging.h"
+
 // Just for the DWMWINDOWATTRIBUTE enums (DWMWA_CLOAKED).
 #include <dwmapi.h>
 
@@ -302,6 +304,8 @@ bool GetWindowList(int flags,
 
 // WindowCaptureHelperWin implementation.
 WindowCaptureHelperWin::WindowCaptureHelperWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Try to load dwmapi.dll dynamically since it is not available on XP.
   dwmapi_library_ = LoadLibraryW(L"dwmapi.dll");
   if (dwmapi_library_) {
@@ -322,12 +326,16 @@ WindowCaptureHelperWin::WindowCaptureHelperWin() {
 }
 
 WindowCaptureHelperWin::~WindowCaptureHelperWin() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (dwmapi_library_) {
     FreeLibrary(dwmapi_library_);
   }
 }
 
 bool WindowCaptureHelperWin::IsAeroEnabled() {
+  RTC_LOG(LS_INFO) << __func__;
+
   BOOL result = FALSE;
   if (func_) {
     func_(&result);
@@ -340,6 +348,8 @@ bool WindowCaptureHelperWin::IsAeroEnabled() {
 // window includes: no title, class name with prefix "Chrome_WidgetWin_" and
 // with certain extended styles.
 bool WindowCaptureHelperWin::IsWindowChromeNotification(HWND hwnd) {
+  RTC_LOG(LS_INFO) << __func__;
+
   const size_t kTitleLength = 32;
   WCHAR window_title[kTitleLength];
   GetWindowTextW(hwnd, window_title, kTitleLength);
@@ -386,6 +396,8 @@ bool WindowCaptureHelperWin::AreWindowsOverlapping(
     HWND hwnd,
     HWND selected_hwnd,
     const DesktopRect& selected_window_rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopRect content_rect;
   if (!GetWindowContentRect(hwnd, &content_rect)) {
     // Bail out if failed to get the window area.
@@ -419,6 +431,8 @@ bool WindowCaptureHelperWin::AreWindowsOverlapping(
 }
 
 bool WindowCaptureHelperWin::IsWindowOnCurrentDesktop(HWND hwnd) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // Make sure the window is on the current virtual desktop.
   if (virtual_desktop_manager_) {
     BOOL on_current_desktop;
@@ -432,6 +446,8 @@ bool WindowCaptureHelperWin::IsWindowOnCurrentDesktop(HWND hwnd) {
 }
 
 bool WindowCaptureHelperWin::IsWindowVisibleOnCurrentDesktop(HWND hwnd) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return IsWindowValidAndVisible(hwnd) && IsWindowOnCurrentDesktop(hwnd) &&
          !IsWindowCloaked(hwnd);
 }
@@ -439,6 +455,8 @@ bool WindowCaptureHelperWin::IsWindowVisibleOnCurrentDesktop(HWND hwnd) {
 // A cloaked window is composited but not visible to the user.
 // Example: Cortana or the Action Center when collapsed.
 bool WindowCaptureHelperWin::IsWindowCloaked(HWND hwnd) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!dwm_get_window_attribute_func_) {
     // Does not apply.
     return false;
@@ -458,6 +476,8 @@ bool WindowCaptureHelperWin::EnumerateCapturableWindows(
     DesktopCapturer::SourceList* results,
     bool enumerate_current_process_windows,
     LONG ex_style_filters) {
+  RTC_LOG(LS_INFO) << __func__;
+
   int flags = (GetWindowListFlags::kIgnoreUntitled |
                GetWindowListFlags::kIgnoreUnresponsive);
   if (!enumerate_current_process_windows) {

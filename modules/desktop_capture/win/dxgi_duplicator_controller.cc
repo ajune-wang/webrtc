@@ -48,6 +48,8 @@ bool IsConsoleSession() {
 // static
 std::string DxgiDuplicatorController::ResultName(
     DxgiDuplicatorController::Result result) {
+  RTC_LOG(LS_INFO) << __func__;
+
   switch (result) {
     case Result::SUCCEEDED:
       return "Succeeded";
@@ -69,6 +71,8 @@ std::string DxgiDuplicatorController::ResultName(
 // static
 rtc::scoped_refptr<DxgiDuplicatorController>
 DxgiDuplicatorController::Instance() {
+  RTC_LOG(LS_INFO) << __func__;
+
   // The static instance won't be deleted to ensure it can be used by other
   // threads even during program exiting.
   static DxgiDuplicatorController* instance = new DxgiDuplicatorController();
@@ -77,18 +81,26 @@ DxgiDuplicatorController::Instance() {
 
 // static
 bool DxgiDuplicatorController::IsCurrentSessionSupported() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DWORD current_session_id = GetCurrentSessionId();
   return current_session_id != kInvalidSessionId && current_session_id != 0;
 }
 
-DxgiDuplicatorController::DxgiDuplicatorController() : refcount_(0) {}
+DxgiDuplicatorController::DxgiDuplicatorController() : refcount_(0) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 void DxgiDuplicatorController::AddRef() {
+  RTC_LOG(LS_INFO) << __func__;
+
   int refcount = (++refcount_);
   RTC_DCHECK(refcount > 0);
 }
 
 void DxgiDuplicatorController::Release() {
+  RTC_LOG(LS_INFO) << __func__;
+
   int refcount = (--refcount_);
   RTC_DCHECK(refcount >= 0);
   if (refcount == 0) {
@@ -99,11 +111,15 @@ void DxgiDuplicatorController::Release() {
 }
 
 bool DxgiDuplicatorController::IsSupported() {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock lock(&mutex_);
   return Initialize();
 }
 
 bool DxgiDuplicatorController::RetrieveD3dInfo(D3dInfo* info) {
+  RTC_LOG(LS_INFO) << __func__;
+
   bool result = false;
   {
     MutexLock lock(&mutex_);
@@ -119,17 +135,23 @@ bool DxgiDuplicatorController::RetrieveD3dInfo(D3dInfo* info) {
 
 DxgiDuplicatorController::Result DxgiDuplicatorController::Duplicate(
     DxgiFrame* frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return DoDuplicate(frame, -1);
 }
 
 DxgiDuplicatorController::Result DxgiDuplicatorController::DuplicateMonitor(
     DxgiFrame* frame,
     int monitor_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GE(monitor_id, 0);
   return DoDuplicate(frame, monitor_id);
 }
 
 DesktopVector DxgiDuplicatorController::dpi() {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock lock(&mutex_);
   if (Initialize()) {
     return dpi_;
@@ -138,6 +160,8 @@ DesktopVector DxgiDuplicatorController::dpi() {
 }
 
 int DxgiDuplicatorController::ScreenCount() {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock lock(&mutex_);
   if (Initialize()) {
     return ScreenCountUnlocked();
@@ -147,6 +171,8 @@ int DxgiDuplicatorController::ScreenCount() {
 
 bool DxgiDuplicatorController::GetDeviceNames(
     std::vector<std::string>* output) {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock lock(&mutex_);
   if (Initialize()) {
     GetDeviceNamesUnlocked(output);
@@ -158,6 +184,8 @@ bool DxgiDuplicatorController::GetDeviceNames(
 DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
     DxgiFrame* frame,
     int monitor_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(frame);
   MutexLock lock(&mutex_);
 
@@ -212,11 +240,15 @@ DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
 }
 
 void DxgiDuplicatorController::Unload() {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock lock(&mutex_);
   Deinitialize();
 }
 
 void DxgiDuplicatorController::Unregister(const Context* const context) {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock lock(&mutex_);
   if (ContextExpired(context)) {
     // The Context has not been setup after a recent initialization, so it
@@ -229,6 +261,8 @@ void DxgiDuplicatorController::Unregister(const Context* const context) {
 }
 
 bool DxgiDuplicatorController::Initialize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!duplicators_.empty()) {
     return true;
   }
@@ -241,6 +275,8 @@ bool DxgiDuplicatorController::Initialize() {
 }
 
 bool DxgiDuplicatorController::DoInitialize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(desktop_rect_.is_empty());
   RTC_DCHECK(duplicators_.empty());
 
@@ -301,6 +337,8 @@ bool DxgiDuplicatorController::DoInitialize() {
 }
 
 void DxgiDuplicatorController::Deinitialize() {
+  RTC_LOG(LS_INFO) << __func__;
+
   desktop_rect_ = DesktopRect();
   duplicators_.clear();
   display_configuration_monitor_.Reset();
@@ -308,12 +346,16 @@ void DxgiDuplicatorController::Deinitialize() {
 
 bool DxgiDuplicatorController::ContextExpired(
     const Context* const context) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(context);
   return context->controller_id != identity_ ||
          context->contexts.size() != duplicators_.size();
 }
 
 void DxgiDuplicatorController::Setup(Context* context) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (ContextExpired(context)) {
     RTC_DCHECK(context);
     context->contexts.clear();
@@ -328,6 +370,8 @@ void DxgiDuplicatorController::Setup(Context* context) {
 bool DxgiDuplicatorController::DoDuplicateUnlocked(Context* context,
                                                    int monitor_id,
                                                    SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   Setup(context);
 
   if (!EnsureFrameCaptured(context, target)) {
@@ -352,6 +396,8 @@ bool DxgiDuplicatorController::DoDuplicateUnlocked(Context* context,
 
 bool DxgiDuplicatorController::DoDuplicateAll(Context* context,
                                               SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   for (size_t i = 0; i < duplicators_.size(); i++) {
     if (!duplicators_[i].Duplicate(&context->contexts[i], target)) {
       return false;
@@ -363,6 +409,8 @@ bool DxgiDuplicatorController::DoDuplicateAll(Context* context,
 bool DxgiDuplicatorController::DoDuplicateOne(Context* context,
                                               int monitor_id,
                                               SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(monitor_id >= 0);
   for (size_t i = 0; i < duplicators_.size() && i < context->contexts.size();
        i++) {
@@ -381,6 +429,8 @@ bool DxgiDuplicatorController::DoDuplicateOne(Context* context,
 }
 
 int64_t DxgiDuplicatorController::GetNumFramesCaptured() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   int64_t min = INT64_MAX;
   for (const auto& duplicator : duplicators_) {
     min = std::min(min, duplicator.GetNumFramesCaptured());
@@ -390,10 +440,14 @@ int64_t DxgiDuplicatorController::GetNumFramesCaptured() const {
 }
 
 DesktopSize DxgiDuplicatorController::desktop_size() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return desktop_rect_.size();
 }
 
 DesktopRect DxgiDuplicatorController::ScreenRect(int id) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(id >= 0);
   for (size_t i = 0; i < duplicators_.size(); i++) {
     if (id >= duplicators_[i].screen_count()) {
@@ -406,6 +460,8 @@ DesktopRect DxgiDuplicatorController::ScreenRect(int id) const {
 }
 
 int DxgiDuplicatorController::ScreenCountUnlocked() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   int result = 0;
   for (auto& duplicator : duplicators_) {
     result += duplicator.screen_count();
@@ -415,6 +471,8 @@ int DxgiDuplicatorController::ScreenCountUnlocked() const {
 
 void DxgiDuplicatorController::GetDeviceNamesUnlocked(
     std::vector<std::string>* output) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(output);
   for (auto& duplicator : duplicators_) {
     for (int i = 0; i < duplicator.screen_count(); i++) {
@@ -425,6 +483,8 @@ void DxgiDuplicatorController::GetDeviceNamesUnlocked(
 
 DesktopSize DxgiDuplicatorController::SelectedDesktopSize(
     int monitor_id) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (monitor_id < 0) {
     return desktop_size();
   }
@@ -434,6 +494,8 @@ DesktopSize DxgiDuplicatorController::SelectedDesktopSize(
 
 bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
                                                    SharedDesktopFrame* target) {
+  RTC_LOG(LS_INFO) << __func__;
+
   // On a modern system, the FPS / monitor refresh rate is usually larger than
   // or equal to 60. So 17 milliseconds is enough to capture at least one frame.
   const int64_t ms_per_frame = 17;
@@ -503,6 +565,8 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
 }
 
 void DxgiDuplicatorController::TranslateRect() {
+  RTC_LOG(LS_INFO) << __func__;
+
   const DesktopVector position =
       DesktopVector().subtract(desktop_rect_.top_left());
   desktop_rect_.Translate(position);

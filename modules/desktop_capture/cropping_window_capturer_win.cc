@@ -156,6 +156,8 @@ class CroppingWindowCapturerWin : public CroppingWindowCapturer {
 };
 
 void CroppingWindowCapturerWin::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopCapturer* win_capturer = window_capturer();
   if (win_capturer) {
     // Feed the actual list of windows into full screen window detector.
@@ -196,6 +198,8 @@ void CroppingWindowCapturerWin::CaptureFrame() {
 }
 
 bool CroppingWindowCapturerWin::ShouldUseScreenCapturer() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (rtc::rtc_win::GetVersion() < rtc::rtc_win::Version::VERSION_WIN8 &&
       window_capture_helper_.IsAeroEnabled()) {
     return false;
@@ -283,6 +287,8 @@ bool CroppingWindowCapturerWin::ShouldUseScreenCapturer() {
 }
 
 DesktopRect CroppingWindowCapturerWin::GetWindowRectInVirtualScreen() {
+  RTC_LOG(LS_INFO) << __func__;
+
   TRACE_EVENT0("webrtc",
                "CroppingWindowCapturerWin::GetWindowRectInVirtualScreen");
   DesktopRect window_rect;
@@ -302,6 +308,8 @@ DesktopRect CroppingWindowCapturerWin::GetWindowRectInVirtualScreen() {
 }
 
 WindowId CroppingWindowCapturerWin::GetWindowToCapture() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   const auto selected_source = selected_window();
   const auto full_screen_source =
       full_screen_window_detector_
@@ -315,6 +323,8 @@ WindowId CroppingWindowCapturerWin::GetWindowToCapture() const {
 // static
 std::unique_ptr<DesktopCapturer> CroppingWindowCapturer::CreateCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<DesktopCapturer> capturer(
       new CroppingWindowCapturerWin(options));
   if (capturer && options.detect_updated_region()) {

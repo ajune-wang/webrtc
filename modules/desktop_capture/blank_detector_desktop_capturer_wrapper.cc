@@ -17,6 +17,7 @@
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "modules/desktop_capture/desktop_region.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -28,6 +29,8 @@ BlankDetectorDesktopCapturerWrapper::BlankDetectorDesktopCapturerWrapper(
     : capturer_(std::move(capturer)),
       blank_pixel_(blank_pixel),
       check_per_capture_(check_per_capture) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(capturer_);
 }
 
@@ -36,29 +39,41 @@ BlankDetectorDesktopCapturerWrapper::~BlankDetectorDesktopCapturerWrapper() =
 
 void BlankDetectorDesktopCapturerWrapper::Start(
     DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << __func__;
+
   callback_ = callback;
   capturer_->Start(this);
 }
 
 void BlankDetectorDesktopCapturerWrapper::SetSharedMemoryFactory(
     std::unique_ptr<SharedMemoryFactory> shared_memory_factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   capturer_->SetSharedMemoryFactory(std::move(shared_memory_factory));
 }
 
 void BlankDetectorDesktopCapturerWrapper::CaptureFrame() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
   capturer_->CaptureFrame();
 }
 
 void BlankDetectorDesktopCapturerWrapper::SetExcludedWindow(WindowId window) {
+  RTC_LOG(LS_INFO) << __func__;
+
   capturer_->SetExcludedWindow(window);
 }
 
 bool BlankDetectorDesktopCapturerWrapper::GetSourceList(SourceList* sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return capturer_->GetSourceList(sources);
 }
 
 bool BlankDetectorDesktopCapturerWrapper::SelectSource(SourceId id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (check_per_capture_) {
     // If we start capturing a new source, we must reset these members
     // so we don't short circuit the blank detection logic.
@@ -70,16 +85,22 @@ bool BlankDetectorDesktopCapturerWrapper::SelectSource(SourceId id) {
 }
 
 bool BlankDetectorDesktopCapturerWrapper::FocusOnSelectedSource() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return capturer_->FocusOnSelectedSource();
 }
 
 bool BlankDetectorDesktopCapturerWrapper::IsOccluded(const DesktopVector& pos) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return capturer_->IsOccluded(pos);
 }
 
 void BlankDetectorDesktopCapturerWrapper::OnCaptureResult(
     Result result,
     std::unique_ptr<DesktopFrame> frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(callback_);
   if (result != Result::SUCCESS || non_blank_frame_received_) {
     callback_->OnCaptureResult(result, std::move(frame));
@@ -114,6 +135,8 @@ void BlankDetectorDesktopCapturerWrapper::OnCaptureResult(
 
 bool BlankDetectorDesktopCapturerWrapper::IsBlankFrame(
     const DesktopFrame& frame) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   // We will check 7489 pixels for a frame with 1024 x 768 resolution.
   for (int i = 0; i < frame.size().width() * frame.size().height(); i += 105) {
     const int x = i % frame.size().width();
@@ -132,6 +155,8 @@ bool BlankDetectorDesktopCapturerWrapper::IsBlankPixel(
     const DesktopFrame& frame,
     int x,
     int y) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   uint8_t* pixel_data = frame.GetFrameDataAtPos(DesktopVector(x, y));
   return RgbaColor(pixel_data) == blank_pixel_;
 }

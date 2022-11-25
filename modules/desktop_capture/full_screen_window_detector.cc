@@ -9,7 +9,9 @@
  */
 
 #include "modules/desktop_capture/full_screen_window_detector.h"
+
 #include "modules/desktop_capture/full_screen_application_handler.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -19,10 +21,14 @@ FullScreenWindowDetector::FullScreenWindowDetector(
     : application_handler_factory_(application_handler_factory),
       last_update_time_ms_(0),
       previous_source_id_(0),
-      no_handler_source_id_(0) {}
+      no_handler_source_id_(0) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopCapturer::SourceId FullScreenWindowDetector::FindFullScreenWindow(
     DesktopCapturer::SourceId original_source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (app_handler_ == nullptr ||
       app_handler_->GetSourceId() != original_source_id) {
     return 0;
@@ -33,6 +39,8 @@ DesktopCapturer::SourceId FullScreenWindowDetector::FindFullScreenWindow(
 void FullScreenWindowDetector::UpdateWindowListIfNeeded(
     DesktopCapturer::SourceId original_source_id,
     rtc::FunctionView<bool(DesktopCapturer::SourceList*)> get_sources) {
+  RTC_LOG(LS_INFO) << __func__;
+
   const bool skip_update = previous_source_id_ != original_source_id;
   previous_source_id_ = original_source_id;
 
@@ -66,6 +74,8 @@ void FullScreenWindowDetector::UpdateWindowListIfNeeded(
 
 void FullScreenWindowDetector::CreateApplicationHandlerIfNeeded(
     DesktopCapturer::SourceId source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (no_handler_source_id_ == source_id) {
     return;
   }

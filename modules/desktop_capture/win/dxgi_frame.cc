@@ -21,11 +21,15 @@
 
 namespace webrtc {
 
-DxgiFrame::DxgiFrame(SharedMemoryFactory* factory) : factory_(factory) {}
+DxgiFrame::DxgiFrame(SharedMemoryFactory* factory) : factory_(factory) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DxgiFrame::~DxgiFrame() = default;
 
 bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (source_id != source_id_) {
     // Once the source has been changed, the entire source should be copied.
     source_id_ = source_id;
@@ -65,11 +69,15 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
 }
 
 SharedDesktopFrame* DxgiFrame::frame() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(frame_);
   return frame_.get();
 }
 
 DxgiFrame::Context* DxgiFrame::context() {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(frame_);
   return &context_;
 }

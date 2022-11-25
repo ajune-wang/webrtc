@@ -10,6 +10,7 @@
 
 #include "modules/desktop_capture/rgba_color.h"
 
+#include "rtc_base/logging.h"
 #include "rtc_base/system/arch.h"
 
 namespace webrtc {
@@ -26,6 +27,8 @@ bool AlphaEquals(uint8_t i, uint8_t j) {
 }  // namespace
 
 RgbaColor::RgbaColor(uint8_t blue, uint8_t green, uint8_t red, uint8_t alpha) {
+  RTC_LOG(LS_INFO) << __func__;
+
   this->blue = blue;
   this->green = green;
   this->red = red;
@@ -33,24 +36,36 @@ RgbaColor::RgbaColor(uint8_t blue, uint8_t green, uint8_t red, uint8_t alpha) {
 }
 
 RgbaColor::RgbaColor(uint8_t blue, uint8_t green, uint8_t red)
-    : RgbaColor(blue, green, red, 0xff) {}
+    : RgbaColor(blue, green, red, 0xff) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 RgbaColor::RgbaColor(const uint8_t* bgra)
-    : RgbaColor(bgra[0], bgra[1], bgra[2], bgra[3]) {}
+    : RgbaColor(bgra[0], bgra[1], bgra[2], bgra[3]) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 RgbaColor::RgbaColor(uint32_t bgra)
-    : RgbaColor(reinterpret_cast<uint8_t*>(&bgra)) {}
+    : RgbaColor(reinterpret_cast<uint8_t*>(&bgra)) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 bool RgbaColor::operator==(const RgbaColor& right) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return blue == right.blue && green == right.green && red == right.red &&
          AlphaEquals(alpha, right.alpha);
 }
 
 bool RgbaColor::operator!=(const RgbaColor& right) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return !(*this == right);
 }
 
 uint32_t RgbaColor::ToUInt32() const {
+  RTC_LOG(LS_INFO) << __func__;
+
 #if defined(WEBRTC_ARCH_LITTLE_ENDIAN)
   return blue | (green << 8) | (red << 16) | (alpha << 24);
 #else

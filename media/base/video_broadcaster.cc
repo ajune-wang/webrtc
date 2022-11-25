@@ -64,6 +64,7 @@ VideoSinkWants VideoBroadcaster::wants() const {
 }
 
 void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
+  RTC_LOG(LS_INFO) << __func__;
   webrtc::MutexLock lock(&sinks_and_wants_lock_);
   bool current_frame_was_discarded = false;
   for (auto& sink_pair : sink_pairs()) {

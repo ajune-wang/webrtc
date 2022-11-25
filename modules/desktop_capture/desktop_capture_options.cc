@@ -11,6 +11,7 @@
 #include "modules/desktop_capture/desktop_capture_options.h"
 
 #include "api/make_ref_counted.h"
+#include "rtc_base/logging.h"
 
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
 #include "modules/desktop_capture/mac/full_screen_mac_application_handler.h"
@@ -23,12 +24,16 @@
 
 namespace webrtc {
 
-DesktopCaptureOptions::DesktopCaptureOptions() {}
+DesktopCaptureOptions::DesktopCaptureOptions() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 DesktopCaptureOptions::DesktopCaptureOptions(
     const DesktopCaptureOptions& options) = default;
 DesktopCaptureOptions::DesktopCaptureOptions(DesktopCaptureOptions&& options) =
     default;
-DesktopCaptureOptions::~DesktopCaptureOptions() {}
+DesktopCaptureOptions::~DesktopCaptureOptions() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopCaptureOptions& DesktopCaptureOptions::operator=(
     const DesktopCaptureOptions& options) = default;
@@ -37,6 +42,8 @@ DesktopCaptureOptions& DesktopCaptureOptions::operator=(
 
 // static
 DesktopCaptureOptions DesktopCaptureOptions::CreateDefault() {
+  RTC_LOG(LS_INFO) << __func__;
+
   DesktopCaptureOptions result;
 #if defined(WEBRTC_USE_X11)
   result.set_x_display(SharedXDisplay::CreateDefault());

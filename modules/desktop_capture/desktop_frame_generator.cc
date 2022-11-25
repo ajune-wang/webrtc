@@ -17,6 +17,7 @@
 
 #include "modules/desktop_capture/rgba_color.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/random.h"
 #include "rtc_base/time_utils.h"
 
@@ -90,11 +91,19 @@ void PaintRegion(DesktopFrame* frame,
 
 }  // namespace
 
-DesktopFrameGenerator::DesktopFrameGenerator() {}
-DesktopFrameGenerator::~DesktopFrameGenerator() {}
+DesktopFrameGenerator::DesktopFrameGenerator() {
+  RTC_LOG(LS_INFO) << __func__;
+}
+DesktopFrameGenerator::~DesktopFrameGenerator() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
-DesktopFramePainter::DesktopFramePainter() {}
-DesktopFramePainter::~DesktopFramePainter() {}
+DesktopFramePainter::DesktopFramePainter() {
+  RTC_LOG(LS_INFO) << __func__;
+}
+DesktopFramePainter::~DesktopFramePainter() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 PainterDesktopFrameGenerator::PainterDesktopFrameGenerator()
     : size_(1024, 768),
@@ -103,11 +112,17 @@ PainterDesktopFrameGenerator::PainterDesktopFrameGenerator()
       enlarge_updated_region_(false),
       enlarge_range_(20),
       add_random_updated_region_(false),
-      painter_(nullptr) {}
-PainterDesktopFrameGenerator::~PainterDesktopFrameGenerator() {}
+      painter_(nullptr) {
+  RTC_LOG(LS_INFO) << __func__;
+}
+PainterDesktopFrameGenerator::~PainterDesktopFrameGenerator() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 std::unique_ptr<DesktopFrame> PainterDesktopFrameGenerator::GetNextFrame(
     SharedMemoryFactory* factory) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (!return_frame_) {
     return nullptr;
   }
@@ -134,46 +149,68 @@ std::unique_ptr<DesktopFrame> PainterDesktopFrameGenerator::GetNextFrame(
 }
 
 DesktopSize* PainterDesktopFrameGenerator::size() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return &size_;
 }
 
 void PainterDesktopFrameGenerator::set_return_frame(bool return_frame) {
+  RTC_LOG(LS_INFO) << __func__;
+
   return_frame_ = return_frame;
 }
 
 void PainterDesktopFrameGenerator::set_provide_updated_region_hints(
     bool provide_updated_region_hints) {
+  RTC_LOG(LS_INFO) << __func__;
+
   provide_updated_region_hints_ = provide_updated_region_hints;
 }
 
 void PainterDesktopFrameGenerator::set_enlarge_updated_region(
     bool enlarge_updated_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   enlarge_updated_region_ = enlarge_updated_region;
 }
 
 void PainterDesktopFrameGenerator::set_enlarge_range(int enlarge_range) {
+  RTC_LOG(LS_INFO) << __func__;
+
   enlarge_range_ = enlarge_range;
 }
 
 void PainterDesktopFrameGenerator::set_add_random_updated_region(
     bool add_random_updated_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   add_random_updated_region_ = add_random_updated_region;
 }
 
 void PainterDesktopFrameGenerator::set_desktop_frame_painter(
     DesktopFramePainter* painter) {
+  RTC_LOG(LS_INFO) << __func__;
+
   painter_ = painter;
 }
 
-BlackWhiteDesktopFramePainter::BlackWhiteDesktopFramePainter() {}
-BlackWhiteDesktopFramePainter::~BlackWhiteDesktopFramePainter() {}
+BlackWhiteDesktopFramePainter::BlackWhiteDesktopFramePainter() {
+  RTC_LOG(LS_INFO) << __func__;
+}
+BlackWhiteDesktopFramePainter::~BlackWhiteDesktopFramePainter() {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 DesktopRegion* BlackWhiteDesktopFramePainter::updated_region() {
+  RTC_LOG(LS_INFO) << __func__;
+
   return &updated_region_;
 }
 
 bool BlackWhiteDesktopFramePainter::Paint(DesktopFrame* frame,
                                           DesktopRegion* updated_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK(updated_region->is_empty());
   memset(frame->data(), 0, frame->stride() * frame->size().height());
   PaintRegion(frame, &updated_region_, RgbaColor(0xFFFFFFFF));

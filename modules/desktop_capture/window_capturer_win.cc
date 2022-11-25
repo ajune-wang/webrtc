@@ -11,6 +11,7 @@
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/win/window_capturer_win_gdi.h"
+#include "rtc_base/logging.h"
 
 #if defined(RTC_ENABLE_WIN_WGC)
 #include "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.h"
@@ -24,6 +25,8 @@ namespace webrtc {
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << __func__;
+
   std::unique_ptr<DesktopCapturer> capturer(
       WindowCapturerWinGdi::CreateRawWindowCapturer(options));
 #if defined(RTC_ENABLE_WIN_WGC)

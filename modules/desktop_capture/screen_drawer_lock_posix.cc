@@ -27,9 +27,13 @@ static constexpr char kSemaphoreName[] = "GSDL54fe5552804711e6a7253f429a";
 }  // namespace
 
 ScreenDrawerLockPosix::ScreenDrawerLockPosix()
-    : ScreenDrawerLockPosix(kSemaphoreName) {}
+    : ScreenDrawerLockPosix(kSemaphoreName) {
+  RTC_LOG(LS_INFO) << __func__;
+}
 
 ScreenDrawerLockPosix::ScreenDrawerLockPosix(const char* name) {
+  RTC_LOG(LS_INFO) << __func__;
+
   semaphore_ = sem_open(name, O_CREAT, S_IRWXU | S_IRWXG | S_IRWXO, 1);
   if (semaphore_ == SEM_FAILED) {
     RTC_LOG_ERRNO(LS_ERROR) << "Failed to create named semaphore with " << name;
@@ -40,6 +44,8 @@ ScreenDrawerLockPosix::ScreenDrawerLockPosix(const char* name) {
 }
 
 ScreenDrawerLockPosix::~ScreenDrawerLockPosix() {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (semaphore_ == SEM_FAILED) {
     return;
   }
@@ -53,6 +59,8 @@ ScreenDrawerLockPosix::~ScreenDrawerLockPosix() {
 
 // static
 void ScreenDrawerLockPosix::Unlink(absl::string_view name) {
+  RTC_LOG(LS_INFO) << __func__;
+
   sem_unlink(std::string(name).c_str());
 }
 

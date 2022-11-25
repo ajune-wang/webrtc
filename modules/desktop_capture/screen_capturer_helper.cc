@@ -10,26 +10,35 @@
 
 #include "modules/desktop_capture/screen_capturer_helper.h"
 
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
 void ScreenCapturerHelper::ClearInvalidRegion() {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock scoped_invalid_region_lock(&invalid_region_mutex_);
   invalid_region_.Clear();
 }
 
 void ScreenCapturerHelper::InvalidateRegion(
     const DesktopRegion& invalid_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock scoped_invalid_region_lock(&invalid_region_mutex_);
   invalid_region_.AddRegion(invalid_region);
 }
 
 void ScreenCapturerHelper::InvalidateScreen(const DesktopSize& size) {
+  RTC_LOG(LS_INFO) << __func__;
+
   MutexLock scoped_invalid_region_lock(&invalid_region_mutex_);
   invalid_region_.AddRect(DesktopRect::MakeSize(size));
 }
 
 void ScreenCapturerHelper::TakeInvalidRegion(DesktopRegion* invalid_region) {
+  RTC_LOG(LS_INFO) << __func__;
+
   invalid_region->Clear();
 
   {
@@ -47,14 +56,20 @@ void ScreenCapturerHelper::TakeInvalidRegion(DesktopRegion* invalid_region) {
 }
 
 void ScreenCapturerHelper::SetLogGridSize(int log_grid_size) {
+  RTC_LOG(LS_INFO) << __func__;
+
   log_grid_size_ = log_grid_size;
 }
 
 const DesktopSize& ScreenCapturerHelper::size_most_recent() const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return size_most_recent_;
 }
 
 void ScreenCapturerHelper::set_size_most_recent(const DesktopSize& size) {
+  RTC_LOG(LS_INFO) << __func__;
+
   size_most_recent_ = size;
 }
 
@@ -73,6 +88,8 @@ static int UpToMultiple(int x, int n, int nMask) {
 void ScreenCapturerHelper::ExpandToGrid(const DesktopRegion& region,
                                         int log_grid_size,
                                         DesktopRegion* result) {
+  RTC_LOG(LS_INFO) << __func__;
+
   RTC_DCHECK_GE(log_grid_size, 1);
   int grid_size = 1 << log_grid_size;
   int grid_size_mask = ~(grid_size - 1);

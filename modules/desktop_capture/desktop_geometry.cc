@@ -13,19 +13,27 @@
 #include <algorithm>
 #include <cmath>
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 bool DesktopRect::Contains(const DesktopVector& point) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return point.x() >= left() && point.x() < right() && point.y() >= top() &&
          point.y() < bottom();
 }
 
 bool DesktopRect::ContainsRect(const DesktopRect& rect) const {
+  RTC_LOG(LS_INFO) << __func__;
+
   return rect.left() >= left() && rect.right() <= right() &&
          rect.top() >= top() && rect.bottom() <= bottom();
 }
 
 void DesktopRect::IntersectWith(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   left_ = std::max(left(), rect.left());
   top_ = std::max(top(), rect.top());
   right_ = std::min(right(), rect.right());
@@ -39,6 +47,8 @@ void DesktopRect::IntersectWith(const DesktopRect& rect) {
 }
 
 void DesktopRect::UnionWith(const DesktopRect& rect) {
+  RTC_LOG(LS_INFO) << __func__;
+
   if (is_empty()) {
     *this = rect;
     return;
@@ -55,6 +65,8 @@ void DesktopRect::UnionWith(const DesktopRect& rect) {
 }
 
 void DesktopRect::Translate(int32_t dx, int32_t dy) {
+  RTC_LOG(LS_INFO) << __func__;
+
   left_ += dx;
   top_ += dy;
   right_ += dx;
@@ -65,6 +77,8 @@ void DesktopRect::Extend(int32_t left_offset,
                          int32_t top_offset,
                          int32_t right_offset,
                          int32_t bottom_offset) {
+  RTC_LOG(LS_INFO) << __func__;
+
   left_ -= left_offset;
   top_ -= top_offset;
   right_ += right_offset;
@@ -72,6 +86,8 @@ void DesktopRect::Extend(int32_t left_offset,
 }
 
 void DesktopRect::Scale(double horizontal, double vertical) {
+  RTC_LOG(LS_INFO) << __func__;
+
   right_ += static_cast<int>(std::round(width() * (horizontal - 1)));
   bottom_ += static_cast<int>(std::round(height() * (vertical - 1)));
 }

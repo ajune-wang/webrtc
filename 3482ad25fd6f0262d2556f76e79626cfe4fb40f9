@@ -51,6 +51,24 @@
       "parentUuid": "437203f6_354406a3",
       "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c86e54a_72943f71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-25T11:35:25Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong preference whether it should be in the RTPVideoHeader or in the VideoFrameMetadata, but one argument in favor of doing it this way (place it in RTPVideoHeader), is that RTPVideoHeader much closer to the \"logic\".\n\nSo if we are to expand the logic, RTPVideoHeader would be modified. So adding stuff to it without realizing we\u0027re not updating what is exposed in the API becomes one file less removed",
+      "parentUuid": "66aac34c_4aa76728",
+      "revId": "3482ad25fd6f0262d2556f76e79626cfe4fb40f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -58,7 +58,20 @@ FrameStatistics* VideoCodecTestStatsImpl::GetFrameWithTimestamp(
   return GetFrame(rtp_timestamp_to_frame_num_[layer_idx][timestamp], layer_idx);
 }
 
-std::vector<FrameStatistics> VideoCodecTestStatsImpl::GetFrameStatistics() {
+FrameStatistics* VideoCodecTestStatsImpl::GetOrAddFrame(size_t timestamp_rtp,
+                                                        size_t spatial_idx) {
+  if (rtp_timestamp_to_frame_num_[spatial_idx].count(timestamp_rtp) > 0) {
+    return GetFrameWithTimestamp(timestamp_rtp, spatial_idx);
+  }
+
+  size_t frame_num = layer_stats_[spatial_idx].size();
+  AddFrame(FrameStatistics(frame_num, timestamp_rtp, spatial_idx));
+
+  return GetFrameWithTimestamp(timestamp_rtp, spatial_idx);
+}
+
+std::vector<FrameStatistics> VideoCodecTestStatsImpl::GetFrameStatistics()
+    const {
   size_t capacity = 0;
   for (const auto& layer_stat : layer_stats_) {
     capacity += layer_stat.second.size();
@@ -114,6 +127,12 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcAggregatedVideoStatistic(
                                     num_spatial_layers - 1,
                                     num_temporal_layers - 1, true);
 }
+
+VideoStatistics VideoCodecTestStatsImpl::CalcVideoStatistic(
+    int first_frame,
+    int last_frame,
+    DataRate bitrate,
+    Frequency framerate) {}
 
 size_t VideoCodecTestStatsImpl::Size(size_t spatial_idx) {
   return layer_stats_[spatial_idx].size();

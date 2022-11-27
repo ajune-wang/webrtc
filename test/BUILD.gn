@@ -432,6 +432,8 @@ rtc_library("video_test_support") {
     "testsupport/y4m_frame_reader.cc",
     "testsupport/y4m_frame_writer.cc",
     "testsupport/yuv_frame_reader.cc",
+    "testsupport/yuv_frame_reader.h",
+    "testsupport/yuv_frame_reader2.cc",
     "testsupport/yuv_frame_writer.cc",
   ]
 
@@ -678,6 +680,7 @@ if (rtc_include_tests && !build_with_chromium) {
       "testsupport/video_frame_writer_unittest.cc",
       "testsupport/y4m_frame_reader_unittest.cc",
       "testsupport/y4m_frame_writer_unittest.cc",
+      "testsupport/yuv_frame_reader2_unittest.cc",
       "testsupport/yuv_frame_reader_unittest.cc",
       "testsupport/yuv_frame_writer_unittest.cc",
     ]

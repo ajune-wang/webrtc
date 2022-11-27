@@ -135,7 +135,7 @@ class VideoCodecTestStats {
 
   virtual ~VideoCodecTestStats() = default;
 
-  virtual std::vector<FrameStatistics> GetFrameStatistics() = 0;
+  virtual std::vector<FrameStatistics> GetFrameStatistics() const = 0;
 
   virtual std::vector<VideoStatistics> SliceAndCalcLayerVideoStatistic(
       size_t first_frame_num,

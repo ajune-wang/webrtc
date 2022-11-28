@@ -16,6 +16,24 @@
       "message": "SVC and video engine tests are quite long without sharding but I guess it\u0027s fine since the tests don\u0027t run on CQ yet.\nhttps://chromium-swarm.appspot.com/tasklist?et\u003d1669391031238\u0026f\u003dparent_task_id-tag%3A5ec8272dec7c6111\u0026n\u003dfalse\u0026st\u003d1669389161079",
       "revId": "66ffaf07f6f63f600353696b742b90ce735e40ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "923ab9cd_59075fae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-11-28T08:30:43Z",
+      "side": 1,
+      "message": "Yes, we definitively need to fix sharding before CQ.",
+      "parentUuid": "d505b527_9cf597a5",
+      "revId": "66ffaf07f6f63f600353696b742b90ce735e40ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

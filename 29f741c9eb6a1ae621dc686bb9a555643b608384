@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3549ca3b_a2d29724",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-28T08:49:42Z",
+      "side": 1,
+      "message": "can/should I enforce \"frame types should be either null or have the right size\" somewhere up?",
+      "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05472cdf_8d6e8bf8",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T16:33:52Z",
+      "side": 1,
+      "message": "Wondering if IsFirstPacketInFrame(), IsLastPacketInFrame() and IsLastFrameInPicture() should be deleted?\n\nThey were included in the hack CL (https://webrtc-review.googlesource.com/c/src/+/284540) but I never checked if they were needed for constructor+setting to work as a clone",
+      "revId": "60206281afdac4a0019d66b88d6f671bc5818cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

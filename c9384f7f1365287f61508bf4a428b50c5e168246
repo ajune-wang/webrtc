@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ec917339_69cb6f8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-11-28T13:50:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73a7ecff_65b23026",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6da05a44_a71b4550",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1ccde5f_f1d45368",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-11-28T13:50:15Z",
+      "side": 1,
+      "message": "It is a DOMString in the spec (https://www.w3.org/TR/webrtc-svc/#rtcrtpcodeccapability*). There are a set of valid values defined in the spec but it is not an enum and there is a possibility for more values.\n\nThis could be exposed as an enum here, but then we would need some sort of conversion helper exposed. Is that worth it?",
+      "parentUuid": "251a2723_f05d4521",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e457da7_7a900cfb",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 4
@@ -65,6 +101,24 @@
       "writtenOn": "2022-11-28T13:40:27Z",
       "side": 1,
       "message": "What, if anything, is the difference between L1T1 and \"no scalability mode\"?\n\nI noticed that some of the encoders default to L1T1 while VP8 and H264 don\u0027t set it. Is there a difference or is this distinction whether or not scalability mode is even applicable?",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2bd8bbf_be40d71f",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-11-28T13:50:15Z",
+      "side": 1,
+      "message": "This default here is set as it is used as the default when there is no value set for AV1.\n\nMore generally, it is not clear to me what should be used when we are using traditional simulcast for VP8 or H264. The stats seem to only describe one of the simulcast layers but its not quite correct to say that you are using an S-mode then. For example, you can add 3 encodings on a transceiver, each with their own scaling mode.",
+      "parentUuid": "4e457da7_7a900cfb",
       "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

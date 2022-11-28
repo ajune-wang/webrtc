@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "808065ee_a0171eee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-28T13:17:09Z",
+      "side": 1,
+      "message": "Should I file+tag a separate bug in order to register the killswitch (which hopefully can be short-lived and get removed after this change survives a stable release)",
+      "revId": "749ec7500cd553bd2e0db97037f1930e0a4034bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

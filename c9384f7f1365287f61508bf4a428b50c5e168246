@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a7ecff_65b23026",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T13:40:27Z",
+      "side": 1,
+      "message": "nit: RTCOutboundRtpStreamStats\n\n(The name is \"Rtp\" according to spec and \"RTP\" according to our impl, whichever you prefer)",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da05a44_a71b4550",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T13:40:27Z",
+      "side": 1,
+      "message": "CL makes sense to me, just a couple of questions and nits, but let\u0027s write a spec proposal before landing",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251a2723_f05d4521",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T13:40:27Z",
+      "side": 1,
+      "message": "This is just a DOMString in the spec? Or is there an enum to reference?",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e457da7_7a900cfb",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T13:40:27Z",
+      "side": 1,
+      "message": "What, if anything, is the difference between L1T1 and \"no scalability mode\"?\n\nI noticed that some of the encoders default to L1T1 while VP8 and H264 don\u0027t set it. Is there a difference or is this distinction whether or not scalability mode is even applicable?",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33669e39_c40d3952",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T13:40:27Z",
+      "side": 1,
+      "message": "Optional suggestion: How about...\n\nstruct ScalabilityStructure {\n  std::unique_ptr\u003cScalableVideoController\u003e controller;\n  ScalabilityMode scalability_mode;\n};\n\nAnd using absl::optional\u003cScalabilityStructure\u003e as return value because you either want both or neither",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

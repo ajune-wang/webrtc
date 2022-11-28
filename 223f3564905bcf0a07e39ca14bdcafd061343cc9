@@ -105,6 +105,24 @@
       "parentUuid": "e69a2c56_f7e89696",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ac88d53_1c8c1b84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-11-28T08:48:52Z",
+      "side": 1,
+      "message": "Thanks Björn. We will work on your concern about the possibility of the event drop.",
+      "parentUuid": "6fb981f9_7b804954",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

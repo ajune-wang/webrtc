@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccea82e0_bc7f258b",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T14:38:53Z",
+      "side": 1,
+      "message": "If it is a DOMString in the spec I have no problem with exposing it like this. (But I don\u0027t see why the spec didn\u0027t use an enum heh)",
+      "parentUuid": "f1ccde5f_f1d45368",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e457da7_7a900cfb",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "This default here is set as it is used as the default when there is no value set for AV1.\n\nMore generally, it is not clear to me what should be used when we are using traditional simulcast for VP8 or H264. The stats seem to only describe one of the simulcast layers but its not quite correct to say that you are using an S-mode then. For example, you can add 3 encodings on a transceiver, each with their own scaling mode.",
       "parentUuid": "4e457da7_7a900cfb",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b9b1cc_0caf81bd",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T14:38:53Z",
+      "side": 1,
+      "message": "You do get one \"outbound-rtp\" object per simulcast layer, so you can have one scalabilityMode value per RTP stream. But the code seem to make other assumptions... hmh, see other comment.",
+      "parentUuid": "e2bd8bbf_be40d71f",
       "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

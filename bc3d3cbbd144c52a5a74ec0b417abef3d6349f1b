@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3300855_7c53b04e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T14:38:53Z",
+      "side": 1,
+      "message": "Hmm, you use the same scalabilityMode for all \"infos\"...\n\nBut see line 2691. In simulcast, we would loop through and create multiple infos, one per simulcast layer.\n\nIs there any way to obtain scalability mode on a per simulcast layer basis? This should be supported, but if the code base is currently too limited to support this, we should probably guard against this happening and leave it as nullopt if outbound_rtp_substreams.size() \u003e 1.\n\nDefaulting to reporting the same value on all layers could lead to problems down the road.",
+      "revId": "bc3d3cbbd144c52a5a74ec0b417abef3d6349f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d83d78d_e27a355d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2691,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T14:38:53Z",
+      "side": 1,
+      "message": "This code gets triggered after the RTP streams are set up correctly, i.e. whether we have 1 layer or many layers, so set scalability mode below instead of in common_info",
+      "revId": "bc3d3cbbd144c52a5a74ec0b417abef3d6349f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

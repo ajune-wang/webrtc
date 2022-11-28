@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18a5a643_b1d3b57a",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-28T11:02:18Z",
+      "side": 1,
+      "message": "Can you add an explicit test that a null experiment results in the null global string?",
+      "revId": "9dc97abccf11f01085807c1dbed674152b695acd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

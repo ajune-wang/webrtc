@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2617e82e_8cc49c50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-28T13:39:59Z",
+      "side": 1,
+      "message": "Rasmus, could you please take a look at what I have for now? I\u0027m not seeking for LGTM, just want to get feedback before I go deeper. It is possible to run an encode + decode test which should be enough for proof-of-concept. Maybe start reviewing from video_codec_test.cc which implements FramerateAdaptation test.\n\nThanks in advance!",
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

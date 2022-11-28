@@ -16,6 +16,23 @@
       "message": "Turning into UMA was surprisingly easy and kept the code + test intact!\nWill ask kron@ to take a look when reviewing the metric addition before landing.",
       "revId": "5810da4660f4aebe88bd03dcf30c0b49d604acaa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45643ef_d592e347",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-28T16:03:44Z",
+      "side": 1,
+      "message": "nit: codec_parameters",
+      "revId": "5810da4660f4aebe88bd03dcf30c0b49d604acaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

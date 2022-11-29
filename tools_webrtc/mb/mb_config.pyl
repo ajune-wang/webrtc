@@ -136,7 +136,7 @@
       'Perf Linux Trusty': 'release_bot_x64',
       'Perf Mac 11': 'release_bot_x64',
       'Perf Mac M1 Arm64 12': 'release_bot_x64',
-      'Perf Win7': 'release_bot_x64',
+      'Perf Win 10': 'release_bot_x64',
     },
     'internal.client.webrtc': {
       'iOS64 Debug': 'ios_internal_debug_bot_arm64',

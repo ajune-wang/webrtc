@@ -16,6 +16,24 @@
       "message": "can/should I enforce \"frame types should be either null or have the right size\" somewhere up?",
       "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a344cd0_7b9f2955",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-11-29T11:01:13Z",
+      "side": 1,
+      "message": "I believe you should just do |stream_frame_types \u003d frame_types;| here. So that SimulcastEncoderAdapter is completely transparent in the bypass mode.\n\nIf the frame_types has an incorrect size, it should trigger dcheck or something in the actual encoder, and not be an error here, because it is an incorrect use of an encoder in the calling code above.",
+      "parentUuid": "3549ca3b_a2d29724",
+      "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

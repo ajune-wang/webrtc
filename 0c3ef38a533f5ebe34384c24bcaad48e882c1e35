@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34249b17_a4a74e0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-29T07:41:37Z",
+      "side": 1,
+      "message": "Go for it!",
+      "revId": "0c3ef38a533f5ebe34384c24bcaad48e882c1e35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66933a49_06245195",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1571,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-29T07:41:37Z",
+      "side": 1,
+      "message": "The doubled code certainly points to the need for some refactoring :-)",
+      "revId": "0c3ef38a533f5ebe34384c24bcaad48e882c1e35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

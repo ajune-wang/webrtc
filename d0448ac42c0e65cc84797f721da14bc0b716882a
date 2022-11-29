@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26dbd82c_c2ac373e",
+        "filename": "infra/config/config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-11-29T14:38:16Z",
+      "side": 1,
+      "message": "nit",
+      "range": {
+        "startLine": 821,
+        "startChar": 33,
+        "endLine": 821,
+        "endChar": 36
+      },
+      "revId": "d0448ac42c0e65cc84797f721da14bc0b716882a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

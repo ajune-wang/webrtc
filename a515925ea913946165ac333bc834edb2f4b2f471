@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba37dd59_2190976d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-11-29T15:22:04Z",
+      "side": 1,
+      "message": "libcxx now provides own iwyu rule file ( https://reviews.llvm.org/D138189 )\nWe can use it instead of duplicating part of it.\n\n(tested by running iwyu tools on some local file and ensuring it provides right result, didn\u0027t work on 1st try)",
+      "revId": "a515925ea913946165ac333bc834edb2f4b2f471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

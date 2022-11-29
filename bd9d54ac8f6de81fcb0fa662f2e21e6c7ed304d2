@@ -16,6 +16,24 @@
       "message": "drive-by while looking at this. I do wonder whether this needs to access simulcast_idx instead of [i] though.",
       "revId": "bd9d54ac8f6de81fcb0fa662f2e21e6c7ed304d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3043071a_731a1be3",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-11-29T15:09:19Z",
+      "side": 1,
+      "message": "Why do we even have i !\u003d simulcast_idx? That\u0027s a very unneeded layer of indirection. Although it seems to always be just a reverse order, so this check works as is as long as frame_types has correct size.\n\nHowever, I think it should be simulcast_idx. That would be clearer.",
+      "parentUuid": "5b3a9270_c19e27c5",
+      "revId": "bd9d54ac8f6de81fcb0fa662f2e21e6c7ed304d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,322 @@
       "message": "Rasmus, could you please take a look at what I have for now? I\u0027m not seeking for LGTM, just want to get feedback before I go deeper. It is possible to run an encode + decode test which should be enough for proof-of-concept. Maybe start reviewing from video_codec_test.cc which implements FramerateAdaptation test.\n\nThanks in advance!",
       "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da45fadd_90ec43fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Overall approach looks good! I have some questions about the threading models though -- see below.\n\nRelated, it might be worth-while to annotate the different classes with their threading contract: thread-safe, thread-compatible, thread-unsafe, etc. I can send an internal documentation link about this.",
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "589ddb8c_765e693b",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Place after type definitions: https://google.github.io/styleguide/cppguide.html#Declaration_Order. Here, and in the classes below.",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 40
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbe9beb7_7335e620",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Before sending for \"real review\", please add documentation.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6330adf1_f77b14b9",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "In new code, using is preferable to typedef: https://google.github.io/styleguide/cppguide.html#Aliases.\n\n`using EncodeCallback \u003d absl::AnyInvocable\u003cvoid(const EncodedImage\u0026 encoded_frame)\u003e`",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 11
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c43e928_11cc80b2",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "What members are you planning for this struct? I\u0027m wondering if it would make sense to have a separate settings struct, for each of `{decode,encode,encode_decode}` ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 24
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0e844a_6d2e51c6",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Maybe it would be cleaner to return a struct with four members, instead of having four individual output parameters?\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ce467e_3ad66536",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Would be possible to get rid of this lock, by grabbing `encode_started_ns` when called (on whatever thread), and then posting over to `task_queue_` for mutating `stats_`?",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cc414ae_5216b880",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "I think it would be helpful to write out the full type here: `rtc::scoped_refptr\u003cI420Buffer\u003e`.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction: \"use type deduction only to make the code clearer or safer, and do not use it merely to avoid the inconvenience of writing an explicit type.\"",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 8
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38112899_1f36798b",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "If `stats_` is moved to live on the `task_queue_` (see comment above), grabbing this lock here should not be needed.",
+      "range": {
+        "startLine": 156,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 32
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b1e9057_ee333eaf",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyser.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "I think we generally use American spelling: analyzer.",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e510dd5c_e103af85",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Only keeping the frame index when pulling a frame and then seeking when getting it again is optimal for memory, but do you think the (potential) multiple reads could become a problem? I\u0027m thinking scenarios like on-device testing of high-res content?",
+      "range": {
+        "startLine": 177,
+        "startChar": 21,
+        "endLine": 177,
+        "endChar": 24
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7772a613_5d9b4386",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Will there be a factory method provided for the `VideoCodecTest` in `api/`? If so, consider using that factory here too, to avoid depending on any internals of `VideoCodecTesterImpl` by mistake.",
+      "range": {
+        "startLine": 344,
+        "startChar": 2,
+        "endLine": 344,
+        "endChar": 30
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16a8ab06_7d589e73",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "I haven\u0027t worked through the details myself, but did you consider using `TaskQueueBase::PostDelayedTask` instead? I guess that might require changing the interface for the encode/decode testers, making them responsible for posting a task to handle the next frame, as opposed to have the VideoCodecTesterImpl do the looping \"outside\".\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/task_queue/task_queue_base.h;bpv\u003d0;bpt\u003d1;l\u003d84",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a6ec89_071d4197",
+        "filename": "test/testsupport/yuv_frame_reader.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-11-29T12:43:11Z",
+      "side": 1,
+      "message": "Is the existing `YuvFrameReaderImpl` too convoluted to extend?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/testsupport/frame_reader.h;l\u003d49;drc\u003db984c07dab529f5bbc52cad18e5c5a9de2278f0a",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 20
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

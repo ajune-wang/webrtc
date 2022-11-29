@@ -36,9 +36,21 @@
 #include "third_party/openh264/src/codec/api/wels/codec_def.h"
 #include "third_party/openh264/src/codec/api/wels/codec_ver.h"
 
+#if defined(WEBRTC_DLOPEN_OPENH264)
+#include "modules/video_coding/codecs/h264/openh264_stubs.h"
+#endif  // defined(WEBRTC_DLOPEN_OPENH264)
+
 namespace webrtc {
 
 namespace {
+
+#if defined(WEBRTC_DLOPEN_OPENH264)
+using modules_video_coding_codecs_h264::InitializeStubs;
+using modules_video_coding_codecs_h264::kModuleOpenh264;
+using modules_video_coding_codecs_h264::StubPathMap;
+
+static constexpr char kOpenH264Lib[] = "libopenh264.so.7";
+#endif
 
 const bool kOpenH264EncoderDetailedLogging = false;
 
@@ -167,6 +179,17 @@ H264EncoderImpl::~H264EncoderImpl() {
 
 int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
                                     const VideoEncoder::Settings& settings) {
+#if defined(WEBRTC_DLOPEN_OPENH264)
+  StubPathMap paths;
+  paths[kModuleOpenh264].push_back(kOpenH264Lib);
+
+  static bool result = InitializeStubs(paths);
+  if (!result)
+    return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+
+  RTC_LOG(LS_ERROR) << "Successfully dlopened OpenH264 lib";
+#endif
+
   ReportInit();
   if (!inst || inst->codecType != kVideoCodecH264) {
     ReportError();

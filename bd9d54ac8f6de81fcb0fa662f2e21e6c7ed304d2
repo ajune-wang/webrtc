@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b3a9270_c19e27c5",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-29T14:56:09Z",
+      "side": 1,
+      "message": "drive-by while looking at this. I do wonder whether this needs to access simulcast_idx instead of [i] though.",
+      "revId": "bd9d54ac8f6de81fcb0fa662f2e21e6c7ed304d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

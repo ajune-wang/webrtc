@@ -34,6 +34,24 @@
       "parentUuid": "3549ca3b_a2d29724",
       "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5685f670_7032a943",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-29T14:56:09Z",
+      "side": 1,
+      "message": "check done here, it gets a bit awkward in the individual encoders since frame_types is a pointer that can be null. The lower layers actually only enforce frame_types-\u003esize() \u003c stream_frame_types.size() instead of equality.\n\nAnd of course the DCHECK blew up but in interesting ways!\nThe VideoCodecTestLibvpx.SimulcastVP8 test was easy to fix, see modules/video_coding/codecs/test/videoprocessor.cc\n\nIn \nSimulcastTestFixtureImpl::SwitchingToOneStream \ntotal_streams_count_ is 1 since there is only a single non-disabled stream but it requests (delta) frames for 3 layers. What is the correct behavior and how does that affect the lookup of rids/ssrcs to layers in general?",
+      "parentUuid": "0a344cd0_7b9f2955",
+      "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

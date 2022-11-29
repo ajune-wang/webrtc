@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55414407_067c3871",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-29T07:45:06Z",
+      "side": 1,
+      "message": "Repeating comment about adding setters and never using them.\n\nOtherwise LG once Danil\u0027s comment is addressed (don\u0027t do the first/last-in-frame things).",
+      "revId": "60206281afdac4a0019d66b88d6f671bc5818cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05472cdf_8d6e8bf8",

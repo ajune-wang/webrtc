@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "544e8f82_8e5881a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-29T11:05:36Z",
+      "side": 1,
+      "message": "Ack - done.",
+      "parentUuid": "55414407_067c3871",
+      "revId": "60206281afdac4a0019d66b88d6f671bc5818cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05472cdf_8d6e8bf8",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "(last|first)PacketInFrame should be deleted - they make no sense for a per-frame structure (unlike VideoFrameMetadata, RTPVideoHeader sometimes is used per packet)\n\nLastFrameInPicture still make sense - in case of spatial scalability there can be multiple frames in the same temporal unit (aka picture).",
       "parentUuid": "05472cdf_8d6e8bf8",
+      "revId": "60206281afdac4a0019d66b88d6f671bc5818cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbcadc06_8052f593",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-11-29T11:05:36Z",
+      "side": 1,
+      "message": "So confusing, in a separate CL, I wonder if we should refactor RTPVideoHeader to make it clear what is \"per encoded frame\" and what is \"per packet\".\n\nDeleted last/first packet in frame.",
+      "parentUuid": "47380eb5_bfbe806a",
       "revId": "60206281afdac4a0019d66b88d6f671bc5818cf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94398288_047e8a72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-11-29T12:30:17Z",
+      "side": 1,
+      "message": "I am not sure it makes sense, given that api/ mostly has the pure virtual versions of things, and the real implementation is largely elsewhere. (I moved the clone test for that reason).\n\nWe should probably have some documentation for \"where to place functions that test api/ functions with a single implementation\" - I think I could be argued into putting them in api/\n\nbut approving this one.",
+      "revId": "2c648988ff504c6b7f2797e6ad3525bd05e3bccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

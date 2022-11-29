@@ -177,7 +177,7 @@ SimulcastEncoderAdapter::StreamContext::StreamContext(
       stream_idx_(stream_idx),
       width_(width),
       height_(height),
-      is_keyframe_needed_(false),
+      is_keyframe_needed_(true),
       is_paused_(is_paused) {
   if (parent_) {
     encoder_context_->encoder().RegisterEncodeCompleteCallback(this);

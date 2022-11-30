@@ -239,7 +239,12 @@ void VideoProcessor::ProcessFrame() {
 
   // Get input frame and store for future quality calculation.
   rtc::scoped_refptr<I420BufferInterface> buffer =
-      input_frame_reader_->ReadFrame();
+      input_frame_reader_->PullFrame(
+          /*frame_num*/ nullptr, config_.codec_settings.width,
+          config_.codec_settings.height,
+          config_.clip_fps.value_or(config_.codec_settings.maxFramerate),
+          config_.codec_settings.maxFramerate);
+
   RTC_CHECK(buffer) << "Tried to read too many frames from the file.";
   const size_t timestamp =
       last_inputed_timestamp_ +

@@ -237,9 +237,20 @@ void VideoProcessor::ProcessFrame() {
 
   const size_t frame_number = last_inputed_frame_num_++;
 
+  int desired_width =
+      config_.reference_width.value_or(config_.codec_settings.width);
+  int desired_height =
+      config_.reference_height.value_or(config_.codec_settings.height);
+  int base_framerate =
+      config_.clip_fps.value_or(config_.codec_settings.maxFramerate);
+  int desired_framerate = config_.codec_settings.maxFramerate;
+
   // Get input frame and store for future quality calculation.
   rtc::scoped_refptr<I420BufferInterface> buffer =
-      input_frame_reader_->ReadFrame();
+      input_frame_reader_->PullFrame(/*frame_num*/ nullptr, desired_width,
+                                     desired_height, base_framerate,
+                                     desired_framerate);
+
   RTC_CHECK(buffer) << "Tried to read too many frames from the file.";
   const size_t timestamp =
       last_inputed_timestamp_ +

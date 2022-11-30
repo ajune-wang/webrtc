@@ -16,6 +16,24 @@
       "message": "Erik, you\u0027ve reviewed one of the changes that introduced this field trial. Do you have any context other that what is written in the issue?\n(i.e. field trial was introduced 3 years ago, I\u0027ve searched, but found no trace of code that would set custom values in it, i.e. looks abandon to me)",
       "revId": "ad9e7d56a75c97c0806272417056f9948684f479",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a4f533_bb229595",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-11-30T15:24:28Z",
+      "side": 1,
+      "message": "Don\u0027t recall, but yeah I\u0027m pretty sure this is abandoned. If you want control over feedback timing you can just use the v2 format instead, right?",
+      "parentUuid": "8843c873_411bb0e4",
+      "revId": "ad9e7d56a75c97c0806272417056f9948684f479",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

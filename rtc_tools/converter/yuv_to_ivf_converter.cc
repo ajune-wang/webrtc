@@ -184,12 +184,8 @@ class Encoder {
 
 int GetFrameCount(std::string yuv_file_name, int width, int height) {
   std::unique_ptr<FrameReader> yuv_reader =
-      std::make_unique<YuvFrameReaderImpl>(std::move(yuv_file_name), width,
-                                           height);
-  RTC_CHECK(yuv_reader->Init());
-  int frames_count = yuv_reader->NumberOfFrames();
-  yuv_reader->Close();
-  return frames_count;
+      CreateYuvFrameReader(std::move(yuv_file_name), width, height);
+  return yuv_reader->num_frames();
 }
 
 VideoFrame BuildFrame(FrameGeneratorInterface::VideoFrameData frame_data,

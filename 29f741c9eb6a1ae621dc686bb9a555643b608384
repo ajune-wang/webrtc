@@ -70,6 +70,24 @@
       "parentUuid": "5685f670_7032a943",
       "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3590dd46_443e1cb9",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-11-30T12:08:35Z",
+      "side": 1,
+      "message": "\u003e Does that move the \"layer\" inside SEA to the first index?\n\nNo, when layers are disabled, they are still there. Nothing should be moved.\n\nframe_types should always have 3 items.",
+      "parentUuid": "63b7d7ab_2f87273c",
+      "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -21,6 +21,7 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -152,7 +153,9 @@ DesktopAndCursorComposer::DesktopAndCursorComposer(
     std::unique_ptr<DesktopCapturer> desktop_capturer,
     const DesktopCaptureOptions& options)
     : DesktopAndCursorComposer(desktop_capturer.release(),
-                               MouseCursorMonitor::Create(options).release()) {}
+                               MouseCursorMonitor::Create(options).release()) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
+}
 
 DesktopAndCursorComposer::DesktopAndCursorComposer(
     DesktopCapturer* desktop_capturer,

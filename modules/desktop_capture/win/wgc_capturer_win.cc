@@ -148,8 +148,11 @@ WgcCapturerWin::WgcCapturerWin(
       source_factory_(std::move(source_factory)),
       source_enumerator_(std::move(source_enumerator)),
       allow_delayed_capturable_check_(allow_delayed_capturable_check) {
-  if (!core_messaging_library_)
+  RTC_LOG(LS_INFO) << "___" << __func__;
+  if (!core_messaging_library_) {
     core_messaging_library_ = LoadLibraryW(kCoreMessagingDll);
+    RTC_LOG(LS_INFO) << "___loaded CoreMessaging.dll";
+  }
 
   if (core_messaging_library_) {
     create_dispatcher_queue_controller_func_ =
@@ -167,6 +170,7 @@ WgcCapturerWin::~WgcCapturerWin() {
 std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options,
     bool allow_delayed_capturable_check) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   return std::make_unique<WgcCapturerWin>(
       options, std::make_unique<WgcWindowSourceFactory>(),
       std::make_unique<WindowEnumerator>(
@@ -177,6 +181,7 @@ std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
 // static
 std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   return std::make_unique<WgcCapturerWin>(
       options, std::make_unique<WgcScreenSourceFactory>(),
       std::make_unique<ScreenEnumerator>(), false);
@@ -187,9 +192,11 @@ bool WgcCapturerWin::GetSourceList(SourceList* sources) {
 }
 
 bool WgcCapturerWin::SelectSource(DesktopCapturer::SourceId id) {
+  RTC_LOG(LS_INFO) << "___" << __func__ << ": id=" << id;
   capture_source_ = source_factory_->CreateCaptureSource(id);
-  if (allow_delayed_capturable_check_)
+  if (allow_delayed_capturable_check_) {
     return true;
+  }
 
   return capture_source_->IsCapturable();
 }
@@ -204,6 +211,7 @@ bool WgcCapturerWin::FocusOnSelectedSource() {
 void WgcCapturerWin::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
+  RTC_LOG(LS_INFO) << "___" << __func__;
   RecordCapturerImpl(DesktopCapturerId::kWgcCapturerWin);
 
   callback_ = callback;
@@ -217,6 +225,7 @@ void WgcCapturerWin::Start(Callback* callback) {
       /*feature_levels=*/nullptr, /*feature_levels_size=*/0, D3D11_SDK_VERSION,
       &d3d11_device_, /*feature_level=*/nullptr, /*device_context=*/nullptr);
   if (hr == DXGI_ERROR_UNSUPPORTED) {
+    RTC_LOG(LS_INFO) << "___DXGI_ERROR_UNSUPPORTED";
     // If a hardware device could not be created, use WARP which is a high speed
     // software device.
     hr = D3D11CreateDevice(
@@ -230,6 +239,7 @@ void WgcCapturerWin::Start(Callback* callback) {
   if (FAILED(hr)) {
     RTC_LOG(LS_ERROR) << "Failed to create D3D11Device: " << hr;
   }
+  RTC_LOG(LS_INFO) << "___hr=" << hr;
 }
 
 void WgcCapturerWin::CaptureFrame() {

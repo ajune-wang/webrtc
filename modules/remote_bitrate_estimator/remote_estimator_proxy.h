@@ -11,6 +11,8 @@
 #ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 
+#include <cstddef>
+#include <cstdint>
 #include <deque>
 #include <functional>
 #include <memory>
@@ -26,9 +28,9 @@
 #include "modules/remote_bitrate_estimator/packet_arrival_map.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
-#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 
@@ -69,22 +71,6 @@ class RemoteEstimatorProxy {
   void SetTransportOverhead(DataSize overhead_per_packet);
 
  private:
-  struct TransportWideFeedbackConfig {
-    FieldTrialParameter<TimeDelta> back_window{"wind", TimeDelta::Millis(500)};
-    FieldTrialParameter<TimeDelta> min_interval{"min", TimeDelta::Millis(50)};
-    FieldTrialParameter<TimeDelta> max_interval{"max", TimeDelta::Millis(250)};
-    FieldTrialParameter<TimeDelta> default_interval{"def",
-                                                    TimeDelta::Millis(100)};
-    FieldTrialParameter<double> bandwidth_fraction{"frac", 0.05};
-    explicit TransportWideFeedbackConfig(
-        const FieldTrialsView* key_value_config) {
-      ParseFieldTrial({&back_window, &min_interval, &max_interval,
-                       &default_interval, &bandwidth_fraction},
-                      key_value_config->Lookup(
-                          "WebRTC-Bwe-TransportWideFeedbackIntervals"));
-    }
-  };
-
   void MaybeCullOldPackets(int64_t sequence_number, Timestamp arrival_time)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
   void SendPeriodicFeedbacks() RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
@@ -111,7 +97,6 @@ class RemoteEstimatorProxy {
       bool is_periodic_update) RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
   const TransportFeedbackSender feedback_sender_;
-  const TransportWideFeedbackConfig send_config_;
   Timestamp last_process_time_;
 
   Mutex lock_;

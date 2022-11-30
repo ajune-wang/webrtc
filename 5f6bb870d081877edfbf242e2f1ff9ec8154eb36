@@ -70,6 +70,30 @@
       },
       "revId": "5f6bb870d081877edfbf242e2f1ff9ec8154eb36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47929eb6_a53029fd",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-11-30T13:00:54Z",
+      "side": 1,
+      "message": "One way to sync this with third_party/openh264 would be to use a build flag. Something like to https://chromium-review.googlesource.com/c/chromium/src/+/3986032.",
+      "parentUuid": "9fc1916e_e2351195",
+      "range": {
+        "startLine": 52,
+        "startChar": 55,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "5f6bb870d081877edfbf242e2f1ff9ec8154eb36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/differ_block.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -147,12 +148,14 @@ void CompareFrames(const DesktopFrame& old_frame,
 DesktopCapturerDifferWrapper::DesktopCapturerDifferWrapper(
     std::unique_ptr<DesktopCapturer> base_capturer)
     : base_capturer_(std::move(base_capturer)) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   RTC_DCHECK(base_capturer_);
 }
 
 DesktopCapturerDifferWrapper::~DesktopCapturerDifferWrapper() {}
 
 void DesktopCapturerDifferWrapper::Start(DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   callback_ = callback;
   base_capturer_->Start(this);
 }

@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/cropping_window_capturer.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer_differ_wrapper.h"
+#include "rtc_base/logging.h"
 
 #if defined(RTC_ENABLE_WIN_WGC)
 #include "modules/desktop_capture/win/wgc_capturer_win.h"
@@ -81,7 +82,16 @@ std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateWindowCapturer(
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
 #if defined(RTC_ENABLE_WIN_WGC)
+  RTC_LOG(LS_INFO) << "___"
+                   << "RTC_ENABLE_WIN_WGC";
+  RTC_LOG(LS_INFO) << "___"
+                   << "options.allow_wgc_capturer="
+                   << options.allow_wgc_capturer();
+  RTC_LOG(LS_INFO) << "___"
+                   << "IsWgcSupported(CaptureType::kScreen)="
+                   << IsWgcSupported(CaptureType::kScreen);
   if (options.allow_wgc_capturer() && IsWgcSupported(CaptureType::kScreen)) {
     return WgcCapturerWin::CreateRawScreenCapturer(options);
   }

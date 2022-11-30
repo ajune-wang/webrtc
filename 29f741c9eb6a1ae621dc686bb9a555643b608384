@@ -52,6 +52,24 @@
       "parentUuid": "0a344cd0_7b9f2955",
       "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b7d7ab_2f87273c",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-30T11:11:35Z",
+      "side": 1,
+      "message": "still a question, even after updating to copy approach which potentially makes the DCHECK not required even.\n\nSource of the failing test for PS9 is here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/utility/simulcast_test_fixture_impl.cc;l\u003d578?q\u003dTestSwitchingToOneStream\n\nI *think* it is how the test is written but it is not quite clear what it tests. Looks like case of simulcast but going into screenshare mode where simulcast really enables temporal scalability on a single spatial layer?\n\nWhat worries me is how the behavior is when I request a keyframe on the highest rid but the two lower rids are disabled. Does that move the \"layer\" inside SEA to the first index? I disabled the two lower layers via setParameters on https://fippo.github.io/simulcast-playground/rid-as-mid and that still showed a total_streams_count of 3.\n\nSolution seems to be to change the test to \n- set frame_types to 1 initially and then when \"switching back\" increase to 3 or \n- pass a nullptr in place of frame_types\n\nLeaning toward the first which will trigger the DCHECK if changed.",
+      "parentUuid": "5685f670_7032a943",
+      "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

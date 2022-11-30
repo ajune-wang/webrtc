@@ -34,6 +34,24 @@
       "parentUuid": "5b3a9270_c19e27c5",
       "revId": "bd9d54ac8f6de81fcb0fa662f2e21e6c7ed304d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c050760d_6ee3f601",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-11-30T11:11:35Z",
+      "side": 1,
+      "message": "Yeah. But can kEmptyFrame even happen down here? Will try in a different CL ;-)",
+      "parentUuid": "3043071a_731a1be3",
+      "revId": "bd9d54ac8f6de81fcb0fa662f2e21e6c7ed304d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

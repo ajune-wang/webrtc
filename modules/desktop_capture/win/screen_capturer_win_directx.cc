@@ -102,13 +102,16 @@ int ScreenCapturerWinDirectx::GetIndexFromScreenId(
 }
 
 ScreenCapturerWinDirectx::ScreenCapturerWinDirectx()
-    : controller_(DxgiDuplicatorController::Instance()) {}
+    : controller_(DxgiDuplicatorController::Instance()) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
+}
 
 ScreenCapturerWinDirectx::~ScreenCapturerWinDirectx() = default;
 
 void ScreenCapturerWinDirectx::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
+  RTC_LOG(LS_INFO) << "___" << __func__;
   RecordCapturerImpl(DesktopCapturerId::kScreenCapturerWinDirectx);
 
   callback_ = callback;
@@ -122,6 +125,7 @@ void ScreenCapturerWinDirectx::SetSharedMemoryFactory(
 void ScreenCapturerWinDirectx::CaptureFrame() {
   RTC_DCHECK(callback_);
   TRACE_EVENT0("webrtc", "ScreenCapturerWinDirectx::CaptureFrame");
+  RTC_LOG(LS_INFO) << "___" << __func__;
 
   int64_t capture_start_time_nanos = rtc::TimeNanos();
 

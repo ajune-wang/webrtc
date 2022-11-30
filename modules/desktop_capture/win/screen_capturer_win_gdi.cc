@@ -42,6 +42,7 @@ const wchar_t kDwmapiLibraryName[] = L"dwmapi.dll";
 
 ScreenCapturerWinGdi::ScreenCapturerWinGdi(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (options.disable_effects()) {
     // Load dwmapi.dll dynamically since it is not available on XP.
     if (!dwmapi_library_)

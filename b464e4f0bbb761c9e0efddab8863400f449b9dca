@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71be1a03_3afafa40",
+        "filename": "modules/audio_processing/agc2/clipping_predictor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-01T11:26:12Z",
+      "side": 1,
+      "message": "This is a bit vague. Would e.g. something along the lines of \"that reduces the error according to a fixed gain map\" work? Or maybe remove it altogether?",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

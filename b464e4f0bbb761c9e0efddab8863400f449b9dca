@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fe86ca3_9267c8e0",
+        "filename": "modules/audio_processing/agc2/clipping_predictor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71be1a03_3afafa40",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e492865a_ed67299f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-01T13:24:31Z",
       "side": 1,
       "message": "`kMaxInputVolume` would be in line with the naming elsewhere",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20638c1b_690980b1",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e492865a_ed67299f",
       "range": {
         "startLine": 33,
         "startChar": 14,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ded8b6d6_78759219",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "Ack. Removed since this is unused.",
+      "parentUuid": "382098d1_10e7fe47",
+      "range": {
+        "startLine": 385,
+        "startChar": 7,
+        "endLine": 385,
+        "endChar": 36
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8be22c81_3e2e5e8a",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-12-01T13:24:31Z",
       "side": 1,
       "message": "WebRTC-Audio-Agc2-MinInputVolume",
+      "range": {
+        "startLine": 882,
+        "startChar": 27,
+        "endLine": 882,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ad51524_f2730c3a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8be22c81_3e2e5e8a",
       "range": {
         "startLine": 882,
         "startChar": 27,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec874be7_2ca58b5e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c03d7e8_c75333c5",
+      "range": {
+        "startLine": 937,
+        "startChar": 26,
+        "endLine": 937,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c265b2f4_d531e5f6",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-12-01T13:24:31Z",
       "side": 1,
       "message": "WebRTC-Audio-Agc2-MinInputVolume",
+      "range": {
+        "startLine": 998,
+        "startChar": 26,
+        "endLine": 998,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e914cea8_bbf73e8f",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c265b2f4_d531e5f6",
       "range": {
         "startLine": 998,
         "startChar": 26,

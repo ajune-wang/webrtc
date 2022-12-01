@@ -106,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8ff4e9a_739c6534",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T15:47:47Z",
+      "side": 1,
+      "message": "ouch, I reverted a local commit and lost the edit.",
+      "parentUuid": "1e9c6c61_1f1c222f",
+      "range": {
+        "startLine": 126,
+        "startChar": 15,
+        "endLine": 131,
+        "endChar": 67
+      },
+      "revId": "bb898f5fec87659c7aa541cd37b0c949c698c58b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d918e25_da5f3d4b",

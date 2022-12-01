@@ -22,6 +22,121 @@
       },
       "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e492865a_ed67299f",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-01T13:24:31Z",
+      "side": 1,
+      "message": "`kMaxInputVolume` would be in line with the naming elsewhere",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "382098d1_10e7fe47",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-01T13:24:31Z",
+      "side": 1,
+      "message": "`IsMinInputVolumeOverridden()` would be in line with the naming elsewhere",
+      "range": {
+        "startLine": 385,
+        "startChar": 7,
+        "endLine": 385,
+        "endChar": 36
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8be22c81_3e2e5e8a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-01T13:24:31Z",
+      "side": 1,
+      "message": "WebRTC-Audio-Agc2-MinInputVolume",
+      "range": {
+        "startLine": 882,
+        "startChar": 27,
+        "endLine": 882,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c03d7e8_c75333c5",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-01T13:24:31Z",
+      "side": 1,
+      "message": "WebRTC-Audio-Agc2-MinInputVolume",
+      "range": {
+        "startLine": 937,
+        "startChar": 26,
+        "endLine": 937,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c265b2f4_d531e5f6",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-01T13:24:31Z",
+      "side": 1,
+      "message": "WebRTC-Audio-Agc2-MinInputVolume",
+      "range": {
+        "startLine": 998,
+        "startChar": 26,
+        "endLine": 998,
+        "endChar": 53
+      },
+      "revId": "b464e4f0bbb761c9e0efddab8863400f449b9dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

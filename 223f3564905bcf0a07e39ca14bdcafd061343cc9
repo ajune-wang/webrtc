@@ -141,6 +141,24 @@
       "parentUuid": "7ac88d53_1c8c1b84",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a27cb9ca_db83e340",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-12-01T03:27:46Z",
+      "side": 1,
+      "message": "Hi Björn, as for your concern about the possibility of the event drop:\n\u003eBefore the event can be written to memory, logging is started on another thread, which dumps the contents of the memory buffer to a file.\n\u003eThen the first event is added to the (now empty) memory buffer. \n\nThis event won\u0027t be dropped and will be output in the next output task.\n\nWhat we may concern is that the above mentioned event may be output not in the original order, because there will be a race between this event\u0027s `LogToMemory()` on line 145 [1] and the later events\u0027 `LogToMemory()` in PostTask on line 152 [2].\n\nBut the order question already exists in original code. For example, when thread A calls `Log()` and then in a short time thread B calls `Log()`, there is no guarantee for A\u0027s `LogToMemory()` in PostTask executed before B\u0027s.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/283641/4/logging/rtc_event_log/rtc_event_log_impl.cc#145\n[2] https://webrtc-review.googlesource.com/c/src/+/283641/4/logging/rtc_event_log/rtc_event_log_impl.cc#152",
+      "parentUuid": "3991bce9_8a1a2b2e",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

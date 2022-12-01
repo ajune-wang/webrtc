@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9006759e_8c7d369a",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2352,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-01T16:07:22Z",
+      "side": 1,
+      "message": "I really dislike the behavior of rtc::tokenize.\n\nIt has led to misparsing the unsupported\n  a\u003dsimulcast:\u003cspace\u003esomethingsomething\nfrom an earlier simulcast draft as equivalent to \n  a\u003dsimulcast:somethingsomething\n... wait, I should actually fix that place too :-)",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

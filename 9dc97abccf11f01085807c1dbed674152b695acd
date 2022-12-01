@@ -16,6 +16,24 @@
       "message": "Can you add an explicit test that a null experiment results in the null global string?",
       "revId": "9dc97abccf11f01085807c1dbed674152b695acd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd1bf50_4b24ceb3",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-12-01T15:22:22Z",
+      "side": 1,
+      "message": "This comment made me realize that we already have ScopedFieldTrials for this exact purpose.\n\nScopedGlobalFieldTrialsForTesting only makes sure the the registered keys are consistent between tests (not the global string). I\u0027ve renamed this class to better reflect this and pointed to ScopedFieldTrials in the documentation.\n\nThe real issue that this CL was originally trying to solve is actually that the tests are using InitFieldTrialsFromString when they should instead be using ScopedFieldTrials. I\u0027ve created [1] to track this general problem.\n\n[1] https://crbug.com/webrtc/14731",
+      "parentUuid": "18a5a643_b1d3b57a",
+      "revId": "9dc97abccf11f01085807c1dbed674152b695acd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

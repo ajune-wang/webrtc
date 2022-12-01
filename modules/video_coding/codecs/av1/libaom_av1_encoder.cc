@@ -23,6 +23,7 @@
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
+#include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -709,6 +710,9 @@ int32_t LibaomAv1Encoder::Encode(
       CodecSpecificInfo codec_specific_info;
       codec_specific_info.codecType = kVideoCodecAV1;
       codec_specific_info.end_of_picture = end_of_picture;
+      codec_specific_info.scalability_mode =
+          encoder_settings_.GetScalabilityMode().value_or(
+              ScalabilityMode::kL1T1);
       bool is_keyframe = layer_frame->IsKeyframe();
       codec_specific_info.generic_frame_info =
           svc_controller_->OnEncodeDone(*layer_frame);

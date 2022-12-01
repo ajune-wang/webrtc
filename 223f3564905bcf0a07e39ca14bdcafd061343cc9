@@ -159,6 +159,24 @@
       "parentUuid": "3991bce9_8a1a2b2e",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7dd3a83_fe3a9557",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-12-01T03:38:01Z",
+      "side": 1,
+      "message": "Hi Markus, I have measured the power impact of CL: https://webrtc-review.googlesource.com/c/src/+/265406 on Intel ADL (ChromeOS):\n\nWe can gain ~1.2% (40 mw) package power saving for 3x3 call and ~0.9% (30 mw) saving for 1:1 call.\n\nAnd I have also found from the tracing file that nearly all (99.9%) of the `RtcEventLogImpl::Log` PostTask[1] will be executed inline[2] exactly as you mentioned in commit message, which will contribute to power reduction to a so great extent when logging is on.\n\nBut considering most of the normal users may don\u0027t need to turn logging on, I wonder whether we should just remove all the PostTasks as this CL.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/265406/8/logging/rtc_event_log/rtc_event_log_impl.cc#141\n[2] https://webrtc-review.googlesource.com/c/src/+/265406/8/rtc_base/inline_task_queue.h#51",
+      "parentUuid": "a27cb9ca_db83e340",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

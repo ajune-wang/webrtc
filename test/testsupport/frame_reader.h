@@ -27,91 +27,123 @@ class FrameReader {
  public:
   virtual ~FrameReader() {}
 
-  // Initializes the frame reader, i.e. opens the input file.
-  // This must be called before reading of frames has started.
-  // Returns false if an error has occurred, in addition to printing to stderr.
-  virtual bool Init() = 0;
+  // Reads and returns next frame. Returns `nullptr` if reading failed or end of
+  // stream is reached.
+  virtual rtc::scoped_refptr<I420Buffer> PullFrame() = 0;
 
-  // Reads a frame from the input file. On success, returns the frame.
-  // Returns nullptr if encountering end of file or a read error.
-  virtual rtc::scoped_refptr<I420Buffer> ReadFrame() = 0;
+  // Reads and returns next frame. `frame_num` stores unwrapped frame number
+  // which can be passed to `ReadFrame` to re-read this frame latter. Returns
+  // `nullptr` if reading failed or end of stream is reached.
+  virtual rtc::scoped_refptr<I420Buffer> PullFrame(int* frame_num) = 0;
 
-  // Closes the input file if open. Essentially makes this class impossible
-  // to use anymore. Will also be invoked by the destructor.
-  virtual void Close() = 0;
+  // Reads and returns frame specified by `frame_num`. Returns `nullptr` if
+  // reading failed.
+  virtual rtc::scoped_refptr<I420Buffer> ReadFrame(int frame_num) = 0;
 
-  // Frame length in bytes of a single frame image.
-  virtual size_t FrameLength() = 0;
-  // Total number of frames in the input video source.
-  virtual int NumberOfFrames() = 0;
+  // Reads next frame, resizes and returns it. `frame_num` stores unwrapped
+  // frame number which can be passed to `ReadFrame` to re-read this frame
+  // latter. `base_framerate` and `desired_framerate` allows scaling frame rate
+  // by skipping or repeating frames. Returns `nullptr` if reading failed or end
+  // of stream is reached.
+  virtual rtc::scoped_refptr<I420Buffer> PullFrame(int* frame_num,
+                                                   int desired_width,
+                                                   int desired_height,
+                                                   int base_framerate,
+                                                   int desired_framerate) = 0;
+
+  // Reads frame specified by `frame_num`, resizes and returns it. Returns
+  // `nullptr` if reading failed.
+  virtual rtc::scoped_refptr<I420Buffer> ReadFrame(int frame_num,
+                                                   int desired_width,
+                                                   int desired_height) = 0;
+
+  // Total number of frames.
+  virtual int num_frames() const = 0;
 };
 
 class YuvFrameReaderImpl : public FrameReader {
  public:
   enum class RepeatMode { kSingle, kRepeat, kPingPong };
-  class DropperUtil {
-   public:
-    DropperUtil(int source_fps, int target_fps);
 
-    enum class DropDecision { kDropframe, kKeepFrame };
-    DropDecision UpdateLevel();
+  class RateScaler {
+   public:
+    int Skip(int base_rate, int target_rate);
 
    private:
-    const double frame_size_buckets_;
-    double bucket_level_;
+    absl::optional<int> ticks_;
   };
 
   // Creates a file handler. The input file is assumed to exist and be readable.
   // Parameters:
-  //   input_filename          The file to read from.
+  //   filepath                Path to file to read from.
   //   width, height           Size of each frame to read.
-  YuvFrameReaderImpl(std::string input_filename, int width, int height);
-  YuvFrameReaderImpl(std::string input_filename,
-                     int input_width,
-                     int input_height,
-                     int desired_width,
-                     int desired_height,
-                     RepeatMode repeat_mode,
-                     absl::optional<int> clip_fps,
-                     int target_fps);
+  //   repeat_mode             Repeat mode.
+  YuvFrameReaderImpl(std::string filepath,
+                     int width,
+                     int height,
+                     RepeatMode repeat_mode);
+
   ~YuvFrameReaderImpl() override;
-  bool Init() override;
-  rtc::scoped_refptr<I420Buffer> ReadFrame() override;
-  void Close() override;
-  size_t FrameLength() override;
-  int NumberOfFrames() override;
+
+  virtual void Init();
+
+  rtc::scoped_refptr<I420Buffer> PullFrame() override;
+
+  rtc::scoped_refptr<I420Buffer> PullFrame(int* frame_num) override;
+
+  rtc::scoped_refptr<I420Buffer> PullFrame(int* frame_num,
+                                           int desired_width,
+                                           int desired_height,
+                                           int base_framerate,
+                                           int desired_framerate) override;
+
+  rtc::scoped_refptr<I420Buffer> ReadFrame(int frame_num) override;
+
+  rtc::scoped_refptr<I420Buffer> ReadFrame(int frame_num,
+                                           int desired_width,
+                                           int desired_height) override;
+
+  int num_frames() const override { return num_frames_; }
 
  protected:
-  const std::string input_filename_;
-  // It is not const, so subclasses will be able to add frame header size.
-  size_t frame_length_in_bytes_;
-  const int input_width_;
-  const int input_height_;
-  const int desired_width_;
-  const int desired_height_;
-  const size_t frame_size_bytes_;
-  const RepeatMode repeat_mode_;
-  int number_of_frames_;
-  int current_frame_index_;
-  std::unique_ptr<DropperUtil> dropper_;
-  FILE* input_file_;
+  const std::string filepath_;
+  int width_;
+  int height_;
+  RepeatMode repeat_mode_;
+  int num_frames_;
+  int frame_num_;
+  int frame_size_bytes_;
+  int header_size_bytes_;
+  FILE* file_;
+  RateScaler framerate_scaler_;
 };
 
 class Y4mFrameReaderImpl : public YuvFrameReaderImpl {
  public:
   // Creates a file handler. The input file is assumed to exist and be readable.
   // Parameters:
-  //   input_filename          The file to read from.
-  //   width, height           Size of each frame to read.
-  Y4mFrameReaderImpl(std::string input_filename, int width, int height);
-  ~Y4mFrameReaderImpl() override;
-  bool Init() override;
-  rtc::scoped_refptr<I420Buffer> ReadFrame() override;
+  //   filepath                Path to file to read from.
+  //   repeat_mode             Repeat mode.
+  Y4mFrameReaderImpl(std::string filepath, RepeatMode repeat_mode);
 
- private:
-  // Buffer that is used to read file and frame headers.
-  char* buffer_;
+  void Init() override;
 };
+
+std::unique_ptr<FrameReader> CreateYuvFrameReader(std::string filepath,
+                                                  int widht,
+                                                  int height);
+
+std::unique_ptr<FrameReader> CreateYuvFrameReader(
+    std::string filepath,
+    int widht,
+    int height,
+    YuvFrameReaderImpl::RepeatMode repeat_mode);
+
+std::unique_ptr<FrameReader> CreateY4mFrameReader(std::string filepath);
+
+std::unique_ptr<FrameReader> CreateY4mFrameReader(
+    std::string filepath,
+    YuvFrameReaderImpl::RepeatMode repeat_mode);
 
 }  // namespace test
 }  // namespace webrtc

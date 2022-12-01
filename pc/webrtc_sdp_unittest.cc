@@ -4073,6 +4073,53 @@ TEST_F(WebRtcSdpTest, DeserializeMsidAttributeWithMissingTrackId) {
   EXPECT_FALSE(SdpDeserialize(kSdpWithMissingTrackId, &jdesc_output));
 }
 
+TEST_F(WebRtcSdpTest, DeserializeMsidAttributeWithoutAppData) {
+  static const char kSdpWithMissingStreamId[] =
+      "v=0\r\n"
+      "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "m=audio 9 RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtpmap:111 opus/48000/2\r\n"
+      "a=msid:stream_id\r\n";
+
+  JsepSessionDescription jdesc_output(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(kSdpWithMissingStreamId, &jdesc_output));
+}
+
+TEST_F(WebRtcSdpTest, DeserializeMsidAttributeWithoutAppDataTwice) {
+  static const char kSdpWithMissingStreamId[] =
+      "v=0\r\n"
+      "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "m=audio 9 RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtpmap:111 opus/48000/2\r\n"
+      "a=msid:stream_id\r\n"
+      "a=msid:stream_id\r\n";
+
+  JsepSessionDescription jdesc_output(kDummyType);
+  EXPECT_FALSE(SdpDeserialize(kSdpWithMissingStreamId, &jdesc_output));
+}
+
+TEST_F(WebRtcSdpTest, DeserializeMsidAttributeWithoutAppDataMixed) {
+  static const char kSdpWithMissingStreamId[] =
+      "v=0\r\n"
+      "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "m=audio 9 RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtpmap:111 opus/48000/2\r\n"
+      "a=msid:stream_id\r\n"
+      "a=msid:stream_id track_id\r\n";
+
+  JsepSessionDescription jdesc_output(kDummyType);
+  EXPECT_FALSE(SdpDeserialize(kSdpWithMissingStreamId, &jdesc_output));
+}
+
 TEST_F(WebRtcSdpTest, DeserializeMsidAttributeWithMissingStreamId) {
   static const char kSdpWithMissingStreamId[] =
       "v=0\r\n"

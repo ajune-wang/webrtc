@@ -2333,33 +2333,40 @@ static bool ParseMsidAttribute(absl::string_view line,
                                std::vector<std::string>* stream_ids,
                                std::string* track_id,
                                SdpParseError* error) {
-  // https://datatracker.ietf.org/doc/draft-ietf-mmusic-msid/16/
-  // a=msid:<stream id> <track id>
+  // https://datatracker.ietf.org/doc/rfc8830/
+  // a=msid:<msid-value>
   // msid-value = msid-id [ SP msid-appdata ]
   // msid-id = 1*64token-char ; see RFC 4566
   // msid-appdata = 1*64token-char  ; see RFC 4566
-  std::string field1;
-  std::string new_stream_id;
-  std::string new_track_id;
-  if (!rtc::tokenize_first(line.substr(kLinePrefixLength),
-                           kSdpDelimiterSpaceChar, &field1, &new_track_id)) {
+  // Note that JSEP stipulates not sending msid-appdata so
+  // a=msid:<stream id> <track id>
+  // is supported for backward compability reasons only.
+  std::vector<std::string> fields;
+  size_t num_fields = rtc::tokenize(line.substr(kLinePrefixLength),
+                                    kSdpDelimiterSpaceChar, &fields);
+  if (num_fields < 1 || num_fields > 2) {
     const size_t expected_fields = 2;
     return ParseFailedExpectFieldNum(line, expected_fields, error);
   }
-
-  if (new_track_id.empty()) {
-    return ParseFailed(line, "Missing track ID in msid attribute.", error);
+  if (num_fields == 1) {
+    if (line.back() == kSdpDelimiterSpaceChar) {
+      return ParseFailed(line, "Missing track ID in msid attribute.", error);
+    }
+    // Generate a random track identifier.
+    fields.push_back(rtc::CreateRandomString(8));
   }
+
   // All track ids should be the same within an m section in a Unified Plan SDP.
-  if (!track_id->empty() && new_track_id.compare(*track_id) != 0) {
+  if (!track_id->empty() && fields[1].compare(*track_id) != 0) {
     return ParseFailed(
         line, "Two different track IDs in msid attribute in one m= section",
         error);
   }
-  *track_id = new_track_id;
+  *track_id = fields[1];
 
   // msid:<msid-id>
-  if (!GetValue(field1, kAttributeMsid, &new_stream_id, error)) {
+  std::string new_stream_id;
+  if (!GetValue(fields[0], kAttributeMsid, &new_stream_id, error)) {
     return false;
   }
   if (new_stream_id.empty()) {

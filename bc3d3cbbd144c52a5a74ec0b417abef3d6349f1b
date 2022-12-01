@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fafb7d_f8f7c418",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-01T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3300855_7c53b04e",
+      "revId": "bc3d3cbbd144c52a5a74ec0b417abef3d6349f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d83d78d_e27a355d",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-28T14:38:53Z",
       "side": 1,
       "message": "This code gets triggered after the RTP streams are set up correctly, i.e. whether we have 1 layer or many layers, so set scalability mode below instead of in common_info",
+      "revId": "bc3d3cbbd144c52a5a74ec0b417abef3d6349f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff7456a1_bfffdc44",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2691,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-01T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d83d78d_e27a355d",
       "revId": "bc3d3cbbd144c52a5a74ec0b417abef3d6349f1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

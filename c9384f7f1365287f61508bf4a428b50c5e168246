@@ -159,6 +159,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73068a7a_70896484",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-01T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67b9b1cc_0caf81bd",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33669e39_c40d3952",
@@ -172,6 +190,24 @@
       "writtenOn": "2022-11-28T13:40:27Z",
       "side": 1,
       "message": "Optional suggestion: How about...\n\nstruct ScalabilityStructure {\n  std::unique_ptr\u003cScalableVideoController\u003e controller;\n  ScalabilityMode scalability_mode;\n};\n\nAnd using absl::optional\u003cScalabilityStructure\u003e as return value because you either want both or neither",
+      "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a547390a_35d4cc33",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-01T13:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33669e39_c40d3952",
       "revId": "c9384f7f1365287f61508bf4a428b50c5e168246",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2655a14_d5baff5a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T09:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2875babf_439b68e7",
+      "range": {
+        "startLine": 126,
+        "startChar": 15,
+        "endLine": 131,
+        "endChar": 67
+      },
+      "revId": "bb898f5fec87659c7aa541cd37b0c949c698c58b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d918e25_da5f3d4b",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-11-30T13:06:15Z",
       "side": 1,
       "message": "This name might give an impression that clipping is still present with this volume",
+      "range": {
+        "startLine": 184,
+        "startChar": 32,
+        "endLine": 184,
+        "endChar": 62
+      },
+      "revId": "bb898f5fec87659c7aa541cd37b0c949c698c58b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7feb05ae_2634ca8b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-01T09:54:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d918e25_da5f3d4b",
       "range": {
         "startLine": 184,
         "startChar": 32,

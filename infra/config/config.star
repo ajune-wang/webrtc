@@ -791,6 +791,7 @@ linux_builder("Fuchsia Builder", ci_cat = None, perf_cat = "Fuchsia|x64|Builder|
 linux_builder("Fuchsia Release", "Fuchsia|x64|rel")
 linux_try_job("fuchsia_rel", cq = None)
 perf_builder("Perf Fuchsia", "Fuchsia|x64|Tester|", triggered_by = ["Fuchsia Builder"])
+linux_try_job("linux_cov", cq = None)
 
 mac_builder("Mac64 Debug", "Mac|x64|dbg")
 mac_try_job("mac_dbg", cq = None)

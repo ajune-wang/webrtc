@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334f6eab_a19039de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-12-02T15:37:22Z",
+      "side": 1,
+      "message": "Could you add some details what the problem is that the cl tries to solve?\n\nI don\u0027t think the clock is used in NetEq more than for setting some metadata on the packets.",
+      "revId": "181be85cc04c7ad8873a7591722b0e8228fbbbb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

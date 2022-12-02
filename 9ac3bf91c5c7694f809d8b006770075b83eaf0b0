@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88feab1b_dba68c89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:45:03Z",
+      "side": 1,
+      "message": "Still unhappy with the name, and with the explanatory comment. Made suggestions.",
+      "revId": "9ac3bf91c5c7694f809d8b006770075b83eaf0b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2add3719_7dae8c02",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:45:03Z",
+      "side": 1,
+      "message": "I suggest that you don\u0027t use the RAII abbreviation here. It doesn\u0027t tell you what resources it is acquiring, which is the important part of this class.\n\nFrom reading the code, it seems that it only initializes (on init) and clears (on destruction) the TestKeys variable, which allows keys to be registered that won\u0027t throw on use of nonregistered field trial names.",
+      "revId": "9ac3bf91c5c7694f809d8b006770075b83eaf0b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa85df49_0c0372e1",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:45:03Z",
+      "side": 1,
+      "message": "This description needs improvement.\nExactly what does \"consistent between tests\" mean?\nConsistent between two runs of the same test?\nConsistent between two tests run sequentially? (probably not - that would make the word \"Scoped\" misleading).\n\nI *hope* that it means \"consistent every time a test is executed\", or \"isolated from changes in the global string that occur in context\".",
+      "revId": "9ac3bf91c5c7694f809d8b006770075b83eaf0b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c057c28f_c87c89a8",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:45:03Z",
+      "side": 1,
+      "message": "Still have problems understanding this name.\nAfter going through the code.. what about something like\n\nk \u003d AllowFieldTrialNamesInScope(....)?\nk \u003d FieldTrialsAllowedInScope(...)?",
+      "revId": "9ac3bf91c5c7694f809d8b006770075b83eaf0b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

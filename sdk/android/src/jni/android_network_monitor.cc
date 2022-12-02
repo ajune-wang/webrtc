@@ -173,11 +173,12 @@ static NetworkInformation GetNetworkInformationFromJava(
       jni, Java_NetworkInformation_getName(jni, j_network_info));
   network_info.handle = static_cast<NetworkHandle>(
       Java_NetworkInformation_getHandle(jni, j_network_info));
-  network_info.type = GetNetworkTypeFromJava(
-      jni, Java_NetworkInformation_getConnectionType(jni, j_network_info));
-  network_info.underlying_type_for_vpn = GetNetworkTypeFromJava(
-      jni, Java_NetworkInformation_getUnderlyingConnectionTypeForVpn(
-               jni, j_network_info));
+  network_info.type = {
+      .type = GetNetworkTypeFromJava(
+          jni, Java_NetworkInformation_getConnectionType(jni, j_network_info)),
+      .underlying_type_for_vpn = GetNetworkTypeFromJava(
+          jni, Java_NetworkInformation_getUnderlyingConnectionTypeForVpn(
+                   jni, j_network_info))};
   ScopedJavaLocalRef<jobjectArray> j_ip_addresses =
       Java_NetworkInformation_getIpAddresses(jni, j_network_info);
   network_info.ip_addresses = JavaToNativeVector<rtc::IPAddress>(
@@ -218,9 +219,9 @@ NetworkInformation& NetworkInformation::operator=(NetworkInformation&&) =
 std::string NetworkInformation::ToString() const {
   rtc::StringBuilder ss;
   ss << "NetInfo[name " << interface_name << "; handle " << handle << "; type "
-     << type;
-  if (type == NETWORK_VPN) {
-    ss << "; underlying_type_for_vpn " << underlying_type_for_vpn;
+     << type.type;
+  if (type.type == NETWORK_VPN) {
+    ss << "; underlying_type_for_vpn " << type.underlying_type_for_vpn;
   }
   ss << "]";
   return ss.Release();
@@ -416,13 +417,18 @@ void AndroidNetworkMonitor::OnNetworkConnected_n(
     const NetworkInformation& network_info) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_INFO) << "Network connected: " << network_info.ToString();
+
+  // We speculate that a handle can have several if_names,
+  // i.e OnNetworkConnected_n can be called with same handle and differnt
+  // if_names.
+
   network_info_by_handle_[network_info.handle] = network_info;
   for (const rtc::IPAddress& address : network_info.ip_addresses) {
     network_handle_by_address_[address] = network_info.handle;
   }
-  network_handle_by_if_name_[network_info.interface_name] = network_info.handle;
-  RTC_CHECK(network_info_by_handle_.size() >=
-            network_handle_by_if_name_.size());
+  network_handle_by_if_name_[network_info.interface_name] =
+      std::make_pair(network_info.handle, network_info.type);
+
   InvokeNetworksChangedCallback();
 }
 
@@ -450,10 +456,14 @@ AndroidNetworkMonitor::FindNetworkHandleFromAddressOrName(
     }
   }
 
-  return FindNetworkHandleFromIfname(if_name);
+  auto pair = FindNetworkHandleFromIfname(if_name);
+  if (pair) {
+    return pair->first;
+  }
+  return absl::nullopt;
 }
 
-absl::optional<NetworkHandle>
+absl::optional<std::pair<NetworkHandle, CompoundNetworkType>>
 AndroidNetworkMonitor::FindNetworkHandleFromIfname(
     absl::string_view if_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -484,12 +494,24 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
     return;
   }
 
-  for (const rtc::IPAddress& address : iter->second.ip_addresses) {
+  const auto& network_info = iter->second;
+  for (const rtc::IPAddress& address : network_info.ip_addresses) {
     network_handle_by_address_.erase(address);
   }
 
+  // We speculate that a handle can have several if_names,
+  // i.e OnNetworkConnected_n can be called with same handle and differnt
+  // if_names. Therefor we need to scan the network_handle_by_if_name_ to check
+  // for `handle` and remove all (except the last connected, stored in
+  // info.interface_name) that is removed below.
+  for (const auto& [if_name, pair] : network_handle_by_if_name_) {
+    if (handle == pair.first && if_name != network_info.interface_name) {
+      network_handle_by_if_name_.erase(if_name);
+    }
+  }
+
   // We've discovered that the if_name is not always unique,
-  // i.e it can be several network conencted with same if_name.
+  // i.e it can be several network connected with same if_name.
   //
   // This is handled the following way,
   // 1) OnNetworkConnected_n overwrites any previous "owner" of an interface
@@ -501,10 +523,11 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
   // network_handle_by_if_name_.
 
   // Check if we are registered as "owner" of if_name.
-  const auto& if_name = iter->second.interface_name;
+  const auto& if_name = network_info.interface_name;
   auto iter2 = network_handle_by_if_name_.find(if_name);
   RTC_DCHECK(iter2 != network_handle_by_if_name_.end());
-  if (iter2 != network_handle_by_if_name_.end() && iter2->second == handle) {
+  if (iter2 != network_handle_by_if_name_.end() &&
+      iter2->second.first == handle) {
     // We are owner...
     // Check if there is someone else we can set as owner.
     bool found = false;
@@ -514,7 +537,8 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
       }
       if (info.second.interface_name == if_name) {
         found = true;
-        network_handle_by_if_name_[if_name] = info.first;
+        network_handle_by_if_name_[if_name] =
+            std::make_pair(info.first, info.second.type);
         break;
       }
     }
@@ -526,7 +550,7 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
     // We are not owner...don't do anything.
 #if RTC_DCHECK_IS_ON
     auto owner_handle = FindNetworkHandleFromIfname(if_name);
-    RTC_DCHECK(owner_handle && *owner_handle != handle);
+    RTC_DCHECK(owner_handle && owner_handle->first != handle);
 #endif
   }
 
@@ -575,7 +599,7 @@ AndroidNetworkMonitor::GetInterfaceInfo(absl::string_view if_name) {
         .available = (disable_is_adapter_available_ ? true : false),
     };
   }
-  auto iter = network_info_by_handle_.find(*handle);
+  auto iter = network_info_by_handle_.find(handle->first);
   RTC_DCHECK(iter != network_info_by_handle_.end());
   if (iter == network_info_by_handle_.end()) {
     return {
@@ -585,10 +609,10 @@ AndroidNetworkMonitor::GetInterfaceInfo(absl::string_view if_name) {
   }
 
   auto type =
-      AdapterTypeFromNetworkType(iter->second.type, surface_cellular_types_);
+      AdapterTypeFromNetworkType(handle->second.type, surface_cellular_types_);
   auto vpn_type =
       (type == rtc::ADAPTER_TYPE_VPN)
-          ? AdapterTypeFromNetworkType(iter->second.underlying_type_for_vpn,
+          ? AdapterTypeFromNetworkType(handle->second.underlying_type_for_vpn,
                                        surface_cellular_types_)
           : rtc::ADAPTER_TYPE_UNKNOWN;
   return {

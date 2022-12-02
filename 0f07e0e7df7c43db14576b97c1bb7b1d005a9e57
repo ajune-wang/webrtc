@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f25888_f5e79508",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-12-02T09:27:25Z",
+      "side": 1,
+      "message": "Hi,\n\nThanks for spending time on this!\n\nI think the most appropriate thing would be to change the test cases to\nuse OnNetworkConnected_n rather than SetNetworkInfos.\n\nWDYT ?",
+      "revId": "0f07e0e7df7c43db14576b97c1bb7b1d005a9e57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

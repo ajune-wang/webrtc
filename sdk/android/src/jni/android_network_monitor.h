@@ -115,6 +115,9 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface {
                                  jint preference);
 
   // Visible for testing.
+  void resetForTesting();
+
+  // Visible for testing.
   absl::optional<NetworkHandle> FindNetworkHandleFromAddressOrName(
       const rtc::IPAddress& address,
       absl::string_view ifname) const;

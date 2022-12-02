@@ -276,6 +276,10 @@ void AndroidNetworkMonitor::reset() {
   network_preference_by_adapter_type_.clear();
 }
 
+void AndroidNetworkMonitor::resetForTesting() {
+  reset();
+}
+
 void AndroidNetworkMonitor::Stop() {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (!started_) {

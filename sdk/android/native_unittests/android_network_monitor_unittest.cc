@@ -78,6 +78,7 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingIpv4Address) {
   jni::NetworkInformation net_info =
       CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos(net_infos);
 
   auto network_handle =
@@ -95,6 +96,7 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingFullIpv6Address) {
   jni::NetworkInformation net_info =
       CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address1);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos(net_infos);
 
   auto network_handle1 =
@@ -121,6 +123,7 @@ TEST_F(AndroidNetworkMonitorTest,
   jni::NetworkInformation net_info =
       CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address1);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos(net_infos);
 
   auto network_handle1 =
@@ -144,6 +147,7 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingIfName) {
   jni::NetworkInformation net_info =
       CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address1);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos(net_infos);
 
   rtc::IPAddress ipv4_address(kTestIpv4Address);
@@ -170,6 +174,7 @@ TEST_F(AndroidNetworkMonitorTest, TestUnderlyingVpnType) {
       CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
   net_info.type = jni::NETWORK_VPN;
   net_info.underlying_type_for_vpn = jni::NETWORK_WIFI;
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos({net_info});
 
   EXPECT_EQ(
@@ -186,6 +191,7 @@ TEST_F(AndroidNetworkMonitorTest, Disconnect) {
   jni::NetworkInformation net_info =
       CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
   net_info.type = jni::NETWORK_WIFI;
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos({net_info});
 
   EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
@@ -215,6 +221,7 @@ TEST_F(AndroidNetworkMonitorTest, Reset) {
   jni::NetworkInformation net_info =
       CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
   net_info.type = jni::NETWORK_WIFI;
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos({net_info});
 
   EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
@@ -250,6 +257,7 @@ TEST_F(AndroidNetworkMonitorTest, DuplicateIfname) {
       CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address);
   net_info2.type = jni::NETWORK_UNKNOWN_CELLULAR;
 
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos({net_info1, net_info2});
 
   // The last added.
@@ -281,6 +289,7 @@ TEST_F(AndroidNetworkMonitorTest, DuplicateIfnameDisconnectOwner) {
       CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address);
   net_info2.type = jni::NETWORK_UNKNOWN_CELLULAR;
 
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos({net_info1, net_info2});
 
   // The last added.
@@ -311,6 +320,7 @@ TEST_F(AndroidNetworkMonitorTest, DuplicateIfnameDisconnectNonOwner) {
       CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address);
   net_info2.type = jni::NETWORK_UNKNOWN_CELLULAR;
 
+  network_monitor_->resetForTesting();
   network_monitor_->SetNetworkInfos({net_info1, net_info2});
 
   // The last added.

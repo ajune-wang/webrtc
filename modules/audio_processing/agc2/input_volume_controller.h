@@ -97,8 +97,7 @@ class InputVolumeController final {
   // `speech_level_dbfs`. Must be called after `AnalyzePreProcess()`. The value
   // of `speech_probability` is expected to be in the range [0.0f, 1.0f] and
   // `speech_level_dbfs` in the the range [-90.f, 30.0f].
-  void Process(float speech_probability,
-               absl::optional<float> speech_level_dbfs);
+  void Process(float speech_probability, float speech_level_dbfs);
 
   // TODO(bugs.webrtc.org/7494): Return recommended input volume and remove
   // `recommended_analog_level()`.
@@ -207,9 +206,8 @@ class MonoInputVolumeController {
   // TODO(bugs.webrtc.org/7494): Rename, audio not passed to the method anymore.
   // Adjusts the recommended input volume upwards/downwards depending on
   // whether `rms_error_dbfs` is positive or negative. Updates are only allowed
-  // for active speech segments and when `rms_error_dbfs` is not empty. Must be
-  // called after `HandleClipping()`.
-  void Process(absl::optional<int> rms_error_dbfs, float speech_probability);
+  // for active speech segments. Must be called after `HandleClipping()`.
+  void Process(int rms_error_dbfs, float speech_probability);
 
   // Returns the recommended input volume. Must be called after `Process()`.
   int recommended_analog_level() const { return recommended_input_volume_; }

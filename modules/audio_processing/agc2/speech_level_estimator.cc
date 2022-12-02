@@ -110,23 +110,26 @@ void SpeechLevelEstimator::Update(float rms_dbfs,
       level_dbfs_ = ClampLevelEstimateDbfs(level_dbfs);
     }
   }
+  UpdateIsConfident();
   DumpDebugData();
 }
 
-bool SpeechLevelEstimator::IsConfident() const {
+void SpeechLevelEstimator::UpdateIsConfident() {
   if (adjacent_speech_frames_threshold_ == 1) {
     // Ignore `reliable_state_` when a single frame is enough to update the
     // level estimate (because it is not used).
-    return preliminary_state_.time_to_confidence_ms == 0;
+    is_confident_ = preliminary_state_.time_to_confidence_ms == 0;
+    return;
   }
   // Once confident, it remains confident.
   RTC_DCHECK(reliable_state_.time_to_confidence_ms != 0 ||
              preliminary_state_.time_to_confidence_ms == 0);
   // During the first long enough speech sequence, `reliable_state_` must be
   // ignored since `preliminary_state_` is used.
-  return reliable_state_.time_to_confidence_ms == 0 ||
-         (num_adjacent_speech_frames_ >= adjacent_speech_frames_threshold_ &&
-          preliminary_state_.time_to_confidence_ms == 0);
+  is_confident_ =
+      reliable_state_.time_to_confidence_ms == 0 ||
+      (num_adjacent_speech_frames_ >= adjacent_speech_frames_threshold_ &&
+       preliminary_state_.time_to_confidence_ms == 0);
 }
 
 void SpeechLevelEstimator::Reset() {
@@ -144,6 +147,11 @@ void SpeechLevelEstimator::ResetLevelEstimatorState(
 }
 
 void SpeechLevelEstimator::DumpDebugData() const {
+  if (!apm_data_dumper_) {
+    return;
+  }
+  apm_data_dumper_->DumpRaw("agc2_speech_level_dbfs", level_dbfs_);
+  apm_data_dumper_->DumpRaw("agc2_speech_level_is_confident", is_confident_);
   apm_data_dumper_->DumpRaw(
       "agc2_adaptive_level_estimator_num_adjacent_speech_frames",
       num_adjacent_speech_frames_);

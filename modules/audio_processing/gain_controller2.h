@@ -15,11 +15,14 @@
 #include <memory>
 #include <string>
 
-#include "modules/audio_processing/agc2/adaptive_digital_gain_controller.h"
+#include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 #include "modules/audio_processing/agc2/cpu_features.h"
 #include "modules/audio_processing/agc2/gain_applier.h"
 #include "modules/audio_processing/agc2/input_volume_controller.h"
 #include "modules/audio_processing/agc2/limiter.h"
+#include "modules/audio_processing/agc2/noise_level_estimator.h"
+#include "modules/audio_processing/agc2/saturation_protector.h"
+#include "modules/audio_processing/agc2/speech_level_estimator.h"
 #include "modules/audio_processing/agc2/vad_wrapper.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
@@ -80,11 +83,18 @@ class GainController2 {
   static std::atomic<int> instance_count_;
   const AvailableCpuFeatures cpu_features_;
   ApmDataDumper data_dumper_;
+
   GainApplier fixed_gain_applier_;
+  std::unique_ptr<NoiseLevelEstimator> noise_level_estimator_;
   std::unique_ptr<VoiceActivityDetectorWrapper> vad_;
-  std::unique_ptr<AdaptiveDigitalGainController> adaptive_digital_controller_;
+  std::unique_ptr<SpeechLevelEstimator> speech_level_estimator_;
   std::unique_ptr<InputVolumeController> input_volume_controller_;
+  // TODO(bugs.webrtc.org/7494): Rename to `CrestFactorEstimator`.
+  std::unique_ptr<SaturationProtector> saturation_protector_;
+  // TODO(bugs.webrtc.org/7494): Rename to `AdaptiveDigitalGainController`.
+  std::unique_ptr<AdaptiveDigitalGainApplier> adaptive_digital_controller_;
   Limiter limiter_;
+
   int calls_since_last_limiter_log_;
 };
 

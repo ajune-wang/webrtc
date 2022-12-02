@@ -86,6 +86,24 @@
       "message": "Add the comment from the OWNERS file here too?\nI like files to be self-documenting.",
       "revId": "da9307c822a1488df24ffe8091670713d089d3af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7c5b66e_9d2b5bcf",
+        "filename": "OWNERS_INFRA",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-12-02T08:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fe5332c_a3602074",
+      "revId": "da9307c822a1488df24ffe8091670713d089d3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Please?",
       "revId": "ff7d33e66586d18f448952a9e90b0d7dba36a8d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d97923c4_95fc9643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-02T13:46:12Z",
+      "side": 1,
+      "message": "Adding @sprang as a code owner.",
+      "revId": "ff7d33e66586d18f448952a9e90b0d7dba36a8d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

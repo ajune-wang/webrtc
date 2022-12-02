@@ -14,6 +14,7 @@
 
 #include "api/test/mock_async_dns_resolver.h"
 #include "p2p/base/basic_packet_socket_factory.h"
+#include "p2p/base/mock_dns_resolving_packet_socket_factory.h"
 #include "p2p/base/test_stun_server.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
@@ -33,10 +34,6 @@ using ::testing::InvokeArgument;
 using ::testing::Return;
 using ::testing::ReturnPointee;
 using ::testing::SetArgPointee;
-
-using DnsResolverExpectations =
-    std::function<void(webrtc::MockAsyncDnsResolver*,
-                       webrtc::MockAsyncDnsResolverResult*)>;
 
 static const SocketAddress kLocalAddr("127.0.0.1", 0);
 static const SocketAddress kIPv6LocalAddr("::1", 0);
@@ -61,6 +58,7 @@ static const int kHighCostPortKeepaliveLifetimeMs = 2 * 60 * 1000;
 
 constexpr uint64_t kTiebreakerDefault = 44444;
 
+<<<<<<< HEAD   (cb7d97 [M109] Ensure VideoSendStreamImpl::transport_queue_safety_ i)
 // A PacketSocketFactory implementation that uses a mock DnsResolver and allows
 // setting expectations on the resolver and results.
 class MockDnsResolverPacketSocketFactory
@@ -87,6 +85,29 @@ class MockDnsResolverPacketSocketFactory
  private:
   webrtc::MockAsyncDnsResolverResult resolver_result_;
   DnsResolverExpectations expectations_;
+=======
+class FakeMdnsResponder : public webrtc::MdnsResponderInterface {
+ public:
+  void CreateNameForAddress(const rtc::IPAddress& addr,
+                            NameCreatedCallback callback) override {
+    callback(addr, std::string("unittest-mdns-host-name.local"));
+  }
+
+  void RemoveNameForAddress(const rtc::IPAddress& addr,
+                            NameRemovedCallback callback) override {}
+};
+
+class FakeMdnsResponderProvider : public rtc::MdnsResponderProvider {
+ public:
+  FakeMdnsResponderProvider() : mdns_responder_(new FakeMdnsResponder()) {}
+
+  webrtc::MdnsResponderInterface* GetMdnsResponder() const override {
+    return mdns_responder_.get();
+  }
+
+ private:
+  std::unique_ptr<webrtc::MdnsResponderInterface> mdns_responder_;
+>>>>>>> CHANGE (def855 Resolve TURN hostname specific to network family behind fiel)
 };
 
 // Base class for tests connecting a StunPort to a fake STUN server
@@ -305,12 +326,13 @@ class StunPortWithMockDnsResolverTest : public StunPortTest {
     return &socket_factory_;
   }
 
-  void SetDnsResolverExpectations(DnsResolverExpectations expectations) {
+  void SetDnsResolverExpectations(
+      rtc::MockDnsResolvingPacketSocketFactory::Expectations expectations) {
     socket_factory_.SetExpectations(expectations);
   }
 
  private:
-  MockDnsResolverPacketSocketFactory socket_factory_;
+  rtc::MockDnsResolvingPacketSocketFactory socket_factory_;
 };
 
 // Test that we can get an address from a STUN server specified by a hostname.
@@ -618,12 +640,13 @@ class StunIPv6PortTestWithMockDnsResolver : public StunIPv6PortTest {
     return &socket_factory_;
   }
 
-  void SetDnsResolverExpectations(DnsResolverExpectations expectations) {
+  void SetDnsResolverExpectations(
+      rtc::MockDnsResolvingPacketSocketFactory::Expectations expectations) {
     socket_factory_.SetExpectations(expectations);
   }
 
  private:
-  MockDnsResolverPacketSocketFactory socket_factory_;
+  rtc::MockDnsResolvingPacketSocketFactory socket_factory_;
 };
 
 // Test that we can get an address from a STUN server specified by a hostname.

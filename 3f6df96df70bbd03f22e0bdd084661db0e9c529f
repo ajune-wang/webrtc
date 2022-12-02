@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "350a29da_980db711",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T10:12:34Z",
+      "side": 1,
+      "message": "Simplification is nice!\nIs there any performance impact of using a dedicated task queue?",
+      "revId": "3f6df96df70bbd03f22e0bdd084661db0e9c529f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

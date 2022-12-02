@@ -3,6 +3,40 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "483eb010_10c0895d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:54:16Z",
+      "side": 1,
+      "message": "Good for code health that I just went through the logic of multiple msids!",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d2306a_53cb7d84",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:54:16Z",
+      "side": 1,
+      "message": "Don\u0027t be fancy - ParseFailed(line, \"Expected a stream ID and optionally a track ID\", error).",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9006759e_8c7d369a",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 1
@@ -14,6 +48,75 @@
       "writtenOn": "2022-12-01T16:07:22Z",
       "side": 1,
       "message": "I really dislike the behavior of rtc::tokenize.\n\nIt has led to misparsing the unsupported\n  a\u003dsimulcast:\u003cspace\u003esomethingsomething\nfrom an earlier simulcast draft as equivalent to \n  a\u003dsimulcast:somethingsomething\n... wait, I should actually fix that place too :-)",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ae2050_4df04b90",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2352,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:54:16Z",
+      "side": 1,
+      "message": "I dislike the whole handwritten-recursive-parser-using-code-only approach.\nBut it has not had enough bugs to make rewriting a priority.",
+      "parentUuid": "9006759e_8c7d369a",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c88b24a3_30416356",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:54:16Z",
+      "side": 1,
+      "message": "TODO() verify that this string is unused and delete it?",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119f453f_33b8c503",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2360,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:54:16Z",
+      "side": 1,
+      "message": "This will fail on two a\u003dmsid:streamid in the same section, since the code above will generate different track IDs for the two cases. Ugh.",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "976b5762_b365d67f",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4101,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:54:16Z",
+      "side": 1,
+      "message": "Change this to a\u003dmsid:stream_id_1, a\u003dmsid:stream_id_2 and make it pass!",
       "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

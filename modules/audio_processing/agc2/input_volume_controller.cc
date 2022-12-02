@@ -195,7 +195,7 @@ void MonoInputVolumeController::Initialize() {
 // previous update and the ratio of non-silence frames (i.e., frames with a
 // `speech_probability` higher than `speech_probability_threshold_`) is at least
 // `speech_ratio_threshold_`.
-void MonoInputVolumeController::Process(absl::optional<int> rms_error_db,
+void MonoInputVolumeController::Process(int rms_error_db,
                                         float speech_probability) {
   if (check_volume_on_next_process_) {
     check_volume_on_next_process_ = false;
@@ -222,9 +222,7 @@ void MonoInputVolumeController::Process(absl::optional<int> rms_error_db,
 
     // Update the input volume if allowed.
     if (!is_first_frame_ && speech_ratio >= speech_ratio_threshold_) {
-      if (rms_error_db.has_value()) {
-        UpdateInputVolume(*rms_error_db);
-      }
+      UpdateInputVolume(rms_error_db);
     }
   }
 
@@ -508,19 +506,16 @@ void InputVolumeController::AnalyzePreProcess(const AudioBuffer& audio_buffer) {
 }
 
 void InputVolumeController::Process(float speech_probability,
-                                    absl::optional<float> speech_level_dbfs) {
+                                    float speech_level_dbfs) {
   AggregateChannelLevels();
 
   if (!capture_output_used_) {
     return;
   }
 
-  absl::optional<int> rms_error_db;
-  if (speech_level_dbfs.has_value()) {
-    // Compute the error for all frames (both speech and non-speech frames).
-    rms_error_db = GetSpeechLevelRmsErrorDb(
-        *speech_level_dbfs, target_range_min_dbfs_, target_range_max_dbfs_);
-  }
+  // Compute the error for all frames (both speech and non-speech frames).
+  int rms_error_db = GetSpeechLevelRmsErrorDb(
+      speech_level_dbfs, target_range_min_dbfs_, target_range_max_dbfs_);
 
   for (auto& controller : channel_controllers_) {
     controller->Process(rms_error_db, speech_probability);

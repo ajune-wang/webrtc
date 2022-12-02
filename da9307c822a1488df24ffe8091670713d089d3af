@@ -52,6 +52,40 @@
       "parentUuid": "75ffe915_9f851075",
       "revId": "da9307c822a1488df24ffe8091670713d089d3af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bef64be_5297a880",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:29:03Z",
+      "side": 1,
+      "message": "Suggestion for comment, approved.",
+      "revId": "da9307c822a1488df24ffe8091670713d089d3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe5332c_a3602074",
+        "filename": "OWNERS_INFRA",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-02T08:29:03Z",
+      "side": 1,
+      "message": "Add the comment from the OWNERS file here too?\nI like files to be self-documenting.",
+      "revId": "da9307c822a1488df24ffe8091670713d089d3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

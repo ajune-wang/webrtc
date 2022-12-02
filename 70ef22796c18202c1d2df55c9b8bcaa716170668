@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b9396d4_1493ace0",
+        "filename": "infra/config/config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-12-02T12:42:08Z",
+      "side": 1,
+      "message": "The ordering in this file is a bit messy but I think this \"belongs\" under linux_try_job(\"linux_rel\").",
+      "range": {
+        "startLine": 794,
+        "startChar": 0,
+        "endLine": 794,
+        "endChar": 37
+      },
+      "revId": "70ef22796c18202c1d2df55c9b8bcaa716170668",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "897ce48e_581fe7ae",
+        "filename": "infra/config/config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-12-02T12:42:08Z",
+      "side": 1,
+      "message": "Can we make it linux_coverage ?",
+      "range": {
+        "startLine": 794,
+        "startChar": 15,
+        "endLine": 794,
+        "endChar": 24
+      },
+      "revId": "70ef22796c18202c1d2df55c9b8bcaa716170668",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

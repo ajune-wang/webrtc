@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be5ca36_d06be684",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-12-02T11:01:09Z",
+      "side": 1,
+      "message": "I think the already existing friend declaration,\n\"friend class webrtc::test::AndroidNetworkMonitorTest;\"\nmakes the moving of that method to public unneeded.\n\nGreat, LGTM",
+      "revId": "284bcab9c0683909ef9c4b5e4040f1f5b73bf7b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

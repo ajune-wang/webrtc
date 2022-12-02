@@ -52,13 +52,17 @@ enum NetworkType {
   NETWORK_NONE
 };
 
+struct CompoundNetworkType {
+  NetworkType type;
+  NetworkType underlying_type_for_vpn;
+};
+
 // The information is collected from Android OS so that the native code can get
 // the network type and handle (Android network ID) for each interface.
 struct NetworkInformation {
   std::string interface_name;
   NetworkHandle handle;
-  NetworkType type;
-  NetworkType underlying_type_for_vpn;
+  CompoundNetworkType type;
   std::vector<rtc::IPAddress> ip_addresses;
 
   NetworkInformation();
@@ -115,27 +119,31 @@ class AndroidNetworkMonitor : public rtc::NetworkMonitorInterface {
                                  jint preference);
 
   // Visible for testing.
+  void OnNetworkConnected_n(const NetworkInformation& network_info);
+
+  // Visible for testing.
   absl::optional<NetworkHandle> FindNetworkHandleFromAddressOrName(
       const rtc::IPAddress& address,
       absl::string_view ifname) const;
 
  private:
   void reset();
-  void OnNetworkConnected_n(const NetworkInformation& network_info);
   void OnNetworkDisconnected_n(NetworkHandle network_handle);
   void OnNetworkPreference_n(NetworkType type,
                              rtc::NetworkPreference preference);
 
   rtc::NetworkPreference GetNetworkPreference(rtc::AdapterType) const;
-  absl::optional<NetworkHandle> FindNetworkHandleFromIfname(
-      absl::string_view ifname) const;
+  absl::optional<std::pair<NetworkHandle, CompoundNetworkType>>
+  FindNetworkHandleFromIfname(absl::string_view ifname) const;
 
   const int android_sdk_int_;
   ScopedJavaGlobalRef<jobject> j_application_context_;
   ScopedJavaGlobalRef<jobject> j_network_monitor_;
   rtc::Thread* const network_thread_;
   bool started_ RTC_GUARDED_BY(network_thread_) = false;
-  std::map<std::string, NetworkHandle, rtc::AbslStringViewCmp>
+  std::map<std::string,
+           std::pair<NetworkHandle, CompoundNetworkType>,
+           rtc::AbslStringViewCmp>
       network_handle_by_if_name_ RTC_GUARDED_BY(network_thread_);
   std::map<rtc::IPAddress, NetworkHandle> network_handle_by_address_
       RTC_GUARDED_BY(network_thread_);

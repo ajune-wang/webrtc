@@ -32,7 +32,7 @@ jni::NetworkInformation CreateNetworkInformation(
   jni::NetworkInformation net_info;
   net_info.interface_name = interface_name;
   net_info.handle = network_handle;
-  net_info.type = jni::NETWORK_WIFI;
+  net_info.type = {.type = jni::NETWORK_WIFI};
   net_info.ip_addresses.push_back(ip_address);
   return net_info;
 }
@@ -76,7 +76,7 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingIpv4Address) {
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
   network_monitor_->SetNetworkInfos(net_infos);
 
@@ -93,9 +93,9 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingFullIpv6Address) {
   rtc::IPAddress ipv6_address2 = GetIpAddressFromIpv6String(kTestIpv6Address2);
   // Set up an IPv6 network.
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address1);
+      CreateNetworkInformation("klan0", ipv6_handle, ipv6_address1);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
-  network_monitor_->SetNetworkInfos(net_infos);
+  network_monitor_->OnNetworkConnected_n(net_info);
 
   auto network_handle1 =
       network_monitor_->FindNetworkHandleFromAddressOrName(ipv6_address1, "");
@@ -119,9 +119,9 @@ TEST_F(AndroidNetworkMonitorTest,
   rtc::IPAddress ipv6_address2 = GetIpAddressFromIpv6String(kTestIpv6Address2);
   // Set up an IPv6 network.
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address1);
+      CreateNetworkInformation("klan0", ipv6_handle, ipv6_address1);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
-  network_monitor_->SetNetworkInfos(net_infos);
+  network_monitor_->OnNetworkConnected_n(net_info);
 
   auto network_handle1 =
       network_monitor_->FindNetworkHandleFromAddressOrName(ipv6_address1, "");
@@ -142,9 +142,9 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingIfName) {
 
   // Set up an IPv6 network.
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address1);
+      CreateNetworkInformation("klan0", ipv6_handle, ipv6_address1);
   std::vector<jni::NetworkInformation> net_infos(1, net_info);
-  network_monitor_->SetNetworkInfos(net_infos);
+  network_monitor_->OnNetworkConnected_n(net_info);
 
   rtc::IPAddress ipv4_address(kTestIpv4Address);
 
@@ -154,7 +154,7 @@ TEST_F(AndroidNetworkMonitorTest, TestFindNetworkHandleUsingIfName) {
 
   // Search using ip address AND if_name (for typical ipv4 over ipv6 tunnel).
   auto network_handle2 = network_monitor_->FindNetworkHandleFromAddressOrName(
-      ipv4_address, "v4-wlan0");
+      ipv4_address, "v4-klan0");
 
   ASSERT_FALSE(network_handle1.has_value());
   ASSERT_TRUE(network_handle2.has_value());
@@ -167,14 +167,14 @@ TEST_F(AndroidNetworkMonitorTest, TestUnderlyingVpnType) {
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
-  net_info.type = jni::NETWORK_VPN;
-  net_info.underlying_type_for_vpn = jni::NETWORK_WIFI;
-  network_monitor_->SetNetworkInfos({net_info});
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
+  net_info.type = {.type = jni::NETWORK_VPN,
+                   .underlying_type_for_vpn = jni::NETWORK_WIFI};
+  network_monitor_->OnNetworkConnected_n(net_info);
 
   EXPECT_EQ(
       rtc::ADAPTER_TYPE_WIFI,
-      network_monitor_->GetInterfaceInfo("v4-wlan0").underlying_type_for_vpn);
+      network_monitor_->GetInterfaceInfo("v4-klan0").underlying_type_for_vpn);
 }
 
 // Verify that Disconnect makes interface unavailable.
@@ -184,25 +184,25 @@ TEST_F(AndroidNetworkMonitorTest, Disconnect) {
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
-  net_info.type = jni::NETWORK_WIFI;
-  network_monitor_->SetNetworkInfos({net_info});
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
+  net_info.type = {.type = jni::NETWORK_WIFI};
+  network_monitor_->OnNetworkConnected_n(net_info);
 
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("klan0").available);
   EXPECT_TRUE(network_monitor_
-                  ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-wlan0")
+                  ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-klan0")
                   .has_value());
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-wlan0").adapter_type,
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-klan0").adapter_type,
             rtc::ADAPTER_TYPE_WIFI);
 
   // Check that values are reset on disconnect().
   Disconnect(ipv4_handle);
-  EXPECT_FALSE(network_monitor_->GetInterfaceInfo("wlan0").available);
+  EXPECT_FALSE(network_monitor_->GetInterfaceInfo("klan0").available);
   EXPECT_FALSE(
       network_monitor_
-          ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-wlan0")
+          ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-klan0")
           .has_value());
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-wlan0").adapter_type,
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-klan0").adapter_type,
             rtc::ADAPTER_TYPE_UNKNOWN);
 }
 
@@ -213,25 +213,25 @@ TEST_F(AndroidNetworkMonitorTest, Reset) {
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
-  net_info.type = jni::NETWORK_WIFI;
-  network_monitor_->SetNetworkInfos({net_info});
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
+  net_info.type = {.type = jni::NETWORK_WIFI};
+  network_monitor_->OnNetworkConnected_n(net_info);
 
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("klan0").available);
   EXPECT_TRUE(network_monitor_
-                  ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-wlan0")
+                  ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-klan0")
                   .has_value());
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-wlan0").adapter_type,
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-klan0").adapter_type,
             rtc::ADAPTER_TYPE_WIFI);
 
   // Check that values are reset on Stop().
   network_monitor_->Stop();
-  EXPECT_FALSE(network_monitor_->GetInterfaceInfo("wlan0").available);
+  EXPECT_FALSE(network_monitor_->GetInterfaceInfo("klan0").available);
   EXPECT_FALSE(
       network_monitor_
-          ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-wlan0")
+          ->FindNetworkHandleFromAddressOrName(ipv4_address, "v4-klan0")
           .has_value());
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-wlan0").adapter_type,
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v4-klan0").adapter_type,
             rtc::ADAPTER_TYPE_UNKNOWN);
 }
 
@@ -241,20 +241,21 @@ TEST_F(AndroidNetworkMonitorTest, DuplicateIfname) {
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info1 =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
-  net_info1.type = jni::NETWORK_WIFI;
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
+  net_info1.type = {.type = jni::NETWORK_WIFI};
 
   jni::NetworkHandle ipv6_handle = 101;
   rtc::IPAddress ipv6_address = GetIpAddressFromIpv6String(kTestIpv6Address1);
   jni::NetworkInformation net_info2 =
-      CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address);
-  net_info2.type = jni::NETWORK_UNKNOWN_CELLULAR;
+      CreateNetworkInformation("klan0", ipv6_handle, ipv6_address);
+  net_info2.type = {.type = jni::NETWORK_UNKNOWN_CELLULAR};
 
-  network_monitor_->SetNetworkInfos({net_info1, net_info2});
+  network_monitor_->OnNetworkConnected_n(net_info1);
+  network_monitor_->OnNetworkConnected_n(net_info2);
 
   // The last added.
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-wlan0").adapter_type,
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("klan0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-klan0").adapter_type,
             rtc::ADAPTER_TYPE_CELLULAR);
 
   // But both IP addresses are still searchable.
@@ -272,58 +273,64 @@ TEST_F(AndroidNetworkMonitorTest, DuplicateIfnameDisconnectOwner) {
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info1 =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
-  net_info1.type = jni::NETWORK_WIFI;
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
+  net_info1.type = {.type = jni::NETWORK_WIFI};
 
   jni::NetworkHandle ipv6_handle = 101;
   rtc::IPAddress ipv6_address = GetIpAddressFromIpv6String(kTestIpv6Address1);
   jni::NetworkInformation net_info2 =
-      CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address);
-  net_info2.type = jni::NETWORK_UNKNOWN_CELLULAR;
+      CreateNetworkInformation("klan0", ipv6_handle, ipv6_address);
+  net_info2.type = {.type = jni::NETWORK_UNKNOWN_CELLULAR};
 
-  network_monitor_->SetNetworkInfos({net_info1, net_info2});
+  network_monitor_->OnNetworkConnected_n(net_info1);
+  network_monitor_->OnNetworkConnected_n(net_info2);
 
   // The last added.
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-wlan0").adapter_type,
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("klan0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-klan0").adapter_type,
             rtc::ADAPTER_TYPE_CELLULAR);
 
   Disconnect(ipv6_handle);
 
   // We should now find ipv4_handle.
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-wlan0").adapter_type,
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("klan0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-klan0").adapter_type,
             rtc::ADAPTER_TYPE_WIFI);
 }
 
-TEST_F(AndroidNetworkMonitorTest, DuplicateIfnameDisconnectNonOwner) {
+TEST_F(AndroidNetworkMonitorTest, ReconnectWoDisconnect) {
   network_monitor_->Start();
 
   jni::NetworkHandle ipv4_handle = 100;
   rtc::IPAddress ipv4_address(kTestIpv4Address);
   jni::NetworkInformation net_info1 =
-      CreateNetworkInformation("wlan0", ipv4_handle, ipv4_address);
-  net_info1.type = jni::NETWORK_WIFI;
+      CreateNetworkInformation("klan0", ipv4_handle, ipv4_address);
+  net_info1.type = {.type = jni::NETWORK_WIFI};
 
-  jni::NetworkHandle ipv6_handle = 101;
   rtc::IPAddress ipv6_address = GetIpAddressFromIpv6String(kTestIpv6Address1);
   jni::NetworkInformation net_info2 =
-      CreateNetworkInformation("wlan0", ipv6_handle, ipv6_address);
-  net_info2.type = jni::NETWORK_UNKNOWN_CELLULAR;
+      CreateNetworkInformation("knet0", ipv4_handle, ipv6_address);
+  net_info2.type = {.type = jni::NETWORK_UNKNOWN_CELLULAR};
 
-  network_monitor_->SetNetworkInfos({net_info1, net_info2});
+  network_monitor_->OnNetworkConnected_n(net_info1);
+  network_monitor_->OnNetworkConnected_n(net_info2);
 
-  // The last added.
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("wlan0").adapter_type,
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("knet0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("knet0").adapter_type,
             rtc::ADAPTER_TYPE_CELLULAR);
+  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("klan0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("klan0").adapter_type,
+            rtc::ADAPTER_TYPE_WIFI);
 
   Disconnect(ipv4_handle);
 
-  // We should still find ipv6 network.
-  EXPECT_TRUE(network_monitor_->GetInterfaceInfo("wlan0").available);
-  EXPECT_EQ(network_monitor_->GetInterfaceInfo("v-wlan0").adapter_type,
-            rtc::ADAPTER_TYPE_CELLULAR);
+  // Should be empty!
+  EXPECT_FALSE(network_monitor_->GetInterfaceInfo("knet0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("knet0").adapter_type,
+            rtc::ADAPTER_TYPE_UNKNOWN);
+  EXPECT_FALSE(network_monitor_->GetInterfaceInfo("klan0").available);
+  EXPECT_EQ(network_monitor_->GetInterfaceInfo("klan0").adapter_type,
+            rtc::ADAPTER_TYPE_UNKNOWN);
 }
 
 }  // namespace test

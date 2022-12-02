@@ -16,6 +16,24 @@
       "message": "Simplification is nice!\nIs there any performance impact of using a dedicated task queue?",
       "revId": "3f6df96df70bbd03f22e0bdd084661db0e9c529f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc588ea_c896e67d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-02T10:26:52Z",
+      "side": 1,
+      "message": "In this case the performance should be the same as the queue is being used to post back after the transformation occurs. Both the encode queue and this queue are task queues so the cost is the same. The only way a wakeup could be saved is if the encoder queue was currently encoding when the transformation finishes, in which case this task would be queued at the end. In practice this should be extremely rare as the time transforming usually happens right after a frame is encoded and therefore these operations should be most often sequential.",
+      "parentUuid": "350a29da_980db711",
+      "revId": "3f6df96df70bbd03f22e0bdd084661db0e9c529f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

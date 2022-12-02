@@ -16,6 +16,24 @@
       "message": "Hi Alessio, could you please take a look? Thanks!",
       "revId": "53c62cc12cccd692473461f72858a35daf86f3ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6f9956_d702f126",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-02T15:34:11Z",
+      "side": 1,
+      "message": "This change is the first step towards passing the applied input volume to `AnalyzePreProcess()` and deprecating the setter (see the [TODO](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/agc2/input_volume_controller.h;drc\u003d03bccbe62d60d9f40284e5a1c62ee13801e06a6a;l\u003d87)). This CL temporarily makes some tests less readable but I\u0027d prefer changing the tests before changing the code itself. And as said, this is the first step -- there are a few other deprecated helper functions we need to take care of as well if we decide to take this approach.\n\nI\u0027d be happy to hear your thoughts on this!",
+      "parentUuid": "b8b400d0_d697795f",
+      "revId": "53c62cc12cccd692473461f72858a35daf86f3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

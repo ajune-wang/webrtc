@@ -16,6 +16,24 @@
       "message": "Could you add some details what the problem is that the cl tries to solve?\n\nI don\u0027t think the clock is used in NetEq more than for setting some metadata on the packets.",
       "revId": "181be85cc04c7ad8873a7591722b0e8228fbbbb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b683b00_3d64ea59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2022-12-02T16:07:43Z",
+      "side": 1,
+      "message": "I changed the description to try to give a bit more details. Before the change the call, \n\nclock_.AdvanceTimeMilliseconds(*input_-\u003eNextEventTime() - time_now_ms);\n\ndid not have any effect on the first pass to that loop as time_now_ms was equal to *input_-\u003eNextEventTime().",
+      "parentUuid": "334f6eab_a19039de",
+      "revId": "181be85cc04c7ad8873a7591722b0e8228fbbbb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

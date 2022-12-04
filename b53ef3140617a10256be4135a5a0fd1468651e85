@@ -52,6 +52,41 @@
       "parentUuid": "8f9d30cd_9e79f84f",
       "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eaf5e28_1318ecfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20129
+      },
+      "writtenOn": "2022-12-04T17:48:16Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m on my third time scrapping everything and trying to make your instructions work. Currently depot_tools seems to hang on either \ngit cl presubmit\nor\ngit cl upload\n\nI just get \"Running Python 3 presubmit upload checks ...\", googling hasn\u0027t turn up anything post 2016, what\u0027s the best place to post to try to debug this?",
+      "parentUuid": "0674a235_08504fe6",
+      "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccac80c5_d6ec94b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20129
+      },
+      "writtenOn": "2022-12-04T17:48:16Z",
+      "side": 1,
+      "message": "still struggling with tooling",
+      "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

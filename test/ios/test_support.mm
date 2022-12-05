@@ -113,6 +113,8 @@ static absl::optional<std::vector<std::string>> g_metrics_to_plot;
       }
     }
     if (!g_webrtc_test_metrics_output_path.empty()) {
+      RTC_CHECK_NE(g_webrtc_test_metrics_output_path.find('/'), std::string::npos)
+          << "On iOS, --webrtc_test_metrics_output_path must only be a file name.";
       exporters.push_back(std::make_unique<webrtc::test::MetricsSetProtoFileExporter>(
           webrtc::test::MetricsSetProtoFileExporter::Options(g_webrtc_test_metrics_output_path)));
     }

@@ -61,7 +61,7 @@
   },
   "fuchsia_perf_tests": {
     "label": "//:fuchsia_perf_tests",
-    "type": "raw",
+    "type": "console_test_launcher",
   },
   "low_bandwidth_audio_test": {
     "label": "//audio:low_bandwidth_audio_test",

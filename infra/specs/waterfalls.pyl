@@ -338,7 +338,7 @@
           'has_native_resultdb_integration', 'chromium-tester-service-account'
         ],
         'test_suites': {
-          'isolated_scripts': 'fuchsia_compatible_perf_tests',
+          'gtest_tests': 'fuchsia_compatible_perf_tests',
         }
       },
       'Perf Linux Bionic': {

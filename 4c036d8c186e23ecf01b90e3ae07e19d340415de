@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "844e9687_293927cf",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2022-12-05T07:43:23Z",
+      "side": 1,
+      "message": "Shoudln\u0027t we advance by the difference between the next event time and the current clock position (Advance is relative) ? Maybe the current time is zero at that time and it is fine (in that case we should write a small comment around).",
+      "range": {
+        "startLine": 89,
+        "startChar": 33,
+        "endLine": 89,
+        "endChar": 68
+      },
+      "revId": "4c036d8c186e23ecf01b90e3ae07e19d340415de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

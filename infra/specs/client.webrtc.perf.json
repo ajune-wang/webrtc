@@ -554,13 +554,12 @@
     ]
   },
   "Perf Fuchsia": {
-    "isolated_scripts": [
+    "gtest_tests": [
       {
         "args": [
           "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb",
           "--nologs"
         ],
-        "isolate_name": "fuchsia_perf_tests",
         "merge": {
           "args": [
             "--test-suite",
@@ -568,7 +567,6 @@
           ],
           "script": "//tools_webrtc/perf/process_perf_results.py"
         },
-        "name": "fuchsia_perf_tests",
         "resultdb": {
           "enable": true,
           "has_native_resultdb_integration": true
@@ -588,6 +586,7 @@
           "io_timeout": 10800,
           "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
         },
+        "test": "fuchsia_perf_tests",
         "test_id_prefix": "ninja://:fuchsia_perf_tests/"
       }
     ]

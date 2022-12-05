@@ -87,6 +87,24 @@
       "message": "still struggling with tooling",
       "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21fc2cd9_745fa5a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-12-05T00:23:51Z",
+      "side": 1,
+      "message": "Debugging hangs seems difficult (I recommend filing an issue at https://bugs.chromium.org/p/chromium/issues and getting help). As a last resort, I suggest another way.\nOn the top right of https://webrtc-review.googlesource.com/c/src/+/284240/2/sdk/objc/components/video_codec/RTCVideoEncoderH264.mm there is a button named \u0027Edit\u0027. Click to edit the file directly.",
+      "parentUuid": "6eaf5e28_1318ecfb",
+      "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

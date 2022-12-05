@@ -416,13 +416,31 @@ void AndroidNetworkMonitor::OnNetworkConnected_n(
     const NetworkInformation& network_info) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_INFO) << "Network connected: " << network_info.ToString();
+
+  // We speculate that OnNetworkConnected_n can be called with same handle
+  // and different if_names. Handle this as if the network was first
+  // disconnected.
+  auto iter = network_info_by_handle_.find(network_info.handle);
+  if (iter != network_info_by_handle_.end()) {
+    // Remove old if_name for this handle if they don't match.
+    if (network_info.interface_name != iter->second.interface_name) {
+      RTC_LOG(LS_INFO) << "Network"
+                       << " handle " << network_info.handle
+                       << " change if_name from: "
+                       << iter->second.interface_name
+                       << " to: " << network_info.interface_name;
+      RTC_DCHECK(network_handle_by_if_name_[iter->second.interface_name] ==
+                 network_info.handle);
+      network_handle_by_if_name_.erase(iter->second.interface_name);
+    }
+  }
+
   network_info_by_handle_[network_info.handle] = network_info;
   for (const rtc::IPAddress& address : network_info.ip_addresses) {
     network_handle_by_address_[address] = network_info.handle;
   }
   network_handle_by_if_name_[network_info.interface_name] = network_info.handle;
-  RTC_CHECK(network_info_by_handle_.size() >=
-            network_handle_by_if_name_.size());
+
   InvokeNetworksChangedCallback();
 }
 
@@ -431,7 +449,6 @@ AndroidNetworkMonitor::FindNetworkHandleFromAddressOrName(
     const rtc::IPAddress& ip_address,
     absl::string_view if_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_LOG(LS_INFO) << "Find network handle.";
   if (find_network_handle_without_ipv6_temporary_part_) {
     for (auto const& iter : network_info_by_handle_) {
       const std::vector<rtc::IPAddress>& addresses = iter.second.ip_addresses;
@@ -484,12 +501,13 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
     return;
   }
 
-  for (const rtc::IPAddress& address : iter->second.ip_addresses) {
+  const auto& network_info = iter->second;
+  for (const rtc::IPAddress& address : network_info.ip_addresses) {
     network_handle_by_address_.erase(address);
   }
 
   // We've discovered that the if_name is not always unique,
-  // i.e it can be several network conencted with same if_name.
+  // i.e it can be several network connected with same if_name.
   //
   // This is handled the following way,
   // 1) OnNetworkConnected_n overwrites any previous "owner" of an interface
@@ -501,7 +519,7 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
   // network_handle_by_if_name_.
 
   // Check if we are registered as "owner" of if_name.
-  const auto& if_name = iter->second.interface_name;
+  const auto& if_name = network_info.interface_name;
   auto iter2 = network_handle_by_if_name_.find(if_name);
   RTC_DCHECK(iter2 != network_handle_by_if_name_.end());
   if (iter2 != network_handle_by_if_name_.end() && iter2->second == handle) {
@@ -526,7 +544,7 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_n(NetworkHandle handle) {
     // We are not owner...don't do anything.
 #if RTC_DCHECK_IS_ON
     auto owner_handle = FindNetworkHandleFromIfname(if_name);
-    RTC_DCHECK(owner_handle && *owner_handle != handle);
+    RTC_DCHECK(owner_handle && owner_handle != handle);
 #endif
   }
 

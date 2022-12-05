@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a37f6a78_b2abbf37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:08:42Z",
+      "side": 1,
+      "message": "I think this is OK, but I worry if there\u0027s one conflict case that we\u0027ve missed.",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83ee18fe_cb558d90",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:08:42Z",
+      "side": 1,
+      "message": "should this be \"testlan0\" to emphasize its testiness? Or perhaps break out a constant named \"test_lan_name\"?",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e7dc4c_cbc8aa1b",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:08:42Z",
+      "side": 1,
+      "message": "Nit: ReconnectWithoutDisconnect - we\u0027re not running short on space on the line.",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24abba15_a40ce1d4",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:08:42Z",
+      "side": 1,
+      "message": "English nit: \"with the same handle\"",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bde8eb2_7b8ccec0",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:08:42Z",
+      "side": 1,
+      "message": "Is there a theoretically possible case here where two different networks try to go for the same interface name?\n\nie connect(handle1, \"\"); connect(handle2, \"\");\n\nthis is a case where having one set of things indexed by 3 different maps is painfully vulnerable to inconsistencies - one wishes for a multimap....",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

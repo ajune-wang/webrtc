@@ -139,6 +139,24 @@
       "parentUuid": "4282b8ab_6b523777",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2264d6f6_df877ff2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-05T19:29:17Z",
+      "side": 1,
+      "message": "atomic change theory:\n1/ this CL changes responsibility without other impact\n2/ future CL changes foundation to depend on PA ice tie breaker. This is externally visible to ICE.\n3/ future CL renames PA ice tie breaker to PA random seed. Not externally visible.\n\nIn Germany we call this Dreisatz... oh wait no, that is something else ;-)",
+      "parentUuid": "3b37ea9e_9bc365cc",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

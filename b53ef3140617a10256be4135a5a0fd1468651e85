@@ -105,6 +105,24 @@
       "parentUuid": "6eaf5e28_1318ecfb",
       "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e1985ee_4711d271",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20129
+      },
+      "writtenOn": "2022-12-05T04:52:48Z",
+      "side": 1,
+      "message": "ok, I manually edited the file. I think that clears up all the notes.",
+      "parentUuid": "21fc2cd9_745fa5a4",
+      "revId": "b53ef3140617a10256be4135a5a0fd1468651e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

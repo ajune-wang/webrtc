@@ -38,6 +38,13 @@ class VideoReceiver2 {
                  const FieldTrialsView& field_trials);
   ~VideoReceiver2();
 
+  void DecoderStarting() {
+    // Called before the decoder tq is started.
+    decoder_sequence_checker_.Detach();
+  }
+
+  void DecoderStopped() { decoder_sequence_checker_.Detach(); }
+
   void RegisterReceiveCodec(uint8_t payload_type,
                             const VideoDecoder::Settings& decoder_settings);
   void DeregisterReceiveCodec(uint8_t payload_type);

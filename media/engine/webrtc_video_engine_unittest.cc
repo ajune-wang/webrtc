@@ -4888,7 +4888,8 @@ TEST_F(WebRtcVideoChannelTest, SetRecvCodecsWithPacketizationRecreatesStream) {
 
   parameters.codecs.back().packetization.reset();
   EXPECT_TRUE(channel_->SetRecvParameters(parameters));
-  EXPECT_EQ(fake_call_->GetNumCreatedReceiveStreams(), 2);
+  // No recreation of streams should have been necessary.
+  EXPECT_EQ(fake_call_->GetNumCreatedReceiveStreams(), 1);
 }
 
 TEST_F(WebRtcVideoChannelTest, DuplicateUlpfecCodecIsDropped) {

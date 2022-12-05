@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd6c996_c3259687",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-12-05T21:52:39Z",
+      "side": 1,
+      "message": "So I was wondering why we need to do this and Chromium doesn\u0027t.\nIt\u0027s because they handle this in the test_runner after the test is finished.\nhttps://source.chromium.org/chromium/chromium/src/+/main:ios/build/bots/scripts/run.py;l\u003d343-344\nUnfortunately WebRTC perf tests don\u0027t have a test runner.",
+      "revId": "7de9f1e043350492b3b771181e756477b693ca07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

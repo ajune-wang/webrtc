@@ -1484,6 +1484,7 @@ if (is_android) {
         "instrumentationtests/src/org/webrtc/EglRendererTest.java",
         "instrumentationtests/src/org/webrtc/FileVideoCapturerTest.java",
         "instrumentationtests/src/org/webrtc/GlRectDrawerTest.java",
+        "instrumentationtests/src/org/webrtc/HardwareVideoEncoderInstrumentationTest.java",
         "instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
         "instrumentationtests/src/org/webrtc/LoggableTest.java",
         "instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",

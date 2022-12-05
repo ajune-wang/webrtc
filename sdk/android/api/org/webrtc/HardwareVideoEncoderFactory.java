@@ -273,4 +273,44 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     return enableH264HighProfile && Build.VERSION.SDK_INT > Build.VERSION_CODES.M
         && info.getName().startsWith(EXYNOS_PREFIX);
   }
+
+  @Nullable
+  VideoEncoder createEncoderForTesting(VideoCodecInfo input, int yuvColorFormat) {
+    VideoCodecMimeType type = VideoCodecMimeType.valueOf(input.name);
+    MediaCodecInfo info = findCodecForType(type);
+
+    if (info == null) {
+      return null;
+    }
+
+    String codecName = info.getName();
+    String mime = type.mimeType();
+    Integer surfaceColorFormat = MediaCodecUtils.selectColorFormat(
+        MediaCodecUtils.TEXTURE_COLOR_FORMATS, info.getCapabilitiesForType(mime));
+    final int[] yuvColorFormatArr = {yuvColorFormat};
+    if (MediaCodecUtils.selectColorFormat(yuvColorFormatArr, info.getCapabilitiesForType(mime))
+        == null) {
+      Log.e(TAG, "yuvColorFormat " + yuvColorFormat + " is not supported.");
+      return null;
+    };
+
+    if (type == VideoCodecMimeType.H264) {
+      boolean isHighProfile = H264Utils.isSameH264Profile(
+          input.params, MediaCodecUtils.getCodecProperties(type, /* highProfile= */ true));
+      boolean isBaselineProfile = H264Utils.isSameH264Profile(
+          input.params, MediaCodecUtils.getCodecProperties(type, /* highProfile= */ false));
+
+      if (!isHighProfile && !isBaselineProfile) {
+        return null;
+      }
+      if (isHighProfile && !isH264HighProfileSupported(info)) {
+        return null;
+      }
+    }
+
+    return new HardwareVideoEncoder(new MediaCodecWrapperFactoryImpl(), codecName, type,
+        surfaceColorFormat, yuvColorFormat, input.params, PERIODIC_KEY_FRAME_INTERVAL_S,
+        getForcedKeyFrameIntervalMs(type, codecName), createBitrateAdjuster(type, codecName),
+        sharedContext);
+  }
 }

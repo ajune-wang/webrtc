@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b42eba97_017401ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-05T19:18:53Z",
+      "side": 1,
+      "message": "hta: for bureuacracy\nilya: please check PS10 again since the change is subtle yet opinionated",
+      "revId": "170e20a84d2990c5e6823981445041058d00cd47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

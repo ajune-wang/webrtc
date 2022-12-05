@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c0c8eb0_0f4283f0",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-12-05T09:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83ee18fe_cb558d90",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6e7dc4c_cbc8aa1b",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-12-05T09:08:42Z",
       "side": 1,
       "message": "Nit: ReconnectWithoutDisconnect - we\u0027re not running short on space on the line.",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5166868c_10b7ba85",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-12-05T09:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e7dc4c_cbc8aa1b",
       "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfd2c4f0_b06edbc1",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-12-05T09:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24abba15_a40ce1d4",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bde8eb2_7b8ccec0",
@@ -82,6 +136,24 @@
       "writtenOn": "2022-12-05T09:08:42Z",
       "side": 1,
       "message": "Is there a theoretically possible case here where two different networks try to go for the same interface name?\n\nie connect(handle1, \"\"); connect(handle2, \"\");\n\nthis is a case where having one set of things indexed by 3 different maps is painfully vulnerable to inconsistencies - one wishes for a multimap....",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3288af6_3779ce77",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-12-05T09:31:04Z",
+      "side": 1,
+      "message": "this case is already handled...\nin the testcase there is 3 testcases called \"DuplicateIfname\".\nand the code to handle that is in OnDisconnect()...it is rather painful.",
+      "parentUuid": "5bde8eb2_7b8ccec0",
       "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33c9ca4_1a42017f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-12-05T09:21:44Z",
+      "side": 1,
+      "message": "I lack a bit of context here, why was the location hardcoded before, and why it doesn\u0027t need to be hardcoded anymore ?",
+      "revId": "276fbbc609e31d858ce50ac18489a8d9af4bedc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

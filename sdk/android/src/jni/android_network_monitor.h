@@ -52,13 +52,17 @@ enum NetworkType {
   NETWORK_NONE
 };
 
+struct CompoundNetworkType {
+  NetworkType type;
+  NetworkType underlying_type_for_vpn;
+};
+
 // The information is collected from Android OS so that the native code can get
 // the network type and handle (Android network ID) for each interface.
 struct NetworkInformation {
   std::string interface_name;
   NetworkHandle handle;
-  NetworkType type;
-  NetworkType underlying_type_for_vpn;
+  CompoundNetworkType type;
   std::vector<rtc::IPAddress> ip_addresses;
 
   NetworkInformation();

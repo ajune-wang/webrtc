@@ -104,8 +104,10 @@ class NoiseFloorEstimator : public NoiseLevelEstimator {
       preliminary_noise_energy_ = frame_energy;
       preliminary_noise_energy_set_ = true;
     }
-    data_dumper_->DumpRaw("agc2_noise_floor_estimator_preliminary_level",
-                          preliminary_noise_energy_);
+    if (data_dumper_) {
+      data_dumper_->DumpRaw("agc2_noise_floor_estimator_preliminary_level",
+                            preliminary_noise_energy_);
+    }
 
     if (counter_ == 0) {
       // Full period observed.
@@ -128,8 +130,14 @@ class NoiseFloorEstimator : public NoiseLevelEstimator {
       noise_energy_ = std::min(noise_energy_, preliminary_noise_energy_);
       counter_--;
     }
-    return EnergyToDbfs(noise_energy_,
-                        static_cast<int>(frame.samples_per_channel()));
+
+    float noise_rms_dbfs = EnergyToDbfs(
+        noise_energy_, static_cast<int>(frame.samples_per_channel()));
+    if (data_dumper_) {
+      data_dumper_->DumpRaw("agc2_noise_rms_dbfs", noise_rms_dbfs);
+    }
+
+    return noise_rms_dbfs;
   }
 
  private:

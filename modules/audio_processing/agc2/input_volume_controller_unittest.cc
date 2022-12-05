@@ -178,11 +178,11 @@ void WriteAudioBufferSamples(float samples_value,
 void CallPreProcessAndProcess(int num_calls,
                               const AudioBuffer& audio_buffer,
                               float speech_probability,
-                              absl::optional<float> speech_level,
+                              float speech_level_dbfs,
                               InputVolumeController& controller) {
   for (int n = 0; n < num_calls; ++n) {
     controller.AnalyzePreProcess(audio_buffer);
-    controller.Process(speech_probability, speech_level);
+    controller.Process(speech_probability, speech_level_dbfs);
   }
 }
 
@@ -219,7 +219,7 @@ class SpeechSamplesReader {
   void Feed(int num_frames,
             int gain_db,
             float speech_probability,
-            absl::optional<float> speech_level,
+            float speech_level_dbfs,
             InputVolumeController& controller) {
     float gain = std::pow(10.0f, gain_db / 20.0f);  // From dB to linear gain.
     is_.seekg(0, is_.beg);  // Start from the beginning of the PCM file.
@@ -239,7 +239,7 @@ class SpeechSamplesReader {
                      });
 
       controller.AnalyzePreProcess(audio_buffer_);
-      controller.Process(speech_probability, speech_level);
+      controller.Process(speech_probability, speech_level_dbfs);
     }
   }
 
@@ -255,7 +255,7 @@ class SpeechSamplesReader {
 float UpdateRecommendedInputVolume(MonoInputVolumeController& controller,
                                    int applied_input_volume,
                                    float speech_probability,
-                                   const absl::optional<float> rms_error_dbfs) {
+                                   float rms_error_dbfs) {
   controller.set_stream_analog_level(applied_input_volume);
   EXPECT_EQ(controller.recommended_analog_level(), applied_input_volume);
   controller.Process(rms_error_dbfs, speech_probability);
@@ -310,10 +310,10 @@ class InputVolumeControllerTestHelper {
   //  Returns the recommended input volume.
   int CallAgcSequence(int applied_input_volume,
                       float speech_probability,
-                      absl::optional<float> speech_level) {
+                      float speech_level_dbfs) {
     controller.set_stream_analog_level(applied_input_volume);
     controller.AnalyzePreProcess(audio_buffer);
-    controller.Process(speech_probability, speech_level);
+    controller.Process(speech_probability, speech_level_dbfs);
 
     return controller.recommended_analog_level();
   }
@@ -323,9 +323,9 @@ class InputVolumeControllerTestHelper {
   // `CallAgcSequence()`.
   void CallProcess(int num_calls,
                    float speech_probability,
-                   absl::optional<float> speech_level) {
+                   float speech_level_dbfs) {
     for (int i = 0; i < num_calls; ++i) {
-      controller.Process(speech_probability, speech_level);
+      controller.Process(speech_probability, speech_level_dbfs);
     }
   }
 
@@ -1242,27 +1242,6 @@ TEST_P(InputVolumeControllerParametrizedTest,
             kInitialLevel - 2 * kClippedLevelStep);
 }
 
-// Checks that passing an empty speech level has no effect on the input volume.
-TEST_P(InputVolumeControllerParametrizedTest, EmptyRmsErrorHasNoEffect) {
-  InputVolumeController controller(kNumChannels,
-                                   GetInputVolumeControllerTestConfig());
-  controller.Initialize();
-
-  constexpr int kInputVolume = kInitialInputVolume;
-  controller.set_stream_analog_level(kInputVolume);
-
-  // Feed speech with low energy that would trigger an upward adapation of
-  // the analog level if an speech level was not low and the RMS level empty.
-  constexpr int kNumFrames = 125;
-  constexpr int kGainDb = -20;
-  SpeechSamplesReader reader;
-  reader.Feed(kNumFrames, kGainDb, kLowSpeechProbability, absl::nullopt,
-              controller);
-
-  // Check that no adaptation occurs.
-  ASSERT_EQ(controller.recommended_analog_level(), kInputVolume);
-}
-
 // Checks that the recommended input volume is not updated unless enough
 // frames have been processed after the previous update.
 TEST(InputVolumeControllerTest, UpdateInputVolumeWaitFramesIsEffective) {
@@ -1785,39 +1764,6 @@ TEST(MonoInputVolumeControllerTest, CheckSpeechRatioThresholdIsEffective) {
 
   volume_1 = UpdateRecommendedInputVolume(mono_controller_1, volume_1,
                                           kLowSpeechProbability, -10.0f);
-  volume_2 = UpdateRecommendedInputVolume(mono_controller_2, volume_2,
-                                          kHighSpeechProbability, -10.0f);
-
-  EXPECT_EQ(volume_1, kInitialInputVolume);
-  EXPECT_LT(volume_2, volume_1);
-}
-
-TEST(MonoInputVolumeControllerTest,
-     CheckProcessEmptyRmsErrorDoesNotLowerVolume) {
-  constexpr int kInitialInputVolume = 100;
-  MonoInputVolumeController mono_controller_1(
-      /*clipped_level_min=*/64,
-      /*min_mic_level=*/84,
-      /*update_input_volume_wait_frames=*/2, kHighSpeechProbability,
-      kSpeechRatioThreshold);
-  MonoInputVolumeController mono_controller_2(
-      /*clipped_level_min=*/64,
-      /*min_mic_level=*/84,
-      /*update_input_volume_wait_frames=*/2, kHighSpeechProbability,
-      kSpeechRatioThreshold);
-  mono_controller_1.Initialize();
-  mono_controller_2.Initialize();
-
-  int volume_1 = UpdateRecommendedInputVolume(
-      mono_controller_1, kInitialInputVolume, kHighSpeechProbability, -10.0f);
-  int volume_2 = UpdateRecommendedInputVolume(
-      mono_controller_2, kInitialInputVolume, kHighSpeechProbability, -10.0f);
-
-  EXPECT_EQ(volume_1, kInitialInputVolume);
-  EXPECT_EQ(volume_2, kInitialInputVolume);
-
-  volume_1 = UpdateRecommendedInputVolume(
-      mono_controller_1, volume_1, kHighSpeechProbability, absl::nullopt);
   volume_2 = UpdateRecommendedInputVolume(mono_controller_2, volume_2,
                                           kHighSpeechProbability, -10.0f);
 

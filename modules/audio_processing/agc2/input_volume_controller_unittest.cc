@@ -178,11 +178,11 @@ void WriteAudioBufferSamples(float samples_value,
 void CallPreProcessAndProcess(int num_calls,
                               const AudioBuffer& audio_buffer,
                               float speech_probability,
-                              absl::optional<float> speech_level,
+                              absl::optional<float> speech_level_dbfs,
                               InputVolumeController& controller) {
   for (int n = 0; n < num_calls; ++n) {
     controller.AnalyzePreProcess(audio_buffer);
-    controller.Process(speech_probability, speech_level);
+    controller.Process(speech_probability, speech_level_dbfs);
   }
 }
 
@@ -219,7 +219,7 @@ class SpeechSamplesReader {
   void Feed(int num_frames,
             int gain_db,
             float speech_probability,
-            absl::optional<float> speech_level,
+            absl::optional<float> speech_level_dbfs,
             InputVolumeController& controller) {
     float gain = std::pow(10.0f, gain_db / 20.0f);  // From dB to linear gain.
     is_.seekg(0, is_.beg);  // Start from the beginning of the PCM file.
@@ -239,7 +239,7 @@ class SpeechSamplesReader {
                      });
 
       controller.AnalyzePreProcess(audio_buffer_);
-      controller.Process(speech_probability, speech_level);
+      controller.Process(speech_probability, speech_level_dbfs);
     }
   }
 
@@ -255,7 +255,7 @@ class SpeechSamplesReader {
 float UpdateRecommendedInputVolume(MonoInputVolumeController& controller,
                                    int applied_input_volume,
                                    float speech_probability,
-                                   const absl::optional<float> rms_error_dbfs) {
+                                   absl::optional<float> rms_error_dbfs) {
   controller.set_stream_analog_level(applied_input_volume);
   EXPECT_EQ(controller.recommended_analog_level(), applied_input_volume);
   controller.Process(rms_error_dbfs, speech_probability);
@@ -310,10 +310,10 @@ class InputVolumeControllerTestHelper {
   //  Returns the recommended input volume.
   int CallAgcSequence(int applied_input_volume,
                       float speech_probability,
-                      absl::optional<float> speech_level) {
+                      absl::optional<float> speech_level_dbfs) {
     controller.set_stream_analog_level(applied_input_volume);
     controller.AnalyzePreProcess(audio_buffer);
-    controller.Process(speech_probability, speech_level);
+    controller.Process(speech_probability, speech_level_dbfs);
 
     return controller.recommended_analog_level();
   }
@@ -323,9 +323,9 @@ class InputVolumeControllerTestHelper {
   // `CallAgcSequence()`.
   void CallProcess(int num_calls,
                    float speech_probability,
-                   absl::optional<float> speech_level) {
+                   absl::optional<float> speech_level_dbfs) {
     for (int i = 0; i < num_calls; ++i) {
-      controller.Process(speech_probability, speech_level);
+      controller.Process(speech_probability, speech_level_dbfs);
     }
   }
 

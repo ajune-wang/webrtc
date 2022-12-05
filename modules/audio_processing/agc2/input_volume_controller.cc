@@ -195,7 +195,7 @@ void MonoInputVolumeController::Initialize() {
 // previous update and the ratio of non-silence frames (i.e., frames with a
 // `speech_probability` higher than `speech_probability_threshold_`) is at least
 // `speech_ratio_threshold_`.
-void MonoInputVolumeController::Process(absl::optional<int> rms_error_db,
+void MonoInputVolumeController::Process(absl::optional<float> rms_error_db,
                                         float speech_probability) {
   if (check_volume_on_next_process_) {
     check_volume_on_next_process_ = false;
@@ -221,10 +221,9 @@ void MonoInputVolumeController::Process(absl::optional<int> rms_error_db,
     speech_frames_since_update_input_volume_ = 0;
 
     // Update the input volume if allowed.
-    if (!is_first_frame_ && speech_ratio >= speech_ratio_threshold_) {
-      if (rms_error_db.has_value()) {
-        UpdateInputVolume(*rms_error_db);
-      }
+    if (!is_first_frame_ && speech_ratio >= speech_ratio_threshold_ &&
+        rms_error_db.has_value()) {
+      UpdateInputVolume(*rms_error_db);
     }
   }
 

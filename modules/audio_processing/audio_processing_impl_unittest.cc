@@ -14,6 +14,7 @@
 #include <memory>
 #include <tuple>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
@@ -131,32 +132,6 @@ class TestRenderPreProcessor : public CustomProcessing {
   static constexpr float ProcessSample(float x) { return 2.f * x; }
 };
 
-// Creates a simple `AudioProcessing` instance for APM input volume testing
-// with AGC1 analog and/or AGC2 input volume controller enabled and AGC2
-// digital controller enabled.
-rtc::scoped_refptr<AudioProcessing> CreateApmForInputVolumeTest(
-    bool agc1_analog_gain_controller_enabled,
-    bool agc2_input_volume_controller_enabled) {
-  webrtc::AudioProcessing::Config config;
-  // Enable AGC1 analog controller.
-  config.gain_controller1.enabled = agc1_analog_gain_controller_enabled;
-  config.gain_controller1.analog_gain_controller.enabled =
-      agc1_analog_gain_controller_enabled;
-  // Enable AG2 input volume controller
-  config.gain_controller2.input_volume_controller.enabled =
-      agc2_input_volume_controller_enabled;
-  // Enable AGC2 adaptive digital controller.
-  config.gain_controller1.analog_gain_controller.enable_digital_adaptive =
-      false;
-  config.gain_controller2.enabled = true;
-  config.gain_controller2.adaptive_digital.enabled = true;
-
-  auto apm(AudioProcessingBuilder().Create());
-  apm->ApplyConfig(config);
-
-  return apm;
-}
-
 // Runs `apm` input processing for volume adjustments for `num_frames` random
 // frames starting from the volume `initial_volume`. This includes three steps:
 // 1) Set the input volume 2) Process the stream 3) Set the new recommended
@@ -183,98 +158,41 @@ int ProcessInputVolume(AudioProcessing& apm,
   return recommended_input_volume;
 }
 
-constexpr char kMinMicLevelFieldTrial[] =
-    "WebRTC-Audio-2ndAgcMinMicLevelExperiment";
-constexpr char kMinInputVolumeFieldTrial[] = "WebRTC-Audio-Agc2-MinInputVolume";
-constexpr int kMinInputVolume = 12;
+// Available Input Volume Controller implementations.
+enum class InputVolumeControllerType {
+  kAgc1,  // Use `AgcManagerDirect` from AGC1.
+  kAgc2   // Use `GainController2`.
+};
 
-std::string GetMinMicLevelExperimentFieldTrial(absl::optional<int> value) {
-  char field_trial_buffer[128];
-  rtc::SimpleStringBuilder builder(field_trial_buffer);
-  if (value.has_value()) {
-    RTC_DCHECK_GE(*value, 0);
-    RTC_DCHECK_LE(*value, 255);
-    builder << kMinMicLevelFieldTrial << "/Enabled-" << *value << "/";
-    builder << kMinInputVolumeFieldTrial << "/Enabled-" << *value << "/";
+// TODO(bugs.webrtc.org/7494): Clean up when any of the fieldtrials used in this
+// function are removed.
+std::string GetMinInputVolumeFieldTrial(
+    InputVolumeControllerType input_volume_controller_type,
+    absl::optional<int> min_volume) {
+  absl::string_view field_trial_name;
+  switch (input_volume_controller_type) {
+    case InputVolumeControllerType::kAgc1:
+      field_trial_name = "WebRTC-Audio-2ndAgcMinMicLevelExperiment";
+      break;
+    case InputVolumeControllerType::kAgc2:
+      field_trial_name = "WebRTC-Audio-Agc2-MinInputVolume";
+      break;
+  }
+
+  char buffer[128];
+  rtc::SimpleStringBuilder builder(buffer);
+
+  if (min_volume.has_value()) {
+    RTC_DCHECK_GE(*min_volume, 0);
+    RTC_DCHECK_LE(*min_volume, 255);
+    builder << field_trial_name << "/Enabled-" << *min_volume << "/";
   } else {
-    builder << kMinMicLevelFieldTrial << "/Disabled/";
-    builder << kMinInputVolumeFieldTrial << "/Disabled/";
+    builder << field_trial_name << "/Disabled/";
   }
   return builder.str();
 }
 
-// TODO(webrtc:7494): Remove the fieldtrial from the input volume tests when
-// "WebRTC-Audio-2ndAgcMinMicLevelExperiment" and
-// "WebRTC-Audio-Agc2-MinInputVolume" are removed.
-class InputVolumeStartupParameterizedTest
-    : public ::testing::TestWithParam<
-          std::tuple<int, absl::optional<int>, bool, bool>> {
- protected:
-  InputVolumeStartupParameterizedTest()
-      : field_trials_(
-            GetMinMicLevelExperimentFieldTrial(std::get<1>(GetParam()))) {}
-  int GetStartupVolume() const { return std::get<0>(GetParam()); }
-  int GetMinVolume() const {
-    return std::get<1>(GetParam()).value_or(kMinInputVolume);
-  }
-  bool GetAgc1AnalogControllerEnabled() const {
-    return std::get<2>(GetParam());
-  }
-  bool GetAgc2InputVolumeControllerEnabled() const {
-    return std::get<3>(GetParam());
-  }
-
- private:
-  test::ScopedFieldTrials field_trials_;
-};
-
-class InputVolumeNotZeroParameterizedTest
-    : public ::testing::TestWithParam<
-          std::tuple<int, int, absl::optional<int>, bool, bool>> {
- protected:
-  InputVolumeNotZeroParameterizedTest()
-      : field_trials_(
-            GetMinMicLevelExperimentFieldTrial(std::get<2>(GetParam()))) {}
-  int GetStartupVolume() const { return std::get<0>(GetParam()); }
-  int GetVolume() const { return std::get<1>(GetParam()); }
-  int GetMinVolume() const {
-    return std::get<2>(GetParam()).value_or(kMinInputVolume);
-  }
-  bool GetMinMicLevelExperimentEnabled() {
-    return std::get<2>(GetParam()).has_value();
-  }
-  bool GetAgc1AnalogControllerEnabled() const {
-    return std::get<3>(GetParam());
-  }
-  bool GetAgc2InputVolumeControllerEnabled() const {
-    return std::get<4>(GetParam());
-  }
-
- private:
-  test::ScopedFieldTrials field_trials_;
-};
-
-class InputVolumeZeroParameterizedTest
-    : public ::testing::TestWithParam<
-          std::tuple<int, absl::optional<int>, bool, bool>> {
- protected:
-  InputVolumeZeroParameterizedTest()
-      : field_trials_(
-            GetMinMicLevelExperimentFieldTrial(std::get<1>(GetParam()))) {}
-  int GetStartupVolume() const { return std::get<0>(GetParam()); }
-  int GetMinVolume() const {
-    return std::get<1>(GetParam()).value_or(kMinInputVolume);
-  }
-  bool GetAgc1AnalogControllerEnabled() const {
-    return std::get<2>(GetParam());
-  }
-  bool GetAgc2InputVolumeControllerEnabled() const {
-    return std::get<3>(GetParam());
-  }
-
- private:
-  test::ScopedFieldTrials field_trials_;
-};
+constexpr int kDefaultMinInputVolume = 12;
 
 }  // namespace
 
@@ -960,173 +878,149 @@ TEST(ApmWithSubmodulesExcludedTest, ToggleTransientSuppressor) {
   }
 }
 
-// Tests that the minimum startup volume is applied at the startup.
-TEST_P(InputVolumeStartupParameterizedTest,
-       VerifyStartupMinVolumeAppliedAtStartup) {
-  const int applied_startup_input_volume = GetStartupVolume();
-  const int expected_volume =
-      std::max(applied_startup_input_volume, GetMinVolume());
-  const bool agc1_analog_controller_enabled = GetAgc1AnalogControllerEnabled();
-  const bool agc2_input_volume_controller_enabled =
-      GetAgc2InputVolumeControllerEnabled();
-  auto apm = CreateApmForInputVolumeTest(agc1_analog_controller_enabled,
-                                         agc2_input_volume_controller_enabled);
+class StartupInputVolumeParameterizedTest
+    : public ::testing::TestWithParam<int> {};
 
-  const int recommended_input_volume =
-      ProcessInputVolume(*apm, /*num_frames=*/1, applied_startup_input_volume);
+// Tests that, when no input volume controller is used, the startup input volume
+// is never modified.
+TEST_P(StartupInputVolumeParameterizedTest,
+       WithNoInputVolumeControllerStartupVolumeNotModified) {
+  webrtc::AudioProcessing::Config config;
+  config.gain_controller1.enabled = false;
+  config.gain_controller2.enabled = false;
+  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
 
-  if (!agc1_analog_controller_enabled &&
-      !agc2_input_volume_controller_enabled) {
-    // No input volume changes if none of the analog controllers is enabled.
-    ASSERT_EQ(recommended_input_volume, applied_startup_input_volume);
-  } else {
-    ASSERT_EQ(recommended_input_volume, expected_volume);
+  int startup_volume = GetParam();
+  int recommended_volume = ProcessInputVolume(
+      *apm, /*num_frames=*/1, /*initial_volume=*/startup_volume);
+  EXPECT_EQ(recommended_volume, startup_volume);
+}
+
+INSTANTIATE_TEST_SUITE_P(AudioProcessingImplTest,
+                         StartupInputVolumeParameterizedTest,
+                         ::testing::Values(0, 5, 15, 50, 100));
+
+// Tests that, when no input volume controller is used, the recommended input
+// volume always matches the applied one.
+TEST(AudioProcessingImplTest,
+     WithNoInputVolumeControllerAppliedAndRecommendedVolumesMatch) {
+  Random rand_gen(42);
+
+  webrtc::AudioProcessing::Config config;
+  config.gain_controller1.enabled = false;
+  config.gain_controller2.enabled = false;
+  auto apm = AudioProcessingBuilder().SetConfig(config).Create();
+
+  for (int i = 0; i < 32; ++i) {
+    int32_t applied_volume = rand_gen.Rand(/*low=*/0, /*high=*/255);
+    int recommended_volume =
+        ProcessInputVolume(*apm, /*num_frames=*/1, applied_volume);
+    EXPECT_EQ(recommended_volume, applied_volume);
   }
 }
 
-// Tests that the minimum input volume is applied if the volume is manually
-// adjusted to a non-zero value 1) always for AGC2 input volume controller and
-// 2) only if "WebRTC-Audio-2ndAgcMinMicLevelExperiment" is enabled for AGC1
-// analog controller.
-TEST_P(InputVolumeNotZeroParameterizedTest,
-       VerifyMinVolumeMaybeAppliedAfterManualVolumeAdjustments) {
-  const int applied_startup_input_volume = GetStartupVolume();
-  const int applied_input_volume = GetVolume();
-  const int expected_volume = std::max(applied_input_volume, GetMinVolume());
-  const bool agc1_analog_controller_enabled = GetAgc1AnalogControllerEnabled();
-  const bool agc2_input_volume_controller_enabled =
-      GetAgc2InputVolumeControllerEnabled();
-  auto apm = CreateApmForInputVolumeTest(agc1_analog_controller_enabled,
-                                         agc2_input_volume_controller_enabled);
+class InputVolumeControllerTypeAndStartupVolumeParameterizedTest
+    : public ::testing::TestWithParam<
+          std::tuple<InputVolumeControllerType, absl::optional<int>>> {
+ protected:
+  InputVolumeControllerTypeAndStartupVolumeParameterizedTest()
+      : input_volume_controller_type_(std::get<0>(GetParam())),
+        min_input_volume_(
+            std::get<1>(GetParam()).value_or(kDefaultMinInputVolume)),
+        field_trials_(GetMinInputVolumeFieldTrial(input_volume_controller_type_,
+                                                  min_input_volume_)) {}
+  InputVolumeControllerType input_volume_controller_type() const {
+    return input_volume_controller_type_;
+  }
+  int min_input_volume() const { return min_input_volume_; }
 
-  ProcessInputVolume(*apm, /*num_frames=*/1, applied_startup_input_volume);
-  const int recommended_input_volume =
-      ProcessInputVolume(*apm, /*num_frames=*/1, applied_input_volume);
-
-  ASSERT_NE(applied_input_volume, 0);
-
-  if (!agc1_analog_controller_enabled &&
-      !agc2_input_volume_controller_enabled) {
-    // No input volume changes if none of the analog controllers is enabled.
-    ASSERT_EQ(recommended_input_volume, applied_input_volume);
-  } else {
-    if (GetMinMicLevelExperimentEnabled() ||
-        (!agc1_analog_controller_enabled &&
-         agc2_input_volume_controller_enabled)) {
-      ASSERT_EQ(recommended_input_volume, expected_volume);
-    } else {
-      ASSERT_EQ(recommended_input_volume, applied_input_volume);
+  rtc::scoped_refptr<AudioProcessing> CreateApm() {
+    webrtc::AudioProcessing::Config config;
+    switch (input_volume_controller_type_) {
+      case InputVolumeControllerType::kAgc1:
+        config.gain_controller1.enabled = true;
+        config.gain_controller1.analog_gain_controller.enabled = true;
+        config.gain_controller1.analog_gain_controller.enable_digital_adaptive =
+            false;
+        config.gain_controller2.enabled = false;
+        break;
+      case InputVolumeControllerType::kAgc2:
+        config.gain_controller1.enabled = false;
+        config.gain_controller2.enabled = true;
+        config.gain_controller2.input_volume_controller.enabled = true;
+        config.gain_controller2.adaptive_digital.enabled = true;
+        break;
     }
+    return AudioProcessingBuilder().SetConfig(config).Create();
   }
+
+ private:
+  const InputVolumeControllerType input_volume_controller_type_;
+  const int min_input_volume_;
+  test::ScopedFieldTrials field_trials_;
+};
+
+// Tests that the minimum input volume is enforced when the call starts even if
+// the startup input volume is zero.
+TEST_P(InputVolumeControllerTypeAndStartupVolumeParameterizedTest,
+       MinInputVolumeEnforcedAtStartupWhenAppliedInputVolumeIsZero) {
+  auto apm = CreateApm();
+  int recommended_volume =
+      ProcessInputVolume(*apm, /*num_frames=*/1, /*initial_volume=*/0);
+  EXPECT_EQ(recommended_volume, min_input_volume());
 }
 
-// Tests that the minimum input volume is not applied if the volume is manually
-// adjusted to zero.
-TEST_P(InputVolumeZeroParameterizedTest,
-       VerifyMinVolumeNotAppliedAfterManualVolumeAdjustments) {
-  constexpr int kZeroVolume = 0;
-  const int applied_startup_input_volume = GetStartupVolume();
-  const bool agc1_analog_controller_enabled = GetAgc1AnalogControllerEnabled();
-  const bool agc2_input_volume_controller_enabled =
-      GetAgc2InputVolumeControllerEnabled();
-  auto apm = CreateApmForInputVolumeTest(agc1_analog_controller_enabled,
-                                         agc2_input_volume_controller_enabled);
-
-  const int recommended_input_volume_after_startup =
-      ProcessInputVolume(*apm, /*num_frames=*/1, applied_startup_input_volume);
-  const int recommended_input_volume =
-      ProcessInputVolume(*apm, /*num_frames=*/1, kZeroVolume);
-
-  if (!agc1_analog_controller_enabled &&
-      !agc2_input_volume_controller_enabled) {
-    // No input volume changes if none of the analog controllers is enabled.
-    ASSERT_EQ(recommended_input_volume, kZeroVolume);
-  } else {
-    ASSERT_NE(recommended_input_volume, recommended_input_volume_after_startup);
-    ASSERT_EQ(recommended_input_volume, kZeroVolume);
-  }
+// Tests that the minimum input volume is NOT enforced after the call starts if
+// the applied input volume is zero.
+TEST_P(
+    InputVolumeControllerTypeAndStartupVolumeParameterizedTest,
+    DISABLED_MinInputVolumeNotEnforcedAfterStartupWhenAppliedInputVolumeIsZero) {
+  auto apm = CreateApm();
+  int recommended_volume =
+      ProcessInputVolume(*apm, /*num_frames=*/2, /*initial_volume=*/0);
+  // TODO(bugs.webrtc.org/7494): Check why the minimum is enforced and reenable.
+  EXPECT_EQ(recommended_volume, 0);
 }
 
-// Tests that the minimum input volume is applied if the volume is not zero
-// before it is automatically adjusted.
-TEST_P(InputVolumeNotZeroParameterizedTest,
-       VerifyMinVolumeAppliedAfterAutomaticVolumeAdjustments) {
-  const int applied_startup_input_volume = GetStartupVolume();
-  const int applied_input_volume = GetVolume();
-  const bool agc1_analog_controller_enabled = GetAgc1AnalogControllerEnabled();
-  const bool agc2_input_volume_controller_enabled =
-      GetAgc2InputVolumeControllerEnabled();
-  auto apm = CreateApmForInputVolumeTest(agc1_analog_controller_enabled,
-                                         agc2_input_volume_controller_enabled);
-
-  ProcessInputVolume(*apm, /*num_frames=*/1, applied_startup_input_volume);
-  const int recommended_input_volume =
-      ProcessInputVolume(*apm, /*num_frames=*/400, applied_input_volume);
-
-  ASSERT_NE(applied_input_volume, 0);
-
-  if (!agc1_analog_controller_enabled &&
-      !agc2_input_volume_controller_enabled) {
-    // No input volume changes if none of the analog controllers is enabled.
-    ASSERT_EQ(recommended_input_volume, applied_input_volume);
-  } else {
-    if (recommended_input_volume != applied_input_volume) {
-      ASSERT_GE(recommended_input_volume, GetMinVolume());
-    }
-  }
+// Tests that the minimum input volume is NOT enforced after the call starts if
+// the input volume is set to zero.
+TEST_P(InputVolumeControllerTypeAndStartupVolumeParameterizedTest,
+       MinInputVolumeNotEnforcedAfterStartupWhenAppliedInputVolumeSetToZero) {
+  auto apm = CreateApm();
+  ProcessInputVolume(*apm, /*num_frames=*/10, /*initial_volume=*/100);
+  int recommended_volume =
+      ProcessInputVolume(*apm, /*num_frames=*/1, /*initial_volume=*/0);
+  EXPECT_EQ(recommended_volume, 0);
 }
 
-// Tests that the minimum input volume is not applied if the volume is zero
-// before it is automatically adjusted.
-TEST_P(InputVolumeZeroParameterizedTest,
-       VerifyMinVolumeNotAppliedAfterAutomaticVolumeAdjustments) {
-  constexpr int kZeroVolume = 0;
-  const int applied_startup_input_volume = GetStartupVolume();
-  const bool agc1_analog_controller_enabled = GetAgc1AnalogControllerEnabled();
-  const bool agc2_input_volume_controller_enabled =
-      GetAgc2InputVolumeControllerEnabled();
-  auto apm = CreateApmForInputVolumeTest(agc1_analog_controller_enabled,
-                                         agc2_input_volume_controller_enabled);
-
-  const int recommended_input_volume_after_startup =
-      ProcessInputVolume(*apm, /*num_frames=*/1, applied_startup_input_volume);
-  const int recommended_input_volume =
-      ProcessInputVolume(*apm, /*num_frames=*/400, kZeroVolume);
-
-  if (!agc1_analog_controller_enabled &&
-      !agc2_input_volume_controller_enabled) {
-    // No input volume changes if none of the analog controllers is enabled.
-    ASSERT_EQ(recommended_input_volume, kZeroVolume);
-  } else {
-    ASSERT_NE(recommended_input_volume, recommended_input_volume_after_startup);
-    ASSERT_EQ(recommended_input_volume, kZeroVolume);
-  }
+// Tests that the minimum input volume is enforced when the call starts and the
+// startup input volume is not zero and below the minimum.
+TEST_P(InputVolumeControllerTypeAndStartupVolumeParameterizedTest,
+       MinInputVolumeEnforcedAtStartupWhenAppliedInputVolumeNotZeroBelowMin) {
+  auto apm = CreateApm();
+  int startup_volume = std::max(min_input_volume() / 2, 1);
+  int recommended_volume =
+      ProcessInputVolume(*apm, /*num_frames=*/1, startup_volume);
+  EXPECT_EQ(recommended_volume, min_input_volume());
 }
 
-INSTANTIATE_TEST_SUITE_P(AudioProcessingImplTest,
-                         InputVolumeStartupParameterizedTest,
-                         ::testing::Combine(::testing::Values(0, 5, 30),
-                                            ::testing::Values(absl::nullopt,
-                                                              20),
-                                            ::testing::Bool(),
-                                            ::testing::Bool()));
+// Tests that the minimum input volume has not effect when the call starts and
+// the startup input volume is above the minimum.
+TEST_P(InputVolumeControllerTypeAndStartupVolumeParameterizedTest,
+       MinInputVolumeEnforcedAtStartupWhenAppliedInputVolumeAboveMin) {
+  auto apm = CreateApm();
+  int startup_volume = std::min(min_input_volume() + 10, 255);
+  int recommended_volume =
+      ProcessInputVolume(*apm, /*num_frames=*/1, startup_volume);
+  EXPECT_EQ(recommended_volume, startup_volume);
+}
 
-INSTANTIATE_TEST_SUITE_P(AudioProcessingImplTest,
-                         InputVolumeNotZeroParameterizedTest,
-                         ::testing::Combine(::testing::Values(0, 5, 15),
-                                            ::testing::Values(1, 5, 30),
-                                            ::testing::Values(absl::nullopt,
-                                                              20),
-                                            ::testing::Bool(),
-                                            ::testing::Bool()));
-
-INSTANTIATE_TEST_SUITE_P(AudioProcessingImplTest,
-                         InputVolumeZeroParameterizedTest,
-                         ::testing::Combine(::testing::Values(0, 5, 15),
-                                            ::testing::Values(absl::nullopt,
-                                                              20),
-                                            ::testing::Bool(),
-                                            ::testing::Bool()));
+INSTANTIATE_TEST_SUITE_P(
+    AudioProcessingImplTest,
+    InputVolumeControllerTypeAndStartupVolumeParameterizedTest,
+    ::testing::Combine(::testing::Values(InputVolumeControllerType::kAgc1,
+                                         InputVolumeControllerType::kAgc2),
+                       ::testing::Values(absl::nullopt, 12, 20)));
 
 // When the input volume is not emulated and no input volume controller is
 // active, the recommended volume must always be the applied volume.

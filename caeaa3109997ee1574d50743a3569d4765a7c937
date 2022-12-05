@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e5c9e4_8c795abf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T11:48:28Z",
+      "side": 1,
+      "message": "A few questions, but adding +1 - this seems good to me.",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "110c963d_acea830b",
@@ -14,6 +31,75 @@
       "writtenOn": "2022-12-05T11:07:43Z",
       "side": 1,
       "message": "Since both sides are optionals, why do you want to default it to L1T1?\nAFAIK, if none is present, we may instead default to L1T2 or L1T3 for some codecs.",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ae2a66_c4a7713c",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T11:48:28Z",
+      "side": 1,
+      "message": "VP8 defaults to L2T2.\nThe spec carefully avoids specifying a default.\nBut letting AV1 default to L1T1 is very reasonable (we would likely have done that for VP8 if there had been an API to set it when we first defined the mode).",
+      "parentUuid": "110c963d_acea830b",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff1fea9_92e40022",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T11:48:28Z",
+      "side": 1,
+      "message": "This seems odd, but is existing code,so no change: Is there a guarantee somewhere that only 0, 1, 2 and 3 can occur? (like an int encoded in 2 bits?)",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395daef8_24baae49",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T11:48:28Z",
+      "side": 1,
+      "message": "Does this need to be a struct? Or can we write \"const\" on everything so that it\u0027s an init-only structure?\nI dislike adding new structs with undefined modify-semantics...",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a14d95_f9adf6af",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T11:48:28Z",
+      "side": 1,
+      "message": "Can we supplement this with the codec name so that it is slightly more informative when looking for something wrong?",
       "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

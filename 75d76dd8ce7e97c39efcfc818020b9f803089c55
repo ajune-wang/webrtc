@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cadf219f_4302bceb",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-05T12:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43d2306a_53cb7d84",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9006759e_8c7d369a",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 1
@@ -87,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9713b6b4_ad434fd5",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-05T12:44:54Z",
+      "side": 1,
+      "message": "this needed to be different and use the empty string which later caused the track id to be randomly generated. Well, for the legacy a\u003dssrc msid variant ;-)",
+      "parentUuid": "c88b24a3_30416356",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "119f453f_33b8c503",
@@ -104,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a5175c_7afbcb31",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2360,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-05T12:44:54Z",
+      "side": 1,
+      "message": "oh you mean stream_id1 and stream_id2? Doh...",
+      "parentUuid": "119f453f_33b8c503",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "976b5762_b365d67f",
@@ -117,6 +171,24 @@
       "writtenOn": "2022-12-02T08:54:16Z",
       "side": 1,
       "message": "Change this to a\u003dmsid:stream_id_1, a\u003dmsid:stream_id_2 and make it pass!",
+      "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a44f2ea_ce116149",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4101,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-05T12:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "976b5762_b365d67f",
       "revId": "75d76dd8ce7e97c39efcfc818020b9f803089c55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

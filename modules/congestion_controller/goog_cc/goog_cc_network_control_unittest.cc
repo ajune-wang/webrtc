@@ -664,7 +664,7 @@ DataRate AverageBitrateAfterCrossInducedLoss(absl::string_view name) {
          s.TimeSinceStart();
 }
 
-TEST(GoogCcScenario, LossBasedRecoversFasterAfterCrossInducedLoss) {
+TEST(GoogCcScenario, DISABLED_LossBasedRecoversFasterAfterCrossInducedLoss) {
   // This test acts as a reference for the test below, showing that without the
   // trial, we have worse behavior.
   DataRate average_bitrate_without_loss_based =
@@ -680,7 +680,7 @@ TEST(GoogCcScenario, LossBasedRecoversFasterAfterCrossInducedLoss) {
             average_bitrate_without_loss_based);
 }
 
-TEST(GoogCcScenario, LossBasedEstimatorCapsRateAtModerateLoss) {
+TEST(GoogCcScenario, DISABLED_LossBasedEstimatorCapsRateAtModerateLoss) {
   ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   Scenario s("googcc_unit/moderate_loss_channel", false);
   CallClientConfig config;
@@ -944,7 +944,7 @@ TEST(GoogCcScenario, FastRampupOnRembCapLifted) {
   EXPECT_GT(final_estimate.kbps(), 1500);
 }
 
-TEST(GoogCcScenario, SlowRampupOnRembCapLiftedWithFieldTrial) {
+TEST(GoogCcScenario, DISABLED_SlowRampupOnRembCapLiftedWithFieldTrial) {
   ScopedFieldTrials trial("WebRTC-Bwe-ReceiverLimitCapsOnly/Disabled/");
   DataRate final_estimate =
       RunRembDipScenario("googcc_unit/legacy_slow_rampup_on_remb_cap_lifted");

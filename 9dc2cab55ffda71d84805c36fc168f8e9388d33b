@@ -16,6 +16,40 @@
       "message": "thanks!\nnew version PTAL",
       "revId": "9dc2cab55ffda71d84805c36fc168f8e9388d33b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "741c4a08_b63982c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:34:14Z",
+      "side": 1,
+      "message": "Seems OK, then!",
+      "revId": "9dc2cab55ffda71d84805c36fc168f8e9388d33b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd89236_0ce4833e",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:34:14Z",
+      "side": 1,
+      "message": "the, not then ....",
+      "revId": "9dc2cab55ffda71d84805c36fc168f8e9388d33b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

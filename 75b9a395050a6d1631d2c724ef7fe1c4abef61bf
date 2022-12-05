@@ -156,6 +156,24 @@
       "parentUuid": "5bde8eb2_7b8ccec0",
       "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba55cb76_3bf22c63",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-05T09:34:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e3288af6_3779ce77",
+      "revId": "75b9a395050a6d1631d2c724ef7fe1c4abef61bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

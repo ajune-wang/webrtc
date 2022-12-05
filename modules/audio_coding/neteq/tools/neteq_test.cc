@@ -86,6 +86,9 @@ NetEqTest::~NetEqTest() = default;
 int64_t NetEqTest::Run() {
   int64_t simulation_time = 0;
   SimulationStepResult step_result;
+  // Advance the simulation clock to the first event.
+  clock_.AdvanceTimeMilliseconds(input_->NextEventTime().value_or(0) -
+                                 clock_.CurrentTime().ms());
   do {
     step_result = RunToNextGetAudio();
     simulation_time += step_result.simulation_step_ms;
@@ -99,7 +102,7 @@ int64_t NetEqTest::Run() {
 NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
   SimulationStepResult result;
   const int64_t start_time_ms = *input_->NextEventTime();
-  int64_t time_now_ms = start_time_ms;
+  int64_t time_now_ms = clock_.CurrentTime().ms();
   current_state_.packet_iat_ms.clear();
 
   while (!input_->ended()) {

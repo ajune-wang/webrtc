@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7199f55_52d253d4",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-06T10:08:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d8d2a75_a39e6726",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cff1fea9_92e40022",
@@ -84,6 +102,24 @@
       "writtenOn": "2022-12-05T11:48:28Z",
       "side": 1,
       "message": "This seems odd, but is existing code,so no change: Is there a guarantee somewhere that only 0, 1, 2 and 3 can occur? (like an int encoded in 2 bits?)",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88005d3f_3d27a4f5",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-06T10:08:41Z",
+      "side": 1,
+      "message": "No guarantee - Ideally this should be a precondition to the encoder as the encoder only supports max 3 TLs.",
+      "parentUuid": "cff1fea9_92e40022",
       "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +141,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c81f892f_65bf964b",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-06T10:08:41Z",
+      "side": 1,
+      "message": "Done. Replaced with std::tie and a tuple.",
+      "parentUuid": "395daef8_24baae49",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21a14d95_f9adf6af",
@@ -118,6 +172,24 @@
       "writtenOn": "2022-12-05T11:48:28Z",
       "side": 1,
       "message": "Can we supplement this with the codec name so that it is slightly more informative when looking for something wrong?",
+      "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4750af26_682b2b4b",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-06T10:08:41Z",
+      "side": 1,
+      "message": "I will just remove the logging, on second thought it does not provide much value.",
+      "parentUuid": "21a14d95_f9adf6af",
       "revId": "caeaa3109997ee1574d50743a3569d4765a7c937",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

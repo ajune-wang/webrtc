@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2d124f7_32cb7696",
+        "filename": "infra/config/config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-12-06T08:23:33Z",
+      "side": 0,
+      "message": "Yes, you need cq \u003d None.",
+      "range": {
+        "startLine": 716,
+        "startChar": 44,
+        "endLine": 716,
+        "endChar": 63
+      },
+      "revId": "e149d4d1000424d897e72ea4ef7aa2b777842e8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

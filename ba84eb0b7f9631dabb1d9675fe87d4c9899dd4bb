@@ -16,6 +16,41 @@
       "message": "Oops, I modified commit message, and the rubber stamper doesn\u0027t work...?",
       "revId": "ba84eb0b7f9631dabb1d9675fe87d4c9899dd4bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99c7bd3_6abf4721",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-12-06T08:23:35Z",
+      "side": 1,
+      "message": "I recreated https://webrtc-review.googlesource.com/c/src/+/286543. But the rubber stamper can\u0027t submit this revert as I\u0027m not an owner.",
+      "parentUuid": "266264cf_2e7407de",
+      "revId": "ba84eb0b7f9631dabb1d9675fe87d4c9899dd4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "994a5e08_a96db087",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-12-06T08:23:35Z",
+      "side": 1,
+      "message": "Please give me a stamp.",
+      "revId": "ba84eb0b7f9631dabb1d9675fe87d4c9899dd4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

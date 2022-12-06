@@ -15,10 +15,6 @@
 # for more detailed documentation.
 
 {
-  "All": {
-    "label": "//:All",
-    "type": "additional_compile_target",
-  },
   "AppRTCMobile_test_apk": {
     "label": "//examples:AppRTCMobile_test_apk",
     "type": "console_test_launcher",

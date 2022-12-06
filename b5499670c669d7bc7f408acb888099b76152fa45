@@ -47,6 +47,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff2f3d6_fcd23506",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 11254
+      },
+      "writtenOn": "2022-12-06T08:51:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "32598a44_09b48c1c",
+      "range": {
+        "startLine": 417,
+        "startChar": 55,
+        "endLine": 417,
+        "endChar": 61
+      },
+      "revId": "b5499670c669d7bc7f408acb888099b76152fa45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81cd324b_381a7a64",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 11254
+      },
+      "writtenOn": "2022-12-06T08:51:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cb584f54_15987bd6",
+      "range": {
+        "startLine": 417,
+        "startChar": 34,
+        "endLine": 417,
+        "endChar": 36
+      },
+      "revId": "b5499670c669d7bc7f408acb888099b76152fa45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99dfc86f_7b938bbd",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-11-25T09:27:06Z",
       "side": 1,
       "message": "That\u0027s not the way to do it in webrtc.\n\nThe encoder implementation should report required alignment of 2 in |requested_resolution_alignment| in the EncoderInfo [1].\n\nAlso, |apply_alignment_to_all_simulcast_layers| should be set to true there.\n\nThen the webrtc would crop the source image so that all the layers requirements are met. If your current implementation is used, the layers would have different aspect ratio and switching between them in the call would be very annoying for the users (e.g. 602x400 scaled down and cropped would be 300x200 with your fix. The |requested_alignment| approach would instead trim the top layer to 600x400 first).\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_encoder.h;l\u003d177;drc\u003dc3304aefc16d3c021c637ea6edfd9a8ab750a2db",
+      "revId": "b5499670c669d7bc7f408acb888099b76152fa45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5427d83_b8a3745b",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 11254
+      },
+      "writtenOn": "2022-12-06T08:51:01Z",
+      "side": 1,
+      "message": "Yes, make sense. I made a Chromium CL accordingly: https://chromium-review.googlesource.com/c/chromium/src/+/4064635, and will change it to make requested_resolution_alignment a uint32_t variable here to avoid potential issues in the Chromium CL discussion. Thanks.",
+      "parentUuid": "99dfc86f_7b938bbd",
       "revId": "b5499670c669d7bc7f408acb888099b76152fa45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

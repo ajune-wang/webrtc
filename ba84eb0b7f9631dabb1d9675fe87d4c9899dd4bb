@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "266264cf_2e7407de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-12-06T08:20:28Z",
+      "side": 1,
+      "message": "Oops, I modified commit message, and the rubber stamper doesn\u0027t work...?",
+      "revId": "ba84eb0b7f9631dabb1d9675fe87d4c9899dd4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

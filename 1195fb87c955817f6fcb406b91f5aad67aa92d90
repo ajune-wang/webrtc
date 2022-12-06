@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cb78d57_cac86cde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-06T09:52:09Z",
+      "side": 1,
+      "message": "Thanks Hanna! LGTM",
+      "revId": "1195fb87c955817f6fcb406b91f5aad67aa92d90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71c2a6b9_3635712c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-06T09:52:09Z",
+      "side": 1,
+      "message": "nit: could you replace with `speech_level_dbfs` across the whole file?",
+      "range": {
+        "startLine": 291,
+        "startChar": 44,
+        "endLine": 291,
+        "endChar": 56
+      },
+      "revId": "1195fb87c955817f6fcb406b91f5aad67aa92d90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b31330f_0d13d917",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-06T09:52:09Z",
+      "side": 1,
+      "message": "nice! it reads really well and it clarifies the clipping prediction behavior enabled vs disabled",
+      "range": {
+        "startLine": 1090,
+        "startChar": 7,
+        "endLine": 1090,
+        "endChar": 54
+      },
+      "revId": "1195fb87c955817f6fcb406b91f5aad67aa92d90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60c17dcb_e5c4a404",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-06T09:52:09Z",
+      "side": 1,
+      "message": "nit: I would move the expectations in lines 1153-1154 inside the for loop",
+      "range": {
+        "startLine": 1132,
+        "startChar": 22,
+        "endLine": 1132,
+        "endChar": 28
+      },
+      "revId": "1195fb87c955817f6fcb406b91f5aad67aa92d90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

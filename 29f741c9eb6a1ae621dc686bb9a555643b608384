@@ -106,6 +106,24 @@
       "parentUuid": "3590dd46_443e1cb9",
       "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33ba502_836f6fc7",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-06T09:24:08Z",
+      "side": 1,
+      "message": "Hm.. total_streams_count is calculated almost as what you have in PS#10 [1]\n\nExcept for when the total bitrate is 0.\n\nI don\u0027t know why is this even done, but this line of code comes from 2014 and probably no one remembers why it\u0027s like that.\n\nIt\u0027s definitely not common configuration to have all maxBitrate set to 0. I would revert to use total_streams_count_ but updated the CountAllStreams function to not return 1 for that special case.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter.cc;l\u003d65;drc\u003d2df668b7cbf6c1d0766b6ee0ae8147adc8830f2e",
+      "parentUuid": "6d49e270_bdfc1542",
+      "revId": "29f741c9eb6a1ae621dc686bb9a555643b608384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

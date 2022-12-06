@@ -16,6 +16,138 @@
       "message": "Hi Hanna, could you PTAL? Alessio",
       "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31362250_9015a9da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-06T15:37:51Z",
+      "side": 1,
+      "message": "Thanks Alessio!",
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4705e9e_802756f4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-06T15:37:51Z",
+      "side": 1,
+      "message": "I had an offline discussion with Sam during the review of the CL that added this function. As a result we ended up adding the current high-level docstring.\n\nTherefore, could this be rephrased? E.g. something along the lines of \"Switches all gain control to AGC2 if experimenting with input volume controller. Disables transient suppression if allow_transient_supporessor_usage is false.\"",
+      "range": {
+        "startLine": 397,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 8
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61078899_65d03c6a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-06T15:37:51Z",
+      "side": 1,
+      "message": "The config is called `analog_gain_controller` or `gain_controller1` in AGC1 and the APM submodules `agc_manager` or `gain_control`. If renamed, could the new name reflect that rather than the AGC2 naming?",
+      "range": {
+        "startLine": 417,
+        "startChar": 13,
+        "endLine": 417,
+        "endChar": 49
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8175cb8d_79668aba",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-06T15:37:51Z",
+      "side": 1,
+      "message": "Nit: Maybe start with an uppercase letter?",
+      "range": {
+        "startLine": 440,
+        "startChar": 37,
+        "endLine": 440,
+        "endChar": 40
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5787af81_a62481cc",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-06T15:37:51Z",
+      "side": 1,
+      "message": "If we want to log two separate errors, maybe logging both if both errors happen?",
+      "range": {
+        "startLine": 438,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 73
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e188c1_94a0ba92",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-06T15:37:51Z",
+      "side": 1,
+      "message": "Nit: Maybe start with an uppercase letter?",
+      "range": {
+        "startLine": 444,
+        "startChar": 37,
+        "endLine": 444,
+        "endChar": 40
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

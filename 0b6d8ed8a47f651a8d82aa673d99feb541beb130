@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c81f2b6f_96ebe5e9",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-06T15:23:03Z",
+      "side": 1,
+      "message": "There are overrides of PullFrame with different number of arguments. We need to indicate explicitly which function to call. Compilation fails otherwise.\n\n../../modules/video_coding/codecs/test/videoprocessor_unittest.cc:107:3: error: call to member function \u0027gmock_PullFrame\u0027 is ambiguous\n  EXPECT_CALL(frame_reader_mock_, PullFrame)",
+      "parentUuid": "86a03ebe_1a7ea632",
+      "range": {
+        "startLine": 107,
+        "startChar": 43,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "0b6d8ed8a47f651a8d82aa673d99feb541beb130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fce1e70_c9b21134",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-06T09:53:30Z",
       "side": 1,
       "message": "nit: Maybe something like \"Total number of frames retrievable by the FrameReader.\" - to distinguish it from number of frames read?",
+      "range": {
+        "startLine": 65,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "0b6d8ed8a47f651a8d82aa673d99feb541beb130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2197ea59_4d2728a8",
+        "filename": "test/testsupport/frame_reader.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-06T15:23:03Z",
+      "side": 1,
+      "message": "Changed to: \"Total number of retrievable frames.\"",
+      "parentUuid": "8fce1e70_c9b21134",
       "range": {
         "startLine": 65,
         "startChar": 5,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f51a2b_1099ed34",
+        "filename": "test/testsupport/frame_reader.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-06T15:23:03Z",
+      "side": 1,
+      "message": "Changed repeat_mode_ to const. resolution_ remains non-const since Y4M reader sets it in Init(), not ctor.",
+      "parentUuid": "4cfb9b21_68b17a67",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 31
+      },
+      "revId": "0b6d8ed8a47f651a8d82aa673d99feb541beb130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "734bd9bf_2f87b98d",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-12-06T09:53:30Z",
       "side": 1,
       "message": "nit: dcheck that remainder is zero too?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 52
+      },
+      "revId": "0b6d8ed8a47f651a8d82aa673d99feb541beb130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "907035d8_e5443409",
+        "filename": "test/testsupport/y4m_frame_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-06T15:23:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "734bd9bf_2f87b98d",
       "range": {
         "startLine": 70,
         "startChar": 2,

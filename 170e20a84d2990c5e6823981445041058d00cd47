@@ -50,6 +50,24 @@
       "message": "what\u0027s the point of defining this test and then skipping it?\nI also wonder what the result is of calling (JS) RequestKeyFrame() (no rids) when this test isn\u0027t defined.",
       "revId": "170e20a84d2990c5e6823981445041058d00cd47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf7018a_0f0aae3a",
+        "filename": "modules/video_coding/codecs/h264/h264_simulcast_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-06T10:57:53Z",
+      "side": 1,
+      "message": "Not testing something for H264 that is tested for VP8 may look like \"oops we forgot to add that test\". This shows we did not forget but thought about it and said \"no\".\n\nNow we don\u0027t have tooling to show us that we missed something but we have eyes.",
+      "parentUuid": "2da5f942_c5876f45",
+      "revId": "170e20a84d2990c5e6823981445041058d00cd47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

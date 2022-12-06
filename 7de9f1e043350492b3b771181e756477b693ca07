@@ -34,6 +34,24 @@
       "parentUuid": "5dd6c996_c3259687",
       "revId": "7de9f1e043350492b3b771181e756477b693ca07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69bc3418_bdba9980",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-12-06T08:35:19Z",
+      "side": 1,
+      "message": "Discussed offline, this can be improved and the file copied from the sandbox to a global path but this requires more work.\n\nLet\u0027s start from this.",
+      "parentUuid": "83d45482_4111e435",
+      "revId": "7de9f1e043350492b3b771181e756477b693ca07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

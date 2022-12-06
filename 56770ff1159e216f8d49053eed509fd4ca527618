@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef6e49d_158a4dd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2022-12-06T15:14:27Z",
+      "side": 1,
+      "message": "Erik,\nDo you know if anyone cares about these histograms?\nOr can they be removed?",
+      "revId": "56770ff1159e216f8d49053eed509fd4ca527618",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

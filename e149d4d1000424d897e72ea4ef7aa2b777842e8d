@@ -22,6 +22,30 @@
       },
       "revId": "e149d4d1000424d897e72ea4ef7aa2b777842e8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6a117c3_901d4373",
+        "filename": "infra/config/config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-12-06T08:24:24Z",
+      "side": 0,
+      "message": "Ah, I see. will reland with it. Thank you.",
+      "parentUuid": "c2d124f7_32cb7696",
+      "range": {
+        "startLine": 716,
+        "startChar": 44,
+        "endLine": 716,
+        "endChar": 63
+      },
+      "revId": "e149d4d1000424d897e72ea4ef7aa2b777842e8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

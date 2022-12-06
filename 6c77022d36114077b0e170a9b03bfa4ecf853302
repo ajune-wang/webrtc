@@ -46,6 +46,30 @@
       },
       "revId": "6c77022d36114077b0e170a9b03bfa4ecf853302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8defdf7_47a9fdd2",
+        "filename": "infra/specs/PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-12-06T12:52:42Z",
+      "side": 1,
+      "message": "I think both commands would work but ok to use shlex",
+      "parentUuid": "1e4aef57_3babb100",
+      "range": {
+        "startLine": 33,
+        "startChar": 56,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "6c77022d36114077b0e170a9b03bfa4ecf853302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

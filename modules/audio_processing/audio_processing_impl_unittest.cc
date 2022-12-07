@@ -276,6 +276,11 @@ class InputVolumeZeroParameterizedTest
   test::ScopedFieldTrials field_trials_;
 };
 
+// Field trial to enable in order to allow APM to use the transient suppressor
+// submodule.
+constexpr char kTransientSuppressorUnkillSwitchFieldTrialEnabled[] =
+    "WebRTC-ApmTransientSuppressorUnkillSwitch/Enabled/";
+
 }  // namespace
 
 TEST(AudioProcessingImplTest, AudioParameterChangeTriggersInit) {
@@ -819,6 +824,8 @@ TEST(AudioProcessingImplTest, RenderPreProcessorBeforeEchoDetector) {
 // config should be bit-exact with running APM with said submodules disabled.
 // This mainly tests that SetCreateOptionalSubmodulesForTesting has an effect.
 TEST(ApmWithSubmodulesExcludedTest, BitexactWithDisabledModules) {
+  test::ScopedFieldTrials field_trials(
+      kTransientSuppressorUnkillSwitchFieldTrialEnabled);
   auto apm = rtc::make_ref_counted<AudioProcessingImpl>();
   ASSERT_EQ(apm->Initialize(), AudioProcessing::kNoError);
 
@@ -866,6 +873,8 @@ TEST(ApmWithSubmodulesExcludedTest, BitexactWithDisabledModules) {
 // Disable transient suppressor creation and run APM in ways that should trigger
 // calls to the transient suppressor API.
 TEST(ApmWithSubmodulesExcludedTest, ReinitializeTransientSuppressor) {
+  test::ScopedFieldTrials field_trials(
+      kTransientSuppressorUnkillSwitchFieldTrialEnabled);
   auto apm = rtc::make_ref_counted<AudioProcessingImpl>();
   ASSERT_EQ(apm->Initialize(), kNoErr);
 
@@ -914,6 +923,8 @@ TEST(ApmWithSubmodulesExcludedTest, ReinitializeTransientSuppressor) {
 // Disable transient suppressor creation and run APM in ways that should trigger
 // calls to the transient suppressor API.
 TEST(ApmWithSubmodulesExcludedTest, ToggleTransientSuppressor) {
+  test::ScopedFieldTrials field_trials(
+      kTransientSuppressorUnkillSwitchFieldTrialEnabled);
   auto apm = rtc::make_ref_counted<AudioProcessingImpl>();
   ASSERT_EQ(apm->Initialize(), AudioProcessing::kNoError);
 

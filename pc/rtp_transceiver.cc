@@ -26,6 +26,7 @@
 #include "media/base/media_engine.h"
 #include "pc/channel.h"
 #include "pc/rtp_media_utils.h"
+#include "pc/rtp_parameters_conversion.h"
 #include "pc/session_description.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -674,9 +675,38 @@ RtpTransceiver::HeaderExtensionsNegotiated() const {
   return result;
 }
 
+// Helper function to determine mandatory-to-negotiate extensions.
+// See https://www.rfc-editor.org/rfc/rfc8834#name-header-extensions
+// and https://w3c.github.io/webrtc-extensions/#rtcrtptransceiver-interface
+bool IsMandatoryHeaderExtension(const std::string& uri) {
+  return uri == RtpExtension::kMidUri || uri == RtpExtension::kVideoRotationUri;
+}
+
 RTCError RtpTransceiver::SetOfferedRtpHeaderExtensions(
     rtc::ArrayView<const RtpHeaderExtensionCapability>
         header_extensions_to_offer) {
+  // When an empty array is passed, reset to default values.
+  if (header_extensions_to_offer.empty()) {
+    header_extensions_to_offer_.clear();
+    std::vector<webrtc::RtpExtension> extensions;
+    if (media_type() == cricket::MEDIA_TYPE_VIDEO) {
+      extensions =
+          GetDefaultEnabledRtpHeaderExtensions(media_engine()->video());
+      header_extensions_to_offer_ =
+          ToRtpCapabilities<cricket::VideoCodec>({}, extensions)
+              .header_extensions;
+    } else if (media_type() == cricket::MEDIA_TYPE_AUDIO) {
+      extensions =
+          GetDefaultEnabledRtpHeaderExtensions(media_engine()->voice());
+      header_extensions_to_offer_ =
+          ToRtpCapabilities<cricket::AudioCodec>({}, extensions)
+              .header_extensions;
+    } else {
+      RTC_CHECK_NOTREACHED();
+    }
+    return RTCError::OK();
+  }
+
   for (const auto& entry : header_extensions_to_offer) {
     // Handle unsupported requests for mandatory extensions as per
     // https://w3c.github.io/webrtc-extensions/#rtcrtptransceiver-interface.
@@ -699,14 +729,20 @@ RTCError RtpTransceiver::SetOfferedRtpHeaderExtensions(
     // - Use of the transceiver interface indicates unified plan is in effect,
     //   hence the MID extension needs to be enabled.
     // - Also handle the mandatory video orientation extensions.
-    if ((entry.uri == RtpExtension::kMidUri ||
-         entry.uri == RtpExtension::kVideoRotationUri) &&
+    if (IsMandatoryHeaderExtension(entry.uri) &&
         entry.direction != RtpTransceiverDirection::kSendRecv) {
       return RTCError(RTCErrorType::INVALID_MODIFICATION,
                       "Attempted to stop a mandatory extension.");
     }
   }
 
+  // Set all current extensions but the mandatory ones to stopped.
+  // This means that anything filtered from the input will not show up.
+  for (auto& entry : header_extensions_to_offer_) {
+    if (!IsMandatoryHeaderExtension(entry.uri)) {
+      entry.direction = RtpTransceiverDirection::kStopped;
+    }
+  }
   // Apply mutation after error checking.
   for (const auto& entry : header_extensions_to_offer) {
     auto it = std::find_if(

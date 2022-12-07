@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2db02033_6b30d9fa",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T08:47:26Z",
+      "side": 1,
+      "message": "\u003e There used to be a check `if (speech_probability.has_value())` which I think we should keep because the method signature does allow passing an `absl::nullopt`. Same also for `speech_level_estimator_` above.\n\nThe speech probability argument in `InputVolumeController::Process()` is not optional anymore (changed in https://webrtc-review.googlesource.com/c/src/+/283700) and we should call `InputVolumeController::Process()` for each 10 ms frame.\n\n\u003e \n\u003e We actually shouldn\u0027t therefore expect `speech_probability` to have a value nor check it by `RTC_DCHECK(speech_probability.has_value())` here or above for `speech_level_estimator_`. Sorry for the [self-contradictory comment](https://webrtc-review.googlesource.com/c/src/+/286002/comment/2c7c2c37_7da55d95/) in the previous CL!\n\nWhen `input_volume_controller_` is set, the speech probability must be set as well.\n\nSo, the code above looks fine to me.",
+      "parentUuid": "e539feda_bea67245",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 27
+      },
+      "revId": "329c1944a64b1a906706e0a01fb9d3126e8cf018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7c47c15_bb2d4d2f",
         "filename": "modules/audio_processing/gain_controller2.h",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-06T13:17:13Z",
       "side": 1,
       "message": "Also `#include \"modules/audio_processing/include/audio_frame_view.h\"` from adaptive_digital_gain_controller.h?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "329c1944a64b1a906706e0a01fb9d3126e8cf018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb6d9aa_20643060",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T08:47:26Z",
+      "side": 1,
+      "message": "Thanks for checking. It\u0027s included in gain_controller2.cc, no need to include it here (unused in this header file).",
+      "parentUuid": "c7c47c15_bb2d4d2f",
       "range": {
         "startLine": 23,
         "startChar": 0,

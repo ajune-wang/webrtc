@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "946dd829_4391c6d5",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-07T13:24:00Z",
+      "side": 1,
+      "message": "Thanks!\n\nThe function signature `Config AdjustConfig(const Config\u0026 ...)` indicates that the function reads a config and returns an adjusted config. The first comment line basically repeats that.",
+      "parentUuid": "d5f0a08c_cb482363",
+      "range": {
+        "startLine": 397,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 8
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61078899_65d03c6a",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 2

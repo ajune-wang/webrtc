@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10cde6c_c2540836",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-07T12:39:43Z",
+      "side": 1,
+      "message": "Still WIP, obviously needs more tests.\n\nWhat I find more concerning is that we have \"pass [] to restore defaults\" in setCodecPreferences that will be tricky to achieve here.",
+      "revId": "324e6ac52f8d9aad2ec81b57ddd0a31e40505a43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

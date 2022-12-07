@@ -39,7 +39,7 @@ TEST(ProbingTest, MidCallProbingRampupTriggeredByUpdatedBitrateConstraints) {
 
   const DataRate kStartRate = DataRate::KilobitsPerSec(300);
   const DataRate kConstrainedRate = DataRate::KilobitsPerSec(100);
-  const DataRate kHighRate = DataRate::KilobitsPerSec(2500);
+  const DataRate kHighRate = DataRate::KilobitsPerSec(1500);
 
   VideoStreamConfig video_config;
   video_config.encoder.codec =
@@ -72,7 +72,7 @@ TEST(ProbingTest, MidCallProbingRampupTriggeredByUpdatedBitrateConstraints) {
 
   // Check that the max send bitrate is reached quicker than would be possible
   // with simple AIMD rate control.
-  s.RunFor(TimeDelta::Seconds(1));
+  s.RunFor(TimeDelta::Seconds(10));
   EXPECT_GE(DataRate::BitsPerSec(caller->GetStats().send_bandwidth_bps),
             kHighRate);
 }

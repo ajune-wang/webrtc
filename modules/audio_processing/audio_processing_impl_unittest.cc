@@ -1237,10 +1237,12 @@ TEST(AudioProcessingImplTest,
   EXPECT_EQ(ProcessInputVolume(*apm, kOneFrame, /*initial_volume=*/135), 135);
 }
 
-TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
+TEST(AudioProcessingImplGainController2FieldTrialTest,
      ConfigAdjustedWhenExperimentEnabledAndAgc1AnalogEnabled) {
+  constexpr AudioProcessing::Config::GainController2::AdaptiveDigital
+      kDefaultAdaptiveDigitalConfig;
   webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-Audio-InputVolumeControllerExperiment/"
+      "WebRTC-Audio-GainController2/"
       "Enabled,"
       "enable_clipping_predictor:true,"
       "clipped_level_min:20,"
@@ -1251,7 +1253,14 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
       "target_range_min_dbfs:-70,"
       "update_input_volume_wait_frames:80,"
       "speech_probability_threshold:0.9,"
-      "speech_ratio_threshold:1.0/");
+      "speech_ratio_threshold:1.0,"
+      "dry_run:true,"
+      "headroom_db:10,"
+      "max_gain_db:20,"
+      "vad_reset_period_ms:300,"
+      "adjacent_speech_frames_threshold:40,"
+      "max_gain_change_db_per_second:5,"
+      "max_output_noise_level_dbfs:-60/");
 
   AudioProcessingBuilderForTesting apm_builder;
 
@@ -1277,6 +1286,8 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
   EXPECT_TRUE(adjusted_config.gain_controller2.enabled);
   EXPECT_TRUE(adjusted_config.gain_controller2.adaptive_digital.enabled);
   EXPECT_TRUE(adjusted_config.gain_controller2.input_volume_controller.enabled);
+  EXPECT_NE(adjusted_config.gain_controller2.adaptive_digital,
+            kDefaultAdaptiveDigitalConfig);
 
   // Change config back and compare.
   adjusted_config.gain_controller1.enabled = config.gain_controller1.enabled;
@@ -1287,14 +1298,18 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
       config.gain_controller2.adaptive_digital.enabled;
   adjusted_config.gain_controller2.input_volume_controller.enabled =
       config.gain_controller2.input_volume_controller.enabled;
+  adjusted_config.gain_controller2.adaptive_digital =
+      config.gain_controller2.adaptive_digital;
 
   EXPECT_THAT(adjusted_config.ToString(), ::testing::StrEq(config.ToString()));
 }
 
-TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
+TEST(AudioProcessingImplGainController2FieldTrialTest,
      ConfigAdjustedWhenExperimentEnabledAndHybridAgcEnabled) {
+  constexpr AudioProcessing::Config::GainController2::AdaptiveDigital
+      kDefaultAdaptiveDigitalConfig;
   webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-Audio-InputVolumeControllerExperiment/"
+      "WebRTC-Audio-GainController2/"
       "Enabled,"
       "enable_clipping_predictor:true,"
       "clipped_level_min:20,"
@@ -1305,7 +1320,14 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
       "target_range_min_dbfs:-70,"
       "update_input_volume_wait_frames:80,"
       "speech_probability_threshold:0.9,"
-      "speech_ratio_threshold:1.0/");
+      "speech_ratio_threshold:1.0,"
+      "dry_run:true,"
+      "headroom_db:10,"
+      "max_gain_db:20,"
+      "vad_reset_period_ms:300,"
+      "adjacent_speech_frames_threshold:40,"
+      "max_gain_change_db_per_second:5,"
+      "max_output_noise_level_dbfs:-60/");
 
   AudioProcessingBuilderForTesting apm_builder;
 
@@ -1333,6 +1355,8 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
   EXPECT_TRUE(adjusted_config.gain_controller2.enabled);
   EXPECT_TRUE(adjusted_config.gain_controller2.adaptive_digital.enabled);
   EXPECT_TRUE(adjusted_config.gain_controller2.input_volume_controller.enabled);
+  EXPECT_NE(adjusted_config.gain_controller2.adaptive_digital,
+            kDefaultAdaptiveDigitalConfig);
 
   // Change config back and compare.
   adjusted_config.gain_controller1.enabled = config.gain_controller1.enabled;
@@ -1343,14 +1367,16 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
       config.gain_controller2.adaptive_digital.enabled;
   adjusted_config.gain_controller2.input_volume_controller.enabled =
       config.gain_controller2.input_volume_controller.enabled;
+  adjusted_config.gain_controller2.adaptive_digital =
+      config.gain_controller2.adaptive_digital;
 
   EXPECT_THAT(adjusted_config.ToString(), ::testing::StrEq(config.ToString()));
 }
 
-TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
+TEST(AudioProcessingImplGainController2FieldTrialTest,
      ConfigNotAdjustedWhenExperimentEnabledAndAgc1AnalogNotEnabled) {
   webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-Audio-InputVolumeControllerExperiment/"
+      "WebRTC-Audio-GainController2/"
       "Enabled,"
       "enable_clipping_predictor:true,"
       "clipped_level_min:20,"
@@ -1361,7 +1387,14 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
       "target_range_min_dbfs:-70,"
       "update_input_volume_wait_frames:80,"
       "speech_probability_threshold:0.9,"
-      "speech_ratio_threshold:1.0/");
+      "speech_ratio_threshold:1.0,"
+      "dry_run:true,"
+      "headroom_db:10,"
+      "max_gain_db:20,"
+      "vad_reset_period_ms:300,"
+      "adjacent_speech_frames_threshold:40,"
+      "max_gain_change_db_per_second:5,"
+      "max_output_noise_level_dbfs:-60/");
 
   AudioProcessingBuilderForTesting apm_builder;
 
@@ -1395,10 +1428,10 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
   EXPECT_THAT(adjusted_config.ToString(), ::testing::StrEq(config.ToString()));
 }
 
-TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
+TEST(AudioProcessingImplGainController2FieldTrialTest,
      ConfigNotAdjustedWhenExperimentEnabledAndHybridAgcNotEnabled) {
   webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-Audio-InputVolumeControllerExperiment/"
+      "WebRTC-Audio-GainController2/"
       "Enabled,"
       "enable_clipping_predictor:true,"
       "clipped_level_min:20,"
@@ -1409,7 +1442,14 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
       "target_range_min_dbfs:-70,"
       "update_input_volume_wait_frames:80,"
       "speech_probability_threshold:0.9,"
-      "speech_ratio_threshold:1.0/");
+      "speech_ratio_threshold:1.0,"
+      "dry_run:true,"
+      "headroom_db:10,"
+      "max_gain_db:20,"
+      "vad_reset_period_ms:300,"
+      "adjacent_speech_frames_threshold:40,"
+      "max_gain_change_db_per_second:5,"
+      "max_output_noise_level_dbfs:-60/");
 
   AudioProcessingBuilderForTesting apm_builder;
 
@@ -1445,7 +1485,7 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
   EXPECT_THAT(adjusted_config.ToString(), ::testing::StrEq(config.ToString()));
 }
 
-TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
+TEST(AudioProcessingImplGainController2FieldTrialTest,
      ConfigNotAdjustedWhenExperimentNotEnabledAndAgc1AnalogEnabled) {
   AudioProcessingBuilderForTesting apm_builder;
 
@@ -1479,7 +1519,7 @@ TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
   EXPECT_THAT(adjusted_config.ToString(), ::testing::StrEq(config.ToString()));
 }
 
-TEST(AudioProcessingImplInputVolumeControllerExperimentTest,
+TEST(AudioProcessingImplGainController2FieldTrialTest,
      ConfigNotAdjustedWhenExperimentNotEnabledAndHybridAgcEnabled) {
   AudioProcessingBuilderForTesting apm_builder;
 

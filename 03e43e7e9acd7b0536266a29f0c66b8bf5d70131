@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f0a08c_cb482363",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T09:32:42Z",
+      "side": 1,
+      "message": "I will replace the statement on AGC2 with the existing one.\n\nI would prefer to keep the first statement since it clarifies what is being returned and it\u0027s still high level - \"switches\" fits better when the argument is passed as non-const ref/ptr. I put the TS part first to reflect the order in which the implementation below handles the overrides.",
+      "parentUuid": "b4705e9e_802756f4",
+      "range": {
+        "startLine": 397,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 8
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61078899_65d03c6a",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-12-06T15:37:51Z",
       "side": 1,
       "message": "The config is called `analog_gain_controller` or `gain_controller1` in AGC1 and the APM submodules `agc_manager` or `gain_control`. If renamed, could the new name reflect that rather than the AGC2 naming?",
+      "range": {
+        "startLine": 417,
+        "startChar": 13,
+        "endLine": 417,
+        "endChar": 49
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8984387d_61a3e7ce",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T09:32:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61078899_65d03c6a",
       "range": {
         "startLine": 417,
         "startChar": 13,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ecb34d_18663c21",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T09:32:42Z",
+      "side": 1,
+      "message": "after \":\" smallcase is used",
+      "parentUuid": "8175cb8d_79668aba",
+      "range": {
+        "startLine": 440,
+        "startChar": 37,
+        "endLine": 440,
+        "endChar": 40
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5787af81_a62481cc",
@@ -127,6 +199,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "babc44f3_85b91def",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T09:32:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5787af81_a62481cc",
+      "range": {
+        "startLine": 438,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 73
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5e188c1_94a0ba92",
@@ -140,6 +236,30 @@
       "writtenOn": "2022-12-06T15:37:51Z",
       "side": 1,
       "message": "Nit: Maybe start with an uppercase letter?",
+      "range": {
+        "startLine": 444,
+        "startChar": 37,
+        "endLine": 444,
+        "endChar": 40
+      },
+      "revId": "03e43e7e9acd7b0536266a29f0c66b8bf5d70131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "048b25f0_fd84dd92",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T09:32:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d5e188c1_94a0ba92",
       "range": {
         "startLine": 444,
         "startChar": 37,

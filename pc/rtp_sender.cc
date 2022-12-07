@@ -278,6 +278,18 @@ void RtpSenderBase::SetParametersInternal(const RtpParameters& parameters,
 
     media_channel_->SetRtpSendParameters(ssrc_, rtp_parameters,
                                          std::move(callback));
+    std::vector<std::string> key_frames_requested;
+    for (const auto& encoding : rtp_parameters.encodings) {
+      RTC_LOG(LS_ERROR) << "FIPPO " << encoding.rid
+                        << " KF=" << encoding.request_key_frame;
+      if (encoding.request_key_frame) {
+        key_frames_requested.push_back(encoding.rid);
+      }
+    }
+    // how does this behave for non-simulcast where rid is empty?
+    if (!key_frames_requested.empty()) {
+      RTC_LOG(LS_ERROR) << "FIPPO should call GenerateKeyFrame()";
+    }
   };
   if (blocking)
     worker_thread_->BlockingCall(task);

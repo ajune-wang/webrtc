@@ -69,6 +69,11 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
   };
 
   AsyncPacketSocket();
+  explicit AsyncPacketSocket(std::function<void(AsyncPacketSocket*,
+                                                const char*,
+                                                size_t,
+                                                const SocketAddress&,
+                                                const int64_t)> on_read);
   ~AsyncPacketSocket() override;
 
   AsyncPacketSocket(const AsyncPacketSocket&) = delete;
@@ -117,7 +122,7 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
                    // TODO(bugs.webrtc.org/9584): Change to passing the int64_t
                    // timestamp by value.
                    const int64_t&>
-      SignalReadPacket;
+      SignalReadPacketDeprecated;
 
   // Emitted each time a packet is sent.
   sigslot::signal2<AsyncPacketSocket*, const SentPacket&> SignalSentPacket;
@@ -136,6 +141,19 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
 
   void NotifyClosedForTest(int err) { NotifyClosed(err); }
 
+  // Fires the `on_read_packet_` callback.
+  // TODO(bugs.webrtc.org/11943) The signature matches the previous sigslot
+  // variable for backwards compatibility reasons. Rename, remove the first
+  // parameter and switch to Timestamp when downstream code has been updated.
+  void SignalReadPacket(AsyncPacketSocket* s,
+                        const char* data,
+                        size_t data_len,
+                        const SocketAddress& address,
+                        const int64_t timestamp) {
+    RTC_DCHECK_EQ(this, s);
+    on_read_packet_(s, data, data_len, address, timestamp);
+  }
+
  protected:
   // TODO(bugs.webrtc.org/11943): Remove after updating downstream code.
   void SignalClose(AsyncPacketSocket* s, int err) {
@@ -153,6 +171,12 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
  private:
   webrtc::CallbackList<AsyncPacketSocket*, int> on_close_
       RTC_GUARDED_BY(&network_checker_);
+  const std::function<void(AsyncPacketSocket*,
+                           const char*,
+                           size_t,
+                           const SocketAddress&,
+                           const int64_t)>
+      on_read_packet_;
 };
 
 // Listen socket, producing an AsyncPacketSocket when a peer connects.

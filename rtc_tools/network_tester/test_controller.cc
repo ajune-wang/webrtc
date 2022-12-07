@@ -43,7 +43,8 @@ TestController::TestController(int min_port,
     udp_socket_ =
         std::unique_ptr<rtc::AsyncPacketSocket>(socket_factory_.CreateUdpSocket(
             rtc::SocketAddress(rtc::GetAnyIP(AF_INET), 0), min_port, max_port));
-    udp_socket_->SignalReadPacket.connect(this, &TestController::OnReadPacket);
+    udp_socket_->SignalReadPacketDeprecated.connect(
+        this, &TestController::OnReadPacket);
   });
 }
 
@@ -51,6 +52,11 @@ TestController::~TestController() {
   RTC_DCHECK_RUN_ON(&test_controller_thread_checker_);
   packet_sender_thread_->BlockingCall(
       [this]() { task_safety_flag_->SetNotAlive(); });
+  udp_socket_ =
+      std::unique_ptr<rtc::AsyncPacketSocket>(socket_factory_.CreateUdpSocket(
+          rtc::SocketAddress(rtc::GetAnyIP(AF_INET), 0), min_port, max_port));
+  udp_socket_->SignalReadPacketDeprecated.connect(
+      this, &TestController::OnReadPacket);
 }
 
 void TestController::SendConnectTo(const std::string& hostname, int port) {

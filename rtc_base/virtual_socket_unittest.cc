@@ -101,7 +101,7 @@ struct Receiver : public sigslot::has_slots<> {
         sum(0),
         sum_sq(0),
         samples(0) {
-    socket->SignalReadPacket.connect(this, &Receiver::OnReadPacket);
+    socket->SignalReadPacketDeprecated.connect(this, &Receiver::OnReadPacket);
     periodic = RepeatingTaskHandle::DelayedStart(
         thread, TimeDelta::Seconds(1), [this] {
           // It is always possible for us to receive more than expected because

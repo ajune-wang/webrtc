@@ -33,7 +33,7 @@ TestClient::TestClient(std::unique_ptr<AsyncPacketSocket> socket,
     : fake_clock_(fake_clock),
       socket_(std::move(socket)),
       prev_packet_timestamp_(-1) {
-  socket_->SignalReadPacket.connect(this, &TestClient::OnPacket);
+  socket_->SignalReadPacketDeprecated.connect(this, &TestClient::OnPacket);
   socket_->SignalReadyToSend.connect(this, &TestClient::OnReadyToSend);
 }
 

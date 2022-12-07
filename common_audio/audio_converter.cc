@@ -36,6 +36,7 @@ class CopyConverter : public AudioConverter {
                float* const* dst,
                size_t dst_capacity) override {
     CheckSizes(src_size, dst_capacity);
+    std::cout << "foo" << std::endl;
     if (src != dst) {
       for (size_t i = 0; i < src_channels(); ++i)
         std::memcpy(dst[i], src[i], dst_frames() * sizeof(*dst[i]));

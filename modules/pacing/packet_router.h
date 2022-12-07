@@ -107,6 +107,12 @@ class PacketRouter : public PacingController::PacketSender {
   RtcpFeedbackSenderInterface* active_remb_module_
       RTC_GUARDED_BY(modules_mutex_);
 
+  // Some packets may arrive to the PacketRouter and be dropped while the
+  // RtpModule is being recreated.
+  // To ensure this losses is visible to the receiver, they are counted here.
+  std::unordered_map<uint32_t, size_t> dropped_packets_count_
+      RTC_GUARDED_BY(modules_mutex_);
+
   uint64_t transport_seq_ RTC_GUARDED_BY(modules_mutex_);
 
   // TODO(bugs.webrtc.org/10809): Replace lock with a sequence checker once the

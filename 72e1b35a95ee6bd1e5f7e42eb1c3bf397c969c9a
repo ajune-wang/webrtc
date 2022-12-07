@@ -46,6 +46,30 @@
       },
       "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8639297_1f06e01d",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-07T13:18:49Z",
+      "side": 1,
+      "message": "I have done a try with this, and while it is much cleaner, I prefer the current implementation. The problem with storing the stat here is that the reported scalability mode is that which is configured with the API. With the bottom solution, the scalability mode reported is that the encoder used. That is, if no scalability mode was set, or some default was used, the encoder reports it. For example, if no mode is set for VP9 then we still get a reported scalability mode like L1T2 based on the input parameters. \n\nI can switch to it here if you think I should however, up to you @asapersson@webrtc.org.",
+      "parentUuid": "622b32f6_d9e7a2c3",
+      "range": {
+        "startLine": 676,
+        "startChar": 10,
+        "endLine": 676,
+        "endChar": 36
+      },
+      "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

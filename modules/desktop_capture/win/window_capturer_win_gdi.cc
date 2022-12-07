@@ -396,6 +396,7 @@ WindowCapturerWinGdi::CaptureResults WindowCapturerWinGdi::CaptureFrame(
 // static
 std::unique_ptr<DesktopCapturer> WindowCapturerWinGdi::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   return std::unique_ptr<DesktopCapturer>(
       new WindowCapturerWinGdi(options.enumerate_current_process_windows()));
 }

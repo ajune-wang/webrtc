@@ -18,6 +18,7 @@
 
 #include "modules/desktop_capture/win/screen_capture_utils.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/win/get_activation_factory.h"
 
 using Microsoft::WRL::ComPtr;
@@ -30,11 +31,14 @@ WgcCaptureSource::WgcCaptureSource(DesktopCapturer::SourceId source_id)
 WgcCaptureSource::~WgcCaptureSource() = default;
 
 bool WgcCaptureSource::IsCapturable() {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   // If we can create a capture item, then we can capture it. Unfortunately,
   // we can't cache this item because it may be created in a different COM
   // apartment than where capture will eventually start from.
   ComPtr<WGC::IGraphicsCaptureItem> item;
-  return SUCCEEDED(CreateCaptureItem(&item));
+  HRESULT hr = CreateCaptureItem(&item);
+  RTC_LOG(LS_INFO) << "___hr=" << std::hex << hr;
+  return SUCCEEDED(hr);
 }
 
 bool WgcCaptureSource::FocusOnSource() {
@@ -122,6 +126,7 @@ bool WgcWindowSource::FocusOnSource() {
 
 HRESULT WgcWindowSource::CreateCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (!ResolveCoreWinRTDelayload())
     return E_FAIL;
 
@@ -184,6 +189,7 @@ bool WgcScreenSource::IsCapturable() {
 
 HRESULT WgcScreenSource::CreateCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (!hmonitor_)
     return E_ABORT;
 
@@ -194,8 +200,10 @@ HRESULT WgcScreenSource::CreateCaptureItem(
   HRESULT hr = GetActivationFactory<
       IGraphicsCaptureItemInterop,
       RuntimeClass_Windows_Graphics_Capture_GraphicsCaptureItem>(&interop);
-  if (FAILED(hr))
+  if (FAILED(hr)) {
+    RTC_LOG(LS_ERROR) << "___GetActivationFactory failed";
     return hr;
+  }
 
   // Ensure the monitor is still valid (hasn't disconnected) before trying to
   // create the item. On versions of Windows before Win11, `CreateForMonitor`
@@ -205,8 +213,10 @@ HRESULT WgcScreenSource::CreateCaptureItem(
 
   ComPtr<WGC::IGraphicsCaptureItem> item;
   hr = interop->CreateForMonitor(*hmonitor_, IID_PPV_ARGS(&item));
-  if (FAILED(hr))
+  if (FAILED(hr)) {
+    RTC_LOG(LS_ERROR) << "CreateForMonitor failed";
     return hr;
+  }
 
   if (!item)
     return E_HANDLE;

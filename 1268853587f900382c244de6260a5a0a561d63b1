@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97d1b884_62e5f2e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-07T11:43:03Z",
+      "side": 1,
+      "message": "+R Mirko. Do you know if there was some reason why this target wasn\u0027t built with chromium?",
+      "revId": "1268853587f900382c244de6260a5a0a561d63b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

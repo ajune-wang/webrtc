@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d694fee4_d24624b3",
+        "filename": "modules/video_capture/raw_video_sink_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-12-07T08:59:55Z",
+      "side": 1,
+      "message": "In the discussion of the PipeWire camera backend, rotation came up and I noticed that it was missing from this new API. It\u0027s not yet implemented there because it\u0027s not in any PipeWire release yet but it should be part of the API.\n\n@ilnik, is a new parameter ok or would you prefer a separate callback for whenever the rotation changes?",
+      "revId": "1299b61918e569e4e2dd526bc87b49db94f2226a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

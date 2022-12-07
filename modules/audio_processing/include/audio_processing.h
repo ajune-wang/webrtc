@@ -221,6 +221,8 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
     } noise_suppression;
 
     // Enables transient suppression.
+    // Deprecated, stop using.
+    // TODO(bugs.webrtc.org/13663): Remove.
     struct TransientSuppression {
       bool enabled = false;
     } transient_suppression;

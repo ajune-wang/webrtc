@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fcaf9e0_a1112c6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-12-07T11:01:24Z",
+      "side": 1,
+      "message": "Rebased and added class exports to fix chromium component builds.",
+      "revId": "f5bfc44025c84ba4036dd6883d648873c4e9aa75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b6758d6_c74cad15",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-07T09:01:57Z",
+      "side": 1,
+      "message": "BackDownDueToLossWithoutTransportFeedback ?",
+      "range": {
+        "startLine": 898,
+        "startChar": 21,
+        "endLine": 898,
+        "endChar": 63
+      },
+      "revId": "a69784a7963f368a014b147b1cc70959e93e7a7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c9a849_746bb37d",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-07T09:01:57Z",
+      "side": 1,
+      "message": "No need to explicitly enable since you are enabling per default in this cl.",
+      "range": {
+        "startLine": 899,
+        "startChar": 2,
+        "endLine": 899,
+        "endChar": 19
+      },
+      "revId": "a69784a7963f368a014b147b1cc70959e93e7a7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3b4ccc5_008e83bc",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-07T09:01:57Z",
+      "side": 1,
+      "message": "Can we run this for like 20s? Do we need to run this long?",
+      "range": {
+        "startLine": 920,
+        "startChar": 30,
+        "endLine": 920,
+        "endChar": 33
+      },
+      "revId": "a69784a7963f368a014b147b1cc70959e93e7a7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f6679e_bc853a51",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-07T09:01:57Z",
+      "side": 1,
+      "message": "To make the test clearer- can you start without loss verify that BWE \u003e 500, then later apply loss and check that we back down \u003c 300.\n\nYou can change network configuration like in this test:\n\n\n\n\n\n\n  auto* send_net \u003d s.CreateMutableSimulationNode(low_bwe_network_config);\n  auto* send_client \u003d s.CreateClient(\"send\", call_config);\n\n  auto* route \u003d\n      s.CreateRoutes(send_client, {send_net-\u003enode()},\n                     s.CreateClient(\"return\", CallClientConfig()),\n                     {s.CreateSimulationNode(medium_bwe_network_config)});\n\n  VideoStreamConfig video_stream_config;\n  video_stream_config.encoder.implementation \u003d\n      VideoStreamConfig::Encoder::kSoftware;\n  video_stream_config.encoder.codec \u003d\n      VideoStreamConfig::Encoder::Codec::kVideoCodecVP8;\n  s.CreateVideoStream(route-\u003eforward(), video_stream_config);\n  s.CreateAudioStream(route-\u003eforward(), AudioStreamConfig());\n\n  s.RunFor(TimeDelta::Seconds(6));\n  send_net-\u003eUpdateConfig([\u0026](NetworkSimulationConfig* config) {\n    *config \u003d medium_bwe_network_config;\n  });\n  s.RunFor(TimeDelta::Seconds(30));\n  EXPECT_GT(send_client-\u003etarget_rate().kbps(), 1000);  \n  send_net-\u003eUpdateConfig([\u0026](NetworkSimulationConfig* config) {\n    *config \u003d low_bwe_network_config;\n  });",
+      "range": {
+        "startLine": 923,
+        "startChar": 20,
+        "endLine": 923,
+        "endChar": 31
+      },
+      "revId": "a69784a7963f368a014b147b1cc70959e93e7a7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

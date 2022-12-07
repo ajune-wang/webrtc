@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d57ede78_b6cdd7c1",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-12-07T07:21:30Z",
+      "side": 1,
+      "message": "Alternatively, the stats could maybe be set based on the config.",
+      "range": {
+        "startLine": 676,
+        "startChar": 10,
+        "endLine": 676,
+        "endChar": 36
+      },
+      "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

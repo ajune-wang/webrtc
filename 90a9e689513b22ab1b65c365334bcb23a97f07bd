@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cfa693_f336e1d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-07T16:12:28Z",
+      "side": 1,
+      "message": "Thanks Alessio! LGTM",
+      "revId": "90a9e689513b22ab1b65c365334bcb23a97f07bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

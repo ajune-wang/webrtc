@@ -22,6 +22,30 @@
       },
       "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "622b32f6_d9e7a2c3",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-07T11:02:59Z",
+      "side": 1,
+      "message": "This could be cleaner, I will investigate!",
+      "parentUuid": "d57ede78_b6cdd7c1",
+      "range": {
+        "startLine": 676,
+        "startChar": 10,
+        "endLine": 676,
+        "endChar": 36
+      },
+      "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

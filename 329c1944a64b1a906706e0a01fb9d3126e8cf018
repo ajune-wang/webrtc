@@ -120,6 +120,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77eaa1a7_03181430",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T16:09:55Z",
+      "side": 1,
+      "message": "if-statement added back as agreed offline; not added for the speech level since that, differently from the speech probability, originates inside the class - i.e., not an external/untrusted parameter",
+      "parentUuid": "1a484d94_0673534f",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 27
+      },
+      "revId": "329c1944a64b1a906706e0a01fb9d3126e8cf018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7c47c15_bb2d4d2f",

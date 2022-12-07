@@ -72,6 +72,10 @@ DxgiOutputDuplicator::DxgiOutputDuplicator(const D3dDevice& device,
   RTC_DCHECK(!desktop_rect_.is_empty());
   RTC_DCHECK_GT(desktop_rect_.width(), 0);
   RTC_DCHECK_GT(desktop_rect_.height(), 0);
+  RTC_LOG(LS_INFO) << "___" << __func__ << "(device_name=" << device_name_
+                   << ")";
+  RTC_LOG(LS_INFO) << __func__ << "width=" << desktop_rect_.width();
+  RTC_LOG(LS_INFO) << __func__ << "height=" << desktop_rect_.height();
 }
 
 DxgiOutputDuplicator::DxgiOutputDuplicator(DxgiOutputDuplicator&& other) =
@@ -85,6 +89,7 @@ DxgiOutputDuplicator::~DxgiOutputDuplicator() {
 }
 
 bool DxgiOutputDuplicator::Initialize() {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (DuplicateOutput()) {
     if (desc_.DesktopImageInSystemMemory) {
       texture_.reset(new DxgiTextureMapping(duplication_.Get()));
@@ -100,6 +105,7 @@ bool DxgiOutputDuplicator::Initialize() {
 
 bool DxgiOutputDuplicator::DuplicateOutput() {
   RTC_DCHECK(!duplication_);
+  RTC_LOG(LS_INFO) << "___" << __func__;
   _com_error error =
       output_->DuplicateOutput(static_cast<IUnknown*>(device_.d3d_device()),
                                duplication_.GetAddressOf());
@@ -152,6 +158,7 @@ bool DxgiOutputDuplicator::Duplicate(Context* context,
   RTC_DCHECK(duplication_);
   RTC_DCHECK(texture_);
   RTC_DCHECK(target);
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (!DesktopRect::MakeSize(target->size())
            .ContainsRect(GetTranslatedDesktopRect(offset))) {
     // target size is not large enough to cover current output region.
@@ -250,6 +257,7 @@ DesktopRect DxgiOutputDuplicator::GetUntranslatedDesktopRect() const {
 void DxgiOutputDuplicator::DetectUpdatedRegion(
     const DXGI_OUTDUPL_FRAME_INFO& frame_info,
     DesktopRegion* updated_region) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (DoDetectUpdatedRegion(frame_info, updated_region)) {
     // Make sure even a region returned by Windows API is out of the scope of
     // desktop_rect_, we still won't export it to the target DesktopFrame.
@@ -348,6 +356,7 @@ bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
 
 void DxgiOutputDuplicator::Setup(Context* context) {
   RTC_DCHECK(context->updated_region.is_empty());
+  RTC_LOG(LS_INFO) << "___" << __func__;
   // Always copy entire monitor during the first Duplicate() function call.
   context->updated_region.AddRect(GetUntranslatedDesktopRect());
   RTC_DCHECK(std::find(contexts_.begin(), contexts_.end(), context) ==

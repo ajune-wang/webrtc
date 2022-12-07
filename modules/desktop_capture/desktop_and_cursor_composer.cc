@@ -21,6 +21,7 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -152,7 +153,9 @@ DesktopAndCursorComposer::DesktopAndCursorComposer(
     std::unique_ptr<DesktopCapturer> desktop_capturer,
     const DesktopCaptureOptions& options)
     : DesktopAndCursorComposer(desktop_capturer.release(),
-                               MouseCursorMonitor::Create(options).release()) {}
+                               MouseCursorMonitor::Create(options).release()) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
+}
 
 DesktopAndCursorComposer::DesktopAndCursorComposer(
     DesktopCapturer* desktop_capturer,
@@ -171,6 +174,7 @@ DesktopAndCursorComposer::CreateWithoutMouseCursorMonitor(
 }
 
 void DesktopAndCursorComposer::Start(DesktopCapturer::Callback* callback) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   callback_ = callback;
   if (mouse_monitor_)
     mouse_monitor_->Init(this, MouseCursorMonitor::SHAPE_AND_POSITION);
@@ -217,6 +221,7 @@ DesktopCaptureMetadata DesktopAndCursorComposer::GetMetadata() {
 void DesktopAndCursorComposer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {
+  RTC_LOG(LS_INFO) << "___" << __func__;
   if (frame && cursor_) {
     if (!frame->may_contain_cursor() &&
         frame->rect().Contains(cursor_position_) &&
@@ -243,6 +248,13 @@ void DesktopAndCursorComposer::OnCaptureResult(
       frame->set_may_contain_cursor(true);
     }
   }
+
+  // Indicates region of the screen that has changed since the previous frame.
+  // if (frame->updated_region().is_empty()) {
+  //  RTC_LOG(LS_INFO) << "___NO_CHANGE___";
+  //} else {
+  // RTC_LOG(LS_INFO) << "___CHANGE___";
+  //}
 
   callback_->OnCaptureResult(result, std::move(frame));
 }

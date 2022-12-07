@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7cef691_150d7528",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-07T12:28:30Z",
+      "side": 1,
+      "message": "\u003e It is possible to call the constructor so that `InputVolumeController` is instantiated but `use_internal_vad` is false, right? \n\nYes.\n\n\u003e If so, this method can be called with and empty `speech_probability` in which case the code crashes.\n\nYes and that\u0027s the correct behavior: that\u0027s why we have `RTC_DCHECK(speech_probability.has_value());` in line 222: it must not happen that `use_internal_vad` is false and that `speech_probability` remains unspecified. That would mean that the caller is not sticking to the API contract. Maybe I could clarify this in the `GainController2::Process()` docstring and add a death test. WDYT?\n\nAn alternative would be to make the `speech_probability` argument for `InputVolumeController::Process()` optional as it was before https://webrtc-review.googlesource.com/c/src/+/283700; but the purpose is not making AGC2 robust to incorrect usage. I rather prefer to keep in mind what will be the final shape of the code once a decision is taken on whether keeping or removing TS: namely, after that decision, we will either remove the `speech_probability` argument from `GainController2::Process()` or make it non-optional.\n\n\u003e \n\u003e If passing an empty probability and not instantiating VAD is an error in the configuration when either input volume controller or speech level estimator is used, we can also keep the DCHECKs to document the intended behaviour.\n\nYes, that\u0027s exactly the purpose of the DCHECK.",
+      "parentUuid": "0e15ccd1_9a42844c",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 27
+      },
+      "revId": "329c1944a64b1a906706e0a01fb9d3126e8cf018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7c47c15_bb2d4d2f",
         "filename": "modules/audio_processing/gain_controller2.h",
         "patchSetId": 7

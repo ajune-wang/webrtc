@@ -152,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "836d3c84_322ce5b6",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T14:53:58Z",
+      "side": 1,
+      "message": "\u003e `enable_clipping_predictor` is the only clipping predictor specific parameter here. The predictor parameters are fixed within input volume controller.\n\noh right, sorry! \n\n\u003e The rest are parameters for clipping handling in general (also for clipping detection). I prefer keeping them: The logic of the input volume controller does differ from the logic of the agc1 analog. We might want to adjust the parameters as well.\n\nAck",
+      "parentUuid": "5f67b036_c67df52c",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 51
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f339fbe3_e50d9b92",
@@ -189,6 +213,30 @@
       "side": 1,
       "message": "A name with `unvoiced` is ambiguous. It can be interpreted to refer to a segment without uttered speech (which is what we mean here) but also to a segment without voiced speech (without vocal cord vibration -- we\u0027re processing frames here so not an impossible interpretation either).\n\nWe could change it to something like `voice_activity_probability_threshold` -- this would refer to the engineering solution that outputs the value we\u0027re thresholding with this parameter rather than to an interpretation of the underlying speech characteristics. WDYT?",
       "parentUuid": "f339fbe3_e50d9b92",
+      "range": {
+        "startLine": 367,
+        "startChar": 42,
+        "endLine": 367,
+        "endChar": 70
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44ddbaed_4d2e0310",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T14:53:58Z",
+      "side": 1,
+      "message": "Good point on the \"unvoiced\" keyword. Since this change is time sensitive, let\u0027s land as it is. After all, the docstring is clear on what the meaning is. `voice_activity_probability_threshold` is also ok if you prefer that.",
+      "parentUuid": "b3dd18d4_8fcbb59d",
       "range": {
         "startLine": 367,
         "startChar": 42,
@@ -246,6 +294,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc001421_b2582d3a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T14:53:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9e8fec5_e8d6d9dd",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 75
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30014823_683f6b98",
@@ -283,6 +355,30 @@
       "side": 1,
       "message": "We modify these parameters here by replacing the parameter value with a its default if no override is given. Can we guarantee that these parameters are never set to anything but their default (now or in the future) elsewhere? If not, I\u0027d rather fully override the config than override some of the parameters quietly.",
       "parentUuid": "30014823_683f6b98",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 21
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8d93ef_135ef6d3",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T14:53:58Z",
+      "side": 1,
+      "message": "Absolutely guaranteed; I should have removed `dry_run`, `vad_reset_period_ms` and `adjacent_speech_frames_threshold` earlier. However, it might be easier to leave as it is and just delete the field trial parameters when I clean up.\n\nAlternatively, we could change `GainController2ConfigOverride` as follows and adapt here:\n\n```\nstruct GainController2ConfigOverride {\n  InputVolumeController::Config input_volume_controller_config;\n  struct AdaptiveDigital {\n    float headroom_db;\n    float max_gain_db;\n    float max_gain_change_db_per_second;\n    float max_output_noise_level_dbfs;\n  } adaptive_digital;\n};\n```\n\nI\u0027ll leave up to you to prioritize landing this change.",
+      "parentUuid": "066c865a_f35eb4ee",
       "range": {
         "startLine": 383,
         "startChar": 0,

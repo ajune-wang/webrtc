@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fd98cc_f7fb3a2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-08T12:05:01Z",
+      "side": 1,
+      "message": "I don\u0027t think it \"leaks\" memory. It stores some data for each negotiated yet unused ssrc. It already does the same here [1]. That data is also not cleared until the Call is destroyed.\n\nIt\u0027s too little data added for a very rare operation to be of any concern.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;l\u003d438;drc\u003d15a82c93d01955c1d4cbc86a9728d37cf2969c7b",
+      "parentUuid": "2678dfb2_c5c0a431",
+      "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87f772c6_b38e688f",

@@ -16,6 +16,23 @@
       "message": "+R srte@",
       "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a91b0132_d9b9c6f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-12-08T10:25:39Z",
+      "side": 1,
+      "message": "From what I can tell this would leak memory slowly as rtp modules are destroyed without recreation? It looks to me like a slight abstraction error in that we want to keep the rtp stream counter state alive so we can count dropped packets yet we temporarily remove it due to the stream recreation logic. Exactly how to fix it would require some digging, maybe it\u0027s possible to create a new class that has the role of staying alive as long as a logical stream is active? It could contain an optional pointer to the sender module, and keep track of dropped packets.",
+      "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

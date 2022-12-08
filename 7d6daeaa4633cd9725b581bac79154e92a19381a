@@ -22,6 +22,30 @@
       },
       "revId": "7d6daeaa4633cd9725b581bac79154e92a19381a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90938904_1a8f1eae",
+        "filename": "test/scenario/probing_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-12-08T10:26:52Z",
+      "side": 1,
+      "message": "It is weird indeed. The CL passed the test 1-2 days ago, but cannot pass it as of now after several tries. I printed the log and saw that delay based BWE stays at 1500kbps. The test itself has nothing to do with loss based bwe v2 though.",
+      "parentUuid": "37dd0b8a_5b39f7cf",
+      "range": {
+        "startLine": 42,
+        "startChar": 39,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "7d6daeaa4633cd9725b581bac79154e92a19381a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

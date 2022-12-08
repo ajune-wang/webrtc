@@ -81,6 +81,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "566654c9_d351693d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T10:58:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e00848c_9373836e",
+      "range": {
+        "startLine": 330,
+        "startChar": 17,
+        "endLine": 330,
+        "endChar": 43
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3454505d_4e32ba23",
@@ -94,6 +118,30 @@
       "writtenOn": "2022-12-08T10:12:02Z",
       "side": 1,
       "message": "While adding extra fields doesn\u0027t hurt and gives flexibility, I wonder if we truly need them all. I see 3 options:\n\n1. we fully trust the clipping prediction experiment results and hence keep it always enabled and stick with the current tuning\n2. we expect that clipping prediction could be disabled and hence add `enable_clipping_predictor` alone\n3. we expect that clipping prediction could be disabled or retuned and hence add all the required parameters\n\nI\u0027ll leave it up to you as you are in the best position to set expectations.",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 51
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f67b036_c67df52c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T10:58:37Z",
+      "side": 1,
+      "message": "`enable_clipping_predictor` is the only clipping predictor specific parameter here. The predictor parameters are fixed within input volume controller.\n\nThe rest are parameters for clipping handling in general (also for clipping detection). I prefer keeping them: The logic of the input volume controller does differ from the logic of the agc1 analog. We might want to adjust the parameters as well.",
+      "parentUuid": "3454505d_4e32ba23",
       "range": {
         "startLine": 339,
         "startChar": 0,
@@ -129,6 +177,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3dd18d4_8fcbb59d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T10:58:37Z",
+      "side": 1,
+      "message": "A name with `unvoiced` is ambiguous. It can be interpreted to refer to a segment without uttered speech (which is what we mean here) but also to a segment without voiced speech (without vocal cord vibration -- we\u0027re processing frames here so not an impossible interpretation either).\n\nWe could change it to something like `voice_activity_probability_threshold` -- this would refer to the engineering solution that outputs the value we\u0027re thresholding with this parameter rather than to an interpretation of the underlying speech characteristics. WDYT?",
+      "parentUuid": "f339fbe3_e50d9b92",
+      "range": {
+        "startLine": 367,
+        "startChar": 42,
+        "endLine": 367,
+        "endChar": 70
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb95f727_50256543",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -152,6 +224,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9e8fec5_e8d6d9dd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T10:58:37Z",
+      "side": 1,
+      "message": "See the next comment",
+      "parentUuid": "cb95f727_50256543",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 75
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30014823_683f6b98",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -163,6 +259,30 @@
       "writtenOn": "2022-12-08T10:12:02Z",
       "side": 1,
       "message": "`vad_reset_period_ms` and `adjacent_speech_frames_threshold` will soon be hard-coded, so no need to override these",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 21
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066c865a_f35eb4ee",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T10:58:37Z",
+      "side": 1,
+      "message": "We modify these parameters here by replacing the parameter value with a its default if no override is given. Can we guarantee that these parameters are never set to anything but their default (now or in the future) elsewhere? If not, I\u0027d rather fully override the config than override some of the parameters quietly.",
+      "parentUuid": "30014823_683f6b98",
       "range": {
         "startLine": 383,
         "startChar": 0,

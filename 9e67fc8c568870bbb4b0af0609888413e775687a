@@ -33,6 +33,64 @@
       "message": "From what I can tell this would leak memory slowly as rtp modules are destroyed without recreation? It looks to me like a slight abstraction error in that we want to keep the rtp stream counter state alive so we can count dropped packets yet we temporarily remove it due to the stream recreation logic. Exactly how to fix it would require some digging, maybe it\u0027s possible to create a new class that has the role of staying alive as long as a logical stream is active? It could contain an optional pointer to the sender module, and keep track of dropped packets.",
       "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2678dfb2_c5c0a431",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-12-08T10:36:06Z",
+      "side": 1,
+      "message": "I think you are right, it will leak (extremely slowly) and we should figure out the proper solution, but with that said I still think we should land this workaround in the meantime.",
+      "parentUuid": "a91b0132_d9b9c6f0",
+      "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b93467a1_b89bf335",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-12-08T10:36:06Z",
+      "side": 1,
+      "message": "LGTM % comment",
+      "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87f772c6_b38e688f",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-12-08T10:36:06Z",
+      "side": 1,
+      "message": "Format comment, and I also think we should add:\n\n    // TODO(crbug.com/1395081): The sender should not drop packets mid-frame.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 77
+      },
+      "revId": "9e67fc8c568870bbb4b0af0609888413e775687a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

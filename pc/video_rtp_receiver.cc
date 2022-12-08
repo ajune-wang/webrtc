@@ -251,7 +251,8 @@ void VideoRtpReceiver::SetJitterBufferMinimumDelay(
     media_channel_->SetBaseMinimumPlayoutDelayMs(*ssrc_, delay_.GetMs());
 }
 
-void VideoRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel) {
+void VideoRtpReceiver::SetMediaChannel(
+    cricket::MediaReceiveChannel* media_channel) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
@@ -259,7 +260,8 @@ void VideoRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel) {
   SetMediaChannel_w(media_channel);
 }
 
-void VideoRtpReceiver::SetMediaChannel_w(cricket::MediaChannel* media_channel) {
+void VideoRtpReceiver::SetMediaChannel_w(
+    cricket::MediaReceiveChannel* media_channel) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   if (media_channel == media_channel_)
     return;

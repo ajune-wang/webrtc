@@ -16,6 +16,69 @@
       "message": "Thanks Alessio! Could you please take a look at the post-LGTM changes? Thanks!",
       "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a235f959_fac49ea6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T16:09:40Z",
+      "side": 1,
+      "message": "still LGTM % 2 nits",
+      "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d343a764_17dac9f6",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T16:09:40Z",
+      "side": 1,
+      "message": "to stay on the safe side, set `.enabled \u003d true` - but it\u0027s not strictly needed since the override is correctly applied",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 8
+      },
+      "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "164e7ba0_1ccd8bbd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T16:09:40Z",
+      "side": 1,
+      "message": "maybe use an alias for src and dst; easier to read and safer to review\n\n```\n      auto\u0026 adjusted_adaptive_digital \u003d  // Alias.\n          adjusted_config.gain_controller2.adaptive_digital;\n      const auto\u0026 adaptive_digital_override \u003d  // Alias.\n          gain_controller2_config_override-\u003eadaptive_digital_config;\n      adjusted_adaptive_digital.headroom_db \u003d\n          adaptive_digital_override.headroom_db;\n      adjusted_adaptive_digital.max_gain_db \u003d\n          adaptive_digital_override.max_gain_db;\n      adjusted_adaptive_digital.max_gain_change_db_per_second \u003d\n          adaptive_digital_override.max_gain_change_db_per_second;\n      adjusted_adaptive_digital.max_output_noise_level_dbfs \u003d\n          adaptive_digital_override.max_output_noise_level_dbfs;\n```",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 43
+      },
+      "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

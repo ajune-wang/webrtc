@@ -57,6 +57,16 @@ void PacketRouter::AddSendRtpModule(RtpRtcpInterface* rtp_module,
     AddSendRtpModuleToMap(rtp_module, *flexfec_ssrc);
   }
 
+  auto dropped_count_it = dropped_packets_count_.find(rtp_module->SSRC());
+  if (dropped_count_it != dropped_packets_count_.end()) {
+    rtp_module->SetSequenceNumber(rtp_module->SequenceNumber() +
+                                  dropped_count_it->second);
+    // Need to reset sequence checkers, since this RTP module is being set up on
+    // a different thread than the one used for actual packets sending.
+    rtp_module->OnPacketSendingThreadSwitched();
+    dropped_packets_count_.erase(dropped_count_it);
+  }
+
   if (rtp_module->SupportsRtxPayloadPadding()) {
     last_send_module_ = rtp_module;
   }
@@ -157,12 +167,14 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
         << "Failed to send packet, matching RTP module not found "
            "or transport error. SSRC = "
         << packet->Ssrc() << ", sequence number " << packet->SequenceNumber();
+    ++dropped_packets_count_[ssrc];
     return;
   }
 
   RtpRtcpInterface* rtp_module = it->second;
   if (!rtp_module->TrySendPacket(packet.get(), cluster_info)) {
     RTC_LOG(LS_WARNING) << "Failed to send packet, rejected by RTP module.";
+    ++dropped_packets_count_[ssrc];
     return;
   }
 

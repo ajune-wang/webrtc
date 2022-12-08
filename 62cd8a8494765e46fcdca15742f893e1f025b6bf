@@ -16,6 +16,24 @@
       "message": "Sebastian, do you have objections to landing this?",
       "revId": "62cd8a8494765e46fcdca15742f893e1f025b6bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "431f20ce_3d37862f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-12-08T13:26:16Z",
+      "side": 1,
+      "message": "I talked to Erik, I think he might have a proper solution he could land without too much effort.\n\nsprang@, will you try to land a proper fix soon or should we land this for now?",
+      "parentUuid": "f71b7416_8ce08fbc",
+      "revId": "62cd8a8494765e46fcdca15742f893e1f025b6bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

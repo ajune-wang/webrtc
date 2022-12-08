@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a1973a_1777e43a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-12-08T08:12:52Z",
+      "side": 1,
+      "message": "looks good! Minor questions around naming, wdyt?",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4faaa85e_a3c5ad7d",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-12-08T08:12:52Z",
+      "side": 1,
+      "message": "for pure virtual interfaces, we\u0027ve had a convention of using the \"Interface\" suffix although the chromium style guide doesn\u0027t strictly require it. I think it would be good to use that now to make sure we don\u0027t start mixing an implementation at this level moving forward due to the inheritance pattern.",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba089de6_93b66102",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-12-08T08:12:52Z",
+      "side": 1,
+      "message": "\u003d 0?",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6708b8be_a7edb8fa",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-12-08T08:12:52Z",
+      "side": 1,
+      "message": "can we rename this method to `SetNetworkInterface` to be a bit more specific?",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

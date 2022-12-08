@@ -181,6 +181,13 @@ void TaskQueuePacedSender::EnqueuePackets(
       }));
 }
 
+void TaskQueuePacedSender::FlushStream(uint32_t ssrc) {
+  task_queue_.RunOrPost([this, ssrc]() {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    pacing_controller_.FlushStream(ssrc);
+  });
+}
+
 void TaskQueuePacedSender::SetAccountForAudioPackets(bool account_for_audio) {
   task_queue_.RunOrPost([this, account_for_audio]() {
     RTC_DCHECK_RUN_ON(&task_queue_);

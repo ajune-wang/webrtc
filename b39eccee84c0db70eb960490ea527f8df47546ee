@@ -387,6 +387,30 @@
       },
       "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9b40eb4_3a52c0cd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T16:00:51Z",
+      "side": 1,
+      "message": "I\u0027ve added a new struct for the adaptive digital config override without the to-be-removed parameters",
+      "parentUuid": "4a8d93ef_135ef6d3",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 21
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

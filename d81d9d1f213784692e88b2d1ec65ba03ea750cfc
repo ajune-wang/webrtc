@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fc31a8_59a2f84a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T16:00:51Z",
+      "side": 1,
+      "message": "Thanks Alessio! Could you please take a look at the post-LGTM changes? Thanks!",
+      "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

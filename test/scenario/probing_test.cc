@@ -72,7 +72,7 @@ TEST(ProbingTest, MidCallProbingRampupTriggeredByUpdatedBitrateConstraints) {
 
   // Check that the max send bitrate is reached quicker than would be possible
   // with simple AIMD rate control.
-  s.RunFor(TimeDelta::Seconds(1));
+  s.RunFor(TimeDelta::Seconds(10));
   EXPECT_GE(DataRate::BitsPerSec(caller->GetStats().send_bandwidth_bps),
             kHighRate);
 }

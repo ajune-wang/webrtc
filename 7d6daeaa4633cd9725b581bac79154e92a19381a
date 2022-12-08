@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37dd0b8a_5b39f7cf",
+        "filename": "test/scenario/probing_test.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-08T10:20:42Z",
+      "side": 1,
+      "message": "This seems weird. There is no loss in this call. Why is it necessary to change?",
+      "range": {
+        "startLine": 42,
+        "startChar": 39,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "7d6daeaa4633cd9725b581bac79154e92a19381a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

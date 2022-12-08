@@ -148,6 +148,10 @@ void PacingController::SetCircuitBreakerThreshold(int num_iterations) {
   circuit_breaker_threshold_ = num_iterations;
 }
 
+void PacingController::FlushStream(uint32_t ssrc) {
+  packet_queue_.FlushStream(ssrc);
+}
+
 bool PacingController::IsProbing() const {
   return prober_.is_probing();
 }

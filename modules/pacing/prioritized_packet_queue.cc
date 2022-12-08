@@ -91,6 +91,18 @@ Timestamp PrioritizedPacketQueue::StreamQueue::LastEnqueueTime() const {
   return last_enqueue_time_;
 }
 
+std::vector<PrioritizedPacketQueue::QueuedPacket>
+PrioritizedPacketQueue::StreamQueue::DequeueAll() {
+  std::vector<QueuedPacket> packets;
+  for (std::deque<QueuedPacket>& queue : packets_) {
+    while (!queue.empty()) {
+      packets.push_back(std::move(queue.front()));
+      queue.pop_front();
+    }
+  }
+  return packets;
+}
+
 PrioritizedPacketQueue::PrioritizedPacketQueue(Timestamp creation_time)
     : queue_time_sum_(TimeDelta::Zero()),
       pause_time_sum_(TimeDelta::Zero()),
@@ -163,34 +175,7 @@ std::unique_ptr<RtpPacketToSend> PrioritizedPacketQueue::Pop() {
   RTC_DCHECK_GE(top_active_prio_level_, 0);
   StreamQueue& stream_queue = *streams_by_prio_[top_active_prio_level_].front();
   QueuedPacket packet = stream_queue.DequePacket(top_active_prio_level_);
-  --size_packets_;
-  RTC_DCHECK(packet.packet->packet_type().has_value());
-  RtpPacketMediaType packet_type = packet.packet->packet_type().value();
-  --size_packets_per_media_type_[static_cast<size_t>(packet_type)];
-  RTC_DCHECK_GE(size_packets_per_media_type_[static_cast<size_t>(packet_type)],
-                0);
-  size_payload_ -= packet.PacketSize();
-
-  // Calculate the total amount of time spent by this packet in the queue
-  // while in a non-paused state. Note that the `pause_time_sum_ms_` was
-  // subtracted from `packet.enqueue_time_ms` when the packet was pushed, and
-  // by subtracting it now we effectively remove the time spent in in the
-  // queue while in a paused state.
-  TimeDelta time_in_non_paused_state =
-      last_update_time_ - packet.enqueue_time - pause_time_sum_;
-  queue_time_sum_ -= time_in_non_paused_state;
-
-  // Set the time spent in the send queue, which is the per-packet equivalent of
-  // totalPacketSendDelay. The notion of being paused is an implementation
-  // detail that we do not want to expose, so it makes sense to report the
-  // metric excluding the pause time. This also avoids spikes in the metric.
-  // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-totalpacketsenddelay
-  packet.packet->set_time_in_send_queue(time_in_non_paused_state);
-
-  RTC_DCHECK(size_packets_ > 0 || queue_time_sum_ == TimeDelta::Zero());
-
-  RTC_CHECK(packet.enqueue_time_iterator != enqueue_times_.end());
-  enqueue_times_.erase(packet.enqueue_time_iterator);
+  DequeuePacketInternal(packet);
 
   // Remove StreamQueue from head of fifo-queue for this prio level, and
   // and add it to the end if it still has packets.
@@ -274,6 +259,66 @@ void PrioritizedPacketQueue::UpdateAverageQueueTime(Timestamp now) {
 void PrioritizedPacketQueue::SetPauseState(bool paused, Timestamp now) {
   UpdateAverageQueueTime(now);
   paused_ = paused;
+}
+
+void PrioritizedPacketQueue::FlushStream(uint32_t ssrc) {
+  auto kv = streams_.find(ssrc);
+  if (kv != streams_.end()) {
+    StreamQueue& queue = *kv->second;
+
+    // Dequeue all packets from the queue for this SSRC, and record the set
+    // of used priority levels.
+    bool used_prio_levels[kNumPriorityLevels] = {};
+    for (QueuedPacket& packet : queue.DequeueAll()) {
+      used_prio_levels[GetPriorityForType(*packet.packet->packet_type())] |=
+          true;
+      DequeuePacketInternal(packet);
+    }
+
+    // Remove this queue from the prioritization structures.
+    for (int i = 0; i < kNumPriorityLevels; ++i) {
+      if (used_prio_levels[i]) {
+        std::deque<StreamQueue*> filtered_queue;
+        for (StreamQueue* queue_ptr : streams_by_prio_[i]) {
+          if (queue_ptr != &queue) {
+            filtered_queue.push_back(queue_ptr);
+          }
+        }
+        streams_by_prio_[i].swap(filtered_queue);
+      }
+    }
+  }
+}
+
+void PrioritizedPacketQueue::DequeuePacketInternal(QueuedPacket& packet) {
+  --size_packets_;
+  RTC_DCHECK(packet.packet->packet_type().has_value());
+  RtpPacketMediaType packet_type = packet.packet->packet_type().value();
+  --size_packets_per_media_type_[static_cast<size_t>(packet_type)];
+  RTC_DCHECK_GE(size_packets_per_media_type_[static_cast<size_t>(packet_type)],
+                0);
+  size_payload_ -= packet.PacketSize();
+
+  // Calculate the total amount of time spent by this packet in the queue
+  // while in a non-paused state. Note that the `pause_time_sum_ms_` was
+  // subtracted from `packet.enqueue_time_ms` when the packet was pushed, and
+  // by subtracting it now we effectively remove the time spent in in the
+  // queue while in a paused state.
+  TimeDelta time_in_non_paused_state =
+      last_update_time_ - packet.enqueue_time - pause_time_sum_;
+  queue_time_sum_ -= time_in_non_paused_state;
+
+  // Set the time spent in the send queue, which is the per-packet equivalent of
+  // totalPacketSendDelay. The notion of being paused is an implementation
+  // detail that we do not want to expose, so it makes sense to report the
+  // metric excluding the pause time. This also avoids spikes in the metric.
+  // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-totalpacketsenddelay
+  packet.packet->set_time_in_send_queue(time_in_non_paused_state);
+
+  RTC_DCHECK(size_packets_ > 0 || queue_time_sum_ == TimeDelta::Zero());
+
+  RTC_CHECK(packet.enqueue_time_iterator != enqueue_times_.end());
+  enqueue_times_.erase(packet.enqueue_time_iterator);
 }
 
 }  // namespace webrtc

@@ -70,6 +70,30 @@
       },
       "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a29664_73e8b86a",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-12-08T10:25:06Z",
+      "side": 1,
+      "message": "lgtm",
+      "parentUuid": "d8639297_1f06e01d",
+      "range": {
+        "startLine": 676,
+        "startChar": 10,
+        "endLine": 676,
+        "endChar": 36
+      },
+      "revId": "72e1b35a95ee6bd1e5f7e42eb1c3bf397c969c9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

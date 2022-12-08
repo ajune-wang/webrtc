@@ -157,6 +157,24 @@
       "parentUuid": "3b37ea9e_9bc365cc",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ebe3102_4b0338df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-08T14:38:16Z",
+      "side": 1,
+      "message": "Discussing with Jonas...\n\nI assume that in 2/ you mean that it changes foundation to NOT depend on PA ice tie breaker. Nobody who\u0027s not sniffing the ice tie breaker and trying to guess the foundation from that should notice, but the whole point of the exercise is to tease them apart.\n\nThe other question is where these two randoms should live, which is determined by their lifetimes. Does the foundation random survive an ICE restart? I couldn\u0027t tell from RFC 8445, but aren\u0027t candidates supposed to be associated with a transport? If so, it might live on the transport.\n\nRFC 8445 sounds like the tiebreaker random is a property of the ICE agent. Does that mean that it\u0027s unique (but changed when ICE role changes) for a PC?\n\nAre there other considerations that we\u0027ve missed?",
+      "parentUuid": "2264d6f6_df877ff2",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

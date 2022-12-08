@@ -22,6 +22,7 @@
 
 #if defined(RTC_ENABLE_WIN_WGC)
 #include "modules/desktop_capture/win/wgc_capturer_win.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/win/windows_version.h"
 #endif  // defined(RTC_ENABLE_WIN_WGC)
 
@@ -58,6 +59,7 @@ bool DesktopCapturer::IsOccluded(const DesktopVector& pos) {
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateWindowCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << "[DC] " << __func__;
 #if defined(RTC_ENABLE_WIN_WGC)
   if (options.allow_wgc_capturer() && IsWgcSupported(CaptureType::kWindow)) {
     return WgcCapturerWin::CreateRawWindowCapturer(options);

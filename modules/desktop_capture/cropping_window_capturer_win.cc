@@ -156,6 +156,7 @@ class CroppingWindowCapturerWin : public CroppingWindowCapturer {
 };
 
 void CroppingWindowCapturerWin::CaptureFrame() {
+  RTC_LOG(LS_INFO) << "[CWCW] " << __func__;
   DesktopCapturer* win_capturer = window_capturer();
   if (win_capturer) {
     // Feed the actual list of windows into full screen window detector.
@@ -315,6 +316,7 @@ WindowId CroppingWindowCapturerWin::GetWindowToCapture() const {
 // static
 std::unique_ptr<DesktopCapturer> CroppingWindowCapturer::CreateCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_LOG(LS_INFO) << "[CWC] " << __func__;
   std::unique_ptr<DesktopCapturer> capturer(
       new CroppingWindowCapturerWin(options));
   if (capturer && options.detect_updated_region()) {

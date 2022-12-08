@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d7cd4a_7178161a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-08T08:49:12Z",
+      "side": 1,
+      "message": "New version uploaded!",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4faaa85e_a3c5ad7d",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-12-08T08:12:52Z",
       "side": 1,
       "message": "for pure virtual interfaces, we\u0027ve had a convention of using the \"Interface\" suffix although the chromium style guide doesn\u0027t strictly require it. I think it would be good to use that now to make sure we don\u0027t start mixing an implementation at this level moving forward due to the inheritance pattern.",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be614f13_d3b2f292",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-08T08:49:12Z",
+      "side": 1,
+      "message": "Hm. The same logic applies to MediaSendChannel and MediaReceiveChannel, so I\u0027d better tag on \"Interface\" to those classes as well.\n\nOK, trying it out. Not sure I like it (more typing), but it does emphasize the point that the callers are dealing with the interface, not the implementation.",
+      "parentUuid": "4faaa85e_a3c5ad7d",
       "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb15057d_e11850dc",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-08T08:49:12Z",
+      "side": 1,
+      "message": "I don\u0027t know, can it be?\nAll the interface classes I found in webrtc have either \u003d default or {} for the virtual destructor - I suspect it\u0027s needed. (I tried with \u003d0 and got linker error)",
+      "parentUuid": "ba089de6_93b66102",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6708b8be_a7edb8fa",
@@ -65,6 +118,24 @@
       "writtenOn": "2022-12-08T08:12:52Z",
       "side": 1,
       "message": "can we rename this method to `SetNetworkInterface` to be a bit more specific?",
+      "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce703cf3_a0c64e7a",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-08T08:49:12Z",
+      "side": 1,
+      "message": "I\u0027m pedantically not changing anything except the inheritance hierarchy in this pass, so I would like to not try to improve on the naming at the same time.",
+      "parentUuid": "6708b8be_a7edb8fa",
       "revId": "baace66149f6b4875b7c51cb1574156a2eac4c29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

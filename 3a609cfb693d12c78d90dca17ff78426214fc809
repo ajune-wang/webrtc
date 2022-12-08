@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d5679b_2c01965e",
+        "filename": "modules/audio_processing/agc2/input_volume_stats_reporter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T12:14:56Z",
+      "side": 1,
+      "message": "IIUC, the new histogram slightly differs from \"WebRTC.Audio.AgcSetLevel\" it replaces. \"WebRTC.Audio.AgcSetLevel\" only logs level updates from the calls originating from `Process()`/`UpdateGain()` and not from `HandleClipping()` whereas the new histogram logs updates from both, right? It would be good to keep the separate histograms for these two adjustment types as well.",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 70
+      },
+      "revId": "3a609cfb693d12c78d90dca17ff78426214fc809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

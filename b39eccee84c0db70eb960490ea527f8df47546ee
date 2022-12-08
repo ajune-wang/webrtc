@@ -16,6 +16,161 @@
       "message": "Hi Alessio, could you please take a look? Thanks!",
       "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55e0bfd8_2a1149dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "Thanks Hanna! I added some comments.",
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eef0da9c_815c7079",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "nit, optional: what about `FullGainController2`? it emphasizes that all the gain controllers are the AGC2 ones",
+      "range": {
+        "startLine": 330,
+        "startChar": 62,
+        "endLine": 330,
+        "endChar": 77
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e00848c_9373836e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "nit: `kFieldTrialName`\n\nit\u0027s good to be specific when there are multiple alternatives (e.g., `kTransientSuppressorFieldTrialName` and `kGainController2FieldTrialName`), but in this case there\u0027s only one field trial",
+      "range": {
+        "startLine": 330,
+        "startChar": 17,
+        "endLine": 330,
+        "endChar": 43
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3454505d_4e32ba23",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "While adding extra fields doesn\u0027t hurt and gives flexibility, I wonder if we truly need them all. I see 3 options:\n\n1. we fully trust the clipping prediction experiment results and hence keep it always enabled and stick with the current tuning\n2. we expect that clipping prediction could be disabled and hence add `enable_clipping_predictor` alone\n3. we expect that clipping prediction could be disabled or retuned and hence add all the required parameters\n\nI\u0027ll leave it up to you as you are in the best position to set expectations.",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 355,
+        "endChar": 51
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f339fbe3_e50d9b92",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "This is documented as follows:\n\n```\n// Speech probability threshold: speech probabilities below the threshold\n// are considered silence. Limited to [0.0f, 1.0f].\nfloat speech_probability_threshold \u003d 0.7f;\n```\n\nsource: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/agc2/input_volume_controller.h;l\u003d66;drc\u003d17e14fdf3497506c818f61f6f6415b616fb97178\n\nI wonder if there\u0027s a better name for this parameter, since it\u0027s used to detect unvoiced parts (not silence BTW).\n\nCould we change the docstring, the struct param name and the field trial param name too?\n\nWhat about the following?\n\n```\n// Speech probability value in [0, 1] below which the analyzed audio is\n// considered unvoiced (e.g., noise, silence).\nfloat unvoiced_detection_threshold \u003d 0.7f;\n```",
+      "range": {
+        "startLine": 367,
+        "startChar": 42,
+        "endLine": 367,
+        "endChar": 70
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb95f727_50256543",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "`dry_run` will soon be removed, so no need to override this",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 75
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30014823_683f6b98",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T10:12:02Z",
+      "side": 1,
+      "message": "`vad_reset_period_ms` and `adjacent_speech_frames_threshold` will soon be hard-coded, so no need to override these",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 21
+      },
+      "revId": "b39eccee84c0db70eb960490ea527f8df47546ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

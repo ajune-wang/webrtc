@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69b9832a_3f5e2b55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T14:43:11Z",
+      "side": 1,
+      "message": "Thanks Hanna. Note that I added some unit tests, but only for AGC2 since it\u0027s easier to write them compared to AGC1 and because the implementation across the 2 AGCs is exactly the same.",
+      "revId": "34b34c1f0d17a75005d9d18fec1d5a7e4c45a4e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

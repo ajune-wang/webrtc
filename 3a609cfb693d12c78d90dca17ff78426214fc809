@@ -22,6 +22,30 @@
       },
       "revId": "3a609cfb693d12c78d90dca17ff78426214fc809",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f1033e8_f324c30c",
+        "filename": "modules/audio_processing/agc2/input_volume_stats_reporter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-08T14:43:11Z",
+      "side": 1,
+      "message": "Right, good catch. `MonoAgc::Process()` may call `MonoAgc::UpdateGain()`, which logs `WebRTC.Audio.AgcSetLevel` if the volume changes after input clipping is handled (if detected/predicted).\n\nAs agreed offline, let\u0027s keep the existing metric. However, I moved it so that it\u0027s logged only once and not for each channel and I renamed it. I also kept the newly added `.OnChange` metrics in order to compare the applied/recommended input volume distributions.",
+      "parentUuid": "10d5679b_2c01965e",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 70
+      },
+      "revId": "3a609cfb693d12c78d90dca17ff78426214fc809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -102,7 +102,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
   void SetJitterBufferMinimumDelay(
       absl::optional<double> delay_seconds) override;
 
-  void SetMediaChannel(cricket::MediaChannel* media_channel) override;
+  void SetMediaChannel(cricket::MediaReceiveChannel* media_channel) override;
 
   int AttachmentId() const override { return attachment_id_; }
 
@@ -121,7 +121,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
       RTC_RUN_ON(worker_thread_);
   void SetSink(rtc::VideoSinkInterface<VideoFrame>* sink)
       RTC_RUN_ON(worker_thread_);
-  void SetMediaChannel_w(cricket::MediaChannel* media_channel)
+  void SetMediaChannel_w(cricket::MediaReceiveChannel* media_channel)
       RTC_RUN_ON(worker_thread_);
 
   // VideoRtpTrackSource::Callback

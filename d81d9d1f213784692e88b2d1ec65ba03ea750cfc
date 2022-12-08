@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9915baf7_b9314cfb",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T16:30:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d343a764_17dac9f6",
+      "range": {
+        "startLine": 426,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 8
+      },
+      "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "164e7ba0_1ccd8bbd",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-12-08T16:09:40Z",
       "side": 1,
       "message": "maybe use an alias for src and dst; easier to read and safer to review\n\n```\n      auto\u0026 adjusted_adaptive_digital \u003d  // Alias.\n          adjusted_config.gain_controller2.adaptive_digital;\n      const auto\u0026 adaptive_digital_override \u003d  // Alias.\n          gain_controller2_config_override-\u003eadaptive_digital_config;\n      adjusted_adaptive_digital.headroom_db \u003d\n          adaptive_digital_override.headroom_db;\n      adjusted_adaptive_digital.max_gain_db \u003d\n          adaptive_digital_override.max_gain_db;\n      adjusted_adaptive_digital.max_gain_change_db_per_second \u003d\n          adaptive_digital_override.max_gain_change_db_per_second;\n      adjusted_adaptive_digital.max_output_noise_level_dbfs \u003d\n          adaptive_digital_override.max_output_noise_level_dbfs;\n```",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 43
+      },
+      "revId": "d81d9d1f213784692e88b2d1ec65ba03ea750cfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "915bf979_202ba886",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-08T16:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "164e7ba0_1ccd8bbd",
       "range": {
         "startLine": 493,
         "startChar": 0,

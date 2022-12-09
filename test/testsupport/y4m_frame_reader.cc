@@ -64,7 +64,6 @@ void Y4mFrameReaderImpl::Init() {
   frame_size_bytes_ += kFrameHeaderSize;
 
   size_t file_size_bytes = GetFileSize(filepath_);
-  RTC_CHECK_GT(file_size_bytes, 0u) << "File " << filepath_ << " is empty";
   RTC_CHECK_GT(file_size_bytes, header_size_bytes_)
       << "File " << filepath_ << " is too small";
 

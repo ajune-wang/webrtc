@@ -62,7 +62,7 @@ class FrameReader {
   virtual rtc::scoped_refptr<I420Buffer> ReadFrame(int frame_num,
                                                    Resolution resolution) = 0;
 
-  // Total number of retrievable frames.
+  // Total number of frames.
   virtual int num_frames() const = 0;
 };
 
@@ -109,7 +109,7 @@ class YuvFrameReaderImpl : public FrameReader {
 
   const std::string filepath_;
   Resolution resolution_;
-  const RepeatMode repeat_mode_;
+  RepeatMode repeat_mode_;
   int num_frames_;
   int frame_num_;
   int frame_size_bytes_;

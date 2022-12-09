@@ -197,7 +197,7 @@ def BuildWebRTC(output_dir, target_environment, target_arch, flavor,
   logging.info('Building target: %s', gn_target_name)
 
   cmd = [
-      os.path.join(SRC_DIR, 'third_party', 'ninja', 'ninja'),
+      os.path.join(find_depot_tools.DEPOT_TOOLS_PATH, 'ninja'),
       '-C',
       output_dir,
       gn_target_name,

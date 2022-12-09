@@ -104,10 +104,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
 
     @Override
     public void onAvailable(Network network) {
-      Logging.d(TAG,
-          "Network"
-              + " handle: " + networkToNetId(network)
-              + " becomes available: " + network.toString());
+      Logging.d(TAG, "Network becomes available: " + network.toString());
 
       synchronized (availableNetworks) {
         availableNetworks.add(network);
@@ -119,9 +116,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
       // A capabilities change may indicate the ConnectionType has changed,
       // so forward the new NetworkInformation along to the observer.
-      Logging.d(TAG,
-          "handle: " + networkToNetId(network)
-              + " capabilities changed: " + networkCapabilities.toString());
+      Logging.d(TAG, "capabilities changed: " + networkCapabilities.toString());
       onNetworkChanged(network);
     }
 
@@ -132,7 +127,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
       //
       // linkProperties.toString() has PII that cannot be redacted
       // very reliably, so do not include in log.
-      Logging.d(TAG, "handle: " + networkToNetId(network) + " link properties changed");
+      Logging.d(TAG, "link properties changed");
       onNetworkChanged(network);
     }
 
@@ -140,18 +135,13 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     public void onLosing(Network network, int maxMsToLive) {
       // Tell the network is going to lose in MaxMsToLive milliseconds.
       // We may use this signal later.
-      Logging.d(TAG,
-          "Network"
-              + " handle: " + networkToNetId(network) + ", " + network.toString()
-              + " is about to lose in " + maxMsToLive + "ms");
+      Logging.d(
+          TAG, "Network " + network.toString() + " is about to lose in " + maxMsToLive + "ms");
     }
 
     @Override
     public void onLost(Network network) {
-      Logging.d(TAG,
-          "Network"
-              + " handle: " + networkToNetId(network) + ", " + network.toString()
-              + " is disconnected");
+      Logging.d(TAG, "Network " + network.toString() + " is disconnected");
 
       synchronized (availableNetworks) {
         availableNetworks.remove(network);
@@ -799,8 +789,6 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
       case ConnectivityManager.TYPE_BLUETOOTH:
         return NetworkChangeDetector.ConnectionType.CONNECTION_BLUETOOTH;
       case ConnectivityManager.TYPE_MOBILE:
-      case ConnectivityManager.TYPE_MOBILE_DUN:
-      case ConnectivityManager.TYPE_MOBILE_HIPRI:
         // Use information from TelephonyManager to classify the connection.
         switch (networkSubtype) {
           case TelephonyManager.NETWORK_TYPE_GPRS:

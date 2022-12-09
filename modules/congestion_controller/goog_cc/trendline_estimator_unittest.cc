@@ -17,6 +17,7 @@
 #include "api/transport/field_trial_based_config.h"
 #include "rtc_base/random.h"
 #include "test/gtest.h"
+#include "test/scoped_key_value_config.h"
 
 namespace webrtc {
 namespace {
@@ -68,6 +69,21 @@ class TrendlineEstimatorTest : public testing::Test {
     }
   }
 
+  void RunExactSteps(TrendlineEstimator& trendline_estimator, int num_steps) {
+    RTC_DCHECK_EQ(send_times.size(), kPacketCount);
+    RTC_DCHECK_EQ(recv_times.size(), kPacketCount);
+    RTC_DCHECK_EQ(packet_sizes.size(), kPacketCount);
+    RTC_DCHECK_GE(count, 1);
+    RTC_DCHECK_LT(count, kPacketCount);
+    size_t last_packet = std::min(kPacketCount, count + num_steps);
+    for (; count < last_packet; count++) {
+      double recv_delta = recv_times[count] - recv_times[count - 1];
+      double send_delta = send_times[count] - send_times[count - 1];
+      trendline_estimator.Update(recv_delta, send_delta, send_times[count],
+                                 recv_times[count], packet_sizes[count], true);
+    }
+  }
+
  protected:
   const size_t kPacketCount = 25;
   const size_t kPacketSizeBytes = 1200;
@@ -110,6 +126,48 @@ TEST_F(TrendlineEstimatorTest, Overusing) {
   RunTestUntilStateChange();
   EXPECT_EQ(estimator.State(), BandwidthUsage::kBwOverusing);
   EXPECT_EQ(count, kPacketCount);  // All packets processed
+}
+
+TEST_F(TrendlineEstimatorTest, OverusingIfDelayIsAboveThreshold) {
+  test::ScopedKeyValueConfig trials(
+      "WebRTC-Bwe-TrendlineEstimatorSettings/"
+      "overuse_theshold:3s,packet_observation_window:5/");
+  TrendlineEstimator trendline_estimator(&trials, nullptr);
+  PacketTimeGenerator send_time_generator(/*initial_clock=*/123456789,
+                                          /*time_between_packets=*/20);
+  std::generate(send_times.begin(), send_times.end(), send_time_generator);
+
+  PacketTimeGenerator recv_time_generator(
+      /*initial_clock=*/987654321,
+      /*time_between_packets=*/5000);
+  std::generate(recv_times.begin(), recv_times.end(), recv_time_generator);
+
+  EXPECT_EQ(trendline_estimator.State(), BandwidthUsage::kBwNormal);
+  RunExactSteps(trendline_estimator, /*num_step=*/5);
+  EXPECT_EQ(trendline_estimator.State(), BandwidthUsage::kBwOverusing);
+  RunExactSteps(trendline_estimator, /*num_step=*/1);
+  EXPECT_EQ(trendline_estimator.State(), BandwidthUsage::kBwOverusing);
+}
+
+TEST_F(TrendlineEstimatorTest, NotOverusingIfDelayIsUnderThreshold) {
+  test::ScopedKeyValueConfig trials(
+      "WebRTC-Bwe-TrendlineEstimatorSettings/"
+      "overuse_theshold:30s,packet_observation_window:5/");
+  TrendlineEstimator trendline_estimator(&trials, nullptr);
+  PacketTimeGenerator send_time_generator(/*initial_clock=*/123456789,
+                                          /*time_between_packets=*/20);
+  std::generate(send_times.begin(), send_times.end(), send_time_generator);
+
+  PacketTimeGenerator recv_time_generator(
+      /*initial_clock=*/987654321,
+      /*time_between_packets=*/5000);
+  std::generate(recv_times.begin(), recv_times.end(), recv_time_generator);
+
+  EXPECT_EQ(trendline_estimator.State(), BandwidthUsage::kBwNormal);
+  RunExactSteps(trendline_estimator, /*num_step=*/5);
+  EXPECT_NE(trendline_estimator.State(), BandwidthUsage::kBwOverusing);
+  RunExactSteps(trendline_estimator, /*num_step=*/1);
+  EXPECT_NE(trendline_estimator.State(), BandwidthUsage::kBwOverusing);
 }
 
 TEST_F(TrendlineEstimatorTest, Underusing) {

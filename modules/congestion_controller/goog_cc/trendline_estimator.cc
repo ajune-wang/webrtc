@@ -18,6 +18,7 @@
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/network_state_predictor.h"
+#include "api/units/time_delta.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/struct_parameters_parser.h"
@@ -79,6 +80,7 @@ absl::optional<double> LinearFitSlope(
 absl::optional<double> ComputeSlopeCap(
     const std::deque<TrendlineEstimator::PacketTiming>& packets,
     const TrendlineEstimatorSettings& settings) {
+  RTC_LOG(LS_INFO) << "ComputeSlopeCap";
   RTC_DCHECK(1 <= settings.beginning_packets &&
              settings.beginning_packets < packets.size());
   RTC_DCHECK(1 <= settings.end_packets &&
@@ -146,16 +148,26 @@ TrendlineEstimatorSettings::TrendlineEstimatorSettings(
       cap_uncertainty = 0.0;
     }
   }
+  if (overuse_threshold < TimeDelta::Millis(1)) {
+    RTC_LOG(LS_WARNING) << "Overuse threshold " << overuse_threshold.ms()
+                        << "ms is too small.";
+  }
+  if (packet_observation_window < 0) {
+    RTC_LOG(LS_WARNING) << "Packet observation window cannot be negative.";
+    packet_observation_window = 0;
+  }
 }
 
 std::unique_ptr<StructParametersParser> TrendlineEstimatorSettings::Parser() {
-  return StructParametersParser::Create("sort", &enable_sort,  //
-                                        "cap", &enable_cap,    //
-                                        "beginning_packets",
-                                        &beginning_packets,                   //
-                                        "end_packets", &end_packets,          //
-                                        "cap_uncertainty", &cap_uncertainty,  //
-                                        "window_size", &window_size);
+  return StructParametersParser::Create(
+      "sort", &enable_sort,  //
+      "cap", &enable_cap,    //
+      "beginning_packets",
+      &beginning_packets,                   //
+      "end_packets", &end_packets,          //
+      "cap_uncertainty", &cap_uncertainty,  //
+      "window_size", &window_size, "overuse_theshold", &overuse_threshold,
+      "packet_observation_window", &packet_observation_window);
 }
 
 TrendlineEstimator::TrendlineEstimator(
@@ -178,6 +190,7 @@ TrendlineEstimator::TrendlineEstimator(
       prev_trend_(0.0),
       time_over_using_(-1),
       overuse_counter_(0),
+      delay_above_threshold_counter_(0),
       hypothesis_(BandwidthUsage::kBwNormal),
       hypothesis_predicted_(BandwidthUsage::kBwNormal),
       network_state_predictor_(network_state_predictor) {
@@ -196,6 +209,13 @@ void TrendlineEstimator::UpdateTrendline(double recv_delta_ms,
                                          int64_t arrival_time_ms,
                                          size_t packet_size) {
   const double delta_ms = recv_delta_ms - send_delta_ms;
+  if (delta_ms >= settings_.overuse_threshold.ms()) {
+    delay_above_threshold_counter_ =
+        std::min(delay_above_threshold_counter_ + 1,
+                 settings_.packet_observation_window);
+  } else {
+    delay_above_threshold_counter_ = 0;
+  }
   ++num_of_deltas_;
   num_of_deltas_ = std::min(num_of_deltas_, kDeltaCounterMax);
   if (first_arrival_time_ms_ == -1)
@@ -301,9 +321,16 @@ void TrendlineEstimator::Detect(double trend, double ts_delta, int64_t now_ms) {
     overuse_counter_ = 0;
     hypothesis_ = BandwidthUsage::kBwUnderusing;
   } else {
-    time_over_using_ = -1;
-    overuse_counter_ = 0;
-    hypothesis_ = BandwidthUsage::kBwNormal;
+    if (delay_above_threshold_counter_ >= settings_.packet_observation_window &&
+        settings_.packet_observation_window > 0) {
+      time_over_using_ = ts_delta / 2;
+      overuse_counter_ = 1;
+      hypothesis_ = BandwidthUsage::kBwOverusing;
+    } else {
+      time_over_using_ = -1;
+      overuse_counter_ = 0;
+      hypothesis_ = BandwidthUsage::kBwNormal;
+    }
   }
   prev_trend_ = trend;
   UpdateThreshold(modified_trend, now_ms);

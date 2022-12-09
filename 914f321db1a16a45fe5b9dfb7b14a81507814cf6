@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d8f2df24_1e18a8be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-12-09T15:20:23Z",
+      "side": 1,
+      "message": "As discussed offline, it looks like we actually don\u0027t need to address those issues here.\nIncrementing the sequence number of the rtp module when it is recreated is however a good idea, but I suggest implementing that in a separate CL as this one is already quite complex.",
+      "parentUuid": "0d74c44c_90357349",
+      "revId": "914f321db1a16a45fe5b9dfb7b14a81507814cf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "12af5375_ba66eef5",
         "filename": "modules/pacing/pacing_controller.h",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2022-12-08T16:38:59Z",
       "side": 1,
       "message": "nit: `FlushStream` sounds to me like we are passing packets along, but what we are actually doing is dropping/removing them. Maybe call it `RemovePacketsForSsrc` or something like that?",
+      "range": {
+        "startLine": 170,
+        "startChar": 7,
+        "endLine": 170,
+        "endChar": 18
+      },
+      "revId": "914f321db1a16a45fe5b9dfb7b14a81507814cf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e590ab8_f4e6c6a3",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-12-09T15:20:23Z",
+      "side": 1,
+      "message": "Yeah, that might be a good idea. Done.",
+      "parentUuid": "12af5375_ba66eef5",
       "range": {
         "startLine": 170,
         "startChar": 7,

@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f3f44dd6_692c0ffa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-09T15:29:29Z",
+      "side": 1,
+      "message": "These concerns were not addressed in the offline discussion. It\u0027s about toggling active status of the rtp module, not about recreation.\n\nBut on the more detailed look at your CL, I see the packets are discarded on SetActive already, so it\u0027s already the last suggestion in my comment actually implemented.",
+      "parentUuid": "d8f2df24_1e18a8be",
+      "revId": "914f321db1a16a45fe5b9dfb7b14a81507814cf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "12af5375_ba66eef5",
         "filename": "modules/pacing/pacing_controller.h",
         "patchSetId": 3

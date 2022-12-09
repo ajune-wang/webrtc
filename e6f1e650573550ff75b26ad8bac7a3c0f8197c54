@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f01215d_bffd67dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-09T09:29:03Z",
+      "side": 1,
+      "message": "I\u0027ve resolved majority of the notes. I believe this is ready for the next round of review. Rasmus, could please take a look?",
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

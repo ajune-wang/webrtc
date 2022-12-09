@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b95d85835d49e401640a401af8f190ebf00c0837',
+  'chromium_revision': '39ee214f971c3a1338167ee1a03eeb4c4f6a5776',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -52,13 +52,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@72874889793ad12ac04cb039dd3652e7644232a4',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@1973084e430a3ce23caa55a6a93907166de34fcc',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@db9925f99259625ca4af09f267a06f7828d61af2',
+    'https://chromium.googlesource.com/chromium/src/testing@3fe50b46b3ecf15db56f71c70d1fcdcfcde152cd',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@adeb28db4d28bc01a6dba951a4e99589e04f1124',
+    'https://chromium.googlesource.com/chromium/src/third_party@5daaa04dc449d5bfe4acd7082fb6f6c09606af19',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -245,7 +245,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@b5161f639122c92cba8384ed62f2de376f6d1e73',
+    'https://android.googlesource.com/platform/external/perfetto.git@f7275b84bec6c0e468392659b05fbf7ded72dd02',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@605350bd5b68ac47f595d60cc8ef346588e773c0',
   'src/third_party/libyuv':
@@ -294,7 +294,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d5e72527bd9ef0aaa6ef75f025a64894ddea10ec',
+    'https://chromium.googlesource.com/chromium/src/tools@ff936194c351fe5d5118f2bc0366794f0e157a42',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

@@ -16,6 +16,322 @@
       "message": "I\u0027ve resolved majority of the notes. I believe this is ready for the next round of review. Rasmus, could please take a look?",
       "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e50fca6_38c04f62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Looks good! I have some nits, and one question about the LimitedTaskQueue.",
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ea7b84d_1617018d",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Add documentation what this means. If I read the code correctly, it will wait for each frame being finished before posting a new one, as opposed to just posting everything back-to-back.\n\nFor sync codecs, this shouldn\u0027t matter. For async codecs that are pipelined, I guess it means the processing could get stuck?",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dafebe82_4b497f5d",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Nit: I would write it out as `kConstantRate`.",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0c390dc_df307334",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "constant_rate ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 14,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d7b136_5adb640b",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "What does that mean in this context? That it will always return a `VideoFrame` that has a set RTP timestamp?",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 59
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "909120e3_cfd6bcb1",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "RTP",
+      "range": {
+        "startLine": 63,
+        "startChar": 39,
+        "endLine": 63,
+        "endChar": 42
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cdeee32_b0d3d60d",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Is there a specific reason for not just returning by value? Is it due to these map members? https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/test/videocodec_test_stats_impl.h;l\u003d75-78;drc\u003ddcd7fc7ea8ff4760b90f29ddd0c299d2f6e63249",
+      "range": {
+        "startLine": 102,
+        "startChar": 10,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7875380f_1138b9c4",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Is this required by the RTC_GUARDED_BY annotation? If not, I\u0027m not sure it adds a lot of value.",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab8b718d_a101ecae",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Should we add an optimization so that the buffer is only copied when `video_frame_buffer().type() \u003d\u003d VideoFrameBuffer::Type::kNative`?",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 54
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab055b1c_2244b137",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyzer_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Lower case \u0027c\u0027 here makes this look a bit like Java. I\u0027d use CamelCase consistently instead.",
+      "range": {
+        "startLine": 63,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 44
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72901a4d_96ba3bd8",
+        "filename": "modules/video_coding/codecs/test/video_codec_analyzer_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Avoid using underscore in test case names: http://google.github.io/googletest/primer.html#simple-tests",
+      "range": {
+        "startLine": 63,
+        "startChar": 42,
+        "endLine": 63,
+        "endChar": 43
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21fb97b9_79c4b66c",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be called before posting the task that sets the event? Or is there some guarantee that the posted task will not execute before we hit this line?\n\n(For sufficiently large `delay`s, I guess this is not a problem in practice?)",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14903a48_0c0983cf",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "I think you could just do `RTC_CHECK(analyzer_)`? Same thing in the other tester.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 35
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6783f653_62870cd7",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-09T14:54:04Z",
+      "side": 1,
+      "message": "Spelling: reference",
+      "range": {
+        "startLine": 241,
+        "startChar": 37,
+        "endLine": 241,
+        "endChar": 45
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

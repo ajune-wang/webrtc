@@ -19,6 +19,7 @@
 
 #include "api/field_trials_view.h"
 #include "api/network_state_predictor.h"
+#include "api/units/time_delta.h"
 #include "modules/congestion_controller/goog_cc/delay_increase_detector_interface.h"
 #include "rtc_base/experiments/struct_parameters_parser.h"
 
@@ -44,6 +45,10 @@ struct TrendlineEstimatorSettings {
 
   // Size (in packets) of the window.
   unsigned window_size = kDefaultTrendlineWindowSize;
+
+  // TimeDelta threshold to decide overusing.
+  TimeDelta overuse_threshold = TimeDelta::Seconds(1000);
+  int packet_observation_window = 0;
 
   std::unique_ptr<StructParametersParser> Parser();
 };
@@ -116,6 +121,7 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   double prev_trend_;
   double time_over_using_;
   int overuse_counter_;
+  int delay_above_threshold_counter_;
   BandwidthUsage hypothesis_;
   BandwidthUsage hypothesis_predicted_;
   NetworkStatePredictor* network_state_predictor_;

@@ -358,6 +358,7 @@ if (rtc_include_tests) {
         "../../../system_wrappers",
         "../../../test:explicit_key_value_config",
         "../../../test:field_trial",
+        "../../../test:scoped_key_value_config",
         "../../../test:test_support",
         "../../../test/scenario",
         "../../pacing",

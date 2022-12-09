@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fc6825d_033ab47c",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-12-09T11:14:11Z",
+      "side": 1,
+      "message": "This assume recv and send time clocks use the same time base. That is not always true yet. Ex, Android reads incoming packet ts from socket - with another epoc...\n\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14066\n\nMaybe continue this discussions when you are back?",
+      "range": {
+        "startLine": 211,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 14
+      },
+      "revId": "c282dd042b4e7661dc0bc596df2eeaf49a12b082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

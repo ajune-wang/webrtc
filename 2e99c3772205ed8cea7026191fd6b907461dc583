@@ -87,6 +87,30 @@
       },
       "revId": "2e99c3772205ed8cea7026191fd6b907461dc583",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5bdb2e_f9fae78a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-12-09T19:51:15Z",
+      "side": 1,
+      "message": "Audio packet do pass via the pacer, and may even be paced if a certain field trial is enabled. But it\u0027s still irrelevant to this bug since there are no multi-packet or delta-frames for audio afaik...",
+      "parentUuid": "c01cf4f2_2235faba",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 577,
+        "endChar": 0
+      },
+      "revId": "2e99c3772205ed8cea7026191fd6b907461dc583",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

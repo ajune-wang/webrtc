@@ -16,6 +16,23 @@
       "message": "Interesting, thanks for checking this!\nI\u0027ve submitted https://webrtc-review.googlesource.com/c/src/+/287121 to run these tests on stronger machines to prevent the iOS from terminating the application.\nThis solution seems more robust.",
       "revId": "4880485f448b99158ee94b87bc8a04828ea238ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fc76fae_0b2cdb62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-12-09T08:44:05Z",
+      "side": 1,
+      "message": "Logs like below indicate that GoogleTestRunner is being used.\n\n```\n[12:35:00:INFO] Test Case \u0027-[GoogleTestRunner testRunGoogleTests]\u0027 started.\n```",
+      "revId": "4880485f448b99158ee94b87bc8a04828ea238ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

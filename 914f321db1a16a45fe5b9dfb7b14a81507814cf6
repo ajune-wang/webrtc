@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0d74c44c_90357349",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-09T09:24:44Z",
+      "side": 1,
+      "message": "Great idea, Erik! That\u0027s definitely a right thing to do.\n\nHowever, there\u0027s another thing we have to address.\nThe packets can be dropped before having a sequence number here [1], called from the PacketRouter [2].\nThe SendingMedia status can be toggled at [3] and [4].\n\nIf the status change happens in the middle of pacing out the frame, there will be the same corruption.\n\nPossible fixes:\n- Update rtp_rtcp modules to assign the sequence number even in case of disabled media.\n- Count dropped packets in the PacketRouter and advance the SequenceNumber if needed, similar to my other CL.\n- Flush packets when module is disabled.\n\nWDYT?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_rtcp_impl2.cc;l\u003d334;drc\u003d38321ee39cd73ac2d9d4400c56b90613dee5fe29\n\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/pacing/packet_router.cc;l\u003d164;drc\u003d38321ee39cd73ac2d9d4400c56b90613dee5fe29\n\n[3] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/rtp_video_sender.cc;l\u003d521;drc\u003d38321ee39cd73ac2d9d4400c56b90613dee5fe29\n\n[4] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/rtp_video_sender.cc;l\u003d679;drc\u003d38321ee39cd73ac2d9d4400c56b90613dee5fe29",
+      "revId": "914f321db1a16a45fe5b9dfb7b14a81507814cf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "12af5375_ba66eef5",
         "filename": "modules/pacing/pacing_controller.h",
         "patchSetId": 3

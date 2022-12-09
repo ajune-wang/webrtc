@@ -52,6 +52,24 @@
       "parentUuid": "431f20ce_3d37862f",
       "revId": "62cd8a8494765e46fcdca15742f893e1f025b6bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3540d20f_d6a05ab9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-09T09:25:21Z",
+      "side": 1,
+      "message": "That\u0027s a better way to fix this. I think this CL shouldn\u0027t be landed then.",
+      "parentUuid": "21efc8c1_da6f4ac6",
+      "revId": "62cd8a8494765e46fcdca15742f893e1f025b6bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

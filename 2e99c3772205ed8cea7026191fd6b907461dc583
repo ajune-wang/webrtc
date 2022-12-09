@@ -63,6 +63,30 @@
       },
       "revId": "2e99c3772205ed8cea7026191fd6b907461dc583",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01cf4f2_2235faba",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-12-09T19:47:43Z",
+      "side": 1,
+      "message": "Yeah audio retransmissions use the regular media SSRC for now.\n\nI agree, since we don\u0027t use pacing for audio packets anyway.",
+      "parentUuid": "ec44d900_734e5a4e",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 577,
+        "endChar": 0
+      },
+      "revId": "2e99c3772205ed8cea7026191fd6b907461dc583",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -14,7 +14,10 @@ rtc_library("metric_metadata_keys") {
     "metric_metadata_keys.cc",
     "metric_metadata_keys.h",
   ]
-  deps = [ "../..:test_support" ]
+  deps = [
+    "../..:test_support",
+    "../../../rtc_base:stringutils",
+  ]
 }
 
 if (!build_with_chromium) {

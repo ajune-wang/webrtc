@@ -12,6 +12,7 @@
 
 #include <string>
 
+#include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -20,7 +21,9 @@ namespace webrtc_pc_e2e {
 std::string GetCurrentTestName() {
   const testing::TestInfo* test_info =
       testing::UnitTest::GetInstance()->current_test_info();
-  return test_info->name();
+  rtc::StringBuilder builder;
+  builder << test_info->test_suite_name() << "." << test_info->name();
+  return builder.Release();
 }
 
 }  // namespace webrtc_pc_e2e

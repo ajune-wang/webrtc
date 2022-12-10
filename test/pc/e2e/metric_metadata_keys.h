@@ -40,6 +40,10 @@ class MetricMetadataKey {
   // as it currently happens with the webrtc.test_metrics.Metric.test_case
   // field). This metadata is temporary and it will be removed once this
   // information is moved to webrtc.test_metrics.Metric.test_case.
+  // The format of the value this metadata field contains all the info about
+  // the GTest instance:
+  // TestGroup/TestSuite.TestName/ParametrizedTestId with the TestGroup/ and
+  // /ParametrizedTestId only present when parametrized tests are used.
   // TODO(bugs.webrtc.org/14757): Remove kExperimentalTestNameMetadataKey.
   static constexpr char kExperimentalTestNameMetadataKey[] =
       "experimental_test_name";

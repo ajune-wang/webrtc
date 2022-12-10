@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c61ed5d9f55cde84045deb2e54c96c8e18c1269c',
+  'chromium_revision': '0eae2edded37ccf96de956bd811ef882368ef449',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,7 +41,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@45e27548c9b0274db79f77e8b4486387b7f7a997',
+    'https://chromium.googlesource.com/chromium/src/base@95c78b0a8f99847a9b9050e0a609918a8d2cff76',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@3d4b0c1e773d659da18710fc4984b8195f6d5aea',
   'src/buildtools':
@@ -52,13 +52,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6dfda83cf4863be27e20a6c13c56f17c3b04972e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@9a3a54cec6cecf99a8080566891bd5ae272a7e3d',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@815aab805217bec29018db1c70d08fd16f90b864',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3e1efdbec272d23458bb558bb60f848d73edf470',
+    'https://chromium.googlesource.com/chromium/src/third_party@07ced12378110db3cb7147febe432029134b7d71',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -294,7 +294,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@18b569e4015a01436b1489efec933f03a4535b2b',
+    'https://chromium.googlesource.com/chromium/src/tools@24e65550905ac60fd7a211b96c8caa521172c3a9',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

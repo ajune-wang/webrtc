@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "186781b5_14c8c41f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-12-11T13:18:44Z",
+      "side": 1,
+      "message": "Is GetCurrentTestName still used ?",
+      "revId": "74e6f5b10c176e517d8535b6278e43988df17455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -177,6 +177,64 @@
       "parentUuid": "a27cb9ca_db83e340",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0708ffff_e3b43c21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-11T21:56:07Z",
+      "side": 1,
+      "message": "Sorry for the radio silence here, been busy trying to see if we can get the inline task queue implementation working (still ongoing.. :/). Apart from that implementation working when logging is on, it has the benefit of resorting to PostTask on finding contention unlike a lock for which the locked region might block incoming Log() (now you might argue that a lock is anyway taken in the TQ implementation - but the locked region there is small). Note Log() which is used from Audio context and could cause more glitching if it gets dependent on output encoding \u0026 writing.\n\n\u003e But considering most of the normal users may don\u0027t need to turn logging on\n\nLogging is on in many cases, so it\u0027s important to ensure it\u0027s not normally PostTasking as well.\n\nHow sure are you about the impact data? Is there a stddev or something attached to the improvement figures?",
+      "parentUuid": "b7dd3a83_fe3a9557",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4cdd04d_788b5fd0",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-11T21:56:07Z",
+      "side": 1,
+      "message": "This method is likely to take a while to execute and the output writing is likely to block. Since the lock is held throughout, it\u0027ll block threads calling into ::Log(). Can you minimize the lock scope?\n\nAlso @terelius@webrtc.org - one thing that perplexes me is the special handling of encoded_configs which isn\u0027t consumed here like it is for the normal history. It says \"configs are not discarded\" - but they are sometimes on old line 210. What\u0027s the reason for the special handling? I couldn\u0027t find a reason why we keep the encoded_configs_.\n\nIf encoded_configs_ can be emptied on output, then the mutex lock region here could be quite small and not encompass EncodeBatch.",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81c63a1_2f0621cb",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-11T21:56:07Z",
+      "side": 1,
+      "message": "I\u0027m not sure this needs to be an atomic. Can the boolean flag just be wrapped in under events_history_mutex_ which is anyway taken later during LogToMemory?",
+      "range": {
+        "startLine": 89,
+        "startChar": 19,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

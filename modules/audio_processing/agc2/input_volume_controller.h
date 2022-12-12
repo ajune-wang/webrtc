@@ -82,7 +82,7 @@ class InputVolumeController final {
   void Initialize();
 
   // Sets the applied input volume.
-  void set_stream_analog_level(int level);
+  void SetAppliedInputVolume(int level);
 
   // TODO(bugs.webrtc.org/7494): Add argument for the applied input volume and
   // remove `set_stream_analog_level()`.
@@ -144,15 +144,17 @@ class InputVolumeController final {
   // Minimum input volume that can be recommended.
   const int min_input_volume_;
 
-  // TODO(bugs.webrtc.org/7494): Create a separate member for the applied input
-  // volume.
   // TODO(bugs.webrtc.org/7494): Once
   // `AudioProcessingImpl::recommended_stream_analog_level()` becomes a trivial
   // getter, leave uninitialized.
-  // Recommended input volume. After `set_stream_analog_level()` is called it
-  // holds the observed input volume. Possibly updated by `AnalyzePreProcess()`
-  // and `Process()`; after these calls, holds the recommended input volume.
+  // Recommended input volume. After `SetAppliedInputVolume()` is called it
+  // holds holds the observed input volume. Possibly updated by
+  // `AnalyzePreProcess()` and `Process()`; after these calls, holds the
+  // recommended input volume.
   int recommended_input_volume_ = 0;
+  // Applied input volume. After `SetAppliedInputVolume()` is called it holds
+  // the current applied volume.
+  int applied_input_volume_ = 0;
 
   bool capture_output_used_;
 

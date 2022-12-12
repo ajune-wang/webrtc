@@ -158,7 +158,7 @@ void GainController2::Analyze(int applied_input_volume,
 
   if (input_volume_controller_) {
     // TODO(bugs.webrtc.org/7494): Pass applied volume to `AnalyzePreProcess()`.
-    input_volume_controller_->set_stream_analog_level(applied_input_volume);
+    input_volume_controller_->SetAppliedInputVolume(applied_input_volume);
     input_volume_controller_->AnalyzePreProcess(audio_buffer);
   }
 }

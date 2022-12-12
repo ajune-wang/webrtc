@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96701bac_443c25e5",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-12T15:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2941382e_da19b8dd",
+      "range": {
+        "startLine": 577,
+        "startChar": 31,
+        "endLine": 577,
+        "endChar": 67
+      },
+      "revId": "6c430b436e67c2d841f24911a6c8566139b3c272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26d4a74d_0b1238e3",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-12-12T14:25:11Z",
       "side": 1,
       "message": "would it be possible to rename this as well to `recommended_input_volume()`?",
+      "range": {
+        "startLine": 110,
+        "startChar": 6,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "6c430b436e67c2d841f24911a6c8566139b3c272",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "182c37e7_46a53225",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-12T15:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26d4a74d_0b1238e3",
       "range": {
         "startLine": 110,
         "startChar": 6,

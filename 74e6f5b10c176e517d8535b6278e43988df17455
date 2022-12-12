@@ -16,6 +16,24 @@
       "message": "Is GetCurrentTestName still used ?",
       "revId": "74e6f5b10c176e517d8535b6278e43988df17455",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc16a097_9891cb2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-12-12T07:12:56Z",
+      "side": 1,
+      "message": "No, removed here https://webrtc-review.googlesource.com/c/src/+/287128.",
+      "parentUuid": "186781b5_14c8c41f",
+      "revId": "74e6f5b10c176e517d8535b6278e43988df17455",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

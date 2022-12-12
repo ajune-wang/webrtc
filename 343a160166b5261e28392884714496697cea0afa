@@ -16,6 +16,23 @@
       "message": "Thanks Alessio!",
       "revId": "343a160166b5261e28392884714496697cea0afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8e1e39_bbb17eb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-12T16:09:31Z",
+      "side": 1,
+      "message": "LGTM, but let\u0027s https://webrtc-review.googlesource.com/c/src/+/287681 go first to address the remaining open comment",
+      "revId": "343a160166b5261e28392884714496697cea0afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

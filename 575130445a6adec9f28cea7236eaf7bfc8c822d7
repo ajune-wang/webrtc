@@ -175,6 +175,24 @@
       "parentUuid": "2264d6f6_df877ff2",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3033cf71_fb005b34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-12T06:53:38Z",
+      "side": 1,
+      "message": "No, step 2 is to update the code to generate the foundation based on the data available to the port allocator (and only to it).\n\nI don\u0027t think 8445 is clear on that but would argue that foundation only applies to the sorting and elimination of duplicates in a single generation of candidates. So if it changes after an ICE restart that would be ok. See \nhttps://www.rfc-editor.org/rfc/rfc8445#section-5.1.1.3\nfor the rules (unchanged from 5245). I don\u0027t think libwebrtc is doing anything with it on the receive side, it happily accepts an empty string even.\nThe PA survives an ICE restart and so should it\u0027s random. This is assertable with a test that compares foundations after an ICE restart.\nIf you want to go really fancy, think about the example of two unbundled transports. They would get the same foundation when you depend on the ICE tie breaker but different ones when foundation is computed per portallocator.\n\nThe ICE tie breaker currently lives at the JSEP transport level. It does get passed down to the port eventually (via the PA) and gets used in Port::MaybeIceRoleConflict",
+      "parentUuid": "9ebe3102_4b0338df",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

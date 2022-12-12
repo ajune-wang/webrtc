@@ -34,6 +34,8 @@ void MovingAverage::AddSample(int sample) {
 absl::optional<int> MovingAverage::GetAverageRoundedDown() const {
   if (count_ == 0)
     return absl::nullopt;
+  if (Size() > (INT_MAX >> 1))
+    return 0;
   return sum_ / Size();
 }
 

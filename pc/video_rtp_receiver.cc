@@ -276,7 +276,8 @@ void VideoRtpReceiver::SetMediaChannel_w(
     SetEncodedSinkEnabled(false);
   }
 
-  media_channel_ = static_cast<cricket::VideoMediaChannel*>(media_channel);
+  media_channel_ =
+      static_cast<cricket::VideoMediaReceiveChannelInterface*>(media_channel);
 
   if (media_channel_) {
     if (saved_generate_keyframe_) {

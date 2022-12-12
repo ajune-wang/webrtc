@@ -378,8 +378,9 @@ class AudioRtpSender : public DtmfProviderInterface, public RtpSenderBase {
   void RemoveTrackFromStats() override;
 
  private:
-  cricket::VoiceMediaChannel* voice_media_channel() {
-    return static_cast<cricket::VoiceMediaChannel*>(media_channel_);
+  cricket::VoiceMediaSendChannelInterface* voice_media_channel() {
+    return static_cast<cricket::VoiceMediaSendChannelInterface*>(
+        media_channel_);
   }
   rtc::scoped_refptr<AudioTrackInterface> audio_track() const {
     return rtc::scoped_refptr<AudioTrackInterface>(
@@ -436,8 +437,9 @@ class VideoRtpSender : public RtpSenderBase {
   void AttachTrack() override;
 
  private:
-  cricket::VideoMediaChannel* video_media_channel() {
-    return static_cast<cricket::VideoMediaChannel*>(media_channel_);
+  cricket::VideoMediaSendChannelInterface* video_media_channel() {
+    return static_cast<cricket::VideoMediaSendChannelInterface*>(
+        media_channel_);
   }
   rtc::scoped_refptr<VideoTrackInterface> video_track() const {
     return rtc::scoped_refptr<VideoTrackInterface>(

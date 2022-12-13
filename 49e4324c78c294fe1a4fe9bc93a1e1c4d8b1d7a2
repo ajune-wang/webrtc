@@ -103,6 +103,30 @@
       },
       "revId": "49e4324c78c294fe1a4fe9bc93a1e1c4d8b1d7a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c4851ce_5e48996d",
+        "filename": "rtc_base/system_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2022-12-13T12:38:19Z",
+      "side": 1,
+      "message": "I updated the code in chromium to:\nbool success \u003d last_8_and_rollover_count.compare_exchange_strong(\n     original, new_state, std::memory_order_release);\nif (success)\n  break;",
+      "parentUuid": "4e38f79f_54418c89",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 18
+      },
+      "revId": "49e4324c78c294fe1a4fe9bc93a1e1c4d8b1d7a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

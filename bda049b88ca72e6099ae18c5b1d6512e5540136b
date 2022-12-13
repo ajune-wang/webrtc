@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a568e702_ff1a0201",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-13T14:45:24Z",
+      "side": 1,
+      "message": "guess who just spent some time looking at two clients waiting for each other to start the DTLS handshake ;-)",
+      "revId": "bda049b88ca72e6099ae18c5b1d6512e5540136b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

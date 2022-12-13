@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aedda4a_a064ee42",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T16:10:37Z",
+      "side": 1,
+      "message": "How about this:\n  // For frame delay metrics, calculated in `OnRenderedFrame`, to better reflect\n  // user experience measurements must be done as close as possible to frame\n  // rendering moment. Capture current time, which is used for calculation of\n  // delay metrics in `OnRenderedFrame`, right after frame is passed to\n  // renderer. Frame may or may be not rendered by this time. This results in\n  // inaccuracy but is still the best we can do in the absence of \"frame\n  // rendered\" callback from the renderer.",
+      "parentUuid": "588ade55_020708e9",
+      "range": {
+        "startLine": 664,
+        "startChar": 2,
+        "endLine": 664,
+        "endChar": 69
+      },
+      "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea487257_9956e78f",

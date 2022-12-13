@@ -46,6 +46,30 @@
       },
       "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3844fc3_a9c29f24",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-12-13T09:48:38Z",
+      "side": 1,
+      "message": "Not renaming as part of this CL sgtm.\n\nBut on a related note, doing measurements inside of OnRenderedFrame would be problematic too because of the fact that rendering is asynchronous (and at least in Chrome it is also buffered and it could even get dropped I think), so it is kind of an arbitrary point in time.\n\nRelated to the harmonic frame rate discussions, it\u0027s certainly closer to the harmonic render frame rate to measure after this post task in case the worker thread is clogged, but it isn\u0027t the harmonic render frame rate. It\u0027s the harmonic dispatch-to-render-pipeline-frame-rate?",
+      "parentUuid": "852d803a_f79f4ab2",
+      "range": {
+        "startLine": 678,
+        "startChar": 21,
+        "endLine": 678,
+        "endChar": 37
+      },
+      "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

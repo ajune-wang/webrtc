@@ -22,6 +22,30 @@
       },
       "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "852d803a_f79f4ab2",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T09:45:08Z",
+      "side": 1,
+      "message": "It is not a requirement for renderer to buffer frames before rendering. Some renderers can render frame immediately. I do not have strong preferences on naming. But renaming, if we go for it, should not be a part of this CL.",
+      "parentUuid": "ea487257_9956e78f",
+      "range": {
+        "startLine": 678,
+        "startChar": 21,
+        "endLine": 678,
+        "endChar": 37
+      },
+      "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

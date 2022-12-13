@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0c969d5_9456a140",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-12-13T09:08:18Z",
+      "side": 1,
+      "message": "Just trying to understand where the change occurs exactly - the order of calls is the same as before (OnFrameDelivered then OnFrame). Does construction of VideoFrameMetaData affect the timing?\n\nBtw, the CL description makes me think that the CL is reverting the order of \"OnRenderedFrame() before renderer-\u003eOnFrame\" - is that not correct?",
+      "revId": "15676f6c90a674e002a1cee3edd3fc4691524697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

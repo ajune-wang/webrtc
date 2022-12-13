@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e496ee86_ed8ab84d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-12-13T14:49:42Z",
+      "side": 1,
+      "message": "No-Try: True because the issue on CQ is caused by a non cherry picked infra CL (infra CLs are not cherry picked and WebRTC doesn\u0027t support CQ on branches).",
+      "revId": "be19ad835d3a33152b436f17057375893242c543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

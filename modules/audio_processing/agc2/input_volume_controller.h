@@ -35,6 +35,9 @@ class InputVolumeController final {
  public:
   // Config for the constructor.
   struct Config {
+    // Minimum input volume that can be recommended. Not enforced when the
+    // applied input volume is zero.
+    int min_input_volume = 20;
     // Lowest input volume level that will be applied in response to clipping.
     int clipped_level_min = 70;
     // Amount input volume level is lowered with every clipping event. Limited

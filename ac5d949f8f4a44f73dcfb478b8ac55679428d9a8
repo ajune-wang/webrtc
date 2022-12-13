@@ -80,6 +80,30 @@
       },
       "revId": "ac5d949f8f4a44f73dcfb478b8ac55679428d9a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1393d7f2_de14cf64",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T13:25:15Z",
+      "side": 1,
+      "message": "RTC_CHECK_LE is not working well with std::atomic. Compiler complains about missing copy ctor:\n\n../../rtc_base/numerics/safe_compare.h:169:1: error: call to implicitly-deleted copy constructor of \u0027std::atomic\u003cint\u003e\u0027\nRTC_SAFECMP_MAKE_FUN(Le)\n^~~~~~~~~~~~~~~~~~~~~~~~\n../../rtc_base/numerics/safe_compare.h:164:40: note: expanded from macro \u0027RTC_SAFECMP_MAKE_FUN\u0027\n    return safe_cmp_impl::name##Op::Op(a, b);                                 \\\n                                       ^\n../../modules/video_coding/codecs/test/video_codec_tester_impl.cc:138:5: note: in instantiation of function template specialization \u0027rtc::SafeLe\u003cstd::atomic\u003cint\u003e, int\u003e\u0027 requested here\n    RTC_CHECK_LE(queue_size_, kMaxTaskQueueSize);\n    ^\n../../rtc_base/checks.h:434:34: note: expanded from macro \u0027RTC_CHECK_LE\u0027\n#define RTC_CHECK_LE(val1, val2) RTC_CHECK_OP(Le, \u003c\u003d, val1, val2)\n                                 ^\n../../rtc_base/checks.h:407:10: note: expanded from macro \u0027RTC_CHECK_OP\u0027\n  ::rtc::Safe##name((val1), (val2))                        \\\n         ^\n\u003cscratch space\u003e:195:1: note: expanded from here\nSafeLe\n^\n../../buildtools/third_party/libc++/trunk/include/atomic:1708:7: note: copy constructor of \u0027atomic\u003cint\u003e\u0027 is implicitly deleted because base class \u0027__atomic_base\u003cint\u003e\u0027 has a deleted copy constructor\n    : public __atomic_base\u003c_Tp\u003e\n      ^\n../../buildtools/third_party/libc++/trunk/include/atomic:1625:7: note: copy constructor of \u0027__atomic_base\u003cint, true\u003e\u0027 is implicitly deleted because base class \u0027__atomic_base\u003cint, false\u003e\u0027 has a deleted copy constructor\n    : public __atomic_base\u003c_Tp, false\u003e\n      ^\n../../buildtools/third_party/libc++/trunk/include/atomic:1613:5: note: \u0027__atomic_base\u0027 has been explicitly marked deleted here\n    __atomic_base(const __atomic_base\u0026) \u003d delete;\n    ^\n../../rtc_base/numerics/safe_compare.h:144:1: note: passing argument to parameter \u0027a\u0027 here\nRTC_SAFECMP_MAKE_OP(LeOp, \u003c\u003d)\n^\n../../rtc_base/numerics/safe_compare.h:137:33: note: expanded from macro \u0027RTC_SAFECMP_MAKE_OP\u0027\n    static constexpr bool Op(T1 a, T2 b) { \\",
+      "parentUuid": "c2ab69b2_6a8253e1",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 13
+      },
+      "revId": "ac5d949f8f4a44f73dcfb478b8ac55679428d9a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

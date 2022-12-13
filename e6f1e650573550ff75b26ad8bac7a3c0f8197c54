@@ -341,6 +341,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95778429_d05fad37",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T13:25:15Z",
+      "side": 1,
+      "message": "VideoCodecTestStats is an interface with pure virtual functions. Returning it by reference or point are the only options we have.\n\nIn theory the analyzer can return VideoCodecTestStatsImpl\u0026 and tester can then make a copy and return VideoCodecTestStats pointer. But I\u0027m not sure this would make things better. The tester is unaware of VideoCodecTestStatsImpl currently.",
+      "parentUuid": "223c1db1_fa7cc3c7",
+      "range": {
+        "startLine": 102,
+        "startChar": 10,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7875380f_1138b9c4",

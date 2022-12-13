@@ -523,6 +523,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e67fe3_5ae702a2",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T13:25:15Z",
+      "side": 1,
+      "message": "Closing this comment. I will report the results of testing later, when I come to testing on Android. On Mac (core i7) encoding+decoding+PSNR takes 2.6s for 10s 720p video. I.e., no signs of problems.\n\n[ RUN      ] ConstantRate/EncodeDecodeTest.DISABLED_TestEncodeDecode/ConstantRate720p2000Kbps30FpsVP8libvpxlibvpx\n(sdp_video_format.cc:164): Matched SdpVideoFormat Codec name: VP8, parameters: { } with Codec name: VP8, parameters: { }, scalability_modes: [L1T1, L1T2, L1T3]\n[       OK ] ConstantRate/EncodeDecodeTest.DISABLED_TestEncodeDecode/ConstantRate720p2000Kbps30FpsVP8libvpxlibvpx (2623 ms)\n[----------] 1 test from ConstantRate/EncodeDecodeTest (2623 ms total)",
+      "parentUuid": "a9184a6a_cdd735c8",
+      "range": {
+        "startLine": 177,
+        "startChar": 21,
+        "endLine": 177,
+        "endChar": 24
+      },
+      "revId": "0c0ed6d8c1d96948799eb81ae0104e503b0cd7f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7772a613_5d9b4386",

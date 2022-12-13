@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e25b1049_662d117a",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T13:49:38Z",
+      "side": 1,
+      "message": "It definitely takes some time (how much depends on implementation). Conceptually name on-rendered-frame implies that this method must be called (and measurements done) after frame is rendered, not before.",
+      "parentUuid": "ff946942_9585c362",
+      "range": {
+        "startLine": 664,
+        "startChar": 2,
+        "endLine": 664,
+        "endChar": 69
+      },
+      "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea487257_9956e78f",

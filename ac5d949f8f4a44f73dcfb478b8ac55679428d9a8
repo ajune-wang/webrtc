@@ -16,6 +16,46 @@
       "message": "PTAL",
       "revId": "ac5d949f8f4a44f73dcfb478b8ac55679428d9a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05697526_20ce3e63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-13T11:17:13Z",
+      "side": 1,
+      "message": "Looks good! IMO, this is much cleaner than the legacy testers/fixtures.",
+      "revId": "ac5d949f8f4a44f73dcfb478b8ac55679428d9a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be5d54af_44221685",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-13T11:17:13Z",
+      "side": 1,
+      "message": "RTC_CHECK_LT ?",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 13
+      },
+      "revId": "ac5d949f8f4a44f73dcfb478b8ac55679428d9a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -319,6 +319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "223c1db1_fa7cc3c7",
+        "filename": "api/test/video_codec_tester.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-12-13T11:17:13Z",
+      "side": 1,
+      "message": "Right, no need to let the object live with the tester, but is there a reason for not returning the `VideoCodecStats` object itself by value?",
+      "parentUuid": "c982b610_ce5df5d3",
+      "range": {
+        "startLine": 102,
+        "startChar": 10,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "e6f1e650573550ff75b26ad8bac7a3c0f8197c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7875380f_1138b9c4",
         "filename": "modules/video_coding/codecs/test/video_codec_analyzer.cc",
         "patchSetId": 16

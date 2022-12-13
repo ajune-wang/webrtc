@@ -16,6 +16,24 @@
       "message": "When does OnRenderedFrame happen? Before handing the frame off (i.e. before buffering by the sink) or after rendering has actually happened (in which case is this before or after vsync) etc?\n\nIf the delay is aggregated later than framesDecoded, then we can no longer perform the calculations in https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-totalinterframedelay.\n\nDo we need to add framesRendered counters too?\n\nLet\u0027s wait before landing",
       "revId": "c7d26e6c95b8b5237c7025685070587d50b4b033",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a67da9_b5d4ca69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-12-13T09:40:23Z",
+      "side": 1,
+      "message": "OnRenderedFrame is supposed to be called after frame is passed to renderer (where it is rendered or not is up to renderer implementation; on practice frame is queued after rendered with some delay).\n\nIdeally, yes, we need framesRendered counter. On practice framesRendered should not be too off from framesDecoded and the error in variance should be insignificant when number of frames is large enough.",
+      "parentUuid": "c63e0444_6c7fc49b",
+      "revId": "c7d26e6c95b8b5237c7025685070587d50b4b033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

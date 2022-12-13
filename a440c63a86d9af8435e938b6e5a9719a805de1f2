@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6dce5af_10a6ba6d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-13T11:09:24Z",
+      "side": 1,
+      "message": "is 0 a valid value?\nI think it is more often is than isn\u0027t (in particular better aligns with valid range for the Timestamp type)",
+      "range": {
+        "startLine": 529,
+        "startChar": 22,
+        "endLine": 529,
+        "endChar": 23
+      },
+      "revId": "a440c63a86d9af8435e938b6e5a9719a805de1f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e1e32d7_f07d3232",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-13T11:09:24Z",
+      "side": 1,
+      "message": "may be add\n.has_value()\n\nfor consistency with the 1st part of this line.",
+      "range": {
+        "startLine": 542,
+        "startChar": 57,
+        "endLine": 542,
+        "endChar": 69
+      },
+      "revId": "a440c63a86d9af8435e938b6e5a9719a805de1f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b817c049_fcf9b6f9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-13T11:09:24Z",
+      "side": 1,
+      "message": ".has_value()\nimho would look better here too, for consistency with the previous time presence of it is checked (previous if statement)",
+      "range": {
+        "startLine": 553,
+        "startChar": 19,
+        "endLine": 553,
+        "endChar": 40
+      },
+      "revId": "a440c63a86d9af8435e938b6e5a9719a805de1f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

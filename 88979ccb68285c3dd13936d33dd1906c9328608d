@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "588ade55_020708e9",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-12-13T14:15:22Z",
+      "side": 1,
+      "message": "Right, please update the comment with that info :)",
+      "parentUuid": "e25b1049_662d117a",
+      "range": {
+        "startLine": 664,
+        "startChar": 2,
+        "endLine": 664,
+        "endChar": 69
+      },
+      "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea487257_9956e78f",

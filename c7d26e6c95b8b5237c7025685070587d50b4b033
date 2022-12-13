@@ -70,6 +70,24 @@
       "parentUuid": "bdc4a6e3_1303b19e",
       "revId": "c7d26e6c95b8b5237c7025685070587d50b4b033",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547fee2e_67728861",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-12-13T10:03:00Z",
+      "side": 1,
+      "message": "Actually considering the pause metrics already talk about render, I think we can update the impl+spec to say render time regarding these metrics as well, which would be easier than to introduce more inter-delay metrics.\n\nMy concern with \"render\" is \"what if multiple sinks?\" but since there is already exists metrics for this I think we can easily make this work by just saying we are aligning the two metrics.\n\nYour initial proposal is making sense to me now.",
+      "parentUuid": "617ab6b1_68474780",
+      "revId": "c7d26e6c95b8b5237c7025685070587d50b4b033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

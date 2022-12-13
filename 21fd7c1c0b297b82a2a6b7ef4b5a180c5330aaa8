@@ -16,6 +16,299 @@
       "message": "Hi Alessio, can you please take a look? Thanks!",
       "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8db37c3_d8eb612d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "Thanks for this change Hanna!\n\nI would recommend to address a couple of TODOs that fit well this CL - just a few extra replacement, no (test) logic needs to change.",
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26acbc0e_3f8929c0",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "I would recommend to also change name in this CL.\nWhat about `AnalyzeInputAudio`?\n\n- \"input audio\" reflects the choice of switching from \"analog gain\" to \"input volume\" and \"input\" suggests that the audio being analyzed is the input to APM - i.e., no processing\n- \"PreProcess\" removed because no audio processing is done - the arg is const\u0026",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 24
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1747280d_b686de65",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "A comment you added in the unit tests seems to suggest that an unspecified value is also returned after `HandleCaptureOutputUsedChange(/*capture_output_used\u003d*/false)` is called. If that\u0027s the behavior we want, document that.",
+      "range": {
+        "startLine": 101,
+        "startChar": 53,
+        "endLine": 102,
+        "endChar": 40
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8557f8_e1e9a19a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "I would rename to `RecommendInputVolume()` and remove line 96. In the docstring I would also clarify that the speech probability and level should be estimated after echo cancellation and noise suppression are applied.",
+      "range": {
+        "startLine": 103,
+        "startChar": 22,
+        "endLine": 103,
+        "endChar": 29
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "266e7c88_fa41f4bd",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "Let\u0027s remove this; reasons:\n- What would this getter return if `Process()` (or `RecommendInputVolume()` as I recommended in my previous comment) returns an unspecified value? \n- To test the interface there\u0027s no need to add such a getter",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 76
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adcae55d_c825217b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "`RTC_DCHECK(recommended_input_volume.has_value());` seems sufficient to me\n\nin this way, `InputVolumeController::recommended_input_volume()` can be removed",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 80
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8fdd94_1c81199f",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 55
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b454de_097d6359",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "does this change apply to `SpeechSamplesReader::Feed()` and `CallPreProcessAndProcess()` as well? if the capture is marked as not used, then no input volume is recommended, right?\n\nto keep it simple or postpone this change, I would otherwise add a DCHECK at the beginning of those functions: `RTC_DCHECK(controller.IsCaptureOutputUsed())`",
+      "range": {
+        "startLine": 313,
+        "startChar": 2,
+        "endLine": 313,
+        "endChar": 21
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d8bb16_abe9b8a0",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "great catch, chaining was missing here!",
+      "range": {
+        "startLine": 407,
+        "startChar": 2,
+        "endLine": 407,
+        "endChar": 8
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "678ad5d0_78c120b0",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "it looks like it\u0027s easy to also address the TODO in line 162\nI wouldn\u0027t postpone that, it fits well this CL",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 62
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630a64ad_a35aa55b",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "address and remove",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 56
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f51aba_dc4e43df",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 59,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 29
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc854c37_634a3956",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-13T15:17:04Z",
+      "side": 1,
+      "message": "applied_volume.value_or(applied_initial_volume)",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 61,
+        "endChar": 45
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea487257_9956e78f",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2022-12-13T09:38:44Z",
+      "side": 1,
+      "message": "I think that this name is problematic since it\u0027s very easy to think that the frame has been rendered when this is called. Should it be renamed to OnFrameDelivered?",
+      "range": {
+        "startLine": 678,
+        "startChar": 21,
+        "endLine": 678,
+        "endChar": 37
+      },
+      "revId": "88979ccb68285c3dd13936d33dd1906c9328608d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

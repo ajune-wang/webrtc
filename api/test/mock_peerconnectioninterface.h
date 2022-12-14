@@ -25,6 +25,24 @@
 
 namespace webrtc {
 
+class MockStreamCollectionInterface : public webrtc::StreamCollectionInterface {
+ public:
+  MOCK_METHOD(size_t, count, (), (override));
+  MOCK_METHOD(webrtc::MediaStreamInterface*, at, (size_t), (override));
+  MOCK_METHOD(webrtc::MediaStreamInterface*,
+              find,
+              (const std::string&),
+              (override));
+  MOCK_METHOD(webrtc::MediaStreamTrackInterface*,
+              FindAudioTrack,
+              (const std::string&),
+              (override));
+  MOCK_METHOD(webrtc::MediaStreamTrackInterface*,
+              FindVideoTrack,
+              (const std::string&),
+              (override));
+};
+
 class MockPeerConnectionInterface : public webrtc::PeerConnectionInterface {
  public:
   static rtc::scoped_refptr<MockPeerConnectionInterface> Create() {

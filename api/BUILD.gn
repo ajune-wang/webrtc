@@ -1197,6 +1197,16 @@ if (rtc_include_tests) {
     ]
   }
 
+  rtc_library("mock_stats_observer") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [ "test/mock_stats_observer.h" ]
+    deps = [
+      ":libjingle_peerconnection_api",
+      "../test:test_support",
+    ]
+  }
+
   rtc_source_set("mock_async_dns_resolver") {
     visibility = [ "*" ]
     testonly = true

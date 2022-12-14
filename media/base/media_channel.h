@@ -20,6 +20,7 @@
 #include "absl/types/optional.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_options.h"
+#include "api/call/audio_sink.h"
 #include "api/crypto/frame_decryptor_interface.h"
 #include "api/crypto/frame_encryptor_interface.h"
 #include "api/frame_transformer_interface.h"
@@ -61,7 +62,6 @@ class Timing;
 }
 
 namespace webrtc {
-class AudioSinkInterface;
 class VideoFrame;
 
 webrtc::RTCError InvokeSetParametersCallback(SetParametersCallback& callback,

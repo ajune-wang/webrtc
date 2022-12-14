@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c0aedd9_03fb3901",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-14T22:42:46Z",
+      "side": 1,
+      "message": "Adding Kari as reviewer, since this is IOS code.",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

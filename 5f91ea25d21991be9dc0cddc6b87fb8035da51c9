@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4778710_b76c1b57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-14T22:50:46Z",
+      "side": 1,
+      "message": "Looks like you found a requirement for sync_group not being null if stream duplicates are being eliminated. Hard to say why that is a requirement from the code changes here, but I guess it\u0027s true. Wonder why.",
+      "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "643edfe5_8394612c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-14T11:42:35Z",
+      "side": 1,
+      "message": "Awesome! LGTM % 1 extra byte needed",
+      "revId": "2061d20d29217dc0dccd6678c343b6df520dce8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b49afd_ef1d2443",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-14T11:42:35Z",
+      "side": 1,
+      "message": "`*applied_input_volume_` is better even if the \"optional vs value\" comparison is defined and behaves the same as applying the fix I suggested (see #29 in https://en.cppreference.com/w/cpp/utility/optional/operator_cmp)",
+      "range": {
+        "startLine": 595,
+        "startChar": 43,
+        "endLine": 595,
+        "endChar": 64
+      },
+      "revId": "2061d20d29217dc0dccd6678c343b6df520dce8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

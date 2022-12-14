@@ -106,8 +106,8 @@ RTC_OBJC_EXPORT
 /** Called when a remote peer closes a stream.
  *  This is not called when RTCSdpSemanticsUnifiedPlan is specified.
  */
-- (void)peerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection
-       didRemoveStream:(RTC_OBJC_TYPE(RTCMediaStream) *)stream;
+/*- (void)peerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection
+       didRemoveStream:(RTC_OBJC_TYPE(RTCMediaStream) *)stream;*/
 
 /** Called when negotiation is needed, for example ICE has restarted. */
 - (void)peerConnectionShouldNegotiate:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection;

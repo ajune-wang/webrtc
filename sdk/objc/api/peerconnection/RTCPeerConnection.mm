@@ -145,13 +145,13 @@ void PeerConnectionDelegateAdapter::OnAddStream(
 
 void PeerConnectionDelegateAdapter::OnRemoveStream(
     rtc::scoped_refptr<MediaStreamInterface> stream) {
-  RTC_OBJC_TYPE(RTCPeerConnection) *peer_connection = peer_connection_;
+  /*RTC_OBJC_TYPE(RTCPeerConnection) *peer_connection = peer_connection_;
   RTC_OBJC_TYPE(RTCMediaStream) *mediaStream =
       [[RTC_OBJC_TYPE(RTCMediaStream) alloc] initWithFactory:peer_connection.factory
                                            nativeMediaStream:stream];
 
   [peer_connection.delegate peerConnection:peer_connection
-                           didRemoveStream:mediaStream];
+                           didRemoveStream:mediaStream];*/
 }
 
 void PeerConnectionDelegateAdapter::OnTrack(

@@ -44,7 +44,7 @@ IOS_DEPLOYMENT_TARGET = {
     'simulator': '12.0',
     'catalyst': '14.0'
 }
-LIBVPX_BUILD_VP9 = False
+LIBVPX_BUILD_VP9 = True
 
 sys.path.append(os.path.join(SCRIPT_DIR, '..', 'libs'))
 from generate_licenses import LicenseBuilder

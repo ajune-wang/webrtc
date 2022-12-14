@@ -390,10 +390,10 @@ static int const kKbpsMultiplier = 1000;
   RTCLog(@"Now receiving %@ on track %@.", track.kind, track.trackId);
 }
 
-- (void)peerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection
+/*- (void)peerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection
        didRemoveStream:(RTC_OBJC_TYPE(RTCMediaStream) *)stream {
   RTCLog(@"Stream was removed.");
-}
+}*/
 
 - (void)peerConnectionShouldNegotiate:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection {
   RTCLog(@"WARNING: Renegotiation needed but unimplemented.");

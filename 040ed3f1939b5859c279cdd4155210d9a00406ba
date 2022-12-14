@@ -39,6 +39,30 @@
       },
       "revId": "040ed3f1939b5859c279cdd4155210d9a00406ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ca0ef6_3c49f075",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-12-14T14:47:22Z",
+      "side": 1,
+      "message": "I made `GainController2ExperimentParams` private, so I switched to a static method",
+      "parentUuid": "cbe72bab_b624f264",
+      "range": {
+        "startLine": 222,
+        "startChar": 2,
+        "endLine": 222,
+        "endChar": 45
+      },
+      "revId": "040ed3f1939b5859c279cdd4155210d9a00406ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

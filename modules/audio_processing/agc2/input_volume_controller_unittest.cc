@@ -395,12 +395,90 @@ INSTANTIATE_TEST_SUITE_P(,
                          ::testing::Values(absl::nullopt, 12, 20));
 
 TEST_P(InputVolumeControllerParametrizedTest,
-       StartupMinVolumeConfigurationIsRespected) {
+       StartupMinVolumeConfigurationRespectedWhenAppliedInputVolumeAboveMin) {
   InputVolumeControllerTestHelper helper;
 
-  EXPECT_EQ(*helper.CallAgcSequence(kInitialInputVolume, kHighSpeechProbability,
-                                    kSpeechLevel),
-            kInitialInputVolume);
+  EXPECT_EQ(*helper.CallAgcSequence(/*applied_input_volume=*/128,
+                                    kHighSpeechProbability, kSpeechLevel),
+            128);
+}
+
+TEST_P(
+    InputVolumeControllerParametrizedTest,
+    StartupMinVolumeConfigurationRespectedWhenAppliedInputVolumeMaybeBelowMin) {
+  InputVolumeControllerTestHelper helper;
+
+  EXPECT_GE(*helper.CallAgcSequence(/*applied_input_volume=*/10,
+                                    kHighSpeechProbability, kSpeechLevel),
+            10);
+}
+
+TEST_P(InputVolumeControllerParametrizedTest,
+       StartupMinVolumeRespectedWhenAppliedVolumeNonZero) {
+  InputVolumeControllerConfig config{
+      // TODO(bugs.webrtc.org/7494): Add min input volume once it's available.
+      .target_range_min_dbfs = -30,
+      .update_input_volume_wait_frames = 1,
+      .speech_probability_threshold = 0.5f,
+      .speech_ratio_threshold = 0.5f,
+  };
+
+  InputVolumeControllerTestHelper helper(config);
+
+  // Volume change possible; speech level below the digital gain window.
+  int volume = *helper.CallAgcSequence(/*applied_input_volume=*/1,
+                                       /*speech_probability=*/0.9f,
+                                       /*speech_level_dbfs=*/-80);
+
+  EXPECT_EQ(volume, GetMinInputVolume());
+}
+
+TEST_P(InputVolumeControllerParametrizedTest,
+       MinVolumeRepeatedlyRespectedWhenAppliedVolumeNonZero) {
+  InputVolumeControllerConfig config{
+      // TODO(bugs.webrtc.org/7494): Add min input volume once it's available.
+      .target_range_min_dbfs = -30,
+      .update_input_volume_wait_frames = 1,
+      .speech_probability_threshold = 0.5f,
+      .speech_ratio_threshold = 0.5f,
+  };
+
+  InputVolumeControllerTestHelper helper(config);
+
+  // Volume change possible; speech level below the digital gain window.
+  for (int i = 0; i < 100; ++i) {
+    const int volume = *helper.CallAgcSequence(/*applied_input_volume=*/1,
+                                               /*speech_probability=*/0.9f,
+                                               /*speech_level_dbfs=*/-80);
+    EXPECT_GE(volume, GetMinInputVolume());
+  }
+}
+
+TEST_P(InputVolumeControllerParametrizedTest,
+       StartupMinVolumeRespectedOnceWhenAppliedVolumeZero) {
+  InputVolumeControllerConfig config{
+      // TODO(bugs.webrtc.org/7494): Add min input volume once it's available.
+      .target_range_min_dbfs = -30,
+      .update_input_volume_wait_frames = 1,
+      .speech_probability_threshold = 0.5f,
+      .speech_ratio_threshold = 0.5f,
+  };
+
+  InputVolumeControllerTestHelper helper(config);
+
+  int volume = *helper.CallAgcSequence(/*applied_input_volume=*/0,
+                                       /*speech_probability=*/0.9f,
+                                       /*speech_level_dbfs=*/-80);
+
+  EXPECT_EQ(volume, GetMinInputVolume());
+
+  // No change of volume regardless of a speech level below the digital gain
+  // window; applied volume is zero.
+  volume = *helper.CallAgcSequence(/*applied_input_volume=*/0,
+                                   /*speech_probability=*/0.9f,
+                                   /*speech_level_dbfs=*/-80);
+
+  EXPECT_EQ(volume, 0);
 }
 
 TEST_P(InputVolumeControllerParametrizedTest, MicVolumeResponseToRmsError) {

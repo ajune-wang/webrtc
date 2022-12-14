@@ -413,6 +413,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Echo) {
   AddPeer(network_links.first, [](PeerConfigurer* alice) {
     AudioConfig audio;
     audio.stream_label = "alice-audio";
+    audio.sync_group = "alice-media";
     audio.mode = AudioConfig::Mode::kFile;
     audio.input_file_name =
         test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");
@@ -422,6 +423,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Echo) {
   AddPeer(network_links.second, [](PeerConfigurer* bob) {
     AudioConfig audio;
     audio.stream_label = "bob-audio";
+    audio.stream_label = "bob-media";
     audio.mode = AudioConfig::Mode::kFile;
     audio.input_file_name =
         test::ResourcePath("pc_quality_smoke_test_bob_source", "wav");
@@ -450,6 +452,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Simulcast) {
 
     AudioConfig audio;
     audio.stream_label = "alice-audio";
+    audio.stream_label = "alice-media";
     audio.mode = AudioConfig::Mode::kFile;
     audio.input_file_name =
         test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");
@@ -477,7 +480,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Svc) {
     simulcast.emulated_sfu_config = EmulatedSFUConfig(1);
     alice->AddVideoConfig(std::move(simulcast));
 
-    AudioConfig audio("alice-audio");
+    AudioConfig audio;
+    audio.stream_label = "alice-audio";
+    audio.sync_group = "alice-media";
     audio.mode = AudioConfig::Mode::kFile;
     audio.input_file_name =
         test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");
@@ -507,6 +512,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_HighBitrate) {
     alice->SetBitrateSettings(bitrate_settings);
     VideoConfig video(800, 600, 15);
     video.stream_label = "alice-video";
+    video.sync_group = "alice-media";
     RtpEncodingParameters encoding_parameters;
     encoding_parameters.min_bitrate_bps = 500'000;
     encoding_parameters.max_bitrate_bps = 3'000'000;
@@ -515,6 +521,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_HighBitrate) {
 
     AudioConfig audio;
     audio.stream_label = "alice-audio";
+    audio.sync_group = "alice-media";
     audio.mode = AudioConfig::Mode::kFile;
     audio.input_file_name =
         test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");

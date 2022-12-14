@@ -18,6 +18,74 @@
 
 namespace webrtc {
 
+class MockMediaStreamTrackInterface
+    : public rtc::RefCountedObject<MediaStreamTrackInterface> {
+ public:
+  static rtc::scoped_refptr<MockMediaStreamTrackInterface> Create() {
+    return rtc::scoped_refptr<MockMediaStreamTrackInterface>(
+        new MockMediaStreamTrackInterface());
+  }
+
+  MOCK_METHOD(void, RegisterObserver, (webrtc::ObserverInterface*), (override));
+  MOCK_METHOD(void,
+              UnregisterObserver,
+              (webrtc::ObserverInterface*),
+              (override));
+  MOCK_METHOD(std::string, kind, (), (const, override));
+  MOCK_METHOD(std::string, id, (), (const, override));
+  MOCK_METHOD(bool, enabled, (), (const, override));
+  MOCK_METHOD(bool, set_enabled, (bool), (override));
+  MOCK_METHOD(webrtc::MediaStreamTrackInterface::TrackState,
+              state,
+              (),
+              (const, override));
+};
+
+class MockVideoTrackSourceInterface
+    : public rtc::RefCountedObject<webrtc::VideoTrackSourceInterface> {
+ public:
+  static rtc::scoped_refptr<MockVideoTrackSourceInterface> Create() {
+    return rtc::scoped_refptr<MockVideoTrackSourceInterface>(
+        new MockVideoTrackSourceInterface());
+  }
+
+  MOCK_METHOD(void, RegisterObserver, (webrtc::ObserverInterface*), (override));
+  MOCK_METHOD(void,
+              UnregisterObserver,
+              (webrtc::ObserverInterface*),
+              (override));
+  MOCK_METHOD(webrtc::MediaSourceInterface::SourceState,
+              state,
+              (),
+              (const, override));
+  MOCK_METHOD(bool, remote, (), (const, override));
+  MOCK_METHOD(void,
+              AddOrUpdateSink,
+              (rtc::VideoSinkInterface<webrtc::VideoFrame>*,
+               const rtc::VideoSinkWants&),
+              (override));
+  MOCK_METHOD(void,
+              RemoveSink,
+              (rtc::VideoSinkInterface<webrtc::VideoFrame>*),
+              (override));
+  MOCK_METHOD(bool, is_screencast, (), (const, override));
+  MOCK_METHOD(absl::optional<bool>, needs_denoising, (), (const, override));
+  MOCK_METHOD(bool,
+              GetStats,
+              (webrtc::VideoTrackSourceInterface::Stats*),
+              (override));
+  MOCK_METHOD(bool, SupportsEncodedOutput, (), (const, override));
+  MOCK_METHOD(void, GenerateKeyFrame, (), (override));
+  MOCK_METHOD(void,
+              AddEncodedSink,
+              (rtc::VideoSinkInterface<webrtc::RecordableEncodedFrame> * sink),
+              (override));
+  MOCK_METHOD(void,
+              RemoveEncodedSink,
+              (rtc::VideoSinkInterface<webrtc::RecordableEncodedFrame> * sink),
+              (override));
+};
+
 class MockAudioSource : public rtc::RefCountedObject<AudioSourceInterface> {
  public:
   static rtc::scoped_refptr<MockAudioSource> Create() {
@@ -78,9 +146,6 @@ class MockAudioTrack : public rtc::RefCountedObject<AudioTrackInterface> {
               GetAudioProcessor,
               (),
               (override));
-
- private:
-  MockAudioTrack() = default;
 };
 
 class MockMediaStream : public MediaStreamInterface {

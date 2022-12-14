@@ -16,6 +16,74 @@
       "message": "Adding Kari as reviewer, since this is IOS code.",
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aca4827f_28fffc8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-14T22:46:53Z",
+      "side": 1,
+      "message": "Had a few questions despite not reading IOS.",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46284ea8_aa419689",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-14T22:46:53Z",
+      "side": 1,
+      "message": "Leftover debug statement, or is it common to mix RTCLog and LOGI?",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7e18be_fb23222b",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-14T22:46:53Z",
+      "side": 1,
+      "message": "nit: not audio -\u003e no audio, or \"and audio is not being played\"",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4008f8a_ba41ba1e",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-14T22:46:53Z",
+      "side": 1,
+      "message": "Will the audio units be initialized if the value of playing_.load() changes later?",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

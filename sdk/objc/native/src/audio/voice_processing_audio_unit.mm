@@ -112,7 +112,10 @@ bool VoiceProcessingAudioUnit::Init() {
   }
 
   // Enable input on the input scope of the input element.
-  UInt32 enable_input = 1;
+  // Create the module with input disabled to prevent
+  // iOS capture indicator to be turned on by default
+  // if no audio is being captured
+  UInt32 enable_input = 0;
   result = AudioUnitSetProperty(vpio_unit_, kAudioOutputUnitProperty_EnableIO,
                                 kAudioUnitScope_Input, kInputBus, &enable_input,
                                 sizeof(enable_input));
@@ -193,7 +196,7 @@ VoiceProcessingAudioUnit::State VoiceProcessingAudioUnit::GetState() const {
   return state_;
 }
 
-bool VoiceProcessingAudioUnit::Initialize(Float64 sample_rate) {
+bool VoiceProcessingAudioUnit::Initialize(Float64 sample_rate, bool enable_input) {
   RTC_DCHECK_GE(state_, kUninitialized);
   RTCLog(@"Initializing audio unit with sample rate: %f", sample_rate);
 
@@ -221,6 +224,22 @@ bool VoiceProcessingAudioUnit::Initialize(Float64 sample_rate) {
                            kAudioUnitScope_Input, kOutputBus, &format, size);
   if (result != noErr) {
     RTCLogError(@"Failed to set format on input scope of output bus. "
+                 "Error=%ld.",
+                (long)result);
+    return false;
+  }
+
+  // Enable input on the input scope of the input element.
+  UInt32 enable_input_value = enable_input ? 1 : 0;
+  result = AudioUnitSetProperty(vpio_unit_,
+                                kAudioOutputUnitProperty_EnableIO,
+                                kAudioUnitScope_Input,
+                                kInputBus,
+                                &enable_input,
+                                sizeof(enable_input_value));
+  if (result != noErr) {
+    DisposeAudioUnit();
+    RTCLogError(@"Failed to enable input on input scope of input element. "
                  "Error=%ld.",
                 (long)result);
     return false;

@@ -114,7 +114,9 @@ TEST_F(PeerConnectionE2EQualityTestTest, OutputVideoIsDumpedWhenRequested) {
   EmulatedNetworkManagerInterface* bob_network =
       network_emulation->CreateEmulatedNetworkManagerInterface({bob_endpoint});
 
-  VideoConfig alice_video("alice_video", 320, 180, 15);
+  VideoConfig alice_video(320, 180, 15);
+  alice_video.stream_label = "alice-video";
+  alice_video.sync_group = "alice-media";
   alice_video.output_dump_options = VideoDumpOptions(test_directory_);
   PeerConfigurer alice(alice_network->network_dependencies());
   alice.SetName("alice");

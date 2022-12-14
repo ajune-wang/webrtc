@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55140a3b_6d4cdd48",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26acbc0e_3f8929c0",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 24
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1747280d_b686de65",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-12-13T15:17:04Z",
       "side": 1,
       "message": "A comment you added in the unit tests seems to suggest that an unspecified value is also returned after `HandleCaptureOutputUsedChange(/*capture_output_used\u003d*/false)` is called. If that\u0027s the behavior we want, document that.",
+      "range": {
+        "startLine": 101,
+        "startChar": 53,
+        "endLine": 102,
+        "endChar": 40
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078521e8_f0430dd3",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Changed the logic and added a comment: If `capture_output_used_` is false, returns the applied input volume.",
+      "parentUuid": "1747280d_b686de65",
       "range": {
         "startLine": 101,
         "startChar": 53,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e969dd1_48fa5012",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d8557f8_e1e9a19a",
+      "range": {
+        "startLine": 103,
+        "startChar": 22,
+        "endLine": 103,
+        "endChar": 29
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "266e7c88_fa41f4bd",
@@ -117,6 +189,30 @@
       "writtenOn": "2022-12-13T15:17:04Z",
       "side": 1,
       "message": "Let\u0027s remove this; reasons:\n- What would this getter return if `Process()` (or `RecommendInputVolume()` as I recommended in my previous comment) returns an unspecified value? \n- To test the interface there\u0027s no need to add such a getter",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 76
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ecdb0d4_43f1aa4b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "This is needed for testing `AnalyzeInputAudio()`, added a comment to explain. I suggest we remove this later.",
+      "parentUuid": "266e7c88_fa41f4bd",
       "range": {
         "startLine": 121,
         "startChar": 0,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e994c3b_7e61ee91",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done. Added a method `capture_output_used()` in InputVolumeController.",
+      "parentUuid": "adcae55d_c825217b",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 80
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a8fdd94_1c81199f",
@@ -173,6 +293,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d4f1666_86e16972",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a8fdd94_1c81199f",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 55
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58b454de_097d6359",
@@ -186,6 +330,30 @@
       "writtenOn": "2022-12-13T15:17:04Z",
       "side": 1,
       "message": "does this change apply to `SpeechSamplesReader::Feed()` and `CallPreProcessAndProcess()` as well? if the capture is marked as not used, then no input volume is recommended, right?\n\nto keep it simple or postpone this change, I would otherwise add a DCHECK at the beginning of those functions: `RTC_DCHECK(controller.IsCaptureOutputUsed())`",
+      "range": {
+        "startLine": 313,
+        "startChar": 2,
+        "endLine": 313,
+        "endChar": 21
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dce6ff52_94e4fe3c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Added a DCHECK",
+      "parentUuid": "58b454de_097d6359",
       "range": {
         "startLine": 313,
         "startChar": 2,
@@ -242,6 +410,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e161cfc_b1c52996",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678ad5d0_78c120b0",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 62
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "630a64ad_a35aa55b",
@@ -255,6 +447,30 @@
       "writtenOn": "2022-12-13T15:17:04Z",
       "side": 1,
       "message": "address and remove",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 56
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a0ea489_29341ce1",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "630a64ad_a35aa55b",
       "range": {
         "startLine": 220,
         "startChar": 0,
@@ -288,6 +504,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2012bce0_bf78edbb",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51f51aba_dc4e43df",
+      "range": {
+        "startLine": 59,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 29
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc854c37_634a3956",
@@ -301,6 +541,30 @@
       "writtenOn": "2022-12-13T15:17:04Z",
       "side": 1,
       "message": "applied_volume.value_or(applied_initial_volume)",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 61,
+        "endChar": 45
+      },
+      "revId": "21fd7c1c0b297b82a2a6b7ef4b5a180c5330aaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13479f1c_df27b8a2",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-14T10:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc854c37_634a3956",
       "range": {
         "startLine": 59,
         "startChar": 30,

@@ -249,6 +249,17 @@ void TaskQueueStdlib::ProcessTasks() {
 
     flag_notify_.Wait(task.sleep_time);
   }
+
+  // Ensures pending tasks are destroyed in the task queue context.
+  std::queue<std::pair<OrderId, absl::AnyInvocable<void() &&>>> pending_queue;
+  {
+    MutexLock lock(&pending_lock_);
+    pending_queue_.swap(pending_queue);
+  }
+
+  // Ensures no pending tasks posted new tasks.
+  MutexLock lock(&pending_lock_);
+  RTC_DCHECK(pending_queue_.empty());
 }
 
 void TaskQueueStdlib::NotifyWake() {

@@ -35,6 +35,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "091bbef6_d57addbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-12-15T13:39:25Z",
+      "side": 1,
+      "message": "Thanks Roberto! This is a long-standing issue and great to see this fixed.\n\nAdding henrika@ as well as the audio expert.",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a16146_29ea6d50",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-12-15T13:39:25Z",
+      "side": 1,
+      "message": "the convention for private methods in this class is to return a bool, true for success and false otherwise. I\u0027d prefer to stick to that.",
+      "range": {
+        "startLine": 213,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fdf5bec_a23f1d0c",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-12-15T13:39:25Z",
+      "side": 1,
+      "message": "This would be clearer if it was called something like `SetInputEnabled`. `EnableInput(true)` just reads awkwardly.",
+      "range": {
+        "startLine": 213,
+        "startChar": 10,
+        "endLine": 213,
+        "endChar": 21
+      },
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46284ea8_aa419689",
@@ -82,6 +145,46 @@
       "writtenOn": "2022-12-14T22:46:53Z",
       "side": 1,
       "message": "Will the audio units be initialized if the value of playing_.load() changes later?",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0941b237_ce1206ab",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-12-15T13:39:25Z",
+      "side": 1,
+      "message": "nit: extra newline",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7a4d04_2edc51cb",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-12-15T13:39:25Z",
+      "side": 1,
+      "message": "enable_input_value",
+      "range": {
+        "startLine": 238,
+        "startChar": 33,
+        "endLine": 238,
+        "endChar": 45
+      },
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

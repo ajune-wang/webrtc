@@ -208,6 +208,10 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   // Resets thread-checkers before a call is restarted.
   void PrepareForNewStart();
 
+  // Activate or deactivate recording channel in audio units.
+  // If audio unit is running, this will restart it
+  bool SetInputEnabled(bool enable_input);
+
   // Determines whether voice processing should be enabled or disabled.
   const bool bypass_voice_processing_;
 

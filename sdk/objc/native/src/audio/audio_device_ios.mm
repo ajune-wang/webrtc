@@ -270,6 +270,46 @@ bool AudioDeviceIOS::Playing() const {
   return playing_.load();
 }
 
+bool AudioDeviceIOS::SetInputEnabled(bool enable_input) {
+  LOGI() << "SetInputEnabled";
+  bool restart_audio_unit = false;
+  if (audio_unit_->GetState() == VoiceProcessingAudioUnit::kStarted) {
+    audio_unit_->Stop();
+    restart_audio_unit = true;
+    PrepareForNewStart();
+  }
+  if (audio_unit_->GetState() == VoiceProcessingAudioUnit::kInitialized) {
+    audio_unit_->Uninitialize();
+  }
+
+  if (!enable_input && !playing_.load()) {
+    // If the input is disabled, and no audio is being played
+    // we don't need to initialize the audio units here
+    return true;
+  }
+
+  // Allocate new buffers given the new stream format.
+  SetupAudioBuffersForActiveAudioSession();
+
+  // Initialize the audio unit again enabling the input part of the audio unit
+  if (!audio_unit_->Initialize(playout_parameters_.sample_rate(), enable_input)) {
+    RTCLogError(@"Failed to initialize the audio unit after changing input state");
+    return false;
+  }
+
+  // Restart the audio unit if it was already running.
+  if (restart_audio_unit) {
+    OSStatus result = audio_unit_->Start();
+    if (result != noErr) {
+      RTC_OBJC_TYPE(RTCAudioSession)* session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
+      [session notifyAudioUnitStartFailedWithError:result];
+      RTCLogError(@"Failed to start audio unit reason %d", result);
+      return false;
+    }
+  }
+  return true;
+}
+
 int32_t AudioDeviceIOS::StartRecording() {
   LOGI() << "StartRecording";
   RTC_DCHECK_RUN_ON(thread_);
@@ -279,6 +319,15 @@ int32_t AudioDeviceIOS::StartRecording() {
   if (fine_audio_buffer_) {
     fine_audio_buffer_->ResetRecord();
   }
+
+  if (!recording_.load()) {
+    if (!SetInputEnabled(true)) {
+      RTCLogError(@"StartRecording failed to enable input in audio unit");
+      return -1;
+    }
+    RTCLog(@"StartRecording successfully enabled input");
+  }
+
   if (!playing_.load() && audio_unit_->GetState() == VoiceProcessingAudioUnit::kInitialized) {
     OSStatus result = audio_unit_->Start();
     if (result != noErr) {
@@ -302,7 +351,14 @@ int32_t AudioDeviceIOS::StopRecording() {
   if (!playing_.load()) {
     ShutdownPlayOrRecord();
     audio_is_initialized_ = false;
+  } else {
+    if (!SetInputEnabled(false)) {
+      RTCLogError(@"StopRecording failed to disable input");
+      return -1;
+    }
+    RTCLog(@"StopRecording successfully disabled input");
   }
+
   recording_.store(0, std::memory_order_release);
   return 0;
 }
@@ -579,7 +635,7 @@ void AudioDeviceIOS::HandleSampleRateChange() {
   SetupAudioBuffersForActiveAudioSession();
 
   // Initialize the audio unit again with the new sample rate.
-  if (!audio_unit_->Initialize(playout_parameters_.sample_rate())) {
+  if (!audio_unit_->Initialize(playout_parameters_.sample_rate(), recording_.load())) {
     RTCLogError(@"Failed to initialize the audio unit with sample rate: %d",
                 playout_parameters_.sample_rate());
     return;
@@ -764,7 +820,7 @@ void AudioDeviceIOS::UpdateAudioUnit(bool can_play_or_record) {
     RTCLog(@"Initializing audio unit for UpdateAudioUnit");
     ConfigureAudioSession();
     SetupAudioBuffersForActiveAudioSession();
-    if (!audio_unit_->Initialize(playout_parameters_.sample_rate())) {
+    if (!audio_unit_->Initialize(playout_parameters_.sample_rate(), recording_.load())) {
       RTCLogError(@"Failed to initialize audio unit.");
       return;
     }
@@ -890,7 +946,7 @@ bool AudioDeviceIOS::InitPlayOrRecord() {
       return false;
     }
     SetupAudioBuffersForActiveAudioSession();
-    audio_unit_->Initialize(playout_parameters_.sample_rate());
+    audio_unit_->Initialize(playout_parameters_.sample_rate(), recording_.load());
   }
 
   // Release the lock.

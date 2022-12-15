@@ -714,17 +714,29 @@ android_try_job("android_arm_dbg")
 android_builder("Android32", "Android|arm|rel")
 android_try_job("android_arm_rel")
 android_try_job("android_arm_rel_reclient", cq = {"experiment_percentage": 100})
-android_builder("Android32 Builder arm", "Android|arm|size", perf_cat = "Android|arm|Builder|", prioritized = True)
+android_builder(
+    "Android32 Builder arm",
+    "Android|arm|size",
+    perf_cat = "Android|arm|Builder|",
+    prioritized = True,
+    triggers = ["Perf Android32 (O Pixel2)", "Perf Android32 (R Pixel5)"],
+)
 android_try_job("android_compile_arm_rel")
-perf_builder("Perf Android32 (O Pixel2)", "Android|arm|Tester|O Pixel2", triggered_by = ["Android32 Builder arm"])
-perf_builder("Perf Android32 (R Pixel5)", "Android|arm|Tester|R Pixel5", triggered_by = ["Android32 Builder arm"])
+perf_builder("Perf Android32 (O Pixel2)", "Android|arm|Tester|O Pixel2")
+perf_builder("Perf Android32 (R Pixel5)", "Android|arm|Tester|R Pixel5")
 android_try_job("android_compile_arm64_dbg", cq = None)
 android_try_job("android_arm64_dbg", cq = None)
 android_builder("Android64", "Android|arm64|rel")
 android_try_job("android_arm64_rel")
-android_builder("Android64 Builder arm64", "Android|arm64|size", perf_cat = "Android|arm64|Builder|", prioritized = True)
-perf_builder("Perf Android64 (O Pixel2)", "Android|arm64|Tester|O Pixel2", triggered_by = ["Android64 Builder arm64"])
-perf_builder("Perf Android64 (R Pixel5)", "Android|arm64|Tester|R Pixel5", triggered_by = ["Android64 Builder arm64"])
+android_builder(
+    "Android64 Builder arm64",
+    "Android|arm64|size",
+    perf_cat = "Android|arm64|Builder|",
+    prioritized = True,
+    triggers = ["Perf Android64 (O Pixel2)", "Perf Android64 (R Pixel5)"],
+)
+perf_builder("Perf Android64 (O Pixel2)", "Android|arm64|Tester|O Pixel2")
+perf_builder("Perf Android64 (R Pixel5)", "Android|arm64|Tester|R Pixel5")
 android_try_job("android_compile_arm64_rel")
 android_builder("Android64 Builder x64 (dbg)", "Android|x64|dbg")
 android_try_job("android_compile_x64_dbg")

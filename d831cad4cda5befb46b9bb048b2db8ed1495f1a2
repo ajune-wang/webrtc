@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "435dfb6d_be43f5b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-12-15T03:33:06Z",
+      "side": 1,
+      "message": "Hi, I\u0027d like to remove an outdated comment :) PTAL.",
+      "revId": "d831cad4cda5befb46b9bb048b2db8ed1495f1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

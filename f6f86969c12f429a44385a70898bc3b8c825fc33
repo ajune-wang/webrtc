@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "438da354_ad2bde7a",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "Detroying queue in another thread means we need to transfer the queue there, and for good order ensure it\u0027s destroyed before leaving the test function. That means another blocking interaction from test context with that other thread, which isn\u0027t much better.\nDoing `block.Set(); queue \u003d nullptr` in the test context would likely yield a higher probability of having the task run, so works against the test purpose. So I think I\u0027ll keep this solution.",
+      "parentUuid": "a8e06e60_c564ecfc",
+      "range": {
+        "startLine": 187,
+        "startChar": 23,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3615bac_35cc0779",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-15T14:29:59Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n“Do not use captures with initializers to introduce new names. Instead, declare a new variable in the conventional way and then capture it”\n\ni.e.\nauto cleanup \u003d absl::Cleanup(...);\nqueue-\u003ePostTask([cleanup \u003d std::move(cleanup)] { ... });",
+      "range": {
+        "startLine": 192,
+        "startChar": 19,
+        "endLine": 192,
+        "endChar": 28
+      },
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "483039ce_4ae19010",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3615bac_35cc0779",
       "range": {
         "startLine": 192,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68586a24_2ba87ce1",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efe925cc_e27bcb4c",
+      "range": {
+        "startLine": 193,
+        "startChar": 21,
+        "endLine": 193,
+        "endChar": 30
+      },
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a4dcd72_13bbf43b",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-12-15T14:29:59Z",
       "side": 1,
       "message": "do you want to add expectation posted task didn\u0027t run?\n\nrtc::Event run;\nqueue-\u003ePostTask([cleanup \u003d std::move(cleanup), \u0026run] { run.Set(); });\nqueue \u003d nullptr;\nEXPECT_FALSE(run.Wait(TimeDelta::Zero());",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff858cd3_eedb4048",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "I can\u0027t do that since I\u0027m not guaranteed it won\u0027t run, and I don\u0027t want to introduce flaky failures.",
+      "parentUuid": "2a4dcd72_13bbf43b",
       "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -104,6 +194,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa48546a_1ce6ab5e",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "PostAndCheckCurrent already checks that tasks posted this way run, no need to check that again here.",
+      "parentUuid": "0025c014_2dc39305",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c662112a_bcb21427",
@@ -117,6 +225,24 @@
       "writtenOn": "2022-12-15T14:29:59Z",
       "side": 1,
       "message": "you are taking mutex here in release mode too, even if it is only used in debug mode",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da3016c0_1f608832",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "Just trying to keep the same behavior in both cases (the mutex got taken), but the suggestion\u0027s alright with me.",
+      "parentUuid": "c662112a_bcb21427",
       "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -138,6 +264,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec8d093f_ebbdfd2d",
+        "filename": "rtc_base/task_queue_stdlib.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "Oops, forgot the clearing. Thx!",
+      "parentUuid": "f3075b5a_ea356558",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1f34429_da9ac351",
@@ -151,6 +295,24 @@
       "writtenOn": "2022-12-15T14:29:59Z",
       "side": 1,
       "message": "ditto, DCHECK looks meaningless here too",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cc1205_54e41cdf",
+        "filename": "rtc_base/task_queue_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1f34429_da9ac351",
       "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

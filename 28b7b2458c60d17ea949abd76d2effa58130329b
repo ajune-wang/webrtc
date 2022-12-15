@@ -16,6 +16,24 @@
       "message": "why did you remove the expectation that delayed task didn\u0027t run?\n\n[I do not mind a new test that verifies that that delayed task is executed before queue is deleted, but please keep existent scenario - delayed task is not executed]",
       "revId": "28b7b2458c60d17ea949abd76d2effa58130329b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff7d3961_bbc3acee",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:12:16Z",
+      "side": 0,
+      "message": "The current test looks like it could be introducing flaky failures?\nI reverted back.\nNote - I added a version of the test for checking the same for high precision delayed tasks.",
+      "parentUuid": "71e14db8_ec2e4838",
+      "revId": "28b7b2458c60d17ea949abd76d2effa58130329b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed3a0eab_9de01878",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-12-15T16:27:23Z",
+      "side": 1,
+      "message": "+tommi \u0026 hta.\nNote, I\u0027ll wait with landing this until M110 has branched.",
+      "revId": "6917ea278bc30243f7c02cfbeb3b48361bd5f32a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e685edb_5bfb19c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-12-15T14:02:48Z",
+      "side": 1,
+      "message": "Thanks for doing this!\n\nPlease provide an overview of the changes and explain how the new functionality has been tested? Is any new test needed to ensure that the new support is not broken.\n\nIt is not fully clear to me how adding a local stream will enable recording again.",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a16146_29ea6d50",
@@ -162,6 +179,23 @@
       "writtenOn": "2022-12-15T13:39:25Z",
       "side": 1,
       "message": "nit: extra newline",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33673d97_7bbcb558",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-12-15T14:02:48Z",
+      "side": 1,
+      "message": "What is the relationship between Init() (where kAudioOutputUnitProperty_EnableIO is set today) and Initialize()?",
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

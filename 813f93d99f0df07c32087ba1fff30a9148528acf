@@ -115,6 +115,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d0ee000_ba7454da",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4fdf5bec_a23f1d0c",
+      "range": {
+        "startLine": 213,
+        "startChar": 10,
+        "endLine": 213,
+        "endChar": 21
+      },
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "589652d0_824f8022",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "41a16146_29ea6d50",
+      "range": {
+        "startLine": 213,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46284ea8_aa419689",
@@ -134,6 +182,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "199017ff_05f7fdbc",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "I copied what\u0027s on other class methods. I think it is fine to use LOGI()",
+      "parentUuid": "46284ea8_aa419689",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b7e18be_fb23222b",
         "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
         "patchSetId": 2
@@ -145,6 +211,24 @@
       "writtenOn": "2022-12-14T22:46:53Z",
       "side": 1,
       "message": "nit: not audio -\u003e no audio, or \"and audio is not being played\"",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7a8cd4a_b19c56d6",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b7e18be_fb23222b",
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -168,6 +252,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f40519e9_8975be6d",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "Yep, it is changed by using `playing_.store()` and that happens in both `StartPlayout` and `StopPlayout` that take care of updating the audiounits state",
+      "parentUuid": "f4008f8a_ba41ba1e",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0941b237_ce1206ab",
         "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
         "patchSetId": 2
@@ -179,6 +281,24 @@
       "writtenOn": "2022-12-15T13:39:25Z",
       "side": 1,
       "message": "nit: extra newline",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "369ece50_1d6832ce",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0941b237_ce1206ab",
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -213,6 +333,30 @@
       "writtenOn": "2022-12-15T13:39:25Z",
       "side": 1,
       "message": "enable_input_value",
+      "range": {
+        "startLine": 238,
+        "startChar": 33,
+        "endLine": 238,
+        "endChar": 45
+      },
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b416de_95ae53ea",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T15:08:30Z",
+      "side": 1,
+      "message": "Oh, good catch!. Thank you!",
+      "parentUuid": "ea7a4d04_2edc51cb",
       "range": {
         "startLine": 238,
         "startChar": 33,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "079c18c7_999a2cd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-15T16:34:32Z",
+      "side": 1,
+      "message": "Another step towards sender and receiver channels being separate objects. Still working the API and leaving the inner implementation alone.",
+      "revId": "ff95461f859488788488b11b7803dfb08b642add",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

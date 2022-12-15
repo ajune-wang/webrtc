@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a630004_44be85e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T17:22:23Z",
+      "side": 1,
+      "message": "Currently, when the `AudioDeviceIOS` is created it always enable the input in the AudioUnit.\n\nThis means that if you have a PC that is only playing the other end audio, and you don\u0027t plan to capture any audio, Microphone permissions are requested, and the record indicator is turned on, creating an awkward experience for the user that is not expecting to have their microphone active if they are not sharing audio.\n\nAfter that, when you add audio tracks to the peerconnection, the `StartRecording` or `StartPlayout` are called, if the track needs to record or play audio samples.\nBut even if `StartRecording` is never called, the input is always enabled.\n\nThe idea behind this PR is to **not** enable the input by default, and handle it in the `StartRecording`/`StopRecording` methods.\nWhen `StartRecording` is called, it enables the input in the AudioUnit by calling the `SetInputEnabled(true)`, and same for `StopRecording()` -\u003e `SetInputEnabled(false)`.\n\nWith this, the light and the permissions will be only requested when the track added to the PC requires to record audio, and then the `StartRecording` is called",
+      "parentUuid": "8e685edb_5bfb19c4",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a16146_29ea6d50",
@@ -316,6 +334,24 @@
       "writtenOn": "2022-12-15T14:02:48Z",
       "side": 1,
       "message": "What is the relationship between Init() (where kAudioOutputUnitProperty_EnableIO is set today) and Initialize()?",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9797cdc0_5ce67522",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-12-15T17:22:23Z",
+      "side": 1,
+      "message": "* `Init` is called only once, when the audio device is being initialized\n* `Initialize` was called when some property in the audio units should change, like for example when the sample rate was updated.\n\nIn this PR I\u0027m reusing that logic of `Initialize` to call it when we want to enable the input of the AudioUnit.",
+      "parentUuid": "33673d97_7bbcb558",
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

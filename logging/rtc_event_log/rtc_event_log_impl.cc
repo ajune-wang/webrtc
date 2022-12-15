@@ -57,7 +57,6 @@ std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
 RtcEventLogImpl::RtcEventLogImpl(RtcEventLog::EncodingType encoding_type,
                                  TaskQueueFactory* task_queue_factory)
     : event_encoder_(CreateEncoder(encoding_type)),
-      num_config_events_written_(0),
       last_output_ms_(rtc::TimeMillis()),
       output_scheduled_(false),
       logging_state_started_(false),
@@ -68,7 +67,12 @@ RtcEventLogImpl::RtcEventLogImpl(RtcEventLog::EncodingType encoding_type,
 
 RtcEventLogImpl::~RtcEventLogImpl() {
   // If we're logging to the output, this will stop that. Blocking function.
-  if (logging_state_started_) {
+  bool started = false;
+  {
+    MutexLock lock(&logging_mutex_);
+    started = logging_state_started_;
+  }
+  if (started) {
     logging_state_checker_.Detach();
     StopLogging();
   }
@@ -96,7 +100,11 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
                    << timestamp_us << ", " << utc_time_us << ").";
 
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
-  logging_state_started_ = true;
+  {
+    MutexLock lock(&logging_mutex_);
+    logging_state_started_ = true;
+  }
+
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
   task_queue_->PostTask([this, output_period_ms, timestamp_us, utc_time_us,
                          output = std::move(output)]() mutable {
@@ -104,8 +112,19 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
     RTC_DCHECK(output->IsActive());
     output_period_ms_ = output_period_ms;
     event_output_ = std::move(output);
-    num_config_events_written_ = 0;
+
     WriteToOutput(event_encoder_->EncodeLogStart(timestamp_us, utc_time_us));
+    {
+      MutexLock lock(&logging_mutex_);
+
+      // Load all configs of previous sessions to output.
+      most_recent_config_history_.insert(
+          most_recent_config_history_.begin(),
+          std::make_move_iterator(all_config_history_.begin()),
+          std::make_move_iterator(all_config_history_.end()));
+      RTC_DCHECK_LE(most_recent_config_history_.size(),
+                    kMaxEventsInConfigHistory);
+    }
     LogEventsFromMemoryToOutput();
   });
 
@@ -126,7 +145,10 @@ void RtcEventLogImpl::StopLogging() {
 
 void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
-  logging_state_started_ = false;
+  {
+    MutexLock lock(&logging_mutex_);
+    logging_state_started_ = false;
+  }
   task_queue_->PostTask([this, callback] {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     if (event_output_) {
@@ -139,20 +161,38 @@ void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
 }
 
 void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
+  MutexLock lock(&logging_mutex_);
   RTC_CHECK(event);
 
-  // Binding to `this` is safe because `this` outlives the `task_queue_`.
-  task_queue_->PostTask([this, event = std::move(event)]() mutable {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
+  if (!logging_state_started_) {
+    // `LogToMemory` is non-blocking. Run on current thread if logging not
+    // started.
     LogToMemory(std::move(event));
-    if (event_output_)
-      ScheduleOutput();
-  });
+  } else {
+    // Binding to `this` is safe because `this` outlives the `task_queue_`.
+    task_queue_->PostTask([this, event = std::move(event)]() mutable {
+      RTC_DCHECK_RUN_ON(task_queue_.get());
+      // Shouldn't lose events if we have an output.
+      RTC_DCHECK(!(event_output_ && ShouldDrainBuffer()));
+      {
+        MutexLock lock(&logging_mutex_);
+        LogToMemory(std::move(event));
+      }
+      if (event_output_)
+        ScheduleOutput();
+    });
+  }
+}
+
+bool RtcEventLogImpl::ShouldDrainBuffer() {
+  MutexLock lock(&logging_mutex_);
+  return (most_recent_history_.size() >= kMaxEventsInHistory) ||
+         (most_recent_config_history_.size() >= kMaxEventsInConfigHistory);
 }
 
 void RtcEventLogImpl::ScheduleOutput() {
   RTC_DCHECK(event_output_ && event_output_->IsActive());
-  if (history_.size() >= kMaxEventsInHistory) {
+  if (ShouldDrainBuffer()) {
     // We have to emergency drain the buffer. We can't wait for the scheduled
     // output task because there might be other event incoming before that.
     LogEventsFromMemoryToOutput();
@@ -188,13 +228,15 @@ void RtcEventLogImpl::ScheduleOutput() {
 }
 
 void RtcEventLogImpl::LogToMemory(std::unique_ptr<RtcEvent> event) {
+  logging_mutex_.AssertHeld();
+
   std::deque<std::unique_ptr<RtcEvent>>& container =
-      event->IsConfigEvent() ? config_history_ : history_;
+      event->IsConfigEvent() ? most_recent_config_history_
+                             : most_recent_history_;
   const size_t container_max_size =
       event->IsConfigEvent() ? kMaxEventsInConfigHistory : kMaxEventsInHistory;
 
   if (container.size() >= container_max_size) {
-    RTC_DCHECK(!event_output_);  // Shouldn't lose events if we have an output.
     container.pop_front();
   }
   container.push_back(std::move(event));
@@ -204,18 +246,18 @@ void RtcEventLogImpl::LogEventsFromMemoryToOutput() {
   RTC_DCHECK(event_output_ && event_output_->IsActive());
   last_output_ms_ = rtc::TimeMillis();
 
-  // Serialize all stream configurations that haven't already been written to
-  // this output. `num_config_events_written_` is used to track which configs we
-  // have already written. (Note that the config may have been written to
-  // previous outputs; configs are not discarded.)
-  std::string encoded_configs;
-  RTC_DCHECK_LE(num_config_events_written_, config_history_.size());
-  if (num_config_events_written_ < config_history_.size()) {
-    const auto begin = config_history_.begin() + num_config_events_written_;
-    const auto end = config_history_.end();
-    encoded_configs = event_encoder_->EncodeBatch(begin, end);
-    num_config_events_written_ = config_history_.size();
+  // Move to local queues to reduce locking scope.
+  std::deque<std::unique_ptr<RtcEvent>> config_history;
+  std::deque<std::unique_ptr<RtcEvent>> history;
+  {
+    MutexLock lock(&logging_mutex_);
+    config_history = std::move(most_recent_config_history_);
+    history = std::move(most_recent_history_);
   }
+
+  // Serialize the stream configurations.
+  std::string encoded_configs =
+      event_encoder_->EncodeBatch(config_history.begin(), config_history.end());
 
   // Serialize the events in the event queue. Note that the write may fail,
   // for example if we are writing to a file and have reached the maximum limit.
@@ -225,10 +267,16 @@ void RtcEventLogImpl::LogEventsFromMemoryToOutput() {
   // cannot rely on the second log to contain everything that isn't in the first
   // log; one batch of events might be missing.
   std::string encoded_history =
-      event_encoder_->EncodeBatch(history_.begin(), history_.end());
-  history_.clear();
+      event_encoder_->EncodeBatch(history.begin(), history.end());
 
   WriteConfigsAndHistoryToOutput(encoded_configs, encoded_history);
+
+  // Unlike other events, the configs are retained. If we stop/start logging
+  // again, these configs are used to interpret other events.
+  all_config_history_.insert(all_config_history_.end(),
+                             std::make_move_iterator(config_history.begin()),
+                             std::make_move_iterator(config_history.end()));
+  RTC_DCHECK_LE(all_config_history_.size(), kMaxEventsInConfigHistory);
 }
 
 void RtcEventLogImpl::WriteConfigsAndHistoryToOutput(

@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8e06e60_c564ecfc",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "instead of using Sleep and hope timing is right, you can use events and be more sure timing is right:\n\nrtc::Event blocker;\nqueue-\u003ePostTask([\u0026] { blocker.Wait(kForever);  });\n// next lambda wont\u0027t execute yet\nqueue-\u003ePostTask([cleanup \u003d std::move(cleanup)]);\n\nanother_thread-\u003ePostTask([\u0026] { queue \u003d nullptr });\nblock.Set();\n\n[though this one would require yet another TQ/thread to start deleting TQ and unblock 1st posted task at the same time, and that still will be racy. so this might be a bad suggestion].",
+      "range": {
+        "startLine": 187,
+        "startChar": 23,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3615bac_35cc0779",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n“Do not use captures with initializers to introduce new names. Instead, declare a new variable in the conventional way and then capture it”\n\ni.e.\nauto cleanup \u003d absl::Cleanup(...);\nqueue-\u003ePostTask([cleanup \u003d std::move(cleanup)] { ... });",
+      "range": {
+        "startLine": 192,
+        "startChar": 19,
+        "endLine": 192,
+        "endChar": 28
+      },
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe925cc_e27bcb4c",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "EXPECT?\n(no code below relies on ASSERT to be true, so EXPECT is recommended)",
+      "range": {
+        "startLine": 193,
+        "startChar": 21,
+        "endLine": 193,
+        "endChar": 30
+      },
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a4dcd72_13bbf43b",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "do you want to add expectation posted task didn\u0027t run?\n\nrtc::Event run;\nqueue-\u003ePostTask([cleanup \u003d std::move(cleanup), \u0026run] { run.Set(); });\nqueue \u003d nullptr;\nEXPECT_FALSE(run.Wait(TimeDelta::Zero());",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0025c014_2dc39305",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "do you want to add expectation posted task did run?\n\nrtc::Event run;\nqueue-\u003ePostTask([cleanup \u003d std::move(cleanup), \u0026run] { run.Set(); });\nfinished.Wait(kForever);\nEXPECT_TRUE(run.Wait(TimeDelta::Zero());",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c662112a_bcb21427",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "you are taking mutex here in release mode too, even if it is only used in debug mode",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3075b5a_ea356558",
+        "filename": "rtc_base/task_queue_stdlib.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "ditto\nand here DCHECK doesn\u0027t look meaningful - nothing yet happened between the swap and the DCHECK, in particular pending_queue is still not empty when you check pending_queue_ is.",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f34429_da9ac351",
+        "filename": "rtc_base/task_queue_win.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 1,
+      "message": "ditto, DCHECK looks meaningless here too",
+      "revId": "f6f86969c12f429a44385a70898bc3b8c825fc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

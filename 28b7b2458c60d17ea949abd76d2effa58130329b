@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e14db8_ec2e4838",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T14:29:59Z",
+      "side": 0,
+      "message": "why did you remove the expectation that delayed task didn\u0027t run?\n\n[I do not mind a new test that verifies that that delayed task is executed before queue is deleted, but please keep existent scenario - delayed task is not executed]",
+      "revId": "28b7b2458c60d17ea949abd76d2effa58130329b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

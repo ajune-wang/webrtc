@@ -16,6 +16,23 @@
       "message": "Thanks for adding more tests Hanna! 😊 LGTM",
       "revId": "b37857217747eb9f8f03c272e894d10c2b0eb981",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e0ccd24_4425e6b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-12-15T09:45:44Z",
+      "side": 1,
+      "message": "Thanks Alessio!",
+      "revId": "b37857217747eb9f8f03c272e894d10c2b0eb981",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9ba4f0_0d4e9f39",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-15T16:22:43Z",
+      "side": 1,
+      "message": "nit - may be put RTC_DCHECK inside #if RTC_DCHECK_IS_ON too, just for clarity, to show the lock and CHECK belong  together",
+      "revId": "9e1179f9c567c0f87c13c3b7acb9d445b6214321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b44b6c9_783707bf",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-12-16T14:11:24Z",
+      "side": 1,
+      "message": "nit: s/It means/That means",
+      "revId": "467ffaf3cec4b5b0c745e3222213d752b5cf8d3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

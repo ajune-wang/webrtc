@@ -199,6 +199,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef3c78ff_b9357bd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-12-16T09:03:01Z",
+      "side": 1,
+      "message": "The power data was collected from the test with runtime lasting for 230 s and was relatively stable during the test.\nHere is stddev attached (package power/stddev):\nFor 3x3 call: Default - 3.13 w/0.07     With this CL - 3.05 w/0.05;\nFor 1:1 call: Default – 2.55 w/0.04     With this CL – 2.52 w/0.02.\nSo the impact data has credibility.",
+      "parentUuid": "0708ffff_e3b43c21",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4cdd04d_788b5fd0",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 4
@@ -216,6 +234,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84863597_a9759876",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-12-16T09:03:01Z",
+      "side": 1,
+      "message": "In Patchset 4, for there is no lock in `Log`, other threads can also call `Log` and do PostTask normally though `LogEventsFromMemoryToOutput` still hold the lock.\n\nBut in Patchset 5, we add a lock in `Log` [1]. So we move most_recent_config_history_ and most_recent_history_ (guarded by the lock) to local queues to reduce locking scope[2].\n\n[1] https://webrtc-review.googlesource.com/c/src/+/283641/5/logging/rtc_event_log/rtc_event_log_impl.cc#166\n[2] https://webrtc-review.googlesource.com/c/src/+/283641/5/logging/rtc_event_log/rtc_event_log_impl.cc#249",
+      "parentUuid": "a4cdd04d_788b5fd0",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c81c63a1_2f0621cb",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 4
@@ -227,6 +263,30 @@
       "writtenOn": "2022-12-11T21:56:07Z",
       "side": 1,
       "message": "I\u0027m not sure this needs to be an atomic. Can the boolean flag just be wrapped in under events_history_mutex_ which is anyway taken later during LogToMemory?",
+      "range": {
+        "startLine": 89,
+        "startChar": 19,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec640d5_b9a4b6b8",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2022-12-16T09:03:01Z",
+      "side": 1,
+      "message": "Thanks. We have changed it to boolean flag wrapped in the mutex.",
+      "parentUuid": "c81c63a1_2f0621cb",
       "range": {
         "startLine": 89,
         "startChar": 19,

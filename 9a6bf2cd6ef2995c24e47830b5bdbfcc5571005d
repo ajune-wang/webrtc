@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c45cbb0_4cb305ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-12-16T09:06:09Z",
+      "side": 1,
+      "message": "Removing myself as a reviewer since I don\u0027t know this code at all and won\u0027t be able to give good review input.",
+      "revId": "9a6bf2cd6ef2995c24e47830b5bdbfcc5571005d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed3c9982_ee355b51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-12-16T08:20:52Z",
+      "side": 1,
+      "message": "Add this information to the description of the CL and make it more clear in the comments for the new API that this is how the new design works. Also, change the title of the CL to a more clear version. E.g.\n\n\"Ensures that microphone permission is not required by default but only when recording starts\"",
+      "parentUuid": "9a630004_44be85e6",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a16146_29ea6d50",
@@ -352,6 +370,24 @@
       "side": 1,
       "message": "* `Init` is called only once, when the audio device is being initialized\n* `Initialize` was called when some property in the audio units should change, like for example when the sample rate was updated.\n\nIn this PR I\u0027m reusing that logic of `Initialize` to call it when we want to enable the input of the AudioUnit.",
       "parentUuid": "33673d97_7bbcb558",
+      "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaba6caf_51b32438",
+        "filename": "sdk/objc/native/src/audio/voice_processing_audio_unit.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-12-16T08:20:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9797cdc0_5ce67522",
       "revId": "813f93d99f0df07c32087ba1fff30a9148528acf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

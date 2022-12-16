@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2195e05d_c2f3055a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-16T09:33:55Z",
+      "side": 1,
+      "message": "I would have expected the compiler to catch this one as it shadows the variable in the loop.\n\nBut maybe it was like \"oh you do not use this and then shadow... let me do what you intend\"?",
+      "revId": "0f6816c584c0a762fe2bd10c8c7d666618ce340d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

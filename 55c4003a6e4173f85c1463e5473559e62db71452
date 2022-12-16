@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e627e852_5f63aa96",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-16T12:00:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bee31aca_455276f0",
+      "revId": "55c4003a6e4173f85c1463e5473559e62db71452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f60385d_b1d22ca4",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-12-16T10:18:30Z",
       "side": 1,
       "message": "Can you dup this test to one without a collision and check that the metric is zero?",
+      "revId": "55c4003a6e4173f85c1463e5473559e62db71452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6789e494_39e76cca",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-16T12:00:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f60385d_b1d22ca4",
       "revId": "55c4003a6e4173f85c1463e5473559e62db71452",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

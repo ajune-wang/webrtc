@@ -16,6 +16,23 @@
       "message": "Looks good but I think the existing unittest should be updated to reflect the new behavior. \n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/objc/unittests/RTCAudioDeviceModule_xctest.mm\n\nkthelgason@ might be able to assist with ideas in that area.",
       "revId": "b35937754d4da8320ba36421839a19eea9e399a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e77ad0f_67f58952",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-12-16T08:23:52Z",
+      "side": 1,
+      "message": "Removing myself from the reviewers since I don\u0027t at all know this part of the code.",
+      "revId": "b35937754d4da8320ba36421839a19eea9e399a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

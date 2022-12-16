@@ -51,6 +51,23 @@
       "parentUuid": "f4924056_297654d4",
       "revId": "b35937754d4da8320ba36421839a19eea9e399a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e22aed5_948a2e1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-12-16T08:32:21Z",
+      "side": 1,
+      "message": "I am also a bit worried that the change might affect the time it takes to start recording. Many clients have metrics to track this and they will see it as a regression if time to start recording is increased.",
+      "revId": "b35937754d4da8320ba36421839a19eea9e399a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

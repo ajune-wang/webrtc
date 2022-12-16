@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4406bf3a_76ed7aff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2022-12-16T14:54:58Z",
+      "side": 1,
+      "message": "@kthelgason@webrtc.org I fixed the nit. If all is set could you help me land this?",
+      "parentUuid": "536aabd6_e6544b81",
+      "revId": "208fb446674e266bd3b92d71579b645878187f3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e1cf32f_eab01d65",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-12-16T10:46:32Z",
       "side": 1,
       "message": "nit: dot-notation for properties.",
+      "range": {
+        "startLine": 483,
+        "startChar": 71,
+        "endLine": 483,
+        "endChar": 97
+      },
+      "revId": "208fb446674e266bd3b92d71579b645878187f3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d55cbff_82f3cbca",
+        "filename": "sdk/objc/components/capturer/RTCCameraVideoCapturer.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2022-12-16T14:54:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e1cf32f_eab01d65",
       "range": {
         "startLine": 483,
         "startChar": 71,

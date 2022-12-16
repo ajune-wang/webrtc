@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc88a68_250f64aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-16T10:02:40Z",
+      "side": 1,
+      "message": "Looks good! (with nits)",
+      "revId": "714ed0e71d8afa5b696379939db43dfc9de4c44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "badfd958_0406326b",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-16T10:02:40Z",
+      "side": 1,
+      "message": "Drive-by: Should this refer to the GN style guide rather than the Chromium one?",
+      "revId": "714ed0e71d8afa5b696379939db43dfc9de4c44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f3cfe54_4e369572",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-16T10:02:40Z",
+      "side": 1,
+      "message": "Nit: clean up \"use Use\"",
+      "revId": "714ed0e71d8afa5b696379939db43dfc9de4c44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

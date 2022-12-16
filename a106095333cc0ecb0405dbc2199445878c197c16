@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab5264c7_6041ae80",
+        "filename": "api/test/mock_media_stream_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-16T08:22:39Z",
+      "side": 0,
+      "message": "Deleting this line will mean that declaring a variable of type \"MockAudioTrack\" will start compiling, since the default constructor is now public.\n\nIs that intentional? Shouldn\u0027t we rather force use of the Create method?",
+      "revId": "a106095333cc0ecb0405dbc2199445878c197c16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

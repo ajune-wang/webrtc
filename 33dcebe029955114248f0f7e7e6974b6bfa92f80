@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57939074_64939d22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-12-16T15:02:41Z",
+      "side": 1,
+      "message": "Could I please also ask that you add a test in `external/webrtc/sdk/objc/unittests/RTCCameraVideoCapturerTests.mm`? \n\nThanks!",
+      "revId": "33dcebe029955114248f0f7e7e6974b6bfa92f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

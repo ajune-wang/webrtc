@@ -496,7 +496,8 @@ RTCError FindDuplicateHeaderExtensionIds(
     std::map<int, RtpExtension>& id_to_extension) {
   auto existing_extension = id_to_extension.find(extension.id);
   if (existing_extension != id_to_extension.end() &&
-      extension != existing_extension->second) {
+      !(extension.uri == existing_extension->second.uri &&
+        extension.encrypt == existing_extension.encrypt)) {
     return RTCError(
         RTCErrorType::INVALID_PARAMETER,
         "A BUNDLE group contains a codec collision for "

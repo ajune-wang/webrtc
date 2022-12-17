@@ -492,7 +492,7 @@ RTCError ValidateBundledPayloadTypes(
 }
 
 RTCError FindDuplicateHeaderExtensionIds(
-    const RtpExtension extension,
+    const webrtc::RtpExtension extension,
     std::map<int, RtpExtension>& id_to_extension) {
   auto existing_extension = id_to_extension.find(extension.id);
   if (existing_extension != id_to_extension.end() &&

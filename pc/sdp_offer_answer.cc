@@ -491,23 +491,6 @@ RTCError ValidateBundledPayloadTypes(
   return RTCError::OK();
 }
 
-RTCError FindDuplicateHeaderExtensionIds(
-    const RtpExtension extension,
-    std::map<int, RtpExtension>& id_to_extension) {
-  auto existing_extension = id_to_extension.find(extension.id);
-  if (existing_extension != id_to_extension.end() &&
-      extension != existing_extension->second) {
-    return RTCError(
-        RTCErrorType::INVALID_PARAMETER,
-        "A BUNDLE group contains a codec collision for "
-        "header extension id='" +
-            rtc::ToString(extension.id) +
-            ". The id must be the same across all bundled media descriptions");
-  }
-  id_to_extension.insert(std::make_pair(extension.id, extension));
-  return RTCError::OK();
-}
-
 RTCError ValidateBundledRtpHeaderExtensions(
     const cricket::SessionDescription& description) {
   // https://www.rfc-editor.org/rfc/rfc8843#name-rtp-header-extensions-consi
@@ -525,12 +508,19 @@ RTCError ValidateBundledRtpHeaderExtensions(
                         "A BUNDLE group contains a MID='" + content_name +
                             "' matching no m= section.");
       }
-      for (const auto& extension : media_description->rtp_header_extensions()) {
-        auto error =
-            FindDuplicateHeaderExtensionIds(extension, id_to_extension);
-        if (!error.ok()) {
-          return error;
+      for (const RtpExtension& extension :
+           media_description->rtp_header_extensions()) {
+        auto existing_extension = id_to_extension.find(extension.id);
+        if (existing_extension != id_to_extension.end() &&
+            extension != existing_extension->second) {
+          return RTCError(RTCErrorType::INVALID_PARAMETER,
+                          "A BUNDLE group contains a codec collision for "
+                          "header extension id='" +
+                              rtc::ToString(extension.id) +
+                              ". The id must be the same across all bundled "
+                              "media descriptions");
         }
+        id_to_extension.insert(std::make_pair(extension.id, extension));
       }
     }
   }

@@ -494,7 +494,8 @@ RTCError ValidateBundledPayloadTypes(
 RTCError FindDuplicateHeaderExtensionIds(
     const RtpExtension extension,
     std::map<int, RtpExtension>& id_to_extension) {
-  auto existing_extension = id_to_extension.find(extension.id);
+  std::map<int, RtpExtension>::iterator existing_extension =
+      id_to_extension.find(extension.id);
   if (existing_extension != id_to_extension.end() &&
       extension != existing_extension->second) {
     return RTCError(

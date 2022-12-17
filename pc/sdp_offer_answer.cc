@@ -525,7 +525,8 @@ RTCError ValidateBundledRtpHeaderExtensions(
                         "A BUNDLE group contains a MID='" + content_name +
                             "' matching no m= section.");
       }
-      for (const auto& extension : media_description->rtp_header_extensions()) {
+      for (const RtpExtension& extension :
+           media_description->rtp_header_extensions()) {
         auto error =
             FindDuplicateHeaderExtensionIds(extension, id_to_extension);
         if (!error.ok()) {

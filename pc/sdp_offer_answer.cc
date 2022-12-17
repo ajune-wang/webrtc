@@ -493,7 +493,7 @@ RTCError ValidateBundledPayloadTypes(
 
 RTCError FindDuplicateHeaderExtensionIds(
     const RtpExtension extension,
-    std::map<int, RtpExtension>& id_to_extension) {
+    std::map<int, const RtpExtension>& id_to_extension) {
   auto existing_extension = id_to_extension.find(extension.id);
   if (existing_extension != id_to_extension.end() &&
       extension != existing_extension->second) {
@@ -516,7 +516,7 @@ RTCError ValidateBundledRtpHeaderExtensions(
   std::vector<const cricket::ContentGroup*> bundle_groups =
       description.GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);
   for (const cricket::ContentGroup* bundle_group : bundle_groups) {
-    std::map<int, RtpExtension> id_to_extension;
+    std::map<int, const RtpExtension> id_to_extension;
     for (const std::string& content_name : bundle_group->content_names()) {
       const cricket::MediaContentDescription* media_description =
           description.GetContentDescriptionByName(content_name);

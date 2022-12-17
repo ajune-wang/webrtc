@@ -496,7 +496,7 @@ RTCError FindDuplicateHeaderExtensionIds(
     std::map<int, RtpExtension>& id_to_extension) {
   auto existing_extension = id_to_extension.find(extension.id);
   if (existing_extension != id_to_extension.end() &&
-      extension != existing_extension->second) {
+      extension.uri != existing_extension->second.uri) {
     return RTCError(
         RTCErrorType::INVALID_PARAMETER,
         "A BUNDLE group contains a codec collision for "
@@ -525,7 +525,8 @@ RTCError ValidateBundledRtpHeaderExtensions(
                         "A BUNDLE group contains a MID='" + content_name +
                             "' matching no m= section.");
       }
-      for (const auto& extension : media_description->rtp_header_extensions()) {
+      for (const RtpExtension& extension :
+           media_description->rtp_header_extensions()) {
         auto error =
             FindDuplicateHeaderExtensionIds(extension, id_to_extension);
         if (!error.ok()) {

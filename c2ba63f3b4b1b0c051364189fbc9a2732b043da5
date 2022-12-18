@@ -16,6 +16,23 @@
       "message": "I don\u0027t understand the error yet but until adding direction this should be ok",
       "revId": "c2ba63f3b4b1b0c051364189fbc9a2732b043da5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81fb6d63_7f30ab41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-18T11:04:12Z",
+      "side": 1,
+      "message": "I suppose this is because Fuchsia isusing a compiler that doesn\u0027t auto-create the !\u003d operator when the \u003d\u003d operator is defined?\n\nWould it be cleaner to solve this issue by defining the !\u003d operator?\nOtherwise, this will break if the extension class grows another way to be non-equivalent besides URI and Encrypt.\n\n(The \u003d\u003d operator skips the \"id\" field.)",
+      "revId": "c2ba63f3b4b1b0c051364189fbc9a2732b043da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

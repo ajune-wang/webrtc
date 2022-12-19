@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03808c8_add80f31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12419
+      },
+      "writtenOn": "2022-12-19T09:54:31Z",
+      "side": 1,
+      "message": "You are mush faster than me ^^. Thank you!",
+      "revId": "4cc058fc1a00d986e87c2517098dee79e7629a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2b53adf_33476b16",
+        "filename": "infra/config/luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 12419
+      },
+      "writtenOn": "2022-12-19T09:54:31Z",
+      "side": 1,
+      "message": "This one seems unrelated. Isn\u0027t it?",
+      "revId": "4cc058fc1a00d986e87c2517098dee79e7629a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

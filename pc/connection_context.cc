@@ -165,23 +165,15 @@ ConnectionContext::ConnectionContext(
   network_thread_->SetDispatchWarningMs(10);
 
   if (media_engine_) {
-    // TODO(tommi): Change VoiceEngine to do ctor time initialization so that
-    // this isn't necessary.
-    worker_thread_->BlockingCall([&] { media_engine_->Init(); });
+    worker_thread_->PostTask(
+        [media_engine = media_engine_.get()] { media_engine->Init(); });
   }
 }
 
 ConnectionContext::~ConnectionContext() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  worker_thread_->BlockingCall([&] {
-    RTC_DCHECK_RUN_ON(worker_thread());
-    // While `media_engine_` is const throughout the ConnectionContext's
-    // lifetime, it requires destruction to happen on the worker thread. Instead
-    // of marking the pointer as non-const, we live with this const_cast<> in
-    // the destructor.
-    const_cast<std::unique_ptr<cricket::MediaEngineInterface>&>(media_engine_)
-        .reset();
-  });
+  // `media_engine_` requires destruction to happen on the worker thread.
+  worker_thread_->PostTask([media_engine = std::move(media_engine_)] {});
 
   // Make sure `worker_thread()` and `signaling_thread()` outlive
   // `default_socket_factory_` and `default_network_manager_`.

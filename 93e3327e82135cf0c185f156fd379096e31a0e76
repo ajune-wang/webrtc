@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2cb8d6_67a74551",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-12-20T17:17:54Z",
+      "side": 1,
+      "message": "I\u0027m not sure how useful this metric actually ends up being, so I\u0027d like some more information; but it\u0027s probably better to set the value even if it doesn\u0027t mean too much, so LGTM/AS",
+      "revId": "93e3327e82135cf0c185f156fd379096e31a0e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3b9c7d_de2a2f06",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-12-20T17:17:54Z",
+      "side": 1,
+      "message": "FWIW, I don\u0027t expect this number to be very large, as under the hood it\u0027s essentially just copying a handful of pointers/moving a few small data members from the queue which gets populated asynchronously. (Though I guess there could be spikes if we can\u0027t get the queue lock...). Is your implementation different than the one here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;drc\u003d9e36135da3517cf436c147a8cf347a188d71f585;l\u003d585 ?",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "93e3327e82135cf0c185f156fd379096e31a0e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

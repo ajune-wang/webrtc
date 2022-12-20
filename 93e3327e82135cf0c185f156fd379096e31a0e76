@@ -39,6 +39,30 @@
       },
       "revId": "93e3327e82135cf0c185f156fd379096e31a0e76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b650fc47_31434d13",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-12-20T18:11:54Z",
+      "side": 1,
+      "message": "You are right. I don\u0027t expect to see a big number either but this is just to ensure that the telemetry is at parity with X11. The desktop capturer implementation is essentially the same as the shared screencast capturer you pointed out.\n\nOn a 5k2k display, I am seeing 0-3 ms as capture latency on wayland. (This is in contrast to ~15-25 ms with X11 since X11 capture method process few X events as well during the capture).",
+      "parentUuid": "0d3b9c7d_de2a2f06",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "93e3327e82135cf0c185f156fd379096e31a0e76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

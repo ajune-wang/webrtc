@@ -69,6 +69,24 @@
       "parentUuid": "287acdb2_f9414eaf",
       "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc77f058_5ab52a64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-21T12:39:47Z",
+      "side": 1,
+      "message": "Yep, it did break internal bots. \nThe tests are in the webrtc repository.\n\nThis is the failure output:\n```\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 1 test from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 1 test from VideoQualityMeetPcTraceBasedTest\n[ RUN      ] VideoQualityMeetPcTraceBasedTest.PeerConnectionLevel_Bridge360p30\n(field_trial.cc:159): Setting field trial string:WebRTC-Bwe-ReceiverLimitCapsOnly/Enabled/WebRTC-VP8-Postproc-Config/Enabled-8,30,60/WebRTC-VP9-PerformanceFlags/use_per_layer_speed,min_pixel_count:0|129600,base_layer_speed:5|7,high_layer_speed:8|8,deblock_mode:1|0/WebRTC-VP8ConferenceTemporalLayers/2_V1/\nNo trace filename provided. Running as unittest with default test_500kbps.dat_send\n\n\n#\n# Fatal error in: third_party/webrtc/files/stable/webrtc/test/pc/e2e/peer_connection_quality_test.cc, line 460\n# last system error: 0\n# Check failed: transceiver-\u003ereceiver()-\u003estream_ids().size() \u003d\u003d 2 (1 vs. 2)\n# Expected 2 stream ids: 1st - sync group, 2nd - unique stream label*** SIGABRT received at time\u003d1671623011 on cpu 7 ***\nPC: @     0x7fb9f948d347  (unknown)  gsignal\n    @     0x7fba7a780664        192  absl::WriteFailureInfo()\n    @     0x7fba7a78044a         64  absl::AbslFailureSignalHandler()\n    @     0x7fba3961e1c0       3776  (unknown)\n    @     0x7fba27182f56         48  rtc::webrtc_checks_impl::WriteFatalLog()\n    @     0x7fba271835d6        352  rtc::webrtc_checks_impl::FatalLog()\n    @     0x7fbb0de323b9        288  webrtc::webrtc_pc_e2e::PeerConnectionE2EQualityTest::OnTrackCallback()\n    @     0x7fbb0de34d07        176  std::__u::__function::__policy_invoker\u003c\u003e::__call_impl\u003c\u003e()\n    @     0x7fbb0de34b54         64  webrtc::webrtc_pc_e2e::(anonymous namespace)::FixturePeerConnectionObserver::OnTrack()\n    @     0x7fbae5df0858        480  webrtc::SdpOfferAnswerHandler::ApplyRemoteDescriptionUpdateTransceiverState()\n    @     0x7fbae5def7ee        160  webrtc::SdpOfferAnswerHandler::ApplyRemoteDescription()\n    @     0x7fbae5df8de5        112  webrtc::SdpOfferAnswerHandler::DoSetRemoteDescription()\n    @     0x7fbae5e07ce9        176  rtc::rtc_operations_chain_internal::OperationWithFunctor\u003c\u003e::Run()\n    @     0x7fbae5def0d5        144  webrtc::SdpOfferAnswerHandler::SetRemoteDescription()\n    @     0x7fbae6e76f62         80  webrtc::PeerConnection::SetRemoteDescription()\n    @     0x7fbaecb773d3         80  webrtc::MethodCall\u003c\u003e::Marshal()\n    @     0x7fbaecb736a6        192  webrtc::PeerConnectionProxyWithInternal\u003c\u003e::SetRemoteDescription()\n    @     0x7fbb030f3476        176  webrtc::webrtc_pc_e2e::TestPeer::SetRemoteDescription()\n    @     0x7fbb0de33777         80  webrtc::webrtc_pc_e2e::PeerConnectionE2EQualityTest::ExchangeOfferAnswer()\n    @     0x7fba41436766        160  rtc::Thread::Dispatch()\n    @     0x7fba41434b23        144  rtc::Thread::ProcessMessages()\n    @     0x7fba41436e41         32  rtc::Thread::PreRun()\n    @     0x7fba396147d9        192  start_thread\n    @     0x7fb9f955169f  (unknown)  clone\n```",
+      "parentUuid": "b22c15ab_1fc32367",
+      "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

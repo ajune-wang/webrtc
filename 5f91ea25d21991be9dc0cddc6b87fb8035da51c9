@@ -16,6 +16,24 @@
       "message": "Looks like you found a requirement for sync_group not being null if stream duplicates are being eliminated. Hard to say why that is a requirement from the code changes here, but I guess it\u0027s true. Wonder why.",
       "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9e7aed7_cb89cbd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-21T08:13:12Z",
+      "side": 1,
+      "message": "the tests use the second stream id to transport the sync group. Now why they do that is a bit unclear to me since sync is always based on same-mediastream...",
+      "parentUuid": "c4778710_b76c1b57",
+      "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

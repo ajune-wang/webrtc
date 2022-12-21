@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "021ff2ec_0001614c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-12-21T11:44:58Z",
+      "side": 1,
+      "message": "There might potentially possibly maaaaybe be a usecase for these functions, but ehh... if we need them they are easy to add back later.",
+      "revId": "9598d204d4781e135b2396c733068c165ed19b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

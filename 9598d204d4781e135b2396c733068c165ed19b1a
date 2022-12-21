@@ -16,6 +16,23 @@
       "message": "There might potentially possibly maaaaybe be a usecase for these functions, but ehh... if we need them they are easy to add back later.",
       "revId": "9598d204d4781e135b2396c733068c165ed19b1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84c77b8_a49b0fdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-12-21T11:45:23Z",
+      "side": 1,
+      "message": "If they\u0027re unused, no reason to keep. If we need them later, they should be simple to add back.",
+      "revId": "9598d204d4781e135b2396c733068c165ed19b1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

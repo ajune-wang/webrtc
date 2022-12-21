@@ -87,6 +87,24 @@
       "parentUuid": "b22c15ab_1fc32367",
       "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018f1d03_344c3916",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-21T13:00:57Z",
+      "side": 1,
+      "message": "The dcheck is in the webrtc repo but the test that needs fixing is not.\nCan you check the internal test VideoQualityMeetPcTraceBasedTest and see if it sets stream_label without setting sync_group?\n\nIf there are too many of them I can try defaulting the sync_group to stream_id + \"-sync\" in the next attempt.",
+      "parentUuid": "fc77f058_5ab52a64",
+      "revId": "5f91ea25d21991be9dc0cddc6b87fb8035da51c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

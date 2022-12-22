@@ -16,6 +16,52 @@
       "message": "This was subtly wrong. With libwebrtc on the other side this should have no impact since typically there would be a receiver report for the RTX ssrc for the probes already.",
       "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21afbad6_439efeb6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T15:31:06Z",
+      "side": 1,
+      "message": "probably (send_mid_rid || send_mid_rid_on_rtx) \u0026\u0026 !mid_.empty()",
+      "range": {
+        "startLine": 766,
+        "startChar": 14,
+        "endLine": 766,
+        "endChar": 26
+      },
+      "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c821473_b5956869",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T15:31:06Z",
+      "side": 1,
+      "message": "until ssrc is acked, rrid might need to be sent together with mid (rrid alone might not be enough to associate rtx ssrc)",
+      "range": {
+        "startLine": 948,
+        "startChar": 5,
+        "endLine": 948,
+        "endChar": 9
+      },
+      "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

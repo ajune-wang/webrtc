@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca7186d_c111e835",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-22T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21afbad6_439efeb6",
+      "range": {
+        "startLine": 766,
+        "startChar": 14,
+        "endLine": 766,
+        "endChar": 26
+      },
+      "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c821473_b5956869",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-12-22T15:31:06Z",
       "side": 1,
       "message": "until ssrc is acked, rrid might need to be sent together with mid (rrid alone might not be enough to associate rtx ssrc)",
+      "range": {
+        "startLine": 948,
+        "startChar": 5,
+        "endLine": 948,
+        "endChar": 9
+      },
+      "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85080ad2_b5b548b4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-22T15:58:25Z",
+      "side": 1,
+      "message": "Hm... if the main ssrc is ack\u0027d there is an association for the rid and mid to the primary ssrc on the other side so theoretically mid should no longer be required.\nBut https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_sender.cc;l\u003d674?q\u003drtp_sender.cc shows that both mid and rrid are sent if the rtx ssrc has not been acked so you\u0027re right.\n(and not sending MID would be more convoluted anyway!)",
+      "parentUuid": "8c821473_b5956869",
       "range": {
         "startLine": 948,
         "startChar": 5,

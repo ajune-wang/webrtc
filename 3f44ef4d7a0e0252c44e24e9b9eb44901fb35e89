@@ -134,6 +134,30 @@
       },
       "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84016bed_6d614ef5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-22T16:26:20Z",
+      "side": 1,
+      "message": "rid and rrid have the same value so (with an example using multiple rids in a single mid):\nmid\u003d\u0027a\u0027\nrid\u003d\u0027low\u0027\nrrid\u003d\u0027low\u0027\nrid\u003d\u0027high\u0027\nrrid\u003d\u0027high\u0027\n\nmid\u003da rid\u003dlow means ssrc\u003d123\nmid\u003da rid\u003dhigh means ssrc\u003d124\nwhen receiving\nssrc\u003d222, (nomid) rrid\u003dlow...\nthis would look for the rid\u003dlow and find mid\u003da.\n\nHowever, https://datatracker.ietf.org/doc/html/rfc8852#section-3 says that rids are only unique within the context of a mid so one always needs mid.",
+      "parentUuid": "b2f8952e_aeee44fb",
+      "range": {
+        "startLine": 948,
+        "startChar": 5,
+        "endLine": 948,
+        "endChar": 9
+      },
+      "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

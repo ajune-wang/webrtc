@@ -43,6 +43,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2715f793_6b6a58f6",
+        "filename": "modules/rtp_rtcp/include/recovered_packet_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T12:04:21Z",
+      "side": 1,
+      "message": "RTC_DCHECK_NOTREACHED()",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "753aa1d0_8945b95e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T12:04:21Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\n“A blank line before a comment line usually helps readability”",
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6e07e69_999382a9",
         "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
         "patchSetId": 1
@@ -83,6 +123,46 @@
         "endLine": 211,
         "endChar": 68
       },
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79a38ea2_5016b2d2",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T12:04:21Z",
+      "side": 1,
+      "message": "that is the same as `packet-\u003edata.Clear();`\n\nor, may be even cleaner:\n```\nif (!rtp_packet.Parse(std::move(packet-\u003edata))) { ...\n}\n...\nrtp_packet.ZeroMutableExtensions();\npacket-\u003edata \u003d rtp_packet.Buffer();\n```",
+      "range": {
+        "startLine": 213,
+        "startChar": 6,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fadf93c_a9fea90b",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T12:04:21Z",
+      "side": 1,
+      "message": "why `last_recovered...` is set when `!packet-\u003eis_recovered` ?",
       "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

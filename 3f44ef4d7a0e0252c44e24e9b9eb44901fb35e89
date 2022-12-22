@@ -110,6 +110,30 @@
       },
       "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f8952e_aeee44fb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-12-22T16:07:08Z",
+      "side": 1,
+      "message": "My theoretical view that if there are two m lines each with 2 rids/two rtp streams:\nmid\u003d\u0027a\u0027\nrid\u003d\u0027media\u0027\nrid\u003d\u0027repair\u0027\nmid\u003d\u0027b\u0027\nrid\u003d\u0027media\u0027\nrid\u003d\u0027repair\u0027\n\nThen receiver might know that\nmid\u003d\u0027a\u0027, rid\u003d\u0027media\u0027 means ssrc \u003d 123\nmid\u003d\u0027b\u0027, rid\u003d\u0027media\u0027 means ssrc \u003d 124\nbut if then receives \nssrc\u003d222, (nomid), rid\u003d\u0027repair\u0027, rrid\u003d\u0027media\u0027, then it wouldn\u0027t know if that repair packet is for ssrc\u003d123 or ssrc\u003d124.",
+      "parentUuid": "85080ad2_b5b548b4",
+      "range": {
+        "startLine": 948,
+        "startChar": 5,
+        "endLine": 948,
+        "endChar": 9
+      },
+      "revId": "3f44ef4d7a0e0252c44e24e9b9eb44901fb35e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

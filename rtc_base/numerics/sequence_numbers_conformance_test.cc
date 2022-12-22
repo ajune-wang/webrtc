@@ -14,7 +14,7 @@
 
 #include "modules/include/module_common_types_public.h"
 #include "net/dcsctp/common/sequence_numbers.h"
-#include "rtc_base/numerics/sequence_number_util.h"
+#include "rtc_base/numerics/sequence_number_unwrapper.h"
 #include "rtc_base/strong_alias.h"
 #include "rtc_base/time_utils.h"
 #include "test/gmock.h"
@@ -165,7 +165,7 @@ constexpr int64_t k15BitMax = (int64_t{1} << 15) - 1;
 using UnwrapperTypes = ::testing::Types<
     FixtureParams<rtc::TimestampWrapAroundHandler>,
     FixtureParams<webrtc::TimestampUnwrapper>,
-    FixtureParams<webrtc::SeqNumUnwrapper<uint32_t>>,
+    FixtureParams<webrtc::RtpTimestampUnwrapper>,
     FixtureParams<UnwrapperHelper<TestSequence::Unwrapper>>,
     // SeqNumUnwrapper supports arbitrary limits.
     FixtureParams<webrtc::SeqNumUnwrapper<uint32_t, k15BitMax + 1>, k15BitMax>>;

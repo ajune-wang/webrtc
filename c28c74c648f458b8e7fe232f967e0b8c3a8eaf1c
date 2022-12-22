@@ -33,6 +33,24 @@
       "message": "This file seems to have the wrong name. Since the only thing it does is to define RtpTimestampUnwrapper, I think it should be called rtp_time_unwrapper.\n\nIf the point of the file is that you want to have all the using statements for the various SeqNumUnwrapper usages here, please add a comment saying that.",
       "revId": "c28c74c648f458b8e7fe232f967e0b8c3a8eaf1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea6d05f_b69830f8",
+        "filename": "rtc_base/numerics/sequence_number_unwrapper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-12-22T08:43:22Z",
+      "side": 1,
+      "message": "I will amend this patch to include all changes required for removing all other unwrappers instead of just this one. Stay tuned.",
+      "parentUuid": "d1fba987_43a585a2",
+      "revId": "c28c74c648f458b8e7fe232f967e0b8c3a8eaf1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

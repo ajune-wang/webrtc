@@ -16,6 +16,92 @@
       "message": "Please?",
       "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53742c08_7ac9bdd8",
+        "filename": "modules/rtp_rtcp/include/recovered_packet_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-22T11:37:14Z",
+      "side": 1,
+      "message": "nit: RecoveredPacketsReceiver",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6e07e69_999382a9",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-22T11:37:14Z",
+      "side": 1,
+      "message": "Mention that packet-\u003edata is set to a new empty buffer to release an extra reference to COW buffer.",
+      "range": {
+        "startLine": 209,
+        "startChar": 69,
+        "endLine": 210,
+        "endChar": 13
+      },
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6af23c_f324456a",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-22T11:37:14Z",
+      "side": 1,
+      "message": "a copy of Copy-On-Write buffer will ...",
+      "range": {
+        "startLine": 211,
+        "startChar": 59,
+        "endLine": 211,
+        "endChar": 68
+      },
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3a0b4f_d71fdf6c",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-12-22T11:37:14Z",
+      "side": 1,
+      "message": "Can this be moved to the .cc file?",
+      "revId": "9f42c516ca49e91f7b84c333e6f04777b318db93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -171,13 +171,6 @@ void RemoveSsrcsAndMsids(cricket::SessionDescription* desc);
 // endpoint that only signals a=msid lines to convey stream_ids.
 void RemoveSsrcsAndKeepMsids(cricket::SessionDescription* desc);
 
-// TODO(https://crbug.com/webrtc/14175): Stop depending on "track" stats, the
-// metrics we're interested in are already available in "inbound-rtp".
-int FindFirstMediaStatsIndexByKind(
-    const std::string& kind,
-    const std::vector<const webrtc::DEPRECATED_RTCMediaStreamTrackStats*>&
-        media_stats_vec);
-
 class TaskQueueMetronome : public webrtc::Metronome {
  public:
   explicit TaskQueueMetronome(TimeDelta tick_period);
@@ -654,7 +647,6 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
         received_stats->GetStatsOfType<webrtc::RTCInboundRTPStreamStats>()[0];
     ASSERT_TRUE(rtp_stats->relative_packet_arrival_delay.is_defined());
     ASSERT_TRUE(rtp_stats->packets_received.is_defined());
-    ASSERT_TRUE(rtp_stats->track_id.is_defined());
     rtp_stats_id_ = rtp_stats->id();
     audio_packets_stat_ = *rtp_stats->packets_received;
     audio_delay_stat_ = *rtp_stats->relative_packet_arrival_delay;

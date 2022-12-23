@@ -44,18 +44,6 @@ void RemoveSsrcsAndKeepMsids(cricket::SessionDescription* desc) {
   }
 }
 
-int FindFirstMediaStatsIndexByKind(
-    const std::string& kind,
-    const std::vector<const webrtc::DEPRECATED_RTCMediaStreamTrackStats*>&
-        media_stats_vec) {
-  for (size_t i = 0; i < media_stats_vec.size(); i++) {
-    if (media_stats_vec[i]->kind.ValueToString() == kind) {
-      return i;
-    }
-  }
-  return -1;
-}
-
 TaskQueueMetronome::TaskQueueMetronome(TimeDelta tick_period)
     : tick_period_(tick_period) {
   sequence_checker_.Detach();

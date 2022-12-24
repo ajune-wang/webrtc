@@ -191,12 +191,6 @@ class RTCStatsCollector : public rtc::RefCountInterface,
           transport_stats_by_name,
       const Call::Stats& call_stats,
       RTCStatsReport* report) const;
-  // Produces `RTCMediaStreamStats`.
-  void ProduceMediaStreamStats_s(int64_t timestamp_us,
-                                 RTCStatsReport* report) const;
-  // Produces `RTCMediaStreamTrackStats`.
-  void ProduceMediaStreamTrackStats_s(int64_t timestamp_us,
-                                      RTCStatsReport* report) const;
   // Produces RTCMediaSourceStats, including RTCAudioSourceStats and
   // RTCVideoSourceStats.
   void ProduceMediaSourceStats_s(int64_t timestamp_us,

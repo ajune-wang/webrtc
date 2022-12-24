@@ -69,15 +69,6 @@ class TrackMediaInfoMap {
     return video_media_info_;
   }
 
-  const std::vector<cricket::VoiceSenderInfo*>* GetVoiceSenderInfos(
-      const AudioTrackInterface& local_audio_track) const;
-  const cricket::VoiceReceiverInfo* GetVoiceReceiverInfo(
-      const AudioTrackInterface& remote_audio_track) const;
-  const std::vector<cricket::VideoSenderInfo*>* GetVideoSenderInfos(
-      const VideoTrackInterface& local_video_track) const;
-  const cricket::VideoReceiverInfo* GetVideoReceiverInfo(
-      const VideoTrackInterface& remote_video_track) const;
-
   const cricket::VoiceSenderInfo* GetVoiceSenderInfoBySsrc(uint32_t ssrc) const;
   const cricket::VoiceReceiverInfo* GetVoiceReceiverInfoBySsrc(
       uint32_t ssrc) const;
@@ -105,18 +96,6 @@ class TrackMediaInfoMap {
   bool is_initialized_ = false;
   absl::optional<cricket::VoiceMediaInfo> voice_media_info_;
   absl::optional<cricket::VideoMediaInfo> video_media_info_;
-  // These maps map tracks (identified by a pointer) to their corresponding info
-  // object of the correct kind. One track can map to multiple info objects.
-  // Known tracks are guaranteed to be alive because they are also stored as
-  // entries in the reverse maps below.
-  std::map<const AudioTrackInterface*, std::vector<cricket::VoiceSenderInfo*>>
-      voice_infos_by_local_track_;
-  std::map<const AudioTrackInterface*, cricket::VoiceReceiverInfo*>
-      voice_info_by_remote_track_;
-  std::map<const VideoTrackInterface*, std::vector<cricket::VideoSenderInfo*>>
-      video_infos_by_local_track_;
-  std::map<const VideoTrackInterface*, cricket::VideoReceiverInfo*>
-      video_info_by_remote_track_;
   // These maps map info objects to their corresponding tracks. They are always
   // the inverse of the maps above. One info object always maps to only one
   // track. The use of scoped_refptr<> here ensures the tracks outlive

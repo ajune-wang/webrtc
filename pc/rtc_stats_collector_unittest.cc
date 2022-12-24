@@ -3887,10 +3887,10 @@ TEST_F(RTCStatsCollectorTest, GetStatsWithNullReceiverSelector) {
   EXPECT_EQ(empty_report->size(), 0u);
 }
 
-// When the PC has not had SetLocalDescription done, tracks all have
-// SSRC 0, meaning "unconnected".
-// In this state, we report on track stats, but not RTP stats.
-TEST_F(RTCStatsCollectorTest, StatsReportedOnZeroSsrc) {
+// Before SetLocalDescription, senders don't have an SSRC. To simulate this case
+// we create a mock sender with SSRC=0.
+// - In this state, we report on track stats, but not RTP stats.
+TEST_F(RTCStatsCollectorTest, WeHaveTrackButNotRtpWhenSsrcIsZero) {
   rtc::scoped_refptr<MediaStreamTrackInterface> track =
       CreateFakeTrack(cricket::MEDIA_TYPE_AUDIO, "audioTrack",
                       MediaStreamTrackInterface::kLive);
@@ -3901,16 +3901,17 @@ TEST_F(RTCStatsCollectorTest, StatsReportedOnZeroSsrc) {
 
   rtc::scoped_refptr<const RTCStatsReport> report = stats_->GetStatsReport();
 
-  std::vector<const DEPRECATED_RTCMediaStreamTrackStats*> track_stats =
-      report->GetStatsOfType<DEPRECATED_RTCMediaStreamTrackStats>();
-  EXPECT_EQ(1U, track_stats.size());
-
-  std::vector<const RTCRTPStreamStats*> rtp_stream_stats =
-      report->GetStatsOfType<RTCRTPStreamStats>();
-  EXPECT_EQ(0U, rtp_stream_stats.size());
+  auto tracks = report->GetStatsOfType<DEPRECATED_RTCMediaStreamTrackStats>();
+  EXPECT_EQ(1U, tracks.size());
+  auto outbound_rtps = report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  EXPECT_TRUE(outbound_rtps.empty());
 }
 
-TEST_F(RTCStatsCollectorTest, DoNotCrashOnSsrcChange) {
+// After SetLocalDescription but before SetRemoteDescription, we may have an
+// SSRC but still not be connected or have any `voice_sender_info` stats. This
+// test exercise this path to ensure we don't crash, but we don't have any RTP
+// stats.
+TEST_F(RTCStatsCollectorTest, DoNotCrashOnSsrcIsKnownButStatsAreMissing) {
   rtc::scoped_refptr<MediaStreamTrackInterface> track =
       CreateFakeTrack(cricket::MEDIA_TYPE_AUDIO, "audioTrack",
                       MediaStreamTrackInterface::kLive);
@@ -3925,6 +3926,8 @@ TEST_F(RTCStatsCollectorTest, DoNotCrashOnSsrcChange) {
   std::vector<const DEPRECATED_RTCMediaStreamTrackStats*> track_stats =
       report->GetStatsOfType<DEPRECATED_RTCMediaStreamTrackStats>();
   EXPECT_EQ(1U, track_stats.size());
+  auto outbound_rtps = report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  EXPECT_TRUE(outbound_rtps.empty());
 }
 
 // Used for test below, to test calling GetStatsReport during a callback.

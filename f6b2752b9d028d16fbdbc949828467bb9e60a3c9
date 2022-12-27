@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fac9d9_607ad980",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-12-27T17:18:04Z",
+      "side": 1,
+      "message": "not expressing an opinion on the string argument ;-)\n\nI thought it would be ok to have deprecated stuff in Chrome so maybe it is just the FYI bot that fails to compile here?",
+      "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

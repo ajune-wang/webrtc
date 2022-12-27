@@ -37,7 +37,6 @@
 #include "absl/cleanup/cleanup.h"
 #include "api/sequence_checker.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/deprecated/recursive_critical_section.h"
 #include "rtc_base/event.h"
 #include "rtc_base/internal/default_socket_server.h"
 #include "rtc_base/logging.h"
@@ -81,23 +80,23 @@ using ::webrtc::TimeDelta;
 
 class RTC_SCOPED_LOCKABLE MarkProcessingCritScope {
  public:
-  MarkProcessingCritScope(const RecursiveCriticalSection* cs,
-                          size_t* processing) RTC_EXCLUSIVE_LOCK_FUNCTION(cs)
+  MarkProcessingCritScope(webrtc::Mutex* cs, size_t* processing)
+      RTC_EXCLUSIVE_LOCK_FUNCTION(cs)
       : cs_(cs), processing_(processing) {
-    cs_->Enter();
+    cs_->Lock();
     *processing_ += 1;
   }
 
   ~MarkProcessingCritScope() RTC_UNLOCK_FUNCTION() {
     *processing_ -= 1;
-    cs_->Leave();
+    cs_->Unlock();
   }
 
   MarkProcessingCritScope(const MarkProcessingCritScope&) = delete;
   MarkProcessingCritScope& operator=(const MarkProcessingCritScope&) = delete;
 
  private:
-  const RecursiveCriticalSection* const cs_;
+  webrtc::Mutex* const cs_;
   size_t* processing_;
 };
 
@@ -118,7 +117,7 @@ void ThreadManager::Add(Thread* message_queue) {
   return Instance()->AddInternal(message_queue);
 }
 void ThreadManager::AddInternal(Thread* message_queue) {
-  CritScope cs(&crit_);
+  MutexLock cs(&crit_);
   // Prevent changes while the list of message queues is processed.
   RTC_DCHECK_EQ(processing_, 0);
   message_queues_.push_back(message_queue);
@@ -130,7 +129,7 @@ void ThreadManager::Remove(Thread* message_queue) {
 }
 void ThreadManager::RemoveInternal(Thread* message_queue) {
   {
-    CritScope cs(&crit_);
+    MutexLock cs(&crit_);
     // Prevent changes while the list of message queues is processed.
     RTC_DCHECK_EQ(processing_, 0);
     std::vector<Thread*>::iterator iter;
@@ -161,7 +160,7 @@ void ThreadManager::RegisterSendAndCheckForCycles(Thread* source,
   RTC_DCHECK(source);
   RTC_DCHECK(target);
 
-  CritScope cs(&crit_);
+  MutexLock cs(&crit_);
   std::deque<Thread*> all_targets({target});
   // We check the pre-existing who-sends-to-who graph for any path from target
   // to source. This loop is guaranteed to terminate because per the send graph

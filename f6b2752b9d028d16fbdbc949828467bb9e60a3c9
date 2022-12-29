@@ -16,6 +16,40 @@
       "message": "not expressing an opinion on the string argument ;-)\n\nI thought it would be ok to have deprecated stuff in Chrome so maybe it is just the FYI bot that fails to compile here?",
       "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a80178_8fe029ae",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-12-29T11:11:45Z",
+      "side": 1,
+      "message": "This causes Chromium (third_party/blink/renderer/platform/peerconnection/rtc_stats.cc:191) to be sad, it doesn\u0027t want to compile with deprecated stuff.\n\nFor now remove [[deprecated]], then add it back in a follow-up or perhaps even delete it directly if all bots are happy, including internals_compile_lite",
+      "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26af18b9_77b70077",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-12-29T11:11:45Z",
+      "side": 1,
+      "message": "RTCCertificateStats(std::string id, Timestamp timestamp)\n\nI think you will need to keep this version of the old one for now and then deprecate/delete as a follow-up in order not to break internals compile:\n\nRTCCertificateStats(const std::string\u0026 id, int64_t timestamp_us)\n\nBut the std::string\u0026\u0026 version can be deleted directly.\nSame comment for all other stats object constructors.",
+      "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

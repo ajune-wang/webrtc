@@ -9,7 +9,6 @@
  */
 #include "common_video/test/utilities.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
-#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
@@ -32,7 +31,6 @@ constexpr uint8_t kSeqNumFirstByte = kSeqNum >> 8;
 constexpr uint8_t kSeqNumSecondByte = kSeqNum & 0xff;
 constexpr uint32_t kTimestamp = 0x65431278;
 constexpr uint8_t kTransmissionOffsetExtensionId = 1;
-constexpr uint8_t kDependencyDescriptorExtensionId = 2;
 constexpr uint8_t kAudioLevelExtensionId = 9;
 constexpr uint8_t kRtpStreamIdExtensionId = 0xa;
 constexpr uint8_t kRtpMidExtensionId = 0xb;
@@ -1239,17 +1237,6 @@ TEST(RtpPacketTest, RemoveExtensionFailure) {
   EXPECT_FALSE(packet.RemoveExtension(kRtpExtensionPlayoutDelay));
 
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
-}
-
-TEST(RtpPacketTest, SetExtensionWithArray) {
-  RtpPacketToSend::ExtensionManager extensions;
-  extensions.Register<RtpDependencyDescriptorExtension>(
-      kDependencyDescriptorExtensionId);
-  RtpPacketToSend packet(&extensions);
-  const uint8_t extension_data[] = {1, 2, 3, 4, 5};
-  packet.SetExtension(kRtpExtensionGenericFrameDescriptor02, extension_data);
-  EXPECT_THAT(packet.GetRawExtension<RtpDependencyDescriptorExtension>(),
-              ElementsAreArray(extension_data));
 }
 
 }  // namespace

@@ -62,6 +62,26 @@ uint64_t BitstreamReader::ReadBits(int bits) {
   return result;
 }
 
+std::vector<uint8_t> BitstreamReader::ReadBitArray(int bits) {
+  RTC_DCHECK_GE(bits, 0);
+  std::vector<uint8_t> res((bits + 7) / 8);
+
+  for (int i = 0; bits >= (i + 1) * 8; ++i) {
+    res[i] = Read<uint8_t>();
+  }
+
+  if (bits % 8 > 0) {
+    uint64_t rb = ReadBits(bits % 8);
+    res.back() = rb;
+  }
+
+  if (!Ok()) {
+    return {};
+  }
+
+  return res;
+}
+
 int BitstreamReader::ReadBit() {
   set_last_read_is_verified(false);
   --remaining_bits_;

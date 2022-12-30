@@ -30,7 +30,6 @@ class BitWriter final {
   explicit BitWriter(size_t byte_count)
       : buffer_(byte_count, '\0'),
         bit_writer_(reinterpret_cast<uint8_t*>(&buffer_[0]), buffer_.size()),
-        written_bits_(0),
         valid_(true) {
     RTC_DCHECK_GT(byte_count, 0);
   }
@@ -39,6 +38,8 @@ class BitWriter final {
   BitWriter& operator=(const BitWriter&) = delete;
 
   void WriteBits(uint64_t val, size_t bit_count);
+
+  void WriteExponentialGolomb(uint32_t val);
 
   void WriteBits(absl::string_view input);
 
@@ -49,10 +50,6 @@ class BitWriter final {
  private:
   std::string buffer_;
   rtc::BitBufferWriter bit_writer_;
-  // Note: Counting bits instead of bytes wraps around earlier than it has to,
-  // which means the maximum length is lower than it could be. We don't expect
-  // to go anywhere near the limit, though, so this is good enough.
-  size_t written_bits_;
   bool valid_;
 };
 

@@ -126,32 +126,49 @@ void ConvertRtpPacket(
   }
 
   // Set extensions.
-  if (incoming.rtp.header.extension.hasTransmissionTimeOffset)
-    reconstructed_packet.SetExtension<webrtc::TransmissionOffset>(
-        incoming.rtp.header.extension.transmissionTimeOffset);
-  if (incoming.rtp.header.extension.hasAbsoluteSendTime)
-    reconstructed_packet.SetExtension<webrtc::AbsoluteSendTime>(
-        incoming.rtp.header.extension.absoluteSendTime);
-  if (incoming.rtp.header.extension.hasTransportSequenceNumber)
-    reconstructed_packet.SetExtension<webrtc::TransportSequenceNumber>(
-        incoming.rtp.header.extension.transportSequenceNumber);
-  if (incoming.rtp.header.extension.hasAudioLevel)
-    reconstructed_packet.SetExtension<webrtc::AudioLevel>(
-        incoming.rtp.header.extension.voiceActivity,
-        incoming.rtp.header.extension.audioLevel);
-  if (incoming.rtp.header.extension.hasVideoRotation)
-    reconstructed_packet.SetExtension<webrtc::VideoOrientation>(
-        incoming.rtp.header.extension.videoRotation);
-  if (incoming.rtp.header.extension.hasVideoContentType)
-    reconstructed_packet.SetExtension<webrtc::VideoContentTypeExtension>(
-        incoming.rtp.header.extension.videoContentType);
-  if (incoming.rtp.header.extension.has_video_timing)
-    reconstructed_packet.SetExtension<webrtc::VideoTimingExtension>(
-        incoming.rtp.header.extension.video_timing);
+  if (incoming.rtp.header.extension.hasTransmissionTimeOffset) {
+    RTC_CHECK(reconstructed_packet.SetExtension<webrtc::TransmissionOffset>(
+        incoming.rtp.header.extension.transmissionTimeOffset));
+  }
 
-  RTC_DCHECK_EQ(reconstructed_packet.size(), incoming.rtp.header_length);
-  RTC_DCHECK_EQ(reconstructed_packet.headers_size(),
-                incoming.rtp.header_length);
+  if (incoming.rtp.header.extension.hasAbsoluteSendTime) {
+    RTC_CHECK(reconstructed_packet.SetExtension<webrtc::AbsoluteSendTime>(
+        incoming.rtp.header.extension.absoluteSendTime));
+  }
+
+  if (incoming.rtp.header.extension.hasTransportSequenceNumber) {
+    RTC_CHECK(
+        reconstructed_packet.SetExtension<webrtc::TransportSequenceNumber>(
+            incoming.rtp.header.extension.transportSequenceNumber));
+  }
+
+  if (incoming.rtp.header.extension.hasAudioLevel) {
+    RTC_CHECK(reconstructed_packet.SetExtension<webrtc::AudioLevel>(
+                  incoming.rtp.header.extension.voiceActivity),
+              incoming.rtp.header.extension.audioLevel);
+  }
+
+  if (incoming.rtp.header.extension.hasVideoRotation) {
+    RTC_CHECK(reconstructed_packet.SetExtension<webrtc::VideoOrientation>(
+        incoming.rtp.header.extension.videoRotation));
+  }
+
+  if (incoming.rtp.header.extension.hasVideoContentType) {
+    RTC_CHECK(
+        reconstructed_packet.SetExtension<webrtc::VideoContentTypeExtension>(
+            incoming.rtp.header.extension.videoContentType));
+  }
+
+  if (incoming.rtp.header.extension.has_video_timing) {
+    RTC_CHECK(reconstructed_packet.SetExtension<webrtc::VideoTimingExtension>(
+        incoming.rtp.header.extension.video_timing));
+  }
+  if (!incoming.rtp.dependency_descriptor_wire_format.empty()) {
+    RTC_CHECK(reconstructed_packet.SetExtension(
+        webrtc::kRtpExtensionGenericFrameDescriptor02,
+        incoming.rtp.dependency_descriptor_wire_format));
+  }
+
   memcpy(packet->data, reconstructed_packet.data(),
          reconstructed_packet.headers_size());
   packet->length = reconstructed_packet.headers_size();

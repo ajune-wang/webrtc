@@ -58,6 +58,11 @@ class BitstreamReader {
   // On failure sets `BitstreamReader` into the failure state and returns 0.
   ABSL_MUST_USE_RESULT uint64_t ReadBits(int bits);
 
+  // Reads `bits` from the bitstream. Return an array where the first read bit
+  // is placed in the LSB of the first byte of the array. On failure sets
+  // `BitstreamReader` into the failure state and returns an empty array.
+  ABSL_MUST_USE_RESULT std::vector<uint8_t> ReadBitArray(int bits);
+
   // Reads unsigned integer of fixed width.
   template <typename T,
             typename std::enable_if<std::is_unsigned<T>::value &&

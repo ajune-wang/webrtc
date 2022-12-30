@@ -136,6 +136,9 @@ class RtpPacket {
   template <typename Extension, typename... Values>
   bool SetExtension(const Values&...);
 
+  bool SetExtension(RTPExtensionType extension_type,
+                    rtc::ArrayView<const uint8_t> data);
+
   template <typename Extension>
   bool ReserveExtension();
 

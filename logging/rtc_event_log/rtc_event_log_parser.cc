@@ -36,6 +36,7 @@
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
+#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/checks.h"
@@ -353,6 +354,79 @@ ParsedRtcEventLog::ParseStatus StoreRtpPackets(
   RTC_PARSE_CHECK_OR_RETURN(proto.has_header_size());
   RTC_PARSE_CHECK_OR_RETURN(proto.has_padding_size());
 
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  const size_t total_packets = number_of_deltas + 1;
+
+  std::vector<std::vector<uint8_t>> dependency_descriptor_wire_format(
+      total_packets);
+  {
+    if (proto.has_dependency_descriptor()) {
+      const rtclog2::DependencyDescriptorsWireInfo& dd =
+          proto.dependency_descriptor();
+      std::vector<uint8_t> present_for_packet(total_packets, 0);
+      int num_present = 0;
+
+      if (dd.has_present()) {
+        // The `present` array is only set if not all packets had the DD.
+        BitstreamReader dd_present(dd.present());
+        RTC_PARSE_CHECK_OR_RETURN(dd_present.RemainingBitCount() >=
+                                  static_cast<int>(total_packets));
+        for (size_t i = 0; i < total_packets; ++i) {
+          uint8_t p = dd_present.ReadBit() ? 1 : 0;
+          present_for_packet[i] = p;
+          num_present += p;
+        }
+        RTC_PARSE_CHECK_OR_RETURN(num_present > 0);
+        RTC_PARSE_CHECK_OR_RETURN(dd_present.Ok());
+      } else {
+        for (size_t i = 0; i < total_packets; ++i) {
+          present_for_packet[i] = 1;
+        }
+        num_present = total_packets;
+      }
+
+      BitstreamReader start_end_bits(dd.start_end_bits());
+      auto template_ids =
+          DecodeDeltas(dd.template_ids(), absl::nullopt, num_present);
+      auto frame_ids = DecodeDeltas(dd.frame_ids(), absl::nullopt, num_present);
+
+      BitstreamReader extended_infos(dd.extended_infos());
+
+      int n = 0;
+      for (size_t i = 0; i < total_packets; ++i) {
+        if (!present_for_packet[i]) {
+          continue;
+        }
+
+        uint8_t begin_end_template_id = 0;
+        begin_end_template_id |= start_end_bits.ReadBit() << 7;
+        begin_end_template_id |= start_end_bits.ReadBit() << 6;
+        begin_end_template_id |= *template_ids[n];
+
+        uint8_t frame_id_high = static_cast<uint8_t>(*frame_ids[n] >> 8);
+        uint8_t frame_id_low = static_cast<uint8_t>(*frame_ids[n]);
+
+        uint32_t extended_size = extended_infos.ReadExponentialGolomb();
+
+        dependency_descriptor_wire_format[i].resize(3 + extended_size);
+        dependency_descriptor_wire_format[i][0] = begin_end_template_id;
+        dependency_descriptor_wire_format[i][1] = frame_id_high;
+        dependency_descriptor_wire_format[i][2] = frame_id_low;
+        if (extended_size > 0) {
+          std::vector<uint8_t> extended_info =
+              extended_infos.ReadBitArray(extended_size * 8);
+          uint8_t* src = extended_info.data();
+          uint8_t* dest = dependency_descriptor_wire_format[i].data() + 3;
+          memcpy(dest, src, extended_size);
+        }
+        ++n;
+      }
+      RTC_PARSE_CHECK_OR_RETURN(start_end_bits.Ok());
+      RTC_PARSE_CHECK_OR_RETURN(extended_infos.Ok());
+    }
+  }
+
   // Base event
   {
     RTPHeader header;
@@ -398,13 +472,16 @@ ParsedRtcEventLog::ParseStatus StoreRtpPackets(
     } else {
       RTC_PARSE_CHECK_OR_RETURN(!proto.has_voice_activity());
     }
-    (*rtp_packets_map)[header.ssrc].emplace_back(
+    LoggedType logged_packet(
         Timestamp::Millis(proto.timestamp_ms()), header, proto.header_size(),
         proto.payload_size() + header.headerLength + header.paddingLength);
+    if (!dependency_descriptor_wire_format[0].empty()) {
+      logged_packet.rtp.dependency_descriptor_wire_format =
+          dependency_descriptor_wire_format[0];
+    }
+    (*rtp_packets_map)[header.ssrc].push_back(std::move(logged_packet));
   }
 
-  const size_t number_of_deltas =
-      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
   if (number_of_deltas == 0) {
     return ParsedRtcEventLog::ParseStatus::Success();
   }
@@ -600,10 +677,15 @@ ParsedRtcEventLog::ParseStatus StoreRtpPackets(
       RTC_PARSE_CHECK_OR_RETURN(voice_activity_values.size() <= i ||
                                 !voice_activity_values[i].has_value());
     }
-    (*rtp_packets_map)[header.ssrc].emplace_back(
-        Timestamp::Millis(timestamp_ms), header, header.headerLength,
-        payload_size_values[i].value() + header.headerLength +
-            header.paddingLength);
+    LoggedType logged_packet(Timestamp::Millis(timestamp_ms), header,
+                             header.headerLength,
+                             payload_size_values[i].value() +
+                                 header.headerLength + header.paddingLength);
+    if (!dependency_descriptor_wire_format[i + 1].empty()) {
+      logged_packet.rtp.dependency_descriptor_wire_format =
+          dependency_descriptor_wire_format[i + 1];
+    }
+    (*rtp_packets_map)[header.ssrc].push_back(std::move(logged_packet));
   }
   return ParsedRtcEventLog::ParseStatus::Success();
 }
@@ -1028,8 +1110,9 @@ ParsedRtcEventLog::GetDefaultHeaderExtensionMap() {
   constexpr int kPlayoutDelayDefaultId = 6;
   constexpr int kVideoContentTypeDefaultId = 7;
   constexpr int kVideoTimingDefaultId = 8;
+  constexpr int kDependencyDescriptorDefaultId = 9;
 
-  webrtc::RtpHeaderExtensionMap default_map;
+  webrtc::RtpHeaderExtensionMap default_map(/*extmap_allow_mixed=*/true);
   default_map.Register<AudioLevel>(kAudioLevelDefaultId);
   default_map.Register<TransmissionOffset>(kTimestampOffsetDefaultId);
   default_map.Register<AbsoluteSendTime>(kAbsSendTimeDefaultId);
@@ -1039,6 +1122,8 @@ ParsedRtcEventLog::GetDefaultHeaderExtensionMap() {
   default_map.Register<PlayoutDelayLimits>(kPlayoutDelayDefaultId);
   default_map.Register<VideoContentTypeExtension>(kVideoContentTypeDefaultId);
   default_map.Register<VideoTimingExtension>(kVideoTimingDefaultId);
+  default_map.Register<RtpDependencyDescriptorExtension>(
+      kDependencyDescriptorDefaultId);
   return default_map;
 }
 

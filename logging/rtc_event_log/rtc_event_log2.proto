@@ -102,6 +102,23 @@ message GenericAckReceived {
   optional bytes receive_acked_packet_time_ms_deltas = 20;
 }
 
+message DependencyDescriptorsWireInfo {
+  // required
+  optional bytes present = 1;
+
+  // required
+  optional bytes start_end_bits = 2;
+
+  // required
+  optional bytes template_ids = 3;
+
+  // required
+  optional bytes frame_ids = 4;
+
+  // required
+  optional bytes extended_infos = 5;
+}
+
 message IncomingRtpPackets {
   // required
   optional int64 timestamp_ms = 1;
@@ -147,6 +164,7 @@ message IncomingRtpPackets {
   // `audio_level` and `voice_activity` are always used in conjunction.
   optional uint32 audio_level = 19;
   optional bool voice_activity = 20;
+  optional DependencyDescriptorsWireInfo dependency_descriptor = 21;
   // TODO(terelius): Add other header extensions like playout delay?
 
   // Delta encodings.
@@ -216,6 +234,8 @@ message OutgoingRtpPackets {
   optional uint32 audio_level = 19;
   optional bool voice_activity = 20;
   // TODO(terelius): Add other header extensions like playout delay?
+  // DependecyDescriptor fields
+  optional DependencyDescriptorsWireInfo dependency_descriptor = 21;
 
   // Delta encodings.
   optional bytes timestamp_ms_deltas = 101;

@@ -13,6 +13,7 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/network_state_predictor.h"
+#include "logging/rtc_event_log/encoder/bit_writer.h"
 #include "logging/rtc_event_log/encoder/blob_encoding.h"
 #include "logging/rtc_event_log/encoder/delta_encoding.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h"
@@ -55,6 +56,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/rtpfb.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
+#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "rtc_base/checks.h"
@@ -381,11 +383,107 @@ void EncodeRtcpPacket(rtc::ArrayView<const EventType*> batch,
   proto_batch->set_raw_packet_blobs(EncodeBlobs(scrubed_packets));
 }
 
+template <typename EventType>
+absl::optional<rtclog2::DependencyDescriptorsWireInfo>
+EncodeDependencyDescriptor(const std::vector<const EventType*>& batch) {
+  rtclog2::DependencyDescriptorsWireInfo res;
+  std::vector<rtc::ArrayView<const uint8_t>> raw_dds;
+
+  // Present bit.
+  {
+    BitWriter writer(1024 * 1024);
+    bool always_present = true;
+    for (const auto& packet : batch) {
+      auto raw_dd =
+          packet->template GetRawExtension<RtpDependencyDescriptorExtension>();
+
+      if (raw_dd.size() < 3) {
+        if (raw_dd.size() > 0) {
+          RTC_LOG(LS_WARNING) << "DependencyDescriptor size not valid.";
+          return {};
+        }
+        always_present = false;
+        writer.WriteBits(0, 1);
+      } else {
+        raw_dds.push_back(raw_dd);
+        writer.WriteBits(1, 1);
+      }
+    }
+
+    if (raw_dds.empty()) {
+      return {};
+    }
+
+    if (!always_present) {
+      res.set_present(writer.GetString());
+    }
+  }
+
+  // Start and end bit.
+  {
+    BitWriter writer(1024 * 1024);
+    for (const auto& raw_dd : raw_dds) {
+      writer.WriteBits(raw_dd[0] >> 6, 2);
+    }
+    res.set_start_end_bits(writer.GetString());
+  }
+
+  // Template IDs.
+  {
+    std::vector<absl::optional<uint64_t>> values(raw_dds.size());
+    for (size_t i = 0; i < raw_dds.size(); ++i) {
+      values[i] = raw_dds[i][0] & 0b0011'1111;
+    }
+    std::string encoded_deltas = EncodeDeltas(absl::nullopt, values);
+    if (encoded_deltas.empty()) {
+      RTC_LOG(LS_WARNING) << "Failed to encode template ids.";
+      return {};
+    }
+    res.set_template_ids(encoded_deltas);
+  }
+
+  // Frame numbers.
+  {
+    std::vector<absl::optional<uint64_t>> values(raw_dds.size());
+    for (size_t i = 0; i < raw_dds.size(); ++i) {
+      values[i] = (uint16_t{raw_dds[i][1]} << 8) + raw_dds[i][2];
+    }
+    std::string encoded_deltas = EncodeDeltas(absl::nullopt, values);
+    if (encoded_deltas.empty()) {
+      RTC_LOG(LS_WARNING) << "Failed to encode frame numbers.";
+      return {};
+    }
+    res.set_frame_ids(encoded_deltas);
+  }
+
+  // Extended info
+  {
+    BitWriter writer(1024 * 1024);
+    for (const auto& raw_dd : raw_dds) {
+      if (raw_dd.size() > 3) {
+        auto extended = raw_dd.subview(3);
+        writer.WriteExponentialGolomb(extended.size());
+        writer.WriteBits(std::string(
+            reinterpret_cast<const char*>(extended.data()), extended.size()));
+      } else {
+        writer.WriteExponentialGolomb(0);
+      }
+    }
+    res.set_extended_infos(writer.GetString());
+  }
+
+  return res;
+}
+
 template <typename EventType, typename ProtoType>
 void EncodeRtpPacket(const std::vector<const EventType*>& batch,
                      ProtoType* proto_batch) {
   if (batch.empty()) {
     return;
+  }
+
+  if (auto dd_encoded = EncodeDependencyDescriptor(batch)) {
+    *proto_batch->mutable_dependency_descriptor() = *dd_encoded;
   }
 
   // Base event

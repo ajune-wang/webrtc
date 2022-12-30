@@ -26,6 +26,9 @@
 namespace webrtc {
 namespace {
 
+using ::testing::ElementsAre;
+using ::testing::IsEmpty;
+
 TEST(BitstreamReaderTest, InDebugModeRequiresToCheckOkStatusBeforeDestruction) {
   const uint8_t bytes[32] = {};
   absl::optional<BitstreamReader> reader(absl::in_place, bytes);
@@ -237,6 +240,34 @@ TEST(BitstreamReaderTest, ReadBits64) {
 
   // Nothing more to read.
   EXPECT_EQ(reader.ReadBit(), 0);
+  EXPECT_FALSE(reader.Ok());
+}
+
+TEST(BitstreamReaderTest, ReadBitArray) {
+  const uint8_t bytes[] = {0x4D, 0x32, 0xAB, 0x54, 0x00, 0xFF, 0xFE, 0x01,
+                           0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89};
+  BitstreamReader reader(bytes);
+  EXPECT_THAT(reader.ReadBitArray(8), ElementsAre(0x4D));
+  EXPECT_THAT(reader.ReadBitArray(12), ElementsAre(0x32, 0xA));
+  EXPECT_THAT(reader.ReadBitArray(4), ElementsAre(0xB));
+  EXPECT_THAT(reader.ReadBitArray(40),
+              ElementsAre(0x54, 0x00, 0xFF, 0xFE, 0x01));
+  // 0xAB
+  EXPECT_THAT(reader.ReadBitArray(2), ElementsAre(2));
+  EXPECT_THAT(reader.ReadBitArray(2), ElementsAre(2));
+  EXPECT_THAT(reader.ReadBitArray(2), ElementsAre(2));
+  EXPECT_THAT(reader.ReadBitArray(2), ElementsAre(3));
+  // 0xCD
+  EXPECT_THAT(reader.ReadBitArray(1), ElementsAre(1));
+  EXPECT_THAT(reader.ReadBitArray(2), ElementsAre(2));
+  EXPECT_THAT(reader.ReadBitArray(3), ElementsAre(3));
+  EXPECT_THAT(reader.ReadBitArray(2), ElementsAre(1));
+
+  EXPECT_THAT(reader.ReadBitArray(28), ElementsAre(0xEF, 0x01, 0x23, 0x4));
+  EXPECT_THAT(reader.ReadBitArray(20), ElementsAre(0x56, 0x78, 0x9));
+  EXPECT_TRUE(reader.Ok());
+
+  EXPECT_THAT(reader.ReadBitArray(1), IsEmpty());
   EXPECT_FALSE(reader.Ok());
 }
 

@@ -68,6 +68,23 @@
       "parentUuid": "0d4821a5_46213e50",
       "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65cba289_6243c67a",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-02T09:19:36Z",
+      "side": 1,
+      "message": "This also needs to be id_(std::move(id)) in the \"std::string id\" version to avoid the copy",
+      "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

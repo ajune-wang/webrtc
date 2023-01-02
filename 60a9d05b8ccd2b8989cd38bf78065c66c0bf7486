@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "711838af_e479c399",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-02T08:55:51Z",
+      "side": 1,
+      "message": "Do add hbos@ as a reviewer. Stats construction has proved to be highly performance-impacting, so any change here will need measuring for performance degradation.",
+      "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d4821a5_46213e50",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-02T08:55:51Z",
+      "side": 1,
+      "message": "Can you tell me why this won\u0027t generate an extra string copy over the const std::string\u0026 case?\n\nI believe the styleguide para on input variables is https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs - which says to use \"values or const references\".",
+      "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

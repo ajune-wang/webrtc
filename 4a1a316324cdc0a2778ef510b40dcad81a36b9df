@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c786b599_3914ddda",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-02T12:42:01Z",
+      "side": 1,
+      "message": "prefer to write the type explicitly here.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\"Do not use it merely to avoid the inconvenience of writing an explicit type.”",
+      "range": {
+        "startLine": 632,
+        "startChar": 2,
+        "endLine": 632,
+        "endChar": 6
+      },
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba7befd7_2fb39438",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-02T12:42:01Z",
+      "side": 1,
+      "message": "AllocateExtension either returns empty buffer, or buffer of the asked size (i.e. data.size()), so this memset would always be noop",
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829c00d9_8b0e9506",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-02T12:42:01Z",
+      "side": 1,
+      "message": "I do not understand motivation for this helper, do you have an example how do you plan to use it?\nCould it be simpler to use AllocateExtension directly?",
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0da7136_a427105f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-02T12:42:01Z",
+      "side": 1,
+      "message": "unrelated to this CL, but probably we should introduce and use name kRtpExtensionDependencyDescriptor\n(DD has the official finialized spec, it is no longer an intermediate version of the GFD)\n\nI\u0027ll create something",
+      "range": {
+        "startLine": 1250,
+        "startChar": 22,
+        "endLine": 1250,
+        "endChar": 59
+      },
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

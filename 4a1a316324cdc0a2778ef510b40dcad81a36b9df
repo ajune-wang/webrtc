@@ -120,6 +120,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e7c20938_a6ba6d69",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-02T14:33:34Z",
+      "side": 1,
+      "message": "it might be the primary function for setting the extension, but there is still a question what is the best way to identify the extension type.\nReplacing `enum RTPExtensionType` with a raw `int` looks very questionable to me;\nbut it might be `int extension_id` instead: when there is raw representation, there is no need for the RtpPacket to know which exactly this extension is.",
+      "parentUuid": "f5d0eacd_e5163e85",
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b0da7136_a427105f",
         "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
         "patchSetId": 2

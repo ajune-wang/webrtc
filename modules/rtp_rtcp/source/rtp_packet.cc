@@ -627,6 +627,16 @@ bool RtpPacket::HasExtension(ExtensionType type) const {
   return FindExtensionInfo(id) != nullptr;
 }
 
+bool RtpPacket::SetExtension(RTPExtensionType extension_type,
+                             rtc::ArrayView<const uint8_t> data) {
+  auto buffer = AllocateExtension(extension_type, data.size());
+  if (buffer.empty())
+    return false;
+  std::memcpy(buffer.data(), data.data(), data.size());
+  std::memset(buffer.data() + data.size(), 0, buffer.size() - data.size());
+  return true;
+}
+
 bool RtpPacket::RemoveExtension(ExtensionType type) {
   uint8_t id_to_remove = extensions_.GetId(type);
   if (id_to_remove == ExtensionManager::kInvalidId) {

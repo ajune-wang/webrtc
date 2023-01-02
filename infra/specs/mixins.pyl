@@ -69,7 +69,6 @@
     'swarming': {
       'idempotent': False,
       'dimensions': {
-        'os': 'iOS-12.4.1',
         'pool': 'WebRTC',
         'id': 'build15-a7'
       }
@@ -299,17 +298,6 @@
     'swarming': {
       'dimensions': {
         'cpu': 'x86-64'
-      }
-    }
-  },
-  'xcode_12d4e': {
-    '$mixin_append': {
-      'args': ['--xcode-build-version', '12d4e'],
-      'swarming': {
-        'named_caches': [{
-          'name': 'xcode_ios_12d4e',
-          'path': 'Xcode.app'
-        }]
       }
     }
   },

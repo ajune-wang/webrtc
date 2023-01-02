@@ -490,7 +490,7 @@
         "args": [
           "--write_perf_output_on_ios",
           "--xcode-build-version",
-          "12d4e",
+          "13c100",
           "--out-dir",
           "${ISOLATED_OUTDIR}",
           "--nologs"
@@ -520,7 +520,6 @@
           "dimension_sets": [
             {
               "id": "build15-a7",
-              "os": "iOS-12.4.1",
               "pool": "WebRTC"
             }
           ],
@@ -529,7 +528,7 @@
           "io_timeout": 10800,
           "named_caches": [
             {
-              "name": "xcode_ios_12d4e",
+              "name": "xcode_ios_13c100",
               "path": "Xcode.app"
             }
           ],

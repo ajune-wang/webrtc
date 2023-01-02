@@ -88,14 +88,16 @@ void FrameInFlight::OnFrameEncoded(webrtc::Timestamp time,
                                    VideoFrameType frame_type,
                                    DataSize encoded_image_size,
                                    uint32_t target_encode_bitrate,
+                                   int spatial_layer,
                                    int qp,
                                    StreamCodecInfo used_encoder) {
   encoded_time_ = time;
   frame_type_ = frame_type;
   encoded_image_size_ = encoded_image_size;
   target_encode_bitrate_ += target_encode_bitrate;
-  qp_values_.AddSample(SamplesStatsCounter::StatsSample{
-      .value = static_cast<double>(qp), .time = time});
+  qp_per_spatial_layer_[spatial_layer].AddSample(
+      SamplesStatsCounter::StatsSample{.value = static_cast<double>(qp),
+                                       .time = time});
   // Update used encoder info. If simulcast/SVC is used, this method can
   // be called multiple times, in such case we should preserve the value
   // of `used_encoder_.switched_on_at` from the first invocation as the
@@ -185,7 +187,7 @@ FrameStats FrameInFlight::GetStatsForPeer(size_t peer) const {
   stats.encoded_frame_type = frame_type_;
   stats.encoded_image_size = encoded_image_size_;
   stats.used_encoder = used_encoder_;
-  stats.qp_values = qp_values_;
+  stats.qp_per_spatial_layer = qp_per_spatial_layer_;
 
   absl::optional<ReceiverFrameStats> receiver_stats =
       MaybeGetValue<ReceiverFrameStats>(receiver_stats_, peer);

@@ -138,6 +138,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fce76a64_b82e3117",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-02T15:40:15Z",
+      "side": 1,
+      "message": "Not really for this CL, but I feel like having an RTP packet know about negotiated extensions (`ExtensionManager`) is a case of attaching some information to a class that shouldn\u0027t really have to care about.\n\nI get that `HasExtension\u003cSomeExtension\u003e` and `GetExtension\u003cSomeExtension\u003e` is convenient, but for that to work you still have to know what was negotiated. That\u0027s why I suggest maybe we should use an `int` (the negotiated ID) directly, that way the RTP packet wont have to have a `ExtensionManager` and there is no confusion between `SomeExtension::kId` and the negotiated ID.",
+      "parentUuid": "e7c20938_a6ba6d69",
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b0da7136_a427105f",
         "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
         "patchSetId": 2

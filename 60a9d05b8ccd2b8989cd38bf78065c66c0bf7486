@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ac6416c_88965bce",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-02T12:13:41Z",
+      "side": 1,
+      "message": "But if it\u0027s possible to land std::string without dependencies having to migrate then I\u0027m very OK with landing this as a standalone CL",
+      "parentUuid": "31bcd4af_6b5f9f71",
+      "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "65cba289_6243c67a",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 2

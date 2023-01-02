@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0422472_bca61f22",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-02T13:48:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c786b599_3914ddda",
+      "range": {
+        "startLine": 632,
+        "startChar": 2,
+        "endLine": 632,
+        "endChar": 6
+      },
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba7befd7_2fb39438",
@@ -41,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1fd697b_f8229fa4",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-02T13:48:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7befd7_2fb39438",
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "829c00d9_8b0e9506",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-01-02T12:42:01Z",
       "side": 1,
       "message": "I do not understand motivation for this helper, do you have an example how do you plan to use it?\nCould it be simpler to use AllocateExtension directly?",
+      "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d0eacd_e5163e85",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-02T13:48:28Z",
+      "side": 1,
+      "message": "Maybe should have kept this CL in the relation chain, but here [1] is the motivation for this function. I also wonder if this should be the primary function for setting extensions on an RTP packet (template functions increasing binary size for example). I realize the `RTPExtensionType` should be changed to an `int` in that case.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/289984/1/logging/rtc_event_log/rtc_event_log2rtp_dump.cc#167",
+      "parentUuid": "829c00d9_8b0e9506",
       "revId": "4a1a316324cdc0a2778ef510b40dcad81a36b9df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

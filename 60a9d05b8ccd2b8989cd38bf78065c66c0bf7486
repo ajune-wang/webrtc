@@ -50,6 +50,24 @@
       "message": "Can you tell me why this won\u0027t generate an extra string copy over the const std::string\u0026 case?\n\nI believe the styleguide para on input variables is https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs - which says to use \"values or const references\".",
       "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31bcd4af_6b5f9f71",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-02T09:13:23Z",
+      "side": 1,
+      "message": "This creates a copy. The right way to do it is this:\n\nRTCStats(std::string id, ...)\n\nBut we wanted to change to Timestamp, why do two API migrations instead of one?\n\nSuggestion:\n1. Leave the existing constructor as-is (but with the intention to delete it in a follow-up). In this CL add RTCStats(std::string, Timestamp).\n2. Migrate dependencies.\n3. Delete today\u0027s constructors.",
+      "parentUuid": "0d4821a5_46213e50",
+      "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

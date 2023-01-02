@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f742565_d6a96c0c",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-02T08:13:25Z",
+      "side": 0,
+      "message": "this simply replaces, having both string and string\u0026 would be ambiguous",
+      "revId": "f52e0152397cda785ff311394d8275f210bd5a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a10fce_4291a668",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-03T08:18:26Z",
+      "side": 1,
+      "message": "Instead of having something like qp_0, qp_1, etc.. I wonder if we can make it more explicit that the number is referring to the spatial layer.\n\nSomething like qp_sl_0, etc..\n\nRasmus, is there an acronym commonly used for \"spatial layer\"?",
+      "range": {
+        "startLine": 1144,
+        "startChar": 31,
+        "endLine": 1144,
+        "endChar": 69
+      },
+      "revId": "ab9e35717e5c9504c986ef26d62398a267d00778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5afef90_47dec16a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-03T08:18:26Z",
+      "side": 1,
+      "message": "Also `spatial_layers_qp_` might be a good name (I prefer it because it is shorter).",
+      "range": {
+        "startLine": 160,
+        "startChar": 37,
+        "endLine": 160,
+        "endChar": 58
+      },
+      "revId": "ab9e35717e5c9504c986ef26d62398a267d00778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

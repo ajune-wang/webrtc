@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5846abea_d8ebfac6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-03T16:18:12Z",
+      "side": 1,
+      "message": "This part turned out to be a fairly separable problem.",
+      "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

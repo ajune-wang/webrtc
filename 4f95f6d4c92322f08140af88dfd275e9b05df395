@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "800a7fd5_e6b1b5ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-03T08:31:00Z",
+      "side": 1,
+      "message": "(Please add a bug reference)",
+      "revId": "4f95f6d4c92322f08140af88dfd275e9b05df395",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8b36b8c6_901fed6d",

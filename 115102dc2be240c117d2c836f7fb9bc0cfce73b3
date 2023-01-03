@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "369279b7_06821327",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-03T13:26:59Z",
+      "side": 1,
+      "message": "Gotcha, went route 2.",
+      "parentUuid": "5d0f13fb_b2206f26",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 72
+      },
+      "revId": "115102dc2be240c117d2c836f7fb9bc0cfce73b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a820306_0aa3984a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-03T11:18:23Z",
       "side": 1,
       "message": "I\u0027m fine with this, but note that it might be a bit brittle. It\u0027s not strictly necessary that the config comes before event, nor that start triggers a separate OnWrite rather than merging with the other events.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 59
+      },
+      "revId": "115102dc2be240c117d2c836f7fb9bc0cfce73b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08386ad_84d4fd23",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-03T13:26:59Z",
+      "side": 1,
+      "message": "Updated to expect stream content.",
+      "parentUuid": "9a820306_0aa3984a",
       "range": {
         "startLine": 108,
         "startChar": 0,

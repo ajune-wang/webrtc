@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86740bf2_f5aa6389",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-03T08:30:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9aa847b1_281b6dae",
+      "revId": "60a9d05b8ccd2b8989cd38bf78065c66c0bf7486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65cba289_6243c67a",

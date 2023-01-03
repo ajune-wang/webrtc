@@ -65,6 +65,8 @@ namespace cricket {
 // and methods with _s suffix on signaling thread.
 // Network and worker threads may be the same thread.
 //
+class VideoChannel;
+class VoiceChannel;
 
 class BaseChannel : public ChannelInterface,
                     // TODO(tommi): Remove has_slots inheritance.
@@ -375,6 +377,12 @@ class VoiceChannel : public BaseChannel {
                rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~VoiceChannel();
 
+  VideoChannel* AsVideoChannel() override {
+    RTC_CHECK_NOTREACHED();
+    return nullptr;
+  }
+  VoiceChannel* AsVoiceChannel() override { return this; }
+
   VoiceMediaSendChannelInterface* media_send_channel() override {
     return &send_channel_;
   }
@@ -429,6 +437,12 @@ class VideoChannel : public BaseChannel {
                webrtc::CryptoOptions crypto_options,
                rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~VideoChannel();
+
+  VideoChannel* AsVideoChannel() override { return this; }
+  VoiceChannel* AsVoiceChannel() override {
+    RTC_CHECK_NOTREACHED();
+    return nullptr;
+  }
 
   // downcasts a MediaChannel
   VideoMediaSendChannelInterface* media_send_channel() override {

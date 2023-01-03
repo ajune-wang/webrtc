@@ -223,9 +223,21 @@ class VideoMediaChannel : public MediaChannel,
   // GetStats(), and merges with BandwidthEstimationInfo by itself.
   virtual void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) = 0;
   // Gets quality stats for the channel.
-  virtual bool GetStats(VideoMediaInfo* info) = 0;
+  virtual bool GetSendStats(VideoMediaSendInfo* info) = 0;
+  virtual bool GetReceiveStats(VideoMediaReceiveInfo* info) = 0;
   // Enable network condition based codec switching.
   void SetVideoCodecSwitchingEnabled(bool enabled) override;
+
+ private:
+  // Functions not implemented on this interface
+  bool GetStats(VideoMediaSendInfo* info) override {
+    RTC_CHECK_NOTREACHED();
+    return false;
+  }
+  bool GetStats(VideoMediaReceiveInfo* info) override {
+    RTC_CHECK_NOTREACHED();
+    return false;
+  }
 };
 
 // Base class for implementation classes
@@ -261,8 +273,21 @@ class VoiceMediaChannel : public MediaChannel,
   }
 
   // Gets quality stats for the channel.
-  virtual bool GetStats(VoiceMediaInfo* info,
-                        bool get_and_clear_legacy_stats) = 0;
+  virtual bool GetSendStats(VoiceMediaSendInfo* info) = 0;
+  virtual bool GetReceiveStats(VoiceMediaReceiveInfo* info,
+                               bool get_and_clear_legacy_stats) = 0;
+
+ private:
+  // Functions not implemented on this interface
+  bool GetStats(VoiceMediaSendInfo* info) override {
+    RTC_CHECK_NOTREACHED();
+    return false;
+  }
+  bool GetStats(VoiceMediaReceiveInfo* info,
+                bool get_and_clear_legacy_stats) override {
+    RTC_CHECK_NOTREACHED();
+    return false;
+  }
 };
 
 // The externally exposed objects that support the Send and Receive interfaces.
@@ -344,6 +369,9 @@ class VoiceMediaSendChannel : public VoiceMediaSendChannelInterface {
   bool CanInsertDtmf() override { return impl()->CanInsertDtmf(); }
   bool InsertDtmf(uint32_t ssrc, int event, int duration) override {
     return impl()->InsertDtmf(ssrc, event, duration);
+  }
+  bool GetStats(VoiceMediaSendInfo* info) override {
+    return impl_->GetSendStats(info);
   }
 
  private:
@@ -438,6 +466,9 @@ class VoiceMediaReceiveChannel : public VoiceMediaReceiveChannelInterface {
       std::unique_ptr<webrtc::AudioSinkInterface> sink) override {
     return impl()->SetDefaultRawAudioSink(std::move(sink));
   }
+  bool GetStats(VoiceMediaReceiveInfo* info, bool reset_legacy) override {
+    return impl_->GetReceiveStats(info, reset_legacy);
+  }
 
  private:
   VoiceMediaReceiveChannelInterface* impl() { return impl_; }
@@ -527,6 +558,9 @@ class VideoMediaSendChannel : public VideoMediaSendChannelInterface {
   }
   void SetVideoCodecSwitchingEnabled(bool enabled) override {
     return impl()->SetVideoCodecSwitchingEnabled(enabled);
+  }
+  bool GetStats(VideoMediaSendInfo* info) override {
+    return impl_->GetSendStats(info);
   }
 
  private:
@@ -625,6 +659,9 @@ class VideoMediaReceiveChannel : public VideoMediaReceiveChannelInterface {
   // Clear recordable encoded frame callback for `ssrc`
   void ClearRecordableEncodedFrameCallback(uint32_t ssrc) override {
     impl()->ClearRecordableEncodedFrameCallback(ssrc);
+  }
+  bool GetStats(VideoMediaReceiveInfo* info) override {
+    return impl_->GetReceiveStats(info);
   }
 
  private:

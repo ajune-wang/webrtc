@@ -387,7 +387,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   expectEmpty(stats.target_encode_bitrate);
-  expectEmpty(stats.qp);
+  EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -447,7 +447,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   expectEmpty(stats.target_encode_bitrate);
-  expectEmpty(stats.qp);
+  EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -488,8 +488,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
 
   comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
@@ -517,7 +519,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -559,8 +561,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameDelta;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
 
   comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
@@ -588,7 +592,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -630,8 +634,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -664,7 +670,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.recv_key_frame_size_bytes), 500.0);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -706,8 +712,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -747,7 +755,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   EXPECT_GE(GetFirstOrDie(stats.resolution_of_decoded_frame), 200 * 100.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.recv_key_frame_size_bytes), 500.0);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -790,8 +798,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -828,7 +838,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.recv_key_frame_size_bytes), 500.0);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -891,7 +901,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   expectEmpty(stats.target_encode_bitrate);
-  expectEmpty(stats.qp);
+  EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -951,7 +961,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   expectEmpty(stats.target_encode_bitrate);
-  expectEmpty(stats.qp);
+  EXPECT_THAT(stats.spatial_layers_qp, IsEmpty());
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 0);
@@ -992,8 +1002,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
 
   comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
@@ -1021,7 +1033,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1063,8 +1075,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameDelta;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
 
   comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
@@ -1092,7 +1106,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1210,8 +1224,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -1250,7 +1266,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   expectEmpty(stats.recv_key_frame_size_bytes);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1293,8 +1309,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -1331,7 +1349,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   expectEmpty(stats.resolution_of_decoded_frame);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.recv_key_frame_size_bytes), 500.0);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1378,8 +1396,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -1420,7 +1440,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   expectEmpty(stats.time_between_freezes_ms);
   EXPECT_GE(GetFirstOrDie(stats.resolution_of_decoded_frame), 200 * 100.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.target_encode_bitrate), 2000.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.qp), 5.0);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.spatial_layers_qp[0]), 5.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.recv_key_frame_size_bytes), 500.0);
   expectEmpty(stats.recv_delta_frame_size_bytes);
   EXPECT_EQ(stats.total_encoded_images_payload, 1000);
@@ -1464,8 +1484,10 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest, AllStatsHaveMetadataSet) {
   frame_stats.encoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.encoded_image_size = DataSize::Bytes(1000);
   frame_stats.target_encode_bitrate = 2000;
-  frame_stats.qp_values = StatsCounter(
-      /*samples=*/{{5, Timestamp::Seconds(1)}, {5, Timestamp::Seconds(2)}});
+  frame_stats.spatial_layers_qp = {
+      {0, StatsCounter(
+              /*samples=*/{{5, Timestamp::Seconds(1)},
+                           {5, Timestamp::Seconds(2)}})}};
   // Frame pre decoded
   frame_stats.pre_decoded_frame_type = VideoFrameType::kVideoFrameKey;
   frame_stats.pre_decoded_image_size = DataSize::Bytes(500);
@@ -1502,7 +1524,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest, AllStatsHaveMetadataSet) {
   AssertFirstMetadataHasField(stats.resolution_of_decoded_frame, "frame_id",
                               "1");
   AssertFirstMetadataHasField(stats.target_encode_bitrate, "frame_id", "1");
-  AssertFirstMetadataHasField(stats.qp, "frame_id", "1");
+  AssertFirstMetadataHasField(stats.spatial_layers_qp[0], "frame_id", "1");
   AssertFirstMetadataHasField(stats.recv_key_frame_size_bytes, "frame_id", "1");
 
   expectEmpty(stats.recv_delta_frame_size_bytes);

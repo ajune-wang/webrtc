@@ -37,6 +37,7 @@ class MetricMetadataKey {
   // TODO(bugs.webrtc.org/14757): Remove kExperimentalTestNameMetadataKey.
   static constexpr char kExperimentalTestNameMetadataKey[] =
       "experimental_test_name";
+  static constexpr char kSpatialLayerMetadataKey[] = "spatial_layer";
 
  private:
   MetricMetadataKey() = default;

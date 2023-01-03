@@ -217,6 +217,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b20f289_e9b62360",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-03T15:28:28Z",
+      "side": 1,
+      "message": "Happy new year! I synced plans with event log owners. Can you work to get to the following state?\n\n1. Ensure Log doesn\u0027t PostTask in the common case, even when logging is on i.e. write the history under lock.\n2. Make the history size limitation only apply to non-config events, and only when logging is off. This should be safe as the TaskQueue would previously get events piled up in case of slow output, and with the change they would be piled up in the non-config event history instead.\n3. Pay attention to the case when history is full, logging is enabled, and more events are logged - we should not loose events here. Good with a new test case for that.\n\nI added new mocked time unit tests in https://webrtc-review.googlesource.com/c/src/+/290382 - pls rebase \u0026 feel free to extend that suite as mandated by the design change.",
+      "parentUuid": "ef3c78ff_b9357bd3",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4cdd04d_788b5fd0",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 4
@@ -246,6 +264,24 @@
       "side": 1,
       "message": "In Patchset 4, for there is no lock in `Log`, other threads can also call `Log` and do PostTask normally though `LogEventsFromMemoryToOutput` still hold the lock.\n\nBut in Patchset 5, we add a lock in `Log` [1]. So we move most_recent_config_history_ and most_recent_history_ (guarded by the lock) to local queues to reduce locking scope[2].\n\n[1] https://webrtc-review.googlesource.com/c/src/+/283641/5/logging/rtc_event_log/rtc_event_log_impl.cc#166\n[2] https://webrtc-review.googlesource.com/c/src/+/283641/5/logging/rtc_event_log/rtc_event_log_impl.cc#249",
       "parentUuid": "a4cdd04d_788b5fd0",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02939165_42d14c74",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-03T15:28:28Z",
+      "side": 1,
+      "message": "Should this",
+      "parentUuid": "84863597_a9759876",
       "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -287,6 +323,30 @@
       "side": 1,
       "message": "Thanks. We have changed it to boolean flag wrapped in the mutex.",
       "parentUuid": "c81c63a1_2f0621cb",
+      "range": {
+        "startLine": 89,
+        "startChar": 19,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "081fb30b_36395c06",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-03T15:28:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bec640d5_b9a4b6b8",
       "range": {
         "startLine": 89,
         "startChar": 19,

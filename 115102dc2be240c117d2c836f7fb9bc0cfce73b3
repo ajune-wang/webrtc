@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0f13fb_b2206f26",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2023-01-03T11:18:23Z",
+      "side": 1,
+      "message": "Let\u0027s not claim to be a type we aren\u0027t. Other options:\n* Since you don\u0027t care about the event itself, use a simple real event instead and populate it with some arbitrary data. The ALR event only contains a bool, for example.\n* Add RtcEvent::Type::FakeEvent to the enum.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 72
+      },
+      "revId": "115102dc2be240c117d2c836f7fb9bc0cfce73b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a820306_0aa3984a",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2023-01-03T11:18:23Z",
+      "side": 1,
+      "message": "I\u0027m fine with this, but note that it might be a bit brittle. It\u0027s not strictly necessary that the config comes before event, nor that start triggers a separate OnWrite rather than merging with the other events.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 59
+      },
+      "revId": "115102dc2be240c117d2c836f7fb9bc0cfce73b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

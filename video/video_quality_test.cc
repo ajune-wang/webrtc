@@ -710,9 +710,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
   std::string generic_codec_name;
   webrtc::VideoEncoder::EncoderInfo encoder_info;
   for (size_t video_idx = 0; video_idx < num_video_streams_; ++video_idx) {
-    VideoSendStream::Config config(send_transport);
-    config.rtp.extmap_allow_mixed = true;
-    video_send_configs_.push_back(std::move(config));
+    video_send_configs_.push_back(VideoSendStream::Config(send_transport));
     video_encoder_configs_.push_back(VideoEncoderConfig());
     num_video_substreams = params_.ss[video_idx].streams.size();
     RTC_CHECK_GT(num_video_substreams, 0);
@@ -769,12 +767,6 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
           RtpExtension::kGenericFrameDescriptorUri00,
           kGenericFrameDescriptorExtensionId00);
-    }
-
-    if (params_.call.dependency_descriptor) {
-      video_send_configs_[video_idx].rtp.extensions.emplace_back(
-          RtpExtension::kDependencyDescriptorUri,
-          kRtpExtensionGenericFrameDescriptor02);
     }
 
     video_send_configs_[video_idx].rtp.extensions.emplace_back(

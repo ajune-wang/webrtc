@@ -22,6 +22,53 @@
       },
       "revId": "7b9d5f3ed9bec30397db35ea548d49772775e57c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d039d031_5a24f1dc",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-04T14:32:38Z",
+      "side": 1,
+      "message": "proxy exporter do it in a backward compatible way, it is why it\u0027s different.\n\nGenerally yes, if we can set default in the place where metric is produced - it\u0027s better to do so and not leave it to the exporters. In exporters it\u0027s more a safe guard to avoid crashing.",
+      "parentUuid": "458b931b_306efb21",
+      "range": {
+        "startLine": 936,
+        "startChar": 0,
+        "endLine": 940,
+        "endChar": 5
+      },
+      "revId": "7b9d5f3ed9bec30397db35ea548d49772775e57c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6ac6d1_516672d9",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-04T14:32:38Z",
+      "side": 1,
+      "message": "Let\u0027s do it inside DefaultVideoQualityAnalyzerFramesComparator::Stop. time_between_freezes_ms is handled there, so it will make sense to keep these things together",
+      "range": {
+        "startLine": 936,
+        "startChar": 4,
+        "endLine": 940,
+        "endChar": 5
+      },
+      "revId": "7b9d5f3ed9bec30397db35ea548d49772775e57c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

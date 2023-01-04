@@ -893,6 +893,7 @@ class VideoMediaReceiveChannelInterface : public MediaReceiveChannelInterface {
       std::function<void(const webrtc::RecordableEncodedFrame&)> callback) = 0;
   // Clear recordable encoded frame callback for `ssrc`
   virtual void ClearRecordableEncodedFrameCallback(uint32_t ssrc) = 0;
+  virtual absl::optional<uint32_t> GetDefaultReceiveStreamSsrc() const = 0;
 };
 
 // Info about data received in DataMediaChannel.  For use in

@@ -145,6 +145,11 @@ void VideoRtpReceiver::RestartMediaChannel_w(
   }
 
   // Set up the new ssrc.
+  if (ssrc.has_value()) {
+    RTC_LOG(LS_ERROR) << "RestartMediaChannel_w[" << this << "] sets ssrc to " << ssrc.value();
+  } else {
+    RTC_LOG(LS_ERROR) << "RestartMediaChannel_w[" << this << "] sets ssrc to null";
+  }
   ssrc_ = std::move(ssrc);
   SetSink(source_->sink());
   if (encoded_sink_enabled) {
@@ -186,6 +191,15 @@ void VideoRtpReceiver::SetupUnsignaledMediaChannel() {
 
 uint32_t VideoRtpReceiver::ssrc() const {
   RTC_DCHECK_RUN_ON(worker_thread_);
+  if (!ssrc_.has_value() && media_channel_) {
+    RTC_LOG(LS_ERROR) << "VideoRtpReceiver[" << this << "].media_channel_.GetDefaultReceiveStreamSsrc...";
+    return media_channel_->GetDefaultReceiveStreamSsrc().value_or(0);
+  }
+  if (ssrc_.has_value()) {
+    RTC_LOG(LS_ERROR) << "VideoRtpReceiver[" << this << "].ssrc: " << *ssrc_;
+  } else {
+    RTC_LOG(LS_ERROR) << "VideoRtpReceiver[" << this << "].ssrc: missing";
+  }
   return ssrc_.value_or(0);
 }
 
@@ -263,6 +277,8 @@ void VideoRtpReceiver::SetMediaChannel(
 void VideoRtpReceiver::SetMediaChannel_w(
     cricket::MediaReceiveChannelInterface* media_channel) {
   RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_LOG(LS_ERROR) << "VideoRtpReceiver[" << this << "]::SetMediaChannel_w: "
+                    << media_channel;
   if (media_channel == media_channel_)
     return;
 

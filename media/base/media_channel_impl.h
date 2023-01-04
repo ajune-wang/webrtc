@@ -626,6 +626,9 @@ class VideoMediaReceiveChannel : public VideoMediaReceiveChannelInterface {
   void ClearRecordableEncodedFrameCallback(uint32_t ssrc) override {
     impl()->ClearRecordableEncodedFrameCallback(ssrc);
   }
+  absl::optional<uint32_t> GetDefaultReceiveStreamSsrc() const override {
+    return impl()->GetDefaultReceiveStreamSsrc();
+  }
 
  private:
   VideoMediaReceiveChannelInterface* impl() { return impl_; }

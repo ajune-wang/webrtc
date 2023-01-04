@@ -16,6 +16,23 @@
       "message": "updated after the other CL",
       "revId": "3b07ae00a30b01c3a751a59c47c3e9db88dc1091",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57970191_c415ed2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-04T16:36:28Z",
+      "side": 1,
+      "message": "Nice! Let\u0027s add a second pair of eyes just in case I missed something",
+      "revId": "3b07ae00a30b01c3a751a59c47c3e9db88dc1091",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

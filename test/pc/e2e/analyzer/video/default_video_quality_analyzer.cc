@@ -933,6 +933,11 @@ void DefaultVideoQualityAnalyzer::
 void DefaultVideoQualityAnalyzer::ReportResults() {
   MutexLock lock(&mutex_);
   for (auto& item : frames_comparator_.stream_stats()) {
+    // If there were no freezes on this stream, add only one sample with value 0
+    // (0ms freezes time).
+    if (item.second.freeze_time_ms.IsEmpty()) {
+      item.second.freeze_time_ms.AddSample(0);
+    }
     ReportResults(item.first, item.second,
                   stream_frame_counters_.at(item.first));
   }

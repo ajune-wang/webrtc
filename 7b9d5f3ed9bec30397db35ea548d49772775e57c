@@ -69,6 +69,30 @@
       },
       "revId": "7b9d5f3ed9bec30397db35ea548d49772775e57c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f3422f_2e38742c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-04T15:03:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc6ac6d1_516672d9",
+      "range": {
+        "startLine": 936,
+        "startChar": 4,
+        "endLine": 940,
+        "endChar": 5
+      },
+      "revId": "7b9d5f3ed9bec30397db35ea548d49772775e57c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

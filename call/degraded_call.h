@@ -37,6 +37,7 @@
 #include "call/simulated_network.h"
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/task_queue.h"

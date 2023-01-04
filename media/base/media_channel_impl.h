@@ -45,6 +45,7 @@
 #include "media/base/codec.h"
 #include "media/base/media_channel.h"
 #include "media/base/stream_params.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
@@ -89,8 +90,7 @@ class MediaChannel : public MediaSendChannelInterface,
   // even when abstract, to tell the compiler that all instances of the name
   // referred to by subclasses of this share the same implementation.
   cricket::MediaType media_type() const override = 0;
-  void OnPacketReceived(rtc::CopyOnWriteBuffer packet,
-                        int64_t packet_time_us) override = 0;
+  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override = 0;
   void OnPacketSent(const rtc::SentPacket& sent_packet) override = 0;
   void OnReadyToSend(bool ready) override = 0;
   void OnNetworkRouteChanged(absl::string_view transport_name,
@@ -280,9 +280,8 @@ class VoiceMediaSendChannel : public VoiceMediaSendChannelInterface {
 
   // Implementation of MediaBaseChannelInterface
   cricket::MediaType media_type() const override { return MEDIA_TYPE_AUDIO; }
-  void OnPacketReceived(rtc::CopyOnWriteBuffer packet,
-                        int64_t packet_time_us) override {
-    impl()->OnPacketReceived(packet, packet_time_us);
+  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
+    impl()->OnPacketReceived(packet);
   }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {
     impl()->OnPacketSent(sent_packet);
@@ -358,9 +357,8 @@ class VoiceMediaReceiveChannel : public VoiceMediaReceiveChannelInterface {
   virtual ~VoiceMediaReceiveChannel() {}
   // Implementation of MediaBaseChannelInterface
   cricket::MediaType media_type() const override { return MEDIA_TYPE_AUDIO; }
-  void OnPacketReceived(rtc::CopyOnWriteBuffer packet,
-                        int64_t packet_time_us) override {
-    impl()->OnPacketReceived(packet, packet_time_us);
+  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
+    impl()->OnPacketReceived(packet);
   }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {
     impl()->OnPacketSent(sent_packet);
@@ -457,9 +455,8 @@ class VideoMediaSendChannel : public VideoMediaSendChannelInterface {
 
   // Implementation of MediaBaseChannelInterface
   cricket::MediaType media_type() const override { return MEDIA_TYPE_AUDIO; }
-  void OnPacketReceived(rtc::CopyOnWriteBuffer packet,
-                        int64_t packet_time_us) override {
-    impl()->OnPacketReceived(packet, packet_time_us);
+  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
+    impl()->OnPacketReceived(packet);
   }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {
     impl()->OnPacketSent(sent_packet);
@@ -540,9 +537,8 @@ class VideoMediaReceiveChannel : public VideoMediaReceiveChannelInterface {
   explicit VideoMediaReceiveChannel(VideoMediaChannel* impl) : impl_(impl) {}
   // Implementation of MediaBaseChannelInterface
   cricket::MediaType media_type() const override { return MEDIA_TYPE_AUDIO; }
-  void OnPacketReceived(rtc::CopyOnWriteBuffer packet,
-                        int64_t packet_time_us) override {
-    impl()->OnPacketReceived(packet, packet_time_us);
+  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
+    impl()->OnPacketReceived(packet);
   }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {
     impl()->OnPacketSent(sent_packet);

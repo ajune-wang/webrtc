@@ -46,6 +46,30 @@
       },
       "revId": "d9fa695501ca3316d8558b5c8d1ad6906a79f627",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d77c220_79e4df3a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-04T15:22:00Z",
+      "side": 1,
+      "message": "SG. But with capital \"E\". Also will appreciate if you will be able in separate CLs rename expectEmpty to ExpectEmpty and use ExpectHasOneValueEqualTo in almost all places where we have GetFirstOrDie, because it\u0027s more correct.\n\nAlso alternative can be ExpectSizeAndAllElementsAre(counter, size, value). Then all places of GetFirstOrDie can be replaces on that and test will become more strict",
+      "parentUuid": "1c41f982_1096e429",
+      "range": {
+        "startLine": 663,
+        "startChar": 33,
+        "endLine": 663,
+        "endChar": 45
+      },
+      "revId": "d9fa695501ca3316d8558b5c8d1ad6906a79f627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

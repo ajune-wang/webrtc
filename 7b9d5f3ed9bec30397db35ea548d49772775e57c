@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458b931b_306efb21",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-04T13:26:57Z",
+      "side": 1,
+      "message": "Different exporters have different ways of dealing with empty metrics (e.g.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/test/metrics/print_result_proxy_metrics_exporter.cc;l\u003d106-114;drc\u003ddd4b8d4853e0dc0f8ea0d6098e618b1750e3c297 vs https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/test/metrics/stdout_metrics_exporter.cc;l\u003d86;drc\u003d45c6f5e2e1762a1abf519d085bca63c9c4d8b9f5).\n\nI think it is better to avoid this delegation and explicitly set the metric to its default value (maybe I can extract in a SetDefaultsForEmptyMetrics()).",
+      "range": {
+        "startLine": 936,
+        "startChar": 0,
+        "endLine": 940,
+        "endChar": 5
+      },
+      "revId": "7b9d5f3ed9bec30397db35ea548d49772775e57c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

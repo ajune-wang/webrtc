@@ -33,6 +33,23 @@
       "message": "If this doesn\u0027t break any dependencies, let\u0027s ship it.",
       "revId": "4f95f6d4c92322f08140af88dfd275e9b05df395",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a51344_23912e11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-04T07:30:18Z",
+      "side": 1,
+      "message": "If Henrik and Philipp agree that pass-by-value std::string is the right solution here (allowing compiler to optimize by moving when called on a temporary, I assume), I have no objection.",
+      "revId": "4f95f6d4c92322f08140af88dfd275e9b05df395",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

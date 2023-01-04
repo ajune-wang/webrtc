@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f9ac3c4_fd432119",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-04T16:46:36Z",
+      "side": 1,
+      "message": "yes, if TSN was parsed, it should have been registered.",
+      "revId": "38998befacc21075007b00740c10e9528342c80d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -440,9 +440,14 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   webrtc::PacketReceiver* Receiver() override;
 
-  DeliveryStatus DeliverPacket(webrtc::MediaType media_type,
-                               rtc::CopyOnWriteBuffer packet,
-                               int64_t packet_time_us) override;
+  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet) override {}
+  void DeliverRtpPacket(
+      webrtc::MediaType media_type,
+      webrtc::RtpPacketReceived packet,
+      OnUnDemuxablePacketHandler un_demuxable_packet_handler) override;
+
+  bool DeliverPacketInternal(webrtc::MediaType media_type,
+                             const webrtc::RtpPacketReceived& packet);
 
   webrtc::RtpTransportControllerSendInterface* GetTransportControllerSend()
       override {

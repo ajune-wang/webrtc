@@ -25,14 +25,18 @@ class PacketReceiver {
     DELIVERY_PACKET_ERROR,
   };
 
+  // TODO(perkj, https://bugs.webrtc.org/7135): Remove this method. This method
+  // is no longer used by PeerConnections. Some tests still use it.
   virtual DeliveryStatus DeliverPacket(MediaType media_type,
                                        rtc::CopyOnWriteBuffer packet,
-                                       int64_t packet_time_us) = 0;
+                                       int64_t packet_time_us) {
+    RTC_CHECK_NOTREACHED();
+  }
 
   // Demux RTCP packets. Must be called on the worker thread.
   virtual void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet) {
-    // TODO(perkj, https://bugs.webrtc.org/7135): Implement in FakeCall and
-    // FakeNetworkPipe.
+    // TODO(perkj, https://bugs.webrtc.org/7135): Implement in FakeNetworkPipe
+    // and DegradedCall.
     RTC_CHECK_NOTREACHED();
   }
 
@@ -46,8 +50,8 @@ class PacketReceiver {
       MediaType media_type,
       webrtc::RtpPacketReceived packet,
       OnUnDemuxablePacketHandler un_demuxable_packet_handler) {
-    // TODO(perkj, https://bugs.webrtc.org/7135): Implement in FakeCall and
-    // FakeNetworkPipe.
+    // TODO(perkj, https://bugs.webrtc.org/7135): Implement in FakeNetworkPipe
+    // and DegradedCall.
     RTC_CHECK_NOTREACHED();
   }
 

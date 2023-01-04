@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78bd8de2_0e6894a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-04T12:43:49Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a53534b_f9cd0e4d",
@@ -35,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1933bd05_7c94e13b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1641,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-04T12:43:49Z",
+      "side": 1,
+      "message": "Actually the TODO was because after the split, the code was duplicated - but then I found that there wasn\u0027t a ToString on the stats being produced in the other place, so the log was only in one place after all. Forgot to delete the TODO. Good catch!",
+      "parentUuid": "9a53534b_f9cd0e4d",
+      "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22de8142_f6f105cb",
@@ -48,6 +83,24 @@
       "writtenOn": "2023-01-04T12:20:59Z",
       "side": 1,
       "message": "Unrelated side-note, but in a 50p meeting filling the send/recv codecs performs ~950 codec.ToCodecParameters() because each m\u003d section will have close to 20 codecs, I suspect there are both send and recv codecs allocated even though the m\u003d sections, so 8+8\u003d16 or more. Each ToCodecParameters() performs a copy of an std::map\u003cstd::string,std::string\u003e for all the rtp parameters.\n\nDespite doing bundle and the codecs being duplicate info, this code is set up to store all the codecs on a per-channel basis.\n\nThere should be room for performance optimizations here, such as storing codecs on a per-transport basis rather than a per-channel basis, or avoiding copies since we nowadays only need to create \"codec\" stats objects for the ones that are currently in-use.\n\n(My previous optimization removed the 900+ codecs on the rtc_stats_collector.cc layer, but not these lower layers.)\n\nAnyway it looks like this CL is not affecting the number of copies, only moving code around.",
+      "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ce93476_cea8b0f8",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-04T12:43:49Z",
+      "side": 1,
+      "message": "Right. Good thing to look at later - codec descriptions should be pass-by-reference, not pass-by-value.\n\nFiled https://crbug.com/webrtc/14808 to track the issue and added TODO.",
+      "parentUuid": "22de8142_f6f105cb",
       "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

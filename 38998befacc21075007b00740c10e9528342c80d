@@ -16,6 +16,29 @@
       "message": "yes, if TSN was parsed, it should have been registered.",
       "revId": "38998befacc21075007b00740c10e9528342c80d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "841fa16d_90aff41d",
+        "filename": "call/call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-04T16:48:17Z",
+      "side": 1,
+      "message": "may be remove extra () around the `header.extension.hasTransportSequenceNumber`",
+      "range": {
+        "startLine": 1518,
+        "startChar": 6,
+        "endLine": 1518,
+        "endChar": 7
+      },
+      "revId": "38998befacc21075007b00740c10e9528342c80d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

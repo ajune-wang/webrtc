@@ -235,6 +235,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "048011e1_abbd9410",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-01-04T12:53:29Z",
+      "side": 1,
+      "message": "Hi Björn, as for your concern about the possibility of the event drop:\n\n\u003e Before an event can be written to memory, logging is started on another thread, then this event is added to the (now empty) memory buffer.\n\nThis event won\u0027t be dropped and will be output in the next output task.\n\nWhat we may concern is that the above mentioned event may be output not in the original order, because there will be a race between this event\u0027s LogToMemory()[1] on line 145 and the later events\u0027 `LogToMemory()` in PostTask on line 152.[2]\n\n\nBut the order question also exists in orignal code. forxcx:\n1. When thread A calls Log() and then in a short time thread B calls Log(), \n2. there is no guarantee for A\u0027s LogToMemory() in PostTask done before B\u0027s.\n\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:base/trace_event/common/trace_event_common.h;l\u003d308?q\u003dTRACE_EVENT0\u0026ss\u003dchromium\n\n[2]\nlink",
+      "parentUuid": "3991bce9_8a1a2b2e",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4cdd04d_788b5fd0",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 4

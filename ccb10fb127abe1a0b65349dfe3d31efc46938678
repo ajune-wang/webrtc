@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b391983_7dc85b8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-01-04T12:53:29Z",
+      "side": 1,
+      "message": "Happy new year!\n\nThanks Markus. We will follow up the mentioned sub-tasks.",
+      "revId": "ccb10fb127abe1a0b65349dfe3d31efc46938678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2800fe8d_8414f365",

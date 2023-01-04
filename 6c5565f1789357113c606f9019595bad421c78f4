@@ -33,6 +33,23 @@
       "message": "Thanks!",
       "revId": "6c5565f1789357113c606f9019595bad421c78f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf901072_5eae0ac0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-01-04T14:53:07Z",
+      "side": 1,
+      "message": "So this passes locally for me on ios16. Turns out it fails locally on ios15 and earlier. Are there any mac jobs running these tests? Otherwise there would be no coverage until ios16 is used in CI.",
+      "revId": "6c5565f1789357113c606f9019595bad421c78f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

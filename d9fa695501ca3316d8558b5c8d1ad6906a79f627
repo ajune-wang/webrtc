@@ -70,6 +70,30 @@
       },
       "revId": "d9fa695501ca3316d8558b5c8d1ad6906a79f627",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90856fb9_dd0d985d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-04T15:35:10Z",
+      "side": 1,
+      "message": "SG, done.",
+      "parentUuid": "8d77c220_79e4df3a",
+      "range": {
+        "startLine": 663,
+        "startChar": 33,
+        "endLine": 663,
+        "endChar": 45
+      },
+      "revId": "d9fa695501ca3316d8558b5c8d1ad6906a79f627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

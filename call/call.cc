@@ -1391,7 +1391,6 @@ void Call::DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   RTC_DCHECK(IsRtcpPacket(packet));
   TRACE_EVENT0("webrtc", "Call::DeliverRtcp");
-  RTC_LOG(LS_INFO) << "DeliverRtcpPacket";
 
   receive_stats_.AddReceivedRtcpBytes(static_cast<int>(packet.size()));
   bool rtcp_delivered = false;

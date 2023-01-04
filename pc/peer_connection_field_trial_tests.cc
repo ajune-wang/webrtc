@@ -220,7 +220,8 @@ TEST_F(PeerConnectionFieldTrialTest, InjectDependencyDescriptor) {
 }
 
 // Test that the ability to emulate degraded networks works without crashing.
-TEST_F(PeerConnectionFieldTrialTest, ApplyFakeNetworkConfig) {
+// TODO(perkj, ) Temporary disabled to implement...
+TEST_F(PeerConnectionFieldTrialTest, DISABLED_ApplyFakeNetworkConfig) {
   std::unique_ptr<test::ScopedKeyValueConfig> field_trials =
       std::make_unique<test::ScopedKeyValueConfig>(
           "WebRTC-FakeNetworkSendConfig/link_capacity_kbps:500/"

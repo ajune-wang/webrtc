@@ -31,6 +31,7 @@
 #include "modules/audio_device/include/mock_audio_device.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -275,9 +276,9 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
   }
 
   void DeliverPacket(const void* data, int len) {
-    rtc::CopyOnWriteBuffer packet(reinterpret_cast<const uint8_t*>(data), len);
-    receive_channel_->OnPacketReceived(packet,
-                                       /* packet_time_us */ -1);
+    webrtc::RtpPacketReceived packet;
+    packet.Parse(reinterpret_cast<const uint8_t*>(data), len);
+    receive_channel_->OnPacketReceived(packet);
     rtc::Thread::Current()->ProcessMessages(0);
   }
 
@@ -3399,8 +3400,9 @@ TEST_P(WebRtcVoiceEngineTestFake, DeliverAudioPacket_Call) {
   const cricket::FakeAudioReceiveStream* s =
       call_.GetAudioReceiveStream(kAudioSsrc);
   EXPECT_EQ(0, s->received_packets());
-  receive_channel_->OnPacketReceived(kPcmuPacket,
-                                     /* packet_time_us */ -1);
+  webrtc::RtpPacketReceived parsed_packet;
+  RTC_CHECK(parsed_packet.Parse(kPcmuPacket));
+  receive_channel_->OnPacketReceived(parsed_packet);
   rtc::Thread::Current()->ProcessMessages(0);
 
   EXPECT_EQ(1, s->received_packets());

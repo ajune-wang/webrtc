@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4b164db_8ac4d913",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-04T16:30:11Z",
+      "side": 1,
+      "message": "ABSL_DEPRECATED works better but it ended up being a bit random.\nLand this, update chromium, get someone to fix the internal usage, then deprecate?",
+      "parentUuid": "31a80178_8fe029ae",
+      "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26af18b9_77b70077",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-12-29T11:11:45Z",
       "side": 1,
       "message": "RTCCertificateStats(std::string id, Timestamp timestamp)\n\nI think you will need to keep this version of the old one for now and then deprecate/delete as a follow-up in order not to break internals compile:\n\nRTCCertificateStats(const std::string\u0026 id, int64_t timestamp_us)\n\nBut the std::string\u0026\u0026 version can be deleted directly.\nSame comment for all other stats object constructors.",
+      "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0664fa_35e1891b",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-04T16:30:11Z",
+      "side": 1,
+      "message": "overtaken by the other CL",
+      "parentUuid": "26af18b9_77b70077",
       "revId": "f6b2752b9d028d16fbdbc949828467bb9e60a3c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

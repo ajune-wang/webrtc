@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f23da6b_5ff9b8c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-04T13:24:23Z",
+      "side": 1,
+      "message": "This approach to remove extra parsing looks good to me.\n\nNot a big fan of callbacks (to create rtp stream for unsignalled ssrc), but that is not on a common path, and seems like a separate issue (call demuxes among rtp streams, but audio/video engines are responsible for creating a new one if that demux fails).",
+      "revId": "be7279c96d665a78eeaec2e6bbb491972d86d179",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc723ede_6ec4be20",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1709,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-04T13:24:23Z",
+      "side": 1,
+      "message": "if you mark lambda as mutable:\n`[this, packet]() mutable {`\nthen `packet` would be non const (copy of the original `packet`) and you won\u0027t need to copy it again:\n`packet.IdentifiyExtensions(....); packet.set_payload_type_frequency(...);`",
+      "revId": "be7279c96d665a78eeaec2e6bbb491972d86d179",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

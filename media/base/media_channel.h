@@ -44,6 +44,7 @@
 #include "media/base/delayable.h"
 #include "media/base/media_constants.h"
 #include "media/base/stream_params.h"
+#include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "rtc_base/async_packet_socket.h"
@@ -689,6 +690,7 @@ struct VoiceMediaInfo {
   std::vector<VoiceReceiverInfo> receivers;
   RtpCodecParametersMap send_codecs;
   RtpCodecParametersMap receive_codecs;
+  webrtc::AudioDeviceInfo audio_device_info;
   int32_t device_underrun_count = 0;
 };
 

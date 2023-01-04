@@ -16,6 +16,40 @@
       "message": "This part turned out to be a fairly separable problem.",
       "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a53534b_f9cd0e4d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1641,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-04T12:20:59Z",
+      "side": 1,
+      "message": "It\u0027s a bit random to periodically log these stats and nothing else so I would also be fine with deleting the logging, but maybe you want this to be a pure refactoring CL.\n\nEither way, let\u0027s not TODO(hta). Either fix or add a crbug.",
+      "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22de8142_f6f105cb",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-04T12:20:59Z",
+      "side": 1,
+      "message": "Unrelated side-note, but in a 50p meeting filling the send/recv codecs performs ~950 codec.ToCodecParameters() because each m\u003d section will have close to 20 codecs, I suspect there are both send and recv codecs allocated even though the m\u003d sections, so 8+8\u003d16 or more. Each ToCodecParameters() performs a copy of an std::map\u003cstd::string,std::string\u003e for all the rtp parameters.\n\nDespite doing bundle and the codecs being duplicate info, this code is set up to store all the codecs on a per-channel basis.\n\nThere should be room for performance optimizations here, such as storing codecs on a per-transport basis rather than a per-channel basis, or avoiding copies since we nowadays only need to create \"codec\" stats objects for the ones that are currently in-use.\n\n(My previous optimization removed the 900+ codecs on the rtc_stats_collector.cc layer, but not these lower layers.)\n\nAnyway it looks like this CL is not affecting the number of copies, only moving code around.",
+      "revId": "8e1e11195c3dfc1f57d6451dcfc3c858e071569b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '0eb7e7f1f1f296bdb9b68b113b86ed736968d34d',
+  'chromium_revision': '331d6c46c53035014adfe4e5a9acfeb600a861c9',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -56,9 +56,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@c37f76a3df690b38f2ea0c2d5d159cc171da227e',
+    'https://chromium.googlesource.com/chromium/src/testing@b40e36958173e8189061492eee1e184e204c589a',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1bf608489f08e75aa7ac3e176469a33eeebd1288',
+    'https://chromium.googlesource.com/chromium/src/third_party@efbdd5bd13f529555d93963094c658d88ac4b185',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -192,7 +192,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@ace97a02a4461bbdae29da4019c105eead95e277',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@0bcb664de8ea44299f57c45d01433328596bc2a7',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@2822b589bc837fae6f66233e2cf2eef0f6ce8470',
   'src/third_party/google_benchmark/src': {
@@ -297,7 +297,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@5275d1bd53e95f3ad937679411b8be37758c5303',
+    'https://chromium.googlesource.com/chromium/src/tools@ffb705657c389b225fa098042b5162658a6a99b0',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

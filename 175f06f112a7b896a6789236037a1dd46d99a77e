@@ -16,6 +16,24 @@
       "message": "Why was this comment removed?",
       "revId": "175f06f112a7b896a6789236037a1dd46d99a77e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6493472_6cd0a92f",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-05T11:00:12Z",
+      "side": 0,
+      "message": "This only affects local candidates and was fixed a while back below on line 1750+",
+      "parentUuid": "99ed517c_6efdb94a",
+      "revId": "175f06f112a7b896a6789236037a1dd46d99a77e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

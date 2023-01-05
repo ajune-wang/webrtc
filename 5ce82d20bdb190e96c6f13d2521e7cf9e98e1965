@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5e6de7_0d84834d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-05T11:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7d318f0_34f137af",
+      "revId": "5ce82d20bdb190e96c6f13d2521e7cf9e98e1965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0efb63b_cec3529e",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-01-05T10:18:47Z",
       "side": 1,
       "message": "Let\u0027s add brackets to multi-lined if-elses.",
+      "revId": "5ce82d20bdb190e96c6f13d2521e7cf9e98e1965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "063ff9b1_36175395",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-05T11:00:12Z",
+      "side": 1,
+      "message": "Maybe you can convince that pbos guy to add InsertBraces to clang-format for WebRTC too?",
+      "parentUuid": "f0efb63b_cec3529e",
       "revId": "5ce82d20bdb190e96c6f13d2521e7cf9e98e1965",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

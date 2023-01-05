@@ -76,8 +76,10 @@ RtpParameters VideoRtpReceiver::GetParameters() const {
   RTC_DCHECK_RUN_ON(worker_thread_);
   if (!media_channel_)
     return RtpParameters();
-  return ssrc_ ? media_channel_->GetRtpReceiveParameters(*ssrc_)
-               : media_channel_->GetDefaultRtpReceiveParameters();
+  auto current_ssrc = ssrc();
+  return current_ssrc.has_value()
+             ? media_channel_->GetRtpReceiveParameters(current_ssrc.value())
+             : media_channel_->GetDefaultRtpReceiveParameters();
 }
 
 void VideoRtpReceiver::SetFrameDecryptor(
@@ -314,9 +316,11 @@ void VideoRtpReceiver::NotifyFirstPacketReceived() {
 
 std::vector<RtpSource> VideoRtpReceiver::GetSources() const {
   RTC_DCHECK_RUN_ON(worker_thread_);
-  if (!ssrc_ || !media_channel_)
-    return std::vector<RtpSource>();
-  return media_channel_->GetSources(*ssrc_);
+  auto current_ssrc = ssrc();
+  if (!media_channel_ || !current_ssrc.has_value()) {
+    return {};
+  }
+  return media_channel_->GetSources(current_ssrc.value());
 }
 
 void VideoRtpReceiver::SetupMediaChannel(

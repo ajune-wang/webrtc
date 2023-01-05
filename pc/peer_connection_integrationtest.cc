@@ -2756,6 +2756,48 @@ TEST_P(PeerConnectionIntegrationTest, GetSourcesVideo) {
   EXPECT_EQ(webrtc::RtpSourceType::SSRC, sources[0].source_type());
 }
 
+TEST_P(PeerConnectionIntegrationTest, UnsignaledSsrcGetSourcesAudio) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioTrack();
+  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Wait for one audio frame to be received by the callee.
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeAudio(1);
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_EQ(callee()->pc()->GetReceivers().size(), 1u);
+  auto receiver = callee()->pc()->GetReceivers()[0];
+  ASSERT_EQ(receiver->media_type(), cricket::MEDIA_TYPE_AUDIO);
+  auto sources = receiver->GetSources();
+  ASSERT_GT(receiver->GetParameters().encodings.size(), 0u);
+  EXPECT_EQ(receiver->GetParameters().encodings[0].ssrc,
+            sources[0].source_id());
+  EXPECT_EQ(webrtc::RtpSourceType::SSRC, sources[0].source_type());
+}
+
+TEST_P(PeerConnectionIntegrationTest, UnsignaledSsrcGetSourcesVideo) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddVideoTrack();
+  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Wait for one video frame to be received by the callee.
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeVideo(1);
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_EQ(callee()->pc()->GetReceivers().size(), 1u);
+  auto receiver = callee()->pc()->GetReceivers()[0];
+  ASSERT_EQ(receiver->media_type(), cricket::MEDIA_TYPE_VIDEO);
+  auto sources = receiver->GetSources();
+  ASSERT_GT(receiver->GetParameters().encodings.size(), 0u);
+  EXPECT_EQ(receiver->GetParameters().encodings[0].ssrc,
+            sources[0].source_id());
+  EXPECT_EQ(webrtc::RtpSourceType::SSRC, sources[0].source_type());
+}
+
 // Test that if a track is removed and added again with a different stream ID,
 // the new stream ID is successfully communicated in SDP and media continues to
 // flow end-to-end.

@@ -16,6 +16,24 @@
       "message": "What are the actual observed failures?\n\nI kind of feel that having a framerate of 14 to 20 with an allowed difference of +/- 10 makes the whole test kind of pointless - it\u0027s intended to catch regressions that prevent the max framerate from being achieved. With a delta of 10, we won\u0027t catch much.\n\nCan we instead make the tests probe for circumstances under which the framerate may be impossible and return \"meh\" when that happens?",
       "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7057a5cc_5d1ea3cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2023-01-05T10:33:27Z",
+      "side": 1,
+      "message": "This is a benchmark rather than a test, metrics are monitored in CPD and acted upon there AFAIK unless it\u0027s a pure test breakage which this is not. Or are you saying that you are actually monitoring the perf waterfall for performance regressions? If so, why has this not been addressed? \n\nThis failure cannot be tied to a specific CL and is happening due to variance in performance of the bot and 1.5 fps diff is too tight of a threshold. Again, I think metrics should be monitored and alerted in CPD, not asserting on it in the \"test\" which is really a benchmark.\n\nDo you have a proposal of what to probe for? Fail if FPS is 0 as it\u0027s most likely an indication of an infra failure and WebRTC infra troopers should act up on it?",
+      "parentUuid": "44886678_487af7b9",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

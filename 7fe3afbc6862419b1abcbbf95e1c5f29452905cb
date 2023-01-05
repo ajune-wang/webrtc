@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44886678_487af7b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-05T10:10:31Z",
+      "side": 1,
+      "message": "What are the actual observed failures?\n\nI kind of feel that having a framerate of 14 to 20 with an allowed difference of +/- 10 makes the whole test kind of pointless - it\u0027s intended to catch regressions that prevent the max framerate from being achieved. With a delta of 10, we won\u0027t catch much.\n\nCan we instead make the tests probe for circumstances under which the framerate may be impossible and return \"meh\" when that happens?",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

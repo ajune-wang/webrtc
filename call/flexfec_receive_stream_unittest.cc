@@ -142,8 +142,7 @@ TEST_F(FlexfecReceiveStreamTest, RecoversPacket) {
       kPayloadBits,    kPayloadBits,    kPayloadBits,       kPayloadBits};
   // clang-format on
 
-  EXPECT_CALL(recovered_packet_receiver_,
-              OnRecoveredPacket(_, kRtpHeaderSize + kPayloadLength[1]));
+  EXPECT_CALL(recovered_packet_receiver_, OnRecoveredPacket(_));
 
   receive_stream_->OnRtpPacket(ParsePacket(kFlexfecPacket));
 

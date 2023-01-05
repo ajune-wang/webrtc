@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6836f87e_0bcfcdaa",
+        "filename": "test/fuzzers/rtp_video_frame_assembler_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-05T12:36:50Z",
+      "side": 1,
+      "message": "Maybe the min size could be a bit smaller, like 12 bytes?",
+      "range": {
+        "startLine": 36,
+        "startChar": 52,
+        "endLine": 36,
+        "endChar": 55
+      },
+      "revId": "e567dcff5726ad7ab471e1ba2118bf225c980074",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

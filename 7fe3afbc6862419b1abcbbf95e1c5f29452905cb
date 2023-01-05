@@ -34,6 +34,24 @@
       "parentUuid": "44886678_487af7b9",
       "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dee7538_35047761",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-05T11:24:31Z",
+      "side": 1,
+      "message": "Generally agree, but not sure how ready we are to move there.\n\nDo we have infra for monitoring performance metrics from webrtc-repo-only, pure-C++ tests? I would love to use that for some other stuff. (Pointers?)\n\nIf keeping this test as \"trigger for really bad regressions\", I\u0027d suggest to double the threshold to 3.",
+      "parentUuid": "7057a5cc_5d1ea3cb",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b03e121b_0229bed7",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-05T07:34:04Z",
+      "side": 1,
+      "message": "I tried (see older versions) but both [[deprecated]] as well as ABSL_DEPRECATED broke the chromium build (in different ways!)\nSo i\u0027ll have to do this after landing and fixing Chromium it seems",
+      "parentUuid": "c43896ab_f1d0ba3d",
+      "revId": "3b07ae00a30b01c3a751a59c47c3e9db88dc1091",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94e01c97_f89d861e",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 9

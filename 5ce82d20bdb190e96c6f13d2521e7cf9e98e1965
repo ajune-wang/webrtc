@@ -16,6 +16,40 @@
       "message": "this should be slightly more efficient. Maybe... ;-)",
       "revId": "5ce82d20bdb190e96c6f13d2521e7cf9e98e1965",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7d318f0_34f137af",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-05T10:18:47Z",
+      "side": 1,
+      "message": "Remove const from here, it\u0027s not possible to move a const object so the std::move(id) will silently still invoke the copy-constructor of the std::string argument. And the compiler doesn\u0027t complain? Well, that\u0027s C++ for you...",
+      "revId": "5ce82d20bdb190e96c6f13d2521e7cf9e98e1965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0efb63b_cec3529e",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-05T10:18:47Z",
+      "side": 1,
+      "message": "Let\u0027s add brackets to multi-lined if-elses.",
+      "revId": "5ce82d20bdb190e96c6f13d2521e7cf9e98e1965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

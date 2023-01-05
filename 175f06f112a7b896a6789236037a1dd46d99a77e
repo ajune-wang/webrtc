@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99ed517c_6efdb94a",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-05T10:18:47Z",
+      "side": 0,
+      "message": "Why was this comment removed?",
+      "revId": "175f06f112a7b896a6789236037a1dd46d99a77e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

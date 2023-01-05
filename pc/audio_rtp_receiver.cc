@@ -137,8 +137,10 @@ RtpParameters AudioRtpReceiver::GetParameters() const {
   RTC_DCHECK_RUN_ON(worker_thread_);
   if (!media_channel_)
     return RtpParameters();
-  return ssrc_ ? media_channel_->GetRtpReceiveParameters(*ssrc_)
-               : media_channel_->GetDefaultRtpReceiveParameters();
+  auto current_ssrc = ssrc();
+  return current_ssrc.has_value()
+             ? media_channel_->GetRtpReceiveParameters(current_ssrc.value())
+             : media_channel_->GetDefaultRtpReceiveParameters();
 }
 
 void AudioRtpReceiver::SetFrameDecryptor(
@@ -267,10 +269,11 @@ void AudioRtpReceiver::SetStreams(
 
 std::vector<RtpSource> AudioRtpReceiver::GetSources() const {
   RTC_DCHECK_RUN_ON(worker_thread_);
-  if (!media_channel_ || !ssrc_) {
+  auto current_ssrc = ssrc();
+  if (!media_channel_ || !current_ssrc.has_value()) {
     return {};
   }
-  return media_channel_->GetSources(*ssrc_);
+  return media_channel_->GetSources(current_ssrc.value());
 }
 
 void AudioRtpReceiver::SetDepacketizerToDecoderFrameTransformer(

@@ -18,7 +18,7 @@
 namespace webrtc {
 
 template <class T>
-class Scoped {
+class RTC_EXPORT Scoped {
  public:
   Scoped() {}
   explicit Scoped(T* val) { ptr_ = val; }
@@ -48,17 +48,17 @@ class Scoped {
 };
 
 template <>
-Scoped<GError>::~Scoped();
+RTC_EXPORT Scoped<GError>::~Scoped();
 template <>
-Scoped<char>::~Scoped();
+RTC_EXPORT Scoped<char>::~Scoped();
 template <>
-Scoped<GVariant>::~Scoped();
+RTC_EXPORT Scoped<GVariant>::~Scoped();
 template <>
-Scoped<GVariantIter>::~Scoped();
+RTC_EXPORT Scoped<GVariantIter>::~Scoped();
 template <>
-Scoped<GDBusMessage>::~Scoped();
+RTC_EXPORT Scoped<GDBusMessage>::~Scoped();
 template <>
-Scoped<GUnixFDList>::~Scoped();
+RTC_EXPORT Scoped<GUnixFDList>::~Scoped();
 
 }  // namespace webrtc
 

@@ -2382,6 +2382,21 @@ webrtc::RTCError WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
       stream_->SetSource(source_, GetDegradationPreference());
     }
   }
+  // Check if a key frame was requested via setParameters.
+  std::vector<std::string> key_frames_requested;
+  for (const auto& encoding : rtp_parameters_.encodings) {
+    if (encoding.request_key_frame) {
+      key_frames_requested.push_back(encoding.rid);
+    }
+  }
+  if (!key_frames_requested.empty()) {
+    if (key_frames_requested.size() == 1 && key_frames_requested[0] == "") {
+      // For non-simulcast cases there is no rid,
+      // request a keyframe on all layers.
+      key_frames_requested.clear();
+    }
+    GenerateKeyFrame(key_frames_requested);
+  }
   return webrtc::InvokeSetParametersCallback(callback, webrtc::RTCError::OK());
 }
 

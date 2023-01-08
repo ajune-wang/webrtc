@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7f0b9fb_4b20eacc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20164
+      },
+      "writtenOn": "2023-01-08T07:52:18Z",
+      "side": 1,
+      "message": "This change in direction hasn\u0027t happened yet for WebRTC, and it doesn\u0027t help any of the current users of the library right now. If you want to gut all the factories from the library, ideally please do it after this has landed, so that existing consumers can still leverage this until they rework their stuff to provide their own codec factories.",
+      "parentUuid": "713a3d39_bc1f0d09",
+      "revId": "5f6bb870d081877edfbf242e2f1ff9ec8154eb36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "485749e0_83456420",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 4

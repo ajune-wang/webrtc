@@ -2431,6 +2431,8 @@ bool WebRtcVoiceMediaChannel::GetReceiveStats(VoiceMediaReceiveInfo* info,
     info->receive_codecs.insert(
         std::make_pair(codec_params.payload_type, std::move(codec_params)));
   }
+  info->audio_device_info = engine_->GetAudioState()->audio_device_module()->GetInfo();
+  RTC_LOG(LS_ERROR) << "Count: " << info->audio_device_info.count;
   info->device_underrun_count = engine_->adm()->GetPlayoutUnderrunCount();
 
   return true;

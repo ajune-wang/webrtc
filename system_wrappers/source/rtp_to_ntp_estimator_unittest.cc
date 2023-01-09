@@ -36,15 +36,15 @@ TEST(WrapAroundTests, OldRtcpWrapped_OldRtpTimestamp) {
 
 TEST(WrapAroundTests, OldRtcpWrapped_OldRtpTimestamp_Wraparound_Detected) {
   RtpToNtpEstimator estimator;
-  EXPECT_EQ(estimator.UpdateMeasurements(NtpTime(1), 0xFFFFFFFE),
+  EXPECT_EQ(estimator.UpdateMeasurements(NtpTime(1), 0),
             RtpToNtpEstimator::kNewMeasurement);
   EXPECT_EQ(estimator.UpdateMeasurements(NtpTime(1 + 2 * kOneMsInNtp),
-                                         0xFFFFFFFE + 2 * kTimestampTicksPerMs),
+                                         2 * kTimestampTicksPerMs),
             RtpToNtpEstimator::kNewMeasurement);
   // Expected to fail since the older RTCP has a smaller RTP timestamp than the
   // newer (old:10, new:4294967206).
   EXPECT_EQ(estimator.UpdateMeasurements(NtpTime(1 + 3 * kOneMsInNtp),
-                                         0xFFFFFFFE + kTimestampTicksPerMs),
+                                         kTimestampTicksPerMs),
             RtpToNtpEstimator::kInvalidMeasurement);
 }
 

@@ -22,6 +22,30 @@
       },
       "revId": "5c6b33513b407e24f1239d24a66285f355378174",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94506845_1a5117f3",
+        "filename": "modules/video_coding/timing/timestamp_extrapolator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2023-01-09T14:47:15Z",
+      "side": 1,
+      "message": "Fixed. With that said it might make sense to remove the Reset function in the future and replace with this.",
+      "parentUuid": "8e078484_f1c48d6b",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "5c6b33513b407e24f1239d24a66285f355378174",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

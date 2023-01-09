@@ -16,6 +16,23 @@
       "message": "Tests pass now, PTAL",
       "revId": "af508bb50e05c9ea8bee607d30eed4ff5d1022d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80e7a210_750043f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-09T14:03:32Z",
+      "side": 1,
+      "message": "PTAL perkj too",
+      "revId": "af508bb50e05c9ea8bee607d30eed4ff5d1022d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

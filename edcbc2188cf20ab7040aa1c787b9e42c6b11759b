@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aab9795_ea1b8f0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-09T21:50:24Z",
+      "side": 1,
+      "message": "LGTM w/either a switch to the macros or a comment (and maybe a bug)",
+      "revId": "edcbc2188cf20ab7040aa1c787b9e42c6b11759b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a4b000_ba91f67c",
+        "filename": "modules/portal/scoped_glib.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-09T21:50:24Z",
+      "side": 1,
+      "message": "If I understand https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/system/rtc_export_template.h correctly, this *looks* like the non-windows expansion documented there?\n\nIf you\u0027re still seeing errors with RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT) here and\nRTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) in the .cc, can you comment something along the lines of what the error is (maybe with a bug?) and that this works out to what that file says the expansion should be since we\u0027re linux only?",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 0
+      },
+      "revId": "edcbc2188cf20ab7040aa1c787b9e42c6b11759b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

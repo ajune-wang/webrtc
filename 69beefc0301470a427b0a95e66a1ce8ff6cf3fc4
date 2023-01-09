@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2923b721_b20b531d",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-09T14:21:11Z",
+      "side": 1,
+      "message": "packet.SequenceNumber() ?\n(Unwrap takes uint16_t as the input parameter, so currently suggested code would cause cast from int64_t to uint16_t with information loss. \nThough it probably would do what is expected in this case, it is probably a bit safer to pass in uint16_t)",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 39
+      },
+      "revId": "69beefc0301470a427b0a95e66a1ce8ff6cf3fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41f2354_9ed2ca1b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-09T14:21:11Z",
+      "side": 1,
+      "message": "can this include be removed now? (that where legacy SequenceNumberUnwrapper is declared)",
+      "revId": "69beefc0301470a427b0a95e66a1ce8ff6cf3fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

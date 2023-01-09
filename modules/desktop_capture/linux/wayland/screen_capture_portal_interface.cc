@@ -15,6 +15,11 @@
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+
+template class Scoped<GError>;
+template class Scoped<char>;
+template class Scoped<GVariant>;
+
 namespace xdg_portal {
 
 void ScreenCapturePortalInterface::RequestSessionUsingProxy(

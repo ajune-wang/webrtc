@@ -16,6 +16,10 @@
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+
+template class Scoped<char>;
+template class Scoped<GDBusMessage>;
+
 namespace xdg_portal {
 
 std::string RequestResponseToString(RequestResponse request) {

@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf03ed44_927f0c5f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-01-09T13:07:43Z",
+      "side": 1,
+      "message": "Got it, thanks for clarifying.",
+      "parentUuid": "68702e2b_9ecd95bc",
+      "range": {
+        "startLine": 1142,
+        "startChar": 4,
+        "endLine": 1143,
+        "endChar": 37
+      },
+      "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "005b1248_70990169",

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d9ac243_9f7c8ec6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-01-09T12:06:48Z",
+      "side": 1,
+      "message": "Looks good, just one question.",
+      "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b28cd1c7_c2b49274",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-01-09T12:06:48Z",
+      "side": 1,
+      "message": "Why do we need a granular (\"qp_slX\") metric name when the SL information is available in this map? Is it because the Chrome Perf Dashboard does not read this map?",
+      "range": {
+        "startLine": 1142,
+        "startChar": 4,
+        "endLine": 1143,
+        "endChar": 37
+      },
+      "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "005b1248_70990169",
+        "filename": "test/pc/e2e/metric_metadata_keys.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-01-09T12:06:48Z",
+      "side": 1,
+      "message": "Add a brief comment line?",
+      "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

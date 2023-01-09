@@ -443,6 +443,15 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   DeliveryStatus DeliverPacket(webrtc::MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                int64_t packet_time_us) override;
+  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet) override {}
+  void DeliverRtpPacket(
+      webrtc::MediaType media_type,
+      webrtc::RtpPacketReceived packet,
+      OnUndemuxablePacketHandler un_demuxable_packet_handler) override;
+  bool DeliverPacketInternal(webrtc::MediaType media_type,
+                             uint32_t ssrc,
+                             const rtc::CopyOnWriteBuffer& packet,
+                             webrtc::Timestamp arrival_time);
 
   webrtc::RtpTransportControllerSendInterface* GetTransportControllerSend()
       override {

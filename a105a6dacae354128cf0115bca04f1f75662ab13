@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d6d409_c378ede2",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-09T19:42:01Z",
+      "side": 1,
+      "message": "If I\u0027m understanding the macros right, these *shouldn\u0027t* be needed in the .cc files except for scoped_glib, and otherwise your usage *seems* to map to what the export_template macros expand to? https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/system/rtc_export_template.h;drc\u003dc35333d1fdbfec21f4af58537fb8c68e11fdfefd;l\u003d50",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "a105a6dacae354128cf0115bca04f1f75662ab13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

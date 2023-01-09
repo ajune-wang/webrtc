@@ -63,6 +63,30 @@
       },
       "revId": "7345f9ab589741fcfc70c7c432c954b84be38888",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c45cd8f_3c3f5b18",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-09T16:10:03Z",
+      "side": 1,
+      "message": "Haha! I looked up the wrong generated_noise_samples, but I stand by my comment 😄",
+      "parentUuid": "d2f646e3_29d77898",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 24
+      },
+      "revId": "7345f9ab589741fcfc70c7c432c954b84be38888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

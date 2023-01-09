@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68702e2b_9ecd95bc",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-09T13:04:44Z",
+      "side": 1,
+      "message": "Yep, CPD don\u0027t read this map, so we need to duplicate it in name, so metrics from different layers won\u0027t override each other.",
+      "parentUuid": "b28cd1c7_c2b49274",
+      "range": {
+        "startLine": 1142,
+        "startChar": 4,
+        "endLine": 1143,
+        "endChar": 37
+      },
+      "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "005b1248_70990169",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-01-09T12:06:48Z",
       "side": 1,
       "message": "Add a brief comment line?",
+      "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "671fe46d_1fea6dfe",
+        "filename": "test/pc/e2e/metric_metadata_keys.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-09T13:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "005b1248_70990169",
       "revId": "19e1fef6c535b3fb080abcad58b99ee9f2aff11b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

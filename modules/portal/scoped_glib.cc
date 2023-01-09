@@ -12,6 +12,13 @@
 
 namespace webrtc {
 
+template class Scoped<GError>;
+template class Scoped<char>;
+template class Scoped<GVariant>;
+template class Scoped<GVariantIter>;
+template class Scoped<GDBusMessage>;
+template class Scoped<GUnixFDList>;
+
 template <>
 Scoped<GError>::~Scoped() {
   if (ptr_) {

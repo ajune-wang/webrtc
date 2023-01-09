@@ -60,6 +60,13 @@ Scoped<GDBusMessage>::~Scoped();
 template <>
 Scoped<GUnixFDList>::~Scoped();
 
+extern template class RTC_EXPORT Scoped<GError>;
+extern template class RTC_EXPORT Scoped<char>;
+extern template class RTC_EXPORT Scoped<GVariant>;
+extern template class RTC_EXPORT Scoped<GVariantIter>;
+extern template class RTC_EXPORT Scoped<GDBusMessage>;
+extern template class RTC_EXPORT Scoped<GUnixFDList>;
+
 }  // namespace webrtc
 
 #endif  // MODULES_PORTAL_SCOPED_GLIB_H_

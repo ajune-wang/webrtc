@@ -32,11 +32,13 @@
 #include "api/stats/rtc_stats.h"
 #include "api/stats/rtcstats_objects.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_content_type.h"
 #include "api/video_codecs/scalability_mode.h"
 #include "common_video/include/quality_limitation_reason.h"
 #include "media/base/media_channel.h"
 #include "media/base/media_channel_impl.h"
+#include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -511,6 +513,19 @@ std::unique_ptr<RTCInboundRTPStreamStats> CreateInboundAudioStreamStats(
       static_cast<double>(voice_receiver_info.total_interruption_duration_ms) /
       rtc::kNumMillisecsPerSec;
   return inbound_audio;
+}
+
+std::unique_ptr<RTCAudioPlayoutStats> CreateAudioPlayoutStats(
+    const AudioDeviceInfo info, webrtc::Timestamp timestamp) {
+  auto stats = std::make_unique<RTCAudioPlayoutStats>(
+      /*id=*/"asdfasdfasdf",
+      timestamp);
+  stats->synthesized_samples_duration = info.glitch_duration;
+  stats->synthesized_samples_events = info.glitch_count;
+  stats->total_samples_count = info.total_samples_count;
+  stats->total_samples_duration = info.total_duration;
+  stats->total_playout_delay = info.total_delay;
+  return stats;
 }
 
 std::unique_ptr<RTCRemoteOutboundRtpStreamStats>
@@ -2057,6 +2072,7 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
           audio_outbound_rtps, *report));
     }
   }
+  report->TryAddStats(CreateAudioPlayoutStats(stats.track_media_info_map.voice_media_info()->audio_device_info, timestamp));
 }
 
 void RTCStatsCollector::ProduceVideoRTPStreamStats_n(

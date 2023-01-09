@@ -20,6 +20,14 @@ namespace webrtc {
 
 class AudioDeviceModuleForTest;
 
+struct AudioDeviceInfo {
+  double glitch_duration = 0;
+  uint64_t glitch_count = 0;
+  double total_duration = 0;
+  double total_delay = 0;
+  uint64_t total_samples_count = 0;
+};
+
 class AudioDeviceModule : public rtc::RefCountInterface {
  public:
   enum AudioLayer {
@@ -149,6 +157,8 @@ class AudioDeviceModule : public rtc::RefCountInterface {
   // Play underrun count. Only supported on Android.
   // TODO(alexnarest): Make it abstract after upstream projects support it.
   virtual int32_t GetPlayoutUnderrunCount() const { return -1; }
+
+  virtual AudioDeviceInfo GetInfo() const { return {}; }
 
 // Only supported on iOS.
 #if defined(WEBRTC_IOS)

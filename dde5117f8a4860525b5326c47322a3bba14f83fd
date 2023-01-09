@@ -34,6 +34,24 @@
       "parentUuid": "b5481148_252264fc",
       "revId": "dde5117f8a4860525b5326c47322a3bba14f83fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80474b98_1127544d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-09T14:02:46Z",
+      "side": 1,
+      "message": "The flake was caused by a race condition causing video receive streams to be re-created after the first frame is decoded, see https://crbug.com/webrtc/14817 which I filed for more details. With this race condition, it was possible for media to have been received but GetSources() still returning an empty history. (The media was decoded on the first stream, then the stream was re-created due to the race, and the next stream with the same SSRC had no GetSources history.)\n\nIt is an existing and separate issue, so to unblock this CL from landing, I updated the tests to EXEPCT_TRUE_WAIT() that the number of sources is non-empty instead of waiting for media to be received and then assume that sources is non-empty. This should never flake.",
+      "parentUuid": "bd56010c_6381049b",
+      "revId": "dde5117f8a4860525b5326c47322a3bba14f83fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

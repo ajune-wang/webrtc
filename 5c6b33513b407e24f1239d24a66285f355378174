@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e078484_f1c48d6b",
+        "filename": "modules/video_coding/timing/timestamp_extrapolator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-09T14:41:59Z",
+      "side": 1,
+      "message": "For me this is a less clean way of resetting a class. Whenever a class has a `Reset` function I always assume it\u0027s for a particular reason, but in this case the unwrapper is just as cheap to recreate than reset.",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "5c6b33513b407e24f1239d24a66285f355378174",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

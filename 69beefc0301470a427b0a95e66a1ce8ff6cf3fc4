@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4277d7f0_ed889964",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2023-01-09T14:33:19Z",
+      "side": 1,
+      "message": "Good catch! Done and added a comment explaining why PeekUnwrap is uses here.",
+      "parentUuid": "2923b721_b20b531d",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 39
+      },
+      "revId": "69beefc0301470a427b0a95e66a1ce8ff6cf3fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b41f2354_9ed2ca1b",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-01-09T14:21:11Z",
       "side": 1,
       "message": "can this include be removed now? (that where legacy SequenceNumberUnwrapper is declared)",
+      "revId": "69beefc0301470a427b0a95e66a1ce8ff6cf3fc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a2659d_08d91ac9",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2023-01-09T14:33:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b41f2354_9ed2ca1b",
       "revId": "69beefc0301470a427b0a95e66a1ce8ff6cf3fc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

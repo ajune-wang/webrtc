@@ -189,6 +189,10 @@ class VideoReceiveStream2
 
   std::vector<webrtc::RtpSource> GetSources() const override;
 
+  SourceTracker* source_tracker() const override;
+  std::unique_ptr<SourceTracker> TakeSourceTracker() override;
+  void SetSourceTracker(std::unique_ptr<SourceTracker> source_tracker) override;
+
   RecordingState SetAndGetRecordingState(RecordingState state,
                                          bool generate_key_frame) override;
   void GenerateKeyFrame() override;
@@ -261,7 +265,7 @@ class VideoReceiveStream2
   bool decoder_running_ RTC_GUARDED_BY(worker_sequence_checker_) = false;
   bool decoder_stopped_ RTC_GUARDED_BY(decode_queue_) = true;
 
-  SourceTracker source_tracker_;
+  std::unique_ptr<SourceTracker> source_tracker_;
   ReceiveStatisticsProxy stats_proxy_;
   // Shared by media and rtx stream receivers, since the latter has no RtpRtcp
   // module of its own.

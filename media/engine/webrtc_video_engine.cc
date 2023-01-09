@@ -551,6 +551,14 @@ UnsignalledSsrcHandler::Action DefaultUnsignalledSsrcHandler::OnUnsignalledSsrc(
   absl::optional<uint32_t> default_recv_ssrc = channel->GetUnsignaledSsrc();
 
   if (default_recv_ssrc) {
+    // // No need to re-create the stream if we've seen this unsignalled SSRC
+    // // before. This avoids re-creating the same stream in race conditions, which
+    // // we don't want to do because it is wastefuls and clears history (e.g.
+    // // GetSources).
+    // if (*default_recv_ssrc == ssrc) {
+    //   return kDeliverPacket;
+    // }
+
     RTC_LOG(LS_INFO) << "Destroying old default receive stream for SSRC="
                      << ssrc << ".";
     channel->RemoveRecvStream(*default_recv_ssrc);

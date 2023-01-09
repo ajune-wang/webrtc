@@ -2460,7 +2460,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     AddSupportedVideoCodecType("H264");
 #endif
 
-    fake_call_.reset(new FakeCall(&field_trials_));
+    fake_call_.reset(new FakeCall(&field_trials_, time_controller_.GetClock()));
     channel_.reset(engine_.CreateMediaChannel(
         fake_call_.get(), GetMediaConfig(), VideoOptions(),
         webrtc::CryptoOptions(), video_bitrate_allocator_factory_.get()));
@@ -7186,6 +7186,14 @@ TEST_F(WebRtcVideoChannelTest,
       << "Should have created a receive stream for payload type: "
       << payload_type;
 
+  // The receive stream's source tracker.
+  auto* source_tracker_ptr =
+      fake_call_->GetVideoReceiveStreams().front()->source_tracker();
+  ASSERT_TRUE(source_tracker_ptr);
+  std::vector<RtpPacket> packets = {packet};
+  // webrtc::RtpPacketInfos packet_infos;
+  source_tracker_ptr->OnFrameDelivered(packet_infos);
+
   // Send rtx packet.
   RtpPacketReceived rtx_packet;
   rtx_packet.SetPayloadType(rtx_vp8_payload_type);
@@ -7201,6 +7209,10 @@ TEST_F(WebRtcVideoChannelTest,
       << "Receive stream should have correct media ssrc";
   EXPECT_EQ(config.rtp.rtx_ssrc, rtx_ssrc)
       << "Receive stream should have correct rtx ssrc";
+
+  // Check that the recreated stream has taken ownership of the original source
+  // tracker, preserving GetSources() history.
+  EXPECT_EQ(recv_stream->source_tracker(), source_tracker_ptr);
 }
 
 // Test that receiving any unsignalled SSRC works even if it changes.

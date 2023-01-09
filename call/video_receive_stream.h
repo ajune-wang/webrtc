@@ -33,6 +33,7 @@
 #include "common_video/frame_counts.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/source_tracker.h"
 
 namespace webrtc {
 
@@ -309,6 +310,13 @@ class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
 
   virtual void SetAssociatedPayloadTypes(
       std::map<int, int> associated_payload_types) = 0;
+
+  // In the event of re-creating a receive stream, the SourceTracker can be
+  // transferred to the new stream in order to preserve history.
+  virtual SourceTracker* source_tracker() const = 0;
+  virtual std::unique_ptr<SourceTracker> TakeSourceTracker() = 0;
+  virtual void SetSourceTracker(
+      std::unique_ptr<SourceTracker> source_tracker) = 0;
 
  protected:
   virtual ~VideoReceiveStreamInterface() {}

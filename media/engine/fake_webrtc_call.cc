@@ -402,8 +402,10 @@ void FakeVideoSendStream::InjectVideoSinkWants(
 }
 
 FakeVideoReceiveStream::FakeVideoReceiveStream(
-    webrtc::VideoReceiveStreamInterface::Config config)
-    : config_(std::move(config)), receiving_(false) {}
+    webrtc::VideoReceiveStreamInterface::Config config,
+    webrtc::Clock* clock)
+    : config_(std::move(config)), receiving_(false),
+      source_tracker_(std::make_unique<webrtc::SourceTracker>(clock)) {}
 
 const webrtc::VideoReceiveStreamInterface::Config&
 FakeVideoReceiveStream::GetConfig() const {
@@ -469,19 +471,23 @@ void FakeFlexfecReceiveStream::OnRtpPacket(const webrtc::RtpPacketReceived&) {
   RTC_DCHECK_NOTREACHED() << "Not implemented.";
 }
 
-FakeCall::FakeCall(webrtc::test::ScopedKeyValueConfig* field_trials)
-    : FakeCall(rtc::Thread::Current(), rtc::Thread::Current(), field_trials) {}
+FakeCall::FakeCall(webrtc::test::ScopedKeyValueConfig* field_trials,
+                   webrtc::Clock* clock)
+    : FakeCall(rtc::Thread::Current(), rtc::Thread::Current(), field_trials,
+               clock) {}
 
 FakeCall::FakeCall(webrtc::TaskQueueBase* worker_thread,
                    webrtc::TaskQueueBase* network_thread,
-                   webrtc::test::ScopedKeyValueConfig* field_trials)
+                   webrtc::test::ScopedKeyValueConfig* field_trials,
+                   webrtc::Clock* clock)
     : network_thread_(network_thread),
       worker_thread_(worker_thread),
       audio_network_state_(webrtc::kNetworkUp),
       video_network_state_(webrtc::kNetworkUp),
       num_created_send_streams_(0),
       num_created_receive_streams_(0),
-      trials_(field_trials ? field_trials : &fallback_trials_) {}
+      trials_(field_trials ? field_trials : &fallback_trials_),
+      clock_(clock) {}
 
 FakeCall::~FakeCall() {
   EXPECT_EQ(0u, video_send_streams_.size());
@@ -620,7 +626,7 @@ void FakeCall::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
 webrtc::VideoReceiveStreamInterface* FakeCall::CreateVideoReceiveStream(
     webrtc::VideoReceiveStreamInterface::Config config) {
   video_receive_streams_.push_back(
-      new FakeVideoReceiveStream(std::move(config)));
+      new FakeVideoReceiveStream(std::move(config), clock_));
   ++num_created_receive_streams_;
   return video_receive_streams_.back();
 }

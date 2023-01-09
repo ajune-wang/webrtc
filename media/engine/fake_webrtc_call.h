@@ -239,8 +239,9 @@ class FakeVideoSendStream final
 class FakeVideoReceiveStream final
     : public webrtc::VideoReceiveStreamInterface {
  public:
-  explicit FakeVideoReceiveStream(
-      webrtc::VideoReceiveStreamInterface::Config config);
+  FakeVideoReceiveStream(
+      webrtc::VideoReceiveStreamInterface::Config config,
+      webrtc::Clock* clock);
 
   const webrtc::VideoReceiveStreamInterface::Config& GetConfig() const;
 
@@ -252,6 +253,16 @@ class FakeVideoReceiveStream final
 
   std::vector<webrtc::RtpSource> GetSources() const override {
     return std::vector<webrtc::RtpSource>();
+  }
+  webrtc::SourceTracker* source_tracker() const override {
+    return source_tracker_.get();
+  }
+  std::unique_ptr<webrtc::SourceTracker> TakeSourceTracker() override {
+    return std::unique_ptr<webrtc::SourceTracker>(source_tracker_.release());
+  }
+  void SetSourceTracker(std::unique_ptr<webrtc::SourceTracker> source_tracker)
+      override {
+    source_tracker_ = std::move(source_tracker);
   }
 
   int base_mininum_playout_delay_ms() const {
@@ -330,6 +341,7 @@ class FakeVideoReceiveStream final
   webrtc::VideoReceiveStreamInterface::Stats stats_;
 
   int base_mininum_playout_delay_ms_ = 0;
+  std::unique_ptr<webrtc::SourceTracker> source_tracker_;
 };
 
 class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
@@ -362,10 +374,12 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
 
 class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
  public:
-  explicit FakeCall(webrtc::test::ScopedKeyValueConfig* field_trials = nullptr);
+  FakeCall(webrtc::test::ScopedKeyValueConfig* field_trials = nullptr,
+           webrtc::Clock* clock = nullptr);
   FakeCall(webrtc::TaskQueueBase* worker_thread,
            webrtc::TaskQueueBase* network_thread,
-           webrtc::test::ScopedKeyValueConfig* field_trials = nullptr);
+           webrtc::test::ScopedKeyValueConfig* field_trials = nullptr,
+           webrtc::Clock* clock = nullptr);
   ~FakeCall() override;
 
   webrtc::MockRtpTransportControllerSend* GetMockTransportControllerSend() {
@@ -499,6 +513,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   // An extra field trial that can be set using SetFieldTrial.
   std::unique_ptr<webrtc::test::ScopedKeyValueConfig> trials_overrides_;
+
+  webrtc::Clock* clock_;
 };
 
 }  // namespace cricket

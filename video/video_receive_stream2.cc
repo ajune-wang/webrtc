@@ -196,7 +196,7 @@ VideoReceiveStream2::VideoReceiveStream2(
       call_(call),
       clock_(clock),
       call_stats_(call_stats),
-      source_tracker_(clock_),
+      source_tracker_(std::make_unique<SourceTracker>(clock_)),
       stats_proxy_(remote_ssrc(), clock_, call->worker_thread()),
       rtp_receive_statistics_(ReceiveStatistics::Create(clock_)),
       timing_(std::move(timing)),
@@ -644,7 +644,7 @@ int VideoReceiveStream2::GetBaseMinimumPlayoutDelayMs() const {
 }
 
 void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
-  source_tracker_.OnFrameDelivered(video_frame.packet_infos());
+  source_tracker_->OnFrameDelivered(video_frame.packet_infos());
   config_.renderer->OnFrame(video_frame);
 
   // TODO(bugs.webrtc.org/10739): we should set local capture clock offset for
@@ -1043,7 +1043,20 @@ void VideoReceiveStream2::UpdatePlayoutDelays() const {
 }
 
 std::vector<webrtc::RtpSource> VideoReceiveStream2::GetSources() const {
-  return source_tracker_.GetSources();
+  return source_tracker_->GetSources();
+}
+
+SourceTracker* VideoReceiveStream2::source_tracker() const {
+  return source_tracker_.get();
+}
+
+std::unique_ptr<SourceTracker> VideoReceiveStream2::TakeSourceTracker() {
+  return std::unique_ptr<SourceTracker>(source_tracker_.release());
+}
+
+void VideoReceiveStream2::SetSourceTracker(
+    std::unique_ptr<SourceTracker> source_tracker) {
+  source_tracker_ = std::move(source_tracker);
 }
 
 VideoReceiveStream2::RecordingState

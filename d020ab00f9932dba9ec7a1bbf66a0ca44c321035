@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f9410511_a4724133",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-01-10T10:48:40Z",
+      "side": 1,
+      "message": "Please add a newline after the first sentence. It will be used for short CL description and is advised to be short.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "d020ab00f9932dba9ec7a1bbf66a0ca44c321035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "05d1efcb_c9aa6683",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

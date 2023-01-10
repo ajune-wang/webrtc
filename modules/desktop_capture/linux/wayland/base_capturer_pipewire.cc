@@ -131,6 +131,10 @@ void BaseCapturerPipeWire::Start(Callback* callback) {
       screencast_portal->SetRestoreToken(
           RestoreTokenManager::GetInstance().TakeToken(selected_source_id_));
     }
+
+    if (!options_.description().empty()) {
+      screencast_portal->SetDescription(options_.description());
+    }
   }
 
   is_portal_open_ = true;

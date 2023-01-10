@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef53912_15a68297",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-10T15:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7011d6b_bd09304b",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "894f2c80_a9b80f95",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-01-10T09:26:57Z",
       "side": 1,
       "message": "If it\u0027s not a common naming scheme here, AudioDeviceStats would be better. Info usually means id, parameters, etc. Maybe even better to nest it in AudioDeviceModule and make it AudioDeviceModule::Stats.",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e35aac4_689654cc",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-10T15:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "894f2c80_a9b80f95",
       "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f2d2a5_319040fe",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-10T15:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cc376d5_b12e1c9d",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac7d95a2_75828751",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-01-10T09:26:57Z",
       "side": 1,
       "message": "Return const ref?",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb84911_44da3f49",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-10T15:40:47Z",
+      "side": 1,
+      "message": "I don\u0027t think it can be a ref, since the stats may change after the call.",
+      "parentUuid": "ac7d95a2_75828751",
       "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

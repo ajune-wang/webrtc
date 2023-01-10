@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e73690_f6f77b18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-10T11:47:31Z",
+      "side": 1,
+      "message": "Mind stamping the merge to M110?",
+      "revId": "0bc7b4785b3b45debbc976c8c9d4e0a3b0dfbe8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

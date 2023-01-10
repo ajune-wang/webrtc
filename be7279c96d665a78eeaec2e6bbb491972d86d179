@@ -33,6 +33,24 @@
       "message": "if you mark lambda as mutable:\n`[this, packet]() mutable {`\nthen `packet` would be non const (copy of the original `packet`) and you won\u0027t need to copy it again:\n`packet.IdentifiyExtensions(....); packet.set_payload_type_frequency(...);`",
       "revId": "be7279c96d665a78eeaec2e6bbb491972d86d179",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "780d5464_c28c7b3c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1709,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-10T09:27:12Z",
+      "side": 1,
+      "message": "```\n  worker_thread_-\u003ePostTask(SafeTask(task_safety_.flag(), [this,\n                                                          packet]() mutable {\n    RTC_DCHECK_RUN_ON(\u0026thread_checker_);\n\n    // TODO(bugs.webrtc.org/7135): extensions in `packet` is currently set in\n    // RtpTransport and does not neccessarily include extensions specific to\n    // this channel/MID. Also see comment in\n    // BaseChannel::MaybeUpdateDemuxerAndRtpExtensions_w.\n    // It would likely be good if extensions where merged per BUNDLE and applied\n    // directly in RtpTransport::DemuxPacket;\n    packet.IdentifyExtensions(recv_rtp_extension_map_);\n```\n../../media/engine/webrtc_video_engine.cc:1744:5: error: \u0027this\u0027 argument to member function \u0027IdentifyExtensions\u0027 has type \u0027const webrtc::RtpPacketReceived\u0027, but function is not marked const\n    packet.IdentifyExtensions(recv_rtp_extension_map_);\n    ^~~~~~\n    \n\n```\n\n[this, video_packet \u003d packet] () mutable {\n\n```\n does the trick.",
+      "parentUuid": "cc723ede_6ec4be20",
+      "revId": "be7279c96d665a78eeaec2e6bbb491972d86d179",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

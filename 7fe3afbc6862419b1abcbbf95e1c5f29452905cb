@@ -70,6 +70,24 @@
       "parentUuid": "1dee7538_35047761",
       "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234a4039_e2d26eef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-10T13:56:47Z",
+      "side": 1,
+      "message": "So there\u0027s a field trial that is only set when running performance tests? That\u0027s an interesting usage of field trials, and should probably get a call-out on https://webrtc.googlesource.com/src/+/lkgr/g3doc/field-trials.md?pli\u003d1# or in the corresponding registry - on the surface, it\u0027s in conflict with the policy, since it has no end date.\n\nI don\u0027t quite understand how this would interact with metrics upload, but wouldn\u0027t be averse to having a quite wide tolerance in normal tests and a narrow tolerance in perf tests using the field trial (or a successor way of indicating that it\u0027s a perf test) (if that doesn\u0027t prevent recording the actual metric).",
+      "parentUuid": "42110e68_7320b671",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

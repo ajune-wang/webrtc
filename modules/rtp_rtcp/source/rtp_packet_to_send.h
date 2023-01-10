@@ -37,9 +37,9 @@ class RtpPacketToSend : public RtpPacket {
 
   explicit RtpPacketToSend(const ExtensionManager* extensions);
   RtpPacketToSend(const ExtensionManager* extensions, size_t capacity);
+
   RtpPacketToSend(const RtpPacketToSend& packet);
   RtpPacketToSend(RtpPacketToSend&& packet);
-
   RtpPacketToSend& operator=(const RtpPacketToSend& packet);
   RtpPacketToSend& operator=(RtpPacketToSend&& packet);
 

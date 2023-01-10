@@ -60,16 +60,12 @@ RtpPacket::RtpPacket() : RtpPacket(nullptr, kDefaultPacketSize) {}
 RtpPacket::RtpPacket(const ExtensionManager* extensions)
     : RtpPacket(extensions, kDefaultPacketSize) {}
 
-RtpPacket::RtpPacket(const RtpPacket&) = default;
-
 RtpPacket::RtpPacket(const ExtensionManager* extensions, size_t capacity)
     : extensions_(extensions ? *extensions : ExtensionManager()),
       buffer_(capacity) {
   RTC_DCHECK_GE(capacity, kFixedHeaderSize);
   Clear();
 }
-
-RtpPacket::~RtpPacket() {}
 
 void RtpPacket::IdentifyExtensions(ExtensionManager extensions) {
   extensions_ = std::move(extensions);

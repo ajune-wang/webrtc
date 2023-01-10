@@ -16,6 +16,23 @@
       "message": "Ilya, you might be most familiar with this. I was surprised that orphis\u0027 https://orphis.github.io/webrtc-sandbox/simulcast-playground.html still works but that is probably due to SEA being used which avoids this codepath and the native OpenH264 simulcast codepath is only called in cases where the dimensions satisfy the powers-of-two condition?",
       "revId": "d020ab00f9932dba9ec7a1bbf66a0ca44c321035",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0173caaa_12489a0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-01-10T10:47:36Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with this particular workaround. Generally speaking, it\u0027s not needed. Mirta, you\u0027ve added this code. Is it still needed.",
+      "revId": "d020ab00f9932dba9ec7a1bbf66a0ca44c321035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

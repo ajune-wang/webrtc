@@ -52,6 +52,24 @@
       "parentUuid": "7057a5cc_5d1ea3cb",
       "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42110e68_7320b671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-10T13:12:57Z",
+      "side": 1,
+      "message": "Would it be ok to call VerifyStat only when field_trial::IsEnabled(\"WebRTC-QuickPerfTest\") ?\nThis way the assertion failure would be caught early and wouldn\u0027t prevent all the metrics to be uploaded.",
+      "parentUuid": "1dee7538_35047761",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

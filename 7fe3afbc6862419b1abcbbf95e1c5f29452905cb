@@ -88,6 +88,24 @@
       "parentUuid": "42110e68_7320b671",
       "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c55f9bee_7953dc18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-10T14:10:42Z",
+      "side": 1,
+      "message": "No the field trial is set when running perf tests in a \"quick\" mode.\nIt is used in CQ to test \"heavy\" breakages of the perf tests code like crashes (and it doesn\u0027t upload anything).\nThe idea would be to only run perf tests assertion in this \"quick\" mode.\n\nFYI the field trial is planned to be remove for 2024-06-01, I think it should really be an absl flag.",
+      "parentUuid": "234a4039_e2d26eef",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa9f49a2_b37555f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-10T18:46:58Z",
+      "side": 1,
+      "message": "to resolve two TODOs\n(there is still a bit of duplication of constants and one line helpers between av1 packetizer and av1 depacketizer, but sharing those doesn\u0027t look helpful)",
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

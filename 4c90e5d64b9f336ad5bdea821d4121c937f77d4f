@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "444debd1_e374bca5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-10T09:26:57Z",
+      "side": 1,
+      "message": "SG, I like exposing it through the device. (I remember I had some concerns about that, but do not recall them now, so hopefully they were ungrounded).",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7011d6b_bd09304b",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-10T09:26:57Z",
+      "side": 1,
+      "message": "Add link to the spec?",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "894f2c80_a9b80f95",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-10T09:26:57Z",
+      "side": 1,
+      "message": "If it\u0027s not a common naming scheme here, AudioDeviceStats would be better. Info usually means id, parameters, etc. Maybe even better to nest it in AudioDeviceModule and make it AudioDeviceModule::Stats.",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cc376d5_b12e1c9d",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-10T09:26:57Z",
+      "side": 1,
+      "message": "Those need units, like glitch_duration_ms (or _s)",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac7d95a2_75828751",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-10T09:26:57Z",
+      "side": 1,
+      "message": "Return const ref?",
+      "revId": "4c90e5d64b9f336ad5bdea821d4121c937f77d4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

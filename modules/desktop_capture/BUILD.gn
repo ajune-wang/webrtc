@@ -564,7 +564,6 @@ rtc_library("desktop_capture") {
       "linux/wayland/restore_token_manager.cc",
       "linux/wayland/restore_token_manager.h",
       "linux/wayland/scoped_glib.h",
-      "linux/wayland/screen_capture_portal_interface.cc",
       "linux/wayland/screen_capture_portal_interface.h",
       "linux/wayland/screencast_portal.cc",
       "linux/wayland/screencast_portal.h",

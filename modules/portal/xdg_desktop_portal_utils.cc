@@ -13,6 +13,7 @@
 
 #include "absl/strings/string_view.h"
 #include "modules/portal/scoped_glib.h"
+#include "modules/portal/screen_capture_portal_interface.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
@@ -144,6 +145,14 @@ void StartSessionRequest(
                       g_random_int_range(0, G_MAXINT));
   g_variant_builder_add(&builder, "{sv}", "handle_token",
                         g_variant_new_string(variant_string.get()));
+
+  const ScreenCapturePortalInterface* portalInterface =
+      static_cast<ScreenCapturePortalInterface*>(user_data);
+  if (portalInterface && !portalInterface->Description().empty()) {
+    g_variant_builder_add(
+        &builder, "{sv}", "description",
+        g_variant_new_string(portalInterface->Description().c_str()));
+  }
 
   start_handle = PrepareSignalHandle(variant_string.get(), connection);
   start_request_signal_id = SetupRequestResponseSignal(

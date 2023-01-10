@@ -212,6 +212,11 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool pipewire_use_damage_region() const {
     return pipewire_use_damage_region_;
   }
+
+  void set_description(const std::string& description) {
+    description_ = description;
+  }
+  std::string description() const { return description_; }
 #endif
 
  private:
@@ -254,6 +259,7 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool pipewire_use_damage_region_ = true;
   uint32_t width_ = 0;
   uint32_t height_ = 0;
+  std::string description_;
 #endif
 };
 

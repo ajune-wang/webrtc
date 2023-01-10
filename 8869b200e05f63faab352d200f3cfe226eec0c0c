@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e2a2f20_e89c35d0",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-10T09:59:01Z",
+      "side": 1,
+      "message": "That\u0027s a pretty large increase. This test appears to test that we are producing the desired frame rate, and this increase seems like it could significantly reduce the effectiveness of that.\nIf we believe we already have other test cases covering this (e.g. scenario tests with fake clock), or perf test alerts - maybe it would be better to just remove the test instead if it\u0027s causing issues?\n\nOtherwise suggest doing a smaller increase, e.g. 4? That would still be more than 2x the current threshold...",
+      "range": {
+        "startLine": 1074,
+        "startChar": 44,
+        "endLine": 1074,
+        "endChar": 48
+      },
+      "revId": "8869b200e05f63faab352d200f3cfe226eec0c0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

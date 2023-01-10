@@ -56,6 +56,47 @@
       "message": "I\u0027m not familiar with this particular workaround. Generally speaking, it\u0027s not needed. Mirta, you\u0027ve added this code. Is it still needed.",
       "revId": "d020ab00f9932dba9ec7a1bbf66a0ca44c321035",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad26b703_4df680a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19744
+      },
+      "writtenOn": "2023-01-10T11:42:05Z",
+      "side": 1,
+      "message": "It should not be needed if the H.264 encoder can handle arbitrary scale factors now.",
+      "parentUuid": "0173caaa_12489a0d",
+      "revId": "d020ab00f9932dba9ec7a1bbf66a0ca44c321035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f4f042_055300be",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19744
+      },
+      "writtenOn": "2023-01-10T11:42:05Z",
+      "side": 1,
+      "message": "I think we should remove this condition now - we want to verify that `simulcastStream` widths/heights are non-decreasing for H.264 as well.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "d020ab00f9932dba9ec7a1bbf66a0ca44c321035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

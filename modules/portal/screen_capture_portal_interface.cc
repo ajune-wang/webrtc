@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h"
+#include "modules/portal/screen_capture_portal_interface.h"
 
 #include <string>
 
@@ -121,6 +121,15 @@ void ScreenCapturePortalInterface::OnStartRequestResult(GDBusProxy* proxy,
   }
 
   RTC_LOG(LS_INFO) << "Subscribed to the start signal.";
+}
+
+void ScreenCapturePortalInterface::SetDescription(
+    const std::string& description) {
+  description_ = description;
+}
+
+std::string ScreenCapturePortalInterface::Description() const {
+  return description_;
 }
 
 }  // namespace xdg_portal

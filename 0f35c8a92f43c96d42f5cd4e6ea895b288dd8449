@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea1b262d_b7904f9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-01-10T12:04:19Z",
+      "side": 1,
+      "message": "I will keep this as WIP because this is still not supported in xdg-desktop-portal and the API can change. See https://github.com/flatpak/xdg-desktop-portal/pull/939.\n\nI moved ScreenCapturePortalInterface into modules/portal as I needed access to it from xdg_desktop_portal_utils and I also think it makes more sense there. I\u0027m just not happy with the way I pass the description as the only way I can add additional parameters is to basically access the base portal class. Adding yet another parameter to StartSessionRequest() is a no-go as it would break for other consumers and this was the only way. It also allows for additional options in the future (if there are any).",
+      "revId": "0f35c8a92f43c96d42f5cd4e6ea895b288dd8449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,29 @@
       "message": "Also included a minor change to make the audio level indicator variable atomic.",
       "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f922a973_8be71682",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-11T16:45:26Z",
+      "side": 1,
+      "message": "It\u0027s now possible for encodes to execute on the task queue after StopSend has returned. Are you sure this isn\u0027t a problem? Isn\u0027t it safer solution to keep synchronizing with the encoder queue, i.e. check the status there as well and keep storing the atomic here on the queue.",
+      "range": {
+        "startLine": 537,
+        "startChar": 18,
+        "endLine": 537,
+        "endChar": 26
+      },
+      "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

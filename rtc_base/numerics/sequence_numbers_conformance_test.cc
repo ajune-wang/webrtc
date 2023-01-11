@@ -16,7 +16,6 @@
 #include "net/dcsctp/common/sequence_numbers.h"
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
 #include "rtc_base/strong_alias.h"
-#include "rtc_base/time_utils.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -86,8 +85,7 @@ TYPED_TEST_P(UnwrapperConformanceFixture, NegativeUnwrap) {
   using UnwrapperT = decltype(this->ref_unwrapper_);
   // TimestampUnwrapper known to not handle negative numbers.
   // rtc::TimestampWrapAroundHandler does not wrap around correctly.
-  if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>() ||
-                std::is_same<UnwrapperT, rtc::TimestampWrapAroundHandler>()) {
+  if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>()) {
     return;
   }
   EXPECT_EQ(0, this->ref_unwrapper_.Unwrap(0));
@@ -107,11 +105,6 @@ TYPED_TEST_P(UnwrapperConformanceFixture, BackwardUnwrap) {
 }
 
 TYPED_TEST_P(UnwrapperConformanceFixture, MultiplePositiveWrapArounds) {
-  using UnwrapperT = decltype(this->ref_unwrapper_);
-  // rtc::TimestampWrapAroundHandler does not wrap around correctly.
-  if constexpr (std::is_same<UnwrapperT, rtc::TimestampWrapAroundHandler>()) {
-    return;
-  }
   int64_t val = 0;
   uint32_t wrapped_val = 0;
   for (int i = 0; i < 16; ++i) {
@@ -139,8 +132,7 @@ TYPED_TEST_P(UnwrapperConformanceFixture, MultipleNegativeWrapArounds) {
   // rtc::TimestampWrapAroundHandler does not wrap around correctly.
   if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>() ||
                 std::is_same<UnwrapperT,
-                             UnwrapperHelper<TestSequence::Unwrapper>>() ||
-                std::is_same<UnwrapperT, rtc::TimestampWrapAroundHandler>()) {
+                             UnwrapperHelper<TestSequence::Unwrapper>>()) {
     return;
   }
   int64_t val = 0;
@@ -163,7 +155,6 @@ REGISTER_TYPED_TEST_SUITE_P(UnwrapperConformanceFixture,
 
 constexpr int64_t k15BitMax = (int64_t{1} << 15) - 1;
 using UnwrapperTypes = ::testing::Types<
-    FixtureParams<rtc::TimestampWrapAroundHandler>,
     FixtureParams<TimestampUnwrapper>,
     FixtureParams<RtpTimestampUnwrapper>,
     FixtureParams<UnwrapperHelper<TestSequence::Unwrapper>>,
@@ -174,9 +165,6 @@ class TestNames {
  public:
   template <typename T>
   static std::string GetName(int) {
-    if constexpr (std::is_same<typename T::Unwrapper,
-                               rtc::TimestampWrapAroundHandler>())
-      return "TimestampWrapAroundHandler";
     if constexpr (std::is_same<typename T::Unwrapper, TimestampUnwrapper>())
       return "TimestampUnwrapper";
     if constexpr (std::is_same<typename T::Unwrapper,

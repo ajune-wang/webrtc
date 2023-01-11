@@ -112,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b253931d_a133f418",
+        "filename": "modules/rtp_rtcp/source/leb128.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-11T11:52:05Z",
+      "side": 1,
+      "message": "Rethinking the signature with wider usage SGTM.",
+      "parentUuid": "8e4867f4_a09dba2f",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bb003e8_47e81d50",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "That would be safer but less efficient (extra parameter [size] to pass, extra validation, function would be able to fail now, caller would need to handler the failure, etc.\n\nprefer to keep existent signature for now. That would make this change smaller and thus change itself would be safer, while overall safety of the code remains the same as it is now.\n\nWould it help to rename the function to UnsafeWriteLeb128 ?",
       "parentUuid": "1bb003e8_47e81d50",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9618ba6d_00d63e8f",
+        "filename": "modules/rtp_rtcp/source/leb128.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-11T11:52:05Z",
+      "side": 1,
+      "message": "No need to rename, and as you said, if we see wider usage then we can rethink leb128 reading/writing.",
+      "parentUuid": "b3b2058d_1ba8db23",
       "range": {
         "startLine": 51,
         "startChar": 32,

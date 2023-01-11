@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69f3160e_e4a7d9e9",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-11T00:28:57Z",
+      "side": 1,
+      "message": "Mmmm... This is used in CRD isn\u0027t it? We should probably try to split off a \"/public\" that\u0027s intended to be consumed outside of WebRTC.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "26c2fbcdfe9897ec8053b03a7a15a93425214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

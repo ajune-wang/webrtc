@@ -87,6 +87,24 @@
       "parentUuid": "6db72b89_6604b0af",
       "revId": "b66a1df3a95b9e713a805b9e17cc4d27a23945a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "723161c9_5ce027f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-11T09:35:01Z",
+      "side": 1,
+      "message": "Please add me to the change that would remove this deprecated constructors/accessors.\nI plan to update all internal usages by then, and will recheck none are left or reintroduced.",
+      "parentUuid": "dc08bd5e_e08cbd27",
+      "revId": "b66a1df3a95b9e713a805b9e17cc4d27a23945a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

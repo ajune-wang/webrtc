@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78991374_a05c316f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-11T08:38:22Z",
+      "side": 1,
+      "message": "danil: can you help eliminate internal usage of .timestamp_us() so this can actually be removed?",
+      "revId": "b66a1df3a95b9e713a805b9e17cc4d27a23945a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -39,6 +39,30 @@
       },
       "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4dcecd0_15806808",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-11T17:04:25Z",
+      "side": 1,
+      "message": "Hm..thanks for bringing this up, I haven\u0027t considered it. Not sure about the implications really, but made a fix. I still set the bool before the PostTask since we don\u0027t want to queue any new work while we wait.",
+      "parentUuid": "f922a973_8be71682",
+      "range": {
+        "startLine": 537,
+        "startChar": 18,
+        "endLine": 537,
+        "endChar": 26
+      },
+      "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

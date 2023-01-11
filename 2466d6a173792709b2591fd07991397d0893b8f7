@@ -16,6 +16,75 @@
       "message": "to resolve two TODOs\n(there is still a bit of duplication of constants and one line helpers between av1 packetizer and av1 depacketizer, but sharing those doesn\u0027t look helpful)",
       "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45715860_5a6c5499",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-11T10:15:25Z",
+      "side": 1,
+      "message": "Should we move this to rtc_base/numerics instead?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2589a0e_126cd6e2",
+        "filename": "modules/rtp_rtcp/source/leb128.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-11T10:15:25Z",
+      "side": 1,
+      "message": "WDYT about:\n\n    uint64_t ReadLeb128(rtc::ArrayView\u003cconst uint8_t\u003e\u0026 buffer) {\n      // do stuff\n      if (error) {\n        buffer \u003d {};\n      }\n    }\n\nor would that just complicate calling the function?",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bb003e8_47e81d50",
+        "filename": "modules/rtp_rtcp/source/leb128.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-01-11T10:15:25Z",
+      "side": 1,
+      "message": "rtc::ArrayView?",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -42,6 +42,7 @@ class FakeVoiceMediaChannelForStats : public cricket::FakeVoiceMediaChannel {
     receive_stats_->receivers = voice_info.receivers;
     receive_stats_->receive_codecs = voice_info.receive_codecs;
     receive_stats_->device_underrun_count = voice_info.device_underrun_count;
+    receive_stats_->audio_device_stats = voice_info.audio_device_stats;
   }
 
   // VoiceMediaChannel overrides.

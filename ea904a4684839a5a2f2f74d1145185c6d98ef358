@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5a2fd7_5ecc68af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-11T16:43:25Z",
+      "side": 1,
+      "message": "Also included a minor change to make the audio level indicator variable atomic.",
+      "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

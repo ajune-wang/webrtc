@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0972f87_c5b2dac9",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-11T10:46:03Z",
+      "side": 1,
+      "message": "prefer to limit the scope,\ni.e. prefer not to move it to more public webrtc folder until there is need for it outside rtp_rtcp",
+      "parentUuid": "45715860_5a6c5499",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2589a0e_126cd6e2",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e4867f4_a09dba2f",
+        "filename": "modules/rtp_rtcp/source/leb128.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-11T10:46:03Z",
+      "side": 1,
+      "message": "Right now there is only single usage (RtpVideoLayersAllocationExtension::Parse), and that one would become more complicated if it would need to pass ArrayView, specially reference to ArrayView\n\nIf Leb128 would have wider usage, then it might be better to rethink its signature.\ne.g.\n\n// One failure size \u003d\u003d 0, value is undefined.\nstruct {\n  uint64_t value;\n  int size;\n} ReadLeb128(rtc::ArrayView\u003cconst uint8_t\u003e buffer);\n\nYet another option would be to make this reader even more general, so that even AV1 depacketizer could use it (currently it re-implements read leb128 function because it traverse array of arrays container, not a flat buffer):\n\n// On failure returns std::nullopt and leave read_at in undefined state.\ntemplate\u003ctypename Iterator\u003e\nstd::optional\u003cuint64_t\u003e ReadLeb128(Iterator\u0026 read_at, Iterator end);",
+      "parentUuid": "c2589a0e_126cd6e2",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bb003e8_47e81d50",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-01-11T10:15:25Z",
       "side": 1,
       "message": "rtc::ArrayView?",
+      "range": {
+        "startLine": 51,
+        "startChar": 32,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "2466d6a173792709b2591fd07991397d0893b8f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3b2058d_1ba8db23",
+        "filename": "modules/rtp_rtcp/source/leb128.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-11T10:46:03Z",
+      "side": 1,
+      "message": "That would be safer but less efficient (extra parameter [size] to pass, extra validation, function would be able to fail now, caller would need to handler the failure, etc.\n\nprefer to keep existent signature for now. That would make this change smaller and thus change itself would be safer, while overall safety of the code remains the same as it is now.\n\nWould it help to rename the function to UnsafeWriteLeb128 ?",
+      "parentUuid": "1bb003e8_47e81d50",
       "range": {
         "startLine": 51,
         "startChar": 32,

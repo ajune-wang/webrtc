@@ -106,6 +106,24 @@
       "parentUuid": "234a4039_e2d26eef",
       "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed1c61d_c72d4ff1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-11T07:48:24Z",
+      "side": 1,
+      "message": "I updated the CL and the description.",
+      "parentUuid": "c55f9bee_7953dc18",
+      "revId": "7fe3afbc6862419b1abcbbf95e1c5f29452905cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

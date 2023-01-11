@@ -63,6 +63,30 @@
       },
       "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30875699_d83fc645",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-11T19:11:52Z",
+      "side": 1,
+      "message": "Oh maybe there is a race between checking encoder_queue_is_active_ and PostTask then. Added the check back to the encoder queue task.",
+      "parentUuid": "e4dcecd0_15806808",
+      "range": {
+        "startLine": 537,
+        "startChar": 18,
+        "endLine": 537,
+        "endChar": 26
+      },
+      "revId": "ea904a4684839a5a2f2f74d1145185c6d98ef358",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1961d2a6_4a4f6650",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-11T12:12:51Z",
+      "side": 1,
+      "message": "I may misunderstand this code. But I don\u0027t see how it\u0027s a no-change.",
+      "revId": "f982560f86863fb591f4a56f3a48c67afee02cab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239b042e_009cc7ac",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-11T12:12:51Z",
+      "side": 1,
+      "message": "Is this change because the new unwrapper doesn\u0027t support wrapping below zero (new measurement before the first one)?\nWhat\u0027s the effect of that incompatibility?",
+      "revId": "f982560f86863fb591f4a56f3a48c67afee02cab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6032b1ea_5b0c0351",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-11T12:12:51Z",
+      "side": 1,
+      "message": "If you move to the new values, update the comment too.",
+      "revId": "f982560f86863fb591f4a56f3a48c67afee02cab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

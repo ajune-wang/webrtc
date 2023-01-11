@@ -322,11 +322,6 @@ int main(int argc, char* argv[]) {
   });
   plots.RegisterPlot("audio_playout",
                      [&](Plot* plot) { analyzer.CreatePlayoutGraph(plot); });
-
-  plots.RegisterPlot("neteq_set_minimum_delay", [&](Plot* plot) {
-    analyzer.CreateNetEqSetMinimumDelay(plot);
-  });
-
   plots.RegisterPlot("incoming_audio_level", [&](Plot* plot) {
     analyzer.CreateAudioLevelGraph(webrtc::kIncomingPacket, plot);
   });

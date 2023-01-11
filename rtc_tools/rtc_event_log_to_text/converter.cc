@@ -33,7 +33,6 @@
 #include "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
-#include "logging/rtc_event_log/events/rtc_event_neteq_set_minimum_delay.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_success.h"
@@ -125,14 +124,6 @@ bool Convert(std::string inputfile,
     fprintf(output, "AUDIO_PLAYOUT %" PRId64 " ssrc=%u\n", event.log_time_ms(),
             event.ssrc);
   };
-
-  auto neteq_set_minimum_delay_handler =
-      [&](const LoggedNetEqSetMinimumDelayEvent& event) {
-        fprintf(output,
-                "NETEQ_SET_MINIMUM_DELAY %" PRId64
-                " remote_ssrc=%u minimum_delay=%d\n",
-                event.log_time_ms(), event.remote_ssrc, event.minimum_delay_ms);
-      };
 
   auto audio_network_adaptation_handler =
       [&](const LoggedAudioNetworkAdaptationEvent& event) {
@@ -458,11 +449,6 @@ bool Convert(std::string inputfile,
   for (const auto& kv : parsed_log.audio_playout_events()) {
     processor.AddEvents(kv.second, audio_playout_handler);
   }
-
-  for (const auto& kv : parsed_log.neteq_set_minimum_delay_events()) {
-    processor.AddEvents(kv.second, neteq_set_minimum_delay_handler);
-  }
-
   processor.AddEvents(parsed_log.audio_network_adaptation_events(),
                       audio_network_adaptation_handler);
 

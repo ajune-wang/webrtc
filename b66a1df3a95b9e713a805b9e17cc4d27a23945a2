@@ -34,6 +34,41 @@
       "parentUuid": "78991374_a05c316f",
       "revId": "b66a1df3a95b9e713a805b9e17cc4d27a23945a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db72b89_6604b0af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-11T09:21:20Z",
+      "side": 1,
+      "message": "Realized deprecation doesn\u0027t block internal usage,\nstill would update it to newer api, but that can be done after this change is committed.\n\nThis is in api. Committing it as deprecated should aslo help other webrtc users to notice this need to be updated.",
+      "parentUuid": "bcb94222_c662d979",
+      "revId": "b66a1df3a95b9e713a805b9e17cc4d27a23945a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e0a72c_1be7cf52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-11T09:21:20Z",
+      "side": 1,
+      "message": "deprecation",
+      "revId": "b66a1df3a95b9e713a805b9e17cc4d27a23945a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

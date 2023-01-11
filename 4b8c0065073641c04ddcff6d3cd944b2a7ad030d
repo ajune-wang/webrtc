@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a775a7_8ad23206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-11T16:20:14Z",
+      "side": 1,
+      "message": "opinion requested!",
+      "revId": "4b8c0065073641c04ddcff6d3cd944b2a7ad030d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba27e5c_a025097a",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1711,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-11T16:20:14Z",
+      "side": 1,
+      "message": "since we never expose codec stats for RTX, ULPFEC or RED can we simply omit them here (with a note)?",
+      "revId": "4b8c0065073641c04ddcff6d3cd944b2a7ad030d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a455915_a8c5b3b6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1716,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-11T16:20:14Z",
+      "side": 1,
+      "message": "this is a bit meh because it needs to copy the send_codec payload type due to the thread checker. I wonder if it makes sense to extend RtpParameters with a method to search for a codec by payload type.\n\nBut then, we might avoid this alltogether :-)",
+      "revId": "4b8c0065073641c04ddcff6d3cd944b2a7ad030d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

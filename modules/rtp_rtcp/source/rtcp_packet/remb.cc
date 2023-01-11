@@ -73,7 +73,7 @@ bool Remb::Parse(const CommonHeader& packet) {
   bitrate_bps_ = (mantissa << exponenta);
   bool shift_overflow =
       (static_cast<uint64_t>(bitrate_bps_) >> exponenta) != mantissa;
-  if (shift_overflow) {
+  if (bitrate_bps_ < 0 || shift_overflow) {
     RTC_LOG(LS_ERROR) << "Invalid remb bitrate value : " << mantissa << "*2^"
                       << static_cast<int>(exponenta);
     return false;

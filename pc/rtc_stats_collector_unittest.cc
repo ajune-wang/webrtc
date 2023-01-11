@@ -42,6 +42,7 @@
 #include "api/video_codecs/scalability_mode.h"
 #include "common_video/include/quality_limitation_reason.h"
 #include "media/base/media_channel.h"
+#include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -2703,6 +2704,38 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   EXPECT_TRUE(report->Get(*expected_video.track_id));
   EXPECT_TRUE(report->Get(*expected_video.transport_id));
   EXPECT_TRUE(report->Get(*expected_video.codec_id));
+}
+
+TEST_F(RTCStatsCollectorTest, CollectRTCAudioPlayoutStats) {
+  cricket::VoiceMediaInfo voice_media_info;
+
+  voice_media_info.audio_device_stats = AudioDeviceModule::Stats();
+  voice_media_info.audio_device_stats->id = 1;
+  voice_media_info.audio_device_stats->synthesized_samples_duration_s = 2;
+  voice_media_info.audio_device_stats->synthesized_samples_events = 3;
+  voice_media_info.audio_device_stats->total_samples_count = 4;
+  voice_media_info.audio_device_stats->total_samples_duration_s = 5;
+  voice_media_info.audio_device_stats->total_playout_delay_s = 6;
+
+  pc_->AddVoiceChannel("AudioMid", "TransportName", voice_media_info);
+  stats_->SetupRemoteTrackAndReceiver(
+      cricket::MEDIA_TYPE_AUDIO, "RemoteAudioTrackID", "RemoteStreamId", 1);
+
+  rtc::scoped_refptr<const RTCStatsReport> report = stats_->GetStatsReport();
+
+  auto stats_of_track_type = report->GetStatsOfType<RTCAudioPlayoutStats>();
+  ASSERT_EQ(1U, stats_of_track_type.size());
+
+  RTCAudioPlayoutStats expected_stats("AP1", report->timestamp());
+  expected_stats.synthesized_samples_duration = 2;
+  expected_stats.synthesized_samples_events = 3;
+  expected_stats.total_samples_count = 4;
+  expected_stats.total_samples_duration = 5;
+  expected_stats.total_playout_delay = 6;
+
+  ASSERT_TRUE(report->Get(expected_stats.id()));
+  EXPECT_EQ(report->Get(expected_stats.id())->cast_to<RTCAudioPlayoutStats>(),
+            expected_stats);
 }
 
 TEST_F(RTCStatsCollectorTest, CollectGoogTimingFrameInfo) {

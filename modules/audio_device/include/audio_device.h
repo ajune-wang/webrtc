@@ -11,6 +11,7 @@
 #ifndef MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_H_
 #define MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_H_
 
+#include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "modules/audio_device/include/audio_device_defines.h"
@@ -39,6 +40,17 @@ class AudioDeviceModule : public rtc::RefCountInterface {
   enum WindowsDeviceType {
     kDefaultCommunicationDevice = -1,
     kDefaultDevice = -2
+  };
+
+  struct Stats {
+    uint32_t id = 0;
+    // The fields below correspond to similarly-named fields in the WebRTC stats
+    // spec. https://w3c.github.io/webrtc-stats/#playoutstats-dict*
+    double synthesized_samples_duration_s = 0;
+    uint64_t synthesized_samples_events = 0;
+    double total_samples_duration_s = 0;
+    double total_playout_delay_s = 0;
+    uint64_t total_samples_count = 0;
   };
 
  public:
@@ -149,6 +161,8 @@ class AudioDeviceModule : public rtc::RefCountInterface {
   // Play underrun count. Only supported on Android.
   // TODO(alexnarest): Make it abstract after upstream projects support it.
   virtual int32_t GetPlayoutUnderrunCount() const { return -1; }
+
+  virtual absl::optional<Stats> GetStats() const { return absl::nullopt; }
 
 // Only supported on iOS.
 #if defined(WEBRTC_IOS)

@@ -33,6 +33,23 @@
       "message": "@kthelgason@webrtc.org did you have a chance to look at this again?",
       "revId": "741fc38a8b055e16872a21d4dcca8fe5133f414b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156becf2_d364c510",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-01-11T13:32:53Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "741fc38a8b055e16872a21d4dcca8fe5133f414b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

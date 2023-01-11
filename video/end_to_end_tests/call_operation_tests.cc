@@ -114,8 +114,10 @@ TEST_F(CallOperationEndToEndTest, RendersSingleDelayedFrame) {
                 Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
                                                BuiltInNetworkBehaviorConfig())),
             receiver_call_.get(), payload_type_map_);
-        sender_transport->SetReceiver(receiver_call_->Receiver());
-        receiver_transport->SetReceiver(sender_call_->Receiver());
+        sender_transport->SetReceiver(receiver_call_->Receiver(),
+                                      GetExtensions(), GetExtensions());
+        receiver_transport->SetReceiver(sender_call_->Receiver(),
+                                        GetExtensions(), GetExtensions());
 
         CreateSendConfig(1, 0, 0, sender_transport.get());
         CreateMatchingReceiveConfigs(receiver_transport.get());
@@ -187,8 +189,10 @@ TEST_F(CallOperationEndToEndTest, TransmitsFirstFrame) {
                 Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
                                                BuiltInNetworkBehaviorConfig())),
             receiver_call_.get(), payload_type_map_);
-        sender_transport->SetReceiver(receiver_call_->Receiver());
-        receiver_transport->SetReceiver(sender_call_->Receiver());
+        sender_transport->SetReceiver(receiver_call_->Receiver(),
+                                      GetExtensions(), GetExtensions());
+        receiver_transport->SetReceiver(sender_call_->Receiver(),
+                                        GetExtensions(), GetExtensions());
 
         CreateSendConfig(1, 0, 0, sender_transport.get());
         CreateMatchingReceiveConfigs(receiver_transport.get());

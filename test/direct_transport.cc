@@ -12,8 +12,11 @@
 #include "absl/memory/memory.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/time_utils.h"
@@ -54,8 +57,12 @@ DirectTransport::~DirectTransport() {
   next_process_task_.Stop();
 }
 
-void DirectTransport::SetReceiver(PacketReceiver* receiver) {
-  fake_network_->SetReceiver(receiver);
+void DirectTransport::SetReceiver(
+    PacketReceiver* receiver,
+    rtc::ArrayView<const RtpExtension> audio_extensions,
+    rtc::ArrayView<const RtpExtension> video_extensions) {
+  audio_extensions_ = RtpHeaderExtensionMap(audio_extensions);
+  video_extensions_ = RtpHeaderExtensionMap(video_extensions);
 }
 
 bool DirectTransport::SendRtp(const uint8_t* data,
@@ -69,23 +76,23 @@ bool DirectTransport::SendRtp(const uint8_t* data,
     sent_packet.info.packet_type = rtc::PacketType::kData;
     send_call_->OnSentPacket(sent_packet);
   }
-  SendPacket(data, length);
+
+  MediaType media_type = demuxer_.GetMediaType(data, length);
+  const RtpHeaderExtensionMap& extensions =
+      (media_type == MediaType::AUDIO ? audio_extensions_ : video_extensions_);
+  RtpPacketReceived packet(&extensions, Timestamp::Micros(rtc::TimeMicros()));
+  fake_network_->DeliverRtpPacket(
+      media_type, std::move(packet),
+      [](const RtpPacketReceived& packet) { return false; });
+  MutexLock lock(&process_lock_);
+  if (!next_process_task_.Running())
+    ProcessPackets();
   return true;
 }
 
 bool DirectTransport::SendRtcp(const uint8_t* data, size_t length) {
-  SendPacket(data, length);
+  fake_network_->DeliverRtcpPacket(rtc::CopyOnWriteBuffer(data, length));
   return true;
-}
-
-void DirectTransport::SendPacket(const uint8_t* data, size_t length) {
-  MediaType media_type = demuxer_.GetMediaType(data, length);
-  int64_t send_time_us = rtc::TimeMicros();
-  fake_network_->DeliverPacket(media_type, rtc::CopyOnWriteBuffer(data, length),
-                               send_time_us);
-  MutexLock lock(&process_lock_);
-  if (!next_process_task_.Running())
-    ProcessPackets();
 }
 
 int DirectTransport::GetAverageDelayMs() {

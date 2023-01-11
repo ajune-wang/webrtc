@@ -158,22 +158,6 @@ void FakeNetworkPipe::RemoveActiveTransport(Transport* transport) {
 
 bool FakeNetworkPipe::SendRtp(const uint8_t* packet,
                               size_t length,
-                              const PacketOptions& options) {
-  RTC_DCHECK(global_transport_);
-  EnqueuePacket(rtc::CopyOnWriteBuffer(packet, length), options, false,
-                global_transport_);
-  return true;
-}
-
-bool FakeNetworkPipe::SendRtcp(const uint8_t* packet, size_t length) {
-  RTC_DCHECK(global_transport_);
-  EnqueuePacket(rtc::CopyOnWriteBuffer(packet, length), absl::nullopt, true,
-                global_transport_);
-  return true;
-}
-
-bool FakeNetworkPipe::SendRtp(const uint8_t* packet,
-                              size_t length,
                               const PacketOptions& options,
                               Transport* transport) {
   RTC_DCHECK(transport);
@@ -191,20 +175,10 @@ bool FakeNetworkPipe::SendRtcp(const uint8_t* packet,
   return true;
 }
 
-PacketReceiver::DeliveryStatus FakeNetworkPipe::DeliverPacket(
-    MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    int64_t packet_time_us) {
-  return EnqueuePacket(std::move(packet), absl::nullopt, false, media_type,
-                       packet_time_us)
-             ? PacketReceiver::DELIVERY_OK
-             : PacketReceiver::DELIVERY_PACKET_ERROR;
-}
-
 void FakeNetworkPipe::DeliverRtpPacket(
     MediaType media_type,
     RtpPacketReceived packet,
-    OnUndemuxablePacketHandler undemuxable_packet_handler) {
+    OnUndemuxablePacketHandler /*undemuxable_packet_handler*/) {
   MutexLock lock(&process_lock_);
   int64_t time_now_us = clock_->TimeInMicroseconds();
   EnqueuePacket(
@@ -393,10 +367,6 @@ void FakeNetworkPipe::DeliverNetworkPacket(NetworkPacket* packet) {
                 << packet.Ssrc() << " seq : " << packet.SequenceNumber();
             return false;
           });
-    } else {
-      receiver_->DeliverPacket(packet->media_type(),
-                               std::move(*packet->raw_packet()),
-                               packet_time_us);
     }
   }
 }

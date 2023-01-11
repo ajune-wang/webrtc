@@ -131,16 +131,20 @@ void CallTest::RunBaseTest(BaseTest* test) {
         test->CreateSendTransport(task_queue(), sender_call_.get());
 
     if (test->ShouldCreateReceivers()) {
-      send_transport_->SetReceiver(receiver_call_->Receiver());
-      receive_transport_->SetReceiver(sender_call_->Receiver());
+      send_transport_->SetReceiver(receiver_call_->Receiver(), GetExtensions(),
+                                   GetExtensions());
+      receive_transport_->SetReceiver(sender_call_->Receiver(), GetExtensions(),
+                                      GetExtensions());
       if (num_video_streams_ > 0)
         receiver_call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
       if (num_audio_streams_ > 0)
         receiver_call_->SignalChannelNetworkState(MediaType::AUDIO, kNetworkUp);
     } else {
       // Sender-only call delivers to itself.
-      send_transport_->SetReceiver(sender_call_->Receiver());
-      receive_transport_->SetReceiver(nullptr);
+      send_transport_->SetReceiver(sender_call_->Receiver(), GetExtensions(),
+                                   GetExtensions());
+      receive_transport_->SetReceiver(nullptr, GetExtensions(),
+                                      GetExtensions());
     }
 
     CreateSendConfig(num_video_streams_, num_audio_streams_,

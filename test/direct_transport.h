@@ -18,6 +18,7 @@
 #include "api/test/simulated_network.h"
 #include "call/call.h"
 #include "call/simulated_packet_receiver.h"
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
@@ -52,7 +53,9 @@ class DirectTransport : public Transport {
   ~DirectTransport() override;
 
   // TODO(holmer): Look into moving this to the constructor.
-  virtual void SetReceiver(PacketReceiver* receiver);
+  virtual void SetReceiver(PacketReceiver* receiver,
+                           rtc::ArrayView<const RtpExtension> audio_extensions,
+                           rtc::ArrayView<const RtpExtension> video_extensions);
 
   bool SendRtp(const uint8_t* data,
                size_t length,
@@ -63,7 +66,6 @@ class DirectTransport : public Transport {
 
  private:
   void ProcessPackets() RTC_EXCLUSIVE_LOCKS_REQUIRED(&process_lock_);
-  void SendPacket(const uint8_t* data, size_t length);
   void Start();
 
   Call* const send_call_;
@@ -75,6 +77,8 @@ class DirectTransport : public Transport {
 
   const Demuxer demuxer_;
   const std::unique_ptr<SimulatedPacketReceiverInterface> fake_network_;
+  RtpHeaderExtensionMap audio_extensions_;
+  RtpHeaderExtensionMap video_extensions_;
 };
 }  // namespace test
 }  // namespace webrtc

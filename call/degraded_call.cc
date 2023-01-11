@@ -144,9 +144,8 @@ DegradedCall::DegradedCall(
   if (!receive_configs_.empty()) {
     auto network = std::make_unique<SimulatedNetwork>(receive_configs_[0]);
     receive_simulated_network_ = network.get();
-    receive_pipe_ =
-        std::make_unique<webrtc::FakeNetworkPipe>(clock_, std::move(network));
-    receive_pipe_->SetReceiver(call_->Receiver());
+    receive_pipe_ = std::make_unique<webrtc::FakeNetworkPipe>(
+        clock_, std::move(network), call_->Receiver());
     if (receive_configs_.size() > 1) {
       call_->network_thread()->PostDelayedTask(
           SafeTask(call_alive_, [this] { UpdateReceiveNetworkConfig(); }),
@@ -344,25 +343,6 @@ void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
     return;
   }
   call_->OnSentPacket(sent_packet);
-}
-
-PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
-    MediaType media_type,
-    rtc::CopyOnWriteBuffer packet,
-    int64_t packet_time_us) {
-  RTC_DCHECK_RUN_ON(&received_packet_sequence_checker_);
-  PacketReceiver::DeliveryStatus status = receive_pipe_->DeliverPacket(
-      media_type, std::move(packet), packet_time_us);
-  // This is not optimal, but there are many places where there are thread
-  // checks that fail if we're not using the worker thread call into this
-  // method. If we want to fix this we probably need a task queue to do handover
-  // of all overriden methods, which feels like overkill for the current use
-  // case.
-  // By just having this thread call out via the Process() method we work around
-  // that, with the tradeoff that a non-zero delay may become a little larger
-  // than anticipated at very low packet rates.
-  receive_pipe_->Process();
-  return status;
 }
 
 void DegradedCall::DeliverRtpPacket(

@@ -302,8 +302,10 @@ void RtpRtcpEndToEndTest::TestRtpStatePreservation(
                 Clock::GetRealTimeClock(),
                 std::make_unique<SimulatedNetwork>(
                     BuiltInNetworkBehaviorConfig())));
-        send_transport->SetReceiver(receiver_call_->Receiver());
-        receive_transport->SetReceiver(sender_call_->Receiver());
+        send_transport->SetReceiver(receiver_call_->Receiver(), GetExtensions(),
+                                    GetExtensions());
+        receive_transport->SetReceiver(sender_call_->Receiver(),
+                                       GetExtensions(), GetExtensions());
 
         CreateSendConfig(kNumSimulcastStreams, 0, 0, send_transport.get());
 
@@ -495,7 +497,6 @@ TEST_F(RtpRtcpEndToEndTest, DISABLED_TestFlexfecRtpStatePreservation) {
         std::make_unique<FakeNetworkPipe>(
             Clock::GetRealTimeClock(),
             std::make_unique<SimulatedNetwork>(lossy_delayed_link)));
-    send_transport->SetReceiver(receiver_call_->Receiver());
 
     BuiltInNetworkBehaviorConfig flawless_link;
     receive_transport = std::make_unique<test::PacketTransport>(
@@ -504,7 +505,10 @@ TEST_F(RtpRtcpEndToEndTest, DISABLED_TestFlexfecRtpStatePreservation) {
         std::make_unique<FakeNetworkPipe>(
             Clock::GetRealTimeClock(),
             std::make_unique<SimulatedNetwork>(flawless_link)));
-    receive_transport->SetReceiver(sender_call_->Receiver());
+    send_transport->SetReceiver(receiver_call_->Receiver(), GetExtensions(),
+                                GetExtensions());
+    receive_transport->SetReceiver(sender_call_->Receiver(), GetExtensions(),
+                                   GetExtensions());
 
     // For reduced flakyness, we use a real VP8 encoder together with NACK
     // and RTX.

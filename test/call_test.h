@@ -77,6 +77,10 @@ class CallTest : public ::testing::Test, public RtpPacketSinkInterface {
  protected:
   void RegisterRtpExtension(const RtpExtension& extension);
 
+  const std::vector<RtpExtension>& GetExtensions() const {
+    return rtp_extensions_;
+  }
+
   // RunBaseTest overwrites the audio_state of the send and receive Call configs
   // to simplify test code.
   void RunBaseTest(BaseTest* test);

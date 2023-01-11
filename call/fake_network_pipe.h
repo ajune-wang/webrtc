@@ -131,15 +131,6 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
   void AddActiveTransport(Transport* transport);
   void RemoveActiveTransport(Transport* transport);
 
-  // Implements Transport interface. When/if packets are delivered, they will
-  // be passed to the transport instance given in SetReceiverTransport(). These
-  // methods should only be called if a Transport instance was provided in the
-  // constructor.
-  bool SendRtp(const uint8_t* packet,
-               size_t length,
-               const PacketOptions& options);
-  bool SendRtcp(const uint8_t* packet, size_t length);
-
   // Methods for use with Transport interface. When/if packets are delivered,
   // they will be passed to the instance specified by the `transport` parameter.
   // Note that that instance must be in the map of active transports.
@@ -158,12 +149,6 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
       RtpPacketReceived packet,
       OnUndemuxablePacketHandler undemuxable_packet_handler) override;
   void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet) override;
-
-  // TODO(perkj,  https://bugs.webrtc.org/7135): Remove once implementations
-  // dont use it.
-  PacketReceiver::DeliveryStatus DeliverPacket(MediaType media_type,
-                                               rtc::CopyOnWriteBuffer packet,
-                                               int64_t packet_time_us) override;
 
   // Processes the network queues and trigger PacketReceiver::IncomingPacket for
   // packets ready to be delivered.

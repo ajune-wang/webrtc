@@ -136,7 +136,9 @@ void NetworkStateEndToEndTest::VerifyNewVideoReceiveStreamsRespectNetworkState(
                 Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
                                                BuiltInNetworkBehaviorConfig())),
             sender_call_.get(), payload_type_map_);
-        sender_transport->SetReceiver(receiver_call_->Receiver());
+        sender_transport->SetReceiver(receiver_call_->Receiver(),
+                                      GetExtensions(), GetExtensions());
+
         CreateSendConfig(1, 0, 0, sender_transport.get());
         CreateMatchingReceiveConfigs(transport);
         CreateVideoStreams();

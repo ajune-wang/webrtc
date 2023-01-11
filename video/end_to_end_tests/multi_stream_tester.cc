@@ -74,8 +74,7 @@ void MultiStreamTester::RunTest() {
     receiver_transport =
         CreateReceiveTransport(task_queue.get(), receiver_call.get());
 
-    sender_transport->SetReceiver(receiver_call->Receiver());
-    receiver_transport->SetReceiver(sender_call->Receiver());
+    std::vector<RtpExtension> rtp_extensions;
 
     for (size_t i = 0; i < kNumStreams; ++i) {
       uint32_t ssrc = codec_settings[i].ssrc;
@@ -94,6 +93,9 @@ void MultiStreamTester::RunTest() {
       encoder_config.max_bitrate_bps = 100000;
 
       UpdateSendConfig(i, &send_config, &encoder_config, &frame_generators[i]);
+      rtp_extensions.insert(rtp_extensions.end(),
+                            send_config.rtp.extensions.begin(),
+                            send_config.rtp.extensions.end());
 
       send_streams[i] = sender_call->CreateVideoSendStream(
           send_config.Copy(), encoder_config.Copy());
@@ -125,6 +127,10 @@ void MultiStreamTester::RunTest() {
       frame_generator->Init();
       frame_generator->Start();
     }
+    sender_transport->SetReceiver(receiver_call->Receiver(), {},
+                                  rtp_extensions);
+    receiver_transport->SetReceiver(receiver_call->Receiver(), {},
+                                    rtp_extensions);
   });
 
   Wait();

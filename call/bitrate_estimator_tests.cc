@@ -119,14 +119,16 @@ class BitrateEstimatorTest : public test::CallTest {
               Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
                                              BuiltInNetworkBehaviorConfig())),
           sender_call_.get(), payload_type_map_));
-      send_transport_->SetReceiver(receiver_call_->Receiver());
+      send_transport_->SetReceiver(receiver_call_->Receiver(), GetExtensions(),
+                                   GetExtensions());
       receive_transport_.reset(new test::DirectTransport(
           task_queue(),
           std::make_unique<FakeNetworkPipe>(
               Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
                                              BuiltInNetworkBehaviorConfig())),
           receiver_call_.get(), payload_type_map_));
-      receive_transport_->SetReceiver(sender_call_->Receiver());
+      receive_transport_->SetReceiver(sender_call_->Receiver(), GetExtensions(),
+                                      GetExtensions());
 
       VideoSendStream::Config video_send_config(send_transport_.get());
       video_send_config.rtp.ssrcs.push_back(kVideoSendSsrcs[0]);

@@ -518,8 +518,10 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
         receive_transport_ = test.CreateReceiveTransport(task_queue());
         send_transport_ =
             test.CreateSendTransport(task_queue(), sender_call_.get());
-        send_transport_->SetReceiver(receiver_call_->Receiver());
-        receive_transport_->SetReceiver(sender_call_->Receiver());
+        send_transport_->SetReceiver(receiver_call_->Receiver(),
+                                     GetExtensions(), GetExtensions());
+        receive_transport_->SetReceiver(sender_call_->Receiver(),
+                                        GetExtensions(), GetExtensions());
 
         receiver_call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
         CreateSendConfig(1, 0, 0, send_transport_.get());
@@ -719,8 +721,10 @@ TEST_F(StatsEndToEndTest, CallReportsRttForSender) {
                      Clock::GetRealTimeClock(),
                      std::make_unique<SimulatedNetwork>(config)),
                  receiver_call_.get(), payload_type_map_);
-             sender_transport->SetReceiver(receiver_call_->Receiver());
-             receiver_transport->SetReceiver(sender_call_->Receiver());
+             sender_transport->SetReceiver(receiver_call_->Receiver(),
+                                           GetExtensions(), GetExtensions());
+             receiver_transport->SetReceiver(sender_call_->Receiver(),
+                                             GetExtensions(), GetExtensions());
 
              CreateSendConfig(1, 0, 0, sender_transport.get());
              CreateMatchingReceiveConfigs(receiver_transport.get());

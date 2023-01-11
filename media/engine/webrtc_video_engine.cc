@@ -1701,10 +1701,61 @@ void WebRtcVideoChannel::FillBitrateInfo(BandwidthEstimationInfo* bwe_info) {
 
 void WebRtcVideoChannel::FillSendCodecStats(
     VideoMediaSendInfo* video_media_info) {
-  for (const VideoCodec& codec : send_params_.codecs) {
-    webrtc::RtpCodecParameters codec_params = codec.ToCodecParameters();
-    video_media_info->send_codecs.insert(
-        std::make_pair(codec_params.payload_type, std::move(codec_params)));
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  if (!send_codec_) {
+    return;
+  }
+  // Primary codec.
+  video_media_info->send_codecs.insert(std::make_pair(
+      send_codec_->codec.id, send_codec_->codec.ToCodecParameters()));
+  // RTX.
+  if (send_codec_->rtx_payload_type != -1) {
+    int payload_type = send_codec_->rtx_payload_type;
+    auto rtx_codec = absl::c_find_if(
+        send_params_.codecs,
+        [payload_type](const VideoCodec& c) { return c.id == payload_type; });
+    if (rtx_codec != send_params_.codecs.end()) {
+      video_media_info->send_codecs.insert(
+          std::make_pair(rtx_codec->id, rtx_codec->ToCodecParameters()));
+    }
+  }
+  // ULPFEC + RED.
+  if (send_codec_->ulpfec.ulpfec_payload_type != -1) {
+    int payload_type = send_codec_->ulpfec.ulpfec_payload_type;
+    auto ulpfec_codec = absl::c_find_if(
+        send_params_.codecs,
+        [payload_type](const VideoCodec& c) { return c.id == payload_type; });
+    if (ulpfec_codec != send_params_.codecs.end()) {
+      video_media_info->send_codecs.insert(
+          std::make_pair(ulpfec_codec->id, ulpfec_codec->ToCodecParameters()));
+    }
+    payload_type = send_codec_->ulpfec.red_payload_type;
+    auto ulpfec_red_codec = absl::c_find_if(
+        send_params_.codecs,
+        [payload_type](const VideoCodec& c) { return c.id == payload_type; });
+    if (ulpfec_red_codec != send_params_.codecs.end()) {
+      video_media_info->send_codecs.insert(std::make_pair(
+          ulpfec_red_codec->id, ulpfec_red_codec->ToCodecParameters()));
+    }
+    payload_type = send_codec_->ulpfec.red_rtx_payload_type;
+    auto ulpfec_red_rtx_codec = absl::c_find_if(
+        send_params_.codecs,
+        [payload_type](const VideoCodec& c) { return c.id == payload_type; });
+    if (ulpfec_red_rtx_codec != send_params_.codecs.end()) {
+      video_media_info->send_codecs.insert(std::make_pair(
+          ulpfec_red_rtx_codec->id, ulpfec_red_rtx_codec->ToCodecParameters()));
+    }
+  }
+  // FLEXFEC.
+  if (send_codec_->flexfec_payload_type != -1) {
+    int payload_type = send_codec_->flexfec_payload_type;
+    auto flexfec_codec = absl::c_find_if(
+        send_params_.codecs,
+        [payload_type](const VideoCodec& c) { return c.id == payload_type; });
+    if (flexfec_codec != send_params_.codecs.end()) {
+      video_media_info->send_codecs.insert(std::make_pair(
+          flexfec_codec->id, flexfec_codec->ToCodecParameters()));
+    }
   }
 }
 

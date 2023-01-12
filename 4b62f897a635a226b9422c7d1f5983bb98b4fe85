@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "291752ce_7c0ee7d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-12T12:07:56Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "4b62f897a635a226b9422c7d1f5983bb98b4fe85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22bab4ac_3a8cdc82",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-12T12:07:56Z",
+      "side": 1,
+      "message": "nit: `/*undemuxable_packet_handler\u003d*/`",
+      "range": {
+        "startLine": 321,
+        "startChar": 42,
+        "endLine": 321,
+        "endChar": 43
+      },
+      "revId": "4b62f897a635a226b9422c7d1f5983bb98b4fe85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

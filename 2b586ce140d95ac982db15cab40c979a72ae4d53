@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e1a453_d324a3d2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-12T10:12:06Z",
+      "side": 1,
+      "message": "actually the spec for inbound-rtp does not say the same things about RTX as the outbound one. Nor does it count retransmitted packets received. I assume this goes back to the time when we thought about not having RTX when the receiver does not know whether a packet is retransmitted or not. Shall I file a spec issue?",
+      "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -12,7 +12,6 @@
 #include <limits>
 #include <type_traits>
 
-#include "modules/include/module_common_types_public.h"
 #include "net/dcsctp/common/sequence_numbers.h"
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
 #include "rtc_base/strong_alias.h"
@@ -84,10 +83,8 @@ TYPED_TEST_P(UnwrapperConformanceFixture, PositiveWrapAround) {
 
 TYPED_TEST_P(UnwrapperConformanceFixture, NegativeUnwrap) {
   using UnwrapperT = decltype(this->ref_unwrapper_);
-  // TimestampUnwrapper known to not handle negative numbers.
   // rtc::TimestampWrapAroundHandler does not wrap around correctly.
-  if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>() ||
-                std::is_same<UnwrapperT, rtc::TimestampWrapAroundHandler>()) {
+  if constexpr (std::is_same<UnwrapperT, rtc::TimestampWrapAroundHandler>()) {
     return;
   }
   EXPECT_EQ(0, this->ref_unwrapper_.Unwrap(0));
@@ -134,11 +131,9 @@ TYPED_TEST_P(UnwrapperConformanceFixture, WrapBoundaries) {
 
 TYPED_TEST_P(UnwrapperConformanceFixture, MultipleNegativeWrapArounds) {
   using UnwrapperT = decltype(this->ref_unwrapper_);
-  // TimestampUnwrapper known to not handle negative numbers.
-  // SequenceNumberUnwrapper can only wrap negative once.
+  // webrtc::SequenceNumberUnwrapper can only wrap negative once.
   // rtc::TimestampWrapAroundHandler does not wrap around correctly.
-  if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>() ||
-                std::is_same<UnwrapperT,
+  if constexpr (std::is_same<UnwrapperT,
                              UnwrapperHelper<TestSequence::Unwrapper>>() ||
                 std::is_same<UnwrapperT, rtc::TimestampWrapAroundHandler>()) {
     return;
@@ -164,8 +159,7 @@ REGISTER_TYPED_TEST_SUITE_P(UnwrapperConformanceFixture,
 constexpr int64_t k15BitMax = (int64_t{1} << 15) - 1;
 using UnwrapperTypes = ::testing::Types<
     FixtureParams<rtc::TimestampWrapAroundHandler>,
-    FixtureParams<TimestampUnwrapper>,
-    FixtureParams<RtpTimestampUnwrapper>,
+    FixtureParams<webrtc::RtpTimestampUnwrapper>,
     FixtureParams<UnwrapperHelper<TestSequence::Unwrapper>>,
     // SeqNumUnwrapper supports arbitrary limits.
     FixtureParams<SeqNumUnwrapper<uint32_t, k15BitMax + 1>, k15BitMax>>;
@@ -177,8 +171,6 @@ class TestNames {
     if constexpr (std::is_same<typename T::Unwrapper,
                                rtc::TimestampWrapAroundHandler>())
       return "TimestampWrapAroundHandler";
-    if constexpr (std::is_same<typename T::Unwrapper, TimestampUnwrapper>())
-      return "TimestampUnwrapper";
     if constexpr (std::is_same<typename T::Unwrapper,
                                SeqNumUnwrapper<uint32_t>>())
       return "SeqNumUnwrapper";

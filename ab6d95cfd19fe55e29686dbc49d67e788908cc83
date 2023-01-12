@@ -16,6 +16,24 @@
       "message": "Fearing the O(n^2). How about:\n\n```\nstd::set\u003cint\u003e primary_payload_types;\nfor (const auto\u0026 receiver : video_media_info-\u003ereceivers) {\n  if (receiver.codec_payload_type.has_value()) {\n    primary_payload_types.insert(*receiver.codec_payload_type);\n  }\n}\n\nfor (const auto\u0026 recv_codec : recv_params_.codecs) {\n  if (primary_payload_types.find(recv_codec.id) !\u003d\n      primary_payload_types.end()) {\n    video_media_info-\u003ereceive_codecs.insert(\n        recv_codec.id, recv_codec.ToCodecParameters());\n  }\n}\n```",
       "revId": "ab6d95cfd19fe55e29686dbc49d67e788908cc83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b44075_290ba736",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-12T14:42:09Z",
+      "side": 1,
+      "message": "that would deduplicate nicely which means it is even applicable to the sender. However, senders and receivers is a per-channel (i.e. m-line) so there are at most 3 (for simulcast senders) but usually just one element in there.",
+      "parentUuid": "bd883c78_ff320889",
+      "revId": "ab6d95cfd19fe55e29686dbc49d67e788908cc83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

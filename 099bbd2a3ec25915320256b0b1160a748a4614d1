@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3afc9b46_f40a6466",
+        "filename": "infra/config/config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-12T13:11:11Z",
+      "side": 1,
+      "message": "Do we need to mention this?\n\nmacOS is switching to arm, maybe omit?",
+      "range": {
+        "startLine": 744,
+        "startChar": 17,
+        "endLine": 744,
+        "endChar": 20
+      },
+      "revId": "099bbd2a3ec25915320256b0b1160a748a4614d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

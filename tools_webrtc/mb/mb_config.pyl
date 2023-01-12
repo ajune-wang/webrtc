@@ -172,6 +172,7 @@
       'ios_sim_x64_dbg_ios12': 'ios_debug_bot_x64',
       'ios_sim_x64_dbg_ios13': 'ios_debug_bot_x64',
       'ios_sim_x64_dbg_ios14': 'ios_debug_bot_x64',
+      'ios_x64_dbg_simulator': 'ios_debug_bot_x64',
 
       # Linux
       'linux_asan': 'asan_lsan_clang_release_bot_x64',

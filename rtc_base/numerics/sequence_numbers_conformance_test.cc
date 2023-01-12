@@ -12,7 +12,6 @@
 #include <limits>
 #include <type_traits>
 
-#include "modules/include/module_common_types_public.h"
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -59,12 +58,6 @@ TYPED_TEST_P(UnwrapperConformanceFixture, PositiveWrapAround) {
 }
 
 TYPED_TEST_P(UnwrapperConformanceFixture, NegativeUnwrap) {
-  using UnwrapperT = decltype(this->ref_unwrapper_);
-  // TimestampUnwrapper known to not handle negative numbers.
-  // rtc::TimestampWrapAroundHandler does not wrap around correctly.
-  if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>()) {
-    return;
-  }
   EXPECT_EQ(0, this->ref_unwrapper_.Unwrap(0));
   // Max backwards wrap is negative.
   EXPECT_EQ(-TestFixture::kMaxIncrease,
@@ -103,13 +96,6 @@ TYPED_TEST_P(UnwrapperConformanceFixture, WrapBoundaries) {
 }
 
 TYPED_TEST_P(UnwrapperConformanceFixture, MultipleNegativeWrapArounds) {
-  using UnwrapperT = decltype(this->ref_unwrapper_);
-  // TimestampUnwrapper known to not handle negative numbers.
-  // SequenceNumberUnwrapper can only wrap negative once.
-  // rtc::TimestampWrapAroundHandler does not wrap around correctly.
-  if constexpr (std::is_same<UnwrapperT, TimestampUnwrapper>()) {
-    return;
-  }
   int64_t val = 0;
   uint32_t wrapped_val = 0;
   for (int i = 0; i < 16; ++i) {
@@ -130,7 +116,6 @@ REGISTER_TYPED_TEST_SUITE_P(UnwrapperConformanceFixture,
 
 constexpr int64_t k15BitMax = (int64_t{1} << 15) - 1;
 using UnwrapperTypes = ::testing::Types<
-    FixtureParams<TimestampUnwrapper>,
     FixtureParams<RtpTimestampUnwrapper>,
     // SeqNumUnwrapper supports arbitrary limits.
     FixtureParams<SeqNumUnwrapper<uint32_t, k15BitMax + 1>, k15BitMax>>;
@@ -139,8 +124,6 @@ class TestNames {
  public:
   template <typename T>
   static std::string GetName(int) {
-    if constexpr (std::is_same<typename T::Unwrapper, TimestampUnwrapper>())
-      return "TimestampUnwrapper";
     if constexpr (std::is_same<typename T::Unwrapper,
                                SeqNumUnwrapper<uint32_t>>())
       return "SeqNumUnwrapper";

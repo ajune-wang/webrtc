@@ -16,6 +16,24 @@
       "message": "lgtm! I would run this by hta@ and possibly another audio owner as well.",
       "revId": "a8859cfd62c484d086de897f6ec7e90b64fa731a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba29ca52_785dce10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-12T15:43:58Z",
+      "side": 1,
+      "message": "Thanks, added hta@.",
+      "parentUuid": "f8b43214_9ecb0865",
+      "revId": "a8859cfd62c484d086de897f6ec7e90b64fa731a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

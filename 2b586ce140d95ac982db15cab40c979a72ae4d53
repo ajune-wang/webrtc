@@ -16,6 +16,24 @@
       "message": "actually the spec for inbound-rtp does not say the same things about RTX as the outbound one. Nor does it count retransmitted packets received. I assume this goes back to the time when we thought about not having RTX when the receiver does not know whether a packet is retransmitted or not. Shall I file a spec issue?",
       "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09333026_e20c476c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T12:52:31Z",
+      "side": 1,
+      "message": "I think we still need a map because of Plan B, but I think we can do better than filtering on type, in both the sender and receiver cases. Remember, we only create \"codec\" objects if it is referenced by \"codecId\" from an \"inbound-rtp\" or \"outbound-rtp\". The the RTPs already know which codec, see the `info.codec_payload_type`.\n\nSo I think you can find the send/recv codecs that have a matching PT and ignore any codec where the PT isn\u0027t the RTP\u0027s PT",
+      "parentUuid": "26e1a453_d324a3d2",
+      "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1293356_fc53fb6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-12T12:10:30Z",
+      "side": 1,
+      "message": "Who can resist such a beautiful CL? :-)",
+      "revId": "a3538c7002cebbdb9d9cfea270a6b4d0332da6ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

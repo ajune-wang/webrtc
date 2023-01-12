@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b6b08b6_b05cd54f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T09:18:21Z",
+      "side": 1,
+      "message": "NICE! 😄\nThis should remove hundreds of internal copies! Bravo.\n\nSome comments though how to make it even cleaner with some refactoring",
+      "revId": "7fb4f1ed2ce20d4974c102d5ead224bb64821866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16fb8478_177071f1",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1710,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T09:18:21Z",
+      "side": 1,
+      "message": "If we only have (at most) one codec per video channel, and we can delete all the lines below getting the primary code, how about...\n\nChange VideoMediaSendInfo\u0027s std::map of send_codecs to\n```\nabsl::optional\u003cwebrtc::RtpCodecParameters\u003e primary_codec;\n```\n\nWe don\u0027t need FillSendCodecStats() anymore... simply replace it by\n```\nvideo_media_info-\u003eprimary_codec \u003d\n    send_codec_ ? send_codec_-\u003ecodec.ToCodecParameters() : absl::nullopt;\n```\n\nYou\u0027d also have to update the audio side...\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_voice_engine.cc;l\u003d2443;drc\u003d89ca2991617c95de65bdd71f3a2e99c6cf15669b\n\nBut I think you can obtain the primary codec with ssrc lookup, using the first ssrc you find in info.receivers?",
+      "revId": "7fb4f1ed2ce20d4974c102d5ead224bb64821866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

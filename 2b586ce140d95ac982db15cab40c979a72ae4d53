@@ -34,6 +34,24 @@
       "parentUuid": "26e1a453_d324a3d2",
       "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd42d41d_d9843b25",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-12T13:53:10Z",
+      "side": 1,
+      "message": "this is per channel so independent of plans (which are an SDP thing). A channel can still have multiple senders because of simulcast (really, a channel is a RtpSender, its sender is ... erm...).\n\nBut you are right, we can search for the receivers codec_payload_type. For video that doesn\u0027t blow up like it currently does for audio \\o/\nFor the sender that doesn\u0027t seem like the right thing since we\u0027d need to take care of the simulcast case and dedupe.",
+      "parentUuid": "09333026_e20c476c",
+      "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Approving on the assumption that everything that was being tested here is incorporated into tests on the One True Unwrapper.",
       "revId": "7d01054ec5d51d5ead4d64c79d00d4deed3dfd06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6563d743_70082cbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2023-01-12T12:54:17Z",
+      "side": 1,
+      "message": "Yes indeed! Shipping it!",
+      "parentUuid": "a9781669_37fd11d2",
+      "revId": "7d01054ec5d51d5ead4d64c79d00d4deed3dfd06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

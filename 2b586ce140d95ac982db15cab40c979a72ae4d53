@@ -52,6 +52,24 @@
       "parentUuid": "09333026_e20c476c",
       "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26004857_691c4887",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T14:28:59Z",
+      "side": 1,
+      "message": "Why does it \"blow up\" for audio? Audio also has this codec_payload_type in the info...",
+      "parentUuid": "cd42d41d_d9843b25",
+      "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

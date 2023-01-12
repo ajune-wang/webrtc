@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b924865c52e0cddb3e66c5640d1770df085e3b03',
+  'chromium_revision': '35ad316d474971010b5079a19eed252db3a16162',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,9 +41,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@6561d6f9463d3acd5013b531b60b85e3bcb5f95d',
+    'https://chromium.googlesource.com/chromium/src/base@d94f392d6bd952bea985964a2be8e3177e321d5d',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@d57dd8d2e4355969c73392116250e72028f29bee',
+    'https://chromium.googlesource.com/chromium/src/build@dea6cdf62d3f0163c47219c2a6f94c631c09dd4f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6409ca9851832244f2fa6fef626beadb4929037e',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -56,9 +56,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4b03c65a37ca00a98bebd24ab882d79a421242ff',
+    'https://chromium.googlesource.com/chromium/src/testing@e686dcc068564f83940e2b08202cceebbcce0284',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@6a7b63d7be0ec8fdd8d7929cc5f7a433118fd28d',
+    'https://chromium.googlesource.com/chromium/src/third_party@39d74dcc2ce2a8dcbe7bfb511c541af061bc65e4',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -297,7 +297,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@942c711e13404fb99d2b6211c22e1b4749b93cde',
+    'https://chromium.googlesource.com/chromium/src/tools@71119b1008e300e7425056dccca5921f4b025d24',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

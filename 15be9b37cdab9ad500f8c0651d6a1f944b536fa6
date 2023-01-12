@@ -139,6 +139,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6e1dc0d_290fd02a",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-01-12T10:33:21Z",
+      "side": 1,
+      "message": "Why is this API added to the ADM? The ADM is not even built in Chrome so I don\u0027t see how this would work.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7fcf8de_96769ee9",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 17

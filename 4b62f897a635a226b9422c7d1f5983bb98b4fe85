@@ -39,6 +39,30 @@
       },
       "revId": "4b62f897a635a226b9422c7d1f5983bb98b4fe85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "240752de_658ffc92",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-12T16:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22bab4ac_3a8cdc82",
+      "range": {
+        "startLine": 321,
+        "startChar": 42,
+        "endLine": 321,
+        "endChar": 43
+      },
+      "revId": "4b62f897a635a226b9422c7d1f5983bb98b4fe85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

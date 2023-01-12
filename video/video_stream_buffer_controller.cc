@@ -28,6 +28,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/trace_event.h"
 #include "video/frame_decode_scheduler.h"
 #include "video/frame_decode_timing.h"
 #include "video/task_queue_frame_decode_scheduler.h"
@@ -138,9 +139,16 @@ void VideoStreamBufferController::Clear() {
 absl::optional<int64_t> VideoStreamBufferController::InsertFrame(
     std::unique_ptr<EncodedFrame> frame) {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  TRACE_EVENT_FLOW_BEGIN0("webrtc", "VideoFrameReceived", frame->Timestamp());
+  TRACE_EVENT_ASYNC_BEGIN0("webrtc", "VideoFrameReceivedAsync",
+                           frame->Timestamp());
   FrameMetadata metadata(*frame);
   int complete_units = buffer_->GetTotalNumberOfContinuousTemporalUnits();
   if (buffer_->InsertFrame(std::move(frame))) {
+    TRACE_EVENT_FLOW_STEP0("webrtc", "VideoFrameReceived",
+                           metadata.rtp_timestamp, "enqueued");
+    TRACE_EVENT_ASYNC_STEP0("webrtc", "VideoFrameReceivedAsync",
+                            metadata.rtp_timestamp, "enqueued");
     RTC_DCHECK(metadata.receive_time) << "Frame receive time must be set!";
     if (!metadata.delayed_by_retransmission && metadata.receive_time &&
         (field_trials_.IsDisabled("WebRTC-IncomingTimestampOnMarkerBitOnly") ||
@@ -153,6 +161,11 @@ absl::optional<int64_t> VideoStreamBufferController::InsertFrame(
                                     metadata.contentType);
       MaybeScheduleFrameForRelease();
     }
+  } else {
+    TRACE_EVENT_FLOW_END1("webrtc", "VideoFrameReceived",
+                          metadata.rtp_timestamp, "result", "dropped");
+    TRACE_EVENT_ASYNC_END1("webrtc", "VideoFrameReceivedAsync",
+                           metadata.rtp_timestamp, "result", "dropped");
   }
 
   return buffer_->LastContinuousFrameId();
@@ -193,6 +206,11 @@ void VideoStreamBufferController::OnFrameReady(
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   RTC_CHECK(!frames.empty())
       << "Callers must ensure there is at least one frame to decode.";
+  uint32_t ts = frames.front()->Timestamp();
+  TRACE_EVENT_FLOW_STEP0("webrtc", "VideoFrameReceived", ts,
+                         "sent-for-decoding");
+  TRACE_EVENT_ASYNC_STEP0("webrtc", "VideoFrameReceivedAsync", ts,
+                          "sent-for-decoding");
 
   timeout_tracker_.OnEncodedFrameReleased();
 
@@ -257,6 +275,10 @@ void VideoStreamBufferController::OnFrameReady(
 
   decoder_ready_for_new_frame_ = false;
   receiver_->OnEncodedFrame(std::move(frame));
+  TRACE_EVENT_FLOW_END1("webrtc", "VideoFrameReceived", ts, "result",
+                        "decoded");
+  TRACE_EVENT_ASYNC_END1("webrtc", "VideoFrameReceivedAsync", ts, "result",
+                         "decoded");
 }
 
 void VideoStreamBufferController::OnTimeout(TimeDelta delay) {
@@ -351,6 +373,10 @@ void VideoStreamBufferController::ForceKeyFrameReleaseImmediately()
                                              clock_->CurrentTime());
       OnFrameReady(std::move(next_frame), render_time);
       return;
+    } else {
+      TRACE_EVENT_FLOW_END1("webrtc", "VideoFrameReceived",
+                            next_frame.front()->Timestamp(), "result",
+                            "dropped_keyframe_required");
     }
   }
 }
@@ -383,6 +409,14 @@ void VideoStreamBufferController::MaybeScheduleFrameForRelease()
         decodable_tu_info->last_rtp_timestamp, max_wait,
         IsTooManyFramesQueued());
     if (schedule) {
+      TRACE_EVENT_FLOW_STEP1(
+          "webrtc", "VideoFrameReceived", decodable_tu_info->next_rtp_timestamp,
+          "scheduled", "decode-delay-ms",
+          (schedule->latest_decode_time - clock_->CurrentTime()).ms());
+      TRACE_EVENT_ASYNC_STEP1(
+          "webrtc", "VideoFrameReceivedAsync",
+          decodable_tu_info->next_rtp_timestamp, "scheduled", "decode-delay-ms",
+          (schedule->latest_decode_time - clock_->CurrentTime()).ms());
       // Don't schedule if already waiting for the same frame.
       if (frame_decode_scheduler_->ScheduledRtpTimestamp() !=
           decodable_tu_info->next_rtp_timestamp) {
@@ -395,6 +429,12 @@ void VideoStreamBufferController::MaybeScheduleFrameForRelease()
       return;
     }
     // If no schedule for current rtp, drop and try again.
+    TRACE_EVENT_FLOW_END1("webrtc", "VideoFrameReceived",
+                          decodable_tu_info->next_rtp_timestamp, "result",
+                          "dropped-fast-forward");
+    TRACE_EVENT_ASYNC_END1("webrtc", "VideoFrameReceivedAsync",
+                           decodable_tu_info->next_rtp_timestamp, "result",
+                           "dropped-fast-forward");
     buffer_->DropNextDecodableTemporalUnit();
     decodable_tu_info = buffer_->DecodableTemporalUnitsInfo();
   }

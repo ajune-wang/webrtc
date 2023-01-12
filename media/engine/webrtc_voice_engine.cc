@@ -2312,15 +2312,11 @@ bool WebRtcVoiceMediaChannel::GetSendStats(VoiceMediaSendInfo* info) {
     info->senders.push_back(sinfo);
   }
 
-  // Get codec info
-  for (const AudioCodec& codec : send_codecs_) {
-    webrtc::RtpCodecParameters codec_params = codec.ToCodecParameters();
-    info->send_codecs.insert(
-        std::make_pair(codec_params.payload_type, std::move(codec_params)));
-  }
+  FillSendCodecStats(info);
 
   return true;
 }
+
 bool WebRtcVoiceMediaChannel::GetReceiveStats(VoiceMediaReceiveInfo* info,
                                               bool get_and_clear_legacy_stats) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::GetReceiveStats");
@@ -2425,15 +2421,41 @@ bool WebRtcVoiceMediaChannel::GetReceiveStats(VoiceMediaReceiveInfo* info,
     info->receivers.push_back(rinfo);
   }
 
-  // Get codec info
-  for (const AudioCodec& codec : recv_codecs_) {
-    webrtc::RtpCodecParameters codec_params = codec.ToCodecParameters();
-    info->receive_codecs.insert(
-        std::make_pair(codec_params.payload_type, std::move(codec_params)));
-  }
+  FillReceiveCodecStats(info);
+
   info->device_underrun_count = engine_->adm()->GetPlayoutUnderrunCount();
 
   return true;
+}
+
+void WebRtcVoiceMediaChannel::FillSendCodecStats(
+    VoiceMediaSendInfo* voice_media_info) {
+  for (const AudioCodec& codec : send_codecs_) {
+    if (absl::c_find_if(voice_media_info->senders,
+                        [&codec](const VoiceSenderInfo& r) {
+                          return r.codec_name == codec.name;
+                        }) == voice_media_info->senders.end()) {
+      continue;
+    }
+    webrtc::RtpCodecParameters codec_params = codec.ToCodecParameters();
+    voice_media_info->send_codecs.insert(
+        std::make_pair(codec_params.payload_type, std::move(codec_params)));
+  }
+}
+
+void WebRtcVoiceMediaChannel::FillReceiveCodecStats(
+    VoiceMediaReceiveInfo* voice_media_info) {
+  for (const AudioCodec& codec : recv_codecs_) {
+    if (absl::c_find_if(voice_media_info->receivers,
+                        [&codec](const VoiceReceiverInfo& r) {
+                          return r.codec_name == codec.name;
+                        }) == voice_media_info->receivers.end()) {
+      continue;
+    }
+    webrtc::RtpCodecParameters codec_params = codec.ToCodecParameters();
+    voice_media_info->receive_codecs.insert(
+        std::make_pair(codec_params.payload_type, std::move(codec_params)));
+  }
 }
 
 void WebRtcVoiceMediaChannel::SetRawAudioSink(

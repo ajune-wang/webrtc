@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "566b003c_24980d81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "This CL adds the necessary interfaces and plumbing, but the issue will not be fixed until AudioDeviceModule::GetStats() is implemented, so I\u0027m not sure this should be \"Fixed:\".\n\nNote that when this does get implemented in Chromium and exercised by browser tests, this allowlist will need to update (assuming ADM is exercised in this loopback page):\nhttps://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d155;drc\u003d184de3f1efc0884b34173fabd93b6a8578d52478",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "32e0e0d2_49e79390",
@@ -31,6 +48,125 @@
       "writtenOn": "2023-01-12T09:10:27Z",
       "side": 1,
       "message": "Nice! LGTM but wait for hbos\u0027s approval.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9004b40d_b35a1995",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "Looking good, but I\u0027d like some refactoring to avoid per-transceiver polling, and I\u0027m also not sure when the ID would increment",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e7b912e_4602f729",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "RTCInboundRtpStreamStats should also have a playoutId that references this stats object, when applicable.\n\nhttps://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-playoutid",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b082bacf_4f319f4a",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "We have one VoiceMediaInfo per (audio) transceiver, but we\u0027ll have one transceiver per receiver, i.e. per audio RTP stream.\n\nThe playout stats are not per stream, it is a singleton, so this is the wrong place to put it. See other comment.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba237a31_70c43537",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2434,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "Other than this conceptually being the wrong place to put it, we also end up poling GetStats() once per transceiver, which is unnecessary. We\u0027d typically have 4 audio transceivers in a call, all of them referencing the same WebRtcVoiceEngine singleton.\n\nInstead, can we move this to WebRtcVoiceEngine::GetAudioDeviceModuleStats()?\n\nI think you should be able to call a function like that from RTCStatsCollector by adding a helper method to PeerConnectionInternal.\n\nHere is a similar example of getting something from the engine:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/peer_connection.cc;l\u003d1728;drc\u003dcf439a04e5df8889f4be985c1b76aa09b7d3e721\n\nI think you just need to add GetAudioDeviceModuleStats() to the VoiceEngineInterface (impl by WebRtcVoiceEngine) and PeerConnectionInternal (impl by PeerConnection). Then the collector gets the stats from there as opposed to getting it from the transceiver.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a34485bf_7cee9d58",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "Considering we only have one voice engine, and thus one set of these stats at a time, do we even need an `id`?\n\nThe ID would be needed if the playout device can be destroyed and re-created during the lifetime of an RTCPeerConnection. Incrementing the ID would be a good thing to do if the stats are reset... but if this does not happen during a PC\u0027s lifetime then it\u0027s not needed.\n\nHow many \"audio device playouts\" will we observe?",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7fcf8de_96769ee9",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "Here in the inbound-rtp case, I would expect \"inbound-rtp.playoutId\" to have a value if and only if...\n1. A playout-stats object exist.\n2. The transceiver is of kind audio, and\n3. Transceiver\u0027s current_direction() is kSendRecv or kRecvOnly.\n\nIn other words, transceivers that are currently receiving would contribute to playout, but not other transceivers. (Maybe technically the transceiver.receiver.track also has to have a sink, but I\u0027m ignoring that edge case, not sure how to check that)\n\nFor threading reasons, calling \"stats.transceiver-\u003ecurrent_direction()\" would be a block-invoke here, which is not allowed.\n\nBut if you patch RtpTransceiverStatsInfo to contain the current_direction, then you can save the value of current_direction from PrepareTransceiverStatsInfosAndCallStats_s_w_n().",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "322de6da_4f6bda8f",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2090,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-12T10:27:27Z",
+      "side": 1,
+      "message": "Since all playout stats would have the same ID, this call will happen multiple times but only one of the objects survive in the end. This becomes a non-issue if you address my other comments.",
       "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

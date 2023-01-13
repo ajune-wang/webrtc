@@ -34,6 +34,24 @@
       "parentUuid": "d694fee4_d24624b3",
       "revId": "1299b61918e569e4e2dd526bc87b49db94f2226a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d06b8762_9e146a34",
+        "filename": "modules/video_capture/raw_video_sink_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2023-01-13T08:26:03Z",
+      "side": 1,
+      "message": "Ok. In that case, it\u0027s ready now, I think. Can you do the +2 please? I don\u0027t have the permissions.",
+      "parentUuid": "2dd6b609_9ac1df06",
+      "revId": "1299b61918e569e4e2dd526bc87b49db94f2226a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

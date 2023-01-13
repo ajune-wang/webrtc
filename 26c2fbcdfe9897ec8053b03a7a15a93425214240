@@ -22,6 +22,30 @@
       },
       "revId": "26c2fbcdfe9897ec8053b03a7a15a93425214240",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec01b2f_cedc12ef",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-01-13T10:17:58Z",
+      "side": 1,
+      "message": "It\u0027s just moved to a different place that is also used in CRD. At least I didn\u0027t hit any issue building it with Chromium.",
+      "parentUuid": "69f3160e_e4a7d9e9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "26c2fbcdfe9897ec8053b03a7a15a93425214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

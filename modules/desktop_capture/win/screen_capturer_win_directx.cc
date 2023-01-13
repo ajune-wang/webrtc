@@ -102,7 +102,9 @@ int ScreenCapturerWinDirectx::GetIndexFromScreenId(
 }
 
 ScreenCapturerWinDirectx::ScreenCapturerWinDirectx()
-    : controller_(DxgiDuplicatorController::Instance()) {}
+    : controller_(DxgiDuplicatorController::Instance()) {
+  RTC_DLOG(LS_INFO) << "___" << __func__;
+}
 
 ScreenCapturerWinDirectx::~ScreenCapturerWinDirectx() = default;
 

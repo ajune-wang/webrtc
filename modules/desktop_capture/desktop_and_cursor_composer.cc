@@ -21,6 +21,7 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -244,7 +245,12 @@ void DesktopAndCursorComposer::OnCaptureResult(
     }
   }
 
-  callback_->OnCaptureResult(result, std::move(frame));
+  if (frame->updated_region().is_empty()) {
+    // RTC_DLOG(LS_INFO) << "___NO_CHANGE___";
+    callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
+  } else {
+    callback_->OnCaptureResult(result, std::move(frame));
+  }
 }
 
 void DesktopAndCursorComposer::OnMouseCursor(MouseCursor* cursor) {

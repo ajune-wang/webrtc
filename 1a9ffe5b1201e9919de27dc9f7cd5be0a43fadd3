@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988608ca_3fb4b11f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-13T16:42:01Z",
+      "side": 1,
+      "message": "This seem like an unnecessary limitation of the interface and it forces us to keep copies of the same data. I would prefer one metadata to rule them all.\n\nNot this CL, but what do you think about changing the interface such that GetMetadata() returns VideoFrameMetadata by value rather than by reference so that we can remove the `metadata_` copy?",
+      "revId": "1a9ffe5b1201e9919de27dc9f7cd5be0a43fadd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

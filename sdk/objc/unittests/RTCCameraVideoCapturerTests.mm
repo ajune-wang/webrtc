@@ -552,13 +552,8 @@ CMSampleBufferRef createTestSampleBufferRef() {
 
   OCMVerify([_captureSessionMock
       addOutput:[OCMArg checkWithBlock:^BOOL(AVCaptureVideoDataOutput *output) {
-        if (@available(iOS 16, *)) {
-          XCTAssertEqual(width, [output.videoSettings[(id)kCVPixelBufferWidthKey] intValue]);
-          XCTAssertEqual(height, [output.videoSettings[(id)kCVPixelBufferHeightKey] intValue]);
-        } else {
-          XCTAssertEqual(0, [output.videoSettings[(id)kCVPixelBufferWidthKey] intValue]);
-          XCTAssertEqual(0, [output.videoSettings[(id)kCVPixelBufferHeightKey] intValue]);
-        }
+        XCTAssertEqual(0, [output.videoSettings[(id)kCVPixelBufferWidthKey] intValue]);
+        XCTAssertEqual(0, [output.videoSettings[(id)kCVPixelBufferHeightKey] intValue]);
         XCTAssertEqual(
             (FourCharCode)kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
             [output.videoSettings[(id)kCVPixelBufferPixelFormatTypeKey] unsignedIntValue]);

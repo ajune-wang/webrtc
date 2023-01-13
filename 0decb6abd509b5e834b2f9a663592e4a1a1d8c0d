@@ -16,6 +16,24 @@
       "message": "I don\u0027t think this test makes much sense anymore. Do you know why the videoSettings don\u0027t appear to have the height/width set properly anymore?",
       "revId": "0decb6abd509b5e834b2f9a663592e4a1a1d8c0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b50627a4_d19eda9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-13T14:33:46Z",
+      "side": 1,
+      "message": "I have no idea about the test itself.\nWebRTC is running currently running tests on ios 12, 13 and 14.\nI\u0027m trying to add coverage for ios 15 and 16 and hit this error.\nMy guess is that the code I\u0027m removing was to fix someone\u0027s local run.",
+      "parentUuid": "bcd06a67_66e5c0b1",
+      "revId": "0decb6abd509b5e834b2f9a663592e4a1a1d8c0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

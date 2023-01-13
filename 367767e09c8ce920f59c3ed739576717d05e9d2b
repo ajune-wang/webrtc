@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "518d6a08_9384fb53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-01-13T13:33:20Z",
+      "side": 1,
+      "message": "With crbug.com/1404878 fixed, these should now pass in CI.",
+      "revId": "367767e09c8ce920f59c3ed739576717d05e9d2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

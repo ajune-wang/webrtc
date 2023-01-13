@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcd06a67_66e5c0b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-01-13T12:46:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this test makes much sense anymore. Do you know why the videoSettings don\u0027t appear to have the height/width set properly anymore?",
+      "revId": "0decb6abd509b5e834b2f9a663592e4a1a1d8c0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

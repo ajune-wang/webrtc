@@ -2500,6 +2500,10 @@ Call::Stats PeerConnection::GetCallStats() {
   }
 }
 
+absl::optional<AudioDeviceModule::Stats> PeerConnection::GetAudioDeviceStats() {
+  return context_->media_engine()->voice().GetAudioDeviceStats();
+}
+
 bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
   DataChannelTransportInterface* transport =
       transport_controller_->GetDataChannelTransport(mid);

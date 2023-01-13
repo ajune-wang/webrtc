@@ -69,6 +69,12 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
   }
 
   const VideoFrameMetadata& GetMetadata() const override { return metadata_; }
+  void SetMetadata(const VideoFrameMetadata& metadata) override {
+    header_.SetFromMetadata(metadata);
+    // We have to keep a local copy because GetMetadata() has to return a
+    // reference.
+    metadata_ = header_.GetAsMetadata();
+  }
 
   const RTPVideoHeader& GetHeader() const { return header_; }
   uint8_t GetPayloadType() const override { return payload_type_; }
@@ -83,8 +89,8 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
 
  private:
   rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
-  const RTPVideoHeader header_;
-  const VideoFrameMetadata metadata_;
+  RTPVideoHeader header_;
+  VideoFrameMetadata metadata_;
   const VideoFrameType frame_type_;
   const uint8_t payload_type_;
   const absl::optional<VideoCodecType> codec_type_ = absl::nullopt;

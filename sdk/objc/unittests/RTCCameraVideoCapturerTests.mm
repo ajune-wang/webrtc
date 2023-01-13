@@ -186,9 +186,6 @@ CMSampleBufferRef createTestSampleBufferRef() {
   [self.delegateMock verify];
 }
 
-#if 0
-// See crbug.com/1404878 - XCTExpectFailure and XCTSkip are considered failures
-
 - (void)testDelegateCallbackWithValidBufferAndOrientationUpdate {
 #if TARGET_OS_IPHONE
   XCTExpectFailure(@"Setting orientation on UIDevice is not supported");
@@ -294,8 +291,6 @@ CMSampleBufferRef createTestSampleBufferRef() {
   [self testRotationCamera:AVCaptureDevicePositionFront
            withOrientation:UIDeviceOrientationLandscapeRight];
 }
-
-#endif
 
 - (void)setExif:(CMSampleBufferRef)sampleBuffer {
   rtc::ScopedCFTypeRef<CFMutableDictionaryRef> exif(CFDictionaryCreateMutable(

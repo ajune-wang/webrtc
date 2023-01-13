@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45cbada3_6fb2a2d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-13T11:35:22Z",
+      "side": 1,
+      "message": "patchset #1 is the original change,\npatchset #2 includes the fix and the test case discovered by the crbug.com/1407045",
+      "revId": "85196924cf834d700873ae91b1dce623e84fedcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -55,7 +55,9 @@ class MultiStreamTester {
       VideoReceiveStreamInterface::Config* receive_config);
   virtual std::unique_ptr<test::DirectTransport> CreateSendTransport(
       TaskQueueBase* task_queue,
-      Call* sender_call);
+      Call* sender_call,
+      rtc::ArrayView<const RtpExtension> audio_extensions,
+      rtc::ArrayView<const RtpExtension> video_extensions);
   virtual std::unique_ptr<test::DirectTransport> CreateReceiveTransport(
       TaskQueueBase* task_queue,
       Call* receiver_call);

@@ -34,6 +34,24 @@
       "parentUuid": "ea1b262d_b7904f9d",
       "revId": "0f35c8a92f43c96d42f5cd4e6ea895b288dd8449",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f43fd1_de000412",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-01-13T10:25:39Z",
+      "side": 1,
+      "message": "That would work for now, but assuming there might be other parameters in the future, it\u0027s probably not a good option.\n\nI think the best option (as you suggested) might be passing an interface representing set of properties, which can be extended in the future and will not change API of functions we already have. I will try to implement this version.",
+      "parentUuid": "9c2ad22c_338818e7",
+      "revId": "0f35c8a92f43c96d42f5cd4e6ea895b288dd8449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

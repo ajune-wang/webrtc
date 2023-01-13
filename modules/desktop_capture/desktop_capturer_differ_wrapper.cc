@@ -19,6 +19,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/differ_block.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -223,9 +224,10 @@ void DesktopCapturerDifferWrapper::OnCaptureResult(
   }
   last_frame_ = frame->Share();
 
-  frame->set_capture_time_ms(frame->capture_time_ms() +
-                             (rtc::TimeNanos() - start_time_nanos) /
-                                 rtc::kNumNanosecsPerMillisec);
+  int64_t extra_time_ms =
+      (rtc::TimeNanos() - start_time_nanos) / rtc::kNumNanosecsPerMillisec;
+  // RTC_LOG(LS_INFO) << extra_time_ms;
+  frame->set_capture_time_ms(frame->capture_time_ms() + extra_time_ms);
   callback_->OnCaptureResult(result, std::move(frame));
 }
 

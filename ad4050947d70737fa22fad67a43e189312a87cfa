@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cf70e5a_026aad63",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T09:27:10Z",
+      "side": 1,
+      "message": "Add a comment that metadata_ reflects exactly header_, and TODO() to remove the buffer?",
+      "revId": "ad4050947d70737fa22fad67a43e189312a87cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

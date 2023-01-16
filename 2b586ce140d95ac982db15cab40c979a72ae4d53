@@ -88,6 +88,24 @@
       "parentUuid": "26004857_691c4887",
       "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b135883_8bf50e2b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T09:31:12Z",
+      "side": 1,
+      "message": "Unfortunately channels are behaving differently depending on plan :-(\nchannels are really transceivers in disguise. I\u0027m trying to get rid of them, but it\u0027s a slog.",
+      "parentUuid": "b46b50e5_6efd91ee",
+      "revId": "2b586ce140d95ac982db15cab40c979a72ae4d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

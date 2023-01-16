@@ -461,7 +461,6 @@ if (rtc_include_tests) {
 
       sources = [
         "bitrate_allocator_unittest.cc",
-        "bitrate_estimator_tests.cc",
         "call_unittest.cc",
         "flexfec_receive_stream_unittest.cc",
         "receive_time_calculator_unittest.cc",

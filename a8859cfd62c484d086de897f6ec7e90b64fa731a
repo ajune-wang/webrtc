@@ -68,6 +68,24 @@
       "message": "Nit: its, not it\u0027s",
       "revId": "a8859cfd62c484d086de897f6ec7e90b64fa731a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "608747a5_c030c8bf",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-16T13:21:22Z",
+      "side": 1,
+      "message": "Bonus nit: just put the default value in the declaration instead :) (+ elsewhere where it makes sense)",
+      "parentUuid": "b7e94a29_25fb69d9",
+      "revId": "a8859cfd62c484d086de897f6ec7e90b64fa731a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

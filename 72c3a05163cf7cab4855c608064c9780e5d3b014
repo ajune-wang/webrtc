@@ -276,6 +276,24 @@
       "parentUuid": "d9f02f0d_5c983ffd",
       "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59405f9a_a94d55a8",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2023-01-16T19:20:04Z",
+      "side": 1,
+      "message": "I see. I had used \"else if\" since I wanted to validate `speech_probability` when passed as argument. But let\u0027s switch to \"if\" as you suggest.",
+      "parentUuid": "d3740e7c_3aa24e8b",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

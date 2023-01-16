@@ -22,6 +22,30 @@
       },
       "revId": "589524d75d393d3f13b626f369aad1a68c8edbbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bda6587e_f25bfb94",
+        "filename": "docs/native-code/development/index.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-16T09:07:16Z",
+      "side": 1,
+      "message": "Looks better like this, thanks.",
+      "parentUuid": "a628720a_f73a9c76",
+      "range": {
+        "startLine": 206,
+        "startChar": 24,
+        "endLine": 206,
+        "endChar": 42
+      },
+      "revId": "589524d75d393d3f13b626f369aad1a68c8edbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8834400b_b2d3d514",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T11:05:12Z",
+      "side": 1,
+      "message": "The allow list is test-only, it is checked in WebRtcBrowserTest.RunsAudioVideoWebRTCCallInTwoTabsGetStatsPromise. The idea is that a change causes new metrics to be exposed to JavaScript without Chromium layer approval, the test should fail, but it will not filtering out the metrics outside of testing, so I would expect you to be able to compile your changes locally and see them on the web.\n\nIt is not bullet-proof (e.g. if the metric is not exposed by default in a 1:1 loopback call with defaults negotiated), but it has been good guard against shipping non-standard metrics to the web without approvals. This was commonly a problem in the past with the legacy stats API.\n\nIf it is working as intended, you\u0027ll need to update this allow list for your chromium CL to land or else some bot will fail that test but it is not needed to land this CL because even with this CL all metrics are undefined (no value set), so they don\u0027t show up in JS.",
+      "parentUuid": "ccf309e5_599846de",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "32e0e0d2_49e79390",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 17
@@ -192,6 +210,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "012aea0f_65c15aab",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2434,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T11:05:12Z",
+      "side": 1,
+      "message": "Yes!",
+      "parentUuid": "79d8ac79_152a6dbb",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a34485bf_7cee9d58",
@@ -241,6 +277,24 @@
       "side": 1,
       "message": "Ah cool, removing the ID then, and setting the RTCStats id to a hardcoded \"AP\"",
       "parentUuid": "b82355e5_754b4c52",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a186baf2_cf2f9081",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T11:05:12Z",
+      "side": 1,
+      "message": "SGTM!",
+      "parentUuid": "b418f196_0987b141",
       "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -347,6 +401,24 @@
       "side": 1,
       "message": "Is this comment still relevant, now that we no longer have a unique id for RTCAudioPlayoutStats?",
       "parentUuid": "f7fcf8de_96769ee9",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27bb39a3_60f12ace",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T11:05:12Z",
+      "side": 1,
+      "message": "Yes it is still relevant, the fact that our browser implementation only has a single playout stat might not be true on other browsers. So without making any assumptions about browser implementations, how would you know which \"media-playout\" stats object is relevant for your RTP stream? It is also true that not all RTP streams might be playing out, so not all of them are necessarily contributing to playout.\n\nI don\u0027t think we should ship \"media-playout\" without also shipping \"inbound-rtp.playoutId\" in the same milestone because otherwise apps will start depending on browser-specific behavior and just search for the type rather than lookup of what is referenced. That could happen anyway of course, but it should be possible to do ID lookup the right way.\n\nThat said I think it is OK to land the playoudId in a follow-up CL so that we can land this one. It will aid CL reviewability to do one thing at a time. Suggestion:\n1. Land this CL first.\n2. Then a CL that adds playoutId.\n3. And finally the Chromium CL which make use of 1+2.",
+      "parentUuid": "caebe4a7_8ee0b2cd",
       "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

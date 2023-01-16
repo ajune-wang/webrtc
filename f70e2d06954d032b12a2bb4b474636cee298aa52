@@ -106,6 +106,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e8527b2_fda968b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T19:12:14Z",
+      "side": 1,
+      "message": "Don\u0027t change semantics.\nI *think* skipping the logging for empty channels is OK, but skipping the clear is not.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dcc7d52_a79d9044",
@@ -119,6 +136,58 @@
       "writtenOn": "2023-01-16T12:53:39Z",
       "side": 1,
       "message": "\"true\" seems semantically correct. This is only looked at here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/legacy_stats_collector.cc;l\u003d1153;drc\u003de95ee489e7a4aee5408d8bb0e13bebc61adcca0d\nbut not really here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/rtc_stats_collector.cc;l\u003d2402;drc\u003de95ee489e7a4aee5408d8bb0e13bebc61adcca0d;bpv\u003d1;bpt\u003d1\n\nReturning false only seems to be a thing for the fake engines.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dfec981_86716fa2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T19:12:14Z",
+      "side": 1,
+      "message": "The Get*Stats return false on failure, but we ignore failures (just emit warnings), the thinking is probably that losing some data is better than losing all data.\n\nI have my doubts about that. But \"return true\" is good.",
+      "parentUuid": "6dcc7d52_a79d9044",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8aef8e4_e6fd45f5",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T19:12:14Z",
+      "side": 1,
+      "message": "Move this statement up before the early return. I had a bit of fun with that week before last, and ended up wanting to \"always clear\" because the other alternative (making getStats() cumulative) had too many tests weirding out.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c63bf04_bbce4c08",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T19:12:14Z",
+      "side": 1,
+      "message": "Here too.",
       "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

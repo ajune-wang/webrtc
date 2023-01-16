@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0488ea_713b030b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2370,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T17:35:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec8c1d1f_a0595459",
+      "range": {
+        "startLine": 2370,
+        "startChar": 26,
+        "endLine": 2370,
+        "endChar": 57
+      },
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "358b65ef_ea085b6a",
@@ -165,6 +189,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "112a21d8_b8f63ffd",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T17:35:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dc03dee3_09d18fa4",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8837d40c_7c2c75d0",
@@ -214,6 +256,24 @@
       "side": 1,
       "message": "when line 189 runs, `speech_probability` is always set\nafter line 193, it can happen that `speech_probability` remains unspecified e.g., when AGC2 runs as fixed digital controller (no VAD needed)",
       "parentUuid": "cc8c5447_5f1c4f17",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3740e7c_3aa24e8b",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T17:35:50Z",
+      "side": 1,
+      "message": "What I mean: should it be  \n`\nif (speech_probability.has_value()) {\n    RTC_DCHECK_GE..\n}\n`\nrather than \"else if\"?\n\nI assume speech_probability at line 189 has the same range as any other.",
+      "parentUuid": "d9f02f0d_5c983ffd",
       "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

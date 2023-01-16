@@ -16,6 +16,40 @@
       "message": "Thanks Olga!",
       "revId": "81ef5d438f9629ec5b8c816f52dbe8b1ddc4b2c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf335bb_c8614331",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T17:35:50Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "81ef5d438f9629ec5b8c816f52dbe8b1ddc4b2c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7638fe_2c2206e3",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T17:35:50Z",
+      "side": 1,
+      "message": "So since it\u0027s only DCHECK, not CHECK, we won\u0027t crash in production if it happens. Is it dangerous to run it in case both VAD are enabled?",
+      "revId": "81ef5d438f9629ec5b8c816f52dbe8b1ddc4b2c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

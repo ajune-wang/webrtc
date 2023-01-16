@@ -142,18 +142,6 @@ TEST_F(RetransmissionEndToEndTest, ReceivesNackAndRetransmitsAudio) {
     size_t GetNumVideoStreams() const override { return 0; }
     size_t GetNumAudioStreams() const override { return 1; }
 
-    std::unique_ptr<test::PacketTransport> CreateReceiveTransport(
-        TaskQueueBase* task_queue) override {
-      auto receive_transport = std::make_unique<test::PacketTransport>(
-          task_queue, nullptr, this, test::PacketTransport::kReceiver,
-          payload_type_map_,
-          std::make_unique<FakeNetworkPipe>(
-              Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
-                                             BuiltInNetworkBehaviorConfig())));
-      receive_transport_ = receive_transport.get();
-      return receive_transport;
-    }
-
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RtpPacket rtp_packet;
       EXPECT_TRUE(rtp_packet.Parse(packet, length));

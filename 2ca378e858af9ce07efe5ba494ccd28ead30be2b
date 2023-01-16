@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab5d195f_91d191e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T12:01:29Z",
+      "side": 1,
+      "message": "A few questions. Looks needed!\nDo we have documentation on cmark that we should link to?",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65d2f8df_751936d2",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T12:01:29Z",
+      "side": 1,
+      "message": "Language: \"the following file header\"\nDoes this have to go as the very first line, or can it be anywhere?",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f597124c_27c90a1f",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T12:01:29Z",
+      "side": 1,
+      "message": "Are we moving away from the rule that .md files go in g3doc directories? Or is that for \"the next iteration\"?",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

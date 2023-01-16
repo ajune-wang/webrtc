@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09cc6484_456fbb5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-16T12:53:39Z",
+      "side": 1,
+      "message": "this was the better place to optimize!",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dcc7d52_a79d9044",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-16T12:53:39Z",
+      "side": 1,
+      "message": "\"true\" seems semantically correct. This is only looked at here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/legacy_stats_collector.cc;l\u003d1153;drc\u003de95ee489e7a4aee5408d8bb0e13bebc61adcca0d\nbut not really here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/rtc_stats_collector.cc;l\u003d2402;drc\u003de95ee489e7a4aee5408d8bb0e13bebc61adcca0d;bpv\u003d1;bpt\u003d1\n\nReturning false only seems to be a thing for the fake engines.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

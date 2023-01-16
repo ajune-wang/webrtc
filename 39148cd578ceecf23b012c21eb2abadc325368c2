@@ -16,6 +16,24 @@
       "message": "This is a behavior change, should we put it behind a finch flag or just run a PSA before we ship it?\n\nCode looks OK.",
       "revId": "39148cd578ceecf23b012c21eb2abadc325368c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f4da94d_262686d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T10:01:22Z",
+      "side": 1,
+      "message": "Is it? My understanding is that it is not a behavior change becauus the only codecs being exposed in getStats() are those referenced by the RTP streams, meaning all those objects copied prior to this change were never surfaced to the API caller.",
+      "parentUuid": "5c8d302a_cabdbed2",
+      "revId": "39148cd578ceecf23b012c21eb2abadc325368c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

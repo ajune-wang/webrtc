@@ -34,6 +34,24 @@
       "parentUuid": "bd883c78_ff320889",
       "revId": "ab6d95cfd19fe55e29686dbc49d67e788908cc83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49615ca6_97a88961",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T09:59:50Z",
+      "side": 1,
+      "message": "I guess you can consider the 10 codecs or so being checked each time as a small constant, so while we\u0027re still doing a lot of PT comparisons (only in Plan B) we\u0027re at least not copying them, and in the normal case (Unified Plan) we would never have multiple receivers per channel",
+      "parentUuid": "77b44075_290ba736",
+      "revId": "ab6d95cfd19fe55e29686dbc49d67e788908cc83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,24 @@
       "parentUuid": "5c8d302a_cabdbed2",
       "revId": "39148cd578ceecf23b012c21eb2abadc325368c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c69706c_ae24425b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-16T10:26:00Z",
+      "side": 1,
+      "message": "The behavior change was already done by hbos when restricting codec objects at a higher layer. This is just reaping more fruit from that change.",
+      "parentUuid": "6f4da94d_262686d0",
+      "revId": "39148cd578ceecf23b012c21eb2abadc325368c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

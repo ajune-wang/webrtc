@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf309e5_599846de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Removed Fixed.\nInteresting, when I run this demo in my chromium prototype which implements the new ADM interface, then the new stat is visible even without changing that file.\nhttps://webrtc.github.io/samples/src/content/peerconnection/constraints/",
+      "parentUuid": "566b003c_24980d81",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "32e0e0d2_49e79390",
@@ -86,6 +104,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "298bbeef_66abb105",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Removed the ID because it\u0027s singleton, in accordance with your other comments.",
+      "parentUuid": "9e7b912e_4602f729",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b082bacf_4f319f4a",
@@ -103,6 +139,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9bb45f0_bd9fee91",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b082bacf_4f319f4a",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba237a31_70c43537",
@@ -116,6 +170,24 @@
       "writtenOn": "2023-01-12T10:27:27Z",
       "side": 1,
       "message": "Other than this conceptually being the wrong place to put it, we also end up poling GetStats() once per transceiver, which is unnecessary. We\u0027d typically have 4 audio transceivers in a call, all of them referencing the same WebRtcVoiceEngine singleton.\n\nInstead, can we move this to WebRtcVoiceEngine::GetAudioDeviceModuleStats()?\n\nI think you should be able to call a function like that from RTCStatsCollector by adding a helper method to PeerConnectionInternal.\n\nHere is a similar example of getting something from the engine:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/peer_connection.cc;l\u003d1728;drc\u003dcf439a04e5df8889f4be985c1b76aa09b7d3e721\n\nI think you just need to add GetAudioDeviceModuleStats() to the VoiceEngineInterface (impl by WebRtcVoiceEngine) and PeerConnectionInternal (impl by PeerConnection). Then the collector gets the stats from there as opposed to getting it from the transceiver.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d8ac79_152a6dbb",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2434,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Thanks for the guidance, done. Is this what you had in mind?",
+      "parentUuid": "ba237a31_70c43537",
       "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -155,6 +227,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b418f196_0987b141",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Ah cool, removing the ID then, and setting the RTCStats id to a hardcoded \"AP\"",
+      "parentUuid": "b82355e5_754b4c52",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6e1dc0d_290fd02a",
@@ -168,6 +258,24 @@
       "writtenOn": "2023-01-12T10:33:21Z",
       "side": 1,
       "message": "Why is this API added to the ADM? The ADM is not even built in Chrome so I don\u0027t see how this would work.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9cfce76_8e54fd04",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "ADM is implemented in chromium by WebRtcAudioDeviceNotImpl\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/webrtc/webrtc_audio_device_not_impl.h;l\u003d23;drc\u003d3c15773d007439201c5d3f03d09aab8a4d96b956\nwhich is in turn extended by WebRtcAudioDeviceImpl.",
+      "parentUuid": "f6e1dc0d_290fd02a",
       "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -191,6 +299,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "caebe4a7_8ee0b2cd",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Is this comment still relevant, now that we no longer have a unique id for RTCAudioPlayoutStats?",
+      "parentUuid": "f7fcf8de_96769ee9",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "322de6da_4f6bda8f",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 17
@@ -202,6 +328,24 @@
       "writtenOn": "2023-01-12T10:27:27Z",
       "side": 1,
       "message": "Since all playout stats would have the same ID, this call will happen multiple times but only one of the objects survive in the end. This becomes a non-issue if you address my other comments.",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d512031c_ed3833a9",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2090,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-16T08:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "322de6da_4f6bda8f",
       "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -123,6 +123,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb7aa5f_09d8a189",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T19:14:13Z",
+      "side": 1,
+      "message": "And...",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dcc7d52_a79d9044",
@@ -171,6 +188,23 @@
       "writtenOn": "2023-01-16T19:12:14Z",
       "side": 1,
       "message": "Move this statement up before the early return. I had a bit of fun with that week before last, and ended up wanting to \"always clear\" because the other alternative (making getStats() cumulative) had too many tests weirding out.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "400f9f6d_9a07b67e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T19:14:13Z",
+      "side": 1,
+      "message": "the fact that we call call_-\u003eGetStats multiple times for the case with many channels is probably a more important performance bug.",
       "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

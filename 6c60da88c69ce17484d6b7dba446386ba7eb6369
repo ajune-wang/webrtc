@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68615656_dc76ce0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-16T11:31:42Z",
+      "side": 1,
+      "message": "Audio folks, can you help with the unit test?\n\nThe failure is caused by neteq not knowing what codec is going to be used until it decodes the first packet, see https://webrtc-review.googlesource.com/c/src/+/268144 for a lengthy description of the same issue.\n\nIt works in practice (unless getStats is called before the first packet is decoded) and would be nice to have (even though this is a much smaller problem for audio than for video, at least in some systems)",
+      "revId": "6c60da88c69ce17484d6b7dba446386ba7eb6369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

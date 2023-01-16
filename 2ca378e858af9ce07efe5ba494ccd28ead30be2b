@@ -104,6 +104,24 @@
       "parentUuid": "f597124c_27c90a1f",
       "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcc38677_3a175235",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-16T13:02:07Z",
+      "side": 1,
+      "message": "Ease of location and navigation is Good. But I think the CL to move this file (and others) into .md folders can be a new CL.",
+      "parentUuid": "d748e1e7_62918f94",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

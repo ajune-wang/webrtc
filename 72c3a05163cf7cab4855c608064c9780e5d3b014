@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da61e21_96631458",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2370,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T15:51:19Z",
+      "side": 1,
+      "message": "MaybeInitializeVoiceActivityDetector()? (that\u0027s how usually those are called)",
+      "range": {
+        "startLine": 2370,
+        "startChar": 26,
+        "endLine": 2370,
+        "endChar": 57
+      },
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358b65ef_ea085b6a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2380,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T15:51:19Z",
+      "side": 1,
+      "message": "Make it a helper function and call here and in InitializeGainController2()?",
+      "range": {
+        "startLine": 2374,
+        "startChar": 0,
+        "endLine": 2380,
+        "endChar": 67
+      },
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34f7591_1064d8ab",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2390,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T15:51:19Z",
+      "side": 1,
+      "message": "What is the value of transient_suppressor_vad_mode_ otherwise?\nMaybe the method start with\ntransient_suppressor_vad_mode_ \u003d TransientSuppressor::VadMode::kDefault;\n?",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949991e8_62cce01f",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T15:51:19Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8837d40c_7c2c75d0",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T15:51:19Z",
+      "side": 1,
+      "message": "Should these DCHECKs be allied to speech_probability from line 189 as well?",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

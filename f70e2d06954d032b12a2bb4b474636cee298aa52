@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f726f78_39ebd6e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T14:54:59Z",
+      "side": 1,
+      "message": "Agree that this is a bit \"why not\", but unless we think performance gains are to be had here, I\u0027d prefer not to add more conditions since call_-\u003eGetStats() could in theory report call-wide metrics not related to number of RTP streams - less edge cases to test for future CLs. Just my preference though... Do you feel strongly otherwise?",
+      "parentUuid": "2af148e9_720fd3b4",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "09cc6484_456fbb5e",

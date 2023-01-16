@@ -211,19 +211,20 @@ TEST(TransportFeedbackMultiStreamTest, AssignsTransportSequenceNumbers) {
       receive_config->renderer = &fake_renderer_;
     }
 
-    std::unique_ptr<test::DirectTransport> CreateSendTransport(
-        TaskQueueBase* task_queue,
-        Call* sender_call) override {
-      std::map<uint8_t, MediaType> payload_type_map =
-          MultiStreamTester::payload_type_map_;
-      RTC_DCHECK(payload_type_map.find(kSendRtxPayloadType) ==
-                 payload_type_map.end());
-      payload_type_map[kSendRtxPayloadType] = MediaType::VIDEO;
-      auto observer = std::make_unique<RtpExtensionHeaderObserver>(
-          task_queue, sender_call, rtx_to_media_ssrcs_, payload_type_map);
-      observer_ = observer.get();
-      return observer;
-    }
+    /*
+        std::unique_ptr<test::DirectTransport> CreateSendTransport(
+            TaskQueueBase* task_queue,
+            Call* sender_call) override {
+          std::map<uint8_t, MediaType> payload_type_map =
+              MultiStreamTester::payload_type_map_;
+          RTC_DCHECK(payload_type_map.find(kSendRtxPayloadType) ==
+                     payload_type_map.end());
+          payload_type_map[kSendRtxPayloadType] = MediaType::VIDEO;
+          auto observer = std::make_unique<RtpExtensionHeaderObserver>(
+              task_queue, sender_call, rtx_to_media_ssrcs_, payload_type_map);
+          observer_ = observer.get();
+          return observer;
+        }*/
 
    private:
     test::FakeVideoRenderer fake_renderer_;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f470b23_6872366d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-16T09:45:39Z",
+      "side": 1,
+      "message": "Thanks. Mirko- it looks like you are the only owner of rtc_tools/OWNERS. \nI would suggest adding more eng prod owners - such as terelius.",
+      "revId": "e645f6fdc521344b93a0b4111acac382e889ce29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

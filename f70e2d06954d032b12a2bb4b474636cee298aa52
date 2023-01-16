@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b937479_c5d8f5b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-16T15:34:03Z",
+      "side": 1,
+      "message": "this is in the send/receive channel which is basically per-sender/receiver. Any call-wide metrics are wrong in there, see the RTT comment by Stefan.\n\nThis may be a tiny optimization but it is easy to understand (and revert) and receiving many videos is a common use-case.\n\nI wish we had a benchmark ;-)",
+      "parentUuid": "6f726f78_39ebd6e5",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "09cc6484_456fbb5e",

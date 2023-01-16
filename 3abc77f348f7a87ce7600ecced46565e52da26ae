@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28717b2a_7237cd60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-16T12:28:04Z",
+      "side": 1,
+      "message": "Sorry but I dont know what this will do or how it will affect different socket implementations. \n\nIt seems like an experiment is needed to be safe, unless there is someone who know what this does in a sockets.",
+      "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

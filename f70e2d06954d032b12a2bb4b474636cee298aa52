@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f80c57d_9eceeb4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-16T13:40:46Z",
+      "side": 1,
+      "message": "Is there any significant amount of work that gets optimized away by adding this condition? It looks like we\u0027re mostly doing \"for each \u003cempty map\u003e\" anyway",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "09cc6484_456fbb5e",

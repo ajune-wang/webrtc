@@ -19,6 +19,8 @@
 #include "api/call/transport.h"
 #include "call/video_receive_stream.h"
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h"
 #include "rtc_base/event.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -29,6 +31,7 @@ namespace {
 
 using testing::NiceMock;
 using testing::Return;
+using testing::ReturnRef;
 
 class MockTransformableVideoFrame
     : public webrtc::TransformableVideoFrameInterface {
@@ -54,15 +57,101 @@ class MockTransformableVideoFrame
               (override));
 };
 
-TEST(FrameTransformerFactory, CloneVideoFrame) {
+class MockTaskQueueFactory final : public webrtc::TaskQueueFactory {
+ public:
+  std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>
+  CreateTaskQueue(absl::string_view name, Priority priority) const override {
+    return std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>();
+  }
+};
+
+template <typename T>
+class FrameTransformerFactoryTest : public testing::Test {};
+using HeaderTypes = ::testing::Types<RTPVideoHeaderVP8, RTPVideoHeaderVP9>;
+TYPED_TEST_SUITE(FrameTransformerFactoryTest, HeaderTypes);
+
+template <typename T>
+struct RTPHeaderTraits {};
+
+template <>
+struct RTPHeaderTraits<RTPVideoHeaderVP8> {
+  static const VideoCodecType codec = kVideoCodecVP8;
+  static RTPVideoHeaderVP8 GetSpecifics() {
+    RTPVideoHeaderVP8 specifics;
+    specifics.InitRTPVideoHeaderVP8();
+    return specifics;
+  }
+};
+
+template <>
+struct RTPHeaderTraits<RTPVideoHeaderVP9> {
+  static const VideoCodecType codec = kVideoCodecVP9;
+  static RTPVideoHeaderVP9 GetSpecifics() {
+    RTPVideoHeaderVP9 specifics;
+    specifics.InitRTPVideoHeaderVP9();
+    return specifics;
+  }
+};
+
+TYPED_TEST(FrameTransformerFactoryTest, CloneVideoFrame) {
   NiceMock<MockTransformableVideoFrame> original_frame;
   uint8_t data[10];
   std::fill_n(data, 10, 5);
   rtc::ArrayView<uint8_t> data_view(data);
   EXPECT_CALL(original_frame, GetData()).WillRepeatedly(Return(data_view));
+
+  VideoFrameMetadata original_metadata;
+  original_metadata.SetFrameType(VideoFrameType::kVideoFrameKey);
+  original_metadata.SetWidth(640);
+  original_metadata.SetHeight(480);
+  original_metadata.SetRotation(VideoRotation::kVideoRotation_90);
+  original_metadata.SetContentType(VideoContentType::SCREENSHARE);
+  original_metadata.SetFrameId(17);
+  original_metadata.SetSpatialIndex(23);
+  original_metadata.SetTemporalIndex(37);
+  std::vector<int64_t> frame_dependencies{int64_t(13)};
+  original_metadata.SetFrameDependencies(frame_dependencies);
+  std::vector<const DecodeTargetIndication> decode_target_indications{
+      DecodeTargetIndication::kRequired};
+  original_metadata.SetDecodeTargetIndications(decode_target_indications);
+  original_metadata.SetIsLastFrameInPicture(true);
+  original_metadata.SetSimulcastIdx(42);
+  original_metadata.SetCodec(RTPHeaderTraits<TypeParam>::codec);
+  original_metadata.SetRTPVideoHeaderCodecSpecifics(
+      RTPHeaderTraits<TypeParam>::GetSpecifics());
+  EXPECT_CALL(original_frame, GetMetadata())
+      .WillRepeatedly(ReturnRef(original_metadata));
+
   auto cloned_frame = CloneVideoFrame(&original_frame);
+  VideoFrameMetadata cloned_metadata = cloned_frame->GetMetadata();
+
   EXPECT_EQ(cloned_frame->GetData().size(), 10u);
   EXPECT_THAT(cloned_frame->GetData(), testing::Each(5u));
+  EXPECT_EQ(cloned_metadata.GetFrameType(), VideoFrameType::kVideoFrameKey);
+  EXPECT_EQ(cloned_metadata.GetWidth(), 640);
+  EXPECT_EQ(cloned_metadata.GetHeight(), 480);
+  EXPECT_EQ(cloned_metadata.GetRotation(), VideoRotation::kVideoRotation_90);
+  EXPECT_EQ(cloned_metadata.GetContentType(), VideoContentType::SCREENSHARE);
+  EXPECT_EQ(cloned_metadata.GetFrameId(), 17);
+  EXPECT_EQ(cloned_metadata.GetSpatialIndex(), 23);
+  EXPECT_EQ(cloned_metadata.GetTemporalIndex(), 37);
+  EXPECT_EQ(cloned_metadata.GetFrameDependencies()[0], 13);
+  EXPECT_EQ(cloned_metadata.GetDecodeTargetIndications()[0],
+            DecodeTargetIndication::kRequired);
+  EXPECT_EQ(cloned_metadata.GetIsLastFrameInPicture(), true);
+  EXPECT_EQ(cloned_metadata.GetSimulcastIdx(), 42);
+  EXPECT_EQ(cloned_metadata.GetCodec(),
+            VideoCodecType(RTPHeaderTraits<TypeParam>::codec));
+  EXPECT_TRUE(absl::holds_alternative<TypeParam>(
+      cloned_metadata.GetRTPVideoHeaderCodecSpecifics()));
+
+  MockTaskQueueFactory queue_factory;
+  rtc::scoped_refptr<RTPSenderVideoFrameTransformerDelegate> delegate =
+      rtc::make_ref_counted<RTPSenderVideoFrameTransformerDelegate>(
+          nullptr, nullptr, 0, &queue_factory);
+  delegate->OnTransformedFrame(std::move(cloned_frame));
+  // EXPECT_TRUE(absl::holds_alternative<TypeParam>(
+  //     cloned_frame.GetRTPVideoHeaderCodecSpecifics()));
 }
 
 }  // namespace

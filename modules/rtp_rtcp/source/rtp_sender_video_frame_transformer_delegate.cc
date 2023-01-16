@@ -18,92 +18,174 @@
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace {
 
-class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
- public:
-  TransformableVideoSenderFrame(
-      const EncodedImage& encoded_image,
-      const RTPVideoHeader& video_header,
-      int payload_type,
-      absl::optional<VideoCodecType> codec_type,
-      uint32_t rtp_timestamp,
-      absl::optional<int64_t> expected_retransmission_time_ms,
-      uint32_t ssrc)
-      : encoded_data_(encoded_image.GetEncodedData()),
-        header_(video_header),
-        metadata_(header_.GetAsMetadata()),
-        frame_type_(encoded_image._frameType),
-        payload_type_(payload_type),
-        codec_type_(codec_type),
-        timestamp_(rtp_timestamp),
-        capture_time_ms_(encoded_image.capture_time_ms_),
-        expected_retransmission_time_ms_(expected_retransmission_time_ms),
-        ssrc_(ssrc) {
-    RTC_DCHECK_GE(payload_type_, 0);
-    RTC_DCHECK_LE(payload_type_, 127);
-  }
+// class TransformableVideoSenderFrame : public TransformableVideoFrameInterface
+// {
+//  public:
+//   TransformableVideoSenderFrame(
+//       const EncodedImage& encoded_image,
+//       const RTPVideoHeader& video_header,
+//       int payload_type,
+//       absl::optional<VideoCodecType> codec_type,
+//       uint32_t rtp_timestamp,
+//       absl::optional<int64_t> expected_retransmission_time_ms,
+//       uint32_t ssrc)
+//       : encoded_data_(encoded_image.GetEncodedData()),
+//         header_(video_header),
+//         metadata_(header_.GetAsMetadata()),
+//         frame_type_(encoded_image._frameType),
+//         payload_type_(payload_type),
+//         codec_type_(codec_type),
+//         timestamp_(rtp_timestamp),
+//         capture_time_ms_(encoded_image.capture_time_ms_),
+//         expected_retransmission_time_ms_(expected_retransmission_time_ms),
+//         ssrc_(ssrc) {
+//     RTC_DCHECK_GE(payload_type_, 0);
+//     RTC_DCHECK_LE(payload_type_, 127);
+//   }
 
-  ~TransformableVideoSenderFrame() override = default;
+//   ~TransformableVideoSenderFrame() override = default;
 
-  // Implements TransformableVideoFrameInterface.
-  rtc::ArrayView<const uint8_t> GetData() const override {
-    return *encoded_data_;
-  }
+//   // Implements TransformableVideoFrameInterface.
+//   rtc::ArrayView<const uint8_t> GetData() const override {
+//     return *encoded_data_;
+//   }
 
-  void SetData(rtc::ArrayView<const uint8_t> data) override {
-    encoded_data_ = EncodedImageBuffer::Create(data.data(), data.size());
-  }
+//   void SetData(rtc::ArrayView<const uint8_t> data) override {
+//     encoded_data_ = EncodedImageBuffer::Create(data.data(), data.size());
+//   }
 
-  uint32_t GetTimestamp() const override { return timestamp_; }
-  uint32_t GetSsrc() const override { return ssrc_; }
+//   uint32_t GetTimestamp() const override { return timestamp_; }
+//   uint32_t GetSsrc() const override { return ssrc_; }
 
-  bool IsKeyFrame() const override {
-    return frame_type_ == VideoFrameType::kVideoFrameKey;
-  }
+//   bool IsKeyFrame() const override {
+//     return frame_type_ == VideoFrameType::kVideoFrameKey;
+//   }
 
-  std::vector<uint8_t> GetAdditionalData() const override {
-    return RtpDescriptorAuthentication(header_);
-  }
+//   std::vector<uint8_t> GetAdditionalData() const override {
+//     return RtpDescriptorAuthentication(header_);
+//   }
 
-  const VideoFrameMetadata& GetMetadata() const override { return metadata_; }
-  void SetMetadata(const VideoFrameMetadata& metadata) override {
-    header_.SetFromMetadata(metadata);
-    // We have to keep a local copy because GetMetadata() has to return a
-    // reference.
-    metadata_ = header_.GetAsMetadata();
-  }
+// const VideoFrameMetadata& GetMetadata() const override { return metadata_; }
+// void SetMetadata(const VideoFrameMetadata& metadata) override {
+//   header_.SetFromMetadata(metadata);
+//   // We have to keep a local copy because GetMetadata() has to return a
+//   // reference.
+//   metadata_ = header_.GetAsMetadata();
+// }
 
-  const RTPVideoHeader& GetHeader() const { return header_; }
-  uint8_t GetPayloadType() const override { return payload_type_; }
-  absl::optional<VideoCodecType> GetCodecType() const { return codec_type_; }
-  int64_t GetCaptureTimeMs() const { return capture_time_ms_; }
+//   const RTPVideoHeader& GetHeader() const { return header_; }
+//   uint8_t GetPayloadType() const override { return payload_type_; }
+//   absl::optional<VideoCodecType> GetCodecType() const { return codec_type_; }
+//   int64_t GetCaptureTimeMs() const { return capture_time_ms_; }
 
-  const absl::optional<int64_t>& GetExpectedRetransmissionTimeMs() const {
-    return expected_retransmission_time_ms_;
-  }
+//   const absl::optional<int64_t>& GetExpectedRetransmissionTimeMs() const {
+//     return expected_retransmission_time_ms_;
+//   }
 
-  Direction GetDirection() const override { return Direction::kSender; }
+//   Direction GetDirection() const override { return Direction::kSender; }
 
- private:
-  rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
-  RTPVideoHeader header_;
-  // This is a copy of `header_.GetAsMetadata()`, only needed because the
-  // interface says GetMetadata() must return a const ref rather than a value.
-  // TODO(crbug.com/webrtc/14709): Change the interface and delete this variable
-  // to reduce risk of it getting out-of-sync with `header_.GetAsMetadata()`.
-  VideoFrameMetadata metadata_;
-  const VideoFrameType frame_type_;
-  const uint8_t payload_type_;
-  const absl::optional<VideoCodecType> codec_type_ = absl::nullopt;
-  const uint32_t timestamp_;
-  const int64_t capture_time_ms_;
-  const absl::optional<int64_t> expected_retransmission_time_ms_;
-  const uint32_t ssrc_;
-};
+// private:
+//  rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
+//  RTPVideoHeader header_;
+//  // This is a copy of `header_.GetAsMetadata()`, only needed because the
+//  // interface says GetMetadata() must return a const ref rather than a value.
+//  // TODO(crbug.com/webrtc/14709): Change the interface and delete this
+//  variable
+//  // to reduce risk of it getting out-of-sync with `header_.GetAsMetadata()`.
+//  VideoFrameMetadata metadata_;
+//  const VideoFrameType frame_type_;
+//  const uint8_t payload_type_;
+//  const absl::optional<VideoCodecType> codec_type_ = absl::nullopt;
+//  const uint32_t timestamp_;
+//  const int64_t capture_time_ms_;
+//  const absl::optional<int64_t> expected_retransmission_time_ms_;
+//  const uint32_t ssrc_;
+// };
 }  // namespace
+
+TransformableVideoSenderFrame::TransformableVideoSenderFrame(
+    const EncodedImage& encoded_image,
+    const RTPVideoHeader& video_header,
+    int payload_type,
+    absl::optional<VideoCodecType> codec_type,
+    uint32_t rtp_timestamp,
+    absl::optional<int64_t> expected_retransmission_time_ms,
+    uint32_t ssrc)
+    : encoded_data_(encoded_image.GetEncodedData()),
+      header_(video_header),
+      metadata_(header_.GetAsMetadata()),
+      frame_type_(encoded_image._frameType),
+      payload_type_(payload_type),
+      codec_type_(codec_type),
+      timestamp_(rtp_timestamp),
+      capture_time_ms_(encoded_image.capture_time_ms_),
+      expected_retransmission_time_ms_(expected_retransmission_time_ms),
+      ssrc_(ssrc) {
+  RTC_DCHECK_GE(payload_type_, 0);
+  RTC_DCHECK_LE(payload_type_, 127);
+}
+
+// Implements TransformableVideoFrameInterface.
+rtc::ArrayView<const uint8_t> TransformableVideoSenderFrame::GetData() const {
+  return *encoded_data_;
+}
+
+void TransformableVideoSenderFrame::SetData(
+    rtc::ArrayView<const uint8_t> data) {
+  encoded_data_ = EncodedImageBuffer::Create(data.data(), data.size());
+}
+
+uint32_t TransformableVideoSenderFrame::GetTimestamp() const {
+  return timestamp_;
+}
+uint32_t TransformableVideoSenderFrame::GetSsrc() const {
+  return ssrc_;
+}
+
+bool TransformableVideoSenderFrame::IsKeyFrame() const {
+  return frame_type_ == VideoFrameType::kVideoFrameKey;
+}
+
+std::vector<uint8_t> TransformableVideoSenderFrame::GetAdditionalData() const {
+  return RtpDescriptorAuthentication(header_);
+}
+
+void TransformableVideoSenderFrame::SetMetadata(
+    const VideoFrameMetadata& metadata) override {
+  header_.SetFromMetadata(metadata);
+  // We have to keep a local copy because GetMetadata() has to return a
+  // reference.
+  metadata_ = header_.GetAsMetadata();
+}
+
+const RTPVideoHeader& TransformableVideoSenderFrame::GetHeader() const {
+  return header_;
+}
+uint8_t TransformableVideoSenderFrame::GetPayloadType() const {
+  return payload_type_;
+}
+absl::optional<VideoCodecType> TransformableVideoSenderFrame::GetCodecType()
+    const {
+  return codec_type_;
+}
+int64_t TransformableVideoSenderFrame::GetCaptureTimeMs() const {
+  return capture_time_ms_;
+}
+
+const absl::optional<int64_t>&
+TransformableVideoSenderFrame::GetExpectedRetransmissionTimeMs() const {
+  return expected_retransmission_time_ms_;
+}
+
+TransformableVideoSenderFrame::Direction
+TransformableVideoSenderFrame::GetDirection() const {
+  return Direction::kSender;
+}
 
 RTPSenderVideoFrameTransformerDelegate::RTPSenderVideoFrameTransformerDelegate(
     RTPSenderVideo* sender,
@@ -215,6 +297,7 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
     new_codec_type = kVideoCodecVP8;
     // TODO(bugs.webrtc.org/14708): Fill in the new_header when it's not
     // `Direction::kSender`
+    new_header.SetFromMetadata(original->GetMetadata());
   }
   // TODO(bugs.webrtc.org/14708): Fill in other EncodedImage parameters
   return std::make_unique<TransformableVideoSenderFrame>(

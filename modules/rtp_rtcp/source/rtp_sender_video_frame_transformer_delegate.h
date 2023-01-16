@@ -12,6 +12,7 @@
 #define MODULES_RTP_RTCP_SOURCE_RTP_SENDER_VIDEO_FRAME_TRANSFORMER_DELEGATE_H_
 
 #include <memory>
+#include <vector>
 
 #include "api/frame_transformer_interface.h"
 #include "api/scoped_refptr.h"
@@ -22,6 +23,58 @@
 #include "rtc_base/synchronization/mutex.h"
 
 namespace webrtc {
+class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
+ public:
+  TransformableVideoSenderFrame(
+      const EncodedImage& encoded_image,
+      const RTPVideoHeader& video_header,
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      absl::optional<int64_t> expected_retransmission_time_ms,
+      uint32_t ssrc);
+
+  ~TransformableVideoSenderFrame() override = default;
+
+  // Implements TransformableVideoFrameInterface.
+  rtc::ArrayView<const uint8_t> GetData() const override;
+
+  void SetData(rtc::ArrayView<const uint8_t> data) override;
+
+  uint32_t GetTimestamp() const override;
+  uint32_t GetSsrc() const override;
+
+  bool IsKeyFrame() const override;
+
+  std::vector<uint8_t> GetAdditionalData() const override;
+
+  const VideoFrameMetadata& GetMetadata() const override;
+
+  const RTPVideoHeader& GetHeader() const;
+  uint8_t GetPayloadType() const override;
+  absl::optional<VideoCodecType> GetCodecType() const;
+  int64_t GetCaptureTimeMs() const;
+
+  const absl::optional<int64_t>& GetExpectedRetransmissionTimeMs() const;
+
+  Direction GetDirection() const override;
+
+ private:
+  rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
+  RTPVideoHeader header_;
+  // This is a copy of `header_.GetAsMetadata()`, only needed because the
+  // interface says GetMetadata() must return a const ref rather than a value.
+  // TODO(crbug.com/webrtc/14709): Change the interface and delete this variable
+  // to reduce risk of it getting out-of-sync with `header_.GetAsMetadata()`.
+  VideoFrameMetadata metadata_;
+  const VideoFrameType frame_type_;
+  const uint8_t payload_type_;
+  const absl::optional<VideoCodecType> codec_type_ = absl::nullopt;
+  const uint32_t timestamp_;
+  const int64_t capture_time_ms_;
+  const absl::optional<int64_t> expected_retransmission_time_ms_;
+  const uint32_t ssrc_;
+};
 
 class RTPSenderVideo;
 

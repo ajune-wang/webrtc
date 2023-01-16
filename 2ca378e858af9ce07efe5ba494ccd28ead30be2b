@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6866aee0_4028622a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-16T12:25:23Z",
+      "side": 1,
+      "message": "Not really...",
+      "parentUuid": "ab5d195f_91d191e0",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65d2f8df_751936d2",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "297bd20b_fbd852e0",
+        "filename": "g3doc/how_to_write_documentation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-16T12:25:23Z",
+      "side": 1,
+      "message": "Yep, in the beginning. Added that requirement in the doc too",
+      "parentUuid": "65d2f8df_751936d2",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f597124c_27c90a1f",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-01-16T12:01:29Z",
       "side": 1,
       "message": "Are we moving away from the rule that .md files go in g3doc directories? Or is that for \"the next iteration\"?",
+      "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d748e1e7_62918f94",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-01-16T12:25:23Z",
+      "side": 1,
+      "message": "I will say it\u0027s and exception, which I\u0027m not sure will work. It will be better to move all this docs to g3doc folders. It also will make it easier to locate.",
+      "parentUuid": "f597124c_27c90a1f",
       "revId": "2ca378e858af9ce07efe5ba494ccd28ead30be2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

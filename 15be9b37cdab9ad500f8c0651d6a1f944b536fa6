@@ -280,6 +280,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e89c7ba5_a8134f82",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-01-16T08:41:33Z",
+      "side": 1,
+      "message": "That part is only empty methods for what is NOT implemented in Chrome. https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/webrtc/webrtc_audio_device_impl.cc contains an implementation of a small fraction of the interface but my point is that none of the ADM code in native WebRTC is included in Chrome. The part that is implemented in the renderer in Chrome does not contain any native audio parts and is only a \"dumb\" receiver of audio from the real ADM in the audio process. It was not clear to me if this was sufficient or not. Again, Chrome only has real implementation of about 20% of the full interface. If that is sufficient, I am fine but I just wanted to make it clear.",
+      "parentUuid": "d9cfce76_8e54fd04",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7fcf8de_96769ee9",

@@ -16,6 +16,24 @@
       "message": "Sorry but I dont know what this will do or how it will affect different socket implementations. \n\nIt seems like an experiment is needed to be safe, unless there is someone who know what this does in a sockets.",
       "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a81f16e_cd8b920f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-16T16:28:32Z",
+      "side": 1,
+      "message": "It increases the size of the send buffer 😊\nSince we\u0027re using async sockets, if a packet to be sent does not fit in the socket buffer it is rejected with an EWOULDBLOCK error code.\nThis constant just makes that buffer larger.\nBut fine, I can set up an experiment and make you co-owner :P",
+      "parentUuid": "28717b2a_7237cd60",
+      "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1614,6 +1614,10 @@ bool WebRtcVideoChannel::GetSendStats(VideoMediaSendInfo* info) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   TRACE_EVENT0("webrtc", "WebRtcVideoChannel::GetSendStats");
 
+  if (info->senders.empty()) {
+    return true;
+  }
+
   // Log stats periodically.
   bool log_stats = false;
   int64_t now_ms = rtc::TimeMillis();
@@ -1646,6 +1650,10 @@ bool WebRtcVideoChannel::GetSendStats(VideoMediaSendInfo* info) {
 bool WebRtcVideoChannel::GetReceiveStats(VideoMediaReceiveInfo* info) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   TRACE_EVENT0("webrtc", "WebRtcVideoChannel::GetReceiveStats");
+
+  if (info->receivers.empty()) {
+    return true;
+  }
 
   // Log stats periodically.
   bool log_stats = false;

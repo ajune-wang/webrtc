@@ -867,6 +867,7 @@ rtc_library("direct_transport") {
     "direct_transport.h",
   ]
   deps = [
+    "../api:rtp_parameters",
     "../api:sequence_checker",
     "../api:simulated_network_api",
     "../api:transport_api",

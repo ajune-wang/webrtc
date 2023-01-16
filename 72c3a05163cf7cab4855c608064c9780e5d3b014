@@ -96,6 +96,24 @@
       "message": "Should these DCHECKs be allied to speech_probability from line 189 as well?",
       "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc8c5447_5f1c4f17",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-01-16T15:54:59Z",
+      "side": 1,
+      "message": "applied",
+      "parentUuid": "8837d40c_7c2c75d0",
+      "revId": "72c3a05163cf7cab4855c608064c9780e5d3b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

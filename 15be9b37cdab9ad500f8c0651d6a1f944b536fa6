@@ -370,6 +370,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c8935c1_09c9e7ba",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-01-16T12:08:51Z",
+      "side": 1,
+      "message": "All good",
+      "parentUuid": "03778010_feb514dd",
+      "revId": "15be9b37cdab9ad500f8c0651d6a1f944b536fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7fcf8de_96769ee9",

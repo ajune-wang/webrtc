@@ -1185,7 +1185,8 @@ VideoQualityTest::CreateSendTransport() {
       params_.video[0].selected_tl, params_.ss[0].selected_sl,
       payload_type_map_, kVideoSendSsrcs[0],
       static_cast<uint32_t>(kVideoSendSsrcs[0] + params_.ss[0].streams.size() -
-                            1));
+                            1),
+      GetRegisteredExtensions(), GetRegisteredExtensions());
 }
 
 std::unique_ptr<test::DirectTransport>

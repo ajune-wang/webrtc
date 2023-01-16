@@ -183,6 +183,9 @@ void GainController2::Process(absl::optional<float> speech_probability,
                                     audio->num_frames());
   // Compute speech probability.
   if (vad_) {
+    // Fail when `speech_probability` is specified since it indicates that two
+    // VADs are running.
+    RTC_DCHECK(!speech_probability.has_value());
     speech_probability = vad_->Analyze(float_frame);
   } else if (speech_probability.has_value()) {
     RTC_DCHECK_GE(*speech_probability, 0.0f);

@@ -83,19 +83,28 @@ class WavHeaderBufferReader : public WavHeaderReader {
 // ones are accepted and the bad ones rejected.
 TEST(WavHeaderTest, CheckWavParameters) {
   // Try some really stupid values for one parameter at a time.
-  EXPECT_TRUE(CheckWavParameters(1, 8000, WavFormat::kWavFormatPcm, 0));
-  EXPECT_FALSE(CheckWavParameters(0, 8000, WavFormat::kWavFormatPcm, 0));
-  EXPECT_FALSE(CheckWavParameters(0x10000, 8000, WavFormat::kWavFormatPcm, 0));
-  EXPECT_FALSE(CheckWavParameters(1, 0, WavFormat::kWavFormatPcm, 0));
+  CheckWavParameters(1, 8000, WavFormat::kWavFormatPcm, 0);
+  EXPECT_DEATH_IF_SUPPORTED(
+      CheckWavParameters(0, 8000, WavFormat::kWavFormatPcm, 0), "channels");
+  EXPECT_DEATH_IF_SUPPORTED(
+      CheckWavParameters(0x10000, 8000, WavFormat::kWavFormatPcm, 0),
+      "channels");
+  EXPECT_DEATH_IF_SUPPORTED(
+      CheckWavParameters(1, 0, WavFormat::kWavFormatPcm, 0), "Sample rate");
 
   // Too large values.
-  EXPECT_FALSE(
-      CheckWavParameters(1 << 20, 1 << 20, WavFormat::kWavFormatPcm, 0));
-  EXPECT_FALSE(CheckWavParameters(1, 8000, WavFormat::kWavFormatPcm,
-                                  std::numeric_limits<uint32_t>::max()));
+  EXPECT_DEATH_IF_SUPPORTED(
+      CheckWavParameters(1 << 20, 1 << 20, WavFormat::kWavFormatPcm, 0),
+      "too large");
+  EXPECT_DEATH_IF_SUPPORTED(
+      CheckWavParameters(1, 8000, WavFormat::kWavFormatPcm,
+                         std::numeric_limits<uint32_t>::max()),
+      "too large");
 
   // Not the same number of samples for each channel.
-  EXPECT_FALSE(CheckWavParameters(3, 8000, WavFormat::kWavFormatPcm, 5));
+  EXPECT_DEATH_IF_SUPPORTED(
+      CheckWavParameters(3, 8000, WavFormat::kWavFormatPcm, 5),
+      "numbers of samples");
 }
 
 TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
@@ -131,9 +140,10 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
     };
     WavHeaderBufferReader r(kBadRiffID, sizeof(kBadRiffID),
                             /*check_read_size=*/false);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "'RIFF' chunk");
   }
   {
     constexpr uint8_t kBadBitsPerSample[] = {
@@ -155,10 +165,11 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
         // clang-format on
     };
     WavHeaderBufferReader r(kBadBitsPerSample, sizeof(kBadBitsPerSample),
-                            /*check_read_size=*/true);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+                            /*check_read_size=*/false);
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "bytes per sample");
   }
   {
     constexpr uint8_t kBadByteRate[] = {
@@ -180,10 +191,11 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
         // clang-format on
     };
     WavHeaderBufferReader r(kBadByteRate, sizeof(kBadByteRate),
-                            /*check_read_size=*/true);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+                            /*check_read_size=*/false);
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "byte rate");
   }
   {
     constexpr uint8_t kBadFmtHeaderSize[] = {
@@ -207,9 +219,10 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
     };
     WavHeaderBufferReader r(kBadFmtHeaderSize, sizeof(kBadFmtHeaderSize),
                             /*check_read_size=*/false);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "'fmt ' chunk");
   }
   {
     constexpr uint8_t kNonZeroExtensionField[] = {
@@ -234,9 +247,10 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
     WavHeaderBufferReader r(kNonZeroExtensionField,
                             sizeof(kNonZeroExtensionField),
                             /*check_read_size=*/false);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "extension field");
   }
   {
     constexpr uint8_t kMissingDataChunk[] = {
@@ -256,10 +270,11 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
         // clang-format on
     };
     WavHeaderBufferReader r(kMissingDataChunk, sizeof(kMissingDataChunk),
-                            /*check_read_size=*/true);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+                            /*check_read_size=*/false);
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "'data' chunk");
   }
   {
     constexpr uint8_t kMissingFmtAndDataChunks[] = {
@@ -272,10 +287,11 @@ TEST(WavHeaderTest, ReadWavHeaderWithErrors) {
     };
     WavHeaderBufferReader r(kMissingFmtAndDataChunks,
                             sizeof(kMissingFmtAndDataChunks),
-                            /*check_read_size=*/true);
-    EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                               &bytes_per_sample, &num_samples,
-                               &data_start_pos));
+                            /*check_read_size=*/false);
+    EXPECT_DEATH_IF_SUPPORTED(
+        ReadWavHeader(&r, &num_channels, &sample_rate, &format,
+                      &bytes_per_sample, &num_samples, &data_start_pos),
+        "'fmt ' chunk");
   }
 }
 
@@ -316,10 +332,9 @@ TEST(WavHeaderTest, WriteAndReadWavHeader) {
   size_t bytes_per_sample = 0;
   size_t num_samples = 0;
   int64_t data_start_pos = 0;
-  WavHeaderBufferReader r(buf + 4, sizeof(buf) - 8,
-                          /*check_read_size=*/true);
-  EXPECT_TRUE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                            &bytes_per_sample, &num_samples, &data_start_pos));
+  WavHeaderBufferReader r(buf + 4, sizeof(buf) - 8, /*check_read_size=*/true);
+  ReadWavHeader(&r, &num_channels, &sample_rate, &format, &bytes_per_sample,
+                &num_samples, &data_start_pos);
   EXPECT_EQ(17u, num_channels);
   EXPECT_EQ(12345, sample_rate);
   EXPECT_EQ(WavFormat::kWavFormatPcm, format);
@@ -358,8 +373,8 @@ TEST(WavHeaderTest, ReadAtypicalWavHeader) {
   size_t num_samples = 0;
   int64_t data_start_pos = 0;
   WavHeaderBufferReader r(kBuf, sizeof(kBuf), /*check_read_size=*/true);
-  EXPECT_TRUE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                            &bytes_per_sample, &num_samples, &data_start_pos));
+  ReadWavHeader(&r, &num_channels, &sample_rate, &format, &bytes_per_sample,
+                &num_samples, &data_start_pos);
   EXPECT_EQ(17u, num_channels);
   EXPECT_EQ(12345, sample_rate);
   EXPECT_EQ(WavFormat::kWavFormatPcm, format);
@@ -401,8 +416,8 @@ TEST(WavHeaderTest, ReadWavHeaderWithOptionalChunk) {
   size_t num_samples = 0;
   int64_t data_start_pos = 0;
   WavHeaderBufferReader r(kBuf, sizeof(kBuf), /*check_read_size=*/true);
-  EXPECT_TRUE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                            &bytes_per_sample, &num_samples, &data_start_pos));
+  ReadWavHeader(&r, &num_channels, &sample_rate, &format, &bytes_per_sample,
+                &num_samples, &data_start_pos);
   EXPECT_EQ(17u, num_channels);
   EXPECT_EQ(12345, sample_rate);
   EXPECT_EQ(WavFormat::kWavFormatPcm, format);
@@ -440,8 +455,10 @@ TEST(WavHeaderTest, ReadWavHeaderWithDataBeforeFormat) {
   size_t num_samples = 0;
   int64_t data_start_pos = 0;
   WavHeaderBufferReader r(kBuf, sizeof(kBuf), /*check_read_size=*/false);
-  EXPECT_FALSE(ReadWavHeader(&r, &num_channels, &sample_rate, &format,
-                             &bytes_per_sample, &num_samples, &data_start_pos));
+  EXPECT_DEATH_IF_SUPPORTED(
+      ReadWavHeader(&r, &num_channels, &sample_rate, &format, &bytes_per_sample,
+                    &num_samples, &data_start_pos),
+      "'data' chunk");
 }
 
 }  // namespace webrtc

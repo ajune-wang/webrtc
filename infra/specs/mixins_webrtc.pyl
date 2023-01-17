@@ -127,7 +127,13 @@
       'args': ['--test-suite', 'fuchsia_perf_tests'],
     },
     '$mixin_append': {
-      'args': ['--nologs'],
+      'args': [
+        '--nologs',
+        '--test-launcher-summary-output=${ISOLATED_OUTDIR}/gtest_output.json',
+        '--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.json',
+        '--test-arg=--gtest_output=json:/custom_artifacts/gtest_output.json',
+        '--test-arg=--undefok=test_launcher_summary_output'
+      ],
     },
   },
   'perf-low-bandwidth-audio-perf-test': {

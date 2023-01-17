@@ -395,7 +395,9 @@ void TurnPort::PrepareAddress() {
 
     RTC_LOG(LS_INFO) << ToString() << ": Trying to connect to TURN server via "
                      << ProtoToString(server_address_.proto) << " @ "
-                     << server_address_.address.ToSensitiveString();
+                     << server_address_.address.ToSensitiveString() << "("
+                     << server_address_.address.ToResolvedSensitiveString()
+                     << ")";
     if (!CreateTurnClientSocket()) {
       RTC_LOG(LS_ERROR) << "Failed to create TURN client socket";
       OnAllocateError(SERVER_NOT_REACHABLE_ERROR,

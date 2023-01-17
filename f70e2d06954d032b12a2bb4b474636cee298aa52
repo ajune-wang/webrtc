@@ -175,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "258ed13a_6ee11900",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-17T10:05:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4dfec981_86716fa2",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8aef8e4_e6fd45f5",
@@ -188,6 +206,24 @@
       "writtenOn": "2023-01-16T19:12:14Z",
       "side": 1,
       "message": "Move this statement up before the early return. I had a bit of fun with that week before last, and ended up wanting to \"always clear\" because the other alternative (making getStats() cumulative) had too many tests weirding out.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6077a81a_1d71a1f1",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-17T10:05:20Z",
+      "side": 1,
+      "message": "The primary callers create a new object every time (see links below). But two unit tests don\u0027t as demonstrated by\n  https://webrtc-review.googlesource.com/c/src/+/290990\n(possibly more for receivers).\nIt is a reasonable expectation to clear however!",
+      "parentUuid": "b8aef8e4_e6fd45f5",
       "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -211,6 +247,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c197859a_1dbb4eec",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-17T10:05:20Z",
+      "side": 1,
+      "message": "it is worse, no? With this, the sender/receiver RTTs are all the same. But in theory (not in practice I suspect) they should come from the SR/RR calculations so are really per-sender/receiver. \n\nI\u0027ll try passing the RTT from the calling place which also calls call_-\u003eGetStats, might be worth doing even before legacy stats (which uses this) goes away.",
+      "parentUuid": "400f9f6d_9a07b67e",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c63bf04_bbce4c08",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5
@@ -222,6 +276,24 @@
       "writtenOn": "2023-01-16T19:12:14Z",
       "side": 1,
       "message": "Here too.",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c33f3c89_4878d28d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-17T10:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c63bf04_bbce4c08",
       "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

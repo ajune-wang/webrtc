@@ -56,13 +56,13 @@ constexpr size_t MaxWavHeaderSize() {
                   WavHeaderSize(WavFormat::kWavFormatIeeeFloat));
 }
 
-// Return true if the given parameters will make a well-formed WAV header.
-bool CheckWavParameters(size_t num_channels,
+// CHECKs that the given parameters will make a well-formed WAV header.
+void CheckWavParameters(size_t num_channels,
                         int sample_rate,
                         WavFormat format,
                         size_t num_samples);
 
-// Write a kWavHeaderSize bytes long WAV header to buf. The payload that
+// Writes a kWavHeaderSize bytes long WAV header to buf. The payload that
 // follows the header is supposed to have the specified number of interleaved
 // channels and contain the specified total number of samples of the specified
 // type. The size of the header is returned in header_size. CHECKs the input
@@ -74,10 +74,10 @@ void WriteWavHeader(size_t num_channels,
                     uint8_t* buf,
                     size_t* header_size);
 
-// Read a WAV header from an implemented WavHeaderReader and parse the values
+// Reads a WAV header from an implemented WavHeaderReader and parses the values
 // into the provided output parameters. WavHeaderReader is used because the
-// header can be variably sized. Returns false if the header is invalid.
-bool ReadWavHeader(WavHeaderReader* readable,
+// header can be variably sized. CHECKs that the header is valid.
+void ReadWavHeader(WavHeaderReader* readable,
                    size_t* num_channels,
                    int* sample_rate,
                    WavFormat* format,

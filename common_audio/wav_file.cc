@@ -74,9 +74,8 @@ WavReader::WavReader(FileWrapper file) : file_(std::move(file)) {
 
   WavHeaderFileReader readable(&file_);
   size_t bytes_per_sample;
-  RTC_CHECK(ReadWavHeader(&readable, &num_channels_, &sample_rate_, &format_,
-                          &bytes_per_sample, &num_samples_in_file_,
-                          &data_start_pos_));
+  ReadWavHeader(&readable, &num_channels_, &sample_rate_, &format_,
+                &bytes_per_sample, &num_samples_in_file_, &data_start_pos_);
   num_unread_samples_ = num_samples_in_file_;
   RTC_CHECK(FormatSupported(format_)) << "Non-implemented wav-format";
 }
@@ -203,8 +202,9 @@ WavWriter::WavWriter(FileWrapper file,
   // Handle errors from the OpenWriteOnly call in above constructor.
   RTC_CHECK(file_.is_open()) << "Invalid file. Could not create wav file.";
 
-  RTC_CHECK(CheckWavParameters(num_channels_, sample_rate_, format_,
-                               num_samples_written_));
+  // Assert that the parameters are valid and exit otherwise.
+  CheckWavParameters(num_channels_, sample_rate_, format_,
+                     num_samples_written_);
 
   // Write a blank placeholder header, since we need to know the total number
   // of samples before we can fill in the real data.

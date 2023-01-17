@@ -1666,6 +1666,9 @@ bool WebRtcVideoChannel::GetSendStats(VideoMediaSendInfo* info) {
     last_stats_log_ms_ = now_ms;
     log_stats = true;
   }
+  RTC_DCHECK(info->senders.empty());
+  RTC_DCHECK(info->aggregated_senders.empty());
+  RTC_DCHECK(info->send_codecs.empty());
 
   info->Clear();
   FillSenderStats(info, log_stats);

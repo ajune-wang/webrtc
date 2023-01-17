@@ -52,6 +52,24 @@
       "parentUuid": "b50627a4_d19eda9b",
       "revId": "0decb6abd509b5e834b2f9a663592e4a1a1d8c0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89652ce6_10c7b9c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-01-17T15:20:51Z",
+      "side": 1,
+      "message": "This test makes no sense currently. It\u0027s supposed to verify that when setting dimensions on a capture session, they get properly reflected in the output. After this change it\u0027s verifying the exact opposite.\n\nTo unblock the version upgrade I\u0027d prefer disabling the test and filing a bug to fix it.",
+      "parentUuid": "e4ec5d72_e68fdb37",
+      "revId": "0decb6abd509b5e834b2f9a663592e4a1a1d8c0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -228,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8be479_13d84ef5",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-17T10:12:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6077a81a_1d71a1f1",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "400f9f6d_9a07b67e",
@@ -259,6 +277,24 @@
       "side": 1,
       "message": "it is worse, no? With this, the sender/receiver RTTs are all the same. But in theory (not in practice I suspect) they should come from the SR/RR calculations so are really per-sender/receiver. \n\nI\u0027ll try passing the RTT from the calling place which also calls call_-\u003eGetStats, might be worth doing even before legacy stats (which uses this) goes away.",
       "parentUuid": "400f9f6d_9a07b67e",
+      "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9145179_2c79bf06",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1635,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-17T10:12:44Z",
+      "side": 1,
+      "message": "OK, this is \"subsequent CL\" material. \nA quick look at Call::GetStats() didn\u0027t reveal any really heavy-duty items, but there\u0027s a lot of code involved.",
+      "parentUuid": "c197859a_1dbb4eec",
       "revId": "f70e2d06954d032b12a2bb4b474636cee298aa52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

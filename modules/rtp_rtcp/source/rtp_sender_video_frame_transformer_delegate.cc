@@ -18,6 +18,7 @@
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace {
@@ -76,7 +77,7 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
     metadata_ = header_.GetAsMetadata();
   }
 
-  const RTPVideoHeader& GetHeader() const { return header_; }
+  const RTPVideoHeader& GetHeader() const override { return header_; }
   uint8_t GetPayloadType() const override { return payload_type_; }
   absl::optional<VideoCodecType> GetCodecType() const { return codec_type_; }
   int64_t GetCaptureTimeMs() const { return capture_time_ms_; }
@@ -215,6 +216,7 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
     new_codec_type = kVideoCodecVP8;
     // TODO(bugs.webrtc.org/14708): Fill in the new_header when it's not
     // `Direction::kSender`
+    new_header.SetFromMetadata(original->GetMetadata());
   }
   // TODO(bugs.webrtc.org/14708): Fill in other EncodedImage parameters
   return std::make_unique<TransformableVideoSenderFrame>(

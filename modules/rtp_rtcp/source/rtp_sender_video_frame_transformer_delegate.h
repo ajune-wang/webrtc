@@ -12,6 +12,7 @@
 #define MODULES_RTP_RTCP_SOURCE_RTP_SENDER_VIDEO_FRAME_TRANSFORMER_DELEGATE_H_
 
 #include <memory>
+#include <vector>
 
 #include "api/frame_transformer_interface.h"
 #include "api/scoped_refptr.h"

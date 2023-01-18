@@ -753,12 +753,14 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsDefined(inbound_stream.power_efficient_decoder);
       EXPECT_EQ(inbound_stream.power_efficient_decoder.exposure_criteria(),
                 StatExposureCriteria::kHardwareCapability);
+      verifier.TestMemberIsDefined(inbound_stream.decoder_fallback);
     } else {
       verifier.TestMemberIsUndefined(inbound_stream.qp_sum);
       verifier.TestMemberIsUndefined(inbound_stream.decoder_implementation);
       verifier.TestMemberIsUndefined(inbound_stream.power_efficient_decoder);
       EXPECT_EQ(inbound_stream.power_efficient_decoder.exposure_criteria(),
                 StatExposureCriteria::kHardwareCapability);
+      verifier.TestMemberIsUndefined(inbound_stream.decoder_fallback);
     }
     verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.packets_received);
     if (inbound_stream.kind.is_defined() && *inbound_stream.kind == "audio") {

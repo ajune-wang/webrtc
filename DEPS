@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e551fb7716f2fc3552307b5f71d3029f09dcac44',
+  'chromium_revision': '2026fb9f99a5dc4b07d8df8207b9038abb5193b2',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -31,7 +31,7 @@ vars = {
   'checkout_fuchsia_product_bundles': '"{checkout_fuchsia_boot_images}" != ""',
 
   # reclient CIPD package version
-  'reclient_version': 're_client_version:0.87.0.b6908b3-gomaip',
+  'reclient_version': 're_client_version:0.93.0.9ed3cef-gomaip',
 
   # ninja CIPD package version
   # https://chrome-infra-packages.appspot.com/p/infra/3pp/tools/ninja
@@ -41,9 +41,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@8ddd0f919d723b6db9bf31d949dcddfcaed6280c',
+    'https://chromium.googlesource.com/chromium/src/base@8dd0162d6350f82032ebb2d4d66c792d5d8519df',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@68a090ea4c4d6a9b09b62bdda8b2a77108beb79a',
+    'https://chromium.googlesource.com/chromium/src/build@8d66fa69ab997960aacb6d64240cbfe77a0d343f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@d843e69371f94cf20f6c130dde01a8194f3e19be',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -52,13 +52,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@73218076b1455f471c45d1681d2768259912f970',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@339a8b35099ed94af84cdced7e3a83d0255b386b',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@8f22bbb7f76c13ea3a5175447e5763f300375c20',
+    'https://chromium.googlesource.com/chromium/src/testing@f1d0fe58dcf7a4a3b3528cdf3dd453d918d1f4a5',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@451b128dd583eacd33fa9214cd89e2e565f17478',
+    'https://chromium.googlesource.com/chromium/src/third_party@b48b20b288df9ad3a1840ddc9c048a8d64483339',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -178,7 +178,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@86cfa62b0785d066d4970123a01994f699f2023d',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@7b1f98e9c638a8d581948c1eae666b90e303312e',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@a249b21db6516234e5456716ae074fbb00176b3f',
   'src/third_party/flatbuffers/src':
@@ -248,7 +248,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@92ef676d4579329f1e87595a1edda1c03493585a',
+    'https://android.googlesource.com/platform/external/perfetto.git@1ea0164cae4e9b5528bf6bdb3075ad32191b5da1',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@605350bd5b68ac47f595d60cc8ef346588e773c0',
   'src/third_party/libyuv':
@@ -273,7 +273,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'jVbxJPYj2eIXMIU3dCVMjSFcpEcwBGbSzKKfgoTM9tIC',
+              'version': 'sXl5FcBjtOx9iJFm1Sh2S_Q4meUE-UtMw23EOdeQRMkC',
           },
       ],
       'condition': 'checkout_android',
@@ -297,7 +297,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@79a16671a78976596354cbd2a919b67c5687383a',
+    'https://chromium.googlesource.com/chromium/src/tools@cba95461374bce2a769c8ec5f74e9df6ce4ea1cb',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

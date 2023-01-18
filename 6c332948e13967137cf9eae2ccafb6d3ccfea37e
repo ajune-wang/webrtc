@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dac6f83e_5c31da4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-01-18T17:20:43Z",
+      "side": 1,
+      "message": "The tests have been disabled in Chromium and this shouldn\u0027t cause an issue and they will be rebased when it rolls in Chromium.",
+      "revId": "6c332948e13967137cf9eae2ccafb6d3ccfea37e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

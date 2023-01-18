@@ -1235,12 +1235,10 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     return stream_->GetSources();
   }
 
-  webrtc::RtpParameters GetRtpParameters() const {
-    webrtc::RtpParameters rtp_parameters;
-    rtp_parameters.encodings.emplace_back();
-    rtp_parameters.encodings[0].ssrc = stream_->remote_ssrc();
-    rtp_parameters.header_extensions = stream_->GetRtpExtensions();
-    return rtp_parameters;
+  std::vector<webrtc::RtpEncodingParameters> GetRtpEncodingParameters() const {
+    webrtc::RtpEncodingParameters encoding_parameters;
+    encoding_parameters.ssrc = stream_->remote_ssrc();
+    return {encoding_parameters};
   }
 
   void SetDepacketizerToDecoderFrameTransformer(
@@ -1456,7 +1454,8 @@ webrtc::RtpParameters WebRtcVoiceMediaChannel::GetRtpReceiveParameters(
         << ssrc << " which doesn't exist.";
     return webrtc::RtpParameters();
   }
-  rtp_params = it->second->GetRtpParameters();
+  rtp_params.encodings = it->second->GetRtpParameters();
+  rtp_params.header_extensions = recv_rtp_extensions_;
 
   for (const AudioCodec& codec : recv_codecs_) {
     rtp_params.codecs.push_back(codec.ToCodecParameters());

@@ -395,7 +395,9 @@ void TurnPort::PrepareAddress() {
 
     RTC_LOG(LS_INFO) << ToString() << ": Trying to connect to TURN server via "
                      << ProtoToString(server_address_.proto) << " @ "
-                     << server_address_.address.ToSensitiveString();
+                     << server_address_.address.ToSensitiveString() << " ("
+                     << server_address_.address.ToResolvedSensitiveString()
+                     << ")";
     if (!CreateTurnClientSocket()) {
       RTC_LOG(LS_ERROR) << "Failed to create TURN client socket";
       OnAllocateError(SERVER_NOT_REACHABLE_ERROR,
@@ -716,7 +718,9 @@ bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
                         << ": Discarding TURN message from unknown address: "
                         << remote_addr.ToSensitiveString()
                         << " server_address_: "
-                        << server_address_.address.ToSensitiveString();
+                        << server_address_.address.ToSensitiveString() << " ("
+                        << server_address_.address.ToResolvedSensitiveString()
+                        << ")";
     return false;
   }
 
@@ -812,8 +816,9 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
   }
 
   RTC_LOG(LS_INFO) << ToString() << ": Redirecting from TURN server ["
-                   << server_address_.address.ToSensitiveString()
-                   << "] to TURN server [" << address.ToSensitiveString()
+                   << server_address_.address.ToSensitiveString() << " ("
+                   << server_address_.address.ToResolvedSensitiveString()
+                   << ")] to TURN server [" << address.ToSensitiveString()
                    << "]";
   server_address_ = ProtocolAddress(address, server_address_.proto);
 

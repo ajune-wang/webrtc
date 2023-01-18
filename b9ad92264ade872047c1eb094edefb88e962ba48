@@ -50,6 +50,24 @@
       "message": "Since this no longer gets all the encoding parameters, can we call it InitEncodingParametersWithSsrc or something like that?",
       "revId": "b9ad92264ade872047c1eb094edefb88e962ba48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f33b10f_9510d325",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-18T13:23:44Z",
+      "side": 1,
+      "message": "lets just remove it. It does not provide any value I think.",
+      "parentUuid": "28a6ade1_1ef0bd09",
+      "revId": "b9ad92264ade872047c1eb094edefb88e962ba48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,92 @@
       "message": "audio/ lgtm",
       "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "692d2456_4e522931",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-18T11:56:11Z",
+      "side": 1,
+      "message": "lgtm % nits/question",
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc7d921_385dc47e",
+        "filename": "test/direct_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-18T11:56:11Z",
+      "side": 1,
+      "message": "nit: switch() on this so it\u0027s e.g. explicit how ANY should be handled? Then the extension set can be explicit too etc",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 63
+      },
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77d9a4ac_a23f1f79",
+        "filename": "test/direct_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-18T11:56:11Z",
+      "side": 1,
+      "message": "nit: Is there a bug we can point to for cleanup job?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2839a8_8f3078a6",
+        "filename": "video/end_to_end_tests/retransmission_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-18T11:56:11Z",
+      "side": 1,
+      "message": "This is different from before where it looks like it would return SEND_PACKET.\nDropping it intuitively makes more sense, but just to check - was this needed to get tests passing? If so, why?",
+      "range": {
+        "startLine": 151,
+        "startChar": 15,
+        "endLine": 151,
+        "endChar": 26
+      },
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

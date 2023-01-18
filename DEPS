@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e551fb7716f2fc3552307b5f71d3029f09dcac44',
+  'chromium_revision': '4ba828a192f293acbc6b6db09cbdcbe7a50757f8',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,7 +41,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@8ddd0f919d723b6db9bf31d949dcddfcaed6280c',
+    'https://chromium.googlesource.com/chromium/src/base@19057815109358c95267f9cc9161f1ab30953290',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@68a090ea4c4d6a9b09b62bdda8b2a77108beb79a',
   'src/buildtools':
@@ -52,13 +52,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@73218076b1455f471c45d1681d2768259912f970',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@bc9eb8ea90e39a1d580074e14e7d43366318a639',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@8f22bbb7f76c13ea3a5175447e5763f300375c20',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@451b128dd583eacd33fa9214cd89e2e565f17478',
+    'https://chromium.googlesource.com/chromium/src/third_party@974c15a40fa6b3d7c9e3e84708d93e7a2fc33a01',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -273,7 +273,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'jVbxJPYj2eIXMIU3dCVMjSFcpEcwBGbSzKKfgoTM9tIC',
+              'version': 'sXl5FcBjtOx9iJFm1Sh2S_Q4meUE-UtMw23EOdeQRMkC',
           },
       ],
       'condition': 'checkout_android',
@@ -297,7 +297,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@79a16671a78976596354cbd2a919b67c5687383a',
+    'https://chromium.googlesource.com/chromium/src/tools@dfd38b9a02e272f5867fc8223b8c1993493ee2d9',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

@@ -92,6 +92,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "607138cd_1ef96d51",
+        "filename": "test/direct_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-18T13:07:33Z",
+      "side": 1,
+      "message": "ok.",
+      "parentUuid": "bcc7d921_385dc47e",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 63
+      },
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77d9a4ac_a23f1f79",
@@ -115,6 +139,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "654c3890_f25e8df8",
+        "filename": "test/direct_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-18T13:07:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77d9a4ac_a23f1f79",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb2839a8_8f3078a6",
@@ -128,6 +176,30 @@
       "writtenOn": "2023-01-18T11:56:11Z",
       "side": 1,
       "message": "This is different from before where it looks like it would return SEND_PACKET.\nDropping it intuitively makes more sense, but just to check - was this needed to get tests passing? If so, why?",
+      "range": {
+        "startLine": 151,
+        "startChar": 15,
+        "endLine": 151,
+        "endChar": 26
+      },
+      "revId": "fd8f1101a712855135dfd96daef97e66c6538abf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba7d067_d9a1d755",
+        "filename": "video/end_to_end_tests/retransmission_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-01-18T13:07:33Z",
+      "side": 1,
+      "message": "Not actually not needed here. \n\nBut it is needed in the similar test video/video_send_stream_tests.cc that use transport sequence number. That test failed since the RTCP feedback packet could arrive before the nack packet. And since the packet was then culled due to the feedback packet, the test failed.",
+      "parentUuid": "eb2839a8_8f3078a6",
       "range": {
         "startLine": 151,
         "startChar": 15,

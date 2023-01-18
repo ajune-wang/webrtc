@@ -51,6 +51,24 @@
       "message": "Mirko- please?",
       "revId": "1ca6e2b5bf01356e902ba1b8ddc359dd838b3954",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f35b584f_9799f778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-18T11:47:26Z",
+      "side": 1,
+      "message": "Don\u0027t really understand why  ios_dbg_simulator is failing, could you try to rebase and rerun ?",
+      "parentUuid": "ee06ec71_8819563b",
+      "revId": "1ca6e2b5bf01356e902ba1b8ddc359dd838b3954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

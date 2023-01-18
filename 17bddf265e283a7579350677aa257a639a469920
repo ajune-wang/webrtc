@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f35fa38d_defd4660",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-18T10:01:13Z",
+      "side": 1,
+      "message": "LGTM but it might be we need to split in smaller CLs (1. remove the bots from CQ, 2. do the rest).",
+      "revId": "17bddf265e283a7579350677aa257a639a469920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

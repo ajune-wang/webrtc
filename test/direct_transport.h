@@ -83,7 +83,6 @@ class DirectTransport : public Transport {
 
   const Demuxer demuxer_;
   const std::unique_ptr<SimulatedPacketReceiverInterface> fake_network_;
-  const bool use_legacy_send_;
   const RtpHeaderExtensionMap audio_extensions_;
   const RtpHeaderExtensionMap video_extensions_;
 };

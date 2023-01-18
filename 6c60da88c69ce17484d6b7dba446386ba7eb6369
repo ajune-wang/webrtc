@@ -34,6 +34,24 @@
       "parentUuid": "68615656_dc76ce0d",
       "revId": "6c60da88c69ce17484d6b7dba446386ba7eb6369",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d54cc1e0_184a89d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-18T14:20:02Z",
+      "side": 1,
+      "message": "Thanks for pointing into the right direction! Turned out to be some missing calls to SetAudioReceiveStreamStats in addition to a wrong payload type.\n\nNot sure those are entirely correct since for the case of multiple streams the received ssrc is not the one reported in the (fake) stats but that is by design.",
+      "parentUuid": "a8310509_62e79b31",
+      "revId": "6c60da88c69ce17484d6b7dba446386ba7eb6369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

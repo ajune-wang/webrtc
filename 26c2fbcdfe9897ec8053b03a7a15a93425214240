@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd18c676_1e2e9ff9",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-18T14:44:21Z",
+      "side": 1,
+      "message": "Do you also need to remove this (or may be it has the redirection to the other header so not removing it)?",
+      "revId": "26c2fbcdfe9897ec8053b03a7a15a93425214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f3f0d9_00c5bfc2",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-18T14:44:21Z",
+      "side": 1,
+      "message": "Return a const ref?",
+      "range": {
+        "startLine": 219,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 13
+      },
+      "revId": "26c2fbcdfe9897ec8053b03a7a15a93425214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69f3160e_e4a7d9e9",
@@ -38,6 +78,30 @@
       "side": 1,
       "message": "It\u0027s just moved to a different place that is also used in CRD. At least I didn\u0027t hit any issue building it with Chromium.",
       "parentUuid": "69f3160e_e4a7d9e9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "26c2fbcdfe9897ec8053b03a7a15a93425214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26fc769b_47edf7b8",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-18T14:44:21Z",
+      "side": 1,
+      "message": "Triggered a tryjob (`linux-wayland-rel`) to validate the change. Regardless, it seems unrelated to this change so might as well do it as a separate CL?",
+      "parentUuid": "7ec01b2f_cedc12ef",
       "range": {
         "startLine": 11,
         "startChar": 0,

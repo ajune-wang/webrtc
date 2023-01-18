@@ -2609,6 +2609,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   video_media_info.receivers[0].decoder_implementation_name = "";
   video_media_info.receivers[0].min_playout_delay_ms = 50;
   video_media_info.receivers[0].power_efficient_decoder = false;
+  video_media_info.receivers[0].decoder_fallback = false;
 
   // Note: these two values intentionally differ,
   // only the decoded one should show up.
@@ -2674,6 +2675,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   expected_video.min_playout_delay = 0.05;
   expected_video.frames_per_second = 5;
   expected_video.power_efficient_decoder = false;
+  expected_video.decoder_fallback = false;
 
   ASSERT_TRUE(report->Get(expected_video.id()));
   EXPECT_EQ(
@@ -2693,6 +2695,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   expected_video.decoder_implementation = "libfoodecoder";
   video_media_info.receivers[0].power_efficient_decoder = true;
   expected_video.power_efficient_decoder = true;
+  video_media_info.receivers[0].decoder_fallback = true;
+  expected_video.decoder_fallback = true;
   video_media_channel->SetStats(video_media_info);
 
   report = stats_->GetFreshStatsReport();

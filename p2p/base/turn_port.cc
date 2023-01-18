@@ -395,7 +395,7 @@ void TurnPort::PrepareAddress() {
 
     RTC_LOG(LS_INFO) << ToString() << ": Trying to connect to TURN server via "
                      << ProtoToString(server_address_.proto) << " @ "
-                     << server_address_.address.ToSensitiveString();
+                     << server_address_.address.ToSensitivePrettyString();
     if (!CreateTurnClientSocket()) {
       RTC_LOG(LS_ERROR) << "Failed to create TURN client socket";
       OnAllocateError(SERVER_NOT_REACHABLE_ERROR,
@@ -502,21 +502,21 @@ void TurnPort::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
                       })) {
     if (socket->GetLocalAddress().IsLoopbackIP()) {
       RTC_LOG(LS_WARNING) << "Socket is bound to the address:"
-                          << socket_address.ipaddr().ToSensitiveString()
+                          << socket_address.ToSensitivePrettyString()
                           << ", rather than an address associated with network:"
                           << Network()->ToString()
                           << ". Still allowing it since it's localhost.";
     } else if (IPIsAny(Network()->GetBestIP())) {
       RTC_LOG(LS_WARNING)
           << "Socket is bound to the address:"
-          << socket_address.ipaddr().ToSensitiveString()
+          << socket_address.ToSensitivePrettyString()
           << ", rather than an address associated with network:"
           << Network()->ToString()
           << ". Still allowing it since it's the 'any' address"
              ", possibly caused by multiple_routes being disabled.";
     } else {
       RTC_LOG(LS_WARNING) << "Socket is bound to the address:"
-                          << socket_address.ipaddr().ToSensitiveString()
+                          << socket_address.ToSensitivePrettyString()
                           << ", rather than an address associated with network:"
                           << Network()->ToString() << ". Discarding TURN port.";
       OnAllocateError(
@@ -714,9 +714,9 @@ bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
   if (remote_addr != server_address_.address) {
     RTC_LOG(LS_WARNING) << ToString()
                         << ": Discarding TURN message from unknown address: "
-                        << remote_addr.ToSensitiveString()
+                        << remote_addr.ToSensitivePrettyString()
                         << " server_address_: "
-                        << server_address_.address.ToSensitiveString();
+                        << server_address_.address.ToSensitivePrettyString();
     return false;
   }
 
@@ -791,7 +791,7 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
   AttemptedServerSet::iterator iter = attempted_server_addresses_.find(address);
   if (iter != attempted_server_addresses_.end()) {
     RTC_LOG(LS_WARNING) << ToString() << ": Redirection to ["
-                        << address.ToSensitiveString()
+                        << address.ToSensitivePrettyString()
                         << "] ignored, allocation failed.";
     return false;
   }
@@ -812,8 +812,8 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
   }
 
   RTC_LOG(LS_INFO) << ToString() << ": Redirecting from TURN server ["
-                   << server_address_.address.ToSensitiveString()
-                   << "] to TURN server [" << address.ToSensitiveString()
+                   << server_address_.address.ToSensitivePrettyString()
+                   << "] to TURN server [" << address.ToSensitivePrettyString()
                    << "]";
   server_address_ = ProtocolAddress(address, server_address_.proto);
 

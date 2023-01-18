@@ -34,6 +34,24 @@
       "parentUuid": "28717b2a_7237cd60",
       "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "066af284_3af77104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-18T14:13:03Z",
+      "side": 1,
+      "message": "Sorry for the driveby comments here, but this is something that I\u0027ve thought about before. Wouldn\u0027t it be better to pause sending and do backpressure (e.g. drop video frames) when the socket is full instead of continue sending and dropping packets (which would need to be retransmitted) at the socket?",
+      "parentUuid": "5a81f16e_cd8b920f",
+      "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

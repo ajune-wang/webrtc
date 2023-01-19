@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ff6b9e_f9dcde51",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-19T14:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8e1b2e3_168a182a",
+      "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5987da6f_47a131f2",
@@ -83,6 +101,24 @@
       "side": 1,
       "message": "The alternative would be to test this with a web platform test in JavaScript",
       "parentUuid": "5987da6f_47a131f2",
+      "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad45c03_5b20e8e0",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-19T14:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21095e32_fe8baba7",
       "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -52,6 +52,24 @@
       "parentUuid": "5a81f16e_cd8b920f",
       "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa829c5_ff3cda25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-01-19T13:21:03Z",
+      "side": 1,
+      "message": "Indeed, but that\u0027s a _much_ bigger undertaking through a long set of abstraction layers. I think we should have a project to go over these classes anyway and implement packet batching (so we don\u0027t need to make several IPC calls per packet), seems like that would be a good time to add back-pressure as well.",
+      "parentUuid": "066af284_3af77104",
+      "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c350047c_305b4c6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-19T14:24:45Z",
+      "side": 1,
+      "message": "Apart from the name of the function, I think this seems like making things tidier.",
+      "revId": "002abac81eac20ea63acc105e961d510d72fd596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "007047f4_cc0fd70d",
+        "filename": "rtc_base/socket_address.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-19T14:24:45Z",
+      "side": 1,
+      "message": "This is a bad name - \"Pretty\" tells you nothing about what you are going to get.\nCall it ToSensitiveNameAndAddressString.",
+      "revId": "002abac81eac20ea63acc105e961d510d72fd596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

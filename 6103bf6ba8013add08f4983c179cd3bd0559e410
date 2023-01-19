@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcea1bc0_f591c46e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-01-19T14:28:22Z",
+      "side": 1,
+      "message": "Do not revert this change even if it breaks the WebRTC into Chrome roll. A bot is removing the expectation of test failure and we\u0027re racing to land the roll when the expectation is there.",
+      "revId": "6103bf6ba8013add08f4983c179cd3bd0559e410",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

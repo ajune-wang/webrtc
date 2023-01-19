@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f6fbbe_4ae4dcd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-01-19T10:53:31Z",
+      "side": 1,
+      "message": "Hello Harald!\n\nCould you please review this CL, which enriches log from turn port with resolved address when available to facilitate debugging obscure connectivity issues?\n\nThanks a lot in advance,\nYury.",
+      "revId": "79804449469aa6e08cd73a6583f53450fe19a15f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "This is a bad name - \"Pretty\" tells you nothing about what you are going to get.\nCall it ToSensitiveNameAndAddressString.",
       "revId": "002abac81eac20ea63acc105e961d510d72fd596",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1aec20_39792e07",
+        "filename": "rtc_base/socket_address.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-01-19T17:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "007047f4_cc0fd70d",
+      "revId": "002abac81eac20ea63acc105e961d510d72fd596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

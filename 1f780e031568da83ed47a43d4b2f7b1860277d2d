@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d77865e_90edef62",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-19T11:50:49Z",
+      "side": 1,
+      "message": "Doing this string match does not seem like a good idea.\n\nIt might be better to extend VideoDecoder::DecoderInfo with a \"using hw acceleration\" flag that can be used together with the existing is_hardware_accelerated to determine whether we are looking at a decoder which can but currently does not use HW.\n\nhbos: who has the best opinion on that, kron@?",
+      "revId": "1f780e031568da83ed47a43d4b2f7b1860277d2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

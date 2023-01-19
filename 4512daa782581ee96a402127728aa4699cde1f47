@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20610a79_92ffe4c2",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-19T11:50:49Z",
+      "side": 1,
+      "message": "I think this needs to be restricted (which is going to be bad for your use-case) :-(",
+      "revId": "4512daa782581ee96a402127728aa4699cde1f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

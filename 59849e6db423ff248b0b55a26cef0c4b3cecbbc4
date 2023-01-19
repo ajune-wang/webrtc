@@ -16,6 +16,57 @@
       "message": "Please take a look!",
       "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21bfebdc_cb2def3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-19T09:59:14Z",
+      "side": 1,
+      "message": "Looking good",
+      "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e1b2e3_168a182a",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-19T09:59:14Z",
+      "side": 1,
+      "message": "Personal preference nit: There\u0027s no right or wrong place to put it so feel free to discard this comment, but I suggest moving `playout_id` to the top of the list of members. This would mirror how the RTCOutboundRtpStreamStats has a `media_source_id` at the top, and I consider \"media-source\" and \"media-playout\" a bit like neighbors. One is input, the other is output.",
+      "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5987da6f_47a131f2",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-19T09:59:14Z",
+      "side": 1,
+      "message": "Only if not too much hassle, but can we add an rtc_stats_collector_unittest.cc (e.g. similar to CollectRTCAudioPlayoutStats) that verifies that playoutId has or has not a value depending on direction? I say \"if not too much hassle\" because I realize there are a lot of fake layers here, so I don\u0027t know how easy this is to test.\n\nIn CollectRTCInboundRTPStreamStats_Audio, a fake pc_ is used to do AddVoiceChannel:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/test/fake_peer_connection_for_stats.h;l\u003d245;drc\u003defbe75361705198cab3f4eb3c12368fd3b7930ef\nThis creates a transciever with fake sender and receivers.\n\nMaybe the same thing can be done in a new test that has audio playout stats but then if we add a transcievers getter to FakePeerConnectionForStats then perhaps we can do pc_-\u003eGetTransceivers()[0]-\u003eset_current_direction(...) to see if that affects playoutId presence?\n\nBut if that does not work due to too many fake layers, feel free to skip",
+      "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

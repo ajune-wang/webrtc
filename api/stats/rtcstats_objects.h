@@ -512,6 +512,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final
   RTCStatsMember<std::string> goog_timing_frame_info;
   RTCRestrictedStatsMember<bool, StatExposureCriteria::kHardwareCapability>
       power_efficient_decoder;
+  RTCStatsMember<bool> decoder_fallback;
   // Non-standard audio metrics.
   RTCNonStandardStatsMember<uint64_t> jitter_buffer_flushes;
   RTCNonStandardStatsMember<uint64_t> delayed_packet_outage_samples;

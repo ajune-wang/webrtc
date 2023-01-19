@@ -470,6 +470,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final
   RTCStatsMember<double> audio_level;
   RTCStatsMember<double> total_audio_energy;
   RTCStatsMember<double> total_samples_duration;
+  RTCStatsMember<std::string> playout_id;
   // Stats below are only implemented or defined for video.
   RTCStatsMember<int32_t> frames_received;
   RTCStatsMember<uint32_t> frame_width;

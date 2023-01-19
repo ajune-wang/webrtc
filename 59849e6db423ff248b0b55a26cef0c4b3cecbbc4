@@ -67,6 +67,24 @@
       "message": "Only if not too much hassle, but can we add an rtc_stats_collector_unittest.cc (e.g. similar to CollectRTCAudioPlayoutStats) that verifies that playoutId has or has not a value depending on direction? I say \"if not too much hassle\" because I realize there are a lot of fake layers here, so I don\u0027t know how easy this is to test.\n\nIn CollectRTCInboundRTPStreamStats_Audio, a fake pc_ is used to do AddVoiceChannel:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/test/fake_peer_connection_for_stats.h;l\u003d245;drc\u003defbe75361705198cab3f4eb3c12368fd3b7930ef\nThis creates a transciever with fake sender and receivers.\n\nMaybe the same thing can be done in a new test that has audio playout stats but then if we add a transcievers getter to FakePeerConnectionForStats then perhaps we can do pc_-\u003eGetTransceivers()[0]-\u003eset_current_direction(...) to see if that affects playoutId presence?\n\nBut if that does not work due to too many fake layers, feel free to skip",
       "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21095e32_fe8baba7",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-19T10:00:58Z",
+      "side": 1,
+      "message": "The alternative would be to test this with a web platform test in JavaScript",
+      "parentUuid": "5987da6f_47a131f2",
+      "revId": "59849e6db423ff248b0b55a26cef0c4b3cecbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

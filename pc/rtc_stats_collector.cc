@@ -675,6 +675,11 @@ CreateInboundRTPStreamStatsFromVideoReceiverInfo(
   if (!video_receiver_info.decoder_implementation_name.empty()) {
     inbound_video->decoder_implementation =
         video_receiver_info.decoder_implementation_name;
+    if (absl::string_view::npos !=
+        inbound_video->decoder_implementation->find("fallback"))
+      inbound_video->decoder_fallback = true;
+    else
+      inbound_video->decoder_fallback = false;
   }
   if (video_receiver_info.power_efficient_decoder.has_value()) {
     inbound_video->power_efficient_decoder =

@@ -16,6 +16,23 @@
       "message": "can you please take a look?",
       "revId": "6196ad6c7ea0ce65a98d2cd866e2324ff79a767a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "118f1532_fca9b0a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-20T20:12:08Z",
+      "side": 1,
+      "message": "lgtm assuming this is what the spec says we should do. Sorry for the delay :)",
+      "revId": "6196ad6c7ea0ce65a98d2cd866e2324ff79a767a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

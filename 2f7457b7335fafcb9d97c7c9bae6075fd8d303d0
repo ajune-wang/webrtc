@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591c1c37_44c33122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-01-20T16:15:06Z",
+      "side": 1,
+      "message": "Uh, didn\u0027t we remove https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/BUILD.gn;l\u003d113;drc\u003d7f28078d878bafc7c79652aeb2e73b06895858cf already?",
+      "revId": "2f7457b7335fafcb9d97c7c9bae6075fd8d303d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

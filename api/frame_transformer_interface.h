@@ -61,6 +61,7 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
   // webrtc::RtpDescriptorAuthentication is exposed in api/.
   virtual std::vector<uint8_t> GetAdditionalData() const = 0;
 
+  virtual const RTPVideoHeader& GetHeader() const = 0;
   virtual const VideoFrameMetadata& GetMetadata() const = 0;
   // TODO(https://crbug.com/webrtc/14709): Make pure virtual when Chromium MOCK
   // has implemented this.

@@ -76,7 +76,7 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
     metadata_ = header_.GetAsMetadata();
   }
 
-  const RTPVideoHeader& GetHeader() const { return header_; }
+  const RTPVideoHeader& GetHeader() const override { return header_; }
   uint8_t GetPayloadType() const override { return payload_type_; }
   absl::optional<VideoCodecType> GetCodecType() const { return codec_type_; }
   int64_t GetCaptureTimeMs() const { return capture_time_ms_; }
@@ -210,11 +210,11 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
     new_header = original_as_sender->GetHeader();
     new_codec_type = original_as_sender->GetCodecType();
   } else {
-    // TODO(bugs.webrtc.org/14708): Make this codec dependent
-    new_header.video_type_header.emplace<RTPVideoHeaderVP8>();
-    new_codec_type = kVideoCodecVP8;
-    // TODO(bugs.webrtc.org/14708): Fill in the new_header when it's not
-    // `Direction::kSender`
+    new_header.SetFromMetadata(original->GetMetadata());
+    // TODO(bugs.webrtc.org/14708): Here we use the codec from the header since
+    // TransformableVideoReceiverFrame doesn't have a codec_type field separate
+    // from the header like TransformableVideoSenderFrame. Is that correct?
+    new_codec_type = new_header.codec;
   }
   // TODO(bugs.webrtc.org/14708): Fill in other EncodedImage parameters
   return std::make_unique<TransformableVideoSenderFrame>(

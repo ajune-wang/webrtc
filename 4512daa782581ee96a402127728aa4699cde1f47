@@ -16,6 +16,24 @@
       "message": "I think this needs to be restricted (which is going to be bad for your use-case) :-(",
       "revId": "4512daa782581ee96a402127728aa4699cde1f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "477333f3_9cb9b824",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 20334
+      },
+      "writtenOn": "2023-01-23T16:51:41Z",
+      "side": 1,
+      "message": "As we discussed on \u003chttps://github.com/w3c/webrtc-stats/issues/724\u003e, I prefer not to use the restrictive access.",
+      "parentUuid": "20610a79_92ffe4c2",
+      "revId": "4512daa782581ee96a402127728aa4699cde1f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

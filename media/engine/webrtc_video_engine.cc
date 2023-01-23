@@ -3256,6 +3256,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   webrtc::VideoReceiveStreamInterface::Stats stats = stream_->GetStats();
   info.decoder_implementation_name = stats.decoder_implementation_name;
   info.power_efficient_decoder = stats.power_efficient_decoder;
+  info.decoder_fallback = stats.decoder_fallback;
   if (stats.current_payload_type != -1) {
     info.codec_payload_type = stats.current_payload_type;
     auto decoder_it = absl::c_find_if(config_.decoders, [&](const auto& d) {

@@ -136,6 +136,9 @@ bool VideoDecoderSoftwareFallbackWrapper::InitFallbackDecoder() {
   }
   decoder_type_ = DecoderType::kFallback;
 
+  DecoderInfo info = fallback_decoder_->GetDecoderInfo();
+  info.is_decoder_fallback = true;
+
   if (callback_)
     fallback_decoder_->RegisterDecodeCompleteCallback(callback_);
   return true;

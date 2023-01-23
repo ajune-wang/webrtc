@@ -680,6 +680,7 @@ CreateInboundRTPStreamStatsFromVideoReceiverInfo(
     inbound_video->power_efficient_decoder =
         video_receiver_info.power_efficient_decoder.value();
   }
+  inbound_video->decoder_fallback = video_receiver_info.decoder_fallback;
   return inbound_video;
 }
 

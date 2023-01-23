@@ -599,6 +599,7 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
   std::vector<SsrcGroup> ssrc_groups;
   std::string decoder_implementation_name;
   absl::optional<bool> power_efficient_decoder;
+  bool decoder_fallback;
   int packets_concealed = 0;
   int firs_sent = 0;
   int plis_sent = 0;

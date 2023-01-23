@@ -78,7 +78,8 @@ class SharedScreenCastStreamPrivate {
                              int fd,
                              uint32_t width = 0,
                              uint32_t height = 0,
-                             bool is_cursor_embedded = false);
+                             bool is_cursor_embedded = false,
+                             DesktopCapturer::Callback* callback = nullptr);
   void UpdateScreenCastStreamResolution(uint32_t width, uint32_t height);
   void SetUseDamageRegion(bool use_damage_region) {
     use_damage_region_ = use_damage_region;
@@ -156,6 +157,10 @@ class SharedScreenCastStreamPrivate {
 
   void ProcessBuffer(pw_buffer* buffer);
   void ConvertRGBxToBGRx(uint8_t* frame, uint32_t size);
+  void CaptureFrameWithoutBuffering(const uint8_t* src,
+                                    const spa_buffer* spa_buffer,
+                                    uint32_t src_stride,
+                                    uint32_t x_offset);
 
   // PipeWire callbacks
   static void OnCoreError(void* data,
@@ -178,6 +183,8 @@ class SharedScreenCastStreamPrivate {
   // failed to use and try to use a different one or fallback to shared memory
   // buffers.
   static void OnRenegotiateFormat(void* data, uint64_t);
+
+  DesktopCapturer::Callback* callback_;
 };
 
 void SharedScreenCastStreamPrivate::OnCoreError(void* data,
@@ -386,9 +393,11 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
     int fd,
     uint32_t width,
     uint32_t height,
-    bool is_cursor_embedded) {
+    bool is_cursor_embedded,
+    DesktopCapturer::Callback* callback) {
   width_ = width;
   height_ = height;
+  callback_ = callback;
   is_cursor_embedded_ = is_cursor_embedded;
   if (!InitializePipeWire()) {
     RTC_LOG(LS_ERROR) << "Unable to open PipeWire library";
@@ -610,6 +619,63 @@ DesktopVector SharedScreenCastStreamPrivate::CaptureCursorPosition() {
   return mouse_cursor_position_;
 }
 
+void SharedScreenCastStreamPrivate::CaptureFrameWithoutBuffering(
+    const uint8_t* src,
+    const spa_buffer* spa_buffer,
+    uint32_t src_stride,
+    uint32_t x_offset) {
+  std::unique_ptr<DesktopFrame> frame(new BasicDesktopFrame(
+      DesktopSize(frame_size_.width(), frame_size_.height())));
+
+  frame->CopyPixelsFrom(
+      src, (src_stride - (kBytesPerPixel * x_offset)),
+      DesktopRect::MakeWH(frame_size_.width(), frame_size_.height()));
+
+  if (observer_) {
+    observer_->OnDesktopFrameChanged();
+  }
+
+  if (use_damage_region_) {
+    const struct spa_meta* video_damage = static_cast<struct spa_meta*>(
+        spa_buffer_find_meta(spa_buffer, SPA_META_VideoDamage));
+    if (video_damage) {
+      spa_meta_region* meta_region;
+
+      frame->mutable_updated_region()->Clear();
+
+      spa_meta_for_each(meta_region, video_damage) {
+        // Skip empty regions
+        if (meta_region->region.size.width == 0 ||
+            meta_region->region.size.height == 0) {
+          continue;
+        }
+
+        damage_region_.AddRect(DesktopRect::MakeXYWH(
+            meta_region->region.position.x, meta_region->region.position.y,
+            meta_region->region.size.width, meta_region->region.size.height));
+      }
+    } else {
+      damage_region_.SetRect(DesktopRect::MakeSize(frame->size()));
+    }
+  } else {
+    frame->mutable_updated_region()->SetRect(
+        DesktopRect::MakeSize(frame->size()));
+  }
+  frame->set_may_contain_cursor(is_cursor_embedded_);
+
+  if (!frame->data()) {
+    callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,
+                               nullptr);
+  } else {
+    if (use_damage_region_) {
+      frame->mutable_updated_region()->Swap(&damage_region_);
+      damage_region_.Clear();
+    }
+    callback_->OnCaptureResult(DesktopCapturer::Result::SUCCESS,
+                               std::move(frame));
+  }
+}
+
 RTC_NO_SANITIZE("cfi-icall")
 void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
   spa_buffer* spa_buffer = buffer->buffer;
@@ -818,6 +884,10 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
   uint8_t* updated_src =
       src + (src_stride * y_offset) + (kBytesPerPixel * x_offset);
 
+  if (callback_) {
+    return CaptureFrameWithoutBuffering(updated_src, spa_buffer, src_stride,
+                                        x_offset);
+  }
   webrtc::MutexLock lock(&queue_lock_);
 
   queue_.MoveToNextFrame();
@@ -911,13 +981,15 @@ bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id) {
   return private_->StartScreenCastStream(stream_node_id, -1);
 }
 
-bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id,
-                                                   int fd,
-                                                   uint32_t width,
-                                                   uint32_t height,
-                                                   bool is_cursor_embedded) {
+bool SharedScreenCastStream::StartScreenCastStream(
+    uint32_t stream_node_id,
+    int fd,
+    uint32_t width,
+    uint32_t height,
+    bool is_cursor_embedded,
+    DesktopCapturer::Callback* callback) {
   return private_->StartScreenCastStream(stream_node_id, fd, width, height,
-                                         is_cursor_embedded);
+                                         is_cursor_embedded, callback);
 }
 
 void SharedScreenCastStream::UpdateScreenCastStreamResolution(uint32_t width,

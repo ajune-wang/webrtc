@@ -33,6 +33,41 @@
       "message": "lgtm assuming this is what the spec says we should do. Sorry for the delay :)",
       "revId": "6196ad6c7ea0ce65a98d2cd866e2324ff79a767a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "922ef12d_15b93528",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-23T08:54:20Z",
+      "side": 1,
+      "message": "hbos made the spec so that it can be implemented efficiently :-)",
+      "parentUuid": "118f1532_fca9b0a9",
+      "revId": "6196ad6c7ea0ce65a98d2cd866e2324ff79a767a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a91987a_16b21245",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-23T08:54:20Z",
+      "side": 1,
+      "message": "Ilya, can you RS as owner? You\u0027re not doing audio which makes it odd but you might like how audio and video codepath for this are more similar now :-)",
+      "revId": "6196ad6c7ea0ce65a98d2cd866e2324ff79a767a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

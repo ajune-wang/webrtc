@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5f444c1_adb26a20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-24T17:12:23Z",
+      "side": 1,
+      "message": "less memory usage, proper calculation of the delta (it should be adjusted whenever packet is marked as received, but some iterators have early continue in the loop and thus forget to update accumulated delta)",
+      "revId": "09add302ef00f187a73d3f448c39f7438e17293e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

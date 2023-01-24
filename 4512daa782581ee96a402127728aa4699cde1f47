@@ -52,6 +52,24 @@
       "parentUuid": "477333f3_9cb9b824",
       "revId": "4512daa782581ee96a402127728aa4699cde1f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9772e07c_3a592641",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 20334
+      },
+      "writtenOn": "2023-01-24T17:02:55Z",
+      "side": 1,
+      "message": "@Henrik Thank you for sharing the status. I understand the concern and will wait for the update on the standardization process through the github issue.\nAlso per @Philipp\u0027s feedback, I have already separate the flag out of the general fallback decisions. \nSo I would like to share that, if needed, the current implementation has a flexibility to use this metric only when the decoder starts with hardware decoding to excludes like the VP9 spatial layers fallback.",
+      "parentUuid": "a1efe9d1_2087f949",
+      "revId": "4512daa782581ee96a402127728aa4699cde1f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

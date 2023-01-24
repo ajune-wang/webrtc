@@ -269,6 +269,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb68a4ea_73a47ebf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-24T15:47:07Z",
+      "side": 1,
+      "message": "OK either way is fine with me as well",
+      "parentUuid": "800992db_b91fa3e8",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c264dfd0_1499a760",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 2

@@ -245,6 +245,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "800992db_b91fa3e8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T15:38:44Z",
+      "side": 1,
+      "message": "Presentation by Herb Sutter who argues for pass-by-const-reference for these type of methods (p24 and onwards): https://github.com/CppCon/CppCon2014/tree/master/Presentations/Back%20to%20the%20Basics!%20Essentials%20of%20Modern%20C%2B%2B%20Style\nyoutube: https://www.youtube.com/watch?v\u003dxnqTKD8uD64\u0026t\u003d5589s\n\n\nHowever, I don\u0027t think it really matters much in this particular case so I\u0027m fine with either.",
+      "parentUuid": "a139ec91_9465a976",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c264dfd0_1499a760",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 2

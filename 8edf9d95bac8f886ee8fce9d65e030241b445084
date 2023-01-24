@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb75cfd_9c52f661",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-24T12:37:55Z",
+      "side": 1,
+      "message": "To std::move or not to std::move. I prefer moving to const\u0026 because it lets callee decide. See comments",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b34dc6be_068a57f4",
@@ -37,6 +54,40 @@
         "endLine": 143,
         "endChar": 61
       },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf7956c_20379473",
+        "filename": "api/video/video_frame_metadata.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-24T12:37:55Z",
+      "side": 1,
+      "message": "Personally I would keep the argument as std::vector\u003cuint32_t\u003e because then the caller can decide whether to std::move() or copy, and unlike const\u0026, this allows passing r-values e.g.\n\n// Works without having to create a local variable in order to pass the argument.\nmetadata.SetCsrcs({1, 2, 3});\n\nHowever in order for this not to result in unnecessary copies, you do need to explicitly move-assign it.\n\n```\n  csrcs_ \u003d std::move(csrcs);\n```",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e718d036_1563e951",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-24T12:37:55Z",
+      "side": 1,
+      "message": "Considering we are returning by value, is there any benefit to restricting this to const as opposed to \"std::vector\u003cuint32_t\u003e\"? This prevents the callee to std::move the return value",
       "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -158,6 +209,30 @@
       "writtenOn": "2023-01-24T11:56:55Z",
       "side": 1,
       "message": "consider passing by const-reference here too",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a139ec91_9465a976",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-24T12:37:55Z",
+      "side": 1,
+      "message": "I\u0027d argue for std::move() on all layers",
+      "parentUuid": "5965c2ef_53d351e6",
       "range": {
         "startLine": 102,
         "startChar": 17,

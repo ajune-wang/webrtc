@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b34dc6be_068a57f4",
+        "filename": "api/video/video_frame_metadata.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "consider pass by const-reference here too",
+      "range": {
+        "startLine": 143,
+        "startChar": 34,
+        "endLine": 143,
+        "endChar": 61
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13564308_0ab29b9d",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "I believe passing by const-reference is preferred here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 16,
+        "endLine": 93,
+        "endChar": 37
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89d1a8c8_31ecf1cc",
         "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
         "patchSetId": 2
@@ -31,6 +77,116 @@
       "writtenOn": "2023-01-24T04:03:51Z",
       "side": 1,
       "message": "do you want to add a few EXPECT_EQ here to check that the new metadata is the same as the old metadata?",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d42cb96_927a2294",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "I added a lot of these checks here: https://webrtc-review.googlesource.com/c/src/+/290989\n\nFeel free to copy to your heart\u0027s content",
+      "parentUuid": "89d1a8c8_31ecf1cc",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7950219_c1508f05",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dddf527e_fc716833",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "I am not super happy about setting this value sticky for following frames and would prefer to pass it as an argument to AllocatePacket. But given the interactions with the stateful UpdateHeaderSizes method in RTPSender it might be necessary, so I guess we might need to do it this way?",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5965c2ef_53d351e6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "consider passing by const-reference here too",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c264dfd0_1499a760",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-01-24T11:56:55Z",
+      "side": 1,
+      "message": "Do we need to have yet another copy of csrcs_ here or can we use the VideoFrameMetadata member?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 31
+      },
       "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

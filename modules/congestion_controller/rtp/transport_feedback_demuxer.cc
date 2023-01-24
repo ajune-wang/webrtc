@@ -65,17 +65,17 @@ void TransportFeedbackDemuxer::OnTransportFeedback(
   RTC_DCHECK_RUN_ON(&observer_checker_);
 
   std::vector<StreamFeedbackObserver::StreamPacketInfo> stream_feedbacks;
-  for (const auto& packet : feedback.GetAllPackets()) {
-    int64_t seq_num = seq_num_unwrapper_.PeekUnwrap(packet.sequence_number());
-    auto it = history_.find(seq_num);
+  feedback.ForAllPackets([&](uint16_t sequence_number, TimeDelta delta) {
+    RTC_DCHECK_RUN_ON(&observer_checker_);
+    auto it = history_.find(seq_num_unwrapper_.PeekUnwrap(sequence_number));
     if (it != history_.end()) {
       auto packet_info = it->second;
-      packet_info.received = packet.received();
+      packet_info.received = delta.IsFinite();
       stream_feedbacks.push_back(std::move(packet_info));
-      if (packet.received())
+      if (delta.IsFinite())
         history_.erase(it);
     }
-  }
+  });
 
   for (auto& observer : observers_) {
     std::vector<StreamFeedbackObserver::StreamPacketInfo> selected_feedback;

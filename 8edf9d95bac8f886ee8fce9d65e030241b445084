@@ -293,6 +293,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "006e06ac_aa9e5ae1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-24T15:58:11Z",
+      "side": 1,
+      "message": "(drive by comment)\nin c++17 we have guaranteed copy elision, \nso passing by value might be slightly better (+1 to Henrik\u0027s comment)\nhttps://abseil.io/tips/117",
+      "parentUuid": "fb68a4ea_73a47ebf",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c264dfd0_1499a760",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 2

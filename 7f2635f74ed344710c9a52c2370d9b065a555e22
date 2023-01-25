@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d21f70f7_3ad6b542",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-01-25T12:12:30Z",
+      "side": 1,
+      "message": "I think running time would depend on the os.\n3h is the max running time: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/waterfalls.pyl;l\u003d246?q\u003df:waterfalls.pyl",
+      "parentUuid": "8b968ece_47edc0b4",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 93
+      },
+      "revId": "7f2635f74ed344710c9a52c2370d9b065a555e22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6761ba0e_6b22c5ef",

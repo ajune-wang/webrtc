@@ -902,7 +902,7 @@ TEST_F(RtpRtcpImpl2Test, PaddingNotAllowedInMiddleOfFrame) {
   // Send half a video frame.
   PacedPacketInfo pacing_info;
   std::unique_ptr<RtpPacketToSend> packet =
-      sender_.impl_->RtpSender()->AllocatePacket();
+      sender_.impl_->RtpSender()->AllocatePacket({});
   packet->set_packet_type(RtpPacketToSend::Type::kVideo);
   packet->set_first_packet_of_frame(true);
   packet->SetMarker(false);  // Marker false - not last packet of frame.
@@ -912,7 +912,7 @@ TEST_F(RtpRtcpImpl2Test, PaddingNotAllowedInMiddleOfFrame) {
   // Padding not allowed in middle of frame.
   EXPECT_THAT(sender_.impl_->GeneratePadding(kPaddingSize), SizeIs(0u));
 
-  packet = sender_.impl_->RtpSender()->AllocatePacket();
+  packet = sender_.impl_->RtpSender()->AllocatePacket({});
   packet->set_packet_type(RtpPacketToSend::Type::kVideo);
   packet->set_first_packet_of_frame(true);
   packet->SetMarker(true);

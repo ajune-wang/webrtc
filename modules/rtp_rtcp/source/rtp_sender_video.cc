@@ -531,7 +531,7 @@ bool RTPSenderVideo::SendVideo(
   }
 
   std::unique_ptr<RtpPacketToSend> single_packet =
-      rtp_sender_->AllocatePacket();
+      rtp_sender_->AllocatePacket(/*csrcs=*/{});
   RTC_DCHECK_LE(packet_capacity, single_packet->capacity());
   single_packet->SetPayloadType(payload_type);
   single_packet->SetTimestamp(rtp_timestamp);

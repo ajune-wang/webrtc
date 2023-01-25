@@ -16,6 +16,23 @@
       "message": "PTAL!",
       "revId": "42ce90f68cacac23de2059a9c4c33f8cd13d0c2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6ec7d68_65651683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-25T10:39:25Z",
+      "side": 1,
+      "message": "+1 but to avoid risk of someone reverting first and asking questions later, make sure to update chromium TestExpectations (to [ Pass Failure ] on supported stats) and the allow list in peerconnection_getstats.js before you +2 this.\n\nI can stamp the necessary chromium changes",
+      "revId": "42ce90f68cacac23de2059a9c4c33f8cd13d0c2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

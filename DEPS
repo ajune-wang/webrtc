@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '98774e2693ef8bb7e790f6071af78d46a0cf4809',
+  'chromium_revision': '659cc673e2be7b072b046e7c0c6e72dd483ef1e9',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,9 +41,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@8d8661892827029be78c19be0fb0d23fecc3735c',
+    'https://chromium.googlesource.com/chromium/src/base@ae155315658e62a3141f96692362c954acf2dd5c',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@af883ca664cfe3c17b23333fc7e9666d676f6ca6',
+    'https://chromium.googlesource.com/chromium/src/build@3ed59a96db823534faa93dbedce1891bef3e1ad5',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@0cc02fb849280c9adf6aa939e35ec03636bed5b1',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -56,9 +56,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a932d2b6140bf20fd6024099de6c01a9a453ea43',
+    'https://chromium.googlesource.com/chromium/src/testing@32401180de04abab45b6ea2c09dc522e97d9903b',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@769be6514f31fb7ce5e5fda22973033c29f08327',
+    'https://chromium.googlesource.com/chromium/src/third_party@07272de5b695c1a8ba89db935ab3eeb7ca5b6b6e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -297,7 +297,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@8459593571c6fb443688b57a034a58f58fa6769d',
+    'https://chromium.googlesource.com/chromium/src/tools@6d6335189984a09192c8d9265ea167f7fc9ae485',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -486,11 +486,11 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:81e5cdad29bb4c7aaad98c843637513db3155b0d',
+          'version': 'git_revision:36cf4b54527c49aca7ed3023995a081e14f1852a',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:81e5cdad29bb4c7aaad98c843637513db3155b0d',
+          'version': 'git_revision:36cf4b54527c49aca7ed3023995a081e14f1852a',
         },
       ],
       'dep_type': 'cipd',

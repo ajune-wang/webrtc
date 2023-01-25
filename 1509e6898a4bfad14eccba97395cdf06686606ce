@@ -121,6 +121,24 @@
       "parentUuid": "e4c106a3_a097a51e",
       "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ccd2880_c6011c4a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-25T15:41:39Z",
+      "side": 1,
+      "message": "We are talking about non-browsers on the other side which may not even understand WebRTC. And negotiate was never the default, does not work in Safari/Firefox so this is very specific and explicit usage in most cases.\n\nIf we were to split this up it would be much more meaningful to do so by number of media lines and kind because you can bet that 99% of \"negotiate\" will be with a single audio m-line. But I hope the usage can be shown to be low enough without this.",
+      "parentUuid": "059b9a6c_0524c885",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

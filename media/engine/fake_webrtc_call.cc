@@ -790,6 +790,11 @@ void FakeCall::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
   fake_stream.SetSyncGroup(sync_group);
 }
 
+void FakeCall::OnVideoReceiverHeaderExtensionsChanged(
+    const webrtc::RtpHeaderExtensionMap& extensions) {
+  video_receive_extensions_ = extensions;
+}
+
 void FakeCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
   last_sent_packet_ = sent_packet;
   if (sent_packet.packet_id >= 0) {

@@ -138,6 +138,9 @@ class Call {
   virtual void OnUpdateSyncGroup(AudioReceiveStreamInterface& stream,
                                  absl::string_view sync_group) = 0;
 
+  virtual void OnVideoReceiverHeaderExtensionsChanged(
+      const RtpHeaderExtensionMap& extensions) = 0;
+
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
 
   virtual void SetClientBitratePreferences(

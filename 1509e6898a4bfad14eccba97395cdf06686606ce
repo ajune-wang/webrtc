@@ -33,6 +33,40 @@
       "message": "Let\u0027s measure it.",
       "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5aab9ac_d8a78298",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-25T14:21:11Z",
+      "side": 1,
+      "message": "+1 and I\u0027m not too familiar with this just asking a question, not blocking landing this",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c076465_803ca8f8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-25T14:21:11Z",
+      "side": 1,
+      "message": "Isn\u0027t \"negotiate\" and RTCP MUX was accepted in the O/A basically compatible with if the app had used \"require\" all along? Would we want to distinguish between accepted and rejected the RTCP mux suggestion?\n\nWondering if we\u0027ll get a higher usage number here (problem with existing metrics) or if this is good enough.",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

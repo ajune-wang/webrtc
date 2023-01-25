@@ -912,7 +912,7 @@ RTCAudioPlayoutStats::RTCAudioPlayoutStats(const RTCAudioPlayoutStats& other) =
 RTCAudioPlayoutStats::~RTCAudioPlayoutStats() {}
 
 // clang-format off
-WEBRTC_RTCSTATS_IMPL(RTCAudioPlayoutStats, RTCStats, "audio-playout",
+WEBRTC_RTCSTATS_IMPL(RTCAudioPlayoutStats, RTCStats, "media-playout",
     &synthesized_samples_duration,
     &synthesized_samples_events,
     &total_samples_duration,

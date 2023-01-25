@@ -365,6 +365,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a0dfc7b_0261fd07",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-25T12:17:58Z",
+      "side": 1,
+      "message": "I agree that making csrcs_ a member variable was a mistake, csrcs changes all the time (calculated per frame).\n\nI\u0027ve sketched a suggestion to change it:\nhttps://webrtc-review.googlesource.com/c/src/+/291334",
+      "parentUuid": "f2ba5fab_7ed64888",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5965c2ef_53d351e6",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 2

@@ -85,6 +85,24 @@
       "parentUuid": "5c076465_803ca8f8",
       "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4c106a3_a097a51e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-25T15:17:04Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be good to also know at connection time whether or not rtcp-mux is actually enabled (as opposed to whether or not we required it to be)? IIUC \"negotiate\" here could mean both \"rtcp-mux was used because it was accepted\" and \"rtcp-mux was not used because it was negotiated away\". But only one of these paths would break if the policy had changed to \"require\" instead",
+      "parentUuid": "bff3c41b_7e614bfe",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

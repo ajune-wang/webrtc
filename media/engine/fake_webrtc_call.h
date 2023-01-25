@@ -36,6 +36,7 @@
 #include "call/test/mock_rtp_transport_controller_send.h"
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/buffer.h"
 #include "test/scoped_key_value_config.h"
@@ -400,6 +401,11 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   webrtc::NetworkState GetNetworkState(webrtc::MediaType media) const;
   int GetNumCreatedSendStreams() const;
   int GetNumCreatedReceiveStreams() const;
+
+  const webrtc::RtpHeaderExtensionMap& video_recv_header_extensions() const {
+    return video_receive_extensions_;
+  }
+
   void SetStats(const webrtc::Call::Stats& stats);
 
   void SetClientBitratePreferences(
@@ -480,6 +486,9 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
                           uint32_t local_ssrc) override;
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
                          absl::string_view sync_group) override;
+  void OnVideoReceiveHeaderExtensionsChanged(
+      const webrtc::RtpHeaderExtensionMap& extensions) override;
+
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
   webrtc::TaskQueueBase* const network_thread_;
@@ -497,6 +506,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   webrtc::Call::Stats stats_;
   std::vector<FakeVideoSendStream*> video_send_streams_;
   std::vector<FakeAudioSendStream*> audio_send_streams_;
+  webrtc::RtpHeaderExtensionMap video_receive_extensions_;
   std::vector<FakeVideoReceiveStream*> video_receive_streams_;
   std::vector<FakeAudioReceiveStream*> audio_receive_streams_;
   std::vector<FakeFlexfecReceiveStream*> flexfec_receive_streams_;

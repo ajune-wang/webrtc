@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2d4547_8d702670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-25T14:00:30Z",
+      "side": 1,
+      "message": "Should we measure this? hbos had some trouble calculating with the existing metrics and came up with a number slightly above 1%, this one might be lower and more realistic.",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

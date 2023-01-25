@@ -100,6 +100,9 @@ class RTC_EXPORT DesktopCapturer {
   // valid until capturer is destroyed.
   virtual void Start(Callback* callback) = 0;
 
+  // Sets max frame rate for the capturer.
+  virtual void SetMaxFrameRate(uint32_t max_frame_rate) {}
+
   // Returns a valid pointer if the capturer requires the user to make a
   // selection from a source list provided by the capturer.
   // Returns nullptr if the capturer does not provide a UI for the user to make

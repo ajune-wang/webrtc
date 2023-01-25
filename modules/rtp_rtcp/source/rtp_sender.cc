@@ -508,8 +508,24 @@ size_t RTPSender::ExpectedPerPacketOverhead() const {
   return max_media_packet_header_;
 }
 
-std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
+std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() {
   MutexLock lock(&send_mutex_);
+  return AllocatePacketLocked(csrcs_);
+}
+
+std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket(
+    rtc::ArrayView<const uint32_t> csrcs) {
+  MutexLock lock(&send_mutex_);
+  return AllocatePacketLocked(csrcs);
+}
+
+std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacketLocked(
+    rtc::ArrayView<const uint32_t> csrcs) {
+  RTC_DCHECK_LE(csrcs.size(), kRtpCsrcSize);
+  if (csrcs.size() > max_num_csrcs_) {
+    max_num_csrcs_ = csrcs.size();
+    UpdateHeaderSizes();
+  }
   // TODO(danilchap): Find better motivator and value for extra capacity.
   // RtpPacketizer might slightly miscalulate needed size,
   // SRTP may benefit from extra space in the buffer and do encryption in place
@@ -520,7 +536,7 @@ std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
   auto packet = std::make_unique<RtpPacketToSend>(
       &rtp_header_extension_map_, max_packet_size_ + kExtraCapacity);
   packet->SetSsrc(ssrc_);
-  packet->SetCsrcs(csrcs_);
+  packet->SetCsrcs(csrcs);
   // Reserve extensions, if registered, RtpSender set in SendToNetwork.
   packet->ReserveExtension<AbsoluteSendTime>();
   packet->ReserveExtension<TransmissionOffset>();
@@ -586,7 +602,10 @@ void RTPSender::SetCsrcs(const std::vector<uint32_t>& csrcs) {
   RTC_DCHECK_LE(csrcs.size(), kRtpCsrcSize);
   MutexLock lock(&send_mutex_);
   csrcs_ = csrcs;
-  UpdateHeaderSizes();
+  if (csrcs.size() > max_num_csrcs_) {
+    max_num_csrcs_ = csrcs.size();
+    UpdateHeaderSizes();
+  }
 }
 
 static void CopyHeaderAndExtensionsToRtxPacket(const RtpPacketToSend& packet,
@@ -741,7 +760,7 @@ RtpState RTPSender::GetRtxRtpState() const {
 
 void RTPSender::UpdateHeaderSizes() {
   const size_t rtp_header_length =
-      kRtpHeaderLength + sizeof(uint32_t) * csrcs_.size();
+      kRtpHeaderLength + sizeof(uint32_t) * max_num_csrcs_;
 
   max_padding_fec_packet_header_ =
       rtp_header_length + RtpHeaderExtensionSize(kFecOrPaddingExtensionSizes,

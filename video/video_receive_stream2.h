@@ -127,6 +127,8 @@ class VideoReceiveStream2
   // Getters for const remote SSRC values that won't change throughout the
   // object's lifetime.
   uint32_t remote_ssrc() const { return config_.rtp.remote_ssrc; }
+
+  //.... Can be changed.
   uint32_t rtx_ssrc() const { return config_.rtp.rtx_ssrc; }
 
   void SignalNetworkState(NetworkState state);
@@ -193,6 +195,8 @@ class VideoReceiveStream2
                                          bool generate_key_frame) override;
   void GenerateKeyFrame() override;
 
+  void UpdateRtxSsrc(uint32_t ssrc) override;
+
  private:
   // FrameSchedulingReceiver implementation.
   // Called on packet sequence.
@@ -251,7 +255,7 @@ class VideoReceiveStream2
   TaskQueueFactory* const task_queue_factory_;
 
   TransportAdapter transport_adapter_;
-  const VideoReceiveStreamInterface::Config config_;
+  VideoReceiveStreamInterface::Config config_;
   const int num_cpu_cores_;
   Call* const call_;
   Clock* const clock_;
@@ -275,6 +279,11 @@ class VideoReceiveStream2
   RtpStreamsSynchronizer rtp_stream_sync_;
 
   std::unique_ptr<VideoStreamBufferController> buffer_;
+
+  // `receiver_controller_` is valid from when RegisterWithTransport is invoked
+  //  until UnregisterFromTransport.
+  RtpStreamReceiverControllerInterface* receiver_controller_
+      RTC_GUARDED_BY(packet_sequence_checker_) = nullptr;
 
   std::unique_ptr<RtpStreamReceiverInterface> media_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);

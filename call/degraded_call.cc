@@ -336,6 +336,11 @@ void DegradedCall::OnUpdateSyncGroup(AudioReceiveStreamInterface& stream,
   call_->OnUpdateSyncGroup(stream, sync_group);
 }
 
+void DegradedCall::OnVideoReceiverHeaderExtensionsChanged(
+    const RtpHeaderExtensionMap& extensions) {
+  call_->OnVideoReceiverHeaderExtensionsChanged(extensions);
+}
+
 void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
   if (!send_configs_.empty()) {
     // If we have a degraded send-transport, we have already notified call

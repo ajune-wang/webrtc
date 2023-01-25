@@ -89,7 +89,6 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
   rtclog_config->rtx_ssrc = config.rtp.rtx_ssrc;
   rtclog_config->rtcp_mode = config.rtp.rtcp_mode;
-  rtclog_config->rtp_extensions = config.rtp.extensions;
 
   for (const auto& d : config.decoders) {
     const int* search =
@@ -122,7 +121,6 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   auto rtclog_config = std::make_unique<rtclog::StreamConfig>();
   rtclog_config->remote_ssrc = config.rtp.remote_ssrc;
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
-  rtclog_config->rtp_extensions = config.rtp.extensions;
   return rtclog_config;
 }
 
@@ -1550,15 +1548,6 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
 }
 
 bool Call::IdentifyReceivedPacket(RtpPacketReceived& packet) {
-  RTC_DCHECK_RUN_ON(&receive_11993_checker_);
-  auto it = receive_rtp_config_.find(packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
-    RTC_DLOG(LS_WARNING) << "receive_rtp_config_ lookup failed for ssrc "
-                         << packet.Ssrc();
-    return false;
-  }
-
-  packet.IdentifyExtensions(it->second->GetRtpExtensionMap());
   return true;
 }
 

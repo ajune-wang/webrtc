@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ba090e2_95c11c85",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2023-01-25T13:09:36Z",
+      "side": 1,
+      "message": "Ah, I see. I think there is no OS where it practically takes 3h to run. But I agree that it\u0027s more correct to align with the explicitly set theoretical limits.",
+      "parentUuid": "d21f70f7_3ad6b542",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 93
+      },
+      "revId": "7f2635f74ed344710c9a52c2370d9b065a555e22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6761ba0e_6b22c5ef",
@@ -102,6 +126,30 @@
       "writtenOn": "2023-01-25T10:34:24Z",
       "side": 1,
       "message": "This is actually 6 hours (6x60x60).",
+      "range": {
+        "startLine": 72,
+        "startChar": 20,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "7f2635f74ed344710c9a52c2370d9b065a555e22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fab4303f_951b428b",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2023-01-25T13:09:36Z",
+      "side": 1,
+      "message": "Ah, my bad. Fixed to make it 3h.",
+      "parentUuid": "6761ba0e_6b22c5ef",
       "range": {
         "startLine": 72,
         "startChar": 20,

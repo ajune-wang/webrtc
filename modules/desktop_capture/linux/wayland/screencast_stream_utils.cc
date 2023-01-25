@@ -67,10 +67,14 @@ bool PipeWireVersion::operator<=(const PipeWireVersion& other) {
 spa_pod* BuildFormat(spa_pod_builder* builder,
                      uint32_t format,
                      const std::vector<uint64_t>& modifiers,
-                     const struct spa_rectangle* resolution) {
+                     const struct spa_rectangle* resolution,
+                     const struct spa_fraction* frame_rate) {
   spa_pod_frame frames[2];
   spa_rectangle pw_min_screen_bounds = spa_rectangle{1, 1};
   spa_rectangle pw_max_screen_bounds = spa_rectangle{UINT32_MAX, UINT32_MAX};
+
+  spa_fraction pw_min_frame_rate = spa_fraction{1, 1};
+  spa_fraction pw_max_frame_rate = spa_fraction{UINT32_MAX, UINT32_MAX};
 
   spa_pod_builder_push_object(builder, &frames[0], SPA_TYPE_OBJECT_Format,
                               SPA_PARAM_EnumFormat);
@@ -115,6 +119,17 @@ spa_pod* BuildFormat(spa_pod_builder* builder,
                                                        &pw_min_screen_bounds,
                                                        &pw_max_screen_bounds),
                         0);
+  }
+
+  if (frame_rate) {
+    spa_pod_builder_add(builder, SPA_FORMAT_VIDEO_framerate,
+                        SPA_POD_Fraction(frame_rate), 0);
+  } else {
+    spa_pod_builder_add(
+        builder, SPA_FORMAT_VIDEO_framerate,
+        SPA_POD_CHOICE_RANGE_Fraction(&pw_max_frame_rate, &pw_min_frame_rate,
+                                      &pw_max_frame_rate),
+        0);
   }
 
   return static_cast<spa_pod*>(spa_pod_builder_pop(builder, &frames[0]));

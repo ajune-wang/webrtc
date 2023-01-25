@@ -50,6 +50,7 @@ class RTC_EXPORT SharedScreenCastStream
                              uint32_t height = 0,
                              bool is_cursor_embedded = false);
   void UpdateScreenCastStreamResolution(uint32_t width, uint32_t height);
+  void UpdateScreenCastFrameRate(uint32_t numerator, uint32_t denominator);
   void SetUseDamageRegion(bool use_damage_region);
   void SetObserver(SharedScreenCastStream::Observer* observer);
   void StopScreenCastStream();

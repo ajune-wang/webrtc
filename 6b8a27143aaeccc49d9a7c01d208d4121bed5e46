@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14812444_35613c1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-25T07:56:41Z",
+      "side": 1,
+      "message": "Thanks for fixing this! One comment/question.",
+      "revId": "6b8a27143aaeccc49d9a7c01d208d4121bed5e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ac5c00_4a867556",
+        "filename": "audio/channel_send_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-25T07:56:41Z",
+      "side": 1,
+      "message": "Would the test be more valuable if it would first verify that passing two audio frames indeed results in an encoded frame, and then do the operations you have here?\n\n1. ProcessAndEncodeAudio\n2. EXPECT_CALL(transport_, SendRtp).Times(1);\n3. ProcessAndEncodeAudio\n// Both frames processed into one packet\n4. EXPECT_CALL(transport_, SendRtp).Times(0);\n5. ProcessAndEncodeAudio\n6. StopSend\n7. StartSend\n8. EXPECT_CALL(transport_, SendRtp).Times(0);\n9. ProcessAndEncodeAudio",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 23
+      },
+      "revId": "6b8a27143aaeccc49d9a7c01d208d4121bed5e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

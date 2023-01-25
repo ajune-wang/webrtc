@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9208482b_a1d8b7c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2023-01-25T11:34:54Z",
+      "side": 1,
+      "message": "LGTM % Whats the point of these changes? IIUC the new mixin is exactly the same as the old one?",
+      "revId": "047da1bfb57965dc30ddaf9f15d98f6f794ecf2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

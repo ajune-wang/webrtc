@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "039bcb88_e03ae8b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19614
+      },
+      "writtenOn": "2023-01-25T12:05:19Z",
+      "side": 1,
+      "message": "I also added the kind field, PTAL",
+      "revId": "f403eeff5e1eb2484eee0d9f910314c860e7bd43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

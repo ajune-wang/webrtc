@@ -73,13 +73,6 @@
 namespace webrtc {
 
 namespace {
-bool SendPeriodicFeedback(const std::vector<RtpExtension>& extensions) {
-  for (const auto& extension : extensions) {
-    if (extension.uri == RtpExtension::kTransportSequenceNumberV2Uri)
-      return false;
-  }
-  return true;
-}
 
 const int* FindKeyByValue(const std::map<int, int>& m, int v) {
   for (const auto& kv : m) {
@@ -262,6 +255,9 @@ class Call final : public webrtc::Call,
 
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
                          absl::string_view sync_group) override;
+
+  void OnVideoReceiveHeaderExtensionsChanged(
+      const RtpHeaderExtensionMap& extensions) override;
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
@@ -1009,9 +1005,6 @@ webrtc::VideoReceiveStreamInterface* Call::CreateVideoReceiveStream(
   TRACE_EVENT0("webrtc", "Call::CreateVideoReceiveStream");
   RTC_DCHECK_RUN_ON(worker_thread_);
 
-  receive_side_cc_.SetSendPeriodicFeedback(
-      SendPeriodicFeedback(configuration.rtp.extensions));
-
   EnsureStarted();
 
   event_log_->Log(std::make_unique<RtcEventVideoReceiveStreamConfig>(
@@ -1271,6 +1264,13 @@ void Call::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
       static_cast<webrtc::AudioReceiveStreamImpl&>(stream);
   receive_stream.SetSyncGroup(sync_group);
   ConfigureSync(sync_group);
+}
+
+void Call::OnVideoReceiveHeaderExtensionsChanged(
+    const RtpHeaderExtensionMap& extensions) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  receive_side_cc_.SetSendPeriodicFeedback(
+      !extensions.IsRegistered(kRtpExtensionTransportSequenceNumber02));
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {

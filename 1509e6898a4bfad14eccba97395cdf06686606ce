@@ -103,6 +103,24 @@
       "parentUuid": "bff3c41b_7e614bfe",
       "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059b9a6c_0524c885",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-25T15:18:14Z",
+      "side": 1,
+      "message": "Me guessing that there is a high percentage that use \"negotiate\" because they don\u0027t know any better but they don\u0027t *actually* care about disabling rtcp-mux because by default everyone accepts it",
+      "parentUuid": "e4c106a3_a097a51e",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

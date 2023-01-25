@@ -67,6 +67,24 @@
       "message": "Isn\u0027t \"negotiate\" and RTCP MUX was accepted in the O/A basically compatible with if the app had used \"require\" all along? Would we want to distinguish between accepted and rejected the RTCP mux suggestion?\n\nWondering if we\u0027ll get a higher usage number here (problem with existing metrics) or if this is good enough.",
       "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bff3c41b_7e614bfe",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-25T14:46:13Z",
+      "side": 1,
+      "message": "the difference is that if you set \"require\" (the default) then a remote description without rtcp-mux fails. See https://jsfiddle.net/fippo/f7rdgwnb/ for an example.\nIf you set negotiate then you are looking for this very specific \"backward-compat\" behavior.\n\nSo yes, we might get a higher number than \"asked for negotiate and did *not* negotiate\" but I don\u0027t think the difference will be big.",
+      "parentUuid": "5c076465_803ca8f8",
+      "revId": "1509e6898a4bfad14eccba97395cdf06686606ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

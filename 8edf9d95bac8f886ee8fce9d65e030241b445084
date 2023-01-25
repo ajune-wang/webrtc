@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6372e411_8d1135de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Decided to go with the pass-by-value + move() model, which I think I got everywhere.\n\nThanks all!",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b34dc6be_068a57f4",
@@ -48,6 +65,30 @@
       "writtenOn": "2023-01-24T11:56:55Z",
       "side": 1,
       "message": "consider pass by const-reference here too",
+      "range": {
+        "startLine": 143,
+        "startChar": 34,
+        "endLine": 143,
+        "endChar": 61
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25bf8a7c_e9a46301",
+        "filename": "api/video/video_frame_metadata.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b34dc6be_068a57f4",
       "range": {
         "startLine": 143,
         "startChar": 34,
@@ -75,6 +116,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b8b60a_5d8c7a80",
+        "filename": "api/video/video_frame_metadata.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "0cf7956c_20379473",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e718d036_1563e951",
@@ -92,6 +151,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dfdb548_9ca68f36",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e718d036_1563e951",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13564308_0ab29b9d",
@@ -105,6 +182,30 @@
       "writtenOn": "2023-01-24T11:56:55Z",
       "side": 1,
       "message": "I believe passing by const-reference is preferred here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 16,
+        "endLine": 93,
+        "endChar": 37
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e1d0e6_d717ae6b",
+        "filename": "api/video/video_frame_metadata.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "13564308_0ab29b9d",
       "range": {
         "startLine": 93,
         "startChar": 16,
@@ -150,6 +251,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f00bbb_154672f2",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Added a simple CSRC field and expected that\u0027s the same, as it\u0027s all I\u0027m touching in this cl. Let\u0027s add some more comprehensive testing when working on expanding the clone.",
+      "parentUuid": "3d42cb96_927a2294",
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7950219_c1508f05",
@@ -173,6 +292,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12b9a969_d69242b6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e7950219_c1508f05",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dddf527e_fc716833",
@@ -186,6 +329,30 @@
       "writtenOn": "2023-01-24T11:56:55Z",
       "side": 1,
       "message": "I am not super happy about setting this value sticky for following frames and would prefer to pass it as an argument to AllocatePacket. But given the interactions with the stateful UpdateHeaderSizes method in RTPSender it might be necessary, so I guess we might need to do it this way?",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2ba5fab_7ed64888",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "It\u0027s definitely clunky. Leaving unresolved to discuss with WebRTC owners I\u0027m about to add.",
+      "parentUuid": "dddf527e_fc716833",
       "range": {
         "startLine": 536,
         "startChar": 0,
@@ -315,6 +482,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3b34a2e_a8af02ea",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Going with pass-by-value and move() everywhere, just as it seems to be the majority view.",
+      "parentUuid": "006e06ac_aa9e5ae1",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c264dfd0_1499a760",
@@ -328,6 +519,30 @@
       "writtenOn": "2023-01-24T11:56:55Z",
       "side": 1,
       "message": "Do we need to have yet another copy of csrcs_ here or can we use the VideoFrameMetadata member?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e40897f_6f3646c9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-25T11:39:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c264dfd0_1499a760",
       "range": {
         "startLine": 110,
         "startChar": 0,

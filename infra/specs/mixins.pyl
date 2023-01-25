@@ -117,6 +117,11 @@
   'isolate_profile_data': {
     'isolate_profile_data': True
   },
+  'limited-capacity': {
+    'swarming': {
+      'expiration': 21600
+    }
+  },
   'linux-bionic': {
     'swarming': {
       'dimensions': {
@@ -293,7 +298,7 @@
   'win10': {
     'swarming': {
       'dimensions': {
-        'os': 'Windows-10-19042|Windows-10-19045'
+        'os': 'Windows-10-19045'
       }
     }
   },

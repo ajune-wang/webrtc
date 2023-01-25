@@ -64,6 +64,14 @@
       },
     },
   },
+  'limited-capacity': {
+    # Sometimes there are multiple tests that can be run only on one machine.
+    # We need to increase timeouts so the tests dont expire before the machine is freed.
+    # Using 2h timeout because our slowest tests (webrtc_perf_tests) usually take 79m to run.
+    'swarming': {
+      'expiration': 21600,
+    },
+  },
   'mac-m1-cpu': {
     'swarming': {
       'dimensions': {

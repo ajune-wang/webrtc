@@ -2711,6 +2711,8 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     cricket::VideoRecvParameters parameters = recv_parameters_;
     parameters.extensions.push_back(RtpExtension(ext_uri, id));
     EXPECT_TRUE(channel_->SetRecvParameters(parameters));
+    EXPECT_NE(fake_call_->video_recv_header_extensions().GetType(id),
+              webrtc::RtpHeaderExtensionMap::kInvalidType);
 
     FakeVideoReceiveStream* recv_stream =
         AddRecvStream(cricket::StreamParams::CreateLegacy(123));

@@ -1190,6 +1190,7 @@ bool WebRtcVideoChannel::SetRecvParameters(const VideoRecvParameters& params) {
     recv_rtp_extensions_ = *changed_params.rtp_header_extensions;
     recv_rtp_extension_map_ =
         webrtc::RtpHeaderExtensionMap(recv_rtp_extensions_);
+    call_->OnVideoReceiverHeaderExtensionsChanged(recv_rtp_extension_map_);
   }
   if (changed_params.codec_settings) {
     RTC_DLOG(LS_INFO) << "Changing recv codecs from "

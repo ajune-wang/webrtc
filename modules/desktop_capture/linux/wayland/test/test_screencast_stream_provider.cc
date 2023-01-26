@@ -91,7 +91,7 @@ TestScreenCastStreamProvider::TestScreenCastStreamProvider(Observer* observer,
     spa_rectangle resolution =
         SPA_RECTANGLE(uint32_t(width_), uint32_t(height_));
     params.push_back(BuildFormat(&builder, SPA_VIDEO_FORMAT_BGRx,
-                                 /*modifiers=*/{}, &resolution));
+                                 /*modifiers=*/{}, &resolution, nullptr));
 
     auto flags =
         pw_stream_flags(PW_STREAM_FLAG_DRIVER | PW_STREAM_FLAG_ALLOC_BUFFERS);
@@ -356,6 +356,12 @@ void TestScreenCastStreamProvider::OnStreamRemoveBuffer(void* data,
 
 uint32_t TestScreenCastStreamProvider::PipeWireNodeId() {
   return pw_node_id_;
+}
+
+uint32_t TestScreenCastStreamProvider::FrameRate() {
+  RTC_DCHECK(spa_video_format_.max_framerate.denom);
+  return spa_video_format_.max_framerate.num /
+         spa_video_format_.max_framerate.denom;
 }
 
 }  // namespace webrtc

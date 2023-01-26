@@ -56,6 +56,7 @@ class PipeWireStreamTest : public ::testing::Test,
   MOCK_METHOD(void, OnDesktopFrameChanged, (), (override));
   MOCK_METHOD(void, OnFailedToProcessBuffer, (), (override));
   MOCK_METHOD(void, OnStreamConfigured, (), (override));
+  MOCK_METHOD(void, OnFrameRateChanged, (uint32_t), (override));
 
   void SetUp() override {
     shared_screencast_stream_ = SharedScreenCastStream::CreateDefault();
@@ -151,6 +152,13 @@ TEST_F(PipeWireStreamTest, TestPipeWire) {
   // First frame should be now overwritten with blue color
   frameRetrievedEvent.Wait(kShortWait);
   EXPECT_EQ(RgbaColor(frame->data()), blue_color);
+
+  // Update stream parameters.
+  EXPECT_CALL(*this, OnFrameRateChanged(0)).Times(1);
+  shared_screencast_stream_->UpdateScreenCastStreamFrameRate(0);
+
+  EXPECT_CALL(*this, OnFrameRateChanged(22)).Times(1);
+  shared_screencast_stream_->UpdateScreenCastStreamFrameRate(22);
 
   // Test disconnection from stream
   EXPECT_CALL(*this, OnStopStreaming);

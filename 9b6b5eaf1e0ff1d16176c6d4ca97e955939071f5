@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44852bd5_1d2ed2dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-26T12:46:30Z",
+      "side": 1,
+      "message": "skipping CQ because change is local and simple and thus there is low concerns it would break. CQ fails due to missing infra cherry picks.",
+      "revId": "9b6b5eaf1e0ff1d16176c6d4ca97e955939071f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

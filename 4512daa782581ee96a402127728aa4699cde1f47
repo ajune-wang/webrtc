@@ -70,6 +70,24 @@
       "parentUuid": "a1efe9d1_2087f949",
       "revId": "4512daa782581ee96a402127728aa4699cde1f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e235189_be897399",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-26T15:32:50Z",
+      "side": 1,
+      "message": "Can we first land this gated and then have the more general discussion on how gamestreaming (which is a valid use-case) can get access?",
+      "parentUuid": "9772e07c_3a592641",
+      "revId": "4512daa782581ee96a402127728aa4699cde1f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

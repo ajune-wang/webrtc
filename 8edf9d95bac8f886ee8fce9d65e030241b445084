@@ -389,6 +389,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c282125_dd0a343c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-01-26T09:53:13Z",
+      "side": 1,
+      "message": "Cool, thanks for pulling that together Danil! Looks like it makes sense.\n\nWDYT about cl ordering? Should we land this to unblock our encoded streams work and land the CSRCs refactor in the near future, once we sort out migrating existing SetCsrcs() users?",
+      "parentUuid": "4a0dfc7b_0261fd07",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5965c2ef_53d351e6",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 2

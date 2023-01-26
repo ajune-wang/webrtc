@@ -411,6 +411,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc33a28_91cf0092",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-26T10:13:54Z",
+      "side": 1,
+      "message": "do not be blocked on the csrcs refactor.\nOnce you\u0027ve landed your CL it might be easier to refactor csrcs usage because there will be some, and thus easier to understand the need.",
+      "parentUuid": "6c282125_dd0a343c",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "8edf9d95bac8f886ee8fce9d65e030241b445084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5965c2ef_53d351e6",

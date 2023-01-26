@@ -44,9 +44,6 @@ class ReceiveSideCongestionController : public CallStatsObserver {
   virtual void OnReceivedPacket(int64_t arrival_time_ms,
                                 size_t payload_size,
                                 const RTPHeader& header);
-
-  void SetSendPeriodicFeedback(bool send_periodic_feedback);
-
   // Implements CallStatsObserver.
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
 

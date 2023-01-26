@@ -26,17 +26,6 @@
 
 namespace webrtc {
 
-struct FeedbackRequest {
-  // Determines whether the recv delta as specified in
-  // https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
-  // should be included.
-  bool include_timestamps;
-  // Include feedback of received packets in the range [sequence_number -
-  // sequence_count + 1, sequence_number]. That is, no feedback will be sent if
-  // sequence_count is zero.
-  int sequence_count;
-};
-
 // The Absolute Capture Time extension is used to stamp RTP packets with a NTP
 // timestamp showing when the first audio or video frame in a packet was
 // originally captured. The intent of this extension is to provide a way to
@@ -89,6 +78,21 @@ inline bool operator!=(const AbsoluteCaptureTime& lhs,
   return !(lhs == rhs);
 }
 
+enum class TransportSequenceNumberVersion {
+  kV1,  // https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
+  kV2,  // http://www.webrtc.org/experiments/rtp-hdrext/transport-wide-cc-02
+};
+struct FeedbackRequest {
+  // Determines whether the recv delta as specified in
+  // https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
+  // should be included.
+  bool include_timestamps;
+  // Include feedback of received packets in the range [sequence_number -
+  // sequence_count + 1, sequence_number]. That is, no feedback will be sent if
+  // sequence_count is zero.
+  int sequence_count;
+};
+
 struct RTPHeaderExtension {
   RTPHeaderExtension();
   RTPHeaderExtension(const RTPHeaderExtension& other);
@@ -111,6 +115,8 @@ struct RTPHeaderExtension {
   bool hasTransportSequenceNumber;
   uint16_t transportSequenceNumber;
   absl::optional<FeedbackRequest> feedback_request;
+  absl::optional<TransportSequenceNumberVersion>
+      transport_sequence_number_version;
 
   // Audio Level includes both level in dBov and voiced/unvoiced bit. See:
   // https://tools.ietf.org/html/rfc6464#section-3

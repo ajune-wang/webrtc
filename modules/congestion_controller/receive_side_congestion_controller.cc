@@ -102,11 +102,6 @@ void ReceiveSideCongestionController::OnReceivedPacket(
   }
 }
 
-void ReceiveSideCongestionController::SetSendPeriodicFeedback(
-    bool send_periodic_feedback) {
-  remote_estimator_proxy_.SetSendPeriodicFeedback(send_periodic_feedback);
-}
-
 void ReceiveSideCongestionController::OnBitrateChanged(int bitrate_bps) {
   remote_estimator_proxy_.OnBitrateChanged(bitrate_bps);
 }

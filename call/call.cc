@@ -73,13 +73,6 @@
 namespace webrtc {
 
 namespace {
-bool SendPeriodicFeedback(const std::vector<RtpExtension>& extensions) {
-  for (const auto& extension : extensions) {
-    if (extension.uri == RtpExtension::kTransportSequenceNumberV2Uri)
-      return false;
-  }
-  return true;
-}
 
 const int* FindKeyByValue(const std::map<int, int>& m, int v) {
   for (const auto& kv : m) {
@@ -1008,9 +1001,6 @@ webrtc::VideoReceiveStreamInterface* Call::CreateVideoReceiveStream(
     webrtc::VideoReceiveStreamInterface::Config configuration) {
   TRACE_EVENT0("webrtc", "Call::CreateVideoReceiveStream");
   RTC_DCHECK_RUN_ON(worker_thread_);
-
-  receive_side_cc_.SetSendPeriodicFeedback(
-      SendPeriodicFeedback(configuration.rtp.extensions));
 
   EnsureStarted();
 

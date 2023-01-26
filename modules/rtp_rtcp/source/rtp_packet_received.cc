@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "api/rtp_headers.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -62,6 +63,13 @@ void RtpPacketReceived::GetHeader(RTPHeader* header) const {
           &header->extension.feedback_request) ||
       GetExtension<TransportSequenceNumber>(
           &header->extension.transportSequenceNumber);
+  if (HasExtension<TransportSequenceNumber>()) {
+    header->extension.transport_sequence_number_version =
+        TransportSequenceNumberVersion::kV1;
+  } else if (HasExtension<TransportSequenceNumberV2>()) {
+    header->extension.transport_sequence_number_version =
+        TransportSequenceNumberVersion::kV2;
+  }
   header->extension.hasAudioLevel = GetExtension<AudioLevel>(
       &header->extension.voiceActivity, &header->extension.audioLevel);
   header->extension.hasVideoRotation =

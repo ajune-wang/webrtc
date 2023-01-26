@@ -84,11 +84,13 @@ class RemoteEstimatorProxyTest : public ::testing::Test {
   void IncomingPacket(
       uint16_t seq,
       Timestamp arrival_time,
+      absl::optional<TransportSequenceNumberVersion> ts_version = absl::nullopt,
       absl::optional<FeedbackRequest> feedback_request = absl::nullopt) {
     proxy_.IncomingPacket({.arrival_time = arrival_time,
                            .size = DataSize::Bytes(100),
                            .ssrc = kMediaSsrc,
                            .transport_sequence_number = seq,
+                           .transport_sequence_number_version = ts_version,
                            .feedback_request = feedback_request});
   }
 
@@ -452,23 +454,17 @@ TEST_F(RemoteEstimatorProxyTest, TwccReportsUse5PercentOfAvailableBandwidth) {
 // by the sender.
 //////////////////////////////////////////////////////////////////////////////
 typedef RemoteEstimatorProxyTest RemoteEstimatorProxyOnRequestTest;
-TEST_F(RemoteEstimatorProxyOnRequestTest, DisablesPeriodicProcess) {
-  proxy_.SetSendPeriodicFeedback(false);
-  EXPECT_EQ(proxy_.Process(clock_.CurrentTime()), TimeDelta::PlusInfinity());
-}
-
 TEST_F(RemoteEstimatorProxyOnRequestTest, ProcessDoesNotSendFeedback) {
-  proxy_.SetSendPeriodicFeedback(false);
-  IncomingPacket(kBaseSeq, kBaseTime);
+  IncomingPacket(kBaseSeq, kBaseTime, TransportSequenceNumberVersion::kV2);
   EXPECT_CALL(feedback_sender_, Call).Times(0);
   Process();
 }
-
 TEST_F(RemoteEstimatorProxyOnRequestTest, RequestSinglePacketFeedback) {
-  proxy_.SetSendPeriodicFeedback(false);
-  IncomingPacket(kBaseSeq, kBaseTime);
-  IncomingPacket(kBaseSeq + 1, kBaseTime + kMaxSmallDelta);
-  IncomingPacket(kBaseSeq + 2, kBaseTime + 2 * kMaxSmallDelta);
+  IncomingPacket(kBaseSeq, kBaseTime, TransportSequenceNumberVersion::kV2);
+  IncomingPacket(kBaseSeq + 1, kBaseTime + kMaxSmallDelta,
+                 TransportSequenceNumberVersion::kV2);
+  IncomingPacket(kBaseSeq + 2, kBaseTime + 2 * kMaxSmallDelta,
+                 TransportSequenceNumberVersion::kV2);
 
   EXPECT_CALL(feedback_sender_, Call)
       .WillOnce(Invoke(
@@ -488,14 +484,15 @@ TEST_F(RemoteEstimatorProxyOnRequestTest, RequestSinglePacketFeedback) {
   constexpr FeedbackRequest kSinglePacketFeedbackRequest = {
       /*include_timestamps=*/true, /*sequence_count=*/1};
   IncomingPacket(kBaseSeq + 3, kBaseTime + 3 * kMaxSmallDelta,
+                 TransportSequenceNumberVersion::kV2,
                  kSinglePacketFeedbackRequest);
 }
 
 TEST_F(RemoteEstimatorProxyOnRequestTest, RequestLastFivePacketFeedback) {
-  proxy_.SetSendPeriodicFeedback(false);
   int i = 0;
   for (; i < 10; ++i) {
-    IncomingPacket(kBaseSeq + i, kBaseTime + i * kMaxSmallDelta);
+    IncomingPacket(kBaseSeq + i, kBaseTime + i * kMaxSmallDelta,
+                   TransportSequenceNumberVersion::kV2);
   }
 
   EXPECT_CALL(feedback_sender_, Call)
@@ -521,16 +518,17 @@ TEST_F(RemoteEstimatorProxyOnRequestTest, RequestLastFivePacketFeedback) {
   constexpr FeedbackRequest kFivePacketsFeedbackRequest = {
       /*include_timestamps=*/true, /*sequence_count=*/5};
   IncomingPacket(kBaseSeq + i, kBaseTime + i * kMaxSmallDelta,
+                 TransportSequenceNumberVersion::kV2,
                  kFivePacketsFeedbackRequest);
 }
 
 TEST_F(RemoteEstimatorProxyOnRequestTest,
        RequestLastFivePacketFeedbackMissingPackets) {
-  proxy_.SetSendPeriodicFeedback(false);
   int i = 0;
   for (; i < 10; ++i) {
     if (i != 7 && i != 9)
-      IncomingPacket(kBaseSeq + i, kBaseTime + i * kMaxSmallDelta);
+      IncomingPacket(kBaseSeq + i, kBaseTime + i * kMaxSmallDelta,
+                     TransportSequenceNumberVersion::kV2);
   }
 
   EXPECT_CALL(feedback_sender_, Call)
@@ -553,6 +551,7 @@ TEST_F(RemoteEstimatorProxyOnRequestTest,
   constexpr FeedbackRequest kFivePacketsFeedbackRequest = {
       /*include_timestamps=*/true, /*sequence_count=*/5};
   IncomingPacket(kBaseSeq + i, kBaseTime + i * kMaxSmallDelta,
+                 TransportSequenceNumberVersion::kV2,
                  kFivePacketsFeedbackRequest);
 }
 

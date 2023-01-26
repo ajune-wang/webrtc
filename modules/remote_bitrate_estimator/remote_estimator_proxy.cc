@@ -15,6 +15,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/types/optional.h"
 #include "api/units/data_size.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remote_estimate.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
@@ -92,6 +93,8 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
                    .ssrc = header.ssrc};
   if (header.extension.hasTransportSequenceNumber) {
     packet.transport_sequence_number = header.extension.transportSequenceNumber;
+    packet.transport_sequence_number_version =
+        header.extension.transport_sequence_number_version;
   }
   if (header.extension.hasAbsoluteSendTime) {
     packet.absolute_send_time_24bits = header.extension.absoluteSendTime;
@@ -104,6 +107,10 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
 void RemoteEstimatorProxy::IncomingPacket(Packet packet) {
   MutexLock lock(&lock_);
   media_ssrc_ = packet.ssrc;
+  send_periodic_feedback_ = packet.transport_sequence_number_version.value_or(
+                                TransportSequenceNumberVersion::kV1) !=
+                            TransportSequenceNumberVersion::kV2;
+
   int64_t seq = 0;
 
   if (packet.transport_sequence_number.has_value()) {
@@ -187,12 +194,6 @@ void RemoteEstimatorProxy::OnBitrateChanged(int bitrate_bps) {
 
   MutexLock lock(&lock_);
   send_interval_ = send_interval;
-}
-
-void RemoteEstimatorProxy::SetSendPeriodicFeedback(
-    bool send_periodic_feedback) {
-  MutexLock lock(&lock_);
-  send_periodic_feedback_ = send_periodic_feedback;
 }
 
 void RemoteEstimatorProxy::SetTransportOverhead(DataSize overhead_per_packet) {

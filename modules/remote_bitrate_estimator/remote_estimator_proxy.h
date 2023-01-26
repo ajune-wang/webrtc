@@ -50,6 +50,8 @@ class RemoteEstimatorProxy {
     uint32_t ssrc;
     absl::optional<uint32_t> absolute_send_time_24bits;
     absl::optional<uint16_t> transport_sequence_number;
+    absl::optional<TransportSequenceNumberVersion>
+        transport_sequence_number_version;
     absl::optional<FeedbackRequest> feedback_request;
   };
   void IncomingPacket(Packet packet);
@@ -63,7 +65,6 @@ class RemoteEstimatorProxy {
   TimeDelta Process(Timestamp now);
 
   void OnBitrateChanged(int bitrate);
-  void SetSendPeriodicFeedback(bool send_periodic_feedback);
   void SetTransportOverhead(DataSize overhead_per_packet);
 
  private:

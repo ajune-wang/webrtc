@@ -41,6 +41,7 @@ class TestScreenCastStreamProvider {
   ~TestScreenCastStreamProvider();
 
   uint32_t PipeWireNodeId();
+  uint32_t FrameRate();
 
   void RecordFrame(RgbaColor rgba_color);
   void StartStreaming();

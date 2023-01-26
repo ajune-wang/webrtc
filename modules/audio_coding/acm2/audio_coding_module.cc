@@ -438,11 +438,9 @@ int AudioCodingModuleImpl::PreprocessToAddData(const AudioFrame& in_frame,
   } else if (in_frame.timestamp_ != expected_in_ts_) {
     RTC_LOG(LS_WARNING) << "Unexpected input timestamp: " << in_frame.timestamp_
                         << ", expected: " << expected_in_ts_;
-    expected_codec_ts_ +=
-        (in_frame.timestamp_ - expected_in_ts_) *
-        static_cast<uint32_t>(
-            static_cast<double>(encoder_stack_->SampleRateHz()) /
-            static_cast<double>(in_frame.sample_rate_hz_));
+    expected_codec_ts_ += int64_t{in_frame.timestamp_ - expected_in_ts_} *
+                          encoder_stack_->SampleRateHz() /
+                          in_frame.sample_rate_hz_;
     expected_in_ts_ = in_frame.timestamp_;
   }
 

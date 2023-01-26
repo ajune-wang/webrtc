@@ -88,6 +88,24 @@
       "parentUuid": "9772e07c_3a592641",
       "revId": "4512daa782581ee96a402127728aa4699cde1f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec063aef_6810005e",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-26T15:37:00Z",
+      "side": 1,
+      "message": "Even landing with a gate requires spec discussion, but agree that we can split it up into two spec issues which may help land this gated earlier",
+      "parentUuid": "9e235189_be897399",
+      "revId": "4512daa782581ee96a402127728aa4699cde1f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

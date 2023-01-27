@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "399e5951_a5894ad5",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T19:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c74f1ce4_a9a3f1dc",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 3
+      },
+      "revId": "1e81c6d92ffcc2d7aa1f0c75cb4ce8df082b55a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e70f6769_f8bff53a",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-01-27T17:46:22Z",
       "side": 1,
       "message": "Style guide prefers mutable references for out params that can\u0027t be null: https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n(Also referenced by Chromium style guide, the last bullet point under: https://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#check_dcheck_and-notreached)",
+      "range": {
+        "startLine": 646,
+        "startChar": 3,
+        "endLine": 646,
+        "endChar": 17
+      },
+      "revId": "1e81c6d92ffcc2d7aa1f0c75cb4ce8df082b55a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4c39fef_fad50aa0",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T19:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e70f6769_f8bff53a",
       "range": {
         "startLine": 646,
         "startChar": 3,

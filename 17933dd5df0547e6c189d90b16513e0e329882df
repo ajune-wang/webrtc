@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72bf061a_57b4f5e9",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-27T14:13:40Z",
+      "side": 1,
+      "message": "I have the max(diff_frames, 0) below to guard against this case, to make sure that timestamp_ is monotonically increasing.\n\nThe reason why we subtract one is that timestamp_ is the timestamp for the next incoming frame and not the previous one.\n\nI think this correct, say that there was exactly 10ms between the frames, then timestamp should not be updated (diff_frames is 0). timestamp will just be previous timestamp + samples_per_channel in that case (assuming samples_per_channel is 10ms).\n\nLet me know if you think otherwise.",
+      "parentUuid": "bfddebf6_06de191b",
+      "range": {
+        "startLine": 823,
+        "startChar": 38,
+        "endLine": 824,
+        "endChar": 42
+      },
+      "revId": "17933dd5df0547e6c189d90b16513e0e329882df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53054a69_de3a3a92",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-01-27T07:53:27Z",
       "side": 1,
       "message": "kSampleRateHz",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "17933dd5df0547e6c189d90b16513e0e329882df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e2a58c7_c9644a8f",
+        "filename": "audio/channel_send_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-01-27T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53054a69_de3a3a92",
       "range": {
         "startLine": 38,
         "startChar": 14,

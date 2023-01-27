@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "857491aa_c91e96b9",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T18:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1b3b424_6e7db4ea",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 42
+      },
+      "revId": "7dc532b1cdf60058beaeb8e69845d0fec39b93b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4f1dd36_f39b6777",
@@ -71,6 +95,30 @@
       "writtenOn": "2023-01-27T18:01:17Z",
       "side": 1,
       "message": "NIT: static spa_fraction (const if it can be too) ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 16
+      },
+      "revId": "7dc532b1cdf60058beaeb8e69845d0fec39b93b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36d1f6d3_2f978942",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T18:26:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4f1dd36_f39b6777",
       "range": {
         "startLine": 120,
         "startChar": 4,

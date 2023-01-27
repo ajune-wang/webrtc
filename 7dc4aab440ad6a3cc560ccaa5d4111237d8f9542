@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad746fe3_adf22fed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T22:17:45Z",
+      "side": 1,
+      "message": "Makes sense to me.\n\nAs long as we are able to evolve this approach later on to be broadly applicable to other capturers (I don\u0027t know if any other capturer is asynhcronously notified of an incoming frame though), we should be ok eventually?\n\nI don\u0027t want to rush this change either. If it is beneficial, we can sync up and design an API that will be broadly useful.",
+      "parentUuid": "8e3de5e5_b30c7f17",
+      "revId": "7dc4aab440ad6a3cc560ccaa5d4111237d8f9542",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dafd08c_11eab41d",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-27T20:15:37Z",
       "side": 1,
       "message": "Sorry, I think there\u0027s two parts here:\n1) Understanding if the capturer supports sending you frames as soon as they are ready.\n2) The client opting in to receive frames like this. The non-CRD capture stack is not setup to receive evented frames right now either, so we don\u0027t want to send this.\n\nI think you all directly hold a BaseCapturerPipeWire? I\u0027m wondering if it wouldn\u0027t be better to just only expose a \"SetDeliverFramesWhenReady\" on it rather than tweaking the public interface at this time.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 1
+      },
+      "revId": "7dc4aab440ad6a3cc560ccaa5d4111237d8f9542",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "064960b8_2a07f926",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T22:17:45Z",
+      "side": 1,
+      "message": "Thanks for the explanation.\n\nIIUC, you are suggesting to have a way to inquire from the capturer that it supports async frame callbacks (this version of the CL) as well as a capturer option that will allow the capturer to work in either mode (last version of the CL).\n\n\u003e I think you all directly hold a BaseCapturerPipeWire?\n\nYes, and we control what options are passed into it.\n\n\u003e I\u0027m wondering if it wouldn\u0027t be better to just only expose a \"SetDeliverFramesWhenReady\" on it rather than tweaking the public interface at this time.\n\nSure, I think I had a similar option in the last PS 😊",
+      "parentUuid": "4dafd08c_11eab41d",
       "range": {
         "startLine": 129,
         "startChar": 0,

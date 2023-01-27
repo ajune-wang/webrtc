@@ -16,6 +16,46 @@
       "message": "Please?",
       "revId": "435c6034ef1e71f2c52d62050f90de2c2b750330",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee7d8e56_876e6160",
+        "filename": "call/call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1476,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-27T09:55:08Z",
+      "side": 1,
+      "message": "may be instead of creating new enum (in api) and propagating through RTPHeader \nadd here something like\n\nreceive_side_cc_.SetSendPeriodicFeedback(\n      packet.HasExtension\u003cTransportSequenceNumber\u003e());\n      \nthough that would add an extra lock, but that can be avoided with extra [optional] parameter to the ReceiveCC and later with refactor where ReciveSideCC accepts `packet` directly, instead of using intermediate `header` struct)",
+      "revId": "435c6034ef1e71f2c52d62050f90de2c2b750330",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43223e6e_c5359cfa",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-27T09:55:08Z",
+      "side": 1,
+      "message": "value_or is redundant\nstd::nullopt !\u003d value\n\nhttps://en.cppreference.com/w/cpp/utility/optional/operator_cmp",
+      "range": {
+        "startLine": 110,
+        "startChar": 69,
+        "endLine": 110,
+        "endChar": 77
+      },
+      "revId": "435c6034ef1e71f2c52d62050f90de2c2b750330",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

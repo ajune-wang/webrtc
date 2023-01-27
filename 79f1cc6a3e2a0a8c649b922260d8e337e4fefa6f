@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f9d979b_fc0ba5c7",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T15:22:43Z",
+      "side": 1,
+      "message": "This is changed on the fly based on available bandwidth.",
+      "parentUuid": "c363a061_f082a74f",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3355967d_c98d87cc",
@@ -61,6 +85,24 @@
       "writtenOn": "2023-01-27T06:49:30Z",
       "side": 1,
       "message": "I\u0027m wondering whether it wouln\u0027t be easier to kill this branch entirely. It\u0027s just basically used only by the test, where you pass a `nullptr`. You can just pass the default framerate and force everyone to specify framerate when building stream parameters.",
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bbfcbb4_8cf84616",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T15:22:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3355967d_c98d87cc",
       "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -102,6 +144,30 @@
       "side": 1,
       "message": "It was there before https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;l\u003d535. It\u0027s just the way this diff is displayed.",
       "parentUuid": "e153e60c_b626df72",
+      "range": {
+        "startLine": 540,
+        "startChar": 4,
+        "endLine": 540,
+        "endChar": 79
+      },
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddfb547f_4c44fd30",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T15:22:43Z",
+      "side": 1,
+      "message": "Yup, we were signaling before as well.",
+      "parentUuid": "dc2aaff7_5d88ecb9",
       "range": {
         "startLine": 540,
         "startChar": 4,

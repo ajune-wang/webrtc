@@ -189,6 +189,10 @@ class RTC_EXPORT DesktopCaptureOptions {
 #endif  // defined(WEBRTC_WIN)
 
 #if defined(WEBRTC_USE_PIPEWIRE)
+  bool notify_upon_frame_arrival() const { return notify_upon_frame_arrival_; }
+  void set_notify_upon_frame_arrival(bool notify_upon_frame_arrival) {
+    notify_upon_frame_arrival_ = notify_upon_frame_arrival;
+  }
   bool allow_pipewire() const { return allow_pipewire_; }
   void set_allow_pipewire(bool allow) { allow_pipewire_ = allow; }
 
@@ -250,6 +254,7 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool detect_updated_region_ = false;
   bool prefer_cursor_embedded_ = false;
 #if defined(WEBRTC_USE_PIPEWIRE)
+  bool notify_upon_frame_arrival_ = false;
   bool allow_pipewire_ = false;
   bool pipewire_use_damage_region_ = true;
   uint32_t width_ = 0;

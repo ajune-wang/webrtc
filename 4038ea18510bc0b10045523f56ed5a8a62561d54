@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "77a53eeb_46b38250",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T16:02:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b43272df_653f1387",
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9d8c9535_c2ada1b8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3518232_4e13a60e",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T16:02:19Z",
+      "side": 1,
+      "message": "I have gone back to using the queue, though I don\u0027t think it is strictly required in this case?\n\nI was under the impression that we were already reallocating when sharing the frame and passing it back to the callback but likely we don\u0027t reallocate the video buffer within the shared frame.",
+      "parentUuid": "430e14f2_2bf282ca",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 651,
+        "endChar": 63
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5829150b_41c1e6b5",
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "016ff0b0_768b5b36",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T16:02:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5829150b_41c1e6b5",
+      "range": {
+        "startLine": 914,
+        "startChar": 0,
+        "endLine": 935,
+        "endChar": 0
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1fb01c1_7f6f8f14",
@@ -94,6 +160,30 @@
       "writtenOn": "2023-01-27T00:20:09Z",
       "side": 1,
       "message": "CRD is calling this method directly and that\u0027s what triggers this code-path to be used?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 76
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "238d953c_e8c2d03a",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2023-01-27T16:02:19Z",
+      "side": 1,
+      "message": "No, it is called in `BaseCapturerPipeWire::OnScreenCastRequestResult` (which is the callback for a successful portal start)",
+      "parentUuid": "b1fb01c1_7f6f8f14",
       "range": {
         "startLine": 49,
         "startChar": 0,

@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c408110_0647851c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T22:28:25Z",
+      "side": 1,
+      "message": "I think as I propsoed in the other comment should be okay to land; but if you\u0027d like to have a brainstorm feel free to grab some time.",
+      "parentUuid": "ad746fe3_adf22fed",
+      "revId": "7dc4aab440ad6a3cc560ccaa5d4111237d8f9542",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dafd08c_11eab41d",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Thanks for the explanation.\n\nIIUC, you are suggesting to have a way to inquire from the capturer that it supports async frame callbacks (this version of the CL) as well as a capturer option that will allow the capturer to work in either mode (last version of the CL).\n\n\u003e I think you all directly hold a BaseCapturerPipeWire?\n\nYes, and we control what options are passed into it.\n\n\u003e I\u0027m wondering if it wouldn\u0027t be better to just only expose a \"SetDeliverFramesWhenReady\" on it rather than tweaking the public interface at this time.\n\nSure, I think I had a similar option in the last PS 😊",
       "parentUuid": "4dafd08c_11eab41d",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 1
+      },
+      "revId": "7dc4aab440ad6a3cc560ccaa5d4111237d8f9542",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e53880_e0bf29c0",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T22:28:25Z",
+      "side": 1,
+      "message": "I think last PS you had it on DesktopCaptureOptions, but yes very similar! If we can keep it scoped to this concrete class I think that would be ideal. So my proposal would be:\n\n1) Remove the new \"SupportsFrameCallbacks\" attribute\n2) Add a \"SendFramesImmediately\" setter to `BaseCapturerPipeWire` (and needed downstream PipeWire plumbing) only.\n\nI think this gets you the solution you need without an overly broad refactor being required/too much modification of the truly public types.",
+      "parentUuid": "064960b8_2a07f926",
       "range": {
         "startLine": 129,
         "startChar": 0,

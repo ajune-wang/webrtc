@@ -196,6 +196,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cfb1480_85f857e7",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T22:28:25Z",
+      "side": 1,
+      "message": "I think let\u0027s just leave it as-is for now. It\u0027s an existing issue that I think on-demand delivery does not exacerbate (maybe even makes better!)",
+      "parentUuid": "6ac1e324_ece669bf",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 651,
+        "endChar": 63
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5829150b_41c1e6b5",

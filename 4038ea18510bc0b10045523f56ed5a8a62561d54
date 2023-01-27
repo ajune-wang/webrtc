@@ -150,6 +150,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc2f2aa5_79c9e492",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T20:15:37Z",
+      "side": 1,
+      "message": "In this context page is the client who is receiving frames. I\u0027m not sure if we have any guarantees on when they are done with the frame. With the CaptureFrame call I think the expectation is that they are only holding one frame at that time, so once we return the frame to them we can overwrite the old frame. However, I guess this is existing, becuase ProcessBuffer didn\u0027t take any of this into account already anyway..., so I guess there\u0027s no action item here.\n\nAnother alternative to this approach could be to extend callbacks even more to allow a mechanism to provide the capturer with a frame to write in to, or even just not directly pushing frames, but instead pairing your \"OnFrameCaptureStart\" addition with something like \"OnFrameReady\", which could be used to allow capturers who want real-time frames to immediately query for it instead. Sorry for spitballing ideas here, but I know this is a direction that we long term want to take the capturers in (providing frames when they are ready); but I haven\u0027t had the chance to evaluate the different architectures we could take to do that. I guess I\u0027m fine with just incurring some tech debt in the PipeWire capturer for that to not block you all though :/. @mfoltz@chromium.org FYI.",
+      "parentUuid": "198c488f_73f753f6",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 651,
+        "endChar": 63
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5829150b_41c1e6b5",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 9

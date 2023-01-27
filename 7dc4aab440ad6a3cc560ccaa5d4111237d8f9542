@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e3de5e5_b30c7f17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T20:15:37Z",
+      "side": 1,
+      "message": "Sorry for the back and forth on this; honestly this is implementing something for a single capturer that accomplishes the same goal as a design-doc-worthy task that we eventually want to do for all of the capturers. I\u0027m trying to ensure we\u0027re not taking on too much tech debt or getting too boxed into a corner here, but haven\u0027t had time to consider the full architecture we will ultimately want.",
+      "revId": "7dc4aab440ad6a3cc560ccaa5d4111237d8f9542",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dafd08c_11eab41d",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T20:15:37Z",
+      "side": 1,
+      "message": "Sorry, I think there\u0027s two parts here:\n1) Understanding if the capturer supports sending you frames as soon as they are ready.\n2) The client opting in to receive frames like this. The non-CRD capture stack is not setup to receive evented frames right now either, so we don\u0027t want to send this.\n\nI think you all directly hold a BaseCapturerPipeWire? I\u0027m wondering if it wouldn\u0027t be better to just only expose a \"SetDeliverFramesWhenReady\" on it rather than tweaking the public interface at this time.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 1
+      },
+      "revId": "7dc4aab440ad6a3cc560ccaa5d4111237d8f9542",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

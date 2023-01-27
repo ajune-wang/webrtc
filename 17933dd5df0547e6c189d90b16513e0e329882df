@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6617c8f0_0f2e5619",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-27T07:53:27Z",
+      "side": 1,
+      "message": "Nice!\nOne nit and one question.",
+      "revId": "17933dd5df0547e6c189d90b16513e0e329882df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfddebf6_06de191b",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-27T07:53:27Z",
+      "side": 1,
+      "message": "Will this be correct? I\u0027m trying to think of the extreme example where sending was stopped for 0 ms. Won\u0027t diff_ms be 0 above, and then result in negative diff frames below? Or tell me I\u0027m doing it wrong.",
+      "range": {
+        "startLine": 823,
+        "startChar": 38,
+        "endLine": 824,
+        "endChar": 42
+      },
+      "revId": "17933dd5df0547e6c189d90b16513e0e329882df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53054a69_de3a3a92",
+        "filename": "audio/channel_send_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-27T07:53:27Z",
+      "side": 1,
+      "message": "kSampleRateHz",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "17933dd5df0547e6c189d90b16513e0e329882df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -75,7 +75,8 @@ void BaseCapturerPipeWire::OnScreenCastRequestResult(RequestResponse result,
   if (result != RequestResponse::kSuccess ||
       !options_.screencast_stream()->StartScreenCastStream(
           stream_node_id, fd, options_.get_width(), options_.get_height(),
-          options_.prefer_cursor_embedded())) {
+          options_.prefer_cursor_embedded(),
+          SupportsFrameCallbacks() ? callback_ : nullptr)) {
     capturer_failed_ = true;
     RTC_LOG(LS_ERROR) << "ScreenCastPortal failed: "
                       << static_cast<uint>(result);
@@ -123,6 +124,12 @@ void BaseCapturerPipeWire::SetMaxFrameRate(uint32_t max_frame_rate) {
     options_.screencast_stream()->UpdateScreenCastStreamFrameRate(
         max_frame_rate);
   }
+}
+
+bool BaseCapturerPipeWire::SupportsFrameCallbacks() {
+  // TODO(salmanmalik): Toggle this once CRD side changes are merged so that
+  // CRD doesn't start getting each frame twice.
+  return false;
 }
 
 void BaseCapturerPipeWire::Start(Callback* callback) {

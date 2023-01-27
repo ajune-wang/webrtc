@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f06e96d_591b8628",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-01-27T16:48:58Z",
+      "side": 1,
+      "message": "Is there a way for us to know if a call is being attempted that would go to an instance of the PhysicalSocketServer? I\u0027m thinking about just catching that programmer error and also serve as documentation in the code.\nAside from that this looks like a very good simplification of what has historically been a complex (and error prone) mechanism.",
+      "revId": "c6579908e7c1cda2937cd84df3fe1784aa962f39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

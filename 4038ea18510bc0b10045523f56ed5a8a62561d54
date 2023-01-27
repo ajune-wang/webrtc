@@ -102,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56b2e9db_3a5b0cb4",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T17:46:22Z",
+      "side": 1,
+      "message": "The queue is not, it just helps with reasoning about allocations. \n\nAs you mention, the queue_.current_frame()-\u003eShare() method creates an object with cloned metadata and a refptr to the same underlying frame data, so we\u0027re allocating a much smaller object; however, I\u0027m not sure we have the same guarantees that the page is done using the frame as we did previously, so I\u0027m not sure if that\u0027s avoidable",
+      "parentUuid": "d3518232_4e13a60e",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 651,
+        "endChar": 63
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5829150b_41c1e6b5",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 9

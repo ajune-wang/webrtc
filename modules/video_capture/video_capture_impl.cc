@@ -149,11 +149,15 @@ int32_t VideoCaptureImpl::IncomingFrame(uint8_t* videoFrame,
   }
 
   // Not encoded, convert to I420.
-  if (frameInfo.videoType != VideoType::kMJPEG &&
-      CalcBufferSize(frameInfo.videoType, width, abs(height)) !=
-          videoFrameLength) {
-    RTC_LOG(LS_ERROR) << "Wrong incoming frame length.";
-    return -1;
+  if (frameInfo.videoType != VideoType::kMJPEG) {
+    if (auto size = CalcBufferSize(frameInfo.videoType, width, abs(height));
+        size != videoFrameLength) {
+      RTC_LOG(LS_ERROR) << "Wrong incoming frame length. Expected " << size
+                        << ", Got " << videoFrameLength << ".";
+      if (videoFrameLength < size) {
+        return -1;
+      }
+    }
   }
 
   int stride_y = width;

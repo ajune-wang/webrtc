@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12347c5a_6359f8af",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-27T12:59:07Z",
+      "side": 0,
+      "message": "Question: is this a NO-OP refactoring (\"same extensions, just placed in a different file\") or did we go from being able to have different header extensions on different transceivers or having one global state for all transceivers?\n\nThe setOfferedRtpHeaderExtensions API, which is half-implemented and we may want to ship soon, does exist on a per-transceiver basis so I assume there is not a single set for all of them",
+      "revId": "60c42b566e52381d30c3b9d29eed4917af291b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

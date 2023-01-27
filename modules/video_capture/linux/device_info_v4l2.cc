@@ -27,6 +27,21 @@
 #include "modules/video_capture/video_capture_impl.h"
 #include "rtc_base/logging.h"
 
+#ifndef V4L2_PIX_FMT_ABGR32
+#define ABGR32_OVERRIDE 1
+#define V4L2_PIX_FMT_ABGR32 v4l2_fourcc('A', 'R', '2', '4')
+#endif
+
+#ifndef V4L2_PIX_FMT_ARGB32
+#define ARGB32_OVERRIDE 1
+#define V4L2_PIX_FMT_ARGB32 v4l2_fourcc('B', 'A', '2', '4')
+#endif
+
+#ifndef V4L2_PIX_FMT_RGBA32
+#define RGBA32_OVERRIDE 1
+#define V4L2_PIX_FMT_RGBA32 v4l2_fourcc('A', 'B', '2', '4')
+#endif
+
 namespace webrtc {
 namespace videocapturemodule {
 DeviceInfoV4l2::DeviceInfoV4l2() : DeviceInfoImpl() {}
@@ -228,9 +243,13 @@ int32_t DeviceInfoV4l2::FillCapabilities(int fd) {
   video_fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   video_fmt.fmt.pix.sizeimage = 0;
 
-  unsigned int videoFormats[] = {V4L2_PIX_FMT_MJPEG, V4L2_PIX_FMT_YUV420,
-                                 V4L2_PIX_FMT_YUYV, V4L2_PIX_FMT_UYVY,
-                                 V4L2_PIX_FMT_NV12};
+  unsigned int videoFormats[] = {
+      V4L2_PIX_FMT_MJPEG,  V4L2_PIX_FMT_JPEG,   V4L2_PIX_FMT_YUV420,
+      V4L2_PIX_FMT_YVU420, V4L2_PIX_FMT_YUYV,   V4L2_PIX_FMT_UYVY,
+      V4L2_PIX_FMT_NV12,   V4L2_PIX_FMT_BGR24,  V4L2_PIX_FMT_RGB24,
+      V4L2_PIX_FMT_RGB565, V4L2_PIX_FMT_ABGR32, V4L2_PIX_FMT_ARGB32,
+      V4L2_PIX_FMT_RGBA32, V4L2_PIX_FMT_BGR32,  V4L2_PIX_FMT_RGB32,
+  };
   constexpr int totalFmts = sizeof(videoFormats) / sizeof(int);
 
   int sizes = 13;
@@ -255,12 +274,31 @@ int32_t DeviceInfoV4l2::FillCapabilities(int fd) {
             cap.videoType = VideoType::kYUY2;
           } else if (videoFormats[fmts] == V4L2_PIX_FMT_YUV420) {
             cap.videoType = VideoType::kI420;
-          } else if (videoFormats[fmts] == V4L2_PIX_FMT_MJPEG) {
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_YVU420) {
+            cap.videoType = VideoType::kYV12;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_MJPEG ||
+                     videoFormats[fmts] == V4L2_PIX_FMT_JPEG) {
             cap.videoType = VideoType::kMJPEG;
           } else if (videoFormats[fmts] == V4L2_PIX_FMT_UYVY) {
             cap.videoType = VideoType::kUYVY;
           } else if (videoFormats[fmts] == V4L2_PIX_FMT_NV12) {
             cap.videoType = VideoType::kNV12;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_BGR24) {
+            cap.videoType = VideoType::kRGB24;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_RGB24) {
+            cap.videoType = VideoType::kBGR24;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_RGB565) {
+            cap.videoType = VideoType::kRGB565;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_ABGR32) {
+            cap.videoType = VideoType::kARGB;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_ARGB32) {
+            cap.videoType = VideoType::kBGRA;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_BGR32) {
+            cap.videoType = VideoType::kARGB;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_RGB32) {
+            cap.videoType = VideoType::kBGRA;
+          } else if (videoFormats[fmts] == V4L2_PIX_FMT_RGBA32) {
+            cap.videoType = VideoType::kABGR;
           } else {
             RTC_DCHECK_NOTREACHED();
           }
@@ -289,3 +327,18 @@ int32_t DeviceInfoV4l2::FillCapabilities(int fd) {
 
 }  // namespace videocapturemodule
 }  // namespace webrtc
+
+#ifdef ABGR32_OVERRIDE
+#undef ABGR32_OVERRIDE
+#undef V4L2_PIX_FMT_ABGR32
+#endif
+
+#ifdef ARGB32_OVERRIDE
+#undef ARGB32_OVERRIDE
+#undef V4L2_PIX_FMT_ARGB32
+#endif
+
+#ifdef RGBA32_OVERRIDE
+#undef RGBA32_OVERRIDE
+#undef V4L2_PIX_FMT_RGBA32
+#endif

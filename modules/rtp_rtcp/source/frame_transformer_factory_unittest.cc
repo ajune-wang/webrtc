@@ -29,6 +29,7 @@ namespace {
 
 using testing::NiceMock;
 using testing::Return;
+using testing::ReturnRef;
 
 class MockTransformableVideoFrame
     : public webrtc::TransformableVideoFrameInterface {
@@ -60,9 +61,17 @@ TEST(FrameTransformerFactory, CloneVideoFrame) {
   std::fill_n(data, 10, 5);
   rtc::ArrayView<uint8_t> data_view(data);
   EXPECT_CALL(original_frame, GetData()).WillRepeatedly(Return(data_view));
+  webrtc::VideoFrameMetadata metadata;
+  std::vector<uint32_t> csrcs{123, 321};
+  metadata.SetCsrcs(csrcs);
+
+  EXPECT_CALL(original_frame, GetMetadata())
+      .WillRepeatedly(ReturnRef(metadata));
   auto cloned_frame = CloneVideoFrame(&original_frame);
+
   EXPECT_EQ(cloned_frame->GetData().size(), 10u);
   EXPECT_THAT(cloned_frame->GetData(), testing::Each(5u));
+  EXPECT_EQ(cloned_frame->GetMetadata().GetCsrcs(), metadata.GetCsrcs());
 }
 
 }  // namespace

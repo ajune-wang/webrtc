@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e4bbff_39aa1be7",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-27T14:25:20Z",
+      "side": 1,
+      "message": "Thanks for the explanation. This seems correct to me. I didn\u0027t see the max operaton below.",
+      "parentUuid": "72bf061a_57b4f5e9",
+      "range": {
+        "startLine": 823,
+        "startChar": 38,
+        "endLine": 824,
+        "endChar": 42
+      },
+      "revId": "17933dd5df0547e6c189d90b16513e0e329882df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53054a69_de3a3a92",

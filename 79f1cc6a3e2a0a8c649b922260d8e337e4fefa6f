@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b3bbdf_e19ced3b",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:05:38Z",
+      "side": 1,
+      "message": "Does this need to be variable or is this something that would maybe make sense on DesktopCaptureOptions?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e153e60c_b626df72",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:05:38Z",
+      "side": 1,
+      "message": "Was the absence of this earlier a bug? Or how did this get triggered?",
+      "range": {
+        "startLine": 540,
+        "startChar": 4,
+        "endLine": 540,
+        "endChar": 79
+      },
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

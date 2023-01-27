@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b43272df_653f1387",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:20:09Z",
+      "side": 1,
+      "message": "NIT: Lines more than 72 chars in commit description",
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8c9535_c2ada1b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:20:09Z",
+      "side": 1,
+      "message": "I think this seems reasonable but I\u0027d like mark to weigh in/a chance to chat with him as to how this might tie into our long-term vision.",
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "430e14f2_2bf282ca",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:20:09Z",
+      "side": 1,
+      "message": "This is now always creating a new frame, and I think is replicating some of the other logic from the ProcessBuffer code?\n\nAt the very least I think we should re-factor some of the common code paths into a helper method that can take a frame by reference (either from the queue or a new frame).\n\nI\u0027d almost suggested to just always use the queue, but I think one of the things that makes the queue work right now is that because the client is asking for frames, we can be guaranteed that we\u0027re now safe to overwrite the frame that we handed out on the last cycle when needed; but I don\u0027t think we can make this guarantee now. It would be good to understand if we see an increase in memory usage (or at least allocations/de-allocations) now and ways that we might could mitigate that....",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 651,
+        "endChar": 63
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5829150b_41c1e6b5",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:20:09Z",
+      "side": 1,
+      "message": "So this code would turn into something like:\n\nif (callback_) {\n  // Create new frame\n  return CopyCapturedFrameInto(new_frame, updated_src,...)\n}\n\n// grab the queue and check the size then call:\n  return CopyCapturedFrameInto(queue_.current_frame(), ....);",
+      "range": {
+        "startLine": 914,
+        "startChar": 0,
+        "endLine": 935,
+        "endChar": 0
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1fb01c1_7f6f8f14",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-01-27T00:20:09Z",
+      "side": 1,
+      "message": "CRD is calling this method directly and that\u0027s what triggers this code-path to be used?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 76
+      },
+      "revId": "4038ea18510bc0b10045523f56ed5a8a62561d54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

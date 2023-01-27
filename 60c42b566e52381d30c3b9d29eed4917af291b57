@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a85c3cc8_1ece3ce9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-01-27T13:01:24Z",
+      "side": 1,
+      "message": "Like I commented on the other CL, I wonder if we don\u0027t need per-m\u003d section header extensions to be spec-compliant? CC Harald for more input",
+      "revId": "60c42b566e52381d30c3b9d29eed4917af291b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -26,6 +26,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c363a061_f082a74f",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-01-27T06:49:30Z",
+      "side": 1,
+      "message": "In my opinion it would make sense in DesktopCaptureOptions, unless it\u0027s something that you are planning to change while streaming and re-negotiate.",
+      "parentUuid": "93b3bbdf_e19ced3b",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 58
+      },
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3355967d_c98d87cc",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-01-27T06:49:30Z",
+      "side": 1,
+      "message": "I\u0027m wondering whether it wouln\u0027t be easier to kill this branch entirely. It\u0027s just basically used only by the test, where you pass a `nullptr`. You can just pass the default framerate and force everyone to specify framerate when building stream parameters.",
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e153e60c_b626df72",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 9
@@ -37,6 +78,30 @@
       "writtenOn": "2023-01-27T00:05:38Z",
       "side": 1,
       "message": "Was the absence of this earlier a bug? Or how did this get triggered?",
+      "range": {
+        "startLine": 540,
+        "startChar": 4,
+        "endLine": 540,
+        "endChar": 79
+      },
+      "revId": "79f1cc6a3e2a0a8c649b922260d8e337e4fefa6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc2aaff7_5d88ecb9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-01-27T06:49:30Z",
+      "side": 1,
+      "message": "It was there before https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;l\u003d535. It\u0027s just the way this diff is displayed.",
+      "parentUuid": "e153e60c_b626df72",
       "range": {
         "startLine": 540,
         "startChar": 4,

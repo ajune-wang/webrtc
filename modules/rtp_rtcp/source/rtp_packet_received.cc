@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "api/rtp_headers.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/numerics/safe_conversions.h"
 

@@ -62,6 +62,7 @@ class RTC_EXPORT DesktopAndCursorComposer
   bool FocusOnSelectedSource() override;
   bool IsOccluded(const DesktopVector& pos) override;
   void SetMaxFrameRate(uint32_t max_frame_rate) override;
+  bool SupportsFrameCallbacks() override;
 #if defined(WEBRTC_USE_GIO)
   DesktopCaptureMetadata GetMetadata() override;
 #endif  // defined(WEBRTC_USE_GIO)
@@ -80,6 +81,7 @@ class RTC_EXPORT DesktopAndCursorComposer
                            MouseCursorMonitor* mouse_monitor);
 
   // DesktopCapturer::Callback interface.
+  void OnFrameCaptureStart() override;
   void OnCaptureResult(DesktopCapturer::Result result,
                        std::unique_ptr<DesktopFrame> frame) override;
 

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7faf2e057ecec9ae1d1ba167401a1b85b2aaefe2',
+  'chromium_revision': '62b2da1171c7b945834d5d629b97ab6bc61a19d8',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -43,7 +43,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@36f481127532506f53a53520ec04debbb7bb7852',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@380b67a4609cb4acab3dd9b24c1d0c41c11d3704',
+    'https://chromium.googlesource.com/chromium/src/build@884d45e212b564edd9df98693f9aa1badc2b0334',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@3c7e3f1b8b1e4c0b6ec693430379cea682de78d6',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -52,11 +52,11 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@1e9addfd7d4db9391cf100d41f8a0a41b1c77ab4',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@fd29c23b58bf2c0a2921ddea9ce47827e3b0b713',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@28db476f8f94f0da72a44632ad579f00f67c00e2',
+    'https://chromium.googlesource.com/chromium/src/testing@11a5f264da6bc052ae2c821122e401530d8cd098',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@adbb0963bdea3370bb44de9f119e236f68e878f1',
 
@@ -286,7 +286,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'T0UK7p_L0p6Mj1ZDZo1V5htccPl41gV_E67mU9jHXokC',
+              'version': 'l0C1ThOaE6rumuAbPi3UJ4mbRYtfEz2MYsw8oNHsehYC',
           },
       ],
       'condition': 'checkout_android',
@@ -387,7 +387,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'NQPYbXN8Ab7VRK5nH3Bv_AtkolGTMUH1Bmke4myDgtAC',
+          'version': 'Aw6kA-NpPjzWNknKBiY0EyY5bNO-dUuS9QdZHdjLzX8C',
       },
     ],
     'condition': 'checkout_android',

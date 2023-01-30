@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8a95ef5_8c7b193f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-30T13:02:52Z",
+      "side": 1,
+      "message": "This was discussed in webrtc-core on Jan 30, and seems to be a reasonable thing to do (force discussion, not block all changes)",
+      "revId": "547c7fde1dd577fbf2c9b990953687d5d239224b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

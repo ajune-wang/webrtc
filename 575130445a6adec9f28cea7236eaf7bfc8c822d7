@@ -245,6 +245,24 @@
       "message": "Hi again,\ngot ping:ed by hta@\n\nSorry to say so, but I don\u0027t think this cl/ should be submitted.\nI find it unclear what it does, what problem it trying to solve,\nand how it fits into a bigger picture.\n\nI propose that you split it into even small pieces (2 or 3) that _even I_ can digest, each with a subject describing\n- what it does\n- what problem it trying to solve,\n- how it fits into a bigger picture.\n\nwdyt ?",
       "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea765553_bf6bbe38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-01-30T08:59:50Z",
+      "side": 1,
+      "message": "we\u0027ve been there before in https://webrtc-review.googlesource.com/c/src/+/281660/comments/a0a9be56_b6d89419 ;-)\n\nThe problem is using the ICE tie breaker which is exposed to the remote side in STUN packets to compute the foundation which creates a (quite theoretical) attack vector to deobfuscate the IP again.\n\nWhat you need to look at for this CL is really pc/jsep_transport_controller.cc which no longer creates and owns the tie breaker. The rest is just *a lot* of fallout.",
+      "parentUuid": "3b0c4d4e_9b020ec6",
+      "revId": "575130445a6adec9f28cea7236eaf7bfc8c822d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

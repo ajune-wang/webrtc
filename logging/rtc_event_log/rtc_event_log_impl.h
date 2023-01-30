@@ -60,10 +60,22 @@ class RtcEventLogImpl final : public RtcEventLog {
   void StopLogging() override;
   void StopLogging(std::function<void()> callback) override;
 
+  // If a simple task executes in a very short time (non-blocking), TaskQueue
+  // would be a bit more expensive than locking. It is because the TaskQueue
+  // switches the thread context for task execution.
+  //
+  // - If logging not started, `Log` is non-blocking because we won't output any
+  // events and the execution of `LogToMemory` is kindly quick. It is safe to
+  // allow logging on caller's thread with locking.
+  // - If logging started, we would output events which might block. We let
+  // logging to execute on TaskQueue and return intermediately.
   void Log(std::unique_ptr<RtcEvent> event) override;
 
  private:
-  void LogToMemory(std::unique_ptr<RtcEvent> event) RTC_RUN_ON(task_queue_);
+  void LogToMemory(std::unique_ptr<RtcEvent> event);
+  void LogEventsToOutput(std::deque<std::unique_ptr<RtcEvent>>& history,
+                         std::deque<std::unique_ptr<RtcEvent>>& config_history)
+      RTC_RUN_ON(task_queue_);
   void LogEventsFromMemoryToOutput() RTC_RUN_ON(task_queue_);
 
   void StopOutput() RTC_RUN_ON(task_queue_);
@@ -73,9 +85,8 @@ class RtcEventLogImpl final : public RtcEventLog {
       RTC_RUN_ON(task_queue_);
   void WriteToOutput(absl::string_view output_string) RTC_RUN_ON(task_queue_);
 
-  void StopLoggingInternal() RTC_RUN_ON(task_queue_);
-
-  void ScheduleOutput() RTC_RUN_ON(task_queue_);
+  bool ShouldOutput();
+  void ScheduleOutput();
 
   // Max size of event history.
   const size_t max_events_in_history_;
@@ -87,26 +98,39 @@ class RtcEventLogImpl final : public RtcEventLog {
   std::deque<std::unique_ptr<RtcEvent>> config_history_
       RTC_GUARDED_BY(*task_queue_);
 
-  // History containing the most recent (non-configuration) events (~10s).
-  std::deque<std::unique_ptr<RtcEvent>> history_ RTC_GUARDED_BY(*task_queue_);
+  // History containing all past configuration events. Only accessable on
+  // TaskQueue.
+  std::deque<std::unique_ptr<RtcEvent>> all_config_history_
+      RTC_GUARDED_BY(task_queue_);
+
+  // History containing the most recent configuration events. It is accessable
+  // from caller's thread and TaskQueue.
+  std::deque<std::unique_ptr<RtcEvent>> most_recent_config_history_
+      RTC_GUARDED_BY(logging_mutex_);
+
+  // History containing the most recent (non-configuration) events (~10s). It is
+  // accessable from caller's thread and TaskQueue.
+  std::deque<std::unique_ptr<RtcEvent>> most_recent_history_
+      RTC_GUARDED_BY(logging_mutex_);
 
   std::unique_ptr<RtcEventLogEncoder> event_encoder_
       RTC_GUARDED_BY(*task_queue_);
   std::unique_ptr<RtcEventLogOutput> event_output_ RTC_GUARDED_BY(*task_queue_);
 
-  size_t num_config_events_written_ RTC_GUARDED_BY(*task_queue_);
-  absl::optional<int64_t> output_period_ms_ RTC_GUARDED_BY(*task_queue_);
-  int64_t last_output_ms_ RTC_GUARDED_BY(*task_queue_);
-  bool output_scheduled_ RTC_GUARDED_BY(*task_queue_);
+  absl::optional<int64_t> output_period_ms_ RTC_GUARDED_BY(logging_mutex_);
+  int64_t last_output_ms_ RTC_GUARDED_BY(logging_mutex_);
+  bool output_scheduled_ RTC_GUARDED_BY(logging_mutex_) = false;
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker logging_state_checker_;
-  bool logging_state_started_ RTC_GUARDED_BY(logging_state_checker_);
+  bool logging_state_started_ RTC_GUARDED_BY(logging_mutex_) = false;
 
   // Since we are posting tasks bound to `this`,  it is critical that the event
   // log and its members outlive `task_queue_`. Keep the `task_queue_`
   // last to ensure it destructs first, or else tasks living on the queue might
   // access other members after they've been torn down.
   std::unique_ptr<rtc::TaskQueue> task_queue_;
+
+  mutable Mutex logging_mutex_;
 };
 
 }  // namespace webrtc

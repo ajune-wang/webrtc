@@ -48,7 +48,20 @@ std::unique_ptr<NetEq> CreateNetEq(
 
 }  // namespace
 
-AcmReceiver::AcmReceiver(const AudioCodingModule::Config& config)
+AcmReceiver::Config::Config(
+    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory)
+    : neteq_config(),
+      clock(Clock::GetRealTimeClock()),
+      decoder_factory(decoder_factory) {
+  // Post-decode VAD is disabled by default in NetEq, however, Audio
+  // Conference Mixer relies on VAD decisions and fails without them.
+  neteq_config.enable_post_decode_vad = true;
+}
+
+AcmReceiver::Config::Config(const Config&) = default;
+AcmReceiver::Config::~Config() = default;
+
+AcmReceiver::AcmReceiver(const Config& config)
     : last_audio_buffer_(new int16_t[AudioFrame::kMaxDataSizeSamples]),
       neteq_(CreateNetEq(config.neteq_factory,
                          config.neteq_config,

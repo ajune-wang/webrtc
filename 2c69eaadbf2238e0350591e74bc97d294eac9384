@@ -147,6 +147,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6069147_b9717f50",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-01-30T17:17:05Z",
+      "side": 1,
+      "message": "Got it. I see the point with that if the parameters have to be collected over time and aren\u0027t available at construction.",
+      "parentUuid": "7453850f_b018f321",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd555d0b_d57c41e5",
@@ -178,6 +196,24 @@
       "side": 1,
       "message": "But that would be a non-const reference (because of the above). I thought the style guide didn\u0027t like non-const refs. But I may just be out of touch. 😊",
       "parentUuid": "dd555d0b_d57c41e5",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53aadec_56434daf",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-01-30T17:17:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "52a77c8c_2d2deecb",
       "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

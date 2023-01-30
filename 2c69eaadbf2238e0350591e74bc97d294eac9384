@@ -131,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7453850f_b018f321",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-30T17:05:41Z",
+      "side": 1,
+      "message": "This is a config struct, so it is up to the owner of the struct which values to change post construction. The config is first created, then modified to suit the use case, and then used to create the AcmReceiver object.",
+      "parentUuid": "bf1041c3_c151aa68",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd555d0b_d57c41e5",
         "filename": "modules/audio_coding/acm2/acm_receiver.h",
         "patchSetId": 1
@@ -142,6 +160,24 @@
       "writtenOn": "2023-01-30T17:00:07Z",
       "side": 1,
       "message": "The caller and the ACM both have a pointer for Clock and I see that that\u0027s why you use that here. But it\u0027s better to use a reference both here and in the class. And const it if it isn\u0027t changed post construction.",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a77c8c_2d2deecb",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-30T17:05:41Z",
+      "side": 1,
+      "message": "But that would be a non-const reference (because of the above). I thought the style guide didn\u0027t like non-const refs. But I may just be out of touch. 😊",
+      "parentUuid": "dd555d0b_d57c41e5",
       "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

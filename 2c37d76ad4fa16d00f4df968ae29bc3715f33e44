@@ -1,0 +1,22 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "167cce51_caaf9b31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2023-01-30T09:02:34Z",
+      "side": 1,
+      "message": "I have looked at this patch several times now...\n\nPlease split it, document it\n\nor remove me from the reviewer list ?\n\n/Jonas",
+      "tag": "mailMessageId\u003d\u003cCA+rQws7yH9kd1-5d5uWyXEKLJ3hm3oT4g\u003dZobK\u003dwjjG8TEup5g@mail.gmail.com\u003e",
+      "revId": "2c37d76ad4fa16d00f4df968ae29bc3715f33e44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

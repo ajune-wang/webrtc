@@ -292,7 +292,7 @@ PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
       this, std::string(content_name), component, std::string(ice_ufrag),
-      std::string(ice_pwd));
+      std::string(ice_pwd), IceTiebreaker());
   session->SignalIceRegathering.connect(this,
                                         &BasicPortAllocator::OnIceRegathering);
   return session;
@@ -322,11 +322,13 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
     absl::string_view content_name,
     int component,
     absl::string_view ice_ufrag,
-    absl::string_view ice_pwd)
+    absl::string_view ice_pwd,
+    uint64_t ice_tiebreaker)
     : PortAllocatorSession(content_name,
                            component,
                            ice_ufrag,
                            ice_pwd,
+                           ice_tiebreaker,
                            allocator->flags()),
       allocator_(allocator),
       network_thread_(rtc::Thread::Current()),

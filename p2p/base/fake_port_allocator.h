@@ -90,6 +90,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
                              component,
                              ice_ufrag,
                              ice_pwd,
+                             /*kTiebreakerDefault = */ 44444,
                              allocator->flags()),
         network_thread_(network_thread),
         factory_(factory),
@@ -108,7 +109,6 @@ class FakePortAllocatorSession : public PortAllocatorSession {
         field_trials_(field_trials) {
     ipv4_network_.AddIP(rtc::IPAddress(INADDR_LOOPBACK));
     ipv6_network_.AddIP(rtc::IPAddress(in6addr_loopback));
-    set_ice_tiebreaker(/*kTiebreakerDefault = */ 44444);
   }
 
   void SetCandidateFilter(uint32_t filter) override {

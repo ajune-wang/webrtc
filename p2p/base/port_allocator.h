@@ -191,6 +191,7 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
                        int component,
                        absl::string_view ice_ufrag,
                        absl::string_view ice_pwd,
+                       uint64_t ice_tiebreaker,
                        uint32_t flags);
 
   // Subclasses should clean up any ports created.
@@ -204,9 +205,7 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
   const std::string& ice_pwd() const { return ice_pwd_; }
   bool pooled() const { return pooled_; }
 
-  // TODO(bugs.webrtc.org/14605): move this to the constructor
-  void set_ice_tiebreaker(uint64_t tiebreaker) { tiebreaker_ = tiebreaker; }
-  uint64_t ice_tiebreaker() const { return tiebreaker_; }
+  uint64_t ice_tiebreaker() const { return ice_tiebreaker_; }
 
   // Setting this filter should affect not only candidates gathered in the
   // future, but candidates already gathered and ports already "ready",
@@ -321,11 +320,9 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
   int component_;
   std::string ice_ufrag_;
   std::string ice_pwd_;
+  const uint64_t ice_tiebreaker_;
 
   bool pooled_ = false;
-
-  // TODO(bugs.webrtc.org/14605): move this to the constructor
-  uint64_t tiebreaker_;
 
   // SetIceParameters is an implementation detail which only PortAllocator
   // should be able to call.
@@ -379,7 +376,6 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
                         const absl::optional<int>&
                             stun_candidate_keepalive_interval = absl::nullopt);
 
-  void SetIceTiebreaker(uint64_t tiebreaker);
   uint64_t IceTiebreaker() const { return tiebreaker_; }
 
   const ServerAddresses& stun_servers() const {

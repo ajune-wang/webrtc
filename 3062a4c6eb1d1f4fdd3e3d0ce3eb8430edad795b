@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3e2381b_15f906f0",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-01-30T11:06:04Z",
+      "side": 1,
+      "message": "I like this change. When I worked on this, I didn\u0027t realize the obvious fact that although the header extension bits are the same, the IDs will be different.\n\nThe only minor drawback is that the code gives the impression that one could alternate between the two modes during the same session. But this doesn\u0027t work since `send_periodic_feedback_ \u003d\u003d false` breaks the Process() scheduling:\n\n```\nTimeDelta RemoteEstimatorProxy::Process(Timestamp now) {\n  MutexLock lock(\u0026lock_);\n  if (!send_periodic_feedback_) {\n    return TimeDelta::PlusInfinity();\n  }\n  ...\n```\nWhat do you think of adding a comment about this?",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 75
+      },
+      "revId": "3062a4c6eb1d1f4fdd3e3d0ce3eb8430edad795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2116c90a_4a0d78d6",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-01-30T11:06:04Z",
+      "side": 1,
+      "message": "nit: Is it worth moving the lock and assignment to just before the call to IncomingPacket to reduce the scope of the lock?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 75
+      },
+      "revId": "3062a4c6eb1d1f4fdd3e3d0ce3eb8430edad795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d83b0c9_e42c1db2",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-01-30T11:06:04Z",
+      "side": 1,
+      "message": "I don\u0027t know if this has any practical meaning, but it seems to me that there is a slight change in how a video packet without a transport wide sequence number is handled. Previously, this would still be processed here:\n```\n  if (network_state_estimator_ \u0026\u0026 packet.absolute_send_time_24bits) {\n    PacketResult packet_result;\n    packet_result.receive_time \u003d packet.arrival_time;\n    abs_send_timestamp_ +\u003d GetAbsoluteSendTimeDelta(\n        *packet.absolute_send_time_24bits, previous_abs_send_time_);\n    previous_abs_send_time_ \u003d *packet.absolute_send_time_24bits;\n    packet_result.sent_packet.send_time \u003d abs_send_timestamp_;\n    packet_result.sent_packet.size \u003d packet.size + packet_overhead_;\n    packet_result.sent_packet.sequence_number \u003d seq;\n    network_state_estimator_-\u003eOnReceivedPacket(packet_result);\n  }\n```\n\nPerhaps this is not an issue because it\u0027s not a valid use case?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 3
+      },
+      "revId": "3062a4c6eb1d1f4fdd3e3d0ce3eb8430edad795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

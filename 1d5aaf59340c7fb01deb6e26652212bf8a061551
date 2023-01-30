@@ -16,6 +16,29 @@
       "message": "This is a dramatic semantic change, so I\u0027m waiting for the conclusion on the issue before saying anything more.",
       "revId": "1d5aaf59340c7fb01deb6e26652212bf8a061551",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63bbe0b6_f606402a",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-01-30T15:55:57Z",
+      "side": 1,
+      "message": "If the API is now setting the direction of the whole set of passed header extensions, under the new implementation I\u0027d expect an empty array to imply \"stop all\" and so fail since it\u0027s trying to stop mandatory ones. Seems like this special case in the beginning goes against that.",
+      "range": {
+        "startLine": 689,
+        "startChar": 6,
+        "endLine": 689,
+        "endChar": 32
+      },
+      "revId": "1d5aaf59340c7fb01deb6e26652212bf8a061551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

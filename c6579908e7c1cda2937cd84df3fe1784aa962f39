@@ -16,6 +16,24 @@
       "message": "Is there a way for us to know if a call is being attempted that would go to an instance of the PhysicalSocketServer? I\u0027m thinking about just catching that programmer error and also serve as documentation in the code.\nAside from that this looks like a very good simplification of what has historically been a complex (and error prone) mechanism.",
       "revId": "c6579908e7c1cda2937cd84df3fe1784aa962f39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ef82cbe_7557b059",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-01-30T11:06:23Z",
+      "side": 1,
+      "message": "There is already checks that blocking calls should be explicitly allowed on the current thread. I\u0027m not sure there is another easy way.\n\nIf blocking call would happen on a thread entangled with Physical Socket Server,  i/o won\u0027t be processed while BlockingCall is running. If blocking call is not too slow, it shouldn\u0027t be an issue.",
+      "parentUuid": "1f06e96d_591b8628",
+      "revId": "c6579908e7c1cda2937cd84df3fe1784aa962f39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

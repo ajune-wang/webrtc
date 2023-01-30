@@ -91,7 +91,6 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
   rtclog_config->rtx_ssrc = config.rtp.rtx_ssrc;
   rtclog_config->rtcp_mode = config.rtp.rtcp_mode;
-  rtclog_config->rtp_extensions = config.rtp.extensions;
 
   for (const auto& d : config.decoders) {
     const int* search =
@@ -124,7 +123,6 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   auto rtclog_config = std::make_unique<rtclog::StreamConfig>();
   rtclog_config->remote_ssrc = config.rtp.remote_ssrc;
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
-  rtclog_config->rtp_extensions = config.rtp.extensions;
   return rtclog_config;
 }
 
@@ -257,6 +255,9 @@ class Call final : public webrtc::Call,
 
   void OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
                          absl::string_view sync_group) override;
+
+  void OnVideoReceiveHeaderExtensionsChanged(
+      const RtpHeaderExtensionMap& extensions) override;
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
@@ -1263,6 +1264,13 @@ void Call::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
       static_cast<webrtc::AudioReceiveStreamImpl&>(stream);
   receive_stream.SetSyncGroup(sync_group);
   ConfigureSync(sync_group);
+}
+
+void Call::OnVideoReceiveHeaderExtensionsChanged(
+    const RtpHeaderExtensionMap& extensions) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  receive_side_cc_.SetSendPeriodicFeedback(
+      !extensions.IsRegistered(kRtpExtensionTransportSequenceNumber02));
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {

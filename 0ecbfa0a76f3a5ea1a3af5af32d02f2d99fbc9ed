@@ -33,6 +33,23 @@
       "message": "Thanks, Tomas. Please, see answers.",
       "revId": "0ecbfa0a76f3a5ea1a3af5af32d02f2d99fbc9ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "277ab86c_0f0d9ccb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-31T07:23:34Z",
+      "side": 1,
+      "message": "Thanks for the comments. See answers inline.",
+      "revId": "0ecbfa0a76f3a5ea1a3af5af32d02f2d99fbc9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

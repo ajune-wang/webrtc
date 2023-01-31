@@ -220,6 +220,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b2d8952_8856d3fb",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-31T07:23:34Z",
+      "side": 1,
+      "message": "Also, see below about non-const use of the Clock object within AcmReceiver.",
+      "parentUuid": "52a77c8c_2d2deecb",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "352a4f88_24719c60",
         "filename": "modules/audio_coding/acm2/acm_receiver.h",
         "patchSetId": 1
@@ -231,6 +249,24 @@
       "writtenOn": "2023-01-30T17:00:07Z",
       "side": 1,
       "message": "const Clock\u0026 clock_?",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f94b4fa_12d139bf",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-01-31T07:23:34Z",
+      "side": 1,
+      "message": "This won\u0027t work. The code invokes non-const member functions on `clock_`, so it cannot be a const ref. (Note that the current code is a const pointer to a (non-const) Clock, not a pointer to a const Clock.)",
+      "parentUuid": "352a4f88_24719c60",
       "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

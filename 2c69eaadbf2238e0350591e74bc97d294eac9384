@@ -236,6 +236,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac38913_aa8c991c",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-01-31T07:44:10Z",
+      "side": 1,
+      "message": "Ok, but see below. Would like to undertand this vs Clock\u0026 then, because a reference should still be safer and clearer. Let\u0027s take that offline.",
+      "parentUuid": "0b2d8952_8856d3fb",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "352a4f88_24719c60",
@@ -267,6 +285,24 @@
       "side": 1,
       "message": "This won\u0027t work. The code invokes non-const member functions on `clock_`, so it cannot be a const ref. (Note that the current code is a const pointer to a (non-const) Clock, not a pointer to a const Clock.)",
       "parentUuid": "352a4f88_24719c60",
+      "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e64b640_928de692",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-01-31T07:44:10Z",
+      "side": 1,
+      "message": "Fair enough about the non-const member funcitons. But I hope to learn the resoning for why this is better than Clock\u0026 clock_;",
+      "parentUuid": "4f94b4fa_12d139bf",
       "revId": "2c69eaadbf2238e0350591e74bc97d294eac9384",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

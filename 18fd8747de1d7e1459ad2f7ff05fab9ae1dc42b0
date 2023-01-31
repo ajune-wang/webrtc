@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18d66c4d_3d07a52d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-31T22:44:23Z",
+      "side": 1,
+      "message": "Please file a bug. It\u0027s good for tracking.\nThe text from the description is fine as content of the bug.",
+      "revId": "18fd8747de1d7e1459ad2f7ff05fab9ae1dc42b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1210f03_bf641a49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-31T22:44:23Z",
+      "side": 1,
+      "message": "Thanks for this!\n\nI think we should take this one step further, and reject as unsupported all protocols we don\u0027t recognize instead of treating them as a parse failure. That will make for more robust interoperability with \"strange\" SDP generating entities.",
+      "revId": "18fd8747de1d7e1459ad2f7ff05fab9ae1dc42b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "895aff33_2b816400",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2777,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-31T22:44:23Z",
+      "side": 1,
+      "message": "You can actually simplify this by saying \"media_type \u003d\u003d kMediaTypeData (which is \"application\") \u0026\u0026 cricket::IsDtlsSctp(protocol). That way, all unknown application protocols will fall through to the \"unsupported\" path. I can\u0027t see a disadvantage in that.",
+      "revId": "18fd8747de1d7e1459ad2f7ff05fab9ae1dc42b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae4f7778_155cdf80",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2955,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-01-31T22:44:23Z",
+      "side": 1,
+      "message": "If you make the mod I suggst above, you should get a successful parse with \"UnsupportedContentDescription\" for these test cases, and can merge this case with the new test below.",
+      "revId": "18fd8747de1d7e1459ad2f7ff05fab9ae1dc42b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

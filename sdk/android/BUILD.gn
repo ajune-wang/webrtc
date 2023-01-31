@@ -1186,6 +1186,7 @@ if (current_os == "linux" || is_android) {
       "../../system_wrappers:metrics",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
   }
 
   if (rtc_enable_android_aaudio) {

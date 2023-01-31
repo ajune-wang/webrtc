@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4de0267b_22e14bdb",
+        "filename": "sdk/android/src/java/org/webrtc/JniCommon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5086
+      },
+      "writtenOn": "2023-01-31T16:50:22Z",
+      "side": 1,
+      "message": "This is another spot you\u0027ll need to touch up - You\u0027ll need to write public wrapper functions here (and if there are any other classes that used \"public static native\" before).\n\nE.g.:\n```\npublic static void nativeAddRef(long refCountedPointer) {\n  JniCommonJni.get().addRef(refCountedPointer);\n}",
+      "revId": "04b77ad93d91c5de239a7af356f3d60f6bfae5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

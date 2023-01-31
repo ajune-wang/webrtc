@@ -9,10 +9,10 @@
  */
 
 package org.webrtc;
-
 import androidx.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import org.chromium.base.annotations.NativeMethods;
 
 public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
   private static final String TAG = "SoftwareVideoDecoderFactory";
@@ -20,13 +20,13 @@ public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
   private final long nativeFactory;
 
   public SoftwareVideoDecoderFactory() {
-    this.nativeFactory = nativeCreateFactory();
+    this.nativeFactory = SoftwareVideoDecoderFactoryJni.get().createFactory();
   }
 
   @Nullable
   @Override
   public VideoDecoder createDecoder(VideoCodecInfo info) {
-    long nativeDecoder = nativeCreateDecoder(nativeFactory, info);
+    long nativeDecoder = SoftwareVideoDecoderFactoryJni.get().createDecoder(nativeFactory, info);
     if (nativeDecoder == 0) {
       Logging.w(TAG, "Trying to create decoder for unsupported format. " + info);
       return null;
@@ -42,12 +42,15 @@ public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
 
   @Override
   public VideoCodecInfo[] getSupportedCodecs() {
-    return nativeGetSupportedCodecs(nativeFactory).toArray(new VideoCodecInfo[0]);
+    return SoftwareVideoDecoderFactoryJni.get()
+        .getSupportedCodecs(nativeFactory)
+        .toArray(new VideoCodecInfo[0]);
   }
 
-  private static native long nativeCreateFactory();
-
-  private static native long nativeCreateDecoder(long factory, VideoCodecInfo videoCodecInfo);
-
-  private static native List<VideoCodecInfo> nativeGetSupportedCodecs(long factory);
+  @NativeMethods
+  interface Natives {
+    long createFactory();
+    long createDecoder(long factory, VideoCodecInfo videoCodecInfo);
+    List<VideoCodecInfo> getSupportedCodecs(long factory);
+  }
 }

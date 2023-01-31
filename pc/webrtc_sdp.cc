@@ -2772,7 +2772,8 @@ bool ParseMediaDescription(
           message, cricket::MEDIA_TYPE_AUDIO, mline_index, protocol,
           payload_types, pos, &content_name, &bundle_only,
           &section_msid_signaling, &transport, candidates, error);
-    } else if (media_type == kMediaTypeData) {
+    } else if (media_type == kMediaTypeData &&
+               !cricket::IsRtpProtocol(protocol)) {
       if (cricket::IsDtlsSctp(protocol)) {
         // The draft-03 format is:
         // m=application <port> DTLS/SCTP <sctp-port>...

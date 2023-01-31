@@ -430,9 +430,12 @@ if (is_android) {
     deps = [
       ":audio_api_java",
       ":base_java",
+      "//base:jni_java",
       "//rtc_base:base_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
+
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
   }
 
   rtc_android_library("builtin_audio_codecs_java") {

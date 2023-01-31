@@ -63,6 +63,10 @@ RtpFrameObject::RtpFrameObject(
   _encodedWidth = rtp_video_header_.width;
   _encodedHeight = rtp_video_header_.height;
 
+  if (packet_infos.begin() != packet_infos.end()) {
+    csrcs_ = packet_infos.begin().csrcs();
+  }
+
   // EncodedFrame members
   SetPacketInfos(std::move(packet_infos));
 
@@ -87,6 +91,7 @@ RtpFrameObject::RtpFrameObject(
   timing_.receive_finish_ms = last_packet_received_time;
   timing_.flags = timing.flags;
   is_last_spatial_layer = markerBit;
+
 }
 
 RtpFrameObject::~RtpFrameObject() {

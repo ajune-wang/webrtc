@@ -49,6 +49,8 @@ class RtpFrameObject : public EncodedFrame {
 
   uint8_t* mutable_data() { return image_buffer_->data(); }
 
+  const std::vector<uint32_t>& Csrcs() const { return csrcs_; }
+
  private:
   // Reference for mutable access.
   rtc::scoped_refptr<EncodedImageBuffer> image_buffer_;
@@ -57,6 +59,7 @@ class RtpFrameObject : public EncodedFrame {
   uint16_t first_seq_num_;
   uint16_t last_seq_num_;
   int64_t last_packet_received_time_;
+  std::vector<uint32_t> csrcs_;
 
   // Equal to times nacked of the packet with the highet times nacked
   // belonging to this frame.

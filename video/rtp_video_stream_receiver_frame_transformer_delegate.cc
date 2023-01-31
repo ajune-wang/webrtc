@@ -28,7 +28,9 @@ class TransformableVideoReceiverFrame
                                   uint32_t ssrc)
       : frame_(std::move(frame)),
         metadata_(frame_->GetRtpVideoHeader().GetAsMetadata()),
-        ssrc_(ssrc) {}
+        ssrc_(ssrc) {
+    metadata_.SetCsrcs(frame_->Csrcs());
+  }
   ~TransformableVideoReceiverFrame() override = default;
 
   // Implements TransformableVideoFrameInterface.

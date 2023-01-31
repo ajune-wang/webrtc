@@ -2944,9 +2944,8 @@ TEST_F(WebRtcSdpTest, DeserializeSdpWithRtpmapAttribute) {
 }
 
 TEST_F(WebRtcSdpTest, DeserializeSdpWithStrangeApplicationProtocolNames) {
-  static const char* bad_strings[] = {
-      "DTLS/SCTPRTP/", "obviously-bogus",   "UDP/TL/RTSP/SAVPF",
-      "UDP/TL/RTSP/S", "DTLS/SCTP/RTP/FOO", "obviously-bogus/RTP/"};
+  static const char* bad_strings[] = {"DTLS/SCTPRTP/", "obviously-bogus",
+                                      "UDP/TL/RTSP/SAVPF", "UDP/TL/RTSP/S"};
   for (auto proto : bad_strings) {
     std::string sdp_with_data = kSdpString;
     sdp_with_data.append("m=application 9 ");
@@ -4864,6 +4863,37 @@ TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithoutCname) {
   ASSERT_TRUE(jdesc_.Initialize(desc_.Clone(), jdesc_.session_id(),
                                 jdesc_.session_version()));
   EXPECT_TRUE(CompareSessionDescription(jdesc_, new_jdesc));
+}
+
+TEST_F(WebRtcSdpTest, DeserializeSdpWithRtpDataMediaTypeAsUnsupported) {
+  const char* possible_unsupported_protocols[] = {"bogus/RTP/", "RTP/SAVPF",
+                                                  "DTLS/SCTP/RTP/"};
+
+  for (auto proto : possible_unsupported_protocols) {
+    JsepSessionDescription jdesc_output(kDummyType);
+    std::string sdp = kSdpSessionString;
+    sdp.append("m=application 9 ");
+    sdp.append(proto);
+    sdp.append(" 101\r\n");
+
+    EXPECT_TRUE(SdpDeserialize(sdp, &jdesc_output));
+
+    // Make sure we actually parsed a single media section
+    ASSERT_EQ(1u, jdesc_output.description()->contents().size());
+
+    // Content is not getting parsed as sctp but instead unsupported.
+    ASSERT_EQ(nullptr, jdesc_output.description()
+                           ->contents()[0]
+                           .media_description()
+                           ->as_sctp());
+    ASSERT_NE(nullptr, jdesc_output.description()
+                           ->contents()[0]
+                           .media_description()
+                           ->as_unsupported());
+
+    // Reject the content
+    EXPECT_TRUE(jdesc_output.description()->contents()[0].rejected);
+  }
 }
 
 TEST_F(WebRtcSdpTest, DeserializeSdpWithUnsupportedMediaType) {

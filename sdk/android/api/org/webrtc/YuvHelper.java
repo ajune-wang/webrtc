@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 import java.nio.ByteBuffer;
 
@@ -130,20 +131,20 @@ public class YuvHelper {
     dst.position(startV);
     final ByteBuffer dstV = dst.slice();
 
-    nativeI420Rotate(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, dstWidth, dstU,
-        dstChromaWidth, dstV, dstChromaWidth, srcWidth, srcHeight, rotationMode);
+    YuvHelperJni.get().i420Rotate(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY,
+        dstWidth, dstU, dstChromaWidth, dstV, dstChromaWidth, srcWidth, srcHeight, rotationMode);
   }
 
   /** Helper method for copying a single colour plane. */
   public static void copyPlane(
       ByteBuffer src, int srcStride, ByteBuffer dst, int dstStride, int width, int height) {
-    nativeCopyPlane(src, srcStride, dst, dstStride, width, height);
+    YuvHelperJni.get().copyPlane(src, srcStride, dst, dstStride, width, height);
   }
 
   /** Converts ABGR little endian (rgba in memory) to I420. */
   public static void ABGRToI420(ByteBuffer src, int srcStride, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width, int height) {
-    nativeABGRToI420(
+    YuvHelperJni.get().aBGRToI420(
         src, srcStride, dstY, dstStrideY, dstU, dstStrideU, dstV, dstStrideV, width, height);
   }
 
@@ -159,8 +160,8 @@ public class YuvHelper {
         || width <= 0 || height <= 0) {
       throw new IllegalArgumentException("Invalid I420Copy input arguments");
     }
-    nativeI420Copy(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, dstStrideY, dstU,
-        dstStrideU, dstV, dstStrideV, width, height);
+    YuvHelperJni.get().i420Copy(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY,
+        dstStrideY, dstU, dstStrideU, dstV, dstStrideV, width, height);
   }
 
   public static void I420ToNV12(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
@@ -170,31 +171,33 @@ public class YuvHelper {
         || height <= 0) {
       throw new IllegalArgumentException("Invalid I420ToNV12 input arguments");
     }
-    nativeI420ToNV12(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, dstStrideY, dstUV,
-        dstStrideUV, width, height);
+    YuvHelperJni.get().i420ToNV12(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY,
+        dstStrideY, dstUV, dstStrideUV, width, height);
   }
 
   public static void I420Rotate(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
       ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY, ByteBuffer dstU,
       int dstStrideU, ByteBuffer dstV, int dstStrideV, int srcWidth, int srcHeight,
       int rotationMode) {
-    nativeI420Rotate(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, dstStrideY, dstU,
-        dstStrideU, dstV, dstStrideV, srcWidth, srcHeight, rotationMode);
+    YuvHelperJni.get().i420Rotate(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY,
+        dstStrideY, dstU, dstStrideU, dstV, dstStrideV, srcWidth, srcHeight, rotationMode);
   }
 
-  private static native void nativeCopyPlane(
-      ByteBuffer src, int srcStride, ByteBuffer dst, int dstStride, int width, int height);
-  private static native void nativeI420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
-      int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
-      ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width, int height);
-  private static native void nativeI420ToNV12(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
-      int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
-      ByteBuffer dstUV, int dstStrideUV, int width, int height);
-  private static native void nativeI420Rotate(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
-      int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
-      ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int srcWidth, int srcHeight,
-      int rotationMode);
-  private static native void nativeABGRToI420(ByteBuffer src, int srcStride, ByteBuffer dstY,
-      int dstStrideY, ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width,
-      int height);
+  @NativeMethods
+  interface Natives {
+    void copyPlane(
+        ByteBuffer src, int srcStride, ByteBuffer dst, int dstStride, int width, int height);
+    void i420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU, ByteBuffer srcV,
+        int srcStrideV, ByteBuffer dstY, int dstStrideY, ByteBuffer dstU, int dstStrideU,
+        ByteBuffer dstV, int dstStrideV, int width, int height);
+    void i420ToNV12(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
+        ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY, ByteBuffer dstUV,
+        int dstStrideUV, int width, int height);
+    void i420Rotate(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
+        ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY, ByteBuffer dstU,
+        int dstStrideU, ByteBuffer dstV, int dstStrideV, int srcWidth, int srcHeight,
+        int rotationMode);
+    void aBGRToI420(ByteBuffer src, int srcStride, ByteBuffer dstY, int dstStrideY, ByteBuffer dstU,
+        int dstStrideU, ByteBuffer dstV, int dstStrideV, int width, int height);
+  }
 }

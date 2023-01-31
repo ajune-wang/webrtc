@@ -9,6 +9,7 @@
  */
 
 package org.webrtc.audio;
+import org.chromium.base.annotations.NativeMethods;
 
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -389,8 +390,9 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
   public long getNativeAudioDeviceModulePointer() {
     synchronized (nativeLock) {
       if (nativeAudioDeviceModule == 0) {
-        nativeAudioDeviceModule = nativeCreateAudioDeviceModule(context, audioManager, audioInput,
-            audioOutput, inputSampleRate, outputSampleRate, useStereoInput, useStereoOutput);
+        nativeAudioDeviceModule = JavaAudioDeviceModuleJni.get().createAudioDeviceModule(context,
+            audioManager, audioInput, audioOutput, inputSampleRate, outputSampleRate,
+            useStereoInput, useStereoOutput);
       }
       return nativeAudioDeviceModule;
     }
@@ -430,7 +432,10 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     audioInput.setPreferredDevice(preferredInputDevice);
   }
 
-  private static native long nativeCreateAudioDeviceModule(Context context,
-      AudioManager audioManager, WebRtcAudioRecord audioInput, WebRtcAudioTrack audioOutput,
-      int inputSampleRate, int outputSampleRate, boolean useStereoInput, boolean useStereoOutput);
+  @NativeMethods
+  interface Natives {
+    long createAudioDeviceModule(Context context, AudioManager audioManager,
+        WebRtcAudioRecord audioInput, WebRtcAudioTrack audioOutput, int inputSampleRate,
+        int outputSampleRate, boolean useStereoInput, boolean useStereoOutput);
+  }
 }

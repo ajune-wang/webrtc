@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -122,7 +123,7 @@ public class LoggableTest {
                                          .setNativeLibraryName(TestConstants.NATIVE_LIBRARY)
                                          .createInitializationOptions());
     String msg = "Message that should be logged";
-    nativeLogInfoTestMessage(msg);
+    LoggableTestJni.get().logInfoTestMessage(msg);
     assertTrue(mockLoggable.isMessageReceived(msg, Severity.LS_INFO, NATIVE_FILENAME_TAG));
   }
 
@@ -135,7 +136,7 @@ public class LoggableTest {
                                          .setNativeLibraryName(TestConstants.NATIVE_LIBRARY)
                                          .createInitializationOptions());
     String msg = "Message that should NOT be logged";
-    nativeLogInfoTestMessage(msg);
+    LoggableTestJni.get().logInfoTestMessage(msg);
     assertFalse(mockLoggable.isMessageReceived(msg));
   }
 
@@ -153,9 +154,12 @@ public class LoggableTest {
                                          .setNativeLibraryName(TestConstants.NATIVE_LIBRARY)
                                          .createInitializationOptions());
     String msg = "Message that should NOT be logged";
-    nativeLogInfoTestMessage(msg);
+    LoggableTestJni.get().logInfoTestMessage(msg);
     assertFalse(mockLoggable.isMessageReceived(msg));
   }
 
-  private static native void nativeLogInfoTestMessage(String message);
+  @NativeMethods
+  interface Natives {
+    void logInfoTestMessage(String message);
+  }
 }

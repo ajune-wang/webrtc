@@ -9,15 +9,19 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 import java.nio.ByteBuffer;
 
 /** Class with static JNI helper functions that are used in many places. */
 public class JniCommon {
   /** Functions to increment/decrement an rtc::RefCountInterface pointer. */
-  public static native void nativeAddRef(long refCountedPointer);
-  public static native void nativeReleaseRef(long refCountedPointer);
 
-  public static native ByteBuffer nativeAllocateByteBuffer(int size);
-  public static native void nativeFreeByteBuffer(ByteBuffer buffer);
+  @NativeMethods
+  interface Natives {
+    void addRef(long refCountedPointer);
+    void releaseRef(long refCountedPointer);
+    ByteBuffer allocateByteBuffer(int size);
+    void freeByteBuffer(ByteBuffer buffer);
+  }
 }

@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 import org.webrtc.PeerConnection;
 
@@ -45,7 +46,8 @@ public class RtcCertificatePem {
    * expires = 30 days.
    */
   public static RtcCertificatePem generateCertificate() {
-    return nativeGenerateCertificate(PeerConnection.KeyType.ECDSA, DEFAULT_EXPIRY);
+    return RtcCertificatePemJni.get().generateCertificate(
+        PeerConnection.KeyType.ECDSA, DEFAULT_EXPIRY);
   }
 
   /**
@@ -53,7 +55,7 @@ public class RtcCertificatePem {
    * expires = 30 days.
    */
   public static RtcCertificatePem generateCertificate(PeerConnection.KeyType keyType) {
-    return nativeGenerateCertificate(keyType, DEFAULT_EXPIRY);
+    return RtcCertificatePemJni.get().generateCertificate(keyType, DEFAULT_EXPIRY);
   }
 
   /**
@@ -61,15 +63,17 @@ public class RtcCertificatePem {
    * KeyType = ECDSA.
    */
   public static RtcCertificatePem generateCertificate(long expires) {
-    return nativeGenerateCertificate(PeerConnection.KeyType.ECDSA, expires);
+    return RtcCertificatePemJni.get().generateCertificate(PeerConnection.KeyType.ECDSA, expires);
   }
 
   /** Generate a new RtcCertificatePem with a custom KeyType and a custom expires. */
   public static RtcCertificatePem generateCertificate(
       PeerConnection.KeyType keyType, long expires) {
-    return nativeGenerateCertificate(keyType, expires);
+    return RtcCertificatePemJni.get().generateCertificate(keyType, expires);
   }
 
-  private static native RtcCertificatePem nativeGenerateCertificate(
-      PeerConnection.KeyType keyType, long expires);
+  @NativeMethods
+  interface Natives {
+    RtcCertificatePem generateCertificate(PeerConnection.KeyType keyType, long expires);
+  }
 }

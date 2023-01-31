@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -73,7 +74,7 @@ class EglBase10Impl implements EglBase10 {
           }
         }
 
-        return nativeGetCurrentNativeEGLContext();
+        return EglBase10ImplJni.get().getCurrentNativeEGLContext();
       } finally {
         if (tempEglSurface != null) {
           egl.eglMakeCurrent(
@@ -361,5 +362,8 @@ class EglBase10Impl implements EglBase10 {
     return eglContext;
   }
 
-  private static native long nativeGetCurrentNativeEGLContext();
+  @NativeMethods
+  interface Natives {
+    long getCurrentNativeEGLContext();
+  }
 }

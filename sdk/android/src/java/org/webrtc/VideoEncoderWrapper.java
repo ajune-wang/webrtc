@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 // Explicit imports necessary for JNI generation.
 import androidx.annotation.Nullable;
@@ -37,10 +38,12 @@ class VideoEncoderWrapper {
 
   @CalledByNative
   static VideoEncoder.Callback createEncoderCallback(final long nativeEncoder) {
-    return (EncodedImage frame,
-               VideoEncoder.CodecSpecificInfo info) -> nativeOnEncodedFrame(nativeEncoder, frame);
+    return (EncodedImage frame, VideoEncoder.CodecSpecificInfo info)
+               -> VideoEncoderWrapperJni.get().onEncodedFrame(nativeEncoder, frame);
   }
 
-  private static native void nativeOnEncodedFrame(
-      long nativeVideoEncoderWrapper, EncodedImage frame);
+  @NativeMethods
+  interface Natives {
+    void onEncodedFrame(long nativeVideoEncoderWrapper, EncodedImage frame);
+  }
 }

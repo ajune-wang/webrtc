@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,8 +118,8 @@ public class RtpTransceiver {
   @CalledByNative
   protected RtpTransceiver(long nativeRtpTransceiver) {
     this.nativeRtpTransceiver = nativeRtpTransceiver;
-    cachedSender = nativeGetSender(nativeRtpTransceiver);
-    cachedReceiver = nativeGetReceiver(nativeRtpTransceiver);
+    cachedSender = RtpTransceiverJni.get().getSender(nativeRtpTransceiver);
+    cachedReceiver = RtpTransceiverJni.get().getReceiver(nativeRtpTransceiver);
   }
 
   /**
@@ -127,7 +128,7 @@ public class RtpTransceiver {
    */
   public MediaStreamTrack.MediaType getMediaType() {
     checkRtpTransceiverExists();
-    return nativeGetMediaType(nativeRtpTransceiver);
+    return RtpTransceiverJni.get().getMediaType(nativeRtpTransceiver);
   }
 
   /**
@@ -138,7 +139,7 @@ public class RtpTransceiver {
    */
   public String getMid() {
     checkRtpTransceiverExists();
-    return nativeGetMid(nativeRtpTransceiver);
+    return RtpTransceiverJni.get().getMid(nativeRtpTransceiver);
   }
 
   /**
@@ -170,7 +171,7 @@ public class RtpTransceiver {
    */
   public boolean isStopped() {
     checkRtpTransceiverExists();
-    return nativeStopped(nativeRtpTransceiver);
+    return RtpTransceiverJni.get().stopped(nativeRtpTransceiver);
   }
 
   /**
@@ -180,7 +181,7 @@ public class RtpTransceiver {
    */
   public RtpTransceiverDirection getDirection() {
     checkRtpTransceiverExists();
-    return nativeDirection(nativeRtpTransceiver);
+    return RtpTransceiverJni.get().direction(nativeRtpTransceiver);
   }
 
   /**
@@ -191,7 +192,7 @@ public class RtpTransceiver {
    */
   public RtpTransceiverDirection getCurrentDirection() {
     checkRtpTransceiverExists();
-    return nativeCurrentDirection(nativeRtpTransceiver);
+    return RtpTransceiverJni.get().currentDirection(nativeRtpTransceiver);
   }
 
   /**
@@ -203,7 +204,7 @@ public class RtpTransceiver {
    */
   public boolean setDirection(RtpTransceiverDirection rtpTransceiverDirection) {
     checkRtpTransceiverExists();
-    return nativeSetDirection(nativeRtpTransceiver, rtpTransceiverDirection);
+    return RtpTransceiverJni.get().setDirection(nativeRtpTransceiver, rtpTransceiverDirection);
   }
 
   /**
@@ -212,7 +213,7 @@ public class RtpTransceiver {
    */
   public void stop() {
     checkRtpTransceiverExists();
-    nativeStopInternal(nativeRtpTransceiver);
+    RtpTransceiverJni.get().stopInternal(nativeRtpTransceiver);
   }
 
   /**
@@ -221,7 +222,7 @@ public class RtpTransceiver {
    */
   public void stopInternal() {
     checkRtpTransceiverExists();
-    nativeStopInternal(nativeRtpTransceiver);
+    RtpTransceiverJni.get().stopInternal(nativeRtpTransceiver);
   }
 
   /**
@@ -234,7 +235,7 @@ public class RtpTransceiver {
    */
   public void stopStandard() {
     checkRtpTransceiverExists();
-    nativeStopStandard(nativeRtpTransceiver);
+    RtpTransceiverJni.get().stopStandard(nativeRtpTransceiver);
   }
 
   @CalledByNative
@@ -252,15 +253,17 @@ public class RtpTransceiver {
     }
   }
 
-  private static native MediaStreamTrack.MediaType nativeGetMediaType(long rtpTransceiver);
-  private static native String nativeGetMid(long rtpTransceiver);
-  private static native RtpSender nativeGetSender(long rtpTransceiver);
-  private static native RtpReceiver nativeGetReceiver(long rtpTransceiver);
-  private static native boolean nativeStopped(long rtpTransceiver);
-  private static native RtpTransceiverDirection nativeDirection(long rtpTransceiver);
-  private static native RtpTransceiverDirection nativeCurrentDirection(long rtpTransceiver);
-  private static native void nativeStopInternal(long rtpTransceiver);
-  private static native void nativeStopStandard(long rtpTransceiver);
-  private static native boolean nativeSetDirection(
-      long rtpTransceiver, RtpTransceiverDirection rtpTransceiverDirection);
+  @NativeMethods
+  interface Natives {
+    MediaStreamTrack.MediaType getMediaType(long rtpTransceiver);
+    String getMid(long rtpTransceiver);
+    RtpSender getSender(long rtpTransceiver);
+    RtpReceiver getReceiver(long rtpTransceiver);
+    boolean stopped(long rtpTransceiver);
+    RtpTransceiverDirection direction(long rtpTransceiver);
+    RtpTransceiverDirection currentDirection(long rtpTransceiver);
+    void stopInternal(long rtpTransceiver);
+    void stopStandard(long rtpTransceiver);
+    boolean setDirection(long rtpTransceiver, RtpTransceiverDirection rtpTransceiverDirection);
+  }
 }

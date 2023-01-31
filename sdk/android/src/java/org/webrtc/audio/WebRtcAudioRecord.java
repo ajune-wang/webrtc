@@ -9,6 +9,7 @@
  */
 
 package org.webrtc.audio;
+import org.chromium.base.annotations.NativeMethods;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -153,7 +154,7 @@ class WebRtcAudioRecord {
                 captureTimeNs = audioTimestamp.nanoTime;
               }
             }
-            nativeDataIsRecorded(nativeAudioRecord, bytesRead, captureTimeNs);
+            WebRtcAudioRecordJni.get().dataIsRecorded(nativeAudioRecord, bytesRead, captureTimeNs);
           }
           if (audioSamplesReadyCallback != null) {
             // Copy the entire byte buffer array. The start of the byteBuffer is not necessarily
@@ -292,7 +293,7 @@ class WebRtcAudioRecord {
     // Rather than passing the ByteBuffer with every callback (requiring
     // the potentially expensive GetDirectBufferAddress) we simply have the
     // the native class cache the address to the memory once.
-    nativeCacheDirectBufferAddress(nativeAudioRecord, byteBuffer);
+    WebRtcAudioRecordJni.get().cacheDirectBufferAddress(nativeAudioRecord, byteBuffer);
 
     // Get the minimum buffer size required for the successful creation of
     // an AudioRecord object, in byte units.
@@ -498,11 +499,6 @@ class WebRtcAudioRecord {
   private int channelCountToConfiguration(int channels) {
     return (channels == 1 ? AudioFormat.CHANNEL_IN_MONO : AudioFormat.CHANNEL_IN_STEREO);
   }
-
-  private native void nativeCacheDirectBufferAddress(
-      long nativeAudioRecordJni, ByteBuffer byteBuffer);
-  private native void nativeDataIsRecorded(
-      long nativeAudioRecordJni, int bytes, long captureTimestampNs);
 
   // Sets all recorded samples to zero if `mute` is true, i.e., ensures that
   // the microphone is muted.
@@ -739,5 +735,11 @@ class WebRtcAudioRecord {
         return thread;
       }
     });
+  }
+
+  @NativeMethods
+  interface Natives {
+    void cacheDirectBufferAddress(long nativeAudioRecordJni, ByteBuffer byteBuffer);
+    void dataIsRecorded(long nativeAudioRecordJni, int bytes, long captureTimestampNs);
   }
 }

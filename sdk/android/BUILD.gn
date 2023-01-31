@@ -165,7 +165,10 @@ if (is_android) {
       "src/java/org/webrtc/WebRtcClassLoader.java",
     ]
 
-    deps = [ "//third_party/androidx:androidx_annotation_annotation_java" ]
+    deps = [
+      "//base:jni_java",
+      "//third_party/androidx:androidx_annotation_annotation_java",
+    ]
   }
 
   rtc_android_library("audio_api_java") {
@@ -433,6 +436,8 @@ if (is_android) {
       "//rtc_base:base_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
+
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
   }
 
   rtc_android_library("builtin_audio_codecs_java") {

@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf826b1_701cb40f",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T09:38:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "926d8f0e_0cd4bc4e",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f71b058_92a55fd9",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Right, this is the case for a frame fragmented over multiple packets.\nMy understanding was that it would be present and equal on all packets: it\u0027s one of the \"RTP Fixed Header Fields\", so omitting it on an RTP packet would be equivalent to saying that the list had changed to an empty list mid-frame.\n\nOur implementation provides the full CSRC list in each packet at least.",
       "parentUuid": "1f71b058_92a55fd9",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c097cb_0cdc5c9c",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T09:38:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "591a837c_8ef11739",
       "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

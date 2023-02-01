@@ -16,6 +16,23 @@
       "message": "Thanks",
       "revId": "06e9e12725463d4868124f7a17072486a5e3e113",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c658fd61_bcdd8997",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T09:38:39Z",
+      "side": 1,
+      "message": "Thanks for the explanations!\n\n(the receive/send dichtonomy in encoded frames bites us still...)",
+      "revId": "06e9e12725463d4868124f7a17072486a5e3e113",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

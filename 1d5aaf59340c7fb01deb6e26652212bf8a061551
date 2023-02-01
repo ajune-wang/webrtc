@@ -63,6 +63,30 @@
       },
       "revId": "1d5aaf59340c7fb01deb6e26652212bf8a061551",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090b0b23_dd46630a",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-01T10:39:37Z",
+      "side": 1,
+      "message": "On a second thought I don\u0027t think we need this because the supported header extensions is a fixed-size vector (one could say \"frozen\"). Which means less code!",
+      "parentUuid": "09efaab2_b181ac6e",
+      "range": {
+        "startLine": 689,
+        "startChar": 6,
+        "endLine": 689,
+        "endChar": 32
+      },
+      "revId": "1d5aaf59340c7fb01deb6e26652212bf8a061551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

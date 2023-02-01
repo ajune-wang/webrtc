@@ -16,6 +16,74 @@
       "message": "Nice!",
       "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ecbaa7_7d32762d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-02-01T10:08:43Z",
+      "side": 1,
+      "message": "Maybe use absl::WrapUnique if the style guide allows it. Or better - have the Create functon return unique_ptr, unless there is a good reason for not doing that.",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b95bd5d4_0e901ff9",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-02-01T10:08:43Z",
+      "side": 1,
+      "message": "Would it be possible to return a unique_ptr here instead? It should be a more useful interface, I think.",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1938ed_4c0ceffe",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-02-01T10:08:43Z",
+      "side": 1,
+      "message": "If you make the Create() function return uniqe_ptr then you should be able to do\nauto amc(AutoCodingModule::Create()) here.",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e00c8d69_23e57672",
+        "filename": "modules/audio_coding/test/EncodeDecodeTest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-02-01T10:08:43Z",
+      "side": 1,
+      "message": "auto acm(AudioCodingModule::Create()); if Create returns a unique_ptr.",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

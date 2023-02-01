@@ -9,12 +9,16 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 public class LibvpxVp8Decoder extends WrappedNativeVideoDecoder {
   @Override
   public long createNativeVideoDecoder() {
-    return nativeCreateDecoder();
+    return LibvpxVp8DecoderJni.get().createDecoder();
   }
 
-  static native long nativeCreateDecoder();
+  @NativeMethods
+  interface Natives {
+    long createDecoder();
+  }
 }

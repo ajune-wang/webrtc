@@ -39,6 +39,30 @@
       },
       "revId": "1d5aaf59340c7fb01deb6e26652212bf8a061551",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09efaab2_b181ac6e",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-01T08:33:37Z",
+      "side": 1,
+      "message": "This is a bit dated probably. The \"pass a subset\" interpretation is still valid and in that semantic we need a way to go back to the full set.\n\nThe question that we need to answer is \"when renegotiating, what does the \u0027get offered header extensions\u0027 return?\".\nI always thought \"a subset from the latest answer\" because of what JSEP says but \"the full set and everything that was not in the latest answer is considered stopped\".\n\nAdded a paragraph to the game plan.",
+      "parentUuid": "63bbe0b6_f606402a",
+      "range": {
+        "startLine": 689,
+        "startChar": 6,
+        "endLine": 689,
+        "endChar": 32
+      },
+      "revId": "1d5aaf59340c7fb01deb6e26652212bf8a061551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

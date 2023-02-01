@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "926d8f0e_0cd4bc4e",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-01T09:28:19Z",
+      "side": 1,
+      "message": "It\u0027s always empty when we get here via the [RtpVideoFrameAssembler interface], which seems to be an alternative C++ API if embedders are doing their own RTP receiving and parsing, so we currently need to handle the empty case.\nIf users are using that interface, they probably don\u0027t need the insertable streams metadata to communicate RTP details like CSRCs, as they\u0027re the ones which are parsing them out, so I think this impl is at least sufficient (if not pretty).\n\n[RtpVideoFrameAssembler interface]: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/rtp_video_frame_assembler.cc;drc\u003d097fc347ece386b54f21b5a49584670b4a6e85b6;l\u003d161",
+      "parentUuid": "a31f18fc_6222fef8",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f71b058_92a55fd9",
         "filename": "modules/video_coding/frame_object.cc",
         "patchSetId": 7
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "591a837c_8ef11739",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-01T09:28:19Z",
+      "side": 1,
+      "message": "Right, this is the case for a frame fragmented over multiple packets.\nMy understanding was that it would be present and equal on all packets: it\u0027s one of the \"RTP Fixed Header Fields\", so omitting it on an RTP packet would be equivalent to saying that the list had changed to an empty list mid-frame.\n\nOur implementation provides the full CSRC list in each packet at least.",
+      "parentUuid": "1f71b058_92a55fd9",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7346e1cc_9bdba356",
         "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
         "patchSetId": 7
@@ -65,6 +101,24 @@
       "writtenOn": "2023-02-01T04:57:31Z",
       "side": 1,
       "message": "Can you add an EXPECT_EQ on the transformed frame to assert that csrcs are preserved?\n\nWe might want to do another test to verify that if the transformer changes CSRCs, the change is reflected in the result - not sure if that\u0027s within the scope of this CL.",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15098268_d583ff1f",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-01T09:28:19Z",
+      "side": 1,
+      "message": "Done on the first, in the previous testcase which covers the flow where OnTransformedFrame() leads to a call to ManageFrame().\n\nWe\u0027ve not yet implemented setting metadata for received video frames, so I\u0027ll leave that part for a later cl.",
+      "parentUuid": "7346e1cc_9bdba356",
       "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

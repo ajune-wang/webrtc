@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "923ba5c3_85a7720f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T04:57:31Z",
+      "side": 1,
+      "message": "A few questions about whether situations code caters to should be allowed to occur...",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a31f18fc_6222fef8",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T04:57:31Z",
+      "side": 1,
+      "message": "Is an empty packet_infos even legal? If this is an incoming packet, there should always be at least one packet to have infos about.\n\nSuggest doing a DCHECK(packet_infos.size() \u003e 0) and seeing if any test crashes.\n\n(I see that the test you modified here had empty packet_infos before you changed it, so there might be others)",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f71b058_92a55fd9",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T04:57:31Z",
+      "side": 1,
+      "message": "Are there ever more than one element in packet_infos? I guess this is the case for fragmented frames - are the CSRCs then attached to the first packet always?",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7346e1cc_9bdba356",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-01T04:57:31Z",
+      "side": 1,
+      "message": "Can you add an EXPECT_EQ on the transformed frame to assert that csrcs are preserved?\n\nWe might want to do another test to verify that if the transformer changes CSRCs, the change is reflected in the result - not sure if that\u0027s within the scope of this CL.",
+      "revId": "e74c80cd34ae7996dac512e1586c1daa3f57172e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

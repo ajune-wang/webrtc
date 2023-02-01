@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e60553f_01d156ab",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-02-01T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7ecbaa7_7d32762d",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b95bd5d4_0e901ff9",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-02-01T10:08:43Z",
       "side": 1,
       "message": "Would it be possible to return a unique_ptr here instead? It should be a more useful interface, I think.",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eee4402d_b6026702",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-02-01T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b95bd5d4_0e901ff9",
       "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c2de506_74f7e5ec",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-02-01T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f1938ed_4c0ceffe",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e00c8d69_23e57672",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-02-01T10:08:43Z",
       "side": 1,
       "message": "auto acm(AudioCodingModule::Create()); if Create returns a unique_ptr.",
+      "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1133f74c_b373310b",
+        "filename": "modules/audio_coding/test/EncodeDecodeTest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-02-01T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e00c8d69_23e57672",
       "revId": "76d3dd74eea7e076ea3a3c9c25c86057b54f8d6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

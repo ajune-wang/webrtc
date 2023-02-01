@@ -9,12 +9,12 @@
  */
 
 package org.webrtc;
-
 import android.content.Context;
 import android.os.Build;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import org.chromium.base.annotations.NativeMethods;
 import org.webrtc.NetworkChangeDetector;
 
 /**
@@ -229,7 +229,7 @@ public class NetworkMonitor {
       NetworkChangeDetector.ConnectionType newConnectionType) {
     List<Long> nativeObservers = getNativeNetworkObserversSync();
     for (Long nativeObserver : nativeObservers) {
-      nativeNotifyConnectionTypeChanged(nativeObserver);
+      NetworkMonitorJni.get().notifyConnectionTypeChanged(NetworkMonitor.this, nativeObserver);
     }
     // This avoids calling external methods while locking on an object.
     List<NetworkObserver> javaObservers;
@@ -245,14 +245,16 @@ public class NetworkMonitor {
       NetworkChangeDetector.NetworkInformation networkInfo) {
     List<Long> nativeObservers = getNativeNetworkObserversSync();
     for (Long nativeObserver : nativeObservers) {
-      nativeNotifyOfNetworkConnect(nativeObserver, networkInfo);
+      NetworkMonitorJni.get().notifyOfNetworkConnect(
+          NetworkMonitor.this, nativeObserver, networkInfo);
     }
   }
 
   private void notifyObserversOfNetworkDisconnect(long networkHandle) {
     List<Long> nativeObservers = getNativeNetworkObserversSync();
     for (Long nativeObserver : nativeObservers) {
-      nativeNotifyOfNetworkDisconnect(nativeObserver, networkHandle);
+      NetworkMonitorJni.get().notifyOfNetworkDisconnect(
+          NetworkMonitor.this, nativeObserver, networkHandle);
     }
   }
 
@@ -261,7 +263,8 @@ public class NetworkMonitor {
     List<Long> nativeObservers = getNativeNetworkObserversSync();
     for (NetworkChangeDetector.ConnectionType type : types) {
       for (Long nativeObserver : nativeObservers) {
-        nativeNotifyOfNetworkPreference(nativeObserver, type, preference);
+        NetworkMonitorJni.get().notifyOfNetworkPreference(
+            NetworkMonitor.this, nativeObserver, type, preference);
       }
     }
   }
@@ -279,7 +282,8 @@ public class NetworkMonitor {
     NetworkChangeDetector.NetworkInformation[] networkInfos =
         new NetworkChangeDetector.NetworkInformation[networkInfoList.size()];
     networkInfos = networkInfoList.toArray(networkInfos);
-    nativeNotifyOfActiveNetworkList(nativeObserver, networkInfos);
+    NetworkMonitorJni.get().notifyOfActiveNetworkList(
+        NetworkMonitor.this, nativeObserver, networkInfos);
   }
 
   private List<Long> getNativeNetworkObserversSync() {
@@ -326,20 +330,6 @@ public class NetworkMonitor {
     return connectionType != NetworkChangeDetector.ConnectionType.CONNECTION_NONE;
   }
 
-  private native void nativeNotifyConnectionTypeChanged(long nativeAndroidNetworkMonitor);
-
-  private native void nativeNotifyOfNetworkConnect(
-      long nativeAndroidNetworkMonitor, NetworkChangeDetector.NetworkInformation networkInfo);
-
-  private native void nativeNotifyOfNetworkDisconnect(
-      long nativeAndroidNetworkMonitor, long networkHandle);
-
-  private native void nativeNotifyOfActiveNetworkList(
-      long nativeAndroidNetworkMonitor, NetworkChangeDetector.NetworkInformation[] networkInfos);
-
-  private native void nativeNotifyOfNetworkPreference(
-      long nativeAndroidNetworkMonitor, NetworkChangeDetector.ConnectionType type, int preference);
-
   // For testing only.
   @Nullable
   NetworkChangeDetector getNetworkChangeDetector() {
@@ -363,5 +353,18 @@ public class NetworkMonitor {
         networkMonitor.createNetworkChangeDetector(context, fieldTrialsString);
     networkMonitor.networkChangeDetector = networkChangeDetector;
     return (NetworkMonitorAutoDetect) networkChangeDetector;
+  }
+
+  @NativeMethods
+  interface Natives {
+    void notifyConnectionTypeChanged(NetworkMonitor caller, long nativeAndroidNetworkMonitor);
+    void notifyOfNetworkConnect(NetworkMonitor caller, long nativeAndroidNetworkMonitor,
+        NetworkChangeDetector.NetworkInformation networkInfo);
+    void notifyOfNetworkDisconnect(
+        NetworkMonitor caller, long nativeAndroidNetworkMonitor, long networkHandle);
+    void notifyOfActiveNetworkList(NetworkMonitor caller, long nativeAndroidNetworkMonitor,
+        NetworkChangeDetector.NetworkInformation[] networkInfos);
+    void notifyOfNetworkPreference(NetworkMonitor caller, long nativeAndroidNetworkMonitor,
+        NetworkChangeDetector.ConnectionType type, int preference);
   }
 }

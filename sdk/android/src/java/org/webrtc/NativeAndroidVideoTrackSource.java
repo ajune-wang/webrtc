@@ -9,8 +9,8 @@
  */
 
 package org.webrtc;
-
 import androidx.annotation.Nullable;
+import org.chromium.base.annotations.NativeMethods;
 import org.webrtc.VideoFrame;
 import org.webrtc.VideoProcessor;
 
@@ -35,7 +35,7 @@ class NativeAndroidVideoTrackSource {
    * SourceState::kLive or SourceState::kEnded.
    */
   public void setState(boolean isLive) {
-    nativeSetState(nativeAndroidVideoTrackSource, isLive);
+    NativeAndroidVideoTrackSourceJni.get().setState(nativeAndroidVideoTrackSource, isLive);
   }
 
   /**
@@ -46,8 +46,9 @@ class NativeAndroidVideoTrackSource {
    */
   @Nullable
   public VideoProcessor.FrameAdaptationParameters adaptFrame(VideoFrame frame) {
-    return nativeAdaptFrame(nativeAndroidVideoTrackSource, frame.getBuffer().getWidth(),
-        frame.getBuffer().getHeight(), frame.getRotation(), frame.getTimestampNs());
+    return NativeAndroidVideoTrackSourceJni.get().adaptFrame(nativeAndroidVideoTrackSource,
+        frame.getBuffer().getWidth(), frame.getBuffer().getHeight(), frame.getRotation(),
+        frame.getTimestampNs());
   }
 
   /**
@@ -55,8 +56,8 @@ class NativeAndroidVideoTrackSource {
    * expected to be called first and that the passed frame conforms to those parameters.
    */
   public void onFrameCaptured(VideoFrame frame) {
-    nativeOnFrameCaptured(nativeAndroidVideoTrackSource, frame.getRotation(),
-        frame.getTimestampNs(), frame.getBuffer());
+    NativeAndroidVideoTrackSourceJni.get().onFrameCaptured(nativeAndroidVideoTrackSource,
+        frame.getRotation(), frame.getTimestampNs(), frame.getBuffer());
   }
 
   /**
@@ -67,13 +68,15 @@ class NativeAndroidVideoTrackSource {
   public void adaptOutputFormat(VideoSource.AspectRatio targetLandscapeAspectRatio,
       @Nullable Integer maxLandscapePixelCount, VideoSource.AspectRatio targetPortraitAspectRatio,
       @Nullable Integer maxPortraitPixelCount, @Nullable Integer maxFps) {
-    nativeAdaptOutputFormat(nativeAndroidVideoTrackSource, targetLandscapeAspectRatio.width,
-        targetLandscapeAspectRatio.height, maxLandscapePixelCount, targetPortraitAspectRatio.width,
-        targetPortraitAspectRatio.height, maxPortraitPixelCount, maxFps);
+    NativeAndroidVideoTrackSourceJni.get().adaptOutputFormat(nativeAndroidVideoTrackSource,
+        targetLandscapeAspectRatio.width, targetLandscapeAspectRatio.height, maxLandscapePixelCount,
+        targetPortraitAspectRatio.width, targetPortraitAspectRatio.height, maxPortraitPixelCount,
+        maxFps);
   }
 
   public void setIsScreencast(boolean isScreencast) {
-    nativeSetIsScreencast(nativeAndroidVideoTrackSource, isScreencast);
+    NativeAndroidVideoTrackSourceJni.get().setIsScreencast(
+        nativeAndroidVideoTrackSource, isScreencast);
   }
 
   @CalledByNative
@@ -84,16 +87,18 @@ class NativeAndroidVideoTrackSource {
         cropX, cropY, cropWidth, cropHeight, scaleWidth, scaleHeight, timestampNs, drop);
   }
 
-  private static native void nativeSetIsScreencast(
-      long nativeAndroidVideoTrackSource, boolean isScreencast);
-  private static native void nativeSetState(long nativeAndroidVideoTrackSource, boolean isLive);
-  private static native void nativeAdaptOutputFormat(long nativeAndroidVideoTrackSource,
-      int landscapeWidth, int landscapeHeight, @Nullable Integer maxLandscapePixelCount,
-      int portraitWidth, int portraitHeight, @Nullable Integer maxPortraitPixelCount,
-      @Nullable Integer maxFps);
   @Nullable
-  private static native VideoProcessor.FrameAdaptationParameters nativeAdaptFrame(
-      long nativeAndroidVideoTrackSource, int width, int height, int rotation, long timestampNs);
-  private static native void nativeOnFrameCaptured(
-      long nativeAndroidVideoTrackSource, int rotation, long timestampNs, VideoFrame.Buffer buffer);
+
+  @NativeMethods
+  interface Natives {
+    void setIsScreencast(long nativeAndroidVideoTrackSource, boolean isScreencast);
+    void setState(long nativeAndroidVideoTrackSource, boolean isLive);
+    void adaptOutputFormat(long nativeAndroidVideoTrackSource, int landscapeWidth,
+        int landscapeHeight, @Nullable Integer maxLandscapePixelCount, int portraitWidth,
+        int portraitHeight, @Nullable Integer maxPortraitPixelCount, @Nullable Integer maxFps);
+    VideoProcessor.FrameAdaptationParameters adaptFrame(
+        long nativeAndroidVideoTrackSource, int width, int height, int rotation, long timestampNs);
+    void onFrameCaptured(long nativeAndroidVideoTrackSource, int rotation, long timestampNs,
+        VideoFrame.Buffer buffer);
+  }
 }

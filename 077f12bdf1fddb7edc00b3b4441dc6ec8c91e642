@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "977081b3_c78dfaa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-02T07:13:08Z",
+      "side": 1,
+      "message": "small nit, LGTM otherwise",
+      "revId": "077f12bdf1fddb7edc00b3b4441dc6ec8c91e642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6597e06c_91df1eeb",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 4873,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-02T07:13:08Z",
+      "side": 1,
+      "message": "I think you can EXPECT_ these two",
+      "revId": "077f12bdf1fddb7edc00b3b4441dc6ec8c91e642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

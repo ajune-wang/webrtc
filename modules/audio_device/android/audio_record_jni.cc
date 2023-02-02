@@ -229,7 +229,6 @@ int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                      jobject obj,
                                                       jobject byte_buffer,
                                                       jlong nativeAudioRecord) {
   webrtc::AudioRecordJni* this_object =
@@ -250,7 +249,6 @@ void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioRecordJni::DataIsRecorded(JNIEnv* env,
-                                            jobject obj,
                                             jint length,
                                             jlong nativeAudioRecord) {
   webrtc::AudioRecordJni* this_object =

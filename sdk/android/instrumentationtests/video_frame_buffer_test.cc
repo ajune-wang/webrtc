@@ -17,7 +17,7 @@ namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(jint,
-                         VideoFrameBufferTest_nativeGetBufferType,
+                         VideoFrameBufferTestNativeUnils_nativeGetBufferType,
                          JNIEnv* jni,
                          jclass,
                          jobject video_frame_buffer) {
@@ -27,11 +27,12 @@ JNI_FUNCTION_DECLARATION(jint,
   return static_cast<jint>(buffer->type());
 }
 
-JNI_FUNCTION_DECLARATION(jobject,
-                         VideoFrameBufferTest_nativeGetNativeI420Buffer,
-                         JNIEnv* jni,
-                         jclass,
-                         jobject i420_buffer) {
+JNI_FUNCTION_DECLARATION(
+    jobject,
+    VideoFrameBufferTestNativeUnils_nativeGetNativeI420Buffer,
+    JNIEnv* jni,
+    jclass,
+    jobject i420_buffer) {
   const JavaParamRef<jobject> j_i420_buffer(i420_buffer);
   rtc::scoped_refptr<VideoFrameBuffer> buffer =
       JavaToNativeFrameBuffer(jni, j_i420_buffer);

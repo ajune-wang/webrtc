@@ -9,7 +9,6 @@
  */
 
 package org.webrtc;
-
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
@@ -32,6 +31,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.webrtc.VideoFrame;
+import org.webrtc.VideoFrameBufferTestNativeUnils;
 
 /**
  * Test VideoFrame buffers of different kind of formats: I420, RGB, OES, NV12, NV21, and verify
@@ -75,32 +75,38 @@ public class VideoFrameBufferTest {
         buffer = i420Buffer;
         buffer.retain();
         assertEquals(VideoFrameBufferType.I420, buffer.getBufferType());
-        assertEquals(VideoFrameBufferType.I420, nativeGetBufferType(buffer));
+        assertEquals(
+            VideoFrameBufferType.I420, VideoFrameBufferTestNativeUnils.nativeGetBufferType(buffer));
         return buffer;
       case I420_NATIVE:
-        buffer = nativeGetNativeI420Buffer(i420Buffer);
+        buffer = VideoFrameBufferTestNativeUnils.nativeGetNativeI420Buffer(i420Buffer);
         assertEquals(VideoFrameBufferType.I420, buffer.getBufferType());
-        assertEquals(VideoFrameBufferType.I420, nativeGetBufferType(buffer));
+        assertEquals(
+            VideoFrameBufferType.I420, VideoFrameBufferTestNativeUnils.nativeGetBufferType(buffer));
         return buffer;
       case RGB_TEXTURE:
         buffer = createRgbTextureBuffer(/* eglContext= */ null, i420Buffer);
         assertEquals(VideoFrameBufferType.NATIVE, buffer.getBufferType());
-        assertEquals(VideoFrameBufferType.NATIVE, nativeGetBufferType(buffer));
+        assertEquals(VideoFrameBufferType.NATIVE,
+            VideoFrameBufferTestNativeUnils.nativeGetBufferType(buffer));
         return buffer;
       case OES_TEXTURE:
         buffer = createOesTextureBuffer(/* eglContext= */ null, i420Buffer);
         assertEquals(VideoFrameBufferType.NATIVE, buffer.getBufferType());
-        assertEquals(VideoFrameBufferType.NATIVE, nativeGetBufferType(buffer));
+        assertEquals(VideoFrameBufferType.NATIVE,
+            VideoFrameBufferTestNativeUnils.nativeGetBufferType(buffer));
         return buffer;
       case NV21:
         buffer = createNV21Buffer(i420Buffer);
         assertEquals(VideoFrameBufferType.NATIVE, buffer.getBufferType());
-        assertEquals(VideoFrameBufferType.NATIVE, nativeGetBufferType(buffer));
+        assertEquals(VideoFrameBufferType.NATIVE,
+            VideoFrameBufferTestNativeUnils.nativeGetBufferType(buffer));
         return buffer;
       case NV12:
         buffer = createNV12Buffer(i420Buffer);
         assertEquals(VideoFrameBufferType.NATIVE, buffer.getBufferType());
-        assertEquals(VideoFrameBufferType.NATIVE, nativeGetBufferType(buffer));
+        assertEquals(VideoFrameBufferType.NATIVE,
+            VideoFrameBufferTestNativeUnils.nativeGetBufferType(buffer));
         return buffer;
       default:
         throw new IllegalArgumentException("Unknown buffer type: " + bufferType);
@@ -468,7 +474,8 @@ public class VideoFrameBufferTest {
     final VideoFrame.I420Buffer outputI420Buffer = bufferToTest.toI420();
     bufferToTest.release();
 
-    assertEquals(VideoFrameBufferType.I420, nativeGetBufferType(outputI420Buffer));
+    assertEquals(VideoFrameBufferType.I420,
+        VideoFrameBufferTestNativeUnils.nativeGetBufferType(outputI420Buffer));
     assertAlmostEqualI420Buffers(referenceI420Buffer, outputI420Buffer);
     referenceI420Buffer.release();
     outputI420Buffer.release();
@@ -521,10 +528,4 @@ public class VideoFrameBufferTest {
     testCropAndScale(4 /* cropX= */, 4 /* cropY= */, /* cropWidth= */ 12, /* cropHeight= */ 12,
         /* scaleWidth= */ 8, /* scaleHeight= */ 8);
   }
-
-  @VideoFrameBufferType private static native int nativeGetBufferType(VideoFrame.Buffer buffer);
-
-  /** Returns the copy of I420Buffer using WrappedNativeI420Buffer. */
-  private static native VideoFrame.Buffer nativeGetNativeI420Buffer(
-      VideoFrame.I420Buffer i420Buffer);
 }

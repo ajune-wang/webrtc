@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0032ae0_85296f79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-02T05:56:24Z",
+      "side": 1,
+      "message": "Note - the bots with purple boxes are \"infra failures\" - not your problem.\nSome of the others are known flaky tests, they might resolve themselves, or I can try them again. Others may represent real failures.",
+      "revId": "89bf56f98708f5e73c5173349d62a727baca88ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd1678dd_e499b5f7",

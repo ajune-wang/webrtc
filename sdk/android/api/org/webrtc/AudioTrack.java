@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 /** Java wrapper for a C++ AudioTrackInterface */
 public class AudioTrack extends MediaStreamTrack {
@@ -20,7 +21,7 @@ public class AudioTrack extends MediaStreamTrack {
    *  0 to 10.
    */
   public void setVolume(double volume) {
-    nativeSetVolume(getNativeAudioTrack(), volume);
+    AudioTrackJni.get().setVolume(getNativeAudioTrack(), volume);
   }
 
   /** Returns a pointer to webrtc::AudioTrackInterface. */
@@ -28,5 +29,8 @@ public class AudioTrack extends MediaStreamTrack {
     return getNativeMediaStreamTrack();
   }
 
-  private static native void nativeSetVolume(long track, double volume);
+  @NativeMethods
+  interface Natives {
+    void setVolume(long track, double volume);
+  }
 }

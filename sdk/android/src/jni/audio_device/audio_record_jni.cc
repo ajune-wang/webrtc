@@ -229,7 +229,6 @@ int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
 
 void AudioRecordJni::CacheDirectBufferAddress(
     JNIEnv* env,
-    const JavaParamRef<jobject>& j_caller,
     const JavaParamRef<jobject>& byte_buffer) {
   RTC_LOG(LS_INFO) << "OnCacheDirectBufferAddress";
   RTC_DCHECK(thread_checker_.IsCurrent());
@@ -243,7 +242,6 @@ void AudioRecordJni::CacheDirectBufferAddress(
 // This method is called on a high-priority thread from Java. The name of
 // the thread is 'AudioRecordThread'.
 void AudioRecordJni::DataIsRecorded(JNIEnv* env,
-                                    const JavaParamRef<jobject>& j_caller,
                                     int length,
                                     int64_t capture_timestamp_ns) {
   RTC_DCHECK(thread_checker_java_.IsCurrent());

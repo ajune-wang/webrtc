@@ -16,6 +16,24 @@
       "message": "This is another spot you\u0027ll need to touch up - You\u0027ll need to write public wrapper functions here (and if there are any other classes that used \"public static native\" before).\n\nE.g.:\n```\npublic static void nativeAddRef(long refCountedPointer) {\n  JniCommonJni.get().addRef(refCountedPointer);\n}",
       "revId": "04b77ad93d91c5de239a7af356f3d60f6bfae5e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ea1828_aa889a8c",
+        "filename": "sdk/android/src/java/org/webrtc/JniCommon.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2023-02-02T14:04:23Z",
+      "side": 1,
+      "message": "Thanks. Done",
+      "parentUuid": "4de0267b_22e14bdb",
+      "revId": "04b77ad93d91c5de239a7af356f3d60f6bfae5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

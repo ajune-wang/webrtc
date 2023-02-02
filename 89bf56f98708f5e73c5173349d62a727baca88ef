@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a1b00d6_68f9e311",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-02T05:32:58Z",
+      "side": 1,
+      "message": "Thanks for the update!\n\nA few nits, but I\u0027m approving this.\nI am also running the trybots for you, including the Chrome bot that runs WPT tests - there\u0027s a chance that this might affect Web Platform Tests, in which case they have to be disabled before landing the CL and re-enabled + rebased after it has rolled into Chrome. I\u0027ll take care of that if needed.\n\nHold off on landing until all the bots are green.",
+      "revId": "89bf56f98708f5e73c5173349d62a727baca88ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd1678dd_e499b5f7",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 4854,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-02T05:32:58Z",
+      "side": 1,
+      "message": "Nit: Name shold be DeserializeSdpWithUnrecognizedApplicationProtocolRejectsSection - this is not RTP specific.",
+      "revId": "89bf56f98708f5e73c5173349d62a727baca88ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8417ff5_b5f6e9ea",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 4855,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-02T05:32:58Z",
+      "side": 1,
+      "message": "Please call this variable unsupported_application_protocols - I think RTP/SAVPF is supported as a media protocol, but not as an application one.",
+      "revId": "89bf56f98708f5e73c5173349d62a727baca88ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

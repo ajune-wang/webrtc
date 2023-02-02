@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "107ac2c2_4182d002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-02T09:33:28Z",
+      "side": 1,
+      "message": "lgtm % comment",
+      "revId": "743028ee8e5265b957e1f43909e48caff60c6711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e8933c0_57938cfd",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-02T09:33:28Z",
+      "side": 1,
+      "message": "Can you move these comments up to IsMandatoryHeaderExtension?",
+      "range": {
+        "startLine": 706,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 0
+      },
+      "revId": "743028ee8e5265b957e1f43909e48caff60c6711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

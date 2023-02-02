@@ -39,6 +39,30 @@
       },
       "revId": "743028ee8e5265b957e1f43909e48caff60c6711",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85704bf3_2b3eebab",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-02T12:24:05Z",
+      "side": 1,
+      "message": "actually this comment does not make sense. MID is mandatory for bundle, not unified plan (iirc plan-b did not offer or negotiate mid so I see where this comes from).\n\nNow mid+bundle are often used together and we really do not want to get into issues because someone insists on using the header extension API to disable MID while forcing max-bundle... ;-)\n\nTurning off video-rotation is a pretty stupid thing to do in terms of computational cost, but it is only mandatory to implement, not mandatory to negotiate (and not supported by Firefox, I think https://bugzilla.mozilla.org/show_bug.cgi?id\u003d1340372)\n\nSpec text is fine, only talks about MID.",
+      "parentUuid": "6e8933c0_57938cfd",
+      "range": {
+        "startLine": 706,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 0
+      },
+      "revId": "743028ee8e5265b957e1f43909e48caff60c6711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

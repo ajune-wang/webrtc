@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78e692a_6de9d55c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-02T12:24:05Z",
+      "side": 1,
+      "message": "changed definition of mandatory-to-negotiation, can you check the rationale?",
+      "revId": "bca9cfb4d973cb1356f9fd92f95a016ae2b044ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -9,7 +9,6 @@
  */
 
 package org.webrtc.audio;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -20,6 +19,7 @@ import android.os.Build;
 import android.os.Process;
 import androidx.annotation.Nullable;
 import java.nio.ByteBuffer;
+import org.chromium.base.annotations.NativeMethods;
 import org.webrtc.CalledByNative;
 import org.webrtc.Logging;
 import org.webrtc.ThreadUtils;
@@ -80,7 +80,7 @@ class WebRtcAudioTrack {
   /**
    * Audio thread which keeps calling AudioTrack.write() to stream audio.
    * Data is periodically acquired from the native WebRTC layer using the
-   * nativeGetPlayoutData callback function.
+   * WebRtcAudioTrackJni.get().getPlayoutData callback function.
    * This thread uses a Process.THREAD_PRIORITY_URGENT_AUDIO priority.
    */
   private class AudioTrackThread extends Thread {
@@ -109,7 +109,7 @@ class WebRtcAudioTrack {
         // Get 10ms of PCM data from the native WebRTC client. Audio data is
         // written into the common ByteBuffer using the address that was
         // cached at construction.
-        nativeGetPlayoutData(nativeAudioTrack, sizeInBytes);
+        WebRtcAudioTrackJni.get().getPlayoutData(nativeAudioTrack, sizeInBytes);
         // Write data until all data has been written to the audio sink.
         // Upon return, the buffer position will have been advanced to reflect
         // the amount of data that was successfully written to the AudioTrack.
@@ -190,7 +190,7 @@ class WebRtcAudioTrack {
     // Rather than passing the ByteBuffer with every callback (requiring
     // the potentially expensive GetDirectBufferAddress) we simply have the
     // the native class cache the address to the memory once.
-    nativeCacheDirectBufferAddress(nativeAudioTrack, byteBuffer);
+    WebRtcAudioTrackJni.get().cacheDirectBufferAddress(nativeAudioTrack, byteBuffer);
 
     // Get the minimum buffer size required for the successful creation of an
     // AudioTrack object to be created in the MODE_STREAM mode.
@@ -291,7 +291,7 @@ class WebRtcAudioTrack {
     }
 
     // Create and start new high-priority thread which calls AudioTrack.write()
-    // and where we also call the native nativeGetPlayoutData() callback to
+    // and where we also call the native WebRtcAudioTrackJni.get().getPlayoutData() callback to
     // request decoded audio from WebRTC.
     audioThread = new AudioTrackThread("AudioTrackJavaThread");
     audioThread.start();
@@ -525,10 +525,6 @@ class WebRtcAudioTrack {
     return (channels == 1 ? AudioFormat.CHANNEL_OUT_MONO : AudioFormat.CHANNEL_OUT_STEREO);
   }
 
-  private static native void nativeCacheDirectBufferAddress(
-      long nativeAudioTrackJni, ByteBuffer byteBuffer);
-  private static native void nativeGetPlayoutData(long nativeAudioTrackJni, int bytes);
-
   // Sets all samples to be played out to zero if `mute` is true, i.e.,
   // ensures that the speaker is muted.
   public void setSpeakerMute(boolean mute) {
@@ -581,5 +577,11 @@ class WebRtcAudioTrack {
         Logging.e(TAG, "Invalid audio state");
       }
     }
+  }
+
+  @NativeMethods
+  interface Natives {
+    void cacheDirectBufferAddress(long nativeAudioTrackJni, ByteBuffer byteBuffer);
+    void getPlayoutData(long nativeAudioTrackJni, int bytes);
   }
 }

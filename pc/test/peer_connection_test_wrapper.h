@@ -106,16 +106,17 @@ class PeerConnectionTestWrapper
   sigslot::signal1<const std::string&> SignalOnSdpReady;
   sigslot::signal1<webrtc::DataChannelInterface*> SignalOnDataChannel;
 
+  rtc::scoped_refptr<webrtc::MediaStreamInterface> GetUserMedia(
+      bool audio,
+      const cricket::AudioOptions& audio_options,
+      bool video);
+
  private:
   void SetLocalDescription(webrtc::SdpType type, const std::string& sdp);
   void SetRemoteDescription(webrtc::SdpType type, const std::string& sdp);
   bool CheckForConnection();
   bool CheckForAudio();
   bool CheckForVideo();
-  rtc::scoped_refptr<webrtc::MediaStreamInterface> GetUserMedia(
-      bool audio,
-      const cricket::AudioOptions& audio_options,
-      bool video);
 
   webrtc::test::ScopedKeyValueConfig field_trials_;
   std::string name_;

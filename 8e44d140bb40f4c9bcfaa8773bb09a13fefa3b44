@@ -16,6 +16,23 @@
       "message": "Addressed everything.\nWhat\u0027s next for me? Do I place it in the commit queue?",
       "revId": "8e44d140bb40f4c9bcfaa8773bb09a13fefa3b44",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df09acb_dfec299c",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4870,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-03T00:58:35Z",
+      "side": 1,
+      "message": "BTW, why not EXCPET_EQ here as well?",
+      "revId": "8e44d140bb40f4c9bcfaa8773bb09a13fefa3b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

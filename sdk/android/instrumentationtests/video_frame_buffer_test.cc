@@ -17,7 +17,7 @@ namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(jint,
-                         VideoFrameBufferTest_nativeGetBufferType,
+                         VideoFrameBufferTestNativeUtils_getBufferType,
                          JNIEnv* jni,
                          jclass,
                          jobject video_frame_buffer) {
@@ -28,7 +28,7 @@ JNI_FUNCTION_DECLARATION(jint,
 }
 
 JNI_FUNCTION_DECLARATION(jobject,
-                         VideoFrameBufferTest_nativeGetNativeI420Buffer,
+                         VideoFrameBufferTestNativeUtils_getNativeI420Buffer,
                          JNIEnv* jni,
                          jclass,
                          jobject i420_buffer) {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09a6a570_f774d712",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6911
+      },
+      "writtenOn": "2023-02-03T21:19:12Z",
+      "side": 1,
+      "message": "linux_msan build has succeeded in the latest run",
+      "revId": "d37f570fa6339ce7a57b3538b35a0e2be4409806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

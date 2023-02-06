@@ -34,6 +34,24 @@
       "parentUuid": "2b1efa13_a1a1ed34",
       "revId": "9a2e48dc211b4367f6551aeef6bced73bb67d26e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad774762_8389c5a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-06T13:42:15Z",
+      "side": 1,
+      "message": "Is it used by web? I see that it is used by encoder_stream_factory.cc here[1], but doesn\u0027t Chrome use its own factory?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/config/encoder_stream_factory.cc;l\u003d288;drc\u003d0c4306fc554c80506eb0f9b833a5d2a5fdd452d5",
+      "parentUuid": "9c744b86_21b59ecf",
+      "revId": "9a2e48dc211b4367f6551aeef6bced73bb67d26e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

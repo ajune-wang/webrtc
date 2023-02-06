@@ -281,8 +281,8 @@ size_t LimitSimulcastLayerCount(int width,
                                 size_t need_layers,
                                 size_t layer_count,
                                 const webrtc::FieldTrialsView& trials) {
-  if (!absl::StartsWith(trials.Lookup(kUseLegacySimulcastLayerLimitFieldTrial),
-                        "Disabled")) {
+  if (absl::StartsWith(trials.Lookup(kUseLegacySimulcastLayerLimitFieldTrial),
+                       "Enabled")) {
     // Max layers from one higher resolution in kSimulcastFormats will be used
     // if the ratio (pixels_up - pixels) / (pixels_up - pixels_down) is less
     // than configured `max_ratio`. pixels_down is the selected index in

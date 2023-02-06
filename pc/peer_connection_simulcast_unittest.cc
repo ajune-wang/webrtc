@@ -811,15 +811,8 @@ INSTANTIATE_TEST_SUITE_P(NumberOfSendEncodings,
 class PeerConnectionSimulcastWithMediaFlowTests
     : public PeerConnectionSimulcastTests {
  public:
-  // WebRTC-LegacySimulcastLayerLimit, which is enabled-by-default, triggers
-  // non-standard behavior that prevents the third simulcast stream from being
-  // sent, so in order to test standard behavior we have to override this to
-  // disabled.
-  // TODO(https://crbug.com/webrtc/14883): When this field trial is no longer
-  // enabled-by-default, remove this use of `field_trials`.
   PeerConnectionSimulcastWithMediaFlowTests()
-      : field_trials("WebRTC-LegacySimulcastLayerLimit/Disabled/"),
-        background_thread_(std::make_unique<rtc::Thread>(&pss_)) {
+      : background_thread_(std::make_unique<rtc::Thread>(&pss_)) {
     RTC_CHECK(background_thread_->Start());
   }
 
@@ -972,7 +965,6 @@ class PeerConnectionSimulcastWithMediaFlowTests
     return callback->report();
   }
 
-  test::ScopedFieldTrials field_trials;
   rtc::PhysicalSocketServer pss_;
   std::unique_ptr<rtc::Thread> background_thread_;
 };

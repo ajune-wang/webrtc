@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d7621b_50004498",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-02-06T21:56:08Z",
+      "side": 1,
+      "message": "Hi Harald,\nCan you take a look at this (clean) cherry pick to M111?\nIt will be quickly followed by a cherrypick of the CL that fixes the typo.",
+      "revId": "38b99e424c81d03de521ce9be99f82f269745d57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

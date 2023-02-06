@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df9aef47_d363c8e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2023-02-06T11:58:31Z",
+      "side": 1,
+      "message": "PTAL Jonas, thanks! Unknown is needed as fallback for enum conversion functions in blink. ApplicationRequested is for the web API.",
+      "revId": "a96a9493ed7b72523a8817939a8eefd7993e247f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

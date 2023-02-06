@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a74059b_273a58d4",
+        "filename": "modules/audio_device/include/test_audio_device.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-06T22:33:37Z",
+      "side": 1,
+      "message": "Will appreciate if you also will be able to annotate parameters where it make sense.\n\nLike /*param1\u003d*/0, /*param2\u003d*/0 etc, otherwise it\u0027s hard to say what is the meaning of each parameter.",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 51
+      },
+      "revId": "05a238990dce33b489b3dd3c663effba7555dc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

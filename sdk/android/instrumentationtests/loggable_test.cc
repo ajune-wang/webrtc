@@ -18,9 +18,8 @@ namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(void,
-                         LoggableTest_nativeLogInfoTestMessage,
+                         LoggableTestNativeUtils_LogInfoTestMessage,
                          JNIEnv* jni,
-                         jclass,
                          jstring j_message) {
   std::string message =
       JavaToNativeString(jni, JavaParamRef<jstring>(j_message));

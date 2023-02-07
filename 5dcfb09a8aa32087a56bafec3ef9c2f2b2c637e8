@@ -16,6 +16,24 @@
       "message": "Would you mind adding a unit test?",
       "revId": "5dcfb09a8aa32087a56bafec3ef9c2f2b2c637e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f95d22_ab99c510",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-02-07T11:12:00Z",
+      "side": 1,
+      "message": "It is not easy to add unit tests for the change. The reason is that rtt/feedback_min_rtt is not publicly available. However the change is small, and identical to the previous computation of pending_time at line 436, thus it should be safe.",
+      "parentUuid": "a40a6c3d_162fe8eb",
+      "revId": "5dcfb09a8aa32087a56bafec3ef9c2f2b2c637e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

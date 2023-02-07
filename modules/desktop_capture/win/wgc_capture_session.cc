@@ -100,7 +100,11 @@ WgcCaptureSession::WgcCaptureSession(ComPtr<ID3D11Device> d3d11_device,
                                      ABI::Windows::Graphics::SizeInt32 size)
     : d3d11_device_(std::move(d3d11_device)),
       item_(std::move(item)),
-      size_(size) {}
+      size_(size) {
+  RTC_DLOG(LS_INFO) << "___" << __func__ << "size=(" << size_.Width << "x"
+                    << size_.Height << ")";
+}
+
 WgcCaptureSession::~WgcCaptureSession() {
   RemoveEventHandlers();
 }
@@ -108,6 +112,8 @@ WgcCaptureSession::~WgcCaptureSession() {
 HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!is_capture_started_);
+
+  RTC_DLOG(LS_INFO) << "___" << __func__;
 
   if (item_closed_) {
     RTC_LOG(LS_ERROR) << "The target source has been closed.";
@@ -161,6 +167,11 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
     return hr;
   }
 
+  RTC_DLOG(LS_INFO)
+      << "___IDirect3D11CaptureFramePoolStatics::Create(kNumBuffers="
+      << kNumBuffers
+      << ") =>"
+         "ABI::Windows::Graphics::Capture::IDirect3D11CaptureFramePool";
   hr = frame_pool_statics->Create(direct3d_device_.Get(), kPixelFormat,
                                   kNumBuffers, size_, &frame_pool_);
   if (FAILED(hr)) {
@@ -178,9 +189,14 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
       Microsoft::WRL::Callback<ABI::Windows::Foundation::ITypedEventHandler<
           WGC::Direct3D11CaptureFramePool*, IInspectable*>>(
           this, &WgcCaptureSession::OnFrameArrived);
+  RTC_DLOG(LS_INFO) << "___IDirect3D11CaptureFramePool::add_FrameArrived(&"
+                       "WgcCaptureSession::OnFrameArrived)";
   hr = frame_pool_->add_FrameArrived(frame_arrived_handler.Get(),
                                      frame_arrived_token_.get());
 
+  RTC_DLOG(LS_INFO)
+      << "___IDirect3D11CaptureFramePool::CreateCaptureSession() => "
+         "ABI::Windows::Graphics::Capture::IGraphicsCaptureSession";
   hr = frame_pool_->CreateCaptureSession(item_.Get(), &session_);
   if (FAILED(hr)) {
     RecordStartCaptureResult(StartCaptureResult::kCreateCaptureSessionFailed);
@@ -213,6 +229,8 @@ HRESULT WgcCaptureSession::GetFrame(
     std::unique_ptr<DesktopFrame>* output_frame) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
+  RTC_DLOG(LS_INFO) << "___" << __func__ << ": " << frames_in_pool_;
+
   if (item_closed_) {
     RTC_LOG(LS_ERROR) << "The target source has been closed.";
     RecordGetFrameResult(GetFrameResult::kItemClosed);
@@ -221,10 +239,13 @@ HRESULT WgcCaptureSession::GetFrame(
 
   RTC_DCHECK(is_capture_started_);
 
-  if (frames_in_pool_ < 1)
+  if (frames_in_pool_ < 1) {
+    RTC_DLOG(LS_INFO) << "___(frames_in_pool_ < 1) => Wait for event...";
     wait_for_frame_event_.Wait(first_frame_ ? kMaxWaitForFirstFrame
                                             : kMaxWaitForFrame);
+  }
 
+  RTC_DLOG(LS_INFO) << "___IDirect3D11CaptureFramePool::TryGetNextFrame()";
   ComPtr<WGC::IDirect3D11CaptureFrame> capture_frame;
   HRESULT hr = frame_pool_->TryGetNextFrame(&capture_frame);
   if (FAILED(hr)) {
@@ -240,6 +261,10 @@ HRESULT WgcCaptureSession::GetFrame(
 
   first_frame_ = false;
   --frames_in_pool_;
+
+  RTC_DLOG(LS_INFO)
+      << "___IDirect3D11CaptureFrame read from pool => frames_in_pool="
+      << frames_in_pool_;
 
   // We need to get `capture_frame` as an `ID3D11Texture2D` so that we can get
   // the raw image data in the format required by the `DesktopFrame` interface.
@@ -297,6 +322,7 @@ HRESULT WgcCaptureSession::GetFrame(
       return hr;
     }
 
+    RTC_DLOG(LS_INFO) << "___IDirect3D11CaptureFramePool::Recreate()";
     hr = frame_pool_->Recreate(direct3d_device_.Get(), kPixelFormat,
                                kNumBuffers, new_size);
     if (FAILED(hr)) {
@@ -350,6 +376,8 @@ HRESULT WgcCaptureSession::GetFrame(
   d3d_context->Unmap(mapped_texture_.Get(), 0);
 
   // Transfer ownership of `image_data` to the output_frame.
+  RTC_DLOG(LS_INFO) << "___image_data => WgcDesktopFrame (stride="
+                    << row_data_length << ")";
   DesktopSize size(image_width, image_height);
   *output_frame = std::make_unique<WgcDesktopFrame>(size, row_data_length,
                                                     std::move(image_data));
@@ -387,6 +415,8 @@ HRESULT WgcCaptureSession::OnFrameArrived(
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK_LT(frames_in_pool_, kNumBuffers);
   ++frames_in_pool_;
+  RTC_DLOG(LS_INFO) << "___" << __func__
+                    << ": frames_in_pool=" << frames_in_pool_;
   wait_for_frame_event_.Set();
   return S_OK;
 }

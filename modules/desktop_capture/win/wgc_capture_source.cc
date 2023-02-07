@@ -18,6 +18,7 @@
 
 #include "modules/desktop_capture/win/screen_capture_utils.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/win/get_activation_factory.h"
 
 using Microsoft::WRL::ComPtr;
@@ -45,6 +46,8 @@ ABI::Windows::Graphics::SizeInt32 WgcCaptureSource::GetSize() {
   if (!item_)
     return {0, 0};
 
+  RTC_DLOG(LS_INFO) << "___WGC::IGraphicsCaptureItem::get_Size";
+
   ABI::Windows::Graphics::SizeInt32 item_size;
   HRESULT hr = item_->get_Size(&item_size);
   if (FAILED(hr))
@@ -55,9 +58,11 @@ ABI::Windows::Graphics::SizeInt32 WgcCaptureSource::GetSize() {
 
 HRESULT WgcCaptureSource::GetCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_DLOG(LS_INFO) << "___" << __func__;
   HRESULT hr = S_OK;
-  if (!item_)
+  if (!item_) {
     hr = CreateCaptureItem(&item_);
+  }
 
   *result = item_;
   return hr;
@@ -70,6 +75,7 @@ WgcWindowSourceFactory::~WgcWindowSourceFactory() = default;
 
 std::unique_ptr<WgcCaptureSource> WgcWindowSourceFactory::CreateCaptureSource(
     DesktopCapturer::SourceId source_id) {
+  RTC_DLOG(LS_INFO) << "___WgcWindowSourceFactory::CreateCaptureSource";
   return std::make_unique<WgcWindowSource>(source_id);
 }
 
@@ -78,6 +84,7 @@ WgcScreenSourceFactory::~WgcScreenSourceFactory() = default;
 
 std::unique_ptr<WgcCaptureSource> WgcScreenSourceFactory::CreateCaptureSource(
     DesktopCapturer::SourceId source_id) {
+  RTC_DLOG(LS_INFO) << "___WgcScreenSourceFactory::CreateCaptureSource";
   return std::make_unique<WgcScreenSource>(source_id);
 }
 
@@ -122,6 +129,7 @@ bool WgcWindowSource::FocusOnSource() {
 
 HRESULT WgcWindowSource::CreateCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_DLOG(LS_INFO) << "___WgcWindowSource::CreateCaptureItem";
   if (!ResolveCoreWinRTDelayload())
     return E_FAIL;
 
@@ -147,6 +155,7 @@ HRESULT WgcWindowSource::CreateCaptureItem(
 
 WgcScreenSource::WgcScreenSource(DesktopCapturer::SourceId source_id)
     : WgcCaptureSource(source_id) {
+  RTC_DLOG(LS_INFO) << "___" << __func__;
   // Getting the HMONITOR could fail if the source_id is invalid. In that case,
   // we leave hmonitor_ uninitialized and `IsCapturable()` will fail.
   HMONITOR hmon;
@@ -173,6 +182,7 @@ ABI::Windows::Graphics::SizeInt32 WgcScreenSource::GetSize() {
 }
 
 bool WgcScreenSource::IsCapturable() {
+  RTC_DLOG(LS_INFO) << "___WgcScreenSource::IsCapturable";
   if (!hmonitor_)
     return false;
 
@@ -184,6 +194,7 @@ bool WgcScreenSource::IsCapturable() {
 
 HRESULT WgcScreenSource::CreateCaptureItem(
     ComPtr<WGC::IGraphicsCaptureItem>* result) {
+  RTC_DLOG(LS_INFO) << "___WgcScreenSource::CreateCaptureItem";
   if (!hmonitor_)
     return E_ABORT;
 
@@ -210,6 +221,9 @@ HRESULT WgcScreenSource::CreateCaptureItem(
 
   if (!item)
     return E_HANDLE;
+
+  RTC_DLOG(LS_INFO) << "___IGraphicsCaptureItemInterop::CreateForMonitor => "
+                       "WGC::IGraphicsCaptureItem";
 
   *result = std::move(item);
   return hr;

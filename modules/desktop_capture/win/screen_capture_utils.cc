@@ -61,6 +61,7 @@ bool GetScreenList(DesktopCapturer::SourceList* screens,
 
 bool GetHmonitorFromDeviceIndex(const DesktopCapturer::SourceId device_index,
                                 HMONITOR* hmonitor) {
+  RTC_DLOG(LS_INFO) << "___" << __func__;
   // A device index of `kFullDesktopScreenId` or -1 represents all screens, an
   // HMONITOR of 0 indicates the same.
   if (device_index == kFullDesktopScreenId) {

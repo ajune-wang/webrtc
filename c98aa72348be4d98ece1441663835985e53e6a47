@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d160882c_586581f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:19:14Z",
+      "side": 1,
+      "message": "Some polishing for readability. This seems to be a good test to have. Should it be parameterized on codec, or is that for the next round?",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512df4a5_2a139dec",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:19:14Z",
+      "side": 1,
+      "message": "watch out for excessive use of \"auto\". https://google.github.io/styleguide/cppguide.html#Type_deduction argues for very sparing use of it; \"auto pc \u003d rtc::make_ref_counted\" is probably fine because the type is still there; here, and especially with hellpers, it is easy to forget which type we are actually using.",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3df3e09_27bf963f",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:19:14Z",
+      "side": 1,
+      "message": "is it better to use outbound_rtp.value() rather than *?\nagain, \"auto\" makes this hard to read in isolation - depends on remembering what the return type of \"GetStatsOfType\" is.",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f1fc75_e7c5a600",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:19:14Z",
+      "side": 1,
+      "message": "I think it\u0027s confusing to use \"pc\" when the peerconnection access function is also called \"pc()\". What about \"pc_wrapper\"?",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f27123a_758b3f1e",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:19:14Z",
+      "side": 1,
+      "message": "Here \"auto\" should be ok because the real type is 2 lines above.",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

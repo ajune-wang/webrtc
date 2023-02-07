@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa08fbea_5a54acb4",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2023-02-07T06:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2800fe8d_8414f365",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 3
+      },
+      "revId": "ccb10fb127abe1a0b65349dfe3d31efc46938678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a79463c4_c680ff5d",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e383bc29_b544ec74",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2023-02-07T06:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a79463c4_c680ff5d",
+      "range": {
+        "startLine": 148,
+        "startChar": 2,
+        "endLine": 148,
+        "endChar": 3
+      },
+      "revId": "ccb10fb127abe1a0b65349dfe3d31efc46938678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5171f60d_9731493c",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-01-03T15:28:28Z",
       "side": 1,
       "message": "Std c++ doesn\u0027t guarantee the moved-from state is useful further, use std::swap.\n\n\u003e Objects of types defined in the C++ standard library may be moved from. Move operations can either be explicitly specified or implicitly generated. Unless otherwise specified, such moved-from objects will be placed in a valid but unspecified state.\" (https://en.cppreference.com/w/cpp/standard_library)",
+      "range": {
+        "startLine": 254,
+        "startChar": 21,
+        "endLine": 254,
+        "endChar": 30
+      },
+      "revId": "ccb10fb127abe1a0b65349dfe3d31efc46938678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e0f449_dc17813f",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 18974
+      },
+      "writtenOn": "2023-02-07T06:17:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5171f60d_9731493c",
       "range": {
         "startLine": 254,
         "startChar": 21,

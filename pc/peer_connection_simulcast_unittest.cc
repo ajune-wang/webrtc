@@ -991,8 +991,6 @@ class PeerConnectionSimulcastWithMediaFlowTests
   std::unique_ptr<rtc::Thread> background_thread_;
 };
 
-// TODO(https://crbug.com/webrtc/14884): When VP9 simulast is supported, use
-// SetCodecPreferences() and pass a test like this with VP9.
 TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
        SimulcastSendsAllLayersWithVP8) {
   auto local = CreatePc();
@@ -1018,6 +1016,36 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
   EXPECT_EQ(GetCurrentCodecMimeType(report, *outbound_rtps[0]), "video/VP8");
   EXPECT_EQ(GetCurrentCodecMimeType(report, *outbound_rtps[1]), "video/VP8");
   EXPECT_EQ(GetCurrentCodecMimeType(report, *outbound_rtps[2]), "video/VP8");
+  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StartsWith("L1T"));
+  EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StartsWith("L1T"));
+  EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StartsWith("L1T"));
+}
+
+TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
+       SimulcastSendsAllLayersWithVP9) {
+  auto local = CreatePc();
+  auto remote = CreatePc();
+  ExchangeIceCandidates(local, remote);
+
+  auto layers = CreateLayers({"f", "h", "q"}, true);
+  auto transceiver = AddTransceiverWithSimulcastLayers(local, remote, layers);
+  auto codecs = GetCapabilitiesForCodec(local, "VP9");
+  transceiver->SetCodecPreferences(codecs);
+
+  NegotiateWithSimulcastTweaks(local, remote, layers);
+  local->WaitForConnection();
+  remote->WaitForConnection();
+
+  // Wait until media is flowing on all three layers.
+  EXPECT_TRUE_WAIT(HasOutboundRtpBytesSent(local, 3u),
+                   kLongTimeoutForRampingUp.ms());
+  // Verify codec and scalability mode.
+  auto report = GetStats(local);
+  auto outbound_rtps = report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  ASSERT_EQ(outbound_rtps.size(), 3u);
+  EXPECT_EQ(GetCurrentCodecMimeType(report, *outbound_rtps[0]), "video/VP9");
+  EXPECT_EQ(GetCurrentCodecMimeType(report, *outbound_rtps[1]), "video/VP9");
+  EXPECT_EQ(GetCurrentCodecMimeType(report, *outbound_rtps[2]), "video/VP9");
   EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StartsWith("L1T"));
   EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StartsWith("L1T"));
   EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StartsWith("L1T"));

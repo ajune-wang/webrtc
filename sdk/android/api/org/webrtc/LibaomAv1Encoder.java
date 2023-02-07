@@ -9,17 +9,20 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 public class LibaomAv1Encoder extends WrappedNativeVideoEncoder {
   @Override
   public long createNativeVideoEncoder() {
-    return nativeCreateEncoder();
+    return LibaomAv1EncoderJni.get().createEncoder();
   }
-
-  static native long nativeCreateEncoder();
-
   @Override
   public boolean isHardwareEncoder() {
     return false;
+  }
+
+  @NativeMethods
+  interface Natives {
+    long createEncoder();
   }
 }

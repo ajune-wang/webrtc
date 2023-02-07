@@ -13,14 +13,14 @@
 #include "rtc_base/logging.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
+#include "sdk/android/test_native_utils_java/LoggableTestNativeUtils_jni.h"
 
 namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(void,
-                         LoggableTest_nativeLogInfoTestMessage,
+                         LoggableTestNativeUtils_LogInfoTestMessage,
                          JNIEnv* jni,
-                         jclass,
                          jstring j_message) {
   std::string message =
       JavaToNativeString(jni, JavaParamRef<jstring>(j_message));

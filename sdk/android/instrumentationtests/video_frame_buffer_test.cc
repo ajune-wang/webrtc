@@ -9,6 +9,7 @@
  */
 
 #include "api/video/i420_buffer.h"
+#include "sdk/android/generated_test_native_utils_jni/VideoFrameBufferTestNativeUtils_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/video_frame.h"
 #include "sdk/android/src/jni/wrapped_native_i420_buffer.h"
@@ -17,9 +18,8 @@ namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(jint,
-                         VideoFrameBufferTest_nativeGetBufferType,
+                         VideoFrameBufferTestNativeUtils_GetBufferType,
                          JNIEnv* jni,
-                         jclass,
                          jobject video_frame_buffer) {
   const JavaParamRef<jobject> j_video_frame_buffer(video_frame_buffer);
   rtc::scoped_refptr<VideoFrameBuffer> buffer =
@@ -28,9 +28,8 @@ JNI_FUNCTION_DECLARATION(jint,
 }
 
 JNI_FUNCTION_DECLARATION(jobject,
-                         VideoFrameBufferTest_nativeGetNativeI420Buffer,
+                         VideoFrameBufferTestNativeUtils_GetNativeI420Buffer,
                          JNIEnv* jni,
-                         jclass,
                          jobject i420_buffer) {
   const JavaParamRef<jobject> j_i420_buffer(i420_buffer);
   rtc::scoped_refptr<VideoFrameBuffer> buffer =

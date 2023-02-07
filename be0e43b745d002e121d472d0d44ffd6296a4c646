@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58707076_66159adb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:32:08Z",
+      "side": 1,
+      "message": "I seem to be nitpicking today.\nTesting is good. But I found this CL hard to read, mostly for trivial reasons.",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a56247c_59da0448",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:32:08Z",
+      "side": 1,
+      "message": "IsCodecMechanism is the wrong name. IsReliabilityMechanism might be better.",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d318fcf3_ce74fdf4",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:32:08Z",
+      "side": 1,
+      "message": "This is a test, so we are in control, but in general, should use absl::EqualsIgnoreCase when comparing codec names.\n\nI thought we had a helper that caught all those types, but now I can\u0027t find one.",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85ad5299_c76c2940",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:32:08Z",
+      "side": 1,
+      "message": "report.value()?",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "581ac0b9_be00804d",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:32:08Z",
+      "side": 1,
+      "message": "Name is confusing - looks as if it\u0027s returning part of a codec description.\n\nGetCapabilitiesAndRestrictToCodec?\n\nSince this is in a test - should you have a DCHECK that the desired codec is in fact found? Otherwise, I think you will end up using a null something above.",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c5c654c_0e29501b",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-07T21:32:08Z",
+      "side": 1,
+      "message": "confusing double \"pc\"",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

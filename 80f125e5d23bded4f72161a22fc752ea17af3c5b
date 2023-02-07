@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fee068_73ede484",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-07T13:35:46Z",
+      "side": 1,
+      "message": "Yes! Done.",
+      "parentUuid": "49a74db9_129bb8ee",
+      "range": {
+        "startLine": 844,
+        "startChar": 4,
+        "endLine": 844,
+        "endChar": 15
+      },
+      "revId": "80f125e5d23bded4f72161a22fc752ea17af3c5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d13048a4_37ae6afb",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "255edce8_d8c6f21b",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-07T13:35:46Z",
+      "side": 1,
+      "message": "I\u0027m working on a follow-up to be more explicit about which codec to use, I can add a scalabilityMode check as part of that",
+      "parentUuid": "d13048a4_37ae6afb",
+      "range": {
+        "startLine": 976,
+        "startChar": 2,
+        "endLine": 976,
+        "endChar": 18
+      },
+      "revId": "80f125e5d23bded4f72161a22fc752ea17af3c5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4988594f_6e56cd40",
@@ -94,6 +142,30 @@
       "writtenOn": "2023-02-07T12:54:22Z",
       "side": 1,
       "message": "What about third_party/webrtc/api/video/resolution.h?",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 65
+      },
+      "revId": "80f125e5d23bded4f72161a22fc752ea17af3c5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07736eff_6238130d",
+        "filename": "pc/test/peer_connection_test_wrapper.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-07T13:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4988594f_6e56cd40",
       "range": {
         "startLine": 114,
         "startChar": 6,

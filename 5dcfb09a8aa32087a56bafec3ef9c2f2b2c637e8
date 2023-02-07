@@ -34,6 +34,24 @@
       "parentUuid": "a40a6c3d_162fe8eb",
       "revId": "5dcfb09a8aa32087a56bafec3ef9c2f2b2c637e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6d1aba_bc0c7369",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-02-07T13:31:25Z",
+      "side": 1,
+      "message": "Its observable here it looks like:  \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/congestion_controller/goog_cc/goog_cc_network_control.cc;drc\u003d0c4306fc554c80506eb0f9b833a5d2a5fdd452d5;l\u003d679\n\nSo it should be possible to write a test that inject feedback and observe a change in RTT ? But I did not check what the purpose of packet_feedback_only_ is...",
+      "parentUuid": "46f95d22_ab99c510",
+      "revId": "5dcfb09a8aa32087a56bafec3ef9c2f2b2c637e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

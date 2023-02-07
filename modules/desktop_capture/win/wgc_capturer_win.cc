@@ -61,6 +61,8 @@ void RecordWgcCapturerResult(WgcCapturerResult error) {
 }  // namespace
 
 bool IsWgcSupported(CaptureType capture_type) {
+  RTC_DLOG(LS_INFO) << "___" << __func__
+                    << "(type=" << static_cast<int>(capture_type) << ")";
   if (!HasActiveDisplay()) {
     // There is a bug in `CreateForMonitor` that causes a crash if there are no
     // active displays. The crash was fixed in Win11, but we are still unable
@@ -167,6 +169,7 @@ WgcCapturerWin::~WgcCapturerWin() {
 std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options,
     bool allow_delayed_capturable_check) {
+  RTC_DLOG(LS_INFO) << "___" << __func__;
   return std::make_unique<WgcCapturerWin>(
       options, std::make_unique<WgcWindowSourceFactory>(),
       std::make_unique<WindowEnumerator>(
@@ -177,6 +180,7 @@ std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
 // static
 std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
+  RTC_DLOG(LS_INFO) << "___" << __func__;
   return std::make_unique<WgcCapturerWin>(
       options, std::make_unique<WgcScreenSourceFactory>(),
       std::make_unique<ScreenEnumerator>(), false);
@@ -205,6 +209,7 @@ void WgcCapturerWin::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kWgcCapturerWin);
+  RTC_DLOG(LS_INFO) << "___" << __func__;
 
   callback_ = callback;
 
@@ -226,6 +231,7 @@ void WgcCapturerWin::Start(Callback* callback) {
         D3D11_SDK_VERSION, &d3d11_device_, /*feature_level=*/nullptr,
         /*device_context=*/nullptr);
   }
+  RTC_DLOG(LS_INFO) << "___created a Direct3D11 device";
 
   if (FAILED(hr)) {
     RTC_LOG(LS_ERROR) << "Failed to create D3D11Device: " << hr;
@@ -234,6 +240,8 @@ void WgcCapturerWin::Start(Callback* callback) {
 
 void WgcCapturerWin::CaptureFrame() {
   RTC_DCHECK(callback_);
+
+  RTC_DLOG(LS_INFO) << "___" << __func__;
 
   if (!capture_source_) {
     RTC_LOG(LS_ERROR) << "Source hasn't been selected";
@@ -260,6 +268,7 @@ void WgcCapturerWin::CaptureFrame() {
 
   HRESULT hr;
   if (!dispatcher_queue_created_) {
+    RTC_DLOG(LS_INFO) << "___creating a DispatcherQueue";
     // Set the apartment type to NONE because this thread should already be COM
     // initialized.
     DispatcherQueueOptions options{
@@ -298,6 +307,7 @@ void WgcCapturerWin::CaptureFrame() {
       return;
     }
 
+    RTC_DLOG(LS_INFO) << "___creating WgcCaptureSession...";
     std::pair<std::map<SourceId, WgcCaptureSession>::iterator, bool>
         iter_success_pair = ongoing_captures_.emplace(
             std::piecewise_construct,
@@ -311,6 +321,7 @@ void WgcCapturerWin::CaptureFrame() {
   }
 
   if (!capture_session->IsCaptureStarted()) {
+    RTC_DLOG(LS_INFO) << "___calling WgcCaptureSession::StartCapture...";
     hr = capture_session->StartCapture(options_);
     if (FAILED(hr)) {
       RTC_LOG(LS_ERROR) << "Failed to start capture: " << hr;
@@ -321,6 +332,7 @@ void WgcCapturerWin::CaptureFrame() {
       return;
     }
   }
+  RTC_DLOG(LS_INFO) << "___WgcCaptureSession::StartCapture is done.";
 
   std::unique_ptr<DesktopFrame> frame;
   hr = capture_session->GetFrame(&frame);

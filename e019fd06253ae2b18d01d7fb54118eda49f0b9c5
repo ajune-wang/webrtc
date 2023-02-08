@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a30fcd_f9071d3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2023-02-08T08:40:36Z",
+      "side": 1,
+      "message": "I made a mistake in the previous commit. Please take a look.",
+      "revId": "e019fd06253ae2b18d01d7fb54118eda49f0b9c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

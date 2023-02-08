@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96b11085_f92793b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-08T11:54:34Z",
+      "side": 1,
+      "message": "updated the description so it describes the plan for this refacoring more, can you please take another look?",
+      "revId": "30e9a109728fb4a9e154d9f6830fb373cc895be8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

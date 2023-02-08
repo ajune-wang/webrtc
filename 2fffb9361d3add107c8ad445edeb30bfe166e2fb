@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42485459_7650c73c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 53
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5086
+      },
+      "writtenOn": "2023-02-08T16:26:19Z",
+      "side": 1,
+      "message": "Note: if this comes up again, you can just move all the sources to a library so that you don\u0027t have to refactor the files themselves.",
+      "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e7b86a_221ee5f4",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 53
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 5086
+      },
+      "writtenOn": "2023-02-08T16:26:19Z",
+      "side": 1,
+      "message": "I think the problem is that you\u0027ve renamed the .java file, but didn\u0027t rename the reference to it in the .cc file:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/instrumentationtests/video_frame_buffer_test.cc;l\u003d20",
+      "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

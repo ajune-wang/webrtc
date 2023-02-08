@@ -16,6 +16,23 @@
       "message": "I made a mistake in the previous commit. Please take a look.",
       "revId": "e019fd06253ae2b18d01d7fb54118eda49f0b9c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa3236a_84116679",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-08T08:46:09Z",
+      "side": 1,
+      "message": "Good catch!",
+      "revId": "e019fd06253ae2b18d01d7fb54118eda49f0b9c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,7 +33,7 @@ class VideoCaptureOptions;
 
 namespace videocapturemodule {
 // Class definitions
-class VideoCaptureImpl : public VideoCaptureModule {
+class RTC_EXPORT VideoCaptureImpl : public VideoCaptureModule {
  public:
   /*
    *   Create a video capture module object

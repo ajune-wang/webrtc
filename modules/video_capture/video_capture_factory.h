@@ -22,7 +22,7 @@ namespace webrtc {
 
 class VideoCaptureOptions;
 
-class VideoCaptureFactory {
+class RTC_EXPORT VideoCaptureFactory {
  public:
   // Create a video capture module object
   // id - unique identifier of this video capture module object.

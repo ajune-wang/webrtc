@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "434fbd7a_cb627c86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:15:56Z",
+      "side": 1,
+      "message": "It should be, yes, but I\u0027m handling codec selection in the next CL, we can talk about parameterization there.",
+      "parentUuid": "d160882c_586581f2",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "512df4a5_2a139dec",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-07T21:19:14Z",
       "side": 1,
       "message": "watch out for excessive use of \"auto\". https://google.github.io/styleguide/cppguide.html#Type_deduction argues for very sparing use of it; \"auto pc \u003d rtc::make_ref_counted\" is probably fine because the type is still there; here, and especially with hellpers, it is easy to forget which type we are actually using.",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9d614fd_773828b8",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:15:56Z",
+      "side": 1,
+      "message": "Agreed, code updated.",
+      "parentUuid": "512df4a5_2a139dec",
       "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b21eb9_33f91991",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:15:56Z",
+      "side": 1,
+      "message": "I agree that this would be clearer, but it turns out that outbound_rtp-\u003ebytes_sent.value() is not possible because RTCStatsMember\u003cT\u003e does not have value() or equivalent, only operator*(). The RTCStatsMember was invented before absl::optional\u003c\u003e was a thing in our codebase.\n\nWe may want to reconsider that, but not this CL.",
+      "parentUuid": "f3df3e09_27bf963f",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50f1fc75_e7c5a600",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "027700e4_8a34150d",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:15:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f1fc75_e7c5a600",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f27123a_758b3f1e",
@@ -82,6 +154,24 @@
       "writtenOn": "2023-02-07T21:19:14Z",
       "side": 1,
       "message": "Here \"auto\" should be ok because the real type is 2 lines above.",
+      "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ebe84ce_f7e9dd88",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:15:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5f27123a_758b3f1e",
       "revId": "c98aa72348be4d98ece1441663835985e53e6a47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

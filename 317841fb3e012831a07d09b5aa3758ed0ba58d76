@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdce4ebc_9b1a3759",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T11:03:08Z",
+      "side": 1,
+      "message": "We probably want to parameterize this (TEST_P), but until all codecs behave the same we may want to do different things for different codecs.\n\nE.g. until legacy way to trigger VP9 SVC is removed, we may want VP9 simulcast to only get triggered if scalabilityMode is explicitly set.\n\nLet\u0027s keep that door open until we know the plan with VP9, we\u0027ll definitely want test coverage for both legacy and non-legacy paths.",
+      "revId": "317841fb3e012831a07d09b5aa3758ed0ba58d76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

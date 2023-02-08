@@ -70,6 +70,24 @@
       "parentUuid": "284d6474_547fc908",
       "revId": "1268853587f900382c244de6260a5a0a561d63b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cddd5df7_dc3d3dca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-08T13:17:53Z",
+      "side": 1,
+      "message": "Maybe limiting to Linux is safer to start, and in a follow-up CL open it to the other OS.",
+      "parentUuid": "2e1b6a50_0b1d2358",
+      "revId": "1268853587f900382c244de6260a5a0a561d63b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

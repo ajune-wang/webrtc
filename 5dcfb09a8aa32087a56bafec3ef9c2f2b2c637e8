@@ -52,6 +52,24 @@
       "parentUuid": "46f95d22_ab99c510",
       "revId": "5dcfb09a8aa32087a56bafec3ef9c2f2b2c637e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6baac4e5_e3199457",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-02-08T19:57:19Z",
+      "side": 1,
+      "message": "IIUC, packet_feedback_only_ is a config saying that we do not have receiver report, just have TWCC packet feedback.\n\nThanks, I added a unit test. PTAL.",
+      "parentUuid": "8a6d1aba_bc0c7369",
+      "revId": "5dcfb09a8aa32087a56bafec3ef9c2f2b2c637e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

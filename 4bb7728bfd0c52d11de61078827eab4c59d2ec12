@@ -16,6 +16,63 @@
       "message": "Rebased again to fix merge conflicts.",
       "revId": "4bb7728bfd0c52d11de61078827eab4c59d2ec12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec13aea_60fb83e4",
+        "filename": "modules/video_capture/video_capture_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-08T12:28:22Z",
+      "side": 1,
+      "message": "#include \"rtc_base/system/rtc_export.h\"",
+      "revId": "4bb7728bfd0c52d11de61078827eab4c59d2ec12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6fe2334_78f0f7f1",
+        "filename": "modules/video_capture/video_capture_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-08T12:28:22Z",
+      "side": 1,
+      "message": "#include \"rtc_base/system/rtc_export.h\"",
+      "revId": "4bb7728bfd0c52d11de61078827eab4c59d2ec12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65795ada_d9f4479c",
+        "filename": "modules/video_capture/video_capture_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-08T12:28:22Z",
+      "side": 1,
+      "message": "You might have to add the build target to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/BUILD.gn;l\u003d16;drc\u003db82cdd5dda88956c6c6debc2db72d08fdb555f39 to get that in the .dll/.so on Chromium\u0027s component builds.",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 16
+      },
+      "revId": "4bb7728bfd0c52d11de61078827eab4c59d2ec12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,24 @@
       "parentUuid": "97d1b884_62e5f2e8",
       "revId": "1268853587f900382c244de6260a5a0a561d63b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "284d6474_547fc908",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-08T12:28:22Z",
+      "side": 1,
+      "message": "From the commit message that introduced the change:\n\n```\nMove internal capture+render to build_with_chromium\u003d\u003d0 condition\n\nThis will avoid errors related to DirectX not being found\nfor Chromium bots (mainly GN, but it\u0027s safest to do the same\nchanges for GYP since they also make sense there as GYP generation\ngo slightly faster without having to process those targets).\n```",
+      "parentUuid": "c448c036_6e14a621",
+      "revId": "1268853587f900382c244de6260a5a0a561d63b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7bba194_59f4e6dd",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:51:21Z",
+      "side": 1,
+      "message": "I knew there was a better name, but not what it was. Done!",
+      "parentUuid": "7a56247c_59da0448",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d318fcf3_ce74fdf4",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-02-07T21:32:08Z",
       "side": 1,
       "message": "This is a test, so we are in control, but in general, should use absl::EqualsIgnoreCase when comparing codec names.\n\nI thought we had a helper that caught all those types, but now I can\u0027t find one.",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f988b6e_0c1df416",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:51:21Z",
+      "side": 1,
+      "message": "absl::EqualsIgnoreCase it is!",
+      "parentUuid": "d318fcf3_ce74fdf4",
       "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2764ce28_3591ccde",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:51:21Z",
+      "side": 1,
+      "message": "That would be mime_type.value(), but sadly RTCStatsMember\u003cT\u003e only has operator*().",
+      "parentUuid": "85ad5299_c76c2940",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "581ac0b9_be00804d",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20e2cb03_12ee65c6",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:51:21Z",
+      "side": 1,
+      "message": "Done! GetCapabilitiesAndRestrictToCodec + DCHECK",
+      "parentUuid": "581ac0b9_be00804d",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c5c654c_0e29501b",
@@ -99,6 +171,24 @@
       "writtenOn": "2023-02-07T21:32:08Z",
       "side": 1,
       "message": "confusing double \"pc\"",
+      "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e1ed1b_1c6d7ec9",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-08T10:51:21Z",
+      "side": 1,
+      "message": "This is resolved by the `pc_wrapper` renames of the previous CL",
+      "parentUuid": "8c5c654c_0e29501b",
       "revId": "be0e43b745d002e121d472d0d44ffd6296a4c646",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

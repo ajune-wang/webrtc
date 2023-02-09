@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8843ffa6_34b96eaf",
+        "filename": "pc/peer_connection_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-09T13:14:03Z",
+      "side": 1,
+      "message": "WDYT about having absl::optional\u003cDataChannelInit\u003e config \u003d absl::nullopt instead of pointer based API. In such case user will be able to pass a struct directly instead of keeping ownership of it. As I see PC will copy the struct if pointer isn\u0027t null, so it should be safe from deleting the object point of view.",
+      "range": {
+        "startLine": 173,
+        "startChar": 6,
+        "endLine": 173,
+        "endChar": 45
+      },
+      "revId": "bb969cad90385ec7e1671223e7a8b55c93febb68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

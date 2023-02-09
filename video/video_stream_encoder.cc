@@ -37,6 +37,7 @@
 #include "call/adaptation/video_stream_adapter.h"
 #include "media/base/media_channel.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "modules/video_coding/svc/svc_rate_allocator.h"
 #include "modules/video_coding/utility/vp8_constants.h"
 #include "rtc_base/arraysize.h"
@@ -540,6 +541,27 @@ absl::optional<VideoSourceRestrictions> MergeRestrictions(
     return_value->UpdateMin(*res);
   }
   return return_value;
+}
+
+size_t GetSimulcastOrSpatialIndex(
+    const EncodedImage& encoded_image,
+    const CodecSpecificInfo* codec_specific_info) {
+  if (codec_specific_info &&
+      codec_specific_info->scalability_mode.has_value()) {
+    absl::optional<int> index =
+        ScalabilityModeToNumSpatialLayers(
+            codec_specific_info->scalability_mode.value()) > 1
+            ? encoded_image.SpatialIndex_()
+            : encoded_image.SimulcastIndex();
+    return index.value_or(0);
+  } else if (codec_specific_info &&
+             codec_specific_info->codecType == VideoCodecType::kVideoCodecVP9) {
+    // TODO(https://crbug.com/webrtc/14889): When the legacy SVC path is deleted
+    // (and simulcast is default for all codecs when multiple encodings are
+    // used) there is no need to treat VP9 differently here.
+    return encoded_image.SpatialIndex_().value_or(0);
+  }
+  return encoded_image.SimulcastIndex().value_or(0);
 }
 
 }  //  namespace
@@ -1142,6 +1164,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                           encoder_config_, &codec);
   }
 
+  // // Temp check for debugging *VP_Simulcast* test.
+  // RTC_CHECK_EQ(codec.numberOfSimulcastStreams, 3u);
   char log_stream_buf[4 * 1024];
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
   log_stream << "ReconfigureEncoder:\n";
@@ -2060,8 +2084,9 @@ EncodedImage VideoStreamEncoder::AugmentEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
   EncodedImage image_copy(encoded_image);
-  const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
-  frame_encode_metadata_writer_.FillTimingInfo(spatial_idx, &image_copy);
+  const size_t simulcast_svc_idx =
+      GetSimulcastOrSpatialIndex(encoded_image, codec_specific_info);
+  frame_encode_metadata_writer_.FillTimingInfo(simulcast_svc_idx, &image_copy);
   frame_encode_metadata_writer_.UpdateBitstream(codec_specific_info,
                                                 &image_copy);
   VideoCodecType codec_type = codec_specific_info
@@ -2070,12 +2095,12 @@ EncodedImage VideoStreamEncoder::AugmentEncodedImage(
   if (image_copy.qp_ < 0 && qp_parsing_allowed_) {
     // Parse encoded frame QP if that was not provided by encoder.
     image_copy.qp_ = qp_parser_
-                         .Parse(codec_type, spatial_idx, image_copy.data(),
-                                image_copy.size())
+                         .Parse(codec_type, simulcast_svc_idx,
+                                image_copy.data(), image_copy.size())
                          .value_or(-1);
   }
-  RTC_LOG(LS_VERBOSE) << __func__ << " spatial_idx " << spatial_idx << " qp "
-                      << image_copy.qp_;
+  RTC_LOG(LS_VERBOSE) << __func__ << " simulcast_svc_idx " << simulcast_svc_idx
+                      << " qp " << image_copy.qp_;
   image_copy.SetAtTargetQuality(codec_type == kVideoCodecVP8 &&
                                 image_copy.qp_ <= kVp8SteadyStateQpThreshold);
 
@@ -2093,7 +2118,8 @@ EncodedImage VideoStreamEncoder::AugmentEncodedImage(
   // id in content type to +1 of that is actual simulcast index. This is because
   // value 0 on the wire is reserved for 'no simulcast stream specified'.
   RTC_CHECK(videocontenttypehelpers::SetSimulcastId(
-      &image_copy.content_type_, static_cast<uint8_t>(spatial_idx + 1)));
+      &image_copy.content_type_,
+      static_cast<uint8_t>(encoded_image.SimulcastIndex().value_or(0) + 1)));
 
   return image_copy;
 }
@@ -2104,9 +2130,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   TRACE_EVENT_INSTANT1("webrtc", "VCMEncodedFrameCallback::Encoded",
                        "timestamp", encoded_image.Timestamp());
 
-  // TODO(bugs.webrtc.org/10520): Signal the simulcast id explicitly.
-
-  const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
+  const size_t simulcast_idx = encoded_image.SimulcastIndex().value_or(0);
   const VideoCodecType codec_type = codec_specific_info
                                         ? codec_specific_info->codecType
                                         : VideoCodecType::kVideoCodecGeneric;
@@ -2118,13 +2142,13 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   unsigned int image_width = image_copy._encodedWidth;
   unsigned int image_height = image_copy._encodedHeight;
   encoder_queue_.PostTask([this, codec_type, image_width, image_height,
-                           spatial_idx,
+                           simulcast_idx,
                            at_target_quality = image_copy.IsAtTargetQuality()] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
 
     // Let the frame cadence adapter know about quality convergence.
     if (frame_cadence_adapter_)
-      frame_cadence_adapter_->UpdateLayerQualityConvergence(spatial_idx,
+      frame_cadence_adapter_->UpdateLayerQualityConvergence(simulcast_idx,
                                                             at_target_quality);
 
     // Currently, the internal quality scaler is used for VP9 instead of the
@@ -2422,7 +2446,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
                                              encode_duration_us, frame_size);
   if (bitrate_adjuster_) {
     bitrate_adjuster_->OnEncodedFrame(
-        frame_size, encoded_image.SpatialIndex().value_or(0), temporal_index);
+        frame_size, encoded_image.SpatialIndex_().value_or(0), temporal_index);
   }
 }
 

@@ -47,7 +47,7 @@ void PopulateRtpWithCodecSpecifics(const CodecSpecificInfo& info,
       vp8_header.temporalIdx = info.codecSpecific.VP8.temporalIdx;
       vp8_header.layerSync = info.codecSpecific.VP8.layerSync;
       vp8_header.keyIdx = info.codecSpecific.VP8.keyIdx;
-      rtp->simulcastIdx = spatial_index.value_or(0);
+      RTC_DCHECK(!spatial_index.has_value());
       return;
     }
     case kVideoCodecVP9: {
@@ -95,13 +95,13 @@ void PopulateRtpWithCodecSpecifics(const CodecSpecificInfo& info,
       auto& h264_header = rtp->video_type_header.emplace<RTPVideoHeaderH264>();
       h264_header.packetization_mode =
           info.codecSpecific.H264.packetization_mode;
-      rtp->simulcastIdx = spatial_index.value_or(0);
+      RTC_DCHECK(spatial_index.has_value());
       return;
     }
     case kVideoCodecMultiplex:
     case kVideoCodecGeneric:
       rtp->codec = kVideoCodecGeneric;
-      rtp->simulcastIdx = spatial_index.value_or(0);
+      RTC_DCHECK(spatial_index.has_value());
       return;
     default:
       return;
@@ -203,8 +203,15 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
     int64_t shared_frame_id) {
   RTPVideoHeader rtp_video_header;
   if (codec_specific_info) {
-    PopulateRtpWithCodecSpecifics(*codec_specific_info, image.SpatialIndex(),
+    PopulateRtpWithCodecSpecifics(*codec_specific_info, image.SpatialIndex_(),
                                   &rtp_video_header);
+    // Currently, SimulcastIndex() could return the SpatialIndex() if not set
+    // correctly so gate on codec type.
+    // TODO(https://crbug.com/webrtc/14884): Delete this gating logic when
+    // SimulcastIndex() is guaranteed to be the stream index.
+    if (codec_specific_info->codecType != kVideoCodecVP9) {
+      rtp_video_header.simulcastIdx = image.SimulcastIndex().value_or(0);
+    }
   }
   rtp_video_header.frame_type = image._frameType;
   rtp_video_header.rotation = image.rotation_;

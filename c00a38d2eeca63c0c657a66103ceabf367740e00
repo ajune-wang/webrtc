@@ -16,6 +16,24 @@
       "message": "+1 with joy. Fast work!\n\n(if it passes the chrome bot)",
       "revId": "c00a38d2eeca63c0c657a66103ceabf367740e00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3505a6e_6f5d42e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-09T13:06:14Z",
+      "side": 1,
+      "message": "afaik chromium doesn\u0027t allow to call deprecated functions, so should pass.",
+      "parentUuid": "f8730ee4_15078209",
+      "revId": "c00a38d2eeca63c0c657a66103ceabf367740e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

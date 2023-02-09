@@ -31,6 +31,8 @@
 
 namespace webrtc {
 
+struct CodecSpecificInfo;
+
 // Abstract interface for buffer storage. Intended to support buffers owned by
 // external encoders with special release requirements, e.g, java encoders with
 // releaseOutputBuffer.
@@ -89,6 +91,27 @@ class RTC_EXPORT EncodedImage {
 
   int64_t NtpTimeMs() const { return ntp_time_ms_; }
 
+  // Every simulcast layer (= encoding) has its own encoder and RTP stream.
+  // There can be no dependencies between encoded images of different simulcast
+  // layers.
+  absl::optional<int> SimulcastIndex() const {
+    // Old code paths don't use SetSimulcastIndex(), but instead use
+    // SetSpatialIndex(). To deal with backwards-compatibility concerns, return
+    // the spatial index if the simulcast index was not set yet.
+    // TODO(https://crbug.com/webrtc/14884): When old code has migrated to
+    // SetSimulcastIndex(), delete this fallback logic.
+    return simulcast_index_.has_value() ? simulcast_index_.value()
+                                        : spatial_index_;
+  }
+  void SetSimulcastIndex(absl::optional<int> simulcast_index) {
+    RTC_DCHECK_GE(simulcast_index.value_or(0), 0);
+    RTC_DCHECK_LT(simulcast_index.value_or(0), kMaxSimulcastStreams);
+    simulcast_index_ = simulcast_index;
+  }
+
+  // Encoded images can have dependencies between spatial and/or temporal
+  // layers, depending on the scalability mode used by the encoder. See diagrams
+  // at https://w3c.github.io/webrtc-svc/#dependencydiagrams*.
   absl::optional<int> SpatialIndex() const { return spatial_index_; }
   void SetSpatialIndex(absl::optional<int> spatial_index) {
     RTC_DCHECK_GE(spatial_index.value_or(0), 0);
@@ -204,6 +227,7 @@ class RTC_EXPORT EncodedImage {
   rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
   size_t size_ = 0;  // Size of encoded frame data.
   uint32_t timestamp_rtp_ = 0;
+  absl::optional<int> simulcast_index_;
   absl::optional<int> spatial_index_;
   absl::optional<int> temporal_index_;
   std::map<int, size_t> spatial_layer_frame_size_bytes_;

@@ -169,7 +169,8 @@ RttBasedBackoff::RttBasedBackoff(const FieldTrialsView* key_value_config)
       // trigger rtt backoff unless packet feedback is enabled.
       last_propagation_rtt_update_(Timestamp::PlusInfinity()),
       last_propagation_rtt_(TimeDelta::Zero()),
-      last_packet_sent_(Timestamp::MinusInfinity()) {
+      last_packet_sent_(Timestamp::MinusInfinity()),
+      state_(RttBasedBackoffState::kRttBelowLimit) {
   ParseFieldTrial({&disabled_, &configured_limit_, &drop_fraction_,
                    &drop_interval_, &bandwidth_floor_},
                   key_value_config->Lookup("WebRTC-Bwe-MaxRttLimit"));
@@ -182,6 +183,13 @@ void RttBasedBackoff::UpdatePropagationRtt(Timestamp at_time,
                                            TimeDelta propagation_rtt) {
   last_propagation_rtt_update_ = at_time;
   last_propagation_rtt_ = propagation_rtt;
+}
+
+RttBasedBackoffState RttBasedBackoff::UpdateRttState(Timestamp at_time) {
+  state_ = CorrectedRtt(at_time) > rtt_limit_
+               ? RttBasedBackoffState::kRttAboveLimit
+               : RttBasedBackoffState::kRttBelowLimit;
+  return state_;
 }
 
 TimeDelta RttBasedBackoff::CorrectedRtt(Timestamp at_time) const {
@@ -328,6 +336,10 @@ LossBasedState SendSideBandwidthEstimation::loss_based_state() const {
   return loss_based_state_;
 }
 
+RttBasedBackoffState SendSideBandwidthEstimation::rtt_based_state() const {
+  return rtt_backoff_.state();
+}
+
 DataRate SendSideBandwidthEstimation::GetEstimatedLinkCapacity() const {
   return link_capacity_.estimate();
 }
@@ -464,7 +476,8 @@ void SendSideBandwidthEstimation::UpdateRtt(TimeDelta rtt, Timestamp at_time) {
 }
 
 void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
-  if (rtt_backoff_.CorrectedRtt(at_time) > rtt_backoff_.rtt_limit_) {
+  if (rtt_backoff_.UpdateRttState(at_time) ==
+      RttBasedBackoffState::kRttAboveLimit) {
     if (at_time - time_last_decrease_ >= rtt_backoff_.drop_interval_ &&
         current_target_ > rtt_backoff_.bandwidth_floor_) {
       time_last_decrease_ = at_time;

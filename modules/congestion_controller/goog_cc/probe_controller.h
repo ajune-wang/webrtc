@@ -80,6 +80,9 @@ struct ProbeControllerConfig {
   FieldTrialParameter<double> skip_if_estimate_larger_than_fraction_of_max;
   // Do not send probes if network is either overusing or underusing.
   FieldTrialParameter<bool> not_probe_if_delay_increased;
+  // Do not send probes if rtt is higher than a configured limit, which is
+  // defined by RTTBasedBackoff.
+  FieldTrialParameter<bool> not_probe_if_high_rtt;
 };
 
 // Reason that bandwidth estimate is limited. Bandwidth estimate can be limited
@@ -90,6 +93,7 @@ enum class BandwidthLimitedCause {
   kLossLimitedBweDecreasing = 1,
   kDelayBasedLimited = 2,
   kDelayBasedLimitedDelayIncreased = 3,
+  kRTTBasedBackOffHighRTT = 4
 };
 
 // This class controls initiation of probing to estimate initial channel
@@ -145,6 +149,9 @@ class ProbeController {
   bool DontProbeIfDelayIncreased() {
     return config_.not_probe_if_delay_increased;
   }
+
+  // Gets the value of field trial not_probe_if_high_rtt.
+  bool DontProbeIfHighRtt() { return config_.not_probe_if_high_rtt; }
 
  private:
   enum class State {

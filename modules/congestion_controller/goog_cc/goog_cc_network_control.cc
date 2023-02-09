@@ -30,6 +30,7 @@
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
 #include "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
+#include "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/checks.h"
@@ -64,12 +65,18 @@ bool IsNotDisabled(const FieldTrialsView* config, absl::string_view key) {
 
 BandwidthLimitedCause GetBandwidthLimitedCause(
     LossBasedState loss_based_state,
+    RttBasedBackoffState rtt_based_state,
     BandwidthUsage bandwidth_usage,
-    bool not_probe_if_delay_increased) {
+    bool not_probe_if_delay_increased,
+    bool not_probe_if_high_rtt) {
   if (not_probe_if_delay_increased &&
       (bandwidth_usage == BandwidthUsage::kBwOverusing ||
        bandwidth_usage == BandwidthUsage::kBwUnderusing)) {
     return BandwidthLimitedCause::kDelayBasedLimitedDelayIncreased;
+  }
+  if (not_probe_if_high_rtt &&
+      rtt_based_state == RttBasedBackoffState::kRttAboveLimit) {
+    return BandwidthLimitedCause::kRTTBasedBackOffHighRTT;
   }
   switch (loss_based_state) {
     case LossBasedState::kDecreasing:
@@ -684,10 +691,11 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
 
     auto probes = probe_controller_->SetEstimatedBitrate(
         loss_based_target_rate,
-        GetBandwidthLimitedCause(
-            bandwidth_estimation_->loss_based_state(),
-            delay_based_bwe_->last_state(),
-            probe_controller_->DontProbeIfDelayIncreased()),
+        GetBandwidthLimitedCause(bandwidth_estimation_->loss_based_state(),
+                                 bandwidth_estimation_->rtt_based_state(),
+                                 delay_based_bwe_->last_state(),
+                                 probe_controller_->DontProbeIfDelayIncreased(),
+                                 probe_controller_->DontProbeIfHighRtt()),
         at_time);
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());

@@ -110,7 +110,8 @@ ProbeControllerConfig::ProbeControllerConfig(
       skip_if_estimate_larger_than_fraction_of_max(
           "skip_if_est_larger_than_fraction_of_max",
           0.0),
-      not_probe_if_delay_increased("not_probe_if_delay_increased", false) {
+      not_probe_if_delay_increased("not_probe_if_delay_increased", false),
+      not_probe_if_high_rtt("not_probe_if_high_rtt", false) {
   ParseFieldTrial({&first_exponential_probe_scale,
                    &second_exponential_probe_scale,
                    &further_exponential_probe_scale,
@@ -131,7 +132,8 @@ ProbeControllerConfig::ProbeControllerConfig(
                    &limit_probe_target_rate_to_loss_bwe,
                    &loss_limited_probe_scale,
                    &skip_if_estimate_larger_than_fraction_of_max,
-                   &not_probe_if_delay_increased},
+                   &not_probe_if_delay_increased,
+                   &not_probe_if_high_rtt},
                   key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
 
   // Specialized keys overriding subsets of WebRTC-Bwe-ProbingConfiguration
@@ -499,6 +501,12 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
   if (config_.not_probe_if_delay_increased &&
       bandwidth_limited_cause_ ==
           BandwidthLimitedCause::kDelayBasedLimitedDelayIncreased) {
+    return {};
+  }
+
+  if (config_.not_probe_if_high_rtt &&
+      bandwidth_limited_cause_ ==
+          BandwidthLimitedCause::kRTTBasedBackOffHighRTT) {
     return {};
   }
 

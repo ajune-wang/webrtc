@@ -33,6 +33,24 @@
       "message": "I think the problem is that you\u0027ve renamed the .java file, but didn\u0027t rename the reference to it in the .cc file:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/instrumentationtests/video_frame_buffer_test.cc;l\u003d20",
       "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b487b63b_eb670616",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 53
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2023-02-09T09:05:12Z",
+      "side": 1,
+      "message": "Hm, but I did. See `sdk/android/instrumentationtests/video_frame_buffer_test.cc` changes in this CL.\n\nPS: I tried both: using JNI_FUNCTION_DECLARATION and declaring directly (as it is right now). The errors remains both ways.",
+      "parentUuid": "75e7b86a_221ee5f4",
+      "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

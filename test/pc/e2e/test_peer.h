@@ -109,9 +109,10 @@ class TestPeer final : public StatsProvider {
   }
 
   rtc::scoped_refptr<DataChannelInterface> CreateDataChannel(
-      const std::string& label) {
+      const std::string& label,
+      const DataChannelInit* config = nullptr) {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
-    return wrapper_->CreateDataChannel(label);
+    return wrapper_->CreateDataChannel(label, config);
   }
 
   PeerConnectionInterface::SignalingState signaling_state() {

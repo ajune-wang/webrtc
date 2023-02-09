@@ -169,7 +169,8 @@ class PeerConnectionWrapper {
   // Calls the underlying PeerConnection's CreateDataChannel method with default
   // initialization parameters.
   rtc::scoped_refptr<DataChannelInterface> CreateDataChannel(
-      const std::string& label);
+      const std::string& label,
+      const DataChannelInit* config = nullptr);
 
   // Returns the signaling state of the underlying PeerConnection.
   PeerConnectionInterface::SignalingState signaling_state();

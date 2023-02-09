@@ -312,8 +312,9 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnectionWrapper::AddVideoTrack(
 }
 
 rtc::scoped_refptr<DataChannelInterface>
-PeerConnectionWrapper::CreateDataChannel(const std::string& label) {
-  auto result = pc()->CreateDataChannelOrError(label, nullptr);
+PeerConnectionWrapper::CreateDataChannel(const std::string& label,
+                                         const DataChannelInit* config) {
+  auto result = pc()->CreateDataChannelOrError(label, config);
   if (!result.ok()) {
     RTC_LOG(LS_ERROR) << "CreateDataChannel failed: "
                       << ToString(result.error().type()) << " "

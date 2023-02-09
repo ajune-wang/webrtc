@@ -55,12 +55,18 @@ class LinkCapacityTracker {
   DataRate last_delay_based_estimate_ = DataRate::PlusInfinity();
 };
 
+// State of the RttBasedBackoff, which indicates that the current RTT is above
+// or below the configured RTT limit.
+enum class RttBasedBackoffState { kRttAboveLimit = 0, kRttBelowLimit = 1 };
+
 class RttBasedBackoff {
  public:
   explicit RttBasedBackoff(const FieldTrialsView* key_value_config);
   ~RttBasedBackoff();
   void UpdatePropagationRtt(Timestamp at_time, TimeDelta propagation_rtt);
   TimeDelta CorrectedRtt(Timestamp at_time) const;
+  RttBasedBackoffState UpdateRttState(Timestamp at_time);
+  RttBasedBackoffState state() const { return state_; }
 
   FieldTrialFlag disabled_;
   FieldTrialParameter<TimeDelta> configured_limit_;
@@ -73,6 +79,7 @@ class RttBasedBackoff {
   Timestamp last_propagation_rtt_update_;
   TimeDelta last_propagation_rtt_;
   Timestamp last_packet_sent_;
+  RttBasedBackoffState state_;
 };
 
 class SendSideBandwidthEstimation {
@@ -86,6 +93,7 @@ class SendSideBandwidthEstimation {
 
   DataRate target_rate() const;
   LossBasedState loss_based_state() const;
+  RttBasedBackoffState rtt_based_state() const;
   uint8_t fraction_loss() const { return last_fraction_loss_; }
   TimeDelta round_trip_time() const { return last_round_trip_time_; }
 

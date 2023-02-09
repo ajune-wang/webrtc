@@ -572,12 +572,16 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
 
   shared_frame_id_++;
   size_t stream_index = 0;
+  // Currently, SimulcastIndex() could return the SpatialIndex() if not set
+  // correctly so gate on codec type.
+  // TODO(https://crbug.com/webrtc/14884): Delete this gating logic when
+  // SimulcastIndex() is guaranteed to be the stream index.
   if (codec_specific_info &&
       (codec_specific_info->codecType == kVideoCodecVP8 ||
        codec_specific_info->codecType == kVideoCodecH264 ||
        codec_specific_info->codecType == kVideoCodecGeneric)) {
     // Map spatial index to simulcast.
-    stream_index = encoded_image.SpatialIndex().value_or(0);
+    stream_index = encoded_image.SimulcastIndex().value_or(0);
   }
   RTC_DCHECK_LT(stream_index, rtp_streams_.size());
 

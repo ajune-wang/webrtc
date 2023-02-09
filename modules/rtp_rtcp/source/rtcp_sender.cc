@@ -818,9 +818,6 @@ std::vector<rtcp::ReportBlock> RTCPSender::CreateReportBlocks(
   if (!receive_statistics_)
     return result;
 
-  // TODO(danilchap): Support sending more than `RTCP_MAX_REPORT_BLOCKS` per
-  // compound rtcp packet when single rtcp module is used for multiple media
-  // streams.
   result = receive_statistics_->RtcpReportBlocks(RTCP_MAX_REPORT_BLOCKS);
 
   if (!result.empty() && ((feedback_state.last_rr_ntp_secs != 0) ||

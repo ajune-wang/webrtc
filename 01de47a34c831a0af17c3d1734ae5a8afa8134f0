@@ -16,6 +16,24 @@
       "message": "Do you have an webrtc or chromium bug for this change?\nif yes, add line \"Bug: webrtc:\u003cnumber\u003e\" or \"Bug: chromium:\u003cnumber\u003e\"\nIf not, add line \"Bug: None\"",
       "revId": "01de47a34c831a0af17c3d1734ae5a8afa8134f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda4b9df_63f2e5ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-09T11:54:00Z",
+      "side": 1,
+      "message": "Done. I added \"Bug: None\".\n\nI found this issue by code inspection while investigating the stack trace of the crash in b/265848768.\n\nThis issue could explain the stack trace in b/265848768 only in this case:\n- maxFrameRate is 1. AV1 encoder is used, and the number of temporal layers \u003e 1.\n\nI think maxFrameRate is unlikely to be 1. This is why I doubt this issue causes b/265848768.",
+      "parentUuid": "71f60a6b_78a82cc7",
+      "revId": "01de47a34c831a0af17c3d1734ae5a8afa8134f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

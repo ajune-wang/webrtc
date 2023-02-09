@@ -16,6 +16,52 @@
       "message": "updated the description so it describes the plan for this refacoring more, can you please take another look?",
       "revId": "30e9a109728fb4a9e154d9f6830fb373cc895be8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2babfa0f_d524a39a",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-02-09T13:05:17Z",
+      "side": 1,
+      "message": "how does this now relate to the portallocator::ice_tiebreaker ?\ncan they be different ?\nwhen are they different ?\ndoes it matter ?\n\nplease add comment to code and description.",
+      "range": {
+        "startLine": 474,
+        "startChar": 11,
+        "endLine": 474,
+        "endChar": 26
+      },
+      "revId": "30e9a109728fb4a9e154d9f6830fb373cc895be8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b72e256_77b09ba2",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-02-09T13:05:17Z",
+      "side": 1,
+      "message": "can you please rename this getter to either\nGetIceTiebreaker() or ice_tie_breaker() ?\nthe existing variant is dangerously close to a constructor.",
+      "range": {
+        "startLine": 295,
+        "startChar": 28,
+        "endLine": 295,
+        "endChar": 41
+      },
+      "revId": "30e9a109728fb4a9e154d9f6830fb373cc895be8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

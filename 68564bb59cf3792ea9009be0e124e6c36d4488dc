@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b121ca00_0f996a7e",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-02-09T13:05:17Z",
+      "side": 0,
+      "message": "why is this removed ?\njonas guess: There is no value on setting to tiebreaker on the session\nsince it is anyway set on the actual port when it is gathered (line 985) ?\n\ncorrect ?\nplease add comment to cl decription.",
+      "range": {
+        "startLine": 942,
+        "startChar": 22,
+        "endLine": 942,
+        "endChar": 40
+      },
+      "revId": "68564bb59cf3792ea9009be0e124e6c36d4488dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

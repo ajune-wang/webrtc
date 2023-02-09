@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce97c8d3_694d43ca",
+        "filename": "pc/peer_connection_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-09T19:10:49Z",
+      "side": 1,
+      "message": "Should it be const reference?",
+      "range": {
+        "startLine": 318,
+        "startChar": 4,
+        "endLine": 318,
+        "endChar": 9
+      },
+      "revId": "4f1b25659d33d8268ebb79d963b11c5643100a80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc002746_ad9d02a7",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-09T19:10:49Z",
+      "side": 1,
+      "message": "And here const reference too?",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 11
+      },
+      "revId": "4f1b25659d33d8268ebb79d963b11c5643100a80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

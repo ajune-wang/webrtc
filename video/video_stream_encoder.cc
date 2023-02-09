@@ -1142,6 +1142,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                           encoder_config_, &codec);
   }
 
+  RTC_CHECK_EQ(codec.numberOfSimulcastStreams, 3u);
   char log_stream_buf[4 * 1024];
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
   log_stream << "ReconfigureEncoder:\n";

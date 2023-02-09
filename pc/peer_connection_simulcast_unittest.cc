@@ -1135,9 +1135,16 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
   // GetParameters() reflects what was set, but because this is not supported
   // yet (webrtc:14884), we expect legacy SVC fallback for now...
 
-  // Legacy SVC fallback only has a single RTP stream.
-  EXPECT_TRUE_WAIT(HasOutboundRtpBytesSent(local_pc_wrapper, 1u),
+  /*encodings = sender->GetParameters().encodings;
+  ASSERT_EQ(encodings.size(), 3u);
+  EXPECT_TRUE(encodings[0].scalability_mode.has_value());
+  EXPECT_TRUE(encodings[1].scalability_mode.has_value());
+  EXPECT_TRUE(encodings[2].scalability_mode.has_value());*/
+
+  // You can do it...
+  EXPECT_TRUE_WAIT(HasOutboundRtpBytesSent(local_pc_wrapper, 3u),
                    kLongTimeoutForRampingUp.ms());
+
   // Legacy SVC fallback uses L3T3_KEY.
   rtc::scoped_refptr<const RTCStatsReport> report = GetStats(local_pc_wrapper);
   std::vector<const RTCOutboundRTPStreamStats*> outbound_rtps =

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6df67963_032d8a10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-09T17:27:31Z",
+      "side": 1,
+      "message": "the format seems stable, haven\u0027t been changed for a while,\nsupport for maximum resolution 65kx65k resolution doesn\u0027t seems to be needed any time soon.",
+      "revId": "0be06c585be1c65adf5480c4057b821e6a5e564a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

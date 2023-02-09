@@ -66,14 +66,14 @@ std::unique_ptr<EncodedFrame> CombineAndDeleteFrames(
   std::unique_ptr<EncodedFrame> first_frame = std::move(frames[0]);
   auto encoded_image_buffer = EncodedImageBuffer::Create(total_length);
   uint8_t* buffer = encoded_image_buffer->data();
-  first_frame->SetSpatialLayerFrameSize(first_frame->SpatialIndex().value_or(0),
-                                        first_frame->size());
+  first_frame->SetSpatialLayerFrameSize(
+      first_frame->SpatialIndex_().value_or(0), first_frame->size());
   memcpy(buffer, first_frame->data(), first_frame->size());
   buffer += first_frame->size();
 
   // Spatial index of combined frame is set equal to spatial index of its top
   // spatial layer.
-  first_frame->SetSpatialIndex(last_frame.SpatialIndex().value_or(0));
+  first_frame->SetSpatialIndex(last_frame.SpatialIndex_().value_or(0));
 
   first_frame->video_timing_mutable()->network2_timestamp_ms =
       last_frame.video_timing().network2_timestamp_ms;
@@ -85,7 +85,7 @@ std::unique_ptr<EncodedFrame> CombineAndDeleteFrames(
     // Let |next_frame| fall out of scope so it is deleted after copying.
     std::unique_ptr<EncodedFrame> next_frame = std::move(frames[i]);
     first_frame->SetSpatialLayerFrameSize(
-        next_frame->SpatialIndex().value_or(0), next_frame->size());
+        next_frame->SpatialIndex_().value_or(0), next_frame->size());
     memcpy(buffer, next_frame->data(), next_frame->size());
     buffer += next_frame->size();
   }

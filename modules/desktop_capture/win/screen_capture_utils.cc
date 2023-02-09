@@ -11,6 +11,7 @@
 #include "modules/desktop_capture/win/screen_capture_utils.h"
 
 #include <windows.h>
+#include <shellscalingapi.h>
 
 #include <string>
 #include <vector>
@@ -143,6 +144,17 @@ DesktopRect GetFullscreenRect() {
                                GetSystemMetrics(SM_YVIRTUALSCREEN),
                                GetSystemMetrics(SM_CXVIRTUALSCREEN),
                                GetSystemMetrics(SM_CYVIRTUALSCREEN));
+}
+
+DesktopVector GetDpiForMonitor(HMONITOR monitor) {
+  UINT dpi_x, dpi_y;
+  // MDT_EFFECTIVE_DPI includes the scale factor as well as the system DPI.
+  HRESULT hr = ::GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, &dpi_x, &dpi_y);
+  if (FAILED(hr)) {
+    RTC_LOG_GLE_EX(LS_WARNING, hr) << "GetDpiForMonitor() failed";
+    return {96, 96};
+  }
+  return {static_cast<INT>(dpi_x), static_cast<INT>(dpi_y)};
 }
 
 DesktopRect GetScreenRect(const DesktopCapturer::SourceId screen,

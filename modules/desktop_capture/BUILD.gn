@@ -519,6 +519,7 @@ rtc_library("desktop_capture") {
     ]
     deps += [
       "../../rtc_base:win32",
+      "../../rtc_base/containers",
       "../../rtc_base/win:create_direct3d_device",
       "../../rtc_base/win:get_activation_factory",
       "../../rtc_base/win:windows_version",

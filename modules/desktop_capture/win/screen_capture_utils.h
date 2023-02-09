@@ -21,6 +21,9 @@ WEBRTC_DECLARE_HANDLE(HMONITOR);
 #undef WEBRTC_DECLARE_HANDLE
 #endif
 
+#include <shellscalingapi.h>
+#include <shtypes.h>
+
 #include <string>
 #include <vector>
 
@@ -53,6 +56,10 @@ bool IsMonitorValid(HMONITOR monitor);
 // Returns the rect of the monitor identified by `monitor`, relative to the
 // primary display's top-left. On failure, returns an empty rect.
 DesktopRect GetMonitorRect(HMONITOR monitor);
+
+// Returns the DPI for the specified monitor. On failure, returns a default DPI
+// value of 96x96.
+DesktopVector GetDpiForMonitor(HMONITOR monitor);
 
 // Returns true if `screen` is a valid screen. The screen device key is
 // returned through `device_key` if the screen is valid. The device key can be

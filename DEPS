@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e91245ed6d4b5b93001df1c4080bbd241645384a',
+  'chromium_revision': 'ac023ba88965ccc244ba2c668509a47077981d79',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:11.20230208.3.1',
+  'fuchsia_version': 'version:11.20230209.2.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@5c0504eb2878a0e1fdbd9e10f255af4c4de2a946',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@c03f65d61877093b3f1321fa8d068c92912ef894',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a3d0fd32f5ee891e8a9d033e4e9cda6682efc532',
+    'https://chromium.googlesource.com/chromium/src/testing@7f855de2cc11aed5d2117e7587288631da8f1457',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@464caf8f6ea764b90c0be7b7d62581553067ade8',
+    'https://chromium.googlesource.com/chromium/src/third_party@e2e67dd30cb21d56cc38bfae88bdda88b593bab9',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@838a75986a6cf99cfd1f522805cb654999b274c3',
+    'https://chromium.googlesource.com/chromium/src/tools@b33dc8e780027145b951ed6de4b3419a23f1baa6',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

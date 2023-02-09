@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f60a6b_78a82cc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-09T11:34:26Z",
+      "side": 1,
+      "message": "Do you have an webrtc or chromium bug for this change?\nif yes, add line \"Bug: webrtc:\u003cnumber\u003e\" or \"Bug: chromium:\u003cnumber\u003e\"\nIf not, add line \"Bug: None\"",
+      "revId": "01de47a34c831a0af17c3d1734ae5a8afa8134f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

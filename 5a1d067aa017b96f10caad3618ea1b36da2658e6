@@ -16,6 +16,23 @@
       "message": "Please turn your +1 review glasses to this CL rather than the full one.\nIf we can land this, the changes in the final CL will be smaller.",
       "revId": "5a1d067aa017b96f10caad3618ea1b36da2658e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdee1045_0819087c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-02-09T14:04:11Z",
+      "side": 1,
+      "message": "Can you add in this CL or in a follow up some static asserts up to check the mocks are complete?",
+      "revId": "5a1d067aa017b96f10caad3618ea1b36da2658e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1764,7 +1764,7 @@ void LibvpxVp9Encoder::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
   encoded_image_.qp_ = qp;
 
   if (!layer_buffering_) {
-    const bool end_of_picture = encoded_image_.SpatialIndex().value_or(0) + 1 ==
+    const bool end_of_picture = encoded_image_.SpatialIndex_().value_or(0) + 1 ==
                                 num_active_spatial_layers_;
     DeliverBufferedFrame(end_of_picture);
   }
@@ -1786,7 +1786,7 @@ void LibvpxVp9Encoder::DeliverBufferedFrame(bool end_of_picture) {
                                                &codec_specific_);
 
     if (codec_.mode == VideoCodecMode::kScreensharing) {
-      const uint8_t spatial_idx = encoded_image_.SpatialIndex().value_or(0);
+      const uint8_t spatial_idx = encoded_image_.SpatialIndex_().value_or(0);
       const uint32_t frame_timestamp_ms =
           1000 * encoded_image_.Timestamp() / kVideoPayloadTypeFrequency;
       framerate_controller_[spatial_idx].AddFrame(frame_timestamp_ms);

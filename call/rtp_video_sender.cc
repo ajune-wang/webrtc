@@ -352,7 +352,7 @@ bool IsFirstFrameOfACodedVideoSequence(
   // for current usage of this helper function.
 
   // Use <= to accept both 0 (i.e. the first) and nullopt (i.e. the only).
-  return encoded_image.SpatialIndex() <= 0;
+  return encoded_image.SpatialIndex_() <= 0;
 }
 
 }  // namespace
@@ -577,7 +577,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
        codec_specific_info->codecType == kVideoCodecH264 ||
        codec_specific_info->codecType == kVideoCodecGeneric)) {
     // Map spatial index to simulcast.
-    stream_index = encoded_image.SpatialIndex().value_or(0);
+    stream_index = encoded_image.SpatialIndex_ShouldBeSimulcastIdxInstead().value_or(0);
   }
   RTC_DCHECK_LT(stream_index, rtp_streams_.size());
 

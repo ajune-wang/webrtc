@@ -1142,6 +1142,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                           encoder_config_, &codec);
   }
 
+  RTC_CHECK_EQ(codec.numberOfSimulcastStreams, 3u);
   char log_stream_buf[4 * 1024];
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
   log_stream << "ReconfigureEncoder:\n";
@@ -2060,7 +2061,7 @@ EncodedImage VideoStreamEncoder::AugmentEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
   EncodedImage image_copy(encoded_image);
-  const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
+  const size_t spatial_idx = encoded_image.SpatialIndex_ShouldBeSimulcastIdxInstead().value_or(0);
   frame_encode_metadata_writer_.FillTimingInfo(spatial_idx, &image_copy);
   frame_encode_metadata_writer_.UpdateBitstream(codec_specific_info,
                                                 &image_copy);
@@ -2106,7 +2107,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
 
   // TODO(bugs.webrtc.org/10520): Signal the simulcast id explicitly.
 
-  const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
+  const size_t spatial_idx = encoded_image.SpatialIndex_ShouldBeSimulcastIdxInstead().value_or(0);
   const VideoCodecType codec_type = codec_specific_info
                                         ? codec_specific_info->codecType
                                         : VideoCodecType::kVideoCodecGeneric;
@@ -2422,7 +2423,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
                                              encode_duration_us, frame_size);
   if (bitrate_adjuster_) {
     bitrate_adjuster_->OnEncodedFrame(
-        frame_size, encoded_image.SpatialIndex().value_or(0), temporal_index);
+        frame_size, encoded_image.SpatialIndex_().value_or(0), temporal_index);
   }
 }
 

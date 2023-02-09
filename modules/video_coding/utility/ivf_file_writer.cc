@@ -179,7 +179,7 @@ bool IvfFileWriter::WriteFrame(const EncodedImage& encoded_image,
   last_timestamp_ = timestamp;
 
   bool written_frames = false;
-  size_t max_sl_index = encoded_image.SpatialIndex().value_or(0);
+  size_t max_sl_index = encoded_image.SpatialIndex_().value_or(0);
   const uint8_t* data = encoded_image.data();
   for (size_t sl_idx = 0; sl_idx <= max_sl_index; ++sl_idx) {
     size_t cur_size = encoded_image.SpatialLayerFrameSize(sl_idx).value_or(0);

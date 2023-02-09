@@ -89,6 +89,13 @@ class RTC_EXPORT EncodedImage {
 
   int64_t NtpTimeMs() const { return ntp_time_ms_; }
 
+  absl::optional<int> SpatialIndex_ShouldBeSimulcastIdxInstead() const {
+    return spatial_index_;
+  }
+  absl::optional<int> SpatialIndex_() const {
+    return spatial_index_;
+  }
+  ABSL_DEPRECATED("Are you trying to read SpatialIndex or SimulcastIdx?")
   absl::optional<int> SpatialIndex() const { return spatial_index_; }
   void SetSpatialIndex(absl::optional<int> spatial_index) {
     RTC_DCHECK_GE(spatial_index.value_or(0), 0);

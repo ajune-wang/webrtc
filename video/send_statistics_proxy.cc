@@ -942,7 +942,7 @@ void SendStatisticsProxy::OnSendEncodedImage(
       (codec_info && (codec_info->codecType == kVideoCodecVP8 ||
                       codec_info->codecType == kVideoCodecH264 ||
                       codec_info->codecType == kVideoCodecGeneric))
-          ? encoded_image.SpatialIndex().value_or(0)
+          ? encoded_image.SpatialIndex_ShouldBeSimulcastIdxInstead().value_or(0)
           : 0;
 
   MutexLock lock(&mutex_);
@@ -1010,7 +1010,7 @@ void SendStatisticsProxy::OnSendEncodedImage(
         int spatial_idx = (rtp_config_.ssrcs.size() == 1) ? -1 : simulcast_idx;
         uma_container_->qp_counters_[spatial_idx].vp8.Add(encoded_image.qp_);
       } else if (codec_info->codecType == kVideoCodecVP9) {
-        int spatial_idx = encoded_image.SpatialIndex().value_or(-1);
+        int spatial_idx = encoded_image.SpatialIndex_().value_or(-1);
         uma_container_->qp_counters_[spatial_idx].vp9.Add(encoded_image.qp_);
       } else if (codec_info->codecType == kVideoCodecH264) {
         int spatial_idx = (rtp_config_.ssrcs.size() == 1) ? -1 : simulcast_idx;

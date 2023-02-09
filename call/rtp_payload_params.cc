@@ -203,7 +203,7 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
     int64_t shared_frame_id) {
   RTPVideoHeader rtp_video_header;
   if (codec_specific_info) {
-    PopulateRtpWithCodecSpecifics(*codec_specific_info, image.SpatialIndex(),
+    PopulateRtpWithCodecSpecifics(*codec_specific_info, image.SpatialIndex_(),
                                   &rtp_video_header);
   }
   rtp_video_header.frame_type = image._frameType;

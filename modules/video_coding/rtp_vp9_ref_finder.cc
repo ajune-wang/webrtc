@@ -133,7 +133,7 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameGof(
       return kHandOff;
     }
   } else if (frame->frame_type() == VideoFrameType::kVideoFrameKey) {
-    if (frame->SpatialIndex() == 0) {
+    if (frame->SpatialIndex_() == 0) {
       RTC_LOG(LS_WARNING) << "Received keyframe without scalability structure";
       return kDrop;
     }
@@ -341,10 +341,10 @@ void RtpVp9RefFinder::FlattenFrameIdAndRefs(RtpFrameObject* frame,
   for (size_t i = 0; i < frame->num_references; ++i) {
     frame->references[i] =
         unwrapper_.Unwrap(frame->references[i]) * kMaxSpatialLayers +
-        *frame->SpatialIndex();
+        *frame->SpatialIndex_();
   }
   frame->SetId(unwrapper_.Unwrap(frame->Id()) * kMaxSpatialLayers +
-               *frame->SpatialIndex());
+               *frame->SpatialIndex_());
 
   if (inter_layer_predicted &&
       frame->num_references + 1 <= EncodedFrame::kMaxFrameReferences) {

@@ -16,6 +16,64 @@
       "message": "PTAL!\n\nOne open question I had was whether WebRTC has the same OS support level as Chromium (meaning Win10 or later), I looked for some official docs but I couldn\u0027t find anything definitive.  This CL adds a .lib which is in Windows 8.1+ but if WebRTC still supports Win7, I\u0027ll need to LoadLibrary on it instead (though I\u0027d prefer not to unless necessary).\n\nThanks!",
       "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e1095e4_d324930e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-10T23:40:51Z",
+      "side": 1,
+      "message": "LGTM, but I defer to Mirko regarding the required minimum level of support; please wait for him before merging.",
+      "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "108c27b0_91b52a43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-10T23:40:51Z",
+      "side": 1,
+      "message": "@mbonadei@webrtc.org for the support question",
+      "parentUuid": "b54d3ec1_084a9990",
+      "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5474516_32df098c",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-10T23:40:51Z",
+      "side": 1,
+      "message": "Why this default?",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 20
+      },
+      "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

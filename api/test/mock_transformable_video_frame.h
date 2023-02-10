@@ -36,6 +36,7 @@ class MockTransformableVideoFrame
               (const webrtc::VideoFrameMetadata&),
               (override));
   MOCK_METHOD(uint8_t, GetPayloadType, (), (const, override));
+  MOCK_METHOD(VideoFrameMetadata, GetCopyOfMetadata, (), (const, override));
 };
 
 static_assert(!std::is_abstract_v<MockTransformableVideoFrame>, "");

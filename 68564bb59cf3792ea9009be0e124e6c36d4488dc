@@ -22,6 +22,30 @@
       },
       "revId": "68564bb59cf3792ea9009be0e124e6c36d4488dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52d193dd_19a47005",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-10T09:25:28Z",
+      "side": 0,
+      "message": "This was introduced in https://webrtc-review.googlesource.com/c/src/+/280621/ because back then we wanted a fix that was cherry-pickable and did not require upgrading Chromoting (I was reminded of this when the chromium compile bot broke) in a multi-roll process.\n\nIt is no longer needed since the PA creates the session with the \"tie breaker\" already.\n\nThe problem with all this was (if you look at the various revisions of the past CL) is that the timing matters, in particular for pooled sessions (does anyone like those?) which are not associated with an ICE transport initially.\nWait... we had that discussion before:\nhttps://webrtc-review.googlesource.com/c/src/+/280621/comments/3d999ada_6c0f7225\nand this is really at the core of what I am trying to solve wrt that line 985 which sets the actual ice tie breaker while ComputeFoundation (which gets called before it is known which ice transport a port is associated with) should really use the \"PA random\" which is independent of which ICE transport the port ends up with.",
+      "parentUuid": "b121ca00_0f996a7e",
+      "range": {
+        "startLine": 942,
+        "startChar": 22,
+        "endLine": 942,
+        "endChar": 40
+      },
+      "revId": "68564bb59cf3792ea9009be0e124e6c36d4488dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

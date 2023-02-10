@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "313dfdf7_7abc6ff9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-10T09:25:28Z",
+      "side": 1,
+      "message": "some backward compat needed, PS7 shows what needs to be reverted after updating chromoting",
+      "revId": "b9c491e0863dd3960fcc0acba5b48fa0ec10ab79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -71,6 +71,9 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
   }
 
   const VideoFrameMetadata& GetMetadata() const override { return metadata_; }
+
+  VideoFrameMetadata GetCopyOfMetadata() const override { return metadata_; }
+
   void SetMetadata(const VideoFrameMetadata& metadata) override {
     header_.SetFromMetadata(metadata);
     uint32_t ssrc = metadata.GetSsrc();

@@ -304,6 +304,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f70856_cfed5de7",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Retiring old comment.",
+      "parentUuid": "02939165_42d14c74",
+      "revId": "223f3564905bcf0a07e39ca14bdcafd061343cc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c81c63a1_2f0621cb",

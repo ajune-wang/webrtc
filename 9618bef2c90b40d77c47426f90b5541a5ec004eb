@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21c68ab2_4fa3812b",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Nit: consider MutexLock scope here.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4476beb5_7d83c468",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "This should be `max_config_events_in_history_`.",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 121,
+        "endChar": 45
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a6ec162_c0eb1c1b",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Nit: let this remain at the top to retain history.",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 11
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87817730_75bc7c37",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Since this pattern is used in 2 places, maybe introduce a helper `Histories ExtractRecentHistory()` and use?",
+      "range": {
+        "startLine": 166,
+        "startChar": 6,
+        "endLine": 169,
+        "endChar": 61
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01831df4_1042337a",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Consider the following scenario:\n\n1. StartLogging\n2. Log (PostTasks because ShouldOutput())\n3. Log (PostTasks because ShouldOutput())\n4. event_output_-\u003eWrite in WriteToOutput returns false, resets output.\n5. Fails DCHECK on line 175.\n\nCan you add a test for the case and fix? Possibly the fix is just to check that there\u0027s an event output in WriteToOutput and remove DCHECKs along the way there.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19c8cee0_c3c43363",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Maybe rename this to ShouldOutputImmediately?",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 34
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e51ad85_1a216838",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Remove this, annotate the method in the header with RTC_EXCLUSIVE_LOCKS_REQUIRED, and prepend this method with\n```\n// RTC_EXCLUSIVE_LOCKS_REQUIRED(logging_mutex_)\n```\nto turn this into a compile-time check instead.",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 16
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d922ca3_6bdfdcb9",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Dito",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 16
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65f4c11_421c9f33",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "You can put the MutexLock in without an extra scope since the containing scope exits right after.",
+      "range": {
+        "startLine": 216,
+        "startChar": 6,
+        "endLine": 216,
+        "endChar": 7
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9e1f42f_143b2495",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Remove this, annotate the method in the header with RTC_EXCLUSIVE_LOCKS_REQUIRED, and prepend this method with\n```\n// RTC_EXCLUSIVE_LOCKS_REQUIRED(logging_mutex_)\n```\nto turn this into a compile-time check instead.",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 30
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979e46f0_d442fbab",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Suggest removing the ref and std::move() args from all call sites. Also note the suggestion on using Histories.",
+      "range": {
+        "startLine": 261,
+        "startChar": 41,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cff12de_f6c7ff3f",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "This should be `max_config_events_in_history_`.",
+      "range": {
+        "startLine": 292,
+        "startChar": 44,
+        "endLine": 292,
+        "endChar": 69
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f137d131_3ac7bf94",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "This is unused now and should be removed.",
+      "range": {
+        "startLine": 95,
+        "startChar": 40,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19157416_620a1bbb",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "This declaration is used in many places, and more are added due to the new swaps. How about creating an alias EventDeque in the private section and replace everywhere?\n\nAlso, since `most_recent_config_history_` and `most_recent_history_` is now passed/treated/swapped in the same way in many places, can you consider creating a struct Histories with members `history` and `config_history`? Then `most_recent_config_history_` and `most_recent_history_` can be collapsed into simply `recent_`. I think that would improve code readability.",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 39
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60887072_47d176ea",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-10T17:15:09Z",
+      "side": 1,
+      "message": "Mutable can be dropped.\nNit: since there\u0027s just one mutex here, you can just call it `mutex_`.",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 9
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

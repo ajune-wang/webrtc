@@ -26,28 +26,13 @@ class RtcEventLogSource;
 
 // Implementation of NetEqPacketSourceInput to be used with an
 // RtcEventLogSource.
-class NetEqEventLogInput final : public NetEqPacketSourceInput {
- public:
-  static NetEqEventLogInput* CreateFromFile(
-      absl::string_view file_name,
-      absl::optional<uint32_t> ssrc_filter);
-  static NetEqEventLogInput* CreateFromString(
-      absl::string_view file_contents,
-      absl::optional<uint32_t> ssrc_filter);
+std::unique_ptr<PacketSource> CreateFromFile(
+    absl::string_view file_name,
+    absl::optional<uint32_t> ssrc_filter);
 
-  absl::optional<int64_t> NextOutputEventTime() const override;
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override;
-  void AdvanceOutputEvent() override;
-  void AdvanceSetMinimumDelay() override;
-
- protected:
-  PacketSource* source() override;
-
- private:
-  NetEqEventLogInput(std::unique_ptr<RtcEventLogSource> source);
-  std::unique_ptr<RtcEventLogSource> source_;
-  absl::optional<SetMinimumDelayInfo> next_minimum_delay_event_info_;
-};
+std::unique_ptr<PacketSource> CreateFromString(
+    absl::string_view file_contents,
+    absl::optional<uint32_t> ssrc_filter);
 
 }  // namespace test
 }  // namespace webrtc

@@ -25,31 +25,16 @@ EncodeNetEqInput::EncodeNetEqInput(std::unique_ptr<Generator> generator,
       encoder_(std::move(encoder)),
       input_duration_ms_(input_duration_ms) {
   CreatePacket();
+  event_.packet_data = std::move(packet_data_);
 }
 
 EncodeNetEqInput::~EncodeNetEqInput() = default;
 
-absl::optional<int64_t> EncodeNetEqInput::NextPacketTime() const {
-  RTC_DCHECK(packet_data_);
-  return static_cast<int64_t>(packet_data_->time_ms);
-}
-
-absl::optional<int64_t> EncodeNetEqInput::NextOutputEventTime() const {
-  return next_output_event_ms_;
-}
-
-std::unique_ptr<NetEqInput::PacketData> EncodeNetEqInput::PopPacket() {
-  RTC_DCHECK(packet_data_);
-  // Grab the packet to return...
-  std::unique_ptr<PacketData> packet_to_return = std::move(packet_data_);
-  // ... and line up the next packet for future use.
+NetEqInput::Event EncodeNetEqInput::PopEvent() {
+  NetEqInput::Event event_to_return = std::move(event_);
   CreatePacket();
-
-  return packet_to_return;
-}
-
-void EncodeNetEqInput::AdvanceOutputEvent() {
-  next_output_event_ms_ += kOutputPeriodMs;
+  event_.packet_data = std::move(packet_data_);
+  return event_to_return;
 }
 
 bool EncodeNetEqInput::ended() const {

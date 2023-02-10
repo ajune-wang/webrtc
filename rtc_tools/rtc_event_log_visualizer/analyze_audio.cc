@@ -196,9 +196,51 @@ class NetEqStreamInput : public test::NetEqInput {
         end_time_ms_(end_time_ms) {
     RTC_DCHECK(packet_stream);
     RTC_DCHECK(output_events);
+    event_ = GetNextEvent();
   }
 
-  absl::optional<int64_t> NextPacketTime() const override {
+  const Event& NextEvent() const override { return event_; }
+
+  Event PopEvent() override {
+    Event return_event = std::move(event_);
+    event_ = GetNextEvent();
+    return return_event;
+  }
+
+  Event GetNextEvent() {
+    Event event;
+    absl::optional<int64_t> next_time;
+    absl::optional<int64_t> next_packet_time = NextPacketTime();
+    absl::optional<int64_t> next_output_time = NextOutputEventTime();
+    absl::optional<int64_t> next_set_minimum_delay_time =
+        NextNetEqSetMinimumDelay();
+    for (auto time :
+         {next_packet_time, next_output_time, next_set_minimum_delay_time}) {
+      if (time) {
+        if (next_time) {
+          next_time = time.value() < next_time.value() ? time : next_time;
+        } else {
+          next_time = time;
+        }
+      }
+    }
+    if (next_packet_time && next_packet_time.value() == next_time.value()) {
+      event.packet_data = PopPacket();
+      return event;
+    }
+    if (next_output_time && next_output_time.value() == next_time.value()) {
+      event.audio_output = PopGetAudio();
+      return event;
+    }
+    if (next_set_minimum_delay_time &&
+        next_set_minimum_delay_time.value() == next_time.value()) {
+      event.set_minimum_delay = PopNetEqSetMinimumDelay();
+      return event;
+    }
+    return event;
+  }
+
+  absl::optional<int64_t> NextPacketTime() const {
     if (packet_stream_it_ == packet_stream_.end()) {
       return absl::nullopt;
     }
@@ -208,7 +250,7 @@ class NetEqStreamInput : public test::NetEqInput {
     return packet_stream_it_->rtp.log_time_ms();
   }
 
-  absl::optional<int64_t> NextOutputEventTime() const override {
+  absl::optional<int64_t> NextOutputEventTime() const {
     if (output_events_it_ == output_events_end_) {
       return absl::nullopt;
     }
@@ -218,7 +260,7 @@ class NetEqStreamInput : public test::NetEqInput {
     return output_events_it_->log_time_ms();
   }
 
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override {
+  absl::optional<int64_t> NextSetMinimumDelay() const {
     if (neteq_set_minimum_delay_events_it_ ==
         neteq_set_minimum_delay_events_end_) {
       return absl::nullopt;
@@ -227,12 +269,10 @@ class NetEqStreamInput : public test::NetEqInput {
         neteq_set_minimum_delay_events_it_->log_time_ms() > *end_time_ms_) {
       return absl::nullopt;
     }
-    return SetMinimumDelayInfo(
-        neteq_set_minimum_delay_events_it_->log_time_ms(),
-        neteq_set_minimum_delay_events_it_->minimum_delay_ms);
+    return neteq_set_minimum_delay_events_it_->log_time_ms();
   }
 
-  std::unique_ptr<PacketData> PopPacket() override {
+  std::unique_ptr<PacketData> PopPacket() {
     if (packet_stream_it_ == packet_stream_.end()) {
       return std::unique_ptr<PacketData>();
     }
@@ -250,17 +290,26 @@ class NetEqStreamInput : public test::NetEqInput {
     return packet_data;
   }
 
-  void AdvanceOutputEvent() override {
+  std::unique_ptr<GetAudio> PopGetAudio() {
+    std::unique_ptr<GetAudio> get_audio;
     if (output_events_it_ != output_events_end_) {
+      get_audio = std::make_unique<GetAudio>(output_events_it_->log_time_ms());
       ++output_events_it_;
     }
+    return get_audio;
   }
 
-  void AdvanceSetMinimumDelay() override {
+  std::unique_ptr<NetEqSetMinimumDelay> PopNetEqSetMinimumDelay() {
+    std::unique_ptr<NetEqSetMinimumDelay> net_eq_set_minimum_delay;
     if (neteq_set_minimum_delay_events_it_ !=
         neteq_set_minimum_delay_events_end_) {
+      net_eq_set_minimum_delay = std::make_unique<NetEqSetMinimumDelay>(
+          neteq_set_minimum_delay_events_it_->log_time_ms(),
+          neteq_set_minimum_delay_events_it_->minimum_delay_ms);
+
       ++neteq_set_minimum_delay_events_it_;
     }
+    return net_eq_set_minimum_delay;
   }
 
   bool ended() const override { return !NextEventTime(); }
@@ -282,6 +331,7 @@ class NetEqStreamInput : public test::NetEqInput {
   const std::vector<LoggedNetEqSetMinimumDelayEvent>::const_iterator
       neteq_set_minimum_delay_events_end_;
   const absl::optional<int64_t> end_time_ms_;
+  Event event_;
 };
 
 namespace {
@@ -400,7 +450,7 @@ NetEqStatsGetterMap SimulateNetEq(const ParsedRtcEventLog& parsed_log,
     std::vector<LoggedNetEqSetMinimumDelayEvent>
         empty_neteq_set_minimum_delay_event;
     const std::vector<LoggedNetEqSetMinimumDelayEvent>&
-        neteq_set_minimum_delay_events =
+        netq_set_minimum_delay_events =
             neteq_set_minimum_delay_events_it ==
                     parsed_log.neteq_set_minimum_delay_events().cend()
                 ? empty_neteq_set_minimum_delay_event
@@ -410,7 +460,7 @@ NetEqStatsGetterMap SimulateNetEq(const ParsedRtcEventLog& parsed_log,
 
     neteq_stats[ssrc] =
         CreateNetEqTestAndRun(audio_packets, &output_events_it->second,
-                              &neteq_set_minimum_delay_events, end_time_ms,
+                              &netq_set_minimum_delay_events, end_time_ms,
                               replacement_file_name, file_sample_rate_hz);
   }
 

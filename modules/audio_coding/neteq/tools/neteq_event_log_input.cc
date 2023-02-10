@@ -20,18 +20,18 @@
 namespace webrtc {
 namespace test {
 
-NetEqEventLogInput* NetEqEventLogInput::CreateFromFile(
+std::unique_ptr<PacketSource> CreateFromFile(
     absl::string_view file_name,
     absl::optional<uint32_t> ssrc_filter) {
-  auto event_log_src =
+  std::unique_ptr<RtcEventLogSource> event_log_src =
       RtcEventLogSource::CreateFromFile(file_name, ssrc_filter);
   if (!event_log_src) {
     return nullptr;
   }
-  return new NetEqEventLogInput(std::move(event_log_src));
+  return event_log_src;
 }
 
-NetEqEventLogInput* NetEqEventLogInput::CreateFromString(
+std::unique_ptr<PacketSource> CreateFromString(
     absl::string_view file_contents,
     absl::optional<uint32_t> ssrc_filter) {
   auto event_log_src =
@@ -39,39 +39,7 @@ NetEqEventLogInput* NetEqEventLogInput::CreateFromString(
   if (!event_log_src) {
     return nullptr;
   }
-  return new NetEqEventLogInput(std::move(event_log_src));
-}
-
-absl::optional<int64_t> NetEqEventLogInput::NextOutputEventTime() const {
-  return next_output_event_ms_;
-}
-
-absl::optional<NetEqInput::SetMinimumDelayInfo>
-NetEqEventLogInput::NextSetMinimumDelayInfo() const {
-  return next_minimum_delay_event_info_;
-}
-
-void NetEqEventLogInput::AdvanceOutputEvent() {
-  next_output_event_ms_ = source_->NextAudioOutputEventMs();
-  if (*next_output_event_ms_ == std::numeric_limits<int64_t>::max()) {
-    next_output_event_ms_ = absl::nullopt;
-  }
-}
-
-void NetEqEventLogInput::AdvanceSetMinimumDelay() {
-  next_minimum_delay_event_info_ = source_->NextSetMinimumDelayEvent();
-}
-
-PacketSource* NetEqEventLogInput::source() {
-  return source_.get();
-}
-
-NetEqEventLogInput::NetEqEventLogInput(
-    std::unique_ptr<RtcEventLogSource> source)
-    : source_(std::move(source)) {
-  LoadNextPacket();
-  AdvanceOutputEvent();
-  AdvanceSetMinimumDelay();
+  return event_log_src;
 }
 
 }  // namespace test

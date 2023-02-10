@@ -69,6 +69,24 @@
       "parentUuid": "b487b63b_eb670616",
       "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a04e7b_0f37afc9",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 53
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2023-02-10T16:09:06Z",
+      "side": 1,
+      "message": "Oh, I see, thanks! But when can I see the \"generated .h file\"?",
+      "parentUuid": "2568bcb1_34c99e3e",
+      "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

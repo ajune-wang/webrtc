@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54d3ec1_084a9990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2023-02-10T16:50:24Z",
+      "side": 1,
+      "message": "PTAL!\n\nOne open question I had was whether WebRTC has the same OS support level as Chromium (meaning Win10 or later), I looked for some official docs but I couldn\u0027t find anything definitive.  This CL adds a .lib which is in Windows 8.1+ but if WebRTC still supports Win7, I\u0027ll need to LoadLibrary on it instead (though I\u0027d prefer not to unless necessary).\n\nThanks!",
+      "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

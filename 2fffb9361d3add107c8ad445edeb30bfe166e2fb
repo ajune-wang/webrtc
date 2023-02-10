@@ -51,6 +51,24 @@
       "parentUuid": "75e7b86a_221ee5f4",
       "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2568bcb1_34c99e3e",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 53
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 5086
+      },
+      "writtenOn": "2023-02-10T15:22:32Z",
+      "side": 1,
+      "message": "Ah, sorry for missing that.\n\nSo, best way to debug this error is to look at the declaration in the generated .h file, and then make sure that the function you\u0027re defining matches in signature.\n\nE.g. the declaration looks like this:\n\n```\n// Step 3: Method stubs.\nstatic jint JNI_VideoFrameBufferTestNativeUtils_GetBufferType(JNIEnv* env, const\n    base::android::JavaParamRef\u003cjobject\u003e\u0026 buffer);\n```\n\nBut the signature in `video_frame_buffer_test.cc` has the parameter as `jobject` rather than `const base::android::JavaParamRef\u003cjobject\u003e\u0026`",
+      "parentUuid": "b487b63b_eb670616",
+      "revId": "2fffb9361d3add107c8ad445edeb30bfe166e2fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

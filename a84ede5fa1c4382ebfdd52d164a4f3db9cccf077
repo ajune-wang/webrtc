@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "017c3f0b_27b5c2a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-11T09:55:04Z",
+      "side": 1,
+      "message": "Yes, you can assume Win10+ on WebRTC CI.",
+      "parentUuid": "108c27b0_91b52a43",
+      "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5474516_32df098c",

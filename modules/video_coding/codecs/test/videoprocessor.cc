@@ -378,7 +378,8 @@ void VideoProcessor::FrameEncoded(
   }
 
   // Layer metadata.
-  size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
+  size_t spatial_idx = encoded_image.SimulcastIndex().value_or(
+      encoded_image.SpatialIndex().value_or(0));
   size_t temporal_idx = GetTemporalLayerIndex(codec_specific);
 
   FrameStatistics* frame_stat =

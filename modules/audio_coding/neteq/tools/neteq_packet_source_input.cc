@@ -20,25 +20,40 @@
 namespace webrtc {
 namespace test {
 
-NetEqPacketSourceInput::NetEqPacketSourceInput() : next_output_event_ms_(0) {}
-
-absl::optional<int64_t> NetEqPacketSourceInput::NextPacketTime() const {
-  return packet_
-             ? absl::optional<int64_t>(static_cast<int64_t>(packet_->time_ms()))
-             : absl::nullopt;
-}
-
-absl::optional<RTPHeader> NetEqPacketSourceInput::NextHeader() const {
-  return packet_ ? absl::optional<RTPHeader>(packet_->header()) : absl::nullopt;
+NetEqPacketSourceInput::NetEqPacketSourceInput(
+    std::unique_ptr<PacketSource> packet_source)
+    : packet_source_(std::move(packet_source)), next_output_event_ms_(0) {
+  LoadNextPacket();
+  event_ = GetNextEvent();
 }
 
 void NetEqPacketSourceInput::LoadNextPacket() {
-  packet_ = source()->NextPacket();
+  packet_ = packet_source_->NextPacket();
 }
 
-std::unique_ptr<NetEqInput::PacketData> NetEqPacketSourceInput::PopPacket() {
+NetEqInput::Event NetEqPacketSourceInput::PopEvent() {
+  Event event_to_return = std::move(event_);
+  event_ = GetNextEvent();
+  return event_to_return;
+}
+
+absl::optional<RTPHeader> NetEqPacketSourceInput::NextHeader() const {
+  if (packet_) {
+    return packet_->header();
+  }
+  return absl::nullopt;
+}
+
+NetEqInput::Event NetEqPacketSourceInput::GetNextEvent() {
+  NetEqInput::Event event;
   if (!packet_) {
-    return std::unique_ptr<PacketData>();
+    return event;
+  }
+  if (packet_->time_ms() > next_output_event_ms_) {
+    event.audio_output =
+        std::make_unique<NetEqInput::GetAudio>(next_output_event_ms_);
+    next_output_event_ms_ += kOutputPeriodMs;
+    return event;
   }
   std::unique_ptr<PacketData> packet_data(new PacketData);
   packet_data->header = packet_->header();
@@ -53,37 +68,21 @@ std::unique_ptr<NetEqInput::PacketData> NetEqPacketSourceInput::PopPacket() {
                                  packet_->payload_length_bytes());
   }
   packet_data->time_ms = packet_->time_ms();
-
+  event.packet_data = std::move(packet_data);
   LoadNextPacket();
-
-  return packet_data;
+  return event;
 }
 
-NetEqRtpDumpInput::NetEqRtpDumpInput(absl::string_view file_name,
-                                     const RtpHeaderExtensionMap& hdr_ext_map,
-                                     absl::optional<uint32_t> ssrc_filter)
-    : source_(RtpFileSource::Create(file_name, ssrc_filter)) {
+std::unique_ptr<PacketSource> CreatePacketSouceFromRtpDumpInput(
+    absl::string_view file_name,
+    const NetEqPacketSourceInput::RtpHeaderExtensionMap& hdr_ext_map,
+    absl::optional<uint32_t> ssrc_filter) {
+  std::unique_ptr<RtpFileSource> source(
+      RtpFileSource::Create(file_name, ssrc_filter));
   for (const auto& ext_pair : hdr_ext_map) {
-    source_->RegisterRtpHeaderExtension(ext_pair.second, ext_pair.first);
+    source->RegisterRtpHeaderExtension(ext_pair.second, ext_pair.first);
   }
-  LoadNextPacket();
-}
-
-absl::optional<int64_t> NetEqRtpDumpInput::NextOutputEventTime() const {
-  return next_output_event_ms_;
-}
-
-void NetEqRtpDumpInput::AdvanceOutputEvent() {
-  if (next_output_event_ms_) {
-    *next_output_event_ms_ += kOutputPeriodMs;
-  }
-  if (!NextPacketTime()) {
-    next_output_event_ms_ = absl::nullopt;
-  }
-}
-
-PacketSource* NetEqRtpDumpInput::source() {
-  return source_.get();
+  return source;
 }
 
 }  // namespace test

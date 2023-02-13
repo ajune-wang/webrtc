@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b02dec7c_cc36365e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-13T12:05:44Z",
+      "side": 1,
+      "message": "Agreed. Will do in my next commit.",
+      "parentUuid": "acd2f300_46f968f5",
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d50d9e6a_9c6975f9",

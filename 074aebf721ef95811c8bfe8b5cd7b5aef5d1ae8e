@@ -178,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a67c484_76ebfa87",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-13T12:05:07Z",
+      "side": 1,
+      "message": "1 concern I have about this, is that the quality metrics reporter is actually created in the test files themselves (for example, the pc_full_stack_tests), and at this stage we don\u0027t set the peer names yet.\nPotentially, we could just set the peer names over there and not rely on the PeerParamsPreprocessor for us to do that.",
+      "parentUuid": "429f57fe_4b70e66c",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33791f43_f5369781",
         "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
         "patchSetId": 2

@@ -18,6 +18,92 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "183796e9_39be1fc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-13T11:49:52Z",
+      "side": 1,
+      "message": "BTW, maybe we can utilize name from the EmulatedEndpointConfig or have some kind of owner there. So then when endpoint is created it can be assign to some owner, which then can be propagated through the other parts of the emulated stack and accessed in stats collectors..",
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50d9e6a_9c6975f9",
+        "filename": "api/test/pclf/peer_configurer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-13T11:49:52Z",
+      "side": 1,
+      "message": "Early feedback: we wanted to keep PCLF API decoupled from knowing about network emulation. Theoretically now it is possible to use PCLF over real network if regular rtc::Thread with real PhysicalSocketServer will passed as network dependency.",
+      "range": {
+        "startLine": 164,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 66
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2754e992_05f50849",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-13T11:49:52Z",
+      "side": 1,
+      "message": "It\u0027s production code, so let\u0027s avoid add test only name here. I think it will be better to have name on EmulatedNetworkManagerInterface in such case",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 190,
+        "endChar": 49
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "284f8c01_ad842634",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-13T11:49:52Z",
+      "side": 1,
+      "message": "BTW, also one option can be to add ctor where you can pass names to use for 1st and 2nd network",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33791f43_f5369781",

@@ -92,6 +92,30 @@
       },
       "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7abc7ec6_fe6f8084",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2023-02-13T17:35:44Z",
+      "side": 1,
+      "message": "It\u0027s the default DPI for Windows (and Linux/Mac as well AFAIK).  I think it\u0027s a reasonable question though as maybe I should return the system DPI when the per-monitor call fails.\n\nAfter thinking about it a bit more, I\u0027ll update it to fallback to the system DPI here.",
+      "parentUuid": "f5474516_32df098c",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 20
+      },
+      "revId": "a84ede5fa1c4382ebfdd52d164a4f3db9cccf077",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

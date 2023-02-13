@@ -64,36 +64,27 @@ class FuzzRtpInput : public NetEqInput {
         new SineGenerator(config.sample_rate_hz));
     input_.reset(new EncodeNetEqInput(std::move(generator), std::move(encoder),
                                       std::numeric_limits<int64_t>::max()));
-    packet_ = input_->PopPacket();
+    packet_ = PopPacket();
     FuzzHeader();
     MaybeFuzzPayload();
   }
 
-  absl::optional<int64_t> NextPacketTime() const override {
-    return packet_->time_ms;
-  }
-
-  absl::optional<int64_t> NextOutputEventTime() const override {
-    return input_->NextOutputEventTime();
-  }
-
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override {
-    return input_->NextSetMinimumDelayInfo();
-  }
-
-  std::unique_ptr<PacketData> PopPacket() override {
+  Event PopEvent() override {
+    Event event_to_return;
     RTC_DCHECK(packet_);
-    std::unique_ptr<PacketData> packet_to_return = std::move(packet_);
-    packet_ = input_->PopPacket();
+    event_to_return.packet_data = std::move(packet_);
+    packet_ = PopPacket();
     FuzzHeader();
     MaybeFuzzPayload();
-    return packet_to_return;
+    return std::move(event_to_return);
   }
 
-  void AdvanceOutputEvent() override { return input_->AdvanceOutputEvent(); }
-
-  void AdvanceSetMinimumDelay() override {
-    return input_->AdvanceSetMinimumDelay();
+  std::unique_ptr<PacketData> PopPacket() {
+    Event event = input_->PopEvent();
+    while (event.packet_data == nullptr && !event.Empty()) {
+      event = input_->PopEvent();
+    }
+    return std::move(event.packet_data);
   }
 
   bool ended() const override { return ended_; }

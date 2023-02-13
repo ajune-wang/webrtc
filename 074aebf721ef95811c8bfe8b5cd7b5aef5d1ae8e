@@ -255,6 +255,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "304e1db8_8482479a",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-13T12:40:31Z",
+      "side": 1,
+      "message": "PeerParamsPreprocessor sets the name only if it\u0027s not set by the test writer. That one is used to provide default names. If the name is set in test, then it will be used everywhere. So if you need to depend on names, I recommend setting it in test and then you can ensure that they will be in sync.",
+      "parentUuid": "8a67c484_76ebfa87",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33791f43_f5369781",
         "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
         "patchSetId": 2

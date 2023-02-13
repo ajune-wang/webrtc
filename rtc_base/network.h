@@ -186,6 +186,8 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
   webrtc::MdnsResponderInterface* GetMdnsResponder() const override;
 
   virtual void set_vpn_list(const std::vector<NetworkMask>& vpn) {}
+
+  absl::optional<std::string> manager_owner_name;
 };
 
 // Base class for NetworkManager implementations.

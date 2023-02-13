@@ -180,6 +180,12 @@ PeerConfigurer* PeerConfigurer::SetAecDumpPath(std::string path) {
   params_->aec_dump_path = std::move(path);
   return this;
 }
+PeerConfigurer* PeerConfigurer::SetEmulatedEndpointName(
+    absl::string_view name) {
+  components_->pc_dependencies->network_manager->manager_owner_name.emplace(
+      name);
+  return this;
+}
 PeerConfigurer* PeerConfigurer::SetRTCConfiguration(
     PeerConnectionInterface::RTCConfiguration configuration) {
   params_->rtc_configuration = std::move(configuration);

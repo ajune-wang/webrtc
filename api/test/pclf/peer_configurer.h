@@ -159,6 +159,9 @@ class PeerConfigurer {
   // Set bitrate parameters on PeerConnection. This constraints will be
   // applied to all summed RTP streams for this peer.
   PeerConfigurer* SetBitrateSettings(BitrateSettings bitrate_settings);
+  // Set emulated network endpoint name so it is re-usable in the network
+  // quality metrics reporter
+  PeerConfigurer* SetEmulatedEndpointName(absl::string_view name);
 
   // Returns InjectableComponents and transfer ownership to the caller.
   // Can be called once.

@@ -92,8 +92,12 @@ void NetworkQualityMetricsReporter::StopAndReportResults() {
   int64_t bob_packets_loss =
       bob_stats.overall_outgoing_stats.packets_sent -
       alice_stats.overall_incoming_stats.packets_received;
-  ReportStats("alice", alice_stats, alice_packets_loss);
-  ReportStats("bob", bob_stats, bob_packets_loss);
+  ReportStats(
+      alice_network_->network_manager()->manager_owner_name.value_or("alice"),
+      alice_stats, alice_packets_loss);
+  ReportStats(
+      alice_network_->network_manager()->manager_owner_name.value_or("bob"),
+      bob_stats, bob_packets_loss);
 
   if (!webrtc::field_trial::IsEnabled(kUseStandardBytesStats)) {
     RTC_LOG(LS_ERROR)

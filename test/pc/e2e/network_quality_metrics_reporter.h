@@ -31,6 +31,11 @@ class NetworkQualityMetricsReporter
   NetworkQualityMetricsReporter(EmulatedNetworkManagerInterface* alice_network,
                                 EmulatedNetworkManagerInterface* bob_network,
                                 test::MetricsLogger* metrics_logger);
+  NetworkQualityMetricsReporter(EmulatedNetworkManagerInterface* alice_network,
+                                EmulatedNetworkManagerInterface* bob_network,
+                                test::MetricsLogger* metrics_logger,
+                                absl::string_view alice_network_label,
+                                absl::string_view bob_network_label);
   ~NetworkQualityMetricsReporter() override = default;
 
   // Network stats must be empty when this method will be invoked.
@@ -64,6 +69,8 @@ class NetworkQualityMetricsReporter
   test::MetricsLogger* const metrics_logger_;
   Mutex lock_;
   std::map<std::string, PCStats> pc_stats_ RTC_GUARDED_BY(lock_);
+  absl::optional<std::string> alice_network_label_;
+  absl::optional<std::string> bob_network_label_;
 };
 
 }  // namespace webrtc_pc_e2e

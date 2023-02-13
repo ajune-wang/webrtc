@@ -65,6 +65,8 @@ class EmulatedNetworkManager : public rtc::NetworkManagerBase,
   void UpdateNetworksOnce();
   void MaybeSignalNetworksChanged();
 
+  absl::optional<std::string> name;
+
   TaskQueueForTest* const task_queue_;
   const EndpointsContainer* const endpoints_container_;
   // The `network_thread_` must outlive `packet_socket_factory_`, because they

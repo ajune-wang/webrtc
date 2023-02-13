@@ -44,6 +44,19 @@ NetworkQualityMetricsReporter::NetworkQualityMetricsReporter(
   RTC_CHECK(metrics_logger_);
 }
 
+NetworkQualityMetricsReporter::NetworkQualityMetricsReporter(
+    EmulatedNetworkManagerInterface* alice_network,
+    EmulatedNetworkManagerInterface* bob_network,
+    test::MetricsLogger* metrics_logger,
+    absl::string_view alice_network_label,
+    absl::string_view bob_network_label)
+    : NetworkQualityMetricsReporter(alice_network,
+                                    bob_network,
+                                    metrics_logger) {
+  alice_network_label_.emplace(alice_network_label);
+  bob_network_label_.emplace(bob_network_label);
+}
+
 void NetworkQualityMetricsReporter::Start(
     absl::string_view test_case_name,
     const TrackIdStreamInfoMap* /*reporter_helper*/) {
@@ -92,8 +105,9 @@ void NetworkQualityMetricsReporter::StopAndReportResults() {
   int64_t bob_packets_loss =
       bob_stats.overall_outgoing_stats.packets_sent -
       alice_stats.overall_incoming_stats.packets_received;
-  ReportStats("alice", alice_stats, alice_packets_loss);
-  ReportStats("bob", bob_stats, bob_packets_loss);
+  ReportStats(alice_network_label_.value_or("alice"), alice_stats,
+              alice_packets_loss);
+  ReportStats(bob_network_label_.value_or("bob"), bob_stats, bob_packets_loss);
 
   if (!webrtc::field_trial::IsEnabled(kUseStandardBytesStats)) {
     RTC_LOG(LS_ERROR)

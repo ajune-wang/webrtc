@@ -37,28 +37,19 @@ class EncodeNetEqInput : public NetEqInput {
                    int64_t input_duration_ms);
   ~EncodeNetEqInput() override;
 
-  absl::optional<int64_t> NextPacketTime() const override;
-
-  absl::optional<int64_t> NextOutputEventTime() const override;
-
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override {
-    return absl::nullopt;
-  }
-
-  std::unique_ptr<PacketData> PopPacket() override;
-
-  void AdvanceOutputEvent() override;
-
-  void AdvanceSetMinimumDelay() override {}
+  Event PopEvent() override;
 
   bool ended() const override;
 
   absl::optional<RTPHeader> NextHeader() const override;
 
+  const Event& NextEvent() const override { return event_; }
+
  private:
   static constexpr int64_t kOutputPeriodMs = 10;
 
   void CreatePacket();
+  Event GetNextEvent();
 
   std::unique_ptr<Generator> generator_;
   std::unique_ptr<AudioEncoder> encoder_;
@@ -68,6 +59,7 @@ class EncodeNetEqInput : public NetEqInput {
   int64_t next_packet_time_ms_ = 0;
   int64_t next_output_event_ms_ = 0;
   const int64_t input_duration_ms_;
+  Event event_;
 };
 
 }  // namespace test

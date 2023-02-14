@@ -16,6 +16,69 @@
       "message": "Please take a look, simulcast lovers",
       "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3077f57e_bccf08de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-02-14T12:41:28Z",
+      "side": 1,
+      "message": "Where is the VP9 SpatialIndex actually put on the wire? That place may incorrectly call SpatialIndex() still.",
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75164ca1_92f8705d",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-02-14T12:41:28Z",
+      "side": 1,
+      "message": "nit: rephrase please.\n\ne.g.\nAs to not break old code which doesn\u0027t call SetSimulcastIndex(), GetSpatialLayer() is used here instead.",
+      "range": {
+        "startLine": 96,
+        "startChar": 52,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4107f5e_8edc5a3e",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-02-14T12:41:28Z",
+      "side": 1,
+      "message": "In some other places I\u0027ve seen AV1 together with VP9 I believe. Please check if it has to be here too.",
+      "range": {
+        "startLine": 209,
+        "startChar": 42,
+        "endLine": 209,
+        "endChar": 56
+      },
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

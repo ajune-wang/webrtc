@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3211dc1d_521f5798",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-14T23:31:50Z",
+      "side": 0,
+      "message": "This TODO comment was added in https://webrtc-review.googlesource.com/c/src/+/109570 and updated (shortened) in https://webrtc-review.googlesource.com/c/src/+/111182.",
+      "revId": "4f642c11f870287f8856da32ad401a4cf3705829",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

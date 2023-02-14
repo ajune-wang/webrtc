@@ -35,6 +35,7 @@ rtc::scoped_refptr<T> WrapScoped(T* ptr) {
 void PeerConnectionMessageHandler::PostSetSessionDescriptionSuccess(
     SetSessionDescriptionObserver* observer) {
   signaling_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(safety_.flag(),
                [observer = WrapScoped(observer)] { observer->OnSuccess(); }));
 }
@@ -43,9 +44,10 @@ void PeerConnectionMessageHandler::PostSetSessionDescriptionFailure(
     SetSessionDescriptionObserver* observer,
     RTCError&& error) {
   RTC_DCHECK(!error.ok());
-  signaling_thread_->PostTask(SafeTask(
-      safety_.flag(),
-      [observer = WrapScoped(observer), error = std::move(error)]() mutable {
+  signaling_thread_->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(safety_.flag(), [observer = WrapScoped(observer),
+                                error = std::move(error)]() mutable {
         observer->OnFailure(std::move(error));
       }));
 }
@@ -57,6 +59,7 @@ void PeerConnectionMessageHandler::PostCreateSessionDescriptionFailure(
   // Do not protect this task with the safety_.flag() to ensure
   // observer is invoked even if the PeerConnection is destroyed early.
   signaling_thread_->PostTask(
+      RTC_FROM_HERE,
       [observer = WrapScoped(observer), error = std::move(error)]() mutable {
         observer->OnFailure(std::move(error));
       });
@@ -67,6 +70,7 @@ void PeerConnectionMessageHandler::PostGetStats(
     LegacyStatsCollectorInterface* legacy_stats,
     MediaStreamTrackInterface* track) {
   signaling_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(safety_.flag(), [observer = WrapScoped(observer), legacy_stats,
                                 track = WrapScoped(track)] {
         StatsReports reports;
@@ -78,7 +82,8 @@ void PeerConnectionMessageHandler::PostGetStats(
 void PeerConnectionMessageHandler::RequestUsagePatternReport(
     std::function<void()> func,
     int delay_ms) {
-  signaling_thread_->PostDelayedTask(SafeTask(safety_.flag(), std::move(func)),
+  signaling_thread_->PostDelayedTask(RTC_FROM_HERE,
+                                     SafeTask(safety_.flag(), std::move(func)),
                                      TimeDelta::Millis(delay_ms));
 }
 

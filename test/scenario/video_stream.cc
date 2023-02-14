@@ -474,7 +474,7 @@ void SendVideoStream::UpdateConfig(
 }
 
 void SendVideoStream::UpdateActiveLayers(std::vector<bool> active_layers) {
-  sender_->task_queue_.PostTask([=] {
+  sender_->task_queue_.PostTask(RTC_FROM_HERE, [=] {
     MutexLock lock(&mutex_);
     if (config_.encoder.codec ==
         VideoStreamConfig::Encoder::Codec::kVideoCodecVP8) {

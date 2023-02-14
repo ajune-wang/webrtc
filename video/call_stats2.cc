@@ -87,8 +87,8 @@ CallStats::~CallStats() {
 
 void CallStats::EnsureStarted() {
   RTC_DCHECK_RUN_ON(task_queue_);
-  repeating_task_ =
-      RepeatingTaskHandle::DelayedStart(task_queue_, kUpdateInterval, [this]() {
+  repeating_task_ = RepeatingTaskHandle::DelayedStart(
+      RTC_FROM_HERE, task_queue_, kUpdateInterval, [this]() {
         UpdateAndReport();
         return kUpdateInterval;
       });
@@ -145,7 +145,8 @@ void CallStats::OnRttUpdate(int64_t rtt) {
   if (task_queue_->IsCurrent()) {
     update();
   } else {
-    task_queue_->PostTask(SafeTask(task_safety_.flag(), std::move(update)));
+    task_queue_->PostTask(RTC_FROM_HERE,
+                          SafeTask(task_safety_.flag(), std::move(update)));
   }
 }
 

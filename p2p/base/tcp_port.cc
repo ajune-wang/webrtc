@@ -521,6 +521,7 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     // shutdown is intentional and reconnect is not necessary. We only reconnect
     // when the connection is used to Send() or Ping().
     network_thread()->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(network_safety_.flag(),
                  [this]() {
                    if (pretending_to_be_writable_) {
@@ -600,6 +601,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
     // of Connection::Ping(), we are still using the request.
     // Unwind the stack and defer the FailAndPrune.
     network_thread()->PostTask(
+        RTC_FROM_HERE,
         SafeTask(network_safety_.flag(), [this]() { FailAndPrune(); }));
   }
 }

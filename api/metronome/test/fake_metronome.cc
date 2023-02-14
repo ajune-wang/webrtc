@@ -55,6 +55,7 @@ void FakeMetronome::RequestCallOnNextTick(
   callbacks_.push_back(std::move(callback));
   if (callbacks_.size() == 1) {
     current->PostDelayedTask(
+        RTC_FROM_HERE,
         [this] {
           std::vector<absl::AnyInvocable<void() &&>> callbacks;
           callbacks_.swap(callbacks);

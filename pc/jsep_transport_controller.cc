@@ -80,7 +80,7 @@ RTCError JsepTransportController::SetLocalDescription(
   TRACE_EVENT0("webrtc", "JsepTransportController::SetLocalDescription");
   if (!network_thread_->IsCurrent()) {
     return network_thread_->BlockingCall(
-        [=] { return SetLocalDescription(type, description); });
+        RTC_FROM_HERE, [=] { return SetLocalDescription(type, description); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -101,7 +101,7 @@ RTCError JsepTransportController::SetRemoteDescription(
   TRACE_EVENT0("webrtc", "JsepTransportController::SetRemoteDescription");
   if (!network_thread_->IsCurrent()) {
     return network_thread_->BlockingCall(
-        [=] { return SetRemoteDescription(type, description); });
+        RTC_FROM_HERE, [=] { return SetRemoteDescription(type, description); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -201,7 +201,8 @@ absl::optional<rtc::SSLRole> JsepTransportController::GetDtlsRole(
   // thread during negotiations, potentially multiple times.
   // WebRtcSessionDescriptionFactory::InternalCreateAnswer is one example.
   if (!network_thread_->IsCurrent()) {
-    return network_thread_->BlockingCall([&] { return GetDtlsRole(mid); });
+    return network_thread_->BlockingCall(RTC_FROM_HERE,
+                                         [&] { return GetDtlsRole(mid); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -217,7 +218,7 @@ bool JsepTransportController::SetLocalCertificate(
     const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
   if (!network_thread_->IsCurrent()) {
     return network_thread_->BlockingCall(
-        [&] { return SetLocalCertificate(certificate); });
+        RTC_FROM_HERE, [&] { return SetLocalCertificate(certificate); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -275,7 +276,8 @@ JsepTransportController::GetRemoteSSLCertChain(
 
 void JsepTransportController::MaybeStartGathering() {
   if (!network_thread_->IsCurrent()) {
-    network_thread_->BlockingCall([&] { MaybeStartGathering(); });
+    network_thread_->BlockingCall(RTC_FROM_HERE,
+                                  [&] { MaybeStartGathering(); });
     return;
   }
 
@@ -302,7 +304,7 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
     const cricket::Candidates& candidates) {
   if (!network_thread_->IsCurrent()) {
     return network_thread_->BlockingCall(
-        [&] { return RemoveRemoteCandidates(candidates); });
+        RTC_FROM_HERE, [&] { return RemoveRemoteCandidates(candidates); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -361,8 +363,9 @@ bool JsepTransportController::GetStats(const std::string& transport_name,
 void JsepTransportController::SetActiveResetSrtpParams(
     bool active_reset_srtp_params) {
   if (!network_thread_->IsCurrent()) {
-    network_thread_->BlockingCall(
-        [=] { SetActiveResetSrtpParams(active_reset_srtp_params); });
+    network_thread_->BlockingCall(RTC_FROM_HERE, [=] {
+      SetActiveResetSrtpParams(active_reset_srtp_params);
+    });
     return;
   }
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -377,7 +380,8 @@ void JsepTransportController::SetActiveResetSrtpParams(
 
 RTCError JsepTransportController::RollbackTransports() {
   if (!network_thread_->IsCurrent()) {
-    return network_thread_->BlockingCall([=] { return RollbackTransports(); });
+    return network_thread_->BlockingCall(RTC_FROM_HERE,
+                                         [=] { return RollbackTransports(); });
   }
   RTC_DCHECK_RUN_ON(network_thread_);
   bundles_.Rollback();

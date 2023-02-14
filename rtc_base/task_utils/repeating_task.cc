@@ -19,7 +19,8 @@ namespace {
 
 class RepeatingTask {
  public:
-  RepeatingTask(TaskQueueBase* task_queue,
+  RepeatingTask(webrtc::Location location,
+                TaskQueueBase* task_queue,
                 TaskQueueBase::DelayPrecision precision,
                 TimeDelta first_delay,
                 absl::AnyInvocable<TimeDelta()> task,
@@ -33,6 +34,7 @@ class RepeatingTask {
 
  private:
   TaskQueueBase* const task_queue_;
+  Location location_;
   const TaskQueueBase::DelayPrecision precision_;
   Clock* const clock_;
   absl::AnyInvocable<TimeDelta()> task_;
@@ -43,6 +45,7 @@ class RepeatingTask {
 };
 
 RepeatingTask::RepeatingTask(
+    webrtc::Location location,
     TaskQueueBase* task_queue,
     TaskQueueBase::DelayPrecision precision,
     TimeDelta first_delay,
@@ -50,6 +53,7 @@ RepeatingTask::RepeatingTask(
     Clock* clock,
     rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag)
     : task_queue_(task_queue),
+      location_(location),
       precision_(precision),
       clock_(clock),
       task_(std::move(task)),
@@ -75,27 +79,31 @@ void RepeatingTask::operator()() && {
   delay -= lost_time;
   delay = std::max(delay, TimeDelta::Zero());
 
-  task_queue_->PostDelayedTaskWithPrecision(precision_, std::move(*this),
-                                            delay);
+  task_queue_->PostDelayedTaskWithPrecision(location_, precision_,
+                                            std::move(*this), delay);
 }
 
 }  // namespace
 
 RepeatingTaskHandle RepeatingTaskHandle::Start(
+    const Location& location,
     TaskQueueBase* task_queue,
     absl::AnyInvocable<TimeDelta()> closure,
     TaskQueueBase::DelayPrecision precision,
     Clock* clock) {
   auto alive_flag = PendingTaskSafetyFlag::CreateDetached();
   webrtc_repeating_task_impl::RepeatingTaskHandleDTraceProbeStart();
-  task_queue->PostTask(RepeatingTask(task_queue, precision, TimeDelta::Zero(),
-                                     std::move(closure), clock, alive_flag));
+  task_queue->PostTask(
+      RTC_FROM_HERE,
+      RepeatingTask(location, task_queue, precision, TimeDelta::Zero(),
+                    std::move(closure), clock, alive_flag));
   return RepeatingTaskHandle(std::move(alive_flag));
 }
 
 // DelayedStart is equivalent to Start except that the first invocation of the
 // closure will be delayed by the given amount.
 RepeatingTaskHandle RepeatingTaskHandle::DelayedStart(
+    const Location& location,
     TaskQueueBase* task_queue,
     TimeDelta first_delay,
     absl::AnyInvocable<TimeDelta()> closure,
@@ -104,9 +112,9 @@ RepeatingTaskHandle RepeatingTaskHandle::DelayedStart(
   auto alive_flag = PendingTaskSafetyFlag::CreateDetached();
   webrtc_repeating_task_impl::RepeatingTaskHandleDTraceProbeDelayedStart();
   task_queue->PostDelayedTaskWithPrecision(
-      precision,
-      RepeatingTask(task_queue, precision, first_delay, std::move(closure),
-                    clock, alive_flag),
+      location, precision,
+      RepeatingTask(location, task_queue, precision, first_delay,
+                    std::move(closure), clock, alive_flag),
       first_delay);
   return RepeatingTaskHandle(std::move(alive_flag));
 }

@@ -151,7 +151,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   }
 
   void StartWindowThreadMessageLoop() {
-    window_thread_->PostTask([this]() {
+    window_thread_->PostTask(RTC_FROM_HERE, [this]() {
       MSG msg;
       BOOL gm;
       while ((gm = ::GetMessage(&msg, NULL, 0, 0)) != 0 && gm != -1) {

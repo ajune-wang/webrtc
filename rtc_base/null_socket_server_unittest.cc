@@ -26,7 +26,7 @@ TEST(NullSocketServerTest, WaitAndSet) {
   NullSocketServer ss;
   auto thread = Thread::Create();
   EXPECT_TRUE(thread->Start());
-  thread->PostTask([&ss] { ss.WakeUp(); });
+  thread->PostTask(RTC_FROM_HERE, [&ss] { ss.WakeUp(); });
   // The process_io will be ignored.
   const bool process_io = true;
   EXPECT_TRUE_WAIT(ss.Wait(SocketServer::kForever, process_io), 5'000);

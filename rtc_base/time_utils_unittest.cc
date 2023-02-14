@@ -216,6 +216,7 @@ TEST(FakeClock, SettingTimeWakesThreads) {
   // Post an event that won't be executed for 10 seconds.
   Event message_handler_dispatched;
   worker->PostDelayedTask(
+      RTC_FROM_HERE,
       [&message_handler_dispatched] { message_handler_dispatched.Set(); },
       TimeDelta::Seconds(60));
 

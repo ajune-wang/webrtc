@@ -1528,14 +1528,14 @@ TEST_F(RtpSenderVideoWithFrameTransformerTest, OnTransformedFrameSendsVideo) {
           });
   auto encoder_queue = time_controller_.GetTaskQueueFactory()->CreateTaskQueue(
       "encoder_queue", TaskQueueFactory::Priority::NORMAL);
-  encoder_queue->PostTask([&] {
+  encoder_queue->PostTask(RTC_FROM_HERE, [&] {
     rtp_sender_video->SendEncodedImage(kPayload, kType, kTimestamp,
                                        *encoded_image, video_header,
                                        kDefaultExpectedRetransmissionTimeMs);
   });
   time_controller_.AdvanceTime(TimeDelta::Zero());
   EXPECT_EQ(transport_.packets_sent(), 1);
-  encoder_queue->PostTask([&] {
+  encoder_queue->PostTask(RTC_FROM_HERE, [&] {
     rtp_sender_video->SendEncodedImage(kPayload, kType, kTimestamp,
                                        *encoded_image, video_header,
                                        kDefaultExpectedRetransmissionTimeMs);
@@ -1610,14 +1610,14 @@ TEST_F(RtpSenderVideoWithFrameTransformerTest,
           });
   auto encoder_queue = time_controller_.GetTaskQueueFactory()->CreateTaskQueue(
       "encoder_queue", TaskQueueFactory::Priority::NORMAL);
-  encoder_queue->PostTask([&] {
+  encoder_queue->PostTask(RTC_FROM_HERE, [&] {
     rtp_sender_video->SendEncodedImage(kPayload, kType, kTimestamp,
                                        *encoded_image, video_header,
                                        kDefaultExpectedRetransmissionTimeMs);
   });
   time_controller_.AdvanceTime(TimeDelta::Zero());
   EXPECT_EQ(transport_.packets_sent(), 1);
-  encoder_queue->PostTask([&] {
+  encoder_queue->PostTask(RTC_FROM_HERE, [&] {
     rtp_sender_video->SendEncodedImage(kPayload, kType, kTimestamp,
                                        *encoded_image, video_header,
                                        kDefaultExpectedRetransmissionTimeMs);

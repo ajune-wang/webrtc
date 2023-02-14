@@ -547,7 +547,7 @@ void ChannelSend::StopSend() {
   // Wait until all pending encode tasks are executed and clear any remaining
   // buffers in the encoder.
   rtc::Event flush;
-  encoder_queue_.PostTask([this, &flush]() {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, &flush]() {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     CallEncoder([](AudioEncoder* encoder) { encoder->Reset(); });
     flush.Set();
@@ -838,7 +838,7 @@ void ChannelSend::ProcessAndEncodeAudio(
   // when the task is actually executed.
   audio_frame->UpdateProfileTimeStamp();
   encoder_queue_.PostTask(
-      [this, audio_frame = std::move(audio_frame)]() mutable {
+      RTC_FROM_HERE, [this, audio_frame = std::move(audio_frame)]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         if (!encoder_queue_is_active_.load()) {
           return;
@@ -901,7 +901,7 @@ int64_t ChannelSend::GetRTT() const {
 void ChannelSend::SetFrameEncryptor(
     rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor) {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  encoder_queue_.PostTask([this, frame_encryptor]() mutable {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, frame_encryptor]() mutable {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     frame_encryptor_ = std::move(frame_encryptor);
   });
@@ -914,6 +914,7 @@ void ChannelSend::SetEncoderToPacketizerFrameTransformer(
     return;
 
   encoder_queue_.PostTask(
+      RTC_FROM_HERE,
       [this, frame_transformer = std::move(frame_transformer)]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         InitFrameTransformerDelegate(std::move(frame_transformer));

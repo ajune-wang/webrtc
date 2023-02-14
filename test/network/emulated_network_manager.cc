@@ -41,7 +41,7 @@ EmulatedNetworkManager::EmulatedNetworkManager(
 void EmulatedNetworkManager::EnableEndpoint(EmulatedEndpointImpl* endpoint) {
   RTC_CHECK(endpoints_container_->HasEndpoint(endpoint))
       << "No such interface: " << endpoint->GetPeerLocalAddress().ToString();
-  network_thread_->PostTask([this, endpoint]() {
+  network_thread_->PostTask(RTC_FROM_HERE, [this, endpoint]() {
     endpoint->Enable();
     UpdateNetworksOnce();
   });
@@ -50,7 +50,7 @@ void EmulatedNetworkManager::EnableEndpoint(EmulatedEndpointImpl* endpoint) {
 void EmulatedNetworkManager::DisableEndpoint(EmulatedEndpointImpl* endpoint) {
   RTC_CHECK(endpoints_container_->HasEndpoint(endpoint))
       << "No such interface: " << endpoint->GetPeerLocalAddress().ToString();
-  network_thread_->PostTask([this, endpoint]() {
+  network_thread_->PostTask(RTC_FROM_HERE, [this, endpoint]() {
     endpoint->Disable();
     UpdateNetworksOnce();
   });
@@ -66,9 +66,11 @@ void EmulatedNetworkManager::StartUpdating() {
     // we should trigger network signal immediately for the new clients
     // to start allocating ports.
     if (sent_first_update_)
-      network_thread_->PostTask([this]() { MaybeSignalNetworksChanged(); });
+      network_thread_->PostTask(RTC_FROM_HERE,
+                                [this]() { MaybeSignalNetworksChanged(); });
   } else {
-    network_thread_->PostTask([this]() { UpdateNetworksOnce(); });
+    network_thread_->PostTask(RTC_FROM_HERE,
+                              [this]() { UpdateNetworksOnce(); });
   }
   ++start_count_;
 }
@@ -86,7 +88,7 @@ void EmulatedNetworkManager::StopUpdating() {
 
 void EmulatedNetworkManager::GetStats(
     std::function<void(EmulatedNetworkStats)> stats_callback) const {
-  task_queue_->PostTask([stats_callback, this]() {
+  task_queue_->PostTask(RTC_FROM_HERE, [stats_callback, this]() {
     stats_callback(endpoints_container_->GetStats());
   });
 }

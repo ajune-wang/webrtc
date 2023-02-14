@@ -50,14 +50,15 @@ class FakePeriodicVideoSource final
     frame_source_.SetRotation(config.rotation);
 
     TimeDelta frame_interval = TimeDelta::Millis(config.frame_interval_ms);
-    RepeatingTaskHandle::Start(task_queue_->Get(), [this, frame_interval] {
-      if (broadcaster_.wants().rotation_applied) {
-        broadcaster_.OnFrame(frame_source_.GetFrameRotationApplied());
-      } else {
-        broadcaster_.OnFrame(frame_source_.GetFrame());
-      }
-      return frame_interval;
-    });
+    RepeatingTaskHandle::Start(
+        RTC_FROM_HERE, task_queue_->Get(), [this, frame_interval] {
+          if (broadcaster_.wants().rotation_applied) {
+            broadcaster_.OnFrame(frame_source_.GetFrameRotationApplied());
+          } else {
+            broadcaster_.OnFrame(frame_source_.GetFrame());
+          }
+          return frame_interval;
+        });
   }
 
   rtc::VideoSinkWants wants() const {

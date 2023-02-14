@@ -67,7 +67,8 @@ AecDumpImpl::AecDumpImpl(FileWrapper debug_file,
 AecDumpImpl::~AecDumpImpl() {
   // Block until all tasks have finished running.
   rtc::Event thread_sync_event;
-  worker_queue_->PostTask([&thread_sync_event] { thread_sync_event.Set(); });
+  worker_queue_->PostTask(RTC_FROM_HERE,
+                          [&thread_sync_event] { thread_sync_event.Set(); });
   // Wait until the event has been signaled with .Set(). By then all
   // pending tasks will have finished.
   thread_sync_event.Wait(rtc::Event::kForever);
@@ -229,7 +230,7 @@ void AecDumpImpl::WriteRuntimeSetting(
 
 void AecDumpImpl::PostWriteToFileTask(std::unique_ptr<audioproc::Event> event) {
   RTC_DCHECK(event);
-  worker_queue_->PostTask([event = std::move(event), this] {
+  worker_queue_->PostTask(RTC_FROM_HERE, [event = std::move(event), this] {
     std::string event_string = event->SerializeAsString();
     const size_t event_byte_size = event_string.size();
 

@@ -408,6 +408,7 @@ void RtpTransportControllerSend::OnSentPacket(
   // the worker thread, since the worker thread outlive
   // RtpTransportControllerSend.
   task_queue_.TaskQueueForPost()->PostTask(
+      RTC_FROM_HERE,
       task_queue_.MaybeSafeTask(safety_.flag(), [this, sent_packet]() {
         RTC_DCHECK_RUN_ON(&task_queue_);
         absl::optional<SentPacket> packet_msg =
@@ -623,8 +624,8 @@ void RtpTransportControllerSend::StartProcessPeriodicTasks() {
   RTC_DCHECK_RUN_ON(&task_queue_);
   if (!pacer_queue_update_task_.Running()) {
     pacer_queue_update_task_ = RepeatingTaskHandle::DelayedStart(
-        task_queue_.TaskQueueForDelayedTasks(), kPacerQueueUpdateInterval,
-        [this]() {
+        RTC_FROM_HERE, task_queue_.TaskQueueForDelayedTasks(),
+        kPacerQueueUpdateInterval, [this]() {
           RTC_DCHECK_RUN_ON(&task_queue_);
           TimeDelta expected_queue_time = pacer_.ExpectedQueueTime();
           control_handler_->SetPacerQueue(expected_queue_time);
@@ -635,7 +636,8 @@ void RtpTransportControllerSend::StartProcessPeriodicTasks() {
   controller_task_.Stop();
   if (process_interval_.IsFinite()) {
     controller_task_ = RepeatingTaskHandle::DelayedStart(
-        task_queue_.TaskQueueForDelayedTasks(), process_interval_, [this]() {
+        RTC_FROM_HERE, task_queue_.TaskQueueForDelayedTasks(),
+        process_interval_, [this]() {
           RTC_DCHECK_RUN_ON(&task_queue_);
           UpdateControllerWithTimeInterval();
           return process_interval_;

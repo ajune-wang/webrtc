@@ -175,7 +175,8 @@ void ThreadManager::ProcessAllMessageQueuesInternal() {
       absl::Cleanup sub = [&queues_not_done] { queues_not_done.fetch_sub(1); };
       // Post delayed task instead of regular task to wait for all delayed tasks
       // that are ready for processing.
-      queue->PostDelayedTask([sub = std::move(sub)] {}, TimeDelta::Zero());
+      queue->PostDelayedTask(
+          RTC_FROM_HERE, [sub = std::move(sub)] {}, TimeDelta::Zero());
     }
   }
 
@@ -455,7 +456,8 @@ absl::AnyInvocable<void() &&> Thread::Get(int cmsWait) {
   return nullptr;
 }
 
-void Thread::PostTask(absl::AnyInvocable<void() &&> task) {
+void Thread::PostTask(const webrtc::Location& location,
+                      absl::AnyInvocable<void() &&> task) {
   if (IsQuitting()) {
     return;
   }
@@ -471,7 +473,8 @@ void Thread::PostTask(absl::AnyInvocable<void() &&> task) {
   WakeUpSocketServer();
 }
 
-void Thread::PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+void Thread::PostDelayedHighPrecisionTask(const webrtc::Location& location,
+                                          absl::AnyInvocable<void() &&> task,
                                           webrtc::TimeDelta delay) {
   if (IsQuitting()) {
     return;
@@ -580,7 +583,8 @@ bool Thread::SetName(absl::string_view name, const void* obj) {
 
 void Thread::SetDispatchWarningMs(int deadline) {
   if (!IsCurrent()) {
-    PostTask([this, deadline]() { SetDispatchWarningMs(deadline); });
+    PostTask(RTC_FROM_HERE,
+             [this, deadline]() { SetDispatchWarningMs(deadline); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);
@@ -719,7 +723,8 @@ void Thread::Stop() {
   Join();
 }
 
-void Thread::BlockingCall(rtc::FunctionView<void()> functor) {
+void Thread::BlockingCall(const webrtc::Location& location,
+                          rtc::FunctionView<void()> functor) {
   TRACE_EVENT0("webrtc", "Thread::BlockingCall");
 
   RTC_DCHECK(!IsQuitting());
@@ -749,7 +754,7 @@ void Thread::BlockingCall(rtc::FunctionView<void()> functor) {
 
   Event done;
   absl::Cleanup cleanup = [&done] { done.Set(); };
-  PostTask([functor, cleanup = std::move(cleanup)] { functor(); });
+  PostTask(location, [functor, cleanup = std::move(cleanup)] { functor(); });
   done.Wait(Event::kForever);
 }
 
@@ -767,7 +772,7 @@ void Thread::ClearCurrentTaskQueue() {
 void Thread::AllowInvokesToThread(Thread* thread) {
 #if (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
   if (!IsCurrent()) {
-    PostTask([thread, this]() { AllowInvokesToThread(thread); });
+    PostTask(RTC_FROM_HERE, [thread, this]() { AllowInvokesToThread(thread); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);
@@ -779,7 +784,7 @@ void Thread::AllowInvokesToThread(Thread* thread) {
 void Thread::DisallowAllInvokes() {
 #if (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
   if (!IsCurrent()) {
-    PostTask([this]() { DisallowAllInvokes(); });
+    PostTask(RTC_FROM_HERE, [this]() { DisallowAllInvokes(); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);
@@ -823,10 +828,11 @@ void Thread::Delete() {
   delete this;
 }
 
-void Thread::PostDelayedTask(absl::AnyInvocable<void() &&> task,
+void Thread::PostDelayedTask(const webrtc::Location& location,
+                             absl::AnyInvocable<void() &&> task,
                              webrtc::TimeDelta delay) {
   // This implementation does not support low precision yet.
-  PostDelayedHighPrecisionTask(std::move(task), delay);
+  PostDelayedHighPrecisionTask(location, std::move(task), delay);
 }
 
 bool Thread::IsProcessingMessagesForTesting() {

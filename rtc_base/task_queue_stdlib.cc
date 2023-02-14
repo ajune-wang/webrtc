@@ -52,10 +52,13 @@ class TaskQueueStdlib final : public TaskQueueBase {
   ~TaskQueueStdlib() override = default;
 
   void Delete() override;
-  void PostTask(absl::AnyInvocable<void() &&> task) override;
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
+  void PostTask(const Location& location,
+                absl::AnyInvocable<void() &&> task) override;
+  void PostDelayedTask(const Location& location,
+                       absl::AnyInvocable<void() &&> task,
                        TimeDelta delay) override;
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+  void PostDelayedHighPrecisionTask(const Location& location,
+                                    absl::AnyInvocable<void() &&> task,
                                     TimeDelta delay) override;
 
  private:
@@ -156,7 +159,8 @@ void TaskQueueStdlib::Delete() {
   delete this;
 }
 
-void TaskQueueStdlib::PostTask(absl::AnyInvocable<void() &&> task) {
+void TaskQueueStdlib::PostTask(const Location& location,
+                               absl::AnyInvocable<void() &&> task) {
   {
     MutexLock lock(&pending_lock_);
     pending_queue_.push(
@@ -166,7 +170,8 @@ void TaskQueueStdlib::PostTask(absl::AnyInvocable<void() &&> task) {
   NotifyWake();
 }
 
-void TaskQueueStdlib::PostDelayedTask(absl::AnyInvocable<void() &&> task,
+void TaskQueueStdlib::PostDelayedTask(const Location& location,
+                                      absl::AnyInvocable<void() &&> task,
                                       TimeDelta delay) {
   DelayedEntryTimeout delayed_entry;
   delayed_entry.next_fire_at_us = rtc::TimeMicros() + delay.us();
@@ -181,9 +186,10 @@ void TaskQueueStdlib::PostDelayedTask(absl::AnyInvocable<void() &&> task,
 }
 
 void TaskQueueStdlib::PostDelayedHighPrecisionTask(
+    const Location& location,
     absl::AnyInvocable<void() &&> task,
     TimeDelta delay) {
-  PostDelayedTask(std::move(task), delay);
+  PostDelayedTask(location, std::move(task), delay);
 }
 
 TaskQueueStdlib::NextTask TaskQueueStdlib::GetNextTask() {

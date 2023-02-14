@@ -445,7 +445,7 @@ TEST_F(OveruseFrameDetectorTest, RunOnTqNormalUsage) {
         event.Set();
       }));
 
-  queue.PostTask([this] {
+  queue.PostTask(RTC_FROM_HERE, [this] {
     const int kDelayUs1 = 5 * rtc::kNumMicrosecsPerMillisec;
     const int kDelayUs2 = 6 * rtc::kNumMicrosecsPerMillisec;
     InsertAndSendFramesWithInterval(1300, kFrameIntervalUs, kWidth, kHeight,
@@ -927,7 +927,7 @@ TEST_F(OveruseFrameDetectorTest2, RunOnTqNormalUsage) {
         event.Set();
       }));
 
-  queue.PostTask([this] {
+  queue.PostTask(RTC_FROM_HERE, [this] {
     const int kDelayUs1 = 5 * rtc::kNumMicrosecsPerMillisec;
     const int kDelayUs2 = 6 * rtc::kNumMicrosecsPerMillisec;
     InsertAndSendFramesWithInterval(1300, kFrameIntervalUs, kWidth, kHeight,

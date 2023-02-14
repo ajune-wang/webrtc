@@ -1309,7 +1309,8 @@ RTCStatsCollector::CreateReportFilteredBySelector(
     if (receiver_selector) {
       // Find the inbound-rtp of the receiver using ssrc lookup.
       absl::optional<uint32_t> ssrc;
-      worker_thread_->BlockingCall([&] { ssrc = receiver_selector->ssrc(); });
+      worker_thread_->BlockingCall(RTC_FROM_HERE,
+                                   [&] { ssrc = receiver_selector->ssrc(); });
       if (ssrc.has_value()) {
         for (const auto* inbound_rtp :
              report->GetStatsOfType<RTCInboundRTPStreamStats>()) {
@@ -1428,6 +1429,7 @@ void RTCStatsCollector::GetStatsReportInternal(
     // the caller may not be expecting a synchronous callback, and it avoids
     // reentrancy problems.
     signaling_thread_->PostTask(
+        RTC_FROM_HERE,
         absl::bind_front(&RTCStatsCollector::DeliverCachedReport,
                          rtc::scoped_refptr<RTCStatsCollector>(this),
                          cached_report_, std::move(requests_)));
@@ -1453,9 +1455,10 @@ void RTCStatsCollector::GetStatsReportInternal(
     // `network_report_event_`.
     network_report_event_.Reset();
     rtc::scoped_refptr<RTCStatsCollector> collector(this);
-    network_thread_->PostTask([collector,
-                               sctp_transport_name = pc_->sctp_transport_name(),
-                               timestamp]() mutable {
+    network_thread_->PostTask(RTC_FROM_HERE, [collector,
+                                              sctp_transport_name =
+                                                  pc_->sctp_transport_name(),
+                                              timestamp]() mutable {
       collector->ProducePartialResultsOnNetworkThread(
           timestamp, std::move(sctp_transport_name));
     });
@@ -1544,7 +1547,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
   network_report_event_.Set();
   rtc::scoped_refptr<RTCStatsCollector> collector(this);
   signaling_thread_->PostTask(
-      [collector] { collector->MergeNetworkReport_s(); });
+      RTC_FROM_HERE, [collector] { collector->MergeNetworkReport_s(); });
 }
 
 void RTCStatsCollector::ProducePartialResultsOnNetworkThreadImpl(
@@ -2366,7 +2369,7 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w_n() {
 
   // TODO(tommi): See if we can avoid synchronously blocking the signaling
   // thread while we do this (or avoid the BlockingCall at all).
-  network_thread_->BlockingCall([&] {
+  network_thread_->BlockingCall(RTC_FROM_HERE, [&] {
     rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
     for (const auto& transceiver_proxy : transceivers) {
@@ -2422,7 +2425,7 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w_n() {
   // well as GetCallStats(). At the same time we construct the
   // TrackMediaInfoMaps, which also needs info from the worker thread. This
   // minimizes the number of thread jumps.
-  worker_thread_->BlockingCall([&] {
+  worker_thread_->BlockingCall(RTC_FROM_HERE, [&] {
     rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
     for (auto& pair : voice_send_stats) {

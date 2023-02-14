@@ -427,8 +427,10 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   void SendRtp(typename T::MediaChannel* media_channel, rtc::Buffer data) {
-    network_thread_->PostTask(webrtc::SafeTask(
-        network_thread_safety_, [media_channel, data = std::move(data)]() {
+    network_thread_->PostTask(
+        RTC_FROM_HERE,
+        webrtc::SafeTask(network_thread_safety_, [media_channel,
+                                                  data = std::move(data)]() {
           media_channel->SendRtp(data.data(), data.size(),
                                  rtc::PacketOptions());
         }));
@@ -514,7 +516,7 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     explicit ScopedCallThread(absl::AnyInvocable<void() &&> functor)
         : thread_(rtc::Thread::Create()) {
       thread_->Start();
-      thread_->PostTask(std::move(functor));
+      thread_->PostTask(RTC_FROM_HERE, std::move(functor));
     }
 
     ~ScopedCallThread() { thread_->Stop(); }
@@ -1257,12 +1259,12 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     EXPECT_FALSE(media_channel1()->ready_to_send());
 
     network_thread_->PostTask(
-        [this] { channel1_->OnTransportReadyToSend(true); });
+        RTC_FROM_HERE, [this] { channel1_->OnTransportReadyToSend(true); });
     WaitForThreads();
     EXPECT_TRUE(media_channel1()->ready_to_send());
 
     network_thread_->PostTask(
-        [this] { channel1_->OnTransportReadyToSend(false); });
+        RTC_FROM_HERE, [this] { channel1_->OnTransportReadyToSend(false); });
     WaitForThreads();
     EXPECT_FALSE(media_channel1()->ready_to_send());
   }

@@ -35,7 +35,7 @@ namespace rtc {
 //
 //  void Foo(TaskQueue* tq) {
 //    Event event;
-//    tq->PostTask([&event]() {
+//    tq->PostTask(RTC_FROM_HERE, [&event]() {
 //      event.Set();
 //    });
 //    event.Wait(Event::kForever);  // <- Will trigger a DCHECK.

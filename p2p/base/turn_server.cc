@@ -523,7 +523,8 @@ void TurnServer::DestroyInternalSocket(rtc::AsyncPacketSocket* socket) {
     // We must destroy the socket async to avoid invalidating the sigslot
     // callback list iterator inside a sigslot callback. (In other words,
     // deleting an object from within a callback from that object).
-    thread_->PostTask([socket_to_delete = std::move(socket_to_delete)] {});
+    thread_->PostTask(RTC_FROM_HERE,
+                      [socket_to_delete = std::move(socket_to_delete)] {});
   }
 }
 
@@ -742,6 +743,7 @@ void TurnServerAllocation::HandleChannelBindRequest(const TurnMessage* msg) {
     channel1->pending_delete.reset();
   }
   thread_->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(channel1->pending_delete.flag(),
                [this, channel1] { channels_.erase(channel1); }),
       kChannelTimeout);
@@ -823,7 +825,8 @@ void TurnServerAllocation::AddPermission(const rtc::IPAddress& addr) {
   } else {
     perm->pending_delete.reset();
   }
-  thread_->PostDelayedTask(SafeTask(perm->pending_delete.flag(),
+  thread_->PostDelayedTask(RTC_FROM_HERE,
+                           SafeTask(perm->pending_delete.flag(),
                                     [this, perm] { perms_.erase(perm); }),
                            kPermissionTimeout);
 }
@@ -874,8 +877,8 @@ void TurnServerAllocation::PostDeleteSelf(TimeDelta delay) {
     RTC_DCHECK_RUN_ON(server_->thread_);
     server_->DestroyAllocation(this);
   };
-  thread_->PostDelayedTask(SafeTask(safety_.flag(), std::move(delete_self)),
-                           delay);
+  thread_->PostDelayedTask(
+      RTC_FROM_HERE, SafeTask(safety_.flag(), std::move(delete_self)), delay);
 }
 
 }  // namespace cricket

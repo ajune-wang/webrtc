@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/functional/any_invocable.h"
+#include "api/location.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
@@ -62,7 +63,14 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // Note that this guarantee does not apply to delayed tasks.
   //
   // May be called on any thread or task queue, including this task queue.
-  virtual void PostTask(absl::AnyInvocable<void() &&> task) = 0;
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
+  virtual void PostTask(absl::AnyInvocable<void() &&> task) {
+    PostTask(RTC_FROM_HERE, std::move(task));
+  }
+  virtual void PostTask(const webrtc::Location& location,
+                        absl::AnyInvocable<void() &&> task) {
+    PostTask(std::move(task));
+  }
 
   // Prefer PostDelayedTask() over PostDelayedHighPrecisionTask() whenever
   // possible.
@@ -87,8 +95,16 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // https://crbug.com/webrtc/13583 for more information.
   //
   // May be called on any thread or task queue, including this task queue.
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
   virtual void PostDelayedTask(absl::AnyInvocable<void() &&> task,
-                               TimeDelta delay) = 0;
+                               TimeDelta delay) {
+    PostDelayedTask(RTC_FROM_HERE, std::move(task), delay);
+  }
+  virtual void PostDelayedTask(const webrtc::Location& location,
+                               absl::AnyInvocable<void() &&> task,
+                               TimeDelta delay) {
+    PostDelayedTask(std::move(task), delay);
+  }
 
   // Prefer PostDelayedTask() over PostDelayedHighPrecisionTask() whenever
   // possible.
@@ -106,20 +122,42 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // battery, when the timer precision can be as poor as 15 ms.
   //
   // May be called on any thread or task queue, including this task queue.
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
   virtual void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
-                                            TimeDelta delay) = 0;
+                                            TimeDelta delay) {
+    PostDelayedHighPrecisionTask(RTC_FROM_HERE, std::move(task), delay);
+  }
+  virtual void PostDelayedHighPrecisionTask(const webrtc::Location& location,
+                                            absl::AnyInvocable<void() &&> task,
+                                            TimeDelta delay) {
+    PostDelayedHighPrecisionTask(std::move(task), delay);
+  }
 
   // As specified by `precision`, calls either PostDelayedTask() or
   // PostDelayedHighPrecisionTask().
-  void PostDelayedTaskWithPrecision(DelayPrecision precision,
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
+  // void PostDelayedTaskWithPrecision(DelayPrecision precision,
+  //                                   absl::AnyInvocable<void() &&> task,
+  //                                   TimeDelta delay) {
+  //   switch (precision) {
+  //     case DelayPrecision::kLow:
+  //       PostDelayedTask(std::move(task), delay);
+  //       break;
+  //     case DelayPrecision::kHigh:
+  //       PostDelayedHighPrecisionTask(std::move(task), delay);
+  //       break;
+  //   }
+  // }
+  void PostDelayedTaskWithPrecision(const webrtc::Location& location,
+                                    DelayPrecision precision,
                                     absl::AnyInvocable<void() &&> task,
                                     TimeDelta delay) {
     switch (precision) {
       case DelayPrecision::kLow:
-        PostDelayedTask(std::move(task), delay);
+        PostDelayedTask(location, std::move(task), delay);
         break;
       case DelayPrecision::kHigh:
-        PostDelayedHighPrecisionTask(std::move(task), delay);
+        PostDelayedHighPrecisionTask(location, std::move(task), delay);
         break;
     }
   }

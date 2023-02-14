@@ -663,7 +663,8 @@ class ZeroHertzLayerQualityConvergenceTest : public ::testing::Test {
   }
 
   void ScheduleDelayed(TimeDelta delay, absl::AnyInvocable<void() &&> task) {
-    TaskQueueBase::Current()->PostDelayedTask(std::move(task), delay);
+    TaskQueueBase::Current()->PostDelayedTask(RTC_FROM_HERE, std::move(task),
+                                              delay);
   }
 
  protected:
@@ -1059,7 +1060,7 @@ TEST(FrameCadenceAdapterRealTimeTest, TimestampsDoNotDrift) {
   int64_t original_ntp_time_ms;
   int64_t original_timestamp_us;
   rtc::Event event;
-  queue->PostTask([&] {
+  queue->PostTask(RTC_FROM_HERE, [&] {
     adapter = CreateAdapter(enabler, clock);
     adapter->Initialize(&callback);
     adapter->SetZeroHertzModeEnabled(
@@ -1090,7 +1091,7 @@ TEST(FrameCadenceAdapterRealTimeTest, TimestampsDoNotDrift) {
   });
   event.Wait(rtc::Event::kForever);
   rtc::Event finalized;
-  queue->PostTask([&] {
+  queue->PostTask(RTC_FROM_HERE, [&] {
     adapter = nullptr;
     finalized.Set();
   });

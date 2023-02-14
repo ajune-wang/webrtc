@@ -740,7 +740,7 @@ void SocketTest::SocketServerWaitInternal(const IPAddress& loopback) {
   // Shouldn't signal when blocked in a thread Send, where process_io is false.
   std::unique_ptr<Thread> thread(Thread::CreateWithSocketServer());
   thread->Start();
-  thread->BlockingCall([] { Thread::SleepMs(500); });
+  thread->BlockingCall(RTC_FROM_HERE, [] { Thread::SleepMs(500); });
   EXPECT_FALSE(sink.Check(accepted.get(), SSE_READ));
 
   // But should signal when process_io is true.

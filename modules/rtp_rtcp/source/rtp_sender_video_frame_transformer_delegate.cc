@@ -152,6 +152,7 @@ void RTPSenderVideoFrameTransformerDelegate::OnTransformedFrame(
   }
   rtc::scoped_refptr<RTPSenderVideoFrameTransformerDelegate> delegate(this);
   transformation_queue_->PostTask(
+      RTC_FROM_HERE,
       [delegate = std::move(delegate), frame = std::move(frame)]() mutable {
         RTC_DCHECK_RUN_ON(delegate->transformation_queue_.get());
         delegate->SendVideo(std::move(frame));

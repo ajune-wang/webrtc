@@ -55,7 +55,7 @@ void NackPeriodicProcessor::RegisterNackModule(NackRequesterBase* module) {
   if (modules_.size() != 1)
     return;
   repeating_task_ = RepeatingTaskHandle::DelayedStart(
-      TaskQueueBase::Current(), update_interval_, [this] {
+      RTC_FROM_HERE, TaskQueueBase::Current(), update_interval_, [this] {
         RTC_DCHECK_RUN_ON(&sequence_);
         ProcessNackModules();
         return update_interval_;
@@ -220,14 +220,15 @@ int NackRequester::OnReceivedPacket(uint16_t seq_num,
 
 void NackRequester::ClearUpTo(uint16_t seq_num) {
   // Called via RtpVideoStreamReceiver2::FrameContinuous on the network thread.
-  worker_thread_->PostTask(SafeTask(task_safety_.flag(), [seq_num, this]() {
-    RTC_DCHECK_RUN_ON(worker_thread_);
-    nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
-    keyframe_list_.erase(keyframe_list_.begin(),
-                         keyframe_list_.lower_bound(seq_num));
-    recovered_list_.erase(recovered_list_.begin(),
-                          recovered_list_.lower_bound(seq_num));
-  }));
+  worker_thread_->PostTask(
+      RTC_FROM_HERE, SafeTask(task_safety_.flag(), [seq_num, this]() {
+        RTC_DCHECK_RUN_ON(worker_thread_);
+        nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
+        keyframe_list_.erase(keyframe_list_.begin(),
+                             keyframe_list_.lower_bound(seq_num));
+        recovered_list_.erase(recovered_list_.begin(),
+                              recovered_list_.lower_bound(seq_num));
+      }));
 }
 
 void NackRequester::UpdateRtt(int64_t rtt_ms) {

@@ -85,11 +85,11 @@ rtc::NetworkMonitorInterface::InterfaceInfo ObjCNetworkMonitor::GetInterfaceInfo
 void ObjCNetworkMonitor::OnPathUpdate(
     std::map<std::string, rtc::AdapterType, rtc::AbslStringViewCmp> adapter_type_by_name) {
   RTC_DCHECK(network_monitor_ != nil);
-  thread_->PostTask(SafeTask(safety_flag_, [this, adapter_type_by_name] {
-    RTC_DCHECK_RUN_ON(thread_);
-    adapter_type_by_name_ = adapter_type_by_name;
-    InvokeNetworksChangedCallback();
-  }));
+  thread_->PostTask(RTC_FROM_HERE, SafeTask(safety_flag_, [this, adapter_type_by_name] {
+                      RTC_DCHECK_RUN_ON(thread_);
+                      adapter_type_by_name_ = adapter_type_by_name;
+                      InvokeNetworksChangedCallback();
+                    }));
 }
 
 }  // namespace webrtc

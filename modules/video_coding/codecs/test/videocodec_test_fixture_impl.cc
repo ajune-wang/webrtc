@@ -475,7 +475,7 @@ void VideoCodecTestFixtureImpl::ProcessAllFrames(
     const std::vector<RateProfile>& rate_profiles) {
   // Set initial rates.
   auto rate_profile = rate_profiles.begin();
-  task_queue->PostTask([this, rate_profile] {
+  task_queue->PostTask(RTC_FROM_HERE, [this, rate_profile] {
     processor_->SetRates(rate_profile->target_kbps, rate_profile->input_fps);
   });
 
@@ -486,13 +486,13 @@ void VideoCodecTestFixtureImpl::ProcessAllFrames(
     if (next_rate_profile != rate_profiles.end() &&
         frame_num == next_rate_profile->frame_num) {
       rate_profile = next_rate_profile;
-      task_queue->PostTask([this, rate_profile] {
+      task_queue->PostTask(RTC_FROM_HERE, [this, rate_profile] {
         processor_->SetRates(rate_profile->target_kbps,
                              rate_profile->input_fps);
       });
     }
 
-    task_queue->PostTask([this] { processor_->ProcessFrame(); });
+    task_queue->PostTask(RTC_FROM_HERE, [this] { processor_->ProcessFrame(); });
 
     if (RunEncodeInRealTime(config_)) {
       // Roughly pace the frames.
@@ -502,7 +502,7 @@ void VideoCodecTestFixtureImpl::ProcessAllFrames(
     }
   }
 
-  task_queue->PostTask([this] { processor_->Finalize(); });
+  task_queue->PostTask(RTC_FROM_HERE, [this] { processor_->Finalize(); });
 
   // Wait until we know that the last frame has been sent for encode.
   task_queue->SendTask([] {});

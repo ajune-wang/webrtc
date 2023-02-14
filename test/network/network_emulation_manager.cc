@@ -78,7 +78,7 @@ EmulatedNetworkNode* NetworkEmulationManagerImpl::CreateEmulatedNode(
   auto node = std::make_unique<EmulatedNetworkNode>(
       clock_, &task_queue_, std::move(network_behavior), stats_gathering_mode_);
   EmulatedNetworkNode* out = node.get();
-  task_queue_.PostTask([this, node = std::move(node)]() mutable {
+  task_queue_.PostTask(RTC_FROM_HERE, [this, node = std::move(node)]() mutable {
     network_nodes_.push_back(std::move(node));
   });
   return out;
@@ -217,9 +217,10 @@ TcpMessageRoute* NetworkEmulationManagerImpl::CreateTcpRoute(
   auto tcp_route = std::make_unique<TcpMessageRouteImpl>(
       clock_, task_queue_.Get(), send_route, ret_route);
   auto* route_ptr = tcp_route.get();
-  task_queue_.PostTask([this, tcp_route = std::move(tcp_route)]() mutable {
-    tcp_message_routes_.push_back(std::move(tcp_route));
-  });
+  task_queue_.PostTask(RTC_FROM_HERE,
+                       [this, tcp_route = std::move(tcp_route)]() mutable {
+                         tcp_message_routes_.push_back(std::move(tcp_route));
+                       });
   return route_ptr;
 }
 
@@ -247,11 +248,12 @@ CrossTrafficRoute* NetworkEmulationManagerImpl::CreateCrossTrafficRoute(
 CrossTrafficGenerator* NetworkEmulationManagerImpl::StartCrossTraffic(
     std::unique_ptr<CrossTrafficGenerator> generator) {
   CrossTrafficGenerator* out = generator.get();
-  task_queue_.PostTask([this, generator = std::move(generator)]() mutable {
+  task_queue_.PostTask(RTC_FROM_HERE, [this, generator = std::move(
+                                                 generator)]() mutable {
     auto* generator_ptr = generator.get();
 
-    auto repeating_task_handle =
-        RepeatingTaskHandle::Start(task_queue_.Get(), [this, generator_ptr] {
+    auto repeating_task_handle = RepeatingTaskHandle::Start(
+        RTC_FROM_HERE, task_queue_.Get(), [this, generator_ptr] {
           generator_ptr->Process(Now());
           return generator_ptr->GetProcessInterval();
         });
@@ -264,7 +266,7 @@ CrossTrafficGenerator* NetworkEmulationManagerImpl::StartCrossTraffic(
 
 void NetworkEmulationManagerImpl::StopCrossTraffic(
     CrossTrafficGenerator* generator) {
-  task_queue_.PostTask([=]() {
+  task_queue_.PostTask(RTC_FROM_HERE, [=]() {
     auto it = std::find_if(cross_traffics_.begin(), cross_traffics_.end(),
                            [=](const CrossTrafficSource& el) {
                              return el.first.get() == generator;
@@ -306,24 +308,26 @@ NetworkEmulationManagerImpl::CreateEmulatedNetworkManagerInterface(
 void NetworkEmulationManagerImpl::GetStats(
     rtc::ArrayView<EmulatedEndpoint* const> endpoints,
     std::function<void(EmulatedNetworkStats)> stats_callback) {
-  task_queue_.PostTask([endpoints, stats_callback,
-                        stats_gathering_mode = stats_gathering_mode_]() {
-    EmulatedNetworkStatsBuilder stats_builder(stats_gathering_mode);
-    for (auto* endpoint : endpoints) {
-      // It's safe to cast here because EmulatedEndpointImpl can be the only
-      // implementation of EmulatedEndpoint, because only it has access to
-      // EmulatedEndpoint constructor.
-      auto endpoint_impl = static_cast<EmulatedEndpointImpl*>(endpoint);
-      stats_builder.AddEmulatedNetworkStats(endpoint_impl->stats());
-    }
-    stats_callback(stats_builder.Build());
-  });
+  task_queue_.PostTask(
+      RTC_FROM_HERE, [endpoints, stats_callback,
+                      stats_gathering_mode = stats_gathering_mode_]() {
+        EmulatedNetworkStatsBuilder stats_builder(stats_gathering_mode);
+        for (auto* endpoint : endpoints) {
+          // It's safe to cast here because EmulatedEndpointImpl can be the only
+          // implementation of EmulatedEndpoint, because only it has access to
+          // EmulatedEndpoint constructor.
+          auto endpoint_impl = static_cast<EmulatedEndpointImpl*>(endpoint);
+          stats_builder.AddEmulatedNetworkStats(endpoint_impl->stats());
+        }
+        stats_callback(stats_builder.Build());
+      });
 }
 
 void NetworkEmulationManagerImpl::GetStats(
     rtc::ArrayView<EmulatedNetworkNode* const> nodes,
     std::function<void(EmulatedNetworkNodeStats)> stats_callback) {
   task_queue_.PostTask(
+      RTC_FROM_HERE,
       [nodes, stats_callback, stats_gathering_mode = stats_gathering_mode_]() {
         EmulatedNetworkNodeStatsBuilder stats_builder(stats_gathering_mode);
         for (auto* node : nodes) {

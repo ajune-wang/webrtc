@@ -144,7 +144,8 @@ void AAudioPlayer::OnErrorCallback(aaudio_result_t error) {
     // from the callback, use another thread instead". A message is therefore
     // sent to the main thread to do the restart operation.
     RTC_DCHECK(main_thread_);
-    main_thread_->PostTask([this] { HandleStreamDisconnected(); });
+    main_thread_->PostTask(RTC_FROM_HERE,
+                           [this] { HandleStreamDisconnected(); });
   }
 }
 

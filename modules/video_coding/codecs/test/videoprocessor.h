@@ -107,10 +107,11 @@ class VideoProcessor {
       // Post the callback to the right task queue, if needed.
       if (!task_queue_->IsCurrent()) {
         VideoProcessor* video_processor = video_processor_;
-        task_queue_->PostTask([video_processor, encoded_image,
-                               codec_specific_info = *codec_specific_info] {
-          video_processor->FrameEncoded(encoded_image, codec_specific_info);
-        });
+        task_queue_->PostTask(
+            RTC_FROM_HERE, [video_processor, encoded_image,
+                            codec_specific_info = *codec_specific_info] {
+              video_processor->FrameEncoded(encoded_image, codec_specific_info);
+            });
         return Result(Result::OK, 0);
       }
 

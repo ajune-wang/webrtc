@@ -143,7 +143,7 @@ TcpMessageRouteImpl::TcpMessageRouteImpl(Clock* clock,
 void TcpMessageRouteImpl::SendMessage(size_t size,
                                       std::function<void()> on_received) {
   task_queue_->PostTask(
-      [this, size, handler = std::move(on_received)] {
+      RTC_FROM_HERE, [this, size, handler = std::move(on_received)] {
         // If we are currently sending a message we won't reset the connection,
         // we'll act as if the messages are sent in the same TCP stream. This is
         // intended to simulate recreation of a TCP session for each message
@@ -232,6 +232,7 @@ void TcpMessageRouteImpl::SendPackets(Timestamp at_time) {
     request_route_.SendPacket(send.fragment.size, send);
     in_flight_.insert({seq_num, send});
     task_queue_->PostDelayedTask(
+        RTC_FROM_HERE,
         [this, seq_num] {
           HandlePacketTimeout(seq_num, clock_->CurrentTime());
         },

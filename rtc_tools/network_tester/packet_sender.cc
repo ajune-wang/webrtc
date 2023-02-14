@@ -38,6 +38,7 @@ absl::AnyInvocable<void() &&> SendPacketTask(
       int64_t delay_ms =
           std::max(static_cast<int64_t>(0), target_time_ms - rtc::TimeMillis());
       TaskQueueBase::Current()->PostDelayedTask(
+          RTC_FROM_HERE,
           SendPacketTask(packet_sender, std::move(task_safety_flag),
                          target_time_ms),
           TimeDelta::Millis(delay_ms));
@@ -59,6 +60,7 @@ absl::AnyInvocable<void() &&> UpdateTestSettingTask(
       packet_sender->UpdateTestSetting(config->packet_size,
                                        config->packet_send_interval_ms);
       TaskQueueBase::Current()->PostDelayedTask(
+          RTC_FROM_HERE,
           UpdateTestSettingTask(packet_sender, std::move(config_reader),
                                 std::move(task_safety_flag)),
           TimeDelta::Millis(config->execution_time_ms));
@@ -88,14 +90,17 @@ PacketSender::~PacketSender() = default;
 
 void PacketSender::StartSending() {
   worker_queue_checker_.Detach();
-  worker_queue_->PostTask(SafeTask(task_safety_flag_, [this]() {
-    RTC_DCHECK_RUN_ON(&worker_queue_checker_);
-    sending_ = true;
-  }));
-  worker_queue_->PostTask(UpdateTestSettingTask(
-      this, std::make_unique<ConfigReader>(config_file_path_),
-      task_safety_flag_));
-  worker_queue_->PostTask(SendPacketTask(this, task_safety_flag_));
+  worker_queue_->PostTask(RTC_FROM_HERE, SafeTask(task_safety_flag_, [this]() {
+                            RTC_DCHECK_RUN_ON(&worker_queue_checker_);
+                            sending_ = true;
+                          }));
+  worker_queue_->PostTask(
+      RTC_FROM_HERE,
+      UpdateTestSettingTask(this,
+                            std::make_unique<ConfigReader>(config_file_path_),
+                            task_safety_flag_));
+  worker_queue_->PostTask(RTC_FROM_HERE,
+                          SendPacketTask(this, task_safety_flag_));
 }
 
 void PacketSender::StopSending() {

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02caace8_ab4770d2",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-14T13:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4022a64a_5fde68d7",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 67
+      },
+      "revId": "a507207e82392614519536cd5f8df15fafa538cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1826175b_22ad18e6",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-14T12:31:02Z",
       "side": 1,
       "message": "Make it just std::string and default it to alice in bob in 1st ctor",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "a507207e82392614519536cd5f8df15fafa538cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb25da27_5a740297",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-14T13:25:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1826175b_22ad18e6",
       "range": {
         "startLine": 72,
         "startChar": 1,

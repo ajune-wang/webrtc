@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c94e6868_c89619ae",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-14T16:50:58Z",
+      "side": 1,
+      "message": "Something like this should work.\n\n```\nconfig(\"location_config\") {\n  visibility \u003d [ \":*\" ]\n  if (rtc_enable_location) {\n    defines \u003d [ \"RTC_ENABLE_LOCATION\u003d1\" ]\n  }\n}\n\nrtc_library(\"location\") {\n  visibility \u003d [ \"*\" ]\n  sources \u003d [\n    \"location.cc\",\n    \"location.h\",\n  ]\n  public_configs \u003d [ \":location_config\" ]\n  deps \u003d [ \"../rtc_base/system:rtc_export\" ]\n}\n```",
+      "revId": "a200b4cd991697449b9f500bca77f62880149e1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

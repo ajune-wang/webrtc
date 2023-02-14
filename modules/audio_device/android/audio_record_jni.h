@@ -92,7 +92,6 @@ class AudioRecordJni {
   // This method will be called by the WebRtcAudioRecord constructor, i.e.,
   // on the same thread that this object is created on.
   static void JNICALL CacheDirectBufferAddress(JNIEnv* env,
-                                               jobject obj,
                                                jobject byte_buffer,
                                                jlong nativeAudioRecord);
   void OnCacheDirectBufferAddress(JNIEnv* env, jobject byte_buffer);
@@ -104,7 +103,6 @@ class AudioRecordJni {
   // This method is called on a high-priority thread from Java. The name of
   // the thread is 'AudioRecordThread'.
   static void JNICALL DataIsRecorded(JNIEnv* env,
-                                     jobject obj,
                                      jint length,
                                      jlong nativeAudioRecord);
   void OnDataIsRecorded(int length);

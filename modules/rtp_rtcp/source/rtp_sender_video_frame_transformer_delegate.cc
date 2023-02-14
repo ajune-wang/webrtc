@@ -38,8 +38,8 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
         metadata_(header_.GetAsMetadata()),
         frame_type_(encoded_image._frameType),
         payload_type_(payload_type),
-        codec_type_(codec_type),
         timestamp_(rtp_timestamp),
+        codec_type_(codec_type),
         capture_time_ms_(encoded_image.capture_time_ms_),
         expected_retransmission_time_ms_(expected_retransmission_time_ms) {
     RTC_DCHECK_GE(payload_type_, 0);
@@ -207,27 +207,11 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
       original->GetData().data(), original->GetData().size());
   EncodedImage encoded_image;
   encoded_image.SetEncodedData(encoded_image_buffer);
-  RTPVideoHeader new_header;
-  absl::optional<VideoCodecType> new_codec_type;
-  // TODO(bugs.webrtc.org/14708): Figure out a way to get the header information
-  // without casting to TransformableVideoSenderFrame.
-  if (original->GetDirection() ==
-      TransformableFrameInterface::Direction::kSender) {
-    // TODO(bugs.webrtc.org/14708): Figure out a way to bulletproof this cast.
-    auto original_as_sender =
-        static_cast<TransformableVideoSenderFrame*>(original);
-    new_header = original_as_sender->GetHeader();
-    new_codec_type = original_as_sender->GetCodecType();
-  } else {
-    // TODO(bugs.webrtc.org/14708): Make this codec dependent
-    new_header.video_type_header.emplace<RTPVideoHeaderVP8>();
-    new_codec_type = kVideoCodecVP8;
-    // TODO(bugs.webrtc.org/14708): Fill in the new_header when it's not
-    // `Direction::kSender`
-  }
+  RTPVideoHeader new_header =
+      RTPVideoHeader::FromMetadata(original->GetMetadata());
   // TODO(bugs.webrtc.org/14708): Fill in other EncodedImage parameters
   return std::make_unique<TransformableVideoSenderFrame>(
-      encoded_image, new_header, original->GetPayloadType(), new_codec_type,
+      encoded_image, new_header, original->GetPayloadType(), new_header.codec,
       original->GetTimestamp(),
       absl::nullopt,  // expected_retransmission_time_ms
       original->GetSsrc(), original->GetMetadata().GetCsrcs());

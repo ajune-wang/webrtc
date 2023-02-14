@@ -175,7 +175,7 @@ void RemoteAudioSource::OnAudioChannelGone() {
   // but that is fine because the task queue destructor will take care of
   // destroying task which will release the reference on RemoteAudioSource.
   rtc::scoped_refptr<RemoteAudioSource> thiz(this);
-  main_thread_->PostTask([thiz = std::move(thiz)] {
+  main_thread_->PostTask(RTC_FROM_HERE, [thiz = std::move(thiz)] {
     thiz->sinks_.clear();
     thiz->SetState(MediaSourceInterface::kEnded);
   });

@@ -426,7 +426,7 @@ void FakeAudioCaptureModule::UpdateProcessing(bool start) {
       process_thread_ = rtc::Thread::Create();
       process_thread_->Start();
     }
-    process_thread_->PostTask([this] { StartProcessP(); });
+    process_thread_->PostTask(RTC_FROM_HERE, [this] { StartProcessP(); });
   } else {
     if (process_thread_) {
       process_thread_->Stop();
@@ -472,8 +472,8 @@ void FakeAudioCaptureModule::ProcessFrameP() {
   const int64_t current_time = rtc::TimeMillis();
   const int64_t wait_time =
       (next_frame_time_ > current_time) ? next_frame_time_ - current_time : 0;
-  process_thread_->PostDelayedTask([this] { ProcessFrameP(); },
-                                   TimeDelta::Millis(wait_time));
+  process_thread_->PostDelayedTask(
+      RTC_FROM_HERE, [this] { ProcessFrameP(); }, TimeDelta::Millis(wait_time));
 }
 
 void FakeAudioCaptureModule::ReceiveFrameP() {

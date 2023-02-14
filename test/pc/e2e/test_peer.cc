@@ -74,6 +74,7 @@ void TestPeer::SetVideoSubscription(VideoSubscription subscription) {
 
 void TestPeer::GetStats(RTCStatsCollectorCallback* callback) {
   pc()->signaling_thread()->PostTask(
+      RTC_FROM_HERE,
       SafeTask(signaling_thread_task_safety_,
                [this, callback]() { pc()->GetStats(callback); }));
 }

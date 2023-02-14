@@ -127,7 +127,7 @@ class MethodCall {
     if (t->IsCurrent()) {
       Invoke(std::index_sequence_for<Args...>());
     } else {
-      t->PostTask([this] {
+      t->PostTask(RTC_FROM_HERE, [this] {
         Invoke(std::index_sequence_for<Args...>());
         event_.Set();
       });
@@ -162,7 +162,7 @@ class ConstMethodCall {
     if (t->IsCurrent()) {
       Invoke(std::index_sequence_for<Args...>());
     } else {
-      t->PostTask([this] {
+      t->PostTask(RTC_FROM_HERE, [this] {
         Invoke(std::index_sequence_for<Args...>());
         event_.Set();
       });

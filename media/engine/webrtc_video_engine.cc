@@ -864,6 +864,7 @@ bool WebRtcVideoChannel::SetSendParameters(const VideoSendParameters& params) {
 void WebRtcVideoChannel::RequestEncoderFallback() {
   if (!worker_thread_->IsCurrent()) {
     worker_thread_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this] { RequestEncoderFallback(); }));
     return;
   }
@@ -886,6 +887,7 @@ void WebRtcVideoChannel::RequestEncoderSwitch(
     bool allow_default_fallback) {
   if (!worker_thread_->IsCurrent()) {
     worker_thread_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this, format, allow_default_fallback] {
           RequestEncoderSwitch(format, allow_default_fallback);
         }));
@@ -1748,6 +1750,7 @@ void WebRtcVideoChannel::OnPacketReceived(
   // to a common implementation and provide a callback on the worker thread
   // for the exception case (DELIVERY_UNKNOWN_SSRC) and how retry is attempted.
   worker_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this, packet = packet]() mutable {
         RTC_DCHECK_RUN_ON(&thread_checker_);
 
@@ -1901,9 +1904,10 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
     absl::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
-  worker_thread_->PostTask(SafeTask(
-      task_safety_.flag(),
-      [this, name = std::string(transport_name), route = network_route] {
+  worker_thread_->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(task_safety_.flag(), [this, name = std::string(transport_name),
+                                     route = network_route] {
         RTC_DCHECK_RUN_ON(&thread_checker_);
         webrtc::RtpTransportControllerSendInterface* transport =
             call_->GetTransportControllerSend();

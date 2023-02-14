@@ -392,7 +392,7 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 
 - (RTC_OBJC_TYPE(RTCSessionDescription) *)localDescription {
   // It's only safe to operate on SessionDescriptionInterface on the signaling thread.
-  return _peerConnection->signaling_thread()->BlockingCall([self] {
+  return _peerConnection->signaling_thread()->BlockingCall(RTC_FROM_HERE, [self] {
     const webrtc::SessionDescriptionInterface *description = _peerConnection->local_description();
     return description ?
         [[RTC_OBJC_TYPE(RTCSessionDescription) alloc] initWithNativeDescription:description] :
@@ -402,7 +402,7 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 
 - (RTC_OBJC_TYPE(RTCSessionDescription) *)remoteDescription {
   // It's only safe to operate on SessionDescriptionInterface on the signaling thread.
-  return _peerConnection->signaling_thread()->BlockingCall([self] {
+  return _peerConnection->signaling_thread()->BlockingCall(RTC_FROM_HERE, [self] {
     const webrtc::SessionDescriptionInterface *description = _peerConnection->remote_description();
     return description ?
         [[RTC_OBJC_TYPE(RTCSessionDescription) alloc] initWithNativeDescription:description] :

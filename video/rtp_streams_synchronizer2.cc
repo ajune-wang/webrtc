@@ -70,8 +70,8 @@ void RtpStreamsSynchronizer::ConfigureSync(Syncable* syncable_audio) {
   if (repeating_task_.Running())
     return;
 
-  repeating_task_ =
-      RepeatingTaskHandle::DelayedStart(task_queue_, kSyncInterval, [this]() {
+  repeating_task_ = RepeatingTaskHandle::DelayedStart(
+      RTC_FROM_HERE, task_queue_, kSyncInterval, [this]() {
         UpdateDelay();
         return kSyncInterval;
       });

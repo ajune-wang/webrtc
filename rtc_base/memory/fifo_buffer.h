@@ -78,9 +78,11 @@ class FifoBuffer final : public StreamInterface {
 
  private:
   void PostEvent(int events, int err) {
-    owner_->PostTask(webrtc::SafeTask(
-        task_safety_.flag(),
-        [this, events, err]() { SignalEvent(this, events, err); }));
+    owner_->PostTask(
+        RTC_FROM_HERE,
+        webrtc::SafeTask(task_safety_.flag(), [this, events, err]() {
+          SignalEvent(this, events, err);
+        }));
   }
 
   // Helper method that implements Read. Caller must acquire a lock

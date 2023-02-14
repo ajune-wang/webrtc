@@ -167,6 +167,7 @@ class FakeNetworkInterface : public MediaChannelNetworkInterface {
 
   void PostPacket(rtc::CopyOnWriteBuffer packet) {
     thread_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(safety_.flag(), [this, packet = std::move(packet)]() mutable {
           if (dest_) {
             webrtc::RtpPacketReceived parsed_packet;

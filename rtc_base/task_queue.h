@@ -18,6 +18,7 @@
 
 #include "absl/functional/any_invocable.h"
 #include "absl/memory/memory.h"
+#include "api/location.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "rtc_base/system/rtc_export.h"
@@ -90,16 +91,23 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // Returns non-owning pointer to the task queue implementation.
   webrtc::TaskQueueBase* Get() { return impl_; }
 
+  // TODO(bugs.webrtc.org/1416199): Cleanup versions without location.
   void PostTask(absl::AnyInvocable<void() &&> task) {
     impl_->PostTask(std::move(task));
   }
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
-                       webrtc::TimeDelta delay) {
-    impl_->PostDelayedTask(std::move(task), delay);
+  void PostTask(const webrtc::Location& location,
+                absl::AnyInvocable<void() &&> task) {
+    impl_->PostTask(location, std::move(task));
   }
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+  void PostDelayedTask(const webrtc::Location& location,
+                       absl::AnyInvocable<void() &&> task,
+                       webrtc::TimeDelta delay) {
+    impl_->PostDelayedTask(location, std::move(task), delay);
+  }
+  void PostDelayedHighPrecisionTask(const webrtc::Location& location,
+                                    absl::AnyInvocable<void() &&> task,
                                     webrtc::TimeDelta delay) {
-    impl_->PostDelayedHighPrecisionTask(std::move(task), delay);
+    impl_->PostDelayedHighPrecisionTask(location, std::move(task), delay);
   }
 
  private:

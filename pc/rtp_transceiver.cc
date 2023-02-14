@@ -206,7 +206,7 @@ RTCError RtpTransceiver::CreateChannel(
     // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
     // PeerConnection and add the expectation that we're already on the right
     // thread.
-    context()->worker_thread()->BlockingCall([&] {
+    context()->worker_thread()->BlockingCall(RTC_FROM_HERE, [&] {
       RTC_DCHECK_RUN_ON(context()->worker_thread());
 
       cricket::VoiceMediaChannel* media_channel =
@@ -228,7 +228,7 @@ RTCError RtpTransceiver::CreateChannel(
     // TODO(bugs.webrtc.org/11992): CreateVideoChannel internally switches to
     // the worker thread. We shouldn't be using the `call_ptr_` hack here but
     // simply be on the worker thread and use `call_` (update upstream code).
-    context()->worker_thread()->BlockingCall([&] {
+    context()->worker_thread()->BlockingCall(RTC_FROM_HERE, [&] {
       RTC_DCHECK_RUN_ON(context()->worker_thread());
       cricket::VideoMediaChannel* media_channel =
           media_engine()->video().CreateMediaChannel(
@@ -281,7 +281,7 @@ void RtpTransceiver::SetChannel(
   // Similarly, if the channel() accessor is limited to the network thread, that
   // helps with keeping the channel implementation requirements being met and
   // avoids synchronization for accessing the pointer or network related state.
-  context()->network_thread()->BlockingCall([&]() {
+  context()->network_thread()->BlockingCall(RTC_FROM_HERE, [&]() {
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
       channel_->SetRtpTransport(nullptr);
@@ -293,8 +293,9 @@ void RtpTransceiver::SetChannel(
     channel_->SetRtpTransport(transport_lookup(channel_->mid()));
     channel_->SetFirstPacketReceivedCallback(
         [thread = thread_, flag = signaling_thread_safety_, this]() mutable {
-          thread->PostTask(
-              SafeTask(std::move(flag), [this]() { OnFirstPacketReceived(); }));
+          thread->PostTask(RTC_FROM_HERE, SafeTask(std::move(flag), [this]() {
+                             OnFirstPacketReceived();
+                           }));
         });
   });
   PushNewMediaChannelAndDeleteChannel(nullptr);
@@ -317,7 +318,7 @@ void RtpTransceiver::ClearChannel() {
   }
   std::unique_ptr<cricket::ChannelInterface> channel_to_delete;
 
-  context()->network_thread()->BlockingCall([&]() {
+  context()->network_thread()->BlockingCall(RTC_FROM_HERE, [&]() {
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
       channel_->SetRtpTransport(nullptr);
@@ -338,7 +339,7 @@ void RtpTransceiver::PushNewMediaChannelAndDeleteChannel(
   if (!channel_to_delete && senders_.empty() && receivers_.empty()) {
     return;
   }
-  context()->worker_thread()->BlockingCall([&]() {
+  context()->worker_thread()->BlockingCall(RTC_FROM_HERE, [&]() {
     // Push down the new media_channel, if any, otherwise clear it.
     auto* media_send_channel =
         channel_ ? channel_->media_send_channel() : nullptr;
@@ -417,7 +418,7 @@ bool RtpTransceiver::RemoveReceiver(RtpReceiverInterface* receiver) {
   }
 
   (*it)->internal()->Stop();
-  context()->worker_thread()->BlockingCall([&]() {
+  context()->worker_thread()->BlockingCall(RTC_FROM_HERE, [&]() {
     // `Stop()` will clear the receiver's pointer to the media channel.
     (*it)->internal()->SetMediaChannel(nullptr);
   });
@@ -551,7 +552,7 @@ void RtpTransceiver::StopSendingAndReceiving() {
   for (const auto& receiver : receivers_)
     receiver->internal()->Stop();
 
-  context()->worker_thread()->BlockingCall([&]() {
+  context()->worker_thread()->BlockingCall(RTC_FROM_HERE, [&]() {
     // 5 Stop receiving media with receiver.
     for (const auto& receiver : receivers_)
       receiver->internal()->SetMediaChannel(nullptr);

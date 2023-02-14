@@ -73,15 +73,15 @@ void RTCCertificateGenerator::GenerateCertificateAsync(
   RTC_DCHECK(signaling_thread_->IsCurrent());
   RTC_DCHECK(callback);
 
-  worker_thread_->PostTask([key_params, expires_ms,
-                            signaling_thread = signaling_thread_,
-                            cb = std::move(callback)]() mutable {
+  worker_thread_->PostTask(RTC_FROM_HERE, [key_params, expires_ms,
+                                           signaling_thread = signaling_thread_,
+                                           cb = std::move(callback)]() mutable {
     scoped_refptr<RTCCertificate> certificate =
         RTCCertificateGenerator::GenerateCertificate(key_params, expires_ms);
-    signaling_thread->PostTask(
-        [cert = std::move(certificate), cb = std::move(cb)]() mutable {
-          std::move(cb)(std::move(cert));
-        });
+    signaling_thread->PostTask(RTC_FROM_HERE, [cert = std::move(certificate),
+                                               cb = std::move(cb)]() mutable {
+      std::move(cb)(std::move(cert));
+    });
   });
 }
 

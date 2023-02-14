@@ -425,7 +425,8 @@ int OpenSSLAdapter::ContinueSSL() {
         TimeDelta delay = TimeDelta::Seconds(timeout.tv_sec) +
                           TimeDelta::Micros(timeout.tv_usec);
         Thread::Current()->PostDelayedTask(
-            SafeTask(timer_.flag(), [this] { OnTimeout(); }), delay);
+            RTC_FROM_HERE, SafeTask(timer_.flag(), [this] { OnTimeout(); }),
+            delay);
       }
       break;
 

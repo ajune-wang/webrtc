@@ -354,7 +354,7 @@ int32_t VideoProcessor::VideoProcessorDecodeCompleteCallback::Decoded(
                           .build();
     copy.set_timestamp(image.timestamp());
 
-    task_queue_->PostTask([this, copy]() {
+    task_queue_->PostTask(RTC_FROM_HERE, [this, copy]() {
       video_processor_->FrameDecoded(copy, simulcast_svc_idx_);
     });
     return 0;

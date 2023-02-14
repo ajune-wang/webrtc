@@ -46,9 +46,9 @@ void VideoReceiveStreamTimeoutTracker::Start(bool waiting_for_keyframe) {
   TimeDelta timeout_delay = TimeoutForNextFrame();
   last_frame_ = clock_->CurrentTime();
   timeout_ = last_frame_ + timeout_delay;
-  timeout_task_ =
-      RepeatingTaskHandle::DelayedStart(bookkeeping_queue_, timeout_delay,
-                                        [this] { return HandleTimeoutTask(); });
+  timeout_task_ = RepeatingTaskHandle::DelayedStart(
+      RTC_FROM_HERE, bookkeeping_queue_, timeout_delay,
+      [this] { return HandleTimeoutTask(); });
 }
 
 void VideoReceiveStreamTimeoutTracker::Stop() {

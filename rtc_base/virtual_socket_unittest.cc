@@ -62,18 +62,19 @@ struct Sender {
         count(0) {
     last_send = rtc::TimeMillis();
 
-    periodic = RepeatingTaskHandle::DelayedStart(thread, NextDelay(), [this] {
-      int64_t cur_time = rtc::TimeMillis();
-      int64_t delay = cur_time - last_send;
-      uint32_t size =
-          std::clamp<uint32_t>(rate * delay / 1000, sizeof(uint32_t), 4096);
-      count += size;
-      memcpy(dummy, &cur_time, sizeof(cur_time));
-      socket->Send(dummy, size, options);
+    periodic = RepeatingTaskHandle::DelayedStart(
+        RTC_FROM_HERE, thread, NextDelay(), [this] {
+          int64_t cur_time = rtc::TimeMillis();
+          int64_t delay = cur_time - last_send;
+          uint32_t size =
+              std::clamp<uint32_t>(rate * delay / 1000, sizeof(uint32_t), 4096);
+          count += size;
+          memcpy(dummy, &cur_time, sizeof(cur_time));
+          socket->Send(dummy, size, options);
 
-      last_send = cur_time;
-      return NextDelay();
-    });
+          last_send = cur_time;
+          return NextDelay();
+        });
   }
 
   TimeDelta NextDelay() {
@@ -103,7 +104,7 @@ struct Receiver : public sigslot::has_slots<> {
         samples(0) {
     socket->SignalReadPacket.connect(this, &Receiver::OnReadPacket);
     periodic = RepeatingTaskHandle::DelayedStart(
-        thread, TimeDelta::Seconds(1), [this] {
+        RTC_FROM_HERE, thread, TimeDelta::Seconds(1), [this] {
           // It is always possible for us to receive more than expected because
           // packets can be further delayed in delivery.
           if (bandwidth > 0) {

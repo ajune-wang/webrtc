@@ -94,7 +94,7 @@ bool VideoTrack::set_enabled(bool enable) {
 
   bool ret = MediaStreamTrack<VideoTrackInterface>::set_enabled(enable);
 
-  worker_thread_->BlockingCall([&]() {
+  worker_thread_->BlockingCall(RTC_FROM_HERE, [&]() {
     RTC_DCHECK_RUN_ON(worker_thread_);
     enabled_w_ = enable;
     for (auto& sink_pair : sink_pairs()) {

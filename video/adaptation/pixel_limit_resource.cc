@@ -56,41 +56,44 @@ void PixelLimitResource::SetResourceListener(ResourceListener* listener) {
   listener_ = listener;
   if (listener_) {
     repeating_task_.Stop();
-    repeating_task_ = RepeatingTaskHandle::Start(task_queue_, [&] {
-      RTC_DCHECK_RUN_ON(task_queue_);
-      if (!listener_) {
-        // We don't have a listener so resource adaptation must not be running,
-        // try again later.
-        return kResourceUsageCheckIntervalMs;
-      }
-      if (!max_pixels_.has_value()) {
-        // No pixel limit configured yet, try again later.
-        return kResourceUsageCheckIntervalMs;
-      }
-      absl::optional<int> frame_size_pixels =
-          input_state_provider_->InputState().frame_size_pixels();
-      if (!frame_size_pixels.has_value()) {
-        // We haven't observed a frame yet so we don't know if it's going to be
-        // too big or too small, try again later.
-        return kResourceUsageCheckIntervalMs;
-      }
-      int current_pixels = frame_size_pixels.value();
-      int target_pixel_upper_bounds = max_pixels_.value();
-      // To avoid toggling, we allow any resolutions between
-      // `target_pixel_upper_bounds` and video_stream_adapter.h's
-      // GetLowerResolutionThan(). This is the pixels we end up if we adapt down
-      // from `target_pixel_upper_bounds`.
-      int target_pixels_lower_bounds =
-          GetLowerResolutionThan(target_pixel_upper_bounds);
-      if (current_pixels > target_pixel_upper_bounds) {
-        listener_->OnResourceUsageStateMeasured(
-            rtc::scoped_refptr<Resource>(this), ResourceUsageState::kOveruse);
-      } else if (current_pixels < target_pixels_lower_bounds) {
-        listener_->OnResourceUsageStateMeasured(
-            rtc::scoped_refptr<Resource>(this), ResourceUsageState::kUnderuse);
-      }
-      return kResourceUsageCheckIntervalMs;
-    });
+    repeating_task_ =
+        RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue_, [&] {
+          RTC_DCHECK_RUN_ON(task_queue_);
+          if (!listener_) {
+            // We don't have a listener so resource adaptation must not be
+            // running, try again later.
+            return kResourceUsageCheckIntervalMs;
+          }
+          if (!max_pixels_.has_value()) {
+            // No pixel limit configured yet, try again later.
+            return kResourceUsageCheckIntervalMs;
+          }
+          absl::optional<int> frame_size_pixels =
+              input_state_provider_->InputState().frame_size_pixels();
+          if (!frame_size_pixels.has_value()) {
+            // We haven't observed a frame yet so we don't know if it's going to
+            // be too big or too small, try again later.
+            return kResourceUsageCheckIntervalMs;
+          }
+          int current_pixels = frame_size_pixels.value();
+          int target_pixel_upper_bounds = max_pixels_.value();
+          // To avoid toggling, we allow any resolutions between
+          // `target_pixel_upper_bounds` and video_stream_adapter.h's
+          // GetLowerResolutionThan(). This is the pixels we end up if we adapt
+          // down from `target_pixel_upper_bounds`.
+          int target_pixels_lower_bounds =
+              GetLowerResolutionThan(target_pixel_upper_bounds);
+          if (current_pixels > target_pixel_upper_bounds) {
+            listener_->OnResourceUsageStateMeasured(
+                rtc::scoped_refptr<Resource>(this),
+                ResourceUsageState::kOveruse);
+          } else if (current_pixels < target_pixels_lower_bounds) {
+            listener_->OnResourceUsageStateMeasured(
+                rtc::scoped_refptr<Resource>(this),
+                ResourceUsageState::kUnderuse);
+          }
+          return kResourceUsageCheckIntervalMs;
+        });
   } else {
     repeating_task_.Stop();
   }

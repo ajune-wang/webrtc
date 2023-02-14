@@ -415,9 +415,10 @@ int32_t MultithreadedFakeH264Encoder::Encode(
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
 
-  queue->PostTask([this, input_image, frame_types = *frame_types] {
-    EncodeCallback(input_image, &frame_types);
-  });
+  queue->PostTask(RTC_FROM_HERE,
+                  [this, input_image, frame_types = *frame_types] {
+                    EncodeCallback(input_image, &frame_types);
+                  });
 
   return WEBRTC_VIDEO_CODEC_OK;
 }

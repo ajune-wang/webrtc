@@ -112,6 +112,7 @@ void WrappingActiveIceController::MaybeStartPinging() {
 
   if (wrapped_->HasPingableConnection()) {
     network_thread_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this]() { SelectAndPingConnection(); }));
     agent_.OnStartedPinging();
     started_pinging_ = true;
@@ -136,6 +137,7 @@ void WrappingActiveIceController::HandlePingResult(
   }
 
   network_thread_->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this]() { SelectAndPingConnection(); }),
       TimeDelta::Millis(result.recheck_delay_ms));
 }
@@ -144,9 +146,10 @@ void WrappingActiveIceController::OnSortAndSwitchRequest(
     IceSwitchReason reason) {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (!sort_pending_) {
-    network_thread_->PostTask(SafeTask(task_safety_.flag(), [this, reason]() {
-      SortAndSwitchToBestConnection(reason);
-    }));
+    network_thread_->PostTask(RTC_FROM_HERE,
+                              SafeTask(task_safety_.flag(), [this, reason]() {
+                                SortAndSwitchToBestConnection(reason);
+                              }));
     sort_pending_ = true;
   }
 }
@@ -201,6 +204,7 @@ void WrappingActiveIceController::HandleSwitchResult(
     // currently selected connection. So we need to re-check whether it needs
     // to be switched at a later time.
     network_thread_->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(),
                  [this, recheck_reason = result.recheck_event->reason]() {
                    SortAndSwitchToBestConnection(recheck_reason);

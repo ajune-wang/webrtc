@@ -43,13 +43,16 @@ class CallStats2Test : public ::testing::Test {
   // Queues an rtt update call on the process thread.
   void AsyncSimulateRttUpdate(int64_t rtt) {
     RtcpRttStats* rtcp_rtt_stats = call_stats_.AsRtcpRttStats();
-    task_queue_->PostTask(
-        [rtcp_rtt_stats, rtt] { rtcp_rtt_stats->OnRttUpdate(rtt); });
+    task_queue_->PostTask(RTC_FROM_HERE, [rtcp_rtt_stats, rtt] {
+      rtcp_rtt_stats->OnRttUpdate(rtt);
+    });
   }
 
  protected:
   void FlushProcessAndWorker() {
-    task_queue_->PostTask([this] { loop_.PostTask([this] { loop_.Quit(); }); });
+    task_queue_->PostTask(RTC_FROM_HERE, [this] {
+      loop_.PostTask(RTC_FROM_HERE, [this] { loop_.Quit(); });
+    });
     loop_.Run();
   }
 

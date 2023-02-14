@@ -56,6 +56,7 @@ BandwidthQualityScaler::~BandwidthQualityScaler() {
 void BandwidthQualityScaler::StartCheckForBitrate() {
   RTC_DCHECK_RUN_ON(&task_checker_);
   TaskQueueBase::Current()->PostDelayedTask(
+      RTC_FROM_HERE,
       [this_weak_ptr = weak_ptr_factory_.GetWeakPtr(), this] {
         if (!this_weak_ptr) {
           // The caller BandwidthQualityScaler has been deleted.

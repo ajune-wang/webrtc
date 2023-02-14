@@ -103,10 +103,10 @@ void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
   if (!send_frame_callback_)
     return;
   rtc::scoped_refptr<ChannelSendFrameTransformerDelegate> delegate(this);
-  encoder_queue_->PostTask(
-      [delegate = std::move(delegate), frame = std::move(frame)]() mutable {
-        delegate->SendFrame(std::move(frame));
-      });
+  encoder_queue_->PostTask(RTC_FROM_HERE, [delegate = std::move(delegate),
+                                           frame = std::move(frame)]() mutable {
+    delegate->SendFrame(std::move(frame));
+  });
 }
 
 void ChannelSendFrameTransformerDelegate::SendFrame(

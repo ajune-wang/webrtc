@@ -96,8 +96,9 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
   logging_state_started_ = true;
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
-  task_queue_->PostTask([this, output_period_ms, timestamp_us, utc_time_us,
-                         output = std::move(output)]() mutable {
+  task_queue_->PostTask(RTC_FROM_HERE, [this, output_period_ms, timestamp_us,
+                                        utc_time_us,
+                                        output = std::move(output)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     RTC_DCHECK(output->IsActive());
     output_period_ms_ = output_period_ms;
@@ -125,7 +126,7 @@ void RtcEventLogImpl::StopLogging() {
 void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
   logging_state_started_ = false;
-  task_queue_->PostTask([this, callback] {
+  task_queue_->PostTask(RTC_FROM_HERE, [this, callback] {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     if (event_output_) {
       RTC_DCHECK(event_output_->IsActive());
@@ -140,12 +141,13 @@ void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
   RTC_CHECK(event);
 
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
-  task_queue_->PostTask([this, event = std::move(event)]() mutable {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
-    LogToMemory(std::move(event));
-    if (event_output_)
-      ScheduleOutput();
-  });
+  task_queue_->PostTask(RTC_FROM_HERE,
+                        [this, event = std::move(event)]() mutable {
+                          RTC_DCHECK_RUN_ON(task_queue_.get());
+                          LogToMemory(std::move(event));
+                          if (event_output_)
+                            ScheduleOutput();
+                        });
 }
 
 void RtcEventLogImpl::ScheduleOutput() {
@@ -180,7 +182,7 @@ void RtcEventLogImpl::ScheduleOutput() {
     const int64_t time_since_output_ms = now_ms - last_output_ms_;
     const uint32_t delay = rtc::SafeClamp(
         *output_period_ms_ - time_since_output_ms, 0, *output_period_ms_);
-    task_queue_->PostDelayedTask(std::move(output_task),
+    task_queue_->PostDelayedTask(RTC_FROM_HERE, std::move(output_task),
                                  TimeDelta::Millis(delay));
   }
 }

@@ -57,7 +57,7 @@ constexpr webrtc::TimeDelta kTimeout = webrtc::TimeDelta::Seconds(1);
 
 void WaitPostedTasks(TaskQueueForTest* queue) {
   rtc::Event done;
-  queue->PostTask([&done] { done.Set(); });
+  queue->PostTask(RTC_FROM_HERE, [&done] { done.Set(); });
   ASSERT_TRUE(done.Wait(kTimeout));
 }
 
@@ -95,7 +95,7 @@ TEST(RtcpTransceiverTest, SendsRtcpOnTaskQueueWhenCreatedOnTaskQueue) {
       }));
 
   std::unique_ptr<RtcpTransceiver> rtcp_transceiver;
-  queue.PostTask([&] {
+  queue.PostTask(RTC_FROM_HERE, [&] {
     rtcp_transceiver = std::make_unique<RtcpTransceiver>(config);
     rtcp_transceiver->SendCompoundPacket();
   });
@@ -112,7 +112,7 @@ TEST(RtcpTransceiverTest, CanBeDestroyedOnTaskQueue) {
   config.task_queue = queue.Get();
   auto rtcp_transceiver = std::make_unique<RtcpTransceiver>(config);
 
-  queue.PostTask([&] {
+  queue.PostTask(RTC_FROM_HERE, [&] {
     // Insert a packet just before destruction to test for races.
     rtcp_transceiver->SendCompoundPacket();
     rtcp_transceiver.reset();
@@ -133,7 +133,7 @@ TEST(RtcpTransceiverTest, CanBeDestroyedWithoutBlocking) {
 
   rtc::Event done;
   rtc::Event heavy_task;
-  queue.PostTask([&] {
+  queue.PostTask(RTC_FROM_HERE, [&] {
     EXPECT_TRUE(heavy_task.Wait(kTimeout));
     done.Set();
   });
@@ -154,7 +154,8 @@ TEST(RtcpTransceiverTest, MaySendPacketsAfterDestructor) {  // i.e. Be careful!
   auto* rtcp_transceiver = new RtcpTransceiver(config);
 
   rtc::Event heavy_task;
-  queue.PostTask([&] { EXPECT_TRUE(heavy_task.Wait(kTimeout)); });
+  queue.PostTask(RTC_FROM_HERE,
+                 [&] { EXPECT_TRUE(heavy_task.Wait(kTimeout)); });
   rtcp_transceiver->SendCompoundPacket();
   delete rtcp_transceiver;
 
@@ -219,7 +220,8 @@ TEST(RtcpTransceiverTest, RemoveMediaReceiverRtcpObserverIsNonBlocking) {
 
   rtc::Event queue_blocker;
   rtc::Event observer_deleted;
-  queue.PostTask([&] { EXPECT_TRUE(queue_blocker.Wait(kTimeout)); });
+  queue.PostTask(RTC_FROM_HERE,
+                 [&] { EXPECT_TRUE(queue_blocker.Wait(kTimeout)); });
   rtcp_transceiver.RemoveMediaReceiverRtcpObserver(kRemoteSsrc, observer.get(),
                                                    /*on_removed=*/[&] {
                                                      observer.reset();
@@ -253,10 +255,11 @@ TEST(RtcpTransceiverTest, CanCallSendCompoundPacketFromAnyThread) {
   // Call from the construction thread.
   rtcp_transceiver.SendCompoundPacket();
   // Call from the same queue transceiver use for processing.
-  queue.PostTask([&] { rtcp_transceiver.SendCompoundPacket(); });
+  queue.PostTask(RTC_FROM_HERE, [&] { rtcp_transceiver.SendCompoundPacket(); });
   // Call from unrelated task queue.
   TaskQueueForTest queue_send("send_packet");
-  queue_send.PostTask([&] { rtcp_transceiver.SendCompoundPacket(); });
+  queue_send.PostTask(RTC_FROM_HERE,
+                      [&] { rtcp_transceiver.SendCompoundPacket(); });
 
   WaitPostedTasks(&queue_send);
   WaitPostedTasks(&queue);

@@ -21,14 +21,17 @@ namespace webrtc {
 class MockTaskQueueBase : public TaskQueueBase {
  public:
   MOCK_METHOD(void, Delete, (), (override));
-  MOCK_METHOD(void, PostTask, (absl::AnyInvocable<void() &&>), (override));
+  MOCK_METHOD(void,
+              PostTask,
+              (const Location&, absl::AnyInvocable<void() &&>),
+              (override));
   MOCK_METHOD(void,
               PostDelayedTask,
-              (absl::AnyInvocable<void() &&>, TimeDelta),
+              (const Location&, absl::AnyInvocable<void() &&>, TimeDelta),
               (override));
   MOCK_METHOD(void,
               PostDelayedHighPrecisionTask,
-              (absl::AnyInvocable<void() &&>, TimeDelta),
+              (const Location&, absl::AnyInvocable<void() &&>, TimeDelta),
               (override));
 };
 

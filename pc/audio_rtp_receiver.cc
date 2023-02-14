@@ -76,10 +76,11 @@ void AudioRtpReceiver::OnChanged() {
   if (cached_track_enabled_ == enabled)
     return;
   cached_track_enabled_ = enabled;
-  worker_thread_->PostTask(SafeTask(worker_thread_safety_, [this, enabled]() {
-    RTC_DCHECK_RUN_ON(worker_thread_);
-    Reconfigure(enabled);
-  }));
+  worker_thread_->PostTask(RTC_FROM_HERE,
+                           SafeTask(worker_thread_safety_, [this, enabled]() {
+                             RTC_DCHECK_RUN_ON(worker_thread_);
+                             Reconfigure(enabled);
+                           }));
 }
 
 void AudioRtpReceiver::SetOutputVolume_w(double volume) {
@@ -100,7 +101,7 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
   RTC_DCHECK_LE(volume, 10);
 
   bool track_enabled = track_->internal()->enabled();
-  worker_thread_->BlockingCall([&]() {
+  worker_thread_->BlockingCall(RTC_FROM_HERE, [&]() {
     RTC_DCHECK_RUN_ON(worker_thread_);
     // Update the cached_volume_ even when stopped, to allow clients to set
     // the volume before starting/restarting, eg see crbug.com/1272566.
@@ -169,7 +170,7 @@ void AudioRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   bool enabled = track_->internal()->enabled();
   MediaSourceInterface::SourceState state = source_->state();
-  worker_thread_->BlockingCall([&]() {
+  worker_thread_->BlockingCall(RTC_FROM_HERE, [&]() {
     RTC_DCHECK_RUN_ON(worker_thread_);
     RestartMediaChannel_w(std::move(ssrc), enabled, state);
   });

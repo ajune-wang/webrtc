@@ -53,7 +53,7 @@ void MaybeWorkerThread::RunSynchronous(absl::AnyInvocable<void() &&> task) {
       std::move(task)();
       thread_sync_event.Set();
     };
-    owned_task_queue_->PostTask(std::move(closure));
+    owned_task_queue_->PostTask(RTC_FROM_HERE, std::move(closure));
     thread_sync_event.Wait(rtc::Event::kForever);
   } else {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -63,7 +63,7 @@ void MaybeWorkerThread::RunSynchronous(absl::AnyInvocable<void() &&> task) {
 
 void MaybeWorkerThread::RunOrPost(absl::AnyInvocable<void() &&> task) {
   if (owned_task_queue_) {
-    owned_task_queue_->PostTask(std::move(task));
+    owned_task_queue_->PostTask(RTC_FROM_HERE, std::move(task));
   } else {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
     std::move(task)();

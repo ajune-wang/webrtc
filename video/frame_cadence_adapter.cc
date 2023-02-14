@@ -381,6 +381,7 @@ void ZeroHertzAdapterMode::OnFrame(Timestamp post_time,
   current_frame_id_++;
   scheduled_repeat_ = absl::nullopt;
   queue_->PostDelayedHighPrecisionTask(
+      RTC_FROM_HERE,
       SafeTask(safety_.flag(),
                [this] {
                  RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -503,6 +504,7 @@ void ZeroHertzAdapterMode::ScheduleRepeat(int frame_id, bool idle_repeat) {
 
   TimeDelta repeat_delay = RepeatDuration(idle_repeat);
   queue_->PostDelayedHighPrecisionTask(
+      RTC_FROM_HERE,
       SafeTask(safety_.flag(),
                [this, frame_id] {
                  RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -573,7 +575,7 @@ void ZeroHertzAdapterMode::MaybeStartRefreshFrameRequester() {
   RTC_DLOG(LS_VERBOSE) << __func__;
   if (!refresh_frame_requester_.Running()) {
     refresh_frame_requester_ = RepeatingTaskHandle::DelayedStart(
-        queue_,
+        RTC_FROM_HERE, queue_,
         FrameCadenceAdapterInterface::kOnDiscardedFrameRefreshFramePeriod *
             frame_delay_,
         [this] {
@@ -657,34 +659,35 @@ void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
   // Local time in webrtc time base.
   Timestamp post_time = clock_->CurrentTime();
   frames_scheduled_for_processing_.fetch_add(1, std::memory_order_relaxed);
-  queue_->PostTask(SafeTask(safety_.flag(), [this, post_time, frame] {
-    RTC_DCHECK_RUN_ON(queue_);
-    if (zero_hertz_adapter_created_timestamp_.has_value()) {
-      TimeDelta time_until_first_frame =
-          clock_->CurrentTime() - *zero_hertz_adapter_created_timestamp_;
-      zero_hertz_adapter_created_timestamp_ = absl::nullopt;
-      RTC_HISTOGRAM_COUNTS_10000(
-          "WebRTC.Screenshare.ZeroHz.TimeUntilFirstFrameMs",
-          time_until_first_frame.ms());
-    }
+  queue_->PostTask(
+      RTC_FROM_HERE, SafeTask(safety_.flag(), [this, post_time, frame] {
+        RTC_DCHECK_RUN_ON(queue_);
+        if (zero_hertz_adapter_created_timestamp_.has_value()) {
+          TimeDelta time_until_first_frame =
+              clock_->CurrentTime() - *zero_hertz_adapter_created_timestamp_;
+          zero_hertz_adapter_created_timestamp_ = absl::nullopt;
+          RTC_HISTOGRAM_COUNTS_10000(
+              "WebRTC.Screenshare.ZeroHz.TimeUntilFirstFrameMs",
+              time_until_first_frame.ms());
+        }
 
-    const int frames_scheduled_for_processing =
-        frames_scheduled_for_processing_.fetch_sub(1,
-                                                   std::memory_order_relaxed);
-    OnFrameOnMainQueue(post_time, frames_scheduled_for_processing,
-                       std::move(frame));
-    MaybeReportFrameRateConstraintUmas();
-  }));
+        const int frames_scheduled_for_processing =
+            frames_scheduled_for_processing_.fetch_sub(
+                1, std::memory_order_relaxed);
+        OnFrameOnMainQueue(post_time, frames_scheduled_for_processing,
+                           std::move(frame));
+        MaybeReportFrameRateConstraintUmas();
+      }));
 }
 
 void FrameCadenceAdapterImpl::OnDiscardedFrame() {
   callback_->OnDiscardedFrame();
-  queue_->PostTask(SafeTask(safety_.flag(), [this] {
-    RTC_DCHECK_RUN_ON(queue_);
-    if (zero_hertz_adapter_) {
-      zero_hertz_adapter_->OnDiscardedFrame();
-    }
-  }));
+  queue_->PostTask(RTC_FROM_HERE, SafeTask(safety_.flag(), [this] {
+                     RTC_DCHECK_RUN_ON(queue_);
+                     if (zero_hertz_adapter_) {
+                       zero_hertz_adapter_->OnDiscardedFrame();
+                     }
+                   }));
 }
 
 void FrameCadenceAdapterImpl::OnConstraintsChanged(
@@ -692,12 +695,13 @@ void FrameCadenceAdapterImpl::OnConstraintsChanged(
   RTC_LOG(LS_INFO) << __func__ << " this " << this << " min_fps "
                    << constraints.min_fps.value_or(-1) << " max_fps "
                    << constraints.max_fps.value_or(-1);
-  queue_->PostTask(SafeTask(safety_.flag(), [this, constraints] {
-    RTC_DCHECK_RUN_ON(queue_);
-    bool was_zero_hertz_enabled = IsZeroHertzScreenshareEnabled();
-    source_constraints_ = constraints;
-    MaybeReconfigureAdapters(was_zero_hertz_enabled);
-  }));
+  queue_->PostTask(RTC_FROM_HERE, SafeTask(safety_.flag(), [this, constraints] {
+                     RTC_DCHECK_RUN_ON(queue_);
+                     bool was_zero_hertz_enabled =
+                         IsZeroHertzScreenshareEnabled();
+                     source_constraints_ = constraints;
+                     MaybeReconfigureAdapters(was_zero_hertz_enabled);
+                   }));
 }
 
 void FrameCadenceAdapterImpl::OnFrameOnMainQueue(

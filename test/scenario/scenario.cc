@@ -256,7 +256,7 @@ AudioStreamPair* Scenario::CreateAudioStream(
 void Scenario::Every(TimeDelta interval,
                      absl::AnyInvocable<void(TimeDelta)> function) {
   RepeatingTaskHandle::DelayedStart(
-      task_queue_.get(), interval,
+      RTC_FROM_HERE, task_queue_.get(), interval,
       [interval, function = std::move(function)]() mutable {
         function(interval);
         return interval;
@@ -265,7 +265,7 @@ void Scenario::Every(TimeDelta interval,
 
 void Scenario::Every(TimeDelta interval, absl::AnyInvocable<void()> function) {
   RepeatingTaskHandle::DelayedStart(
-      task_queue_.get(), interval,
+      RTC_FROM_HERE, task_queue_.get(), interval,
       [interval, function = std::move(function)]() mutable {
         function();
         return interval;
@@ -273,12 +273,13 @@ void Scenario::Every(TimeDelta interval, absl::AnyInvocable<void()> function) {
 }
 
 void Scenario::Post(absl::AnyInvocable<void() &&> function) {
-  task_queue_->PostTask(std::move(function));
+  task_queue_->PostTask(RTC_FROM_HERE, std::move(function));
 }
 
 void Scenario::At(TimeDelta offset, absl::AnyInvocable<void() &&> function) {
   RTC_DCHECK_GT(offset, TimeSinceStart());
-  task_queue_->PostDelayedTask(std::move(function), TimeUntilTarget(offset));
+  task_queue_->PostDelayedTask(RTC_FROM_HERE, std::move(function),
+                               TimeUntilTarget(offset));
 }
 
 void Scenario::RunFor(TimeDelta duration) {

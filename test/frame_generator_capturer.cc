@@ -166,7 +166,7 @@ bool FrameGeneratorCapturer::Init() {
     return false;
 
   frame_task_ = RepeatingTaskHandle::DelayedStart(
-      task_queue_.Get(),
+      RTC_FROM_HERE, task_queue_.Get(),
       TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate(),
       [this] {
         InsertFrame();
@@ -229,7 +229,7 @@ void FrameGeneratorCapturer::Start() {
   }
   if (!frame_task_.Running()) {
     frame_task_ = RepeatingTaskHandle::Start(
-        task_queue_.Get(),
+        RTC_FROM_HERE, task_queue_.Get(),
         [this] {
           InsertFrame();
           return TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate();
@@ -309,7 +309,7 @@ void FrameGeneratorCapturer::UpdateFps(int max_fps) {
 
 void FrameGeneratorCapturer::ForceFrame() {
   // One-time non-repeating task,
-  task_queue_.PostTask([this] { InsertFrame(); });
+  task_queue_.PostTask(RTC_FROM_HERE, [this] { InsertFrame(); });
 }
 
 int FrameGeneratorCapturer::GetCurrentConfiguredFramerate() {

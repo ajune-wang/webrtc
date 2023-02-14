@@ -218,9 +218,10 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
 
  private:
   void PostEvent(int events, int err) {
-    thread_->PostTask(SafeTask(task_safety_.flag(), [this, events, err]() {
-      SignalEvent(this, events, err);
-    }));
+    thread_->PostTask(RTC_FROM_HERE,
+                      SafeTask(task_safety_.flag(), [this, events, err]() {
+                        SignalEvent(this, events, err);
+                      }));
   }
 
   webrtc::ScopedTaskSafety task_safety_;
@@ -288,9 +289,10 @@ class BufferQueueStream : public rtc::StreamInterface {
 
  private:
   void PostEvent(int events, int err) {
-    thread_->PostTask(SafeTask(task_safety_.flag(), [this, events, err]() {
-      SignalEvent(this, events, err);
-    }));
+    thread_->PostTask(RTC_FROM_HERE,
+                      SafeTask(task_safety_.flag(), [this, events, err]() {
+                        SignalEvent(this, events, err);
+                      }));
   }
 
   rtc::Thread* const thread_ = rtc::Thread::Current();

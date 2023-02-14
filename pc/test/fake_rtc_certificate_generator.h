@@ -152,6 +152,7 @@ class FakeRTCCertificateGenerator
     }
     rtc::KeyType key_type = key_params.type();
     webrtc::TaskQueueBase::Current()->PostTask(
+        RTC_FROM_HERE,
         [this, key_type, callback = std::move(callback)]() mutable {
           GenerateCertificate(key_type, std::move(callback));
         });
@@ -194,6 +195,7 @@ class FakeRTCCertificateGenerator
     // set_should_wait(false) is called.
     if (should_wait_) {
       webrtc::TaskQueueBase::Current()->PostDelayedTask(
+          RTC_FROM_HERE,
           [this, key_type, callback = std::move(callback)]() mutable {
             GenerateCertificate(key_type, std::move(callback));
           },

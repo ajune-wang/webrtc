@@ -33,10 +33,13 @@ class FakeTaskQueue : public webrtc::TaskQueueBase {
   FakeTaskQueue() : task_queue_setter_(this) {}
 
   void Delete() override {}
-  void PostTask(absl::AnyInvocable<void() &&> task) override {}
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
+  void PostTask(const webrtc::Location&,
+                absl::AnyInvocable<void() &&> task) override {}
+  void PostDelayedTask(const webrtc::Location&,
+                       absl::AnyInvocable<void() &&> task,
                        webrtc::TimeDelta delay) override {}
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+  void PostDelayedHighPrecisionTask(const webrtc::Location&,
+                                    absl::AnyInvocable<void() &&> task,
                                     webrtc::TimeDelta delay) override {}
 
  private:

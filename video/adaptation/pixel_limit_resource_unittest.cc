@@ -47,7 +47,7 @@ class PixelLimitResourceTest : public ::testing::Test {
   }
 
   void RunTaskOnTaskQueue(absl::AnyInvocable<void() &&> task) {
-    task_queue_->PostTask(std::move(task));
+    task_queue_->PostTask(RTC_FROM_HERE, std::move(task));
     time_controller_.AdvanceTime(TimeDelta::Zero());
   }
 

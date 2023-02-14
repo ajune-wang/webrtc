@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d395392_baa80c9a",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-02-14T15:48:47Z",
+      "side": 1,
+      "message": "Nit: Remove this dep as well",
+      "revId": "29bcd70f3661b6fd3d260ceb529693813a291ee7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

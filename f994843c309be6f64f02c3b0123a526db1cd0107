@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a0d60ec_32e72f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-14T14:10:44Z",
+      "side": 1,
+      "message": "VP9 does set spatial index[1] which this CL does not change, and PopulateRtpWithCodecSpecifics() continues to `vp9_header.spatial_idx \u003d spatial_index.value_or(kNoSpatialIdx)` in this CL[2].\n\nAre there any other places I should be aware of?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc;l\u003d1736;drc\u003d9b235cd93b42bac70eb473bad60a6efc7a306af9\n\n[2] https://webrtc-review.googlesource.com/c/src/+/293343/8/call/rtp_payload_params.cc#69",
+      "parentUuid": "810f504b_a00f858e",
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "75164ca1_92f8705d",

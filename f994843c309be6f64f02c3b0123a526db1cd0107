@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "592d03c0_4f727f2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-14T10:50:35Z",
+      "side": 1,
+      "message": "Please take a look, simulcast lovers",
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

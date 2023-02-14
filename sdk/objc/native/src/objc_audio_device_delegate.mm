@@ -163,7 +163,7 @@ class AudioDeviceDelegateImpl final : public rtc::RefCountedNonVirtual<AudioDevi
 - (void)dispatchAsync:(dispatch_block_t)block {
   rtc::Thread* thread = impl_->thread();
   RTC_DCHECK(thread);
-  thread->PostTask([block] {
+  thread->PostTask(RTC_FROM_HERE, [block] {
     @autoreleasepool {
       block();
     }
@@ -178,7 +178,7 @@ class AudioDeviceDelegateImpl final : public rtc::RefCountedNonVirtual<AudioDevi
       block();
     }
   } else {
-    thread->BlockingCall([block] {
+    thread->BlockingCall(RTC_FROM_HERE, [block] {
       @autoreleasepool {
         block();
       }

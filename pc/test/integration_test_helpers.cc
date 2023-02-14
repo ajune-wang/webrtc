@@ -72,6 +72,7 @@ void TaskQueueMetronome::RequestCallOnNextTick(
   // requirements.
   if (callbacks_.size() == 1) {
     TaskQueueBase::Current()->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(safety_.flag(),
                  [this] {
                    RTC_DCHECK_RUN_ON(&sequence_checker_);

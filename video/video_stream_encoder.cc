@@ -727,7 +727,7 @@ VideoStreamEncoder::VideoStreamEncoder(
   frame_cadence_adapter_->Initialize(&cadence_callback_);
   stream_resource_manager_.Initialize(encoder_queue_.Get());
 
-  encoder_queue_.PostTask([this] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
 
     resource_adaptation_processor_ =
@@ -763,7 +763,7 @@ void VideoStreamEncoder::Stop() {
   rtc::Event shutdown_event;
   absl::Cleanup shutdown = [&shutdown_event] { shutdown_event.Set(); };
   encoder_queue_.PostTask(
-      [this, shutdown = std::move(shutdown)] {
+      RTC_FROM_HERE, [this, shutdown = std::move(shutdown)] {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         if (resource_adaptation_processor_) {
           stream_resource_manager_.StopManagedResources();
@@ -792,7 +792,7 @@ void VideoStreamEncoder::Stop() {
 
 void VideoStreamEncoder::SetFecControllerOverride(
     FecControllerOverride* fec_controller_override) {
-  encoder_queue_.PostTask([this, fec_controller_override] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, fec_controller_override] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(!fec_controller_override_);
     fec_controller_override_ = fec_controller_override;
@@ -811,7 +811,8 @@ void VideoStreamEncoder::AddAdaptationResource(
   // of this MapResourceToReason() call.
   TRACE_EVENT_ASYNC_BEGIN0(
       "webrtc", "VideoStreamEncoder::AddAdaptationResource(latency)", this);
-  encoder_queue_.PostTask([this, resource = std::move(resource)] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this,
+                                          resource = std::move(resource)] {
     TRACE_EVENT_ASYNC_END0(
         "webrtc", "VideoStreamEncoder::AddAdaptationResource(latency)", this);
     RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -824,12 +825,12 @@ std::vector<rtc::scoped_refptr<Resource>>
 VideoStreamEncoder::GetAdaptationResources() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   // In practice, this method is only called by tests to verify operations that
-  // run on the encoder queue. So rather than force PostTask() operations to
-  // be accompanied by an event and a `Wait()`, we'll use PostTask + Wait()
-  // here.
+  // run on the encoder queue. So rather than force PostTask(RTC_FROM_HERE, )
+  // operations to be accompanied by an event and a `Wait()`, we'll use PostTask
+  // + Wait() here.
   rtc::Event event;
   std::vector<rtc::scoped_refptr<Resource>> resources;
-  encoder_queue_.PostTask([&] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     resources = resource_adaptation_processor_->GetResources();
     event.Set();
@@ -846,7 +847,7 @@ void VideoStreamEncoder::SetSource(
   input_state_provider_.OnHasInputChanged(source);
 
   // This may trigger reconfiguring the QualityScaler on the encoder queue.
-  encoder_queue_.PostTask([this, degradation_preference] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, degradation_preference] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     degradation_preference_manager_->SetDegradationPreference(
         degradation_preference);
@@ -865,14 +866,14 @@ void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
   video_source_sink_controller_.SetRotationApplied(rotation_applied);
   video_source_sink_controller_.PushSourceSinkSettings();
 
-  encoder_queue_.PostTask([this, sink] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, sink] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     sink_ = sink;
   });
 }
 
 void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
-  encoder_queue_.PostTask([this, start_bitrate_bps] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, start_bitrate_bps] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_LOG(LS_INFO) << "SetStartBitrate " << start_bitrate_bps;
     encoder_target_bitrate_bps_ =
@@ -893,8 +894,8 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           SetParametersCallback callback) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   encoder_queue_.PostTask(
-      [this, config = std::move(config), max_data_payload_length,
-       callback = std::move(callback)]() mutable {
+      RTC_FROM_HERE, [this, config = std::move(config), max_data_payload_length,
+                      callback = std::move(callback)]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         RTC_DCHECK(sink_);
         RTC_LOG(LS_INFO) << "ConfigureEncoder requested.";
@@ -1221,11 +1222,14 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                                      simulcastStream.height);
   }
 
-  worker_queue_->PostTask(SafeTask(
-      task_safety_.flag(),
-      [this, max_framerate, alignment,
-       encoder_resolutions = std::move(encoder_resolutions),
-       requested_resolution = std::move(requested_resolution), active]() {
+  worker_queue_->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(task_safety_.flag(), [this, max_framerate, alignment,
+                                     encoder_resolutions =
+                                         std::move(encoder_resolutions),
+                                     requested_resolution =
+                                         std::move(requested_resolution),
+                                     active]() {
         RTC_DCHECK_RUN_ON(worker_queue_);
         if (max_framerate !=
                 video_source_sink_controller_.frame_rate_upper_limit() ||
@@ -1497,7 +1501,7 @@ void VideoStreamEncoder::OnFrame(Timestamp post_time,
                         << incoming_frame.ntp_time_ms()
                         << " <= " << last_captured_timestamp_
                         << ") for incoming frame. Dropping.";
-    encoder_queue_.PostTask([this, incoming_frame]() {
+    encoder_queue_.PostTask(RTC_FROM_HERE, [this, incoming_frame]() {
       RTC_DCHECK_RUN_ON(&encoder_queue_);
       accumulated_update_rect_.Union(incoming_frame.update_rect());
       accumulated_update_rect_is_valid_ &= incoming_frame.has_update_rect();
@@ -2007,16 +2011,17 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 }
 
 void VideoStreamEncoder::RequestRefreshFrame() {
-  worker_queue_->PostTask(SafeTask(task_safety_.flag(), [this] {
-    RTC_DCHECK_RUN_ON(worker_queue_);
-    video_source_sink_controller_.RequestRefreshFrame();
-  }));
+  worker_queue_->PostTask(RTC_FROM_HERE, SafeTask(task_safety_.flag(), [this] {
+                            RTC_DCHECK_RUN_ON(worker_queue_);
+                            video_source_sink_controller_.RequestRefreshFrame();
+                          }));
 }
 
 void VideoStreamEncoder::SendKeyFrame(
     const std::vector<VideoFrameType>& layers) {
   if (!encoder_queue_.IsCurrent()) {
-    encoder_queue_.PostTask([this, layers] { SendKeyFrame(layers); });
+    encoder_queue_.PostTask(RTC_FROM_HERE,
+                            [this, layers] { SendKeyFrame(layers); });
     return;
   }
   RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -2045,8 +2050,9 @@ void VideoStreamEncoder::SendKeyFrame(
 void VideoStreamEncoder::OnLossNotification(
     const VideoEncoder::LossNotification& loss_notification) {
   if (!encoder_queue_.IsCurrent()) {
-    encoder_queue_.PostTask(
-        [this, loss_notification] { OnLossNotification(loss_notification); });
+    encoder_queue_.PostTask(RTC_FROM_HERE, [this, loss_notification] {
+      OnLossNotification(loss_notification);
+    });
     return;
   }
 
@@ -2117,9 +2123,10 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   // need to update on quality convergence.
   unsigned int image_width = image_copy._encodedWidth;
   unsigned int image_height = image_copy._encodedHeight;
-  encoder_queue_.PostTask([this, codec_type, image_width, image_height,
-                           spatial_idx,
-                           at_target_quality = image_copy.IsAtTargetQuality()] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, codec_type, image_width,
+                                          image_height, spatial_idx,
+                                          at_target_quality =
+                                              image_copy.IsAtTargetQuality()] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
 
     // Let the frame cadence adapter know about quality convergence.
@@ -2208,7 +2215,7 @@ void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
       break;
   }
   sink_->OnDroppedFrame(reason);
-  encoder_queue_.PostTask([this, reason] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, reason] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     stream_resource_manager_.OnFrameDropped(reason);
   });
@@ -2249,9 +2256,11 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
                                           double cwnd_reduce_ratio) {
   RTC_DCHECK_GE(link_allocation, target_bitrate);
   if (!encoder_queue_.IsCurrent()) {
-    encoder_queue_.PostTask([this, target_bitrate, stable_target_bitrate,
-                             link_allocation, fraction_lost, round_trip_time_ms,
-                             cwnd_reduce_ratio] {
+    encoder_queue_.PostTask(RTC_FROM_HERE, [this, target_bitrate,
+                                            stable_target_bitrate,
+                                            link_allocation, fraction_lost,
+                                            round_trip_time_ms,
+                                            cwnd_reduce_ratio] {
       DataRate updated_target_bitrate =
           UpdateTargetBitrate(target_bitrate, cwnd_reduce_ratio);
       OnBitrateUpdated(updated_target_bitrate, stable_target_bitrate,
@@ -2379,8 +2388,10 @@ void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
   // so that ownership on restrictions/wants is kept on &encoder_queue_
   latest_restrictions_ = restrictions;
 
-  worker_queue_->PostTask(SafeTask(
-      task_safety_.flag(), [this, restrictions = std::move(restrictions)]() {
+  worker_queue_->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(task_safety_.flag(), [this,
+                                     restrictions = std::move(restrictions)]() {
         RTC_DCHECK_RUN_ON(worker_queue_);
         video_source_sink_controller_.SetRestrictions(std::move(restrictions));
         video_source_sink_controller_.PushSourceSinkSettings();
@@ -2392,8 +2403,8 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
                                        int temporal_index,
                                        DataSize frame_size) {
   if (!encoder_queue_.IsCurrent()) {
-    encoder_queue_.PostTask([this, encoded_image, time_sent_us, temporal_index,
-                             frame_size] {
+    encoder_queue_.PostTask(RTC_FROM_HERE, [this, encoded_image, time_sent_us,
+                                            temporal_index, frame_size] {
       RunPostEncode(encoded_image, time_sent_us, temporal_index, frame_size);
     });
     return;
@@ -2532,6 +2543,7 @@ void VideoStreamEncoder::CheckForAnimatedContent(
     }
 
     worker_queue_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this, should_cap_resolution]() {
           RTC_DCHECK_RUN_ON(worker_queue_);
           video_source_sink_controller_.SetPixelsPerFrameUpperLimit(
@@ -2546,17 +2558,18 @@ void VideoStreamEncoder::CheckForAnimatedContent(
 void VideoStreamEncoder::InjectAdaptationResource(
     rtc::scoped_refptr<Resource> resource,
     VideoAdaptationReason reason) {
-  encoder_queue_.PostTask([this, resource = std::move(resource), reason] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    additional_resources_.push_back(resource);
-    stream_resource_manager_.AddResource(resource, reason);
-  });
+  encoder_queue_.PostTask(
+      RTC_FROM_HERE, [this, resource = std::move(resource), reason] {
+        RTC_DCHECK_RUN_ON(&encoder_queue_);
+        additional_resources_.push_back(resource);
+        stream_resource_manager_.AddResource(resource, reason);
+      });
 }
 
 void VideoStreamEncoder::InjectAdaptationConstraint(
     AdaptationConstraint* adaptation_constraint) {
   rtc::Event event;
-  encoder_queue_.PostTask([this, adaptation_constraint, &event] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, adaptation_constraint, &event] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     if (!resource_adaptation_processor_) {
       // The VideoStreamEncoder was stopped and the processor destroyed before
@@ -2573,7 +2586,7 @@ void VideoStreamEncoder::InjectAdaptationConstraint(
 void VideoStreamEncoder::AddRestrictionsListenerForTesting(
     VideoSourceRestrictionsListener* restrictions_listener) {
   rtc::Event event;
-  encoder_queue_.PostTask([this, restrictions_listener, &event] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, restrictions_listener, &event] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(resource_adaptation_processor_);
     video_stream_adapter_->AddRestrictionsListener(restrictions_listener);
@@ -2585,7 +2598,7 @@ void VideoStreamEncoder::AddRestrictionsListenerForTesting(
 void VideoStreamEncoder::RemoveRestrictionsListenerForTesting(
     VideoSourceRestrictionsListener* restrictions_listener) {
   rtc::Event event;
-  encoder_queue_.PostTask([this, restrictions_listener, &event] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, restrictions_listener, &event] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(resource_adaptation_processor_);
     video_stream_adapter_->RemoveRestrictionsListener(restrictions_listener);

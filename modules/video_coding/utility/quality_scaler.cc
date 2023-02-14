@@ -90,6 +90,7 @@ class QualityScaler::CheckQpTask {
     RTC_DCHECK_EQ(state_, State::kNotStarted);
     state_ = State::kCheckingQp;
     TaskQueueBase::Current()->PostDelayedTask(
+        RTC_FROM_HERE,
         [this_weak_ptr = weak_ptr_factory_.GetWeakPtr(), this] {
           if (!this_weak_ptr) {
             // The task has been cancelled through destruction.

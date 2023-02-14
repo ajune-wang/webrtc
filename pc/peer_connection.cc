@@ -526,7 +526,7 @@ PeerConnection::PeerConnection(
       data_channel_controller_(this),
       message_handler_(signaling_thread()),
       weak_factory_(this) {
-  worker_thread()->BlockingCall([this] {
+  worker_thread()->BlockingCall(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(worker_thread());
     worker_thread_safety_ = PendingTaskSafetyFlag::Create();
     if (!call_)
@@ -570,7 +570,7 @@ PeerConnection::~PeerConnection() {
   // port_allocator_ and transport_controller_ live on the network thread and
   // should be destroyed there.
   transport_controller_copy_ = nullptr;
-  network_thread()->BlockingCall([this] {
+  network_thread()->BlockingCall(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(network_thread());
     TeardownDataChannelTransport_n();
     transport_controller_.reset();
@@ -580,7 +580,7 @@ PeerConnection::~PeerConnection() {
   });
 
   // call_ and event_log_ must be destroyed on the worker thread.
-  worker_thread()->BlockingCall([this] {
+  worker_thread()->BlockingCall(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(worker_thread());
     worker_thread_safety_->SetNotAlive();
     call_.reset();
@@ -629,7 +629,7 @@ RTCError PeerConnection::Initialize(
 
   // Network thread initialization.
   transport_controller_copy_ =
-      network_thread()->BlockingCall([&] {
+      network_thread()->BlockingCall(RTC_FROM_HERE, [&] {
         RTC_DCHECK_RUN_ON(network_thread());
         network_thread_safety_ = PendingTaskSafetyFlag::Create();
         InitializePortAllocatorResult pa_result = InitializePortAllocator_n(
@@ -732,6 +732,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
           ReportTransportStats();
         }
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerConnectionState(s);
@@ -741,6 +742,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](PeerConnectionInterface::PeerConnectionState s) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               SetConnectionState(s);
@@ -750,6 +752,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](PeerConnectionInterface::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               SetStandardizedIceConnectionState(s);
@@ -759,6 +762,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](cricket::IceGatheringState s) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerGatheringState(s);
@@ -769,16 +773,18 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
              const std::vector<cricket::Candidate>& candidates) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
-            SafeTask(signaling_thread_safety_.flag(),
-                     [this, t = transport, c = candidates]() {
-                       RTC_DCHECK_RUN_ON(signaling_thread());
-                       OnTransportControllerCandidatesGathered(t, c);
-                     }));
+            RTC_FROM_HERE, SafeTask(signaling_thread_safety_.flag(),
+                                    [this, t = transport, c = candidates]() {
+                                      RTC_DCHECK_RUN_ON(signaling_thread());
+                                      OnTransportControllerCandidatesGathered(
+                                          t, c);
+                                    }));
       });
   transport_controller_->SubscribeIceCandidateError(
       [this](const cricket::IceCandidateErrorEvent& event) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, event = event]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerCandidateError(event);
@@ -788,6 +794,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](const std::vector<cricket::Candidate>& c) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, c = c]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerCandidatesRemoved(c);
@@ -797,6 +804,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](const cricket::CandidatePairChangeEvent& event) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, event = event]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerCandidateChanged(event);
@@ -962,7 +970,7 @@ RtpTransportInternal* PeerConnection::GetRtpTransport(const std::string& mid) {
   // TODO(bugs.webrtc.org/9987): Avoid the thread jump.
   // This might be done by caching the value on the signaling thread.
   RTC_DCHECK_RUN_ON(signaling_thread());
-  return network_thread()->BlockingCall([this, &mid] {
+  return network_thread()->BlockingCall(RTC_FROM_HERE, [this, &mid] {
     RTC_DCHECK_RUN_ON(network_thread());
     auto rtp_transport = transport_controller_->GetRtpTransport(mid);
     RTC_DCHECK(rtp_transport);
@@ -1601,6 +1609,7 @@ RTCError PeerConnection::SetConfiguration(
   // Apply part of the configuration on the network thread.  In theory this
   // shouldn't fail.
   if (!network_thread()->BlockingCall(
+          RTC_FROM_HERE,
           [this, needs_ice_restart, &ice_config, &stun_servers, &turn_servers,
            &modified_config, has_local_description] {
             RTC_DCHECK_RUN_ON(network_thread());
@@ -1627,7 +1636,7 @@ RTCError PeerConnection::SetConfiguration(
   if (configuration_.active_reset_srtp_params !=
       modified_config.active_reset_srtp_params) {
     // TODO(tommi): merge BlockingCalls
-    network_thread()->BlockingCall([this, &modified_config] {
+    network_thread()->BlockingCall(RTC_FROM_HERE, [this, &modified_config] {
       RTC_DCHECK_RUN_ON(network_thread());
       transport_controller_->SetActiveResetSrtpParams(
           modified_config.active_reset_srtp_params);
@@ -1648,6 +1657,7 @@ RTCError PeerConnection::SetConfiguration(
     }
 
     worker_thread()->BlockingCall(
+        RTC_FROM_HERE,
         [channels = std::move(channels),
          allow_codec_switching = *modified_config.allow_codec_switching]() {
           for (auto* ch : channels)
@@ -1686,7 +1696,8 @@ bool PeerConnection::RemoveIceCandidates(
 
 RTCError PeerConnection::SetBitrate(const BitrateSettings& bitrate) {
   if (!worker_thread()->IsCurrent()) {
-    return worker_thread()->BlockingCall([&]() { return SetBitrate(bitrate); });
+    return worker_thread()->BlockingCall(RTC_FROM_HERE,
+                                         [&]() { return SetBitrate(bitrate); });
   }
   RTC_DCHECK_RUN_ON(worker_thread());
 
@@ -1728,7 +1739,7 @@ RTCError PeerConnection::SetBitrate(const BitrateSettings& bitrate) {
 void PeerConnection::SetAudioPlayout(bool playout) {
   if (!worker_thread()->IsCurrent()) {
     worker_thread()->BlockingCall(
-        [this, playout] { SetAudioPlayout(playout); });
+        RTC_FROM_HERE, [this, playout] { SetAudioPlayout(playout); });
     return;
   }
   auto audio_state = context_->media_engine()->voice().GetAudioState();
@@ -1738,7 +1749,7 @@ void PeerConnection::SetAudioPlayout(bool playout) {
 void PeerConnection::SetAudioRecording(bool recording) {
   if (!worker_thread()->IsCurrent()) {
     worker_thread()->BlockingCall(
-        [this, recording] { SetAudioRecording(recording); });
+        RTC_FROM_HERE, [this, recording] { SetAudioRecording(recording); });
     return;
   }
   auto audio_state = context_->media_engine()->voice().GetAudioState();
@@ -1748,8 +1759,9 @@ void PeerConnection::SetAudioRecording(bool recording) {
 void PeerConnection::AddAdaptationResource(
     rtc::scoped_refptr<Resource> resource) {
   if (!worker_thread()->IsCurrent()) {
-    return worker_thread()->BlockingCall(
-        [this, resource]() { return AddAdaptationResource(resource); });
+    return worker_thread()->BlockingCall(RTC_FROM_HERE, [this, resource]() {
+      return AddAdaptationResource(resource);
+    });
   }
   RTC_DCHECK_RUN_ON(worker_thread());
   if (!call_) {
@@ -1766,6 +1778,7 @@ bool PeerConnection::ConfiguredForMedia() const {
 bool PeerConnection::StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
                                       int64_t output_period_ms) {
   return worker_thread()->BlockingCall(
+      RTC_FROM_HERE,
       [this, output = std::move(output), output_period_ms]() mutable {
         return StartRtcEventLog_w(std::move(output), output_period_ms);
       });
@@ -1781,7 +1794,7 @@ bool PeerConnection::StartRtcEventLog(
 }
 
 void PeerConnection::StopRtcEventLog() {
-  worker_thread()->BlockingCall([this] { StopRtcEventLog_w(); });
+  worker_thread()->BlockingCall(RTC_FROM_HERE, [this] { StopRtcEventLog_w(); });
 }
 
 rtc::scoped_refptr<DtlsTransportInterface>
@@ -1795,7 +1808,7 @@ PeerConnection::LookupDtlsTransportByMidInternal(const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   // TODO(bugs.webrtc.org/9987): Avoid the thread jump.
   // This might be done by caching the value on the signaling thread.
-  return network_thread()->BlockingCall([this, mid]() {
+  return network_thread()->BlockingCall(RTC_FROM_HERE, [this, mid]() {
     RTC_DCHECK_RUN_ON(network_thread());
     return transport_controller_->LookupDtlsTransportByMid(mid);
   });
@@ -1895,7 +1908,7 @@ void PeerConnection::Close() {
     rtp_manager_->Close();
   }
 
-  network_thread()->BlockingCall([this] {
+  network_thread()->BlockingCall(RTC_FROM_HERE, [this] {
     // Data channels will already have been unset via the DestroyAllChannels()
     // call above, which triggers a call to TeardownDataChannelTransport_n().
     // TODO(tommi): ^^ That's not exactly optimal since this is yet another
@@ -1909,7 +1922,7 @@ void PeerConnection::Close() {
     }
   });
 
-  worker_thread()->BlockingCall([this] {
+  worker_thread()->BlockingCall(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(worker_thread());
     worker_thread_safety_->SetNotAlive();
     call_.reset();
@@ -2246,7 +2259,7 @@ bool PeerConnection::GetSctpSslRole(rtc::SSLRole* role) {
 
   absl::optional<rtc::SSLRole> dtls_role;
   if (sctp_mid_s_) {
-    dtls_role = network_thread()->BlockingCall([this] {
+    dtls_role = network_thread()->BlockingCall(RTC_FROM_HERE, [this] {
       RTC_DCHECK_RUN_ON(network_thread());
       return transport_controller_->GetDtlsRole(*sctp_mid_n_);
     });
@@ -2279,10 +2292,11 @@ bool PeerConnection::GetSslRole(const std::string& content_name,
     return false;
   }
 
-  auto dtls_role = network_thread()->BlockingCall([this, content_name]() {
-    RTC_DCHECK_RUN_ON(network_thread());
-    return transport_controller_->GetDtlsRole(content_name);
-  });
+  auto dtls_role =
+      network_thread()->BlockingCall(RTC_FROM_HERE, [this, content_name]() {
+        RTC_DCHECK_RUN_ON(network_thread());
+        return transport_controller_->GetDtlsRole(content_name);
+      });
   if (dtls_role) {
     *role = *dtls_role;
     return true;
@@ -2385,7 +2399,7 @@ bool PeerConnection::IceRestartPending(const std::string& content_name) const {
 }
 
 bool PeerConnection::NeedsIceRestart(const std::string& content_name) const {
-  return network_thread()->BlockingCall([this, &content_name] {
+  return network_thread()->BlockingCall(RTC_FROM_HERE, [this, &content_name] {
     RTC_DCHECK_RUN_ON(network_thread());
     return transport_controller_->NeedsIceRestart(content_name);
   });
@@ -2514,7 +2528,8 @@ bool PeerConnection::GetLocalCandidateMediaIndex(
 
 Call::Stats PeerConnection::GetCallStats() {
   if (!worker_thread()->IsCurrent()) {
-    return worker_thread()->BlockingCall([this] { return GetCallStats(); });
+    return worker_thread()->BlockingCall(RTC_FROM_HERE,
+                                         [this] { return GetCallStats(); });
   }
   RTC_DCHECK_RUN_ON(worker_thread());
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
@@ -2550,6 +2565,7 @@ bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
       transport_controller_->GetDtlsTransport(mid);
   if (dtls_transport) {
     signaling_thread()->PostTask(
+        RTC_FROM_HERE,
         SafeTask(signaling_thread_safety_.flag(),
                  [this, name = dtls_transport->transport_name()] {
                    RTC_DCHECK_RUN_ON(signaling_thread());
@@ -2682,16 +2698,20 @@ void PeerConnection::AddRemoteCandidate(const std::string& mid,
   new_candidate.set_relay_protocol("");
   new_candidate.set_underlying_type_for_vpn(rtc::ADAPTER_TYPE_UNKNOWN);
 
-  network_thread()->PostTask(SafeTask(
-      network_thread_safety_, [this, mid = mid, candidate = new_candidate] {
+  network_thread()->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(network_thread_safety_, [this, mid = mid,
+                                        candidate = new_candidate] {
         RTC_DCHECK_RUN_ON(network_thread());
         std::vector<cricket::Candidate> candidates = {candidate};
         RTCError error =
             transport_controller_->AddRemoteCandidates(mid, candidates);
         if (error.ok()) {
-          signaling_thread()->PostTask(SafeTask(
-              signaling_thread_safety_.flag(),
-              [this, candidate = std::move(candidate)] {
+          signaling_thread()->PostTask(
+              RTC_FROM_HERE,
+              SafeTask(signaling_thread_safety_.flag(), [this,
+                                                         candidate = std::move(
+                                                             candidate)] {
                 ReportRemoteIceCandidateAdded(candidate);
                 // Candidates successfully submitted for checking.
                 if (ice_connection_state() ==
@@ -2936,13 +2956,14 @@ bool PeerConnection::OnTransportChanged(
   if (mid == sctp_mid_n_) {
     data_channel_controller_.OnTransportChanged(data_channel_transport);
     if (dtls_transport) {
-      signaling_thread()->PostTask(SafeTask(
-          signaling_thread_safety_.flag(),
-          [this,
-           name = std::string(dtls_transport->internal()->transport_name())] {
-            RTC_DCHECK_RUN_ON(signaling_thread());
-            SetSctpTransportName(std::move(name));
-          }));
+      signaling_thread()->PostTask(
+          RTC_FROM_HERE,
+          SafeTask(signaling_thread_safety_.flag(),
+                   [this, name = std::string(
+                              dtls_transport->internal()->transport_name())] {
+                     RTC_DCHECK_RUN_ON(signaling_thread());
+                     SetSctpTransportName(std::move(name));
+                   }));
     }
   }
 
@@ -2962,9 +2983,10 @@ void PeerConnection::StartSctpTransport(int local_port,
   if (!sctp_mid_s_)
     return;
 
-  network_thread()->PostTask(SafeTask(
-      network_thread_safety_,
-      [this, mid = *sctp_mid_s_, local_port, remote_port, max_message_size] {
+  network_thread()->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(network_thread_safety_, [this, mid = *sctp_mid_s_, local_port,
+                                        remote_port, max_message_size] {
         rtc::scoped_refptr<SctpTransport> sctp_transport =
             transport_controller_n()->GetSctpTransport(mid);
         if (sctp_transport)
@@ -3010,12 +3032,13 @@ std::function<void(const rtc::CopyOnWriteBuffer& packet,
                    int64_t packet_time_us)>
 PeerConnection::InitializeRtcpCallback() {
   RTC_DCHECK_RUN_ON(network_thread());
-  return [this](const rtc::CopyOnWriteBuffer& packet,
-                int64_t /*packet_time_us*/) {
-    worker_thread()->PostTask(SafeTask(worker_thread_safety_, [this, packet]() {
-      call_ptr_->Receiver()->DeliverRtcpPacket(packet);
-    }));
-  };
+  return
+      [this](const rtc::CopyOnWriteBuffer& packet, int64_t /*packet_time_us*/) {
+        worker_thread()->PostTask(
+            RTC_FROM_HERE, SafeTask(worker_thread_safety_, [this, packet]() {
+              call_ptr_->Receiver()->DeliverRtcpPacket(packet);
+            }));
+      };
 }
 
 }  // namespace webrtc

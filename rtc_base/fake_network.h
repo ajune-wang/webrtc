@@ -74,9 +74,11 @@ class FakeNetworkManager : public NetworkManagerBase {
     ++start_count_;
     if (start_count_ == 1) {
       sent_first_update_ = false;
-      Thread::Current()->PostTask([this] { DoUpdateNetworks(); });
+      Thread::Current()->PostTask(RTC_FROM_HERE,
+                                  [this] { DoUpdateNetworks(); });
     } else if (sent_first_update_) {
-      Thread::Current()->PostTask([this] { SignalNetworksChanged(); });
+      Thread::Current()->PostTask(RTC_FROM_HERE,
+                                  [this] { SignalNetworksChanged(); });
     }
   }
 

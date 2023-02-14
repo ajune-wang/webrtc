@@ -46,10 +46,13 @@ class TaskQueueGcd final : public TaskQueueBase {
   TaskQueueGcd(absl::string_view queue_name, int gcd_priority);
 
   void Delete() override;
-  void PostTask(absl::AnyInvocable<void() &&> task) override;
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
+  void PostTask(const Location& location,
+                absl::AnyInvocable<void() &&> task) override;
+  void PostDelayedTask(const Location& location,
+                       absl::AnyInvocable<void() &&> task,
                        TimeDelta delay) override;
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+  void PostDelayedHighPrecisionTask(const Location& location,
+                                    absl::AnyInvocable<void() &&> task,
                                     TimeDelta delay) override;
 
  private:
@@ -100,12 +103,14 @@ void TaskQueueGcd::Delete() {
   dispatch_release(queue_);
 }
 
-void TaskQueueGcd::PostTask(absl::AnyInvocable<void() &&> task) {
+void TaskQueueGcd::PostTask(const Location& location,
+                            absl::AnyInvocable<void() &&> task) {
   auto* context = new TaskContext(this, std::move(task));
   dispatch_async_f(queue_, context, &RunTask);
 }
 
-void TaskQueueGcd::PostDelayedTask(absl::AnyInvocable<void() &&> task,
+void TaskQueueGcd::PostDelayedTask(const Location& location,
+                                   absl::AnyInvocable<void() &&> task,
                                    TimeDelta delay) {
   auto* context = new TaskContext(this, std::move(task));
   dispatch_after_f(dispatch_time(DISPATCH_TIME_NOW, delay.us() * NSEC_PER_USEC),
@@ -113,9 +118,10 @@ void TaskQueueGcd::PostDelayedTask(absl::AnyInvocable<void() &&> task,
 }
 
 void TaskQueueGcd::PostDelayedHighPrecisionTask(
+    const Location& location,
     absl::AnyInvocable<void() &&> task,
     TimeDelta delay) {
-  PostDelayedTask(std::move(task), delay);
+  PostDelayedTask(location, std::move(task), delay);
 }
 
 // static

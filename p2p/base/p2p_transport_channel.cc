@@ -324,6 +324,7 @@ bool P2PTransportChannel::MaybeSwitchSelectedConnection(
     // currently selected connection. So we need to re-check whether it needs
     // to be switched at a later time.
     network_thread_->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(),
                  [this, reason = result.recheck_event->reason]() {
                    SortConnectionsAndUpdateState(reason);
@@ -1339,7 +1340,8 @@ void P2PTransportChannel::OnCandidateResolved(
   std::unique_ptr<webrtc::AsyncDnsResolverInterface> to_delete =
       std::move(p->resolver_);
   // Delay the actual deletion of the resolver until the lambda executes.
-  network_thread_->PostTask([to_delete = std::move(to_delete)] {});
+  network_thread_->PostTask(RTC_FROM_HERE,
+                            [to_delete = std::move(to_delete)] {});
   resolvers_.erase(p);
 }
 
@@ -1744,7 +1746,7 @@ void P2PTransportChannel::RequestSortAndStateUpdate(
   RTC_DCHECK_RUN_ON(network_thread_);
   if (!sort_dirty_) {
     network_thread_->PostTask(
-        SafeTask(task_safety_.flag(), [this, reason_to_sort]() {
+        RTC_FROM_HERE, SafeTask(task_safety_.flag(), [this, reason_to_sort]() {
           SortConnectionsAndUpdateState(reason_to_sort);
         }));
     sort_dirty_ = true;
@@ -1763,6 +1765,7 @@ void P2PTransportChannel::MaybeStartPinging() {
                      << ": Have a pingable connection for the first time; "
                         "starting to ping.";
     network_thread_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this]() { CheckAndPing(); }));
     regathering_controller_->Start();
     started_pinging_ = true;
@@ -2158,6 +2161,7 @@ void P2PTransportChannel::CheckAndPing() {
   }
 
   network_thread_->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this]() { CheckAndPing(); }), delay);
 }
 

@@ -62,6 +62,7 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
     callback_->Decoded(frame);
   } else {
     task_queue_->PostDelayedHighPrecisionTask(
+        RTC_FROM_HERE,
         [frame, this]() {
           VideoFrame copy = frame;
           callback_->Decoded(copy);

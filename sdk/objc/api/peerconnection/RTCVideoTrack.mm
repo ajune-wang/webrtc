@@ -72,7 +72,7 @@
 
 - (void)addRenderer:(id<RTC_OBJC_TYPE(RTCVideoRenderer)>)renderer {
   if (!_workerThread->IsCurrent()) {
-    _workerThread->BlockingCall([renderer, self] { [self addRenderer:renderer]; });
+    _workerThread->BlockingCall(RTC_FROM_HERE, [renderer, self] { [self addRenderer:renderer]; });
     return;
   }
 
@@ -93,7 +93,8 @@
 
 - (void)removeRenderer:(id<RTC_OBJC_TYPE(RTCVideoRenderer)>)renderer {
   if (!_workerThread->IsCurrent()) {
-    _workerThread->BlockingCall([renderer, self] { [self removeRenderer:renderer]; });
+    _workerThread->BlockingCall(RTC_FROM_HERE,
+                                [renderer, self] { [self removeRenderer:renderer]; });
     return;
   }
   __block NSUInteger indexToRemove = NSNotFound;

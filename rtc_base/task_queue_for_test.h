@@ -33,7 +33,8 @@ inline void SendTask(TaskQueueBase* task_queue,
 
   rtc::Event event;
   absl::Cleanup cleanup = [&event] { event.Set(); };
-  task_queue->PostTask([task, cleanup = std::move(cleanup)] { task(); });
+  task_queue->PostTask(RTC_FROM_HERE,
+                       [task, cleanup = std::move(cleanup)] { task(); });
   RTC_CHECK(event.Wait(/*give_up_after=*/rtc::Event::kForever,
                        /*warn_after=*/TimeDelta::Seconds(10)));
 }

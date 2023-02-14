@@ -101,11 +101,11 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
   RTC_DCHECK(worker_queue_);
   pacer_checker_.Detach();
   if (bitrate_callback_) {
-    update_task_ = RepeatingTaskHandle::DelayedStart(worker_queue_,
-                                                     kUpdateInterval, [this]() {
-                                                       PeriodicUpdate();
-                                                       return kUpdateInterval;
-                                                     });
+    update_task_ = RepeatingTaskHandle::DelayedStart(
+        RTC_FROM_HERE, worker_queue_, kUpdateInterval, [this]() {
+          PeriodicUpdate();
+          return kUpdateInterval;
+        });
   }
 }
 
@@ -144,27 +144,31 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
   const Timestamp now = clock_->CurrentTime();
 
 #if BWE_TEST_LOGGING_COMPILE_TIME_ENABLE
-  worker_queue_->PostTask(SafeTask(
-      task_safety_.flag(),
-      [this, now, packet_ssrc]() { BweTestLoggingPlot(now, packet_ssrc); }));
+  worker_queue_->PostTask(
+      RTC_FROM_HERE, SafeTask(task_safety_.flag(), [this, now, packet_ssrc]() {
+        BweTestLoggingPlot(now, packet_ssrc);
+      }));
 #endif
 
   if (need_rtp_packet_infos_ &&
       packet->packet_type() == RtpPacketToSend::Type::kVideo) {
-    worker_queue_->PostTask(SafeTask(
-        task_safety_.flag(),
-        [this, packet_timestamp = packet->Timestamp(),
-         is_first_packet_of_frame = packet->is_first_packet_of_frame(),
-         is_last_packet_of_frame = packet->Marker(),
-         sequence_number = packet->SequenceNumber()]() {
-          RTC_DCHECK_RUN_ON(worker_queue_);
-          // Last packet of a frame, add it to sequence number info map.
-          const uint32_t timestamp = packet_timestamp - timestamp_offset_;
-          rtp_sequence_number_map_->InsertPacket(
-              sequence_number,
-              RtpSequenceNumberMap::Info(timestamp, is_first_packet_of_frame,
-                                         is_last_packet_of_frame));
-        }));
+    worker_queue_->PostTask(
+        RTC_FROM_HERE,
+        SafeTask(task_safety_.flag(),
+                 [this, packet_timestamp = packet->Timestamp(),
+                  is_first_packet_of_frame = packet->is_first_packet_of_frame(),
+                  is_last_packet_of_frame = packet->Marker(),
+                  sequence_number = packet->SequenceNumber()]() {
+                   RTC_DCHECK_RUN_ON(worker_queue_);
+                   // Last packet of a frame, add it to sequence number info
+                   // map.
+                   const uint32_t timestamp =
+                       packet_timestamp - timestamp_offset_;
+                   rtp_sequence_number_map_->InsertPacket(
+                       sequence_number, RtpSequenceNumberMap::Info(
+                                            timestamp, is_first_packet_of_frame,
+                                            is_last_packet_of_frame));
+                 }));
   }
 
   if (fec_generator_ && packet->fec_protect_packet()) {
@@ -278,6 +282,7 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
     RtpPacketCounter counter(*packet);
     size_t size = packet->size();
     worker_queue_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this, now, packet_ssrc, packet_type,
                                        counter = std::move(counter), size]() {
           RTC_DCHECK_RUN_ON(worker_queue_);

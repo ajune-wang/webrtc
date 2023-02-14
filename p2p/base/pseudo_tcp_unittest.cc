@@ -180,6 +180,7 @@ class PseudoTcpTestBase : public ::testing::Test,
     std::string packet(buffer, len);
     ++packets_in_flight_;
     TaskQueueBase::Current()->PostDelayedTask(
+        RTC_FROM_HERE,
         [other, timer, packet = std::move(packet), this] {
           --packets_in_flight_;
           other->NotifyPacket(packet.c_str(), packet.size());
@@ -197,6 +198,7 @@ class PseudoTcpTestBase : public ::testing::Test,
     interval = std::max<int>(interval, 0L);  // sometimes interval is < 0
     timer.reset();
     TaskQueueBase::Current()->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(timer.flag(),
                  [&tcp, &timer] {
                    tcp.NotifyClock(PseudoTcp::Now());
@@ -489,7 +491,7 @@ class PseudoTcpTestReceiveWindow : public PseudoTcpTestBase {
     EXPECT_EQ(0, Connect());
     EXPECT_TRUE_WAIT(have_connected_, kConnectTimeoutMs);
 
-    TaskQueueBase::Current()->PostTask([this] { WriteData(); });
+    TaskQueueBase::Current()->PostTask(RTC_FROM_HERE, [this] { WriteData(); });
     EXPECT_TRUE_WAIT(have_disconnected_, kTransferTimeoutMs);
 
     ASSERT_EQ(2u, send_position_.size());
@@ -580,8 +582,8 @@ class PseudoTcpTestReceiveWindow : public PseudoTcpTestBase {
     if (packets_in_flight_ > 0) {
       // If there are packet tasks, attempt to continue sending after giving
       // those packets time to process, which should free up the send buffer.
-      rtc::Thread::Current()->PostDelayedTask([this] { WriteData(); },
-                                              TimeDelta::Millis(10));
+      rtc::Thread::Current()->PostDelayedTask(
+          RTC_FROM_HERE, [this] { WriteData(); }, TimeDelta::Millis(10));
     } else {
       if (!remote_.isReceiveBufferFull()) {
         RTC_LOG(LS_ERROR) << "This shouldn't happen - the send buffer is full, "

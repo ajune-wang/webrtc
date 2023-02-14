@@ -126,7 +126,7 @@ TEST(SequenceCheckerTest, ExpectationToString) {
   sequence_checker.Detach();
 
   rtc::Event blocker;
-  queue1.PostTask([&blocker, &sequence_checker]() {
+  queue1.PostTask(RTC_FROM_HERE, [&blocker, &sequence_checker]() {
     (void)sequence_checker.IsCurrent();
     blocker.Set();
   });

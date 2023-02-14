@@ -61,6 +61,7 @@ void BasicRegatheringController::
   pending_regathering_.reset(new ScopedTaskSafety());
 
   thread_->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(pending_regathering_->flag(),
                [this]() {
                  RTC_DCHECK_RUN_ON(thread_);

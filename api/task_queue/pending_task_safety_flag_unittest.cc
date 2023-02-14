@@ -68,7 +68,7 @@ TEST(PendingTaskSafetyFlagTest, PendingTaskSuccess) {
     void DoStuff() {
       RTC_DCHECK(!tq_main_->IsCurrent());
       rtc::scoped_refptr<PendingTaskSafetyFlag> safe = flag_;
-      tq_main_->PostTask([safe = std::move(safe), this]() {
+      tq_main_->PostTask(RTC_FROM_HERE, [safe = std::move(safe), this]() {
         if (!safe->alive())
           return;
         stuff_done_ = true;
@@ -113,8 +113,9 @@ TEST(PendingTaskSafetyFlagTest, PendingTaskDropped) {
 
     void DoStuff() {
       RTC_DCHECK(!tq_main_->IsCurrent());
-      tq_main_->PostTask(
-          SafeTask(safety_.flag(), [this]() { *stuff_done_ = true; }));
+      tq_main_->PostTask(RTC_FROM_HERE, SafeTask(safety_.flag(), [this]() {
+                           *stuff_done_ = true;
+                         }));
     }
 
    private:
@@ -132,7 +133,7 @@ TEST(PendingTaskSafetyFlagTest, PendingTaskDropped) {
   // Queue up a task on tq1 that will execute before the 'DoStuff' task
   // can, and delete the `owner` before the 'stuff' task can execute.
   rtc::Event blocker;
-  tq1.PostTask([&blocker, &owner]() {
+  tq1.PostTask(RTC_FROM_HERE, [&blocker, &owner]() {
     blocker.Wait(rtc::Event::kForever);
     owner.reset();
   });
@@ -158,9 +159,11 @@ TEST(PendingTaskSafetyFlagTest, PendingTaskNotAliveInitialized) {
 
   bool task_1_ran = false;
   bool task_2_ran = false;
-  tq.PostTask(SafeTask(flag, [&task_1_ran]() { task_1_ran = true; }));
-  tq.PostTask([&flag]() { flag->SetAlive(); });
-  tq.PostTask(SafeTask(flag, [&task_2_ran]() { task_2_ran = true; }));
+  tq.PostTask(RTC_FROM_HERE,
+              SafeTask(flag, [&task_1_ran]() { task_1_ran = true; }));
+  tq.PostTask(RTC_FROM_HERE, [&flag]() { flag->SetAlive(); });
+  tq.PostTask(RTC_FROM_HERE,
+              SafeTask(flag, [&task_2_ran]() { task_2_ran = true; }));
 
   tq.WaitForPreviouslyPostedTasks();
   EXPECT_FALSE(task_1_ran);

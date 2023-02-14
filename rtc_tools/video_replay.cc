@@ -493,7 +493,7 @@ class RtpReplayer final {
         std::make_unique<rtc::TaskQueue>(task_queue_factory->CreateTaskQueue(
             "worker_thread", TaskQueueFactory::Priority::NORMAL));
     rtc::Event event;
-    worker_thread_->PostTask([&]() {
+    worker_thread_->PostTask(RTC_FROM_HERE, [&]() {
       Call::Config call_config(&event_log_);
       call_config.trials = field_trials_.get();
       call_config.task_queue_factory = task_queue_factory;
@@ -518,7 +518,7 @@ class RtpReplayer final {
     // Destruction of streams and the call must happen on the same thread as
     // their creation.
     rtc::Event event;
-    worker_thread_->PostTask([&]() {
+    worker_thread_->PostTask(RTC_FROM_HERE, [&]() {
       for (const auto& receive_stream : stream_state_->receive_streams) {
         call_->DestroyVideoReceiveStream(receive_stream);
       }
@@ -533,7 +533,7 @@ class RtpReplayer final {
 
   void Run() {
     rtc::Event event;
-    worker_thread_->PostTask([&]() {
+    worker_thread_->PostTask(RTC_FROM_HERE, [&]() {
       // Start replaying the provided stream now that it has been configured.
       // VideoReceiveStreams must be started on the same thread as they were
       // created on.
@@ -601,7 +601,7 @@ class RtpReplayer final {
       ++num_packets;
 
       Result result = Result::kOk;
-      worker_thread_->PostTask([&]() {
+      worker_thread_->PostTask(RTC_FROM_HERE, [&]() {
         if (IsRtcpPacket(packet_buffer)) {
           call_->Receiver()->DeliverRtcpPacket(std::move(packet_buffer));
         }

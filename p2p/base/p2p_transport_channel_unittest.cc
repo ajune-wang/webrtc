@@ -838,8 +838,10 @@ class P2PTransportChannelTestBase : public ::testing::Test,
       GetEndpoint(ch)->saved_candidates_.push_back(
           {.channel = ch, .candidate = c});
     } else {
-      main_.PostTask(SafeTask(
-          safety_, [this, ch, c = c]() mutable { AddCandidate(ch, c); }));
+      main_.PostTask(RTC_FROM_HERE,
+                     SafeTask(safety_, [this, ch, c = c]() mutable {
+                       AddCandidate(ch, c);
+                     }));
     }
   }
 
@@ -865,16 +867,17 @@ class P2PTransportChannelTestBase : public ::testing::Test,
   void OnCandidatesRemoved(IceTransportInternal* ch,
                            const std::vector<Candidate>& candidates) {
     // Candidate removals are not paused.
-    main_.PostTask(SafeTask(safety_, [this, ch, candidates]() mutable {
-      P2PTransportChannel* rch = GetRemoteChannel(ch);
-      if (rch == nullptr) {
-        return;
-      }
-      for (const Candidate& c : candidates) {
-        RTC_LOG(LS_INFO) << "Removed remote candidate " << c.ToString();
-        rch->RemoveRemoteCandidate(c);
-      }
-    }));
+    main_.PostTask(
+        RTC_FROM_HERE, SafeTask(safety_, [this, ch, candidates]() mutable {
+          P2PTransportChannel* rch = GetRemoteChannel(ch);
+          if (rch == nullptr) {
+            return;
+          }
+          for (const Candidate& c : candidates) {
+            RTC_LOG(LS_INFO) << "Removed remote candidate " << c.ToString();
+            rch->RemoveRemoteCandidate(c);
+          }
+        }));
   }
 
   // Tcp candidate verification has to be done when they are generated.
@@ -896,12 +899,14 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     Endpoint* ed = GetEndpoint(endpoint);
     std::vector<CandidateData> candidates = std::move(ed->saved_candidates_);
     if (!candidates.empty()) {
-      main_.PostTask(SafeTask(
-          safety_, [this, candidates = std::move(candidates)]() mutable {
-            for (CandidateData& data : candidates) {
-              AddCandidate(data.channel, data.candidate);
-            }
-          }));
+      main_.PostTask(
+          RTC_FROM_HERE,
+          SafeTask(safety_,
+                   [this, candidates = std::move(candidates)]() mutable {
+                     for (CandidateData& data : candidates) {
+                       AddCandidate(data.channel, data.candidate);
+                     }
+                   }));
     }
     ed->saved_candidates_.clear();
     ed->save_candidates_ = false;

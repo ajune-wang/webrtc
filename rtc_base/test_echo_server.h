@@ -64,7 +64,8 @@ class TestEchoServer : public sigslot::has_slots<> {
     client_sockets_.erase(it);
     // `OnClose` is triggered by socket Close callback, deleting `socket` while
     // processing that callback might be unsafe.
-    Thread::Current()->PostTask([socket = absl::WrapUnique(socket)] {});
+    Thread::Current()->PostTask(RTC_FROM_HERE,
+                                [socket = absl::WrapUnique(socket)] {});
   }
 
   typedef std::list<AsyncTCPSocket*> ClientList;

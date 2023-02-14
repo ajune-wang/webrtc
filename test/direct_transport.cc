@@ -130,7 +130,7 @@ void DirectTransport::ProcessPackets() {
     return;
 
   next_process_task_ = RepeatingTaskHandle::DelayedStart(
-      task_queue_, TimeDelta::Millis(*initial_delay_ms), [this] {
+      RTC_FROM_HERE, task_queue_, TimeDelta::Millis(*initial_delay_ms), [this] {
         fake_network_->Process();
         if (auto delay_ms = fake_network_->TimeUntilNextProcess())
           return TimeDelta::Millis(*delay_ms);

@@ -42,17 +42,18 @@ TEST(SimulatedTimeControllerTest, TaskIsStoppedOnStop) {
       time_simulation.GetTaskQueueFactory()->CreateTaskQueue(
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
   std::atomic_int counter(0);
-  auto handle = RepeatingTaskHandle::Start(task_queue.Get(), [&] {
-    if (++counter >= kShortIntervalCount)
-      return kLongInterval;
-    return kShortInterval;
-  });
+  auto handle =
+      RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(), [&] {
+        if (++counter >= kShortIntervalCount)
+          return kLongInterval;
+        return kShortInterval;
+      });
   // Sleep long enough to go through the initial phase.
   time_simulation.AdvanceTime(kShortInterval * (kShortIntervalCount + kMargin));
   EXPECT_EQ(counter.load(), kShortIntervalCount);
 
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
 
   // Sleep long enough that the task would run at least once more if not
   // stopped.
@@ -68,8 +69,8 @@ TEST(SimulatedTimeControllerTest, TaskCanStopItself) {
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
 
   RepeatingTaskHandle handle;
-  task_queue.PostTask([&] {
-    handle = RepeatingTaskHandle::Start(task_queue.Get(), [&] {
+  task_queue.PostTask(RTC_FROM_HERE, [&] {
+    handle = RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(), [&] {
       ++counter;
       handle.Stop();
       return TimeDelta::Millis(2);
@@ -86,10 +87,11 @@ TEST(SimulatedTimeControllerTest, Example) {
     TimeDelta TimeUntilNextRun() { return TimeDelta::Millis(100); }
     void StartPeriodicTask(RepeatingTaskHandle* handle,
                            rtc::TaskQueue* task_queue) {
-      *handle = RepeatingTaskHandle::Start(task_queue->Get(), [this] {
-        DoPeriodicTask();
-        return TimeUntilNextRun();
-      });
+      *handle =
+          RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue->Get(), [this] {
+            DoPeriodicTask();
+            return TimeUntilNextRun();
+          });
     }
   };
   GlobalSimulatedTimeController time_simulation(kStartTime);
@@ -102,12 +104,12 @@ TEST(SimulatedTimeControllerTest, Example) {
   object->StartPeriodicTask(&handle, &task_queue);
   // Restart the task
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
   object->StartPeriodicTask(&handle, &task_queue);
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
 
-  task_queue.PostTask([object = std::move(object)] {});
+  task_queue.PostTask(RTC_FROM_HERE, [object = std::move(object)] {});
 }
 
 TEST(SimulatedTimeControllerTest, DelayTaskRunOnTime) {
@@ -117,8 +119,9 @@ TEST(SimulatedTimeControllerTest, DelayTaskRunOnTime) {
           "TestQueue", TaskQueueFactory::Priority::NORMAL);
 
   bool delay_task_executed = false;
-  task_queue->PostDelayedTask([&] { delay_task_executed = true; },
-                              TimeDelta::Millis(10));
+  task_queue->PostDelayedTask(
+      RTC_FROM_HERE, [&] { delay_task_executed = true; },
+      TimeDelta::Millis(10));
 
   time_simulation.AdvanceTime(TimeDelta::Millis(10));
   EXPECT_TRUE(delay_task_executed);
@@ -131,7 +134,7 @@ TEST(SimulatedTimeControllerTest, ThreadYeildsOnSynchronousCall) {
   bool task_has_run = false;
   // Posting a task to the main thread, this should not run until AdvanceTime is
   // called.
-  main_thread->PostTask([&] { task_has_run = true; });
+  main_thread->PostTask(RTC_FROM_HERE, [&] { task_has_run = true; });
   SendTask(t2.get(), [] {
     rtc::Event yield_event;
     // Wait() triggers YieldExecution() which will runs message processing on

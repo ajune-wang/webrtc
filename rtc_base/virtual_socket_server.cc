@@ -193,6 +193,7 @@ void VirtualSocket::SafetyBlock::PostSignalReadEvent() {
   pending_read_signal_event_ = true;
   rtc::scoped_refptr<SafetyBlock> safety(this);
   socket_.server_->msg_queue_->PostTask(
+      RTC_FROM_HERE,
       [safety = std::move(safety)] { safety->MaybeSignalReadEvent(); });
 }
 
@@ -404,6 +405,7 @@ void VirtualSocket::PostPacket(TimeDelta delay,
   rtc::scoped_refptr<SafetyBlock> safety = safety_;
   VirtualSocket* socket = this;
   server_->msg_queue_->PostDelayedTask(
+      RTC_FROM_HERE,
       [safety = std::move(safety), socket,
        packet = std::move(packet)]() mutable {
         if (safety->AddPacket(std::move(packet))) {
@@ -451,7 +453,8 @@ void VirtualSocket::SafetyBlock::PostConnect(TimeDelta delay,
         break;
     }
   };
-  socket_.server_->msg_queue_->PostDelayedTask(std::move(task), delay);
+  socket_.server_->msg_queue_->PostDelayedTask(RTC_FROM_HERE, std::move(task),
+                                               delay);
 }
 
 VirtualSocket::SafetyBlock::Signal VirtualSocket::SafetyBlock::Connect(
@@ -501,7 +504,7 @@ void VirtualSocket::PostDisconnect(TimeDelta delay) {
     socket->remote_addr_.Clear();
     socket->SignalCloseEvent(socket, error_to_signal);
   };
-  server_->msg_queue_->PostDelayedTask(std::move(task), delay);
+  server_->msg_queue_->PostDelayedTask(RTC_FROM_HERE, std::move(task), delay);
 }
 
 int VirtualSocket::InitiateConnect(const SocketAddress& addr, bool use_delay) {

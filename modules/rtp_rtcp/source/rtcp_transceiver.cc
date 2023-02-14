@@ -34,9 +34,10 @@ RtcpTransceiver::~RtcpTransceiver() {
   if (!rtcp_transceiver_)
     return;
   auto rtcp_transceiver = std::move(rtcp_transceiver_);
-  task_queue_->PostTask([rtcp_transceiver = std::move(rtcp_transceiver)] {
-    rtcp_transceiver->StopPeriodicTask();
-  });
+  task_queue_->PostTask(RTC_FROM_HERE,
+                        [rtcp_transceiver = std::move(rtcp_transceiver)] {
+                          rtcp_transceiver->StopPeriodicTask();
+                        });
   RTC_DCHECK(!rtcp_transceiver_);
 }
 
@@ -45,6 +46,7 @@ void RtcpTransceiver::Stop(absl::AnyInvocable<void() &&> on_destroyed) {
   auto rtcp_transceiver = std::move(rtcp_transceiver_);
   absl::Cleanup cleanup = std::move(on_destroyed);
   task_queue_->PostTask(
+      RTC_FROM_HERE,
       [rtcp_transceiver = std::move(rtcp_transceiver),
        cleanup = std::move(cleanup)] { rtcp_transceiver->StopPeriodicTask(); });
   RTC_DCHECK(!rtcp_transceiver_);
@@ -55,7 +57,7 @@ void RtcpTransceiver::AddMediaReceiverRtcpObserver(
     MediaReceiverRtcpObserver* observer) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, remote_ssrc, observer] {
+  task_queue_->PostTask(RTC_FROM_HERE, [ptr, remote_ssrc, observer] {
     ptr->AddMediaReceiverRtcpObserver(remote_ssrc, observer);
   });
 }
@@ -67,16 +69,17 @@ void RtcpTransceiver::RemoveMediaReceiverRtcpObserver(
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
   absl::Cleanup cleanup = std::move(on_removed);
-  task_queue_->PostTask(
-      [ptr, remote_ssrc, observer, cleanup = std::move(cleanup)] {
-        ptr->RemoveMediaReceiverRtcpObserver(remote_ssrc, observer);
-      });
+  task_queue_->PostTask(RTC_FROM_HERE, [ptr, remote_ssrc, observer,
+                                        cleanup = std::move(cleanup)] {
+    ptr->RemoveMediaReceiverRtcpObserver(remote_ssrc, observer);
+  });
 }
 
 void RtcpTransceiver::SetReadyToSend(bool ready) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, ready] { ptr->SetReadyToSend(ready); });
+  task_queue_->PostTask(RTC_FROM_HERE,
+                        [ptr, ready] { ptr->SetReadyToSend(ready); });
 }
 
 void RtcpTransceiver::ReceivePacket(rtc::CopyOnWriteBuffer packet) {
@@ -84,28 +87,29 @@ void RtcpTransceiver::ReceivePacket(rtc::CopyOnWriteBuffer packet) {
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
   Timestamp now = clock_->CurrentTime();
   task_queue_->PostTask(
-      [ptr, packet, now] { ptr->ReceivePacket(packet, now); });
+      RTC_FROM_HERE, [ptr, packet, now] { ptr->ReceivePacket(packet, now); });
 }
 
 void RtcpTransceiver::SendCompoundPacket() {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr] { ptr->SendCompoundPacket(); });
+  task_queue_->PostTask(RTC_FROM_HERE, [ptr] { ptr->SendCompoundPacket(); });
 }
 
 void RtcpTransceiver::SetRemb(int64_t bitrate_bps,
                               std::vector<uint32_t> ssrcs) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, bitrate_bps, ssrcs = std::move(ssrcs)]() mutable {
-    ptr->SetRemb(bitrate_bps, std::move(ssrcs));
-  });
+  task_queue_->PostTask(RTC_FROM_HERE,
+                        [ptr, bitrate_bps, ssrcs = std::move(ssrcs)]() mutable {
+                          ptr->SetRemb(bitrate_bps, std::move(ssrcs));
+                        });
 }
 
 void RtcpTransceiver::UnsetRemb() {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr] { ptr->UnsetRemb(); });
+  task_queue_->PostTask(RTC_FROM_HERE, [ptr] { ptr->UnsetRemb(); });
 }
 
 void RtcpTransceiver::SendCombinedRtcpPacket(
@@ -113,7 +117,7 @@ void RtcpTransceiver::SendCombinedRtcpPacket(
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
   task_queue_->PostTask(
-      [ptr, rtcp_packets = std::move(rtcp_packets)]() mutable {
+      RTC_FROM_HERE, [ptr, rtcp_packets = std::move(rtcp_packets)]() mutable {
         ptr->SendCombinedRtcpPacket(std::move(rtcp_packets));
       });
 }
@@ -123,6 +127,7 @@ void RtcpTransceiver::SendNack(uint32_t ssrc,
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
   task_queue_->PostTask(
+      RTC_FROM_HERE,
       [ptr, ssrc, sequence_numbers = std::move(sequence_numbers)]() mutable {
         ptr->SendNack(ssrc, std::move(sequence_numbers));
       });
@@ -131,7 +136,8 @@ void RtcpTransceiver::SendNack(uint32_t ssrc,
 void RtcpTransceiver::SendPictureLossIndication(uint32_t ssrc) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, ssrc] { ptr->SendPictureLossIndication(ssrc); });
+  task_queue_->PostTask(RTC_FROM_HERE,
+                        [ptr, ssrc] { ptr->SendPictureLossIndication(ssrc); });
 }
 
 void RtcpTransceiver::SendFullIntraRequest(std::vector<uint32_t> ssrcs) {
@@ -142,9 +148,10 @@ void RtcpTransceiver::SendFullIntraRequest(std::vector<uint32_t> ssrcs,
                                            bool new_request) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, ssrcs = std::move(ssrcs), new_request] {
-    ptr->SendFullIntraRequest(ssrcs, new_request);
-  });
+  task_queue_->PostTask(RTC_FROM_HERE,
+                        [ptr, ssrcs = std::move(ssrcs), new_request] {
+                          ptr->SendFullIntraRequest(ssrcs, new_request);
+                        });
 }
 
 }  // namespace webrtc

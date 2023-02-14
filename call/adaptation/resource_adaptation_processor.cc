@@ -41,6 +41,7 @@ void ResourceAdaptationProcessor::ResourceListenerDelegate::
                                  ResourceUsageState usage_state) {
   if (!task_queue_->IsCurrent()) {
     task_queue_->PostTask(
+        RTC_FROM_HERE,
         [this_ref = rtc::scoped_refptr<ResourceListenerDelegate>(this),
          resource, usage_state] {
           this_ref->OnResourceUsageStateMeasured(resource, usage_state);
@@ -141,8 +142,9 @@ void ResourceAdaptationProcessor::RemoveResource(
 void ResourceAdaptationProcessor::RemoveLimitationsImposedByResource(
     rtc::scoped_refptr<Resource> resource) {
   if (!task_queue_->IsCurrent()) {
-    task_queue_->PostTask(
-        [this, resource]() { RemoveLimitationsImposedByResource(resource); });
+    task_queue_->PostTask(RTC_FROM_HERE, [this, resource]() {
+      RemoveLimitationsImposedByResource(resource);
+    });
     return;
   }
   RTC_DCHECK_RUN_ON(task_queue_);

@@ -152,7 +152,8 @@ class SctpActor : public DcSctpSocketCallbacks {
     emulated_socket.SetReceiver([this](rtc::CopyOnWriteBuffer buf) {
       // The receiver will be executed on the NetworkEmulation task queue, but
       // the dcSCTP socket is owned by `thread_` and is not thread-safe.
-      thread_->PostTask([this, buf] { this->sctp_socket_.ReceivePacket(buf); });
+      thread_->PostTask(RTC_FROM_HERE,
+                        [this, buf] { this->sctp_socket_.ReceivePacket(buf); });
     });
   }
 
@@ -171,7 +172,7 @@ class SctpActor : public DcSctpSocketCallbacks {
     // Print again in a second.
     if (mode_ == ActorMode::kThroughputReceiver) {
       thread_->PostDelayedTask(
-          SafeTask(safety_.flag(), [this] { PrintBandwidth(); }),
+          RTC_FROM_HERE, SafeTask(safety_.flag(), [this] { PrintBandwidth(); }),
           kPrintBandwidthDuration);
     }
   }
@@ -277,7 +278,7 @@ class SctpActor : public DcSctpSocketCallbacks {
 
     } else if (mode == ActorMode::kThroughputReceiver) {
       thread_->PostDelayedTask(
-          SafeTask(safety_.flag(), [this] { PrintBandwidth(); }),
+          RTC_FROM_HERE, SafeTask(safety_.flag(), [this] { PrintBandwidth(); }),
           kPrintBandwidthDuration);
     }
   }

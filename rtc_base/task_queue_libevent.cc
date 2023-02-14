@@ -107,10 +107,13 @@ class TaskQueueLibevent final : public TaskQueueBase {
   TaskQueueLibevent(absl::string_view queue_name, rtc::ThreadPriority priority);
 
   void Delete() override;
-  void PostTask(absl::AnyInvocable<void() &&> task) override;
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
+  void PostTask(const Location& location,
+                absl::AnyInvocable<void() &&> task) override;
+  void PostDelayedTask(const Location& location,
+                       absl::AnyInvocable<void() &&> task,
                        TimeDelta delay) override;
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+  void PostDelayedHighPrecisionTask(const Location& location,
+                                    absl::AnyInvocable<void() &&> task,
                                     TimeDelta delay) override;
 
  private:
@@ -211,7 +214,8 @@ void TaskQueueLibevent::Delete() {
   delete this;
 }
 
-void TaskQueueLibevent::PostTask(absl::AnyInvocable<void() &&> task) {
+void TaskQueueLibevent::PostTask(const Location& location,
+                                 absl::AnyInvocable<void() &&> task) {
   {
     MutexLock lock(&pending_lock_);
     bool had_pending_tasks = !pending_.empty();
@@ -250,13 +254,15 @@ void TaskQueueLibevent::PostDelayedTaskOnTaskQueue(
   event_add(&timer->ev, &tv);
 }
 
-void TaskQueueLibevent::PostDelayedTask(absl::AnyInvocable<void() &&> task,
+void TaskQueueLibevent::PostDelayedTask(const Location& location,
+                                        absl::AnyInvocable<void() &&> task,
                                         TimeDelta delay) {
   if (IsCurrent()) {
     PostDelayedTaskOnTaskQueue(std::move(task), delay);
   } else {
     int64_t posted_us = rtc::TimeMicros();
-    PostTask([posted_us, delay, task = std::move(task), this]() mutable {
+    PostTask(RTC_FROM_HERE, [posted_us, delay, task = std::move(task),
+                             this]() mutable {
       // Compensate for the time that has passed since the posting.
       TimeDelta post_time = TimeDelta::Micros(rtc::TimeMicros() - posted_us);
       PostDelayedTaskOnTaskQueue(
@@ -266,9 +272,10 @@ void TaskQueueLibevent::PostDelayedTask(absl::AnyInvocable<void() &&> task,
 }
 
 void TaskQueueLibevent::PostDelayedHighPrecisionTask(
+    const Location& location,
     absl::AnyInvocable<void() &&> task,
     TimeDelta delay) {
-  PostDelayedTask(std::move(task), delay);
+  PostDelayedTask(location, std::move(task), delay);
 }
 
 // static

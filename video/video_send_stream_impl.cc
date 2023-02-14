@@ -336,8 +336,8 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
     activity_ = false;
     timed_out_ = false;
     check_encoder_activity_task_ = RepeatingTaskHandle::DelayedStart(
-        rtp_transport_queue_->TaskQueueForDelayedTasks(), kEncoderTimeOut,
-        [this] {
+        RTC_FROM_HERE, rtp_transport_queue_->TaskQueueForDelayedTasks(),
+        kEncoderTimeOut, [this] {
           RTC_DCHECK_RUN_ON(rtp_transport_queue_);
           if (!activity_) {
             if (!timed_out_) {
@@ -433,7 +433,7 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
   };
   if (!rtp_transport_queue_->IsCurrent()) {
     rtp_transport_queue_->TaskQueueForPost()->PostTask(
-        SafeTask(transport_queue_safety_, std::move(task)));
+        RTC_FROM_HERE, SafeTask(transport_queue_safety_, std::move(task)));
   } else {
     task();
   }
@@ -527,7 +527,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
   };
 
   rtp_transport_queue_->TaskQueueForPost()->PostTask(
-      SafeTask(transport_queue_safety_, std::move(closure)));
+      RTC_FROM_HERE, SafeTask(transport_queue_safety_, std::move(closure)));
 }
 
 EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
@@ -556,6 +556,7 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
     }
   };
   rtp_transport_queue_->TaskQueueForPost()->PostTask(
+      RTC_FROM_HERE,
       SafeTask(transport_queue_safety_, std::move(task_to_run_on_worker)));
 
   return rtp_video_sender_->OnEncodedImage(encoded_image, codec_specific_info);

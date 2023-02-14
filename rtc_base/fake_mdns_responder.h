@@ -39,7 +39,8 @@ class FakeMdnsResponder : public MdnsResponderInterface {
       name = std::to_string(next_available_id_++) + ".local";
       addr_name_map_[addr] = name;
     }
-    thread_->PostTask([callback, addr, name]() { callback(addr, name); });
+    thread_->PostTask(RTC_FROM_HERE,
+                      [callback, addr, name]() { callback(addr, name); });
   }
   void RemoveNameForAddress(const rtc::IPAddress& addr,
                             NameRemovedCallback callback) override {
@@ -48,7 +49,8 @@ class FakeMdnsResponder : public MdnsResponderInterface {
       addr_name_map_.erase(it);
     }
     bool result = it != addr_name_map_.end();
-    thread_->PostTask([callback, result]() { callback(result); });
+    thread_->PostTask(RTC_FROM_HERE,
+                      [callback, result]() { callback(result); });
   }
 
   rtc::IPAddress GetMappedAddressForName(absl::string_view name) const {

@@ -52,7 +52,17 @@ class RepeatingTaskHandle {
   // TaskQueue deletes it. It's perfectly fine to destroy the handle while the
   // task is running, since the repeated task is owned by the TaskQueue.
   // The tasks are scheduled onto the task queue using the specified precision.
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
   static RepeatingTaskHandle Start(TaskQueueBase* task_queue,
+                                   absl::AnyInvocable<TimeDelta()> closure,
+                                   TaskQueueBase::DelayPrecision precision =
+                                       TaskQueueBase::DelayPrecision::kLow,
+                                   Clock* clock = Clock::GetRealTimeClock()) {
+    return Start(RTC_FROM_HERE, task_queue, std::move(closure), precision,
+                 clock);
+  }
+  static RepeatingTaskHandle Start(const Location& location,
+                                   TaskQueueBase* task_queue,
                                    absl::AnyInvocable<TimeDelta()> closure,
                                    TaskQueueBase::DelayPrecision precision =
                                        TaskQueueBase::DelayPrecision::kLow,
@@ -60,7 +70,19 @@ class RepeatingTaskHandle {
 
   // DelayedStart is equivalent to Start except that the first invocation of the
   // closure will be delayed by the given amount.
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
   static RepeatingTaskHandle DelayedStart(
+      TaskQueueBase* task_queue,
+      TimeDelta first_delay,
+      absl::AnyInvocable<TimeDelta()> closure,
+      TaskQueueBase::DelayPrecision precision =
+          TaskQueueBase::DelayPrecision::kLow,
+      Clock* clock = Clock::GetRealTimeClock()) {
+    return DelayedStart(RTC_FROM_HERE, task_queue, first_delay,
+                        std::move(closure), precision, clock);
+  }
+  static RepeatingTaskHandle DelayedStart(
+      const Location& location,
       TaskQueueBase* task_queue,
       TimeDelta first_delay,
       absl::AnyInvocable<TimeDelta()> closure,

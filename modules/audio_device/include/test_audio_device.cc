@@ -92,7 +92,7 @@ class TestAudioDeviceModuleImpl
         std::make_unique<rtc::TaskQueue>(task_queue_factory_->CreateTaskQueue(
             "TestAudioDeviceModuleImpl", TaskQueueFactory::Priority::NORMAL));
 
-    RepeatingTaskHandle::Start(task_queue_->Get(), [this]() {
+    RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue_->Get(), [this]() {
       ProcessAudio();
       return TimeDelta::Micros(process_interval_us_);
     });

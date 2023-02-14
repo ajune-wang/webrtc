@@ -142,7 +142,7 @@ void StartThreads(std::vector<std::unique_ptr<Thread>>& threads,
   for (int i = 0; i < kNumThreads; ++i) {
     std::unique_ptr<Thread> thread(Thread::Create());
     thread->Start();
-    thread->PostTask([handler] { handler->Loop(); });
+    thread->PostTask(RTC_FROM_HERE, [handler] { handler->Loop(); });
     threads.push_back(std::move(thread));
   }
 }

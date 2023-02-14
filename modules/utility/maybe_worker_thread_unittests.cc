@@ -130,7 +130,7 @@ TEST(MaybeWorkerThreadTest, IsCurrentBehavesCorrectInExperiment) {
   auto tq = controller.GetTaskQueueFactory()->CreateTaskQueue(
       "tq", TaskQueueFactory::Priority::NORMAL);
   rtc::Event event;
-  tq->PostTask([&] {
+  tq->PostTask(RTC_FROM_HERE, [&] {
     EXPECT_FALSE(m.IsCurrent());
     event.Set();
   });

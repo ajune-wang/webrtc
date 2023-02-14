@@ -312,12 +312,9 @@ static bool ValidateStreamParams(const StreamParams& sp) {
 bool IsCodecDisabledForSimulcast(const std::string& codec_name,
                                  const webrtc::FieldTrialsView& trials) {
   if (absl::EqualsIgnoreCase(codec_name, kVp9CodecName) ||
-      absl::EqualsIgnoreCase(codec_name, kAv1CodecName)) {
+      absl::EqualsIgnoreCase(codec_name, kAv1CodecName) ||
+      absl::EqualsIgnoreCase(codec_name, kH264CodecName)) {
     return true;
-  }
-
-  if (absl::EqualsIgnoreCase(codec_name, kH264CodecName)) {
-    return absl::StartsWith(trials.Lookup("WebRTC-H264Simulcast"), "Disabled");
   }
 
   return false;

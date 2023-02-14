@@ -316,10 +316,6 @@ bool IsCodecDisabledForSimulcast(const std::string& codec_name,
     return true;
   }
 
-  if (absl::EqualsIgnoreCase(codec_name, kH264CodecName)) {
-    return absl::StartsWith(trials.Lookup("WebRTC-H264Simulcast"), "Disabled");
-  }
-
   return false;
 }
 

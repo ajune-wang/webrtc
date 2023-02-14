@@ -16,6 +16,52 @@
       "message": "I changed the implementation here as suggested by the reviewers and added a test.",
       "revId": "a507207e82392614519536cd5f8df15fafa538cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4022a64a_5fde68d7",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-14T12:31:02Z",
+      "side": 1,
+      "message": "Maybe\nabsl::string_view alice_network_label,\nEmulatedNetworkManagerInterface* alice_network,\nabsl::string_view bob_network_label,\nEmulatedNetworkManagerInterface* bob_network,\ntest::MetricsLogger* metrics_logger\n?",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 67
+      },
+      "revId": "a507207e82392614519536cd5f8df15fafa538cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1826175b_22ad18e6",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-14T12:31:02Z",
+      "side": 1,
+      "message": "Make it just std::string and default it to alice in bob in 1st ctor",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "a507207e82392614519536cd5f8df15fafa538cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

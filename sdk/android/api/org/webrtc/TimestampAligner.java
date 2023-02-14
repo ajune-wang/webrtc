@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 /**
  * The TimestampAligner class helps translating camera timestamps into the same timescale as is
@@ -24,10 +25,10 @@ public class TimestampAligner {
    * function to be safe.
    */
   public static long getRtcTimeNanos() {
-    return nativeRtcTimeNanos();
+    return TimestampAlignerJni.get().rtcTimeNanos();
   }
 
-  private volatile long nativeTimestampAligner = nativeCreateTimestampAligner();
+  private volatile long nativeTimestampAligner = TimestampAlignerJni.get().createTimestampAligner();
 
   /**
    * Translates camera timestamps to the same timescale as is used by rtc::TimeNanos().
@@ -36,13 +37,13 @@ public class TimestampAligner {
    */
   public long translateTimestamp(long cameraTimeNs) {
     checkNativeAlignerExists();
-    return nativeTranslateTimestamp(nativeTimestampAligner, cameraTimeNs);
+    return TimestampAlignerJni.get().translateTimestamp(nativeTimestampAligner, cameraTimeNs);
   }
 
   /** Dispose native timestamp aligner. */
   public void dispose() {
     checkNativeAlignerExists();
-    nativeReleaseTimestampAligner(nativeTimestampAligner);
+    TimestampAlignerJni.get().releaseTimestampAligner(nativeTimestampAligner);
     nativeTimestampAligner = 0;
   }
 
@@ -52,8 +53,11 @@ public class TimestampAligner {
     }
   }
 
-  private static native long nativeRtcTimeNanos();
-  private static native long nativeCreateTimestampAligner();
-  private static native void nativeReleaseTimestampAligner(long timestampAligner);
-  private static native long nativeTranslateTimestamp(long timestampAligner, long cameraTimeNs);
+  @NativeMethods
+  interface Natives {
+    long rtcTimeNanos();
+    long createTimestampAligner();
+    void releaseTimestampAligner(long timestampAligner);
+    long translateTimestamp(long timestampAligner, long cameraTimeNs);
+  }
 }

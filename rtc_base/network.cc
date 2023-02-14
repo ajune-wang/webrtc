@@ -942,17 +942,17 @@ void BasicNetworkManager::StartUpdating() {
     // we should trigger network signal immediately for the new clients
     // to start allocating ports.
     if (sent_first_update_)
-      thread_->PostTask(SafeTask(task_safety_flag_, [this] {
-        RTC_DCHECK_RUN_ON(thread_);
-        SignalNetworksChanged();
-      }));
+      thread_->PostTask(RTC_FROM_HERE, SafeTask(task_safety_flag_, [this] {
+                          RTC_DCHECK_RUN_ON(thread_);
+                          SignalNetworksChanged();
+                        }));
   } else {
     RTC_DCHECK(task_safety_flag_ == nullptr);
     task_safety_flag_ = webrtc::PendingTaskSafetyFlag::Create();
-    thread_->PostTask(SafeTask(task_safety_flag_, [this] {
-      RTC_DCHECK_RUN_ON(thread_);
-      UpdateNetworksContinually();
-    }));
+    thread_->PostTask(RTC_FROM_HERE, SafeTask(task_safety_flag_, [this] {
+                        RTC_DCHECK_RUN_ON(thread_);
+                        UpdateNetworksContinually();
+                      }));
     StartNetworkMonitor();
   }
   ++start_count_;
@@ -1057,7 +1057,8 @@ void BasicNetworkManager::UpdateNetworksOnce() {
 
 void BasicNetworkManager::UpdateNetworksContinually() {
   UpdateNetworksOnce();
-  thread_->PostDelayedTask(SafeTask(task_safety_flag_,
+  thread_->PostDelayedTask(RTC_FROM_HERE,
+                           SafeTask(task_safety_flag_,
                                     [this] {
                                       RTC_DCHECK_RUN_ON(thread_);
                                       UpdateNetworksContinually();

@@ -158,8 +158,10 @@ void TaskQueuePacedSender::SetPacingRates(DataRate pacing_rate,
 
 void TaskQueuePacedSender::EnqueuePackets(
     std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
-  task_queue_.TaskQueueForPost()->PostTask(task_queue_.MaybeSafeTask(
-      safety_.flag(), [this, packets = std::move(packets)]() mutable {
+  task_queue_.TaskQueueForPost()->PostTask(
+      RTC_FROM_HERE,
+      task_queue_.MaybeSafeTask(safety_.flag(), [this, packets = std::move(
+                                                           packets)]() mutable {
         RTC_DCHECK_RUN_ON(&task_queue_);
         TRACE_EVENT0(TRACE_DISABLED_BY_DEFAULT("webrtc"),
                      "TaskQueuePacedSender::EnqueuePackets");
@@ -345,7 +347,7 @@ void TaskQueuePacedSender::MaybeProcessPackets(
     }
 
     task_queue_.TaskQueueForDelayedTasks()->PostDelayedTaskWithPrecision(
-        precision,
+        RTC_FROM_HERE, precision,
         task_queue_.MaybeSafeTask(
             safety_.flag(),
             [this, next_send_time]() { MaybeProcessPackets(next_send_time); }),

@@ -221,11 +221,12 @@ bool SctpDataChannel::Init() {
   if (controller_->ReadyToSendData()) {
     AddRef();
     absl::Cleanup release = [this] { Release(); };
-    rtc::Thread::Current()->PostTask([this, release = std::move(release)] {
-      RTC_DCHECK_RUN_ON(signaling_thread_);
-      if (state_ != kClosed)
-        OnTransportReady(true);
-    });
+    rtc::Thread::Current()->PostTask(RTC_FROM_HERE,
+                                     [this, release = std::move(release)] {
+                                       RTC_DCHECK_RUN_ON(signaling_thread_);
+                                       if (state_ != kClosed)
+                                         OnTransportReady(true);
+                                     });
   }
 
   return true;

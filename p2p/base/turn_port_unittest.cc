@@ -1681,7 +1681,8 @@ TEST_F(TurnPortTest, TestResolverShutdown) {
   ASSERT_TRUE_WAIT(turn_error_, kResolverTimeout);
   EXPECT_TRUE(turn_port_->Candidates().empty());
   turn_port_.reset();
-  rtc::Thread::Current()->PostTask([this] { test_finish_ = true; });
+  rtc::Thread::Current()->PostTask(RTC_FROM_HERE,
+                                   [this] { test_finish_ = true; });
   // Waiting for above message to be processed.
   ASSERT_TRUE_SIMULATED_WAIT(test_finish_, 1, fake_clock_);
   EXPECT_EQ(last_fd_count, GetFDCount());

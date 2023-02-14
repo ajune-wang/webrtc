@@ -64,6 +64,7 @@ VideoCodecAnalyzer::VideoCodecAnalyzer(
 void VideoCodecAnalyzer::StartEncode(const VideoFrame& input_frame) {
   int64_t encode_start_us = rtc::TimeMicros();
   task_queue_.PostTask(
+      RTC_FROM_HERE,
       [this, timestamp_rtp = input_frame.timestamp(), encode_start_us]() {
         RTC_DCHECK_RUN_ON(&sequence_checker_);
 
@@ -80,66 +81,71 @@ void VideoCodecAnalyzer::StartEncode(const VideoFrame& input_frame) {
 void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
   int64_t encode_finished_us = rtc::TimeMicros();
 
-  task_queue_.PostTask([this, timestamp_rtp = frame.Timestamp(),
-                        spatial_idx = frame.SpatialIndex().value_or(0),
-                        temporal_idx = frame.TemporalIndex().value_or(0),
-                        width = frame._encodedWidth,
-                        height = frame._encodedHeight,
-                        frame_type = frame._frameType,
-                        size_bytes = frame.size(), qp = frame.qp_,
-                        encode_finished_us]() {
-    RTC_DCHECK_RUN_ON(&sequence_checker_);
+  task_queue_.PostTask(
+      RTC_FROM_HERE,
+      [this, timestamp_rtp = frame.Timestamp(),
+       spatial_idx = frame.SpatialIndex().value_or(0),
+       temporal_idx = frame.TemporalIndex().value_or(0),
+       width = frame._encodedWidth, height = frame._encodedHeight,
+       frame_type = frame._frameType, size_bytes = frame.size(), qp = frame.qp_,
+       encode_finished_us]() {
+        RTC_DCHECK_RUN_ON(&sequence_checker_);
 
-    if (spatial_idx > 0) {
-      VideoCodecStats::Frame* fs0 =
-          stats_.GetFrame(timestamp_rtp, /*spatial_idx=*/0);
-      VideoCodecStats::Frame* fs =
-          stats_.AddFrame(fs0->frame_num, timestamp_rtp, spatial_idx);
-      fs->encode_start = fs0->encode_start;
-    }
+        if (spatial_idx > 0) {
+          VideoCodecStats::Frame* fs0 =
+              stats_.GetFrame(timestamp_rtp, /*spatial_idx=*/0);
+          VideoCodecStats::Frame* fs =
+              stats_.AddFrame(fs0->frame_num, timestamp_rtp, spatial_idx);
+          fs->encode_start = fs0->encode_start;
+        }
 
-    VideoCodecStats::Frame* fs = stats_.GetFrame(timestamp_rtp, spatial_idx);
-    fs->spatial_idx = spatial_idx;
-    fs->temporal_idx = temporal_idx;
-    fs->width = width;
-    fs->height = height;
-    fs->size_bytes = static_cast<int>(size_bytes);
-    fs->qp = qp;
-    fs->keyframe = frame_type == VideoFrameType::kVideoFrameKey;
-    fs->encode_time = Timestamp::Micros(encode_finished_us) - fs->encode_start;
-    fs->encoded = true;
-  });
+        VideoCodecStats::Frame* fs =
+            stats_.GetFrame(timestamp_rtp, spatial_idx);
+        fs->spatial_idx = spatial_idx;
+        fs->temporal_idx = temporal_idx;
+        fs->width = width;
+        fs->height = height;
+        fs->size_bytes = static_cast<int>(size_bytes);
+        fs->qp = qp;
+        fs->keyframe = frame_type == VideoFrameType::kVideoFrameKey;
+        fs->encode_time =
+            Timestamp::Micros(encode_finished_us) - fs->encode_start;
+        fs->encoded = true;
+      });
 }
 
 void VideoCodecAnalyzer::StartDecode(const EncodedImage& frame) {
   int64_t decode_start_us = rtc::TimeMicros();
-  task_queue_.PostTask([this, timestamp_rtp = frame.Timestamp(),
-                        spatial_idx = frame.SpatialIndex().value_or(0),
-                        size_bytes = frame.size(), decode_start_us]() {
-    RTC_DCHECK_RUN_ON(&sequence_checker_);
+  task_queue_.PostTask(
+      RTC_FROM_HERE, [this, timestamp_rtp = frame.Timestamp(),
+                      spatial_idx = frame.SpatialIndex().value_or(0),
+                      size_bytes = frame.size(), decode_start_us]() {
+        RTC_DCHECK_RUN_ON(&sequence_checker_);
 
-    VideoCodecStats::Frame* fs = stats_.GetFrame(timestamp_rtp, spatial_idx);
-    if (fs == nullptr) {
-      if (frame_num_.find(timestamp_rtp) == frame_num_.end()) {
-        frame_num_[timestamp_rtp] = num_frames_++;
-      }
-      int frame_num = frame_num_[timestamp_rtp];
+        VideoCodecStats::Frame* fs =
+            stats_.GetFrame(timestamp_rtp, spatial_idx);
+        if (fs == nullptr) {
+          if (frame_num_.find(timestamp_rtp) == frame_num_.end()) {
+            frame_num_[timestamp_rtp] = num_frames_++;
+          }
+          int frame_num = frame_num_[timestamp_rtp];
 
-      fs = stats_.AddFrame(frame_num, timestamp_rtp, spatial_idx);
-      fs->spatial_idx = spatial_idx;
-      fs->size_bytes = size_bytes;
-    }
+          fs = stats_.AddFrame(frame_num, timestamp_rtp, spatial_idx);
+          fs->spatial_idx = spatial_idx;
+          fs->size_bytes = size_bytes;
+        }
 
-    fs->decode_start = Timestamp::Micros(decode_start_us);
-  });
+        fs->decode_start = Timestamp::Micros(decode_start_us);
+      });
 }
 
 void VideoCodecAnalyzer::FinishDecode(const VideoFrame& frame,
                                       int spatial_idx) {
   int64_t decode_finished_us = rtc::TimeMicros();
-  task_queue_.PostTask([this, timestamp_rtp = frame.timestamp(), spatial_idx,
-                        width = frame.width(), height = frame.height(),
-                        decode_finished_us]() {
+  task_queue_.PostTask(RTC_FROM_HERE, [this, timestamp_rtp = frame.timestamp(),
+                                       spatial_idx, width = frame.width(),
+                                       height = frame.height(),
+                                       decode_finished_us]() {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
     VideoCodecStats::Frame* fs = stats_.GetFrame(timestamp_rtp, spatial_idx);
     fs->decode_time = Timestamp::Micros(decode_finished_us) - fs->decode_start;
@@ -158,8 +164,9 @@ void VideoCodecAnalyzer::FinishDecode(const VideoFrame& frame,
     rtc::scoped_refptr<I420BufferInterface> decoded_buffer =
         frame.video_frame_buffer()->ToI420();
 
-    task_queue_.PostTask([this, decoded_buffer,
-                          timestamp_rtp = frame.timestamp(), spatial_idx]() {
+    task_queue_.PostTask(RTC_FROM_HERE, [this, decoded_buffer,
+                                         timestamp_rtp = frame.timestamp(),
+                                         spatial_idx]() {
       RTC_DCHECK_RUN_ON(&sequence_checker_);
       VideoFrame ref_frame = reference_video_source_->GetFrame(
           timestamp_rtp, {.width = decoded_buffer->width(),
@@ -179,7 +186,7 @@ void VideoCodecAnalyzer::FinishDecode(const VideoFrame& frame,
 std::unique_ptr<VideoCodecStats> VideoCodecAnalyzer::GetStats() {
   std::unique_ptr<VideoCodecStats> stats;
   rtc::Event ready;
-  task_queue_.PostTask([this, &stats, &ready]() mutable {
+  task_queue_.PostTask(RTC_FROM_HERE, [this, &stats, &ready]() mutable {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
     stats.reset(new VideoCodecStatsImpl(stats_));
     ready.Set();

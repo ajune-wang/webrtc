@@ -46,16 +46,18 @@ AsyncAudioProcessing::AsyncAudioProcessing(
           "AsyncAudioProcessing",
           TaskQueueFactory::Priority::NORMAL)) {
   frame_processor_.SetSink([this](std::unique_ptr<AudioFrame> frame) {
-    task_queue_.PostTask([this, frame = std::move(frame)]() mutable {
-      on_frame_processed_callback_(std::move(frame));
-    });
+    task_queue_.PostTask(RTC_FROM_HERE,
+                         [this, frame = std::move(frame)]() mutable {
+                           on_frame_processed_callback_(std::move(frame));
+                         });
   });
 }
 
 void AsyncAudioProcessing::Process(std::unique_ptr<AudioFrame> frame) {
-  task_queue_.PostTask([this, frame = std::move(frame)]() mutable {
-    frame_processor_.Process(std::move(frame));
-  });
+  task_queue_.PostTask(RTC_FROM_HERE,
+                       [this, frame = std::move(frame)]() mutable {
+                         frame_processor_.Process(std::move(frame));
+                       });
 }
 
 }  // namespace webrtc

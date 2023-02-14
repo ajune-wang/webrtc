@@ -158,8 +158,10 @@ void MediaChannel::SetPreferredDscp(rtc::DiffServCodePoint new_dscp) {
     // This is currently the common path as the derived channel classes
     // get called on the worker thread. There are still some tests though
     // that call directly on the network thread.
-    network_thread_->PostTask(SafeTask(
-        network_safety_, [this, new_dscp]() { SetPreferredDscp(new_dscp); }));
+    network_thread_->PostTask(RTC_FROM_HERE,
+                              SafeTask(network_safety_, [this, new_dscp]() {
+                                SetPreferredDscp(new_dscp);
+                              }));
     return;
   }
 
@@ -223,7 +225,8 @@ void MediaChannel::SendRtp(const uint8_t* data,
   if (network_thread_->IsCurrent()) {
     send();
   } else {
-    network_thread_->PostTask(SafeTask(network_safety_, std::move(send)));
+    network_thread_->PostTask(RTC_FROM_HERE,
+                              SafeTask(network_safety_, std::move(send)));
   }
 }
 
@@ -240,7 +243,8 @@ void MediaChannel::SendRtcp(const uint8_t* data, size_t len) {
   if (network_thread_->IsCurrent()) {
     send();
   } else {
-    network_thread_->PostTask(SafeTask(network_safety_, std::move(send)));
+    network_thread_->PostTask(RTC_FROM_HERE,
+                              SafeTask(network_safety_, std::move(send)));
   }
 }
 

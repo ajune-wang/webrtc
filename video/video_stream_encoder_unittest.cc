@@ -135,7 +135,8 @@ void PassAFrame(
     TaskQueueBase* encoder_queue,
     FrameCadenceAdapterInterface::Callback* video_stream_encoder_callback,
     int64_t ntp_time_ms) {
-  encoder_queue->PostTask([video_stream_encoder_callback, ntp_time_ms] {
+  encoder_queue->PostTask(RTC_FROM_HERE, [video_stream_encoder_callback,
+                                          ntp_time_ms] {
     video_stream_encoder_callback->OnFrame(Timestamp::Millis(ntp_time_ms), 1,
                                            CreateSimpleNV12Frame());
   });
@@ -446,7 +447,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
   // Triggers resource usage measurements on the fake CPU resource.
   void TriggerCpuOveruse() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    encoder_queue()->PostTask(RTC_FROM_HERE, [this, &event] {
       fake_cpu_resource_->SetUsageState(ResourceUsageState::kOveruse);
       event.Set();
     });
@@ -456,7 +457,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
 
   void TriggerCpuUnderuse() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    encoder_queue()->PostTask(RTC_FROM_HERE, [this, &event] {
       fake_cpu_resource_->SetUsageState(ResourceUsageState::kUnderuse);
       event.Set();
     });
@@ -467,7 +468,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
   // Triggers resource usage measurements on the fake quality resource.
   void TriggerQualityLow() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    encoder_queue()->PostTask(RTC_FROM_HERE, [this, &event] {
       fake_quality_resource_->SetUsageState(ResourceUsageState::kOveruse);
       event.Set();
     });
@@ -476,7 +477,7 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
   }
   void TriggerQualityHigh() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    encoder_queue()->PostTask(RTC_FROM_HERE, [this, &event] {
       fake_quality_resource_->SetUsageState(ResourceUsageState::kUnderuse);
       event.Set();
     });

@@ -310,8 +310,8 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
   MediaType media_type = MediaType::ANY;
   if (IsRtpPacket(packet.data)) {
     media_type = ssrc_media_types_[ParseRtpSsrc(packet.data)];
-    task_queue_.PostTask([this, media_type,
-                          packet = std::move(packet)]() mutable {
+    task_queue_.PostTask(RTC_FROM_HERE, [this, media_type,
+                                         packet = std::move(packet)]() mutable {
       RtpHeaderExtensionMap& extension_map = media_type == MediaType::AUDIO
                                                  ? audio_extensions_
                                                  : video_extensions_;
@@ -325,10 +325,10 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
                                           });
     });
   } else {
-    task_queue_.PostTask(
-        [call = call_.get(), packet = std::move(packet)]() mutable {
-          call->Receiver()->DeliverRtcpPacket(packet.data);
-        });
+    task_queue_.PostTask(RTC_FROM_HERE, [call = call_.get(),
+                                         packet = std::move(packet)]() mutable {
+      call->Receiver()->DeliverRtcpPacket(packet.data);
+    });
   }
 }
 

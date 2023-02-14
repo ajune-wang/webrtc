@@ -53,7 +53,7 @@ TEST_P(TaskQueueTest, PostAndCheckCurrent) {
   // means that TaskQueueBase::Current() will still return a valid value.
   EXPECT_FALSE(queue->IsCurrent());
 
-  queue->PostTask([&event, &queue] {
+  queue->PostTask(RTC_FROM_HERE, [&event, &queue] {
     EXPECT_TRUE(queue->IsCurrent());
     event.Set();
   });
@@ -75,7 +75,7 @@ TEST_P(TaskQueueTest, PostCustomTask) {
     rtc::Event* const ran_;
   } my_task(&ran);
 
-  queue->PostTask(my_task);
+  queue->PostTask(RTC_FROM_HERE, my_task);
   EXPECT_TRUE(ran.Wait(TimeDelta::Seconds(1)));
 }
 
@@ -93,8 +93,9 @@ TEST_P(TaskQueueTest, PostFromQueue) {
   rtc::Event event;
   auto queue = CreateTaskQueue(factory, "PostFromQueue");
 
-  queue->PostTask(
-      [&event, &queue] { queue->PostTask([&event] { event.Set(); }); });
+  queue->PostTask(RTC_FROM_HERE, [&event, &queue] {
+    queue->PostTask(RTC_FROM_HERE, [&event] { event.Set(); });
+  });
   EXPECT_TRUE(event.Wait(TimeDelta::Seconds(1)));
 }
 
@@ -162,7 +163,7 @@ TEST_P(TaskQueueTest, PostDelayedHighPrecisionAfterDestruct) {
       CreateTaskQueue(factory, "PostDelayedHighPrecisionAfterDestruct");
   absl::Cleanup cleanup = [&deleted] { deleted.Set(); };
   queue->PostDelayedHighPrecisionTask(
-      [&run, cleanup = std::move(cleanup)] { run.Set(); },
+      RTC_FROM_HERE, [&run, cleanup = std::move(cleanup)] { run.Set(); },
       TimeDelta::Millis(100));
   // Destroy the queue.
   queue = nullptr;
@@ -176,14 +177,14 @@ TEST_P(TaskQueueTest, PostedUnexecutedClosureDestroyedOnTaskQueue) {
   auto queue =
       CreateTaskQueue(factory, "PostedUnexecutedClosureDestroyedOnTaskQueue");
   TaskQueueBase* queue_ptr = queue.get();
-  queue->PostTask([] { SleepFor(TimeDelta::Millis(100)); });
+  queue->PostTask(RTC_FROM_HERE, [] { SleepFor(TimeDelta::Millis(100)); });
   // Give the task queue a chance to start executing the first lambda.
   SleepFor(TimeDelta::Millis(10));
   // Then ensure the next lambda (which is likely not executing yet) is
   // destroyed in the task queue context when the queue is deleted.
   auto cleanup = absl::Cleanup(
       [queue_ptr] { EXPECT_EQ(queue_ptr, TaskQueueBase::Current()); });
-  queue->PostTask([cleanup = std::move(cleanup)] {});
+  queue->PostTask(RTC_FROM_HERE, [cleanup = std::move(cleanup)] {});
   queue = nullptr;
 }
 
@@ -194,7 +195,8 @@ TEST_P(TaskQueueTest, PostedExecutedClosureDestroyedOnTaskQueue) {
   TaskQueueBase* queue_ptr = queue.get();
   // Ensure an executed lambda is destroyed on the task queue.
   rtc::Event finished;
-  queue->PostTask([cleanup = absl::Cleanup([queue_ptr, &finished] {
+  queue->PostTask(RTC_FROM_HERE,
+                  [cleanup = absl::Cleanup([queue_ptr, &finished] {
                      EXPECT_EQ(queue_ptr, TaskQueueBase::Current());
                      finished.Set();
                    })] {});
@@ -220,7 +222,7 @@ TEST_P(TaskQueueTest, PostAndReuse) {
 
     void operator()() && {
       if (++counter_ == 1) {
-        reply_queue_->PostTask(std::move(*this));
+        reply_queue_->PostTask(RTC_FROM_HERE, std::move(*this));
         // At this point, the object is in the moved-from state.
       } else {
         EXPECT_EQ(counter_, 2);
@@ -236,7 +238,7 @@ TEST_P(TaskQueueTest, PostAndReuse) {
   };
 
   ReusedTask task(&call_count, reply_queue.get(), &event);
-  post_queue->PostTask(std::move(task));
+  post_queue->PostTask(RTC_FROM_HERE, std::move(task));
   EXPECT_TRUE(event.Wait(TimeDelta::Seconds(1)));
 }
 
@@ -266,14 +268,15 @@ TEST_P(TaskQueueTest, PostALot) {
   int tasks_executed = 0;
   auto task_queue = CreateTaskQueue(factory, "PostALot");
 
-  task_queue->PostTask([&] {
+  task_queue->PostTask(RTC_FROM_HERE, [&] {
     // Post tasks from the queue to guarantee that the 1st task won't be
     // executed before the last one is posted.
     for (int i = 0; i < kTaskCount; ++i) {
       absl::Cleanup cleanup = [&] { all_destroyed.DecrementCount(); };
-      task_queue->PostTask([&tasks_executed, cleanup = std::move(cleanup)] {
-        ++tasks_executed;
-      });
+      task_queue->PostTask(RTC_FROM_HERE,
+                           [&tasks_executed, cleanup = std::move(cleanup)] {
+                             ++tasks_executed;
+                           });
     }
 
     posting_done.Set();
@@ -310,11 +313,11 @@ TEST_P(TaskQueueTest, PostTwoWithSharedUnprotectedState) {
 
   auto queue = CreateTaskQueue(factory, "PostTwoWithSharedUnprotectedState");
   rtc::Event done;
-  queue->PostTask([&state, &queue, &done] {
+  queue->PostTask(RTC_FROM_HERE, [&state, &queue, &done] {
     // Post tasks from queue to guarantee, that 1st task won't be
     // executed before the second one will be posted.
-    queue->PostTask([&state] { state.state = 1; });
-    queue->PostTask([&state, &done] {
+    queue->PostTask(RTC_FROM_HERE, [&state] { state.state = 1; });
+    queue->PostTask(RTC_FROM_HERE, [&state, &done] {
       EXPECT_EQ(state.state, 1);
       done.Set();
     });

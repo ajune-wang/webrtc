@@ -421,16 +421,18 @@ void WebRtcSessionDescriptionFactory::Post(
     absl::AnyInvocable<void() &&> callback) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   callbacks_.push(std::move(callback));
-  signaling_thread_->PostTask([weak_ptr = weak_factory_.GetWeakPtr()] {
-    if (weak_ptr) {
-      auto& callbacks = weak_ptr->callbacks_;
-      // Callbacks are pushed from the same thread, thus this task should
-      // corresond to the first entry in the queue.
-      RTC_DCHECK(!callbacks.empty());
-      std::move(callbacks.front())();
-      callbacks.pop();
-    }
-  });
+  signaling_thread_->PostTask(RTC_FROM_HERE,
+                              [weak_ptr = weak_factory_.GetWeakPtr()] {
+                                if (weak_ptr) {
+                                  auto& callbacks = weak_ptr->callbacks_;
+                                  // Callbacks are pushed from the same thread,
+                                  // thus this task should corresond to the
+                                  // first entry in the queue.
+                                  RTC_DCHECK(!callbacks.empty());
+                                  std::move(callbacks.front())();
+                                  callbacks.pop();
+                                }
+                              });
 }
 
 void WebRtcSessionDescriptionFactory::OnCertificateRequestFailed() {

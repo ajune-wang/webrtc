@@ -76,10 +76,11 @@ void AudioRtpReceiver::OnChanged() {
   if (cached_track_enabled_ == enabled)
     return;
   cached_track_enabled_ = enabled;
-  worker_thread_->PostTask(SafeTask(worker_thread_safety_, [this, enabled]() {
-    RTC_DCHECK_RUN_ON(worker_thread_);
-    Reconfigure(enabled);
-  }));
+  worker_thread_->PostTask(RTC_FROM_HERE,
+                           SafeTask(worker_thread_safety_, [this, enabled]() {
+                             RTC_DCHECK_RUN_ON(worker_thread_);
+                             Reconfigure(enabled);
+                           }));
 }
 
 void AudioRtpReceiver::SetOutputVolume_w(double volume) {

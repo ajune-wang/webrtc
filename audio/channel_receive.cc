@@ -494,18 +494,20 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
   ++audio_frame_interval_count_;
   if (audio_frame_interval_count_ >= kHistogramReportingInterval) {
     audio_frame_interval_count_ = 0;
-    worker_thread_->PostTask(SafeTask(worker_safety_.flag(), [this]() {
-      RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-      RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.TargetJitterBufferDelayMs",
-                                acm_receiver_.TargetDelayMs());
-      const int jitter_buffer_delay = acm_receiver_.FilteredCurrentDelayMs();
-      RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverDelayEstimateMs",
-                                jitter_buffer_delay + playout_delay_ms_);
-      RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverJitterBufferDelayMs",
-                                jitter_buffer_delay);
-      RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverDeviceDelayMs",
-                                playout_delay_ms_);
-    }));
+    worker_thread_->PostTask(
+        RTC_FROM_HERE, SafeTask(worker_safety_.flag(), [this]() {
+          RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+          RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.TargetJitterBufferDelayMs",
+                                    acm_receiver_.TargetDelayMs());
+          const int jitter_buffer_delay =
+              acm_receiver_.FilteredCurrentDelayMs();
+          RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverDelayEstimateMs",
+                                    jitter_buffer_delay + playout_delay_ms_);
+          RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverJitterBufferDelayMs",
+                                    jitter_buffer_delay);
+          RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverDeviceDelayMs",
+                                    playout_delay_ms_);
+        }));
   }
 
   TRACE_EVENT_END2("webrtc", "ChannelReceive::GetAudioFrameWithInfo", "gain",

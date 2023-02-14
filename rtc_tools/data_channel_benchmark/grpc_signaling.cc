@@ -177,14 +177,14 @@ class GrpcNegotiationServer : public GrpcSignalingServerInterface,
       // client in parallel.
       server_stop_thread_ = rtc::Thread::Create();
       server_stop_thread_->Start();
-      server_stop_thread_->PostTask([this] { Stop(); });
+      server_stop_thread_->PostTask(RTC_FROM_HERE, [this] { Stop(); });
     }
 
     ServerSessionData session(stream);
 
     auto reading_thread = rtc::Thread::Create();
     reading_thread->Start();
-    reading_thread->PostTask([&session, &stream] {
+    reading_thread->PostTask(RTC_FROM_HERE, [&session, &stream] {
       ProcessMessages<SignalingMessage>(stream, &session);
     });
 
@@ -229,7 +229,7 @@ class GrpcNegotiationClient : public GrpcSignalingClientInterface {
 
     reading_thread_ = rtc::Thread::Create();
     reading_thread_->Start();
-    reading_thread_->PostTask([this] {
+    reading_thread_->PostTask(RTC_FROM_HERE, [this] {
       ProcessMessages<SignalingMessage>(stream_.get(), &session_);
     });
 

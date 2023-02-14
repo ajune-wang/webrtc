@@ -120,18 +120,19 @@ class TaskQueueWithFakePrecisionFactory : public TaskQueueFactory {
       delete this;
     }
     void PostTask(absl::AnyInvocable<void() &&> task) override {
-      task_queue_->PostTask(WrapTask(std::move(task)));
+      task_queue_->PostTask(RTC_FROM_HERE, WrapTask(std::move(task)));
     }
     void PostDelayedTask(absl::AnyInvocable<void() &&> task,
                          TimeDelta delay) override {
       ++parent_factory_->delayed_low_precision_count_;
-      task_queue_->PostDelayedTask(WrapTask(std::move(task)), delay);
+      task_queue_->PostDelayedTask(RTC_FROM_HERE, WrapTask(std::move(task)),
+                                   delay);
     }
     void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
                                       TimeDelta delay) override {
       ++parent_factory_->delayed_high_precision_count_;
-      task_queue_->PostDelayedHighPrecisionTask(WrapTask(std::move(task)),
-                                                delay);
+      task_queue_->PostDelayedHighPrecisionTask(
+          RTC_FROM_HERE, WrapTask(std::move(task)), delay);
     }
 
    private:
@@ -338,8 +339,9 @@ TEST_P(TaskQueuePacedSenderTest, ReschedulesProcessOnRateChange) {
         } else if (second_packet_time.IsInfinite()) {
           second_packet_time = time_controller.GetClock()->CurrentTime();
           // Avoid invoke SetPacingRate in the context of sending a packet.
-          time_controller.GetMainThread()->PostTask(
-              [&] { pacer.SetPacingRates(2 * kPacingRate, DataRate::Zero()); });
+          time_controller.GetMainThread()->PostTask(RTC_FROM_HERE, [&] {
+            pacer.SetPacingRates(2 * kPacingRate, DataRate::Zero());
+          });
         } else {
           third_packet_time = time_controller.GetClock()->CurrentTime();
         }

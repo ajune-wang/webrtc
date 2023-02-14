@@ -806,9 +806,10 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream,
 }
 
 void OpenSSLStreamAdapter::PostEvent(int events, int err) {
-  owner_->PostTask(SafeTask(task_safety_.flag(), [this, events, err]() {
-    SignalEvent(this, events, err);
-  }));
+  owner_->PostTask(RTC_FROM_HERE,
+                   SafeTask(task_safety_.flag(), [this, events, err]() {
+                     SignalEvent(this, events, err);
+                   }));
 }
 
 void OpenSSLStreamAdapter::SetTimeout(int delay_ms) {
@@ -818,7 +819,7 @@ void OpenSSLStreamAdapter::SetTimeout(int delay_ms) {
   RTC_DCHECK(!timeout_task_.Running());
 
   timeout_task_ = webrtc::RepeatingTaskHandle::DelayedStart(
-      owner_, webrtc::TimeDelta::Millis(delay_ms),
+      RTC_FROM_HERE, owner_, webrtc::TimeDelta::Millis(delay_ms),
       [flag = task_safety_.flag(), this]() {
         if (flag->alive()) {
           RTC_DLOG(LS_INFO) << "DTLS timeout expired";

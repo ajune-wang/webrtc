@@ -160,6 +160,7 @@ void AsyncResolver::Start(const SocketAddress& addr, int family) {
         webrtc::MutexLock lock(&state->mutex);
         if (state->status == State::Status::kLive) {
           caller_task_queue->PostTask(
+              RTC_FROM_HERE,
               [this, error, addresses = std::move(addresses), state] {
                 bool live;
                 {

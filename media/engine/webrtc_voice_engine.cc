@@ -2156,6 +2156,7 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
   // the worker thread for the exception case (DELIVERY_UNKNOWN_SSRC) and
   // how retry is attempted.
   worker_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this, packet = packet]() mutable {
         RTC_DCHECK_RUN_ON(worker_thread_);
 
@@ -2243,9 +2244,10 @@ void WebRtcVoiceMediaChannel::OnNetworkRouteChanged(
 
   call_->OnAudioTransportOverheadChanged(network_route.packet_overhead);
 
-  worker_thread_->PostTask(SafeTask(
-      task_safety_.flag(),
-      [this, name = std::string(transport_name), route = network_route] {
+  worker_thread_->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(task_safety_.flag(), [this, name = std::string(transport_name),
+                                     route = network_route] {
         RTC_DCHECK_RUN_ON(worker_thread_);
         call_->GetTransportControllerSend()->OnNetworkRouteChanged(name, route);
       }));

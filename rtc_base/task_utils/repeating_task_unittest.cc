@@ -147,7 +147,7 @@ TEST(RepeatingTaskTest, TaskIsStoppedOnStop) {
   FakeTaskQueue task_queue(&clock);
   std::atomic_int counter(0);
   auto handle = RepeatingTaskHandle::Start(
-      &task_queue,
+      RTC_FROM_HERE, &task_queue,
       [&] {
         counter++;
         return kShortInterval;
@@ -176,7 +176,7 @@ TEST(RepeatingTaskTest, CompensatesForLongRunTime) {
   SimulatedClock clock(Timestamp::Zero());
   FakeTaskQueue task_queue(&clock);
   RepeatingTaskHandle::Start(
-      &task_queue,
+      RTC_FROM_HERE, &task_queue,
       [&] {
         ++counter;
         // Task takes longer than the repeat duration.
@@ -199,7 +199,7 @@ TEST(RepeatingTaskTest, CompensatesForShortRunTime) {
   FakeTaskQueue task_queue(&clock);
   std::atomic_int counter(0);
   RepeatingTaskHandle::Start(
-      &task_queue,
+      RTC_FROM_HERE, &task_queue,
       [&] {
         // Simulate the task taking 100ms, which should be compensated for.
         counter++;
@@ -223,9 +223,10 @@ TEST(RepeatingTaskTest, CancelDelayedTaskBeforeItRuns) {
   EXPECT_CALL(mock, Delete).WillOnce(Invoke([&done] { done.Set(); }));
   TaskQueueForTest task_queue("queue");
   auto handle = RepeatingTaskHandle::DelayedStart(
-      task_queue.Get(), TimeDelta::Millis(100), MoveOnlyClosure(&mock));
+      RTC_FROM_HERE, task_queue.Get(), TimeDelta::Millis(100),
+      MoveOnlyClosure(&mock));
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
   EXPECT_TRUE(done.Wait(kTimeout));
 }
 
@@ -235,10 +236,10 @@ TEST(RepeatingTaskTest, CancelTaskAfterItRuns) {
   EXPECT_CALL(mock, Call).WillOnce(Return(TimeDelta::Millis(100)));
   EXPECT_CALL(mock, Delete).WillOnce(Invoke([&done] { done.Set(); }));
   TaskQueueForTest task_queue("queue");
-  auto handle =
-      RepeatingTaskHandle::Start(task_queue.Get(), MoveOnlyClosure(&mock));
+  auto handle = RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(),
+                                           MoveOnlyClosure(&mock));
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
   EXPECT_TRUE(done.Wait(kTimeout));
 }
 
@@ -246,11 +247,12 @@ TEST(RepeatingTaskTest, TaskCanStopItself) {
   std::atomic_int counter(0);
   SimulatedClock clock(Timestamp::Zero());
   FakeTaskQueue task_queue(&clock);
-  RepeatingTaskHandle handle = RepeatingTaskHandle::Start(&task_queue, [&] {
-    ++counter;
-    handle.Stop();
-    return TimeDelta::Millis(2);
-  });
+  RepeatingTaskHandle handle =
+      RepeatingTaskHandle::Start(RTC_FROM_HERE, &task_queue, [&] {
+        ++counter;
+        handle.Stop();
+        return TimeDelta::Millis(2);
+      });
   EXPECT_EQ(task_queue.last_delay(), TimeDelta::Zero());
   // Task cancelled itself so wants to be released.
   EXPECT_TRUE(task_queue.AdvanceTimeAndRunLastTask());
@@ -261,10 +263,11 @@ TEST(RepeatingTaskTest, TaskCanStopItselfByReturningInfinity) {
   std::atomic_int counter(0);
   SimulatedClock clock(Timestamp::Zero());
   FakeTaskQueue task_queue(&clock);
-  RepeatingTaskHandle handle = RepeatingTaskHandle::Start(&task_queue, [&] {
-    ++counter;
-    return TimeDelta::PlusInfinity();
-  });
+  RepeatingTaskHandle handle =
+      RepeatingTaskHandle::Start(RTC_FROM_HERE, &task_queue, [&] {
+        ++counter;
+        return TimeDelta::PlusInfinity();
+      });
   EXPECT_EQ(task_queue.last_delay(), TimeDelta::Zero());
   // Task cancelled itself so wants to be released.
   EXPECT_TRUE(task_queue.AdvanceTimeAndRunLastTask());
@@ -281,7 +284,8 @@ TEST(RepeatingTaskTest, ZeroReturnValueRepostsTheTask) {
         return TimeDelta::PlusInfinity();
       }));
   TaskQueueForTest task_queue("queue");
-  RepeatingTaskHandle::Start(task_queue.Get(), MoveOnlyClosure(&closure));
+  RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(),
+                             MoveOnlyClosure(&closure));
   EXPECT_TRUE(done.Wait(kTimeout));
 }
 
@@ -296,7 +300,8 @@ TEST(RepeatingTaskTest, StartPeriodicTask) {
         return TimeDelta::PlusInfinity();
       }));
   TaskQueueForTest task_queue("queue");
-  RepeatingTaskHandle::Start(task_queue.Get(), closure.AsStdFunction());
+  RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(),
+                             closure.AsStdFunction());
   EXPECT_TRUE(done.Wait(kTimeout));
 }
 
@@ -307,7 +312,7 @@ TEST(RepeatingTaskTest, Example) {
     TimeDelta TimeUntilNextRun() { return TimeDelta::Millis(100); }
     void StartPeriodicTask(RepeatingTaskHandle* handle,
                            TaskQueueBase* task_queue) {
-      *handle = RepeatingTaskHandle::Start(task_queue, [this] {
+      *handle = RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue, [this] {
         DoPeriodicTask();
         return TimeUntilNextRun();
       });
@@ -320,15 +325,15 @@ TEST(RepeatingTaskTest, Example) {
   object->StartPeriodicTask(&handle, task_queue.Get());
   // Restart the task
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
   object->StartPeriodicTask(&handle, task_queue.Get());
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
   struct Destructor {
     void operator()() { object.reset(); }
     std::unique_ptr<ObjectOnTaskQueue> object;
   };
-  task_queue.PostTask(Destructor{std::move(object)});
+  task_queue.PostTask(RTC_FROM_HERE, Destructor{std::move(object)});
   // Do not wait for the destructor closure in order to create a race between
   // task queue destruction and running the desctructor closure.
 }
@@ -347,7 +352,7 @@ TEST(RepeatingTaskTest, ClockIntegration) {
 
   expected_delay = TimeDelta::Millis(100);
   RepeatingTaskHandle handle = RepeatingTaskHandle::DelayedStart(
-      &task_queue, TimeDelta::Millis(100),
+      RTC_FROM_HERE, &task_queue, TimeDelta::Millis(100),
       [&clock]() {
         EXPECT_EQ(Timestamp::Millis(100), clock.CurrentTime());
         // Simulate work happening for 10ms.
@@ -373,9 +378,9 @@ TEST(RepeatingTaskTest, CanBeStoppedAfterTaskQueueDeletedTheRepeatingTask) {
         repeating_task = std::move(task);
       });
 
-  RepeatingTaskHandle handle =
-      RepeatingTaskHandle::DelayedStart(&task_queue, TimeDelta::Millis(100),
-                                        [] { return TimeDelta::Millis(100); });
+  RepeatingTaskHandle handle = RepeatingTaskHandle::DelayedStart(
+      RTC_FROM_HERE, &task_queue, TimeDelta::Millis(100),
+      [] { return TimeDelta::Millis(100); });
 
   // shutdown task queue: delete all pending tasks and run 'regular' task.
   repeating_task = nullptr;
@@ -390,8 +395,9 @@ TEST(RepeatingTaskTest, DefaultPrecisionIsLow) {
   EXPECT_CALL(closure, Call())
       .WillOnce(Return(TimeDelta::Millis(1)))
       .WillOnce(Return(TimeDelta::PlusInfinity()));
-  RepeatingTaskHandle::Start(&task_queue, closure.AsStdFunction());
-  // Initial task is a PostTask().
+  RepeatingTaskHandle::Start(RTC_FROM_HERE, &task_queue,
+                             closure.AsStdFunction());
+  // Initial task is a PostTask(RTC_FROM_HERE, ).
   EXPECT_FALSE(task_queue.last_precision().has_value());
   EXPECT_FALSE(task_queue.AdvanceTimeAndRunLastTask());
   // Repeated task is a delayed task with the default precision: low.
@@ -410,9 +416,10 @@ TEST(RepeatingTaskTest, CanSpecifyToPostTasksWithLowPrecision) {
   EXPECT_CALL(closure, Call())
       .WillOnce(Return(TimeDelta::Millis(1)))
       .WillOnce(Return(TimeDelta::PlusInfinity()));
-  RepeatingTaskHandle::Start(&task_queue, closure.AsStdFunction(),
+  RepeatingTaskHandle::Start(RTC_FROM_HERE, &task_queue,
+                             closure.AsStdFunction(),
                              TaskQueueBase::DelayPrecision::kLow);
-  // Initial task is a PostTask().
+  // Initial task is a PostTask(RTC_FROM_HERE, ).
   EXPECT_FALSE(task_queue.last_precision().has_value());
   EXPECT_FALSE(task_queue.AdvanceTimeAndRunLastTask());
   // Repeated task is a delayed task with the specified precision.
@@ -431,9 +438,10 @@ TEST(RepeatingTaskTest, CanSpecifyToPostTasksWithHighPrecision) {
   EXPECT_CALL(closure, Call())
       .WillOnce(Return(TimeDelta::Millis(1)))
       .WillOnce(Return(TimeDelta::PlusInfinity()));
-  RepeatingTaskHandle::Start(&task_queue, closure.AsStdFunction(),
+  RepeatingTaskHandle::Start(RTC_FROM_HERE, &task_queue,
+                             closure.AsStdFunction(),
                              TaskQueueBase::DelayPrecision::kHigh);
-  // Initial task is a PostTask().
+  // Initial task is a PostTask(RTC_FROM_HERE, ).
   EXPECT_FALSE(task_queue.last_precision().has_value());
   EXPECT_FALSE(task_queue.AdvanceTimeAndRunLastTask());
   // Repeated task is a delayed task with the specified precision.

@@ -293,8 +293,9 @@ void RtpTransceiver::SetChannel(
     channel_->SetRtpTransport(transport_lookup(channel_->mid()));
     channel_->SetFirstPacketReceivedCallback(
         [thread = thread_, flag = signaling_thread_safety_, this]() mutable {
-          thread->PostTask(
-              SafeTask(std::move(flag), [this]() { OnFirstPacketReceived(); }));
+          thread->PostTask(RTC_FROM_HERE, SafeTask(std::move(flag), [this]() {
+                             OnFirstPacketReceived();
+                           }));
         });
   });
   PushNewMediaChannelAndDeleteChannel(nullptr);

@@ -60,6 +60,7 @@ class TestNackRequester : public ::testing::Test,
 
     waiting_for_send_nack_ = true;
     loop_.task_queue()->PostDelayedTask(
+        RTC_FROM_HERE,
         [this]() {
           timed_out_ = true;
           loop_.Quit();

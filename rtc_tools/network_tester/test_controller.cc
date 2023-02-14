@@ -67,9 +67,10 @@ void TestController::SendConnectTo(const std::string& hostname, int port) {
 void TestController::SendData(const NetworkTesterPacket& packet,
                               absl::optional<size_t> data_size) {
   if (!packet_sender_thread_->IsCurrent()) {
-    packet_sender_thread_->PostTask(SafeTask(
-        task_safety_flag_,
-        [this, packet, data_size]() { this->SendData(packet, data_size); }));
+    packet_sender_thread_->PostTask(
+        RTC_FROM_HERE, SafeTask(task_safety_flag_, [this, packet, data_size]() {
+          this->SendData(packet, data_size);
+        }));
     return;
   }
   RTC_DCHECK_RUN_ON(packet_sender_thread_.get());

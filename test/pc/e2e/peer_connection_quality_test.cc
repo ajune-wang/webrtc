@@ -340,7 +340,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
 
   // Setup alive logging. It is done to prevent test infra to think that test is
   // dead.
-  RepeatingTaskHandle::DelayedStart(task_queue_->Get(),
+  RepeatingTaskHandle::DelayedStart(RTC_FROM_HERE, task_queue_->Get(),
                                     kAliveMessageLogInterval, []() {
                                       std::printf("Test is still running...\n");
                                       return kAliveMessageLogInterval;

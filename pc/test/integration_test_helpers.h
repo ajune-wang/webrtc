@@ -997,6 +997,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
       RelaySdpMessageIfReceiverExists(type, msg);
     } else {
       rtc::Thread::Current()->PostDelayedTask(
+          RTC_FROM_HERE,
           SafeTask(task_safety_.flag(),
                    [this, type, msg] {
                      RelaySdpMessageIfReceiverExists(type, msg);
@@ -1020,6 +1021,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
       RelayIceMessageIfReceiverExists(sdp_mid, sdp_mline_index, msg);
     } else {
       rtc::Thread::Current()->PostDelayedTask(
+          RTC_FROM_HERE,
           SafeTask(task_safety_.flag(),
                    [this, sdp_mid, sdp_mline_index, msg] {
                      RelayIceMessageIfReceiverExists(sdp_mid, sdp_mline_index,

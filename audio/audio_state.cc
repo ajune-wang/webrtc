@@ -179,7 +179,7 @@ void AudioState::UpdateNullAudioPollerState() {
     if (!null_audio_poller_.Running()) {
       AudioTransport* audio_transport = &audio_transport_;
       null_audio_poller_ = RepeatingTaskHandle::Start(
-          TaskQueueBase::Current(), [audio_transport] {
+          RTC_FROM_HERE, TaskQueueBase::Current(), [audio_transport] {
             static constexpr size_t kNumChannels = 1;
             static constexpr uint32_t kSamplesPerSecond = 48'000;
             // 10ms of samples

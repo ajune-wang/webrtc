@@ -409,13 +409,15 @@ TEST_F(StatsEndToEndTest, TestReceivedRtpPacketStats) {
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       if (sent_rtp_ >= kNumRtpPacketsToSend) {
         // Need to check the stats on the correct thread.
-        task_queue_->PostTask(SafeTask(task_safety_flag_, [this]() {
-          VideoReceiveStreamInterface::Stats stats =
-              receive_stream_->GetStats();
-          if (kNumRtpPacketsToSend == stats.rtp_stats.packet_counter.packets) {
-            observation_complete_.Set();
-          }
-        }));
+        task_queue_->PostTask(RTC_FROM_HERE,
+                              SafeTask(task_safety_flag_, [this]() {
+                                VideoReceiveStreamInterface::Stats stats =
+                                    receive_stream_->GetStats();
+                                if (kNumRtpPacketsToSend ==
+                                    stats.rtp_stats.packet_counter.packets) {
+                                  observation_complete_.Set();
+                                }
+                              }));
         return DROP_PACKET;
       }
       ++sent_rtp_;
@@ -586,6 +588,7 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
         }
       }
       task_queue_->PostTask(
+          RTC_FROM_HERE,
           SafeTask(task_safety_flag_, [this]() { VerifyStats(); }));
       return SEND_PACKET;
     }

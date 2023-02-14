@@ -403,7 +403,7 @@ class Call final : public webrtc::Call,
   std::set<VideoSendStream*> video_send_streams_ RTC_GUARDED_BY(worker_thread_);
   // True if `video_send_streams_` is empty, false if not. The atomic variable
   // is used to decide UMA send statistics behavior and enables avoiding a
-  // PostTask().
+  // PostTask(RTC_FROM_HERE, ).
   std::atomic<bool> video_send_streams_empty_{true};
 
   // Each forwarder wraps an adaptation resource that was added to the call.
@@ -713,7 +713,7 @@ Call::Call(Clock* clock,
 
   ReceiveSideCongestionController* receive_side_cc = &receive_side_cc_;
   receive_side_cc_periodic_task_ = RepeatingTaskHandle::Start(
-      worker_thread_,
+      RTC_FROM_HERE, worker_thread_,
       [receive_side_cc] { return receive_side_cc->MaybeProcess(); },
       TaskQueueBase::DelayPrecision::kLow, clock_);
 }
@@ -1185,13 +1185,15 @@ void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {
   } else {
     // TODO(bugs.webrtc.org/11993): Remove workaround when we no longer need to
     // post to the worker thread.
-    worker_thread_->PostTask(SafeTask(task_safety_.flag(), std::move(closure)));
+    worker_thread_->PostTask(RTC_FROM_HERE,
+                             SafeTask(task_safety_.flag(), std::move(closure)));
   }
 }
 
 void Call::OnAudioTransportOverheadChanged(int transport_overhead_per_packet) {
   RTC_DCHECK_RUN_ON(network_thread_);
   worker_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this, transport_overhead_per_packet]() {
         // TODO(bugs.webrtc.org/11993): Move this over to the network thread.
         RTC_DCHECK_RUN_ON(worker_thread_);

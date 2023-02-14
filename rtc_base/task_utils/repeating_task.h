@@ -52,7 +52,8 @@ class RepeatingTaskHandle {
   // TaskQueue deletes it. It's perfectly fine to destroy the handle while the
   // task is running, since the repeated task is owned by the TaskQueue.
   // The tasks are scheduled onto the task queue using the specified precision.
-  static RepeatingTaskHandle Start(TaskQueueBase* task_queue,
+  static RepeatingTaskHandle Start(const Location& location,
+                                   TaskQueueBase* task_queue,
                                    absl::AnyInvocable<TimeDelta()> closure,
                                    TaskQueueBase::DelayPrecision precision =
                                        TaskQueueBase::DelayPrecision::kLow,
@@ -61,6 +62,7 @@ class RepeatingTaskHandle {
   // DelayedStart is equivalent to Start except that the first invocation of the
   // closure will be delayed by the given amount.
   static RepeatingTaskHandle DelayedStart(
+      const Location& location,
       TaskQueueBase* task_queue,
       TimeDelta first_delay,
       absl::AnyInvocable<TimeDelta()> closure,

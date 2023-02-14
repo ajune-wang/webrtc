@@ -212,7 +212,7 @@ TEST_F(RetransmissionEndToEndTest,
       test::RtcpPacketParser parser;
       EXPECT_TRUE(parser.Parse(packet, length));
       if (parser.pli()->num_packets() > 0)
-        task_queue_->PostTask([this] { Run(); });
+        task_queue_->PostTask(RTC_FROM_HERE, [this] { Run(); });
       return SEND_PACKET;
     }
 
@@ -220,7 +220,8 @@ TEST_F(RetransmissionEndToEndTest,
       if (receive_stream_->GetStats().frames_decoded > 0) {
         frame_decoded_ = true;
       } else if (clock_->TimeInMilliseconds() - start_time_ < 5000) {
-        task_queue_->PostDelayedTask([this] { Run(); }, TimeDelta::Millis(100));
+        task_queue_->PostDelayedTask(
+            RTC_FROM_HERE, [this] { Run(); }, TimeDelta::Millis(100));
         return false;
       }
       return true;
@@ -228,7 +229,7 @@ TEST_F(RetransmissionEndToEndTest,
 
     void PerformTest() override {
       start_time_ = clock_->TimeInMilliseconds();
-      task_queue_->PostTask([this] { Run(); });
+      task_queue_->PostTask(RTC_FROM_HERE, [this] { Run(); });
       test_done_.Wait(rtc::Event::kForever);
     }
 

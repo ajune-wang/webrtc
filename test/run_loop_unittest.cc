@@ -25,7 +25,7 @@ TEST(RunLoopTest, TaskQueueOnThread) {
 TEST(RunLoopTest, Flush) {
   test::RunLoop loop;
   int counter = 0;
-  loop.PostTask([&counter]() { ++counter; });
+  loop.PostTask(RTC_FROM_HERE, [&counter]() { ++counter; });
   EXPECT_EQ(counter, 0);
   loop.Flush();
   EXPECT_EQ(counter, 1);
@@ -35,6 +35,7 @@ TEST(RunLoopTest, Delayed) {
   test::RunLoop loop;
   bool ran = false;
   loop.task_queue()->PostDelayedTask(
+      RTC_FROM_HERE,
       [&ran, &loop]() {
         ran = true;
         loop.Quit();

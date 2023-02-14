@@ -194,10 +194,10 @@ bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
   if (rtp_transport_) {
     DisconnectFromRtpTransport_n();
     // Clear the cached header extensions on the worker.
-    worker_thread_->PostTask(SafeTask(alive_, [this] {
-      RTC_DCHECK_RUN_ON(worker_thread());
-      rtp_header_extensions_.clear();
-    }));
+    worker_thread_->PostTask(RTC_FROM_HERE, SafeTask(alive_, [this] {
+                               RTC_DCHECK_RUN_ON(worker_thread());
+                               rtp_header_extensions_.clear();
+                             }));
   }
 
   rtp_transport_ = rtp_transport;
@@ -234,17 +234,17 @@ void BaseChannel::Enable(bool enable) {
 
   enabled_s_ = enable;
 
-  worker_thread_->PostTask(SafeTask(alive_, [this, enable] {
-    RTC_DCHECK_RUN_ON(worker_thread());
-    // Sanity check to make sure that enabled_ and enabled_s_
-    // stay in sync.
-    RTC_DCHECK_NE(enabled_, enable);
-    if (enable) {
-      EnableMedia_w();
-    } else {
-      DisableMedia_w();
-    }
-  }));
+  worker_thread_->PostTask(RTC_FROM_HERE, SafeTask(alive_, [this, enable] {
+                             RTC_DCHECK_RUN_ON(worker_thread());
+                             // Sanity check to make sure that enabled_ and
+                             // enabled_s_ stay in sync.
+                             RTC_DCHECK_NE(enabled_, enable);
+                             if (enable) {
+                               EnableMedia_w();
+                             } else {
+                               DisableMedia_w();
+                             }
+                           }));
 }
 
 bool BaseChannel::SetLocalContent(const MediaContentDescription* content,
@@ -545,11 +545,11 @@ void BaseChannel::ChannelWritable_n() {
   // We only have to do this PostTask once, when first transitioning to
   // writable.
   if (!was_ever_writable_n_) {
-    worker_thread_->PostTask(SafeTask(alive_, [this] {
-      RTC_DCHECK_RUN_ON(worker_thread());
-      was_ever_writable_ = true;
-      UpdateMediaSendRecvState_w();
-    }));
+    worker_thread_->PostTask(RTC_FROM_HERE, SafeTask(alive_, [this] {
+                               RTC_DCHECK_RUN_ON(worker_thread());
+                               was_ever_writable_ = true;
+                               UpdateMediaSendRecvState_w();
+                             }));
   }
   was_ever_writable_n_ = true;
 }

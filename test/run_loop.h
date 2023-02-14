@@ -34,8 +34,13 @@ class RunLoop {
 
   void Flush();
 
+  // TODO(bugs.webrtc.org/XXXX): Cleanup versions without location.
   void PostTask(absl::AnyInvocable<void() &&> task) {
-    task_queue()->PostTask(std::move(task));
+    PostTask(RTC_FROM_HERE, std::move(task));
+  }
+  void PostTask(const webrtc::Location& location,
+                absl::AnyInvocable<void() &&> task) {
+    task_queue()->PostTask(location, std::move(task));
   }
 
  private:

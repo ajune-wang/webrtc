@@ -649,11 +649,12 @@ AndroidNetworkMonitorFactory::CreateNetworkMonitor(
 void AndroidNetworkMonitor::NotifyConnectionTypeChanged(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller) {
-  network_thread_->PostTask(SafeTask(safety_flag_, [this] {
-    RTC_LOG(LS_INFO)
-        << "Android network monitor detected connection type change.";
-    InvokeNetworksChangedCallback();
-  }));
+  network_thread_->PostTask(
+      RTC_FROM_HERE, SafeTask(safety_flag_, [this] {
+        RTC_LOG(LS_INFO)
+            << "Android network monitor detected connection type change.";
+        InvokeNetworksChangedCallback();
+      }));
 }
 
 void AndroidNetworkMonitor::NotifyOfActiveNetworkList(
@@ -673,6 +674,7 @@ void AndroidNetworkMonitor::NotifyOfNetworkConnect(
   NetworkInformation network_info =
       GetNetworkInformationFromJava(env, j_network_info);
   network_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(safety_flag_, [this, network_info = std::move(network_info)] {
         OnNetworkConnected_n(network_info);
       }));
@@ -682,9 +684,10 @@ void AndroidNetworkMonitor::NotifyOfNetworkDisconnect(
     JNIEnv* env,
     const JavaRef<jobject>& j_caller,
     jlong network_handle) {
-  network_thread_->PostTask(SafeTask(safety_flag_, [this, network_handle] {
-    OnNetworkDisconnected_n(static_cast<NetworkHandle>(network_handle));
-  }));
+  network_thread_->PostTask(
+      RTC_FROM_HERE, SafeTask(safety_flag_, [this, network_handle] {
+        OnNetworkDisconnected_n(static_cast<NetworkHandle>(network_handle));
+      }));
 }
 
 void AndroidNetworkMonitor::NotifyOfNetworkPreference(
@@ -696,9 +699,10 @@ void AndroidNetworkMonitor::NotifyOfNetworkPreference(
   rtc::NetworkPreference preference =
       static_cast<rtc::NetworkPreference>(jpreference);
 
-  network_thread_->PostTask(SafeTask(safety_flag_, [this, type, preference] {
-    OnNetworkPreference_n(type, preference);
-  }));
+  network_thread_->PostTask(RTC_FROM_HERE,
+                            SafeTask(safety_flag_, [this, type, preference] {
+                              OnNetworkPreference_n(type, preference);
+                            }));
 }
 
 }  // namespace jni

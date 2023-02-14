@@ -310,7 +310,8 @@ EmulatedNetworkNodeStats EmulatedNetworkNodeStatsBuilder::Build() const {
 }
 
 void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
-  task_queue_->PostTask([this, packet = std::move(packet)]() mutable {
+  task_queue_->PostTask(RTC_FROM_HERE, [this,
+                                        packet = std::move(packet)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_);
 
     uint64_t packet_id = next_packet_id_++;
@@ -330,7 +331,7 @@ void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
       return;
     Timestamp current_time = clock_->CurrentTime();
     process_task_ = RepeatingTaskHandle::DelayedStart(
-        task_queue_->Get(),
+        RTC_FROM_HERE, task_queue_->Get(),
         std::max(TimeDelta::Zero(),
                  Timestamp::Micros(*next_time_us) - current_time),
         [this]() {
@@ -410,7 +411,7 @@ void NetworkRouterNode::OnPacketReceived(EmulatedIpPacket packet) {
 void NetworkRouterNode::SetReceiver(
     const rtc::IPAddress& dest_ip,
     EmulatedNetworkReceiverInterface* receiver) {
-  task_queue_->PostTask([=] {
+  task_queue_->PostTask(RTC_FROM_HERE, [=] {
     RTC_DCHECK_RUN_ON(task_queue_);
     EmulatedNetworkReceiverInterface* cur_receiver = routing_[dest_ip];
     RTC_CHECK(cur_receiver == nullptr || cur_receiver == receiver)
@@ -426,7 +427,7 @@ void NetworkRouterNode::RemoveReceiver(const rtc::IPAddress& dest_ip) {
 
 void NetworkRouterNode::SetDefaultReceiver(
     EmulatedNetworkReceiverInterface* receiver) {
-  task_queue_->PostTask([=] {
+  task_queue_->PostTask(RTC_FROM_HERE, [=] {
     RTC_DCHECK_RUN_ON(task_queue_);
     if (default_receiver_.has_value()) {
       RTC_CHECK_EQ(*default_receiver_, receiver)
@@ -443,7 +444,7 @@ void NetworkRouterNode::RemoveDefaultReceiver() {
 
 void NetworkRouterNode::SetWatcher(
     std::function<void(const EmulatedIpPacket&)> watcher) {
-  task_queue_->PostTask([=] {
+  task_queue_->PostTask(RTC_FROM_HERE, [=] {
     RTC_DCHECK_RUN_ON(task_queue_);
     watcher_ = watcher;
   });
@@ -451,7 +452,7 @@ void NetworkRouterNode::SetWatcher(
 
 void NetworkRouterNode::SetFilter(
     std::function<bool(const EmulatedIpPacket&)> filter) {
-  task_queue_->PostTask([=] {
+  task_queue_->PostTask(RTC_FROM_HERE, [=] {
     RTC_DCHECK_RUN_ON(task_queue_);
     filter_ = filter;
   });
@@ -555,7 +556,8 @@ void EmulatedEndpointImpl::SendPacket(const rtc::SocketAddress& from,
   }
   EmulatedIpPacket packet(from, to, std::move(packet_data),
                           clock_->CurrentTime(), application_overhead);
-  task_queue_->PostTask([this, packet = std::move(packet)]() mutable {
+  task_queue_->PostTask(RTC_FROM_HERE, [this,
+                                        packet = std::move(packet)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_);
     stats_builder_.OnPacketSent(packet.arrival_time, clock_->CurrentTime(),
                                 packet.to.ipaddr(),

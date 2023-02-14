@@ -1428,6 +1428,7 @@ void RTCStatsCollector::GetStatsReportInternal(
     // the caller may not be expecting a synchronous callback, and it avoids
     // reentrancy problems.
     signaling_thread_->PostTask(
+        RTC_FROM_HERE,
         absl::bind_front(&RTCStatsCollector::DeliverCachedReport,
                          rtc::scoped_refptr<RTCStatsCollector>(this),
                          cached_report_, std::move(requests_)));
@@ -1453,9 +1454,10 @@ void RTCStatsCollector::GetStatsReportInternal(
     // `network_report_event_`.
     network_report_event_.Reset();
     rtc::scoped_refptr<RTCStatsCollector> collector(this);
-    network_thread_->PostTask([collector,
-                               sctp_transport_name = pc_->sctp_transport_name(),
-                               timestamp]() mutable {
+    network_thread_->PostTask(RTC_FROM_HERE, [collector,
+                                              sctp_transport_name =
+                                                  pc_->sctp_transport_name(),
+                                              timestamp]() mutable {
       collector->ProducePartialResultsOnNetworkThread(
           timestamp, std::move(sctp_transport_name));
     });
@@ -1544,7 +1546,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
   network_report_event_.Set();
   rtc::scoped_refptr<RTCStatsCollector> collector(this);
   signaling_thread_->PostTask(
-      [collector] { collector->MergeNetworkReport_s(); });
+      RTC_FROM_HERE, [collector] { collector->MergeNetworkReport_s(); });
 }
 
 void RTCStatsCollector::ProducePartialResultsOnNetworkThreadImpl(

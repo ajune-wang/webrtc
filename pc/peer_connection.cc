@@ -732,6 +732,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
           ReportTransportStats();
         }
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerConnectionState(s);
@@ -741,6 +742,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](PeerConnectionInterface::PeerConnectionState s) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               SetConnectionState(s);
@@ -750,6 +752,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](PeerConnectionInterface::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               SetStandardizedIceConnectionState(s);
@@ -759,6 +762,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](cricket::IceGatheringState s) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerGatheringState(s);
@@ -769,16 +773,18 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
              const std::vector<cricket::Candidate>& candidates) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
-            SafeTask(signaling_thread_safety_.flag(),
-                     [this, t = transport, c = candidates]() {
-                       RTC_DCHECK_RUN_ON(signaling_thread());
-                       OnTransportControllerCandidatesGathered(t, c);
-                     }));
+            RTC_FROM_HERE, SafeTask(signaling_thread_safety_.flag(),
+                                    [this, t = transport, c = candidates]() {
+                                      RTC_DCHECK_RUN_ON(signaling_thread());
+                                      OnTransportControllerCandidatesGathered(
+                                          t, c);
+                                    }));
       });
   transport_controller_->SubscribeIceCandidateError(
       [this](const cricket::IceCandidateErrorEvent& event) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, event = event]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerCandidateError(event);
@@ -788,6 +794,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](const std::vector<cricket::Candidate>& c) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, c = c]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerCandidatesRemoved(c);
@@ -797,6 +804,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
       [this](const cricket::CandidatePairChangeEvent& event) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
+            RTC_FROM_HERE,
             SafeTask(signaling_thread_safety_.flag(), [this, event = event]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
               OnTransportControllerCandidateChanged(event);
@@ -2550,6 +2558,7 @@ bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
       transport_controller_->GetDtlsTransport(mid);
   if (dtls_transport) {
     signaling_thread()->PostTask(
+        RTC_FROM_HERE,
         SafeTask(signaling_thread_safety_.flag(),
                  [this, name = dtls_transport->transport_name()] {
                    RTC_DCHECK_RUN_ON(signaling_thread());
@@ -2682,16 +2691,20 @@ void PeerConnection::AddRemoteCandidate(const std::string& mid,
   new_candidate.set_relay_protocol("");
   new_candidate.set_underlying_type_for_vpn(rtc::ADAPTER_TYPE_UNKNOWN);
 
-  network_thread()->PostTask(SafeTask(
-      network_thread_safety_, [this, mid = mid, candidate = new_candidate] {
+  network_thread()->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(network_thread_safety_, [this, mid = mid,
+                                        candidate = new_candidate] {
         RTC_DCHECK_RUN_ON(network_thread());
         std::vector<cricket::Candidate> candidates = {candidate};
         RTCError error =
             transport_controller_->AddRemoteCandidates(mid, candidates);
         if (error.ok()) {
-          signaling_thread()->PostTask(SafeTask(
-              signaling_thread_safety_.flag(),
-              [this, candidate = std::move(candidate)] {
+          signaling_thread()->PostTask(
+              RTC_FROM_HERE,
+              SafeTask(signaling_thread_safety_.flag(), [this,
+                                                         candidate = std::move(
+                                                             candidate)] {
                 ReportRemoteIceCandidateAdded(candidate);
                 // Candidates successfully submitted for checking.
                 if (ice_connection_state() ==
@@ -2936,13 +2949,14 @@ bool PeerConnection::OnTransportChanged(
   if (mid == sctp_mid_n_) {
     data_channel_controller_.OnTransportChanged(data_channel_transport);
     if (dtls_transport) {
-      signaling_thread()->PostTask(SafeTask(
-          signaling_thread_safety_.flag(),
-          [this,
-           name = std::string(dtls_transport->internal()->transport_name())] {
-            RTC_DCHECK_RUN_ON(signaling_thread());
-            SetSctpTransportName(std::move(name));
-          }));
+      signaling_thread()->PostTask(
+          RTC_FROM_HERE,
+          SafeTask(signaling_thread_safety_.flag(),
+                   [this, name = std::string(
+                              dtls_transport->internal()->transport_name())] {
+                     RTC_DCHECK_RUN_ON(signaling_thread());
+                     SetSctpTransportName(std::move(name));
+                   }));
     }
   }
 
@@ -2962,9 +2976,10 @@ void PeerConnection::StartSctpTransport(int local_port,
   if (!sctp_mid_s_)
     return;
 
-  network_thread()->PostTask(SafeTask(
-      network_thread_safety_,
-      [this, mid = *sctp_mid_s_, local_port, remote_port, max_message_size] {
+  network_thread()->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(network_thread_safety_, [this, mid = *sctp_mid_s_, local_port,
+                                        remote_port, max_message_size] {
         rtc::scoped_refptr<SctpTransport> sctp_transport =
             transport_controller_n()->GetSctpTransport(mid);
         if (sctp_transport)
@@ -3010,12 +3025,13 @@ std::function<void(const rtc::CopyOnWriteBuffer& packet,
                    int64_t packet_time_us)>
 PeerConnection::InitializeRtcpCallback() {
   RTC_DCHECK_RUN_ON(network_thread());
-  return [this](const rtc::CopyOnWriteBuffer& packet,
-                int64_t /*packet_time_us*/) {
-    worker_thread()->PostTask(SafeTask(worker_thread_safety_, [this, packet]() {
-      call_ptr_->Receiver()->DeliverRtcpPacket(packet);
-    }));
-  };
+  return
+      [this](const rtc::CopyOnWriteBuffer& packet, int64_t /*packet_time_us*/) {
+        worker_thread()->PostTask(
+            RTC_FROM_HERE, SafeTask(worker_thread_safety_, [this, packet]() {
+              call_ptr_->Receiver()->DeliverRtcpPacket(packet);
+            }));
+      };
 }
 
 }  // namespace webrtc

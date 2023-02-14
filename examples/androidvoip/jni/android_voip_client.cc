@@ -41,6 +41,7 @@ namespace {
 #define RUN_ON_VOIP_THREAD(method, ...)                              \
   if (!voip_thread_->IsCurrent()) {                                  \
     voip_thread_->PostTask(                                          \
+        RTC_FROM_HERE,                                               \
         std::bind(&AndroidVoipClient::method, this, ##__VA_ARGS__)); \
     return;                                                          \
   }                                                                  \
@@ -227,7 +228,7 @@ void AndroidVoipClient::SetEncoder(
   const std::string& chosen_encoder =
       webrtc::JavaToNativeString(env, j_encoder_string);
   voip_thread_->PostTask(
-      [this, chosen_encoder] { SetEncoder(chosen_encoder); });
+      RTC_FROM_HERE, [this, chosen_encoder] { SetEncoder(chosen_encoder); });
 }
 
 void AndroidVoipClient::SetDecoders(const std::vector<std::string>& decoders) {
@@ -257,7 +258,7 @@ void AndroidVoipClient::SetDecoders(
       webrtc::JavaListToNativeVector<std::string, jstring>(
           env, j_decoder_strings, &webrtc::JavaToNativeString);
   voip_thread_->PostTask(
-      [this, chosen_decoders] { SetDecoders(chosen_decoders); });
+      RTC_FROM_HERE, [this, chosen_decoders] { SetDecoders(chosen_decoders); });
 }
 
 void AndroidVoipClient::SetLocalAddress(const std::string& ip_address,
@@ -274,7 +275,7 @@ void AndroidVoipClient::SetLocalAddress(
     jint j_port_number_int) {
   const std::string& ip_address =
       webrtc::JavaToNativeString(env, j_ip_address_string);
-  voip_thread_->PostTask([this, ip_address, j_port_number_int] {
+  voip_thread_->PostTask(RTC_FROM_HERE, [this, ip_address, j_port_number_int] {
     SetLocalAddress(ip_address, j_port_number_int);
   });
 }
@@ -293,7 +294,7 @@ void AndroidVoipClient::SetRemoteAddress(
     jint j_port_number_int) {
   const std::string& ip_address =
       webrtc::JavaToNativeString(env, j_ip_address_string);
-  voip_thread_->PostTask([this, ip_address, j_port_number_int] {
+  voip_thread_->PostTask(RTC_FROM_HERE, [this, ip_address, j_port_number_int] {
     SetRemoteAddress(ip_address, j_port_number_int);
   });
 }
@@ -430,9 +431,10 @@ bool AndroidVoipClient::SendRtp(const uint8_t* packet,
                                 size_t length,
                                 const webrtc::PacketOptions& options) {
   std::vector<uint8_t> packet_copy(packet, packet + length);
-  voip_thread_->PostTask([this, packet_copy = std::move(packet_copy)] {
-    SendRtpPacket(packet_copy);
-  });
+  voip_thread_->PostTask(RTC_FROM_HERE,
+                         [this, packet_copy = std::move(packet_copy)] {
+                           SendRtpPacket(packet_copy);
+                         });
   return true;
 }
 
@@ -448,9 +450,10 @@ void AndroidVoipClient::SendRtcpPacket(
 
 bool AndroidVoipClient::SendRtcp(const uint8_t* packet, size_t length) {
   std::vector<uint8_t> packet_copy(packet, packet + length);
-  voip_thread_->PostTask([this, packet_copy = std::move(packet_copy)] {
-    SendRtcpPacket(packet_copy);
-  });
+  voip_thread_->PostTask(RTC_FROM_HERE,
+                         [this, packet_copy = std::move(packet_copy)] {
+                           SendRtcpPacket(packet_copy);
+                         });
   return true;
 }
 
@@ -473,9 +476,10 @@ void AndroidVoipClient::OnSignalReadRTPPacket(rtc::AsyncPacketSocket* socket,
                                               const rtc::SocketAddress& addr,
                                               const int64_t& timestamp) {
   std::vector<uint8_t> packet_copy(rtp_packet, rtp_packet + size);
-  voip_thread_->PostTask([this, packet_copy = std::move(packet_copy)] {
-    ReadRTPPacket(packet_copy);
-  });
+  voip_thread_->PostTask(RTC_FROM_HERE,
+                         [this, packet_copy = std::move(packet_copy)] {
+                           ReadRTPPacket(packet_copy);
+                         });
 }
 
 void AndroidVoipClient::ReadRTCPPacket(
@@ -498,9 +502,10 @@ void AndroidVoipClient::OnSignalReadRTCPPacket(rtc::AsyncPacketSocket* socket,
                                                const rtc::SocketAddress& addr,
                                                const int64_t& timestamp) {
   std::vector<uint8_t> packet_copy(rtcp_packet, rtcp_packet + size);
-  voip_thread_->PostTask([this, packet_copy = std::move(packet_copy)] {
-    ReadRTCPPacket(packet_copy);
-  });
+  voip_thread_->PostTask(RTC_FROM_HERE,
+                         [this, packet_copy = std::move(packet_copy)] {
+                           ReadRTCPPacket(packet_copy);
+                         });
 }
 
 static jlong JNI_VoipClient_CreateClient(

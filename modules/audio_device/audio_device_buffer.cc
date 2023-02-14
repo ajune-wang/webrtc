@@ -98,7 +98,7 @@ void AudioDeviceBuffer::StartPlayout() {
   }
   RTC_DLOG(LS_INFO) << __FUNCTION__;
   // Clear members tracking playout stats and do it on the task queue.
-  task_queue_.PostTask([this] { ResetPlayStats(); });
+  task_queue_.PostTask(RTC_FROM_HERE, [this] { ResetPlayStats(); });
   // Start a periodic timer based on task queue if not already done by the
   // recording side.
   if (!recording_) {
@@ -117,7 +117,7 @@ void AudioDeviceBuffer::StartRecording() {
   }
   RTC_DLOG(LS_INFO) << __FUNCTION__;
   // Clear members tracking recording stats and do it on the task queue.
-  task_queue_.PostTask([this] { ResetRecStats(); });
+  task_queue_.PostTask(RTC_FROM_HERE, [this] { ResetRecStats(); });
   // Start a periodic timer based on task queue if not already done by the
   // playout side.
   if (!playing_) {
@@ -367,11 +367,13 @@ int32_t AudioDeviceBuffer::GetPlayoutData(void* audio_buffer) {
 }
 
 void AudioDeviceBuffer::StartPeriodicLogging() {
-  task_queue_.PostTask([this] { LogStats(AudioDeviceBuffer::LOG_START); });
+  task_queue_.PostTask(RTC_FROM_HERE,
+                       [this] { LogStats(AudioDeviceBuffer::LOG_START); });
 }
 
 void AudioDeviceBuffer::StopPeriodicLogging() {
-  task_queue_.PostTask([this] { LogStats(AudioDeviceBuffer::LOG_STOP); });
+  task_queue_.PostTask(RTC_FROM_HERE,
+                       [this] { LogStats(AudioDeviceBuffer::LOG_STOP); });
 }
 
 void AudioDeviceBuffer::LogStats(LogState state) {
@@ -477,6 +479,7 @@ void AudioDeviceBuffer::LogStats(LogState state) {
 
   // Keep posting new (delayed) tasks until state is changed to kLogStop.
   task_queue_.PostDelayedTask(
+      RTC_FROM_HERE,
       [this] { AudioDeviceBuffer::LogStats(AudioDeviceBuffer::LOG_ACTIVE); },
       TimeDelta::Millis(time_to_wait_ms));
 }

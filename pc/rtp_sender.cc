@@ -113,7 +113,7 @@ class SignalingThreadCallback {
   void Resolve(const RTCError& error) {
     if (!signaling_thread_->IsCurrent()) {
       signaling_thread_->PostTask(
-          [callback = std::move(callback_), error]() mutable {
+          RTC_FROM_HERE, [callback = std::move(callback_), error]() mutable {
             webrtc::InvokeSetParametersCallback(callback, error);
           });
       callback_ = nullptr;
@@ -283,7 +283,7 @@ void RtpSenderBase::SetParametersInternal(const RtpParameters& parameters,
   if (blocking)
     worker_thread_->BlockingCall(task);
   else
-    worker_thread_->PostTask(std::move(task));
+    worker_thread_->PostTask(RTC_FROM_HERE, std::move(task));
 }
 
 RTCError RtpSenderBase::SetParametersInternalWithAllLayers(
@@ -817,7 +817,7 @@ RTCError VideoRtpSender::GenerateKeyFrame(
                              "Attempted to specify a rid not configured.");
       }
     }
-    worker_thread_->PostTask([&, rids] {
+    worker_thread_->PostTask(RTC_FROM_HERE, [&, rids] {
       video_media_channel()->GenerateSendKeyFrame(ssrc_, rids);
     });
   } else {

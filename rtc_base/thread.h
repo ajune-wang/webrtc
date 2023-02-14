@@ -335,12 +335,27 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   bool IsInvokeToThreadAllowed(rtc::Thread* target);
 
   // From TaskQueueBase
+  // TODO(bugs.webrtc.org/XXXX): Cleanup versions without location.
   void Delete() override;
   void PostTask(absl::AnyInvocable<void() &&> task) override;
+  void PostTask(const webrtc::Location&,
+                absl::AnyInvocable<void() &&> task) override {
+    PostTask(std::move(task));
+  }
   void PostDelayedTask(absl::AnyInvocable<void() &&> task,
                        webrtc::TimeDelta delay) override;
+  void PostDelayedTask(const webrtc::Location&,
+                       absl::AnyInvocable<void() &&> task,
+                       webrtc::TimeDelta delay) override {
+    PostDelayedTask(std::move(task), delay);
+  }
   void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
                                     webrtc::TimeDelta delay) override;
+  void PostDelayedHighPrecisionTask(const webrtc::Location&,
+                                    absl::AnyInvocable<void() &&> task,
+                                    webrtc::TimeDelta delay) override {
+    PostDelayedHighPrecisionTask(std::move(task), delay);
+  }
 
   // ProcessMessages will process I/O and dispatch messages until:
   //  1) cms milliseconds have elapsed (returns true)

@@ -123,16 +123,17 @@ class LimitedTaskQueue {
 
   void PostScheduledTask(absl::AnyInvocable<void() &&> task, Timestamp start) {
     ++queue_size_;
-    task_queue_.PostTask([this, task = std::move(task), start]() mutable {
-      int wait_ms = static_cast<int>(start.ms() - rtc::TimeMillis());
-      if (wait_ms > 0) {
-        SleepMs(wait_ms);
-      }
+    task_queue_.PostTask(
+        RTC_FROM_HERE, [this, task = std::move(task), start]() mutable {
+          int wait_ms = static_cast<int>(start.ms() - rtc::TimeMillis());
+          if (wait_ms > 0) {
+            SleepMs(wait_ms);
+          }
 
-      std::move(task)();
-      --queue_size_;
-      task_executed_.Set();
-    });
+          std::move(task)();
+          --queue_size_;
+          task_executed_.Set();
+        });
 
     task_executed_.Reset();
     if (queue_size_ > kMaxTaskQueueSize) {

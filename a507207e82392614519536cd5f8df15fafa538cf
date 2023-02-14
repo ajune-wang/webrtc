@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cccd07f7_ed23998c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-14T08:58:33Z",
+      "side": 1,
+      "message": "I changed the implementation here as suggested by the reviewers and added a test.",
+      "revId": "a507207e82392614519536cd5f8df15fafa538cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

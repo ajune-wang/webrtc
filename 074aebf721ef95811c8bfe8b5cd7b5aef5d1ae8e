@@ -182,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "043aa147_0e28a77f",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-14T08:58:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf97553d_8be03fa4",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 190,
+        "endChar": 49
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "284f8c01_ad842634",
@@ -267,6 +291,30 @@
       "side": 1,
       "message": "PeerParamsPreprocessor sets the name only if it\u0027s not set by the test writer. That one is used to provide default names. If the name is set in test, then it will be used everywhere. So if you need to depend on names, I recommend setting it in test and then you can ensure that they will be in sync.",
       "parentUuid": "8a67c484_76ebfa87",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "074aebf721ef95811c8bfe8b5cd7b5aef5d1ae8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98801357_138b7406",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-14T08:58:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "304e1db8_8482479a",
       "range": {
         "startLine": 37,
         "startChar": 31,

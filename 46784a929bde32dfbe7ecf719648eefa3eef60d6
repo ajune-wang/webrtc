@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da824fe5_820e47b4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-14T23:13:33Z",
+      "side": 1,
+      "message": "In debugging b/265848768, I need to prove that the `info` that we pass to `bitrate_adjuster_-\u003eOnEncoderInfo()` here is still equal to the return value of the `encoder_-\u003eGetEncoderInfo()` call at line 1872. Declaring `info` as const makes that obvious.",
+      "revId": "46784a929bde32dfbe7ecf719648eefa3eef60d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

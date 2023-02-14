@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8cc894_322db0e2",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-14T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75164ca1_92f8705d",
+      "range": {
+        "startLine": 96,
+        "startChar": 52,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4107f5e_8edc5a3e",
@@ -105,6 +129,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98dd15a1_31851364",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-14T13:54:57Z",
+      "side": 1,
+      "message": "Nice catch. You\u0027re right, PopulateRtpWithCodecSpecifics() covers all cases except for kVideoCodecAV1, which means that in the AV1 case we hit the \"default:\" clause which is to do nothing (not set simulcastIdx). So we need to guard against AV1 too to avoid an accidental change in behavior. Done.",
+      "parentUuid": "2929c61b_566160d5",
+      "range": {
+        "startLine": 209,
+        "startChar": 42,
+        "endLine": 209,
+        "endChar": 56
+      },
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f08e8020_771637fc",
@@ -118,6 +166,30 @@
       "writtenOn": "2023-02-14T13:00:34Z",
       "side": 1,
       "message": "nit: This is old code but last_encoded_image_simulcast_index_ should probably just be an optional rather than using the -1 sentinel.",
+      "range": {
+        "startLine": 469,
+        "startChar": 4,
+        "endLine": 469,
+        "endChar": 39
+      },
+      "revId": "f994843c309be6f64f02c3b0123a526db1cd0107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8c3ba60_831999c5",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-14T13:54:57Z",
+      "side": 1,
+      "message": "Agreed but prefer not to fix in the same CL because this test uses -1 instead of optional in several places (e.g. for resolutions as well). I can fix in a separate CL",
+      "parentUuid": "f08e8020_771637fc",
       "range": {
         "startLine": 469,
         "startChar": 4,

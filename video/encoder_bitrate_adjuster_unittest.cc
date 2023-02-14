@@ -136,6 +136,12 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
         }
         RTC_DCHECK_GE(network_utilization_factor, media_utilization_factor);
 
+        if (layer_bitrate_bps == 0 || layer_framerate_fps <= 0.0) {
+          // Layer appears to be inactive, omit emitting frame.
+          sequence_idx_[si][ti] = (sequence_idx_[si][ti] + 1) % kSequenceLength;
+          continue;
+        }
+
         // Frame size based on constant (media) overshoot.
         const size_t media_frame_size = media_utilization_factor *
                                         (layer_bitrate_bps / 8.0) /
@@ -166,7 +172,6 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
                 : media_frame_size + network_frame_size_diff_bytes);
 
         adjuster_->OnEncodedFrame(frame_size, si, ti);
-        sequence_idx = ++sequence_idx % kSequenceLength;
       }
     }
   }
@@ -190,7 +195,8 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
                   double allowed_error_fraction) {
     for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
       for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
-        if (expected_allocation.HasBitrate(si, ti)) {
+        if (expected_allocation.HasBitrate(si, ti) &&
+            expected_allocation.GetBitrate(si, ti) > 0) {
           EXPECT_TRUE(actual_allocation.HasBitrate(si, ti));
           uint32_t expected_layer_bitrate_bps =
               expected_allocation.GetBitrate(si, ti);
@@ -198,8 +204,6 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
                       actual_allocation.GetBitrate(si, ti),
                       static_cast<uint32_t>(expected_layer_bitrate_bps *
                                             allowed_error_fraction));
-        } else {
-          EXPECT_FALSE(actual_allocation.HasBitrate(si, ti));
         }
       }
     }
@@ -500,6 +504,64 @@ TEST_F(EncoderBitrateAdjusterTest, DontExceedMediaRateEvenWithHeadroom) {
     ExpectNear(MultiplyAllocation(current_input_allocation_, 1 / 1.1),
                current_adjusted_allocation_, 0.015);
   }
+}
+
+TEST_F(EncoderBitrateAdjusterTest, HandlesMissingFpsInfo) {
+  // Set up single-layer stream.
+  current_input_allocation_.SetBitrate(0, 0, 100000);
+  target_framerate_fps_ = 30;
+  SetUpAdjuster(1, 1, false);
+
+  // Clear the fps_allocation entirely.
+  encoder_info_.fps_allocation[0].clear();
+  adjuster_->OnEncoderInfo(encoder_info_);
+
+  // Input and adjusted should be a match without changes.
+  InsertFrames({{1.0}}, kWindowSizeMs);
+  current_adjusted_allocation_ =
+      adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
+          current_input_allocation_, target_framerate_fps_));
+  ExpectNear(current_input_allocation_, current_adjusted_allocation_, 0.00);
+}
+
+TEST_F(EncoderBitrateAdjusterTest, NoBitrateForTl0) {
+  // Set up a stream with two temporal layers - but assign not bitrate for TL0
+  // for whatever bizarre reason.
+  current_input_allocation_.SetBitrate(0, 0, 0);
+  current_input_allocation_.SetBitrate(0, 1, 100000);
+  target_framerate_fps_ = 30;
+  SetUpAdjuster(1, 2, false);
+
+  // Input and adjusted should be a match without changes.
+  InsertFrames({{1.0}}, kWindowSizeMs);
+  current_adjusted_allocation_ =
+      adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
+          current_input_allocation_, target_framerate_fps_));
+  ExpectNear(current_input_allocation_, current_adjusted_allocation_, 0.00);
+}
+
+TEST_F(EncoderBitrateAdjusterTest, NoFpsForTl0) {
+  // Set up a stream with two temporal layers.
+  current_input_allocation_.SetBitrate(0, 0, 100000);
+  current_input_allocation_.SetBitrate(0, 1, 100000);
+  target_framerate_fps_ = 30;
+  SetUpAdjuster(1, 2, false);
+
+  // Set the fps assigned to TL0 to 0. This shouldn't even be allowed, what's
+  // going on?!
+  encoder_info_.fps_allocation[0][0] = 0;
+  adjuster_->OnEncoderInfo(encoder_info_);
+
+  InsertFrames({{1.0}}, kWindowSizeMs);
+  current_adjusted_allocation_ =
+      adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
+          current_input_allocation_, target_framerate_fps_));
+
+  // All bitrate should go to TL1 as that's the only active layer, IDK?
+  VideoBitrateAllocation expected_allocation = current_input_allocation_;
+  expected_allocation.SetBitrate(0, 0, 0);
+  expected_allocation.SetBitrate(0, 1, 200000);
+  ExpectNear(expected_allocation, current_adjusted_allocation_, 0.00);
 }
 
 }  // namespace test

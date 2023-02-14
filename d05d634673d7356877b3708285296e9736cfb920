@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8444097_ac1d4309",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-14T22:40:42Z",
+      "side": 1,
+      "message": "This is just a cosmetic change, because the `float` value will be promoted to a `double` in the comparison.",
+      "revId": "d05d634673d7356877b3708285296e9736cfb920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecdb4751_37ccbd41",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-14T22:40:42Z",
+      "side": 1,
+      "message": "This check allows us to set `encoder_settings_.maxFramerate` (a `uint32_t`) to 1 at line 789.\n\nIf `encoder_settings_.maxFramerate` is set to 1, then along with the bug fixed by https://webrtc-review.googlesource.com/c/src/+/292784, we may be able to arrive at a state that causes the crash in b/265848768.",
+      "revId": "d05d634673d7356877b3708285296e9736cfb920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "340556bd_8bc89b78",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-14T22:40:42Z",
+      "side": 1,
+      "message": "We set `encoder_settings_.maxFramerate` here.",
+      "revId": "d05d634673d7356877b3708285296e9736cfb920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

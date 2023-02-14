@@ -64,22 +64,25 @@ bool DegradedCall::FakeNetworkPipeOnTaskQueue::Process() {
     return false;
   }
 
-  task_queue_->PostTask(SafeTask(call_alive_, [this, time_to_next] {
-    RTC_DCHECK_RUN_ON(task_queue_);
-    int64_t next_process_time = *time_to_next + clock_->TimeInMilliseconds();
-    if (!next_process_ms_ || next_process_time < *next_process_ms_) {
-      next_process_ms_ = next_process_time;
-      task_queue_->PostDelayedHighPrecisionTask(
-          SafeTask(call_alive_,
-                   [this] {
-                     RTC_DCHECK_RUN_ON(task_queue_);
-                     if (!Process()) {
-                       next_process_ms_.reset();
-                     }
-                   }),
-          TimeDelta::Millis(*time_to_next));
-    }
-  }));
+  task_queue_->PostTask(
+      RTC_FROM_HERE, SafeTask(call_alive_, [this, time_to_next] {
+        RTC_DCHECK_RUN_ON(task_queue_);
+        int64_t next_process_time =
+            *time_to_next + clock_->TimeInMilliseconds();
+        if (!next_process_ms_ || next_process_time < *next_process_ms_) {
+          next_process_ms_ = next_process_time;
+          task_queue_->PostDelayedHighPrecisionTask(
+              RTC_FROM_HERE,
+              SafeTask(call_alive_,
+                       [this] {
+                         RTC_DCHECK_RUN_ON(task_queue_);
+                         if (!Process()) {
+                           next_process_ms_.reset();
+                         }
+                       }),
+              TimeDelta::Millis(*time_to_next));
+        }
+      }));
 
   return true;
 }
@@ -149,6 +152,7 @@ DegradedCall::DegradedCall(
     receive_pipe_->SetReceiver(call_->Receiver());
     if (receive_configs_.size() > 1) {
       call_->network_thread()->PostDelayedTask(
+          RTC_FROM_HERE,
           SafeTask(call_alive_, [this] { UpdateReceiveNetworkConfig(); }),
           receive_configs_[0].duration);
     }
@@ -160,6 +164,7 @@ DegradedCall::DegradedCall(
         call_->network_thread(), call_alive_, clock_, std::move(network));
     if (send_configs_.size() > 1) {
       call_->network_thread()->PostDelayedTask(
+          RTC_FROM_HERE,
           SafeTask(call_alive_, [this] { UpdateSendNetworkConfig(); }),
           send_configs_[0].duration);
     }
@@ -174,7 +179,7 @@ DegradedCall::~DegradedCall() {
   // another Closure guarded by `call_alive_` may be called.
   rtc::Event event;
   call_->network_thread()->PostTask(
-      [flag = std::move(call_alive_), &event]() mutable {
+      RTC_FROM_HERE, [flag = std::move(call_alive_), &event]() mutable {
         flag->SetNotAlive();
         event.Set();
       });
@@ -371,6 +376,7 @@ void DegradedCall::UpdateSendNetworkConfig() {
   send_config_index_ = (send_config_index_ + 1) % send_configs_.size();
   send_simulated_network_->SetConfig(send_configs_[send_config_index_]);
   call_->network_thread()->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(call_alive_, [this] { UpdateSendNetworkConfig(); }),
       send_configs_[send_config_index_].duration);
 }
@@ -380,6 +386,7 @@ void DegradedCall::UpdateReceiveNetworkConfig() {
   receive_simulated_network_->SetConfig(
       receive_configs_[receive_config_index_]);
   call_->network_thread()->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(call_alive_, [this] { UpdateReceiveNetworkConfig(); }),
       receive_configs_[receive_config_index_].duration);
 }

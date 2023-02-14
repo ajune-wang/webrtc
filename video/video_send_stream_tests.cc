@@ -1484,26 +1484,27 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
       const uint32_t ssrc = rtp_packet.Ssrc();
       RTC_DCHECK(stream_);
 
-      task_queue_->PostTask(SafeTask(task_safety_flag_, [this, ssrc]() {
-        VideoSendStream::Stats stats = stream_->GetStats();
-        if (!stats.substreams.empty()) {
-          EXPECT_EQ(1u, stats.substreams.size());
-          int total_bitrate_bps =
-              stats.substreams.begin()->second.total_bitrate_bps;
-          test::GetGlobalMetricsLogger()->LogSingleValueMetric(
-              "bitrate_stats_min_transmit_bitrate_low_remb", "bitrate_bps",
-              static_cast<size_t>(total_bitrate_bps) / 1000.0,
-              test::Unit::kKilobitsPerSecond,
-              test::ImprovementDirection::kNeitherIsBetter);
-          if (total_bitrate_bps > kHighBitrateBps) {
-            rtp_rtcp_->SetRemb(kRembBitrateBps, {ssrc});
-            bitrate_capped_ = true;
-          } else if (bitrate_capped_ &&
-                     total_bitrate_bps < kRembRespectedBitrateBps) {
-            observation_complete_.Set();
-          }
-        }
-      }));
+      task_queue_->PostTask(
+          RTC_FROM_HERE, SafeTask(task_safety_flag_, [this, ssrc]() {
+            VideoSendStream::Stats stats = stream_->GetStats();
+            if (!stats.substreams.empty()) {
+              EXPECT_EQ(1u, stats.substreams.size());
+              int total_bitrate_bps =
+                  stats.substreams.begin()->second.total_bitrate_bps;
+              test::GetGlobalMetricsLogger()->LogSingleValueMetric(
+                  "bitrate_stats_min_transmit_bitrate_low_remb", "bitrate_bps",
+                  static_cast<size_t>(total_bitrate_bps) / 1000.0,
+                  test::Unit::kKilobitsPerSecond,
+                  test::ImprovementDirection::kNeitherIsBetter);
+              if (total_bitrate_bps > kHighBitrateBps) {
+                rtp_rtcp_->SetRemb(kRembBitrateBps, {ssrc});
+                bitrate_capped_ = true;
+              } else if (bitrate_capped_ &&
+                         total_bitrate_bps < kRembRespectedBitrateBps) {
+                observation_complete_.Set();
+              }
+            }
+          }));
 
       // Packets don't have to be delivered since the test is the receiver.
       return DROP_PACKET;
@@ -1601,7 +1602,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTC_DCHECK_RUN_ON(&module_process_thread_);
-      task_queue_->PostTask([this]() {
+      task_queue_->PostTask(RTC_FROM_HERE, [this]() {
         RTC_DCHECK_RUN_ON(&task_queue_thread_);
         if (!call_)
           return;
@@ -1703,7 +1704,7 @@ TEST_F(VideoSendStreamTest, DISABLED_RelayToDirectRoute) {
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       RTC_DCHECK_RUN_ON(&module_process_thread_);
-      task_queue_->PostTask([this]() {
+      task_queue_->PostTask(RTC_FROM_HERE, [this]() {
         RTC_DCHECK_RUN_ON(&task_queue_thread_);
         if (!call_)
           return;
@@ -1899,7 +1900,7 @@ class MaxPaddingSetTest : public test::SendTest {
     // Check the stats on the correct thread and signal the 'complete' flag
     // once we detect that we're done.
 
-    task_queue_->PostTask([this]() {
+    task_queue_->PostTask(RTC_FROM_HERE, [this]() {
       RTC_DCHECK_RUN_ON(&task_queue_thread_);
       // In case we get a callback during teardown.
       // When this happens, OnStreamsStopped() has been called already,
@@ -3892,7 +3893,7 @@ class ContentSwitchTest : public test::SendTest {
   }
 
   Action OnSendRtp(const uint8_t* packet, size_t length) override {
-    task_queue_->PostTask([this]() {
+    task_queue_->PostTask(RTC_FROM_HERE, [this]() {
       MutexLock lock(&mutex_);
       if (done_)
         return;

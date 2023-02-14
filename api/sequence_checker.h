@@ -96,7 +96,8 @@ class RTC_LOCKABLE SequenceChecker
 //     // encoder_->Encode();
 //     // Will work:
 //     rtc::scoped_refptr<Encoder> encoder = encoder_;
-//     encoder_->Queue().PostTask([encoder] { encoder->Encode(); });
+//     encoder_->Queue().PostTask(RTC_FROM_HERE, [encoder] { encoder->Encode();
+//     });
 //   }
 //
 //  private:

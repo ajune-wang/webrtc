@@ -356,7 +356,7 @@ void VideoAnalyzer::Wait() {
   // time, otherwise fail. Hopefully this will reduce test flakiness.
 
   RepeatingTaskHandle stats_polling_task = RepeatingTaskHandle::DelayedStart(
-      task_queue_, kSendStatsPollingInterval, [this] {
+      RTC_FROM_HERE, task_queue_, kSendStatsPollingInterval, [this] {
         PollStats();
         return kSendStatsPollingInterval;
       });

@@ -382,7 +382,7 @@ void VideoReceiveStream2::Start() {
 
   // Start decoding on task queue.
   stats_proxy_.DecoderThreadStarting();
-  decode_queue_.PostTask([this] {
+  decode_queue_.PostTask(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(&decode_queue_);
     decoder_stopped_ = false;
   });
@@ -413,7 +413,7 @@ void VideoReceiveStream2::Stop() {
 
   if (decoder_running_) {
     rtc::Event done;
-    decode_queue_.PostTask([this, &done] {
+    decode_queue_.PostTask(RTC_FROM_HERE, [this, &done] {
       RTC_DCHECK_RUN_ON(&decode_queue_);
       // Set `decoder_stopped_` before deregistering all decoders. This means
       // that any pending encoded frame will return early without trying to
@@ -631,7 +631,7 @@ void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
   // rendered" callback from the renderer.
   VideoFrameMetaData frame_meta(video_frame, clock_->CurrentTime());
   call_->worker_thread()->PostTask(
-      SafeTask(task_safety_.flag(), [frame_meta, this]() {
+      RTC_FROM_HERE, SafeTask(task_safety_.flag(), [frame_meta, this]() {
         RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
         int64_t video_playout_ntp_ms;
         int64_t sync_offset_ms;
@@ -767,9 +767,11 @@ void VideoReceiveStream2::OnEncodedFrame(std::unique_ptr<EncodedFrame> frame) {
   }
   stats_proxy_.OnPreDecode(frame->CodecSpecific()->codecType, qp);
 
-  decode_queue_.PostTask([this, now, keyframe_request_is_due,
-                          received_frame_is_keyframe, frame = std::move(frame),
-                          keyframe_required = keyframe_required_]() mutable {
+  decode_queue_.PostTask(RTC_FROM_HERE, [this, now, keyframe_request_is_due,
+                                         received_frame_is_keyframe,
+                                         frame = std::move(frame),
+                                         keyframe_required =
+                                             keyframe_required_]() mutable {
     RTC_DCHECK_RUN_ON(&decode_queue_);
     if (decoder_stopped_)
       return;
@@ -778,6 +780,7 @@ void VideoReceiveStream2::OnEncodedFrame(std::unique_ptr<EncodedFrame> frame) {
 
     // TODO(bugs.webrtc.org/11993): Make this PostTask to the network thread.
     call_->worker_thread()->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(),
                  [this, now, result = std::move(result),
                   received_frame_is_keyframe, keyframe_request_is_due]() {
@@ -1039,6 +1042,7 @@ VideoReceiveStream2::SetAndGetRecordingState(RecordingState state,
   }
 
   decode_queue_.PostTask(
+      RTC_FROM_HERE,
       [this, &event, &old_state, callback = std::move(state.callback),
        last_keyframe_request = std::move(last_keyframe_request)] {
         RTC_DCHECK_RUN_ON(&decode_queue_);

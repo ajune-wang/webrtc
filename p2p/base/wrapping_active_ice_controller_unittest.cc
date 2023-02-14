@@ -213,7 +213,7 @@ TEST(WrappingActiveIceControllerTest, HandlesSortAndSwitchRequest) {
   // Block the main task queue until ready.
   Event init;
   TimeDelta init_delay = TimeDelta::Millis(10);
-  main.PostTask([&init, &init_delay] { init.Wait(init_delay); });
+  main.PostTask(RTC_FROM_HERE, [&init, &init_delay] { init.Wait(init_delay); });
 
   NiceMock<MockIceAgent> agent;
   std::unique_ptr<NiceMockIceController> will_move =
@@ -258,7 +258,7 @@ TEST(WrappingActiveIceControllerTest, StartPingingAfterSortAndSwitch) {
   // Block the main task queue until ready.
   Event init;
   TimeDelta init_delay = TimeDelta::Millis(10);
-  main.PostTask([&init, &init_delay] { init.Wait(init_delay); });
+  main.PostTask(RTC_FROM_HERE, [&init, &init_delay] { init.Wait(init_delay); });
 
   NiceMock<MockIceAgent> agent;
   std::unique_ptr<NiceMockIceController> will_move =

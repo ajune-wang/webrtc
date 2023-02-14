@@ -74,7 +74,7 @@ void AudioEgress::SendAudioData(std::unique_ptr<AudioFrame> audio_frame) {
   RTC_DCHECK_LE(audio_frame->num_channels_, 8);
 
   encoder_queue_.PostTask(
-      [this, audio_frame = std::move(audio_frame)]() mutable {
+      RTC_FROM_HERE, [this, audio_frame = std::move(audio_frame)]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         if (!rtp_rtcp_->SendingMedia()) {
           return;
@@ -173,7 +173,7 @@ bool AudioEgress::SendTelephoneEvent(int dtmf_event, int duration_ms) {
 }
 
 void AudioEgress::SetMute(bool mute) {
-  encoder_queue_.PostTask([this, mute] {
+  encoder_queue_.PostTask(RTC_FROM_HERE, [this, mute] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     encoder_context_.mute_ = mute;
   });

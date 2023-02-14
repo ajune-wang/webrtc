@@ -261,6 +261,7 @@ void StunRequest::SendInternal() {
 
 void StunRequest::SendDelayed(webrtc::TimeDelta delay) {
   network_thread()->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this]() { SendInternal(); }), delay);
 }
 

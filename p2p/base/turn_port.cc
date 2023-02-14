@@ -913,8 +913,9 @@ void TurnPort::OnAllocateError(int error_code, absl::string_view reason) {
   // We will send SignalPortError asynchronously as this can be sent during
   // port initialization. This way it will not be blocking other port
   // creation.
-  thread()->PostTask(
-      SafeTask(task_safety_.flag(), [this] { SignalPortError(this); }));
+  thread()->PostTask(RTC_FROM_HERE, SafeTask(task_safety_.flag(), [this] {
+                       SignalPortError(this);
+                     }));
   std::string address = GetLocalAddress().HostAsSensitiveURIString();
   int port = GetLocalAddress().port();
   if (server_address_.proto == PROTO_TCP &&
@@ -931,8 +932,8 @@ void TurnPort::OnRefreshError() {
   // Need to clear the requests asynchronously because otherwise, the refresh
   // request may be deleted twice: once at the end of the message processing
   // and the other in HandleRefreshError().
-  thread()->PostTask(
-      SafeTask(task_safety_.flag(), [this] { HandleRefreshError(); }));
+  thread()->PostTask(RTC_FROM_HERE, SafeTask(task_safety_.flag(),
+                                             [this] { HandleRefreshError(); }));
 }
 
 void TurnPort::HandleRefreshError() {
@@ -1250,7 +1251,8 @@ void TurnPort::HandleConnectionDestroyed(Connection* conn) {
     // If an entry gets reused (associated with a new connection) while this
     // task is pending, the entry will reset the safety flag, thus cancel this
     // task.
-    thread()->PostDelayedTask(SafeTask(flag,
+    thread()->PostDelayedTask(RTC_FROM_HERE,
+                              SafeTask(flag,
                                        [this, entry] {
                                          entries_.erase(absl::c_find_if(
                                              entries_, [entry](const auto& e) {
@@ -1417,8 +1419,9 @@ void TurnAllocateRequest::OnErrorResponse(StunMessage* response) {
       // We must handle this error async because trying to delete the socket in
       // OnErrorResponse will cause a deadlock on the socket.
       TurnPort* port = port_;
-      port->thread()->PostTask(SafeTask(
-          port->task_safety_.flag(), [port] { port->OnAllocateMismatch(); }));
+      port->thread()->PostTask(
+          RTC_FROM_HERE, SafeTask(port->task_safety_.flag(),
+                                  [port] { port->OnAllocateMismatch(); }));
     } break;
     default:
       RTC_LOG(LS_WARNING) << port_->ToString()
@@ -1517,7 +1520,8 @@ void TurnAllocateRequest::OnTryAlternate(StunMessage* response, int code) {
   // we're still inside that socket's event handler. Doing so will cause
   // deadlock.
   TurnPort* port = port_;
-  port->thread()->PostTask(SafeTask(port->task_safety_.flag(),
+  port->thread()->PostTask(RTC_FROM_HERE,
+                           SafeTask(port->task_safety_.flag(),
                                     [port] { port->TryAlternateServer(); }));
 }
 
@@ -1570,6 +1574,7 @@ void TurnRefreshRequest::OnResponse(StunMessage* response) {
     // allocation; see TurnPort::Release.
     TurnPort* port = port_;
     port->thread()->PostTask(
+        RTC_FROM_HERE,
         SafeTask(port->task_safety_.flag(), [port] { port->Close(); }));
   }
 

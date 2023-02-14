@@ -36,14 +36,14 @@
 
 - (NSArray<RTC_OBJC_TYPE(RTCAudioTrack) *> *)audioTracks {
   if (!_signalingThread->IsCurrent()) {
-    return _signalingThread->BlockingCall([self]() { return self.audioTracks; });
+    return _signalingThread->BlockingCall(RTC_FROM_HERE, [self]() { return self.audioTracks; });
   }
   return [_audioTracks copy];
 }
 
 - (NSArray<RTC_OBJC_TYPE(RTCVideoTrack) *> *)videoTracks {
   if (!_signalingThread->IsCurrent()) {
-    return _signalingThread->BlockingCall([self]() { return self.videoTracks; });
+    return _signalingThread->BlockingCall(RTC_FROM_HERE, [self]() { return self.videoTracks; });
   }
   return [_videoTracks copy];
 }
@@ -55,7 +55,7 @@
 - (void)addAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
   if (!_signalingThread->IsCurrent()) {
     return _signalingThread->BlockingCall(
-        [audioTrack, self]() { return [self addAudioTrack:audioTrack]; });
+        RTC_FROM_HERE, [audioTrack, self]() { return [self addAudioTrack:audioTrack]; });
   }
   if (_nativeMediaStream->AddTrack(audioTrack.nativeAudioTrack)) {
     [_audioTracks addObject:audioTrack];
@@ -65,7 +65,7 @@
 - (void)addVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
   if (!_signalingThread->IsCurrent()) {
     return _signalingThread->BlockingCall(
-        [videoTrack, self]() { return [self addVideoTrack:videoTrack]; });
+        RTC_FROM_HERE, [videoTrack, self]() { return [self addVideoTrack:videoTrack]; });
   }
   if (_nativeMediaStream->AddTrack(videoTrack.nativeVideoTrack)) {
     [_videoTracks addObject:videoTrack];
@@ -75,7 +75,7 @@
 - (void)removeAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
   if (!_signalingThread->IsCurrent()) {
     return _signalingThread->BlockingCall(
-        [audioTrack, self]() { return [self removeAudioTrack:audioTrack]; });
+        RTC_FROM_HERE, [audioTrack, self]() { return [self removeAudioTrack:audioTrack]; });
   }
   NSUInteger index = [_audioTracks indexOfObjectIdenticalTo:audioTrack];
   if (index == NSNotFound) {
@@ -90,7 +90,7 @@
 - (void)removeVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
   if (!_signalingThread->IsCurrent()) {
     return _signalingThread->BlockingCall(
-        [videoTrack, self]() { return [self removeVideoTrack:videoTrack]; });
+        RTC_FROM_HERE, [videoTrack, self]() { return [self removeVideoTrack:videoTrack]; });
   }
   NSUInteger index = [_videoTracks indexOfObjectIdenticalTo:videoTrack];
   if (index == NSNotFound) {

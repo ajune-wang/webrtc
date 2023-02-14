@@ -434,6 +434,7 @@ void BasicPortAllocatorSession::StartGettingPorts() {
   state_ = SessionState::GATHERING;
 
   network_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(network_safety_.flag(), [this] { GetPortConfigurations(); }));
 
   RTC_LOG(LS_INFO) << "Start getting ports with turn_port_prune_policy "
@@ -455,6 +456,7 @@ void BasicPortAllocatorSession::ClearGettingPorts() {
     sequences_[i]->Stop();
   }
   network_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(network_safety_.flag(), [this] { OnConfigStop(); }));
   state_ = SessionState::CLEARED;
 }
@@ -670,10 +672,11 @@ void BasicPortAllocatorSession::ConfigReady(PortConfiguration* config) {
 void BasicPortAllocatorSession::ConfigReady(
     std::unique_ptr<PortConfiguration> config) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  network_thread_->PostTask(SafeTask(
-      network_safety_.flag(), [this, config = std::move(config)]() mutable {
-        OnConfigReady(std::move(config));
-      }));
+  network_thread_->PostTask(
+      RTC_FROM_HERE, SafeTask(network_safety_.flag(),
+                              [this, config = std::move(config)]() mutable {
+                                OnConfigReady(std::move(config));
+                              }));
 }
 
 // Adds a configuration to the list.
@@ -719,10 +722,11 @@ void BasicPortAllocatorSession::OnConfigStop() {
 
 void BasicPortAllocatorSession::AllocatePorts() {
   RTC_DCHECK_RUN_ON(network_thread_);
-  network_thread_->PostTask(SafeTask(
-      network_safety_.flag(), [this, allocation_epoch = allocation_epoch_] {
-        OnAllocate(allocation_epoch);
-      }));
+  network_thread_->PostTask(
+      RTC_FROM_HERE, SafeTask(network_safety_.flag(),
+                              [this, allocation_epoch = allocation_epoch_] {
+                                OnAllocate(allocation_epoch);
+                              }));
 }
 
 void BasicPortAllocatorSession::OnAllocate(int allocation_epoch) {
@@ -950,9 +954,10 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
     }
   }
   if (done_signal_needed) {
-    network_thread_->PostTask(SafeTask(network_safety_.flag(), [this] {
-      OnAllocationSequenceObjectsCreated();
-    }));
+    network_thread_->PostTask(RTC_FROM_HERE,
+                              SafeTask(network_safety_.flag(), [this] {
+                                OnAllocationSequenceObjectsCreated();
+                              }));
   }
 }
 
@@ -1470,6 +1475,7 @@ void AllocationSequence::Start() {
   state_ = kRunning;
 
   session_->network_thread()->PostTask(
+      RTC_FROM_HERE,
       SafeTask(safety_.flag(), [this, epoch = epoch_] { Process(epoch); }));
   // Take a snapshot of the best IP, so that when DisableEquivalentPhases is
   // called next time, we enable all phases if the best IP has since changed.
@@ -1518,6 +1524,7 @@ void AllocationSequence::Process(int epoch) {
   if (state() == kRunning) {
     ++phase_;
     session_->network_thread()->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(safety_.flag(), [this, epoch = epoch_] { Process(epoch); }),
         TimeDelta::Millis(session_->allocator()->step_delay()));
   } else {

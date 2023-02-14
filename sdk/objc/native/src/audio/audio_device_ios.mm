@@ -335,29 +335,30 @@ int AudioDeviceIOS::GetRecordAudioParameters(AudioParameters* params) const {
 void AudioDeviceIOS::OnInterruptionBegin() {
   RTC_DCHECK(thread_);
   LOGI() << "OnInterruptionBegin";
-  thread_->PostTask(SafeTask(safety_, [this] { HandleInterruptionBegin(); }));
+  thread_->PostTask(RTC_FROM_HERE, SafeTask(safety_, [this] { HandleInterruptionBegin(); }));
 }
 
 void AudioDeviceIOS::OnInterruptionEnd() {
   RTC_DCHECK(thread_);
   LOGI() << "OnInterruptionEnd";
-  thread_->PostTask(SafeTask(safety_, [this] { HandleInterruptionEnd(); }));
+  thread_->PostTask(RTC_FROM_HERE, SafeTask(safety_, [this] { HandleInterruptionEnd(); }));
 }
 
 void AudioDeviceIOS::OnValidRouteChange() {
   RTC_DCHECK(thread_);
-  thread_->PostTask(SafeTask(safety_, [this] { HandleValidRouteChange(); }));
+  thread_->PostTask(RTC_FROM_HERE, SafeTask(safety_, [this] { HandleValidRouteChange(); }));
 }
 
 void AudioDeviceIOS::OnCanPlayOrRecordChange(bool can_play_or_record) {
   RTC_DCHECK(thread_);
-  thread_->PostTask(SafeTask(
-      safety_, [this, can_play_or_record] { HandleCanPlayOrRecordChange(can_play_or_record); }));
+  thread_->PostTask(RTC_FROM_HERE, SafeTask(safety_, [this, can_play_or_record] {
+                      HandleCanPlayOrRecordChange(can_play_or_record);
+                    }));
 }
 
 void AudioDeviceIOS::OnChangedOutputVolume() {
   RTC_DCHECK(thread_);
-  thread_->PostTask(SafeTask(safety_, [this] { HandleOutputVolumeChange(); }));
+  thread_->PostTask(RTC_FROM_HERE, SafeTask(safety_, [this] { HandleOutputVolumeChange(); }));
 }
 
 OSStatus AudioDeviceIOS::OnDeliverRecordedData(AudioUnitRenderActionFlags* flags,
@@ -452,7 +453,8 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
       if (glitch_threshold < 120 && delta_time > 120) {
         RTCLog(@"Glitch warning is ignored. Probably caused by device switch.");
       } else {
-        thread_->PostTask(SafeTask(safety_, [this] { HandlePlayoutGlitchDetected(); }));
+        thread_->PostTask(RTC_FROM_HERE,
+                          SafeTask(safety_, [this] { HandlePlayoutGlitchDetected(); }));
       }
     }
   }

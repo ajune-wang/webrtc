@@ -99,7 +99,7 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
   const size_t kTcpOverIpv4HeaderSize = 40;
   SetMaxRtpPacketSize(IP_PACKET_SIZE - kTcpOverIpv4HeaderSize);
   rtt_update_task_ = RepeatingTaskHandle::DelayedStart(
-      worker_queue_, kRttUpdateInterval, [this]() {
+      RTC_FROM_HERE, worker_queue_, kRttUpdateInterval, [this]() {
         PeriodicUpdate();
         return kRttUpdateInterval;
       });
@@ -796,10 +796,11 @@ void ModuleRtpRtcpImpl2::ScheduleRtcpSendEvaluation(TimeDelta duration) {
   // than the worker queue on which it's created on implies that external
   // synchronization is present and removes this activity before destruction.
   if (duration.IsZero()) {
-    worker_queue_->PostTask(SafeTask(task_safety_.flag(), [this] {
-      RTC_DCHECK_RUN_ON(worker_queue_);
-      MaybeSendRtcp();
-    }));
+    worker_queue_->PostTask(RTC_FROM_HERE,
+                            SafeTask(task_safety_.flag(), [this] {
+                              RTC_DCHECK_RUN_ON(worker_queue_);
+                              MaybeSendRtcp();
+                            }));
   } else {
     Timestamp execution_time = clock_->CurrentTime() + duration;
     ScheduleMaybeSendRtcpAtOrAfterTimestamp(execution_time, duration);
@@ -814,6 +815,7 @@ void ModuleRtpRtcpImpl2::ScheduleMaybeSendRtcpAtOrAfterTimestamp(
   // See note in ScheduleRtcpSendEvaluation about why `worker_queue_` can be
   // accessed.
   worker_queue_->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(),
                [this, execution_time] {
                  RTC_DCHECK_RUN_ON(worker_queue_);

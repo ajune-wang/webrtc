@@ -83,6 +83,7 @@ void ChannelReceiveFrameTransformerDelegate::OnTransformedFrame(
     std::unique_ptr<TransformableFrameInterface> frame) {
   rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate> delegate(this);
   channel_receive_thread_->PostTask(
+      RTC_FROM_HERE,
       [delegate = std::move(delegate), frame = std::move(frame)]() mutable {
         delegate->ReceiveFrame(std::move(frame));
       });

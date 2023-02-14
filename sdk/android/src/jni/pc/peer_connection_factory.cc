@@ -75,9 +75,10 @@ void PostJavaCallback(JNIEnv* env,
                       const JavaRef<jobject>& j_object,
                       JavaMethodPointer java_method_pointer) {
   ScopedJavaGlobalRef<jobject> object(env, j_object);
-  queue->PostTask([object = std::move(object), java_method_pointer] {
-    java_method_pointer(AttachCurrentThreadIfNeeded(), object);
-  });
+  queue->PostTask(RTC_FROM_HERE,
+                  [object = std::move(object), java_method_pointer] {
+                    java_method_pointer(AttachCurrentThreadIfNeeded(), object);
+                  });
 }
 
 absl::optional<PeerConnectionFactoryInterface::Options>

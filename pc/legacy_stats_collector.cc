@@ -863,8 +863,8 @@ std::map<std::string, std::string> LegacyStatsCollector::ExtractSessionInfo() {
   SessionStats stats;
   auto transceivers = pc_->GetTransceiversInternal();
   pc_->network_thread()->BlockingCall(
-      [&, sctp_transport_name = pc_->sctp_transport_name(),
-       sctp_mid = pc_->sctp_mid()]() mutable {
+      RTC_FROM_HERE, [&, sctp_transport_name = pc_->sctp_transport_name(),
+                      sctp_mid = pc_->sctp_mid()]() mutable {
         stats = ExtractSessionInfo_n(
             transceivers, std::move(sctp_transport_name), std::move(sctp_mid));
       });
@@ -1049,7 +1049,7 @@ void LegacyStatsCollector::ExtractBweInfo() {
   }
 
   if (!video_media_channels.empty()) {
-    pc_->worker_thread()->BlockingCall([&] {
+    pc_->worker_thread()->BlockingCall(RTC_FROM_HERE, [&] {
       for (const auto& channel : video_media_channels) {
         channel->FillBitrateInfo(&bwe_info);
       }
@@ -1218,7 +1218,7 @@ void LegacyStatsCollector::ExtractMediaInfo(
     }
   }
 
-  pc_->worker_thread()->BlockingCall([&] {
+  pc_->worker_thread()->BlockingCall(RTC_FROM_HERE, [&] {
     rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
     // Populate `receiver_track_id_by_ssrc` for the gatherers.
     int i = 0;

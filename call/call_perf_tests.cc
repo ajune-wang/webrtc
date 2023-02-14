@@ -122,7 +122,7 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
         task_queue_(task_queue) {}
 
   void OnFrame(const VideoFrame& video_frame) override {
-    task_queue_->PostTask([this]() { CheckStats(); });
+    task_queue_->PostTask(RTC_FROM_HERE, [this]() { CheckStats(); });
   }
 
   void CheckStats() {
@@ -360,7 +360,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
   }
 
   task_queue()->PostTask(
-      [to_delete = observer.release()]() { delete to_delete; });
+      RTC_FROM_HERE, [to_delete = observer.release()]() { delete to_delete; });
 }
 
 TEST_F(CallPerfTest, Synchronization_PlaysOutAudioAndVideoWithoutClockDrift) {
@@ -685,25 +685,26 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
    private:
     // TODO(holmer): Run this with a timer instead of once per packet.
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
-      task_queue_->PostTask(SafeTask(task_safety_flag_, [this]() {
-        VideoSendStream::Stats stats = send_stream_->GetStats();
+      task_queue_->PostTask(
+          RTC_FROM_HERE, SafeTask(task_safety_flag_, [this]() {
+            VideoSendStream::Stats stats = send_stream_->GetStats();
 
-        if (!stats.substreams.empty()) {
-          RTC_DCHECK_EQ(1, stats.substreams.size());
-          int bitrate_kbps =
-              stats.substreams.begin()->second.total_bitrate_bps / 1000;
-          if (bitrate_kbps > min_acceptable_bitrate_ &&
-              bitrate_kbps < max_acceptable_bitrate_) {
-            converged_ = true;
-            ++num_bitrate_observations_in_range_;
-            if (num_bitrate_observations_in_range_ ==
-                kNumBitrateObservationsInRange)
-              observation_complete_.Set();
-          }
-          if (converged_)
-            bitrate_kbps_list_.AddSample(bitrate_kbps);
-        }
-      }));
+            if (!stats.substreams.empty()) {
+              RTC_DCHECK_EQ(1, stats.substreams.size());
+              int bitrate_kbps =
+                  stats.substreams.begin()->second.total_bitrate_bps / 1000;
+              if (bitrate_kbps > min_acceptable_bitrate_ &&
+                  bitrate_kbps < max_acceptable_bitrate_) {
+                converged_ = true;
+                ++num_bitrate_observations_in_range_;
+                if (num_bitrate_observations_in_range_ ==
+                    kNumBitrateObservationsInRange)
+                  observation_complete_.Set();
+              }
+              if (converged_)
+                bitrate_kbps_list_.AddSample(bitrate_kbps);
+            }
+          }));
       return SEND_PACKET;
     }
 
@@ -1136,7 +1137,7 @@ void CallPerfTest::TestEncodeFramerate(VideoEncoderFactory* encoder_factory,
       const Timestamp now = clock_->CurrentTime();
       if (now - last_getstats_time_ > kMinGetStatsInterval) {
         last_getstats_time_ = now;
-        task_queue_->PostTask([this, now]() {
+        task_queue_->PostTask(RTC_FROM_HERE, [this, now]() {
           VideoSendStream::Stats stats = send_stream_->GetStats();
           for (const auto& stat : stats.substreams) {
             encode_frame_rate_lists_[stat.first].AddSample(

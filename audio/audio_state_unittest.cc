@@ -40,7 +40,8 @@ struct FakeAsyncAudioProcessingHelper {
     FakeTaskQueue() = default;
 
     void Delete() override { delete this; }
-    void PostTask(absl::AnyInvocable<void() &&> task) override {
+    void PostTask(const Location&,
+                  absl::AnyInvocable<void() &&> task) override {
       std::move(task)();
     }
   };

@@ -175,7 +175,8 @@ void ThreadManager::ProcessAllMessageQueuesInternal() {
       absl::Cleanup sub = [&queues_not_done] { queues_not_done.fetch_sub(1); };
       // Post delayed task instead of regular task to wait for all delayed tasks
       // that are ready for processing.
-      queue->PostDelayedTask([sub = std::move(sub)] {}, TimeDelta::Zero());
+      queue->PostDelayedTask(
+          RTC_FROM_HERE, [sub = std::move(sub)] {}, TimeDelta::Zero());
     }
   }
 
@@ -580,7 +581,8 @@ bool Thread::SetName(absl::string_view name, const void* obj) {
 
 void Thread::SetDispatchWarningMs(int deadline) {
   if (!IsCurrent()) {
-    PostTask([this, deadline]() { SetDispatchWarningMs(deadline); });
+    PostTask(RTC_FROM_HERE,
+             [this, deadline]() { SetDispatchWarningMs(deadline); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);
@@ -749,7 +751,8 @@ void Thread::BlockingCall(rtc::FunctionView<void()> functor) {
 
   Event done;
   absl::Cleanup cleanup = [&done] { done.Set(); };
-  PostTask([functor, cleanup = std::move(cleanup)] { functor(); });
+  PostTask(RTC_FROM_HERE,
+           [functor, cleanup = std::move(cleanup)] { functor(); });
   done.Wait(Event::kForever);
 }
 
@@ -767,7 +770,7 @@ void Thread::ClearCurrentTaskQueue() {
 void Thread::AllowInvokesToThread(Thread* thread) {
 #if (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
   if (!IsCurrent()) {
-    PostTask([thread, this]() { AllowInvokesToThread(thread); });
+    PostTask(RTC_FROM_HERE, [thread, this]() { AllowInvokesToThread(thread); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);
@@ -779,7 +782,7 @@ void Thread::AllowInvokesToThread(Thread* thread) {
 void Thread::DisallowAllInvokes() {
 #if (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
   if (!IsCurrent()) {
-    PostTask([this]() { DisallowAllInvokes(); });
+    PostTask(RTC_FROM_HERE, [this]() { DisallowAllInvokes(); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);

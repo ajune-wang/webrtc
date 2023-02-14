@@ -92,17 +92,18 @@ TEST(ExternalTimeControllerTest, TaskIsStoppedOnStop) {
       time_simulation.GetTaskQueueFactory()->CreateTaskQueue(
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
   std::atomic_int counter(0);
-  auto handle = RepeatingTaskHandle::Start(task_queue.Get(), [&] {
-    if (++counter >= kShortIntervalCount)
-      return kLongInterval;
-    return kShortInterval;
-  });
+  auto handle =
+      RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(), [&] {
+        if (++counter >= kShortIntervalCount)
+          return kLongInterval;
+        return kShortInterval;
+      });
   // Sleep long enough to go through the initial phase.
   time_simulation.AdvanceTime(kShortInterval * (kShortIntervalCount + kMargin));
   EXPECT_EQ(counter.load(), kShortIntervalCount);
 
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      RTC_FROM_HERE, [handle = std::move(handle)]() mutable { handle.Stop(); });
 
   // Sleep long enough that the task would run at least once more if not
   // stopped.
@@ -119,8 +120,8 @@ TEST(ExternalTimeControllerTest, TaskCanStopItself) {
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
 
   RepeatingTaskHandle handle;
-  task_queue.PostTask([&] {
-    handle = RepeatingTaskHandle::Start(task_queue.Get(), [&] {
+  task_queue.PostTask(RTC_FROM_HERE, [&] {
+    handle = RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue.Get(), [&] {
       ++counter;
       handle.Stop();
       return TimeDelta::Millis(2);
@@ -139,7 +140,7 @@ TEST(ExternalTimeControllerTest, YieldForTask) {
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
 
   rtc::Event event;
-  task_queue.PostTask([&] { event.Set(); });
+  task_queue.PostTask(RTC_FROM_HERE, [&] { event.Set(); });
   EXPECT_TRUE(event.Wait(TimeDelta::Millis(200)));
 }
 
@@ -154,9 +155,9 @@ TEST(ExternalTimeControllerTest, TasksYieldToEachOther) {
       time_simulation.GetTaskQueueFactory()->CreateTaskQueue(
           "OtherQueue", TaskQueueFactory::Priority::NORMAL));
 
-  task_queue.PostTask([&] {
+  task_queue.PostTask(RTC_FROM_HERE, [&] {
     rtc::Event event;
-    other_queue.PostTask([&] { event.Set(); });
+    other_queue.PostTask(RTC_FROM_HERE, [&] { event.Set(); });
     EXPECT_TRUE(event.Wait(TimeDelta::Millis(200)));
   });
 
@@ -171,7 +172,8 @@ TEST(ExternalTimeControllerTest, CurrentTaskQueue) {
       time_simulation.GetTaskQueueFactory()->CreateTaskQueue(
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
 
-  task_queue.PostTask([&] { EXPECT_TRUE(task_queue.IsCurrent()); });
+  task_queue.PostTask(RTC_FROM_HERE,
+                      [&] { EXPECT_TRUE(task_queue.IsCurrent()); });
 
   time_simulation.AdvanceTime(TimeDelta::Millis(10));
 }

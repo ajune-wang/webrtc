@@ -127,7 +127,7 @@ class BandwidthStatsTest : public test::EndToEndTest {
   Action OnSendRtp(const uint8_t* packet, size_t length) override {
     // Stats need to be fetched on the thread where the caller objects were
     // constructed.
-    task_queue_->PostTask([this]() {
+    task_queue_->PostTask(RTC_FROM_HERE, [this]() {
       if (!sender_call_ || !receiver_call_) {
         return;
       }
@@ -225,7 +225,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     void OnCallsCreated(Call* sender_call, Call* receiver_call) override {
       RTC_DCHECK(sender_call);
       sender_call_ = sender_call;
-      task_queue_->PostTask([this]() { PollStats(); });
+      task_queue_->PostTask(RTC_FROM_HERE, [this]() { PollStats(); });
     }
 
     void OnTransportCreated(
@@ -278,8 +278,8 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
           break;
       }
 
-      task_queue_->PostDelayedTask([this] { PollStats(); },
-                                   TimeDelta::Seconds(1));
+      task_queue_->PostDelayedTask(
+          RTC_FROM_HERE, [this] { PollStats(); }, TimeDelta::Seconds(1));
     }
 
     void PerformTest() override {

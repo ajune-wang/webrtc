@@ -81,14 +81,15 @@ void TestActivitiesExecutor::PostActivity(ScheduledActivity activity) {
   if (activity.interval) {
     if (remaining_delay == TimeDelta::Zero()) {
       repeating_task_handles_.push_back(RepeatingTaskHandle::Start(
-          task_queue_, [activity, start_time, this]() {
+          RTC_FROM_HERE, task_queue_, [activity, start_time, this]() {
             activity.func(Now() - start_time);
             return *activity.interval;
           }));
       return;
     }
     repeating_task_handles_.push_back(RepeatingTaskHandle::DelayedStart(
-        task_queue_, remaining_delay, [activity, start_time, this]() {
+        RTC_FROM_HERE, task_queue_, remaining_delay,
+        [activity, start_time, this]() {
           activity.func(Now() - start_time);
           return *activity.interval;
         }));
@@ -96,12 +97,14 @@ void TestActivitiesExecutor::PostActivity(ScheduledActivity activity) {
   }
 
   if (remaining_delay == TimeDelta::Zero()) {
-    task_queue_->PostTask(
-        [activity, start_time, this]() { activity.func(Now() - start_time); });
+    task_queue_->PostTask(RTC_FROM_HERE, [activity, start_time, this]() {
+      activity.func(Now() - start_time);
+    });
     return;
   }
 
   task_queue_->PostDelayedTask(
+      RTC_FROM_HERE,
       [activity, start_time, this]() { activity.func(Now() - start_time); },
       remaining_delay);
 }

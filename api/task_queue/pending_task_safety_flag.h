@@ -39,7 +39,7 @@ namespace webrtc {
 // class ExampleClass {
 // ....
 //    rtc::scoped_refptr<PendingTaskSafetyFlag> flag = safety_flag_;
-//    my_task_queue_->PostTask(
+//    my_task_queue_->PostTask(RTC_FROM_HERE,
 //        [flag = std::move(flag), this] {
 //          // Now running on the main thread.
 //          if (!flag->alive())
@@ -56,7 +56,8 @@ namespace webrtc {
 //
 // SafeTask makes this check automatic:
 //
-//   my_task_queue_->PostTask(SafeTask(safety_flag_, [this] { MyMethod(); }));
+//   my_task_queue_->PostTask(RTC_FROM_HERE, SafeTask(safety_flag_, [this] {
+//   MyMethod(); }));
 //
 class PendingTaskSafetyFlag final
     : public rtc::RefCountedNonVirtual<PendingTaskSafetyFlag> {
@@ -108,7 +109,8 @@ class PendingTaskSafetyFlag final
 //
 // Example usage:
 //
-//     my_task_queue->PostTask(SafeTask(scoped_task_safety.flag(),
+//     my_task_queue->PostTask(RTC_FROM_HERE,
+//     SafeTask(scoped_task_safety.flag(),
 //        [this] {
 //             // task goes here
 //        }

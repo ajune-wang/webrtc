@@ -313,6 +313,7 @@ class FakeIceTransport : public IceTransportInternal {
       rtc::CopyOnWriteBuffer packet(std::move(send_packet_));
       if (async_) {
         network_thread_->PostDelayedTask(
+            RTC_FROM_HERE,
             SafeTask(task_safety_.flag(),
                      [this, packet] {
                        RTC_DCHECK_RUN_ON(network_thread_);

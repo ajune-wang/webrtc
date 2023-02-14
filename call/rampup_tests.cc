@@ -258,10 +258,11 @@ void RampUpTester::ModifyFlexfecConfigs(
 void RampUpTester::OnCallsCreated(Call* sender_call, Call* receiver_call) {
   RTC_DCHECK(sender_call);
   sender_call_ = sender_call;
-  pending_task_ = RepeatingTaskHandle::Start(task_queue_, [this] {
-    PollStats();
-    return kPollInterval;
-  });
+  pending_task_ =
+      RepeatingTaskHandle::Start(RTC_FROM_HERE, task_queue_, [this] {
+        PollStats();
+        return kPollInterval;
+      });
 }
 
 void RampUpTester::OnTransportCreated(

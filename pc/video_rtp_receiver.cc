@@ -118,7 +118,7 @@ void VideoRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   MediaSourceInterface::SourceState state = source_->state();
   // TODO(tommi): Can we restart the media channel without blocking?
-  worker_thread_->BlockingCall([&] {
+  worker_thread_->BlockingCall(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(worker_thread_);
     RestartMediaChannel_w(std::move(ssrc), state);
   });
@@ -331,7 +331,7 @@ void VideoRtpReceiver::SetupMediaChannel(
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   RTC_DCHECK(media_channel);
   MediaSourceInterface::SourceState state = source_->state();
-  worker_thread_->BlockingCall([&] {
+  worker_thread_->BlockingCall(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(worker_thread_);
     SetMediaChannel_w(media_channel);
     RestartMediaChannel_w(std::move(ssrc), state);

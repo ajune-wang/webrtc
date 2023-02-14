@@ -42,11 +42,12 @@ void IncomingVideoStream::OnFrame(const VideoFrame& video_frame) {
   // TODO(srte): Using video_frame = std::move(video_frame) would move the frame
   // into the lambda instead of copying it, but it doesn't work unless we change
   // OnFrame to take its frame argument by value instead of const reference.
-  incoming_render_queue_.PostTask([this, video_frame = video_frame]() mutable {
-    RTC_DCHECK_RUN_ON(&incoming_render_queue_);
-    if (render_buffers_.AddFrame(std::move(video_frame)) == 1)
-      Dequeue();
-  });
+  incoming_render_queue_.PostTask(
+      RTC_FROM_HERE, [this, video_frame = video_frame]() mutable {
+        RTC_DCHECK_RUN_ON(&incoming_render_queue_);
+        if (render_buffers_.AddFrame(std::move(video_frame)) == 1)
+          Dequeue();
+      });
 }
 
 void IncomingVideoStream::Dequeue() {
@@ -59,7 +60,7 @@ void IncomingVideoStream::Dequeue() {
   if (render_buffers_.HasPendingFrames()) {
     uint32_t wait_time = render_buffers_.TimeToNextFrameRelease();
     incoming_render_queue_.PostDelayedHighPrecisionTask(
-        [this]() { Dequeue(); }, TimeDelta::Millis(wait_time));
+        RTC_FROM_HERE, [this]() { Dequeue(); }, TimeDelta::Millis(wait_time));
   }
 }
 

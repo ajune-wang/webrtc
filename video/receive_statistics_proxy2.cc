@@ -594,7 +594,8 @@ VideoReceiveStreamInterface::Stats ReceiveStatisticsProxy::GetStats() const {
   RTC_DCHECK_RUN_ON(&main_thread_);
 
   // Like VideoReceiveStreamInterface::GetStats, called on the worker thread
-  // from StatsCollector::ExtractMediaInfo via worker_thread()->BlockingCall().
+  // from StatsCollector::ExtractMediaInfo via
+  // worker_thread()->BlockingCall(RTC_FROM_HERE, ).
   // WebRtcVideoChannel::GetStats(), GetVideoReceiverInfo.
 
   // Get current frame rates here, as only updating them on new frames prevents
@@ -643,23 +644,26 @@ VideoReceiveStreamInterface::Stats ReceiveStatisticsProxy::GetStats() const {
 
 void ReceiveStatisticsProxy::OnIncomingPayloadType(int payload_type) {
   RTC_DCHECK_RUN_ON(&decode_queue_);
-  worker_thread_->PostTask(SafeTask(task_safety_.flag(), [payload_type, this] {
-    RTC_DCHECK_RUN_ON(&main_thread_);
-    stats_.current_payload_type = payload_type;
-  }));
+  worker_thread_->PostTask(RTC_FROM_HERE,
+                           SafeTask(task_safety_.flag(), [payload_type, this] {
+                             RTC_DCHECK_RUN_ON(&main_thread_);
+                             stats_.current_payload_type = payload_type;
+                           }));
 }
 
 void ReceiveStatisticsProxy::OnDecoderInfo(
     const VideoDecoder::DecoderInfo& decoder_info) {
   RTC_DCHECK_RUN_ON(&decode_queue_);
-  worker_thread_->PostTask(SafeTask(
-      task_safety_.flag(),
-      [this, name = decoder_info.implementation_name,
-       is_hardware_accelerated = decoder_info.is_hardware_accelerated]() {
-        RTC_DCHECK_RUN_ON(&main_thread_);
-        stats_.decoder_implementation_name = name;
-        stats_.power_efficient_decoder = is_hardware_accelerated;
-      }));
+  worker_thread_->PostTask(
+      RTC_FROM_HERE,
+      SafeTask(
+          task_safety_.flag(),
+          [this, name = decoder_info.implementation_name,
+           is_hardware_accelerated = decoder_info.is_hardware_accelerated]() {
+            RTC_DCHECK_RUN_ON(&main_thread_);
+            stats_.decoder_implementation_name = name;
+            stats_.power_efficient_decoder = is_hardware_accelerated;
+          }));
 }
 
 void ReceiveStatisticsProxy::OnFrameBufferTimingsUpdated(
@@ -728,6 +732,7 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
     // runs after the `ReceiveStatisticsProxy` has been deleted. In such a
     // case the packet_counter update won't be recorded.
     worker_thread_->PostTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [ssrc, packet_counter, this]() {
           RtcpPacketTypesCounterUpdated(ssrc, packet_counter);
         }));
@@ -775,6 +780,7 @@ void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
   // "com.apple.coremedia.decompressionsession.clientcallback"
   VideoFrameMetaData meta(frame, current_time);
   worker_thread_->PostTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [meta, qp, decode_time, processing_delay,
                                      assembly_time, content_type, this]() {
         OnDecodedFrame(meta, qp, decode_time, processing_delay, assembly_time,
@@ -953,7 +959,7 @@ void ReceiveStatisticsProxy::OnDroppedFrames(uint32_t frames_dropped) {
   // Can be called on either the decode queue or the worker thread
   // See FrameBuffer2 for more details.
   worker_thread_->PostTask(
-      SafeTask(task_safety_.flag(), [frames_dropped, this]() {
+      RTC_FROM_HERE, SafeTask(task_safety_.flag(), [frames_dropped, this]() {
         RTC_DCHECK_RUN_ON(&main_thread_);
         stats_.frames_dropped += frames_dropped;
       }));

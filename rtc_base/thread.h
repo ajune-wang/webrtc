@@ -308,14 +308,27 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // See ScopedDisallowBlockingCalls for details.
   // NOTE: Blocking calls are DISCOURAGED, consider if what you're doing can
   // be achieved with PostTask() and callbacks instead.
+  // TODO(bugs.webrtc.org/1416199): Cleanup version without location.
   virtual void BlockingCall(FunctionView<void()> functor);
-
+  virtual void BlockingCall(const webrtc::Location& location,
+                            FunctionView<void()> functor) {
+    BlockingCall(std::move(functor));
+  }
+  template <typename Functor,
+            typename ReturnT = std::invoke_result_t<Functor>,
+            typename = typename std::enable_if_t<!std::is_void_v<ReturnT>>>
+  ReturnT BlockingCall(const webrtc::Location& location, Functor&& functor) {
+    ReturnT result;
+    BlockingCall([&] { result = std::forward<Functor>(functor)(); });
+    return result;
+  }
   template <typename Functor,
             typename ReturnT = std::invoke_result_t<Functor>,
             typename = typename std::enable_if_t<!std::is_void_v<ReturnT>>>
   ReturnT BlockingCall(Functor&& functor) {
     ReturnT result;
-    BlockingCall([&] { result = std::forward<Functor>(functor)(); });
+    BlockingCall(RTC_FROM_HERE,
+                 [&] { result = std::forward<Functor>(functor)(); });
     return result;
   }
 
@@ -335,12 +348,27 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   bool IsInvokeToThreadAllowed(rtc::Thread* target);
 
   // From TaskQueueBase
+  // TODO(bugs.webrtc.org/1416199): Cleanup versions without location.
   void Delete() override;
   void PostTask(absl::AnyInvocable<void() &&> task) override;
   void PostDelayedTask(absl::AnyInvocable<void() &&> task,
                        webrtc::TimeDelta delay) override;
   void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
                                     webrtc::TimeDelta delay) override;
+  void PostTask(const webrtc::Location& location,
+                absl::AnyInvocable<void() &&> task) override {
+    PostTask(std::move(task));
+  }
+  void PostDelayedTask(const webrtc::Location& location,
+                       absl::AnyInvocable<void() &&> task,
+                       webrtc::TimeDelta delay) override {
+    PostDelayedTask(std::move(task), delay);
+  }
+  void PostDelayedHighPrecisionTask(const webrtc::Location& location,
+                                    absl::AnyInvocable<void() &&> task,
+                                    webrtc::TimeDelta delay) override {
+    PostDelayedHighPrecisionTask(std::move(task), delay);
+  }
 
   // ProcessMessages will process I/O and dispatch messages until:
   //  1) cms milliseconds have elapsed (returns true)

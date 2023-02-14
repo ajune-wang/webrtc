@@ -160,10 +160,13 @@ class TaskQueueWin : public TaskQueueBase {
   ~TaskQueueWin() override = default;
 
   void Delete() override;
-  void PostTask(absl::AnyInvocable<void() &&> task) override;
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
+  void PostTask(const Location& location,
+                absl::AnyInvocable<void() &&> task) override;
+  void PostDelayedTask(const Location& location,
+                       absl::AnyInvocable<void() &&> task,
                        TimeDelta delay) override;
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+  void PostDelayedHighPrecisionTask(const Location& location,
+                                    absl::AnyInvocable<void() &&> task,
                                     TimeDelta delay) override;
   void RunPendingTasks();
 
@@ -217,16 +220,18 @@ void TaskQueueWin::Delete() {
   delete this;
 }
 
-void TaskQueueWin::PostTask(absl::AnyInvocable<void() &&> task) {
+void TaskQueueWin::PostTask(const Location& location,
+                            absl::AnyInvocable<void() &&> task) {
   MutexLock lock(&pending_lock_);
   pending_.push(std::move(task));
   ::SetEvent(in_queue_);
 }
 
-void TaskQueueWin::PostDelayedTask(absl::AnyInvocable<void() &&> task,
+void TaskQueueWin::PostDelayedTask(const Location& location,
+                                   absl::AnyInvocable<void() &&> task,
                                    TimeDelta delay) {
   if (delay <= TimeDelta::Zero()) {
-    PostTask(std::move(task));
+    PostTask(location, std::move(task));
     return;
   }
 
@@ -240,9 +245,10 @@ void TaskQueueWin::PostDelayedTask(absl::AnyInvocable<void() &&> task,
 }
 
 void TaskQueueWin::PostDelayedHighPrecisionTask(
+    const Location& location,
     absl::AnyInvocable<void() &&> task,
     TimeDelta delay) {
-  PostDelayedTask(std::move(task), delay);
+  PostDelayedTask(location, std::move(task), delay);
 }
 
 void TaskQueueWin::RunPendingTasks() {

@@ -120,6 +120,7 @@ ConnectionContext::ConnectionContext(
     // network_thread_. In this case, no further action is required as
     // signaling_thread_ can already invoke network_thread_.
     network_thread_->PostTask(
+        RTC_FROM_HERE,
         [thread = network_thread_, worker_thread = worker_thread_.get()] {
           thread->DisallowBlockingCalls();
           thread->DisallowAllInvokes();
@@ -167,14 +168,15 @@ ConnectionContext::ConnectionContext(
   if (media_engine_) {
     // TODO(tommi): Change VoiceEngine to do ctor time initialization so that
     // this isn't necessary.
-    worker_thread_->BlockingCall([&] { media_engine_->Init(); });
+    worker_thread_->BlockingCall(RTC_FROM_HERE, [&] { media_engine_->Init(); });
   }
 }
 
 ConnectionContext::~ConnectionContext() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   // `media_engine_` requires destruction to happen on the worker thread.
-  worker_thread_->PostTask([media_engine = std::move(media_engine_)] {});
+  worker_thread_->PostTask(RTC_FROM_HERE,
+                           [media_engine = std::move(media_engine_)] {});
 
   // Make sure `worker_thread()` and `signaling_thread()` outlive
   // `default_socket_factory_` and `default_network_manager_`.

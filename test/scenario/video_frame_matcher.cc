@@ -33,7 +33,8 @@ VideoFrameMatcher::~VideoFrameMatcher() {
 }
 
 void VideoFrameMatcher::RegisterLayer(int layer_id) {
-  task_queue_.PostTask([this, layer_id] { layers_[layer_id] = VideoLayer(); });
+  task_queue_.PostTask(RTC_FROM_HERE,
+                       [this, layer_id] { layers_[layer_id] = VideoLayer(); });
 }
 
 void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
@@ -44,7 +45,7 @@ void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
   captured.frame = frame.video_frame_buffer();
   captured.thumb = ScaleVideoFrameBuffer(*frame.video_frame_buffer()->ToI420(),
                                          kThumbWidth, kThumbHeight),
-  task_queue_.PostTask([this, captured]() {
+  task_queue_.PostTask(RTC_FROM_HERE, [this, captured]() {
     for (auto& layer : layers_) {
       CapturedFrame copy = captured;
       if (layer.second.last_decode &&
@@ -69,7 +70,7 @@ void VideoFrameMatcher::OnDecodedFrame(const VideoFrame& frame,
   decoded->thumb = ScaleVideoFrameBuffer(*frame.video_frame_buffer()->ToI420(),
                                          kThumbWidth, kThumbHeight);
 
-  task_queue_.PostTask([this, decoded, layer_id] {
+  task_queue_.PostTask(RTC_FROM_HERE, [this, decoded, layer_id] {
     auto& layer = layers_[layer_id];
     decoded->id = layer.next_decoded_id++;
     layer.last_decode = decoded;

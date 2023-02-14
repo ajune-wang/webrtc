@@ -358,7 +358,7 @@ void StunProber::OnServerResolved(rtc::AsyncResolverInterface* resolver) {
 
   // Deletion of AsyncResolverInterface can't be done in OnResolveResult which
   // handles SignalDone.
-  thread_->PostTask([resolver] { resolver->Destroy(false); });
+  thread_->PostTask(RTC_FROM_HERE, [resolver] { resolver->Destroy(false); });
   servers_.pop_back();
 
   if (servers_.size()) {
@@ -456,6 +456,7 @@ void StunProber::MaybeScheduleStunRequests() {
 
   if (Done()) {
     thread_->PostDelayedTask(
+        RTC_FROM_HERE,
         SafeTask(task_safety_.flag(), [this] { ReportOnFinished(SUCCESS); }),
         TimeDelta::Millis(timeout_ms_));
     return;
@@ -468,6 +469,7 @@ void StunProber::MaybeScheduleStunRequests() {
     next_request_time_ms_ = now + interval_ms_;
   }
   thread_->PostDelayedTask(
+      RTC_FROM_HERE,
       SafeTask(task_safety_.flag(), [this] { MaybeScheduleStunRequests(); }),
       TimeDelta::Millis(get_wake_up_interval_ms()));
 }

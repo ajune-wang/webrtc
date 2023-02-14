@@ -843,10 +843,10 @@ void Port::PostDestroyIfDead(bool delayed) {
     }
   };
   if (delayed) {
-    thread_->PostDelayedTask(std::move(task),
+    thread_->PostDelayedTask(RTC_FROM_HERE, std::move(task),
                              TimeDelta::Millis(timeout_delay_));
   } else {
-    thread_->PostTask(std::move(task));
+    thread_->PostTask(RTC_FROM_HERE, std::move(task));
   }
 }
 
@@ -944,7 +944,7 @@ void Port::DestroyConnectionInternal(Connection* conn, bool async) {
     // so that the object will always be deleted, including if PostTask fails.
     // In such a case (only tests), deletion would happen inside of the call
     // to `DestroyConnection()`.
-    thread_->PostTask([conn = absl::WrapUnique(conn)]() {});
+    thread_->PostTask(RTC_FROM_HERE, [conn = absl::WrapUnique(conn)]() {});
   } else {
     delete conn;
   }

@@ -49,7 +49,8 @@ SctpTransportInformation SctpTransport::Information() const {
   // expected thread. Chromium currently calls this method from
   // TransceiverStateSurfacer.
   if (!owner_thread_->IsCurrent()) {
-    return owner_thread_->BlockingCall([this] { return Information(); });
+    return owner_thread_->BlockingCall(RTC_FROM_HERE,
+                                       [this] { return Information(); });
   }
   RTC_DCHECK_RUN_ON(owner_thread_);
   return info_;

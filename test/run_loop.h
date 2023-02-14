@@ -34,8 +34,9 @@ class RunLoop {
 
   void Flush();
 
-  void PostTask(absl::AnyInvocable<void() &&> task) {
-    task_queue()->PostTask(std::move(task));
+  void PostTask(const webrtc::Location& location,
+                absl::AnyInvocable<void() &&> task) {
+    task_queue()->PostTask(location, std::move(task));
   }
 
  private:

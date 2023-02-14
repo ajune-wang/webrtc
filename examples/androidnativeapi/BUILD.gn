@@ -15,6 +15,7 @@ if (is_android) {
 
     deps = [
       ":resources",
+      "//base:jni_java",
       "//modules/audio_device:audio_device_java",
       "//rtc_base:base_java",
       "//sdk/android:camera_java",
@@ -23,6 +24,8 @@ if (is_android) {
       "//sdk/android:video_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
+
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
 
     shared_libraries = [ ":examples_androidnativeapi_jni" ]
   }

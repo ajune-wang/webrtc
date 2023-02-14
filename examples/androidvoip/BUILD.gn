@@ -24,6 +24,7 @@ if (is_android) {
 
     deps = [
       ":resources",
+      "//base:jni_java",
       "//modules/audio_device:audio_device_java",
       "//rtc_base:base_java",
       "//sdk/android:base_java",
@@ -32,6 +33,8 @@ if (is_android) {
       "//third_party/androidx:androidx_core_core_java",
       "//third_party/androidx:androidx_legacy_legacy_support_v4_java",
     ]
+
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
 
     shared_libraries = [ ":examples_androidvoip_jni" ]
   }

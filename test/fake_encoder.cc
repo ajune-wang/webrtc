@@ -143,6 +143,8 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
     encoded._encodedHeight = simulcast_streams[i].height;
     if (qp)
       encoded.qp_ = *qp;
+    encoded.SetSimulcastIndex(i);
+    // TODO(hbos): Stop setting spatial index here, it doesn't make any sense.
     encoded.SetSpatialIndex(i);
     CodecSpecificInfo codec_specific = EncodeHook(encoded, buffer);
 

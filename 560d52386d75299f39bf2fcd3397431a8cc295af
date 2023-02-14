@@ -16,6 +16,184 @@
       "message": "Hi Jakob, as a follow up of the cl 291322, I tried to unify the events in the NetEqInput. Unfortunately, it ended up being a pretty large cl.",
       "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f34782ac_995c25af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "This is going to be an awesome change! I think it can be simplified even more :)",
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a3ae2f8_e8fef66c",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "Can we add a timestamp to the Event struct instead of each individual event maybe? 😊",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "404baa62_f5007c2e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "Doesn\u0027t the returned Event need to be optional (if there are no more events)?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b377e7b_41d7434e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "This feels a bit out of place. Is it really needed or is the header in PacketData enough? Can\u0027t see it being used in NetEqTest.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 59
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c95704_f86c7fc1",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "If we make NextEvent() return optional\u003cEvent\u003e and we put the timestamp in the Event struct, then I think we can remove this function :)",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628f1107_48726d03",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "Prefer a raw pointer.",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7d4761_b7e1b0e7",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "This changes the behavior somewhat. Previously we would end the simulation after there are no more packets to decode, but now we will continue the simulation as long as there are more events. If there are a lot more GetAudio events after the last packet, then NetEq will just output concealment. This is not a big issue when looking at an individual call but it may skew the stats in aggregate simulations. I suggest we keep the old behavior for now.",
+      "range": {
+        "startLine": 270,
+        "startChar": 17,
+        "endLine": 270,
+        "endChar": 31
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed98f4e_ed2d4800",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-02-14T21:33:32Z",
+      "side": 1,
+      "message": "I don\u0027t see why we are implementing the PacketSource interface here, since NetEqEventLogInput doesn\u0027t inherit from NetEqPacketSourceInput anymore (I think this is a good thing). How about just implementing NetEq input here instead and combine the RtcEventLogSource and NetEqEventLogInput classes?",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

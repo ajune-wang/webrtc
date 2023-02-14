@@ -603,6 +603,7 @@ rtc_library("rtc_task_queue") {
   ]
   deps = [
     ":macromagic",
+    "../api:location",
     "../api/task_queue",
     "system:rtc_export",
   ]
@@ -976,6 +977,7 @@ rtc_library("threading") {
     ":socket_server",
     ":timeutils",
     "../api:function_view",
+    "../api:location",
     "../api:refcountedbase",
     "../api:scoped_refptr",
     "../api:sequence_checker",
@@ -1635,6 +1637,7 @@ rtc_library("rtc_base_tests_utils") {
     ":stringutils",
     ":threading",
     ":timeutils",
+    "../api:location",
     "../api:make_ref_counted",
     "../api:refcountedbase",
     "../api:scoped_refptr",

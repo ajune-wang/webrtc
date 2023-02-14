@@ -64,65 +64,54 @@ class FuzzRtpInput : public NetEqInput {
         new SineGenerator(config.sample_rate_hz));
     input_.reset(new EncodeNetEqInput(std::move(generator), std::move(encoder),
                                       std::numeric_limits<int64_t>::max()));
-    packet_ = input_->PopPacket();
-    FuzzHeader();
-    MaybeFuzzPayload();
+    event_ = input_->PopEvent();
+    FuzzIfPacket();
   }
 
-  absl::optional<int64_t> NextPacketTime() const override {
-    return packet_->time_ms;
-  }
-
-  absl::optional<int64_t> NextOutputEventTime() const override {
-    return input_->NextOutputEventTime();
-  }
-
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override {
-    return input_->NextSetMinimumDelayInfo();
-  }
-
-  std::unique_ptr<PacketData> PopPacket() override {
-    RTC_DCHECK(packet_);
-    std::unique_ptr<PacketData> packet_to_return = std::move(packet_);
-    packet_ = input_->PopPacket();
-    FuzzHeader();
-    MaybeFuzzPayload();
-    return packet_to_return;
-  }
-
-  void AdvanceOutputEvent() override { return input_->AdvanceOutputEvent(); }
-
-  void AdvanceSetMinimumDelay() override {
-    return input_->AdvanceSetMinimumDelay();
+  Event PopEvent() override {
+    Event event_to_return = std::move(event_);
+    event_ = input_->PopEvent();
+    FuzzIfPacket();
+    return event_to_return;
   }
 
   bool ended() const override { return ended_; }
 
   absl::optional<RTPHeader> NextHeader() const override {
-    RTC_DCHECK(packet_);
-    return packet_->header;
+    RTC_DCHECK(event_.packet_data);
+    return event_.packet_data->header;
   }
 
+  const Event& NextEvent() const override { return event_; }
+
  private:
+  void FuzzIfPacket() {
+    if (event_.packet_data == nullptr) {
+      return;
+    }
+    FuzzHeader();
+    MaybeFuzzPayload();
+  }
+
   void FuzzHeader() {
     constexpr size_t kNumBytesToFuzz = 11;
     if (data_ix_ + kNumBytesToFuzz > data_.size()) {
       ended_ = true;
       return;
     }
-    RTC_DCHECK(packet_);
+    RTC_DCHECK(event_.packet_data);
     const size_t start_ix = data_ix_;
-    packet_->header.payloadType =
+    event_.packet_data->header.payloadType =
         ByteReader<uint8_t>::ReadLittleEndian(&data_[data_ix_]);
-    packet_->header.payloadType &= 0x7F;
+    event_.packet_data->header.payloadType &= 0x7F;
     data_ix_ += sizeof(uint8_t);
-    packet_->header.sequenceNumber =
+    event_.packet_data->header.sequenceNumber =
         ByteReader<uint16_t>::ReadLittleEndian(&data_[data_ix_]);
     data_ix_ += sizeof(uint16_t);
-    packet_->header.timestamp =
+    event_.packet_data->header.timestamp =
         ByteReader<uint32_t>::ReadLittleEndian(&data_[data_ix_]);
     data_ix_ += sizeof(uint32_t);
-    packet_->header.ssrc =
+    event_.packet_data->header.ssrc =
         ByteReader<uint32_t>::ReadLittleEndian(&data_[data_ix_]);
     data_ix_ += sizeof(uint32_t);
     RTC_CHECK_EQ(data_ix_ - start_ix, kNumBytesToFuzz);
@@ -138,7 +127,8 @@ class FuzzRtpInput : public NetEqInput {
 
     // Restrict number of bytes to fuzz to 16; a reasonably low number enough to
     // cover a few RED headers. Also don't write outside the payload length.
-    bytes_to_fuzz = std::min(bytes_to_fuzz % 16, packet_->payload.size());
+    bytes_to_fuzz =
+        std::min(bytes_to_fuzz % 16, event_.packet_data->payload.size());
 
     if (bytes_to_fuzz == 0)
       return;
@@ -148,7 +138,8 @@ class FuzzRtpInput : public NetEqInput {
       return;
     }
 
-    std::memcpy(packet_->payload.data(), &data_[data_ix_], bytes_to_fuzz);
+    std::memcpy(event_.packet_data->payload.data(), &data_[data_ix_],
+                bytes_to_fuzz);
     data_ix_ += bytes_to_fuzz;
   }
 
@@ -156,7 +147,7 @@ class FuzzRtpInput : public NetEqInput {
   rtc::ArrayView<const uint8_t> data_;
   size_t data_ix_ = 0;
   std::unique_ptr<EncodeNetEqInput> input_;
-  std::unique_ptr<PacketData> packet_;
+  Event event_;
 };
 }  // namespace
 

@@ -80,8 +80,8 @@ class FuzzSignalInput : public NetEqInput {
         new SineAndNoiseGenerator(config.sample_rate_hz, fuzz_data));
     input_.reset(new EncodeNetEqInput(std::move(generator), std::move(encoder),
                                       std::numeric_limits<int64_t>::max()));
-    packet_ = input_->PopPacket();
-
+    PopPacket();
+    PopEvent();
     // Select an output event period. This is how long time we wait between each
     // call to NetEq::GetAudio. 10 ms is nominal, 9 and 11 ms will both lead to
     // clock drift (in different directions).
@@ -89,23 +89,29 @@ class FuzzSignalInput : public NetEqInput {
     output_event_period_ms_ = fuzz_data_.SelectOneOf(output_event_periods);
   }
 
-  absl::optional<int64_t> NextPacketTime() const override {
-    return packet_->time_ms;
+  Event PopEvent() override {
+    Event event_to_return = std::move(event_);
+    if (packet_ && packet_->time_ms <= next_output_event_ms_) {
+      event_.packet_data = PopPacket();
+    } else {
+      event_.audio_output = std::make_unique<GetAudio>(next_output_event_ms_);
+      next_output_event_ms_ += output_event_period_ms_;
+    }
+    return event_to_return;
   }
 
-  absl::optional<int64_t> NextOutputEventTime() const override {
-    return next_output_event_ms_;
-  }
+  const Event& NextEvent() const override { return event_; }
 
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override {
-    return input_->NextSetMinimumDelayInfo();
-  }
-
-  std::unique_ptr<PacketData> PopPacket() override {
-    RTC_DCHECK(packet_);
+  std::unique_ptr<PacketData> PopPacket() {
     std::unique_ptr<PacketData> packet_to_return = std::move(packet_);
+    int64_t packet_to_return_time_ms =
+        packet_to_return ? packet_to_return->time_ms : 0;
     do {
-      packet_ = input_->PopPacket();
+      Event event = input_->PopEvent();
+      while (event.packet_data == nullptr && !event.Empty()) {
+        event = input_->PopEvent();
+      }
+      packet_ = std::move(event.packet_data);
       // If the next value from the fuzzer input is 0, the packet is discarded
       // and the next one is pulled from the source.
     } while (fuzz_data_.CanReadBytes(1) && fuzz_data_.Read<uint8_t>() == 0);
@@ -113,7 +119,7 @@ class FuzzSignalInput : public NetEqInput {
       // Generate jitter by setting an offset for the arrival time.
       const int8_t arrival_time_offset_ms = fuzz_data_.Read<int8_t>();
       // The arrival time can not be before the previous packets.
-      packet_->time_ms = std::max(packet_to_return->time_ms,
+      packet_->time_ms = std::max(packet_to_return_time_ms,
                                   packet_->time_ms + arrival_time_offset_ms);
     } else {
       // Mark that we are at the end of the test. However, the current packet is
@@ -121,14 +127,6 @@ class FuzzSignalInput : public NetEqInput {
       ended_ = true;
     }
     return packet_to_return;
-  }
-
-  void AdvanceOutputEvent() override {
-    next_output_event_ms_ += output_event_period_ms_;
-  }
-
-  void AdvanceSetMinimumDelay() override {
-    return input_->AdvanceSetMinimumDelay();
   }
 
   bool ended() const override { return ended_; }
@@ -145,6 +143,7 @@ class FuzzSignalInput : public NetEqInput {
   std::unique_ptr<PacketData> packet_;
   int64_t next_output_event_ms_ = 0;
   int64_t output_event_period_ms_ = 10;
+  Event event_;
 };
 
 template <class T>

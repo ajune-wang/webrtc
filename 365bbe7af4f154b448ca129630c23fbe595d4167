@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebdb74d1_f68e20fa",
+        "filename": "api/location.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-14T10:34:46Z",
+      "side": 1,
+      "message": "If we use a \"defines\" in GN, this macro will only be defined in the translation units of the \"location\" target.\n\nHeaders can be included recursively and the macro needs to follow them (hence you need to use a GN config and put it into a \"public_configs\").\n\n\nI wonder if we can avoid this macro in the header and just use it in places where we want to turn OFF the feature (e.g. in the TQ files).",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "365bbe7af4f154b448ca129630c23fbe595d4167",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

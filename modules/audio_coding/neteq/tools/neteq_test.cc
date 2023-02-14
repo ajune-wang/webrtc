@@ -107,9 +107,10 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
     RTC_DCHECK(input_->NextEventTime());
     clock_.AdvanceTimeMilliseconds(*input_->NextEventTime() - time_now_ms);
     time_now_ms = *input_->NextEventTime();
+    NetEqInput::Event event = input_->PopEvent();
     // Check if it is time to insert packet.
-    if (input_->NextPacketTime() && time_now_ms >= *input_->NextPacketTime()) {
-      std::unique_ptr<NetEqInput::PacketData> packet_data = input_->PopPacket();
+    if (event.packet_data) {
+      std::unique_ptr<NetEqInput::PacketData>& packet_data = event.packet_data;
       RTC_CHECK(packet_data);
       const size_t payload_data_length =
           packet_data->payload.size() - packet_data->header.paddingLength;
@@ -163,16 +164,12 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
           absl::make_optional<uint32_t>(packet_data->header.timestamp);
     }
 
-    if (input_->NextSetMinimumDelayInfo().has_value() &&
-        time_now_ms >= input_->NextSetMinimumDelayInfo().value().timestamp_ms) {
-      neteq_->SetBaseMinimumDelayMs(
-          input_->NextSetMinimumDelayInfo().value().delay_ms);
-      input_->AdvanceSetMinimumDelay();
+    if (event.set_minimum_delay) {
+      neteq_->SetBaseMinimumDelayMs(event.set_minimum_delay->delay_ms);
     }
 
     // Check if it is time to get output audio.
-    if (input_->NextOutputEventTime() &&
-        time_now_ms >= *input_->NextOutputEventTime()) {
+    if (event.audio_output) {
       if (callbacks_.get_audio_callback) {
         callbacks_.get_audio_callback->BeforeGetAudio(neteq_.get());
       }
@@ -200,7 +197,6 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
             out_frame.samples_per_channel_ * out_frame.num_channels_));
       }
 
-      input_->AdvanceOutputEvent();
       result.simulation_step_ms =
           input_->NextEventTime().value_or(time_now_ms) - start_time_ms;
       const auto operations_state = neteq_->GetOperationsAndState();
@@ -271,8 +267,8 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
         }
       }
       prev_lifetime_stats_ = lifetime_stats;
-      const bool no_more_packets_to_decode =
-          !input_->NextPacketTime() && !operations_state.next_packet_available;
+      const bool no_more_events =
+          !input_->NextEventTime() && !operations_state.next_packet_available;
       // End the simulation if the gap is too large. This indicates an issue
       // with the event log file.
       const bool simulation_step_too_large = result.simulation_step_ms > 1000;
@@ -281,9 +277,8 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
         // the simulation time, which can be a large distortion.
         result.simulation_step_ms = 10;
       }
-      result.is_simulation_finished = simulation_step_too_large ||
-                                      no_more_packets_to_decode ||
-                                      input_->ended();
+      result.is_simulation_finished =
+          simulation_step_too_large || no_more_events || input_->ended();
       prev_ops_state_ = operations_state;
       return result;
     }

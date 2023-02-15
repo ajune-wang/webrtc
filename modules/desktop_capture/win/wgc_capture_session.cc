@@ -40,11 +40,6 @@ namespace {
 constexpr auto kPixelFormat = ABI::Windows::Graphics::DirectX::
     DirectXPixelFormat::DirectXPixelFormat_B8G8R8A8UIntNormalized;
 
-// The maximum time `GetFrame` will wait for a frame to arrive, if we don't have
-// any in the pool.
-constexpr TimeDelta kMaxWaitForFrame = TimeDelta::Millis(50);
-constexpr TimeDelta kMaxWaitForFirstFrame = TimeDelta::Millis(500);
-
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
 enum class StartCaptureResult {
@@ -87,6 +82,7 @@ void RecordStartCaptureResult(StartCaptureResult error) {
       static_cast<int>(error), static_cast<int>(StartCaptureResult::kMaxValue));
 }
 
+// TODO(henrika): verify that it is OK to keep the name.
 void RecordGetFrameResult(GetFrameResult error) {
   RTC_HISTOGRAM_ENUMERATION(
       "WebRTC.DesktopCapture.Win.WgcCaptureSessionGetFrameResult",
@@ -100,7 +96,11 @@ WgcCaptureSession::WgcCaptureSession(ComPtr<ID3D11Device> d3d11_device,
                                      ABI::Windows::Graphics::SizeInt32 size)
     : d3d11_device_(std::move(d3d11_device)),
       item_(std::move(item)),
-      size_(size) {}
+      size_(size) {
+  RTC_DLOG(LS_INFO) << "[WCS] " << __func__ << "size=(" << size_.Width << "x"
+                    << size_.Height << ")";
+}
+
 WgcCaptureSession::~WgcCaptureSession() {
   RemoveEventHandlers();
 }
@@ -108,6 +108,7 @@ WgcCaptureSession::~WgcCaptureSession() {
 HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!is_capture_started_);
+  RTC_DLOG(LS_INFO) << "[WCS] " << __func__;
 
   if (item_closed_) {
     RTC_LOG(LS_ERROR) << "The target source has been closed.";
@@ -151,6 +152,12 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
     return hr;
   }
 
+  // Mark all frames in the queue for reallocation.
+  queue_.Reset();
+
+  num_frames_arrived_ = 0;
+  num_overwrites_ = 0;
+
   ComPtr<WGC::IDirect3D11CaptureFramePoolStatics> frame_pool_statics;
   hr = GetActivationFactory<
       WGC::IDirect3D11CaptureFramePoolStatics,
@@ -167,8 +174,6 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
     RecordStartCaptureResult(StartCaptureResult::kCreateFramePoolFailed);
     return hr;
   }
-
-  frames_in_pool_ = 0;
 
   // Because `WgcCapturerWin` created a `DispatcherQueue`, and we created
   // `frame_pool_` via `Create`, the `FrameArrived` event will be delivered on
@@ -209,21 +214,72 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
   return hr;
 }
 
-HRESULT WgcCaptureSession::GetFrame(
-    std::unique_ptr<DesktopFrame>* output_frame) {
+bool WgcCaptureSession::GetFrame(std::unique_ptr<DesktopFrame>* output_frame) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DLOG(LS_INFO) << "[WCS] " << __func__;
+
+  if (!queue_.current_frame())
+    return true;
+
+  RTC_DCHECK(first_frame_has_arrived_);
+
+  std::unique_ptr<DesktopFrame> new_frame = queue_.current_frame()->Share();
+  *output_frame = std::move(new_frame);
+
+  return true;
+}
+
+HRESULT WgcCaptureSession::CreateMappedTexture(
+    ComPtr<ID3D11Texture2D> src_texture,
+    UINT width,
+    UINT height) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DLOG(LS_INFO) << "[WCS] " << __func__;
+
+  D3D11_TEXTURE2D_DESC src_desc;
+  src_texture->GetDesc(&src_desc);
+  D3D11_TEXTURE2D_DESC map_desc;
+  map_desc.Width = width == 0 ? src_desc.Width : width;
+  map_desc.Height = height == 0 ? src_desc.Height : height;
+  map_desc.MipLevels = src_desc.MipLevels;
+  map_desc.ArraySize = src_desc.ArraySize;
+  map_desc.Format = src_desc.Format;
+  map_desc.SampleDesc = src_desc.SampleDesc;
+  map_desc.Usage = D3D11_USAGE_STAGING;
+  map_desc.BindFlags = 0;
+  map_desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+  map_desc.MiscFlags = 0;
+  return d3d11_device_->CreateTexture2D(&map_desc, nullptr, &mapped_texture_);
+}
+
+HRESULT WgcCaptureSession::OnFrameArrived(
+    WGC::IDirect3D11CaptureFramePool* sender,
+    IInspectable* event_args) {
+  RTC_DLOG(LS_INFO) << "[WCS][+] " << __func__;
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  ++num_frames_arrived_;
+  first_frame_has_arrived_ = true;
+  ProcessFrame();
+  return S_OK;
+}
+
+HRESULT WgcCaptureSession::ProcessFrame() {
+  RTC_DLOG(LS_INFO) << "[WCS] " << __func__;
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   if (item_closed_) {
     RTC_LOG(LS_ERROR) << "The target source has been closed.";
     RecordGetFrameResult(GetFrameResult::kItemClosed);
-    return E_ABORT;
+    return false;
   }
 
   RTC_DCHECK(is_capture_started_);
 
-  if (frames_in_pool_ < 1)
-    wait_for_frame_event_.Wait(first_frame_ ? kMaxWaitForFirstFrame
-                                            : kMaxWaitForFrame);
+  queue_.MoveToNextFrame();
+  if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
+    RTC_LOG(LS_WARNING) << "[WCS] Overwriting frame that is still shared.";
+    ++num_overwrites_;
+  }
 
   ComPtr<WGC::IDirect3D11CaptureFrame> capture_frame;
   HRESULT hr = frame_pool_->TryGetNextFrame(&capture_frame);
@@ -233,13 +289,11 @@ HRESULT WgcCaptureSession::GetFrame(
     return hr;
   }
 
+  // TODO(henrika): NULL check should not be required.
   if (!capture_frame) {
     RecordGetFrameResult(GetFrameResult::kFrameDropped);
     return hr;
   }
-
-  first_frame_ = false;
-  --frames_in_pool_;
 
   // We need to get `capture_frame` as an `ID3D11Texture2D` so that we can get
   // the raw image data in the format required by the `DesktopFrame` interface.
@@ -291,6 +345,8 @@ HRESULT WgcCaptureSession::GetFrame(
   // fit the new size. This must be done before `CopySubresourceRegion` so that
   // the textures are the same size.
   if (size_.Height != new_size.Height || size_.Width != new_size.Width) {
+    RTC_DLOG(LS_INFO) << "[WCS] new_size=(" << new_size.Width << "x"
+                      << new_size.Height << ")";
     hr = CreateMappedTexture(texture_2D, new_size.Width, new_size.Height);
     if (FAILED(hr)) {
       RecordGetFrameResult(GetFrameResult::kResizeMappedTextureFailed);
@@ -333,62 +389,33 @@ HRESULT WgcCaptureSession::GetFrame(
     return hr;
   }
 
+  // As frame consumer we are expected to (re)allocate frames if current_frame()
+  // returns NULL.
+  DesktopSize image_size(image_width, image_height);
+  if (!queue_.current_frame() ||
+      !queue_.current_frame()->size().equals(image_size)) {
+    std::unique_ptr<DesktopFrame> buffer =
+        std::make_unique<BasicDesktopFrame>(image_size);
+    queue_.ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(buffer)));
+  }
+
   int row_data_length = image_width * DesktopFrame::kBytesPerPixel;
 
   // Make a copy of the data pointed to by `map_info.pData` so we are free to
   // unmap our texture.
   uint8_t* src_data = static_cast<uint8_t*>(map_info.pData);
-  std::vector<uint8_t> image_data;
-  image_data.resize(image_height * row_data_length);
-  uint8_t* image_data_ptr = image_data.data();
+  uint8_t* dst_data = queue_.current_frame()->data();
   for (int i = 0; i < image_height; i++) {
-    memcpy(image_data_ptr, src_data, row_data_length);
-    image_data_ptr += row_data_length;
+    memcpy(dst_data, src_data, row_data_length);
+    dst_data += row_data_length;
     src_data += map_info.RowPitch;
   }
 
   d3d_context->Unmap(mapped_texture_.Get(), 0);
 
-  // Transfer ownership of `image_data` to the output_frame.
-  DesktopSize size(image_width, image_height);
-  *output_frame = std::make_unique<WgcDesktopFrame>(size, row_data_length,
-                                                    std::move(image_data));
-
   size_ = new_size;
   RecordGetFrameResult(GetFrameResult::kSuccess);
   return hr;
-}
-
-HRESULT WgcCaptureSession::CreateMappedTexture(
-    ComPtr<ID3D11Texture2D> src_texture,
-    UINT width,
-    UINT height) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-
-  D3D11_TEXTURE2D_DESC src_desc;
-  src_texture->GetDesc(&src_desc);
-  D3D11_TEXTURE2D_DESC map_desc;
-  map_desc.Width = width == 0 ? src_desc.Width : width;
-  map_desc.Height = height == 0 ? src_desc.Height : height;
-  map_desc.MipLevels = src_desc.MipLevels;
-  map_desc.ArraySize = src_desc.ArraySize;
-  map_desc.Format = src_desc.Format;
-  map_desc.SampleDesc = src_desc.SampleDesc;
-  map_desc.Usage = D3D11_USAGE_STAGING;
-  map_desc.BindFlags = 0;
-  map_desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-  map_desc.MiscFlags = 0;
-  return d3d11_device_->CreateTexture2D(&map_desc, nullptr, &mapped_texture_);
-}
-
-HRESULT WgcCaptureSession::OnFrameArrived(
-    WGC::IDirect3D11CaptureFramePool* sender,
-    IInspectable* event_args) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  RTC_DCHECK_LT(frames_in_pool_, kNumBuffers);
-  ++frames_in_pool_;
-  wait_for_frame_event_.Set();
-  return S_OK;
 }
 
 HRESULT WgcCaptureSession::OnItemClosed(WGC::IGraphicsCaptureItem* sender,
@@ -409,6 +436,10 @@ HRESULT WgcCaptureSession::OnItemClosed(WGC::IGraphicsCaptureItem* sender,
 }
 
 void WgcCaptureSession::RemoveEventHandlers() {
+  RTC_DLOG(LS_INFO) << "[WCS] " << __func__;
+  RTC_DLOG(LS_INFO) << "[WCS]   num_frames_arrived=" << num_frames_arrived_;
+  RTC_DLOG(LS_INFO) << "[WCS]   num_overwrites=" << num_overwrites_;
+
   HRESULT hr;
   if (frame_pool_ && frame_arrived_token_) {
     hr = frame_pool_->remove_FrameArrived(*frame_arrived_token_);

@@ -238,7 +238,6 @@ void AudioTrackJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                     jobject obj,
                                                      jobject byte_buffer,
                                                      jlong nativeAudioTrack) {
   webrtc::AudioTrackJni* this_object =
@@ -262,7 +261,6 @@ void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioTrackJni::GetPlayoutData(JNIEnv* env,
-                                           jobject obj,
                                            jint length,
                                            jlong nativeAudioTrack) {
   webrtc::AudioTrackJni* this_object =

@@ -100,6 +100,28 @@ struct GofInfoVP9 {
     }
   }
 
+  friend bool operator==(const RTPVideoHeaderVP9& lhs,
+                         const RTPVideoHeaderVP9& rhs) {
+    return lhs.num_frames_in_gof == rhs.num_frames_in_gof &&
+           std::equal(lhs.temporal_idx, lhs.temporal_idx + kMaxVp9FramesInGof,
+                      rhs.temporal_idx,
+                      rhs.temporal_idx + kMaxVp9FramesInGof) &&
+           std::equal(lhs.temporal_up_switch,
+                      lhs.temporal_up_switch + kMaxVp9FramesInGof,
+                      rhs.temporal_up_switch,
+                      rhs.temporal_up_switch + kMaxVp9FramesInGof) &&
+           std::equal(lhs.num_ref_pics, lhs.num_ref_pics + kMaxVp9FramesInGof,
+                      rhs.num_ref_pics,
+                      rhs.num_ref_pics + kMaxVp9FramesInGof) &&
+           uint8_t pid_diff[kMaxVp9FramesInGof][kMaxVp9RefPics];
+    lhs.pid_start == rhs.pid_start;
+  }
+
+  friend bool operator!=(const RTPVideoHeaderVP9& lhs,
+                         const RTPVideoHeaderVP9& rhs) {
+    return !(lhs == rhs);
+  }
+
   size_t num_frames_in_gof;
   uint8_t temporal_idx[kMaxVp9FramesInGof];
   bool temporal_up_switch[kMaxVp9FramesInGof];
@@ -128,6 +150,43 @@ struct RTPVideoHeaderVP9 {
     num_spatial_layers = 1;
     first_active_layer = 0;
     end_of_picture = true;
+  }
+
+  friend bool operator==(const RTPVideoHeaderVP9& lhs,
+                         const RTPVideoHeaderVP9& rhs) {
+    lhs.inter_pic_predicted == rhs.inter_pic_predicted&& lhs.flexible_mode ==
+            rhs.flexible_mode&& lhs.beginning_of_frame ==
+            rhs.beginning_of_frame&& lhs.end_of_frame ==
+            rhs.end_of_frame&& lhs.ss_data_available ==
+            rhs.ss_data_available&& lhs.non_ref_for_inter_layer_pred ==
+            rhs.non_ref_for_inter_layer_pred&& lhs.picture_id ==
+            rhs.picture_id&& lhs.max_picture_id ==
+            rhs.max_picture_id&& lhs.tl0_pic_idx ==
+            rhs.tl0_pic_idx&& lhs.temporal_idx ==
+            rhs.temporal_idx&& lhs.spatial_idx ==
+            rhs.spatial_idx&& lhs.temporal_up_switch ==
+            rhs.temporal_up_switch&& lhs.inter_layer_predicted ==
+            rhs.inter_layer_predicted&& lhs.gof_idx ==
+            rhs.gof_idx&& lhs.num_ref_pics ==
+            rhs.num_ref_pics&& std::equal(
+                lhs.pid_diff, lhs.pid_diff + kMaxVp9RefPics, rhs.pid_diff,
+                rhs.pid_diff + kMaxVp9RefPics) &&
+        std::equal(lhs.ref_picture_id, lhs.ref_picture_id + kMaxVp9RefPics,
+                   rhs.ref_picture_id, rhs.ref_picture_id + kMaxVp9RefPics) &&
+        lhs.num_spatial_layers ==
+            rhs.num_spatial_layers&& lhs.first_active_layer ==
+            rhs.first_active_layer&& lhs.spatial_layer_resolution_present ==
+            rhs.spatial_layer_resolution_present&& std::equal(
+                lhs.width, lhs.width + kMaxVp9NumberOfSpatialLayers, rhs.width,
+                rhs.width + kMaxVp9NumberOfSpatialLayers) &&
+        std::equal(lhs.height, lhs.height + kMaxVp9NumberOfSpatialLayers,
+                   rhs.height, rhs.height + kMaxVp9NumberOfSpatialLayers) &&
+        lhs.gof == rhs.gof&& lhs.end_of_picture == rhs.end_of_picture;
+  }
+
+  friend bool operator!=(const RTPVideoHeaderVP9& lhs,
+                         const RTPVideoHeaderVP9& rhs) {
+    return !(lhs == rhs);
   }
 
   bool inter_pic_predicted;  // This layer frame is dependent on previously

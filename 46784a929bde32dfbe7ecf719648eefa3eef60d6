@@ -20,6 +20,41 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d91aee2b_771df422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-15T17:35:29Z",
+      "side": 1,
+      "message": "Danil: Thank you for your comment. I respect the code owner\u0027s preference and style. In this CL I only suggested the `const` that helped my investigation of b/265848768.\n\nIt may be possible to reduce the variable scope of the first `info` (declared at line 1344). I added a comment to mark the current end of the variable scope.\n\nIt seems hard to reduce the variable scope of the second `info` (declared at line 1872) because it is used in many places consecutively. So adding `const` to the second `info` is very helpful.",
+      "parentUuid": "2ad8716e_47249ab5",
+      "revId": "46784a929bde32dfbe7ecf719648eefa3eef60d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "904fc44b_eb48ae13",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1389,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-15T17:35:29Z",
+      "side": 1,
+      "message": "These two lines are the last uses of `info`. I don\u0027t know if they can be moved up to reduce the variable scope of `info`.",
+      "revId": "46784a929bde32dfbe7ecf719648eefa3eef60d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "da824fe5_820e47b4",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1

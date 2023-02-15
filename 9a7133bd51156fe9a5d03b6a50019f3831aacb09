@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2acc7446_887abd47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20439
+      },
+      "writtenOn": "2023-02-15T16:20:31Z",
+      "side": 1,
+      "message": "@hta@webrtc.org Do you think we could accept and merge this?\n\nThank you.",
+      "revId": "9a7133bd51156fe9a5d03b6a50019f3831aacb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

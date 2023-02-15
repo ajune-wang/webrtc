@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_common.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioManager_jni.h"
 #include "modules/utility/include/helpers_android.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
@@ -239,7 +240,6 @@ int AudioManager::GetDelayEstimateInMilliseconds() const {
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
-                                                jobject obj,
                                                 jint sample_rate,
                                                 jint output_channels,
                                                 jint input_channels,

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f08456_aa48a5ed",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-15T22:28:17Z",
+      "side": 1,
+      "message": "The only call to this method passes a temporary object as the argument. So if you deliberately declare this parameter as pass-by-value, I can undo this change.",
+      "revId": "084ccc2f553b2ff2f0f9a7e615638a2e9473bcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba4ffe8_8f09a569",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-15T22:28:17Z",
+      "side": 1,
+      "message": "This comment assures the reader that it is okay for `SetSvcParams()` to leave `svc_params.layer_target_bitrate` uninitialized here.",
+      "revId": "084ccc2f553b2ff2f0f9a7e615638a2e9473bcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

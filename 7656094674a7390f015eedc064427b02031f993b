@@ -90,6 +90,30 @@
       },
       "revId": "7656094674a7390f015eedc064427b02031f993b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8ee40a3_9f30a53c",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-15T13:48:28Z",
+      "side": 1,
+      "message": "You\u0027re right this should be `simulcast_index_`, not `simulcast_index_.value()`. Done, also fixed the equivalent lines in SpatialIndex().\n\nI think the reason it worked was an implicit constructor call, same as `absl::optional\u003cint\u003e(simulcast_index_.value())`.",
+      "parentUuid": "7313421d_d39c7fee",
+      "range": {
+        "startLine": 101,
+        "startChar": 58,
+        "endLine": 101,
+        "endChar": 66
+      },
+      "revId": "7656094674a7390f015eedc064427b02031f993b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

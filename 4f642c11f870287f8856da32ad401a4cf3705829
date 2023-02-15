@@ -16,6 +16,24 @@
       "message": "James: This is why `active_tls_` is present in the minidump of the crash report. It is a local variable.",
       "revId": "4f642c11f870287f8856da32ad401a4cf3705829",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c799ae_bebbc761",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7949
+      },
+      "writtenOn": "2023-02-15T02:08:39Z",
+      "side": 0,
+      "message": "\u003e James: This is why `active_tls_` is present in the minidump of the crash report. It is a local variable.\n\nGood catch, I didn\u0027t look that closely.",
+      "parentUuid": "71a5a7cc_289b1a83",
+      "revId": "4f642c11f870287f8856da32ad401a4cf3705829",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

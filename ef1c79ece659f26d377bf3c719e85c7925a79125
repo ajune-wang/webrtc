@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38c5f9b9_3e067304",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-15T11:36:17Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "ef1c79ece659f26d377bf3c719e85c7925a79125",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03f9a196_61dc3416",
@@ -14,6 +31,30 @@
       "writtenOn": "2023-02-15T10:15:57Z",
       "side": 1,
       "message": "May want to dcheck that new_header and original are equal. Or do we have unittests that verify this? Would be good to have something that guarantees these stay in sync when new members are added.",
+      "range": {
+        "startLine": 211,
+        "startChar": 59,
+        "endLine": 211,
+        "endChar": 60
+      },
+      "revId": "ef1c79ece659f26d377bf3c719e85c7925a79125",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa230a5_c8bbb88f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-15T11:36:17Z",
+      "side": 1,
+      "message": "Good thought. I\u0027m relying on the RTPVideoHeaderTest unittest for this, which has pretty good coverage that `RTPVideoHeader::FromMetadata(myVideoHeader.GetAsMetadata()) \u003d\u003d myVideoHeader`.\n\nKeeping the two in sync when adding fields was the reason we put the conversion methods in RTPVideoHeader itself, but I think that might be a decision we revisit when we\u0027ve got a clearer idea of what fields actually need to be propagated receiver-\u003esender to make eCDN work.",
+      "parentUuid": "03f9a196_61dc3416",
       "range": {
         "startLine": 211,
         "startChar": 59,

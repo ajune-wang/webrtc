@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2ad8716e_47249ab5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-15T09:08:36Z",
+      "side": 1,
+      "message": "I do not have an opinion about this change.\n\nFrom style guide point of view either way is acceptable.\nhttps://google.github.io/styleguide/cppguide.html#Use_of_const\n“Using const on local variables is neither encouraged nor discouraged.”\n\npersonally prefer to make code clearer by having smaller variable scope rather than adding const on local variable.\n\nLeaving this up to the code owner.",
+      "revId": "46784a929bde32dfbe7ecf719648eefa3eef60d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "da824fe5_820e47b4",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1

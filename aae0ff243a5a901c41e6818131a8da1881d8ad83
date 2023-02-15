@@ -16,6 +16,24 @@
       "message": "Could you please send this to the Commit Queue so this can be closed? I have no permission to do this.",
       "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39f4b8d_8f8aacbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20439
+      },
+      "writtenOn": "2023-02-15T17:03:05Z",
+      "side": 1,
+      "message": "@hta@webrtc.org I apologize. Is it just that I am not familiar with this Gerrit system or how merges work.",
+      "parentUuid": "2c06a699_8e1daec3",
+      "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

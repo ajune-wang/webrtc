@@ -129,7 +129,6 @@ class AudioManager {
   // This method will be called by the WebRtcAudioManager constructor, i.e.
   // on the same thread that this object is created on.
   static void JNICALL CacheAudioParameters(JNIEnv* env,
-                                           jobject obj,
                                            jint sample_rate,
                                            jint output_channels,
                                            jint input_channels,

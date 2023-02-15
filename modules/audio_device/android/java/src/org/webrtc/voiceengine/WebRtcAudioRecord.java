@@ -9,7 +9,6 @@
  */
 
 package org.webrtc.voiceengine;
-
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder.AudioSource;
@@ -20,6 +19,7 @@ import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import org.chromium.base.annotations.NativeMethods;
 import org.webrtc.Logging;
 import org.webrtc.ThreadUtils;
 
@@ -163,7 +163,7 @@ public class WebRtcAudioRecord {
           // failed to join this thread. To be a bit safer, try to avoid calling any native methods
           // in case they've been unregistered after stopRecording() returned.
           if (keepAlive) {
-            nativeDataIsRecorded(bytesRead, nativeAudioRecord);
+            WebRtcAudioRecordJni.get().dataIsRecorded(bytesRead, nativeAudioRecord);
           }
           if (audioSamplesReadyCallback != null) {
             // Copy the entire byte buffer array.  Assume that the start of the byteBuffer is
@@ -246,7 +246,7 @@ public class WebRtcAudioRecord {
     // Rather than passing the ByteBuffer with every callback (requiring
     // the potentially expensive GetDirectBufferAddress) we simply have the
     // the native class cache the address to the memory once.
-    nativeCacheDirectBufferAddress(byteBuffer, nativeAudioRecord);
+    WebRtcAudioRecordJni.get().cacheDirectBufferAddress(byteBuffer, nativeAudioRecord);
 
     // Get the minimum buffer size required for the successful creation of
     // an AudioRecord object, in byte units.
@@ -351,10 +351,6 @@ public class WebRtcAudioRecord {
     return (channels == 1 ? AudioFormat.CHANNEL_IN_MONO : AudioFormat.CHANNEL_IN_STEREO);
   }
 
-  private native void nativeCacheDirectBufferAddress(ByteBuffer byteBuffer, long nativeAudioRecord);
-
-  private native void nativeDataIsRecorded(int bytes, long nativeAudioRecord);
-
   @SuppressWarnings("NoSynchronizedMethodCheck")
   public static synchronized void setAudioSource(int source) {
     Logging.w(TAG, "Audio source is changed from: " + audioSource
@@ -405,5 +401,11 @@ public class WebRtcAudioRecord {
     if (errorCallback != null) {
       errorCallback.onWebRtcAudioRecordError(errorMessage);
     }
+  }
+
+  @NativeMethods
+  interface Natives {
+    void cacheDirectBufferAddress(ByteBuffer byteBuffer, long nativeAudioRecord);
+    void dataIsRecorded(int bytes, long nativeAudioRecord);
   }
 }

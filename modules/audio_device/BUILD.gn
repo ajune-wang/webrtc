@@ -273,6 +273,7 @@ rtc_library("audio_device_impl") {
         "android/opensles_recorder.cc",
         "android/opensles_recorder.h",
       ]
+      deps += [ "generated_audio_device_java_jni" ]
       libs = [
         "log",
         "OpenSLES",
@@ -489,7 +490,18 @@ if (!build_with_chromium && is_android) {
     ]
     deps = [
       "../../rtc_base:base_java",
+      "//base:jni_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
+  }
+  generate_jni("generated_audio_device_java_jni") {
+    sources = [
+      "android/java/src/org/webrtc/voiceengine/WebRtcAudioManager.java",
+      "android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+      "android/java/src/org/webrtc/voiceengine/WebRtcAudioTrack.java",
+    ]
+    namespace = "webrtc::jni"
+    jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
   }
 }

@@ -205,6 +205,7 @@ void WgcCapturerWin::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kWgcCapturerWin);
+  RTC_DLOG(LS_INFO) << "[WCW] " << __func__;
 
   callback_ = callback;
 
@@ -234,6 +235,7 @@ void WgcCapturerWin::Start(Callback* callback) {
 
 void WgcCapturerWin::CaptureFrame() {
   RTC_DCHECK(callback_);
+  RTC_DLOG(LS_INFO) << "[WCW] " << __func__;
 
   if (!capture_source_) {
     RTC_LOG(LS_ERROR) << "Source hasn't been selected";
@@ -323,8 +325,7 @@ void WgcCapturerWin::CaptureFrame() {
   }
 
   std::unique_ptr<DesktopFrame> frame;
-  hr = capture_session->GetFrame(&frame);
-  if (FAILED(hr)) {
+  if (!capture_session->GetFrame(&frame)) {
     RTC_LOG(LS_ERROR) << "GetFrame failed: " << hr;
     ongoing_captures_.erase(capture_source_->GetSourceId());
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
@@ -337,6 +338,7 @@ void WgcCapturerWin::CaptureFrame() {
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,
                                /*frame=*/nullptr);
     RecordWgcCapturerResult(WgcCapturerResult::kFrameDropped);
+    RTC_DLOG(LS_WARNING) << "[WCW] => WgcCapturerResult::kFrameDropped";
     return;
   }
 

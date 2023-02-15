@@ -99,7 +99,8 @@ class LibaomAv1Encoder final : public VideoEncoder {
 
   bool SvcEnabled() const { return svc_params_.has_value(); }
   // Fills svc_params_ memeber value. Returns false on error.
-  bool SetSvcParams(ScalableVideoController::StreamLayersConfig svc_config);
+  bool SetSvcParams(
+      const ScalableVideoController::StreamLayersConfig& svc_config);
   // Configures the encoder with layer for the next frame.
   void SetSvcLayerId(
       const ScalableVideoController::LayerFrameConfig& layer_frame);
@@ -143,6 +144,9 @@ int32_t VerifyCodecSettings(const VideoCodec& codec_settings) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (codec_settings.maxFramerate < 1) {
+    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+  }
+  if (codec_settings.qpMax < kQpMin || codec_settings.qpMax > 63) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   return WEBRTC_VIDEO_CODEC_OK;
@@ -399,7 +403,7 @@ int LibaomAv1Encoder::NumberOfThreads(int width,
 }
 
 bool LibaomAv1Encoder::SetSvcParams(
-    ScalableVideoController::StreamLayersConfig svc_config) {
+    const ScalableVideoController::StreamLayersConfig& svc_config) {
   bool svc_enabled =
       svc_config.num_spatial_layers > 1 || svc_config.num_temporal_layers > 1;
   if (!svc_enabled) {
@@ -438,6 +442,9 @@ bool LibaomAv1Encoder::SetSvcParams(
     svc_params.scaling_factor_num[sid] = svc_config.scaling_factor_num[sid];
     svc_params.scaling_factor_den[sid] = svc_config.scaling_factor_den[sid];
   }
+
+  // svc_params.layer_target_bitrate is set in SetRates() before svc_params is
+  // passed to SetEncoderControlParameters((AV1E_SET_SVC_PARAMS).
 
   return true;
 }
@@ -775,7 +782,7 @@ void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
       for (int tid = 0; tid < svc_params_->number_temporal_layers; ++tid) {
         int layer_index = sid * svc_params_->number_temporal_layers + tid;
         accumulated_bitrate_bps += parameters.bitrate.GetBitrate(sid, tid);
-        // `svc_params.layer_target_bitrate` expects bitrate in kbps.
+        // `svc_params_->layer_target_bitrate` expects bitrate in kbps.
         svc_params_->layer_target_bitrate[layer_index] =
             accumulated_bitrate_bps / 1000;
       }

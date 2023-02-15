@@ -50,6 +50,46 @@
       "message": "Please take a look, Erik and Philip",
       "revId": "7656094674a7390f015eedc064427b02031f993b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e842a1b_48f3c26f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-02-15T12:58:22Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "7656094674a7390f015eedc064427b02031f993b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7313421d_d39c7fee",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-02-15T12:58:22Z",
+      "side": 1,
+      "message": "nit: shouldn\u0027t this just be `simulcast_index_`? I\u0027m a bit surprised this even compiles given that the type of `simulcast_index_.value()` is an int and `spatial_index_` as an optional\u003cint\u003e, right? Am I reading things wrong?",
+      "range": {
+        "startLine": 101,
+        "startChar": 58,
+        "endLine": 101,
+        "endChar": 66
+      },
+      "revId": "7656094674a7390f015eedc064427b02031f993b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

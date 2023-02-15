@@ -8,9 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "rtc_base/logging.h"
+
 #include <memory>
 
-#include "rtc_base/logging.h"
+#include "rtc_base/generated_base_java_jni/Logging_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
@@ -18,7 +20,7 @@ namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(void,
-                         Logging_nativeEnableLogToDebugOutput,
+                         Logging_EnableLogToDebugOutput,
                          JNIEnv* jni,
                          jclass,
                          jint nativeSeverity) {
@@ -28,22 +30,19 @@ JNI_FUNCTION_DECLARATION(void,
   }
 }
 
-JNI_FUNCTION_DECLARATION(void,
-                         Logging_nativeEnableLogThreads,
-                         JNIEnv* jni,
-                         jclass) {
+JNI_FUNCTION_DECLARATION(void, Logging_EnableLogThreads, JNIEnv* jni, jclass) {
   rtc::LogMessage::LogThreads(true);
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         Logging_nativeEnableLogTimeStamps,
+                         Logging_EnableLogTimeStamps,
                          JNIEnv* jni,
                          jclass) {
   rtc::LogMessage::LogTimestamps(true);
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         Logging_nativeLog,
+                         Logging_Log,
                          JNIEnv* jni,
                          jclass,
                          jint j_severity,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1455ae3e_7d16865e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-15T10:03:46Z",
+      "side": 1,
+      "message": "+holmer for Owners approval as hta is out today.",
+      "revId": "08ae321737af8c5a01549cffaf1ce8fd8a1f8031",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

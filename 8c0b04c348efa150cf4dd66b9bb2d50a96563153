@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ca9dc17_d70dfbf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-15T18:18:04Z",
+      "side": 1,
+      "message": "At a high level (did not do a thorough code review) this structure seems good; the change That I\u0027d like to propose though is to do some kind of delay to *try* to send the first frame. This is similar to what DxgiDuplicatorController::EnsureFrame [1] does, but I\u0027m not sure we want it every time, and we can\u0027t just sleep because we probably should yield. Something like the (very sketchy) following:\n\n```\nCaptureFrame() {...\nif (!has_received_first_frame_) {\n// PostDelayedTask[2] FirstFrameTimeout\n// Set send_first_frame_immediately_\n}\n\n---\n\nvoid FirstFrameTimeout() {\n  if (has_received_first_frame_)\n    return;\n  // Either send a temporary or permanent error depending on what we decide.\n}\n\n---\nvoid ProcessFrame() {\n...\nif (send_first_frame_immediately_) {\n  callback_-\u003eOnFrame(...);\n}\n```\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/win/dxgi_duplicator_controller.cc;drc\u003d60795e8c7ac95eff82896e4a4b7ade34a46b6e56;l\u003d436\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/task_queue.h;drc\u003d9e09a1f327018143723c330069b51b16613a6f11;l\u003d96",
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72cb6c3d_ec82adbc",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-15T18:18:04Z",
+      "side": 1,
+      "message": "NIT: Not sure if this is explicitly required because I don\u0027t think any capturers are actually re-used...",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 22
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6b94b0_c5cf62cd",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-15T18:18:04Z",
+      "side": 1,
+      "message": "I think this is inverted?",
+      "range": {
+        "startLine": 222,
+        "startChar": 11,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

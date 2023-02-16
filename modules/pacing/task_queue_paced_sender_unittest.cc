@@ -78,79 +78,6 @@ std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
   return padding_packets;
 }
 
-class TaskQueueWithFakePrecisionFactory : public TaskQueueFactory {
- public:
-  explicit TaskQueueWithFakePrecisionFactory(
-      TaskQueueFactory* task_queue_factory)
-      : task_queue_factory_(task_queue_factory) {}
-
-  std::unique_ptr<TaskQueueBase, TaskQueueDeleter> CreateTaskQueue(
-      absl::string_view name,
-      Priority priority) const override {
-    return std::unique_ptr<TaskQueueBase, TaskQueueDeleter>(
-        new TaskQueueWithFakePrecision(
-            const_cast<TaskQueueWithFakePrecisionFactory*>(this),
-            task_queue_factory_));
-  }
-
-  int delayed_low_precision_count() const {
-    return delayed_low_precision_count_;
-  }
-  int delayed_high_precision_count() const {
-    return delayed_high_precision_count_;
-  }
-
- private:
-  friend class TaskQueueWithFakePrecision;
-
-  class TaskQueueWithFakePrecision : public TaskQueueBase {
-   public:
-    TaskQueueWithFakePrecision(
-        TaskQueueWithFakePrecisionFactory* parent_factory,
-        TaskQueueFactory* task_queue_factory)
-        : parent_factory_(parent_factory),
-          task_queue_(task_queue_factory->CreateTaskQueue(
-              "TaskQueueWithFakePrecision",
-              TaskQueueFactory::Priority::NORMAL)) {}
-    ~TaskQueueWithFakePrecision() override {}
-
-    void Delete() override {
-      // `task_queue_->Delete()` is implicitly called in the destructor due to
-      // TaskQueueDeleter.
-      delete this;
-    }
-    void PostTask(absl::AnyInvocable<void() &&> task) override {
-      task_queue_->PostTask(WrapTask(std::move(task)));
-    }
-    void PostDelayedTask(absl::AnyInvocable<void() &&> task,
-                         TimeDelta delay) override {
-      ++parent_factory_->delayed_low_precision_count_;
-      task_queue_->PostDelayedTask(WrapTask(std::move(task)), delay);
-    }
-    void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
-                                      TimeDelta delay) override {
-      ++parent_factory_->delayed_high_precision_count_;
-      task_queue_->PostDelayedHighPrecisionTask(WrapTask(std::move(task)),
-                                                delay);
-    }
-
-   private:
-    absl::AnyInvocable<void() &&> WrapTask(absl::AnyInvocable<void() &&> task) {
-      return [this, task = std::move(task)]() mutable {
-        CurrentTaskQueueSetter set_current(this);
-        std::move(task)();
-      };
-    }
-
-    TaskQueueWithFakePrecisionFactory* parent_factory_;
-    std::unique_ptr<TaskQueueBase, TaskQueueDeleter> task_queue_;
-  };
-
-  TaskQueueFactory* task_queue_factory_;
-  std::atomic<int> delayed_low_precision_count_ = 0u;
-  std::atomic<int> delayed_high_precision_count_ = 0u;
-};
-
 }  // namespace
 
 namespace test {
@@ -188,15 +115,15 @@ std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePackets(
   return packets;
 }
 
-constexpr char kSendPacketOnWorkerThreadFieldTrial[] =
-    "WebRTC-SendPacketsOnWorkerThread/Enabled/";
+constexpr char kSendPacketOnWorkerThreadFieldTrialDisabled[] =
+    "WebRTC-SendPacketsOnWorkerThread/Disabled/";
 
 std::vector<std::string> ParameterizedFieldTrials() {
-  return {{""}, {kSendPacketOnWorkerThreadFieldTrial}};
+  return {{""}, {kSendPacketOnWorkerThreadFieldTrialDisabled}};
 }
 
 bool UsingWorkerThread(absl::string_view field_trials) {
-  return field_trials.find(kSendPacketOnWorkerThreadFieldTrial) !=
+  return field_trials.find(kSendPacketOnWorkerThreadFieldTrialDisabled) ==
          std::string::npos;
 }
 
@@ -809,104 +736,6 @@ TEST_P(TaskQueuePacedSenderTest, Stats) {
   EXPECT_EQ(pacer.FirstSentPacketTime(), kStartTime);
   EXPECT_TRUE(pacer.QueueSizeData().IsZero());
   EXPECT_TRUE(pacer.ExpectedQueueTime().IsZero());
-}
-
-// TODO(webrtc:14502): Rewrite these tests if the functionality is needed if
-// pacing is done on the worker thread.
-TEST(TaskQueuePacedSenderTest, HighPrecisionPacingWhenSlackIsDisabled) {
-  ScopedKeyValueConfig trials("WebRTC-SlackedTaskQueuePacedSender/Disabled/");
-
-  GlobalSimulatedTimeController time_controller(Timestamp::Millis(1234));
-  TaskQueueWithFakePrecisionFactory task_queue_factory(
-      time_controller.GetTaskQueueFactory());
-
-  MockPacketRouter packet_router;
-  TaskQueuePacedSender pacer(
-      time_controller.GetClock(), &packet_router, trials, &task_queue_factory,
-      PacingController::kMinSleepTime, TaskQueuePacedSender::kNoPacketHoldback);
-
-  // Send enough packets (covering one second) that pacing is triggered, i.e.
-  // delayed tasks being scheduled.
-  static constexpr size_t kPacketsToSend = 42;
-  static constexpr DataRate kPacingRate =
-      DataRate::BitsPerSec(kDefaultPacketSize * 8 * kPacketsToSend);
-  pacer.SetPacingRates(kPacingRate, DataRate::Zero());
-  pacer.EnsureStarted();
-  pacer.EnqueuePackets(
-      GeneratePackets(RtpPacketMediaType::kVideo, kPacketsToSend));
-  // Expect all of them to be sent.
-  size_t packets_sent = 0;
-  EXPECT_CALL(packet_router, SendPacket)
-      .WillRepeatedly(
-          [&](std::unique_ptr<RtpPacketToSend> packet,
-              const PacedPacketInfo& cluster_info) { ++packets_sent; });
-  time_controller.AdvanceTime(TimeDelta::Seconds(1));
-  EXPECT_EQ(packets_sent, kPacketsToSend);
-
-  // Expect pacing to make use of high precision.
-  EXPECT_EQ(task_queue_factory.delayed_low_precision_count(), 0);
-  EXPECT_GT(task_queue_factory.delayed_high_precision_count(), 0);
-
-  // Create probe cluster which is also high precision.
-  pacer.CreateProbeClusters(
-      {{.at_time = time_controller.GetClock()->CurrentTime(),
-        .target_data_rate = kPacingRate,
-        .target_duration = TimeDelta::Millis(15),
-        .target_probe_count = 4,
-        .id = 123}});
-  pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 1));
-  time_controller.AdvanceTime(TimeDelta::Seconds(1));
-  EXPECT_EQ(task_queue_factory.delayed_low_precision_count(), 0);
-  EXPECT_GT(task_queue_factory.delayed_high_precision_count(), 0);
-}
-
-// TODO(webrtc:14502): Rewrite these tests if the functionality is needed if
-// pacing is done on the worker thread.
-TEST(TaskQueuePacedSenderTest, LowPrecisionPacingWhenSlackIsEnabled) {
-  ScopedKeyValueConfig trials("WebRTC-SlackedTaskQueuePacedSender/Enabled/");
-
-  GlobalSimulatedTimeController time_controller(Timestamp::Millis(1234));
-  TaskQueueWithFakePrecisionFactory task_queue_factory(
-      time_controller.GetTaskQueueFactory());
-
-  MockPacketRouter packet_router;
-  TaskQueuePacedSender pacer(
-      time_controller.GetClock(), &packet_router, trials, &task_queue_factory,
-      PacingController::kMinSleepTime, TaskQueuePacedSender::kNoPacketHoldback);
-
-  // Send enough packets (covering one second) that pacing is triggered, i.e.
-  // delayed tasks being scheduled.
-  static constexpr size_t kPacketsToSend = 42;
-  static constexpr DataRate kPacingRate =
-      DataRate::BitsPerSec(kDefaultPacketSize * 8 * kPacketsToSend);
-  pacer.SetPacingRates(kPacingRate, DataRate::Zero());
-  pacer.EnsureStarted();
-  pacer.EnqueuePackets(
-      GeneratePackets(RtpPacketMediaType::kVideo, kPacketsToSend));
-  // Expect all of them to be sent.
-  size_t packets_sent = 0;
-  EXPECT_CALL(packet_router, SendPacket)
-      .WillRepeatedly(
-          [&](std::unique_ptr<RtpPacketToSend> packet,
-              const PacedPacketInfo& cluster_info) { ++packets_sent; });
-  time_controller.AdvanceTime(TimeDelta::Seconds(1));
-  EXPECT_EQ(packets_sent, kPacketsToSend);
-
-  // Expect pacing to make use of low precision.
-  EXPECT_GT(task_queue_factory.delayed_low_precision_count(), 0);
-  EXPECT_EQ(task_queue_factory.delayed_high_precision_count(), 0);
-
-  // Create probe cluster, which uses high precision despite regular pacing
-  // being low precision.
-  pacer.CreateProbeClusters(
-      {{.at_time = time_controller.GetClock()->CurrentTime(),
-        .target_data_rate = kPacingRate,
-        .target_duration = TimeDelta::Millis(15),
-        .target_probe_count = 4,
-        .id = 123}});
-  pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 1));
-  time_controller.AdvanceTime(TimeDelta::Seconds(1));
-  EXPECT_GT(task_queue_factory.delayed_high_precision_count(), 0);
 }
 
 }  // namespace test

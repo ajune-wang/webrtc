@@ -27,6 +27,9 @@
 
 namespace webrtc {
 
+namespace jni {
+}
+
 // Implements support for functions in the WebRTC audio stack for Android that
 // relies on the AudioManager in android.media. It also populates an
 // AudioParameter structure with native audio parameters detected at
@@ -128,8 +131,7 @@ class AudioManager {
   // Called from Java side so we can cache the native audio parameters.
   // This method will be called by the WebRtcAudioManager constructor, i.e.
   // on the same thread that this object is created on.
-  static void JNICALL CacheAudioParameters(JNIEnv* env,
-                                           jobject obj,
+  friend void JNICALL jni::JNI_WebRtcAudioManager_CacheAudioParameters(JNIEnv* env,
                                            jint sample_rate,
                                            jint output_channels,
                                            jint input_channels,

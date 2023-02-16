@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "30d2151d_b45fc322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-16T09:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10ad1365_c2e81ac8",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "83956fd07c3ff3c2ec902053d6e992414862ab54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "03154803_d0e6eb16",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -37,6 +61,24 @@
       "writtenOn": "2023-02-16T09:38:34Z",
       "side": 1,
       "message": "Are fixes ready for all downstream implementations?",
+      "revId": "83956fd07c3ff3c2ec902053d6e992414862ab54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9053314_d3f6a70b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-16T09:47:24Z",
+      "side": 1,
+      "message": "Yeah, I added an Appendix of my doc where I identified 5 places that needed to update and I have already landed code to fix those.\n\nI also listed dependencies of SpatialIndex/SetSpatialIndex that I think are correct and do not need to be updated, feel free to take a look if you want to help me avoid missing something",
+      "parentUuid": "03154803_d0e6eb16",
       "revId": "83956fd07c3ff3c2ec902053d6e992414862ab54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

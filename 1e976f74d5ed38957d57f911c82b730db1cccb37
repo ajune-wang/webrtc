@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb48901c_fdf0031a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-02-16T09:48:49Z",
+      "side": 1,
+      "message": "LGTM, but I would send a heads up to some webrtc public mailing list before landing this. Was it webrtc-users or something else?",
+      "revId": "1e976f74d5ed38957d57f911c82b730db1cccb37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df9c48ef_19de2679",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-16T16:00:31Z",
+      "side": 1,
+      "message": "Pinging this for visibility as it\u0027s the discussion I allude to in the other comment.",
+      "parentUuid": "3ca9dc17_d70dfbf4",
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72cb6c3d_ec82adbc",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 2
@@ -67,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d13590c_261ef190",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-16T16:00:31Z",
+      "side": 1,
+      "message": "Sorry,this is in ::Start IIUC, which I *think* is only called on a given WgcCaptureSession once before we re-create it, so I don\u0027t think there\u0027s a need to reset these values (or the queue, since the values likely won\u0027t be long lived).",
+      "parentUuid": "a2aa6ea2_9c85b404",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 22
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d6b94b0_c5cf62cd",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 2
@@ -102,6 +144,30 @@
       "side": 1,
       "message": "Actually not since we will always hit this for the first call to GetFrame and then no frame has been captured. If we then return false here, we will hit\n\nif (!capture_session-\u003eGetFrame(\u0026frame)) {\n    RTC_LOG(LS_ERROR) \u003c\u003c \"GetFrame failed: \" \u003c\u003c hr;\n    ongoing_captures_.erase(capture_source_-\u003eGetSourceId());\n    callback_-\u003eOnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,\n                               /*frame\u003d*/nullptr);\n    RecordWgcCapturerResult(WgcCapturerResult::kGetFrameFailure);\n    return;\n}\n\nand the capturer stops. When returning true, we instead hit\n\nif (!frame) {\n    callback_-\u003eOnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,\n                               /*frame\u003d*/nullptr);\n    RecordWgcCapturerResult(WgcCapturerResult::kFrameDropped);\n    RTC_DLOG(LS_WARNING) \u003c\u003c \"[WCW] \u003d\u003e WgcCapturerResult::kFrameDropped\";\n    return;\n}\n\nand only return ERROR_TEMPORARY which keeps things alive.\n\nWithout the event, I think we need some special handling of this initial \"no frame available\" case since it is expected. As is, we will always hit RecordWgcCapturerResult(WgcCapturerResult::kFrameDropped) for the first frame.\n\nDoes it make sense to avoid sending this for the first frame?",
       "parentUuid": "9d6b94b0_c5cf62cd",
+      "range": {
+        "startLine": 222,
+        "startChar": 11,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a026db_e9e5cf8d",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-16T16:00:31Z",
+      "side": 1,
+      "message": "Either way, I think I\u0027d prefer to have some special handling for the first frame case, which I described in the top (PS level) comment I sent yesterday. If we consistently fail the first frame (which we were doing before), we will send: https://source.chromium.org/chromium/chromium/src/+/main:content/browser/media/capture/desktop_capture_device_uma_types.h;drc\u003d490be4af1d46d0f312eb4c568345bc227c199aa5;l\u003d17, which is a regression in the metrics where that event is almost never sent currently. So we need to bake in some kind of retry logic, which I described more in the other comment.\n\nOn a slightly separate note; if this method only ever returns true, it should just be a void method.",
+      "parentUuid": "0f525f42_241dc690",
       "range": {
         "startLine": 222,
         "startChar": 11,

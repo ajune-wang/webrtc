@@ -16,14 +16,11 @@ if (is_android) {
     min_sdk_version = 21
     target_sdk_version = 31
 
-    sources = [
-      "java/org/webrtc/examples/androidvoip/MainActivity.java",
-      "java/org/webrtc/examples/androidvoip/OnVoipClientTaskCompleted.java",
-      "java/org/webrtc/examples/androidvoip/VoipClient.java",
-    ]
+    sources = [ "java/org/webrtc/examples/androidvoip/MainActivity.java" ]
 
     deps = [
       ":resources",
+      ":voipclient_java",
       "//modules/audio_device:audio_device_java",
       "//rtc_base:base_java",
       "//sdk/android:base_java",
@@ -34,6 +31,20 @@ if (is_android) {
     ]
 
     shared_libraries = [ ":examples_androidvoip_jni" ]
+  }
+
+  rtc_android_library("voipclient_java") {
+    sources = [
+      "java/org/webrtc/examples/androidvoip/OnVoipClientTaskCompleted.java",
+      "java/org/webrtc/examples/androidvoip/VoipClient.java",
+    ]
+
+    deps = [
+      "//base:jni_java",
+      "//sdk/android:base_java",
+    ]
+
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
   }
 
   generate_jni("generated_jni") {

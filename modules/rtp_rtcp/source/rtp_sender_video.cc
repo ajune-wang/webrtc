@@ -161,9 +161,10 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
       packetization_overhead_bitrate_(1000, RateStatistics::kBpsScale),
       frame_encryptor_(config.frame_encryptor),
       require_frame_encryption_(config.require_frame_encryption),
-      generic_descriptor_auth_experiment_(!absl::StartsWith(
-          config.field_trials->Lookup("WebRTC-GenericDescriptorAuth"),
-          "Disabled")),
+      authenticate_generic_descriptor_(
+          frame_encryptor_ != nullptr &&
+          rtp_sender_->IsRtpHeaderExtensionRegistered(
+              kRtpExtensionGenericFrameDescriptor)),
       absolute_capture_time_sender_(config.clock),
       frame_transformer_delegate_(
           config.frame_transformer
@@ -636,7 +637,7 @@ bool RTPSenderVideo::SendVideo(
 
     // Enable header authentication if the field trial isn't disabled.
     std::vector<uint8_t> additional_data;
-    if (generic_descriptor_auth_experiment_) {
+    if (authenticate_generic_descriptor_) {
       additional_data = RtpDescriptorAuthentication(video_header);
     }
 

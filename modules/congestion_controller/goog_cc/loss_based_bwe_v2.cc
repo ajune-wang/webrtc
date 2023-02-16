@@ -373,7 +373,7 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   FieldTrialParameter<int> newton_iterations("NewtonIterations", 1);
   FieldTrialParameter<double> newton_step_size("NewtonStepSize", 0.75);
   FieldTrialParameter<bool> append_acknowledged_rate_candidate(
-      "AckedRateCandidate", true);
+      "AckedRateCandidate", false);
   FieldTrialParameter<bool> append_delay_based_estimate_candidate(
       "DelayBasedCandidate", true);
   FieldTrialParameter<TimeDelta> observation_duration_lower_bound(
@@ -413,6 +413,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                                                       false);
   FieldTrialParameter<bool> bound_by_upper_link_capacity_when_loss_limited(
       "BoundByUpperLinkCapacityWhenLossLimited", true);
+  FieldTrialParameter<bool> linear_high_bandwidth_preference(
+      "LinearHighBandwidthPreference", false);
   if (key_value_config) {
     ParseFieldTrial({&enabled,
                      &bandwidth_rampup_upper_bound_factor,
@@ -449,7 +451,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                      &high_loss_rate_threshold,
                      &bandwidth_cap_at_high_loss_rate,
                      &slope_of_bwe_high_loss_func,
-                     &bound_by_upper_link_capacity_when_loss_limited},
+                     &bound_by_upper_link_capacity_when_loss_limited,
+                     &linear_high_bandwidth_preference},
                     key_value_config->Lookup("WebRTC-Bwe-LossBasedBweV2"));
   }
 
@@ -512,6 +515,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   config->probe_integration_enabled = probe_integration_enabled.Get();
   config->bound_by_upper_link_capacity_when_loss_limited =
       bound_by_upper_link_capacity_when_loss_limited.Get();
+  config->linear_high_bandwidth_preference =
+      linear_high_bandwidth_preference.Get();
 
   return config;
 }
@@ -862,16 +867,23 @@ double LossBasedBweV2::GetInherentLossUpperBound(DataRate bandwidth) const {
 
 double LossBasedBweV2::AdjustBiasFactor(double loss_rate,
                                         double bias_factor) const {
-  return bias_factor *
-         (config_->loss_threshold_of_high_bandwidth_preference - loss_rate) /
-         (config_->bandwidth_preference_smoothing_factor +
-          std::abs(config_->loss_threshold_of_high_bandwidth_preference -
-                   loss_rate));
+  if (config_->linear_high_bandwidth_preference) {
+    return bias_factor *
+           (config_->loss_threshold_of_high_bandwidth_preference - loss_rate);
+  } else {
+    return bias_factor *
+           (config_->loss_threshold_of_high_bandwidth_preference - loss_rate) /
+           (config_->bandwidth_preference_smoothing_factor +
+            std::abs(config_->loss_threshold_of_high_bandwidth_preference -
+                     loss_rate));
+  }
 }
 
 double LossBasedBweV2::GetHighBandwidthBias(DataRate bandwidth) const {
   if (IsValid(bandwidth)) {
     const double average_reported_loss_ratio = GetAverageReportedLossRatio();
+    RTC_LOG(LS_WARNING) << "average_reported_loss_ratio: "
+                        << average_reported_loss_ratio;
     return AdjustBiasFactor(average_reported_loss_ratio,
                             config_->higher_bandwidth_bias_factor) *
                bandwidth.kbps() +
@@ -888,7 +900,7 @@ double LossBasedBweV2::GetObjective(
 
   const double high_bandwidth_bias =
       GetHighBandwidthBias(channel_parameters.loss_limited_bandwidth);
-
+  double total_bias = 0.0;
   for (const Observation& observation : observations_) {
     if (!observation.IsInitialized()) {
       continue;
@@ -897,7 +909,11 @@ double LossBasedBweV2::GetObjective(
     double loss_probability = GetLossProbability(
         channel_parameters.inherent_loss,
         channel_parameters.loss_limited_bandwidth, observation.sending_rate);
-
+    RTC_LOG(LS_INFO) << "loss_probability: " << loss_probability
+                     << "; inherent_loss: " << channel_parameters.inherent_loss
+                     << "; loss_limited_bandwidth: "
+                     << channel_parameters.loss_limited_bandwidth.kbps()
+                     << "; sending_rate: " << observation.sending_rate;
     double temporal_weight =
         temporal_weights_[(num_observations_ - 1) - observation.id];
 
@@ -905,10 +921,24 @@ double LossBasedBweV2::GetObjective(
         temporal_weight *
         ((observation.num_lost_packets * std::log(loss_probability)) +
          (observation.num_received_packets * std::log(1.0 - loss_probability)));
+    RTC_LOG(LS_INFO) << "objective: " << objective << " temporal_weight: "
+                     << temporal_weight * ((observation.num_lost_packets *
+                                            std::log(loss_probability)) +
+                                           (observation.num_received_packets *
+                                            std::log(1.0 - loss_probability)))
+                     << ";loss_probability: " << loss_probability
+                     << "; observation.num_lost_packets: "
+                     << observation.num_lost_packets
+                     << "; observation.num_received_packets: "
+                     << observation.num_received_packets;
     objective +=
         temporal_weight * high_bandwidth_bias * observation.num_packets;
+    total_bias +=
+        temporal_weight * high_bandwidth_bias * observation.num_packets;
   }
-
+  RTC_LOG(LS_INFO) << "total_bias: " << total_bias << " channel_parameters: "
+                   << channel_parameters.loss_limited_bandwidth.kbps()
+                   << " objective: " << objective;
   return objective;
 }
 

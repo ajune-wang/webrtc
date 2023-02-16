@@ -112,6 +112,7 @@ class LossBasedBweV2 {
     double slope_of_bwe_high_loss_func = 1000.0;
     bool probe_integration_enabled = false;
     bool bound_by_upper_link_capacity_when_loss_limited = false;
+    bool linear_high_bandwidth_preference = false;
   };
 
   struct Derivatives {

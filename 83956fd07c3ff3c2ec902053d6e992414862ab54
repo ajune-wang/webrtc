@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10ad1365_c2e81ac8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2023-02-16T09:38:34Z",
+      "side": 1,
+      "message": "fix wording",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "83956fd07c3ff3c2ec902053d6e992414862ab54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03154803_d0e6eb16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2023-02-16T09:38:34Z",
+      "side": 1,
+      "message": "Are fixes ready for all downstream implementations?",
+      "revId": "83956fd07c3ff3c2ec902053d6e992414862ab54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

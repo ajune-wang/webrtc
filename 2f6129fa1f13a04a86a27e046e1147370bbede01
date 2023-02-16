@@ -16,6 +16,29 @@
       "message": "Dealing with the ubsan failures first. Will re-add you as reviewers when I\u0027m good.",
       "revId": "2f6129fa1f13a04a86a27e046e1147370bbede01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a96f948_a24800d1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-16T13:46:05Z",
+      "side": 1,
+      "message": "Can we remove the forward declaration now when we have an interface?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "2f6129fa1f13a04a86a27e046e1147370bbede01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

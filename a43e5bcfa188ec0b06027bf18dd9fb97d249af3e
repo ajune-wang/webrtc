@@ -16,6 +16,75 @@
       "message": "Fixed the tests. PTAL!",
       "revId": "a43e5bcfa188ec0b06027bf18dd9fb97d249af3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2b32cca_b194d8c8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-16T13:46:05Z",
+      "side": 1,
+      "message": "ElementsAre and NiceMock seem to be unused",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "a43e5bcfa188ec0b06027bf18dd9fb97d249af3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb596b0c_a1096c25",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-16T13:46:05Z",
+      "side": 1,
+      "message": "The name doesn\u0027t seem to match the test.\n\nI can\u0027t see a reference to any *SendFrame method.\n\nThe OnTransformedFrame seems to be called rather than being expected to be call.\n\nWhat is being tested here?",
+      "range": {
+        "startLine": 114,
+        "startChar": 7,
+        "endLine": 114,
+        "endChar": 46
+      },
+      "revId": "a43e5bcfa188ec0b06027bf18dd9fb97d249af3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d982126d_b892cc78",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-16T13:46:05Z",
+      "side": 1,
+      "message": "Is this part of the test, or only a way to get hold of a frame? \n\nIf it is only a way to get hold of a frame, it would perhaps be better to extract into a helper function - especially if it can be used in the previous test too.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 0
+      },
+      "revId": "a43e5bcfa188ec0b06027bf18dd9fb97d249af3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

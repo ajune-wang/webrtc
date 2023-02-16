@@ -16,6 +16,24 @@
       "message": "LGTM, but I would send a heads up to some webrtc public mailing list before landing this. Was it webrtc-users or something else?",
       "revId": "1e976f74d5ed38957d57f911c82b730db1cccb37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "928ac925_14804c54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-16T09:50:55Z",
+      "side": 1,
+      "message": "How about I send out a PSA to discuss-webrtc/discuss-users and then wait until next week before landing this CL?",
+      "parentUuid": "cb48901c_fdf0031a",
+      "revId": "1e976f74d5ed38957d57f911c82b730db1cccb37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

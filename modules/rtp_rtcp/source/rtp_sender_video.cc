@@ -160,9 +160,6 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
       packetization_overhead_bitrate_(1000, RateStatistics::kBpsScale),
       frame_encryptor_(config.frame_encryptor),
       require_frame_encryption_(config.require_frame_encryption),
-      generic_descriptor_auth_experiment_(!absl::StartsWith(
-          config.field_trials->Lookup("WebRTC-GenericDescriptorAuth"),
-          "Disabled")),
       absolute_capture_time_sender_(config.clock),
       frame_transformer_delegate_(
           config.frame_transformer
@@ -632,11 +629,9 @@ bool RTPSenderVideo::SendVideo(
 
     size_t bytes_written = 0;
 
-    // Enable header authentication if the field trial isn't disabled.
-    std::vector<uint8_t> additional_data;
-    if (generic_descriptor_auth_experiment_) {
-      additional_data = RtpDescriptorAuthentication(video_header);
-    }
+    // Enable header authentication if legacy generic frame descriptor is used.
+    rtc::ArrayView<const uint8_t> additional_data =
+        first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension00>();
 
     if (frame_encryptor_->Encrypt(
             cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(), additional_data,

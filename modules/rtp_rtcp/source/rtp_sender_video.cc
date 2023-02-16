@@ -170,7 +170,6 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
                     this,
                     config.frame_transformer,
                     rtp_sender_->SSRC(),
-                    rtp_sender_->Csrcs(),
                     config.task_queue_factory)
               : nullptr),
       include_capture_clock_offset_(!absl::StartsWith(
@@ -532,10 +531,8 @@ bool RTPSenderVideo::SendVideo(
     capture_time = Timestamp::Millis(capture_time_ms);
   }
 
-  rtp_sender_->SetCsrcs(std::move(csrcs));
-
   std::unique_ptr<RtpPacketToSend> single_packet =
-      rtp_sender_->AllocatePacket();
+      rtp_sender_->AllocatePacket(csrcs);
   RTC_DCHECK_LE(packet_capacity, single_packet->capacity());
   single_packet->SetPayloadType(payload_type);
   single_packet->SetTimestamp(rtp_timestamp);
@@ -771,7 +768,7 @@ bool RTPSenderVideo::SendEncodedImage(
     absl::optional<VideoCodecType> codec_type,
     uint32_t rtp_timestamp,
     const EncodedImage& encoded_image,
-    RTPVideoHeader video_header,
+    struct RTPVideoHeader video_header,
     absl::optional<int64_t> expected_retransmission_time_ms) {
   if (frame_transformer_delegate_) {
     // The frame will be sent async once transformed.
@@ -781,7 +778,7 @@ bool RTPSenderVideo::SendEncodedImage(
   }
   return SendVideo(payload_type, codec_type, rtp_timestamp,
                    encoded_image.capture_time_ms_, encoded_image, video_header,
-                   expected_retransmission_time_ms, rtp_sender_->Csrcs());
+                   expected_retransmission_time_ms, /*csrcs=*/{});
 }
 
 uint32_t RTPSenderVideo::PacketizationOverheadBps() const {

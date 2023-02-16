@@ -237,8 +237,6 @@ class RTPSenderVideo {
   // initialized frame_encryptor_ before being sent out of the network.
   // Otherwise these payloads will be dropped.
   const bool require_frame_encryption_;
-  // Set to true if the generic descriptor should be authenticated.
-  const bool generic_descriptor_auth_experiment_;
 
   AbsoluteCaptureTimeSender absolute_capture_time_sender_;
   // Tracks updates to the active decode targets and decides when active decode

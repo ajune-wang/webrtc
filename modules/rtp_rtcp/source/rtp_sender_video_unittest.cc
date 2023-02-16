@@ -769,12 +769,12 @@ TEST_F(RtpSenderVideoTest,
 }
 
 TEST_F(RtpSenderVideoTest,
-       AuthenticateVideoHeaderWhenDependencyDescriptorExtensionIsUsed) {
+       AuthenticateVideoHeaderWhenGenericFrameDescriptorExtensionIsUsed) {
   static constexpr size_t kFrameSize = 100;
   uint8_t kFrame[kFrameSize] = {1, 2, 3, 4};
 
   rtp_module_->RegisterRtpHeaderExtension(
-      RtpDependencyDescriptorExtension::Uri(), kDependencyDescriptorId);
+      RtpGenericFrameDescriptorExtension00::Uri(), kGenericDescriptorId);
   auto encryptor = rtc::make_ref_counted<NiceMock<MockFrameEncryptor>>();
   ON_CALL(*encryptor, GetMaxCiphertextByteSize).WillByDefault(ReturnArg<1>());
   ON_CALL(*encryptor, Encrypt)
@@ -790,16 +790,10 @@ TEST_F(RtpSenderVideoTest,
   config.frame_encryptor = encryptor.get();
   RTPSenderVideo rtp_sender_video(config);
 
-  FrameDependencyStructure video_structure;
-  video_structure.num_decode_targets = 1;
-  video_structure.templates = {FrameDependencyTemplate().Dtis("S")};
-  rtp_sender_video.SetVideoStructure(&video_structure);
-
   // Send key frame.
   RTPVideoHeader hdr;
   hdr.frame_type = VideoFrameType::kVideoFrameKey;
-  hdr.generic.emplace().decode_target_indications =
-      video_structure.templates[0].decode_target_indications;
+  hdr.generic.emplace();
 
   EXPECT_CALL(*encryptor,
               Encrypt(_, _, Not(IsEmpty()), ElementsAreArray(kFrame), _, _));
@@ -808,7 +802,7 @@ TEST_F(RtpSenderVideoTest,
   // Double check packet with the dependency descriptor is sent.
   ASSERT_EQ(transport_.packets_sent(), 1);
   EXPECT_TRUE(transport_.last_sent_packet()
-                  .HasExtension<RtpDependencyDescriptorExtension>());
+                  .HasExtension<RtpGenericFrameDescriptorExtension00>());
 }
 
 TEST_F(RtpSenderVideoTest, PopulateGenericFrameDescriptor) {

@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_common.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioRecord_jni.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -229,7 +230,6 @@ int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                      jobject obj,
                                                       jobject byte_buffer,
                                                       jlong nativeAudioRecord) {
   webrtc::AudioRecordJni* this_object =
@@ -250,7 +250,6 @@ void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioRecordJni::DataIsRecorded(JNIEnv* env,
-                                            jobject obj,
                                             jint length,
                                             jlong nativeAudioRecord) {
   webrtc::AudioRecordJni* this_object =

@@ -16,6 +16,24 @@
       "message": "1. Both `layer_info.link_utilization_factor` and `weight_sum` are of the `double` type, so this is equivalent to:\n\n```\n      layer_info.link_utilization_factor /\u003d weight_sum;\n```\n\n2. This change seems unrelated to the main goal of this CL (to add supports for inactive (even TL0) temporal layers). What is this change for? I can see this change makes the new code match the original code for the `active_tls_[si] \u003d\u003d 1` case, but the new code behaves differently for the `active_tls_[si] \u003e 1` case because of the division by `weight_sum`.",
       "revId": "d87245b34ecfe77df68da21926ec80358c1c0d1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6679a7_28007221",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-02-16T08:57:08Z",
+      "side": 1,
+      "message": "The idea was that in the case bitrate is allocated to multiple temporal layers, but framerate only to a subset of them - and we skip layers without framerate, then this would mean we \"leak\" the bitrate for skipped layers. This can be detected by the weights not adding up to 1.0 - and so we do the division to get that bitrate back.\n\nBut all of this is academic at this point as I intend to abandon this CL in favor of just doing more validation 😊",
+      "parentUuid": "63d8ecee_4a95ecb5",
+      "revId": "d87245b34ecfe77df68da21926ec80358c1c0d1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

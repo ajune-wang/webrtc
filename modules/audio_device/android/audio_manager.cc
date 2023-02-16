@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_common.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioManager_jni.h"
 #include "modules/utility/include/helpers_android.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
@@ -72,7 +73,7 @@ AudioManager::AudioManager()
   RTC_CHECK(j_environment_);
   JNINativeMethod native_methods[] = {
       {"nativeCacheAudioParameters", "(IIIZZZZZZZIIJ)V",
-       reinterpret_cast<void*>(&webrtc::AudioManager::CacheAudioParameters)}};
+       reinterpret_cast<void*>(&webrtc::AudioManager::WebRtcAudioManager::CacheAudioParameters)}};
   j_native_registration_ = j_environment_->RegisterNatives(
       "org/webrtc/voiceengine/WebRtcAudioManager", native_methods,
       arraysize(native_methods));
@@ -238,8 +239,7 @@ int AudioManager::GetDelayEstimateInMilliseconds() const {
 }
 
 JNI_FUNCTION_ALIGN
-void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
-                                                jobject obj,
+void JNICALL AudioManager::WebRtcAudioManager::CacheAudioParameters(JNIEnv* env,
                                                 jint sample_rate,
                                                 jint output_channels,
                                                 jint input_channels,

@@ -9,7 +9,6 @@
  */
 
 package org.webrtc.voiceengine;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.AudioFormat;
@@ -20,13 +19,14 @@ import android.os.Build;
 import androidx.annotation.Nullable;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.chromium.base.annotations.NativeMethods;
 import org.webrtc.ContextUtils;
 import org.webrtc.Logging;
 
 // WebRtcAudioManager handles tasks that uses android.media.AudioManager.
 // At construction, storeAudioParameters() is called and it retrieves
 // fundamental audio parameters like native sample rate and number of channels.
-// The result is then provided to the caller by nativeCacheAudioParameters().
+// The result is then provided to the caller by WebRtcAudioManagerJni.get().cacheAudioParameters().
 // It is also possible to call init() to set up the audio environment for best
 // possible "VoIP performance". All settings done in init() are reverted by
 // dispose(). This class can also be used without calling init() if the user
@@ -179,9 +179,9 @@ public class WebRtcAudioManager {
     }
     volumeLogger = new VolumeLogger(audioManager);
     storeAudioParameters();
-    nativeCacheAudioParameters(sampleRate, outputChannels, inputChannels, hardwareAEC, hardwareAGC,
-        hardwareNS, lowLatencyOutput, lowLatencyInput, proAudio, aAudio, outputBufferSize,
-        inputBufferSize, nativeAudioManager);
+    WebRtcAudioManagerJni.get().cacheAudioParameters(sampleRate, outputChannels, inputChannels,
+        hardwareAEC, hardwareAGC, hardwareNS, lowLatencyOutput, lowLatencyInput, proAudio, aAudio,
+        outputBufferSize, inputBufferSize, nativeAudioManager);
     WebRtcAudioUtils.logAudioState(TAG);
   }
 
@@ -364,8 +364,11 @@ public class WebRtcAudioManager {
     }
   }
 
-  private native void nativeCacheAudioParameters(int sampleRate, int outputChannels,
-      int inputChannels, boolean hardwareAEC, boolean hardwareAGC, boolean hardwareNS,
-      boolean lowLatencyOutput, boolean lowLatencyInput, boolean proAudio, boolean aAudio,
-      int outputBufferSize, int inputBufferSize, long nativeAudioManager);
+  @NativeMethods
+  interface Natives {
+    void cacheAudioParameters(int sampleRate, int outputChannels, int inputChannels,
+        boolean hardwareAEC, boolean hardwareAGC, boolean hardwareNS, boolean lowLatencyOutput,
+        boolean lowLatencyInput, boolean proAudio, boolean aAudio, int outputBufferSize,
+        int inputBufferSize, long nativeAudioManager);
+  }
 }

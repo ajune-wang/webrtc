@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec255cdb_e323b391",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2023-02-16T13:42:31Z",
+      "side": 1,
+      "message": "Disclaimer: I haven\u0027t found any tests / module that are meant to exercise the specific peer configurer unit.\nInstead, I went over and ran PeerConnectionE2EQualityTestSmokeTest,SmokeH264 twice:\n- Once with the vanilla test code as is\n- Once adding the following calls:\n   alice-\u003eSetAudioEncoderFactory(CreateBuiltinAudioEncoderFactory);\n   alice-\u003eSetAudioDecoderFactory(CreateBuiltinAudioEncoderFactory);\n   \nBoth tests ran successfully and audio metrics looked legit. Hope this is enough for the testing part as I exercised both new and old scenarios.",
+      "revId": "4c9188a369973929d47ea178b391d6dc30519329",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

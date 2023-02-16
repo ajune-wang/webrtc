@@ -24,7 +24,26 @@
 
 namespace webrtc {
 
-class RTPSenderVideo;
+class RTPVideoFrameSender {
+ public:
+  virtual bool SendVideo(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      int64_t capture_time_ms,
+      rtc::ArrayView<const uint8_t> payload,
+      RTPVideoHeader video_header,
+      absl::optional<int64_t> expected_retransmission_time_ms,
+      std::vector<uint32_t> csrcs = {}) = 0;
+
+  virtual void SetVideoStructureAfterTransformation(
+      const FrameDependencyStructure* video_structure) = 0;
+  virtual void SetVideoLayersAllocationAfterTransformation(
+      VideoLayersAllocation allocation) = 0;
+
+ protected:
+  virtual ~RTPVideoFrameSender() = default;
+};
 
 // Delegates calls to FrameTransformerInterface to transform frames, and to
 // RTPSenderVideo to send the transformed frames. Ensures thread-safe access to
@@ -32,7 +51,7 @@ class RTPSenderVideo;
 class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
  public:
   RTPSenderVideoFrameTransformerDelegate(
-      RTPSenderVideo* sender,
+      RTPVideoFrameSender* sender,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
       uint32_t ssrc,
       std::vector<uint32_t> csrcs,
@@ -79,7 +98,7 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
   void EnsureEncoderQueueCreated();
 
   mutable Mutex sender_lock_;
-  RTPSenderVideo* sender_ RTC_GUARDED_BY(sender_lock_);
+  RTPVideoFrameSender* sender_ RTC_GUARDED_BY(sender_lock_);
   rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
   const uint32_t ssrc_;
   std::vector<uint32_t> csrcs_;

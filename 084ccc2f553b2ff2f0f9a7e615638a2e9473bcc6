@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3a9dd41a_e6ac4046",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-16T18:07:26Z",
+      "side": 1,
+      "message": "Done. Thank you for confirming passing `svc_config` by value was deliberate, not an oversight.\n\nAlso updated the commit message accordingly.",
+      "parentUuid": "af635739_6396ccdc",
+      "revId": "084ccc2f553b2ff2f0f9a7e615638a2e9473bcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8ba4ffe8_8f09a569",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 1

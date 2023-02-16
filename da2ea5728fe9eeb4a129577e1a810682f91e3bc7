@@ -33,6 +33,23 @@
       "message": "ah hold on, there is another test that needs fixing. Good bot!",
       "revId": "da2ea5728fe9eeb4a129577e1a810682f91e3bc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddee026a_0b8e014f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-16T14:42:35Z",
+      "side": 1,
+      "message": "chromium bot is now green so now it is ready from my side",
+      "revId": "da2ea5728fe9eeb4a129577e1a810682f91e3bc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

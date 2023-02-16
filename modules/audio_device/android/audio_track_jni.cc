@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_manager.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioTrack_jni.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -238,7 +239,6 @@ void AudioTrackJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                     jobject obj,
                                                      jobject byte_buffer,
                                                      jlong nativeAudioTrack) {
   webrtc::AudioTrackJni* this_object =
@@ -262,7 +262,6 @@ void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
 
 JNI_FUNCTION_ALIGN
 void JNICALL AudioTrackJni::GetPlayoutData(JNIEnv* env,
-                                           jobject obj,
                                            jint length,
                                            jlong nativeAudioTrack) {
   webrtc::AudioTrackJni* this_object =

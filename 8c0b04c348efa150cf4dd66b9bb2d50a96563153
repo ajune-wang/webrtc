@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2aa6ea2_9c85b404",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-16T09:29:44Z",
+      "side": 1,
+      "message": "Only added for initial debugging purposes and to see the effect of increasing the size of the queue.\n\nJust to ensure that we use the same terminology:\n\n\u003e I don\u0027t think any capturers are actually re-used...\n\nWhat exactly do you mean by that? I know that we have \n\nif (queue_.current_frame() \u0026\u0026 queue_.current_frame()-\u003eIsShared()) {\n  RTC_LOG(LS_WARNING) \u003c\u003c \"Overwriting frame that is still shared.\";\n}\n\nfor more capturers; hence only log a warning. Do you mean that \"there is no need to do more than this\" or something else?",
+      "parentUuid": "72cb6c3d_ec82adbc",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 22
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d6b94b0_c5cf62cd",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-15T18:18:04Z",
       "side": 1,
       "message": "I think this is inverted?",
+      "range": {
+        "startLine": 222,
+        "startChar": 11,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f525f42_241dc690",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-16T09:29:44Z",
+      "side": 1,
+      "message": "Actually not since we will always hit this for the first call to GetFrame and then no frame has been captured. If we then return false here, we will hit\n\nif (!capture_session-\u003eGetFrame(\u0026frame)) {\n    RTC_LOG(LS_ERROR) \u003c\u003c \"GetFrame failed: \" \u003c\u003c hr;\n    ongoing_captures_.erase(capture_source_-\u003eGetSourceId());\n    callback_-\u003eOnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,\n                               /*frame\u003d*/nullptr);\n    RecordWgcCapturerResult(WgcCapturerResult::kGetFrameFailure);\n    return;\n}\n\nand the capturer stops. When returning true, we instead hit\n\nif (!frame) {\n    callback_-\u003eOnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,\n                               /*frame\u003d*/nullptr);\n    RecordWgcCapturerResult(WgcCapturerResult::kFrameDropped);\n    RTC_DLOG(LS_WARNING) \u003c\u003c \"[WCW] \u003d\u003e WgcCapturerResult::kFrameDropped\";\n    return;\n}\n\nand only return ERROR_TEMPORARY which keeps things alive.\n\nWithout the event, I think we need some special handling of this initial \"no frame available\" case since it is expected. As is, we will always hit RecordWgcCapturerResult(WgcCapturerResult::kFrameDropped) for the first frame.\n\nDoes it make sense to avoid sending this for the first frame?",
+      "parentUuid": "9d6b94b0_c5cf62cd",
       "range": {
         "startLine": 222,
         "startChar": 11,

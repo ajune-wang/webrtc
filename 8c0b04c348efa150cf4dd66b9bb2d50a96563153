@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "986201bd_835595ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-17T16:17:29Z",
+      "side": 1,
+      "message": "Just checking, you mix method names from WgcCapturerWin (CaptureFrame) and WgcCaptureSession (ProcessFrame). Not sure if you prefer the PostDelayedTask in WgcCapturerWin or in WgcCaptureSession.",
+      "parentUuid": "df9c48ef_19de2679",
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72cb6c3d_ec82adbc",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 2
@@ -97,6 +115,30 @@
       "side": 1,
       "message": "Sorry,this is in ::Start IIUC, which I *think* is only called on a given WgcCaptureSession once before we re-create it, so I don\u0027t think there\u0027s a need to reset these values (or the queue, since the values likely won\u0027t be long lived).",
       "parentUuid": "a2aa6ea2_9c85b404",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 22
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5ef378a_0e0a5a5d",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-17T16:17:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d13590c_261ef190",
       "range": {
         "startLine": 155,
         "startChar": 0,
@@ -168,6 +210,30 @@
       "side": 1,
       "message": "Either way, I think I\u0027d prefer to have some special handling for the first frame case, which I described in the top (PS level) comment I sent yesterday. If we consistently fail the first frame (which we were doing before), we will send: https://source.chromium.org/chromium/chromium/src/+/main:content/browser/media/capture/desktop_capture_device_uma_types.h;drc\u003d490be4af1d46d0f312eb4c568345bc227c199aa5;l\u003d17, which is a regression in the metrics where that event is almost never sent currently. So we need to bake in some kind of retry logic, which I described more in the other comment.\n\nOn a slightly separate note; if this method only ever returns true, it should just be a void method.",
       "parentUuid": "0f525f42_241dc690",
+      "range": {
+        "startLine": 222,
+        "startChar": 11,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2d8a323_ca2d9cf9",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-17T16:17:29Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "36a026db_e9e5cf8d",
       "range": {
         "startLine": 222,
         "startChar": 11,

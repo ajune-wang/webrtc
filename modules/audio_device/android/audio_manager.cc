@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_common.h"
+// #include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioManager_jni.h"
 #include "modules/utility/include/helpers_android.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
@@ -20,6 +21,33 @@
 #include "rtc_base/platform_thread.h"
 
 namespace webrtc {
+
+namespace jni {
+// Called from Java side so we can cache the native audio parameters.
+// This method will be called by the WebRtcAudioManager constructor, i.e.
+// on the same thread that this object is created on.
+static void JNI_WebRtcAudioManager_CacheAudioParameters(JNIEnv* env,
+                                                jint sample_rate,
+                                                jint output_channels,
+                                                jint input_channels,
+                                                jboolean hardware_aec,
+                                                jboolean hardware_agc,
+                                                jboolean hardware_ns,
+                                                jboolean low_latency_output,
+                                                jboolean low_latency_input,
+                                                jboolean pro_audio,
+                                                jboolean a_audio,
+                                                jint output_buffer_size,
+                                                jint input_buffer_size,
+                                                jlong native_audio_manager) {
+  webrtc::AudioManager* this_object =
+      reinterpret_cast<webrtc::AudioManager*>(native_audio_manager);
+  this_object->OnCacheAudioParameters(
+      env, sample_rate, output_channels, input_channels, hardware_aec,
+      hardware_agc, hardware_ns, low_latency_output, low_latency_input,
+      pro_audio, a_audio, output_buffer_size, input_buffer_size);
+}
+}
 
 // AudioManager::JavaAudioManager implementation
 AudioManager::JavaAudioManager::JavaAudioManager(
@@ -72,7 +100,7 @@ AudioManager::AudioManager()
   RTC_CHECK(j_environment_);
   JNINativeMethod native_methods[] = {
       {"nativeCacheAudioParameters", "(IIIZZZZZZZIIJ)V",
-       reinterpret_cast<void*>(&webrtc::AudioManager::CacheAudioParameters)}};
+       reinterpret_cast<void*>(&webrtc::jni::JNI_WebRtcAudioManager_CacheAudioParameters)}};
   j_native_registration_ = j_environment_->RegisterNatives(
       "org/webrtc/voiceengine/WebRtcAudioManager", native_methods,
       arraysize(native_methods));
@@ -235,30 +263,6 @@ bool AudioManager::IsStereoRecordSupported() const {
 
 int AudioManager::GetDelayEstimateInMilliseconds() const {
   return delay_estimate_in_milliseconds_;
-}
-
-JNI_FUNCTION_ALIGN
-void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
-                                                jobject obj,
-                                                jint sample_rate,
-                                                jint output_channels,
-                                                jint input_channels,
-                                                jboolean hardware_aec,
-                                                jboolean hardware_agc,
-                                                jboolean hardware_ns,
-                                                jboolean low_latency_output,
-                                                jboolean low_latency_input,
-                                                jboolean pro_audio,
-                                                jboolean a_audio,
-                                                jint output_buffer_size,
-                                                jint input_buffer_size,
-                                                jlong native_audio_manager) {
-  webrtc::AudioManager* this_object =
-      reinterpret_cast<webrtc::AudioManager*>(native_audio_manager);
-  this_object->OnCacheAudioParameters(
-      env, sample_rate, output_channels, input_channels, hardware_aec,
-      hardware_agc, hardware_ns, low_latency_output, low_latency_input,
-      pro_audio, a_audio, output_buffer_size, input_buffer_size);
 }
 
 void AudioManager::OnCacheAudioParameters(JNIEnv* env,

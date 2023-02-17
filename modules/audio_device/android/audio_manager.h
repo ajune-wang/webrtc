@@ -24,6 +24,7 @@
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "modules/utility/include/helpers_android.h"
 #include "modules/utility/include/jvm_android.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioManager_jni.h"
 
 namespace webrtc {
 
@@ -128,8 +129,7 @@ class AudioManager {
   // Called from Java side so we can cache the native audio parameters.
   // This method will be called by the WebRtcAudioManager constructor, i.e.
   // on the same thread that this object is created on.
-  static void JNICALL CacheAudioParameters(JNIEnv* env,
-                                           jobject obj,
+  friend void jni::JNI_WebRtcAudioManager_CacheAudioParameters(JNIEnv* env,
                                            jint sample_rate,
                                            jint output_channels,
                                            jint input_channels,

@@ -43,6 +43,7 @@ class SamplesStatsCounter {
 
   // Adds sample to the stats in amortized O(1) time.
   void AddSample(double value);
+  void AddSample(double value, Timestamp time);
   void AddSample(StatsSample sample);
 
   // Adds samples from another counter.
@@ -64,6 +65,12 @@ class SamplesStatsCounter {
   double GetMax() const {
     RTC_DCHECK(!IsEmpty());
     return *stats_.GetMax();
+  }
+  // Returns sum in O(1) time. This function may not be called if there are
+  // no samples.
+  double GetSum() const {
+    RTC_DCHECK(!IsEmpty());
+    return *stats_.GetSum();
   }
   // Returns average in O(1) time. This function may not be called if there are
   // no samples.

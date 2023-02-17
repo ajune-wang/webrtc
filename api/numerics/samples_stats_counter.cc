@@ -35,6 +35,10 @@ void SamplesStatsCounter::AddSample(double value) {
   AddSample(StatsSample{value, Timestamp::Micros(rtc::TimeMicros())});
 }
 
+void SamplesStatsCounter::AddSample(double value, Timestamp time) {
+  AddSample(StatsSample{value, time});
+}
+
 void SamplesStatsCounter::AddSample(StatsSample sample) {
   stats_.AddSample(sample.value);
   samples_.push_back(sample);

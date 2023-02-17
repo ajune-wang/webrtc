@@ -44,10 +44,10 @@ class VideoCodecStats {
 
     int width = 0;
     int height = 0;
-    int size_bytes = 0;
+    int frame_size_bytes = 0;
     bool keyframe = false;
-    absl::optional<int> qp = absl::nullopt;
-    absl::optional<int> base_spatial_idx = absl::nullopt;
+    absl::optional<int> qp;
+    absl::optional<int> base_spatial_idx;
 
     Timestamp encode_start = Timestamp::Zero();
     TimeDelta encode_time = TimeDelta::Zero();
@@ -59,29 +59,34 @@ class VideoCodecStats {
       double u = 0.0;
       double v = 0.0;
     };
-    absl::optional<Psnr> psnr = absl::nullopt;
+    absl::optional<Psnr> psnr;
+
+    absl::optional<DataRate> target_bitrate;
+    absl::optional<Frequency> target_framerate;
 
     bool encoded = false;
     bool decoded = false;
   };
 
   struct Stream {
-    int num_frames = 0;
-    int num_keyframes = 0;
-
     SamplesStatsCounter width;
     SamplesStatsCounter height;
-    SamplesStatsCounter size_bytes;
+    SamplesStatsCounter frame_size_bytes;
+    SamplesStatsCounter keyframe;
     SamplesStatsCounter qp;
+    SamplesStatsCounter framedrop;
 
-    SamplesStatsCounter encode_time_us;
-    SamplesStatsCounter decode_time_us;
+    SamplesStatsCounter encode_time_ms;
+    SamplesStatsCounter decode_time_ms;
 
-    DataRate bitrate = DataRate::Zero();
-    Frequency framerate = Frequency::Zero();
-    int bitrate_mismatch_pct = 0;
-    int framerate_mismatch_pct = 0;
-    SamplesStatsCounter transmission_time_us;
+    SamplesStatsCounter target_bitrate_kbps;
+    SamplesStatsCounter target_framerate_fps;
+    DataRate encoded_bitrate = DataRate::Zero();
+    Frequency encoded_framerate = Frequency::Zero();
+    double bitrate_mismatch_pct = 0;
+    double framerate_mismatch_pct = 0;
+
+    SamplesStatsCounter transmission_time_ms;
 
     struct Psnr {
       SamplesStatsCounter y;
@@ -97,13 +102,8 @@ class VideoCodecStats {
   virtual std::vector<Frame> Slice(
       absl::optional<Filter> filter = absl::nullopt) const = 0;
 
-  // Returns video statistics aggregated for given `frames`. If `bitrate` is
-  // provided, also performs rate control analysis. If `framerate` is provided,
-  // also calculates frame rate mismatch.
-  virtual Stream Aggregate(
-      const std::vector<Frame>& frames,
-      absl::optional<DataRate> bitrate = absl::nullopt,
-      absl::optional<Frequency> framerate = absl::nullopt) const = 0;
+  // Returns video statistics aggregated for given `frames`.
+  virtual Stream Aggregate(const std::vector<Frame>& frames) const = 0;
 
   // Logs `Stream` metrics to provided `MetricsLogger`.
   virtual void LogMetrics(MetricsLogger* logger,

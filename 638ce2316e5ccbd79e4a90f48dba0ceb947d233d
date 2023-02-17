@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8d9e671_1b214143",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-17T15:53:07Z",
+      "side": 1,
+      "message": "Does this make sense? Not super happy about polluting Settings, but with the layers of abstractions in the way, it seemed like the easiest way to plumb it and Settings already contains core count which is related",
+      "revId": "638ce2316e5ccbd79e4a90f48dba0ceb947d233d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

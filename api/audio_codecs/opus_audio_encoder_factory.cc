@@ -37,10 +37,8 @@ struct NotAdvertised {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const Config& config,
       int payload_type,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
       const FieldTrialsView* field_trials = nullptr) {
-    return T::MakeAudioEncoder(config, payload_type, codec_pair_id,
-                               field_trials);
+    return T::MakeAudioEncoder(config, payload_type, field_trials);
   }
 };
 

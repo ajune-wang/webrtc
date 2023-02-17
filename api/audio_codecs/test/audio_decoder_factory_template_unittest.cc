@@ -62,9 +62,7 @@ struct AudioDecoderFakeApi {
     return Params::CodecInfo();
   }
 
-  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
-      const Config&,
-      absl::optional<AudioCodecPairId> /*codec_pair_id*/ = absl::nullopt) {
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(const Config&) {
     auto dec = std::make_unique<testing::StrictMock<MockAudioDecoder>>();
     EXPECT_CALL(*dec, SampleRateHz())
         .WillOnce(::testing::Return(Params::CodecInfo().sample_rate_hz));

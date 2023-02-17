@@ -29,6 +29,11 @@ class AudioDecoderFactory : public rtc::RefCountInterface {
 
   virtual bool IsSupportedDecoder(const SdpAudioFormat& format) = 0;
 
+  // Create a new decoder instance. Returns null if the format isn't supported.
+  virtual std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const SdpAudioFormat& format) = 0;
+
+  // DEPRECATED
   // Create a new decoder instance. The `codec_pair_id` argument is used to link
   // encoders and decoders that talk to the same remote entity: if a
   // AudioEncoderFactory::MakeAudioEncoder() and a
@@ -45,7 +50,9 @@ class AudioDecoderFactory : public rtc::RefCountInterface {
   // work.
   virtual std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) = 0;
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    return MakeAudioDecoder(format);
+  }
 };
 
 }  // namespace webrtc

@@ -40,10 +40,8 @@ struct NotAdvertised {
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs) {
     // Don't advertise support for anything.
   }
-  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
-      const Config& config,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt) {
-    return T::MakeAudioDecoder(config, codec_pair_id);
+  static std::unique_ptr<AudioDecoder> MakeAudioDecoder(const Config& config) {
+    return T::MakeAudioDecoder(config);
   }
 };
 

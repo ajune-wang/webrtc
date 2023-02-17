@@ -324,10 +324,6 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   absl::optional<webrtc::AudioSendStream::Config::SendCodecSpec>
       send_codec_spec_;
 
-  // TODO(kwiberg): Per-SSRC codec pair IDs?
-  const webrtc::AudioCodecPairId codec_pair_id_ =
-      webrtc::AudioCodecPairId::Create();
-
   // Per peer connection crypto options that last for the lifetime of the peer
   // connection.
   const webrtc::CryptoOptions crypto_options_;

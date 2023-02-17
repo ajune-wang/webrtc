@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/ilbc/audio_encoder_ilbc_config.h"
@@ -34,7 +33,6 @@ struct AudioEncoderIlbc {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const AudioEncoderIlbcConfig& config,
       int payload_type,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
       const FieldTrialsView* field_trials = nullptr);
 };
 

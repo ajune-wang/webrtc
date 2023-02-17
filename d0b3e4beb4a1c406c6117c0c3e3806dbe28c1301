@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "887bdabf_d6e7ce32",
+        "filename": "modules/utility/maybe_worker_thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-02-17T14:53:01Z",
+      "side": 1,
+      "message": "@perkj@webrtc.org is this intended to leak the task queue?",
+      "revId": "d0b3e4beb4a1c406c6117c0c3e3806dbe28c1301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

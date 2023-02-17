@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53fcdfd3_04b6e6b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2023-02-17T14:10:34Z",
+      "side": 1,
+      "message": "I thought this might be a good cleanup, now that iSAC is gone and we don\u0027t need it for any current codec. WDYT?",
+      "revId": "eb6d2b6fceb64bb2d0cb64975ca7fec87fd36d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

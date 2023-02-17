@@ -34,6 +34,24 @@
       "parentUuid": "887bdabf_d6e7ce32",
       "revId": "d0b3e4beb4a1c406c6117c0c3e3806dbe28c1301",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99ea8184_2163e07d",
+        "filename": "modules/utility/maybe_worker_thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-02-17T16:23:03Z",
+      "side": 1,
+      "message": "Ah, Delete() actually calls delete on the pointer. FWIW, we got a coverity warning on this. It\u0027s a false positive then.",
+      "parentUuid": "751f43de_8ffd91d1",
+      "revId": "d0b3e4beb4a1c406c6117c0c3e3806dbe28c1301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

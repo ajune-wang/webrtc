@@ -41,9 +41,8 @@ struct NotAdvertised {
     // Don't advertise support for anything.
   }
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
-      const Config& config,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt) {
-    return T::MakeAudioDecoder(config, codec_pair_id);
+      const Config& config) {
+    return T::MakeAudioDecoder(config);
   }
 };
 

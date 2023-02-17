@@ -64,8 +64,7 @@ struct AudioEncoderFakeApi {
 
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const Config&,
-      int payload_type,
-      absl::optional<AudioCodecPairId> /*codec_pair_id*/ = absl::nullopt) {
+      int payload_type) {
     auto enc = std::make_unique<testing::StrictMock<MockAudioEncoder>>();
     EXPECT_CALL(*enc, SampleRateHz())
         .WillOnce(::testing::Return(Params::CodecInfo().sample_rate_hz));

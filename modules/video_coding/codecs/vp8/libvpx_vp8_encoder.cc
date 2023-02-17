@@ -609,6 +609,16 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   // TODO(fbarchard): Consider number of Simulcast layers.
   vpx_configs_[0].g_threads = NumberOfThreads(
       vpx_configs_[0].g_w, vpx_configs_[0].g_h, settings.number_of_cores);
+  if (settings.encoder_thread_limit.has_value()) {
+    RTC_DCHECK_GT(settings.encoder_thread_limit.value(), 1);
+    RTC_LOG(LS_ERROR) << "<before> " << vpx_configs_[0].g_threads;
+    RTC_LOG(LS_ERROR) << "THREAD LIMIT: "
+                      << settings.encoder_thread_limit.value();
+    vpx_configs_[0].g_threads = std::min(
+        vpx_configs_[0].g_threads,
+        static_cast<unsigned int>(settings.encoder_thread_limit.value()));
+    RTC_LOG(LS_ERROR) << "<after> " << vpx_configs_[0].g_threads;
+  }
 
   // Creating a wrapper to the image - setting image data to NULL.
   // Actual pointer will be set in encode. Setting align to 1, as it

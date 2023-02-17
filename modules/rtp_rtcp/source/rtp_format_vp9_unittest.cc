@@ -21,52 +21,6 @@
 
 namespace webrtc {
 namespace {
-void VerifyHeader(const RTPVideoHeaderVP9& expected,
-                  const RTPVideoHeaderVP9& actual) {
-  EXPECT_EQ(expected.inter_layer_predicted, actual.inter_layer_predicted);
-  EXPECT_EQ(expected.inter_pic_predicted, actual.inter_pic_predicted);
-  EXPECT_EQ(expected.flexible_mode, actual.flexible_mode);
-  EXPECT_EQ(expected.beginning_of_frame, actual.beginning_of_frame);
-  EXPECT_EQ(expected.end_of_frame, actual.end_of_frame);
-  EXPECT_EQ(expected.ss_data_available, actual.ss_data_available);
-  EXPECT_EQ(expected.non_ref_for_inter_layer_pred,
-            actual.non_ref_for_inter_layer_pred);
-  EXPECT_EQ(expected.picture_id, actual.picture_id);
-  EXPECT_EQ(expected.max_picture_id, actual.max_picture_id);
-  EXPECT_EQ(expected.temporal_idx, actual.temporal_idx);
-  EXPECT_EQ(expected.spatial_idx, actual.spatial_idx);
-  EXPECT_EQ(expected.gof_idx, actual.gof_idx);
-  EXPECT_EQ(expected.tl0_pic_idx, actual.tl0_pic_idx);
-  EXPECT_EQ(expected.temporal_up_switch, actual.temporal_up_switch);
-
-  EXPECT_EQ(expected.num_ref_pics, actual.num_ref_pics);
-  for (uint8_t i = 0; i < expected.num_ref_pics; ++i) {
-    EXPECT_EQ(expected.pid_diff[i], actual.pid_diff[i]);
-    EXPECT_EQ(expected.ref_picture_id[i], actual.ref_picture_id[i]);
-  }
-  if (expected.ss_data_available) {
-    EXPECT_EQ(expected.spatial_layer_resolution_present,
-              actual.spatial_layer_resolution_present);
-    EXPECT_EQ(expected.num_spatial_layers, actual.num_spatial_layers);
-    if (expected.spatial_layer_resolution_present) {
-      for (size_t i = 0; i < expected.num_spatial_layers; i++) {
-        EXPECT_EQ(expected.width[i], actual.width[i]);
-        EXPECT_EQ(expected.height[i], actual.height[i]);
-      }
-    }
-    EXPECT_EQ(expected.gof.num_frames_in_gof, actual.gof.num_frames_in_gof);
-    for (size_t i = 0; i < expected.gof.num_frames_in_gof; i++) {
-      EXPECT_EQ(expected.gof.temporal_up_switch[i],
-                actual.gof.temporal_up_switch[i]);
-      EXPECT_EQ(expected.gof.temporal_idx[i], actual.gof.temporal_idx[i]);
-      EXPECT_EQ(expected.gof.num_ref_pics[i], actual.gof.num_ref_pics[i]);
-      for (uint8_t j = 0; j < expected.gof.num_ref_pics[i]; j++) {
-        EXPECT_EQ(expected.gof.pid_diff[i][j], actual.gof.pid_diff[i][j]);
-      }
-    }
-  }
-}
-
 void ParseAndCheckPacket(const uint8_t* packet,
                          const RTPVideoHeaderVP9& expected,
                          int expected_hdr_length,
@@ -78,7 +32,7 @@ void ParseAndCheckPacket(const uint8_t* packet,
   EXPECT_EQ(kVideoCodecVP9, video_header.codec);
   auto& vp9_header =
       absl::get<RTPVideoHeaderVP9>(video_header.video_type_header);
-  VerifyHeader(expected, vp9_header);
+  EXPECT_EQ(expected, vp9_header);
 }
 
 // Payload descriptor for flexible mode

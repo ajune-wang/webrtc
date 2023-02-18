@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "5d7a4e60_1d4cc09a",
         "filename": "test/testsupport/file_utils_override.cc",
@@ -20,10 +21,10 @@
         "endChar": 19
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6c6ee3d9_aacb6389",
         "filename": "test/testsupport/scoped_temp_dir.cc",
@@ -43,10 +44,10 @@
         "endChar": 34
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "689ed68b_cfdba4c5",
         "filename": "test/testsupport/scoped_temp_dir.cc",
@@ -67,10 +68,10 @@
         "endChar": 34
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b403af2f_814bb182",
         "filename": "test/testsupport/scoped_temp_dir.h",
@@ -90,10 +91,10 @@
         "endChar": 29
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ba56118e_5291c3b6",
         "filename": "test/testsupport/scoped_temp_dir.h",
@@ -114,10 +115,10 @@
         "endChar": 29
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f9513794_ffa7cea7",
         "filename": "test/testsupport/scoped_temp_dir_unittest.cc",
@@ -137,8 +138,71 @@
         "endChar": 54
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ],
+  "submitRequirementResults": [
+    {
+      "submitRequirement": {
+        "name": "Code-Review",
+        "description": {
+          "value": "At least one maximum vote for label \u0027Code-Review\u0027 is required"
+        },
+        "applicabilityExpression": {},
+        "submittabilityExpression": {
+          "expressionString": "label:Code-Review\u003dMAX,user\u003dnon_uploader AND -label:Code-Review\u003dMIN"
+        },
+        "overrideExpression": {
+          "value": {
+            "expressionString": "label:Bot-Commit\u003d+1 AND -label:Code-Review\u003dMIN"
+          }
+        },
+        "allowOverrideInChildProjects": true
+      },
+      "applicabilityExpressionResult": {},
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Code-Review=MAX,user=non_uploader AND -label:Code-Review=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Code-Review=MAX,user=non_uploader","label:Code-Review=MIN"]}
+      },
+      "overrideExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Bot-Commit=+1 AND -label:Code-Review=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Bot-Commit=+1","label:Code-Review=MIN"]}
+      },
+      "patchSetCommitId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
+    },
+    {
+      "submitRequirement": {
+        "name": "Review-Enforcement",
+        "description": {
+          "value": "Two Google employees must approve the change. Uploading the change or voting positively on Code-Review count as approval."
+        },
+        "applicabilityExpression": {
+          "value": {
+            "expressionString": "is:review-enforced_gerrit"
+          }
+        },
+        "submittabilityExpression": {
+          "expressionString": "is:review-enforcement-satisfied_gerrit"
+        },
+        "overrideExpression": {},
+        "allowOverrideInChildProjects": false
+      },
+      "applicabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["is:review-enforced_gerrit"]}
+      },
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"is:review-enforcement-satisfied_gerrit"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+      },
+      "overrideExpressionResult": {},
+      "patchSetCommitId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
     }
   ]
 }

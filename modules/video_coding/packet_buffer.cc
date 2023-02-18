@@ -257,6 +257,7 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
 
       // Identify H.264 keyframes by means of SPS, PPS, and IDR.
       bool is_h264 = buffer_[start_index]->codec() == kVideoCodecH264;
+      bool is_generic = buffer_[start_index]->video_header.generic.has_value();
       bool has_h264_sps = false;
       bool has_h264_pps = false;
       bool has_h264_idr = false;
@@ -357,8 +358,9 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
 
         // If this is not a keyframe, make sure there are no gaps in the packet
         // sequence numbers up until this point.
-        if (!is_h264_keyframe && missing_packets_.upper_bound(start_seq_num) !=
-                                     missing_packets_.begin()) {
+        if (!is_generic && !is_h264_keyframe &&
+            missing_packets_.upper_bound(start_seq_num) !=
+                missing_packets_.begin()) {
           return found_frames;
         }
       }

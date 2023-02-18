@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b4abd6e5_28c98721",
         "filename": "api/test/loopback_media_transport.cc",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Wrong fix. Make the lambda mutable instead. (See longer explanation of a similar problem below.)",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9abb4193_219cc1e0",
         "filename": "audio/channel_send.cc",
@@ -31,10 +32,10 @@
       "side": 1,
       "message": "Wrong fix. Make frame mutable instead (i.e., remove the `const` on line 603).",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d7bc5371_7a6ba4e7",
         "filename": "audio/channel_send.cc",
@@ -48,10 +49,10 @@
       "side": 1,
       "message": "This is actually the wrong fix. This is scoped_refptr, so move is cheaper than copy. The original std::move was ineffective because lambdas\u0027 operator() default to being const, so this line was unable to steal frame_encryptor.\n\nThe right fix should be to add `mutable` between the () and the { on line 1253.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "46331824_8c2c7028",
         "filename": "common_video/incoming_video_stream.cc",
@@ -65,10 +66,10 @@
       "side": 1,
       "message": "This looks like the wrong fix. I think the method signature ought to be changed instead, so that video_frame isn\u0027t a const reference.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3fb4f92d_7ad88177",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
@@ -82,10 +83,10 @@
       "side": 1,
       "message": "These two look like the wrong fix. I think the loop variable should be a mutable reference instead.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "41727446_b3975442",
         "filename": "modules/audio_coding/codecs/builtin_audio_decoder_factory_unittest.cc",
@@ -99,10 +100,10 @@
       "side": 1,
       "message": "Wrong fix. Change the SdpAudioFormat constructor to take the parameters by value instead (or add an overload that takes an rvalue reference).",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "172416ca_edf67c71",
         "filename": "modules/audio_device/audio_device_name.cc",
@@ -116,10 +117,10 @@
       "side": 1,
       "message": "Wrong fix. Make the two local variables mutable instead.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f028efa9_85c8230c",
         "filename": "pc/jsep_transport.cc",
@@ -133,10 +134,10 @@
       "side": 1,
       "message": "Possibly wrong fix. If `encrypted_extension_ids` could be passed by value instead, we could have an actual move here.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "eded1d15_12d87bd7",
         "filename": "pc/peer_connection.cc",
@@ -150,10 +151,10 @@
       "side": 1,
       "message": "Wrong fix. SetConfiguration should take its second argument by value instead.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1572a372_68d3b15a",
         "filename": "pc/peer_connection.cc",
@@ -167,10 +168,10 @@
       "side": 1,
       "message": "Same.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d73a680c_489359c3",
         "filename": "pc/peer_connection.cc",
@@ -184,10 +185,10 @@
       "side": 1,
       "message": "Wrong fix. Make TransportStats move constructible instead.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0eb04d57_313c6491",
         "filename": "pc/peer_connection_ice_unittest.cc",
@@ -201,10 +202,10 @@
       "side": 1,
       "message": "Wrong fix. Should be\n\n  pc_ \u003d std::move(pc);",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "80e89945_47c6a8ed",
         "filename": "pc/rtp_receiver.cc",
@@ -218,10 +219,10 @@
       "side": 1,
       "message": "Wrong fix. MediaStream::Create should take its argument by value instead.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ad317036_ddd0be48",
         "filename": "rtc_base/function_view_unittest.cc",
@@ -235,10 +236,10 @@
       "side": 1,
       "message": "Hmm. The point of this test is to verify that move construction is copy construction. Perhaps you can replace std::move with a manual cast to rvalue reference instead? Or is it possible to annotate this line so that clang-tidy ignores it?",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "29f084f7_b512039f",
         "filename": "rtc_base/function_view_unittest.cc",
@@ -252,10 +253,10 @@
       "side": 1,
       "message": "Same here. The whole point is to verify that move assignment is copy assignment.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "47266b6d_f4ea6043",
         "filename": "stats/rtc_stats_report.cc",
@@ -269,10 +270,10 @@
       "side": 1,
       "message": "Wrong fix. Move constructors should take `T\u0026\u0026`, not `const T\u0026\u0026`.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "65358103_1c381cbf",
         "filename": "test/scenario/quality_stats.cc",
@@ -286,10 +287,10 @@
       "side": 1,
       "message": "Wrong fix. The lambda should be mutable.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c87603d3_16e04adc",
         "filename": "video/video_send_stream_impl.cc",
@@ -303,8 +304,71 @@
       "side": 1,
       "message": "Wrong fix. The lambda should be mutable.",
       "revId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ],
+  "submitRequirementResults": [
+    {
+      "submitRequirement": {
+        "name": "Code-Review",
+        "description": {
+          "value": "At least one maximum vote for label \u0027Code-Review\u0027 is required"
+        },
+        "applicabilityExpression": {},
+        "submittabilityExpression": {
+          "expressionString": "label:Code-Review\u003dMAX,user\u003dnon_uploader AND -label:Code-Review\u003dMIN"
+        },
+        "overrideExpression": {
+          "value": {
+            "expressionString": "label:Bot-Commit\u003d+1 AND -label:Code-Review\u003dMIN"
+          }
+        },
+        "allowOverrideInChildProjects": true
+      },
+      "applicabilityExpressionResult": {},
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Code-Review=MAX,user=non_uploader AND -label:Code-Review=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Code-Review=MAX,user=non_uploader","label:Code-Review=MIN"]}
+      },
+      "overrideExpressionResult": {
+        "value": {"expression":{"expressionString":"label:Bot-Commit=+1 AND -label:Code-Review=MIN"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["label:Bot-Commit=+1","label:Code-Review=MIN"]}
+      },
+      "patchSetCommitId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
+    },
+    {
+      "submitRequirement": {
+        "name": "Review-Enforcement",
+        "description": {
+          "value": "Two Google employees must approve the change. Uploading the change or voting positively on Code-Review count as approval."
+        },
+        "applicabilityExpression": {
+          "value": {
+            "expressionString": "is:review-enforced_gerrit"
+          }
+        },
+        "submittabilityExpression": {
+          "expressionString": "is:review-enforcement-satisfied_gerrit"
+        },
+        "overrideExpression": {},
+        "allowOverrideInChildProjects": false
+      },
+      "applicabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["is:review-enforced_gerrit"]}
+      },
+      "submittabilityExpressionResult": {
+        "value": {"expression":{"expressionString":"is:review-enforcement-satisfied_gerrit"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+      },
+      "overrideExpressionResult": {},
+      "patchSetCommitId": "7d6dc27c287313ee45cf3e6a45a04ee88883cc85",
+      "legacy": {
+        "value": false
+      },
+      "forced": {},
+      "hidden": {}
     }
   ]
 }

@@ -51,6 +51,24 @@
       "message": "Seems you need to add yourself to the AUTHORS file and ensure that you have signed the CLA.",
       "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e769ba43_0dd38048",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20439
+      },
+      "writtenOn": "2023-02-19T16:58:40Z",
+      "side": 1,
+      "message": "I did sign the CLA.",
+      "parentUuid": "3657e52a_c4db8f0f",
+      "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

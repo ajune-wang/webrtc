@@ -69,6 +69,24 @@
       "parentUuid": "3657e52a_c4db8f0f",
       "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f8697fc_431af289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20439
+      },
+      "writtenOn": "2023-02-19T17:02:16Z",
+      "side": 1,
+      "message": "Considering this is a one-line change though, I think attributing Authorship is a bit-overkill.",
+      "parentUuid": "e769ba43_0dd38048",
+      "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

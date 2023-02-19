@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'cc44e4fee54dcf1125de9f0f302aa79b84d4220e',
+  'chromium_revision': '228354d4ca00cff99ab7fb6dcea87f9b59d80fd8',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:11.20230218.2.1',
+  'fuchsia_version': 'version:11.20230219.0.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@220ca4bf8b04da448a4e7146715e2a7ba138b677',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@801dc88cd1b7ec9211b80da3eb43cc3872cd79d8',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@f6e91f81c5c32feadbcbad60de69a8dc270ceabe',
+    'https://chromium.googlesource.com/chromium/src/testing@9686404aed79481f8f1141946313820b94a8e70c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@77f3d5d225a1ac122de5ac54c3e4969147194b3c',
+    'https://chromium.googlesource.com/chromium/src/third_party@36b762cbbec455942dab2bb001b14ba835d0820f',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -413,7 +413,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'vUTlHbKBLM4krixE17LfiE5TEFoG_oG8PWG2kxuKDKYC',
+          'version': 'jY6UoXMbZ2j5lAoT5v-qd1EoUmMWfN8MlrP86bkOBpQC',
       },
     ],
     'condition': 'checkout_android',

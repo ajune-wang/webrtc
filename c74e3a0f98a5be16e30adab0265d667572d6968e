@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2470af0f_769908db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20439
+      },
+      "writtenOn": "2023-02-19T19:36:52Z",
+      "side": 1,
+      "message": "@hta@webrtc.org I apologize. I had to make a couple adjustments. Mostly due to how we do not have to CFRelease as CFSTR makes a constant string, similar to how one does not need to free a static c-string.",
+      "revId": "c74e3a0f98a5be16e30adab0265d667572d6968e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

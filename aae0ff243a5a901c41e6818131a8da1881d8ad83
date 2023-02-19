@@ -34,6 +34,23 @@
       "parentUuid": "2c06a699_8e1daec3",
       "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3657e52a_c4db8f0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-19T13:08:00Z",
+      "side": 1,
+      "message": "Seems you need to add yourself to the AUTHORS file and ensure that you have signed the CLA.",
+      "revId": "aae0ff243a5a901c41e6818131a8da1881d8ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

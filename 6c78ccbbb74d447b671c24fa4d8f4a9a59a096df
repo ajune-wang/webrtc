@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c4b8496_679e9bb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20479
+      },
+      "writtenOn": "2023-02-20T11:16:36Z",
+      "side": 1,
+      "message": "@ilnik@webrtc.org: Since the committer does not have Submit access, mind pressing the button here? :)",
+      "revId": "6c78ccbbb74d447b671c24fa4d8f4a9a59a096df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

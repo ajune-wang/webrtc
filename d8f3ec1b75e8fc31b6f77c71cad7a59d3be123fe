@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "341ac4da_9cc8806f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-20T10:45:35Z",
+      "side": 1,
+      "message": "Cleanup after the Big Split.",
+      "revId": "d8f3ec1b75e8fc31b6f77c71cad7a59d3be123fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

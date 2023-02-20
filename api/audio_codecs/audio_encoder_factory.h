@@ -35,6 +35,17 @@ class AudioEncoderFactory : public rtc::RefCountInterface {
       const SdpAudioFormat& format) = 0;
 
   // Creates an AudioEncoder for the specified format. The encoder will tags its
+  // payloads with the specified payload type.
+  //
+  // Returns null if the format isn't supported.
+  //
+  // TODO(ossu): Try to avoid audio encoders having to know their payload type.
+  virtual std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      int payload_type,
+      const SdpAudioFormat& format) = 0;
+
+  // DEPRECATED
+  // Creates an AudioEncoder for the specified format. The encoder will tags its
   // payloads with the specified payload type. The `codec_pair_id` argument is
   // used to link encoders and decoders that talk to the same remote entity: if
   // a AudioEncoderFactory::MakeAudioEncoder() and a
@@ -54,7 +65,9 @@ class AudioEncoderFactory : public rtc::RefCountInterface {
   virtual std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       int payload_type,
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) = 0;
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    return MakeAudioEncoder(payload_type, format);
+  }
 };
 
 }  // namespace webrtc

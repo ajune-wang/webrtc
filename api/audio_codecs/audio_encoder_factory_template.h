@@ -37,7 +37,6 @@ struct Helper<> {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       int payload_type,
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id,
       const FieldTrialsView* field_trials) {
     return nullptr;
   }
@@ -65,14 +64,13 @@ struct Helper<T, Ts...> {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       int payload_type,
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id,
       const FieldTrialsView* field_trials) {
     auto opt_config = T::SdpToConfig(format);
     if (opt_config) {
-      return T::MakeAudioEncoder(*opt_config, payload_type, codec_pair_id);
+      return T::MakeAudioEncoder(*opt_config, payload_type);
     } else {
       return Helper<Ts...>::MakeAudioEncoder(payload_type, format,
-                                             codec_pair_id, field_trials);
+                                             field_trials);
     }
   }
 };
@@ -97,10 +95,15 @@ class AudioEncoderFactoryT : public AudioEncoderFactory {
 
   std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       int payload_type,
+      const SdpAudioFormat& format) override {
+    return Helper<Ts...>::MakeAudioEncoder(payload_type, format, field_trials_);
+  }
+
+  std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      int payload_type,
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) override {
-    return Helper<Ts...>::MakeAudioEncoder(payload_type, format, codec_pair_id,
-                                           field_trials_);
+      absl::optional<AudioCodecPairId> /*codec_pair_id*/) override {
+    return Helper<Ts...>::MakeAudioEncoder(payload_type, format, field_trials_);
   }
 
   const FieldTrialsView* field_trials_;

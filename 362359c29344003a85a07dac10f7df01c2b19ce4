@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67fd1af6_94980a61",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-20T18:17:43Z",
+      "side": 1,
+      "message": "I thought the idea was that we\u0027d just construct Metadata objects on the fly to serve the TransformableVideoFrameInterface, storing in the relevant underlying data types here - header_, ssrc_ and csrc_ etc.\nOnce we\u0027ve deprecated and then deleted the const ref method and so can delete metadata_, there won\u0027t be any duplication.\n\n\nI guess the alternative is to delete header_, ssrcs_, csrcs_ et al, just store a metadata_ here, change GetHeader() to also return by value instead of constref, construct the header on the fly in GetHeader() etc. Would mean we\u0027d do a Header-\u003eMetadata-\u003eHeader roundtrip all the time even in cases where the metadata isn\u0027t touched/modified.",
+      "parentUuid": "971d3771_a8b6b312",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d12c22cd_bd5ad494",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 9

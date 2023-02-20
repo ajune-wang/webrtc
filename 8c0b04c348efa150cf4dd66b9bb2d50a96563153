@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34249d81_a6e4512f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-20T17:03:05Z",
+      "side": 1,
+      "message": "I decided to upload a new (more clean) version before continuing this detailed discussion. I will try to explain better tomorrow why I did that.\n\nI do understand your main concern here but simply can\u0027t see how any type of sleep/yield or similar can fix the fact that the DCD wants a frame in `CaptureFrame` and gets `OnCaptureResult` as a reply on that same thread and all we can do in this layer is to either block or deliver some temporary error code to keep things alive and trigger a new `CaptureFrame`.\n\nI did try to test with `PostDelayedTask` but actually could not come up with a clean solution to access the current task runner which is created at the Chrome side. Most parts in WebRTC which e.g. creates its own task runner does not even link at this layer and e.g. `TaskqueueBase::Current()\" is NULL.\n\nPerhaps we could discuss this off-line so we could compare different ways forward here. I am sure we can come up with a descent solution together.",
+      "parentUuid": "f21ffed2_f4637e32",
+      "revId": "8c0b04c348efa150cf4dd66b9bb2d50a96563153",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72cb6c3d_ec82adbc",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 2

@@ -16,6 +16,24 @@
       "message": "PTAL everyone. Need to wait for revert to land before I can confirm on internal_tests but AFAIK this should fix the issue",
       "revId": "4254aa5d4f49272bf5af9d9564932e7e115ec141",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "190de217_66a4e9af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-20T14:23:41Z",
+      "side": 1,
+      "message": "For revert to get upstreamed, I mean",
+      "parentUuid": "debb6a86_ec625a80",
+      "revId": "4254aa5d4f49272bf5af9d9564932e7e115ec141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -20,6 +20,8 @@
 
 #include "api/sequence_checker.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
+#include "modules/desktop_capture/screen_capture_frame_queue.h"
+#include "modules/desktop_capture/shared_desktop_frame.h"
 #include "modules/desktop_capture/win/wgc_capture_source.h"
 #include "rtc_base/event.h"
 
@@ -42,7 +44,7 @@ class WgcCaptureSession final {
   HRESULT StartCapture(const DesktopCaptureOptions& options);
 
   // Returns a frame from the frame pool, if any are present.
-  HRESULT GetFrame(std::unique_ptr<DesktopFrame>* output_frame);
+  bool GetFrame(std::unique_ptr<DesktopFrame>* output_frame);
 
   bool IsCaptureStarted() const {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -53,7 +55,8 @@ class WgcCaptureSession final {
   // with having to wait for frames to arrive too frequently. Too many buffers
   // will lead to a high latency, and too few will lead to poor performance.
   // We make this public for tests.
-  static constexpr int kNumBuffers = 2;
+  // TODO(henrika): rewrite this comment.
+  static constexpr int kNumBuffers = 1;
 
  private:
   // Initializes `mapped_texture_` with the properties of the `src_texture`,
@@ -76,15 +79,12 @@ class WgcCaptureSession final {
       ABI::Windows::Graphics::Capture::IDirect3D11CaptureFramePool* sender,
       IInspectable* event_args);
 
+  // Process the captured frame and copy it to the `queue_`.
+  HRESULT ProcessFrame();
+
   void RemoveEventHandlers();
 
-  // We wait on this event in `GetFrame` if there are no frames in the pool.
-  // `OnFrameArrived` will set the event so we can proceed.
-  rtc::Event wait_for_frame_event_;
-  int frames_in_pool_;
-
-  // We're willing to wait for a frame a little longer if it's the first one.
-  bool first_frame_ = true;
+  bool first_frame_has_arrived_ = false;
 
   std::unique_ptr<EventRegistrationToken> frame_arrived_token_;
   std::unique_ptr<EventRegistrationToken> item_closed_token_;
@@ -125,6 +125,9 @@ class WgcCaptureSession final {
   Microsoft::WRL::ComPtr<
       ABI::Windows::Graphics::Capture::IGraphicsCaptureSession>
       session_;
+
+  // Queue of captured video frames.
+  ScreenCaptureFrameQueue<SharedDesktopFrame> queue_;
 
   bool item_closed_ = false;
   bool is_capture_started_ = false;

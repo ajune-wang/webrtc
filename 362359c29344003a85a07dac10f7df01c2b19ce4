@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971d3771_a8b6b312",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-20T16:45:42Z",
+      "side": 1,
+      "message": "I would prefer to continue using the members of metadata_ rather than storing extra copies of these values to reduce the risk of them diverging. It looks like that should be possible, but maybe I\u0027m missing something?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12c22cd_bd5ad494",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-20T16:45:42Z",
+      "side": 1,
+      "message": "Why can\u0027t we just copy metadata into metadata_? I see that something similar was done also in the existing implementation, but it is unclear to me why.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

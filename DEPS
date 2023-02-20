@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a0f406407bbbb6708b7a27c6bb53e65642aec439',
+  'chromium_revision': '292a0c90f3102cf42ec2548523cbdb26f8097b55',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:11.20230219.2.1',
+  'fuchsia_version': 'version:11.20230220.0.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -61,9 +61,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@9686404aed79481f8f1141946313820b94a8e70c',
+    'https://chromium.googlesource.com/chromium/src/testing@ad6596d63cb4e84a55dc5bc66f8dfbc7163a51f9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b3ece5d0a3315ccece76d64989608cb234665201',
+    'https://chromium.googlesource.com/chromium/src/third_party@930f12cba90ae29b6522f28c11023ed948955b47',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@23ee8d2022a8fbbedf7314842c87121c97e3a9e8',
+    'https://chromium.googlesource.com/chromium/src/tools@fd321accbfa2df1af5623e2d61c9bf0462b27c9d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

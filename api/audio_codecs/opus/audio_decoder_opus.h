@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/field_trials_view.h"
@@ -35,7 +34,6 @@ struct RTC_EXPORT AudioDecoderOpus {
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       Config config,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
       const FieldTrialsView* field_trials = nullptr);
 };
 

@@ -80,8 +80,7 @@ NetEqImpl::Dependencies::Dependencies(
     : clock(clock),
       tick_timer(new TickTimer),
       stats(new StatisticsCalculator),
-      decoder_database(
-          new DecoderDatabase(decoder_factory, config.codec_pair_id)),
+      decoder_database(new DecoderDatabase(decoder_factory)),
       dtmf_buffer(new DtmfBuffer(config.sample_rate_hz)),
       dtmf_tone_generator(new DtmfToneGenerator),
       packet_buffer(

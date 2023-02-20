@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/g722/audio_encoder_g722_config.h"
@@ -35,7 +34,6 @@ struct RTC_EXPORT AudioEncoderG722 {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const AudioEncoderG722Config& config,
       int payload_type,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
       const FieldTrialsView* field_trials = nullptr);
 };
 

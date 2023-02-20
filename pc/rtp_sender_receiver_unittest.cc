@@ -120,8 +120,7 @@ class RtpSenderReceiverTest
     // Fake media channels are owned by the media engine.
     media_engine_->voice().CreateMediaChannel(
         cricket::MediaChannel::Role::kSend, &fake_call_, cricket::MediaConfig(),
-        cricket::AudioOptions(), webrtc::CryptoOptions(),
-        webrtc::AudioCodecPairId::Create());
+        cricket::AudioOptions(), webrtc::CryptoOptions());
     media_engine_->video().CreateMediaChannel(
         cricket::MediaChannel::Role::kSend, &fake_call_, cricket::MediaConfig(),
         cricket::VideoOptions(), webrtc::CryptoOptions(),
@@ -129,7 +128,7 @@ class RtpSenderReceiverTest
     media_engine_->voice().CreateMediaChannel(
         cricket::MediaChannel::Role::kReceive, &fake_call_,
         cricket::MediaConfig(), cricket::AudioOptions(),
-        webrtc::CryptoOptions(), webrtc::AudioCodecPairId::Create());
+        webrtc::CryptoOptions());
     media_engine_->video().CreateMediaChannel(
         cricket::MediaChannel::Role::kReceive, &fake_call_,
         cricket::MediaConfig(), cricket::VideoOptions(),

@@ -209,11 +209,10 @@ RTCError RtpTransceiver::CreateChannel(
     context()->worker_thread()->BlockingCall([&] {
       RTC_DCHECK_RUN_ON(context()->worker_thread());
 
-      AudioCodecPairId codec_pair_id = AudioCodecPairId::Create();
       std::unique_ptr<cricket::VoiceMediaChannel> media_send_channel =
           absl::WrapUnique(media_engine()->voice().CreateMediaChannel(
               cricket::MediaChannel::Role::kSend, call_ptr, media_config,
-              audio_options, crypto_options, codec_pair_id));
+              audio_options, crypto_options));
       if (!media_send_channel) {
         // TODO(bugs.webrtc.org/14912): Consider CHECK or reporting failure
         return;
@@ -221,7 +220,7 @@ RTCError RtpTransceiver::CreateChannel(
       std::unique_ptr<cricket::VoiceMediaChannel> media_receive_channel =
           absl::WrapUnique(media_engine()->voice().CreateMediaChannel(
               cricket::MediaChannel::Role::kReceive, call_ptr, media_config,
-              audio_options, crypto_options, codec_pair_id));
+              audio_options, crypto_options));
       if (!media_receive_channel) {
         return;
       }

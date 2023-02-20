@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a0f406407bbbb6708b7a27c6bb53e65642aec439',
+  'chromium_revision': '71172ccd1c3f65eaaaed5731abd097efaad486b5',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:11.20230219.2.1',
+  'fuchsia_version': 'version:11.20230220.0.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@eabc1ecd0b48b3adb1dc261663df104588f18249',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@af8229022e739a9d1587fc719af2f65e3ccc9767',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@9686404aed79481f8f1141946313820b94a8e70c',
+    'https://chromium.googlesource.com/chromium/src/testing@c58cac70c7c9ab00f62ce1769cce2fbf4d981e42',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b3ece5d0a3315ccece76d64989608cb234665201',
+    'https://chromium.googlesource.com/chromium/src/third_party@930f12cba90ae29b6522f28c11023ed948955b47',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@23ee8d2022a8fbbedf7314842c87121c97e3a9e8',
+    'https://chromium.googlesource.com/chromium/src/tools@cac4c4022ccba993aacdea78d6e77e3203d5b333',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -413,7 +413,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'MZ9_PEpIzKK0mJj-ofqMi2FNv_6yzhVurgpyh5pHkK8C',
+          'version': '5XJ66D6bMy33f2PGbWb1DSMYbCeqjKLqPB5CJXuhL9wC',
       },
     ],
     'condition': 'checkout_android',

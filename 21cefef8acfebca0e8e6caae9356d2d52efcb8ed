@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1058b6c6_9beaeb1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "Big picture looks good, but I got a bit confused by the helper classes in the metric calculations.",
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb073f0a_79e973b8",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "Consider adding a unit test for this class.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3294a0bf_d5b6eb44",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "Add a comment describing what this function returns.",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936e56fe_56e574fc",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "This is ms. Should it not be seconds? Like `passed.seconds()` ?",
+      "range": {
+        "startLine": 39,
+        "startChar": 48,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c20758_0c591fb5",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "I don\u0027t understand the units here. Consider renaming `buffer_level_bits_` to be more descriptive.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d48ae33_e9e15b7d",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "Return early for empty `frames` ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 35,
+        "endLine": 73,
+        "endChar": 51
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4682fe2f_b401a6a1",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-21T12:27:06Z",
+      "side": 1,
+      "message": "Add () to clarify the boundary between assignment and comparison:\n\n`bool eos \u003d (i + 1 \u003d\u003d superframes.size());`",
+      "range": {
+        "startLine": 195,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

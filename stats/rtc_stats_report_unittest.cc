@@ -55,8 +55,7 @@ WEBRTC_RTCSTATS_IMPL(RTCTestStats3, RTCStats, "test-stats-3", &string)
 TEST(RTCStatsReport, AddAndGetStats) {
   rtc::scoped_refptr<RTCStatsReport> report =
       RTCStatsReport::Create(Timestamp::Micros(1337));
-  EXPECT_EQ(report->timestamp_us(), 1337u);
-  EXPECT_EQ(report->timestamp().us_or(-1), 1337u);
+  EXPECT_EQ(report->timestamp(), Timestamp::Micros(1337));
   EXPECT_EQ(report->size(), static_cast<size_t>(0));
   report->AddStats(
       std::unique_ptr<RTCStats>(new RTCTestStats1("a0", Timestamp::Micros(1))));
@@ -150,8 +149,7 @@ TEST(RTCStatsReport, TakeMembersFrom) {
       std::unique_ptr<RTCStats>(new RTCTestStats1("E", Timestamp::Micros(4))));
   rtc::scoped_refptr<RTCStatsReport> b =
       RTCStatsReport::Create(Timestamp::Micros(1338));
-  EXPECT_EQ(b->timestamp_us(), 1338u);
-  EXPECT_EQ(b->timestamp().us_or(-1), 1338u);
+  EXPECT_EQ(b->timestamp(), Timestamp::Micros(1338));
   b->AddStats(
       std::unique_ptr<RTCStats>(new RTCTestStats1("A", Timestamp::Micros(0))));
   b->AddStats(

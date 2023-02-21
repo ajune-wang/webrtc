@@ -17,6 +17,7 @@
 
 #include "absl/functional/any_invocable.h"
 #include "api/test/create_video_codec_tester.h"
+#include "api/test/metrics/global_metrics_logger_and_exporter.h"
 #include "api/test/videocodec_test_stats.h"
 #include "api/units/data_rate.h"
 #include "api/units/frequency.h"
@@ -409,6 +410,18 @@ std::unique_ptr<VideoCodecTester::Decoder> CreateDecoder(
   return std::make_unique<TestDecoder>(std::move(decoder), codec_info);
 }
 
+void SetTargetRates(const std::map<int, EncodingSettings>& frame_settings,
+                    std::vector<VideoCodecStats::Frame>& frames) {
+  for (VideoCodecStats::Frame& f : frames) {
+    const EncodingSettings& settings =
+        std::prev(frame_settings.upper_bound(f.frame_num))->second;
+    LayerId layer_id = {.spatial_idx = f.spatial_idx,
+                        .temporal_idx = f.temporal_idx};
+    f.target_bitrate = settings.bitrate.at(layer_id);
+    f.target_framerate = settings.framerate / (1 << f.temporal_idx);
+  }
+}
+
 }  // namespace
 
 class EncodeDecodeTest
@@ -460,10 +473,18 @@ TEST_P(EncodeDecodeTest, DISABLED_TestEncodeDecode) {
     VideoCodecStats::Filter slicer = {.first_frame = first_frame,
                                       .last_frame = last_frame};
     std::vector<VideoCodecStats::Frame> frames = stats->Slice(slicer);
+    SetTargetRates(frame_settings, frames);
     VideoCodecStats::Stream stream = stats->Aggregate(frames);
     EXPECT_GE(stream.psnr.y.GetAverage(),
               test_params_.test_expectations.min_apsnr_y);
   }
+
+  std::vector<VideoCodecStats::Frame> frames = stats->Slice();
+  SetTargetRates(frame_settings, frames);
+  VideoCodecStats::Stream stream = stats->Aggregate(frames);
+  stats->LogMetrics(
+      GetGlobalMetricsLogger(), stream,
+      ::testing::UnitTest::GetInstance()->current_test_info()->name());
 }
 
 INSTANTIATE_TEST_SUITE_P(

@@ -27,10 +27,7 @@ class VideoCodecStatsImpl : public VideoCodecStats {
   std::vector<Frame> Slice(
       absl::optional<Filter> filter = absl::nullopt) const override;
 
-  Stream Aggregate(
-      const std::vector<Frame>& frames,
-      absl::optional<DataRate> bitrate = absl::nullopt,
-      absl::optional<Frequency> framerate = absl::nullopt) const override;
+  Stream Aggregate(const std::vector<Frame>& frames) const override;
 
   void LogMetrics(MetricsLogger* logger,
                   const Stream& stream,

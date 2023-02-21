@@ -16,6 +16,24 @@
       "message": "Sorry to nag!\nSeems like tests passed, can anyone push this please?",
       "revId": "5f263511d05faef8ae96df84b359d2da60cdd8a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d14c814_08861605",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-21T18:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "577c37b6_1c55466f",
+      "revId": "5f263511d05faef8ae96df84b359d2da60cdd8a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

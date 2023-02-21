@@ -48,7 +48,6 @@ class VideoCodecStatsSlicingTest
     : public ::testing::TestWithParam<VideoCodecStatsSlicingTestParams> {
  public:
   void SetUp() {
-    // TODO(ssikin): Hard codec 2x2 table would be better.
     for (int frame_num = 0; frame_num < 2; ++frame_num) {
       for (int spatial_idx = 0; spatial_idx < 2; ++spatial_idx) {
         uint32_t timestamp_rtp = 3000 * frame_num;
@@ -81,7 +80,7 @@ INSTANTIATE_TEST_SUITE_P(All,
 struct VideoCodecStatsAggregationTestParams {
   VideoCodecStats::Filter slicer;
   struct Expected {
-    double decode_time_us;
+    double decode_time_ms;
   } expected;
 };
 
@@ -89,15 +88,13 @@ class VideoCodecStatsAggregationTest
     : public ::testing::TestWithParam<VideoCodecStatsAggregationTestParams> {
  public:
   void SetUp() {
-    // TODO(ssikin): Hard codec 2x2 table would be better. Share with
-    // VideoCodecStatsSlicingTest
     for (int frame_num = 0; frame_num < 2; ++frame_num) {
       for (int spatial_idx = 0; spatial_idx < 2; ++spatial_idx) {
         uint32_t timestamp_rtp = 3000 * frame_num;
         VideoCodecStats::Frame* f =
             stats_.AddFrame(frame_num, timestamp_rtp, spatial_idx);
         f->temporal_idx = frame_num;
-        f->decode_time = TimeDelta::Micros(spatial_idx * 10 + frame_num);
+        f->decode_time = TimeDelta::Millis(spatial_idx * 10 + frame_num);
         f->encoded = true;
         f->decoded = true;
       }
@@ -112,8 +109,8 @@ TEST_P(VideoCodecStatsAggregationTest, Aggregate) {
   VideoCodecStatsAggregationTestParams test_params = GetParam();
   std::vector<VideoCodecStats::Frame> frames = stats_.Slice(test_params.slicer);
   VideoCodecStats::Stream stream = stats_.Aggregate(frames);
-  EXPECT_EQ(stream.decode_time_us.GetAverage(),
-            test_params.expected.decode_time_us);
+  EXPECT_EQ(stream.decode_time_ms.GetAverage(),
+            test_params.expected.decode_time_ms);
 }
 
 INSTANTIATE_TEST_SUITE_P(
@@ -121,20 +118,19 @@ INSTANTIATE_TEST_SUITE_P(
     VideoCodecStatsAggregationTest,
     ::testing::ValuesIn(
         {VideoCodecStatsAggregationTestParams(
-             {.slicer = {},
-              .expected = {.decode_time_us = (0.0 + 1.0 + 10.0 + 11.0) / 2}}),
+             {.slicer = {}, .expected = {.decode_time_ms = (10.0 + 11.0) / 2}}),
          // Slicing on frame number
          VideoCodecStatsAggregationTestParams(
              {.slicer = {.first_frame = 1, .last_frame = 1},
-              .expected = {.decode_time_us = 1.0 + 11.0}}),
+              .expected = {.decode_time_ms = 11.0}}),
          // Slice on spatial index
          VideoCodecStatsAggregationTestParams(
              {.slicer = {.spatial_idx = 1},
-              .expected = {.decode_time_us = (10.0 + 11.0) / 2}}),
+              .expected = {.decode_time_ms = (10.0 + 11.0) / 2}}),
          // Slice on temporal index
-         VideoCodecStatsAggregationTestParams(
-             {.slicer = {.temporal_idx = 0},
-              .expected = {.decode_time_us = 0.0 + 10.0}})}));
+         VideoCodecStatsAggregationTestParams({.slicer = {.temporal_idx = 0},
+                                               .expected = {
+                                                   .decode_time_ms = 10.0}})}));
 
 }  // namespace test
 }  // namespace webrtc

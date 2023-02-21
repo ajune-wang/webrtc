@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff0c2160_cf659d1a",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-21T09:14:49Z",
+      "side": 1,
+      "message": "bypasser note:\nstyle guide examples accessor without \u0027Get\u0027 prefix:\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Names\n“For example, int count() and void set_count(int count).”\n\nTo reduce number of iterations, may be call this new accessor just Metadata():\n`virtual VideoFrameMetadata Metadata() const \u003d 0;`",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 46
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "971d3771_a8b6b312",

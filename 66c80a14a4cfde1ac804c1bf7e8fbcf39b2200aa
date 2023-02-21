@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f841a91_75c96a66",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-21T18:50:37Z",
+      "side": 1,
+      "message": "Not seeing this removed from the header?",
+      "revId": "66c80a14a4cfde1ac804c1bf7e8fbcf39b2200aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

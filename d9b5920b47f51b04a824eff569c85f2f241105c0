@@ -16,6 +16,23 @@
       "message": "Timestamp all the things ;-)",
       "revId": "d9b5920b47f51b04a824eff569c85f2f241105c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df586b38_1f7061c6",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-21T10:19:53Z",
+      "side": 1,
+      "message": "should this one be deprecated too, or that is for another time?",
+      "revId": "d9b5920b47f51b04a824eff569c85f2f241105c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

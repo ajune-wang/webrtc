@@ -74,6 +74,9 @@ declare_args() {
     rtc_exclude_field_trial_default = false
   }
 
+  # Support location by default if built with Chromium.
+  rtc_enable_location = build_with_chromium
+
   # Setting this to true will define WEBRTC_EXCLUDE_METRICS_DEFAULT which
   # will tell the pre-processor to remove the default definition of symbols
   # needed to use metrics. In that case a new implementation needs to be

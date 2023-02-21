@@ -65,6 +65,23 @@ if (!build_with_chromium) {
   }
 }
 
+config("location_config") {
+  visibility = [ ":*" ]
+  if (rtc_enable_location) {
+    defines = [ "RTC_ENABLE_LOCATION=1" ]
+  }
+}
+
+rtc_library("location") {
+  visibility = [ "*" ]
+  sources = [
+    "location.cc",
+    "location.h",
+  ]
+  public_configs = [ ":location_config" ]
+  deps = [ "../rtc_base/system:rtc_export" ]
+}
+
 rtc_library("rtp_headers") {
   visibility = [ "*" ]
   sources = [

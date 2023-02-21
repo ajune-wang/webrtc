@@ -51,6 +51,24 @@
       "parentUuid": "df586b38_1f7061c6",
       "revId": "d9b5920b47f51b04a824eff569c85f2f241105c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f2ae37_f9cf36cf",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-21T15:54:12Z",
+      "side": 1,
+      "message": "Deprecation added, it was only used in tests (oddly source.chromium.org didn\u0027t show the reference)",
+      "parentUuid": "4c475095_0fe3f8d8",
+      "revId": "d9b5920b47f51b04a824eff569c85f2f241105c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

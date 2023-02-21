@@ -259,6 +259,7 @@ void WgcCapturerWin::CaptureFrame() {
   }
 
   HRESULT hr;
+  dispatcher_queue_created_ = false;
   if (!dispatcher_queue_created_) {
     // Set the apartment type to NONE because this thread should already be COM
     // initialized.
@@ -276,7 +277,7 @@ void WgcCapturerWin::CaptureFrame() {
     if (FAILED(hr) && hr != RPC_E_WRONG_THREAD) {
       RecordWgcCapturerResult(WgcCapturerResult::kCreateDispatcherQueueFailure);
       callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
-                                 /*frame=*/nullptr);
+                                 nullptr);
     } else {
       dispatcher_queue_created_ = true;
     }
@@ -323,9 +324,8 @@ void WgcCapturerWin::CaptureFrame() {
   }
 
   std::unique_ptr<DesktopFrame> frame;
-  hr = capture_session->GetFrame(&frame);
-  if (FAILED(hr)) {
-    RTC_LOG(LS_ERROR) << "GetFrame failed: " << hr;
+  if (!capture_session->GetFrame(&frame)) {
+    RTC_LOG(LS_ERROR) << "GetFrame failed.";
     ongoing_captures_.erase(capture_source_->GetSourceId());
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
@@ -337,6 +337,7 @@ void WgcCapturerWin::CaptureFrame() {
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_TEMPORARY,
                                /*frame=*/nullptr);
     RecordWgcCapturerResult(WgcCapturerResult::kFrameDropped);
+    RTC_DLOG(LS_WARNING) << "Failed to read a valid frame from the queue";
     return;
   }
 

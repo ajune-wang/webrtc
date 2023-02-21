@@ -22,6 +22,30 @@
       },
       "revId": "c05472abfa096dd6b4453cee853b0f227ccfe927",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13481fc_b445f852",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 20469
+      },
+      "writtenOn": "2023-02-21T19:54:04Z",
+      "side": 1,
+      "message": "Setting is_h264 to false worked for me as well. I actually started with that, but wasn\u0027t sure if we need the rest of the logic for h264, for example: updating video_header.width and video_header.height. Will make a update to use is_h264_descriptor.",
+      "parentUuid": "78d99cdb_3ba3489b",
+      "range": {
+        "startLine": 259,
+        "startChar": 11,
+        "endLine": 259,
+        "endChar": 18
+      },
+      "revId": "c05472abfa096dd6b4453cee853b0f227ccfe927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

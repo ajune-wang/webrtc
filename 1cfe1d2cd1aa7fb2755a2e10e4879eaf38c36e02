@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6af55fe5_e60857e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-21T15:21:15Z",
+      "side": 1,
+      "message": "Looks good now.",
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21387ae1_b74f0fdc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-21T15:21:15Z",
+      "side": 1,
+      "message": "Is the same interface class used when sending frames to the decoder?\nOr is it just used when sending to the packetizer?",
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

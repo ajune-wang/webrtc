@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d99cdb_3ba3489b",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-02-21T10:28:18Z",
+      "side": 1,
+      "message": "After a closer look at this proposal I realize that when the DD is used all H264 specific hacks should be bypassed. I think simply setting `is_h264` to false should work.\n\n`is_h264` should also be renamed to something like `is_h264_descriptor`.",
+      "range": {
+        "startLine": 259,
+        "startChar": 11,
+        "endLine": 259,
+        "endChar": 18
+      },
+      "revId": "c05472abfa096dd6b4453cee853b0f227ccfe927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

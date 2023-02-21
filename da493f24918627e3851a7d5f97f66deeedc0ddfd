@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ece0ba_4e8edadc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-21T19:19:22Z",
+      "side": 1,
+      "message": "This plumbing needs to be ripped out again, but at least it\u0027s explicit now.",
+      "revId": "da493f24918627e3851a7d5f97f66deeedc0ddfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

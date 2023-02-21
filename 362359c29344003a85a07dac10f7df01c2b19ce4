@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d196a2_072c92b0",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-21T11:46:28Z",
+      "side": 1,
+      "message": "Oh, nice, that gives us a much much nicer migration path! Done, thanks!",
+      "parentUuid": "ff0c2160_cf659d1a",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 46
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "971d3771_a8b6b312",
@@ -121,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f214cf9d_834b97c6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-21T11:46:28Z",
+      "side": 1,
+      "message": "What do you think following our lunch discussion, Tove?\nOk to land this change which completely relegates metadata_ to being a cache and not being source of truth for any of this data, to be deleted shortly?",
+      "parentUuid": "0e39533e_8c413ffb",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d12c22cd_bd5ad494",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 9
@@ -132,6 +180,30 @@
       "writtenOn": "2023-02-20T16:45:42Z",
       "side": 1,
       "message": "Why can\u0027t we just copy metadata into metadata_? I see that something similar was done also in the existing implementation, but it is unclear to me why.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3ca22c_4e08af8b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-21T11:46:28Z",
+      "side": 1,
+      "message": "Just because I didn\u0027t want to risk having Metadata() and GetMetadata() return different values - if we copied metadata here then GetMetadata() would return this, but Metadata() would return the result of a metadata-\u003eheader-\u003emetadata roundtrip.",
+      "parentUuid": "d12c22cd_bd5ad494",
       "range": {
         "startLine": 83,
         "startChar": 0,

@@ -33,6 +33,69 @@
       "message": "Is the same interface class used when sending frames to the decoder?\nOr is it just used when sending to the packetizer?",
       "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68623fa7_ea8eb724",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-21T15:59:44Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Default_Arguments\n\n“Default arguments are banned on virtual functions”",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 38
+      },
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e6876ec_84f0add9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-21T15:59:44Z",
+      "side": 1,
+      "message": "prefer to put function before the members\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order\n\n6. All other functions (static and non-static member functions, and friend functions)\n7. Data members (static and non-static)",
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4332df44_404e1d8e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-21T15:59:44Z",
+      "side": 1,
+      "message": "prefer equality (as recommended in https://abseil.io/tips/88 ):\nauto delegate \u003d rtc::make_ref_counted...",
+      "range": {
+        "startLine": 93,
+        "startChar": 15,
+        "endLine": 93,
+        "endChar": 16
+      },
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

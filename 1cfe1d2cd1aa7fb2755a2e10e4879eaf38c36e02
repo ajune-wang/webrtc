@@ -96,6 +96,29 @@
       },
       "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b071957_83c8da7f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-21T16:02:36Z",
+      "side": 1,
+      "message": "you can avoid writing all the parameters:\n.WillOnce(WithoutArgs([\u0026] { event.Set(); return true; }))\n\nhttp://google.github.io/googletest/gmock_cook_book.html#SelectingArgs",
+      "range": {
+        "startLine": 136,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 50
+      },
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

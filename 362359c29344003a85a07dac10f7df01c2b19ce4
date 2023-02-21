@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35e04d96_f5c0fe41",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-21T07:17:03Z",
+      "side": 1,
+      "message": "The argument for adding GetCopyOfMetadata instead of changing GetMetadata to return by value was that we didn\u0027t want to be trapped into a synchronous update of all callers to match.\n\nOnce we have GetCopyOfMetadata, we can deprecate/delete GetMetadata-with-reference, and once we\u0027re sure all references are gone, we can add GetMetadata as a synonym for GetCopyOfMetadata, and then finally delete GetCopyOfMetadata.\n\nJust the ordinary dance we do for backwards compatibility.",
+      "parentUuid": "67fd1af6_94980a61",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d12c22cd_bd5ad494",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 9

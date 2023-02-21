@@ -167,6 +167,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f12f92b_153ffab3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-21T11:52:06Z",
+      "side": 1,
+      "message": "sounds good to me.",
+      "parentUuid": "f214cf9d_834b97c6",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d12c22cd_bd5ad494",
@@ -204,6 +228,30 @@
       "side": 1,
       "message": "Just because I didn\u0027t want to risk having Metadata() and GetMetadata() return different values - if we copied metadata here then GetMetadata() would return this, but Metadata() would return the result of a metadata-\u003eheader-\u003emetadata roundtrip.",
       "parentUuid": "d12c22cd_bd5ad494",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "362359c29344003a85a07dac10f7df01c2b19ce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160547f5_cf2da4dc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-21T11:52:06Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "5a3ca22c_4e08af8b",
       "range": {
         "startLine": 83,
         "startChar": 0,

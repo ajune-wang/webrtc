@@ -54,9 +54,8 @@ AlrExperimentSettings::CreateFromFieldTrial(
 
   const std::string kIgnoredSuffix = "_Dogfood";
   std::string::size_type suffix_pos = group_name.rfind(kIgnoredSuffix);
-  if (suffix_pos != std::string::npos &&
-      suffix_pos == group_name.length() - kIgnoredSuffix.length()) {
-    group_name.resize(group_name.length() - kIgnoredSuffix.length());
+  if (suffix_pos == group_name.length() - kIgnoredSuffix.length()) {
+    group_name.resize(suffix_pos);
   }
 
   if (group_name.empty()) {

@@ -653,7 +653,7 @@ static bool GetSingleTokenValue(absl::string_view message,
 static bool CaseInsensitiveFind(std::string str1, std::string str2) {
   absl::c_transform(str1, str1.begin(), ::tolower);
   absl::c_transform(str2, str2.begin(), ::tolower);
-  return str1.find(str2) != std::string::npos;
+  return absl::StrContains(str1, str2);
 }
 
 template <class T>
@@ -2109,7 +2109,7 @@ bool ParseConnectionData(absl::string_view line,
 
   // The rightpart part should be the IP address without the slash which is used
   // for multicast.
-  if (rightpart.find('/') != std::string::npos) {
+  if (absl::StrContains(rightpart, '/')) {
     return ParseFailed(line,
                        "Failed to parse the connection data. Multicast is not "
                        "currently supported.",

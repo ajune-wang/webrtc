@@ -288,9 +288,9 @@ TEST_F(StunPortTest, TestPrepareAddressFail) {
   EXPECT_EQ_SIMULATED_WAIT(error_event_.error_code,
                            cricket::SERVER_NOT_REACHABLE_ERROR, kTimeoutMs,
                            fake_clock);
-  ASSERT_NE(error_event_.error_text.find('.'), std::string::npos);
-  ASSERT_NE(error_event_.address.find(kLocalAddr.HostAsSensitiveURIString()),
-            std::string::npos);
+  ASSERT_TRUE(absl::StrContains(error_event_.error_text, '.'));
+  ASSERT_TRUE(absl::StrContains(error_event_.address,
+                                kLocalAddr.HostAsSensitiveURIString()));
   std::string server_url = "stun:" + kBadAddr.ToString();
   ASSERT_EQ(error_event_.url, server_url);
 }

@@ -3053,7 +3053,7 @@ class Vp9HeaderObserver : public test::SendTest {
   }
 
   bool IsTemporalShiftEnabled() const {
-    return params_.scalability_mode.find("_SHIFT") != std::string::npos;
+    return absl::StrContains(params_.scalability_mode, "_SHIFT");
   }
 
   void VerifySpatialIdxWithinFrame(const RTPVideoHeaderVP9& vp9) const {

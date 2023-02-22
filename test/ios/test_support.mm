@@ -113,8 +113,8 @@ static absl::optional<std::vector<std::string>> g_metrics_to_plot;
       }
     }
     if (!g_webrtc_test_metrics_output_path.empty()) {
-      RTC_CHECK_EQ(g_webrtc_test_metrics_output_path.find('/'), std::string::npos)
-          << "On iOS, --webrtc_test_metrics_output_path must only be a file name.";
+      RTC_CHECK(!absl::StrContains(g_webrtc_test_metrics_output_path, '/'));
+      << "On iOS, --webrtc_test_metrics_output_path must only be a file name.";
       if ([outputDirectories count] != 0) {
         NSString *fileName = [NSString stringWithCString:g_webrtc_test_metrics_output_path.c_str()
                                                 encoding:[NSString defaultCStringEncoding]];

@@ -205,7 +205,7 @@ class LookoutLogSink final : public rtc::LogSink {
     OnLogMessage(absl::string_view(message));
   }
   void OnLogMessage(absl::string_view message) override {
-    if (message.find(look_for_) != std::string::npos) {
+    if (absl::StrContains(message, look_for_)) {
       when_found_.Set();
     }
   }

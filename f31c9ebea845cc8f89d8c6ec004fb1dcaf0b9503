@@ -33,6 +33,23 @@
       "message": "sprang: need owner LGTM",
       "revId": "f31c9ebea845cc8f89d8c6ec004fb1dcaf0b9503",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b424e86_808d6cc5",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-22T12:39:54Z",
+      "side": 1,
+      "message": "I wonder if this statement is still true (written so long ago I don\u0027t even remember writing it) or if we could enable-by-default?",
+      "revId": "f31c9ebea845cc8f89d8c6ec004fb1dcaf0b9503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

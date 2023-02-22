@@ -216,10 +216,9 @@ void VideoSendStream::Start() {
 
 void VideoSendStream::StartPerRtpStream(const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-
   // Keep our `running_` flag expected state in sync with active layers since
-  // the `send_stream_` will be implicitly stopped/started depending on the
-  // state of the layers.
+  // the `send_stream_` will be implicitly stopped/started depending
+  // on the state of the layers.
   bool running = false;
 
   rtc::StringBuilder active_layers_string;

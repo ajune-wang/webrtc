@@ -112,6 +112,7 @@ void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
 void ChannelSendFrameTransformerDelegate::SendFrame(
     std::unique_ptr<TransformableFrameInterface> frame) const {
   MutexLock lock(&send_lock_);
+
   RTC_DCHECK_RUN_ON(encoder_queue_);
   RTC_CHECK_EQ(frame->GetDirection(),
                TransformableFrameInterface::Direction::kSender);
@@ -125,6 +126,22 @@ void ChannelSendFrameTransformerDelegate::SendFrame(
                            transformed_frame->GetStartTimestamp(),
                        transformed_frame->GetData(),
                        transformed_frame->GetAbsoluteCaptureTimestampMs());
+}
+
+std::unique_ptr<TransformableFrameInterface> CloneSenderAudioFrame(
+    TransformableFrameInterface* original) {
+  // uint32_t timestamp = 0u;
+  // if (original->GetDirection() ==
+  // TransformableFrameInterface::Direction::kSender) {
+  //   timestamp =
+  //   static_cast<TransformableAudioFrameInterface*>(original)->GetHeader()
+  // }
+
+  return std::make_unique<TransformableOutgoingAudioFrame>(
+      AudioFrameType::kAudioFrameSpeech, original->GetPayloadType(),
+      original->GetTimestamp(), 0u, original->GetData().data(),
+      original->GetData().size(), original->GetTimestamp(),
+      original->GetSsrc());
 }
 
 }  // namespace webrtc

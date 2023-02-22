@@ -1035,7 +1035,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     RTC_DCHECK(stream_);
     RTC_DCHECK_EQ(1UL, rtp_parameters_.encodings.size());
-    if (send_ && source_ != nullptr && rtp_parameters_.encodings[0].active) {
+    if (send_ &&  // source_ != nullptr &&
+        rtp_parameters_.encodings[0].active) {
       stream_->Start();
     } else {  // !send || source_ = nullptr
       stream_->Stop();
@@ -1788,6 +1789,7 @@ void WebRtcVoiceMediaChannel::SetPlayout(bool playout) {
 
 void WebRtcVoiceMediaChannel::SetSend(bool send) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::SetSend");
+
   if (send_ == send) {
     return;
   }

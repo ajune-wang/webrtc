@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3be6e98b_427d0e31",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-22T17:15:14Z",
+      "side": 1,
+      "message": "Yeah I think this is okay.",
+      "parentUuid": "a5daadfa_b957f825",
+      "revId": "f2f616f014faa828c1a142a3df454aa1a56287c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f39a64c_00617700",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 7
@@ -48,6 +66,24 @@
       "writtenOn": "2023-02-22T14:22:34Z",
       "side": 1,
       "message": "I used the same inlined style as in DxgiDuplicatorController::EnsureFrameCaptured.",
+      "revId": "f2f616f014faa828c1a142a3df454aa1a56287c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad3904ca_56ae4ebe",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-22T17:15:14Z",
+      "side": 1,
+      "message": "Maybe comment that we choose 20ms as it\u0027s just a bit longer than 16ms (for 30fps) and hopefully avoids unlucky timing causing us to wait two frames when we mostly seem to only need to wait for one.",
+      "parentUuid": "0f39a64c_00617700",
       "revId": "f2f616f014faa828c1a142a3df454aa1a56287c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

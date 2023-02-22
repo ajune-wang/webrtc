@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23c0782b_77da9bf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-22T17:15:14Z",
+      "side": 1,
+      "message": "This looks great. I just have one more optional comment about improving the logs a bit.",
+      "revId": "f060ca27a289119e65207057f558119e21ed11b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d812abcc_76c56407",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-22T17:15:14Z",
+      "side": 1,
+      "message": "I\u0027d be interested to know if this gets triggered after the sleeps (e.g. we get an event but have already consumed the frame).\n\nI wonder if we shouldn\u0027t also do something to suppress this during the initial frame grab....",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 65
+      },
+      "revId": "f060ca27a289119e65207057f558119e21ed11b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

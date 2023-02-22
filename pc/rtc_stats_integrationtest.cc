@@ -339,8 +339,6 @@ class RTCStatsReportVerifier {
     stats_types.insert(RTCIceCandidatePairStats::kType);
     stats_types.insert(RTCLocalIceCandidateStats::kType);
     stats_types.insert(RTCRemoteIceCandidateStats::kType);
-    stats_types.insert(DEPRECATED_RTCMediaStreamStats::kType);
-    stats_types.insert(DEPRECATED_RTCMediaStreamTrackStats::kType);
     stats_types.insert(RTCPeerConnectionStats::kType);
     stats_types.insert(RTCInboundRTPStreamStats::kType);
     stats_types.insert(RTCOutboundRTPStreamStats::kType);
@@ -380,12 +378,6 @@ class RTCStatsReportVerifier {
       } else if (stats.type() == RTCRemoteIceCandidateStats::kType) {
         verify_successful &= VerifyRTCRemoteIceCandidateStats(
             stats.cast_to<RTCRemoteIceCandidateStats>());
-      } else if (stats.type() == DEPRECATED_RTCMediaStreamStats::kType) {
-        verify_successful &= DEPRECATED_VerifyRTCMediaStreamStats(
-            stats.cast_to<DEPRECATED_RTCMediaStreamStats>());
-      } else if (stats.type() == DEPRECATED_RTCMediaStreamTrackStats::kType) {
-        verify_successful &= VerLegacyifyRTCMediaStreamTrackStats(
-            stats.cast_to<DEPRECATED_RTCMediaStreamTrackStats>());
       } else if (stats.type() == RTCPeerConnectionStats::kType) {
         verify_successful &= VerifyRTCPeerConnectionStats(
             stats.cast_to<RTCPeerConnectionStats>());
@@ -565,146 +557,6 @@ class RTCStatsReportVerifier {
     return VerifyRTCIceCandidateStats(remote_candidate);
   }
 
-  bool DEPRECATED_VerifyRTCMediaStreamStats(
-      const DEPRECATED_RTCMediaStreamStats& media_stream) {
-    RTCStatsVerifier verifier(report_.get(), &media_stream);
-    verifier.TestMemberIsDefined(media_stream.stream_identifier);
-    verifier.TestMemberIsIDReference(
-        media_stream.track_ids, DEPRECATED_RTCMediaStreamTrackStats::kType);
-    return verifier.ExpectAllMembersSuccessfullyTested();
-  }
-
-  bool VerLegacyifyRTCMediaStreamTrackStats(
-      const DEPRECATED_RTCMediaStreamTrackStats& media_stream_track) {
-    RTCStatsVerifier verifier(report_.get(), &media_stream_track);
-    verifier.TestMemberIsDefined(media_stream_track.track_identifier);
-    verifier.TestMemberIsDefined(media_stream_track.remote_source);
-    verifier.TestMemberIsDefined(media_stream_track.ended);
-    verifier.TestMemberIsDefined(media_stream_track.detached);
-    verifier.TestMemberIsDefined(media_stream_track.kind);
-    RTC_DCHECK(media_stream_track.remote_source.is_defined());
-    // Video or audio media stream track?
-    if (*media_stream_track.kind == RTCMediaStreamTrackKind::kVideo) {
-      // The type of the referenced media source depends on kind.
-      if (*media_stream_track.remote_source) {
-        verifier.TestMemberIsUndefined(media_stream_track.media_source_id);
-        verifier.TestMemberIsNonNegative<double>(
-            media_stream_track.jitter_buffer_delay);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.jitter_buffer_emitted_count);
-        verifier.TestMemberIsUndefined(media_stream_track.frames_sent);
-        verifier.TestMemberIsUndefined(media_stream_track.huge_frames_sent);
-        verifier.TestMemberIsNonNegative<uint32_t>(
-            media_stream_track.frames_received);
-        verifier.TestMemberIsNonNegative<uint32_t>(
-            media_stream_track.frames_decoded);
-        verifier.TestMemberIsNonNegative<uint32_t>(
-            media_stream_track.frames_dropped);
-      } else {
-        verifier.TestMemberIsIDReference(media_stream_track.media_source_id,
-                                         RTCVideoSourceStats::kType);
-        // Local tracks have no jitter buffer.
-        verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.jitter_buffer_emitted_count);
-        verifier.TestMemberIsNonNegative<uint32_t>(
-            media_stream_track.frames_sent);
-        verifier.TestMemberIsNonNegative<uint32_t>(
-            media_stream_track.huge_frames_sent);
-        verifier.TestMemberIsUndefined(media_stream_track.frames_received);
-        verifier.TestMemberIsUndefined(media_stream_track.frames_decoded);
-        verifier.TestMemberIsUndefined(media_stream_track.frames_dropped);
-      }
-      // Video-only members
-      verifier.TestMemberIsNonNegative<uint32_t>(
-          media_stream_track.frame_width);
-      verifier.TestMemberIsNonNegative<uint32_t>(
-          media_stream_track.frame_height);
-      // Audio-only members should be undefined
-      verifier.TestMemberIsUndefined(media_stream_track.audio_level);
-      verifier.TestMemberIsUndefined(media_stream_track.echo_return_loss);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.echo_return_loss_enhancement);
-      verifier.TestMemberIsUndefined(media_stream_track.total_audio_energy);
-      verifier.TestMemberIsUndefined(media_stream_track.total_samples_duration);
-      verifier.TestMemberIsUndefined(media_stream_track.total_samples_received);
-      verifier.TestMemberIsUndefined(media_stream_track.concealed_samples);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.silent_concealed_samples);
-      verifier.TestMemberIsUndefined(media_stream_track.concealment_events);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.inserted_samples_for_deceleration);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.removed_samples_for_acceleration);
-    } else {
-      RTC_DCHECK_EQ(*media_stream_track.kind, RTCMediaStreamTrackKind::kAudio);
-      // The type of the referenced media source depends on kind.
-      if (*media_stream_track.remote_source) {
-        // Remote tracks don't have media source stats.
-        verifier.TestMemberIsUndefined(media_stream_track.media_source_id);
-        verifier.TestMemberIsNonNegative<double>(
-            media_stream_track.jitter_buffer_delay);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.jitter_buffer_emitted_count);
-        verifier.TestMemberIsPositive<double>(media_stream_track.audio_level);
-        verifier.TestMemberIsPositive<double>(
-            media_stream_track.total_audio_energy);
-        verifier.TestMemberIsPositive<uint64_t>(
-            media_stream_track.total_samples_received);
-        verifier.TestMemberIsPositive<double>(
-            media_stream_track.total_samples_duration);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.concealed_samples);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.silent_concealed_samples);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.concealment_events);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.inserted_samples_for_deceleration);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.removed_samples_for_acceleration);
-      } else {
-        verifier.TestMemberIsIDReference(media_stream_track.media_source_id,
-                                         RTCAudioSourceStats::kType);
-        // Local audio tracks have no jitter buffer.
-        verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.jitter_buffer_emitted_count);
-        verifier.TestMemberIsUndefined(media_stream_track.audio_level);
-        verifier.TestMemberIsUndefined(media_stream_track.total_audio_energy);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.total_samples_received);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.total_samples_duration);
-        verifier.TestMemberIsUndefined(media_stream_track.concealed_samples);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.silent_concealed_samples);
-        verifier.TestMemberIsUndefined(media_stream_track.concealment_events);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.inserted_samples_for_deceleration);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.removed_samples_for_acceleration);
-      }
-      // Video-only members should be undefined
-      verifier.TestMemberIsUndefined(media_stream_track.frame_width);
-      verifier.TestMemberIsUndefined(media_stream_track.frame_height);
-      verifier.TestMemberIsUndefined(media_stream_track.frames_sent);
-      verifier.TestMemberIsUndefined(media_stream_track.huge_frames_sent);
-      verifier.TestMemberIsUndefined(media_stream_track.frames_received);
-      verifier.TestMemberIsUndefined(media_stream_track.frames_decoded);
-      verifier.TestMemberIsUndefined(media_stream_track.frames_dropped);
-      // Audio-only members
-      // TODO(hbos): `echo_return_loss` and `echo_return_loss_enhancement` are
-      // flaky on msan bot (sometimes defined, sometimes undefined). Should the
-      // test run until available or is there a way to have it always be
-      // defined? crbug.com/627816
-      verifier.MarkMemberTested(media_stream_track.echo_return_loss, true);
-      verifier.MarkMemberTested(media_stream_track.echo_return_loss_enhancement,
-                                true);
-    }
-    return verifier.ExpectAllMembersSuccessfullyTested();
-  }
-
   bool VerifyRTCPeerConnectionStats(
       const RTCPeerConnectionStats& peer_connection) {
     RTCStatsVerifier verifier(report_.get(), &peer_connection);
@@ -724,11 +576,8 @@ class RTCStatsReportVerifier {
     if (stream.type() == RTCInboundRTPStreamStats::kType ||
         stream.type() == RTCOutboundRTPStreamStats::kType) {
       verifier.TestMemberIsDefined(stream.media_type);
-      verifier.TestMemberIsIDReference(
-          stream.track_id, DEPRECATED_RTCMediaStreamTrackStats::kType);
     } else {
       verifier.TestMemberIsUndefined(stream.media_type);
-      verifier.TestMemberIsUndefined(stream.track_id);
     }
     verifier.TestMemberIsIDReference(stream.transport_id,
                                      RTCTransportStats::kType);
@@ -1187,7 +1036,6 @@ TEST_F(RTCStatsIntegrationTest, GetStatsWithSenderSelector) {
       // TODO(hbos): Include RTCRtpContributingSourceStats when implemented.
       RTCInboundRTPStreamStats::kType,
       RTCPeerConnectionStats::kType,
-      DEPRECATED_RTCMediaStreamStats::kType,
       RTCDataChannelStats::kType,
   };
   RTCStatsReportVerifier(report.get()).VerifyReport(allowed_missing_stats);
@@ -1206,7 +1054,6 @@ TEST_F(RTCStatsIntegrationTest, GetStatsWithReceiverSelector) {
       // TODO(hbos): Include RTCRtpContributingSourceStats when implemented.
       RTCOutboundRTPStreamStats::kType,
       RTCPeerConnectionStats::kType,
-      DEPRECATED_RTCMediaStreamStats::kType,
       RTCDataChannelStats::kType,
   };
   RTCStatsReportVerifier(report.get()).VerifyReport(allowed_missing_stats);

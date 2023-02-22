@@ -50,6 +50,24 @@
       "message": "I wonder if this statement is still true (written so long ago I don\u0027t even remember writing it) or if we could enable-by-default?",
       "revId": "f31c9ebea845cc8f89d8c6ec004fb1dcaf0b9503",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "249928b6_f76b8d4f",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-02-22T13:45:40Z",
+      "side": 1,
+      "message": "The Mac sandbox restriction is gone but see Niklas Enbom\u0027s comments in the issue about multithreading not being a good idea.",
+      "parentUuid": "6b424e86_808d6cc5",
+      "revId": "f31c9ebea845cc8f89d8c6ec004fb1dcaf0b9503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

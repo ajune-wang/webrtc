@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbe513c3_51d5265d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-22T13:44:35Z",
+      "side": 1,
+      "message": "Just for the post-transform re-injection back into the RTPSender, essentially into the packetizer (but we don\u0027t yet have that clear split).\nThat\u0027s why it\u0027s defined here in rtp_sender_video_frame_transformer_delegate.h rather than in some general RtpSender place - it\u0027s an encoded transform concept.\n\nCould we make that clearer with a better name, do you think?",
+      "parentUuid": "21387ae1_b74f0fdc",
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68623fa7_ea8eb724",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
         "patchSetId": 10
@@ -48,6 +66,30 @@
       "writtenOn": "2023-02-21T15:59:44Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#Default_Arguments\n\n“Default arguments are banned on virtual functions”",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 38
+      },
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7422769d_713d5cd3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-22T13:44:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68623fa7_ea8eb724",
       "range": {
         "startLine": 39,
         "startChar": 33,
@@ -71,6 +113,24 @@
       "writtenOn": "2023-02-21T15:59:44Z",
       "side": 1,
       "message": "prefer to put function before the members\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order\n\n6. All other functions (static and non-static member functions, and friend functions)\n7. Data members (static and non-static)",
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa5e9043_737668bf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-22T13:44:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e6876ec_84f0add9",
       "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -100,6 +160,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bc73917a_0e18bfc6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-22T13:44:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4332df44_404e1d8e",
+      "range": {
+        "startLine": 93,
+        "startChar": 15,
+        "endLine": 93,
+        "endChar": 16
+      },
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3b071957_83c8da7f",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
         "patchSetId": 10
@@ -111,6 +195,30 @@
       "writtenOn": "2023-02-21T16:02:36Z",
       "side": 1,
       "message": "you can avoid writing all the parameters:\n.WillOnce(WithoutArgs([\u0026] { event.Set(); return true; }))\n\nhttp://google.github.io/googletest/gmock_cook_book.html#SelectingArgs",
+      "range": {
+        "startLine": 136,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 50
+      },
+      "revId": "1cfe1d2cd1aa7fb2755a2e10e4879eaf38c36e02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a39995_0bc779f2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-22T13:44:35Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "3b071957_83c8da7f",
       "range": {
         "startLine": 136,
         "startChar": 6,

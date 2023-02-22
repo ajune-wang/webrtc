@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c4c326e_38de2bcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-22T13:44:35Z",
+      "side": 1,
+      "message": "Addressed Danil\u0027s comments which reset the review +1s. PTAL all.",
+      "revId": "b379f0bee90c77e979d4705c95334b9910e88741",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

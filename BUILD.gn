@@ -141,6 +141,10 @@ config("common_inherited_config") {
   cflags = []
   ldflags = []
 
+  if (rtc_enable_location) {
+    defines = [ "RTC_ENABLE_LOCATION=1" ]
+  }
+
   if (rtc_dlog_always_on) {
     defines += [ "DLOG_ALWAYS_ON" ]
   }

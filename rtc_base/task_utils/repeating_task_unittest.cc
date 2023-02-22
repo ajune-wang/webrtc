@@ -15,6 +15,7 @@
 
 #include "absl/functional/any_invocable.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/task_queue/test/mock_task_queue_base.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/event.h"
@@ -41,24 +42,24 @@ class MockClosure {
   MOCK_METHOD(void, Delete, ());
 };
 
-class MockTaskQueue : public TaskQueueBase {
- public:
-  MockTaskQueue() : task_queue_setter_(this) {}
+// class MockTaskQueue : public TaskQueueBase {
+//  public:
+//   MockTaskQueue() : task_queue_setter_(this) {}
 
-  MOCK_METHOD(void, Delete, (), (override));
-  MOCK_METHOD(void, PostTask, (absl::AnyInvocable<void() &&>), (override));
-  MOCK_METHOD(void,
-              PostDelayedTask,
-              (absl::AnyInvocable<void() &&>, TimeDelta),
-              (override));
-  MOCK_METHOD(void,
-              PostDelayedHighPrecisionTask,
-              (absl::AnyInvocable<void() &&>, TimeDelta),
-              (override));
+//   MOCK_METHOD(void, Delete, (), (override));
+//   MOCK_METHOD(void, PostTask, (absl::AnyInvocable<void() &&>), (override));
+//   MOCK_METHOD(void,
+//               PostDelayedTask,
+//               (absl::AnyInvocable<void() &&>, TimeDelta),
+//               (override));
+//   MOCK_METHOD(void,
+//               PostDelayedHighPrecisionTask,
+//               (absl::AnyInvocable<void() &&>, TimeDelta),
+//               (override));
 
- private:
-  CurrentTaskQueueSetter task_queue_setter_;
-};
+//  private:
+//   CurrentTaskQueueSetter task_queue_setter_;
+// };
 
 class FakeTaskQueue : public TaskQueueBase {
  public:
@@ -67,23 +68,22 @@ class FakeTaskQueue : public TaskQueueBase {
 
   void Delete() override {}
 
-  void PostTask(absl::AnyInvocable<void() &&> task) override {
+  void PostTaskImpl(absl::AnyInvocable<void() &&> task,
+                    const PostTaskTraits& traits,
+                    const Location& location) override {
     last_task_ = std::move(task);
     last_precision_ = absl::nullopt;
     last_delay_ = TimeDelta::Zero();
   }
 
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
-                       TimeDelta delay) override {
+  void PostDelayedTaskImpl(absl::AnyInvocable<void() &&> task,
+                           TimeDelta delay,
+                           const PostDelayedTaskTraits& traits,
+                           const Location& location) override {
     last_task_ = std::move(task);
-    last_precision_ = TaskQueueBase::DelayPrecision::kLow;
-    last_delay_ = delay;
-  }
-
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
-                                    TimeDelta delay) override {
-    last_task_ = std::move(task);
-    last_precision_ = TaskQueueBase::DelayPrecision::kHigh;
+    last_precision_ = traits.high_precision
+                          ? TaskQueueBase::DelayPrecision::kHigh
+                          : TaskQueueBase::DelayPrecision::kLow;
     last_delay_ = delay;
   }
 
@@ -338,9 +338,11 @@ TEST(RepeatingTaskTest, ClockIntegration) {
   TimeDelta expected_delay = TimeDelta::Zero();
   SimulatedClock clock(Timestamp::Zero());
 
-  NiceMock<MockTaskQueue> task_queue;
-  ON_CALL(task_queue, PostDelayedTask)
-      .WillByDefault([&](absl::AnyInvocable<void() &&> task, TimeDelta delay) {
+  NiceMock<MockTaskQueueBase> task_queue;
+  ON_CALL(task_queue, PostDelayedTaskImpl)
+      .WillByDefault([&](absl::AnyInvocable<void() &&> task, TimeDelta delay,
+                         const MockTaskQueueBase::PostDelayedTaskTraits&,
+                         const Location&) {
         EXPECT_EQ(delay, expected_delay);
         delayed_task = std::move(task);
       });
@@ -367,11 +369,11 @@ TEST(RepeatingTaskTest, ClockIntegration) {
 TEST(RepeatingTaskTest, CanBeStoppedAfterTaskQueueDeletedTheRepeatingTask) {
   absl::AnyInvocable<void() &&> repeating_task;
 
-  MockTaskQueue task_queue;
-  EXPECT_CALL(task_queue, PostDelayedTask)
-      .WillOnce([&](absl::AnyInvocable<void() &&> task, TimeDelta delay) {
-        repeating_task = std::move(task);
-      });
+  MockTaskQueueBase task_queue;
+  EXPECT_CALL(task_queue, PostDelayedTaskImpl)
+      .WillOnce([&](absl::AnyInvocable<void() &&> task, TimeDelta,
+                    const MockTaskQueueBase::PostDelayedTaskTraits&,
+                    const Location&) { repeating_task = std::move(task); });
 
   RepeatingTaskHandle handle =
       RepeatingTaskHandle::DelayedStart(&task_queue, TimeDelta::Millis(100),

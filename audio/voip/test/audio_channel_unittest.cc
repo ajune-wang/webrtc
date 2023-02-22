@@ -14,6 +14,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/call/transport.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "audio/voip/test/mock_task_queue.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
@@ -49,9 +50,10 @@ class AudioChannelTest : public ::testing::Test {
     decoder_factory_ = CreateBuiltinAudioDecoderFactory();
 
     // By default, run the queued task immediately.
-    ON_CALL(task_queue_, PostTask)
-        .WillByDefault(
-            [](absl::AnyInvocable<void() &&> task) { std::move(task)(); });
+    ON_CALL(task_queue_, PostTaskImpl)
+        .WillByDefault([](absl::AnyInvocable<void() &&> task,
+                          const MockTaskQueueBase::PostTaskTraits&,
+                          const Location&) { std::move(task)(); });
   }
 
   void SetUp() override { audio_channel_ = CreateAudioChannel(kLocalSsrc); }

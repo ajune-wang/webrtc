@@ -340,23 +340,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // From TaskQueueBase
   void Delete() override;
-  // TODO(crbug.com/1416199): remove once migration to Impl methods completes.
-  void PostTask(absl::AnyInvocable<void() &&> task) override {
-    PostTaskImpl(std::move(task), PostTaskTraits{},
-                 webrtc::Location::Current());
-  }
-  void PostDelayedTask(absl::AnyInvocable<void() &&> task,
-                       webrtc::TimeDelta delay) override {
-    PostDelayedTaskImpl(std::move(task), delay,
-                        PostDelayedTaskTraits{.high_precision = false},
-                        webrtc::Location::Current());
-  }
-  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
-                                    webrtc::TimeDelta delay) override {
-    PostDelayedTaskImpl(std::move(task), delay,
-                        PostDelayedTaskTraits{.high_precision = true},
-                        webrtc::Location::Current());
-  }
 
   // ProcessMessages will process I/O and dispatch messages until:
   //  1) cms milliseconds have elapsed (returns true)

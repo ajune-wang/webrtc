@@ -68,6 +68,24 @@
       "parentUuid": "6b424e86_808d6cc5",
       "revId": "f31c9ebea845cc8f89d8c6ec004fb1dcaf0b9503",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601f9e17_366aee82",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-02-22T13:48:24Z",
+      "side": 1,
+      "message": "Which Niklas Enbom comments? If this information is obsolete, can we update the code comment? Also the crbug is closed",
+      "parentUuid": "249928b6_f76b8d4f",
+      "revId": "f31c9ebea845cc8f89d8c6ec004fb1dcaf0b9503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

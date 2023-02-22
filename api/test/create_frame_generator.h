@@ -79,6 +79,9 @@ CreateScrollingInputFromYuvFilesFrameGenerator(
 std::unique_ptr<FrameGeneratorInterface>
 CreateSlideFrameGenerator(int width, int height, int frame_repeat_count);
 
+std::unique_ptr<FrameGeneratorInterface> CreateY4mPingPongFileFrameGenerator(
+    std::string filename, Y4mFrameGenerator::RepeatMode::kPingPong);
+
 }  // namespace test
 }  // namespace webrtc
 

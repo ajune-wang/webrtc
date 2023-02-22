@@ -16,6 +16,7 @@
 #include "rtc_base/checks.h"
 #include "test/frame_generator.h"
 #include "test/testsupport/ivf_video_frame_generator.h"
+#include "test/testsupport/y4m_frame_generator.h"
 
 namespace webrtc {
 namespace test {
@@ -95,6 +96,11 @@ CreateScrollingInputFromYuvFilesFrameGenerator(
 std::unique_ptr<FrameGeneratorInterface>
 CreateSlideFrameGenerator(int width, int height, int frame_repeat_count) {
   return std::make_unique<SlideGenerator>(width, height, frame_repeat_count);
+}
+
+std::unique_ptr<FrameGeneratorInterface> CreateY4mPingPongFileFrameGenerator(
+    std::string filename) {
+  return std::make_unique<Y4mFrameGenerator>(std::move(filename));
 }
 
 }  // namespace test

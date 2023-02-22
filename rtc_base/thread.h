@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "api/location.h"
 
 #if defined(WEBRTC_POSIX)
 #include <pthread.h>
@@ -308,7 +309,10 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // See ScopedDisallowBlockingCalls for details.
   // NOTE: Blocking calls are DISCOURAGED, consider if what you're doing can
   // be achieved with PostTask() and callbacks instead.
-  virtual void BlockingCall(FunctionView<void()> functor);
+  // TODO(crbug.com/1416199): remove virtual once subclasses migrate.
+  virtual void BlockingCall(FunctionView<void()> functor) {
+    BlockingCallImpl(std::move(functor), webrtc::Location::Current());
+  }
 
   template <typename Functor,
             typename ReturnT = std::invoke_result_t<Functor>,
@@ -336,11 +340,23 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // From TaskQueueBase
   void Delete() override;
-  void PostTask(absl::AnyInvocable<void() &&> task) override;
+  // TODO(crbug.com/1416199): remove once migration to Impl methods completes.
+  void PostTask(absl::AnyInvocable<void() &&> task) override {
+    PostTaskImpl(std::move(task), PostTaskTraits{},
+                 webrtc::Location::Current());
+  }
   void PostDelayedTask(absl::AnyInvocable<void() &&> task,
-                       webrtc::TimeDelta delay) override;
+                       webrtc::TimeDelta delay) override {
+    PostDelayedTaskImpl(std::move(task), delay,
+                        PostDelayedTaskTraits{.high_precision = false},
+                        webrtc::Location::Current());
+  }
   void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
-                                    webrtc::TimeDelta delay) override;
+                                    webrtc::TimeDelta delay) override {
+    PostDelayedTaskImpl(std::move(task), delay,
+                        PostDelayedTaskTraits{.high_precision = true},
+                        webrtc::Location::Current());
+  }
 
   // ProcessMessages will process I/O and dispatch messages until:
   //  1) cms milliseconds have elapsed (returns true)
@@ -411,6 +427,18 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
     // priority queue. That is ok because `functor` doesn't affect operator<
     mutable absl::AnyInvocable<void() &&> functor;
   };
+
+  // TaskQueueBase implementation.
+  virtual void PostTaskImpl(absl::AnyInvocable<void() &&> task,
+                            const PostTaskTraits& traits,
+                            const webrtc::Location& location) override;
+  virtual void PostDelayedTaskImpl(absl::AnyInvocable<void() &&> task,
+                                   webrtc::TimeDelta delay,
+                                   const PostDelayedTaskTraits& traits,
+                                   const webrtc::Location& location) override;
+
+  virtual void BlockingCallImpl(FunctionView<void()> functor,
+                                const webrtc::Location& location);
 
   // Perform initialization, subclasses must call this from their constructor
   // if false was passed as init_queue to the Thread constructor.

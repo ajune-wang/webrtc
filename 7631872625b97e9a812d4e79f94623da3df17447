@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1e55110_92ddd379",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T17:52:55Z",
+      "side": 1,
+      "message": "With changed scoped (not a general Location, but just chromium specific location) lot\u0027s of my concerns and suggestions disappear.",
+      "parentUuid": "5d54692c_23b3ab28",
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeb93029_3055772e",

@@ -16,6 +16,109 @@
       "message": "Note, this PS requires https://chromium-review.googlesource.com/c/chromium/src/+/4286945 to be checked in first (which is why we\u0027re seeing Chromium build errors here).",
       "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c319f598_3ba72ffe",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T17:52:55Z",
+      "side": 1,
+      "message": "may be \n\"Remove virtual and pass location of the caller once...\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "799db17f_792ec894",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T17:52:55Z",
+      "side": 1,
+      "message": "With Location becoming empty class everywhere except chromium I suggest to re-iterate proposal of putting it as part of the Traits. I think that would reduce binary size in scenarios where Location is unused:\nit would use zero bytes then.\nWith current solution PostTaskImpl has extra reference parameters - extra parameter to pass, thus a bit of extra binary size.\n\nBut I won\u0027t insist if you\u0027re still think location should be an extra parameter in the Impl functions.",
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb08138a_845b99c3",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T17:52:55Z",
+      "side": 1,
+      "message": "nit: may comment unused parameters:\n\n```\nvoid Thread::PostTaskImpl(absl::AnyInvocable\u003cvoid() \u0026\u0026\u003e task,\n                          const PostTaskTraits\u0026 /*traits*/,\n                          const webrtc::Location\u0026 /*location*/) {\n```\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Declarations_and_Definitions\n\n“Unused parameters that might not be obvious should comment out the variable name in the function definition”",
+      "range": {
+        "startLine": 459,
+        "startChar": 48,
+        "endLine": 459,
+        "endChar": 54
+      },
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d97e3c89_092c0bdc",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T17:52:55Z",
+      "side": 1,
+      "message": "what blocks removing these now? \nfor classes that override PostTask further, that override version would be called anyway,\nfor classes that don\u0027t override PostTask, TaskQueueBase::PostTask would be called that does the same thing.",
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d80cf3a_cd3ca69b",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T17:52:55Z",
+      "side": 1,
+      "message": "drop virtual for this and next one,\nthey are override",
+      "range": {
+        "startLine": 432,
+        "startChar": 2,
+        "endLine": 432,
+        "endChar": 9
+      },
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -63,6 +63,30 @@
       },
       "revId": "f060ca27a289119e65207057f558119e21ed11b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d607813a_ae1b6795",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-23T17:51:25Z",
+      "side": 1,
+      "message": "By suppressing I meant basically not calling RecordGetFrameResult(GetFrameResult::kTryGetNextFrameFailed) (or I guess it seems like kFrameDropped below may be what we\u0027re calling) if we think that TryGetNextFrame *may* fail/during the initial frame grab.\n\nI\u0027m not wild about the counts, because one error that I saw with the way we were using them previously is that things can get wonky if there\u0027s a window resize event (the frame pool seems to dump all exisitng frames and then re-fill pretty quickly; that was triggering the crash that you were hitting).\n\nIt\u0027s less elegant; but perhaps a default parameter into ProcessFrame to change the header signature to something like:\n`void ProcessFrame(bool record_errors\u003dtrue)` or `void ProcessFrame(bool empty_frame_okay \u003d false)` for a slightly more targeted approach?\n\nMaybe I\u0027m over-indexing; but if *most* captures end up sending one or two initial \"FrameDropped\" events; I worry that we\u0027ll think the capturer is less stable than it  actually is (or we\u0027ll be biased to think it\u0027s from this and ignore any warning signs).",
+      "parentUuid": "05839262_1f00a0ce",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 65
+      },
+      "revId": "f060ca27a289119e65207057f558119e21ed11b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

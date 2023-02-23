@@ -16,6 +16,23 @@
       "message": "Did not dig far enough into how stats are logged, I see.\n\nThanks!",
       "revId": "bc217c89d187160212af24ed15fe7083e30a5494",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9abb5b6_9c0f916a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-02-23T14:35:41Z",
+      "side": 1,
+      "message": "Thanks Harald!",
+      "revId": "bc217c89d187160212af24ed15fe7083e30a5494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

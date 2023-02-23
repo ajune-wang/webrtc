@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94483614_ab13ff24",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-23T12:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3be6e98b_427d0e31",
+      "revId": "f2f616f014faa828c1a142a3df454aa1a56287c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f39a64c_00617700",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Maybe comment that we choose 20ms as it\u0027s just a bit longer than 16ms (for 30fps) and hopefully avoids unlucky timing causing us to wait two frames when we mostly seem to only need to wait for one.",
       "parentUuid": "0f39a64c_00617700",
+      "revId": "f2f616f014faa828c1a142a3df454aa1a56287c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f776a61_4099c399",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-23T12:28:45Z",
+      "side": 1,
+      "message": "Hmm, 16ms is 60 fps but what I did was to start with 50ms and then step back in steps of 10ms until I came to 10ms and then it took more than one sleep for me. Let me see if I can add something that makes sense. Feel free to comment and I can improve in a follow-up.",
+      "parentUuid": "ad3904ca_56ae4ebe",
       "revId": "f2f616f014faa828c1a142a3df454aa1a56287c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

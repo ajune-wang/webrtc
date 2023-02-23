@@ -111,6 +111,30 @@
       },
       "revId": "f060ca27a289119e65207057f558119e21ed11b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc848b2_c5472dd7",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-02-23T18:08:51Z",
+      "side": 1,
+      "message": "It\u0027s not enabled by default; so let\u0027s go ahead and land the previous version and tinker with it some.",
+      "parentUuid": "dd030b80_2f6dc0d0",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 65
+      },
+      "revId": "f060ca27a289119e65207057f558119e21ed11b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

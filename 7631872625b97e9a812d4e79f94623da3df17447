@@ -16,6 +16,160 @@
       "message": "Hi, PTAL - I will not land this CL before a PSA, but figured I\u0027d send the CLs out first.\nThis CL is supposed to land first \u0026 prepare downstream consumers for the API change. After that, other CLs (like https://chromium-review.googlesource.com/c/chromium/src/+/4254390) will follow to switch TaskQueueBase consumers to the new API. Finally https://webrtc-review.googlesource.com/c/src/+/294540 will finish off the migration in WebRTC.\n\nI\u0027ve tested the final state and Perfetto traces now show the origins of tasks, see https://screenshot.googleplex.com/9Nzpy2asyiDAjaF.",
       "revId": "7631872625b97e9a812d4e79f94623da3df17447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91cc5781_8c447448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "In spirit of \nhttps://google.github.io/eng-practices/review/developer/small-cls.html\nI would suggest to split this into several steps:\n1st introduce Location\nThen introduce changes to the TaskQueueBase interface\nfinally adjust webrtc implementations to the new TaskQueueBase interface",
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb93029_3055772e",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "this link doesn\u0027t direct me to the chromium\u0027s location class\n\nwould this link work better?\nhttps://source.chromium.org/chromium/chromium/src/+/main:base/location.h;l\u003d33;drc\u003dcd6d6fbf0eb76ce5c54793f3aee6308cad16274d",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95b2ad8_d8a1fb5f",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "would suggest to make this constructor private, keep just two public ways to create location:\nLocation(); // Creates location with unspecified values\nLocation::current(); // main way to create Location",
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e2cc53_86a6859f",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "for consistency add\nLocation\u0026 operator\u003d(const Location\u0026)\n\nAlso, there is probably no need for move construct/assign because they are not cheaper than copy.",
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "346a7b7b_2a246065",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "Would prefer to use the same name as std::source_location, i.e. `line`\n\nhttps://en.cppreference.com/w/cpp/utility/source_location",
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3579a916_f9923dd4",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "ditto, may be call it just \u0027current\u0027",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f938063_47fb2a2a",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "am I right user shouldn\u0027t pass parameters to this function directly?\n\nIt might be good idea to guard against such usage with a private token (as exampled in https://abseil.io/tips/134 for std::shared_ptr).\n\ni.e. \n```\nclass Location {\n  class Token {\n    private:\n     explicit Token() \u003d default;\n     friend Location;\n   }\n   ...\n   static Location current(Token unused \u003d Token{}, \n                           const char* function_name \u003d __builtin_FUNCTION(),\n                           ...)\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "188f923c_d92d25be",
+        "filename": "api/location.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-23T10:01:47Z",
+      "side": 1,
+      "message": "I think this parameter deserves a comment/documentation what it is.",
+      "revId": "7631872625b97e9a812d4e79f94623da3df17447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -69,6 +69,30 @@
       },
       "revId": "e007f4253f574bd8c505af26fa35b4e3d447c1b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a29761c_5b7d5af8",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-02-23T15:51:18Z",
+      "side": 1,
+      "message": "I think the existing tests already sort of cover that. This test case reproduces a specific problem I\u0027ve seen in the wild where jitter in the presentation timestamps causes libaom to overshoot by ~30% _on average_. Without the fix, the observed bitrate in the test I added is ~400kbps despite the target being 300kbps.\n\nSo, keeping this for now.",
+      "parentUuid": "9addbbce_ebed72d7",
+      "range": {
+        "startLine": 334,
+        "startChar": 2,
+        "endLine": 334,
+        "endChar": 35
+      },
+      "revId": "e007f4253f574bd8c505af26fa35b4e3d447c1b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

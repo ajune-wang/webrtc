@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ce7422f_3bd671b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-23T15:07:59Z",
+      "side": 1,
+      "message": "I looked more deeply into the Chromium base::Location and found lots of useful stuff that I don\u0027t think makes sense to repeat in WebRTC unless there are other compelling downstream use cases for the info. PTAL on the new patchset!",
+      "revId": "6d0c9fb7fd7b52a6da27cb1702dbcdfc0d4c30e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

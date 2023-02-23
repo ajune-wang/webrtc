@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b56a66c_ea17f6c7",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-23T19:53:08Z",
+      "side": 1,
+      "message": "`LibvpxVp9Encoder::InitEncode()` also sets `timestamp_` to 0 (roughly at this point). I am not sure if that\u0027s necessary, but I thought I should mention it.",
+      "revId": "ff1cf61cf3936f2873cd42c8d50c1a26eab1a78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db2519d4_f813ec06",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-02-23T19:53:08Z",
+      "side": 1,
+      "message": "Nit: This doesn\u0027t really matter, but it would be better to increment `timestamp_` after the `aom_codec_encode()` call so that the timestamps sent to libaom start from 0. I suggest moving line 609 after this line (which would match libvpx_vp9_encoder.cc).",
+      "revId": "ff1cf61cf3936f2873cd42c8d50c1a26eab1a78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

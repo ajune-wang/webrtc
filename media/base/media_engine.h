@@ -106,11 +106,7 @@ class VoiceEngineInterface : public RtpHeaderExtensionQueryInterface {
       const MediaConfig& config,
       const AudioOptions& options,
       const webrtc::CryptoOptions& crypto_options,
-      webrtc::AudioCodecPairId codec_pair_id) {
-    // TODO(bugs.webrtc.org/13931): Remove default implementation
-    // when downstream has migrated to new API.
-    RTC_CHECK_NOTREACHED();
-  }
+      webrtc::AudioCodecPairId codec_pair_id) = 0;
 
   // Backwards compatible version
   [[deprecated("Use version with role parameter")]] virtual VoiceMediaChannel*

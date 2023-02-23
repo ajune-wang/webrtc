@@ -1534,6 +1534,7 @@ rtc_library("frame_transformer_factory") {
   deps = [
     ":frame_transformer_interface",
     ":scoped_refptr",
+    "../audio:audio",
     "../modules/rtp_rtcp",
     "../rtc_base:refcount",
     "video:encoded_frame",

@@ -87,6 +87,30 @@
       },
       "revId": "f060ca27a289119e65207057f558119e21ed11b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd030b80_2f6dc0d0",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-23T17:56:09Z",
+      "side": 1,
+      "message": "Sure thing. Would you prefer that I first land the previous version so you can try it out or do you want me to take a stab at this before landing anything? I also see a risk with the counting stuff since it might come back and hit us later for some corner case as you mention.",
+      "parentUuid": "d607813a_ae1b6795",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 65
+      },
+      "revId": "f060ca27a289119e65207057f558119e21ed11b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

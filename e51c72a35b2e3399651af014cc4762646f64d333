@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65bd362_80f07cce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-23T17:42:04Z",
+      "side": 1,
+      "message": "Thanks for implementing! Just some ordering nits.",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f8f3b55_a363b4b9",
+        "filename": "modules/video_coding/codecs/h264/include/h264_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-23T17:42:04Z",
+      "side": 1,
+      "message": "(For my own education)\nI guess it\u0027s a touch redundant to check both that the _lengths are equal, and use std::equal(start1, end1, start2, end2) - apparently std::equal() will return false if the lists are different lengths.\nBut, probably good? Belt and braces?",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0d1b8a5_24791410",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-23T17:42:04Z",
+      "side": 1,
+      "message": "Nit: order the same as these are declared, so inter_layer_predicted after temporal_up_switch.",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b089f544_a957dd6e",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-23T17:42:04Z",
+      "side": 1,
+      "message": "Ditto ordering.",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6915b554_7a2936ad",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-23T17:42:04Z",
+      "side": 1,
+      "message": "Isn\u0027t first_active_layer part of \"SS data\" so should be in the if(ss_data_available) block?",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

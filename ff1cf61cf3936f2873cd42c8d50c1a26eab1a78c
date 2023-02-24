@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "731d05e1_e7bc2d57",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-02-24T11:14:53Z",
+      "side": 1,
+      "message": "We could, just to be sure. My assumption was that since presentation timestamps can start at an arbitrary point in time, that this wouldn\u0027t matter.",
+      "parentUuid": "0b56a66c_ea17f6c7",
+      "revId": "ff1cf61cf3936f2873cd42c8d50c1a26eab1a78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db2519d4_f813ec06",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-23T19:53:08Z",
       "side": 1,
       "message": "Nit: This doesn\u0027t really matter, but it would be better to increment `timestamp_` after the `aom_codec_encode()` call so that the timestamps sent to libaom start from 0. I suggest moving line 609 after this line (which would match libvpx_vp9_encoder.cc).",
+      "revId": "ff1cf61cf3936f2873cd42c8d50c1a26eab1a78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e56b4d_00cc6bdb",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-02-24T11:14:53Z",
+      "side": 1,
+      "message": "I can do that in a follow-up cl.",
+      "parentUuid": "db2519d4_f813ec06",
       "revId": "ff1cf61cf3936f2873cd42c8d50c1a26eab1a78c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

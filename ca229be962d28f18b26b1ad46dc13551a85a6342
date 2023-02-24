@@ -60,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "51e1250d_fa637afa",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-24T15:38:28Z",
+      "side": 1,
+      "message": "Makes sense, done.",
+      "parentUuid": "c319f598_3ba72ffe",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "799db17f_792ec894",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 8
@@ -71,6 +95,24 @@
       "writtenOn": "2023-02-23T17:52:55Z",
       "side": 1,
       "message": "With Location becoming empty class everywhere except chromium I suggest to re-iterate proposal of putting it as part of the Traits. I think that would reduce binary size in scenarios where Location is unused:\nit would use zero bytes then.\nWith current solution PostTaskImpl has extra reference parameters - extra parameter to pass, thus a bit of extra binary size.\n\nBut I won\u0027t insist if you\u0027re still think location should be an extra parameter in the Impl functions.",
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70baae71_aaf81287",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-24T15:38:28Z",
+      "side": 1,
+      "message": "Checked on ARM64, optimized end state. cricket::BaseChannel::Enable(bool) becomes a single instruction larger with the extra parameter to PostTask (see https://paste.googleplex.com/6400981200797696), so no biggie. I think the separate arguments are clearer so keeping that.",
+      "parentUuid": "799db17f_792ec894",
       "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -115,6 +157,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b4da18_c99816fb",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-24T15:38:28Z",
+      "side": 1,
+      "message": "I had some issue earlier, but tested again now and it works. Done.",
+      "parentUuid": "d97e3c89_092c0bdc",
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d80cf3a_cd3ca69b",
@@ -128,6 +188,30 @@
       "writtenOn": "2023-02-23T17:52:55Z",
       "side": 1,
       "message": "drop virtual for this and next one,\nthey are override",
+      "range": {
+        "startLine": 432,
+        "startChar": 2,
+        "endLine": 432,
+        "endChar": 9
+      },
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3bcecb_4f310a06",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-24T15:38:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d80cf3a_cd3ca69b",
       "range": {
         "startLine": 432,
         "startChar": 2,

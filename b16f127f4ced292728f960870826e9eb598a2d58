@@ -16,6 +16,23 @@
       "message": "Hi Henrik,\nCan you take a look at this merge CL?",
       "revId": "b16f127f4ced292728f960870826e9eb598a2d58",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8395ea42_7f679990",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-02-24T09:47:01Z",
+      "side": 1,
+      "message": "Perhaps also add a RTC_LOG(LS_INFO) to keep track.",
+      "revId": "b16f127f4ced292728f960870826e9eb598a2d58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

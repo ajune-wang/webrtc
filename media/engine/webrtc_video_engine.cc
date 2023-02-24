@@ -3312,6 +3312,16 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
 
   info.timing_frame_info = stats.timing_frame_info;
 
+  //if (1 || flexfec_stream_) {
+    info.fec_packets_received = 23;
+    info.fec_packets_discarded = 2;
+    info.fec_bytes_rcvd = 400;
+    // const ReceiveStatistics* stats = flex_fec_stream->GetStats();
+    // const StreamStatistician* beancounter = stats->GetStatistician(uint32_t ssrc the flexfec one
+    // RtpReceiveStats rtpStats = beancounter->GetStats();
+    // rtpStats.packetCounter.payload_types, .packets, set discarded to 0
+  //}
+
   if (log_stats)
     RTC_LOG(LS_INFO) << stats.ToString(rtc::TimeMillis());
 

@@ -496,10 +496,14 @@ std::unique_ptr<RTCInboundRTPStreamStats> CreateInboundAudioStreamStats(
     inbound_audio->estimated_playout_timestamp = static_cast<double>(
         *voice_receiver_info.estimated_playout_ntp_timestamp_ms);
   }
+  if (voice_receiver_info.fec_packets_received.has_value()) {
   inbound_audio->fec_packets_received =
-      voice_receiver_info.fec_packets_received;
+      voice_receiver_info.fec_packets_received.value();
+  }
+  if (voice_receiver_info.fec_packets_discarded.has_value()) {
   inbound_audio->fec_packets_discarded =
-      voice_receiver_info.fec_packets_discarded;
+      voice_receiver_info.fec_packets_discarded.value();
+  }
   inbound_audio->packets_discarded = voice_receiver_info.packets_discarded;
   inbound_audio->jitter_buffer_flushes =
       voice_receiver_info.jitter_buffer_flushes;
@@ -682,6 +686,17 @@ CreateInboundRTPStreamStatsFromVideoReceiverInfo(
   if (video_receiver_info.power_efficient_decoder.has_value()) {
     inbound_video->power_efficient_decoder =
         video_receiver_info.power_efficient_decoder.value();
+  }
+
+  if (video_receiver_info.fec_packets_received.has_value()) {
+    inbound_video->fec_packets_received = video_receiver_info.fec_packets_received.value();
+  }
+  if (video_receiver_info.fec_packets_discarded.has_value()) {
+    inbound_video->fec_packets_discarded =
+        video_receiver_info.fec_packets_discarded.value();
+  }
+  if (video_receiver_info.fec_bytes_rcvd.has_value()) {
+    inbound_video->fec_bytes_received = video_receiver_info.fec_bytes_rcvd.value();
   }
   return inbound_video;
 }

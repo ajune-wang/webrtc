@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7243a0bc_a807e95f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-24T08:40:50Z",
+      "side": 1,
+      "message": "LGTM, bots should go green once we land the Chromium side CL.",
+      "revId": "ca229be962d28f18b26b1ad46dc13551a85a6342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c319f598_3ba72ffe",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 8

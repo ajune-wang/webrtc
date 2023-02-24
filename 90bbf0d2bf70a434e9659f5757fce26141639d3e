@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c41574_20e178ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-24T11:08:56Z",
+      "side": 1,
+      "message": "@Harald for ownership of video_frame_metadata\n\nThank you!",
+      "revId": "90bbf0d2bf70a434e9659f5757fce26141639d3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

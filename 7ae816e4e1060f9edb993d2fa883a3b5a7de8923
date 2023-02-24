@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "521220b2_76d898d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-02-24T11:22:54Z",
+      "side": 1,
+      "message": "PTAL Harald. I added a couple of unittests now that we have a unittest file here.",
+      "revId": "7ae816e4e1060f9edb993d2fa883a3b5a7de8923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

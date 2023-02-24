@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34c3fc9d_32d15634",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "Addressed that place.",
+      "parentUuid": "1058b6c6_9beaeb1b",
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb073f0a_79e973b8",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-21T12:27:06Z",
       "side": 1,
       "message": "Consider adding a unit test for this class.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8378f11_bc255cbb",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "It is now tested indirectly in AggregateTransmissionTime (video_codec_stats_impl_unittest.cc).",
+      "parentUuid": "fb073f0a_79e973b8",
       "range": {
         "startLine": 28,
         "startChar": 6,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95e9d10_2f9f71af",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "Added.",
+      "parentUuid": "3294a0bf_d5b6eb44",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "936e56fe_56e574fc",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-02-21T12:27:06Z",
       "side": 1,
       "message": "This is ms. Should it not be seconds? Like `passed.seconds()` ?",
+      "range": {
+        "startLine": 39,
+        "startChar": 48,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "869e9b92_7ff7683a",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "Thought to keep buffer level in millibits. I\u0027ve switched to floating point instead.",
+      "parentUuid": "936e56fe_56e574fc",
       "range": {
         "startLine": 39,
         "startChar": 48,
@@ -110,6 +200,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a48a57_ea413f06",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "Supposed to be millibits.",
+      "parentUuid": "74c20758_0c591fb5",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d48ae33_e9e15b7d",
@@ -133,6 +247,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd707f6b_b48183da",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "This code has gone. But I added RTC_CHECK(!superframes.empty()) to Aggregate().",
+      "parentUuid": "7d48ae33_e9e15b7d",
+      "range": {
+        "startLine": 73,
+        "startChar": 35,
+        "endLine": 73,
+        "endChar": 51
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4682fe2f_b401a6a1",
@@ -146,6 +284,30 @@
       "writtenOn": "2023-02-21T12:27:06Z",
       "side": 1,
       "message": "Add () to clarify the boundary between assignment and comparison:\n\n`bool eos \u003d (i + 1 \u003d\u003d superframes.size());`",
+      "range": {
+        "startLine": 195,
+        "startChar": 15,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a7d4e3_c7b96c5e",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-24T14:47:05Z",
+      "side": 1,
+      "message": "Removed this code.",
+      "parentUuid": "4682fe2f_b401a6a1",
       "range": {
         "startLine": 195,
         "startChar": 15,

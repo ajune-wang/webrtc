@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81dba741_f7a60c34",
+        "filename": "modules/video_coding/codecs/h264/include/h264_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-24T08:45:15Z",
+      "side": 1,
+      "message": "Yes, comparing the lengths are redundant when using this variant of std::equal. I removed it.",
+      "parentUuid": "3f8f3b55_a363b4b9",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0d1b8a5_24791410",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-02-23T17:42:04Z",
       "side": 1,
       "message": "Nit: order the same as these are declared, so inter_layer_predicted after temporal_up_switch.",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4074cdb2_8ff276fa",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-24T08:45:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0d1b8a5_24791410",
       "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d19744_612cd542",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-24T08:45:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b089f544_a957dd6e",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6915b554_7a2936ad",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-02-23T17:42:04Z",
       "side": 1,
       "message": "Isn\u0027t first_active_layer part of \"SS data\" so should be in the if(ss_data_available) block?",
+      "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a485a9_8fd6e64a",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-02-24T08:45:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6915b554_7a2936ad",
       "revId": "e51c72a35b2e3399651af014cc4762646f64d333",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

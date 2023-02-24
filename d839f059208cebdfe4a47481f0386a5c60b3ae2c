@@ -16,6 +16,40 @@
       "message": "Let\u0027s try that again. PTAL Harald, thanks!",
       "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "775e8b86_93768e79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-24T22:42:07Z",
+      "side": 1,
+      "message": "Mostly deletions that don\u0027t need a comment. But I found one thing to be unhappy about (const declaration).",
+      "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a853659_6ea23be7",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-24T22:42:07Z",
+      "side": 1,
+      "message": "returning pointers to non-const objects from a const method is a code smell. Are you sure you need this? Should the signature be changed to return const pointers?",
+      "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

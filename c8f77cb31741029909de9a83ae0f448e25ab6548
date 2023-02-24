@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2934bba4_2553f59f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-02-24T11:50:40Z",
+      "side": 1,
+      "message": "Interesting way of preventing a stack overflow with that recursion guard. Might have preferred a regular stack overflow as it\u0027s easier to cleanup, but you\u0027ll be the one doing it, so that\u0027s all ok.",
+      "revId": "c8f77cb31741029909de9a83ae0f448e25ab6548",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

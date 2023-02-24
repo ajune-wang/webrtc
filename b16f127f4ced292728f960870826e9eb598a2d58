@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e62af2da_e43f0c33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-02-24T09:41:34Z",
+      "side": 1,
+      "message": "Hi Henrik,\nCan you take a look at this merge CL?",
+      "revId": "b16f127f4ced292728f960870826e9eb598a2d58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

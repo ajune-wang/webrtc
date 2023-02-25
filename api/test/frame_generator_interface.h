@@ -17,6 +17,7 @@
 #include "api/scoped_refptr.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_frame_buffer.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace test {
@@ -49,6 +50,8 @@ class FrameGeneratorInterface {
   virtual void ChangeResolution(size_t width, size_t height) = 0;
 
   virtual Resolution GetResolution() const = 0;
+
+  virtual int fps() const { RTC_CHECK_NOTREACHED(); }
 };
 
 }  // namespace test

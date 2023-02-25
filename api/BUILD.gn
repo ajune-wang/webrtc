@@ -611,6 +611,7 @@ rtc_source_set("frame_generator_api") {
 
   deps = [
     ":scoped_refptr",
+    "../rtc_base:checks",
     "video:video_frame",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]

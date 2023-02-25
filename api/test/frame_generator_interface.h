@@ -17,6 +17,7 @@
 #include "api/scoped_refptr.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_frame_buffer.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace test {
@@ -49,6 +50,11 @@ class FrameGeneratorInterface {
   virtual void ChangeResolution(size_t width, size_t height) = 0;
 
   virtual Resolution GetResolution() const = 0;
+
+  // Returns the frames per second this generator is supposed to provide
+  // according to its data source. Not all frame generators know the frames per
+  // second of the data source.
+  virtual int fps() const { RTC_CHECK_NOTREACHED(); }
 };
 
 }  // namespace test

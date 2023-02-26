@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f3f0dd84e37e8d137ddcd7769d3e6d9a04712a5f',
+  'chromium_revision': '3e3c030b5ef3b929503a23fcef0195ab0f3bc256',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -57,11 +57,11 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@cceb6c60c6f6c86921ef13f6e391d69463e9f5cb',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@7ed50d5e5147e069848ab489ffbae9de9c92891a',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@2dfd02dc94a52257b8196159989e67dbcf4005a0',
+    'https://chromium.googlesource.com/chromium/src/testing@e74f61fa0d3f50edc5bda4eb974675082d26fa5b',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@cc4259b383327d90c2648a9cdee591070731e061',
 
@@ -174,7 +174,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@abb105db21e962eda5b7d9b7a0ac8dd701e0b987',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@9c6c41afcf180e0bf068129b75da62e535f37629',
+    'https://chromium.googlesource.com/catapult.git@8a26fb906ec1c2acb00aeeab74c284f8993ab867',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -413,7 +413,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'F5NYfthfngE6fmCZchMd0133XW15UCBALwEBue8MuIsC',
+          'version': 'ulvn9u9_JsKtKZ9hcZw8FwU2eqMDMW4FdZwcuq1kFi8C',
       },
     ],
     'condition': 'checkout_android',

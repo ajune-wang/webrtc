@@ -33,6 +33,40 @@
       "message": "Not sure why Harald got moved to CC here. Harald, PTAL",
       "revId": "7ae816e4e1060f9edb993d2fa883a3b5a7de8923",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7706074c_65c60d88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:36:13Z",
+      "side": 1,
+      "message": "Looks good to me!",
+      "revId": "7ae816e4e1060f9edb993d2fa883a3b5a7de8923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7212ad6_8c70ea85",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:36:13Z",
+      "side": 1,
+      "message": "No test for receiver metadata?",
+      "revId": "7ae816e4e1060f9edb993d2fa883a3b5a7de8923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

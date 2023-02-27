@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a411805f_0a6ad150",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:30:06Z",
+      "side": 1,
+      "message": "I think the sensible thing to do is to make all the Impl methods in final classes private (they override a protected method in the base class).\n\nAlso, I think you should introduce the API you want to expose at once. In cases where there are utilities on top of Thread that you don\u0027t care about enumerating, we want to pass the Location down from even higher levels, even if it is normally a \"silent argument defaulting to caller\".",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db9897f4_3f7c33cc",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:30:06Z",
+      "side": 1,
+      "message": "So the point is that these are final methods?\n\nShould you add the signatures you want to be permanent (with Location) now, so that callers can start migrating? Or do you have a different scheme in mind?",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c251c23_20594d8a",
+        "filename": "rtc_base/task_queue_gcd.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:30:06Z",
+      "side": 1,
+      "message": "Should these be protected or private, since they\u0027re not intended to be visible to the normal users?",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481a43c7_ef66b9c7",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:30:06Z",
+      "side": 1,
+      "message": "Same comment about visibility here.",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827ec9aa_5b40f897",
+        "filename": "rtc_base/task_queue_stdlib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:30:06Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d02cff8_d1030248",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-27T12:08:00Z",
+      "side": 1,
+      "message": "it is possible, though I\u0027m not sure how much values would it add to do it early:\ne.g.\n\n```\n// TODO(crbug.com/1416199): Uncomment default value for the location once virtual function below is removed.\nvoid PostTask(absl::AnyInvocable\u003cvoid() \u0026\u0026\u003e task,\n              Location location /* \u003d Location::Current() */) {\n  PostTaskImpl(std::move(task), PostTaskTraits{}, location);\n}\n\n// TODO(crbug.com/1416199): Remove once subclasses migrated.\nvirtual void PostTask(absl::AnyInvocable\u003cvoid() \u0026\u0026\u003e task) {\n  PostTaskImpl(std::move(task), PostTaskTraits{}, Location::Current());\n}\n```",
+      "parentUuid": "d1e9df35_3240b464",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db9897f4_3f7c33cc",

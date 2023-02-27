@@ -420,6 +420,15 @@ void SetInboundRTPStreamStatsFromMediaReceiverInfo(
       static_cast<uint64_t>(media_receiver_info.payload_bytes_rcvd);
   inbound_stats->header_bytes_received =
       static_cast<uint64_t>(media_receiver_info.header_and_padding_bytes_rcvd);
+  if (media_receiver_info.retransmitted_bytes_rcvd.has_value()) {
+    inbound_stats->retransmitted_bytes_received = static_cast<uint64_t>(
+        media_receiver_info.retransmitted_bytes_rcvd.value());
+  }
+  if (media_receiver_info.retransmitted_packets_rcvd.has_value()) {
+    inbound_stats->retransmitted_packets_received = static_cast<uint64_t>(
+        media_receiver_info.retransmitted_packets_rcvd.value());
+  }
+
   inbound_stats->packets_lost =
       static_cast<int32_t>(media_receiver_info.packets_lost);
   inbound_stats->jitter_buffer_delay =

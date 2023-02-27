@@ -33,6 +33,23 @@
       "message": "Maybe someone else has time..",
       "revId": "ea098a64c82d8fe92ec4bf5b5b921fb860648899",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad2f33f_7e7eaf41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-02-27T14:26:16Z",
+      "side": 1,
+      "message": "Thanks! I don\u0027t have permissions to submit this, could you help with that?",
+      "revId": "ea098a64c82d8fe92ec4bf5b5b921fb860648899",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

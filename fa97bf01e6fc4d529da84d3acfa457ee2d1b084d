@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a911175_e808f4dc",
+        "filename": "api/test/frame_generator_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-27T11:49:03Z",
+      "side": 1,
+      "message": "I did it in the original refactoring but then I thought about this being \"hidden\" to new generators.\n\nI think it is good for new generators to know this is a good requirement to satisfy instead of not noticing it and falling back on the default.\n\nWDYT?",
+      "parentUuid": "6de3f056_54364ceb",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 44
+      },
+      "revId": "fa97bf01e6fc4d529da84d3acfa457ee2d1b084d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "389066a0_22a62ea2",
         "filename": "test/frame_generator.h",
         "patchSetId": 4

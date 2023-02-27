@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4e3afd_3c4137c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T11:45:34Z",
+      "side": 1,
+      "message": "Thank you! I think these \"protected\" statements indicate intent as well as preventing misuse.\n\nGo for it!",
+      "revId": "7906e1a83629439ebd9533497f02a365520c16f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

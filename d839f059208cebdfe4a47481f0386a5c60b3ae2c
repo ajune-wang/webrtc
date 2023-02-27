@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86f98f74_b718662b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2023-02-27T09:16:59Z",
+      "side": 1,
+      "message": "Thank you for the review! I believe I\u0027ve addressed the feedback downchain.",
+      "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a853659_6ea23be7",
@@ -48,6 +65,24 @@
       "writtenOn": "2023-02-24T22:42:07Z",
       "side": 1,
       "message": "returning pointers to non-const objects from a const method is a code smell. Are you sure you need this? Should the signature be changed to return const pointers?",
+      "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc89ad22_f0375ed0",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2023-02-27T09:16:59Z",
+      "side": 1,
+      "message": "Yes! I\u0027ve made this change in https://webrtc-review.googlesource.com/c/src/+/294341/2/p2p/base/p2p_transport_channel.cc#1663.",
+      "parentUuid": "7a853659_6ea23be7",
       "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

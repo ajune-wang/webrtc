@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf9872c9_ebc06cd0",
+        "filename": "api/test/frame_generator_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-27T12:56:56Z",
+      "side": 1,
+      "message": "We discussed offline. Let\u0027s aim at the pure virtual goal.",
+      "parentUuid": "8a911175_e808f4dc",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 44
+      },
+      "revId": "fa97bf01e6fc4d529da84d3acfa457ee2d1b084d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "389066a0_22a62ea2",
@@ -71,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "993b3167_37155cfc",
+        "filename": "test/frame_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-27T12:56:56Z",
+      "side": 1,
+      "message": "See other comment.",
+      "parentUuid": "389066a0_22a62ea2",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 68
+      },
+      "revId": "fa97bf01e6fc4d529da84d3acfa457ee2d1b084d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4789677_a8517468",
@@ -84,6 +132,30 @@
       "writtenOn": "2023-02-27T11:45:48Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "fa97bf01e6fc4d529da84d3acfa457ee2d1b084d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac75774e_7776c126",
+        "filename": "test/testsupport/ivf_video_frame_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-02-27T12:56:56Z",
+      "side": 1,
+      "message": "See other comment.",
+      "parentUuid": "e4789677_a8517468",
       "range": {
         "startLine": 40,
         "startChar": 2,

@@ -94,6 +94,11 @@ class RTC_EXPORT VideoFrameMetadata {
   std::vector<uint32_t> GetCsrcs() const;
   void SetCsrcs(std::vector<uint32_t> csrcs);
 
+  friend bool operator==(const VideoFrameMetadata& lhs,
+                         const VideoFrameMetadata& rhs);
+  friend bool operator!=(const VideoFrameMetadata& lhs,
+                         const VideoFrameMetadata& rhs);
+
  private:
   VideoFrameType frame_type_ = VideoFrameType::kEmptyFrame;
   int16_t width_ = 0;

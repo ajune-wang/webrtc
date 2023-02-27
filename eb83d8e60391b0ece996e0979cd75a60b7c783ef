@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1e9df35_3240b464",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-27T11:43:23Z",
+      "side": 1,
+      "message": "Re the second statement, it\u0027s not possible yet. See the followup CL where I finally do this.",
+      "parentUuid": "a411805f_0a6ad150",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db9897f4_3f7c33cc",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-27T11:30:06Z",
       "side": 1,
       "message": "So the point is that these are final methods?\n\nShould you add the signatures you want to be permanent (with Location) now, so that callers can start migrating? Or do you have a different scheme in mind?",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b14d5831_8dd3d0f5",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-27T11:43:23Z",
+      "side": 1,
+      "message": "Sub classes currently override the PostTask/PostDelayed[HighPrecision]Task methods so I can\u0027t yet introduce the final form of the interface without breaching google c++ styleguide or without compiler errors (ambiguous calls). This can be done first when all sub classes switched to override the Impl methods, see the follow-up WebRTC CL in the relation chain.",
+      "parentUuid": "db9897f4_3f7c33cc",
       "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df2bf96_cf1cbf02",
+        "filename": "rtc_base/task_queue_gcd.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-27T11:43:23Z",
+      "side": 1,
+      "message": "This implementation\u0027s type isn\u0027t visible to normal users so access is blocked from them anyway as they use the TaskQueueBase interface, i.e. doesn\u0027t matter. Nevertheless inserted a protected in final classes.",
+      "parentUuid": "2c251c23_20594d8a",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481a43c7_ef66b9c7",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d863c4_5d403ecf",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-27T11:43:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481a43c7_ef66b9c7",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "827ec9aa_5b40f897",
@@ -82,6 +154,24 @@
       "writtenOn": "2023-02-27T11:30:06Z",
       "side": 1,
       "message": "And here.",
+      "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ef0fbda_68599e5c",
+        "filename": "rtc_base/task_queue_stdlib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-02-27T11:43:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "827ec9aa_5b40f897",
       "revId": "eb83d8e60391b0ece996e0979cd75a60b7c783ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

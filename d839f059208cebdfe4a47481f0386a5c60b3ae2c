@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "070fc744_3a82ebcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-27T09:54:37Z",
+      "side": 1,
+      "message": "OK, good to fix the const downstream!",
+      "revId": "d839f059208cebdfe4a47481f0386a5c60b3ae2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a853659_6ea23be7",

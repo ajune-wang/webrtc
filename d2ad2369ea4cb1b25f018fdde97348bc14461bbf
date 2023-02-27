@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37d83d1f_e7f116dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-27T12:30:39Z",
+      "side": 1,
+      "message": "Thanks! lgtm.",
+      "revId": "d2ad2369ea4cb1b25f018fdde97348bc14461bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "024c2de3_6827c7dc",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-27T12:30:39Z",
+      "side": 1,
+      "message": "RTC_CHECK_LT",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "d2ad2369ea4cb1b25f018fdde97348bc14461bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc250fd6_d2e0f56f",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-27T12:30:39Z",
+      "side": 1,
+      "message": "Nit: For consistency, remove \u0027c\u0027 here or use \u0027c\u0027 for other iterators in this function.",
+      "range": {
+        "startLine": 122,
+        "startChar": 13,
+        "endLine": 122,
+        "endChar": 14
+      },
+      "revId": "d2ad2369ea4cb1b25f018fdde97348bc14461bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

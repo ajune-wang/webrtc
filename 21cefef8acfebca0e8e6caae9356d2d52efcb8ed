@@ -177,6 +177,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1a02bec_5131099a",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-02-27T12:30:39Z",
+      "side": 1,
+      "message": "Ah, I thought it was in integral bits.",
+      "parentUuid": "869e9b92_7ff7683a",
+      "range": {
+        "startLine": 39,
+        "startChar": 48,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "21cefef8acfebca0e8e6caae9356d2d52efcb8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74c20758_0c591fb5",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3cbdde_27175d47",
+        "filename": "api/test/frame_generator_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-02-27T09:43:34Z",
+      "side": 1,
+      "message": "Maybe return absl::optional\u003cint\u003e and if generator knows fps, it will be set. Then default implementation will return absl::nullopt.\n\nOtherwise because \"Not all frame generators know the frames per second of the data source.\" it\u0027s unclear what to expect. Like should we call generator and hope not to crash?",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "6d8dbc25a932b4a5a42aa5a9f2b606433a7a63c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

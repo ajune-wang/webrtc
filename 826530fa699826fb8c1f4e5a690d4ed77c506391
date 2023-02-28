@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c45a42_2b8b7ea4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:51:55Z",
+      "side": 1,
+      "message": "I would have loved to see some way of unittesting this as it appears like we there are some errors in the code.",
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fcf10e4_4e635048",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:51:55Z",
+      "side": 1,
+      "message": "What are these, and why are they needed?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25796ba5_0d850bba",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:51:55Z",
+      "side": 1,
+      "message": "Looks wrong, should this be kBGR24?",
+      "range": {
+        "startLine": 287,
+        "startChar": 39,
+        "endLine": 287,
+        "endChar": 45
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12a6e438_e62002b8",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:51:55Z",
+      "side": 1,
+      "message": "RGB24?",
+      "range": {
+        "startLine": 289,
+        "startChar": 39,
+        "endLine": 289,
+        "endChar": 45
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b19b2224_4b02c250",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:51:55Z",
+      "side": 1,
+      "message": "This looks wrong from a quick glance, not knowing details it seems like it matches V4L2_PIX_FMT_ABGR32?\n\nSame for some of the others. It could be that I\u0027m just not understanding the mapping, but there will in that case likely also be others not understanding this...",
+      "range": {
+        "startLine": 301,
+        "startChar": 39,
+        "endLine": 301,
+        "endChar": 44
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -221,13 +221,13 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
   EncodedImage encoded_image;
   encoded_image.SetEncodedData(encoded_image_buffer);
   RTPVideoHeader new_header =
-      RTPVideoHeader::FromMetadata(original->GetMetadata());
+      RTPVideoHeader::FromMetadata(original->Metadata());
   // TODO(bugs.webrtc.org/14708): Fill in other EncodedImage parameters
   return std::make_unique<TransformableVideoSenderFrame>(
       encoded_image, new_header, original->GetPayloadType(), new_header.codec,
       original->GetTimestamp(),
       absl::nullopt,  // expected_retransmission_time_ms
-      original->GetSsrc(), original->GetMetadata().GetCsrcs());
+      original->GetSsrc(), original->Metadata().GetCsrcs());
 }
 
 }  // namespace webrtc

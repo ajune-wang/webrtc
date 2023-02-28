@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30c15ca8_fa1896e4",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-28T15:59:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "024c2de3_6827c7dc",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "d2ad2369ea4cb1b25f018fdde97348bc14461bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc250fd6_d2e0f56f",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-27T12:30:39Z",
       "side": 1,
       "message": "Nit: For consistency, remove \u0027c\u0027 here or use \u0027c\u0027 for other iterators in this function.",
+      "range": {
+        "startLine": 122,
+        "startChar": 13,
+        "endLine": 122,
+        "endChar": 14
+      },
+      "revId": "d2ad2369ea4cb1b25f018fdde97348bc14461bbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b82b79b_ca14294c",
+        "filename": "modules/video_coding/codecs/test/video_codec_stats_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-02-28T15:59:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc250fd6_d2e0f56f",
       "range": {
         "startLine": 122,
         "startChar": 13,

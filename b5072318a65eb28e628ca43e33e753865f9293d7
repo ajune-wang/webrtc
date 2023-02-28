@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a73ebc7_af9c8b0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-02-28T16:04:09Z",
+      "side": 1,
+      "message": "follow of the \nhttps://webrtc-review.googlesource.com/c/src/+/295321 cleanup",
+      "revId": "b5072318a65eb28e628ca43e33e753865f9293d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

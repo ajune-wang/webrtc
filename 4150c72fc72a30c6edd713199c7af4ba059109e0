@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f499e5be_ca961344",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-02-28T12:39:54Z",
+      "side": 1,
+      "message": "I\u0027d prefer first writing all the bits and then all the blobs, rather than interleaving them. It would be more in line with the existing encoding for optional numeric fields: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/logging/rtc_event_log/encoder/delta_encoding.cc;l\u003d408;drc\u003d277766f55efc7ba37fbaa3a9f86ba36e9adb94f0\nCollecting data of the same \"type\" usually also improves compression efficiency.",
+      "revId": "4150c72fc72a30c6edd713199c7af4ba059109e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b812de51_097b7b4d",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-02-28T12:39:54Z",
+      "side": 1,
+      "message": "If we wrote all bits first and also padded to a full byte, we could do byte-aligned writes for these, i.e. without the complexity of BitBufferWriter.\n\nPadding adds on average 3.5 bits per batch, which doesn\u0027t seem too bad. It may also help byte-based compression algorithms like gzip to further compress the file.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "4150c72fc72a30c6edd713199c7af4ba059109e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1866120a_f444e528",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-02-28T12:39:54Z",
+      "side": 1,
+      "message": "Nice to add this in the bit buffer! Should enable some simplifications of existing code.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 33
+      },
+      "revId": "4150c72fc72a30c6edd713199c7af4ba059109e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e119d45b_b8c403f8",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:42:02Z",
+      "side": 1,
+      "message": "\u0027unsigned int\u0027 to be correct, right?",
+      "range": {
+        "startLine": 234,
+        "startChar": 58,
+        "endLine": 234,
+        "endChar": 61
+      },
+      "revId": "133fcfb7db90b0c93165be971214bef48e69d61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58875ee9_b38d0285",
+        "filename": "modules/video_capture/linux/video_capture_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:42:02Z",
+      "side": 1,
+      "message": "same here if you agree with me above.",
+      "range": {
+        "startLine": 129,
+        "startChar": 51,
+        "endLine": 129,
+        "endChar": 54
+      },
+      "revId": "133fcfb7db90b0c93165be971214bef48e69d61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

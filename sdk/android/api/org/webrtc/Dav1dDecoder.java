@@ -9,12 +9,16 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 public class Dav1dDecoder extends WrappedNativeVideoDecoder {
   @Override
   public long createNativeVideoDecoder() {
-    return nativeCreateDecoder();
+    return Dav1dDecoderJni.get().createDecoder();
   }
 
-  static native long nativeCreateDecoder();
+  @NativeMethods
+  interface Natives {
+    long createDecoder();
+  }
 }

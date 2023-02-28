@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7138b878_29b2b34a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-28T09:39:56Z",
+      "side": 1,
+      "message": "showed up in my \"has draft comments\" list.",
+      "revId": "870a8ec464b095f9a506f6c5a759bdbca402b429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76b9a2a9_3e654878",
@@ -31,6 +48,40 @@
       "writtenOn": "2022-07-13T09:04:05Z",
       "side": 1,
       "message": "the ACM receiver actually infers the codec type from the payload type via neteq_-\u003eGetDecoderFormat\n  https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/neteq/neteq.h;drc\u003da6fe0210768868959ac7e8d0e04eaf771e83e524;l\u003d297\na few calls away from the codec running in the other branch of this if.\nLastDecoder defined here\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_coding/acm2/acm_receiver.h\n*almost* does the right thing but does not work for the very first packet.\n\nIf I want the codec type (actually the SDP one which is not very symmetrical with how the send side operates :-|) I can either\n1/ expose GetDecoderFormat on the ACM receiver\n2/ intercept SetReceiveCodecs in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/audio/channel_receive.cc;l\u003d107;drc\u003da6fe0210768868959ac7e8d0e04eaf771e83e524;bpv\u003d1;bpt\u003d1\nand then do the lookup myself.\n\nThoughts on which approach would be \"better\"?",
+      "revId": "870a8ec464b095f9a506f6c5a759bdbca402b429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6374e608_28e946e1",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-28T09:39:56Z",
+      "side": 1,
+      "message": "should be x-other, to point out that this is just ugliness incarnate. And may need an RTC_LOG(LS_WARNING).",
+      "revId": "870a8ec464b095f9a506f6c5a759bdbca402b429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c47eec84_36e1eebc",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-28T09:39:56Z",
+      "side": 1,
+      "message": "x-unknown",
       "revId": "870a8ec464b095f9a506f6c5a759bdbca402b429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ddbda5d5fbd78411494628676579a7344e2fef62',
+  'chromium_revision': '0c14e63c04f6efb2facc3769bd4caca1395a3941',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -46,7 +46,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ea7258d7fbc225fe4f38f769a0eeb4688c755bff',
+    'https://chromium.googlesource.com/chromium/src/base@cc01f39bf44a5e987a28504ba76b111f18b4fdb3',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@0c4c8e9d71232c79433b5d52a0040d11ba2eceba',
   'src/buildtools':
@@ -61,9 +61,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@7bb027b8534c37446415654d78873abf97ec9180',
+    'https://chromium.googlesource.com/chromium/src/testing@12ea92212bba51f08a97c77bf35c61a6dd4de6b8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@72d03875bdd2d6adc649b2bbd966a9f7733e7bf0',
+    'https://chromium.googlesource.com/chromium/src/third_party@681979867ce600fe4c73e901683d10ef1aedf1f6',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -287,7 +287,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@7c5fe42e47b51d5f745aa543a76b091bf3e0daa6',
+    'https://android.googlesource.com/platform/external/perfetto.git@7a66b67faed54d3ad446a60e94f2bb7a69899882',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@db69ce6aea278bee88668fd9cc2af2e544516fdb',
   'src/third_party/libyuv':
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@08977baeed3f1d79b052343797f2916474f92330',
+    'https://chromium.googlesource.com/chromium/src/tools@1a8178430253b9ef1c47c36cf4bc5988c8ca9dea',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

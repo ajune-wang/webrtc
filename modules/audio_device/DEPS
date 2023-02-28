@@ -7,6 +7,9 @@ specific_include_rules = {
   "ensure_initialized\.cc": [
     "+sdk/android",
   ],
+  "audio_(track|record)_jni\.h": [
+    "+sdk/android",
+  ],
   "audio_device_impl\.cc": [
     "+sdk/objc",
   ],

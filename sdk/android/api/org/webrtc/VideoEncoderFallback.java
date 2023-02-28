@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 /**
  * A combined video encoder that falls back on a secondary encoder if the primary encoder fails.
@@ -24,7 +25,7 @@ public class VideoEncoderFallback extends WrappedNativeVideoEncoder {
 
   @Override
   public long createNativeVideoEncoder() {
-    return nativeCreateEncoder(fallback, primary);
+    return VideoEncoderFallbackJni.get().createEncoder(fallback, primary);
   }
 
   @Override
@@ -32,5 +33,8 @@ public class VideoEncoderFallback extends WrappedNativeVideoEncoder {
     return primary.isHardwareEncoder();
   }
 
-  private static native long nativeCreateEncoder(VideoEncoder fallback, VideoEncoder primary);
+  @NativeMethods
+  interface Natives {
+    long createEncoder(VideoEncoder fallback, VideoEncoder primary);
+  }
 }

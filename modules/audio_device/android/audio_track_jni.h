@@ -22,8 +22,30 @@
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "modules/utility/include/helpers_android.h"
 #include "modules/utility/include/jvm_android.h"
+#include "sdk/android/native_api/jni/scoped_java_ref.h"
 
 namespace webrtc {
+
+// Forward declarations, so we can set these functions as friends of
+// AudioTrackJni. The actual declaration is in
+// modules/audio_device/generated_audio_device_java_jni/WebRtcAudioTrack_jni.h
+namespace jni {
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+
+static void JNI_WebRtcAudioTrack_CacheDirectBufferAddress(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& byte_buffer,
+    jlong nativeAudioTrack);
+
+static void JNI_WebRtcAudioTrack_GetPlayoutData(JNIEnv* env,
+                                                jint length,
+                                                jlong nativeAudioTrack);
+
+#pragma GCC diagnostic pop
+
+}  // namespace jni
 
 // Implements 16-bit mono PCM audio output support for Android using the Java
 // AudioTrack interface. Most of the work is done by its Java counterpart in
@@ -91,10 +113,10 @@ class AudioTrackJni {
   // `byte_buffer` in `direct_buffer_address_`. The size of the buffer
   // is also stored in `direct_buffer_capacity_in_bytes_`.
   // Called on the same thread as the creating thread.
-  static void JNICALL CacheDirectBufferAddress(JNIEnv* env,
-                                               jobject obj,
-                                               jobject byte_buffer,
-                                               jlong nativeAudioTrack);
+  friend void JNICALL jni::JNI_WebRtcAudioTrack_CacheDirectBufferAddress(
+      JNIEnv* env,
+      const JavaParamRef<jobject>& byte_buffer,
+      jlong nativeAudioTrack);
   void OnCacheDirectBufferAddress(JNIEnv* env, jobject byte_buffer);
 
   // Called periodically by the Java based WebRtcAudioTrack object when
@@ -102,10 +124,10 @@ class AudioTrackJni {
   // be written to the memory area `direct_buffer_address_` for playout.
   // This method is called on a high-priority thread from Java. The name of
   // the thread is 'AudioTrackThread'.
-  static void JNICALL GetPlayoutData(JNIEnv* env,
-                                     jobject obj,
-                                     jint length,
-                                     jlong nativeAudioTrack);
+  friend void JNICALL
+  jni::JNI_WebRtcAudioTrack_GetPlayoutData(JNIEnv* env,
+                                           jint length,
+                                           jlong nativeAudioTrack);
   void OnGetPlayoutData(size_t length);
 
   // Stores thread ID in constructor.

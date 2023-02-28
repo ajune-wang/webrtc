@@ -9,19 +9,21 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 public class LibvpxVp9Encoder extends WrappedNativeVideoEncoder {
   @Override
   public long createNativeVideoEncoder() {
-    return nativeCreateEncoder();
+    return LibvpxVp9EncoderJni.get().createEncoder();
   }
-
-  static native long nativeCreateEncoder();
-
   @Override
   public boolean isHardwareEncoder() {
     return false;
   }
 
-  static native boolean nativeIsSupported();
+  @NativeMethods
+  interface Natives {
+    long createEncoder();
+    boolean isSupported();
+  }
 }

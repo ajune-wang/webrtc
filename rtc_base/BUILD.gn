@@ -603,6 +603,7 @@ rtc_library("rtc_task_queue") {
   ]
   deps = [
     ":macromagic",
+    "../api:location",
     "../api/task_queue",
     "system:rtc_export",
   ]

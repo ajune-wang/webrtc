@@ -2083,7 +2083,16 @@ if (is_android) {
       "java/src/org/webrtc/Size.java",
       "java/src/org/webrtc/ThreadUtils.java",
     ]
-    deps = [ "//third_party/androidx:androidx_annotation_annotation_java" ]
+    deps = [
+      "//base:jni_java",
+      "//third_party/androidx:androidx_annotation_annotation_java",
+    ]
+    annotation_processor_deps = [ "//base/android/jni_generator:jni_processor" ]
+  }
+  generate_jni("generated_base_java_jni") {
+    sources = [ "java/src/org/webrtc/Logging.java" ]
+    namespace = "webrtc::jni"
+    jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
   }
   java_cpp_enum("network_monitor_enums") {
     sources = [ "network_monitor.h" ]

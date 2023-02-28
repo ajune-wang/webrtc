@@ -21,8 +21,31 @@
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "modules/utility/include/helpers_android.h"
 #include "modules/utility/include/jvm_android.h"
+#include "sdk/android/native_api/jni/scoped_java_ref.h"
 
 namespace webrtc {
+
+// Forward declarations, so we can set these functions as friends of
+// AudioRecordJni. The actual declaration is in
+// modules/audio_device/generated_audio_device_java_jni/WebRtcAudioRecord_jni.h
+namespace jni {
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+
+static void JNICALL JNI_WebRtcAudioRecord_CacheDirectBufferAddress(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& byte_buffer,
+    jlong nativeAudioRecord);
+
+static void JNICALL
+JNI_WebRtcAudioRecord_DataIsRecorded(JNIEnv* env,
+                                     jint length,
+                                     jlong nativeAudioRecord);
+
+#pragma GCC diagnostic pop
+
+}  // namespace jni
 
 // Implements 16-bit mono PCM audio input support for Android using the Java
 // AudioRecord interface. Most of the work is done by its Java counterpart in
@@ -91,10 +114,10 @@ class AudioRecordJni {
   // is also stored in `direct_buffer_capacity_in_bytes_`.
   // This method will be called by the WebRtcAudioRecord constructor, i.e.,
   // on the same thread that this object is created on.
-  static void JNICALL CacheDirectBufferAddress(JNIEnv* env,
-                                               jobject obj,
-                                               jobject byte_buffer,
-                                               jlong nativeAudioRecord);
+  friend void JNICALL jni::JNI_WebRtcAudioRecord_CacheDirectBufferAddress(
+      JNIEnv* env,
+      const JavaParamRef<jobject>& byte_buffer,
+      jlong nativeAudioRecord);
   void OnCacheDirectBufferAddress(JNIEnv* env, jobject byte_buffer);
 
   // Called periodically by the Java based WebRtcAudioRecord object when
@@ -103,10 +126,10 @@ class AudioRecordJni {
   // now time to send these to the consumer.
   // This method is called on a high-priority thread from Java. The name of
   // the thread is 'AudioRecordThread'.
-  static void JNICALL DataIsRecorded(JNIEnv* env,
-                                     jobject obj,
-                                     jint length,
-                                     jlong nativeAudioRecord);
+  friend void JNICALL
+  jni::JNI_WebRtcAudioRecord_DataIsRecorded(JNIEnv* env,
+                                            jint length,
+                                            jlong nativeAudioRecord);
   void OnDataIsRecorded(int length);
 
   // Stores thread ID in constructor.

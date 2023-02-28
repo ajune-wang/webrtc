@@ -16,6 +16,24 @@
       "message": "I don\u0027t follow why this is expected to happen and would be reasonable to relax rather than fixing the source. Could you explain?",
       "revId": "2bad462002badf99074c0f205252fb786ba1c830",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b0022e4_10db9397",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-02-28T09:43:33Z",
+      "side": 1,
+      "message": "See https://github.com/umlaeute/v4l2loopback/issues/190\n\nIt seems like something down in gstreamer allocates the buffer page-aligned and that gets passed through V4L2. Yes the buffer size is unexpected but all the bytes needed are there, so why not read them?",
+      "parentUuid": "f428fce7_5d443372",
+      "revId": "2bad462002badf99074c0f205252fb786ba1c830",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

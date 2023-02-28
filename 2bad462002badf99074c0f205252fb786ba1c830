@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f428fce7_5d443372",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-02-28T07:38:09Z",
+      "side": 1,
+      "message": "I don\u0027t follow why this is expected to happen and would be reasonable to relax rather than fixing the source. Could you explain?",
+      "revId": "2bad462002badf99074c0f205252fb786ba1c830",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

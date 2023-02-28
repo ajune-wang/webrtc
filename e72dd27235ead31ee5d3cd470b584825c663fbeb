@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1d56e99_e4b4c6f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-02-28T21:49:43Z",
+      "side": 1,
+      "message": "If this is now step #4 of 5, and the last one has to be delayed a while, perhaps update the CL description?",
+      "revId": "e72dd27235ead31ee5d3cd470b584825c663fbeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

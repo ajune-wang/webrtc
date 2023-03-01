@@ -408,10 +408,6 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
       std::unique_ptr<webrtc::AudioSinkInterface> sink) override;
 
   std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const override;
-  bool SenderNackEnabled() const override { return false; }
-  bool SenderNonSenderRttEnabled() const override { return false; }
-  void SetReceiveNackEnabled(bool enabled) {}
-  void SetReceiveNonSenderRttEnabled(bool enabled) {}
 
  private:
   class VoiceChannelAudioSink : public AudioSource::Sink {
@@ -541,8 +537,7 @@ class FakeVoiceEngine : public VoiceEngineInterface {
       webrtc::Call* call,
       const MediaConfig& config,
       const AudioOptions& options,
-      const webrtc::CryptoOptions& crypto_options,
-      webrtc::AudioCodecPairId codec_pair_id) override;
+      const webrtc::CryptoOptions& crypto_options) override;
   FakeVoiceMediaChannel* GetChannel(size_t index);
   void UnregisterChannel(VoiceMediaChannel* channel);
 

@@ -455,8 +455,7 @@ VoiceMediaChannel* FakeVoiceEngine::CreateMediaChannel(
     webrtc::Call* call,
     const MediaConfig& config,
     const AudioOptions& options,
-    const webrtc::CryptoOptions& crypto_options,
-    webrtc::AudioCodecPairId codec_pair_id) {
+    const webrtc::CryptoOptions& crypto_options) {
   if (fail_create_channel_) {
     return nullptr;
   }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b491b1_c6086f4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-01T01:43:21Z",
+      "side": 1,
+      "message": "I will take over this CL for the on-going code review, with the permission of original owner.\nThis is the initial copy from that CL [1] to save conversation history.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/283641",
+      "revId": "7f002ebbfdeb08d314c349c4366f778888029273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

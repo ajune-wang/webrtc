@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592107d2_e5b4592f",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-01T08:42:14Z",
+      "side": 1,
+      "message": "this is the inheritance fix.",
+      "revId": "3dd9e4e8a98a3f7493e2b9efcf0e09f877082e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5dc866_25ce14f0",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-01T08:42:14Z",
+      "side": 1,
+      "message": "the names \"rtp\", \"received-rtp\" and \"sent-rtp\" are a bit confusing since they don\u0027t match spec names. Maybe rename to virtual-... to make it clear these are just there for inheritance reason and should not show up in practice?",
+      "revId": "3dd9e4e8a98a3f7493e2b9efcf0e09f877082e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

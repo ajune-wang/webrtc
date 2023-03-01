@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_TIMING_INTER_FRAME_DELAY_H_
-#define MODULES_VIDEO_CODING_TIMING_INTER_FRAME_DELAY_H_
+#ifndef MODULES_VIDEO_CODING_TIMING_INTER_FRAME_DELAY_VARIATION_CALCULATOR_H_
+#define MODULES_VIDEO_CODING_TIMING_INTER_FRAME_DELAY_VARIATION_CALCULATOR_H_
 
 #include <stdint.h>
 
@@ -20,17 +20,19 @@
 
 namespace webrtc {
 
-class InterFrameDelay {
+// This class calculated the inter-frame delay variation (see RFC5481) between
+// the current frame (as supplied through the current call to `Calculate`) and
+// the previous frame (as supplied through the previous call to `Calculate`).
+class InterFrameDelayVariationCalculator {
  public:
-  InterFrameDelay();
+  InterFrameDelayVariationCalculator();
 
   // Resets the estimate. Zeros are given as parameters.
   void Reset();
 
   // Calculates the delay of a frame with the given timestamp.
   // This method is called when the frame is complete.
-  absl::optional<TimeDelta> CalculateDelay(uint32_t rtp_timestamp,
-                                           Timestamp now);
+  absl::optional<TimeDelta> Calculate(uint32_t rtp_timestamp, Timestamp now);
 
  private:
   // The previous rtp timestamp passed to the delay estimate
@@ -43,4 +45,4 @@ class InterFrameDelay {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_TIMING_INTER_FRAME_DELAY_H_
+#endif  // MODULES_VIDEO_CODING_TIMING_INTER_FRAME_DELAY_VARIATION_CALCULATOR_H_

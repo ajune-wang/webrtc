@@ -39,6 +39,30 @@
       },
       "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ccd2f5_f365ab26",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-03-01T11:53:44Z",
+      "side": 1,
+      "message": "A bit confusing I agree, but it refers to the buffer being [too small], not [writing to] small buffer :)",
+      "parentUuid": "7703b1f8_813a6961",
+      "range": {
+        "startLine": 237,
+        "startChar": 37,
+        "endLine": 237,
+        "endChar": 40
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

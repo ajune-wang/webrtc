@@ -103,6 +103,13 @@ bool DataChannelController::ReadyToSendData() const {
   return (data_channel_transport() && data_channel_transport_ready_to_send_);
 }
 
+void DataChannelController::OnChannelStateChanged(
+    SctpDataChannel* channel,
+    DataChannelInterface::DataState state) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  pc_->OnSctpDataChannelStateChanged(channel, state);
+}
+
 void DataChannelController::OnDataReceived(
     int channel_id,
     DataMessageType type,
@@ -298,9 +305,6 @@ DataChannelController::InternalCreateSctpDataChannel(
     return nullptr;
   }
   sctp_data_channels_.push_back(channel);
-  channel->SignalClosed.connect(
-      pc_, &PeerConnectionInternal::OnSctpDataChannelClosed);
-  SignalSctpDataChannelCreated_(channel.get());
   return channel;
 }
 
@@ -381,8 +385,8 @@ bool DataChannelController::DataChannelSendData(
     const rtc::CopyOnWriteBuffer& payload,
     cricket::SendDataResult* result) {
   // TODO(bugs.webrtc.org/11547): Expect method to be called on the network
-  // thread instead. Remove the BlockingCall() below and move assocated state to
-  // the network thread.
+  // thread instead. Remove the BlockingCall() below and move associated state
+  // to the network thread.
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(data_channel_transport());
 

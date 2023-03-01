@@ -92,6 +92,10 @@ class RTCStatsCollector : public rtc::RefCountInterface,
   // completed. Must be called on the signaling thread.
   void WaitForPendingRequest();
 
+  // Called by the PeerConnection instance when data channel states change.
+  void OnSctpDataChannelStateChanged(DataChannelInterface* channel,
+                                     DataChannelInterface::DataState state);
+
  protected:
   RTCStatsCollector(PeerConnectionInternal* pc, int64_t cache_lifetime_us);
   ~RTCStatsCollector();
@@ -254,12 +258,6 @@ class RTCStatsCollector : public rtc::RefCountInterface,
       rtc::scoped_refptr<const RTCStatsReport> report,
       rtc::scoped_refptr<RtpSenderInternal> sender_selector,
       rtc::scoped_refptr<RtpReceiverInternal> receiver_selector);
-
-  // Slots for signals (sigslot) that are wired up to `pc_`.
-  void OnSctpDataChannelCreated(SctpDataChannel* channel);
-  // Slots for signals (sigslot) that are wired up to `channel`.
-  void OnDataChannelOpened(DataChannelInterface* channel);
-  void OnDataChannelClosed(DataChannelInterface* channel);
 
   PeerConnectionInternal* const pc_;
   rtc::Thread* const signaling_thread_;

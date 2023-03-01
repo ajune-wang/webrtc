@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_common.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioRecord_jni.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -41,6 +42,29 @@ class ScopedHistogramTimer {
   int64_t start_time_ms_;
 };
 }  // namespace
+
+namespace jni {
+
+JNI_FUNCTION_ALIGN
+void JNICALL JNI_WebRtcAudioRecord_CacheDirectBufferAddress(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& byte_buffer,
+    jlong nativeAudioRecord) {
+  webrtc::AudioRecordJni* this_object =
+      reinterpret_cast<webrtc::AudioRecordJni*>(nativeAudioRecord);
+  this_object->OnCacheDirectBufferAddress(env, byte_buffer.obj());
+}
+
+JNI_FUNCTION_ALIGN
+void JNICALL JNI_WebRtcAudioRecord_DataIsRecorded(JNIEnv* env,
+                                                  jint length,
+                                                  jlong nativeAudioRecord) {
+  webrtc::AudioRecordJni* this_object =
+      reinterpret_cast<webrtc::AudioRecordJni*>(nativeAudioRecord);
+  this_object->OnDataIsRecorded(length);
+}
+
+}  // namespace jni
 
 // AudioRecordJni::JavaAudioRecord implementation.
 AudioRecordJni::JavaAudioRecord::JavaAudioRecord(
@@ -95,15 +119,8 @@ AudioRecordJni::AudioRecordJni(AudioManager* audio_manager)
   RTC_LOG(LS_INFO) << "ctor";
   RTC_DCHECK(audio_parameters_.is_valid());
   RTC_CHECK(j_environment_);
-  JNINativeMethod native_methods[] = {
-      {"nativeCacheDirectBufferAddress", "(Ljava/nio/ByteBuffer;J)V",
-       reinterpret_cast<void*>(
-           &webrtc::AudioRecordJni::CacheDirectBufferAddress)},
-      {"nativeDataIsRecorded", "(IJ)V",
-       reinterpret_cast<void*>(&webrtc::AudioRecordJni::DataIsRecorded)}};
   j_native_registration_ = j_environment_->RegisterNatives(
-      "org/webrtc/voiceengine/WebRtcAudioRecord", native_methods,
-      arraysize(native_methods));
+      "org/webrtc/voiceengine/WebRtcAudioRecord", {}, 0);
   j_audio_record_.reset(
       new JavaAudioRecord(j_native_registration_.get(),
                           j_native_registration_->NewObject(
@@ -227,16 +244,6 @@ int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
   return j_audio_record_->EnableBuiltInNS(enable) ? 0 : -1;
 }
 
-JNI_FUNCTION_ALIGN
-void JNICALL AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                      jobject obj,
-                                                      jobject byte_buffer,
-                                                      jlong nativeAudioRecord) {
-  webrtc::AudioRecordJni* this_object =
-      reinterpret_cast<webrtc::AudioRecordJni*>(nativeAudioRecord);
-  this_object->OnCacheDirectBufferAddress(env, byte_buffer);
-}
-
 void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
                                                 jobject byte_buffer) {
   RTC_LOG(LS_INFO) << "OnCacheDirectBufferAddress";
@@ -246,16 +253,6 @@ void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
   jlong capacity = env->GetDirectBufferCapacity(byte_buffer);
   RTC_LOG(LS_INFO) << "direct buffer capacity: " << capacity;
   direct_buffer_capacity_in_bytes_ = static_cast<size_t>(capacity);
-}
-
-JNI_FUNCTION_ALIGN
-void JNICALL AudioRecordJni::DataIsRecorded(JNIEnv* env,
-                                            jobject obj,
-                                            jint length,
-                                            jlong nativeAudioRecord) {
-  webrtc::AudioRecordJni* this_object =
-      reinterpret_cast<webrtc::AudioRecordJni*>(nativeAudioRecord);
-  this_object->OnDataIsRecorded(length);
 }
 
 // This method is called on a high-priority thread from Java. The name of

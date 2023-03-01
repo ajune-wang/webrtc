@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a14437_f4de359b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-01T10:53:19Z",
+      "side": 1,
+      "message": "rtc_base LGTM, I leave the rest of the RTC Event Log part to Björn.",
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7703b1f8_813a6961",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-01T10:53:19Z",
+      "side": 1,
+      "message": "Nit: To",
+      "range": {
+        "startLine": 237,
+        "startChar": 37,
+        "endLine": 237,
+        "endChar": 40
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

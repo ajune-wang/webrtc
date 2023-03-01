@@ -90,6 +90,10 @@ class FakeDataChannelController
 
   bool ReadyToSendData() const override { return ready_to_send_; }
 
+  void OnChannelStateChanged(
+      webrtc::SctpDataChannel* data_channel,
+      webrtc::DataChannelInterface::DataState state) override {}
+
   // Set true to emulate the SCTP stream being blocked by congestion control.
   void set_send_blocked(bool blocked) {
     send_blocked_ = blocked;

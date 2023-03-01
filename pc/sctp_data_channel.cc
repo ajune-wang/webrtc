@@ -564,11 +564,15 @@ void SctpDataChannel::SetState(DataState state) {
   if (observer_) {
     observer_->OnStateChange();
   }
+
+  // TODO(tommi): Delete these signals?
   if (state_ == kOpen) {
     SignalOpened(this);
   } else if (state_ == kClosed) {
     SignalClosed(this);
   }
+
+  controller_->OnChannelStateChanged(this, state_);
 }
 
 void SctpDataChannel::DisconnectFromTransport() {

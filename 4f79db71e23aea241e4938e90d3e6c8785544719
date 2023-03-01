@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe791c45_a03d549c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-03-01T12:30:05Z",
+      "side": 1,
+      "message": "hbos@\nWhat do you think of something like this to deflake the test RTCStatsIntegrationTest::GetStatsFromCallee?",
+      "revId": "4f79db71e23aea241e4938e90d3e6c8785544719",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -9,6 +9,7 @@
  */
 
 package org.webrtc;
+import org.chromium.base.annotations.NativeMethods;
 
 /**
  * Creates a native {@code webrtc::AudioDecoderFactory} with the builtin audio decoders.
@@ -16,8 +17,11 @@ package org.webrtc;
 public class BuiltinAudioDecoderFactoryFactory implements AudioDecoderFactoryFactory {
   @Override
   public long createNativeAudioDecoderFactory() {
-    return nativeCreateBuiltinAudioDecoderFactory();
+    return BuiltinAudioDecoderFactoryFactoryJni.get().createBuiltinAudioDecoderFactory();
   }
 
-  private static native long nativeCreateBuiltinAudioDecoderFactory();
+  @NativeMethods
+  interface Natives {
+    long createBuiltinAudioDecoderFactory();
+  }
 }

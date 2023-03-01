@@ -27,6 +27,34 @@
 
 namespace webrtc {
 
+// Forward declaration, so we can set this function as a friend of AudioManager.
+// The actual declaration is in
+// modules/audio_device/generated_audio_device_java_jni/WebRtcAudioManager_jni.h
+namespace jni {
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+
+static void JNICALL
+JNI_WebRtcAudioManager_CacheAudioParameters(JNIEnv* env,
+                                            jint sample_rate,
+                                            jint output_channels,
+                                            jint input_channels,
+                                            jboolean hardware_aec,
+                                            jboolean hardware_agc,
+                                            jboolean hardware_ns,
+                                            jboolean low_latency_output,
+                                            jboolean low_latency_input,
+                                            jboolean pro_audio,
+                                            jboolean a_audio,
+                                            jint output_buffer_size,
+                                            jint input_buffer_size,
+                                            jlong native_audio_manager);
+
+#pragma GCC diagnostic pop
+
+}  // namespace jni
+
 // Implements support for functions in the WebRTC audio stack for Android that
 // relies on the AudioManager in android.media. It also populates an
 // AudioParameter structure with native audio parameters detected at
@@ -128,21 +156,22 @@ class AudioManager {
   // Called from Java side so we can cache the native audio parameters.
   // This method will be called by the WebRtcAudioManager constructor, i.e.
   // on the same thread that this object is created on.
-  static void JNICALL CacheAudioParameters(JNIEnv* env,
-                                           jobject obj,
-                                           jint sample_rate,
-                                           jint output_channels,
-                                           jint input_channels,
-                                           jboolean hardware_aec,
-                                           jboolean hardware_agc,
-                                           jboolean hardware_ns,
-                                           jboolean low_latency_output,
-                                           jboolean low_latency_input,
-                                           jboolean pro_audio,
-                                           jboolean a_audio,
-                                           jint output_buffer_size,
-                                           jint input_buffer_size,
-                                           jlong native_audio_manager);
+  friend void JNICALL
+  jni::JNI_WebRtcAudioManager_CacheAudioParameters(JNIEnv* env,
+                                                   jint sample_rate,
+                                                   jint output_channels,
+                                                   jint input_channels,
+                                                   jboolean hardware_aec,
+                                                   jboolean hardware_agc,
+                                                   jboolean hardware_ns,
+                                                   jboolean low_latency_output,
+                                                   jboolean low_latency_input,
+                                                   jboolean pro_audio,
+                                                   jboolean a_audio,
+                                                   jint output_buffer_size,
+                                                   jint input_buffer_size,
+                                                   jlong native_audio_manager);
+
   void OnCacheAudioParameters(JNIEnv* env,
                               jint sample_rate,
                               jint output_channels,

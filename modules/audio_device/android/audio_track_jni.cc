@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "modules/audio_device/android/audio_manager.h"
+#include "modules/audio_device/generated_audio_device_java_jni/WebRtcAudioTrack_jni.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -21,6 +22,29 @@
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
+
+namespace jni {
+
+JNI_FUNCTION_ALIGN
+void JNICALL JNI_WebRtcAudioTrack_CacheDirectBufferAddress(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& byte_buffer,
+    jlong nativeAudioTrack) {
+  webrtc::AudioTrackJni* this_object =
+      reinterpret_cast<webrtc::AudioTrackJni*>(nativeAudioTrack);
+  this_object->OnCacheDirectBufferAddress(env, byte_buffer.obj());
+}
+
+JNI_FUNCTION_ALIGN
+void JNICALL JNI_WebRtcAudioTrack_GetPlayoutData(JNIEnv* env,
+                                                 jint length,
+                                                 jlong nativeAudioTrack) {
+  webrtc::AudioTrackJni* this_object =
+      reinterpret_cast<webrtc::AudioTrackJni*>(nativeAudioTrack);
+  this_object->OnGetPlayoutData(static_cast<size_t>(length));
+}
+
+}  // namespace jni
 
 // AudioTrackJni::JavaAudioTrack implementation.
 AudioTrackJni::JavaAudioTrack::JavaAudioTrack(
@@ -105,15 +129,8 @@ AudioTrackJni::AudioTrackJni(AudioManager* audio_manager)
   RTC_LOG(LS_INFO) << "ctor";
   RTC_DCHECK(audio_parameters_.is_valid());
   RTC_CHECK(j_environment_);
-  JNINativeMethod native_methods[] = {
-      {"nativeCacheDirectBufferAddress", "(Ljava/nio/ByteBuffer;J)V",
-       reinterpret_cast<void*>(
-           &webrtc::AudioTrackJni::CacheDirectBufferAddress)},
-      {"nativeGetPlayoutData", "(IJ)V",
-       reinterpret_cast<void*>(&webrtc::AudioTrackJni::GetPlayoutData)}};
   j_native_registration_ = j_environment_->RegisterNatives(
-      "org/webrtc/voiceengine/WebRtcAudioTrack", native_methods,
-      arraysize(native_methods));
+      "org/webrtc/voiceengine/WebRtcAudioTrack", {}, 0);
   j_audio_track_.reset(
       new JavaAudioTrack(j_native_registration_.get(),
                          j_native_registration_->NewObject(
@@ -236,16 +253,6 @@ void AudioTrackJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
   audio_device_buffer_->SetPlayoutChannels(channels);
 }
 
-JNI_FUNCTION_ALIGN
-void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                     jobject obj,
-                                                     jobject byte_buffer,
-                                                     jlong nativeAudioTrack) {
-  webrtc::AudioTrackJni* this_object =
-      reinterpret_cast<webrtc::AudioTrackJni*>(nativeAudioTrack);
-  this_object->OnCacheDirectBufferAddress(env, byte_buffer);
-}
-
 void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
                                                jobject byte_buffer) {
   RTC_LOG(LS_INFO) << "OnCacheDirectBufferAddress";
@@ -258,16 +265,6 @@ void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
   const size_t bytes_per_frame = audio_parameters_.channels() * sizeof(int16_t);
   frames_per_buffer_ = direct_buffer_capacity_in_bytes_ / bytes_per_frame;
   RTC_LOG(LS_INFO) << "frames_per_buffer: " << frames_per_buffer_;
-}
-
-JNI_FUNCTION_ALIGN
-void JNICALL AudioTrackJni::GetPlayoutData(JNIEnv* env,
-                                           jobject obj,
-                                           jint length,
-                                           jlong nativeAudioTrack) {
-  webrtc::AudioTrackJni* this_object =
-      reinterpret_cast<webrtc::AudioTrackJni*>(nativeAudioTrack);
-  this_object->OnGetPlayoutData(static_cast<size_t>(length));
 }
 
 // This method is called on a high-priority thread from Java. The name of

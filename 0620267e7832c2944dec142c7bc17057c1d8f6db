@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea58000c_9122cbad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-01T14:09:56Z",
+      "side": 1,
+      "message": "Looks good once Danil\u0027s comment is fixed.",
+      "revId": "0620267e7832c2944dec142c7bc17057c1d8f6db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cfcd20d_98c1d932",

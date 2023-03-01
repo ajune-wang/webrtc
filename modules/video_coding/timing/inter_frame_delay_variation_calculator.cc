@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/timing/inter_frame_delay.h"
+#include "modules/video_coding/timing/inter_frame_delay_variation_calculator.h"
 
 #include "absl/types/optional.h"
 #include "api/units/frequency.h"
@@ -21,19 +21,16 @@ namespace {
 constexpr Frequency k90kHz = Frequency::KiloHertz(90);
 }
 
-InterFrameDelay::InterFrameDelay() {
+InterFrameDelayVariationCalculator::InterFrameDelayVariationCalculator() {
   Reset();
 }
 
-// Resets the delay estimate.
-void InterFrameDelay::Reset() {
+void InterFrameDelayVariationCalculator::Reset() {
   prev_wall_clock_ = absl::nullopt;
   prev_rtp_timestamp_unwrapped_ = 0;
 }
 
-// Calculates the delay of a frame with the given timestamp.
-// This method is called when the frame is complete.
-absl::optional<TimeDelta> InterFrameDelay::CalculateDelay(
+absl::optional<TimeDelta> InterFrameDelayVariationCalculator::Calculate(
     uint32_t rtp_timestamp,
     Timestamp now) {
   int64_t rtp_timestamp_unwrapped = unwrapper_.Unwrap(rtp_timestamp);

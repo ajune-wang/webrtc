@@ -569,6 +569,8 @@ void SctpDataChannel::SetState(DataState state) {
   } else if (state_ == kClosed) {
     SignalClosed(this);
   }
+
+  controller_->OnChannelStateChanged(this, state_);
 }
 
 void SctpDataChannel::DisconnectFromTransport() {

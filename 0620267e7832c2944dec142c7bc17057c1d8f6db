@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cfcd20d_98c1d932",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-01T12:47:50Z",
+      "side": 1,
+      "message": "now that Metadata returns a copy, prefer to avoid getting two copies of it [in production code]:\n\n```\nVideoFrameMetadata metadata \u003d original-\u003eMetadata();\nRtpVideoHeader new_header \u003d RtpVideoHeader::FromMetadata(metadata);\n....\noriginal-\u003eGetSsrc(), metadata.GetCsrcs());\n```",
+      "revId": "0620267e7832c2944dec142c7bc17057c1d8f6db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

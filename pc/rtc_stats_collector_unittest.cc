@@ -2123,12 +2123,16 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
   rtc::scoped_refptr<SctpDataChannel> dummy_channel_a = SctpDataChannel::Create(
       &controller, "DummyChannelA", InternalDataChannelInit(),
       rtc::Thread::Current(), rtc::Thread::Current());
-  pc_->SignalSctpDataChannelCreated()(dummy_channel_a.get());
+  // TODO(tommi): Compensate.
+  // pc_->SignalSctpDataChannelCreated()(dummy_channel_a.get());
   rtc::scoped_refptr<SctpDataChannel> dummy_channel_b = SctpDataChannel::Create(
       &controller, "DummyChannelB", InternalDataChannelInit(),
       rtc::Thread::Current(), rtc::Thread::Current());
-  pc_->SignalSctpDataChannelCreated()(dummy_channel_b.get());
+  // TODO(tommi): Compensate.
+  // pc_->SignalSctpDataChannelCreated()(dummy_channel_b.get());
 
+  // TODO(tommi): Compensate, call stats collector directly and remove these
+  // signals.
   dummy_channel_a->SignalOpened(dummy_channel_a.get());
   // Closing a channel that is not opened should not affect the counts.
   dummy_channel_b->SignalClosed(dummy_channel_b.get());
@@ -2143,6 +2147,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
     EXPECT_EQ(expected, report->Get("P")->cast_to<RTCPeerConnectionStats>());
   }
 
+  // TODO(tommi): Compensate, call stats collector directly and remove these
+  // signals.
   dummy_channel_b->SignalOpened(dummy_channel_b.get());
   dummy_channel_b->SignalClosed(dummy_channel_b.get());
 

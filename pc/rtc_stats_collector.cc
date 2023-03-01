@@ -1390,8 +1390,10 @@ RTCStatsCollector::RTCStatsCollector(PeerConnectionInternal* pc,
   RTC_DCHECK(worker_thread_);
   RTC_DCHECK(network_thread_);
   RTC_DCHECK_GE(cache_lifetime_us_, 0);
+  // TODO(tommi): Delete.
+  /*
   pc_->SignalSctpDataChannelCreated().connect(
-      this, &RTCStatsCollector::OnSctpDataChannelCreated);
+      this, &RTCStatsCollector::OnSctpDataChannelCreated);*/
 }
 
 RTCStatsCollector::~RTCStatsCollector() {
@@ -2493,6 +2495,28 @@ void RTCStatsCollector::PrepareTransceiverStatsInfosAndCallStats_s_w_n() {
   }
 }
 
+void RTCStatsCollector::OnSctpDataChannelStateChanged(
+    DataChannelInterface* channel,
+    DataChannelInterface::DataState state) {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  if (state == DataChannelInterface::DataState::kOpen) {
+    bool result = internal_record_.opened_data_channels
+                      .insert(reinterpret_cast<uintptr_t>(channel))
+                      .second;
+    RTC_DCHECK(result);
+    ++internal_record_.data_channels_opened;
+  } else if (state == DataChannelInterface::DataState::kClosed) {
+    // Only channels that have been fully opened (and have increased the
+    // `data_channels_opened_` counter) increase the closed counter.
+    if (internal_record_.opened_data_channels.erase(
+            reinterpret_cast<uintptr_t>(channel))) {
+      ++internal_record_.data_channels_closed;
+    }
+  }
+}
+
+// TODO(tommi): Delete.
+/*
 void RTCStatsCollector::OnSctpDataChannelCreated(SctpDataChannel* channel) {
   channel->SignalOpened.connect(this, &RTCStatsCollector::OnDataChannelOpened);
   channel->SignalClosed.connect(this, &RTCStatsCollector::OnDataChannelClosed);
@@ -2515,7 +2539,7 @@ void RTCStatsCollector::OnDataChannelClosed(DataChannelInterface* channel) {
           reinterpret_cast<uintptr_t>(channel))) {
     ++internal_record_.data_channels_closed;
   }
-}
+}*/
 
 const char* CandidateTypeToRTCIceCandidateTypeForTesting(
     const std::string& type) {

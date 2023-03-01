@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '9cb220fd9f5a634c3115afd2477cb4f429b21acb',
+  'chromium_revision': '6ab01b740782f404c970a05e5d87e1fa259b22d6',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d84f2d6baba88754cf8f868071ad11401400a681',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d448e0e6e037e44f3e5cdc118d27af92b514b9be',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@c7e279e5667371f3b13f51519011c412c1dbc48e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0fa08ec5073295e5d580733dc0c00e465c6e8b9a',
+    'https://chromium.googlesource.com/chromium/src/third_party@d46146b5f40ae066a8662940948b0d8ac4c16a45',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -287,7 +287,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@cecf0090dd5e6c55770a3cab573f022a0eabe1cc',
+    'https://android.googlesource.com/platform/external/perfetto.git@133bc5496dfca8661619cb2a45f55d142bff8950',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@db69ce6aea278bee88668fd9cc2af2e544516fdb',
   'src/third_party/libyuv':
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@18df9bf9effedc05e1404549ae657767325d8a6f',
+    'https://chromium.googlesource.com/chromium/src/tools@6274202cd5a8ccac88c4484d4475ee705355670c',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

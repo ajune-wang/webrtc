@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c74b9f76b0226522cffc3495d7bec87c4abfad25',
+  'chromium_revision': '5e49424f2fea1b1b51c40c612b3c4a7efc9ece71',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -46,7 +46,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@38123b65ee5e728de772fca665f344a7e22c8c0e',
+    'https://chromium.googlesource.com/chromium/src/base@b4072283e775ac21b7b5c9d6eb56ff4687b0a050',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@bb2ff97c7ae66090272a6a8db583be5abc5586b9',
   'src/buildtools':
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@5bceecc8b363e7a0d90f2ff4575ed211e5128876',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@639055d1fb017bbca9997dc97855aab7770bd4b5',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4ce267d2af461cc5ea27d954e4697669ecc860f9',
+    'https://chromium.googlesource.com/chromium/src/testing@d9a1997cb50d6c3969d410da8ed3637296fc64b4',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@7455ce5a9a4e9f941eac1df55f0c40781b15ba63',
+    'https://chromium.googlesource.com/chromium/src/third_party@1658d4d6208e551b06d25977c4904ca3ff859007',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@27e6632cec90cf767b86ab227b1f83437857d641',
+    'https://chromium.googlesource.com/chromium/src/tools@f241e0972144519b598e39cc4027b95271f11c63',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -1750,6 +1750,28 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/com_squareup_javawriter',
               'version': 'version:2@2.1.1.cr1',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/com_squareup_okio_okio_jvm': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/com_squareup_okio_okio_jvm',
+              'version': 'version:2@3.0.0.cr1',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/com_squareup_wire_wire_runtime_jvm': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/com_squareup_wire_wire_runtime_jvm',
+              'version': 'version:2@4.4.3.cr1',
           },
       ],
       'condition': 'checkout_android',

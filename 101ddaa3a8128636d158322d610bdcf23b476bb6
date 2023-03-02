@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ef7379_79788274",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-03-02T09:22:19Z",
+      "side": 1,
+      "message": "Looking good!",
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e152e503_a70bc42b",
+        "filename": "api/frame_transformer_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-03-02T09:22:19Z",
+      "side": 1,
+      "message": "At least leave a comment about only supporting creating Sender frames.",
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52cbdd41_68e18b3e",
+        "filename": "api/frame_transformer_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-03-02T09:22:19Z",
+      "side": 1,
+      "message": "Either have a single CloneFrame() method taking and returning TransformableFrameInterfaces, or use the TransformableAudioFrameInterface for CloneAudioFrame, I think. At least for the param?",
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29088fa5_6124aef3",
+        "filename": "api/test/mock_transformable_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-03-02T09:22:19Z",
+      "side": 1,
+      "message": "You don\u0027t like the one in test/mock_transformable_frame.h? 😊",
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0158d324_3257c5e4",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-03-02T09:22:19Z",
+      "side": 1,
+      "message": "I believe we can reconstruct this from\n`original_audio_transformable_frame-\u003eGetHeader()-\u003eextension.voiceActivity ? AudioFrameType::kAudioFrameSpeech : kAudioFrameCN` (assuming `extension.hasVoiceActivity` is true)",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 39
+      },
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e0bc69_88e0cdf6",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-03-02T09:22:19Z",
+      "side": 1,
+      "message": "add a `/*param_name\u003d*/` comment",
+      "range": {
+        "startLine": 135,
+        "startChar": 32,
+        "endLine": 135,
+        "endChar": 34
+      },
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

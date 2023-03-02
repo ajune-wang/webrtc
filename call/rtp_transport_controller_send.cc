@@ -392,27 +392,33 @@ void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
 void RtpTransportControllerSend::OnSentPacket(
     const rtc::SentPacket& sent_packet) {
   // Normally called on the network thread !
+  // TODO(bugs.webrtc.org/137439): Clarify normally.
 
-  // We can not use SafeTask here if we are using an owned task queue, because
-  // the safety flag will be destroyed when RtpTransportControllerSend is
-  // destroyed on the worker thread. But we must use SafeTask if we are using
-  // the worker thread, since the worker thread outlive
-  // RtpTransportControllerSend.
-  task_queue_.TaskQueueForPost()->PostTask(
-      task_queue_.MaybeSafeTask(safety_.flag(), [this, sent_packet]() {
-        RTC_DCHECK_RUN_ON(&task_queue_);
-        absl::optional<SentPacket> packet_msg =
-            transport_feedback_adapter_.ProcessSentPacket(sent_packet);
-        if (packet_msg) {
-          // Only update outstanding data if:
-          // 1. Packet feedback is used.
-          // 2. The packet has not yet received an acknowledgement.
-          // 3. It is not a retransmission of an earlier packet.
-          UpdateCongestedState();
-          if (controller_)
-            PostUpdates(controller_->OnSentPacket(*packet_msg));
-        }
-      }));
+  // TODO(bugs.webrtc.org/137439): Terminally stop posting to the worker thread
+  // when the combined network/worker project launches.
+  if (TaskQueueBase::Current() != task_queue_.TaskQueueForPost()) {
+    // We can not use SafeTask here if we are using an owned task queue, because
+    // the safety flag will be destroyed when RtpTransportControllerSend is
+    // destroyed on the worker thread. But we must use SafeTask if we are using
+    // the worker thread, since the worker thread outlive
+    // RtpTransportControllerSend.
+    task_queue_.TaskQueueForPost()->PostTask(task_queue_.MaybeSafeTask(
+        safety_.flag(), [this, sent_packet]() { OnSentPacket(sent_packet); }));
+    return;
+  }
+
+  RTC_DCHECK_RUN_ON(&task_queue_);
+  absl::optional<SentPacket> packet_msg =
+      transport_feedback_adapter_.ProcessSentPacket(sent_packet);
+  if (packet_msg) {
+    // Only update outstanding data if:
+    // 1. Packet feedback is used.
+    // 2. The packet has not yet received an acknowledgement.
+    // 3. It is not a retransmission of an earlier packet.
+    UpdateCongestedState();
+    if (controller_)
+      PostUpdates(controller_->OnSentPacket(*packet_msg));
+  }
 }
 
 void RtpTransportControllerSend::OnReceivedPacket(

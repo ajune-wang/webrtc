@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb66bec_28b56d62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-02T10:42:38Z",
+      "side": 1,
+      "message": "will you ping back when the the bots are green?",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e766bd2_b6416a89",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-02T10:42:38Z",
+      "side": 1,
+      "message": "Can we flesh this comment out a bit more?",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22b9b47_f39cea2f",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-02T10:42:38Z",
+      "side": 1,
+      "message": "What does \"Terminally\" mean specifically in this case? (does the comment mean the same thing with out it?)",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4660eda_6349faeb",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-02T10:42:38Z",
+      "side": 1,
+      "message": "nit/side-note... the name `MaybeSafeTask`, doesn\u0027t sound like it\u0027s actually safe - could we figure out a better name for it?",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe0edce_5d33bf22",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-02T10:42:38Z",
+      "side": 1,
+      "message": "is it safe to run these steps always non-async?",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c1ed5a_fe4ca20d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1746,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-02T10:42:38Z",
+      "side": 1,
+      "message": "same question for \"Terminally\"",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -37,6 +37,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ecf30718_521f713f",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-02T09:24:17Z",
+      "side": 1,
+      "message": "Now that it\u0027s aligned, I think bits_written should always be 0. Maybe a CHECK/DCHECK instead?",
+      "range": {
+        "startLine": 69,
+        "startChar": 38,
+        "endLine": 69,
+        "endChar": 64
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc81a03_97addb3a",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-02T09:24:17Z",
+      "side": 1,
+      "message": "Can this ever fail? If it\u0027s to guard against future bugs, maybe a CHECK instead?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676404a5_1ccaeb9d",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-02T09:24:17Z",
+      "side": 1,
+      "message": "Nit: not",
+      "range": {
+        "startLine": 89,
+        "startChar": 40,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc6bf0e2_707f4f90",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-02T09:24:17Z",
+      "side": 1,
+      "message": "I think that would be easier to read and more robust to future changes if we used RemainingBits here, similar to GetCurrentOffset for the writer.",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 75
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc37798c_8123ac15",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-02T09:24:17Z",
+      "side": 1,
+      "message": "With explicit alignment above, I think the remaining bit count should be 0.",
+      "range": {
+        "startLine": 111,
+        "startChar": 22,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "604916ed_fe3a785e",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-02T09:24:17Z",
+      "side": 1,
+      "message": "This is a very nice helper!",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 18
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7703b1f8_813a6961",
         "filename": "rtc_base/bit_buffer_unittest.cc",
         "patchSetId": 3

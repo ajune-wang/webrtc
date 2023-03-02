@@ -237,7 +237,7 @@ class SctpDataChannel : public DataChannelInterface,
     kHandshakeReady
   };
 
-  bool Init();
+  void Init();
   void UpdateState();
   void SetState(DataState state);
   void DisconnectFromTransport();

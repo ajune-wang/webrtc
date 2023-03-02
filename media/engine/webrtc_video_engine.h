@@ -157,6 +157,9 @@ class WebRtcVideoChannel : public VideoMediaChannel,
                              const rtc::NetworkRoute& network_route) override;
   void SetInterface(MediaChannelNetworkInterface* iface) override;
 
+  void ProcessReceivedPacket(webrtc::RtpPacketReceived packet)
+      RTC_RUN_ON(thread_checker_);
+
   // E2E Encrypted Video Frame API
   // Set a frame decryptor to a particular ssrc that will intercept all
   // incoming video frames and attempt to decrypt them before forwarding the

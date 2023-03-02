@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfcf9e45_029e34f9",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-03-02T10:52:05Z",
+      "side": 1,
+      "message": "Good catch, fixed.",
+      "parentUuid": "ecf30718_521f713f",
+      "range": {
+        "startLine": 69,
+        "startChar": 38,
+        "endLine": 69,
+        "endChar": 64
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dc81a03_97addb3a",
@@ -71,6 +95,30 @@
       "writtenOn": "2023-03-02T09:24:17Z",
       "side": 1,
       "message": "Can this ever fail? If it\u0027s to guard against future bugs, maybe a CHECK instead?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3864a060_b7214de8",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-03-02T10:52:05Z",
+      "side": 1,
+      "message": "It should not ever fail, no, CHECKing instead",
+      "parentUuid": "4dc81a03_97addb3a",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94784d3c_2093f0f5",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-03-02T10:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "676404a5_1ccaeb9d",
+      "range": {
+        "startLine": 89,
+        "startChar": 40,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc6bf0e2_707f4f90",
@@ -127,6 +199,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91990e99_f53466cc",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-03-02T10:52:05Z",
+      "side": 1,
+      "message": "Didn\u0027t think about the RemainingBitCount function, much nicer now! Also updated the writer for cleaner byte alignment.",
+      "parentUuid": "dc6bf0e2_707f4f90",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 75
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc37798c_8123ac15",
@@ -140,6 +236,30 @@
       "writtenOn": "2023-03-02T09:24:17Z",
       "side": 1,
       "message": "With explicit alignment above, I think the remaining bit count should be 0.",
+      "range": {
+        "startLine": 111,
+        "startChar": 22,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "1ffb2c15ff0a66dadae62572ff6b30b3763aa7e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9d58121_dbf71307",
+        "filename": "logging/rtc_event_log/encoder/optional_blob_encoding.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-03-02T10:52:05Z",
+      "side": 1,
+      "message": "Good catch, fixed",
+      "parentUuid": "bc37798c_8123ac15",
       "range": {
         "startLine": 111,
         "startChar": 22,

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "693edeea_31af40b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-02T12:17:41Z",
+      "side": 1,
+      "message": "Your new toy is powerful, sir!\n\nOne oddity detected....",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e766bd2_b6416a89",
@@ -99,6 +116,23 @@
       "writtenOn": "2023-03-02T10:42:38Z",
       "side": 1,
       "message": "same question for \"Terminally\"",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0444030_cd74ac7f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-02T12:17:41Z",
+      "side": 1,
+      "message": "This code smells - if it runs on network_thread_checker_ and current can sometimes be worker_thread, then it means that network_thread_checker_ is bound to the worker thread in some instances and network thread in others. Please check what this is actually supposed to be bound to.",
       "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

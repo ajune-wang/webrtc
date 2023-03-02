@@ -89,12 +89,13 @@ void TaskQueuePacedSender::EnsureStarted() {
 
 void TaskQueuePacedSender::CreateProbeClusters(
     std::vector<ProbeClusterConfig> probe_cluster_configs) {
-  task_queue_.RunOrPost(
+  task_queue_.TaskQueueForPost()->PostTask(task_queue_.MaybeSafeTask(
+      safety_.flag(),
       [this, probe_cluster_configs = std::move(probe_cluster_configs)]() {
         RTC_DCHECK_RUN_ON(&task_queue_);
         pacing_controller_.CreateProbeClusters(probe_cluster_configs);
         MaybeProcessPackets(Timestamp::MinusInfinity());
-      });
+      }));
 }
 
 void TaskQueuePacedSender::Pause() {
@@ -113,20 +114,22 @@ void TaskQueuePacedSender::Resume() {
 }
 
 void TaskQueuePacedSender::SetCongested(bool congested) {
-  task_queue_.RunOrPost([this, congested]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
-    pacing_controller_.SetCongested(congested);
-    MaybeProcessPackets(Timestamp::MinusInfinity());
-  });
+  task_queue_.TaskQueueForPost()->PostTask(
+      task_queue_.MaybeSafeTask(safety_.flag(), [this, congested]() {
+        RTC_DCHECK_RUN_ON(&task_queue_);
+        pacing_controller_.SetCongested(congested);
+        MaybeProcessPackets(Timestamp::MinusInfinity());
+      }));
 }
 
 void TaskQueuePacedSender::SetPacingRates(DataRate pacing_rate,
                                           DataRate padding_rate) {
-  task_queue_.RunOrPost([this, pacing_rate, padding_rate]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
-    pacing_controller_.SetPacingRates(pacing_rate, padding_rate);
-    MaybeProcessPackets(Timestamp::MinusInfinity());
-  });
+  task_queue_.TaskQueueForPost()->PostTask(task_queue_.MaybeSafeTask(
+      safety_.flag(), [this, pacing_rate, padding_rate]() {
+        RTC_DCHECK_RUN_ON(&task_queue_);
+        pacing_controller_.SetPacingRates(pacing_rate, padding_rate);
+        MaybeProcessPackets(Timestamp::MinusInfinity());
+      }));
 }
 
 void TaskQueuePacedSender::EnqueuePackets(

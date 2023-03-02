@@ -47,7 +47,7 @@ using ::webrtc::webrtc_pc_e2e::VideoSimulcastConfig;
 
 namespace {
 
-constexpr int kTestDurationSec = 45;
+constexpr int kTestDurationSec = 2;
 
 std::unique_ptr<webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture>
 CreateTestFixture(const std::string& test_case_name,

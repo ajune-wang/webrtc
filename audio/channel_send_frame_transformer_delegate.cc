@@ -127,4 +127,24 @@ void ChannelSendFrameTransformerDelegate::SendFrame(
                        transformed_frame->GetAbsoluteCaptureTimestampMs());
 }
 
+std::unique_ptr<TransformableFrameInterface> CloneSenderAudioFrame(
+    TransformableFrameInterface* original) {
+  AudioFrameType audio_frame_type = AudioFrameType::kAudioFrameSpeech;
+  // TODO(bugs.webrtc.org/14949): Figure out a way to bulletproof the cast.
+  if (original->GetDirection() ==
+          TransformableFrameInterface::Direction::kReceiver &&
+      !static_cast<TransformableAudioFrameInterface*>(original)
+           ->GetHeader()
+           .extension.voiceActivity) {
+    audio_frame_type = AudioFrameType::kAudioFrameCN;
+  }
+
+  // TODO(crbug.com/webrtc/14949): Ensure the correct timestamps are passed.
+  return std::make_unique<TransformableOutgoingAudioFrame>(
+      audio_frame_type, original->GetPayloadType(), original->GetTimestamp(),
+      /*rtp_start_timestamp=*/0u, original->GetData().data(),
+      original->GetData().size(), original->GetTimestamp(),
+      original->GetSsrc());
+}
+
 }  // namespace webrtc

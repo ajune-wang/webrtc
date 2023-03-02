@@ -122,6 +122,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73a78fd3_310e1ea2",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-02T14:10:53Z",
+      "side": 1,
+      "message": "Interesting you should ask that. I did find one problem in the webrtc_perf_test where the change in this method causes PacketRouter::SendPacket to be called synchronously from within PacketRouter::SendPacket, but that wouldn\u0027t happen in reality in Chrome since OnSentPacket gets invoked initially from another process/thread. https://pastebin.com/AKkMsh8q\nWas that what you meant?",
+      "parentUuid": "bbe0edce_5d33bf22",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8c1ed5a_fe4ca20d",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5
@@ -150,6 +168,24 @@
       "writtenOn": "2023-03-02T12:17:41Z",
       "side": 1,
       "message": "This code smells - if it runs on network_thread_checker_ and current can sometimes be worker_thread, then it means that network_thread_checker_ is bound to the worker thread in some instances and network thread in others. Please check what this is actually supposed to be bound to.",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb128b60_92af17d7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-02T14:10:53Z",
+      "side": 1,
+      "message": "They are the same threads under the combined network/worker experiment, separate otherwise.",
+      "parentUuid": "e0444030_cd74ac7f",
       "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

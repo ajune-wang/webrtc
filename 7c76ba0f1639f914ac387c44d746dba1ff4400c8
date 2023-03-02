@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e067532_6b802812",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-02T10:37:27Z",
+      "side": 1,
+      "message": "Looks beautiful to me!\nComment is just a \"perhaps later\" - feel free to ack and ignore for this CL.\n\nNote: It changes the semantics from \"stats is told about open and close\" to \"stats is told about every state change\". I don\u0027t think it matters, and might even be an advantage at some later time. But made me notice.",
+      "revId": "7c76ba0f1639f914ac387c44d746dba1ff4400c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d40cec6c_d48c1f35",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2500,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-02T10:37:27Z",
+      "side": 1,
+      "message": "can we change this map to use raw pointers, with a comment that they\u0027re identifiers, not accessors, and not guaranteed to be valid?\nEven better, change this table to a class that allows state update, but not pointer retrieval.\n\nI detest and abhore reinterpret_cast.\n\nProbably for a later CL, though.",
+      "revId": "7c76ba0f1639f914ac387c44d746dba1ff4400c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

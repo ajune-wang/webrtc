@@ -1,0 +1,218 @@
+diff --git a/modules/video_coding/codecs/test/video_codec_test.cc b/modules/video_coding/codecs/test/video_codec_test.cc
+index bbcfdfe7a6..1c111d4096 100644
+--- a/modules/video_coding/codecs/test/video_codec_test.cc
++++ b/modules/video_coding/codecs/test/video_codec_test.cc
+@@ -97,17 +97,16 @@ struct DecodingTestSettings {
+   std::string name;
+ };
+ 
+-struct EncodeDecodeTestParams {
+-  CodecInfo codec;
+-  VideoInfo video;
+-  VideoCodecTester::EncoderSettings encoder_settings;
+-  VideoCodecTester::DecoderSettings decoder_settings;
+-  EncodingTestSettings encoding_settings;
+-  DecodingTestSettings decoding_settings;
+-  struct Expectations {
+-    double min_apsnr_y;
+-  } test_expectations;
+-};
++const VideoInfo kFourPeople_1280x720_30 = {
++    .name = "FourPeople_1280x720_30",
++    .resolution = {.width = 1280, .height = 720}};
++
++const EncodingSettings kQvga32Kbps30Fps = {
++    .scalability_mode = ScalabilityMode::kL1T1,
++    .resolution = {{0, {.width = 320, .height = 180}}},
++    .framerate = Frequency::Hertz(30),
++    .bitrate = {
++        {{.spatial_idx = 0, .temporal_idx = 0}, DataRate::KilobitsPerSec(64)}}};
+ 
+ const EncodingSettings kQvga64Kbps30Fps = {
+     .scalability_mode = ScalabilityMode::kL1T1,
+@@ -116,35 +115,37 @@ const EncodingSettings kQvga64Kbps30Fps = {
+     .bitrate = {
+         {{.spatial_idx = 0, .temporal_idx = 0}, DataRate::KilobitsPerSec(64)}}};
+ 
+-const EncodingSettings kQvga256Kbps30Fps = {
++const EncodingSettings kQvga128Kbps30Fps = {
+     .scalability_mode = ScalabilityMode::kL1T1,
+     .resolution = {{0, {.width = 320, .height = 180}}},
+     .framerate = Frequency::Hertz(30),
+     .bitrate = {{{.spatial_idx = 0, .temporal_idx = 0},
+-                 DataRate::KilobitsPerSec(256)}}};
++                 DataRate::KilobitsPerSec(128)}}};
+ 
+-const EncodingSettings kQvga512Kbps30Fps = {
++const EncodingSettings kQvga128Kbps30Fps = {
+     .scalability_mode = ScalabilityMode::kL1T1,
+     .resolution = {{0, {.width = 320, .height = 180}}},
+     .framerate = Frequency::Hertz(30),
+     .bitrate = {{{.spatial_idx = 0, .temporal_idx = 0},
+-                 DataRate::KilobitsPerSec(512)}}};
++                 DataRate::KilobitsPerSec(256)}}};
+ 
+ const EncodingTestSettings kConstantRateQvga64Kbps30Fps = {
+     .name = "ConstantRateQvga64Kbps30Fps",
+-    .num_frames = 300,
++    .num_frames = 100,  // ssilkin
+     .frame_settings = {{/*frame_num=*/0, kQvga64Kbps30Fps}}};
+ 
+-const EncodingTestSettings kConstantRateQvga64_256_512Kbps30Fps = {
+-    .name = "ConstantRateQvga64_256_512Kbps30Fps",
+-    .num_frames = 300,
+-    .frame_settings = {{/*frame_num=*/0, kQvga64Kbps30Fps},
+-                       {/*frame_num=*/100, kQvga256Kbps30Fps},
+-                       {/*frame_num=*/200, kQvga512Kbps30Fps}}};
+-
+-const VideoInfo kFourPeople_1280x720_30 = {
+-    .name = "FourPeople_1280x720_30",
+-    .resolution = {.width = 1280, .height = 720}};
++const EncodingTestSettings kConstantRateQvga256Kbps30Fps = {
++    .name = "ConstantRateQvga256Kbps30Fps",
++    .num_frames = 100,  // ssilkin
++    .frame_settings = {{/*frame_num=*/0, kQvga256Kbps30Fps}}};
++
++EncodingTestSettings ConstantRateEncodingSettings(int width,
++                                                  int height,
++                                                  DataRate bitrate,
++                                                  Frequency framerate) {
++  std::string name = std::string();
++  return EncodingTestSettings{.};
++}
+ 
+ class TestRawVideoSource : public VideoCodecTester::RawVideoSource {
+  public:
+@@ -445,6 +446,26 @@ void SetTargetRates(const std::map<int, EncodingSettings>& frame_settings,
+ 
+ }  // namespace
+ 
++struct CodecSettings {
++  CodecInfo codec;
++  VideoCodecTester::EncoderSettings encoder_settings;
++  VideoCodecTester::DecoderSettings decoder_settings;
++};
++
++struct TestExpectations {
++  double min_avg_psnr_y;
++};
++
++struct EncodeDecodeTestParams {
++  CodecInfo codec;
++  VideoInfo video;
++  VideoCodecTester::EncoderSettings encoder_settings;
++  VideoCodecTester::DecoderSettings decoder_settings;
++  EncodingTestSettings encoding_settings;
++  DecodingTestSettings decoding_settings;
++  TestExpectations test_expectations;
++};
++
+ class EncodeDecodeTest
+     : public ::testing::TestWithParam<EncodeDecodeTestParams> {
+  public:
+@@ -465,6 +486,13 @@ class EncodeDecodeTest
+     tester_ = CreateVideoCodecTester();
+   }
+ 
++  static std::string TestCaseName(const EncodeDecodeTestParams& params) {
++    return std::string("encoding_settings=" + params.encoding_settings.name +
++                       "|codec_type=" + params.codec.type +
++                       "|encoder=" + params.codec.encoder + "|decoder=" +
++                       params.codec.decoder + "|video=" + params.video.name);
++  }
++
+   static std::string TestParametersToStr(
+       const ::testing::TestParamInfo<EncodeDecodeTest::ParamType>& info) {
+     return std::string(info.param.encoding_settings.name +
+@@ -497,45 +525,61 @@ TEST_P(EncodeDecodeTest, DISABLED_TestEncodeDecode) {
+     SetTargetRates(frame_settings, frames);
+     VideoCodecStats::Stream stream = stats->Aggregate(frames);
+     EXPECT_GE(stream.psnr.y.GetAverage(),
+-              test_params_.test_expectations.min_apsnr_y);
++              test_params_.test_expectations.min_avg_psnr_y);
+   }
+ 
+-  // TODO(webrtc:14852): Log metrics per spatial and temporal layer.
+   std::vector<VideoCodecStats::Frame> frames = stats->Slice();
+   SetTargetRates(frame_settings, frames);
+   VideoCodecStats::Stream stream = stats->Aggregate(frames);
+-  stats->LogMetrics(
+-      GetGlobalMetricsLogger(), stream,
+-      ::testing::UnitTest::GetInstance()->current_test_info()->name());
++  stats->LogMetrics(GetGlobalMetricsLogger(), stream,
++                    TestCaseName(test_params_));
+ }
+ 
+-INSTANTIATE_TEST_SUITE_P(
+-    ConstantRate,
+-    EncodeDecodeTest,
+-    ::testing::ValuesIn({
+-      EncodeDecodeTestParams({
+-          .codec = {.type = "VP8", .encoder = "libvpx", .decoder = "libvpx"},
+-          .video = kFourPeople_1280x720_30,
+-          .encoder_settings = {.pacing = {.mode = PacingMode::kNoPacing}},
+-          .decoder_settings = {.pacing = {.mode = PacingMode::kNoPacing}},
+-          .encoding_settings = kConstantRateQvga64_256_512Kbps30Fps,
+-          .test_expectations = {.min_apsnr_y = 30.0},
+-      })
++std::list<EncodeDecodeTestParams> ConstantRateTestParameters() {
++  std::list<EncodeDecodeTestParams> test_params;
++  std::vector<CodecSettings> codecs = {
++      {.codec = {.type = "VP8", .encoder = "libvpx", .decoder = "libvpx"},
++       .encoder_settings = {.pacing = {.mode = PacingMode::kNoPacing}},
++       .decoder_settings = {.pacing = {.mode = PacingMode::kNoPacing}}}};
++
+ #if defined(WEBRTC_ANDROID)
+-          ,
+-          EncodeDecodeTestParams({
+-              .codec = {.type = "VP8",
+-                        .encoder = "mediacodec",
+-                        .decoder = "mediacodec"},
+-              .video = kFourPeople_1280x720_30,
+-              .encoder_settings = {.pacing = {.mode = PacingMode::kRealTime}},
+-              .decoder_settings = {.pacing = {.mode = PacingMode::kRealTime}},
+-              .encoding_settings = kConstantRateQvga64Kbps30Fps,
+-              .test_expectations = {.min_apsnr_y = 30.0},
+-          })
++  codecs.push_back(
++      {.codec = {.type = "VP8",
++                 .encoder = "mediacodec",
++                 .decoder = "mediacodec"},
++       .encoder_settings = {.pacing = {.mode = PacingMode::kRealTime}},
++       .decoder_settings = {.pacing = {.mode = PacingMode::kRealTime}}});
+ #endif
+-    }),
+-    EncodeDecodeTest::TestParametersToStr);
++
++  std::vector<VideoInfo> videos = {kFourPeople_1280x720_30};
++
++  width, height, bitrate, psnr
++
++  std::vector<std::pair<EncodingTestSettings, TestExpectations>> test_settings =
++      {{ConstantRateEncodingSettings(320, 180, DataRate::KilobitsPerSec(32),
++                                     Frequency::Hertz(30)),
++        {.min_avg_psnr_y = 25}},
++       {kConstantRateQvga256Kbps30Fps, {.min_avg_psnr_y = 30}}};
++
++  for (const CodecSettings& codec : codecs) {
++    for (const VideoInfo& video : videos) {
++      for (const auto& [encoding_settings, test_expectations] : test_settings) {
++        EncodeDecodeTestParams p;
++        p.codec = codec.codec;
++        p.video = video;
++        p.encoding_settings = encoding_settings;
++        p.test_expectations = test_expectations;
++        test_params.push_back(p);
++      }
++    }
++  }
++  return test_params;
++}
++
++INSTANTIATE_TEST_SUITE_P(ConstantRate,
++                         EncodeDecodeTest,
++                         ::testing::ValuesIn(ConstantRateTestParameters()),
++                         EncodeDecodeTest::TestParametersToStr);
+ }  // namespace test
+ 
+ }  // namespace webrtc

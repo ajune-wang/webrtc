@@ -1,0 +1,34 @@
+diff --git a/rtc_base/numerics/running_statistics.h b/rtc_base/numerics/running_statistics.h
+index bbcc7e2a73..1cc86c7b88 100644
+--- a/rtc_base/numerics/running_statistics.h
++++ b/rtc_base/numerics/running_statistics.h
+@@ -57,6 +57,7 @@ class RunningStatistics {
+     mean_ += delta / size_;
+     const double delta2 = sample - mean_;
+     cumul_ += delta * delta2;
++    sum_ += sample;
+   }
+ 
+   // Remove a previously added value in O(1) time.
+@@ -147,12 +148,21 @@ class RunningStatistics {
+     return std::sqrt(*GetVariance());
+   }
+ 
++  // Returns sum in O(1) time.
++  absl::optional<double> GetSum() const {
++    if (size_ == 0) {
++      return absl::nullopt;
++    }
++    return sum_;
++  }
++
+  private:
+   int64_t size_ = 0;  // Samples seen.
+   T min_ = infinity_or_max<T>();
+   T max_ = minus_infinity_or_min<T>();
+   double mean_ = 0;
+   double cumul_ = 0;  // Variance * size_, sometimes noted m2.
++  double sum_ = 0;
+ };
+ 
+ }  // namespace webrtc_impl

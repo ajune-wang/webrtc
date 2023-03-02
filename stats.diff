@@ -1,0 +1,99 @@
+diff --git a/api/numerics/samples_stats_counter.cc b/api/numerics/samples_stats_counter.cc
+index 4eb0cde299..c2e976d190 100644
+--- a/api/numerics/samples_stats_counter.cc
++++ b/api/numerics/samples_stats_counter.cc
+@@ -35,6 +35,10 @@ void SamplesStatsCounter::AddSample(double value) {
+   AddSample(StatsSample{value, Timestamp::Micros(rtc::TimeMicros())});
+ }
+ 
++void SamplesStatsCounter::AddSample(double value, Timestamp time) {
++  AddSample(StatsSample{value, time});
++}
++
+ void SamplesStatsCounter::AddSample(StatsSample sample) {
+   stats_.AddSample(sample.value);
+   samples_.push_back(sample);
+diff --git a/api/numerics/samples_stats_counter.h b/api/numerics/samples_stats_counter.h
+index 9d72296317..c79e9c6020 100644
+--- a/api/numerics/samples_stats_counter.h
++++ b/api/numerics/samples_stats_counter.h
+@@ -43,6 +43,7 @@ class SamplesStatsCounter {
+ 
+   // Adds sample to the stats in amortized O(1) time.
+   void AddSample(double value);
++  void AddSample(double value, Timestamp time);
+   void AddSample(StatsSample sample);
+ 
+   // Adds samples from another counter.
+@@ -65,6 +66,12 @@ class SamplesStatsCounter {
+     RTC_DCHECK(!IsEmpty());
+     return *stats_.GetMax();
+   }
++  // Returns sum in O(1) time. This function may not be called if there are
++  // no samples.
++  double GetSum() const {
++    RTC_DCHECK(!IsEmpty());
++    return *stats_.GetSum();
++  }
+   // Returns average in O(1) time. This function may not be called if there are
+   // no samples.
+   double GetAverage() const {
+diff --git a/api/numerics/samples_stats_counter_unittest.cc b/api/numerics/samples_stats_counter_unittest.cc
+index 1f9cabfb29..d1614f2e2d 100644
+--- a/api/numerics/samples_stats_counter_unittest.cc
++++ b/api/numerics/samples_stats_counter_unittest.cc
+@@ -61,6 +61,7 @@ TEST(SamplesStatsCounterTest, FullSimpleTest) {
+   EXPECT_TRUE(!stats.IsEmpty());
+   EXPECT_DOUBLE_EQ(stats.GetMin(), 1.0);
+   EXPECT_DOUBLE_EQ(stats.GetMax(), 100.0);
++  EXPECT_DOUBLE_EQ(stats.GetSum(), 5050.0);
+   EXPECT_NEAR(stats.GetAverage(), 50.5, 1e-6);
+   for (int i = 1; i <= 100; i++) {
+     double p = i / 100.0;
+diff --git a/rtc_base/numerics/running_statistics.h b/rtc_base/numerics/running_statistics.h
+index bbcc7e2a73..fe991b043f 100644
+--- a/rtc_base/numerics/running_statistics.h
++++ b/rtc_base/numerics/running_statistics.h
+@@ -51,6 +51,7 @@ class RunningStatistics {
+   void AddSample(T sample) {
+     max_ = std::max(max_, sample);
+     min_ = std::min(min_, sample);
++    sum_ += sample;
+     ++size_;
+     // Welford's incremental update.
+     const double delta = sample - mean_;
+@@ -123,6 +124,14 @@ class RunningStatistics {
+     return max_;
+   }
+ 
++  // Returns sum in O(1) time.
++  absl::optional<double> GetSum() const {
++    if (size_ == 0) {
++      return absl::nullopt;
++    }
++    return sum_;
++  }
++
+   // Returns mean in O(1) time.
+   absl::optional<double> GetMean() const {
+     if (size_ == 0) {
+@@ -153,6 +162,7 @@ class RunningStatistics {
+   T max_ = minus_infinity_or_min<T>();
+   double mean_ = 0;
+   double cumul_ = 0;  // Variance * size_, sometimes noted m2.
++  double sum_ = 0;
+ };
+ 
+ }  // namespace webrtc_impl
+diff --git a/rtc_base/numerics/running_statistics_unittest.cc b/rtc_base/numerics/running_statistics_unittest.cc
+index d593f3fc5a..7f8adfba24 100644
+--- a/rtc_base/numerics/running_statistics_unittest.cc
++++ b/rtc_base/numerics/running_statistics_unittest.cc
+@@ -61,6 +61,7 @@ TEST(RunningStatistics, FullSimpleTest) {
+ 
+   EXPECT_DOUBLE_EQ(*stats.GetMin(), 1.0);
+   EXPECT_DOUBLE_EQ(*stats.GetMax(), 100.0);
++  EXPECT_DOUBLE_EQ(*stats.GetSum(), 5050.0);
+   // EXPECT_DOUBLE_EQ is too strict (max 4 ULP) for this one.
+   ASSERT_NEAR(*stats.GetMean(), 50.5, 1e-10);
+ }

@@ -1,0 +1,108 @@
+diff --git a/api/video_codecs/video_encoder.cc b/api/video_codecs/video_encoder.cc
+index b85b9328cf..0b7d1e5b12 100644
+--- a/api/video_codecs/video_encoder.cc
++++ b/api/video_codecs/video_encoder.cc
+@@ -334,4 +334,6 @@ VideoEncoder::EncoderInfo VideoEncoder::GetEncoderInfo() const {
+   return EncoderInfo();
+ }
+ 
++void VideoEncoder::Flush() {}
++
+ }  // namespace webrtc
+diff --git a/api/video_codecs/video_encoder.h b/api/video_codecs/video_encoder.h
+index 36dc5225c6..3337370186 100644
+--- a/api/video_codecs/video_encoder.h
++++ b/api/video_codecs/video_encoder.h
+@@ -421,6 +421,8 @@ class RTC_EXPORT VideoEncoder {
+   // hardware encoder fails, it may fall back to doing software encoding using
+   // an implementation with different characteristics.
+   virtual EncoderInfo GetEncoderInfo() const;
++
++  virtual void Flush();
+ };
+ }  // namespace webrtc
+ #endif  // API_VIDEO_CODECS_VIDEO_ENCODER_H_
+diff --git a/modules/video_coding/codecs/test/video_codec_test.cc b/modules/video_coding/codecs/test/video_codec_test.cc
+index bf61036c9b..2977f8c152 100644
+--- a/modules/video_coding/codecs/test/video_codec_test.cc
++++ b/modules/video_coding/codecs/test/video_codec_test.cc
+@@ -210,6 +210,10 @@ class TestEncoder : public VideoCodecTester::Encoder,
+     encoder_->RegisterEncodeCompleteCallback(this);
+   }
+ 
++  ~TestEncoder() {
++    encoder_->Release();
++  }
++
+   void Encode(const VideoFrame& frame, EncodeCallback callback) override {
+     callbacks_[frame.timestamp()] = std::move(callback);
+ 
+@@ -233,7 +237,7 @@ class TestEncoder : public VideoCodecTester::Encoder,
+     // TODO(webrtc:14852): For codecs which buffer frames we need a to
+     // flush them to get last frames. Add such functionality to VideoEncoder
+     // API. On Android it will map directly to `MediaCodec.flush()`.
+-    encoder_->Release();
++    encoder_->Flush();
+   }
+ 
+  protected:
+diff --git a/sdk/android/api/org/webrtc/VideoEncoder.java b/sdk/android/api/org/webrtc/VideoEncoder.java
+index 0d8cf830ae..f2437917be 100644
+--- a/sdk/android/api/org/webrtc/VideoEncoder.java
++++ b/sdk/android/api/org/webrtc/VideoEncoder.java
+@@ -382,4 +382,7 @@ public interface VideoEncoder {
+     return new EncoderInfo(
+         /* requestedResolutionAlignment= */ 1, /* applyAlignmentToAllSimulcastLayers= */ false);
+   }
++
++  @CalledByNative
++  default flush() {}
+ }
+diff --git a/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java b/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java
+index 32656c5464..1778118ddd 100644
+--- a/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java
++++ b/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java
+@@ -517,6 +517,14 @@ class HardwareVideoEncoder implements VideoEncoder {
+         /* applyAlignmentToAllSimulcastLayers= */ false);
+   }
+ 
++  @Override
++  public flush() {
++    encodeThreadChecker.checkIsOnValidThread();
++    if (codec != null) {
++      codec.flush();
++    }
++  }
++
+   private VideoCodecStatus resetCodec(int newWidth, int newHeight, boolean newUseSurfaceMode) {
+     encodeThreadChecker.checkIsOnValidThread();
+     VideoCodecStatus status = release();
+diff --git a/sdk/android/src/jni/video_encoder_wrapper.cc b/sdk/android/src/jni/video_encoder_wrapper.cc
+index c23ab1e485..065eb27e40 100644
+--- a/sdk/android/src/jni/video_encoder_wrapper.cc
++++ b/sdk/android/src/jni/video_encoder_wrapper.cc
+@@ -309,6 +309,11 @@ void VideoEncoderWrapper::OnEncodedFrame(
+   callback_->OnEncodedImage(frame_copy, &info);
+ }
+ 
++void VideoEncoderWrapper::Flush() {
++  JNIEnv* jni = AttachCurrentThreadIfNeeded();
++  Java_VideoEncoder_flush(jni, encoder_);
++}
++
+ int32_t VideoEncoderWrapper::HandleReturnCode(JNIEnv* jni,
+                                               const JavaRef<jobject>& j_value,
+                                               const char* method_name) {
+diff --git a/sdk/android/src/jni/video_encoder_wrapper.h b/sdk/android/src/jni/video_encoder_wrapper.h
+index 5c5aab7588..6595f6c41c 100644
+--- a/sdk/android/src/jni/video_encoder_wrapper.h
++++ b/sdk/android/src/jni/video_encoder_wrapper.h
+@@ -54,6 +54,8 @@ class VideoEncoderWrapper : public VideoEncoder {
+   void OnEncodedFrame(JNIEnv* jni,
+                       const JavaRef<jobject>& j_encoded_image);
+ 
++  void Flush() override;
++
+  private:
+   struct FrameExtraInfo {
+     int64_t capture_time_ns;  // Used as an identifier of the frame.

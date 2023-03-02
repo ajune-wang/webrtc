@@ -145,11 +145,22 @@ rtc::scoped_refptr<SctpDataChannel> SctpDataChannel::Create(
     const InternalDataChannelInit& config,
     rtc::Thread* signaling_thread,
     rtc::Thread* network_thread) {
-  auto channel = rtc::make_ref_counted<SctpDataChannel>(
-      config, std::move(controller), label, signaling_thread, network_thread);
-  if (!channel->Init()) {
+  if (config.id < -1 || (config.maxRetransmits && *config.maxRetransmits < 0) ||
+      (config.maxRetransmitTime && *config.maxRetransmitTime < 0)) {
+    RTC_LOG(LS_ERROR) << "Failed to initialize the SCTP data channel due to "
+                         "invalid DataChannelInit.";
     return nullptr;
   }
+
+  if (config.maxRetransmits && config.maxRetransmitTime) {
+    RTC_LOG(LS_ERROR)
+        << "maxRetransmits and maxRetransmitTime should not be both set.";
+    return nullptr;
+  }
+
+  auto channel = rtc::make_ref_counted<SctpDataChannel>(
+      config, std::move(controller), label, signaling_thread, network_thread);
+  channel->Init();
   return channel;
 }
 
@@ -176,22 +187,10 @@ SctpDataChannel::SctpDataChannel(
       controller_(std::move(controller)) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_UNUSED(network_thread_);
-}
-
-bool SctpDataChannel::Init() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (config_.id < -1 ||
-      (config_.maxRetransmits && *config_.maxRetransmits < 0) ||
-      (config_.maxRetransmitTime && *config_.maxRetransmitTime < 0)) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize the SCTP data channel due to "
-                         "invalid DataChannelInit.";
-    return false;
-  }
-  if (config_.maxRetransmits && config_.maxRetransmitTime) {
-    RTC_LOG(LS_ERROR)
-        << "maxRetransmits and maxRetransmitTime should not be both set.";
-    return false;
-  }
+  RTC_DCHECK(controller_);
+  RTC_DCHECK_GE(config.id, -1);
+  RTC_DCHECK(!config.maxRetransmits || *config.maxRetransmits >= 0);
+  RTC_DCHECK(!config.maxRetransmitTime || *config.maxRetransmitTime >= 0);
 
   switch (config_.open_handshake_role) {
     case webrtc::InternalDataChannelInit::kNone:  // pre-negotiated
@@ -204,6 +203,10 @@ bool SctpDataChannel::Init() {
       handshake_state_ = kHandshakeShouldSendAck;
       break;
   }
+}
+
+void SctpDataChannel::Init() {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
 
   // Try to connect to the transport in case the transport channel already
   // exists.
@@ -224,8 +227,6 @@ bool SctpDataChannel::Init() {
         OnTransportReady(true);
     });
   }
-
-  return true;
 }
 
 SctpDataChannel::~SctpDataChannel() {

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ee04b4_e425d5b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Thanks for patiently review. Fix all comments in CL[1].\n\n[1] https://webrtc-review.googlesource.com/c/src/+/295640",
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21c68ab2_4fa3812b",
@@ -31,6 +48,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "Nit: consider MutexLock scope here.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40ef25d6_db884a7e",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "The scope locking needs extra codes like below, and that `start` is assigned twice.\nI hope to keep as it is.\n\n```\n  bool started \u003d false;\n  {\n    MutexLock lock(\u0026logging_mutex_);\n    started \u003d logging_state_started_;\n  }\n```",
+      "parentUuid": "21c68ab2_4fa3812b",
       "range": {
         "startLine": 66,
         "startChar": 2,
@@ -64,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88d32a2f_69678015",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4476beb5_7d83c468",
+      "range": {
+        "startLine": 121,
+        "startChar": 20,
+        "endLine": 121,
+        "endChar": 45
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a6ec162_c0eb1c1b",
@@ -77,6 +142,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "Nit: let this remain at the top to retain history.",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 11
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc7a122_b7592d90",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a6ec162_c0eb1c1b",
       "range": {
         "startLine": 162,
         "startChar": 2,
@@ -110,6 +199,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95f95282_b5e0a541",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87817730_75bc7c37",
+      "range": {
+        "startLine": 166,
+        "startChar": 6,
+        "endLine": 169,
+        "endChar": 61
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01831df4_1042337a",
@@ -123,6 +236,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "Consider the following scenario:\n\n1. StartLogging\n2. Log (PostTasks because ShouldOutput())\n3. Log (PostTasks because ShouldOutput())\n4. event_output_-\u003eWrite in WriteToOutput returns false, resets output.\n5. Fails DCHECK on line 175.\n\nCan you add a test for the case and fix? Possibly the fix is just to check that there\u0027s an event output in WriteToOutput and remove DCHECKs along the way there.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "571bcebd_6abfa92c",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Added the test case in a separate CL.",
+      "parentUuid": "01831df4_1042337a",
       "range": {
         "startLine": 175,
         "startChar": 0,
@@ -156,6 +293,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ffc6f8c_96ed57c7",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19c8cee0_c3c43363",
+      "range": {
+        "startLine": 184,
+        "startChar": 22,
+        "endLine": 184,
+        "endChar": 34
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e51ad85_1a216838",
@@ -169,6 +330,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "Remove this, annotate the method in the header with RTC_EXCLUSIVE_LOCKS_REQUIRED, and prepend this method with\n```\n// RTC_EXCLUSIVE_LOCKS_REQUIRED(logging_mutex_)\n```\nto turn this into a compile-time check instead.",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 16
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1096892c_dc13bdda",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e51ad85_1a216838",
       "range": {
         "startLine": 185,
         "startChar": 2,
@@ -202,6 +387,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0151b1e5_75fcb858",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d922ca3_6bdfdcb9",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 16
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f65f4c11_421c9f33",
@@ -215,6 +424,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "You can put the MutexLock in without an extra scope since the containing scope exits right after.",
+      "range": {
+        "startLine": 216,
+        "startChar": 6,
+        "endLine": 216,
+        "endChar": 7
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24cd83ff_0fe6d80c",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f65f4c11_421c9f33",
       "range": {
         "startLine": 216,
         "startChar": 6,
@@ -248,6 +481,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6013d607_e1683ffc",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e1f42f_143b2495",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 30
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "979e46f0_d442fbab",
@@ -261,6 +518,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "Suggest removing the ref and std::move() args from all call sites. Also note the suggestion on using Histories.",
+      "range": {
+        "startLine": 261,
+        "startChar": 41,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59cbf48_5200e6c9",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "979e46f0_d442fbab",
       "range": {
         "startLine": 261,
         "startChar": 41,
@@ -294,6 +575,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be7e3543_1701a698",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cff12de_f6c7ff3f",
+      "range": {
+        "startLine": 292,
+        "startChar": 44,
+        "endLine": 292,
+        "endChar": 69
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f137d131_3ac7bf94",
@@ -307,6 +612,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "This is unused now and should be removed.",
+      "range": {
+        "startLine": 95,
+        "startChar": 40,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ae1d048_bb51d139",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f137d131_3ac7bf94",
       "range": {
         "startLine": 95,
         "startChar": 40,
@@ -340,6 +669,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f03e6ff_8235bda9",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Thanks. It makes the code much concise.",
+      "parentUuid": "19157416_620a1bbb",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 39
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60887072_47d176ea",
@@ -353,6 +706,30 @@
       "writtenOn": "2023-02-10T17:15:09Z",
       "side": 1,
       "message": "Mutable can be dropped.\nNit: since there\u0027s just one mutex here, you can just call it `mutex_`.",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 9
+      },
+      "revId": "9618bef2c90b40d77c47426f90b5541a5ec004eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be1ef083_45387d7b",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-03T01:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60887072_47d176ea",
       "range": {
         "startLine": 130,
         "startChar": 2,

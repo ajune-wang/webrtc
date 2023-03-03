@@ -277,8 +277,11 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
     video_config.frame_encryptor = frame_encryptor;
     video_config.require_frame_encryption =
         crypto_options.sframe.require_frame_encryption;
-    video_config.enable_retransmit_all_layers = false;
     video_config.field_trials = &trials;
+    video_config.enable_retransmit_all_layers =
+        absl::StartsWith(video_config.field_trials->Lookup(
+                             "WebRTC-Video-EnableRetransmitAllLayers"),
+                         "Enabled");
 
     const bool using_flexfec =
         fec_generator &&
@@ -922,14 +925,14 @@ int RtpVideoSender::ProtectionRequest(const FecProtectionParams* delta_params,
   *sent_nack_rate_bps = 0;
   *sent_fec_rate_bps = 0;
   for (const RtpStreamSender& stream : rtp_streams_) {
-      stream.rtp_rtcp->SetFecProtectionParams(*delta_params, *key_params);
+    stream.rtp_rtcp->SetFecProtectionParams(*delta_params, *key_params);
 
-      auto send_bitrate = stream.rtp_rtcp->GetSendRates();
-      *sent_video_rate_bps += send_bitrate[RtpPacketMediaType::kVideo].bps();
-      *sent_fec_rate_bps +=
-          send_bitrate[RtpPacketMediaType::kForwardErrorCorrection].bps();
-      *sent_nack_rate_bps +=
-          send_bitrate[RtpPacketMediaType::kRetransmission].bps();
+    auto send_bitrate = stream.rtp_rtcp->GetSendRates();
+    *sent_video_rate_bps += send_bitrate[RtpPacketMediaType::kVideo].bps();
+    *sent_fec_rate_bps +=
+        send_bitrate[RtpPacketMediaType::kForwardErrorCorrection].bps();
+    *sent_nack_rate_bps +=
+        send_bitrate[RtpPacketMediaType::kRetransmission].bps();
   }
   return 0;
 }

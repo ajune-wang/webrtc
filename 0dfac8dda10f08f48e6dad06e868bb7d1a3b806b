@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa458cb6_ffd0ed4f",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T10:48:27Z",
+      "side": 1,
+      "message": "I know we usually use absl::optional\u003cstd::string\u003e rather than empty string to mean missing, but RidAndResolution is a test-only struct defined in this file and by not changing rid to absl::optional\u003c\u003e the tests can continue to initialize these structs with as {\"f\", 1280, 720} etc rather than {absl::optional\u003cstd::string\u003e(\"f\"), 1280, 720}. The alternative would be to create a new helper function to use instead of HasOutboundRtpExpectedResolutions() because RID being missing is only applicable when we have a single stream but I didn\u0027t feel like duplicating code",
+      "revId": "0dfac8dda10f08f48e6dad06e868bb7d1a3b806b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

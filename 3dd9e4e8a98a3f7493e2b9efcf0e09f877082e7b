@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ab40bf_7b4ddd5a",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T15:48:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "592107d2_e5b4592f",
+      "revId": "3dd9e4e8a98a3f7493e2b9efcf0e09f877082e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a5dc866_25ce14f0",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-01T08:42:14Z",
       "side": 1,
       "message": "the names \"rtp\", \"received-rtp\" and \"sent-rtp\" are a bit confusing since they don\u0027t match spec names. Maybe rename to virtual-... to make it clear these are just there for inheritance reason and should not show up in practice?",
+      "revId": "3dd9e4e8a98a3f7493e2b9efcf0e09f877082e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "046c2aca_f9272e0a",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T15:48:32Z",
+      "side": 1,
+      "message": "I\u0027d vote for an RTCStatsType enum and a separate \"TypeToStr\" method, the assumption that the type() is always \u003d\u003d to T::kType breaks in chromium due to component build issues and the check in cast_to\u003cT\u003e() doesn\u0027t work for these common classes",
+      "parentUuid": "4a5dc866_25ce14f0",
       "revId": "3dd9e4e8a98a3f7493e2b9efcf0e09f877082e7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

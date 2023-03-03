@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b98df8_d9b1c90e",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T16:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61596198_7475f02a",
+      "range": {
+        "startLine": 1268,
+        "startChar": 7,
+        "endLine": 1268,
+        "endChar": 39
+      },
+      "revId": "3d8a9b420a008d8be024daf984d86e250ba09e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1c49116_c1ed7c34",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-03T16:37:40Z",
       "side": 1,
       "message": "Should be able to remove the std::string",
+      "range": {
+        "startLine": 1315,
+        "startChar": 23,
+        "endLine": 1315,
+        "endChar": 34
+      },
+      "revId": "3d8a9b420a008d8be024daf984d86e250ba09e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d71bdcd_5fd263d5",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T16:56:47Z",
+      "side": 1,
+      "message": "The matcher gets confused if I do",
+      "parentUuid": "a1c49116_c1ed7c34",
       "range": {
         "startLine": 1315,
         "startChar": 23,

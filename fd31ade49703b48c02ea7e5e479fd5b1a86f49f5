@@ -52,6 +52,24 @@
       "parentUuid": "df33a5e3_1de4c1d5",
       "revId": "fd31ade49703b48c02ea7e5e479fd5b1a86f49f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe438b8_6581f233",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T15:04:17Z",
+      "side": 1,
+      "message": "Florent confirmed: L1T1 is expected. The reason we see L1T2/L1T3 in conferencing mode is because of field trial \"WebRTC-VP8ConferenceTemporalLayers\" but with the scalabilityMode API the app will be able to control this explicitly and that field trial not needed",
+      "parentUuid": "48844290_0f211969",
+      "revId": "fd31ade49703b48c02ea7e5e479fd5b1a86f49f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

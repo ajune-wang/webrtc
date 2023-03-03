@@ -24,12 +24,26 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_frame_transformer.h"
+#include "test/mock_transformable_frame.h"
 
 namespace webrtc {
 namespace {
 
+using testing::Each;
+using testing::ElementsAreArray;
 using testing::NiceMock;
 using testing::Return;
+
+TEST(FrameTransformerFactory, CloneAudioFrame) {
+  NiceMock<MockTransformableFrame> original_frame;
+  uint8_t data[10];
+  std::fill_n(data, 10, 5);
+  rtc::ArrayView<uint8_t> data_view(data);
+  ON_CALL(original_frame, GetData()).WillByDefault(Return(data_view));
+  auto cloned_frame = CloneAudioFrame(&original_frame);
+
+  EXPECT_THAT(cloned_frame->GetData(), ElementsAreArray(data));
+}
 
 TEST(FrameTransformerFactory, CloneVideoFrame) {
   NiceMock<MockTransformableVideoFrame> original_frame;
@@ -46,7 +60,7 @@ TEST(FrameTransformerFactory, CloneVideoFrame) {
   auto cloned_frame = CloneVideoFrame(&original_frame);
 
   EXPECT_EQ(cloned_frame->GetData().size(), 10u);
-  EXPECT_THAT(cloned_frame->GetData(), testing::Each(5u));
+  EXPECT_THAT(cloned_frame->GetData(), Each(5u));
   EXPECT_EQ(cloned_frame->Metadata().GetCsrcs(), csrcs);
 }
 

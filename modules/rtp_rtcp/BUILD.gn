@@ -715,6 +715,7 @@ if (rtc_include_tests) {
       "../../modules/rtp_rtcp",
       "../../rtc_base:rtc_event",
       "../../test:mock_frame_transformer",
+      "../../test:mock_transformable_frame",
       "../../test:test_support",
       "../../video",
     ]

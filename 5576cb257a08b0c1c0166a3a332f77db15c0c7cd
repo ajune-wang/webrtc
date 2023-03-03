@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4be570eb_1aab3e16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:32:33Z",
+      "side": 1,
+      "message": "Understand the need for the helper now, but make it private!",
+      "revId": "5576cb257a08b0c1c0166a3a332f77db15c0c7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8afa5aa4_00191215",
@@ -53,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f98ab543_d5df7e86",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:32:33Z",
+      "side": 1,
+      "message": "ah - the old code *always* dispatched, so the first copy was part of the processing.\nI guess there is no guarantee that OnPacketReceived is the only function handling the packet, so passing it by reference or moving it into the function is not appropriate.",
+      "parentUuid": "93ef5af3_bda67c66",
+      "revId": "5576cb257a08b0c1c0166a3a332f77db15c0c7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "495519bc_72f129d3",
@@ -72,6 +107,23 @@
         "endLine": 1759,
         "endChar": 25
       },
+      "revId": "5576cb257a08b0c1c0166a3a332f77db15c0c7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "883ca1cb_2ef0f292",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:32:33Z",
+      "side": 1,
+      "message": "Move this function out of the \"implements interface\" section and make it private. This class already has far too many public methods. (it\u0027s a chief target of my \"split the channels\" project).",
       "revId": "5576cb257a08b0c1c0166a3a332f77db15c0c7cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

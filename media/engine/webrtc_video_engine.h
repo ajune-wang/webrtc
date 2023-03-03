@@ -239,6 +239,9 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   WebRtcVideoReceiveStream* FindReceiveStream(uint32_t ssrc)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
 
+  void ProcessReceivedPacket(webrtc::RtpPacketReceived packet)
+      RTC_RUN_ON(thread_checker_);
+
   struct VideoCodecSettings {
     VideoCodecSettings();
 

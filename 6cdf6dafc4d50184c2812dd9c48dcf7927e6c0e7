@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4425c1e_913b9e85",
+        "filename": "api/frame_transformer_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T15:56:35Z",
+      "side": 1,
+      "message": "A couple of layers up the stack, we know it\u0027s an audio frame, and one branch of the IF already casts it to audio:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_encoded_audio_underlying_source.cc;drc\u003d9c380e842c2cd103807c0b4bfcf210ec629785eb;l\u003d84\n\nLet\u0027s plumb it to audio all the way down.",
+      "parentUuid": "593a8118_bb2c2c66",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfa3193_1196891d",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 10

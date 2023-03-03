@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49d72f2_0102e073",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-03T12:47:29Z",
+      "side": 1,
+      "message": "It\u0027s probably better to use FieldTrialsView::IsEnabled:\n```\nvideo_config.enable_retransmit_all_layers \u003d video_config.field_trials-\u003eIsEnabled(\"WebRTC-Video-EnableRetransmitAllLayers\");\n```\n\nwdyt?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/field_trials_view.h;l\u003d34;drc\u003d9c380e842c2cd103807c0b4bfcf210ec629785eb",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 284,
+        "endChar": 36
+      },
+      "revId": "e484e12ea5a9bb043d0f26a9702c77c5fd79a81a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa235939_7a4c74ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-03T11:14:27Z",
+      "side": 1,
+      "message": "Nice! I have two suggestions to make it more robust, but I believe they should be easy to implement.",
+      "revId": "fe9f2ff5021c3818e200dbfe73767eee812ed84c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495f8d4c_f83f5293",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-03T11:14:27Z",
+      "side": 1,
+      "message": "Could we use the same ExtractRecentHistories pattern here as in the Log() method?\n\nSpecifically, I\u0027m worrying about the case where histories are full, and then\n1. StartLogging() is called. logging_state_started_ is set. A task that will clear the histories is posted.\n2. Log() is called with a new event. This calls LogToMemory().\n3. LogToMemory() pops the oldest event because histories are still full and hits RTC_DCHECK(!logging_state_started_).\n4. The task posted by StartLogging() executes.\n\nMy thinking is that if everything in recent_ and all_config_history_ (at the time of the StartLogging call) is moved/swapped to a temnporary object before output, we\u0027re guaranteed to not lose any event and the histories start in a clean state during the logging.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 57
+      },
+      "revId": "fe9f2ff5021c3818e200dbfe73767eee812ed84c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6272b3bb_7a1e1719",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-03T11:14:27Z",
+      "side": 1,
+      "message": "Can we change this to\n```\nif (event_output_) {\n  RTC_DCHECK(event_output_-\u003eIsActive());\n  if (!event_output_-\u003eWrite(output_string)) {\n    ...\n  }\n}\n```\ni.e. same pattern as used everywhere else in the file?",
+      "revId": "fe9f2ff5021c3818e200dbfe73767eee812ed84c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

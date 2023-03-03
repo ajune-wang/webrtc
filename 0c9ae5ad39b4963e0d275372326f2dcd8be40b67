@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27e8086_290935c7",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T10:10:28Z",
+      "side": 1,
+      "message": "Yeah I was wondering if the operator would avoid comments. Operator or not doesn\u0027t matter. Changed to has_updates().",
+      "parentUuid": "fd82504e_26d5d27d",
+      "revId": "0c9ae5ad39b4963e0d275372326f2dcd8be40b67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d93e5df5_7650ea57",
@@ -66,6 +84,24 @@
       "writtenOn": "2023-03-03T09:46:25Z",
       "side": 1,
       "message": "is this something we should aim to fix? It seems non-ideal that we need to be aware of locks in specific code paths outside of this implementation, which might change without this file getting updated along the way.\n(i.e. this reads a bit like a todo)",
+      "revId": "0c9ae5ad39b4963e0d275372326f2dcd8be40b67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd1aea6f_e88d9faf",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T10:10:28Z",
+      "side": 1,
+      "message": "Yes agree that we should aim to fix it. Reformulated as TODO.",
+      "parentUuid": "d93e5df5_7650ea57",
       "revId": "0c9ae5ad39b4963e0d275372326f2dcd8be40b67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c678dfa_fdae7071",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-03T15:26:17Z",
+      "side": 1,
+      "message": "Why are we only updating the probe bitrate if the latest estimate is lower than the previous one?",
+      "range": {
+        "startLine": 212,
+        "startChar": 36,
+        "endLine": 212,
+        "endChar": 74
+      },
+      "revId": "125677950207cd30dc4257251831d3c06c2ef679",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b45307_0c650be5",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-03T15:26:17Z",
+      "side": 1,
+      "message": "This assumes that periodic probes are sent whenever IsBandwidthLimitedDueToLoss() is true. Could we make this more robust to future changes by adding a currently_probing_ or CurrentlyProbing() flag/mathod and use both to determine if we should send probes, and if we should expect results?\nSomething like\n```\nif (loss_based.CurrentlyProbing()) {\n  SendProbe();\n}\n```\n...\n```\nif (CurrentlyProbing() \u0026\u0026 config_-\u003eprobe_integration_enabled \u0026\u0026 IsValid(probe_bitrate_)) {\n  // Set a cap\n}\n```",
+      "revId": "125677950207cd30dc4257251831d3c06c2ef679",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

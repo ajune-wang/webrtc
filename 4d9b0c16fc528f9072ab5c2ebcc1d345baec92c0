@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e590fcb4_79a71aee",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-03T15:26:17Z",
+      "side": 0,
+      "message": "The previous logic reset the probe_bitrate once it had been used. The new code doesn\u0027t seem to do that, so I think the probe_bitrate will only decrease over time.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 49
+      },
+      "revId": "4d9b0c16fc528f9072ab5c2ebcc1d345baec92c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

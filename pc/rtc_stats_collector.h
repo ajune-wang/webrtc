@@ -323,7 +323,7 @@ class RTCStatsCollector : public rtc::RefCountInterface {
     uint32_t data_channels_closed;
     // Identifies by address channels that have been opened, which remain in the
     // set until they have been fully closed.
-    std::set<uintptr_t> opened_data_channels;
+    std::set<void*> opened_data_channels;
   };
   InternalRecord internal_record_;
 };

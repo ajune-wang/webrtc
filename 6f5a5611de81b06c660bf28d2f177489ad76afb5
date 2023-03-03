@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb35877_74427762",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:15:04Z",
+      "side": 1,
+      "message": "Approving this, but wondering if we can make code more readable by adding helpers.",
+      "revId": "6f5a5611de81b06c660bf28d2f177489ad76afb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e83e4f1_5325c543",
+        "filename": "modules/video_coding/nack_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:15:04Z",
+      "side": 1,
+      "message": "This is growing to be a pattern (and will be more prevalent as the project moves forward). Can we make a helper out of it?\n\nDispatchToWorkerIfNotSelf([seq_num, this]() { ClearUpTo(seq_num; }) would work, but someone with std::fu can probably make something even simpler using some forwarding mechanism or something like that; it would be ideal to just write DISPATCH_TO_WORKER_IF_NOT_SELF() and let C++ and templates or macros (ugh!) take care of the details.",
+      "revId": "6f5a5611de81b06c660bf28d2f177489ad76afb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "290a2e56_a5a98c12",
+        "filename": "modules/video_coding/nack_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:15:04Z",
+      "side": 1,
+      "message": "This lack of coverage shows that *all* the tests that touch this are being run in combined-worker-network-thread mode. Can we do something about that?",
+      "revId": "6f5a5611de81b06c660bf28d2f177489ad76afb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

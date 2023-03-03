@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c1c4f44_27cfab48",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-03T10:28:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c201599_e092bb7d",
+      "revId": "0a127949a971bbd673dd9d4edaae3e51c4a38242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50a889cd_9cfe33a4",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-03T10:10:11Z",
       "side": 1,
       "message": "Can we replace these with RTC_DCHECK(config.IsValid())?",
+      "revId": "0a127949a971bbd673dd9d4edaae3e51c4a38242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad956783_5f8f3357",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-03T10:28:44Z",
+      "side": 1,
+      "message": "Indeed, done.",
+      "parentUuid": "50a889cd_9cfe33a4",
       "revId": "0a127949a971bbd673dd9d4edaae3e51c4a38242",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

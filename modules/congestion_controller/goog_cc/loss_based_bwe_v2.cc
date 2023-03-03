@@ -300,14 +300,6 @@ void LossBasedBweV2::UpdateBandwidthEstimate(
               : config_->bandwidth_rampup_upper_bound_factor *
                     (*acknowledged_bitrate_);
     }
-
-    // Use probe bitrate as the estimate as probe bitrate is trusted to be
-    // correct. After being used, the probe bitrate is reset.
-    if (config_->probe_integration_enabled && IsValid(probe_bitrate_)) {
-      best_candidate.loss_limited_bandwidth =
-          std::min(probe_bitrate_, best_candidate.loss_limited_bandwidth);
-      probe_bitrate_ = DataRate::MinusInfinity();
-    }
   }
 
   if (IsEstimateIncreasingWhenLossLimited(best_candidate) &&
@@ -320,15 +312,23 @@ void LossBasedBweV2::UpdateBandwidthEstimate(
   }
   current_estimate_ = best_candidate;
 
-  if (IsBandwidthLimitedDueToLoss() &&
-      (recovering_after_loss_timestamp_.IsInfinite() ||
-       recovering_after_loss_timestamp_ + config_->delayed_increase_window <
-           last_send_time_most_recent_observation_)) {
-    bandwidth_limit_in_current_window_ =
-        std::max(kCongestionControllerMinBitrate,
-                 current_estimate_.loss_limited_bandwidth *
-                     config_->max_increase_factor);
-    recovering_after_loss_timestamp_ = last_send_time_most_recent_observation_;
+  if (IsBandwidthLimitedDueToLoss()) {
+    if (recovering_after_loss_timestamp_.IsInfinite() ||
+        recovering_after_loss_timestamp_ + config_->delayed_increase_window <
+            last_send_time_most_recent_observation_) {
+      bandwidth_limit_in_current_window_ =
+          std::max(kCongestionControllerMinBitrate,
+                   current_estimate_.loss_limited_bandwidth *
+                       config_->max_increase_factor);
+      recovering_after_loss_timestamp_ =
+          last_send_time_most_recent_observation_;
+    }
+    // Use probe bitrate as the estimate limit when estimate is loss limited and
+    // increasing.
+    if (config_->probe_integration_enabled && IsValid(probe_bitrate_)) {
+      bandwidth_limit_in_current_window_ =
+          std::min(probe_bitrate_, bandwidth_limit_in_current_window_);
+    }
   }
 }
 

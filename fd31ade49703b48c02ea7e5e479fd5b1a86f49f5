@@ -34,6 +34,24 @@
       "parentUuid": "a1bc8ea0_e3f06a01",
       "revId": "fd31ade49703b48c02ea7e5e479fd5b1a86f49f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48844290_0f211969",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T13:02:32Z",
+      "side": 1,
+      "message": "Florent checked in Canary and Chrome also gets L1T1 by default. However if conferencing flags are used that may change to L1T3, but that is not used by these tests.",
+      "parentUuid": "df33a5e3_1de4c1d5",
+      "revId": "fd31ade49703b48c02ea7e5e479fd5b1a86f49f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

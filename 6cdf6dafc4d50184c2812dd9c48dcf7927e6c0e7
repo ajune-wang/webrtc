@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "571144f4_baf4359c",
+        "filename": "api/frame_transformer_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-03-03T12:00:41Z",
+      "side": 1,
+      "message": "Unfortunately, the webrtc_frame_ object that is passed to this function is only a TransformableFrameInterface [https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_encoded_audio_frame_delegate.h;drc\u003d68f83292c7f67163356c548a138ac2f187d8ba36;l\u003d44]\n\nThe same is true for the TransformableOutgoingAudioFrame that is returned from the function [https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/audio/channel_send_frame_transformer_delegate.cc;drc\u003da3361ff2f577b608a3bcddfa20f8248377c82002;l\u003d18]\n\nIt looks at least somewhat involved to make it so TransformableAudioFrameInterface is used in these places, but maybe it worth making an attempt at it?",
+      "parentUuid": "16d45e2a_bf5a48bd",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfa3193_1196891d",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 10

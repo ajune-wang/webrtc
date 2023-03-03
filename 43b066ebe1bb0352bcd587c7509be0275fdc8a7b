@@ -51,6 +51,24 @@
       "parentUuid": "d2b7ed88_eeaf5c5f",
       "revId": "43b066ebe1bb0352bcd587c7509be0275fdc8a7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c08c355_f9256e02",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T17:40:34Z",
+      "side": 1,
+      "message": "I\u0027m talking about RTCInbound/OutboundRtpStreamStats, these do get references and would break import, so we need to land a \"using\" statement, roll, migrate, and then delete the old name in a follow-up.\n\nFor RTCRTPStreamStats -\u003e RTCRtpStreamStats I don\u0027t think \"using\" is needed because it is very uncommon to reference these directly and from code search I don\u0027t see anything breaking",
+      "parentUuid": "d2cb5ddb_4812d8e8",
+      "revId": "43b066ebe1bb0352bcd587c7509be0275fdc8a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

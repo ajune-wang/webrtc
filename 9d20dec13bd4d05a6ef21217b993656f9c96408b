@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92a94388_e55c8649",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T10:11:50Z",
+      "side": 1,
+      "message": "What\u0027s the rationale for fallback to L1T2 rather than L1T1 if L1T1 is the default?",
+      "revId": "9d20dec13bd4d05a6ef21217b993656f9c96408b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd435bf4_37da3131",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T10:11:50Z",
+      "side": 1,
+      "message": "CC Florent/Harald with a question, I was surprised we ended up in two different configurations here",
+      "revId": "9d20dec13bd4d05a6ef21217b993656f9c96408b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

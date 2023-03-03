@@ -1148,7 +1148,7 @@ TEST_P(LossBasedBweV2Test,
       DataRate::KilobitsPerSec(600));
 }
 
-TEST_P(LossBasedBweV2Test, UseProbeResultWhenRecoveringFromLoss) {
+TEST_P(LossBasedBweV2Test, LimitByProbeResultWhenRecoveringFromLoss) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
       "Enabled:true,CandidateFactors:1.2|1|0.5,AckedRateCandidate:true,"

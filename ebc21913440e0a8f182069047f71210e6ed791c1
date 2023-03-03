@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a528010f_94e43a95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T15:50:59Z",
+      "side": 1,
+      "message": "Seems good. Approving. Small comments.",
+      "revId": "ebc21913440e0a8f182069047f71210e6ed791c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "050406f7_728e4dd4",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T15:50:59Z",
+      "side": 1,
+      "message": "On the principle of \"early return on error\", should this have a \"return true\" and skip the \"else\"?\n\n(It seems a bit odd to have this function return true, but it means \"data handled\", not \"data handled without error\", I guess. Error ought to be extended with \", message ignored\", to make it clear what\u0027s happening.)",
+      "revId": "ebc21913440e0a8f182069047f71210e6ed791c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5b3a45d_ac8b273e",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T15:50:59Z",
+      "side": 1,
+      "message": "This reference is RFC 8832 (Jan 2021). draft-jesup was from Feb 2013....",
+      "revId": "ebc21913440e0a8f182069047f71210e6ed791c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

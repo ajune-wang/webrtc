@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e88d280_e6d6d827",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:42:16Z",
+      "side": 1,
+      "message": "Questioning the class usage. Code looks straightforward.",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d45e2a_bf5a48bd",
+        "filename": "api/frame_transformer_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:42:16Z",
+      "side": 1,
+      "message": "For symmetry and sanity, should this take a TransformableAudioFrameInterface?\n\nAs it is, calling this API with a TransformableVideoFrameInterface-derived type would not be caught by the compiler.",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cfa3193_1196891d",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:42:16Z",
+      "side": 1,
+      "message": "If we make the function take a TAFI, we don\u0027t need this cast.",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39376dea_631275c5",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:42:16Z",
+      "side": 1,
+      "message": "MockTransformableAudioFrame already exists...",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

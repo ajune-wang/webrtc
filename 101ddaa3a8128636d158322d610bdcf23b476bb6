@@ -215,6 +215,75 @@
       },
       "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a98657_c3d93b17",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-03T10:03:25Z",
+      "side": 1,
+      "message": "is expecting GetData will be called part of the test?\nif not, consider ON_CALL:\nON_CALL(original_frame, GetData).WillByDefault(Return(data_view));\n{or .WillByDefault(Return(ByRef(data))); }\n\n\nhttp://google.github.io/googletest/gmock_cook_book.html#UseOnCall",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 13
+      },
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca49553b_26349bdf",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-03T10:03:25Z",
+      "side": 1,
+      "message": "you can combine these two expects into one (because both check the same member):\nEXPECT_THAT(clone_frame-\u003eGetData(), AllOf(SizeIs(10), Each(5u)));\n\nor might be better compare it to the original data:\nEXPECT_THAT(clone_frame-\u003eGetData(), ElementsAreArray(data));",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 58
+      },
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d1e6dc_5a826588",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-03T10:03:25Z",
+      "side": 1,
+      "message": "prefer to alias like other symbols in testing.",
+      "range": {
+        "startLine": 45,
+        "startChar": 39,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "101ddaa3a8128636d158322d610bdcf23b476bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

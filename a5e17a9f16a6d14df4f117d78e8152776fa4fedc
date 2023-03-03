@@ -16,6 +16,24 @@
       "message": "Are we really using L1T1 after rejecting? I believe we should be using the default mode for the codec then and that should have temporal layers with VP8.",
       "revId": "a5e17a9f16a6d14df4f117d78e8152776fa4fedc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f2aa0b_b3a82604",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T11:21:58Z",
+      "side": 1,
+      "message": "Surpringsly, L1T1 is reported by default:\nhttps://webrtc-review.googlesource.com/c/src/+/296041",
+      "parentUuid": "bd933b20_6e79fd04",
+      "revId": "a5e17a9f16a6d14df4f117d78e8152776fa4fedc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

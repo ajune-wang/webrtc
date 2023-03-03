@@ -23,6 +23,7 @@
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/media_stream_interface.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_codec_type.h"
 #include "api/video_codecs/sdp_video_format.h"

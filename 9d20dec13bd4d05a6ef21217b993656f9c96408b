@@ -51,6 +51,29 @@
       "message": "CC Florent/Harald with a question, I was surprised we ended up in two different configurations here",
       "revId": "9d20dec13bd4d05a6ef21217b993656f9c96408b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4891468_2e80d188",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-03T10:34:52Z",
+      "side": 1,
+      "message": "Defaults",
+      "range": {
+        "startLine": 1117,
+        "startChar": 61,
+        "endLine": 1117,
+        "endChar": 68
+      },
+      "revId": "9d20dec13bd4d05a6ef21217b993656f9c96408b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -220,14 +220,22 @@ int NackRequester::OnReceivedPacket(uint16_t seq_num,
 
 void NackRequester::ClearUpTo(uint16_t seq_num) {
   // Called via RtpVideoStreamReceiver2::FrameContinuous on the network thread.
-  worker_thread_->PostTask(SafeTask(task_safety_.flag(), [seq_num, this]() {
-    RTC_DCHECK_RUN_ON(worker_thread_);
-    nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
-    keyframe_list_.erase(keyframe_list_.begin(),
-                         keyframe_list_.lower_bound(seq_num));
-    recovered_list_.erase(recovered_list_.begin(),
-                          recovered_list_.lower_bound(seq_num));
-  }));
+  // TODO(bugs.webrtc.org/137439): Stop posting to the worker thread when the
+  // combined network/worker project launches.
+  // TODO(bugs.webrtc.org/14958): Figure out a way to make the self-posting
+  // pattern a framework primitive.
+  if (TaskQueueBase::Current() != worker_thread_) {
+    RTC_CHECK(false);
+    worker_thread_->PostTask(SafeTask(
+        task_safety_.flag(), [seq_num, this]() { ClearUpTo(seq_num); }));
+    return;
+  }
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
+  keyframe_list_.erase(keyframe_list_.begin(),
+                       keyframe_list_.lower_bound(seq_num));
+  recovered_list_.erase(recovered_list_.begin(),
+                        recovered_list_.lower_bound(seq_num));
 }
 
 void NackRequester::UpdateRtt(int64_t rtt_ms) {

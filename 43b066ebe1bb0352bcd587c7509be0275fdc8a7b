@@ -33,6 +33,24 @@
       "message": "Optional separate CL: Could we \"using RTCInboundRTPStreamStats \u003d RTCInboundRtpStreamStats;\" as a way to rename this without breaking downstream?",
       "revId": "43b066ebe1bb0352bcd587c7509be0275fdc8a7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2cb5ddb_4812d8e8",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-03T17:04:00Z",
+      "side": 1,
+      "message": "but we don\u0027t want to keep the old name around? This is an abstract type that things can inherit from but I never saw it accessed directly.\n\nCan send a PSA though.",
+      "parentUuid": "d2b7ed88_eeaf5c5f",
+      "revId": "43b066ebe1bb0352bcd587c7509be0275fdc8a7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

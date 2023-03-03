@@ -50,7 +50,7 @@ bool IsOpenMessage(const rtc::CopyOnWriteBuffer& payload) {
   // Format defined at
   // http://tools.ietf.org/html/draft-jesup-rtcweb-data-protocol-04
   if (payload.size() < 1) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message type.";
+    RTC_DLOG(LS_WARNING) << "Could not read OPEN message type.";
     return false;
   }
 

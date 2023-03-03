@@ -19,6 +19,13 @@
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+namespace {
+bool IsOpenMessage(const cricket::ReceiveDataParams& params,
+                   const rtc::CopyOnWriteBuffer& buffer) {
+  return params.type == DataMessageType::kControl &&
+         webrtc::IsOpenMessage(buffer);
+}
+}  // namespace
 
 DataChannelController::~DataChannelController() {}
 
@@ -114,6 +121,10 @@ void DataChannelController::OnDataReceived(
   cricket::ReceiveDataParams params;
   params.sid = channel_id;
   params.type = type;
+
+  if (HandleOpenMessage_n(params, buffer))
+    return;
+
   signaling_thread()->PostTask(
       [self = weak_factory_.GetWeakPtr(), params, buffer] {
         if (self) {
@@ -126,9 +137,7 @@ void DataChannelController::OnDataReceived(
           // deliver all other buffers on the network thread (change
           // SignalDataChannelTransportReceivedData_s to
           // SignalDataChannelTransportReceivedData_n).
-          if (!self->HandleOpenMessage_s(params, buffer)) {
-            self->SignalDataChannelTransportReceivedData_s(params, buffer);
-          }
+          self->SignalDataChannelTransportReceivedData_s(params, buffer);
         }
       });
 }
@@ -222,25 +231,32 @@ std::vector<DataChannelStats> DataChannelController::GetDataChannelStats()
   return stats;
 }
 
-bool DataChannelController::HandleOpenMessage_s(
+bool DataChannelController::HandleOpenMessage_n(
     const cricket::ReceiveDataParams& params,
     const rtc::CopyOnWriteBuffer& buffer) {
-  if (params.type == DataMessageType::kControl && IsOpenMessage(buffer)) {
-    // Received OPEN message; parse and signal that a new data channel should
-    // be created.
-    std::string label;
-    InternalDataChannelInit config;
-    config.id = params.sid;
-    if (!ParseDataChannelOpenMessage(buffer, &label, &config)) {
-      RTC_LOG(LS_WARNING) << "Failed to parse the OPEN message for sid "
-                          << params.sid;
-      return true;
-    }
+  if (!IsOpenMessage(params, buffer))
+    return false;
+
+  // Received OPEN message; parse and signal that a new data channel should
+  // be created.
+  std::string label;
+  InternalDataChannelInit config;
+  config.id = params.sid;
+  if (!ParseDataChannelOpenMessage(buffer, &label, &config)) {
+    RTC_LOG(LS_WARNING) << "Failed to parse the OPEN message for sid "
+                        << params.sid;
+  } else {
     config.open_handshake_role = InternalDataChannelInit::kAcker;
-    OnDataChannelOpenMessage(label, config);
-    return true;
+    signaling_thread()->PostTask([self = weak_factory_.GetWeakPtr(),
+                                  label = std::move(label),
+                                  config = std::move(config)] {
+      if (self) {
+        RTC_DCHECK_RUN_ON(self->signaling_thread());
+        self->OnDataChannelOpenMessage(label, config);
+      }
+    });
   }
-  return false;
+  return true;
 }
 
 void DataChannelController::OnDataChannelOpenMessage(

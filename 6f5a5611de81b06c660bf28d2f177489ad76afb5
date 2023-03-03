@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b98f064_50d411eb",
+        "filename": "modules/video_coding/nack_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T15:26:01Z",
+      "side": 1,
+      "message": "Ack, removed due to below.",
+      "parentUuid": "2e83e4f1_5325c543",
+      "revId": "6f5a5611de81b06c660bf28d2f177489ad76afb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "290a2e56_a5a98c12",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-03T10:15:04Z",
       "side": 1,
       "message": "This lack of coverage shows that *all* the tests that touch this are being run in combined-worker-network-thread mode. Can we do something about that?",
+      "revId": "6f5a5611de81b06c660bf28d2f177489ad76afb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aacdc91_08256602",
+        "filename": "modules/video_coding/nack_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T15:26:01Z",
+      "side": 1,
+      "message": "Nice find!\nSpent the afternoon digging into this after finding confusing thread checking code above in the call chain. The packet thread checkers on the way to ClearUpTo are sometimes conceptually on the way to be separate to the network thread, but have not completed migration.\nIt\u0027s clear the unit test always invokes using the same thread.\n\nDiscussed with @tommi@chromium.org who believes this method is indeed only invoked under the worker thread. To test this I needed to temporarily commit a CHECK(false) into the path and run bots with green completion.\n\nI found one test in webrtc_perf_tests which is run on the presubmit bots in the  PeerConnectionRampUpTest.Bwe_After_TurnOverTCP test case and fails if I RTC_CHECK(webrtc::TaskQueueBase::Current() \u003d\u003d worker_thread_) [1] showing that tests seem to run with separate worker/network threads. It is also part of the coverage collection (source: @terelius@webrtc.org).\n\nReplaced the PostTask with a DCHECK(worker) \u0026 TODO explanation on tommi@\u0027s request.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d1750",
+      "parentUuid": "290a2e56_a5a98c12",
       "revId": "6f5a5611de81b06c660bf28d2f177489ad76afb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

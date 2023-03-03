@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e38240_238365a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2023-03-03T13:51:23Z",
+      "side": 1,
+      "message": "Thanks switched to isEnabled.",
+      "revId": "6fe6d3bf4201f93d1e45a0704e5b0aa9dd41b161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

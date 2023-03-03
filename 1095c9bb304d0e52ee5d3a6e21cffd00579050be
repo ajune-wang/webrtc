@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da8c240a_1020ee10",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T16:52:28Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "7c45f729_d298aea3",
+      "range": {
+        "startLine": 1136,
+        "startChar": 2,
+        "endLine": 1136,
+        "endChar": 14
+      },
+      "revId": "1095c9bb304d0e52ee5d3a6e21cffd00579050be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ece6546e_d0736d5c",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5258d5_8f67a569",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T16:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ece6546e_d0736d5c",
+      "range": {
+        "startLine": 1179,
+        "startChar": 2,
+        "endLine": 1179,
+        "endChar": 13
+      },
+      "revId": "1095c9bb304d0e52ee5d3a6e21cffd00579050be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c05471bb_96036154",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-03T16:35:18Z",
       "side": 1,
       "message": "Why the std::string? It should work without it.",
+      "range": {
+        "startLine": 1191,
+        "startChar": 14,
+        "endLine": 1191,
+        "endChar": 22
+      },
+      "revId": "1095c9bb304d0e52ee5d3a6e21cffd00579050be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3fd722_0e2c66bd",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-03T16:52:28Z",
+      "side": 1,
+      "message": "The matcher gets confused when types don\u0027t match:\n```\ngmock-matchers.h:3876:24: error: cannot initialize an array element of type \u0027const char\u0027 with an lvalue of type \u0027const char[9]\u0027\n```",
+      "parentUuid": "c05471bb_96036154",
       "range": {
         "startLine": 1191,
         "startChar": 14,

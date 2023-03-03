@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ef5af3_bda67c66",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1755,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T10:20:29Z",
+      "side": 1,
+      "message": "It\u0027s unused elsewhere. I put some rationale below, do you think that it doesn\u0027t hold? The packet is modified inside ProcessReceivedPacket.\n\nBtw this case is not the same as the one in the send path.",
+      "parentUuid": "8afa5aa4_00191215",
+      "revId": "5576cb257a08b0c1c0166a3a332f77db15c0c7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "495519bc_72f129d3",

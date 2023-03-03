@@ -20,14 +20,7 @@
 
 namespace webrtc {
 
-DataChannelController::~DataChannelController() {
-  // Since channels may have multiple owners, we cannot guarantee that
-  // they will be deallocated before destroying the controller.
-  // Therefore, detach them from the controller.
-  for (auto channel : sctp_data_channels_) {
-    channel->DetachFromController();
-  }
-}
+DataChannelController::~DataChannelController() {}
 
 bool DataChannelController::HasDataChannels() const {
   RTC_DCHECK_RUN_ON(signaling_thread());
@@ -101,6 +94,16 @@ void DataChannelController::RemoveSctpDataStream(int sid) {
 bool DataChannelController::ReadyToSendData() const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   return (data_channel_transport() && data_channel_transport_ready_to_send_);
+}
+
+void DataChannelController::OnChannelStateChanged(
+    SctpDataChannel* channel,
+    DataChannelInterface::DataState state) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  if (state == DataChannelInterface::DataState::kClosed)
+    OnSctpDataChannelClosed(channel);
+
+  pc_->OnSctpDataChannelStateChanged(channel, state);
 }
 
 void DataChannelController::OnDataReceived(
@@ -291,16 +294,14 @@ DataChannelController::InternalCreateSctpDataChannel(
                          "because the id is already in use or out of range.";
     return nullptr;
   }
-  rtc::scoped_refptr<SctpDataChannel> channel(SctpDataChannel::Create(
-      this, label, new_config, signaling_thread(), network_thread()));
+  rtc::scoped_refptr<SctpDataChannel> channel(
+      SctpDataChannel::Create(weak_factory_.GetWeakPtr(), label, new_config,
+                              signaling_thread(), network_thread()));
   if (!channel) {
     sid_allocator_.ReleaseSid(new_config.id);
     return nullptr;
   }
   sctp_data_channels_.push_back(channel);
-  channel->SignalClosed.connect(
-      pc_, &PeerConnectionInternal::OnSctpDataChannelClosed);
-  SignalSctpDataChannelCreated_(channel.get());
   return channel;
 }
 
@@ -381,8 +382,8 @@ bool DataChannelController::DataChannelSendData(
     const rtc::CopyOnWriteBuffer& payload,
     cricket::SendDataResult* result) {
   // TODO(bugs.webrtc.org/11547): Expect method to be called on the network
-  // thread instead. Remove the BlockingCall() below and move assocated state to
-  // the network thread.
+  // thread instead. Remove the BlockingCall() below and move associated state
+  // to the network thread.
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(data_channel_transport());
 

@@ -1072,6 +1072,43 @@ class PeerConnectionSimulcastWithMediaFlowTests
 };
 
 TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
+       SendingOneEncodings_VP8_DefaultsToL1T3) {
+  rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper = CreatePc();
+  rtc::scoped_refptr<PeerConnectionTestWrapper> remote_pc_wrapper = CreatePc();
+  ExchangeIceCandidates(local_pc_wrapper, remote_pc_wrapper);
+
+  std::vector<SimulcastLayer> layers = CreateLayers({"f"}, /*active=*/true);
+  rtc::scoped_refptr<RtpTransceiverInterface> transceiver =
+      AddTransceiverWithSimulcastLayers(local_pc_wrapper, remote_pc_wrapper,
+                                        layers);
+  std::vector<RtpCodecCapability> codecs =
+      GetCapabilitiesAndRestrictToCodec(local_pc_wrapper, "VP8");
+  transceiver->SetCodecPreferences(codecs);
+
+  NegotiateWithSimulcastTweaks(local_pc_wrapper, remote_pc_wrapper, layers);
+  local_pc_wrapper->WaitForConnection();
+  remote_pc_wrapper->WaitForConnection();
+
+  // Wait until media is flowing.
+  EXPECT_TRUE_WAIT(HasOutboundRtpBytesSent(local_pc_wrapper, 1u),
+                   kDefaultTimeout.ms());
+  // Significant ramp up time is needed until maximum resolution is achieved so
+  // we disable `log_during_ramp_up` to avoid log spam.
+  EXPECT_TRUE_WAIT(
+      HasOutboundRtpExpectedResolutions(local_pc_wrapper, {{"", 1280, 720}},
+                                        /*log_during_ramp_up=*/false),
+      kLongTimeoutForRampingUp.ms());
+  // Verify codec and scalability mode.
+  rtc::scoped_refptr<const RTCStatsReport> report = GetStats(local_pc_wrapper);
+  std::vector<const RTCOutboundRTPStreamStats*> outbound_rtps =
+      report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  ASSERT_THAT(outbound_rtps, SizeIs(1u));
+  EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[0]),
+              StrCaseEq("video/VP8"));
+  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StrEq("L1T1"));
+}
+
+TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
        SendingThreeEncodings_VP8_Simulcast) {
   rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper = CreatePc();
   rtc::scoped_refptr<PeerConnectionTestWrapper> remote_pc_wrapper = CreatePc();
@@ -1112,9 +1149,9 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
               StrCaseEq("video/VP8"));
   EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[2]),
               StrCaseEq("video/VP8"));
-  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StartsWith("L1T"));
-  EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StartsWith("L1T"));
-  EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StartsWith("L1T"));
+  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StrEq("L1T3"));
+  EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StrEq("L1T3"));
+  EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StrEq("L1T3"));
 }
 
 #if defined(WEBRTC_USE_H264)
@@ -1160,9 +1197,9 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
               StrCaseEq("video/H264"));
   EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[2]),
               StrCaseEq("video/H264"));
-  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StartsWith("L1T"));
-  EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StartsWith("L1T"));
-  EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StartsWith("L1T"));
+  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StrEq("L1T3"));
+  EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StrEq("L1T3"));
+  EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StrEq("L1T3"));
 }
 
 #endif  // defined(WEBRTC_USE_H264)
@@ -1208,7 +1245,7 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
   ASSERT_THAT(outbound_rtps, SizeIs(1u));
   EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[0]),
               StrCaseEq("video/VP9"));
-  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StartsWith("L3T3_KEY"));
+  EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StrEq("L3T3_KEY"));
 
   // Despite SVC being used on a single RTP stream, GetParameters() returns the
   // three encodings that we configured earlier (this is not spec-compliant but

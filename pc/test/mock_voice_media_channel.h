@@ -28,9 +28,8 @@ using ::testing::Mock;
 namespace cricket {
 class MockVoiceMediaChannel : public VoiceMediaChannel {
  public:
-  MockVoiceMediaChannel(MediaChannel::Role role,
-                        webrtc::TaskQueueBase* network_thread)
-      : VoiceMediaChannel(role, network_thread) {}
+  explicit MockVoiceMediaChannel(webrtc::TaskQueueBase* network_thread)
+      : VoiceMediaChannel(MediaChannel::Role::kBoth, network_thread) {}
 
   MOCK_METHOD(void,
               SetInterface,
@@ -162,10 +161,6 @@ class MockVoiceMediaChannel : public VoiceMediaChannel {
               GetBaseMinimumPlayoutDelayMs,
               (uint32_t ssrc),
               (const, override));
-  MOCK_METHOD(bool, SenderNackEnabled, (), (const, override));
-  MOCK_METHOD(bool, SenderNonSenderRttEnabled, (), (const, override));
-  MOCK_METHOD(void, SetReceiveNackEnabled, (bool enabled), (override));
-  MOCK_METHOD(void, SetReceiveNonSenderRttEnabled, (bool enabled), (override));
 };
 }  // namespace cricket
 

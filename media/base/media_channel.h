@@ -888,8 +888,6 @@ class VoiceMediaSendChannelInterface : public MediaSendChannelInterface {
   // DTMF event 0-9, *, #, A-D.
   virtual bool InsertDtmf(uint32_t ssrc, int event, int duration) = 0;
   virtual bool GetStats(VoiceMediaSendInfo* stats) = 0;
-  virtual bool SenderNackEnabled() const = 0;
-  virtual bool SenderNonSenderRttEnabled() const = 0;
 };
 
 class VoiceMediaReceiveChannelInterface : public MediaReceiveChannelInterface {
@@ -914,8 +912,6 @@ class VoiceMediaReceiveChannelInterface : public MediaReceiveChannelInterface {
   virtual void SetDefaultRawAudioSink(
       std::unique_ptr<webrtc::AudioSinkInterface> sink) = 0;
   virtual bool GetStats(VoiceMediaReceiveInfo* stats, bool reset_legacy) = 0;
-  virtual void SetReceiveNackEnabled(bool enabled) = 0;
-  virtual void SetReceiveNonSenderRttEnabled(bool enabled) = 0;
 };
 
 // TODO(deadbeef): Rename to VideoSenderParameters, since they're intended to
@@ -959,11 +955,6 @@ class VideoMediaSendChannelInterface : public MediaSendChannelInterface {
   virtual void SetVideoCodecSwitchingEnabled(bool enabled) = 0;
   virtual bool GetStats(VideoMediaSendInfo* stats) = 0;
   virtual void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) = 0;
-  // Information queries to support SetReceiverFeedbackParameters
-  virtual webrtc::RtcpMode SendCodecRtcpMode() const = 0;
-  virtual bool SendCodecHasLntf() const = 0;
-  virtual bool SendCodecHasNack() const = 0;
-  virtual absl::optional<int> SendCodecRtxTime() const = 0;
 };
 
 class VideoMediaReceiveChannelInterface : public MediaReceiveChannelInterface {
@@ -993,10 +984,6 @@ class VideoMediaReceiveChannelInterface : public MediaReceiveChannelInterface {
   // Clear recordable encoded frame callback for `ssrc`
   virtual void ClearRecordableEncodedFrameCallback(uint32_t ssrc) = 0;
   virtual bool GetStats(VideoMediaReceiveInfo* stats) = 0;
-  virtual void SetReceiverFeedbackParameters(bool lntf_enabled,
-                                             bool nack_enabled,
-                                             webrtc::RtcpMode rtcp_mode,
-                                             absl::optional<int> rtx_time) = 0;
 };
 
 // Info about data received in DataMediaChannel.  For use in

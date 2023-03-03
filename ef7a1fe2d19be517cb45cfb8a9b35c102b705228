@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdef5643_b62976f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:05:12Z",
+      "side": 1,
+      "message": "Using void* as an \"unfollowable pointer\" was an option I hadn\u0027t thought of!\n\nI do think it needs a comment, since it\u0027s not an obvious pattern - but I\u0027m happy to see the cast gone!",
+      "revId": "ef7a1fe2d19be517cb45cfb8a9b35c102b705228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37de4d80_83adc246",
+        "filename": "pc/rtc_stats_collector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-03T10:05:12Z",
+      "side": 1,
+      "message": "Add \"There is no guarantee that these pointers remain valid, so they MUST NOT be followed; hence, void* is used.\"",
+      "revId": "ef7a1fe2d19be517cb45cfb8a9b35c102b705228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd3c118c_2f77b5b5",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e766bd2_b6416a89",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f22b9b47_f39cea2f",
@@ -82,6 +100,24 @@
       "writtenOn": "2023-03-02T10:42:38Z",
       "side": 1,
       "message": "What does \"Terminally\" mean specifically in this case? (does the comment mean the same thing with out it?)",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c29fd36_4b394971",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f22b9b47_f39cea2f",
       "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -158,6 +194,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3eea1420_2d9c82b8",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "I\u0027ve kept the stuff which seems safe on the same sequence. There was a rats nest of locks in the pacer and I think the state in PS14 is the cleanest way of avoiding that. PTAL.",
+      "parentUuid": "31733bbf_7de1d6b3",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8c1ed5a_fe4ca20d",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5
@@ -169,6 +223,24 @@
       "writtenOn": "2023-03-02T10:42:38Z",
       "side": 1,
       "message": "same question for \"Terminally\"",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9d6b6b9_38493032",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1746,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8c1ed5a_fe4ca20d",
       "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -226,6 +298,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0557d108_5283d82c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "Done. See other CL.",
+      "parentUuid": "ba951edf_d8ed5d12",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e765acf0_d2f69773",
@@ -239,6 +329,24 @@
       "writtenOn": "2023-03-02T12:49:18Z",
       "side": 1,
       "message": "Don\u0027t use an else here - return in the PostTask block and continue otherwise, just like in most other cases of \"dispatch if I\u0027m on the wrong thread\".",
+      "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24684d1_556c10f7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "Split the receive stuff out on https://webrtc-review.googlesource.com/c/src/+/295867 - let\u0027s continue there!",
+      "parentUuid": "e765acf0_d2f69773",
       "revId": "3aba3a32bc1540fb17b78604e94bdf80ff505827",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b88ee22c_06fded43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-03T09:29:10Z",
+      "side": 1,
+      "message": "Apologies for posting the CL before the bots, I thought PS1 was a safe change. Turns out it wasn\u0027t due to test-only architecture (OnPacketSent is sent synchronously from PacketRouter::SendPacket) and locks in the pacer and elsewhere.\n\nPS14 aims to avoid all of the above and still reaps profit according to local testing, PTAL!",
+      "revId": "0c9ae5ad39b4963e0d275372326f2dcd8be40b67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

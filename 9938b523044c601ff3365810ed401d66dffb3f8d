@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd3191fe_5e8fdc4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-03T10:23:46Z",
+      "side": 1,
+      "message": "Done - I also realized that I should switch the set type to using flat_set, so I\u0027ve made that change too.",
+      "revId": "9938b523044c601ff3365810ed401d66dffb3f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

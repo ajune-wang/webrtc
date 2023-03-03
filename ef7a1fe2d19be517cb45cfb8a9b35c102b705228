@@ -33,6 +33,24 @@
       "message": "Add \"There is no guarantee that these pointers remain valid, so they MUST NOT be followed; hence, void* is used.\"",
       "revId": "ef7a1fe2d19be517cb45cfb8a9b35c102b705228",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e78ce3f1_c04c535d",
+        "filename": "pc/rtc_stats_collector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-03T10:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37de4d80_83adc246",
+      "revId": "ef7a1fe2d19be517cb45cfb8a9b35c102b705228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

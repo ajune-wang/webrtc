@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea540d93_7e0dfbf2",
+        "filename": "api/frame_transformer_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-03-03T12:17:58Z",
+      "side": 1,
+      "message": "I assume the reason that RTCEncodedAudioFrameDelegate::webrtc_frame_ is a TransformableFrameInterface because TransformableOutgoingAudioFrame is it.\n\nAdding a functional GetHeader()-implementation to TransformableOutgoingAudioFrame as required by the TransformableAudioFrameInterface seems daunting. (The corresponding TransformableVideoFrameInterface does not have a GetHeader()-method.)\n\nAn alternative to implementing TransformableOutgoingAudioFrame::GetHeader() could be to have the following hierarchy: \n\nTranformableFrameInterface\n^\n|\nTranformableAudioFrameInterface \u003c- TransformableOutgoingAudioFrame\n^\n|\nTransformableIncomingAudioFrameInterface \u003c- TransformableIncomingAudioFrame\n\nwhere only the incoming interface/implementation classes have the GetHeader()-function? (I guess this would also require some intermediary steps in order to deprecate and remove the GetHeader()-method from the TransformableAudioFrameInterface.)",
+      "parentUuid": "571144f4_baf4359c",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfa3193_1196891d",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 10

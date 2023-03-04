@@ -108,9 +108,11 @@ class VideoCodecStats {
   virtual Stream Aggregate(const std::vector<Frame>& frames) const = 0;
 
   // Logs `Stream` metrics to provided `MetricsLogger`.
-  virtual void LogMetrics(MetricsLogger* logger,
-                          const Stream& stream,
-                          std::string test_case_name) const = 0;
+  virtual void LogMetrics(
+      MetricsLogger* logger,
+      const Stream& stream,
+      std::string test_case_name,
+      std::map<std::string, std::string> metadata = {}) const = 0;
 };
 
 }  // namespace test

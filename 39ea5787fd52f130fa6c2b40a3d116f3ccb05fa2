@@ -51,6 +51,24 @@
       "parentUuid": "53df21af_996149d9",
       "revId": "39ea5787fd52f130fa6c2b40a3d116f3ccb05fa2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df42151_ba0a6eb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-04T05:31:04Z",
+      "side": 1,
+      "message": "Thanks for checking!\n\nI never got .h file processing to work - never found how to convince iwyu that it was a c++ file not a C file. Need to give a better error message for that.",
+      "parentUuid": "b765aeaa_7c0a4304",
+      "revId": "39ea5787fd52f130fa6c2b40a3d116f3ccb05fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

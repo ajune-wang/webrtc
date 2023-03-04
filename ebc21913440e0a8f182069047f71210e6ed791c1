@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db31810_2a610665",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-04T15:47:41Z",
+      "side": 1,
+      "message": "Yes, I figured that there\u0027s one error case (early return), one safe-to-ignore warning and one success case. For the latter two, the return value is `true` so from the perspective of the caller, as you point out, no further handling should happen, so I chose to not have multiple `return true` paths.",
+      "parentUuid": "050406f7_728e4dd4",
+      "revId": "ebc21913440e0a8f182069047f71210e6ed791c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5b3a45d_ac8b273e",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-03T15:50:59Z",
       "side": 1,
       "message": "This reference is RFC 8832 (Jan 2021). draft-jesup was from Feb 2013....",
+      "revId": "ebc21913440e0a8f182069047f71210e6ed791c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ab6c2b_4163a03d",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-04T15:47:41Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "d5b3a45d_ac8b273e",
       "revId": "ebc21913440e0a8f182069047f71210e6ed791c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

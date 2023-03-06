@@ -1046,6 +1046,7 @@ class RTCStatsReportVerifier {
 
   bool VerifyRTCRemoteOutboundRTPStreamStats(
       const RTCRemoteOutboundRtpStreamStats& remote_outbound_stream) {
+    RTC_DCHECK(false);
     RTCStatsVerifier verifier(report_.get(), &remote_outbound_stream);
     VerifyRTCRTPStreamStats(remote_outbound_stream, verifier);
     VerifyRTCSentRTPStreamStats(remote_outbound_stream, verifier);

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "658076d9_31632b25",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-06T08:31:55Z",
+      "side": 1,
+      "message": "Is this intended or should it be pulled out into a config struct?",
+      "range": {
+        "startLine": 467,
+        "startChar": 2,
+        "endLine": 467,
+        "endChar": 34
+      },
+      "revId": "d9dd03ccfe11d4b9807f833ae5ef53caa8f2f4ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a345c14_434d7498",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-06T08:31:55Z",
+      "side": 1,
+      "message": "Consider pulling all of this out into it\u0027s own if clause, since it is shared between encoder and decoder output. (Here and below.)",
+      "range": {
+        "startLine": 469,
+        "startChar": 4,
+        "endLine": 474,
+        "endChar": 59
+      },
+      "revId": "d9dd03ccfe11d4b9807f833ae5ef53caa8f2f4ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c09fff72_1b9f2396",
+        "filename": "modules/video_coding/codecs/test/video_codec_tester_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-06T08:31:55Z",
+      "side": 1,
+      "message": "Consider `absl::string_view`. That would also save a copy. Same for the IVF writer below.",
+      "range": {
+        "startLine": 159,
+        "startChar": 27,
+        "endLine": 159,
+        "endChar": 38
+      },
+      "revId": "d9dd03ccfe11d4b9807f833ae5ef53caa8f2f4ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

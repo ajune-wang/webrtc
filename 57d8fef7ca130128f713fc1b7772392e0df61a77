@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9678a47f_9c7e44e4",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-06T19:03:36Z",
+      "side": 1,
+      "message": "Hm I think there\u0027s a race here.\n\n1. Say TaskQueue has just completed line 212.\n2. Now Thread X calls Log. It will skip the if statement starting at 203 believing output is scheduled.\n3. TaskQueue resumes from line 212 setting output scheduled to false.\nThe logged event will stay in the queue until the next Log comes (if it comes).",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 214,
+        "endChar": 23
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97a082ab_f5889bd3",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 10
@@ -100,6 +123,30 @@
       "writtenOn": "2023-03-06T13:38:55Z",
       "side": 1,
       "message": "nit: This ensured that StartLogging and StopLogging are called from the same thread, but the logging_state_ is now protected by a mutex. Should we remove this? On the other hand, maybe it\u0027s still reasonable to expect the log to be started and stopped from the same thread, since the caller couldn\u0027t know what state the event log ends up in after\nThread A: StartLogging()\nThread B: StopLogging()\n\nMarkus, wdyt?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629b6fc8_22fccd45",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-06T19:03:36Z",
+      "side": 1,
+      "message": "Is the thread safety of the class documented somewhere?\nI\u0027d vote for removing it if it\u0027s not used.",
+      "parentUuid": "e0f946cd_e674df74",
       "range": {
         "startLine": 115,
         "startChar": 0,

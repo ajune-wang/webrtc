@@ -98,7 +98,9 @@ class TestRawVideoSource : public VideoCodecTester::RawVideoSource {
         frame_settings_(frame_settings),
         num_frames_(num_frames),
         frame_num_(0),
-        timestamp_rtp_(0) {
+        // Start with non-zero timestamp to force using frame RTP timestamps in
+        // IvfFrameWriter.
+        timestamp_rtp_(90000) {
     // Ensure settings for the first frame are provided.
     RTC_CHECK_GT(frame_settings_.size(), 0u);
     RTC_CHECK_EQ(frame_settings_.begin()->first, 0);
@@ -462,11 +464,33 @@ std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
           ? PacingMode::kRealTime
           : PacingMode::kNoPacing;
 
+  bool save_encoder_output = true;
+  if (save_encoder_output) {
+    std::string base_file_path =
+        OutputPath() +
+        ::testing::UnitTest::GetInstance()->current_test_info()->name();
+    std::string base_dir_path = DirName(base_file_path);
+    bool result = CreateDir(base_dir_path);
+    RTC_CHECK(result) << "Cannot create " << base_dir_path;
+    encoder_settings.encoded_ivf_base_path = base_file_path;
+  }
+
   VideoCodecTester::DecoderSettings decoder_settings;
   decoder_settings.pacing.mode =
       decoder->decoder()->GetDecoderInfo().is_hardware_accelerated
           ? PacingMode::kRealTime
           : PacingMode::kNoPacing;
+
+  bool save_decoder_output = true;
+  if (save_decoder_output) {
+    std::string base_file_path =
+        OutputPath() +
+        ::testing::UnitTest::GetInstance()->current_test_info()->name();
+    std::string base_dir_path = DirName(base_file_path);
+    bool result = CreateDir(base_dir_path);
+    RTC_CHECK(result) << "Cannot create " << base_dir_path;
+    decoder_settings.decoded_y4m_base_path = base_file_path;
+  }
 
   std::unique_ptr<VideoCodecTester> tester = CreateVideoCodecTester();
   return tester->RunEncodeDecodeTest(video_source.get(), encoder.get(),

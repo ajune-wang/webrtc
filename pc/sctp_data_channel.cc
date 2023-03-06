@@ -266,9 +266,18 @@ void SctpDataChannel::Close() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   if (state_ == kClosing || state_ == kClosed)
     return;
-  SetState(kClosing);
-  // Will send queued data before beginning the underlying closing procedure.
-  UpdateState();
+
+  if (connected_to_transport_) {
+    SetState(kClosing);
+    // Will send queued data before beginning the underlying closing procedure.
+    UpdateState();
+  } else {
+    // When we're not connected to a transport, we can transition directly to
+    // the `kClosed` state.
+    queued_send_data_.Clear();
+    queued_control_data_.Clear();
+    SetState(kClosed);
+  }
 }
 
 SctpDataChannel::DataState SctpDataChannel::state() const {

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1d31d1a_383d3871",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-06T08:44:27Z",
+      "side": 1,
+      "message": "I\u0027d replace this with an enum class, since the configuration is discrete. Same comment for the decoder function below.",
+      "range": {
+        "startLine": 388,
+        "startChar": 6,
+        "endLine": 388,
+        "endChar": 23
+      },
+      "revId": "bb420d276d2731d6d8e47bf446ea9e756d085396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03742233_2a7b3301",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-06T08:44:27Z",
+      "side": 1,
+      "message": "Add comments describing what the different tuple parameters represent:\n\n```std::tuple\u003c/* codec_type \u003d */std::string, /* codec_impl \u003d */...```\n\n(It\u0027s easier to read to have this at the declaration, rather than looking into the implementation of the function below, IMHO.)",
+      "range": {
+        "startLine": 502,
+        "startChar": 21,
+        "endLine": 502,
+        "endChar": 32
+      },
+      "revId": "bb420d276d2731d6d8e47bf446ea9e756d085396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e362f9_d464e110",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-06T08:44:27Z",
+      "side": 1,
+      "message": "With an enum class, you would just need a `ToString` here.",
+      "range": {
+        "startLine": 548,
+        "startChar": 22,
+        "endLine": 548,
+        "endChar": 32
+      },
+      "revId": "bb420d276d2731d6d8e47bf446ea9e756d085396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

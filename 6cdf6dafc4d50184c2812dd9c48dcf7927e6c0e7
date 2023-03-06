@@ -125,6 +125,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d70a24e1_e55b570f",
+        "filename": "api/frame_transformer_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-03-06T08:08:27Z",
+      "side": 1,
+      "message": "Ok changing to TranformableAudioFrameInterface.\n\nThe type-info is lost when assigning to MockTransformableAudioFrame::webrtc_frame_, so we will need to cast again when calling CloneAudioFrame like in the above proof-of-concept (or do some other little dance to retain the type info), but let\u0027s worry about that in the chrome CL.",
+      "parentUuid": "a4425c1e_913b9e85",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cfa3193_1196891d",
@@ -142,6 +160,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96588ff0_c33df242",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-03-06T08:08:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cfa3193_1196891d",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39376dea_631275c5",
@@ -155,6 +191,24 @@
       "writtenOn": "2023-03-03T10:42:16Z",
       "side": 1,
       "message": "MockTransformableAudioFrame already exists...",
+      "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "730ba0ac_209a0bf3",
+        "filename": "modules/rtp_rtcp/source/frame_transformer_factory_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 20299
+      },
+      "writtenOn": "2023-03-06T08:08:27Z",
+      "side": 1,
+      "message": "Alas, the only one I find is outside the webrtc directory: https://crsrc.org/c/third_party/blink/renderer/modules/peerconnection/testing/mock_transformable_audio_frame.h?q\u003dMockTransformableAudioFrame\u0026ss\u003dchromium\n\nAdded MockTransformableAudioInterface in api/test next to the MockTranformableVideoInterface.",
+      "parentUuid": "39376dea_631275c5",
       "revId": "6cdf6dafc4d50184c2812dd9c48dcf7927e6c0e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

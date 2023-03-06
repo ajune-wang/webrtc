@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408eca1c_12019455",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-06T14:30:11Z",
+      "side": 1,
+      "message": "I would like to revert this change. CTS has very limited test set. The fact that it only tests encoding of resolutions multiple of 16 doesn\u0027t mean that this should be a requirement for all encoders. Many HW encoders can handle resolutions not multiple of 16. If encoder can\u0027t handle given resolution it should return error from MediaCodec.config().\n\nReverting this change won\u0027t affect WebRTC in Chrome (RTC encoder wrapper requests 16x16 alignment: https://source.chromium.org/chromium/chromium/src/+/main:media/gpu/android/android_video_encode_accelerator.cc;drc\u003d4abbb981443d7403566ef8aff05fdaca1e837da3;l\u003d494)",
+      "revId": "20960c494855f354565e07ad70de336a9bb3682d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

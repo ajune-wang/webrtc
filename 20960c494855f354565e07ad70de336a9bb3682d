@@ -33,6 +33,24 @@
       "message": "But will that take into account downscaling from the CPU adaptation?\n\nIf we just revert this CL, then even if the user sets correct resolution, it might get downscaled to something non divisible by 16.",
       "revId": "20960c494855f354565e07ad70de336a9bb3682d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "433b4f75_3e9524c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-06T14:38:38Z",
+      "side": 1,
+      "message": "Ah, sorry, I\u0027ve replied before reading your comment.",
+      "parentUuid": "b75889ed_16238142",
+      "revId": "20960c494855f354565e07ad70de336a9bb3682d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

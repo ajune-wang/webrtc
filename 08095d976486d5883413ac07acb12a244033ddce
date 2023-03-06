@@ -16,6 +16,40 @@
       "message": "Fix incorrect max value of sps log2_max_frame_num_minus4 and log2_max_pic_order_cnt_lsb_minus4 which is not aligned with h264 spec",
       "revId": "08095d976486d5883413ac07acb12a244033ddce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b47728ec_f5fe3e20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-06T11:59:15Z",
+      "side": 1,
+      "message": "Thanks for raising this issue. One question though...",
+      "revId": "08095d976486d5883413ac07acb12a244033ddce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b945276b_40aae0ba",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-06T11:59:15Z",
+      "side": 1,
+      "message": "If I read the spec correctly, this should be 12? Not 12 - 4?",
+      "revId": "08095d976486d5883413ac07acb12a244033ddce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

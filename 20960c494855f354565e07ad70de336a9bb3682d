@@ -68,6 +68,24 @@
       "message": "I realized that it should be fine to continue requiring 16x16 alignment in EncoderInfo. But we need to remove check from HardwareVideoEncoder.initEncode(): https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java;l\u003d213-217?q\u003dsettings.width%20%25%20REQUIRED_RESOLUTION_ALIGNMENT\u0026ss\u003dchromium",
       "revId": "20960c494855f354565e07ad70de336a9bb3682d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea1862f_121a1071",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-06T16:34:22Z",
+      "side": 1,
+      "message": "Sorry but I have to drop this CL. No need to revert whole change. New CL: https://webrtc-review.googlesource.com/c/src/+/296325",
+      "parentUuid": "694df113_3e4cecc7",
+      "revId": "20960c494855f354565e07ad70de336a9bb3682d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

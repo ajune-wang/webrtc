@@ -40,6 +40,8 @@ class LossBasedBweV2 {
   struct Result {
     ~Result() = default;
     DataRate bandwidth_estimate = DataRate::Zero();
+    // State is used by goog_cc, which later sends probe requests to probe
+    // controller if state is kIncreasing.
     LossBasedState state = LossBasedState::kDelayBasedEstimate;
   };
   // Creates a disabled `LossBasedBweV2` if the

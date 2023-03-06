@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fd2900_5cf11fca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-06T13:38:55Z",
+      "side": 1,
+      "message": "Generally looks good to me. Some nits that might be good to discuss/clean up.",
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a082ab_f5889bd3",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-06T13:38:55Z",
+      "side": 1,
+      "message": "Looks like this function is now only called from ScheduleOutput(). Do you think it would improve readability if we removed this and instead inlined the 4 implementation lines?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 53
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e65225_c1a20981",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-06T13:38:55Z",
+      "side": 1,
+      "message": "nit: This return looks redundant.",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 13
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c311f41_9796f330",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-06T13:38:55Z",
+      "side": 1,
+      "message": "nit: The other members use `RTC_GUARDED_BY(*task_queue_)`. Assuming both are equivalent, let\u0027s be consistent and use the same form everywhere.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 61
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0f946cd_e674df74",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-06T13:38:55Z",
+      "side": 1,
+      "message": "nit: This ensured that StartLogging and StopLogging are called from the same thread, but the logging_state_ is now protected by a mutex. Should we remove this? On the other hand, maybe it\u0027s still reasonable to expect the log to be started and stopped from the same thread, since the caller couldn\u0027t know what state the event log ends up in after\nThread A: StartLogging()\nThread B: StopLogging()\n\nMarkus, wdyt?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

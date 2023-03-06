@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6c3322_3433a873",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-06T11:44:31Z",
+      "side": 1,
+      "message": "+ mbonadei@ for changes (logging metrics metadata) in api/",
+      "revId": "b14b9eb0c982701a569cbbe4ed4c379c860f7ddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95d9824_a26f7121",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-06T11:44:31Z",
+      "side": 1,
+      "message": "Enum would make things less error prone but that probably not that critical for a test code. We would need to convert enum to string in two places per test (to make test case name and for logging test metadata). I would use string directly to avoid these conversions.",
+      "parentUuid": "f1d31d1a_383d3871",
+      "range": {
+        "startLine": 388,
+        "startChar": 6,
+        "endLine": 388,
+        "endChar": 23
+      },
+      "revId": "bb420d276d2731d6d8e47bf446ea9e756d085396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03742233_2a7b3301",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c21fe8f_02d73fb3",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-06T11:44:31Z",
+      "side": 1,
+      "message": "Yes, looks better. Added.",
+      "parentUuid": "03742233_2a7b3301",
+      "range": {
+        "startLine": 502,
+        "startChar": 21,
+        "endLine": 502,
+        "endChar": 32
+      },
+      "revId": "bb420d276d2731d6d8e47bf446ea9e756d085396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4e362f9_d464e110",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-03-06T08:44:27Z",
       "side": 1,
       "message": "With an enum class, you would just need a `ToString` here.",
+      "range": {
+        "startLine": 548,
+        "startChar": 22,
+        "endLine": 548,
+        "endChar": 32
+      },
+      "revId": "bb420d276d2731d6d8e47bf446ea9e756d085396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "823ba83f_de93963b",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-06T11:44:31Z",
+      "side": 1,
+      "message": "Also in TestParamsToString. I.e., 2 places per test.",
+      "parentUuid": "f4e362f9_d464e110",
       "range": {
         "startLine": 548,
         "startChar": 22,

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3f0d57d_9b5412ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-07T10:34:05Z",
+      "side": 1,
+      "message": "Nits....",
+      "revId": "dfae7b6600fcfe5895396af6c6f28468051e5c6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cefb4c44_3b8f92e5",
+        "filename": "g3doc/add-new-test-binary.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-07T10:34:05Z",
+      "side": 1,
+      "message": "Missing endquote after \"group(\u0027default\u0027)\" (and inconsistent quotes around \"default\")",
+      "revId": "dfae7b6600fcfe5895396af6c6f28468051e5c6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8da3b677_32babeae",
+        "filename": "g3doc/add-new-test-binary.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-07T10:34:05Z",
+      "side": 1,
+      "message": "Nit: \"in the within the\" -\u003e \"within the\".",
+      "revId": "dfae7b6600fcfe5895396af6c6f28468051e5c6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

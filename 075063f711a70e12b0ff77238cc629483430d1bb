@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caec0f02_7dfb4f46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-07T17:36:05Z",
+      "side": 1,
+      "message": "I expect no practical difference,\njust one less (very old) TODO",
+      "revId": "075063f711a70e12b0ff77238cc629483430d1bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

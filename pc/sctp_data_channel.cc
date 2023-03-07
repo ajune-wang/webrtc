@@ -118,6 +118,70 @@ bool InternalDataChannelInit::IsValid() const {
   return true;
 }
 
+SctpSid::SctpSid() : id_(absl::nullopt) {
+  thread_checker_.Detach();
+}
+
+SctpSid::SctpSid(int id)
+    : id_(id >= cricket::kMinSctpSid && id <= cricket::kSpecMaxSctpSid
+              ? absl::optional<uint16_t>(static_cast<uint16_t>(id))
+              : absl::nullopt) {
+  RTC_DCHECK(id == -1 || id_.has_value());
+  thread_checker_.Detach();
+}
+
+SctpSid::SctpSid(const SctpSid& sid) : id_(sid.id_) {}
+
+bool SctpSid::IsValid() const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  return id_.has_value();
+}
+
+rtc::SSLRole SctpSid::role() const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK(IsValid());
+  return (id_.value() & 1) ? rtc::SSL_SERVER : rtc::SSL_CLIENT;
+}
+
+int SctpSid::value() const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  return id_.value_or(-1);
+}
+
+void SctpSid::set_value(int id) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK(!IsValid()) << "leaking an id?";
+  if (id >= cricket::kMinSctpSid && id <= cricket::kSpecMaxSctpSid) {
+    id_ = static_cast<uint16_t>(id);
+  } else {
+    RTC_DCHECK_EQ(id, -1);
+    id_ = absl::nullopt;
+  }
+}
+
+SctpSid& SctpSid::operator=(const SctpSid& sid) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK_RUN_ON(&sid.thread_checker_);
+  RTC_DCHECK(!IsValid()) << "leaking an id?";
+  id_ = sid.id_;
+  return *this;
+}
+
+bool SctpSid::operator==(int id) const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  return id_ == id;
+}
+
+bool SctpSid::operator==(const SctpSid& sid) const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  return id_ == sid.value();
+}
+
+bool SctpSid::operator<(const SctpSid& sid) const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  return id_ < sid.value();
+}
+
 bool SctpSidAllocator::AllocateSid(rtc::SSLRole role, int* sid) {
   int potential_sid = (role == rtc::SSL_CLIENT) ? 0 : 1;
   while (!IsSidAvailable(potential_sid)) {
@@ -128,7 +192,7 @@ bool SctpSidAllocator::AllocateSid(rtc::SSLRole role, int* sid) {
   }
 
   *sid = potential_sid;
-  used_sids_.insert(potential_sid);
+  used_sids_.insert(SctpSid(potential_sid));
   return true;
 }
 
@@ -136,12 +200,12 @@ bool SctpSidAllocator::ReserveSid(int sid) {
   if (!IsSidAvailable(sid)) {
     return false;
   }
-  used_sids_.insert(sid);
+  used_sids_.insert(SctpSid(sid));
   return true;
 }
 
 void SctpSidAllocator::ReleaseSid(int sid) {
-  auto it = used_sids_.find(sid);
+  auto it = used_sids_.find(SctpSid(sid));
   if (it != used_sids_.end()) {
     used_sids_.erase(it);
   }
@@ -152,7 +216,7 @@ bool SctpSidAllocator::IsSidAvailable(int sid) const {
       sid > static_cast<int>(cricket::kMaxSctpSid)) {
     return false;
   }
-  return used_sids_.find(sid) == used_sids_.end();
+  return used_sids_.find(SctpSid(sid)) == used_sids_.end();
 }
 
 // static
@@ -195,6 +259,7 @@ SctpDataChannel::SctpDataChannel(
       internal_id_(GenerateUniqueId()),
       label_(label),
       config_(config),
+      id_(config.id),
       observer_(nullptr),
       controller_(std::move(controller)) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
@@ -329,22 +394,22 @@ bool SctpDataChannel::Send(const DataBuffer& buffer) {
 
 void SctpDataChannel::SetSctpSid(int sid) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  RTC_DCHECK_LT(config_.id, 0);
+  RTC_DCHECK(!id_.IsValid());
   RTC_DCHECK_GE(sid, 0);
   RTC_DCHECK_NE(handshake_state_, kHandshakeWaitingForAck);
   RTC_DCHECK_EQ(state_, kConnecting);
 
-  if (config_.id == sid) {
+  if (id_ == sid) {
     return;
   }
 
-  const_cast<InternalDataChannelInit&>(config_).id = sid;
+  id_.set_value(sid);
   controller_->AddSctpDataStream(sid);
 }
 
 void SctpDataChannel::OnClosingProcedureStartedRemotely(int sid) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (sid == config_.id && state_ != kClosing && state_ != kClosed) {
+  if (id_ == sid && state_ != kClosing && state_ != kClosed) {
     // Don't bother sending queued data since the side that initiated the
     // closure wouldn't receive it anyway. See crbug.com/559394 for a lengthy
     // discussion about this.
@@ -360,7 +425,7 @@ void SctpDataChannel::OnClosingProcedureStartedRemotely(int sid) {
 
 void SctpDataChannel::OnClosingProcedureComplete(int sid) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (sid == config_.id) {
+  if (id_ == sid) {
     // If the closing procedure is complete, we should have finished sending
     // all pending data and transitioned to kClosing already.
     RTC_DCHECK_EQ(state_, kClosing);
@@ -380,8 +445,8 @@ void SctpDataChannel::OnTransportChannelCreated() {
   }
   // The sid may have been unassigned when controller_->ConnectDataChannel was
   // done. So always add the streams even if connected_to_transport_ is true.
-  if (config_.id >= 0) {
-    controller_->AddSctpDataStream(config_.id);
+  if (id_.IsValid()) {
+    controller_->AddSctpDataStream(id_.value());
   }
 }
 
@@ -404,7 +469,7 @@ DataChannelStats SctpDataChannel::GetStats() const {
 void SctpDataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
                                      const rtc::CopyOnWriteBuffer& payload) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (params.sid != config_.id) {
+  if (id_ != params.sid) {
     return;
   }
 
@@ -547,9 +612,9 @@ void SctpDataChannel::UpdateState() {
         // OnClosingProcedureComplete will end up called asynchronously
         // afterwards.
         if (connected_to_transport_ && !started_closing_procedure_ &&
-            controller_ && config_.id >= 0) {
+            controller_ && id_.IsValid()) {
           started_closing_procedure_ = true;
-          controller_->RemoveSctpDataStream(config_.id);
+          controller_->RemoveSctpDataStream(id_.value());
         }
       }
       break;
@@ -638,8 +703,8 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
       buffer.binary ? DataMessageType::kBinary : DataMessageType::kText;
 
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
-  bool success =
-      controller_->SendData(config_.id, send_params, buffer.data, &send_result);
+  bool success = controller_->SendData(id_.value(), send_params, buffer.data,
+                                       &send_result);
 
   if (success) {
     ++messages_sent_;
@@ -699,7 +764,7 @@ void SctpDataChannel::QueueControlMessage(
 bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(writable_);
-  RTC_DCHECK_GE(config_.id, 0);
+  RTC_DCHECK(id_.IsValid());
 
   if (!controller_) {
     return false;
@@ -716,9 +781,9 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
 
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
   bool retval =
-      controller_->SendData(config_.id, send_params, buffer, &send_result);
+      controller_->SendData(id_.value(), send_params, buffer, &send_result);
   if (retval) {
-    RTC_LOG(LS_VERBOSE) << "Sent CONTROL message on channel " << config_.id;
+    RTC_LOG(LS_VERBOSE) << "Sent CONTROL message on channel " << id_.value();
 
     if (handshake_state_ == kHandshakeShouldSendAck) {
       handshake_state_ = kHandshakeReady;

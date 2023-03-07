@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dd895ca_42f9460f",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-07T05:56:47Z",
+      "side": 1,
+      "message": "Clear the flag earlier to mitigate.",
+      "parentUuid": "9678a47f_9c7e44e4",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 214,
+        "endChar": 23
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97a082ab_f5889bd3",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 10
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-06T13:38:55Z",
       "side": 1,
       "message": "Looks like this function is now only called from ScheduleOutput(). Do you think it would improve readability if we removed this and instead inlined the 4 implementation lines?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 53
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354e8087_af01ed76",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-07T05:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97a082ab_f5889bd3",
       "range": {
         "startLine": 240,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2023-03-06T13:38:55Z",
       "side": 1,
       "message": "nit: This return looks redundant.",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 13
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15cf32e0_c26524f6",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-07T05:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8e65225_c1a20981",
       "range": {
         "startLine": 323,
         "startChar": 0,
@@ -147,6 +219,30 @@
       "side": 1,
       "message": "Is the thread safety of the class documented somewhere?\nI\u0027d vote for removing it if it\u0027s not used.",
       "parentUuid": "e0f946cd_e674df74",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d733bd0_fb222126",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-07T05:56:47Z",
+      "side": 1,
+      "message": "It is better to keep, as the description in document [1] and other references [2].\n\n[1] no_unique_address.h - Chromium Code Search\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/system/no_unique_address.h?q\u003dRTC_NO_UNIQUE_ADDRESS%20\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F\n\n[2] RTC_NO_UNIQUE_ADDRESS - Search\nhttps://source.chromium.org/search?q\u003dRTC_NO_UNIQUE_ADDRESS%20\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F",
+      "parentUuid": "629b6fc8_22fccd45",
       "range": {
         "startLine": 115,
         "startChar": 0,

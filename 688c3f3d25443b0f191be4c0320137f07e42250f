@@ -16,6 +16,40 @@
       "message": "100% delta coverage!\n\nI did not see a difference between https://w3c.github.io/webrtc-extensions/#methods step 4 substeps 4+5, maybe merge in the spec?",
       "revId": "688c3f3d25443b0f191be4c0320137f07e42250f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1adc17e6_f6b06b15",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-07T12:53:26Z",
+      "side": 1,
+      "message": "nit: https://w3c.github.io/webrtc-extensions/#dom-rtcrtptransceiver-setheaderextensionstonegotiate",
+      "revId": "688c3f3d25443b0f191be4c0320137f07e42250f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb82613_bd018f7e",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-07T12:53:26Z",
+      "side": 1,
+      "message": "Suggest rephrasing to:\n\n\"When there exists header extension capabilities that have directions other than kSendRecv, restrict `extension.direction` as to not exceed that capability.\"\n\nIt would be nice to add a DCHECK here that fails if capabilities contains a non-kSendRecv extension to bring attention to this TODO if one is added in the future, but it looks like there is no easy way to obtain the capabilities here? Looks like a the pc factory is needed to do GetCapabilities(kind).header_extensions... we can live without the DCHECK.",
+      "revId": "688c3f3d25443b0f191be4c0320137f07e42250f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

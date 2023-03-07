@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb7f5c6e_15f4dd46",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-03-07T09:16:02Z",
+      "side": 1,
+      "message": "Mirko, not sure you\u0027re right for this, but could you perhaps comment on the recommended way of dealing with issues like this?",
+      "parentUuid": "5bf70286_87f9f776",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25796ba5_0d850bba",
         "filename": "modules/video_capture/linux/device_info_v4l2.cc",
         "patchSetId": 1
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "The naming discrepancy is because `VideoType` maps to libyuv\u0027s naming scheme, whereas V4L2 does it differently.\n\nlibyuv format docs are here: https://chromium.googlesource.com/libyuv/libyuv/+show/master/docs/formats.md\nThey say as an example on ARGB:\n```\nThe fourcc describes the order of channels in a ***register***.\nA fourcc provided by capturer, can be thought of string, e.g. \"ARGB\".\nOn little endian machines, as an int, this would have \u0027A\u0027 in the lowest byte.  The FOURCC macro reverses the order:\n    #define FOURCC(a, b, c, d) (((uint32)(a)) | ((uint32)(b) \u003c\u003c 8) | ((uint32)(c) \u003c\u003c 16) | ((uint32)(d) \u003c\u003c 24))\nSo the \"ARGB\" string, read as an uint32, is\n    FOURCC_ARGB \u003d FOURCC(\u0027A\u0027, \u0027R\u0027, \u0027G\u0027, \u0027B\u0027)\nIf you were to read ARGB pixels as uint32\u0027s, the alpha would be in the high byte, and the blue in the lowest byte.  In memory, these are stored little endian, so \u0027B\u0027 is first, then \u0027G\u0027, \u0027R\u0027 and \u0027A\u0027 last.\n```\n \n\nV4L2 documents its (rgb) formats here: https://www.kernel.org/doc/html/v6.2/userspace-api/media/v4l/pixfmt-rgb.html In 2.5.2 on 8-bits-per-component it says:\n```\nThey are named based on the order of the RGB components as stored in memory, and on the total number of bits per pixel.\n```\n\nI.e., libyuv ARGB is stored in memory as BGRA whereas V4L2 ARGB is stored in memory as ARGB.",
       "parentUuid": "b19b2224_4b02c250",
+      "range": {
+        "startLine": 301,
+        "startChar": 39,
+        "endLine": 301,
+        "endChar": 44
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480ff108_258ea9f2",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-03-07T09:16:02Z",
+      "side": 1,
+      "message": "I suspected something like that. Perhaps add a comment about this so others don\u0027t get confused.",
+      "parentUuid": "3d610750_9009aad1",
       "range": {
         "startLine": 301,
         "startChar": 39,

@@ -251,6 +251,30 @@
       },
       "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2219fe0b_af86453b",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-07T06:00:50Z",
+      "side": 1,
+      "message": "`StartLogging()` and `StopLogging()` are still expected on the the sequence.",
+      "parentUuid": "4d733bd0_fb222126",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

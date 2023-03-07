@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45c8113_d0157d22",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-07T16:54:44Z",
+      "side": 1,
+      "message": "\"Normal\" applications will never create more than max_config_events_in_history_ configs, but it shouldn\u0027t trigger a CHECK if an application does. Let\u0027s drop the oldest ones instead and maybe RTC_LOG a warning.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 52
+      },
+      "revId": "bdf3901cafd2416fd1d1ebe080258c0cc5d40de2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71310719_5a9ce1a1",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-07T16:54:44Z",
+      "side": 1,
+      "message": "Same here; this shouldn\u0027t normally happen, but we shouldn\u0027t hit a check if it does. Let\u0027s drop the oldest instead and maybe log a warning.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 75
+      },
+      "revId": "bdf3901cafd2416fd1d1ebe080258c0cc5d40de2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

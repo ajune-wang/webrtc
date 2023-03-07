@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1721288c_e172ecd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-07T14:47:35Z",
+      "side": 1,
+      "message": "Need a RS (and we\u0027re rewriting code you did :-)",
+      "revId": "4a69f20002162a9ecace8e1ba72e7f37e2f98018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

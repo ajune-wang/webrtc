@@ -50,6 +50,24 @@
       "message": "Suggest rephrasing to:\n\n\"When there exists header extension capabilities that have directions other than kSendRecv, restrict `extension.direction` as to not exceed that capability.\"\n\nIt would be nice to add a DCHECK here that fails if capabilities contains a non-kSendRecv extension to bring attention to this TODO if one is added in the future, but it looks like there is no easy way to obtain the capabilities here? Looks like a the pc factory is needed to do GetCapabilities(kind).header_extensions... we can live without the DCHECK.",
       "revId": "688c3f3d25443b0f191be4c0320137f07e42250f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d79e0f3c_96e9f471",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-07T12:58:40Z",
+      "side": 1,
+      "message": "We can add an optional WPT for this later to avoid having to re-write. \"If there exists a non-sendrecv capable extension, test that setting it to sendrecv gets restricted\"\n\nJust like you were able to mark some stats tests as not testable here? https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc-stats/supported-stats.https.html;l\u003d204;drc\u003de12e562113764f080459b1975b1d6403cbc1dab9",
+      "parentUuid": "eeb82613_bd018f7e",
+      "revId": "688c3f3d25443b0f191be4c0320137f07e42250f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

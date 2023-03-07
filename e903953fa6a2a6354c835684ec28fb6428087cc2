@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "046cbcf1_b1397046",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-07T11:25:59Z",
+      "side": 1,
+      "message": "Please review the changes from PS2 (the merge of the 3 reverted CLs) to PS4 (the code added to allow the code to execute either in one-channel mode or two-channel mode, with one-channel being the default).",
+      "revId": "e903953fa6a2a6354c835684ec28fb6428087cc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

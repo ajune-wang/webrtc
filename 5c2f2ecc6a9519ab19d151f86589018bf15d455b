@@ -16,6 +16,24 @@
       "message": "It should not transition to kClosed directly and is a spec violation. It should go to kClosing first then kClosed as those may trigger events on the browser.\nWe may want to fix UpdateState() instead to handle the case where the transport is not connected better.",
       "revId": "5c2f2ecc6a9519ab19d151f86589018bf15d455b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556b0a8b_42cc86a6",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-07T07:40:54Z",
+      "side": 1,
+      "message": "ah, thanks. Modified UpdateState instead.",
+      "parentUuid": "1539eda5_8759ad9e",
+      "revId": "5c2f2ecc6a9519ab19d151f86589018bf15d455b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

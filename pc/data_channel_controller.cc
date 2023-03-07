@@ -311,6 +311,9 @@ void DataChannelController::AllocateSctpSids(rtc::SSLRole role) {
         channels_to_close.push_back(channel);
         continue;
       }
+      // TODO(tommi): This hides a blocking call to the network thread
+      // via AddSctpDataStream. Maybe it's better to move the whole loop
+      // to the network thread? Maybe even `sctp_data_channels_`?
       channel->SetSctpSid(sid);
     }
   }

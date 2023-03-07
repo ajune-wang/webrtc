@@ -64,6 +64,33 @@ class SctpDataChannelControllerInterface {
   virtual ~SctpDataChannelControllerInterface() {}
 };
 
+class SctpId {
+ public:
+  SctpId() : id_(-1) {}
+
+  explicit SctpId(int id) : id_(id) { RTC_DCHECK(id == -1 || id >= 0); }
+
+  bool IsValid() const { return id_ >= 0; }
+
+  rtc::SSLRole role() const {
+    RTC_DCHECK(IsValid());
+    return (id_ & 1) ? rtc::SSL_SERVER : rtc::SSL_CLIENT;
+  }
+
+  int value() const { return id_; }
+  void set_value(int id) {
+    // TODO(tommi): RTC_DCHECK(!IsValid())?
+    RTC_DCHECK(id == -1 || id >= 0);
+    id_ = id;
+  }
+
+  bool operator==(int id) const { return id_ == id; }
+  bool operator==(const SctpId& sid) const { return id_ == sid.id_; }
+
+ private:
+  int id_;
+};
+
 // TODO(tommi): Change to not inherit from DataChannelInit but to have it as
 // a const member. Block access to the 'id' member since it cannot be const.
 struct InternalDataChannelInit : public DataChannelInit {
@@ -163,7 +190,7 @@ class SctpDataChannel : public DataChannelInterface,
   }
   std::string protocol() const override { return config_.protocol; }
   bool negotiated() const override { return config_.negotiated; }
-  int id() const override { return config_.id; }
+  int id() const override { return id_.value(); }
   Priority priority() const override {
     return config_.priority ? *config_.priority : Priority::kLow;
   }
@@ -262,6 +289,7 @@ class SctpDataChannel : public DataChannelInterface,
   const int internal_id_;
   const std::string label_;
   const InternalDataChannelInit config_;
+  SctpId id_;
   DataChannelObserver* observer_ RTC_GUARDED_BY(signaling_thread_) = nullptr;
   DataState state_ RTC_GUARDED_BY(signaling_thread_) = kConnecting;
   RTCError error_ RTC_GUARDED_BY(signaling_thread_);

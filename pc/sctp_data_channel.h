@@ -22,11 +22,13 @@
 #include "api/priority.h"
 #include "api/rtc_error.h"
 #include "api/scoped_refptr.h"
+#include "api/sequence_checker.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "media/base/media_channel.h"
 #include "pc/data_channel_utils.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/ssl_stream_adapter.h"  // For SSLRole
+#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
@@ -62,6 +64,25 @@ class SctpDataChannelControllerInterface {
 
  protected:
   virtual ~SctpDataChannelControllerInterface() {}
+};
+
+class SctpId {
+ public:
+  SctpId();
+  explicit SctpId(int id);
+
+  bool IsValid() const;
+
+  rtc::SSLRole role() const;
+  int value() const;
+  void set_value(int id);
+
+  bool operator==(int id) const;
+  bool operator==(const SctpId& sid) const;
+
+ private:
+  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker thread_checker_;
+  int id_ RTC_GUARDED_BY(thread_checker_);
 };
 
 // TODO(tommi): Change to not inherit from DataChannelInit but to have it as
@@ -163,7 +184,7 @@ class SctpDataChannel : public DataChannelInterface,
   }
   std::string protocol() const override { return config_.protocol; }
   bool negotiated() const override { return config_.negotiated; }
-  int id() const override { return config_.id; }
+  int id() const override { return id_.value(); }
   Priority priority() const override {
     return config_.priority ? *config_.priority : Priority::kLow;
   }
@@ -262,6 +283,7 @@ class SctpDataChannel : public DataChannelInterface,
   const int internal_id_;
   const std::string label_;
   const InternalDataChannelInit config_;
+  SctpId id_;
   DataChannelObserver* observer_ RTC_GUARDED_BY(signaling_thread_) = nullptr;
   DataState state_ RTC_GUARDED_BY(signaling_thread_) = kConnecting;
   RTCError error_ RTC_GUARDED_BY(signaling_thread_);

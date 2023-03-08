@@ -16,6 +16,24 @@
       "message": "I\u0027m worried that doing this won\u0027t surface the kClosing AND the kClosed event to observers adequately.\nCould you try to check if Chrome will always see 2 events where the DC receives a state change where it currently reports as closing and another one as closed, while taking this code path?",
       "revId": "cfa022390f284e2057d4fbcab95857ad5cfebe87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1cc2002_a9a94df2",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-08T10:50:06Z",
+      "side": 1,
+      "message": "Yes I\u0027ve verified that both events are reported and handled.\n\nWhen we get here, SetState(kClosing)  has just been called and there, an observer has been notified via the `OnStateChange()` callback.\n\nAll implementations I\u0027ve seen, follow this pattern when implementing `DataChannelObserver::OnStateChange()`:\n* Synchronously call the `state()` getter, to read the current state.\n* Either synchronously or asynchronously react to the state value.\n\nHere\u0027s one example that I verified (async handling of the state value in this case):\n\n```\nvoid RTCDataChannel::Observer::OnStateChange() {\n  PostCrossThreadTask(\n      *main_thread_, FROM_HERE,\n      CrossThreadBindOnce(\u0026RTCDataChannel::Observer::OnStateChangeImpl,\n                          scoped_refptr\u003cObserver\u003e(this),\n                          webrtc_channel_-\u003estate()));\n}\n```",
+      "parentUuid": "3d166bbc_bbff4ade",
+      "revId": "cfa022390f284e2057d4fbcab95857ad5cfebe87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

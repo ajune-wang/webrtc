@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e2601310e1f100c5ecd2992a73c823372804a29f',
+  'chromium_revision': 'f0bed3ca3efee1e7b21d442fa483f681c28562a9',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:12.20230308.1.1',
+  'fuchsia_version': 'version:12.20230308.2.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -48,22 +48,22 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@a0763fbd7fa65dfca322c7192520bddf02451877',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@512b48958e9ee5fe2d9fe60288fb18125aff298d',
+    'https://chromium.googlesource.com/chromium/src/build@28d840857f2eebc19ed75ebd21d83c8640ac7656',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@c20dc6aaed34476b801c2e4bb880f7f90b4587ae',
+    'https://chromium.googlesource.com/chromium/src/buildtools@2cdfeaa2d060d899bb92065a3c649dff84131d9d',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@87c164ae2eac343abaac1e38d9668c889b66a28c',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b766671de424efb4b4a8e2b44479b91cdf0a5cf5',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@d3de4926993bc0fbabe32068c03adc534935e88c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@18bae88bf7a4f47dab814cfa3c1d4c6ba5cdc108',
+    'https://chromium.googlesource.com/chromium/src/third_party@95a25e5365504e64ebb1793d8a2a2f204ea79fe0',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/buildtools/clang_format/script':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format.git@f97059df7f8b205064625cdb5f97b56668a125ef',
   'src/buildtools/third_party/libc++/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@e136ec5032a5e5d97e988ce66e8c269a80ff54c4',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@3cf0fe4445843426d7c51eca9daad9ae0c2ff77d',
   'src/buildtools/third_party/libc++abi/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@c86761b030be5c1b5d1e49a93bc54e1d5f1377b9',
   'src/buildtools/third_party/libunwind/trunk':
@@ -287,7 +287,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@c43a9bc21aca0aba4d594f4101b1a0ada864c35e',
+    'https://android.googlesource.com/platform/external/perfetto.git@9f77c9083c530cb625123c912da3471455911c83',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@f7ca33c46cbc4c1510a7343c125117ace5a183e7',
   'src/third_party/libyuv':
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@b9fe6bf6821750fdf07ccaaf6d85e375d459e0a4',
+    'https://chromium.googlesource.com/chromium/src/tools@bae79ad177956502be73c8e95d35bcf40749f33c',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

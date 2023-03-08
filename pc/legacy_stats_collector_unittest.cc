@@ -867,7 +867,7 @@ TEST_F(LegacyStatsCollectorTest, FilterOutNegativeDataChannelId) {
 // Verify that ExtractDataInfo populates reports.
 TEST_F(LegacyStatsCollectorTest, ExtractDataInfo) {
   const std::string kDataChannelLabel = "hacks";
-  constexpr int kDataChannelId = 31337;
+  constexpr int kDataChannelId = 337;
   const std::string kConnectingString = DataChannelInterface::DataStateString(
       DataChannelInterface::DataState::kConnecting);
 

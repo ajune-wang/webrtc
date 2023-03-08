@@ -50,6 +50,24 @@
       "message": "If I read the spec correctly, this should be 12? Not 12 - 4?",
       "revId": "08095d976486d5883413ac07acb12a244033ddce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "059178b1_911173b2",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-03-08T05:16:35Z",
+      "side": 1,
+      "message": "It should be 12, patch updated",
+      "parentUuid": "b945276b_40aae0ba",
+      "revId": "08095d976486d5883413ac07acb12a244033ddce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

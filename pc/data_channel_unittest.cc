@@ -32,6 +32,7 @@
 
 using webrtc::DataChannelInterface;
 using webrtc::SctpDataChannel;
+using webrtc::SctpSid;
 using webrtc::SctpSidAllocator;
 
 static constexpr int kDefaultTimeout = 10000;
@@ -88,8 +89,8 @@ class SctpDataChannelTest : public ::testing::Test {
   void SetChannelReady() {
     controller_->set_transport_available(true);
     webrtc_data_channel_->OnTransportChannelCreated();
-    if (webrtc_data_channel_->id() < 0) {
-      webrtc_data_channel_->SetSctpSid(0);
+    if (!webrtc_data_channel_->sid().IsValid()) {
+      webrtc_data_channel_->SetSctpSid(SctpSid(0));
     }
     controller_->set_ready_to_send(true);
   }
@@ -106,6 +107,33 @@ class SctpDataChannelTest : public ::testing::Test {
   rtc::scoped_refptr<SctpDataChannel> webrtc_data_channel_;
 };
 
+TEST_F(SctpDataChannelTest, VerifyConfigurationGetters) {
+  EXPECT_EQ(webrtc_data_channel_->label(), "test");
+  EXPECT_EQ(webrtc_data_channel_->protocol(), init_.protocol);
+
+  // Note that the `init_.reliable` field is deprecated, so we directly set
+  // it here to match spec behavior for purposes of checking the `reliable()`
+  // getter.
+  init_.reliable = (!init_.maxRetransmits && !init_.maxRetransmitTime);
+  EXPECT_EQ(webrtc_data_channel_->reliable(), init_.reliable);
+  EXPECT_EQ(webrtc_data_channel_->ordered(), init_.ordered);
+  EXPECT_EQ(webrtc_data_channel_->negotiated(), init_.negotiated);
+  EXPECT_EQ(webrtc_data_channel_->priority(), webrtc::Priority::kLow);
+  EXPECT_EQ(webrtc_data_channel_->maxRetransmitTime(),
+            static_cast<uint16_t>(-1));
+  EXPECT_EQ(webrtc_data_channel_->maxPacketLifeTime(), init_.maxRetransmitTime);
+  EXPECT_EQ(webrtc_data_channel_->maxRetransmits(), static_cast<uint16_t>(-1));
+  EXPECT_EQ(webrtc_data_channel_->maxRetransmitsOpt(), init_.maxRetransmits);
+
+  // Check the non-const part of the configuration.
+  EXPECT_EQ(webrtc_data_channel_->id(), init_.id);
+  EXPECT_EQ(webrtc_data_channel_->sid(), SctpSid());
+
+  SetChannelReady();
+  EXPECT_EQ(webrtc_data_channel_->id(), 0);
+  EXPECT_EQ(webrtc_data_channel_->sid(), SctpSid(0));
+}
+
 // Verifies that the data channel is connected to the transport after creation.
 TEST_F(SctpDataChannelTest, ConnectedToTransportOnCreated) {
   controller_->set_transport_available(true);
@@ -118,7 +146,7 @@ TEST_F(SctpDataChannelTest, ConnectedToTransportOnCreated) {
   EXPECT_FALSE(controller_->IsSendStreamAdded(dc->id()));
   EXPECT_FALSE(controller_->IsRecvStreamAdded(dc->id()));
 
-  dc->SetSctpSid(0);
+  dc->SetSctpSid(SctpSid(0));
   EXPECT_TRUE(controller_->IsSendStreamAdded(dc->id()));
   EXPECT_TRUE(controller_->IsRecvStreamAdded(dc->id()));
 }
@@ -403,7 +431,7 @@ TEST_F(SctpDataChannelTest, QueuedCloseFlushes) {
 
 // Tests that messages are sent with the right id.
 TEST_F(SctpDataChannelTest, SendDataId) {
-  webrtc_data_channel_->SetSctpSid(1);
+  webrtc_data_channel_->SetSctpSid(SctpSid(1));
   SetChannelReady();
   webrtc::DataBuffer buffer("data");
   EXPECT_TRUE(webrtc_data_channel_->Send(buffer));
@@ -412,7 +440,7 @@ TEST_F(SctpDataChannelTest, SendDataId) {
 
 // Tests that the incoming messages with wrong ids are rejected.
 TEST_F(SctpDataChannelTest, ReceiveDataWithInvalidId) {
-  webrtc_data_channel_->SetSctpSid(1);
+  webrtc_data_channel_->SetSctpSid(SctpSid(1));
   SetChannelReady();
 
   AddObserver();
@@ -427,7 +455,7 @@ TEST_F(SctpDataChannelTest, ReceiveDataWithInvalidId) {
 
 // Tests that the incoming messages with right ids are accepted.
 TEST_F(SctpDataChannelTest, ReceiveDataWithValidId) {
-  webrtc_data_channel_->SetSctpSid(1);
+  webrtc_data_channel_->SetSctpSid(SctpSid(1));
   SetChannelReady();
 
   AddObserver();
@@ -470,7 +498,7 @@ TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesReceived) {
       webrtc::DataBuffer("message of the beast"),
   });
 
-  webrtc_data_channel_->SetSctpSid(1);
+  webrtc_data_channel_->SetSctpSid(SctpSid(1));
   cricket::ReceiveDataParams params;
   params.sid = 1;
 
@@ -602,7 +630,7 @@ TEST_F(SctpDataChannelTest, ClosedWhenReceivedBufferFull) {
 
 // Tests that sending empty data returns no error and keeps the channel open.
 TEST_F(SctpDataChannelTest, SendEmptyData) {
-  webrtc_data_channel_->SetSctpSid(1);
+  webrtc_data_channel_->SetSctpSid(SctpSid(1));
   SetChannelReady();
   EXPECT_EQ(webrtc::DataChannelInterface::kOpen, webrtc_data_channel_->state());
 
@@ -680,66 +708,78 @@ class SctpSidAllocatorTest : public ::testing::Test {
 // Verifies that an even SCTP id is allocated for SSL_CLIENT and an odd id for
 // SSL_SERVER.
 TEST_F(SctpSidAllocatorTest, SctpIdAllocationBasedOnRole) {
-  int id;
+  SctpSid id;
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &id));
-  EXPECT_EQ(1, id);
+  EXPECT_EQ(1, id.value());
+  id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &id));
-  EXPECT_EQ(0, id);
+  EXPECT_EQ(0, id.value());
+  id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &id));
-  EXPECT_EQ(3, id);
+  EXPECT_EQ(3, id.value());
+  id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &id));
-  EXPECT_EQ(2, id);
+  EXPECT_EQ(2, id.value());
+  id.reset();
 }
 
 // Verifies that SCTP ids of existing DataChannels are not reused.
 TEST_F(SctpSidAllocatorTest, SctpIdAllocationNoReuse) {
-  int old_id = 1;
+  SctpSid old_id(1);
   EXPECT_TRUE(allocator_.ReserveSid(old_id));
 
-  int new_id;
+  SctpSid new_id;
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &new_id));
   EXPECT_NE(old_id, new_id);
 
-  old_id = 0;
+  old_id = SctpSid(0);
   EXPECT_TRUE(allocator_.ReserveSid(old_id));
+  new_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &new_id));
   EXPECT_NE(old_id, new_id);
 }
 
 // Verifies that SCTP ids of removed DataChannels can be reused.
 TEST_F(SctpSidAllocatorTest, SctpIdReusedForRemovedDataChannel) {
-  int odd_id = 1;
-  int even_id = 0;
+  SctpSid odd_id(1);
+  SctpSid even_id(0);
   EXPECT_TRUE(allocator_.ReserveSid(odd_id));
   EXPECT_TRUE(allocator_.ReserveSid(even_id));
 
-  int allocated_id = -1;
+  SctpSid allocated_id;
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &allocated_id));
-  EXPECT_EQ(odd_id + 2, allocated_id);
+  EXPECT_EQ(odd_id.value() + 2, allocated_id.value());
 
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &allocated_id));
-  EXPECT_EQ(even_id + 2, allocated_id);
+  EXPECT_EQ(even_id.value() + 2, allocated_id.value());
 
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &allocated_id));
-  EXPECT_EQ(odd_id + 4, allocated_id);
+  EXPECT_EQ(odd_id.value() + 4, allocated_id.value());
 
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &allocated_id));
-  EXPECT_EQ(even_id + 4, allocated_id);
+  EXPECT_EQ(even_id.value() + 4, allocated_id.value());
 
   allocator_.ReleaseSid(odd_id);
   allocator_.ReleaseSid(even_id);
 
   // Verifies that removed ids are reused.
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &allocated_id));
   EXPECT_EQ(odd_id, allocated_id);
 
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &allocated_id));
   EXPECT_EQ(even_id, allocated_id);
 
   // Verifies that used higher ids are not reused.
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_SERVER, &allocated_id));
-  EXPECT_EQ(odd_id + 6, allocated_id);
+  EXPECT_EQ(odd_id.value() + 6, allocated_id.value());
 
+  allocated_id.reset();
   EXPECT_TRUE(allocator_.AllocateSid(rtc::SSL_CLIENT, &allocated_id));
-  EXPECT_EQ(even_id + 6, allocated_id);
+  EXPECT_EQ(even_id.value() + 6, allocated_id.value());
 }

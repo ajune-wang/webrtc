@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "259e69af_e51c4ca5",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-08T06:21:29Z",
+      "side": 1,
+      "message": "The race condition still exists with my previous change, if `Log()` called between clear `output_scheduled_` and update `last_output_ms_`.\n\nI will look more on it.",
+      "parentUuid": "4dd895ca_42f9460f",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 214,
+        "endChar": 23
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97a082ab_f5889bd3",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 10

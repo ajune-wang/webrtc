@@ -35,9 +35,15 @@ bool ParseDataChannelOpenMessage(const rtc::CopyOnWriteBuffer& payload,
 bool ParseDataChannelOpenAckMessage(const rtc::CopyOnWriteBuffer& payload);
 
 bool WriteDataChannelOpenMessage(const std::string& label,
+                                 const std::string& protocol,
+                                 absl::optional<Priority> priority,
+                                 bool ordered,
+                                 absl::optional<int> max_retransmits,
+                                 absl::optional<int> max_retransmit_time,
+                                 rtc::CopyOnWriteBuffer* payload);
+bool WriteDataChannelOpenMessage(const std::string& label,
                                  const DataChannelInit& config,
                                  rtc::CopyOnWriteBuffer* payload);
-
 void WriteDataChannelOpenAckMessage(rtc::CopyOnWriteBuffer* payload);
 
 }  // namespace webrtc

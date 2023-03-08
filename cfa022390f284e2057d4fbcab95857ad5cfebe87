@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d166bbc_bbff4ade",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-03-08T10:04:05Z",
+      "side": 1,
+      "message": "I\u0027m worried that doing this won\u0027t surface the kClosing AND the kClosed event to observers adequately.\nCould you try to check if Chrome will always see 2 events where the DC receives a state change where it currently reports as closing and another one as closed, while taking this code path?",
+      "revId": "cfa022390f284e2057d4fbcab95857ad5cfebe87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

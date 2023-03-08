@@ -35,6 +35,10 @@ std::string EncodeOptionalBlobs(
     }
   }
 
+  if (num_blobs_present == 0) {
+    return {};
+  }
+
   const bool all_blobs_present = num_blobs_present == blobs.size();
   if (!all_blobs_present) {
     reserve_size_bits += blobs.size();

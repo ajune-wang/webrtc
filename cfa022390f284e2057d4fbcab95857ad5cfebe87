@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb3ec102_fa81658b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-08T13:45:56Z",
+      "side": 1,
+      "message": "Harald - can you take over from where Florent left off?",
+      "revId": "cfa022390f284e2057d4fbcab95857ad5cfebe87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d166bbc_bbff4ade",

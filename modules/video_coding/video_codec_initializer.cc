@@ -253,6 +253,14 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
             video_codec.VP9()->numberOfTemporalLayers,
             video_codec.mode == VideoCodecMode::kScreensharing);
 
+        // The top spatial layer dimensions may not be equal to the input
+        // resolution because of the rounding or explicit configuration.
+        // This difference must be propagated to the stream configuration.
+        video_codec.width = spatial_layers.back().width;
+        video_codec.height = spatial_layers.back().height;
+        video_codec.simulcastStream[0].width = spatial_layers.back().width;
+        video_codec.simulcastStream[0].height = spatial_layers.back().height;
+
         // If there was no request for spatial layering, don't limit bitrate
         // of single spatial layer.
         const bool no_spatial_layering =
@@ -277,14 +285,6 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       for (size_t i = 0; i < spatial_layers.size(); ++i) {
         video_codec.spatialLayers[i] = spatial_layers[i];
       }
-
-      // The top spatial layer dimensions may not be equal to the input
-      // resolution because of the rounding or explicit configuration.
-      // This difference must be propagated to the stream configuration.
-      video_codec.width = spatial_layers.back().width;
-      video_codec.height = spatial_layers.back().height;
-      video_codec.simulcastStream[0].width = spatial_layers.back().width;
-      video_codec.simulcastStream[0].height = spatial_layers.back().height;
 
       // Update layering settings.
       video_codec.VP9()->numberOfSpatialLayers =

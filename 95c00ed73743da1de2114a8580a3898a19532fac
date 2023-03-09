@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1382edd2_b1380513",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20560
+      },
+      "writtenOn": "2023-03-09T20:07:59Z",
+      "side": 1,
+      "message": "Thanks for uploading this! Looks like there are a few compilation errors on other OSes.",
+      "revId": "95c00ed73743da1de2114a8580a3898a19532fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8923da46_293eb3bb",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 20560
+      },
+      "writtenOn": "2023-03-09T20:07:59Z",
+      "side": 1,
+      "message": "Looks like the compiler wants this to be under an else\n\n```\n#ifdef WEBRTC_USE_POLL\n  return WaitPoll\n\n#else\n  ...\n  return WaitSelect\n#endif\n```",
+      "range": {
+        "startLine": 1275,
+        "startChar": 0,
+        "endLine": 1286,
+        "endChar": 41
+      },
+      "revId": "95c00ed73743da1de2114a8580a3898a19532fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "211537c9_00c8dcc2",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 20560
+      },
+      "writtenOn": "2023-03-09T20:07:59Z",
+      "side": 1,
+      "message": "#ifdef WEBRTC_USE_POLL\n\n(or move to 1693)",
+      "revId": "95c00ed73743da1de2114a8580a3898a19532fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "199634b3_4d5cdbf3",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 20560
+      },
+      "writtenOn": "2023-03-09T20:07:59Z",
+      "side": 1,
+      "message": "#endif",
+      "revId": "95c00ed73743da1de2114a8580a3898a19532fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

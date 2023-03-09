@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b5178c7_eee44675",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-09T12:18:11Z",
+      "side": 1,
+      "message": "Downstream failures should be unrelated.",
+      "revId": "c1ed82f4e01bceb04ee79b50c7873a7b0393f8ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

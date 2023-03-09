@@ -18,6 +18,7 @@
 #include "api/units/time_delta.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -65,6 +66,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // May be called on any thread or task queue, including this task queue.
   void PostTask(absl::AnyInvocable<void() &&> task,
                 const Location& location = Location::Current()) {
+    RTC_LOG(LS_INFO) << "Posting task from " << location.ToString();
     PostTaskImpl(std::move(task), PostTaskTraits{}, location);
   }
 
@@ -94,6 +96,8 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   void PostDelayedTask(absl::AnyInvocable<void() &&> task,
                        TimeDelta delay,
                        const Location& location = Location::Current()) {
+    RTC_LOG(LS_INFO) << "Posting delayed task from " << location.ToString()
+                     << " delay=" << delay;
     PostDelayedTaskImpl(std::move(task), delay,
                         PostDelayedTaskTraits{.high_precision = false},
                         location);
@@ -119,6 +123,8 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
       absl::AnyInvocable<void() &&> task,
       TimeDelta delay,
       const Location& location = Location::Current()) {
+    RTC_LOG(LS_INFO) << "Posting hp delayed task from " << location.ToString()
+                     << " delay=" << delay;
     PostDelayedTaskImpl(std::move(task), delay,
                         PostDelayedTaskTraits{.high_precision = true},
                         location);

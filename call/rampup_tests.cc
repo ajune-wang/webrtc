@@ -43,7 +43,7 @@ using ::webrtc::test::GetGlobalMetricsLogger;
 using ::webrtc::test::ImprovementDirection;
 using ::webrtc::test::Unit;
 
-constexpr TimeDelta kPollInterval = TimeDelta::Millis(20);
+constexpr TimeDelta kPollInterval = TimeDelta::Seconds(1);
 static const int kExpectedHighVideoBitrateBps = 80000;
 static const int kExpectedHighAudioBitrateBps = 30000;
 static const int kLowBandwidthLimitBps = 20000;

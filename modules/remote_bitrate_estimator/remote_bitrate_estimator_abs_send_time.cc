@@ -142,6 +142,10 @@ RemoteBitrateEstimatorAbsSendTime::FindBestProbe(
   DataRate highest_probe_bitrate = DataRate::Zero();
   const Cluster* best = nullptr;
   for (const auto& cluster : clusters) {
+    RTC_LOG(LS_INFO) << "Checking probe send=" << cluster.send_mean
+                     << " recv=" << cluster.recv_mean
+                     << " b=" << cluster.mean_size
+                     << " num_above=" << cluster.num_above_min_delta;
     if (cluster.send_mean == TimeDelta::Zero() ||
         cluster.recv_mean == TimeDelta::Zero()) {
       continue;
@@ -163,6 +167,12 @@ RemoteBitrateEstimatorAbsSendTime::FindBestProbe(
                        << " ms, mean recv delta: " << cluster.recv_mean.ms()
                        << " ms, num probes: " << cluster.count;
       break;
+    }
+    if (best) {
+    RTC_LOG(LS_INFO) << "Best probe send=" << best->send_mean
+                     << " recv=" << best->recv_mean
+                     << " b=" << best->mean_size
+                     << " num_above=" << best->num_above_min_delta;
     }
   }
   return best;

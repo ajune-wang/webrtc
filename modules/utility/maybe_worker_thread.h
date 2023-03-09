@@ -47,10 +47,12 @@ class RTC_LOCKABLE MaybeWorkerThread {
 
   // Runs `task` immediately on the worker thread if in experiment, otherwise
   // post the task on the task queue.
-  void RunOrPost(absl::AnyInvocable<void() &&> task);
+  void RunOrPost(absl::AnyInvocable<void() &&> task,
+                 Location location = Location::Current());
   // Runs `task` immediately on the worker thread if in experiment, otherwise
   // post the task on the task queue and use an even to wait for completion.
-  void RunSynchronous(absl::AnyInvocable<void() &&> task);
+  void RunSynchronous(absl::AnyInvocable<void() &&> task,
+                      Location location = Location::Current());
 
   // Used for posting delayed or repeated tasks on the worker thread or task
   // queue depending on the field trial. DCHECKs that this method is called on

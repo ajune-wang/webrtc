@@ -13,6 +13,8 @@
 
 #include "rtc_base/system/rtc_export.h"
 
+#include <string>
+
 namespace webrtc {
 
 // Location provides basic info where of an object was constructed, or was
@@ -23,7 +25,18 @@ namespace webrtc {
 // The declaration is overriden inside the Chromium build.
 class RTC_EXPORT Location {
  public:
-  static Location Current() { return Location(); }
+  static Location Current(const char* function_name = __builtin_FUNCTION(),
+                          const char* file_name = __builtin_FILE(),
+                          int line_number = __builtin_LINE());
+
+  const char* function_name;
+  const char* file_name;
+  int line_number;
+
+  std::string ToString() const;
+
+ private:
+  Location(const char* function_name, const char* file_name, int line_number);
 };
 
 }  // namespace webrtc

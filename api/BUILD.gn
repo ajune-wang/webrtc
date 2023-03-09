@@ -72,7 +72,7 @@ rtc_library("location") {
     sources = [ "../../webrtc_overrides/api/location.h" ]
     deps += [ "//base" ]
   } else {
-    sources = [ "location.h" ]
+    sources = [ "location.h", "location.cc" ]
   }
 }
 

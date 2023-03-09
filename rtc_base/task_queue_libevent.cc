@@ -26,6 +26,7 @@
 #include "absl/container/inlined_vector.h"
 #include "absl/functional/any_invocable.h"
 #include "absl/strings/string_view.h"
+#include "api/location.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
@@ -137,6 +138,8 @@ class TaskQueueLibevent final : public TaskQueueBase {
   Mutex pending_lock_;
   absl::InlinedVector<absl::AnyInvocable<void() &&>, 4> pending_
       RTC_GUARDED_BY(pending_lock_);
+  absl::InlinedVector<Location, 4> pending_locs_
+      RTC_GUARDED_BY(pending_lock_);
   // Holds a list of events pending timers for cleanup when the loop exits.
   std::list<TimerEvent*> pending_timers_;
 };
@@ -174,8 +177,10 @@ TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
           // Ensure remaining deleted tasks are destroyed with Current() set up
           // to this task queue.
           absl::InlinedVector<absl::AnyInvocable<void() &&>, 4> pending;
+          absl::InlinedVector<Location, 4> locs;
           MutexLock lock(&pending_lock_);
           pending_.swap(pending);
+          pending_locs_.swap(locs);
         }
         for (TimerEvent* timer : pending_timers_)
           delete timer;
@@ -222,6 +227,7 @@ void TaskQueueLibevent::PostTaskImpl(absl::AnyInvocable<void() &&> task,
     MutexLock lock(&pending_lock_);
     bool had_pending_tasks = !pending_.empty();
     pending_.push_back(std::move(task));
+    pending_locs_.push_back(location);
 
     // Only write to the pipe if there were no pending tasks before this one
     // since the thread could be sleeping. If there were already pending tasks
@@ -288,12 +294,17 @@ void TaskQueueLibevent::OnWakeup(int socket,
       break;
     case kRunTasks: {
       absl::InlinedVector<absl::AnyInvocable<void() &&>, 4> tasks;
+      absl::InlinedVector<Location, 4> locs;
       {
         MutexLock lock(&me->pending_lock_);
         tasks.swap(me->pending_);
+        locs.swap(me->pending_locs_);
       }
       RTC_DCHECK(!tasks.empty());
+      size_t i = 0;
       for (auto& task : tasks) {
+        RTC_LOG(LS_INFO) << me << " Running task from " << locs[i].ToString();
+        ++i;
         std::move(task)();
         // Prefer to delete the `task` before running the next one.
         task = nullptr;

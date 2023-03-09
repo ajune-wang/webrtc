@@ -46,26 +46,29 @@ MaybeWorkerThread::~MaybeWorkerThread() {
   }
 }
 
-void MaybeWorkerThread::RunSynchronous(absl::AnyInvocable<void() &&> task) {
+void MaybeWorkerThread::RunSynchronous(absl::AnyInvocable<void() &&> task, Location location) {
   if (owned_task_queue_) {
     rtc::Event thread_sync_event;
     auto closure = [&thread_sync_event, task = std::move(task)]() mutable {
       std::move(task)();
       thread_sync_event.Set();
     };
-    owned_task_queue_->PostTask(std::move(closure));
+    owned_task_queue_->PostTask(std::move(closure), location);
     thread_sync_event.Wait(rtc::Event::kForever);
   } else {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
+    RTC_LOG(LS_INFO) << "Directly running BLOCKING task from "
+                     << location.ToString();
     std::move(task)();
   }
 }
 
-void MaybeWorkerThread::RunOrPost(absl::AnyInvocable<void() &&> task) {
+void MaybeWorkerThread::RunOrPost(absl::AnyInvocable<void() &&> task, Location location) {
   if (owned_task_queue_) {
-    owned_task_queue_->PostTask(std::move(task));
+    owned_task_queue_->PostTask(std::move(task), location);
   } else {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
+    RTC_LOG(LS_INFO) << "Directly running task from " << location.ToString();
     std::move(task)();
   }
 }

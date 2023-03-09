@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5bdda2d_935330a9",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-09T15:44:52Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n“Do not use captures with initializers to introduce new names”\n\"Instead, declare a new variable in the conventional way and then capture it\"\n\ni.e.\n```\nrtc::scoped_refptr\u003cSctpDataChannel\u003e release \u003d std::move(*it);\nsctp_data_channels_.erase(it);\nsignaling_thread()-\u003ePostTask(\n          SafeTask(signaling_safety_.flag(), [release \u003d std::move(release)] {}));\n```",
+      "range": {
+        "startLine": 338,
+        "startChar": 46,
+        "endLine": 338,
+        "endChar": 59
+      },
+      "revId": "b17209bf4eebf064f3a78c8e70aa84f0d21b2cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0ff3dbf_2d5d43e1",
+        "filename": "pc/data_channel_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-09T15:44:52Z",
+      "side": 1,
+      "message": "and multithreading is controlled manually.\n \nit wouldn\u0027t be safe if test would brun multiple threads.\nthough that could be implied from the comments below.",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 11
+      },
+      "revId": "b17209bf4eebf064f3a78c8e70aa84f0d21b2cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

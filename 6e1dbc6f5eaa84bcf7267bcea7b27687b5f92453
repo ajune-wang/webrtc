@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cda0a2bc_809afcee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-09T11:58:10Z",
+      "side": 1,
+      "message": "First step, next CL will make this stuff work for simulcast as well",
+      "revId": "6e1dbc6f5eaa84bcf7267bcea7b27687b5f92453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

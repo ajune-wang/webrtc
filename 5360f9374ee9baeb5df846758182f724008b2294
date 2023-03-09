@@ -16,6 +16,23 @@
       "message": "It should be 12, patch has been updated",
       "revId": "5360f9374ee9baeb5df846758182f724008b2294",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c665338_31e7c7a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-03-09T02:20:01Z",
+      "side": 1,
+      "message": "cannot reproduce the video_engine_tests CI test case failure in local environment, please help trigger the CQ dry run again, thanks",
+      "revId": "5360f9374ee9baeb5df846758182f724008b2294",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69dbced3_47f16f26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T19:38:43Z",
+      "side": 1,
+      "message": "Please add \"Bug: webrtc:\u003cbug number\u003e\" before this line if you have filed the bug, \"Bug: None\" otherwise. (Filed bugs are preferable).",
+      "revId": "b69aaf2747f4823b783c20e45d27a91d35c1d13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f782ca4_8e6f29f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T19:38:43Z",
+      "side": 1,
+      "message": "No problem, except for the missing Bug: line.",
+      "revId": "b69aaf2747f4823b783c20e45d27a91d35c1d13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

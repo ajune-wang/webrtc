@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bdf38d5_4d9519d7",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-10T08:48:26Z",
+      "side": 1,
+      "message": "We moved this one inside WEBRTC_USE_POLL above, but WaitPollOneDispatcher is called also inside WEBRTC_USE_EPOLL.",
+      "range": {
+        "startLine": 1657,
+        "startChar": 15,
+        "endLine": 1657,
+        "endChar": 33
+      },
+      "revId": "768bf945a02c6dda90dd5fa185a16377c684f529",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

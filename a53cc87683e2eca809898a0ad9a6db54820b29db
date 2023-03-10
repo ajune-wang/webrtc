@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dc52d23_6bd588bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T14:13:15Z",
+      "side": 1,
+      "message": "Thought this looked reasonable, but the name \"SctpSid\" was bothering me.\nWe have a type called dcsctp::StreamId. (the definition is a StrongAlias, it was surprisingly hard to find).\n\nWe should either use the same type name or alias it - two wrappers for the same object are just not right.",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8efb287_4595da0a",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T14:13:15Z",
+      "side": 1,
+      "message": "Should we do a static_assert(kMaxSctpStreams \u003c\u003d kSpecMaxSctpSid?\nI want to increase kMaxSctpStreams substantially now that we\u0027re fully on dcSctp - hopefully there isn\u0027t that array allocation to worry about (and if there is, Victor can fix it).",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13de5ffa_e9504321",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T14:13:15Z",
+      "side": 1,
+      "message": "This branch should be entered when 1024 channels have already been allocated. Should have a test - I seem to remember trying to write one once upon a time, but it was so slow, I abandoned it as \"not worth the effort\".",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc707eb7_7d795247",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T14:13:15Z",
+      "side": 1,
+      "message": "It\u0027s a bit strange that this test isn\u0027t in namespace webrtc::\u003canonymous\u003e....",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ccf048a_25899317",
+        "filename": "pc/sctp_utils.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T14:13:15Z",
+      "side": 1,
+      "message": "Is there a reason this shouldn\u0027t be an alias for dcsctp::StreamId?\nOr even use that type directly?",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

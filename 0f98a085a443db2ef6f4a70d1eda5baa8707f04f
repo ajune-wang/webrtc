@@ -16,6 +16,46 @@
       "message": "Added helper methods discussed in [1].\n\n[1] https://chromium-review.googlesource.com/c/chromium/src/+/4090609/comment/7a38717f_6c873bb6/",
       "revId": "0f98a085a443db2ef6f4a70d1eda5baa8707f04f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1b15dc2_80e7959f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-10T17:43:11Z",
+      "side": 1,
+      "message": "LGTM, though I\u0027m not sure that we need it.",
+      "revId": "0f98a085a443db2ef6f4a70d1eda5baa8707f04f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca91f1c3_55a00b5c",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-10T17:43:11Z",
+      "side": 1,
+      "message": "So I *think* there\u0027s an expectation that this would essentially 0 initialize everything and start us out with a black frame by default. I could\u0027ve sworn that there was somewhere that took advantage of this and essentially just stored a black frame to copy into the queue when needed but I can\u0027t seem to find that implementation now; so when I\u0027d proposed this I thought there was already some mechanism to do this; but I guess maybe not? So sorry about creating this extra work.",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 167,
+        "endChar": 80
+      },
+      "revId": "0f98a085a443db2ef6f4a70d1eda5baa8707f04f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

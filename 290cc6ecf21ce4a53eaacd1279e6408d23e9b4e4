@@ -50,6 +50,24 @@
       "message": "Naming: I think this should be IntegerValue(), to emphasize that it\u0027s not a StreamId that is returned, it is an integer:\n\nI think returning -1 for the normal case is a mistake.\nWhen needed, it should be a ValueOr(-1) accessor, to make it clear that it\u0027s the calling code that is not yet updated to do this thing cleanly.\n\nValue() without a default should (D)CHECK when HasValue is false.",
       "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f019acd_39ac307f",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-10T17:28:08Z",
+      "side": 1,
+      "message": "would stream_id() make sense? Just thinking about the internal type. It would place the burden of error checking on more callers though since -1 is still a part of the interface in a few places.\n\nThinking about that btw, I think the CL could easily grow out of proportion that way and I\u0027d then rather have a set of follow up changes, where we change the interfaces away from using int as the stream id type and move towards this type.\nwdyt?",
+      "parentUuid": "de091abe_f5ffdd63",
+      "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

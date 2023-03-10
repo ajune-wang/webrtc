@@ -102,8 +102,9 @@ void BitrateProber::CreateProbeCluster(
     }
   } else {
     // Probing is allowed to start without first sending a "large enough"
-    // packet.
-    if (probing_state_ == ProbingState::kInactive) {
+    // packet. If we are already probing, continue to do so, otherwise, start
+    // now.
+    if (probing_state_ != ProbingState::kActive) {
       // Send next probe right away.
       next_probe_time_ = Timestamp::MinusInfinity();
       probing_state_ = ProbingState::kActive;

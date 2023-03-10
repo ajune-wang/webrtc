@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a67fef6_08a89066",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2023-03-10T21:27:44Z",
+      "side": 1,
+      "message": "Android build break looks to be due to https://boringssl-review.googlesource.com/c/boringssl/+/57506",
+      "revId": "b03a4c9847fca07fe7c21345cfe9a1cf7a38128a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

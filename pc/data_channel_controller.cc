@@ -143,7 +143,21 @@ void DataChannelController::OnChannelClosed(int channel_id) {
   signaling_thread()->PostTask(
       SafeTask(signaling_safety_.flag(), [this, channel_id] {
         RTC_DCHECK_RUN_ON(signaling_thread());
-        SignalDataChannelTransportChannelClosed_s(channel_id);
+        // SignalDataChannelTransportChannelClosed_s(channel_id);
+
+        // Temporary workaround for a problem whereby OnSctpDataChannelClosed
+        // is called via OnClosingProcedureComplete(), which modifies
+        // `sctp_data_channels_` while we'd be iterating through it.
+        auto copy = sctp_data_channels_;
+        for (const auto& channel : copy) {
+          if (!channel) {
+            RTC_LOG(LS_ERROR) << "*** Null channel?!";
+            RTC_DCHECK_NOTREACHED();
+          }
+          if (channel && channel_id == channel->id()) {
+            channel->OnClosingProcedureComplete(channel_id);
+          }
+        }
       }));
 }
 

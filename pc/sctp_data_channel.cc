@@ -391,6 +391,8 @@ void SctpDataChannel::OnClosingProcedureStartedRemotely(int sid) {
 
 void SctpDataChannel::OnClosingProcedureComplete(int sid) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_EQ(id_.value(), sid);
+  RTC_DCHECK(connected_to_transport_);
   if (id_.value() == sid) {
     // If the closing procedure is complete, we should have finished sending
     // all pending data and transitioned to kClosing already.

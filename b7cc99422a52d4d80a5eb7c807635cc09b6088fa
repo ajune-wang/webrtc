@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f532ea8_7a05f484",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-10T17:17:05Z",
+      "side": 1,
+      "message": "I\u0027ll see if the proxy can be deleted when I\u0027ve landed a few more CLs, added a TODO about this for now",
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

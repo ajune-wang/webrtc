@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "003431bc_38dabf80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T17:12:24Z",
+      "side": 1,
+      "message": "Just continuing to bikeshed on the API of the StreamId class. Sitting in meetings, so not daring to pay enough attention to do the rest of the code review.",
+      "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d4d869e_47351f6e",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T17:12:24Z",
+      "side": 1,
+      "message": "I think this should be called HasValue(). \"Not allocated\" is a perfectly valid state, but it is one where no value is present; this name meshes badly with the \"invalid\" state of (for instance) variables that have been std::move()d out of.",
+      "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de091abe_f5ffdd63",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T17:12:24Z",
+      "side": 1,
+      "message": "Naming: I think this should be IntegerValue(), to emphasize that it\u0027s not a StreamId that is returned, it is an integer:\n\nI think returning -1 for the normal case is a mistake.\nWhen needed, it should be a ValueOr(-1) accessor, to make it clear that it\u0027s the calling code that is not yet updated to do this thing cleanly.\n\nValue() without a default should (D)CHECK when HasValue is false.",
+      "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

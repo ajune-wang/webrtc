@@ -205,6 +205,11 @@ class SctpDataChannel : public DataChannelInterface,
 
   DataChannelStats GetStats() const;
 
+  void ClearController() {
+    RTC_DCHECK_RUN_ON(signaling_thread_);
+    controller_.reset();
+  }
+
   const StreamId& sid() const { return id_; }
 
   // Reset the allocator for internal ID values for testing, so that

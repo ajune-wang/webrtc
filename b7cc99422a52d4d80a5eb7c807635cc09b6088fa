@@ -16,6 +16,23 @@
       "message": "I\u0027ll see if the proxy can be deleted when I\u0027ve landed a few more CLs, added a TODO about this for now",
       "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ded18ff4_5fa3635f",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-10T17:18:24Z",
+      "side": 1,
+      "message": "This used to be one test testing several things, I split the old test into two and added a third version for the new path, where each test is just testing one scenario",
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

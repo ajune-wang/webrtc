@@ -12,11 +12,16 @@
 
 #include <stdint.h>
 
+#include <limits>
+
 #include "absl/types/optional.h"
 #include "api/priority.h"
+#include "media/sctp/sctp_transport_internal.h"
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "test/gtest.h"
+
+using webrtc::SctpSid;
 
 class SctpUtilsTest : public ::testing::Test {
  public:
@@ -193,4 +198,50 @@ TEST_F(SctpUtilsTest, TestIsOpenMessage) {
 
   rtc::CopyOnWriteBuffer empty;
   EXPECT_FALSE(webrtc::IsOpenMessage(empty));
+}
+
+TEST(SctpSidTest, Basics) {
+  // These static asserts are mostly here to aid with readability (i.e. knowing
+  // what these constants represent).
+  static_assert(cricket::kMinSctpSid == 0, "Min stream id should be 0");
+  static_assert(
+      cricket::kSpecMaxSctpSid == std::numeric_limits<uint16_t>::max(),
+      "Max legal sctp stream value should be 0xffff");
+
+  // cricket::kMaxSctpSid is a chosen value in the webrtc implementation,
+  // the highest generated `sid` value chosen for resource reservation reasons.
+  // It's one less than kMaxSctpStreams (1024) or 1023 since sid values are
+  // zero based.
+
+  EXPECT_TRUE(!SctpSid(-1).IsValid());
+  EXPECT_TRUE(!SctpSid(-2).IsValid());
+  EXPECT_TRUE(SctpSid(cricket::kMinSctpSid).IsValid());
+  EXPECT_TRUE(SctpSid(cricket::kMinSctpSid + 1).IsValid());
+  EXPECT_TRUE(SctpSid(cricket::kSpecMaxSctpSid).IsValid());
+  EXPECT_TRUE(SctpSid(cricket::kMaxSctpSid).IsValid());
+
+  // Two illegal values are equal (both not valid).
+  EXPECT_EQ(SctpSid(-1), SctpSid(-2));
+  // Two different, but legal, values, are not equal.
+  EXPECT_NE(SctpSid(1), SctpSid(2));
+  // Test operator<() for container compatibility.
+  EXPECT_LT(SctpSid(1), SctpSid(2));
+
+  // The lowest bit in a sid value allocation also indicates the role.
+  EXPECT_EQ(SctpSid(0).role(), rtc::SSL_CLIENT);
+  EXPECT_EQ(SctpSid(1).role(), rtc::SSL_SERVER);
+  EXPECT_EQ(SctpSid(2).role(), rtc::SSL_CLIENT);
+  EXPECT_EQ(SctpSid(3).role(), rtc::SSL_SERVER);
+
+  // Test assignment, value() and reset().
+  SctpSid sid1;
+  SctpSid sid2(cricket::kMaxSctpSid);
+  EXPECT_NE(sid1, sid2);
+  sid1 = sid2;
+  EXPECT_EQ(sid1, sid2);
+
+  EXPECT_EQ(sid1.value(), cricket::kMaxSctpSid);
+  EXPECT_TRUE(sid1.IsValid());
+  sid1.reset();
+  EXPECT_FALSE(sid1.IsValid());
 }

@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e393b7d4_e3652dba",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-10T18:41:21Z",
+      "side": 1,
+      "message": "Argh, no - don\u0027t do this - it will fail miserably with apps that do external ID assignment.\nThis method should not exist.",
+      "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de091abe_f5ffdd63",
         "filename": "pc/sctp_utils.cc",
         "patchSetId": 17

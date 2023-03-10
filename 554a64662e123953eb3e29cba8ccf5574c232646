@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f752f156_cd7d9fa9",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-10T15:09:37Z",
+      "side": 1,
+      "message": "Do we actually want to all `kDisabled` here? I would find it easer to read and maintain if it instead explicitly listed the allowed states. Maybe a helper method if there\u0027s several? Then it would be easy to add a switch/case that fails at compile if someone adds a new state too...",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "554a64662e123953eb3e29cba8ccf5574c232646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

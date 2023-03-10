@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3638c3db_810c0d42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-10T16:57:24Z",
+      "side": 1,
+      "message": "I don\u0027t know how many times I went back and forth on this. Eventually I settled on S",
+      "parentUuid": "7dc52d23_6bd588bd",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8efb287_4595da0a",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-10T14:13:15Z",
       "side": 1,
       "message": "Should we do a static_assert(kMaxSctpStreams \u003c\u003d kSpecMaxSctpSid?\nI want to increase kMaxSctpStreams substantially now that we\u0027re fully on dcSctp - hopefully there isn\u0027t that array allocation to worry about (and if there is, Victor can fix it).",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7caa77_3fca9007",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-10T16:57:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8efb287_4595da0a",
       "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b30e6d3_43f86d14",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-10T16:57:24Z",
+      "side": 1,
+      "message": "I added one now. It\u0027s not exactly fast (~500ms on my linux box with dchecks enabled), but should be OK.",
+      "parentUuid": "13de5ffa_e9504321",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc707eb7_7d795247",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28beda8b_146da2a8",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-10T16:57:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc707eb7_7d795247",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ccf048a_25899317",
@@ -82,6 +154,24 @@
       "writtenOn": "2023-03-10T14:13:15Z",
       "side": 1,
       "message": "Is there a reason this shouldn\u0027t be an alias for dcsctp::StreamId?\nOr even use that type directly?",
+      "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a68b0d23_ca89e8df",
+        "filename": "pc/sctp_utils.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-10T16:57:24Z",
+      "side": 1,
+      "message": "Changed to use dcsctp::StreamID in the class. It\u0027s still wrapped inside an absl::optional, so it\u0027s neatly tucked away. That does result in this sort of an oddity in a couple of places though:\n\n  id_.value().value()",
+      "parentUuid": "3ccf048a_25899317",
       "revId": "a53cc87683e2eca809898a0ad9a6db54820b29db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

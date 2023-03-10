@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b604b7c3_dd2a1ce9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-03-10T14:04:46Z",
+      "side": 1,
+      "message": "Looks like I lost the Code-Review +1. Maybe because I messed up a rebase. Can you stamp again?",
+      "revId": "b1f076e10cc135688024c5d19dd980bbf254ba1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

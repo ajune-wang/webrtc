@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b0c0d15a351fd18eb6baa2ec4e6f1850d55a7646',
+  'chromium_revision': '1c427dd3fc5bbbdbd9aef66d93ae93958af65416',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d1ea4374ef8213d31d62678c19e8df455bd4f19d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@5aacc6de5ed03594883750cd18268e447cbb8baa',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@6ec188dc0e92245a7af5f050d12a2e69125eab70',
+    'https://chromium.googlesource.com/chromium/src/testing@0442393110653cfea5d5e3e902e3e2b0ee437133',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1c0b8f9074b4c4ff6dc89811207792f97f517f78',
+    'https://chromium.googlesource.com/chromium/src/third_party@537654e0b395025f8a20a9b176c6893e6a6501d4',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -312,7 +312,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'QcJGU2P6jjudE2LELurmeujLPwQhvk7OD5AWGlLIzrYC',
+              'version': 'M9qqyShmnvqDcIIsdbwvO7LJ9WFLu552c6c29zYKCdIC',
           },
       ],
       'condition': 'checkout_android',
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@aba8dbf531092fe0ed9edc9cc66306ebfee2ee3c',
+    'https://chromium.googlesource.com/chromium/src/tools@6c0e215145ef07f568a6401333458d6773684186',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

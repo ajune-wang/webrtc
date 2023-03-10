@@ -14,6 +14,7 @@ visibility = [
   "../:video_coding_unittests",
 ]
 
+<<<<<<< HEAD
 rtc_library("deprecated_decoding_state") {
   sources = [
     "decoding_state.cc",
@@ -27,14 +28,14 @@ rtc_library("deprecated_decoding_state") {
     "../../../modules:module_api_public",
     "../../../rtc_base:logging",
   ]
-}
-
+=======
 rtc_library("deprecated_event_wrapper") {
   sources = [
     "event_wrapper.cc",
     "event_wrapper.h",
   ]
   deps = [ "../../../rtc_base:rtc_event" ]
+>>>>>>> 7a4237c8b8 (Move legacy EventWrapper into deprecated/)
 }
 
 rtc_library("deprecated_jitter_buffer_common") {

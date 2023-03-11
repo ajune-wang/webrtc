@@ -345,11 +345,7 @@ bool SctpDataChannel::Send(const DataBuffer& buffer) {
   // If the queue is non-empty, we're waiting for SignalReadyToSend,
   // so just add to the end of the queue and keep waiting.
   if (!queued_send_data_.Empty()) {
-    if (!QueueSendDataMessage(buffer)) {
-      // Queue is full
-      return false;
-    }
-    return true;
+    return QueueSendDataMessage(buffer);
   }
 
   SendDataMessage(buffer, true);
@@ -391,14 +387,18 @@ void SctpDataChannel::OnClosingProcedureStartedRemotely(int sid) {
 
 void SctpDataChannel::OnClosingProcedureComplete(int sid) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (id_.value() == sid) {
-    // If the closing procedure is complete, we should have finished sending
-    // all pending data and transitioned to kClosing already.
-    RTC_DCHECK_EQ(state_, kClosing);
-    RTC_DCHECK(queued_send_data_.Empty());
-    DisconnectFromTransport();
-    SetState(kClosed);
-  }
+  RTC_DCHECK_EQ(id_.value(), sid);
+  RTC_DCHECK(connected_to_transport_);
+
+  // If the closing procedure is complete, we should have finished sending
+  // all pending data and transitioned to kClosing already.
+  RTC_DCHECK_EQ(state_, kClosing);
+  RTC_DCHECK(queued_send_data_.Empty());
+
+  // TODO(tommi): This step is only needed for tests.
+  DisconnectFromTransport();
+
+  SetState(kClosed);
 }
 
 void SctpDataChannel::OnTransportChannelCreated() {
@@ -677,6 +677,8 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   send_params.type =
       buffer.binary ? DataMessageType::kBinary : DataMessageType::kText;
 
+  // TODO(bugs.webrtc.org/11547): This call to `SendData` involves
+  // a blocking call to the network thread.
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
   bool success = controller_->SendData(id_.value(), send_params, buffer.data,
                                        &send_result);

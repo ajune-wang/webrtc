@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "absl/algorithm/container.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
 #include "pc/peer_connection_internal.h"
@@ -52,8 +53,6 @@ bool DataChannelController::ConnectDataChannel(
       webrtc_data_channel, &SctpDataChannel::OnDataReceived);
   SignalDataChannelTransportChannelClosing_s.connect(
       webrtc_data_channel, &SctpDataChannel::OnClosingProcedureStartedRemotely);
-  SignalDataChannelTransportChannelClosed_s.connect(
-      webrtc_data_channel, &SctpDataChannel::OnClosingProcedureComplete);
   return true;
 }
 
@@ -68,7 +67,6 @@ void DataChannelController::DisconnectDataChannel(
   SignalDataChannelTransportWritable_s.disconnect(webrtc_data_channel);
   SignalDataChannelTransportReceivedData_s.disconnect(webrtc_data_channel);
   SignalDataChannelTransportChannelClosing_s.disconnect(webrtc_data_channel);
-  SignalDataChannelTransportChannelClosed_s.disconnect(webrtc_data_channel);
 }
 
 void DataChannelController::AddSctpDataStream(int sid) {
@@ -143,7 +141,33 @@ void DataChannelController::OnChannelClosed(int channel_id) {
   signaling_thread()->PostTask(
       SafeTask(signaling_safety_.flag(), [this, channel_id] {
         RTC_DCHECK_RUN_ON(signaling_thread());
-        SignalDataChannelTransportChannelClosed_s(channel_id);
+
+        auto it = absl::c_find_if(sctp_data_channels_, [&](const auto& c) {
+          return c->id() == channel_id;
+        });
+
+        if (it != sctp_data_channels_.end()) {
+          rtc::scoped_refptr<SctpDataChannel> channel = std::move(*it);
+          sctp_data_channels_.erase(it);
+
+          // This step moved from OnClosingProcedureComplete.
+          DisconnectDataChannel(channel.get());
+
+          // These steps moved from OnSctpDataChannelClosed
+          sid_allocator_.ReleaseSid(channel->sid());
+
+          // Disconnect `controller_`. This causes the SetState()
+          // path to not call us back.
+          channel->ClearController();
+          // TODO(tommi): This basically only calls SetState(kClosed).
+          channel->OnClosingProcedureComplete(channel_id);
+
+          // We don't call OnChannelStateChanged() now, since
+          // OnSctpDataChannelClosed() steps have been taken, but we need
+          // to notify `pc_` of kClosed.
+          pc_->OnSctpDataChannelStateChanged(
+              channel.get(), DataChannelInterface::DataState::kClosed);
+        }
       }));
 }
 

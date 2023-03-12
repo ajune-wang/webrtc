@@ -121,6 +121,24 @@
       "parentUuid": "6f019acd_39ac307f",
       "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20772a68_91664efe",
+        "filename": "pc/sctp_utils.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-12T15:44:06Z",
+      "side": 1,
+      "message": "I went with `stream_id_int` and added a comment explaining that this is not meant for new code. There\u0027s still quite a bit of `int` based code so `stream_id_as_integer` ends up making it quite verbose.",
+      "parentUuid": "8a61f029_d45707cf",
+      "revId": "290cc6ecf21ce4a53eaacd1279e6408d23e9b4e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

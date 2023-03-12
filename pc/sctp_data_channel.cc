@@ -345,11 +345,7 @@ bool SctpDataChannel::Send(const DataBuffer& buffer) {
   // If the queue is non-empty, we're waiting for SignalReadyToSend,
   // so just add to the end of the queue and keep waiting.
   if (!queued_send_data_.Empty()) {
-    if (!QueueSendDataMessage(buffer)) {
-      // Queue is full
-      return false;
-    }
-    return true;
+    return QueueSendDataMessage(buffer);
   }
 
   SendDataMessage(buffer, true);
@@ -389,16 +385,21 @@ void SctpDataChannel::OnClosingProcedureStartedRemotely(int sid) {
   }
 }
 
-void SctpDataChannel::OnClosingProcedureComplete(int sid) {
+void SctpDataChannel::OnClosingProcedureComplete() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (id_.stream_id_int() == sid) {
-    // If the closing procedure is complete, we should have finished sending
-    // all pending data and transitioned to kClosing already.
-    RTC_DCHECK_EQ(state_, kClosing);
-    RTC_DCHECK(queued_send_data_.Empty());
-    DisconnectFromTransport();
-    SetState(kClosed);
-  }
+  // If the closing procedure is complete, we should have finished sending
+  // all pending data and transitioned to kClosing already.
+  RTC_DCHECK_EQ(state_, kClosing);
+  RTC_DCHECK(queued_send_data_.Empty());
+  DisconnectFromTransport();  // TODO(tommi): only needed for tests.
+
+  // `OnClosingProcedureComplete` is triggered by the transport. The controller
+  // will take care of any cleanup we'd otherwise do recursively via the call
+  // to `SetState(kClosed)`. To avoid that (and knowing this is the last step
+  // before destruction), we free our reference to the controller here.
+  controller_.reset();
+
+  SetState(kClosed);
 }
 
 void SctpDataChannel::OnTransportChannelCreated() {
@@ -515,9 +516,7 @@ void SctpDataChannel::CloseAbruptlyWithError(RTCError error) {
     return;
   }
 
-  if (connected_to_transport_) {
-    DisconnectFromTransport();
-  }
+  DisconnectFromTransport();
 
   // Closing abruptly means any queued data gets thrown away.
   queued_send_data_.Clear();

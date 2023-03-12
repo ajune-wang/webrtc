@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1da83a3_665e9afb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-12T15:51:32Z",
+      "side": 1,
+      "message": "Issue about IsValid vs HasValue still valid, but I think we\u0027ve painted enough bikeshed on this. Let\u0027s go!",
+      "revId": "d1e098830cd2e60892c3ec0abc1a70d5ab635dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

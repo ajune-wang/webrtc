@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "425e4538_9bf4a39b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-13T22:48:31Z",
+      "side": 1,
+      "message": "At the moment I\u0027m recommending to delete OnClosingProcedureComplete and inline its content where needed, because it\u0027s now half a closing procedure and just serves to confuse the reader.\n\nAnd I still don\u0027t see the nullification of controller_ as warranted.\n\nBut I\u0027m reasonably convinced that all the pieces are here, and therefore approving the CL.",
+      "parentUuid": "81fd13a2_c36e460b",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

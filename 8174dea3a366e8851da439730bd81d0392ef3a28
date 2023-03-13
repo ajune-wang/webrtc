@@ -16,6 +16,24 @@
       "message": "Why is this flag needed? Is it for testing?\nI don\u0027t see why any app would want to set this flag. If they want to use VP9 simulcast, they could use the scalability_mode field in SetParameters. If not, this flag literally means \"break the previous behavior please\"\n\nOr is it to eventually be able to safely remove the legacy non-standard behavior?",
       "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c602d8_e6e6ebc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-13T11:46:52Z",
+      "side": 1,
+      "message": "The plan is not to roll this flag out, it is to not ship this opt-out path prematurely. Things that we want to do before removing it:\n- Check if SvcRateAllocator can be used\n- Update chromium\u0027s encoder factory to not have broken simulcast.\n- Add web platform tests to sanity check this works in the chromium repo as well.\n\nIt is purely a testing flag. Will delete before shipping.",
+      "parentUuid": "483eb3ea_20b40ac7",
+      "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec1fa8f5_dd84f4aa",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-13T18:07:10Z",
+      "side": 1,
+      "message": "The terminology in this file is quite confusing, because there are two usages of the word \"transport\" in the spec - one referring to the SCTP session, and one referring to the SCTP Stream (of which there are many per session).\n\nThe Close() method SHOULD close the datachannel \"gracefully\" - ie it gets a SCTP level ack for all outstanding data before declaring the channel closed. So in the case where there is unacked data on the channel, the channel will be in the \"closing\" session for a significant amount of time, and the call to transition to the closed state is triggered by an incoming SCTP-level event.\n\nThe SetState() will then call the channel\u0027s observer object to notify it of the change.\n\nAnyway, I think the tests for datachannel behavior in WPT are more extensive than the unittest-level tests, so I\u0027ve triggered a WPT run on this cl (bot linux-blink-rel). Let\u0027s see if it notices any change.",
+      "parentUuid": "ec8917fc_b28b1ce8",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

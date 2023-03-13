@@ -10,6 +10,7 @@
 
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h"
 
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -24,7 +25,8 @@ namespace webrtc {
 namespace {
 
 template <typename T>
-absl::optional<T> MaybeGetValue(const std::map<size_t, T>& map, size_t key) {
+absl::optional<T> MaybeGetValue(const std::unordered_map<size_t, T>& map,
+                                size_t key) {
   auto it = map.find(key);
   if (it == map.end()) {
     return absl::nullopt;
@@ -179,6 +181,8 @@ bool FrameInFlight::IsDropped(size_t peer) const {
 FrameStats FrameInFlight::GetStatsForPeer(size_t peer) const {
   RTC_DCHECK_NE(frame_id_, VideoFrame::kNotSetId)
       << "Frame id isn't initialized";
+  RTC_DCHECK(!IsSuperfluous(peer))
+      << "This frame is superfluous for peer " << peer;
   FrameStats stats(frame_id_, captured_time_);
   stats.pre_encode_time = pre_encode_time_;
   stats.encoded_time = encoded_time_;
@@ -204,6 +208,14 @@ FrameStats FrameInFlight::GetStatsForPeer(size_t peer) const {
     stats.decoder_failed = receiver_stats->decoder_failed;
   }
   return stats;
+}
+
+bool FrameInFlight::IsSuperfluous(size_t peer) const {
+  auto it = is_superfluous_.find(peer);
+  if (it == is_superfluous_.end()) {
+    return false;
+  }
+  return it->second;
 }
 
 }  // namespace webrtc

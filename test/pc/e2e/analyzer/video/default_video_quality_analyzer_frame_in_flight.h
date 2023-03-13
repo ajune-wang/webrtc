@@ -13,6 +13,7 @@
 
 #include <map>
 #include <set>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -67,6 +68,9 @@ class FrameInFlight {
   // Returns internal copy of source `VideoFrame` or `absl::nullopt` if it was
   // removed before.
   const absl::optional<VideoFrame>& frame() const { return frame_; }
+
+  Timestamp captured_time() const { return captured_time_; }
+
   // Removes internal copy of the source `VideoFrame` to free up extra memory.
   // Returns was frame removed or not.
   bool RemoveFrame();
@@ -124,6 +128,8 @@ class FrameInFlight {
   void MarkDropped(size_t peer) { receiver_stats_[peer].dropped = true; }
   bool IsDropped(size_t peer) const;
 
+  void MarkSuperfluous(size_t peer) { is_superfluous_[peer] = true; }
+
   void SetPrevFrameRenderedTime(size_t peer, webrtc::Timestamp time) {
     receiver_stats_[peer].prev_frame_rendered_time = time;
   }
@@ -131,6 +137,8 @@ class FrameInFlight {
   FrameStats GetStatsForPeer(size_t peer) const;
 
  private:
+  bool IsSuperfluous(size_t peer) const;
+
   const size_t stream_;
   // Set of peer's indexes who are expected to receive this frame. This is not
   // the set of peer's indexes that received the frame. For example, if peer A
@@ -161,7 +169,11 @@ class FrameInFlight {
   // Can be not set if frame was dropped by encoder.
   absl::optional<StreamCodecInfo> used_encoder_ = absl::nullopt;
   // Map from the receiver peer's index to frame stats for that peer.
-  std::map<size_t, ReceiverFrameStats> receiver_stats_;
+  std::unordered_map<size_t, ReceiverFrameStats> receiver_stats_;
+  // Map from receiver peer's index to is this frame superfluous for this peer
+  // or not. Superfluous frames should be used for stats calculation for that
+  // peer.
+  std::unordered_map<size_t, bool> is_superfluous_;
 };
 
 }  // namespace webrtc

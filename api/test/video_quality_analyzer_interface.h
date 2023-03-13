@@ -150,6 +150,15 @@ class VideoQualityAnalyzerInterface
   // call.
   virtual void UnregisterParticipantInCall(absl::string_view peer_name) {}
 
+  // TODO(titovartem): add doc here
+  virtual void OnPeerStartedReceiveVideoStream(absl::string_view peer_name,
+                                               absl::string_view stream_label) {
+  }
+  // TODO(titovartem): add doc here
+  virtual void OnPeerStoppedReceiveVideoStream(absl::string_view peer_name,
+                                               absl::string_view stream_label) {
+  }
+
   // Tells analyzer that analysis complete and it should calculate final
   // statistics.
   virtual void Stop() {}

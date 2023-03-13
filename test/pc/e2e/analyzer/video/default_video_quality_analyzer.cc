@@ -27,6 +27,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
+#include "system_wrappers/include/clock.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h"
@@ -203,9 +204,9 @@ uint16_t DefaultVideoQualityAnalyzer::OnFrameCaptured(
 
     auto state_it = stream_states_.find(stream_index);
     if (state_it == stream_states_.end()) {
-      stream_states_.emplace(
-          stream_index,
-          StreamState(peer_index, frame_receivers_indexes, captured_time));
+      stream_states_.emplace(stream_index,
+                             StreamState(peer_index, frame_receivers_indexes,
+                                         captured_time, clock_));
     }
     StreamState* state = &stream_states_.at(stream_index);
     state->PushBack(frame_id);
@@ -528,40 +529,19 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
   // After we received frame here we need to check if there are any dropped
   // frames between this one and last one, that was rendered for this video
   // stream.
-  int dropped_count = 0;
-  while (!state->IsEmpty(peer_index) &&
-         state->Front(peer_index) != frame.id()) {
-    dropped_count++;
-    uint16_t dropped_frame_id = state->PopFront(peer_index);
-    // Frame with id `dropped_frame_id` was dropped. We need:
-    // 1. Update global and stream frame counters
-    // 2. Extract corresponding frame from `captured_frames_in_flight_`
-    // 3. Send extracted frame to comparison with dropped=true
-    // 4. Cleanup dropped frame
-    frame_counters_.dropped++;
-    stream_frame_counters_.at(stats_key).dropped++;
-
-    auto dropped_frame_it = captured_frames_in_flight_.find(dropped_frame_id);
-    RTC_DCHECK(dropped_frame_it != captured_frames_in_flight_.end());
-    dropped_frame_it->second.MarkDropped(peer_index);
-
-    analyzer_stats_.frames_in_flight_left_count.AddSample(
-        StatsSample(captured_frames_in_flight_.size(), Now()));
-    frames_comparator_.AddComparison(
-        stats_key, /*captured=*/absl::nullopt, /*rendered=*/absl::nullopt,
-        FrameComparisonType::kDroppedFrame,
-        dropped_frame_it->second.GetStatsForPeer(peer_index));
-
-    if (dropped_frame_it->second.HaveAllPeersReceived()) {
-      captured_frames_in_flight_.erase(dropped_frame_it);
-    }
-  }
+  int dropped_count =
+      ProcessNotSeenFrames(peer_index, frame.id(), stats_key, *state);
   RTC_DCHECK(!state->IsEmpty(peer_index));
   state->PopFront(peer_index);
 
   if (state->last_rendered_frame_time(peer_index)) {
+    TimeDelta time_between_rendered_frames =
+        state->GetActiveDurationForPeerFrom(
+            peer_index, *state->last_rendered_frame_time(peer_index));
+    frame_in_flight->SetTimeBetweenRenderedFrames(peer_index,
+                                                  time_between_rendered_frames);
     frame_in_flight->SetPrevFrameRenderedTime(
-        peer_index, state->last_rendered_frame_time(peer_index).value());
+        peer_index, *state->last_rendered_frame_time(peer_index));
   }
   state->SetLastRenderedFrameTime(peer_index,
                                   frame_in_flight->rendered_time(peer_index));
@@ -719,6 +699,48 @@ void DefaultVideoQualityAnalyzer::UnregisterParticipantInCall(
        it != captured_frames_in_flight_.end();) {
     FrameInFlight& frame_in_flight = it->second;
     frame_in_flight.RemoveExpectedReceiver(*peer_index);
+    // If frame was fully sent and all receivers received it, then erase it.
+    // It may happen that when we remove FrameInFlight only some Simulcast/SVC
+    // layers were encoded and frame has encoded time, but more layers might be
+    // encoded after removal. In such case it's safe to still remove a frame,
+    // because OnFrameEncoded method will correctly handle the case when there
+    // is no FrameInFlight for the received encoded image.
+    if (frame_in_flight.HasEncodedTime() &&
+        frame_in_flight.HaveAllPeersReceived()) {
+      it = captured_frames_in_flight_.erase(it);
+    } else {
+      it++;
+    }
+  }
+}
+
+void DefaultVideoQualityAnalyzer::OnPeerStartedReceiveVideoStream(
+    absl::string_view peer_name,
+    absl::string_view stream_label) {}
+
+void DefaultVideoQualityAnalyzer::OnPeerStoppedReceiveVideoStream(
+    absl::string_view peer_name,
+    absl::string_view stream_label) {
+  MutexLock lock(&mutex_);
+  RTC_CHECK(peers_->HasName(peer_name));
+  size_t peer_index = peers_->index(peer_name);
+  RTC_CHECK(streams_.HasName(stream_label));
+  size_t stream_index = streams_.index(stream_label);
+
+  auto it = stream_states_.find(stream_index);
+  RTC_CHECK(it != stream_states_.end());
+  it->second.PauseForPeer(peer_index);
+
+  // TODO(titovartem) !!! Rewrite below, it's incorrect
+
+  // Remove peer from every frame in flight. If we removed that last expected
+  // receiver for the frame, then we should removed this frame if it was
+  // already encoded. If frame wasn't encoded, it still will be used by sender
+  // side pipeline, so we can't delete it yet.
+  for (auto it = captured_frames_in_flight_.begin();
+       it != captured_frames_in_flight_.end();) {
+    FrameInFlight& frame_in_flight = it->second;
+    frame_in_flight.RemoveExpectedReceiver(peer_index);
     // If frame was fully sent and all receivers received it, then erase it.
     // It may happen that when we remove FrameInFlight only some Simulcast/SVC
     // layers were encoded and frame has encoded time, but more layers might be
@@ -934,6 +956,101 @@ void DefaultVideoQualityAnalyzer::
                                      FrameComparisonType::kFrameInFlight,
                                      frame.GetStatsForPeer(peer_index));
   }
+}
+
+int DefaultVideoQualityAnalyzer::ProcessNotSeenFrames(
+    size_t peer_index,
+    uint16_t rendered_frame_id,
+    const InternalStatsKey& stats_key,
+    StreamState& state) {
+  int dropped_count = 0;
+  while (!state.IsEmpty(peer_index) &&
+         state.Front(peer_index) != rendered_frame_id) {
+    uint16_t next_frame_id = state.PopFront(peer_index);
+    auto next_frame_it = captured_frames_in_flight_.find(next_frame_id);
+    RTC_DCHECK(next_frame_it != captured_frames_in_flight_.end());
+    FrameInFlight& next_frame = next_frame_it->second;
+
+    // Depending on was receiver subscribed to this stream or not at the time
+    // when frame was captured, the frame should be considered as dropped or
+    // not required. Not required frames must be excluded from stats
+    // calculations.
+    //
+    // We should consider next cases:
+    // Legend:
+    //    + - frame captured on the stream
+    //    p - stream is paused
+    //    r - stream is resumed
+    //
+    //    last                                                   currently
+    //  rendered                                                  rendered
+    //    frame                                                    frame
+    //      |---------------------- dropped -------------------------|
+    // (1) -[]---+---+---+---+---+---+---+---+---+---+---+---+---+---[]-> time
+    //      |                                                        |
+    //      |                                                        |
+    //      |-- dropped ---┐       ┌- dropped -┐       ┌- dropped ---|
+    // (2) -[]---+---+---+-|-+---+-|-+---+---+-|-+---+-|-+---+---+---[]-> time
+    //      |              p       r           p       r             |
+    //      |                                                        |
+    //      |-- dropped ---┐       ┌------------ dropped ------------|
+    // (3) -[]---+---+---+-|-+---+-|-+---+---+---+---+---+-|-+---+---[]-> time
+    //                     p       r                       p
+    //
+    // Cases explanation:
+    //   (1) Regular media flow, frame is received after freeze.
+    //   (2) Stream was paused and received multiple times. Frame is received
+    //       after freeze from last resume.
+    //   (3) Stream was paused and received multiple times. Frame is received
+    //       after stream was paused because frame was already in the network.
+    //
+    // Based on that if stream wasn't paused when `next_frame_id` was captured,
+    // then `next_frame_id` should be considered as dropped. Otherwise if
+    // stream was NOT resumed after `next_frame_id` was captured, then
+    // `next_frame_id` also should be considered as dropped. In other cases
+    // `next_frame_id` should be just discarded, because receiver wasn't
+    // expected to receive `next_frame_id` at all.
+
+    bool is_dropped = false;
+    bool is_paused =
+        state.WasPausedForPeerAt(peer_index, next_frame.captured_time());
+    if (!is_paused) {
+      is_dropped = true;
+    } else {
+      bool was_resumed_after =
+          state.WasResumedForPeerAfter(peer_index, next_frame.captured_time());
+      if (!was_resumed_after) {
+        is_dropped = true;
+      }
+    }
+
+    if (is_dropped) {
+      dropped_count++;
+      // Frame with id `dropped_frame_id` was dropped. We need:
+      // 1. Update global and stream frame counters
+      // 2. Extract corresponding frame from `captured_frames_in_flight_`
+      // 3. Send extracted frame to comparison with dropped=true
+      // 4. Cleanup dropped frame
+      frame_counters_.dropped++;
+      stream_frame_counters_.at(stats_key).dropped++;
+
+      next_frame.MarkDropped(peer_index);
+
+      analyzer_stats_.frames_in_flight_left_count.AddSample(
+          StatsSample(captured_frames_in_flight_.size(), Now()));
+      frames_comparator_.AddComparison(stats_key, /*captured=*/absl::nullopt,
+                                       /*rendered=*/absl::nullopt,
+                                       FrameComparisonType::kDroppedFrame,
+                                       next_frame.GetStatsForPeer(peer_index));
+    } else {
+      next_frame.MarkSuperfluous(peer_index);
+    }
+
+    if (next_frame_it->second.HaveAllPeersReceived()) {
+      captured_frames_in_flight_.erase(next_frame_it);
+    }
+  }
+  return dropped_count;
 }
 
 void DefaultVideoQualityAnalyzer::ReportResults() {

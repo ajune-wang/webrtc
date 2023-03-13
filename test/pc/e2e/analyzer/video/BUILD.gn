@@ -45,8 +45,10 @@ if (!build_with_chromium) {
         ":default_video_quality_analyzer_metric_names_test",
         ":default_video_quality_analyzer_stream_state_test",
         ":default_video_quality_analyzer_test",
+        ":frame_storage_test",
         ":multi_reader_queue_test",
         ":names_collection_test",
+        ":pausable_state_test",
         ":simulcast_dummy_buffer_helper_test",
         ":single_process_encoded_image_data_injector_unittest",
         ":video_dumping_test",
@@ -205,7 +207,9 @@ rtc_library("default_video_quality_analyzer_internal") {
     ":default_video_quality_analyzer",
     ":default_video_quality_analyzer_frames_comparator_test",
     ":default_video_quality_analyzer_stream_state_test",
+    ":frame_storage_test",
     ":names_collection_test",
+    ":pausable_state_test",
     ":video_analyzer",
   ]
 
@@ -221,6 +225,10 @@ rtc_library("default_video_quality_analyzer_internal") {
     "default_video_quality_analyzer_internal_shared_objects.h",
     "default_video_quality_analyzer_stream_state.cc",
     "default_video_quality_analyzer_stream_state.h",
+    "dvqa/frame_storage.cc",
+    "dvqa/frame_storage.h",
+    "dvqa/pausable_state.cc",
+    "dvqa/pausable_state.h",
     "names_collection.cc",
     "names_collection.h",
   ]
@@ -233,6 +241,7 @@ rtc_library("default_video_quality_analyzer_internal") {
     "../../../../../api:scoped_refptr",
     "../../../../../api/numerics",
     "../../../../../api/units:data_size",
+    "../../../../../api/units:time_delta",
     "../../../../../api/units:timestamp",
     "../../../../../api/video:video_frame",
     "../../../../../api/video:video_frame_type",
@@ -492,8 +501,40 @@ if (rtc_include_tests) {
       ":default_video_quality_analyzer_internal",
       "../../../..:test_support",
       "../../../../../api/units:timestamp",
+      "../../../../../system_wrappers",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  }
+
+  rtc_library("frame_storage_test") {
+    testonly = true
+    sources = [ "dvqa/frame_storage_test.cc" ]
+    deps = [
+      ":default_video_quality_analyzer_internal",
+      "../../../..:test_support",
+      "../../../../../api:scoped_refptr",
+      "../../../../../api:time_controller",
+      "../../../../../api/units:time_delta",
+      "../../../../../api/units:timestamp",
+      "../../../../../api/video:video_frame",
+      "../../../../../system_wrappers",
+      "../../../../time_controller",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  }
+
+  rtc_library("pausable_state_test") {
+    testonly = true
+    sources = [ "dvqa/pausable_state_test.cc" ]
+    deps = [
+      ":default_video_quality_analyzer_internal",
+      "../../../..:test_support",
+      "../../../../../api:time_controller",
+      "../../../../../api/units:time_delta",
+      "../../../../../api/units:timestamp",
+      "../../../../../system_wrappers",
+      "../../../../time_controller",
+    ]
   }
 
   rtc_library("default_video_quality_analyzer_test") {

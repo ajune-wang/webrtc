@@ -309,14 +309,16 @@ static bool ValidateStreamParams(const StreamParams& sp) {
 }
 
 // Returns true if the given codec is disallowed from doing simulcast.
-bool IsCodecDisabledForSimulcast(const std::string& codec_name,
-                                 const webrtc::FieldTrialsView& trials) {
-  if (absl::EqualsIgnoreCase(codec_name, kVp9CodecName) ||
-      absl::EqualsIgnoreCase(codec_name, kAv1CodecName)) {
+bool IsCodecDisabledForSimulcast(
+    const webrtc::VideoEncoderConfig& encoder_config,
+    const webrtc::FieldTrialsView& trials) {
+  if (encoder_config.legacy_scalability_mode &&
+      (encoder_config.codec_type == webrtc::kVideoCodecVP9 ||
+       encoder_config.codec_type == webrtc::kVideoCodecAV1)) {
     return true;
   }
 
-  if (absl::EqualsIgnoreCase(codec_name, kH264CodecName)) {
+  if (encoder_config.codec_type == webrtc::kVideoCodecH264) {
     return absl::StartsWith(trials.Lookup("WebRTC-H264Simulcast"), "Disabled");
   }
 
@@ -2497,11 +2499,25 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   }
 
   // By default, the stream count for the codec configuration should match the
-  // number of negotiated ssrcs. But if the codec is disabled for simulcast
-  // or a screencast (and not in simulcast screenshare experiment), only
-  // configure a single stream.
+  // number of negotiated ssrcs but this may be capped below depending on the
+  // `legacy_scalability_mode` and codec used.
   encoder_config.number_of_streams = parameters_.config.rtp.ssrcs.size();
-  if (IsCodecDisabledForSimulcast(codec.name, call_->trials())) {
+  encoder_config.legacy_scalability_mode = true;
+  // TODO(https://crbug.com/webrtc/14884): When simulcast VP9 is ready to ship,
+  // don't require a field trial to set `legacy_scalability_mode` to false here.
+  if (call_->trials().IsEnabled("WebRTC-AllowDisablingLegacyScalability")) {
+    for (const webrtc::RtpEncodingParameters& encoding :
+         rtp_parameters_.encodings) {
+      if (encoding.scalability_mode.has_value()) {
+        encoder_config.legacy_scalability_mode = false;
+        break;
+      }
+    }
+  }
+  // Maybe limit the number of simulcast layers depending on
+  // `legacy_scalability_mode`, codec types (VP9/AV1) and the
+  // WebRTC-H264Simulcast/Disabled/ field trial.
+  if (IsCodecDisabledForSimulcast(encoder_config, call_->trials())) {
     encoder_config.number_of_streams = 1;
   }
 

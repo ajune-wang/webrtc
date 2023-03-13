@@ -54,6 +54,7 @@ bool VideoCodecH264::operator==(const VideoCodecH264& other) const {
 
 VideoCodec::VideoCodec()
     : codecType(kVideoCodecGeneric),
+      legacy_scalability_mode(true),
       width(0),
       height(0),
       startBitrate(0),

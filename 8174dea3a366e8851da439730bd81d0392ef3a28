@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "483eb3ea_20b40ac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-13T11:09:48Z",
+      "side": 1,
+      "message": "Why is this flag needed? Is it for testing?\nI don\u0027t see why any app would want to set this flag. If they want to use VP9 simulcast, they could use the scalability_mode field in SetParameters. If not, this flag literally means \"break the previous behavior please\"\n\nOr is it to eventually be able to safely remove the legacy non-standard behavior?",
+      "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

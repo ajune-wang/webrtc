@@ -35,6 +35,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f47da7c_9499ced8",
+        "filename": "media/engine/encoder_simulcast_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-13T09:27:33Z",
+      "side": 1,
+      "message": "It\u0027s funny but it will be at least a 2nd time the EncoderSimulcastProxy is deleted (maybe even a 3rd). I wonder how many months before it\u0027s added back?",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ded18ff4_5fa3635f",
@@ -48,6 +71,52 @@
       "writtenOn": "2023-03-10T17:18:24Z",
       "side": 1,
       "message": "This used to be one test testing several things, I split the old test into two and added a third version for the new path, where each test is just testing one scenario",
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c23933b_57791d31",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-13T09:27:33Z",
+      "side": 1,
+      "message": "I think it would be more clear if the CreateEncoder always returned the same thing: an encoder which can\u0027t do simulcast. Please merge two choices here but make the InitEncode mock call to actually check the simulcast config and return error if there are multiple streams. You can use Invoke to pass a lambda taking Codec struct and returning the value.",
+      "range": {
+        "startLine": 145,
+        "startChar": 7,
+        "endLine": 145,
+        "endChar": 52
+      },
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fb410e6_3db0ffea",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-13T09:27:33Z",
+      "side": 1,
+      "message": "Even if the implementation fails to run the simulcast the |supports_simulcast| would stay unchanged in the EncoderInfo.\n\nBut if you follow the suggestion above, it would be a single place for all 4 encoders.",
+      "range": {
+        "startLine": 160,
+        "startChar": 9,
+        "endLine": 160,
+        "endChar": 48
+      },
       "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

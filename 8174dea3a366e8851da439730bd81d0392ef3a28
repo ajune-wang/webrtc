@@ -34,6 +34,23 @@
       "parentUuid": "483eb3ea_20b40ac7",
       "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e2ebda3_970e153c",
+        "filename": "api/video/builtin_video_bitrate_allocator_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-13T11:52:44Z",
+      "side": 1,
+      "message": "This is the primary reason a field trial guards against disabling `legacy_scalability_mode`. We don\u0027t want an app that explicitly asks for SVC using `scalability_mode` to not get SvcRateAllocator. But I though addressing this in a separate CL would be better for reviewability.",
+      "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

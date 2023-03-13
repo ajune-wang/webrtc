@@ -52,6 +52,24 @@
       "parentUuid": "aeeede01_7eca38e3",
       "revId": "d4732b854ce1da8eeb5fa57ae5fde70be60e8da0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff1aa5ee_f989f54e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2023-03-13T23:03:04Z",
+      "side": 1,
+      "message": "Doh, the importer directly adjusts the third_party .gni.  OK, I can add a WebRTC-specific arg, change the importer to adjust that, and then remove the third_party .gni, I think.",
+      "parentUuid": "bbdba673_4cfec78a",
+      "revId": "d4732b854ce1da8eeb5fa57ae5fde70be60e8da0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

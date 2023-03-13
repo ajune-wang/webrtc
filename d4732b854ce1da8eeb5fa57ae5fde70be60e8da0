@@ -34,6 +34,24 @@
       "parentUuid": "58f3ffb5_3d1454f3",
       "revId": "d4732b854ce1da8eeb5fa57ae5fde70be60e8da0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbdba673_4cfec78a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5310
+      },
+      "writtenOn": "2023-03-13T20:41:37Z",
+      "side": 1,
+      "message": "I think I see what\u0027s going on. The importer into google3 forces `enable_google_benchmarks` back off, so we need to remain conditionalized on that here. It should still be OK to remove the .gni includes.\n\nNew snap up soon.",
+      "parentUuid": "aeeede01_7eca38e3",
+      "revId": "d4732b854ce1da8eeb5fa57ae5fde70be60e8da0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

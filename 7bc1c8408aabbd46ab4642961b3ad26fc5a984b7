@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4f10f65_6f5c86f5",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-13T20:04:37Z",
+      "side": 1,
+      "message": "Ah, I see how the statement `knowing this is the last step before destruction` is misleading. Destruction isn\u0027t the right term. What I mean is entering a final (closed) state. I\u0027ll update the comment.\n\nOnce a channel object is in the kClosed state, it doesn\u0027t need the pointer to the controller. The controller will also let go of its reference to the channel. Both of those things are a part of the design contract between the controller and channel. This is also why I put the weak pointer there a short while ago since I wasn\u0027t comfortable with the raw pointer + bool that was there before - https://webrtc-review.googlesource.com/c/src/+/295820\n\nWeakPtrs can technically be made const, but due to the way they work, their internal value by definition will still change when the reference goes away (the internal flag is mutable). So making such a pointer `const` might be misleading, you still need to check its value.\n\nBut getting to the Close path - it still ends at OnClosingProcedureComplete. There\u0027s no change as far as that goes.\n\nIt\u0027s probably worth drawing out the differences in call trees to how we get there with and without this CL since it appears confusing. Before I get there though, have you taken a look at the code in `DataChannelController::OnChannelClosed` where `OnClosingProcedureComplete()` is called from? Maybe that clears up some of the confusion.",
+      "parentUuid": "6675ce87_af249018",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

@@ -148,6 +148,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93b81af1_72479d4f",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-13T14:53:46Z",
+      "side": 1,
+      "message": "Now that I think of it, instead of having unique_ptr in Event, we may want to have an Event class that is subclassed with the respective types. Example:\n\nclass Event {\n  enum class Type {\n    kSetMinimumDelay,\n    kPacketData,\n    kGetAudio,\n  };\n  Type type() \u003d 0;\n  int64_t timestamp_ms();\n}\n\nFor inspiration: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/rtc_event_log/rtc_event.h\n\nWDYT?",
+      "parentUuid": "8f2f18b7_ebc422a2",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b377e7b_41d7434e",
         "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
         "patchSetId": 10
@@ -289,6 +313,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6e40cf6_2b81f4f1",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-13T14:53:46Z",
+      "side": 1,
+      "message": "The unique_ptr is used when transferring ownership. In this case we are only reading data so we should unwrap it to either a `const NetEqInput::PacketData\u0026` (probably best since we have checked that it exists above) or `NetEqInput::PacketData*`.",
+      "parentUuid": "4131590a_0bc6c325",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed7d4761_b7e1b0e7",
         "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
         "patchSetId": 10
@@ -336,6 +384,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee1c448b_8ab251f7",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-13T14:53:46Z",
+      "side": 1,
+      "message": "Yeah that makes sense.",
+      "parentUuid": "7f5d9188_3e58f5e4",
+      "range": {
+        "startLine": 270,
+        "startChar": 17,
+        "endLine": 270,
+        "endChar": 31
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eed98f4e_ed2d4800",
         "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.h",
         "patchSetId": 10
@@ -371,6 +443,30 @@
       "side": 1,
       "message": "I think that you are right and RtcEventLogSource is just used in NetEqEventLogInput and we could combine those 2 classes. \n\nI see this as a follow up improvement.",
       "parentUuid": "eed98f4e_ed2d4800",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f837ad9c_084038fd",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-13T14:53:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3c5583e8_c4556f9d",
       "range": {
         "startLine": 33,
         "startChar": 33,

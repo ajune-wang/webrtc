@@ -57,6 +57,30 @@
       },
       "revId": "454c60715ef6ebe1c1e45d35dacb9096fc3c8e6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542ac034_a5437ed2",
+        "filename": "docs/native-code/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-03-13T10:55:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e16b2c8_75db8667",
+      "range": {
+        "startLine": 38,
+        "startChar": 127,
+        "endLine": 38,
+        "endChar": 135
+      },
+      "revId": "454c60715ef6ebe1c1e45d35dacb9096fc3c8e6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

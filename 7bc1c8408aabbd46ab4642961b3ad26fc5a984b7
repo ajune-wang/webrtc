@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6cb457b_78cad25b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-13T20:30:07Z",
+      "side": 1,
+      "message": "The big change is really the removal of DisconnectFromTransport. I can\u0027t figure out where the signals will be disconnected; if they are not, we have the possibility of lambdas being called that will be safe only if they have the correct safety flags. Is there an improvement in this?\n\nThe other change is the addition of clearing the controller_ link, which I simply don\u0027t see the point of - it complicates thinking about the relationship between the channels and the controller.\n\nThe verbiage used is only worrisome because it seems to indicate inadequate analysis.\n\n(The comment about the close path is that OnClosingProcedureComplete is IN the close path - and it is being changed.)",
+      "parentUuid": "f4f10f65_6f5c86f5",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

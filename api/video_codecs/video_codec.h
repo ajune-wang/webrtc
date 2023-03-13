@@ -132,6 +132,13 @@ class RTC_EXPORT VideoCodec {
 
   // Public variables. TODO(hta): Make them private with accessors.
   VideoCodecType codecType;
+  // This is copied from `VideoEncoderConfig::legacy_scalability_mode`.
+  // In this legacy mode, attempting to configure VP9 or AV1 codecs to have
+  // multiple encodings results in a single encoding with multiple spatial
+  // layers. This was needed before ScalabilityMode could be set in the API.
+  // TODO(https://crbug.com/webrtc/14884): Migrate dependencies to set
+  // ScalabilityMode correctly and stop supporting this legacy use of the API.
+  bool legacy_scalability_mode;
 
   // TODO(nisse): Change to int, for consistency.
   uint16_t width;

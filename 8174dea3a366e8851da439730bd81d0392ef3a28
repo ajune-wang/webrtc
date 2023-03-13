@@ -51,6 +51,29 @@
       "message": "This is the primary reason a field trial guards against disabling `legacy_scalability_mode`. We don\u0027t want an app that explicitly asks for SVC using `scalability_mode` to not get SvcRateAllocator. But I though addressing this in a separate CL would be better for reviewability.",
       "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3537496c_210c4e71",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2521,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-13T11:58:33Z",
+      "side": 1,
+      "message": "This isn\u0027t only checking for the VP9/AV1, it also disabled H264 simulcast if some finch config is set.\n\nI would suggest to move the legacy_scalability_mode check inside this function to not affect the behavior in unrelated cases.",
+      "range": {
+        "startLine": 2521,
+        "startChar": 6,
+        "endLine": 2521,
+        "endChar": 33
+      },
+      "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,7 @@ bool VideoCodecInitializer::SetupCodec(const VideoEncoderConfig& config,
   }
 
   *codec = VideoEncoderConfigToVideoCodec(config, streams);
+  codec->legacy_scalability_mode = config.legacy_scalability_mode;
   return true;
 }
 

@@ -51,6 +51,7 @@ std::string VideoStream::ToString() const {
 VideoEncoderConfig::VideoEncoderConfig()
     : codec_type(kVideoCodecGeneric),
       video_format("Unset"),
+      legacy_scalability_mode(true),
       content_type(ContentType::kRealtimeVideo),
       frame_drop_enabled(false),
       encoder_specific_settings(nullptr),
@@ -70,6 +71,10 @@ std::string VideoEncoderConfig::ToString() const {
   rtc::SimpleStringBuilder ss(buf);
   ss << "{codec_type: ";
   ss << CodecTypeToPayloadString(codec_type);
+  if (legacy_scalability_mode &&
+      (codec_type == kVideoCodecVP9 || codec_type == kVideoCodecAV1)) {
+    ss << " (legacy ScalabilityMode)";
+  }
   ss << ", content_type: ";
   switch (content_type) {
     case ContentType::kRealtimeVideo:

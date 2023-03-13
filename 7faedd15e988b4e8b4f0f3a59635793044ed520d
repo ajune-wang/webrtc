@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e966c0f1_480e21aa",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-13T21:47:02Z",
+      "side": 1,
+      "message": "IIUC if a stream is paused but never resumed then all the frames are considered as dropped ?\nCould you clarify this logic a bit ?",
+      "range": {
+        "startLine": 998,
+        "startChar": 61,
+        "endLine": 1000,
+        "endChar": 60
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec8917fc_b28b1ce8",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-13T17:51:02Z",
+      "side": 1,
+      "message": "This is to avoid making the call on line 612 in this file, so yes, that (not calling OnChannelStateChanged) is deliberate.\n\nWhen we get to `OnClosingProcedureComplete`, we\u0027re being called from within a callback from the controller. That callback is triggered by the transport and I\u0027ve made it so in this CL that the controller clears up state related to this channel object, without posting an additional task. Eventually all of this should happen on the network thread, not require a PostTask for the transport notification (which is still in `OnChannelClosed`) or an additional PostTask to release the object reference (not needed now).\n\nThere are (still) a few ways for a channel object to be closed, this particular one is fairly straight forward now. The other one you mention, e.g. via the Close() method, which triggers a call to the OnChannelStateChange callback, which calls OnSctpDataChannelClosed, which posts a task to release the reference that the controller has to the channnel (but can\u0027t be released for safety reasons because OnSctpDataChannelClosed might otherwise be releasing the last reference to the channel).",
+      "parentUuid": "18ccd566_86d33cfa",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-13T15:26:59Z",
       "side": 1,
       "message": "hypernit: do do -\u003e do\nbetter: \"doesn\u0027t have a transport that would call OnClosingProcedureComplete\".",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "185a6cd0_983d91ac",
+        "filename": "pc/test/fake_data_channel_controller.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-13T17:51:02Z",
+      "side": 1,
+      "message": "hah, fixed\n(was tempted to add a \"de da da da\" instead)",
+      "parentUuid": "e088c6f2_9e57d5a3",
       "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

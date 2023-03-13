@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81fd13a2_c36e460b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-13T21:01:12Z",
+      "side": 1,
+      "message": "`DisconnectFromTransport` calls `DataChannelController::DisconnectDataChannel` to disconnect the signals. That part is now done in `DataChannelController::OnChannelClosed` just before calling `OnClosingProcedureComplete`.\n\nThe steps that are being taken, remain the mostly the same. A practical difference is that there is one less PostTask. Another, and one that needs a few CLs to accomplish, is that this is a step towards moving removing the sigslots in the controller, having a single vector of channels (not one per sigslot), removing some of the several init/connect steps, not calling all channels for calls meant for a specific channel and eventually not having the thread bouncing between the js, signaling and network threads.",
+      "parentUuid": "d6cb457b_78cad25b",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

@@ -30,12 +30,21 @@ class BuiltinVideoBitrateAllocatorFactory
 
   std::unique_ptr<VideoBitrateAllocator> CreateVideoBitrateAllocator(
       const VideoCodec& codec) override {
-    switch (codec.codecType) {
-      case kVideoCodecAV1:
-      case kVideoCodecVP9:
-        return std::make_unique<SvcRateAllocator>(codec);
-      default:
-        return std::make_unique<SimulcastRateAllocator>(codec);
+    if (codec.legacy_scalability_mode) {
+      switch (codec.codecType) {
+        case kVideoCodecAV1:
+        case kVideoCodecVP9:
+          return std::make_unique<SvcRateAllocator>(codec);
+        default:
+          return std::make_unique<SimulcastRateAllocator>(codec);
+      }
+    } else {
+      // SimulcastRateAllocator is the only rate allocator that supports
+      // multiple encodings (using SvcRateAllocator results in other encodings
+      // having 0 bitrates, making them paused).
+      // TODO(https://crbug.com/webrtc/14884): Update SvcRateAllocator to
+      // support simulcast and use it for VP9/AV1 simulcast as well.
+      return std::make_unique<SimulcastRateAllocator>(codec);
     }
   }
 };

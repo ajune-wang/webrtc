@@ -75,6 +75,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cef6584_4ce50290",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-13T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded18ff4_5fa3635f",
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c23933b_57791d31",
@@ -98,6 +116,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f27106_a57c13a9",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-13T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c23933b_57791d31",
+      "range": {
+        "startLine": 145,
+        "startChar": 7,
+        "endLine": 145,
+        "endChar": 52
+      },
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fb410e6_3db0ffea",
@@ -111,6 +153,30 @@
       "writtenOn": "2023-03-13T09:27:33Z",
       "side": 1,
       "message": "Even if the implementation fails to run the simulcast the |supports_simulcast| would stay unchanged in the EncoderInfo.\n\nBut if you follow the suggestion above, it would be a single place for all 4 encoders.",
+      "range": {
+        "startLine": 160,
+        "startChar": 9,
+        "endLine": 160,
+        "endChar": 48
+      },
+      "revId": "b7cc99422a52d4d80a5eb7c807635cc09b6088fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7f222c_57caf7ed",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-13T09:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fb410e6_3db0ffea",
       "range": {
         "startLine": 160,
         "startChar": 9,

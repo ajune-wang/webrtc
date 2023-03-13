@@ -177,8 +177,6 @@ TEST_F(SctpDataChannelTest, StateTransition) {
   EXPECT_EQ(DataChannelInterface::kClosed, webrtc_data_channel_->state());
   EXPECT_EQ(observer_->on_state_change_count(), 3u);
   EXPECT_TRUE(webrtc_data_channel_->error().ok());
-  // Verifies that it's disconnected from the transport.
-  EXPECT_FALSE(controller_->IsConnected(webrtc_data_channel_.get()));
 }
 
 // Tests that DataChannel::buffered_amount() is correct after the channel is

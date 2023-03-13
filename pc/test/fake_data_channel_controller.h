@@ -63,13 +63,6 @@ class FakeDataChannelController
     return true;
   }
 
-  void DisconnectDataChannel(webrtc::SctpDataChannel* data_channel) override {
-    RTC_CHECK(connected_channels_.find(data_channel) !=
-              connected_channels_.end());
-    RTC_LOG(LS_VERBOSE) << "DataChannel disconnected " << data_channel;
-    connected_channels_.erase(data_channel);
-  }
-
   void AddSctpDataStream(int sid) override {
     RTC_CHECK(sid >= 0);
     if (!transport_available_) {

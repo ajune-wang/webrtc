@@ -157,6 +157,12 @@ class VideoEncoderConfig {
   // TODO(bugs.webrtc.org/6883): Consolidate on one of these.
   VideoCodecType codec_type;
   SdpVideoFormat video_format;
+  // In this legacy mode, attempting to configure VP9 or AV1 codecs to have
+  // multiple encodings results in a single encoding with multiple spatial
+  // layers. This was needed before ScalabilityMode could be set in the API.
+  // TODO(https://crbug.com/webrtc/14884): Migrate dependencies to set
+  // ScalabilityMode correctly and stop supporting this legacy use of the API.
+  bool legacy_scalability_mode;
 
   // Note: This factory can be unset, and VideoStreamEncoder will
   // then use the EncoderStreamFactory. The factory is only set by

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0858e2d4_5a4dae87",
+        "filename": "api/video/builtin_video_bitrate_allocator_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-13T14:34:55Z",
+      "side": 1,
+      "message": "I\u0027m don\u0027t think we want to have this behavior - even in a \"temporary\" setting, we have enough confusing behavior anyway.\nI\u0027d rather see SvcRateAllocator updated to support simulcast first instead.",
+      "range": {
+        "startLine": 39,
+        "startChar": 10,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "a96cbce9fe0060e0957026c8048381fae1339a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

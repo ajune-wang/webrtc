@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2378eb3b_b29bce49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20560
+      },
+      "writtenOn": "2023-03-13T17:56:39Z",
+      "side": 1,
+      "message": "Hi Mirko, just wondering if there\u0027s anything I can do to help this along? Thanks!",
+      "revId": "106dda1c8ed1c37727d210ac44ef3fc20ce765cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

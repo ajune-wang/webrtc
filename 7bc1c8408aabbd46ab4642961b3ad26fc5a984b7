@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45050263_cb259a21",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-13T18:25:58Z",
+      "side": 1,
+      "message": "In this file, the terms \"controller\" and \"transport\" map to the implementation instances. Basically an instance of `DataChannelController` and `SctpTransport` respectively. The transport by extension points to an `SctpTransportInternal` object which eventually gets us to `DcSctpTransport`.\n\nBtw, this CL doesn\u0027t make any changes to the Close() path. This is focused on the sigslot which is connected to the final notification from the transport, which notifies the channel (via the controller) that the last step of closing down a channel, is now complete (hence `OnClosingProcedureComplete`).",
+      "parentUuid": "ec1fa8f5_dd84f4aa",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

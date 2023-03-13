@@ -23,7 +23,6 @@
 
 import("//build/config/linux/pkg_config.gni")
 import("//build/config/sanitizers/sanitizers.gni")
-import("//third_party/google_benchmark/buildconfig.gni")
 import("webrtc.gni")
 if (rtc_enable_protobuf) {
   import("//third_party/protobuf/proto_library.gni")
@@ -628,14 +627,12 @@ if (rtc_include_tests && !build_with_chromium) {
     }
   }
 
-  if (enable_google_benchmarks) {
-    rtc_test("benchmarks") {
-      testonly = true
-      deps = [
-        "rtc_base/synchronization:mutex_benchmark",
-        "test:benchmark_main",
-      ]
-    }
+  rtc_test("benchmarks") {
+    testonly = true
+    deps = [
+      "rtc_base/synchronization:mutex_benchmark",
+      "test:benchmark_main",
+    ]
   }
 
   # TODO(pbos): Rename test suite, this is no longer "just" for video targets.

@@ -16,6 +16,23 @@
       "message": "Still scared.",
       "revId": "3990bace9d505369852ae656b721bb5e53cfc518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed111810_3dbdfd32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-13T19:15:33Z",
+      "side": 1,
+      "message": "Seems that the WPT bot passed, but I\u0027m still not happy about this point.",
+      "revId": "3990bace9d505369852ae656b721bb5e53cfc518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6675ce87_af249018",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-13T19:15:33Z",
+      "side": 1,
+      "message": "???\nthe Close() path is supposed to end at OnClosingProceureComplete, which is what is changed here, and is what we\u0027re discussing.\n\nThe statement that gets me all confused is \"knowing this is the last step before destruction\" - how does this class know that someone will destroy this channel just after this function finishes? And who is going to do that destruction?\n\nThe controller_ is a weak pointer initialized at class construction and never touched afterwards; the reason for using a weak pointer is to ensure that the controller can be safely destroyed while there are still references to some channel. I would have made it const if weak pointers could be const. (Can they?)\n\nClearing the controller link here seems strange to me - it complicates thinking about the model. Is it worth complexifying the model in order to make other points in the code not treat the closed state differently?",
+      "parentUuid": "45050263_cb259a21",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

@@ -195,6 +195,15 @@ struct DcSctpOptions {
 
   // Disables SCTP packet crc32 verification. Useful when running with fuzzers.
   bool disable_checksum_verification = false;
+
+  // Controls the acceptance of zero checksum, as defined in
+  // https://datatracker.ietf.org/doc/draft-tuexen-tsvwg-sctp-zero-checksum/
+  // This should only be enabled if the packet integrity can be ensured by lower
+  // layers, which DTLS will do in WebRTC, as defined by RFC8261.
+  //
+  // This will also enable sending packets without a checksum value (set to 0)
+  // once both peers have negotiated this feature.
+  bool accept_zero_checksum = false;
 };
 }  // namespace dcsctp
 

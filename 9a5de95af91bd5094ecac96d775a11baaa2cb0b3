@@ -22,6 +22,30 @@
       },
       "revId": "9a5de95af91bd5094ecac96d775a11baaa2cb0b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8700890b_4e5c9241",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-14T14:06:15Z",
+      "side": 1,
+      "message": "You\u0027re right, I don\u0027t expect us to want to support this, I just wanted to document its limitations and that was an existing crbug.\n\nWe might want to close it in favor of a different crbug that makes sure that we fallback if we ever try to simulcast-of-SVC combo and then we could replace this TODO here with a DCHECK... I\u0027ll update the bugs",
+      "parentUuid": "0c5fc1c1_4995c0e9",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "9a5de95af91bd5094ecac96d775a11baaa2cb0b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a58e138_d1128737",
+        "filename": "api/video/builtin_video_bitrate_allocator_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-14T08:57:15Z",
+      "side": 1,
+      "message": "(Removed legacy_scalability_mode, see other comments)",
+      "parentUuid": "1e2ebda3_970e153c",
+      "revId": "8174dea3a366e8851da439730bd81d0392ef3a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3537496c_210c4e71",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae895d4d_2fe41e7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-14T08:57:15Z",
+      "side": 1,
+      "message": "PTAL everyone, I simplified the CL to remove legacy_scalability_mode as a config option and replaced the bitrate allocator gate to look at numberOfSimulcastStreams instead.",
+      "revId": "e6ff512c0d31479d3572337b927e30cbf81cdd9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

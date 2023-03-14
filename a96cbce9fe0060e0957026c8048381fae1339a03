@@ -22,6 +22,30 @@
       },
       "revId": "a96cbce9fe0060e0957026c8048381fae1339a03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d7d653_dff78b68",
+        "filename": "api/video/builtin_video_bitrate_allocator_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-14T08:57:15Z",
+      "side": 1,
+      "message": "As discussed on chat, I was able to remove `legacy_scalability_mode` in favor of gating on `codec.numberOfSimulcastStreams \u003c\u003d 1` which means less temporary settings (no new flags in VideoEncoderConfig or VideoCodec).\n\nThis means that we continue to use SvcRateAllocator in all code paths like we do today, and only if the field trial \"WebRTC-AllowDisablingLegacyScalability\" is numberOfSimulcastStreams \u003e 1 for VP9 possible.\n\nThis would allow us to land basic support for VP9 simulcast behind a flag, unblock other work in parallel (e.g. make sure VP9 simulcast works in Chromium as well), and address improving the SvcRateAllocator in a follow-up CL before unflagging this.",
+      "parentUuid": "0858e2d4_5a4dae87",
+      "range": {
+        "startLine": 39,
+        "startChar": 10,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "a96cbce9fe0060e0957026c8048381fae1339a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

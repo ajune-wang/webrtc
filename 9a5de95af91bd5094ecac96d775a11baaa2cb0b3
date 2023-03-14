@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c5fc1c1_4995c0e9",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-14T12:54:48Z",
+      "side": 1,
+      "message": "Do we want to support this? I thought we agreed, that having a simulcast of SVC streams (i.e. 3x3 actual layers) is a bad idea and should return an error.",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "9a5de95af91bd5094ecac96d775a11baaa2cb0b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

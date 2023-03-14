@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3784d9f_45ceff8d",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-03-14T22:08:19Z",
+      "side": 1,
+      "message": "In WaitSelect, \"tv\" refers to the timeval structure. As these variables are just milliseconds, they should be called msWait/msStop.",
+      "revId": "f5e99b949775c69a6fa5a2a7464bfa43c9501766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b13bac7_6c4afe8d",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-03-14T22:08:19Z",
+      "side": 1,
+      "message": "Oof, now we have O(n^2) performance... Instead of using dispatcher_by_key_, how about creating a dispatcher_keys vector as a parallel to pollfds (where the Nth entry is the key of the dispatcher which owns the Nth FD in pollfds), then doing:\n\nfor (int i \u003d 0; i \u003c dispatcher_keys.size(); ++i) {\n  uint64_t key \u003d dispatcher_keys[i];\n  \n  if (!dispatcher_by_key_.count(key))\n    continue;\n  Dispatcher* pdispatcher \u003d dispatcher_by_key_.at(key);\n  \n  ProcessPollEvents(pdispatcher, pollfds[i]);\n}",
+      "revId": "f5e99b949775c69a6fa5a2a7464bfa43c9501766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

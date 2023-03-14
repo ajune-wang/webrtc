@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4233129f_903bf6a4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-14T09:54:04Z",
+      "side": 1,
+      "message": "Could you explain this one a bit ?\nCurrent state is paused and it is the \"last_rendered_frame_time\" so the last event is expected to be the next resume event ?",
+      "range": {
+        "startLine": 542,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 61
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6647e46f_9335437a",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
         "patchSetId": 6
@@ -226,6 +249,52 @@
         "startChar": 8,
         "endLine": 544,
         "endChar": 58
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfbd9055_75e86c79",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/pausable_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-14T09:54:04Z",
+      "side": 1,
+      "message": "Could we do nothing in this case instead of crashing ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "281c8423_924a1299",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/pausable_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-14T09:54:04Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 24
       },
       "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

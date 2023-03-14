@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "669bd626_c62311df",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-03-14T22:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3784d9f_45ceff8d",
+      "revId": "f5e99b949775c69a6fa5a2a7464bfa43c9501766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b13bac7_6c4afe8d",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Wait, what am I thinking, current_dispatcher_keys_ already acts as this parallel vector. So this change will be pretty simple",
       "parentUuid": "3b13bac7_6c4afe8d",
+      "revId": "f5e99b949775c69a6fa5a2a7464bfa43c9501766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bfda609_bdf7d063",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-03-14T22:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd555f48_2ae39b50",
       "revId": "f5e99b949775c69a6fa5a2a7464bfa43c9501766",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

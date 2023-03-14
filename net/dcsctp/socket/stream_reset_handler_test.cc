@@ -54,6 +54,7 @@ constexpr ReconfigRequestSN kPeerInitialReqSn =
     ReconfigRequestSN(*kPeerInitialTsn);
 constexpr uint32_t kArwnd = 131072;
 constexpr DurationMs kRto = DurationMs(250);
+constexpr DcSctpOptions kOptions = {.accept_zero_checksum = false};
 
 constexpr std::array<uint8_t, 4> kShortPayload = {1, 2, 3, 4};
 
@@ -114,7 +115,7 @@ class StreamResetHandlerTest : public testing::Test {
             [](DurationMs rtt_ms) {},
             []() {},
             *t3_rtx_timer_,
-            DcSctpOptions())),
+            kOptions)),
         handler_(
             std::make_unique<StreamResetHandler>("log: ",
                                                  &ctx_,
@@ -149,7 +150,7 @@ class StreamResetHandlerTest : public testing::Test {
     }
 
     std::vector<ReconfigurationResponseParameter> responses;
-    absl::optional<SctpPacket> p = SctpPacket::Parse(payload);
+    absl::optional<SctpPacket> p = SctpPacket::Parse(payload, kOptions);
     if (!p.has_value()) {
       EXPECT_TRUE(false);
       return {};
@@ -504,7 +505,8 @@ TEST_F(StreamResetHandlerTest, SendOutgoingResetRetransmitOnInProgress) {
   std::vector<uint8_t> payload = callbacks_.ConsumeSentPacket();
   ASSERT_FALSE(payload.empty());
 
-  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet, SctpPacket::Parse(payload));
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(payload, kOptions));
   ASSERT_THAT(packet.descriptors(), SizeIs(1));
   ASSERT_HAS_VALUE_AND_ASSIGN(
       ReConfigChunk reconfig2,

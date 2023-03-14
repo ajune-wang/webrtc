@@ -54,6 +54,7 @@ constexpr ReconfigRequestSN kPeerInitialReqSn =
     ReconfigRequestSN(*kPeerInitialTsn);
 constexpr uint32_t kArwnd = 131072;
 constexpr DurationMs kRto = DurationMs(250);
+constexpr DcSctpOptions kOptions = {.accept_zero_checksum = false};
 
 constexpr std::array<uint8_t, 4> kShortPayload = {1, 2, 3, 4};
 
@@ -92,36 +93,21 @@ class StreamResetHandlerTest : public testing::Test {
           return callbacks_.CreateTimeout(precision);
         }),
         delayed_ack_timer_(timer_manager_.CreateTimer(
-            "test/delayed_ack",
-            []() { return absl::nullopt; },
+            "test/delayed_ack", []() { return absl::nullopt; },
             TimerOptions(DurationMs(0)))),
         t3_rtx_timer_(timer_manager_.CreateTimer(
-            "test/t3_rtx",
-            []() { return absl::nullopt; },
+            "test/t3_rtx", []() { return absl::nullopt; },
             TimerOptions(DurationMs(0)))),
-        data_tracker_(std::make_unique<DataTracker>("log: ",
-                                                    delayed_ack_timer_.get(),
-                                                    kPeerInitialTsn)),
-        reasm_(std::make_unique<ReassemblyQueue>("log: ",
-                                                 kPeerInitialTsn,
+        data_tracker_(std::make_unique<DataTracker>(
+            "log: ", delayed_ack_timer_.get(), kPeerInitialTsn)),
+        reasm_(std::make_unique<ReassemblyQueue>("log: ", kPeerInitialTsn,
                                                  kArwnd)),
         retransmission_queue_(std::make_unique<RetransmissionQueue>(
-            "",
-            &callbacks_,
-            kMyInitialTsn,
-            kArwnd,
-            producer_,
-            [](DurationMs rtt_ms) {},
-            []() {},
-            *t3_rtx_timer_,
-            DcSctpOptions())),
-        handler_(
-            std::make_unique<StreamResetHandler>("log: ",
-                                                 &ctx_,
-                                                 &timer_manager_,
-                                                 data_tracker_.get(),
-                                                 reasm_.get(),
-                                                 retransmission_queue_.get())) {
+            "", &callbacks_, kMyInitialTsn, kArwnd, producer_,
+            [](DurationMs rtt_ms) {}, []() {}, *t3_rtx_timer_, kOptions)),
+        handler_(std::make_unique<StreamResetHandler>(
+            "log: ", &ctx_, &timer_manager_, data_tracker_.get(), reasm_.get(),
+            retransmission_queue_.get())) {
     EXPECT_CALL(ctx_, current_rto).WillRepeatedly(Return(kRto));
   }
 
@@ -149,7 +135,7 @@ class StreamResetHandlerTest : public testing::Test {
     }
 
     std::vector<ReconfigurationResponseParameter> responses;
-    absl::optional<SctpPacket> p = SctpPacket::Parse(payload);
+    absl::optional<SctpPacket> p = SctpPacket::Parse(payload, kOptions);
     if (!p.has_value()) {
       EXPECT_TRUE(false);
       return {};
@@ -504,7 +490,8 @@ TEST_F(StreamResetHandlerTest, SendOutgoingResetRetransmitOnInProgress) {
   std::vector<uint8_t> payload = callbacks_.ConsumeSentPacket();
   ASSERT_FALSE(payload.empty());
 
-  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet, SctpPacket::Parse(payload));
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(payload, kOptions));
   ASSERT_THAT(packet.descriptors(), SizeIs(1));
   ASSERT_HAS_VALUE_AND_ASSIGN(
       ReConfigChunk reconfig2,

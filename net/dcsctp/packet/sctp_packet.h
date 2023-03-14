@@ -57,7 +57,8 @@ class SctpPacket {
   // Used for building SctpPacket, as those are immutable.
   class Builder {
    public:
-    Builder(VerificationTag verification_tag, const DcSctpOptions& options);
+    Builder(VerificationTag verification_tag,
+            const DcSctpOptions& options);
 
     Builder(Builder&& other) = default;
     Builder& operator=(Builder&& other) = default;
@@ -74,7 +75,9 @@ class SctpPacket {
 
     // Returns the payload of the build SCTP packet. The Builder will be cleared
     // after having called this function, and can be used to build a new packet.
-    std::vector<uint8_t> Build();
+    // If `write_checksum` is set to false, a value of zero (0) will be written
+    // as the packet's checksum, instead of the crc32c value.
+    std::vector<uint8_t> Build(bool write_checksum = true);
 
    private:
     VerificationTag verification_tag_;
@@ -89,7 +92,7 @@ class SctpPacket {
   // Parses `data` as an SCTP packet and returns it if it validates.
   static absl::optional<SctpPacket> Parse(
       rtc::ArrayView<const uint8_t> data,
-      bool disable_checksum_verification = false);
+      const DcSctpOptions& options);
 
   // Returns the SCTP common header.
   const CommonHeader& common_header() const { return common_header_; }

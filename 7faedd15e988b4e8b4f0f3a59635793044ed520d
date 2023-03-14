@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cd5a10c_23c77680",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "Nit: I would remove \"starting from this point\" since it is unclear (this point in time).",
+      "range": {
+        "startLine": 154,
+        "startChar": 19,
+        "endLine": 154,
+        "endChar": 44
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a90a484_df943462",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 44
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "addfe65b_ed8c5f9f",
+        "filename": "test/pc/e2e/analyzer/video/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "Why not adding a BUILD.gn in the dvqa/ folder?",
+      "range": {
+        "startLine": 507,
+        "startChar": 17,
+        "endLine": 507,
+        "endChar": 22
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6647e46f_9335437a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "```\n// If the receiver was subscribed to this stream when the frame was captured,\n// then the frame should be considered as dropped.\n// If the receiver was not subscribed, then the frame should be considered as\n// not required (these are excluded from stats calculations).\n```",
+      "range": {
+        "startLine": 964,
+        "startChar": 4,
+        "endLine": 966,
+        "endChar": 19
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e966c0f1_480e21aa",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
         "patchSetId": 6
@@ -19,6 +111,121 @@
         "startChar": 61,
         "endLine": 1000,
         "endChar": 60
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66877c8_053c4c4f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "Processes frames for the peer identified by `peer_index` up to `rendered_frame_id`.",
+      "range": {
+        "startLine": 125,
+        "startChar": 5,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31edbe29_2d7f73a0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "Do the discarded frames count as dropped?",
+      "range": {
+        "startLine": 127,
+        "startChar": 5,
+        "endLine": 127,
+        "endChar": 74
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "709dfa9d_5782b94b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "See below, let\u0027s use superfluous or not required more consistently.",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a9187e_947c9566",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "We use NotRequired in the docs, should this be MarkNotRequired?",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5efe3a8a_113ba8b2",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-14T08:15:12Z",
+      "side": 1,
+      "message": "Let\u0027s open a proper bug for this (unless you plan to act on this in the next few days).\n\nShould this just be considered as a normal restart (e.g. not a freeze)? Unless the peer unpaused and didn\u0027t receive some frames.",
+      "range": {
+        "startLine": 540,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 58
       },
       "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

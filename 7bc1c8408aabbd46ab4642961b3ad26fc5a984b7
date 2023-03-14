@@ -181,6 +181,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c9d1bca_d3824145",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-14T07:00:17Z",
+      "side": 1,
+      "message": "Thanks - it\u0027s not strictly needed, so I\u0027ve removed the nulling of the controller!\nAgree that we can just inline OnClosingProcedureComplete() since it basically just calls SetState(kClosed) now.",
+      "parentUuid": "425e4538_9bf4a39b",
+      "revId": "7bc1c8408aabbd46ab4642961b3ad26fc5a984b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e088c6f2_9e57d5a3",
         "filename": "pc/test/fake_data_channel_controller.h",
         "patchSetId": 17

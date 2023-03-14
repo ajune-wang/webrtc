@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b15366d_3273e93d",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cd5a10c_23c77680",
+      "range": {
+        "startLine": 154,
+        "startChar": 19,
+        "endLine": 154,
+        "endChar": 44
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a90a484_df943462",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-14T08:15:12Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 44
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed8f5e20_63e373ca",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a90a484_df943462",
       "range": {
         "startLine": 159,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2156cc63_5a40eaed",
+        "filename": "test/pc/e2e/analyzer/video/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "addfe65b_ed8c5f9f",
+      "range": {
+        "startLine": 507,
+        "startChar": 17,
+        "endLine": 507,
+        "endChar": 22
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4233129f_903bf6a4",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-14T09:54:04Z",
       "side": 1,
       "message": "Could you explain this one a bit ?\nCurrent state is paused and it is the \"last_rendered_frame_time\" so the last event is expected to be the next resume event ?",
+      "range": {
+        "startLine": 542,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 61
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fe6bebd_2b9c6f99",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Done. Added a comment. The idea is that we need to account the time from last pause up to just received late frame",
+      "parentUuid": "4233129f_903bf6a4",
       "range": {
         "startLine": 542,
         "startChar": 0,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99b81c1e_77b20a79",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "This changes the meaning actually. Because if receiver wasn\u0027t subscribed it can be either dropped or superfluous, which is explained below.\n\nAdded forward reference and changed wording to \"superfluous\"",
+      "parentUuid": "6647e46f_9335437a",
+      "range": {
+        "startLine": 964,
+        "startChar": 4,
+        "endLine": 966,
+        "endChar": 19
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e966c0f1_480e21aa",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
         "patchSetId": 6
@@ -129,6 +249,30 @@
       "writtenOn": "2023-03-13T21:47:02Z",
       "side": 1,
       "message": "IIUC if a stream is paused but never resumed then all the frames are considered as dropped ?\nCould you clarify this logic a bit ?",
+      "range": {
+        "startLine": 998,
+        "startChar": 61,
+        "endLine": 1000,
+        "endChar": 60
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7852ad1_81f16404",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Updated the comment. The idea is that the stream was paused, BUT we received a frame on it because it was already in the network. Then frames between \"pause\" and received frames have to be considered dropped.",
+      "parentUuid": "e966c0f1_480e21aa",
       "range": {
         "startLine": 998,
         "startChar": 61,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "631fed6a_4b9cf0ae",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b66877c8_053c4c4f",
+      "range": {
+        "startLine": 125,
+        "startChar": 5,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31edbe29_2d7f73a0",
@@ -175,6 +343,30 @@
       "writtenOn": "2023-03-14T08:15:12Z",
       "side": 1,
       "message": "Do the discarded frames count as dropped?",
+      "range": {
+        "startLine": 127,
+        "startChar": 5,
+        "endLine": 127,
+        "endChar": 74
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aabb723_22814acd",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "No, they are not accounted in the stats",
+      "parentUuid": "31edbe29_2d7f73a0",
       "range": {
         "startLine": 127,
         "startChar": 5,
@@ -208,6 +400,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54ba8be9_05ba66c0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "709dfa9d_5782b94b",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0a9187e_947c9566",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-03-14T08:15:12Z",
       "side": 1,
       "message": "We use NotRequired in the docs, should this be MarkNotRequired?",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f72791_a5686ea7",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Updated doc to use \"superfluous\". I hope I did it everywhere...",
+      "parentUuid": "b0a9187e_947c9566",
       "range": {
         "startLine": 137,
         "startChar": 2,
@@ -254,6 +494,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab86903b_57b6d77d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Yeah, it should exclude pauses, but it\u0027s unclear how to get that info here for now. Added a bug.",
+      "parentUuid": "5efe3a8a_113ba8b2",
+      "range": {
+        "startLine": 540,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 58
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfbd9055_75e86c79",
@@ -277,6 +541,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c888cc7_8c6757d1",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/pausable_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Actually I prefer to be more strict here to make it easier to reason about correctness. If we will want to allow repeat call, I think it\u0027s better to check on the caller side.",
+      "parentUuid": "bfbd9055_75e86c79",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "281c8423_924a1299",
@@ -290,6 +578,30 @@
       "writtenOn": "2023-03-14T09:54:04Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f003775_0c9286dd",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/pausable_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-14T14:47:47Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "281c8423_924a1299",
       "range": {
         "startLine": 27,
         "startChar": 2,

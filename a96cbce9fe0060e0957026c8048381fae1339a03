@@ -46,6 +46,30 @@
       },
       "revId": "a96cbce9fe0060e0957026c8048381fae1339a03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0066556_d1def599",
+        "filename": "api/video/builtin_video_bitrate_allocator_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-14T09:24:55Z",
+      "side": 1,
+      "message": "Excellent, thanks for fixing!",
+      "parentUuid": "96d7d653_dff78b68",
+      "range": {
+        "startLine": 39,
+        "startChar": 10,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "a96cbce9fe0060e0957026c8048381fae1339a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

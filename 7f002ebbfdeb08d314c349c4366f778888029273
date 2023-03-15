@@ -16,6 +16,24 @@
       "message": "I will take over this CL for the on-going code review, with the permission of original owner.\nThis is the initial copy from that CL [1] to save conversation history.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/283641",
       "revId": "7f002ebbfdeb08d314c349c4366f778888029273",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7393dcbe_438ad3ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "Thanks \u0026 noted!",
+      "parentUuid": "40b491b1_c6086f4d",
+      "revId": "7f002ebbfdeb08d314c349c4366f778888029273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

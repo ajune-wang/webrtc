@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bdd3672_17b1c710",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "We\u0027re getting close I think! Only nits \u0026 one question for Björn.",
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcbdfb68_a6fd1fe1",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "Can you document what the effect of setting this is? Something like \"Make the next Log() call ScheduleOutput() again.\"",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 27
+      },
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676cef9d_2f5876a2",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "IIUC this can happen even while started if Log() is called enough times before tasks on L.178 or L.189 has run. The previous implementation caused events to pile up in the task queue in an unbounded manner in that case. I don\u0027t see why we should enforce stricter rules now. @terelius@webrtc.org wdyt about changing the if statement to \n```\nif (container.size() \u003e\u003d container_max_size \u0026\u0026 !logging_state_started_) {\n  container.pop_front();\n}\n```\nIt\u0027s tempting to log an UMA with the \"overcapacity\" condition, but 1) this is a high traffic API, 2) if it happens, it is happening already today and there are AFAIK no known bugs right?",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 0
+      },
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff8cc7b_03c4a31b",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "Move into the private section below the public one.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

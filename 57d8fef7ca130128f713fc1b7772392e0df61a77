@@ -113,6 +113,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5978856_3b0b7875",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "Closing out old comment.",
+      "parentUuid": "a752ee43_6660a9a7",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 214,
+        "endChar": 23
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97a082ab_f5889bd3",
@@ -339,6 +363,30 @@
       "side": 1,
       "message": "`StartLogging()` and `StopLogging()` are still expected on the the sequence.",
       "parentUuid": "4d733bd0_fb222126",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 63
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "863752cc_37a4dca5",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T12:23:53Z",
+      "side": 1,
+      "message": "OK by me to keep it.",
+      "parentUuid": "2219fe0b_af86453b",
       "range": {
         "startLine": 115,
         "startChar": 0,

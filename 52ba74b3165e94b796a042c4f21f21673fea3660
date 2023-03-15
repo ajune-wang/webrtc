@@ -16,6 +16,23 @@
       "message": "As we can see, we still need to migrate some external dependencies (i.e. replace uses of proxy with uses of adapter, just like this CL is doing) before we can land this CL, but this is what we want to check in, correct? 😊",
       "revId": "52ba74b3165e94b796a042c4f21f21673fea3660",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d30f6f9_2e16ea6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-15T13:28:02Z",
+      "side": 1,
+      "message": "Looks like you need to remove usage from a few external projects first, but lgtm otherwise!",
+      "revId": "52ba74b3165e94b796a042c4f21f21673fea3660",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

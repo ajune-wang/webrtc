@@ -23,6 +23,7 @@
 #include "api/array_view.h"
 #include "net/dcsctp/common/handover_testing.h"
 #include "net/dcsctp/packet/chunk/chunk.h"
+#include "net/dcsctp/packet/chunk/cookie_ack_chunk.h"
 #include "net/dcsctp/packet/chunk/cookie_echo_chunk.h"
 #include "net/dcsctp/packet/chunk/data_chunk.h"
 #include "net/dcsctp/packet/chunk/data_common.h"
@@ -30,6 +31,7 @@
 #include "net/dcsctp/packet/chunk/heartbeat_ack_chunk.h"
 #include "net/dcsctp/packet/chunk/heartbeat_request_chunk.h"
 #include "net/dcsctp/packet/chunk/idata_chunk.h"
+#include "net/dcsctp/packet/chunk/init_ack_chunk.h"
 #include "net/dcsctp/packet/chunk/init_chunk.h"
 #include "net/dcsctp/packet/chunk/sack_chunk.h"
 #include "net/dcsctp/packet/chunk/shutdown_chunk.h"
@@ -58,8 +60,10 @@ namespace {
 using ::testing::_;
 using ::testing::AllOf;
 using ::testing::ElementsAre;
+using ::testing::Eq;
 using ::testing::HasSubstr;
 using ::testing::IsEmpty;
+using ::testing::Not;
 using ::testing::SizeIs;
 using ::testing::UnorderedElementsAre;
 
@@ -2864,5 +2868,136 @@ TEST(DcSctpSocketTest, ResetStreamsWithPausedSenderResumesWhenPerformed) {
   EXPECT_EQ(msg2->payload().size(), kSmallMessageSize);
 }
 
+TEST_P(DcSctpSocketParametrizedTest, ZeroChecksumMetricsAreSet) {
+  std::vector<std::pair<bool, bool>> combinations = {
+      {false, false}, {false, true}, {true, false}, {true, true}};
+  for (const auto& [a_enable, z_enable] : combinations) {
+    DcSctpOptions a_options = {.accept_zero_checksum = a_enable};
+    DcSctpOptions z_options = {.accept_zero_checksum = z_enable};
+
+    SocketUnderTest a("A", a_options);
+    auto z = std::make_unique<SocketUnderTest>("Z", z_options);
+
+    ConnectSockets(a, *z);
+    z = MaybeHandoverSocket(std::move(z));
+
+    EXPECT_EQ(a.socket.GetMetrics()->uses_zero_checksum, a_enable && z_enable);
+    EXPECT_EQ(z->socket.GetMetrics()->uses_zero_checksum, a_enable && z_enable);
+  }
+}
+
+TEST(DcSctpSocketTest, AlwaysSendsInitWithNonZeroChecksum) {
+  DcSctpOptions options = {.accept_zero_checksum = true};
+  SocketUnderTest a("A", options);
+
+  a.socket.Connect();
+  std::vector<uint8_t> data = a.cb.ConsumeSentPacket();
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(data, options));
+  EXPECT_THAT(packet.common_header().checksum, Not(Eq(0u)));
+  EXPECT_THAT(packet.descriptors(),
+              ElementsAre(testing::Field(&SctpPacket::ChunkDescriptor::type,
+                                         InitChunk::kType)));
+}
+
+TEST(DcSctpSocketTest, AlwaysSendsInitAckWithNonZeroChecksum) {
+  DcSctpOptions options = {.accept_zero_checksum = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("Z", options);
+
+  a.socket.Connect();
+  z.socket.ReceivePacket(a.cb.ConsumeSentPacket());  // INIT
+
+  std::vector<uint8_t> data = z.cb.ConsumeSentPacket();
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(data, options));
+  EXPECT_THAT(packet.common_header().checksum, Not(Eq(0u)));
+  EXPECT_THAT(packet.descriptors(),
+              ElementsAre(testing::Field(&SctpPacket::ChunkDescriptor::type,
+                                         InitAckChunk::kType)));
+}
+
+TEST(DcSctpSocketTest, AlwaysSendsCookieEchoWithNonZeroChecksum) {
+  DcSctpOptions options = {.accept_zero_checksum = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("Z", options);
+
+  a.socket.Connect();
+  z.socket.ReceivePacket(a.cb.ConsumeSentPacket());  // INIT
+  a.socket.ReceivePacket(z.cb.ConsumeSentPacket());  // INIT-ACK
+
+  std::vector<uint8_t> data = a.cb.ConsumeSentPacket();
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(data, options));
+  EXPECT_THAT(packet.common_header().checksum, Not(Eq(0u)));
+  EXPECT_THAT(packet.descriptors(),
+              ElementsAre(testing::Field(&SctpPacket::ChunkDescriptor::type,
+                                         CookieEchoChunk::kType)));
+}
+
+TEST(DcSctpSocketTest, SendsCookieAckWithZeroChecksum) {
+  DcSctpOptions options = {.accept_zero_checksum = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("Z", options);
+
+  a.socket.Connect();
+  z.socket.ReceivePacket(a.cb.ConsumeSentPacket());  // INIT
+  a.socket.ReceivePacket(z.cb.ConsumeSentPacket());  // INIT-ACK
+  z.socket.ReceivePacket(a.cb.ConsumeSentPacket());  // COOKIE-ECHO
+
+  std::vector<uint8_t> data = z.cb.ConsumeSentPacket();
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(data, options));
+  EXPECT_THAT(packet.common_header().checksum, Eq(0u));
+  EXPECT_THAT(packet.descriptors(),
+              ElementsAre(testing::Field(&SctpPacket::ChunkDescriptor::type,
+                                         CookieAckChunk::kType)));
+}
+
+TEST(DcSctpSocketTest, SendsDataWithZeroChecksum) {
+  DcSctpOptions options = {.accept_zero_checksum = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("Z", options);
+
+  ConnectSockets(a, z);
+
+  std::vector<uint8_t> payload(a.options.mtu - 100);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(53), payload), {});
+
+  std::vector<uint8_t> data = a.cb.ConsumeSentPacket();
+  ASSERT_HAS_VALUE_AND_ASSIGN(SctpPacket packet,
+                              SctpPacket::Parse(data, options));
+  EXPECT_THAT(packet.common_header().checksum, Eq(0u));
+  EXPECT_THAT(packet.descriptors(),
+              ElementsAre(testing::Field(&SctpPacket::ChunkDescriptor::type,
+                                         DataChunk::kType)));
+}
+
+TEST_P(DcSctpSocketParametrizedTest, SendALotOfBytesWithZeroChecksum) {
+  DcSctpOptions options = {.accept_zero_checksum = true};
+  SocketUnderTest a("A", options);
+  auto z = std::make_unique<SocketUnderTest>("Z", options);
+
+  ConnectSockets(a, *z);
+  z = MaybeHandoverSocket(std::move(z));
+
+  std::vector<uint8_t> payload(kLargeMessageSize);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(53), payload), kSendOptions);
+
+  // First DATA
+  z->socket.ReceivePacket(a.cb.ConsumeSentPacket());
+  // Second DATA (lost)
+  a.cb.ConsumeSentPacket();
+
+  // Retransmit and handle the rest
+  ExchangeMessages(a, *z);
+
+  absl::optional<DcSctpMessage> msg = z->cb.ConsumeReceivedMessage();
+  ASSERT_TRUE(msg.has_value());
+  EXPECT_EQ(msg->stream_id(), StreamID(1));
+  EXPECT_THAT(msg->payload(), testing::ElementsAreArray(payload));
+
+  MaybeHandoverSocketAndSendMessage(a, std::move(z));
+}
 }  // namespace
 }  // namespace dcsctp

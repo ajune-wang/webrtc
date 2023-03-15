@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89eff1ca_94513653",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-15T09:58:00Z",
+      "side": 1,
+      "message": "Hi Tom, would it be possible to add a TESTED\u003d description with the manual test cases performed to the CL?\n\nOtherwise LGTM now.",
+      "revId": "108149beef796dc22e47eeba3d5a82eb80ab6244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

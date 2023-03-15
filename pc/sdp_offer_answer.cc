@@ -4172,9 +4172,9 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanOffer(
       transceiver->set_mline_index(mline_index);
     }
   }
-  // Lastly, add a m-section if we have local data channels and an m section
-  // does not already exist.
-  if (!pc_->GetDataMid() && data_channel_controller()->HasDataChannels()) {
+  // Lastly, add a m-section if we have requested local data channels and an
+  // m section does not already exist.
+  if (!pc_->GetDataMid() && data_channel_controller()->HasUsedDataChannels()) {
     session_options->media_description_options.push_back(
         GetMediaDescriptionOptionsForActiveData(
             mid_generator_.GenerateString()));

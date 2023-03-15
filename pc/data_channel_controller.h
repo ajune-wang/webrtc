@@ -92,7 +92,10 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   void AllocateSctpSids(rtc::SSLRole role);
 
   // Checks if any data channel has been added.
+  // A data channel currently exist.
   bool HasDataChannels() const;
+  // At some point in time, a data channel has existed.
+  bool HasUsedDataChannels() const;
   bool HasSctpDataChannels() const {
     RTC_DCHECK_RUN_ON(signaling_thread());
     return !sctp_data_channels_.empty();
@@ -152,6 +155,7 @@ class DataChannelController : public SctpDataChannelControllerInterface,
       RTC_GUARDED_BY(signaling_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_to_free_
       RTC_GUARDED_BY(signaling_thread());
+  bool has_used_data_channels_ RTC_GUARDED_BY(signaling_thread()) = false;
 
   // Signals from `data_channel_transport_`.  These are invoked on the
   // signaling thread.

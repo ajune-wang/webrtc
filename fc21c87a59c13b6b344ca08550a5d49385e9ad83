@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b25204_387db541",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2311,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-15T13:11:07Z",
+      "side": 1,
+      "message": "It is not clear at first sight this is 1 second freeze.\n\nI suggest to comment before each part to make it more easy to spot.\n\n// Pause Bob receive stream (but not for Charlie)\n\n// Freeze for 1 second\n\n// Unpause Bob\u0027s receive stream",
+      "range": {
+        "startLine": 2308,
+        "startChar": 0,
+        "endLine": 2311,
+        "endChar": 53
+      },
+      "revId": "fc21c87a59c13b6b344ca08550a5d49385e9ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77da51b0_d2ae1d91",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2336,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-15T13:11:07Z",
+      "side": 1,
+      "message": "bugs.webrtc.org/\n\nalso below",
+      "range": {
+        "startLine": 2336,
+        "startChar": 10,
+        "endLine": 2336,
+        "endChar": 27
+      },
+      "revId": "fc21c87a59c13b6b344ca08550a5d49385e9ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb8cad7b_5579a450",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2381,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-15T13:11:07Z",
+      "side": 1,
+      "message": "See previous comment.\n\nAlso we are not unpausing Bob here (stale comment).",
+      "range": {
+        "startLine": 2380,
+        "startChar": 2,
+        "endLine": 2381,
+        "endChar": 9
+      },
+      "revId": "fc21c87a59c13b6b344ca08550a5d49385e9ad83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

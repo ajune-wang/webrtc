@@ -236,6 +236,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4e3e6f_b07c662c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-15T13:11:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "99b81c1e_77b20a79",
+      "range": {
+        "startLine": 964,
+        "startChar": 4,
+        "endLine": 966,
+        "endChar": 19
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e966c0f1_480e21aa",

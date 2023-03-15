@@ -56,6 +56,7 @@
 #include "net/dcsctp/packet/parameter/parameter.h"
 #include "net/dcsctp/packet/parameter/state_cookie_parameter.h"
 #include "net/dcsctp/packet/parameter/supported_extensions_parameter.h"
+#include "net/dcsctp/packet/parameter/zero_checksum_acceptable_chunk_parameter.h"
 #include "net/dcsctp/packet/sctp_packet.h"
 #include "net/dcsctp/packet/tlv_trait.h"
 #include "net/dcsctp/public/dcsctp_message.h"
@@ -117,6 +118,11 @@ Capabilities ComputeCapabilities(const DcSctpOptions& options,
     capabilities.reconfig = true;
   }
 
+  if (options.accept_zero_checksum &&
+      parameters.get<ZeroChecksumAcceptableChunkParameter>().has_value()) {
+    capabilities.zero_checksum = true;
+  }
+
   capabilities.negotiated_maximum_incoming_streams = std::min(
       options.announced_maximum_incoming_streams, peer_nbr_outbound_streams);
   capabilities.negotiated_maximum_outgoing_streams = std::min(
@@ -136,6 +142,9 @@ void AddCapabilityParameters(const DcSctpOptions& options,
   if (options.enable_message_interleaving) {
     chunk_types.push_back(IDataChunk::kType);
     chunk_types.push_back(IForwardTsnChunk::kType);
+  }
+  if (options.accept_zero_checksum) {
+    builder.Add(ZeroChecksumAcceptableChunkParameter());
   }
   builder.Add(SupportedExtensionsParameter(std::move(chunk_types)));
 }
@@ -277,9 +286,15 @@ void DcSctpSocket::SendInit() {
                  options_.announced_maximum_outgoing_streams,
                  options_.announced_maximum_incoming_streams,
                  connect_params_.initial_tsn, params_builder.Build());
+  // https://www.ietf.org/archive/id/draft-tuexen-tsvwg-sctp-zero-checksum-01.html#section-4.2
+  // "When an end point sends a packet containing an INIT chunk, it MUST include
+  // a correct CRC32c checksum in the packet containing the INIT chunk."
   SctpPacket::Builder b(VerificationTag(0), options_);
   b.Add(init);
-  packet_sender_.Send(b);
+  // https://www.ietf.org/archive/id/draft-tuexen-tsvwg-sctp-zero-checksum-01.html#section-4.2
+  // "When an end point sends a packet containing an INIT chunk, it MUST include
+  // a correct CRC32c checksum in the packet containing the INIT chunk."
+  packet_sender_.Send(b, /*write_checksum=*/true);
 }
 
 void DcSctpSocket::MakeConnectionParameters() {
@@ -320,6 +335,7 @@ void DcSctpSocket::CreateTransmissionControlBlock(
     size_t a_rwnd,
     TieTag tie_tag) {
   metrics_.uses_message_interleaving = capabilities.message_interleaving;
+  metrics_.uses_zero_checksum = capabilities.zero_checksum;
   metrics_.negotiated_maximum_incoming_streams =
       capabilities.negotiated_maximum_incoming_streams;
   metrics_.negotiated_maximum_outgoing_streams =
@@ -351,6 +367,7 @@ void DcSctpSocket::RestoreFromState(const DcSctpSocketHandoverState& state) {
       capabilities.message_interleaving =
           state.capabilities.message_interleaving;
       capabilities.reconfig = state.capabilities.reconfig;
+      capabilities.zero_checksum = state.capabilities.zero_checksum;
       capabilities.negotiated_maximum_incoming_streams =
           state.capabilities.negotiated_maximum_incoming_streams;
       capabilities.negotiated_maximum_outgoing_streams =

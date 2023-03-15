@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a752ee43_6660a9a7",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-15T02:55:44Z",
+      "side": 1,
+      "message": "Fix it that let `ScheduleOutput()` runs on task_queue.",
+      "parentUuid": "259e69af_e51c4ca5",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 214,
+        "endChar": 23
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97a082ab_f5889bd3",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
         "patchSetId": 10
@@ -196,6 +220,30 @@
       "writtenOn": "2023-03-06T13:38:55Z",
       "side": 1,
       "message": "nit: The other members use `RTC_GUARDED_BY(*task_queue_)`. Assuming both are equivalent, let\u0027s be consistent and use the same form everywhere.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 61
+      },
+      "revId": "57d8fef7ca130128f713fc1b7772392e0df61a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae4b5f8_698cfb81",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-15T02:55:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c311f41_9796f330",
       "range": {
         "startLine": 101,
         "startChar": 0,

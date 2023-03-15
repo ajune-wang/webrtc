@@ -19,6 +19,7 @@ namespace webrtc {
 void FuzzOneInput(const uint8_t* data, size_t size) {
   dcsctp::dcsctp_fuzzers::FuzzerCallbacks cb;
   dcsctp::DcSctpOptions options;
+  options.accept_zero_checksum = true;
   options.disable_checksum_verification = true;
   dcsctp::DcSctpSocket socket("A", cb, nullptr, options);
 

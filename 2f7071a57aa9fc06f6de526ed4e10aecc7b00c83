@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3843fcff_9f28e711",
+        "filename": "media/engine/encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-15T11:14:51Z",
+      "side": 0,
+      "message": "Similar test already exist for adapter AFAICT:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter_unittest.cc;l\u003d1630;drc\u003d880f1d5ab9e8cda5eb2c6a3de39d2554ef08e9f7\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter_unittest.cc;l\u003d932;drc\u003d880f1d5ab9e8cda5eb2c6a3de39d2554ef08e9f7",
+      "revId": "2f7071a57aa9fc06f6de526ed4e10aecc7b00c83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

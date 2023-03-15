@@ -589,6 +589,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92415cc_e85d82dd",
+        "filename": "test/pc/e2e/analyzer/video/dvqa/pausable_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-15T12:21:23Z",
+      "side": 1,
+      "message": "SG.\n\nBy ensuring correctness I mean that for now I don\u0027t see a use case when we should pause paused stream, so if there is a bug in the code which tries to do so now it will cause a crash and we will spot it. So such API is less tolerant to mistakes which is good when you trying to change complex system and may miss some parts.\n\nIf we will see a use case later, we can reassess and remove check",
+      "parentUuid": "57989e91_a2d25b1d",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "7faedd15e988b4e8b4f0f3a59635793044ed520d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "281c8423_924a1299",

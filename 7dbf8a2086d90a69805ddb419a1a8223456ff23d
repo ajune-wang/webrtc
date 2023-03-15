@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abdd80d2_4d5671fa",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-15T08:43:23Z",
+      "side": 1,
+      "message": "Depending if the receiver was subscribed",
+      "range": {
+        "startLine": 974,
+        "startChar": 7,
+        "endLine": 974,
+        "endChar": 43
+      },
+      "revId": "7dbf8a2086d90a69805ddb419a1a8223456ff23d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e88fbb7_f6b6f7be",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_stream_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-15T08:43:23Z",
+      "side": 1,
+      "message": "to be removed",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "7dbf8a2086d90a69805ddb419a1a8223456ff23d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

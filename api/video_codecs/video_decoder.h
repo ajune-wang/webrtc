@@ -51,6 +51,9 @@ class RTC_EXPORT VideoDecoder {
     // True if the decoder is backed by hardware acceleration.
     bool is_hardware_accelerated = false;
 
+    // True if the decoder is fallback to software.
+    bool is_decoder_fallback = false;
+
     std::string ToString() const;
     bool operator==(const DecoderInfo& rhs) const;
     bool operator!=(const DecoderInfo& rhs) const { return !(*this == rhs); }

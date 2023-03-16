@@ -652,14 +652,16 @@ void ReceiveStatisticsProxy::OnIncomingPayloadType(int payload_type) {
 void ReceiveStatisticsProxy::OnDecoderInfo(
     const VideoDecoder::DecoderInfo& decoder_info) {
   RTC_DCHECK_RUN_ON(&decode_queue_);
-  worker_thread_->PostTask(SafeTask(
-      task_safety_.flag(),
-      [this, name = decoder_info.implementation_name,
-       is_hardware_accelerated = decoder_info.is_hardware_accelerated]() {
-        RTC_DCHECK_RUN_ON(&main_thread_);
-        stats_.decoder_implementation_name = name;
-        stats_.power_efficient_decoder = is_hardware_accelerated;
-      }));
+  worker_thread_->PostTask(
+      SafeTask(task_safety_.flag(),
+               [this, name = decoder_info.implementation_name,
+                is_hardware_accelerated = decoder_info.is_hardware_accelerated,
+                is_decoder_fallback = decoder_info.is_decoder_fallback]() {
+                 RTC_DCHECK_RUN_ON(&main_thread_);
+                 stats_.decoder_implementation_name = name;
+                 stats_.power_efficient_decoder = is_hardware_accelerated;
+                 stats_.decoder_fallback = is_decoder_fallback;
+               }));
 }
 
 void ReceiveStatisticsProxy::OnFrameBufferTimingsUpdated(

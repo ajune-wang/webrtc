@@ -39,6 +39,30 @@
       },
       "revId": "c391d5f467b637c6c10153c0587cba2d276005be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87abc517_feb830b1",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-16T14:23:31Z",
+      "side": 1,
+      "message": "Good question, at least it doesn\u0027t happen in any tests :) I don\u0027t have a good way to test this manually.\n\nI would really like to get rid of this CNG state and only make the decision based on last mode, I think it exists because of DTMF or something.. (another thing I would really like to remove).\n\nCNG state is set to `Off` each time a new packet is decoded: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_coding/neteq/neteq_impl.cc;l\u003d1286;drc\u003d0e9a0b6e9bb6ec59521977eec805f5d0bca833e0\n\nSo assuming we cannot transition from CNG to expand without decoding a packet, then it should never happen. However, this can happen with the new CNG timeout, but then we will always select expand in NoPacket (but we cannot add the DCHECK here).",
+      "parentUuid": "0eb7ee6e_0d88119b",
+      "range": {
+        "startLine": 381,
+        "startChar": 4,
+        "endLine": 381,
+        "endChar": 28
+      },
+      "revId": "c391d5f467b637c6c10153c0587cba2d276005be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

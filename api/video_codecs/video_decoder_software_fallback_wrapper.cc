@@ -136,6 +136,14 @@ bool VideoDecoderSoftwareFallbackWrapper::InitFallbackDecoder() {
   }
   decoder_type_ = DecoderType::kFallback;
 
+  DecoderInfo info = fallback_decoder_->GetDecoderInfo();
+  // keep track of a decoder fallback only when a decoder gets hardware decoding
+  // to protect finger printing of the useragent.
+  // See the detail discussion on https://github.com/w3c/webrtc-stats/issues/730
+  if (hw_decoded_frames_since_last_fallback_ > 0) {
+    info.is_decoder_fallback = true;
+  }
+
   if (callback_)
     fallback_decoder_->RegisterDecodeCompleteCallback(callback_);
   return true;

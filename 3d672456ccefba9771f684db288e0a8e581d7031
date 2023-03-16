@@ -33,6 +33,23 @@
       "message": "I can\u0027t see how this is testing anything.\n\"Iterate over copy\" is a common way of avoiding situations where called functions could modify the iterated-over array, but if so, the description should say so.\n\nIf you want to check if it happens, this should have RTC_CHECK_EQ(copy, sctp_data_channels_).\n\nIf you want to make it safe in case it happens, adjust the description.",
       "revId": "3d672456ccefba9771f684db288e0a8e581d7031",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f705d56_87da20f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-16T22:30:47Z",
+      "side": 1,
+      "message": "out-of-line explanation noted.\nThis is the kind of effect we can expect to see from eliminating some mid-function PostTasks....",
+      "revId": "3d672456ccefba9771f684db288e0a8e581d7031",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

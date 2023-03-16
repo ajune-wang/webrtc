@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "488495a5_3aae8631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-16T21:51:42Z",
+      "side": 1,
+      "message": "Hej hta, hbos - this is a bit of a temporary hack while a downstream issue is being resolved. Sending out for review now, please ping me when you see this.",
+      "revId": "3d672456ccefba9771f684db288e0a8e581d7031",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

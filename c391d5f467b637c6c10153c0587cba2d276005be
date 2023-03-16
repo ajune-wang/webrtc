@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d30277f_afd0d181",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-16T09:36:33Z",
+      "side": 1,
+      "message": "Nice! LGTM with one comment.",
+      "revId": "c391d5f467b637c6c10153c0587cba2d276005be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb7ee6e_0d88119b",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-16T09:36:33Z",
+      "side": 1,
+      "message": "I\u0027m trying to understand if there is a difference between old and new code in this if clause. If `cng_state_ \u003d\u003d kCngOff`, the operations will be the same. Is it fair to say that it is always `kCngOff` here? If so, should we \"document\" that with a DCHECK?",
+      "range": {
+        "startLine": 381,
+        "startChar": 4,
+        "endLine": 381,
+        "endChar": 28
+      },
+      "revId": "c391d5f467b637c6c10153c0587cba2d276005be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

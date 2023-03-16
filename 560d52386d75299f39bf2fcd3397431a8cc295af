@@ -235,6 +235,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab6ddbe_0f0b181d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-16T13:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b68ce7c_7a61ba13",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b377e7b_41d7434e",
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "Not sure, it might be possible to remove it but not without other changes. For example, it is used here, https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_coding/neteq/tools/neteq_test_factory.cc;drc\u003d714e3cbb48c704fe696e1f73f9a2f8dc0d2c0a16;l\u003d195",
       "parentUuid": "6b377e7b_41d7434e",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 59
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7e92d6_eca1fd2d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-16T13:28:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6039b774_ec46c12c",
       "range": {
         "startLine": 75,
         "startChar": 0,
@@ -343,6 +391,30 @@
       "side": 1,
       "message": "With the new approach we could remove this function and replace it. Something like: \n\nstd::unique_ptr\u003cNetEqInput::Event\u003e event;\n\n...\n\nif (event \u0026\u0026 event-\u003eget_timestamp_ms()) \n\n\nHowever, I think that it might be convenient to just leave this implementation on this base class, the derived class do not need to re-implement it.",
       "parentUuid": "0187d819_bb31f885",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e1dffca_7ded6bbb",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-16T13:28:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "31f072a4_da132de2",
       "range": {
         "startLine": 79,
         "startChar": 26,
@@ -448,6 +520,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "246897e1_f03a641d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-16T13:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38060744_7e6f6ce6",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed7d4761_b7e1b0e7",
@@ -533,6 +629,30 @@
       "side": 1,
       "message": "I realize that that condition was already fulfilled in the definition of the ended() method on the NetEqEventLogInput class.",
       "parentUuid": "ee1c448b_8ab251f7",
+      "range": {
+        "startLine": 270,
+        "startChar": 17,
+        "endLine": 270,
+        "endChar": 31
+      },
+      "revId": "560d52386d75299f39bf2fcd3397431a8cc295af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01044dea_a8b03470",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-16T13:28:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "badd082b_1b583ee4",
       "range": {
         "startLine": 270,
         "startChar": 17,

@@ -50,44 +50,27 @@ TimeLimitedNetEqInput::TimeLimitedNetEqInput(std::unique_ptr<NetEqInput> input,
 
 TimeLimitedNetEqInput::~TimeLimitedNetEqInput() = default;
 
-absl::optional<int64_t> TimeLimitedNetEqInput::NextPacketTime() const {
-  return ended_ ? absl::nullopt : input_->NextPacketTime();
-}
-
-absl::optional<int64_t> TimeLimitedNetEqInput::NextOutputEventTime() const {
-  return ended_ ? absl::nullopt : input_->NextOutputEventTime();
-}
-
-absl::optional<NetEqInput::SetMinimumDelayInfo>
-TimeLimitedNetEqInput::NextSetMinimumDelayInfo() const {
-  return ended_ ? absl::nullopt : input_->NextSetMinimumDelayInfo();
-}
-
-std::unique_ptr<NetEqInput::PacketData> TimeLimitedNetEqInput::PopPacket() {
+std::unique_ptr<NetEqInput::Event> TimeLimitedNetEqInput::PopEvent() {
+  std::unique_ptr<Event> event;
   if (ended_) {
-    return std::unique_ptr<PacketData>();
+    return event;
   }
-  auto packet = input_->PopPacket();
+  event = input_->PopEvent();
   MaybeSetEnded();
-  return packet;
-}
-
-void TimeLimitedNetEqInput::AdvanceOutputEvent() {
-  if (!ended_) {
-    input_->AdvanceOutputEvent();
-    MaybeSetEnded();
-  }
-}
-
-void TimeLimitedNetEqInput::AdvanceSetMinimumDelay() {
-  if (!ended_) {
-    input_->AdvanceSetMinimumDelay();
-    MaybeSetEnded();
-  }
+  return event;
 }
 
 bool TimeLimitedNetEqInput::ended() const {
   return ended_ || input_->ended();
+}
+
+const std::unique_ptr<NetEqInput::Event>& TimeLimitedNetEqInput::NextEvent()
+    const {
+  if (ended_) {
+    return empty_event_;
+  } else {
+    return input_->NextEvent();
+  }
 }
 
 absl::optional<RTPHeader> TimeLimitedNetEqInput::NextHeader() const {

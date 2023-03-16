@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81993850_660508be",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "If probe result is low, then estimate will be low until next probe result comes.\n\nI actually don\u0027t expect the case when network has loss (because its state is kIncreasing or kDecreasing) and delay-based estimate increases. Delay based estimate also relies on probe result. So if both loss based estimate and probe result are low, then delay based estimate should not increase.",
+      "parentUuid": "11997b2e_aca04dc0",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 74
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af1eb379_34e85274",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-16T15:07:32Z",
       "side": 1,
       "message": "nit: This uses the method argument, but the conditions below compare to the member variable. Is this intentional?",
+      "range": {
+        "startLine": 317,
+        "startChar": 46,
+        "endLine": 317,
+        "endChar": 66
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d3ca15_7abcbe5c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af1eb379_34e85274",
       "range": {
         "startLine": 317,
         "startChar": 46,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ef54d1_0a7d0e33",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "Yes. We only request probes when kIncreasing. However, both kIncreasing and kDecreasing require because kDecreasing \u003d\u003d true when \n1. state is kIncreasing \n2. probe result \u003c current estimate, then we bound current estimate to be probe result. This means current estimate decreasing -\u003e new state \u003d kDecreasing",
+      "parentUuid": "e63952d7_b6eec020",
+      "range": {
+        "startLine": 1096,
+        "startChar": 27,
+        "endLine": 1096,
+        "endChar": 55
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5e7a258_b72b9f1c",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-16T15:07:32Z",
       "side": 1,
       "message": "I assume that probe_estimate would normally be nullopt except when the results of a probe comes it, right? Then maybe make the test more realistic to only set probe_estimate on the first feedback?",
+      "range": {
+        "startLine": 1184,
+        "startChar": 8,
+        "endLine": 1184,
+        "endChar": 22
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14303678_231247d3",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5e7a258_b72b9f1c",
       "range": {
         "startLine": 1184,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb17ac20_d1e67607",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5a4f5b4_03a9f5e7",
+      "range": {
+        "startLine": 1190,
+        "startChar": 0,
+        "endLine": 1190,
+        "endChar": 70
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0c7b2f4_e51722ad",
@@ -133,6 +253,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b57ef3_8a2da10b",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0c7b2f4_e51722ad",
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01e404a9_f646a3f3",
@@ -146,6 +284,30 @@
       "writtenOn": "2023-03-16T15:07:32Z",
       "side": 1,
       "message": "If this test is identical to the one above except that it adds ~10 lines at the end to check that the estimate recovers without probes, then maybe merge the two? I realize that testing multiple things in the same test is contrary to best practice for unit tests, but if we\u0027re doing that anyway, then I think we might just as well eliminate some code duplication. WDYT?",
+      "range": {
+        "startLine": 1201,
+        "startChar": 0,
+        "endLine": 1228,
+        "endChar": 3
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7a90b2f_3677a363",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-16T16:10:25Z",
+      "side": 1,
+      "message": "Acknowledged.\n\nI quite agree with you. I don\u0027t have a strong opinion on merging/separating two similar tests. However I already modified NotLimitByProbeResultWhenProbeResultIsExpired a bit by adding ProbeExpiration, and because the test itself has already complicated setup, thus separating the tests will be clearer for readers.",
+      "parentUuid": "01e404a9_f646a3f3",
       "range": {
         "startLine": 1201,
         "startChar": 0,

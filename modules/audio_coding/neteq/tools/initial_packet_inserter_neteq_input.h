@@ -27,12 +27,8 @@ class InitialPacketInserterNetEqInput final : public NetEqInput {
   InitialPacketInserterNetEqInput(std::unique_ptr<NetEqInput> source,
                                   int number_of_initial_packets,
                                   int sample_rate_hz);
-  absl::optional<int64_t> NextPacketTime() const override;
-  absl::optional<int64_t> NextOutputEventTime() const override;
-  absl::optional<SetMinimumDelayInfo> NextSetMinimumDelayInfo() const override;
-  std::unique_ptr<PacketData> PopPacket() override;
-  void AdvanceOutputEvent() override;
-  void AdvanceSetMinimumDelay() override;
+  const std::unique_ptr<Event>& NextEvent() const override;
+  std::unique_ptr<Event> PopEvent() override;
   bool ended() const override;
   absl::optional<RTPHeader> NextHeader() const override;
 
@@ -40,7 +36,7 @@ class InitialPacketInserterNetEqInput final : public NetEqInput {
   const std::unique_ptr<NetEqInput> source_;
   int packets_to_insert_;
   const int sample_rate_hz_;
-  std::unique_ptr<PacketData> first_packet_;
+  std::unique_ptr<Event> first_packet_;
 };
 
 }  // namespace test

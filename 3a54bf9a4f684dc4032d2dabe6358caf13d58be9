@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11997b2e_aca04dc0",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "What happens when we get a low probe result?\nHere, it seems like the best_candidate is set to the probe rate if the state is kIncreasing or kDecreasing. Meanwhile, the delay-based estimate will have started to ramp up again (assuming that the delay is stable). So it seems likely that\n```\nbest_candidate.loss_limited_bandwidth \u003c\u003d probe_bitrate_ \u003c delay_based_estimate_\n```\n\nThen it seems like we\u0027ll always end up in one of the first two branches on lines 316-320, i.e. the state remains in kIncreasing or kDecreasing.\n\nIs this correct?",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 74
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af1eb379_34e85274",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "nit: This uses the method argument, but the conditions below compare to the member variable. Is this intentional?",
+      "range": {
+        "startLine": 317,
+        "startChar": 46,
+        "endLine": 317,
+        "endChar": 66
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e63952d7_b6eec020",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "Is this functionally the same as IsBandwidthLimitedDueToLoss above?",
+      "range": {
+        "startLine": 1096,
+        "startChar": 27,
+        "endLine": 1096,
+        "endChar": 55
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5e7a258_b72b9f1c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "I assume that probe_estimate would normally be nullopt except when the results of a probe comes it, right? Then maybe make the test more realistic to only set probe_estimate on the first feedback?",
+      "range": {
+        "startLine": 1184,
+        "startChar": 8,
+        "endLine": 1184,
+        "endChar": 22
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a4f5b4_03a9f5e7",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "Maybe move this check into the loop? I assume it\u0027s supposed to hold after every update?",
+      "range": {
+        "startLine": 1190,
+        "startChar": 0,
+        "endLine": 1190,
+        "endChar": 70
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c7b2f4_e51722ad",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "Should we set ProbeExpiration here since the test depends on the expiration duration?",
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e404a9_f646a3f3",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-16T15:07:32Z",
+      "side": 1,
+      "message": "If this test is identical to the one above except that it adds ~10 lines at the end to check that the estimate recovers without probes, then maybe merge the two? I realize that testing multiple things in the same test is contrary to best practice for unit tests, but if we\u0027re doing that anyway, then I think we might just as well eliminate some code duplication. WDYT?",
+      "range": {
+        "startLine": 1201,
+        "startChar": 0,
+        "endLine": 1228,
+        "endChar": 3
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

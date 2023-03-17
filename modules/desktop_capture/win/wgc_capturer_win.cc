@@ -206,6 +206,8 @@ void WgcCapturerWin::Start(Callback* callback) {
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kWgcCapturerWin);
 
+  RTC_DLOG(LS_INFO) << "___" << __func__ << " [" << GetCurrentThreadId() << "]";
+
   callback_ = callback;
 
   // Create a Direct3D11 device to share amongst the WgcCaptureSessions. Many
@@ -234,6 +236,8 @@ void WgcCapturerWin::Start(Callback* callback) {
 
 void WgcCapturerWin::CaptureFrame() {
   RTC_DCHECK(callback_);
+
+  RTC_DLOG(LS_INFO) << "___" << __func__ << " [" << GetCurrentThreadId() << "]";
 
   if (!capture_source_) {
     RTC_LOG(LS_ERROR) << "Source hasn't been selected";

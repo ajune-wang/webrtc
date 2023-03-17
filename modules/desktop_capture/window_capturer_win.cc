@@ -16,6 +16,7 @@
 #include "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.h"
 #include "modules/desktop_capture/fallback_desktop_capturer_wrapper.h"
 #include "modules/desktop_capture/win/wgc_capturer_win.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/win/windows_version.h"
 #endif  // defined(RTC_ENABLE_WIN_WGC)
 

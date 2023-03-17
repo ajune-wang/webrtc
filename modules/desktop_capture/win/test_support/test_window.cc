@@ -10,6 +10,8 @@
 
 #include "modules/desktop_capture/win/test_support/test_window.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 namespace {
 
@@ -76,6 +78,8 @@ WindowInfo CreateTestWindow(const WCHAR* window_title,
 
 void ResizeTestWindow(const HWND hwnd, const int width, const int height) {
   // SWP_NOMOVE results in the x and y params being ignored.
+  RTC_DLOG(LS_INFO) << "++" << __func__ << " => (" << width << "x" << height
+                    << ")";
   ::SetWindowPos(hwnd, HWND_TOP, /*x-coord=*/0, /*y-coord=*/0, width, height,
                  SWP_SHOWWINDOW | SWP_NOMOVE);
   ::UpdateWindow(hwnd);

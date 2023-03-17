@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8865d9c_81f9726e",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-17T15:51:22Z",
+      "side": 1,
+      "message": "\u003e I guess this is mitigated by the probe_expiration, but it will still defer recovery from other probes by 10s. Maybe the caps should be applied after the state update?\n\nYes, you are right. Applying the cap after state update helps.\n\n\u003e At the same time, the loss based bwe assumes that the probe_controller responds to the state in a very specific way. Maybe one could remove the loss based states, and instead propagate a new enum\n\nI agree that makes the states clearer. However, as the state is propagated to goog_cc and used by probe controller in production, I am a bit hesitant to make the refractory in this CL. I will do it in a separate one.",
+      "parentUuid": "e3dd14a8_7a5dbd8a",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 74
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af1eb379_34e85274",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "If we\u0027re not actually probing when the current estimate is decreasing, then I don\u0027t think the name is appropriate.",
       "parentUuid": "93ef54d1_0a7d0e33",
+      "range": {
+        "startLine": 1096,
+        "startChar": 27,
+        "endLine": 1096,
+        "endChar": 55
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a450df1_b140189e",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-03-17T15:51:22Z",
+      "side": 1,
+      "message": "Done.\n\nI realize that moving the cap after state updating helps this IsRequestingProbes. So function name can be the same because current_state_ \u003d\u003d LossBasedState::kIncreasing is enough.",
+      "parentUuid": "f6e420d7_e821b780",
       "range": {
         "startLine": 1096,
         "startChar": 27,

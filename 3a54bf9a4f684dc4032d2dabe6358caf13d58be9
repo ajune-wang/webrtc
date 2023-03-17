@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3dd14a8_7a5dbd8a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-17T14:56:23Z",
+      "side": 1,
+      "message": "But suppose we enter the decreasing state, and current_estimate_.loss_limited_bandwidth\u003d\u003dprobe_bitrate, then iiuc we won\u0027t send any probes? At the same time, best_candidate.loss_limited_bandwidth is also capped to probe_bitrate so IsEstimateIncreasingWhenLossLimited will return false, so the estimator will stay in decreasing state.\n\nI guess this is mitigated by the probe_expiration, but it will still defer recovery from other probes by 10s. Maybe the caps should be applied after the state update?\n\nMore generally, I\u0027d prefer an architecture that minimized the interactions between different parts of the system, or made the interaction explicit if it cannot be avoided. For example, it looks like the kIncreasing and kDecreasing states aren\u0027t used for anything other than being propagated to the probe controller. At the same time, the loss based bwe assumes that the probe_controller responds to the state in a very specific way. Maybe one could remove the loss based states, and instead propagate a new enum\n```\nenum {\n kRequestProbe,\n kAllowButNotRequestProbe,\n kBlockProbe\n}\n```\n?",
+      "parentUuid": "81993850_660508be",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 74
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af1eb379_34e85274",
         "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
         "patchSetId": 6
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes. We only request probes when kIncreasing. However, both kIncreasing and kDecreasing require because kDecreasing \u003d\u003d true when \n1. state is kIncreasing \n2. probe result \u003c current estimate, then we bound current estimate to be probe result. This means current estimate decreasing -\u003e new state \u003d kDecreasing",
       "parentUuid": "e63952d7_b6eec020",
+      "range": {
+        "startLine": 1096,
+        "startChar": 27,
+        "endLine": 1096,
+        "endChar": 55
+      },
+      "revId": "3a54bf9a4f684dc4032d2dabe6358caf13d58be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e420d7_e821b780",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-03-17T14:56:23Z",
+      "side": 1,
+      "message": "If we\u0027re not actually probing when the current estimate is decreasing, then I don\u0027t think the name is appropriate.",
+      "parentUuid": "93ef54d1_0a7d0e33",
       "range": {
         "startLine": 1096,
         "startChar": 27,

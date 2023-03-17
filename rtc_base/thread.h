@@ -288,6 +288,23 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Default is 50 ms.
   void SetDispatchWarningMs(int deadline);
 
+#if defined(WEBRTC_WIN)
+  enum ComStatus{
+      NONE,
+      STA,
+      MTA,
+  };
+
+  // Causes the thread to initialize COM. This must be called before calling
+  // Start().
+  void init_com_with_mta(bool use_mta) {
+    RTC_DCHECK(!thread_);
+    com_status_ = use_mta ? MTA : STA;
+  }
+
+  ComStatus com_status() const { return com_status_; }
+#endif
+
   // Starts the execution of the thread.
   bool Start();
 
@@ -515,6 +532,9 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 #endif
 
 #if defined(WEBRTC_WIN)
+  // Whether this thread needs to initialize COM, and if so, in what mode.
+  ComStatus com_status_ = NONE;
+
   HANDLE thread_ = nullptr;
   DWORD thread_id_ = 0;
 #endif

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e457de62_501b00dd",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-17T00:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcbdfb68_a6fd1fe1",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 27
+      },
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "676cef9d_2f5876a2",
@@ -112,6 +136,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fbf816_885448e9",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-17T00:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7adde90f_2087a4bf",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 0
+      },
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cff8cc7b_03c4a31b",
@@ -125,6 +173,30 @@
       "writtenOn": "2023-03-15T12:23:53Z",
       "side": 1,
       "message": "Move into the private section below the public one.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "205132ee54f52666aaf4d27bc334b3f1712cf31a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04cf1e47_a6077511",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-03-17T00:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cff8cc7b_03c4a31b",
       "range": {
         "startLine": 34,
         "startChar": 2,

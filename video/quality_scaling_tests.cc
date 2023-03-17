@@ -71,6 +71,11 @@ class QualityScalingTest : public test::CallTest {
           EncoderInfoSettings::GetDefaultSinglecastBitrateLimitsForResolution(
               kVideoCodecVP9,
               1280 * 720);
+  const absl::optional<VideoEncoder::ResolutionBitrateLimits>
+      kSinglecastLimits720pAv1 =
+          EncoderInfoSettings::GetDefaultSinglecastBitrateLimitsForResolution(
+              kVideoCodecAV1,
+              1280 * 720);
 };
 
 class ScalingObserver : public test::SendTest {
@@ -577,6 +582,66 @@ TEST_F(QualityScalingTest,
 
   DownscalingObserver test(
       "VP9",
+      {{.active = true, .scalability_mode = ScalabilityMode::kL1T3},
+       {.active = false},
+       {.active = false}},
+      kSinglecastLimits720pVp9->min_start_bitrate_bps,
+      /*automatic_resize=*/true,
+      /*expect_downscale=*/false);
+  RunBaseTest(&test);
+}
+
+TEST_F(QualityScalingTest,
+       AdaptsDownButNotUpWithMinStartBitrateLimitWithScalabilityMode_AV1) {
+  // qp_low:255, qp_high:255 -> kLowQp
+  test::ScopedKeyValueConfig field_trials(field_trials_,
+                                          kPrefix + "0,0,255,255,0,0" + kEnd);
+  absl::optional<VideoEncoder::ResolutionBitrateLimits>
+      singlecast_limits_720p_Av1 = kSinglecastLimits720pAv1;
+  if (!singlecast_limits_720p_Av1.has_value()) {
+    // After values for the AV1 default bitrate limits have been configured,
+    // this catch case can be removed.
+    VideoEncoder::EncoderInfo info;
+    info.resolution_bitrate_limits = {{320 * 180, 0, 30000, 300000},
+                                      {480 * 270, 200000, 30000, 500000},
+                                      {640 * 360, 300000, 30000, 800000},
+                                      {960 * 540, 500000, 30000, 1500000},
+                                      {1280 * 720, 900000, 30000, 2500000}};
+    singlecast_limits_720p_Av1 =
+        info.GetEncoderBitrateLimitsForResolution(1280 * 720);
+  }
+
+  UpscalingObserver test(
+      "AV1",
+      {{.active = true, .scalability_mode = ScalabilityMode::kL1T3},
+       {.active = false}},
+      singlecast_limits_720p_Av1->min_start_bitrate_bps - 1,
+      /*automatic_resize=*/true, /*expect_upscale=*/false);
+  RunBaseTest(&test);
+}
+
+TEST_F(QualityScalingTest,
+       NoAdaptDownForLowStartBitrateIfBitrateEnoughWithScalabilityMode_Av1) {
+  // qp_low:1, qp_high:255 -> kNormalQp
+  test::ScopedKeyValueConfig field_trials(field_trials_,
+                                          kPrefix + "0,0,1,255,0,0" + kEnd);
+  absl::optional<VideoEncoder::ResolutionBitrateLimits>
+      singlecast_limits_720p_Av1 = kSinglecastLimits720pAv1;
+  if (!singlecast_limits_720p_Av1.has_value()) {
+    // After values for the AV1 default bitrate limits have been configured,
+    // this catch case can be removed.
+    VideoEncoder::EncoderInfo info;
+    info.resolution_bitrate_limits = {{320 * 180, 0, 30000, 300000},
+                                      {480 * 270, 200000, 30000, 500000},
+                                      {640 * 360, 300000, 30000, 800000},
+                                      {960 * 540, 500000, 30000, 1500000},
+                                      {1280 * 720, 900000, 30000, 2500000}};
+    singlecast_limits_720p_Av1 =
+        info.GetEncoderBitrateLimitsForResolution(1280 * 720);
+  }
+
+  DownscalingObserver test(
+      "AV1",
       {{.active = true, .scalability_mode = ScalabilityMode::kL1T3},
        {.active = false},
        {.active = false}},

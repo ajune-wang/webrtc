@@ -14,30 +14,45 @@
 #include <memory>
 #include <utility>
 
+#include "api/sequence_checker.h"
+#include "api/test/video/test_video_track_source.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_source_interface.h"
-#include "pc/video_track_source.h"
 #include "test/test_video_capturer.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
 
-class TestVideoCapturerVideoTrackSource : public VideoTrackSource {
+class TestVideoCapturerVideoTrackSource : public test::TestVideoTrackSource {
  public:
   TestVideoCapturerVideoTrackSource(
       std::unique_ptr<test::TestVideoCapturer> video_capturer,
       bool is_screencast)
-      : VideoTrackSource(/*remote=*/false),
+      : TestVideoTrackSource(/*remote=*/false),
         video_capturer_(std::move(video_capturer)),
-        is_screencast_(is_screencast) {}
+        is_screencast_(is_screencast) {
+    sequence_checker_.Detach();
+  }
 
   ~TestVideoCapturerVideoTrackSource() = default;
 
-  void Start() { SetState(kLive); }
+  void Start() override { SetState(kLive); }
 
-  void Stop() { SetState(kMuted); }
+  void Stop() override { SetState(kMuted); }
 
-  bool is_screencast() const override { return is_screencast_; }
+  bool is_screencast() const override {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    return is_screencast_;
+  }
+
+  void SetDisableAdaptation(bool disable_adaptation) {
+    video_capturer_->SetDisableAdaptation(disable_adaptation);
+  }
+
+  void SetScreencast(bool is_screencast) override {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    is_screencast_ = is_screencast;
+  }
 
  protected:
   rtc::VideoSourceInterface<VideoFrame>* source() override {
@@ -46,7 +61,8 @@ class TestVideoCapturerVideoTrackSource : public VideoTrackSource {
 
  private:
   std::unique_ptr<test::TestVideoCapturer> video_capturer_;
-  const bool is_screencast_;
+  SequenceChecker sequence_checker_;
+  bool is_screencast_ RTC_GUARDED_BY(sequence_checker_);
 };
 
 }  // namespace webrtc_pc_e2e

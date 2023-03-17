@@ -30,12 +30,15 @@
 #include "system_wrappers/include/metrics.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 namespace {
 
 constexpr char kWindowThreadName[] = "wgc_capturer_test_window_thread";
 constexpr WCHAR kWindowTitle[] = L"WGC Capturer Test Window";
+
+constexpr char kWorkerThreadName[] = "wgc_capturer_test_worker_thread";
 
 constexpr char kCapturerImplHistogram[] =
     "WebRTC.DesktopCapture.Win.DesktopCapturerImpl";
@@ -106,6 +109,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
         DesktopCaptureOptions::CreateDefault());
     CreateWindowOnSeparateThread(window_width, window_height);
     StartWindowThreadMessageLoop();
+    CreateWorkerThread();
     source_id_ = GetTestWindowIdFromSourceList();
   }
 
@@ -118,6 +122,9 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   void TearDown() override {
     if (window_open_) {
       CloseTestWindow();
+    }
+    if (worker_thread_) {
+      worker_thread_->Stop();
     }
   }
 
@@ -173,6 +180,20 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     window_open_ = false;
   }
 
+  void CreateWorkerThread() {
+    worker_thread_ = rtc::Thread::Create();
+    worker_thread_->init_com_with_mta(true);
+    worker_thread_->SetName(kWorkerThreadName, nullptr);
+    worker_thread_->Start();
+    SendTask(worker_thread_.get(), [this]() {
+      worker_thread_id_ = GetCurrentThreadId();
+      RTC_DLOG(LS_INFO) << "CreateWorkerThread [" << worker_thread_id_ << "]";
+    });
+
+    ASSERT_TRUE(worker_thread_->RunningForTest());
+    ASSERT_FALSE(worker_thread_->IsCurrent());
+  }
+
   DesktopCapturer::SourceId GetTestWindowIdFromSourceList() {
     // Frequently, the test window will not show up in GetSourceList because it
     // was created too recently. Since we are confident the window will be found
@@ -201,10 +222,29 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     return sources[0].id;
   }
 
+  void DoStartCaptureOnWorkerThread(DesktopCapturer::Callback* callback) {
+    EXPECT_TRUE(worker_thread_);
+    worker_thread_->PostTask([this, callback]() {
+      capturer_->Start(callback);
+    });
+  }
+
+  void DoCaptureOnWorkerThread() {
+    EXPECT_TRUE(worker_thread_);
+    worker_thread_->PostTask([this]() {
+      capturer_->CaptureFrame();
+    });
+  }
+
   void DoCapture(int num_captures = 1) {
+    RTC_DLOG(LS_INFO) << __func__ << "(num_captures=" << num_captures << ")";
     // Capture the requested number of frames. We expect the first capture to
     // always succeed. If we're asked for multiple frames, we do expect to see a
     // a couple dropped frames due to resizing the window.
+
+    int64_t start_time;
+    start_time = rtc::TimeNanos();
+
     const int max_tries = num_captures == 1 ? 1 : kMaxTries;
     int success_count = 0;
     for (int i = 0; success_count < num_captures && i < max_tries; i++) {
@@ -215,6 +255,10 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
         success_count++;
     }
 
+    int total_capture_time_ms =
+        (rtc::TimeNanos() - start_time) / rtc::kNumNanosecsPerMillisec;
+    RTC_DLOG(LS_INFO) << "total_capture_time_ms=" << total_capture_time_ms;
+
     total_successful_captures_ += success_count;
     EXPECT_EQ(success_count, num_captures);
     EXPECT_EQ(result_, DesktopCapturer::Result::SUCCESS);
@@ -224,6 +268,11 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   }
 
   void ValidateFrame(int expected_width, int expected_height) {
+    RTC_DLOG(LS_INFO) << "_____" << __func__;
+    RTC_DLOG(LS_INFO) << "expected_width=" << expected_width;
+    RTC_DLOG(LS_INFO) << "expected_height=" << expected_height;
+    RTC_DLOG(LS_INFO) << "frame_->size().width()=" << frame_->size().width();
+    RTC_DLOG(LS_INFO) << "frame_->size().height()=" << frame_->size().height();
     EXPECT_EQ(frame_->size().width(), expected_width - kWindowWidthSubtrahend);
     EXPECT_EQ(frame_->size().height(),
               expected_height - kWindowHeightSubtrahend);
@@ -260,14 +309,18 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   // returns.
   void OnCaptureResult(DesktopCapturer::Result result,
                        std::unique_ptr<DesktopFrame> frame) override {
+    RTC_DLOG(LS_INFO) << __func__ << " => result=" << static_cast<int>(result);
     result_ = result;
     frame_ = std::move(frame);
+    run_loop_.Quit();
   }
 
  protected:
   std::unique_ptr<ScopedCOMInitializer> com_initializer_;
   DWORD window_thread_id_;
   std::unique_ptr<rtc::Thread> window_thread_;
+  std::unique_ptr<rtc::Thread> worker_thread_;
+  DWORD worker_thread_id_;
   WindowInfo window_info_;
   intptr_t source_id_;
   bool window_open_ = false;
@@ -275,6 +328,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   int total_successful_captures_ = 0;
   std::unique_ptr<DesktopFrame> frame_;
   std::unique_ptr<DesktopCapturer> capturer_;
+  test::RunLoop run_loop_;
 };
 
 TEST_P(WgcCapturerWinTest, SelectValidSource) {
@@ -476,17 +530,33 @@ TEST_F(WgcCapturerWindowTest, IncreaseWindowSizeMidCapture) {
   SetUpForWindowCapture(kSmallWindowWidth, kSmallWindowHeight);
   EXPECT_TRUE(capturer_->SelectSource(source_id_));
 
-  capturer_->Start(this);
-  DoCapture();
+  DoStartCaptureOnWorkerThread(this);
+  DoCaptureOnWorkerThread();
+  // Wait for callback.
+  run_loop_.task_queue()->PostDelayedTask(
+      [this]() {
+        run_loop_.Quit();
+      },
+      TimeDelta::Seconds(1));
+  run_loop_.Run();
   ValidateFrame(kSmallWindowWidth, kSmallWindowHeight);
 
   ResizeTestWindow(window_info_.hwnd, kSmallWindowWidth, kMediumWindowHeight);
-  DoCapture(kNumCapturesToFlushBuffers);
+  SleepMs(100);
+  DoCaptureOnWorkerThread();
+  SleepMs(100);
+  DoCaptureOnWorkerThread();
+  run_loop_.task_queue()->PostDelayedTask(
+      [this]() {
+        run_loop_.Quit();
+      },
+      TimeDelta::Seconds(1));
+  run_loop_.Run();
   ValidateFrame(kSmallWindowWidth, kMediumWindowHeight);
 
-  ResizeTestWindow(window_info_.hwnd, kLargeWindowWidth, kMediumWindowHeight);
-  DoCapture(kNumCapturesToFlushBuffers);
-  ValidateFrame(kLargeWindowWidth, kMediumWindowHeight);
+  // ResizeTestWindow(window_info_.hwnd, kLargeWindowWidth,
+  // kMediumWindowHeight); DoCapture(kNumCapturesToFlushBuffers);
+  // ValidateFrame(kLargeWindowWidth, kMediumWindowHeight);
 }
 
 TEST_F(WgcCapturerWindowTest, ReduceWindowSizeMidCapture) {

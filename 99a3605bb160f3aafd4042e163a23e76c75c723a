@@ -16,6 +16,24 @@
       "message": "This here (2 * kLongTimeoutForRampingUp) is the only difference between this test and the VP9 simulcast test.",
       "revId": "99a3605bb160f3aafd4042e163a23e76c75c723a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b29b876_55ed8bbf",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-17T08:53:02Z",
+      "side": 1,
+      "message": "I also tried with smaller resolutions or 2 encodings instead of 3, but the test took approximately the same amount of time no matter what, so I decided to exercise all three encodings anyway.\n\nI\u0027ll leave finding out why the ramp-up is so bad (webrtc:15006) to whoever is a fan of AV1 simulcast as a future work item",
+      "parentUuid": "9c7b9ccb_ba53ff8c",
+      "revId": "99a3605bb160f3aafd4042e163a23e76c75c723a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

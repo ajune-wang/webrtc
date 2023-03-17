@@ -29,3 +29,11 @@ rtc_library("video_frame_writer") {
 
   deps = [ "../../video:video_frame" ]
 }
+
+rtc_library("test_video_track_source") {
+  visibility = [ "*" ]
+  testonly = true
+  public = [ "test_video_track_source.h" ]
+
+  deps = [ "../../../pc:video_track_source" ]
+}

@@ -460,6 +460,7 @@ std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
     const VideoInfo& video_info,
     const std::map<int, EncodingSettings>& frame_settings,
     int num_frames,
+    bool save_codec_input,
     bool save_codec_output) {
   std::unique_ptr<TestRawVideoSource> video_source =
       CreateVideoSource(video_info, frame_settings, num_frames);
@@ -482,10 +483,14 @@ std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
           ? PacingMode::kRealTime
           : PacingMode::kNoPacing;
 
+  std::string output_path = TestOutputPath();
+  if (save_codec_input) {
+    encoder_settings.encoder_input_base_path = output_path + "_enc_input";
+    decoder_settings.decoder_input_base_path = output_path + "_dec_input";
+  }
   if (save_codec_output) {
-    std::string output_path = TestOutputPath();
-    encoder_settings.encoded_ivf_base_path = output_path;
-    decoder_settings.decoded_y4m_base_path = output_path;
+    encoder_settings.encoder_output_base_path = output_path + "_enc_output";
+    decoder_settings.decoder_output_base_path = output_path + "_dec_output";
   }
 
   std::unique_ptr<VideoCodecTester> tester = CreateVideoCodecTester();
@@ -500,6 +505,7 @@ std::unique_ptr<VideoCodecStats> RunEncodeTest(
     const VideoInfo& video_info,
     const std::map<int, EncodingSettings>& frame_settings,
     int num_frames,
+    bool save_codec_input,
     bool save_codec_output) {
   std::unique_ptr<TestRawVideoSource> video_source =
       CreateVideoSource(video_info, frame_settings, num_frames);
@@ -513,8 +519,12 @@ std::unique_ptr<VideoCodecStats> RunEncodeTest(
           ? PacingMode::kRealTime
           : PacingMode::kNoPacing;
 
+  std::string output_path = TestOutputPath();
+  if (save_codec_input) {
+    encoder_settings.encoder_input_base_path = output_path + "_enc_input";
+  }
   if (save_codec_output) {
-    encoder_settings.encoded_ivf_base_path = TestOutputPath();
+    encoder_settings.encoder_output_base_path = output_path + "_enc_output";
   }
 
   std::unique_ptr<VideoCodecTester> tester = CreateVideoCodecTester();
@@ -560,9 +570,9 @@ TEST_P(SpatialQualityTest, DISABLED_SpatialQuality) {
   int duration_s = 10;
   int num_frames = duration_s * framerate_fps;
 
-  std::unique_ptr<VideoCodecStats> stats =
-      RunEncodeDecodeTest(codec_type, codec_impl, video_info, frame_settings,
-                          num_frames, /*save_codec_output=*/false);
+  std::unique_ptr<VideoCodecStats> stats = RunEncodeDecodeTest(
+      codec_type, codec_impl, video_info, frame_settings, num_frames,
+      /*save_codec_input=*/false, /*save_codec_output=*/false);
 
   std::vector<VideoCodecStats::Frame> frames = stats->Slice();
   SetTargetRates(frame_settings, frames);
@@ -639,9 +649,9 @@ TEST_P(BitrateAdaptationTest, DISABLED_BitrateAdaptation) {
               .framerate = video_info.framerate,
               .bitrate = DataRate::KilobitsPerSec(bitrate_kbps.second)}}}}}};
 
-  std::unique_ptr<VideoCodecStats> stats =
-      RunEncodeTest(codec_type, codec_impl, video_info, frame_settings,
-                    num_frames, /*save_codec_output=*/false);
+  std::unique_ptr<VideoCodecStats> stats = RunEncodeTest(
+      codec_type, codec_impl, video_info, frame_settings, num_frames,
+      /*save_codec_input=*/false, /*save_codec_output=*/false);
 
   std::vector<VideoCodecStats::Frame> frames =
       stats->Slice(VideoCodecStats::Filter{.first_frame = first_frame});
@@ -713,9 +723,9 @@ TEST_P(FramerateAdaptationTest, DISABLED_FramerateAdaptation) {
               .framerate = Frequency::MilliHertz(1000 * framerate_fps.second),
               .bitrate = DataRate::KilobitsPerSec(512)}}}}}};
 
-  std::unique_ptr<VideoCodecStats> stats =
-      RunEncodeTest(codec_type, codec_impl, video_info, frame_settings,
-                    num_frames, /*save_codec_output=*/false);
+  std::unique_ptr<VideoCodecStats> stats = RunEncodeTest(
+      codec_type, codec_impl, video_info, frame_settings, num_frames,
+      /*save_codec_input=*/false, /*save_codec_output=*/false);
 
   std::vector<VideoCodecStats::Frame> frames =
       stats->Slice(VideoCodecStats::Filter{.first_frame = first_frame});

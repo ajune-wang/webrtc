@@ -16,6 +16,74 @@
       "message": "I don\u0027t think this behavior makes sense but then WebRTC is a terrible API anyway ;-)",
       "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34794f44_ea06ecb2",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-18T10:09:44Z",
+      "side": 1,
+      "message": "nit: suggest renaming the test:\n\"StoppedByDefaultExtensionCanBeActivatedByRemoteSdp\"",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b52641_e09cb0ac",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-18T10:09:44Z",
+      "side": 1,
+      "message": "Side discussion (not a critique of the CL - we need this):\n\nI\u0027ve noticed that we allow turning on extensions in remote SDP despite them not being offered, a behavior many apps (including Meet) depends on.\n\nBut I find it kind of surprising, most things in SDP is something that you offer and then the remote either accepts it (keeps it) or rejects it (removes it). For example the remote can\u0027t add m\u003d sections (though it can add ssrcs on offer-to-receive m\u003d sections, but that\u0027s in the spirit of accepting). In this case you can *add* extensions *not on offer* (or expand the direction beyond what was offered). It seems to go against the idea that the remote accepts/rejects, since this means the remote is in control of what header extensions ends up being used.\n\nI\u0027m curious what JSEP says, if anything goes with header extensions?\nThe remote has no SDP-guarantees that the local pc knows how to interpret the extensions that remote added.",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b51888_af4010aa",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-18T10:09:44Z",
+      "side": 1,
+      "message": "nit: EXPECT_NE(extension.uri, \"bogus\")",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96de9eaf_59e2d518",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-18T10:09:44Z",
+      "side": 1,
+      "message": "Are all currently supported header extensions kSendRecv when enabled?\nIf so not a blocking TODO, but I think we should have a TODO referencing a bug that documents that we should be able to handle other directions attributes when that becomes necessary.",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -221,7 +221,7 @@ SctpDataChannel::SctpDataChannel(
   // Try to connect to the transport in case the transport channel already
   // exists.
   if (id_.HasValue()) {
-    controller_->AddSctpDataStream(id_);
+    controller_->AddSctpDataStream(id_.stream_id_int());
   }
 }
 
@@ -360,7 +360,7 @@ void SctpDataChannel::SetSctpSid(const StreamId& sid) {
   RTC_DCHECK_EQ(state_, kConnecting);
 
   id_ = sid;
-  controller_->AddSctpDataStream(sid);
+  controller_->AddSctpDataStream(sid.stream_id_int());
 }
 
 void SctpDataChannel::OnClosingProcedureStartedRemotely() {
@@ -397,7 +397,7 @@ void SctpDataChannel::OnTransportChannelCreated() {
   // The sid may have been unassigned when controller_->ConnectDataChannel was
   // done. So always add the streams even if connected_to_transport_ is true.
   if (id_.HasValue()) {
-    controller_->AddSctpDataStream(id_);
+    controller_->AddSctpDataStream(id_.stream_id_int());
   }
 }
 
@@ -572,7 +572,7 @@ void SctpDataChannel::UpdateState() {
           // afterwards.
           if (!started_closing_procedure_ && controller_ && id_.HasValue()) {
             started_closing_procedure_ = true;
-            controller_->RemoveSctpDataStream(id_);
+            controller_->RemoveSctpDataStream(id_.stream_id_int());
           }
         }
       } else {
@@ -659,8 +659,8 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
       buffer.binary ? DataMessageType::kBinary : DataMessageType::kText;
 
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
-  bool success =
-      controller_->SendData(id_, send_params, buffer.data, &send_result);
+  bool success = controller_->SendData(id_.stream_id_int(), send_params,
+                                       buffer.data, &send_result);
 
   if (success) {
     ++messages_sent_;
@@ -737,7 +737,8 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   send_params.type = DataMessageType::kControl;
 
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
-  bool retval = controller_->SendData(id_, send_params, buffer, &send_result);
+  bool retval = controller_->SendData(id_.stream_id_int(), send_params, buffer,
+                                      &send_result);
   if (retval) {
     RTC_LOG(LS_VERBOSE) << "Sent CONTROL message on channel "
                         << id_.stream_id_int();

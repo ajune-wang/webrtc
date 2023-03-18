@@ -37,9 +37,8 @@ struct DataChannelInit;
 class StreamId {
  public:
   StreamId();
-  StreamId(const StreamId& sid);
-  StreamId(StreamId&& other);
   explicit StreamId(int id);
+  explicit StreamId(const StreamId& sid);
 
   // Returns `true` if a valid stream id is contained, in the range of
   // kMinSctpSid - kSpecMaxSctpSid ([0..0xffff]). Note that this

@@ -134,10 +134,12 @@ TEST_F(SctpDataChannelTest, ConnectedToTransportOnCreated) {
 
   EXPECT_TRUE(controller_->IsConnected(dc.get()));
   // The sid is not set yet, so it should not have added the streams.
-  EXPECT_FALSE(controller_->IsStreamAdded(dc->sid()));
+  EXPECT_FALSE(controller_->IsSendStreamAdded(dc->id()));
+  EXPECT_FALSE(controller_->IsRecvStreamAdded(dc->id()));
 
   dc->SetSctpSid(StreamId(0));
-  EXPECT_TRUE(controller_->IsStreamAdded(dc->sid()));
+  EXPECT_TRUE(controller_->IsSendStreamAdded(dc->id()));
+  EXPECT_TRUE(controller_->IsRecvStreamAdded(dc->id()));
 }
 
 // Tests the state of the data channel.

@@ -45,9 +45,11 @@ class SctpDataChannelControllerInterface {
                             const SendDataParams& params,
                             const rtc::CopyOnWriteBuffer& payload) = 0;
   // Adds the data channel SID to the transport for SCTP.
+  // NOTE: Must be called on the network thread.
   virtual void AddSctpDataStream(StreamId sid) = 0;
   // Begins the closing procedure by sending an outgoing stream reset. Still
   // need to wait for callbacks to tell when this completes.
+  // NOTE: Must be called on the network thread.
   virtual void RemoveSctpDataStream(StreamId sid) = 0;
   // Returns true if the transport channel is ready to send data.
   virtual bool ReadyToSendData() const = 0;

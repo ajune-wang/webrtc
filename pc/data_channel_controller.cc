@@ -44,22 +44,16 @@ RTCError DataChannelController::SendData(
 }
 
 void DataChannelController::AddSctpDataStream(StreamId sid) {
+  RTC_DCHECK_RUN_ON(network_thread());
   if (data_channel_transport()) {
-    network_thread()->BlockingCall([this, sid] {
-      if (data_channel_transport()) {
-        data_channel_transport()->OpenChannel(sid.stream_id_int());
-      }
-    });
+    data_channel_transport()->OpenChannel(sid.stream_id_int());
   }
 }
 
 void DataChannelController::RemoveSctpDataStream(StreamId sid) {
+  RTC_DCHECK_RUN_ON(network_thread());
   if (data_channel_transport()) {
-    network_thread()->BlockingCall([this, sid] {
-      if (data_channel_transport()) {
-        data_channel_transport()->CloseChannel(sid.stream_id_int());
-      }
-    });
+    data_channel_transport()->CloseChannel(sid.stream_id_int());
   }
 }
 
@@ -286,6 +280,7 @@ DataChannelController::InternalCreateSctpDataChannel(
 
   InternalDataChannelInit new_config =
       config ? (*config) : InternalDataChannelInit();
+
   StreamId sid(new_config.id);
   new_config.connected_to_transport = (data_channel_transport() != nullptr);
   if (!sid.HasValue()) {
@@ -308,13 +303,11 @@ DataChannelController::InternalCreateSctpDataChannel(
   }
   // In case `sid` has changed. Update `new_config` accordingly.
   new_config.id = sid.stream_id_int();
+
   rtc::scoped_refptr<SctpDataChannel> channel(
       SctpDataChannel::Create(weak_factory_.GetWeakPtr(), label, new_config,
                               signaling_thread(), network_thread()));
-  if (!channel) {
-    sid_allocator_.ReleaseSid(sid);
-    return nullptr;
-  }
+  RTC_DCHECK(channel);
   sctp_data_channels_.push_back(channel);
   has_used_data_channels_ = true;
   return channel;

@@ -44,22 +44,16 @@ RTCError DataChannelController::SendData(
 }
 
 void DataChannelController::AddSctpDataStream(StreamId sid) {
+  RTC_DCHECK_RUN_ON(network_thread());
   if (data_channel_transport()) {
-    network_thread()->BlockingCall([this, sid] {
-      if (data_channel_transport()) {
-        data_channel_transport()->OpenChannel(sid.stream_id_int());
-      }
-    });
+    data_channel_transport()->OpenChannel(sid.stream_id_int());
   }
 }
 
 void DataChannelController::RemoveSctpDataStream(StreamId sid) {
+  RTC_DCHECK_RUN_ON(network_thread());
   if (data_channel_transport()) {
-    network_thread()->BlockingCall([this, sid] {
-      if (data_channel_transport()) {
-        data_channel_transport()->CloseChannel(sid.stream_id_int());
-      }
-    });
+    data_channel_transport()->CloseChannel(sid.stream_id_int());
   }
 }
 
@@ -286,6 +280,7 @@ DataChannelController::InternalCreateSctpDataChannel(
 
   InternalDataChannelInit new_config =
       config ? (*config) : InternalDataChannelInit();
+
   StreamId sid(new_config.id);
   new_config.connected_to_transport = (data_channel_transport() != nullptr);
   if (!sid.HasValue()) {

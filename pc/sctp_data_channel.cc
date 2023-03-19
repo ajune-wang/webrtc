@@ -206,8 +206,9 @@ SctpDataChannel::SctpDataChannel(
 
   // Try to connect to the transport in case the transport channel already
   // exists.
-  if (id_.HasValue()) {
-    controller_->AddSctpDataStream(id_);
+  if (id_.HasValue() && connected_to_transport_) {
+    network_thread_->BlockingCall(
+        [c = controller_.get(), sid = id_] { c->AddSctpDataStream(sid); });
   }
 }
 
@@ -346,7 +347,10 @@ void SctpDataChannel::SetSctpSid(const StreamId& sid) {
   RTC_DCHECK_EQ(state_, kConnecting);
 
   id_ = sid;
-  controller_->AddSctpDataStream(sid);
+  if (connected_to_transport_) {
+    network_thread_->BlockingCall(
+        [c = controller_.get(), sid] { c->AddSctpDataStream(sid); });
+  }
 }
 
 void SctpDataChannel::OnClosingProcedureStartedRemotely() {
@@ -382,8 +386,9 @@ void SctpDataChannel::OnTransportChannelCreated() {
 
   // The sid may have been unassigned when controller_->ConnectDataChannel was
   // done. So always add the streams even if connected_to_transport_ is true.
-  if (id_.HasValue()) {
-    controller_->AddSctpDataStream(id_);
+  if (id_.HasValue() && connected_to_transport_) {
+    network_thread_->BlockingCall(
+        [c = controller_.get(), sid = id_] { c->AddSctpDataStream(sid); });
   }
 }
 
@@ -558,7 +563,9 @@ void SctpDataChannel::UpdateState() {
           // afterwards.
           if (!started_closing_procedure_ && controller_ && id_.HasValue()) {
             started_closing_procedure_ = true;
-            controller_->RemoveSctpDataStream(id_);
+            network_thread_->BlockingCall([c = controller_.get(), sid = id_] {
+              c->RemoveSctpDataStream(sid);
+            });
           }
         }
       } else {

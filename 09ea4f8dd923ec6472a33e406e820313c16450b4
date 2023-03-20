@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c34d465e_33362ada",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-20T19:46:01Z",
+      "side": 1,
+      "message": "Done\n\nWent with:\n\n```\n  enum InitialState : bool { kAttached \u003d true, kDetached \u003d false };\n```\n\nExample use:\n```\n  SequenceChecker sequence_checker_{SequenceChecker::kDetached};\n```",
+      "parentUuid": "eb6d879d_57c767e5",
+      "revId": "09ea4f8dd923ec6472a33e406e820313c16450b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "825b7fdf_83537ce0",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3

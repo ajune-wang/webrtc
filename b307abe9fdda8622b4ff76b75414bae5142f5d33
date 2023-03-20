@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f268e45c_ad51d8ae",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-20T11:46:57Z",
+      "side": 1,
+      "message": "If the spec only talks about \"each supported RTP header extension that is present in the offer\" then it would appear to be illegal to add new header extensions to the answer that was not already in the offer?\n\nWhat does +Harald think?\n\nAnyway, other than backwards compat (which is valid reason for the time being), is there any reason that we in the future allow adding header extensions not in the offer? When this API ships it is possible to have all the header extensions you want at offer time without SDP munging, so why would anyone ever need to add stuff to the answer that wasn\u0027t already in the offer?",
+      "parentUuid": "7c03dad0_efc7bbe6",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b51888_af4010aa",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4

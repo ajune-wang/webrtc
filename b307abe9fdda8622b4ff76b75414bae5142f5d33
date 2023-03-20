@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d9d5a82_4e2af586",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T12:10:27Z",
+      "side": 1,
+      "message": "This is not allowed by the specification, however it is\n1/ how existing implementations behave\n2/ relied upon in the field\n3/ useful\nThe counterargument to this behavior is that the answerer can\u0027t really know if the offerer supports the extension if it did not offer it until you receive a packet with it.\n\nThis API actually allows changing this but until we complete the migration (if ever) we need this test as a regression test.\n\nI can file a bug against JSEP to see if we can get the authors to agree our interpretation is more flexible but IETF document updates are ... hard.",
+      "parentUuid": "f268e45c_ad51d8ae",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b51888_af4010aa",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4
@@ -190,6 +208,24 @@
       "side": 1,
       "message": "I\u0027d like to see a TODO comment here, if you can\u0027t find the old bug, can you file a new one just to have something to point to?",
       "parentUuid": "8c83154b_960314a1",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8501b1b6_ec03a080",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T12:10:27Z",
+      "side": 1,
+      "message": "Added. 5 years, 11 months!",
+      "parentUuid": "f81535a4_056cdcde",
       "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

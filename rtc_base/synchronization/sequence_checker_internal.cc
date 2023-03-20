@@ -33,8 +33,9 @@ const void* GetSystemQueueRef() {
 
 }  // namespace
 
-SequenceCheckerImpl::SequenceCheckerImpl()
-    : attached_(true),
+SequenceCheckerImpl::SequenceCheckerImpl(
+    bool attach_to_current_thread /* = true */)
+    : attached_(attach_to_current_thread),
       valid_thread_(rtc::CurrentThreadRef()),
       valid_queue_(TaskQueueBase::Current()),
       valid_system_queue_(GetSystemQueueRef()) {}

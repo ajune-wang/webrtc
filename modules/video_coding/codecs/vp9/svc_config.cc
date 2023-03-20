@@ -196,21 +196,10 @@ std::vector<SpatialLayer> GetVp9SvcConfig(VideoCodec& codec) {
   }
 
   // TODO(bugs.webrtc.org/11607): Add support for screensharing.
-  std::vector<SpatialLayer> spatial_layers =
-      GetSvcConfig(codec.width, codec.height, codec.maxFramerate,
-                   /*first_active_layer=*/0, info->num_spatial_layers,
-                   info->num_temporal_layers, /*is_screen_sharing=*/false,
-                   codec.GetScalabilityMode() ? info : absl::nullopt);
-  RTC_DCHECK(!spatial_layers.empty());
-
-  // Use codec bitrate limits if spatial layering is not requested.
-  if (info->num_spatial_layers == 1) {
-    spatial_layers.back().minBitrate = codec.minBitrate;
-    spatial_layers.back().targetBitrate = codec.maxBitrate;
-    spatial_layers.back().maxBitrate = codec.maxBitrate;
-  }
-
-  return spatial_layers;
+  return GetSvcConfig(codec.width, codec.height, codec.maxFramerate,
+                      /*first_active_layer=*/0, info->num_spatial_layers,
+                      info->num_temporal_layers, /*is_screen_sharing=*/false,
+                      codec.GetScalabilityMode() ? info : absl::nullopt);
 }
 
 std::vector<SpatialLayer> GetSvcConfig(

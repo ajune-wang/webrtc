@@ -323,6 +323,19 @@ TEST_F(VideoCodecInitializerTest,
 }
 
 TEST_F(VideoCodecInitializerTest,
+       Vp9SingleSpatialLayerMaxBitrateIsEqualToCodecMaxBitrateWithL1T3) {
+  SetUpFor(VideoCodecType::kVideoCodecVP9, 1, 3, false);
+  VideoStream stream = DefaultStream();
+  stream.num_temporal_layers = 3;
+  stream.scalability_mode = ScalabilityMode::kL1T3;
+  streams_.push_back(stream);
+
+  EXPECT_TRUE(InitializeCodec());
+  EXPECT_EQ(codec_out_.spatialLayers[0].maxBitrate,
+            kDefaultMaxBitrateBps / 1000);
+}
+
+TEST_F(VideoCodecInitializerTest,
        Vp9SingleSpatialLayerTargetBitrateIsEqualToCodecMaxBitrate) {
   SetUpFor(VideoCodecType::kVideoCodecVP9, 1, 1, true);
   VideoStream stream = DefaultStream();
@@ -344,6 +357,24 @@ TEST_F(VideoCodecInitializerTest,
   stream.width = 320;
   stream.height = 180;
   stream.num_temporal_layers = 3;
+  streams_.push_back(stream);
+
+  EXPECT_TRUE(InitializeCodec());
+  EXPECT_LT(codec_out_.spatialLayers[0].maxBitrate,
+            kDefaultMaxBitrateBps / 1000);
+}
+
+TEST_F(VideoCodecInitializerTest,
+       Vp9KeepBitrateLimitsIfNumberOfSpatialLayersIsReducedToOneWithL3T3) {
+  // Request 3 spatial layers for 320x180 input. Actual number of layers will be
+  // reduced to 1 due to low input resolution but SVC bitrate limits should be
+  // applied.
+  SetUpFor(VideoCodecType::kVideoCodecVP9, 3, 3, false);
+  VideoStream stream = DefaultStream();
+  stream.width = 320;
+  stream.height = 180;
+  stream.num_temporal_layers = 3;
+  stream.scalability_mode = ScalabilityMode::kL3T3;
   streams_.push_back(stream);
 
   EXPECT_TRUE(InitializeCodec());

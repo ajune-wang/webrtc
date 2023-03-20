@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c02a6c6_77af7fe2",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T10:01:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34794f44_ea06ecb2",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72b52641_e09cb0ac",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-18T10:09:44Z",
       "side": 1,
       "message": "Side discussion (not a critique of the CL - we need this):\n\nI\u0027ve noticed that we allow turning on extensions in remote SDP despite them not being offered, a behavior many apps (including Meet) depends on.\n\nBut I find it kind of surprising, most things in SDP is something that you offer and then the remote either accepts it (keeps it) or rejects it (removes it). For example the remote can\u0027t add m\u003d sections (though it can add ssrcs on offer-to-receive m\u003d sections, but that\u0027s in the spirit of accepting). In this case you can *add* extensions *not on offer* (or expand the direction beyond what was offered). It seems to go against the idea that the remote accepts/rejects, since this means the remote is in control of what header extensions ends up being used.\n\nI\u0027m curious what JSEP says, if anything goes with header extensions?\nThe remote has no SDP-guarantees that the local pc knows how to interpret the extensions that remote added.",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c03dad0_efc7bbe6",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T10:01:05Z",
+      "side": 1,
+      "message": "Correct. this test is asserting that behavior which is important.\nSDP is not strictly limited to offer-answer, examples of that are opus dtx which is only in the answer but may not be present in the offer. I refer to this as \"declarative usage\" but can\u0027t find a good reference.\n\nThe corresponding rules in JSEP are in https://www.rfc-editor.org/rfc/rfc8829.html#section-5.3.1 and it says:\n  For each supported RTP header extension that is present in the offer...\nIt does not allow a similar thing as for codecs:\n  Any currently available media formats that are not present in the current remote description MUST be added after all existing formats.\n\nThat is a spec bug, just like not allowing to \"grow\" the set again.",
+      "parentUuid": "72b52641_e09cb0ac",
       "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df3d6c02_58486b9e",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T10:01:05Z",
+      "side": 1,
+      "message": "this is a corollary of \"arrays are the same size and all uris are stopped\" but doesn\u0027t hurt to check in addition.",
+      "parentUuid": "11b51888_af4010aa",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96de9eaf_59e2d518",
@@ -82,6 +136,24 @@
       "writtenOn": "2023-03-18T10:09:44Z",
       "side": 1,
       "message": "Are all currently supported header extensions kSendRecv when enabled?\nIf so not a blocking TODO, but I think we should have a TODO referencing a bug that documents that we should be able to handle other directions attributes when that becomes necessary.",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c83154b_960314a1",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T10:01:05Z",
+      "side": 1,
+      "message": "i think they are. Even though some, like VLA, are not used for receiving but there are certainly downstream projects...\n\nWe have an existing bug about not taking into account directionality of header extensions, open for 5+ years I think.",
+      "parentUuid": "96de9eaf_59e2d518",
       "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

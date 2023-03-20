@@ -198,6 +198,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18ed9b0f_ff3fd3b2",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-20T14:21:44Z",
+      "side": 1,
+      "message": "It\u0027s typical that WebRTC and JSEP specs describe restrictions that are more restrictive than the base specs - it would be wrong if it was the other way around!\n\nStill, we have no way of restricting the behavior of our comms partners (they may not be webrtc), so we need to handle any answer that conforms to the base specs (which doesn\u0027t mean that we accept the answer always, just that if we reject it, we reject it by the book).",
+      "parentUuid": "f1170041_30db98d1",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b51888_af4010aa",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4

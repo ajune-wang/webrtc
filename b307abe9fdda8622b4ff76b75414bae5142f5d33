@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ba06a7b_b099e898",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-20T13:02:17Z",
+      "side": 1,
+      "message": "The header extension signaling is in https://www.rfc-editor.org/rfc/rfc8285.html#section-5\n\nIt\u0027s not an offer/answer mechanism, it\u0027s an \"I support reception of\" mechanism. The only part that is offer/answer is the extended mechanism for saying \"I want one of these extensions, but you have to pick this one\", and the restriction saying that extensions cannot collide.",
+      "parentUuid": "f268e45c_ad51d8ae",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b51888_af4010aa",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4

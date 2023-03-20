@@ -180,6 +180,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1170041_30db98d1",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-20T14:05:55Z",
+      "side": 1,
+      "message": "https://www.rfc-editor.org/rfc/rfc8285#section-7\n\"Either party MAY include\" so we\u0027re good (within our webrtc-extensions restrictions)",
+      "parentUuid": "041328d1_e42ebe8d",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b51888_af4010aa",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4

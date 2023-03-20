@@ -1503,6 +1503,84 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
   EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StrEq("L1T3"));
 }
 
+// Test coverage for https://crbug.com/webrtc/15016.
+TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
+       SendingThreeEncodings_VP9_Simulcast_SingleActiveLayer) {
+  // TODO(https://crbug.com/webrtc/14884): A field trial shouldn't be needed to
+  // get spec-compliant behavior!
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-AllowDisablingLegacyScalability/Enabled/");
+
+  rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper = CreatePc();
+  rtc::scoped_refptr<PeerConnectionTestWrapper> remote_pc_wrapper = CreatePc();
+  ExchangeIceCandidates(local_pc_wrapper, remote_pc_wrapper);
+
+  std::vector<SimulcastLayer> layers =
+      CreateLayers({"f", "h", "q"}, /*active=*/true);
+  rtc::scoped_refptr<RtpTransceiverInterface> transceiver =
+      AddTransceiverWithSimulcastLayers(local_pc_wrapper, remote_pc_wrapper,
+                                        layers);
+  std::vector<RtpCodecCapability> codecs =
+      GetCapabilitiesAndRestrictToCodec(local_pc_wrapper, "VP9");
+  transceiver->SetCodecPreferences(codecs);
+
+  // The original negotiation triggers legacy SVC because we didn't specify
+  // any scalability mode.
+  NegotiateWithSimulcastTweaks(local_pc_wrapper, remote_pc_wrapper, layers);
+  local_pc_wrapper->WaitForConnection();
+  remote_pc_wrapper->WaitForConnection();
+
+  // ...
+  rtc::scoped_refptr<RtpSenderInterface> sender = transceiver->sender();
+  RtpParameters parameters = sender->GetParameters();
+  ASSERT_EQ(parameters.encodings.size(), 3u);
+  parameters.encodings[0].active = true;
+  parameters.encodings[0].scalability_mode = "L2T2_KEY";
+  parameters.encodings[1].active = false;
+  parameters.encodings[1].scalability_mode = absl::nullopt;
+  parameters.encodings[2].active = false;
+  parameters.encodings[2].scalability_mode = absl::nullopt;
+  sender->SetParameters(parameters);
+
+  // // GetParameters() does not report any fallback.
+  // parameters = sender->GetParameters();
+  // ASSERT_EQ(parameters.encodings.size(), 3u);
+  // EXPECT_THAT(parameters.encodings[0].scalability_mode,
+  //             Optional(std::string("L1T3")));
+  // EXPECT_THAT(parameters.encodings[1].scalability_mode,
+  //             Optional(std::string("L1T3")));
+  // EXPECT_THAT(parameters.encodings[2].scalability_mode,
+  //             Optional(std::string("L1T3")));
+
+  // // Wait until media is flowing on all three layers.
+  // // Ramp up time is needed before all three layers are sending.
+  // EXPECT_TRUE_WAIT(HasOutboundRtpBytesSent(local_pc_wrapper, 3u),
+  //                  kLongTimeoutForRampingUp.ms());
+  // // Sometimes additional ramp up is needed to get the expected resolutions.
+  // If
+  // // that has not happened yet we log (`log_during_ramp_up=true`).
+  // EXPECT_TRUE_WAIT(HasOutboundRtpExpectedResolutions(
+  //                      local_pc_wrapper,
+  //                      {{"f", 320, 180}, {"h", 640, 360}, {"q", 1280, 720}},
+  //                      /*log_during_ramp_up=*/true),
+  //                  kLongTimeoutForRampingUp.ms());
+  // // Verify codec and scalability mode.
+  // rtc::scoped_refptr<const RTCStatsReport> report =
+  // GetStats(local_pc_wrapper); std::vector<const RTCOutboundRtpStreamStats*>
+  // outbound_rtps =
+  //     report->GetStatsOfType<RTCOutboundRtpStreamStats>();
+  // ASSERT_THAT(outbound_rtps, SizeIs(3u));
+  // EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[0]),
+  //             StrCaseEq("video/VP9"));
+  // EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[1]),
+  //             StrCaseEq("video/VP9"));
+  // EXPECT_THAT(GetCurrentCodecMimeType(report, *outbound_rtps[2]),
+  //             StrCaseEq("video/VP9"));
+  // EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StrEq("L1T3"));
+  // EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StrEq("L1T3"));
+  // EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StrEq("L1T3"));
+}
+
 // TODO(https://crbug.com/webrtc/15005): A field trial shouldn't be needed to
 // get spec-compliant behavior! The same field trial is also used for VP9
 // simulcast (https://crbug.com/webrtc/14884).

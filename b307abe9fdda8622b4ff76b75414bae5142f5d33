@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7491fa9_b9a87060",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-20T12:27:37Z",
+      "side": 1,
+      "message": "Probably modifying the answer was chosen rather than the offer primarily because SDP munging is discouraged, rather than any inherent reason not to do it at offer time (if the API would have existed back then). But I don\u0027t know, maybe there are valid use cases to control this at answer side that I\u0027m not thinking of.\n\nIf we want to have our cake and eat it to, one could offer the extension as inactive to signal support but still allow the answerer to modify the direction?\n\nBut then again maybe updating the spec would be easier than updating the implementation if \"turning things on from the answerer\" isn\u0027t doing any harm",
+      "parentUuid": "6d9d5a82_4e2af586",
+      "revId": "b307abe9fdda8622b4ff76b75414bae5142f5d33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b51888_af4010aa",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4

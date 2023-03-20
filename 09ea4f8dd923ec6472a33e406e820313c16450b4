@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6d879d_57c767e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-20T17:02:04Z",
+      "side": 1,
+      "message": "I like ability to specify if SequenceChecker should be initialiy attached or detached. (it is common to create detached sequence checker. e.g. create object on a signalling thread, but use and destroy it on the worker thread).\n\nBut single boolean parameter looks obscure to me.\nI wonder what other syntax could be more readable.\nOne option is add two factories (thanks to c++17 guaranteed copy elision that should work for non-movable SequenceChecker):\n\n```\nclass SequenceChecker {\n public:\n  // Creates SequenceChecker that is attached to the current sequence: task_queue or thread.\n  static SequenceChecker CreateAttached() { return SequenceChecker(true); }\n  \n  // Creates SequenceChecker that would attach to the current task queue or thread on first use.\n  static SequenceChecker CreateDetached() { return SequenceChecker(false); }\n  \n  // Legacy constructor\n  SequenceChecker() :SequenceChecker(true) {}\n\n private:\n  SequenceChecker(bool attach) { if(attach) { IsCurrent(); }\n};\n\n\nclass Foo {\n private:\n  SequenceChecker sig_ \u003d SequenceChecker::CreateAttached();\n  SequenceChecker worker_ \u003d SequenceChecker::CreateDetached();\n}\n\n```\n\nor use more classic way for enum to give explicit name:\n\n```\nclass SequenceChecker {\n public:\n  enum ShouldBeAttached : bool {\n    kDetached, kAttached\n  };\n  \n  SequenceChecker(ShouldBeAttached attached \u003d kAttached):Impl(attached) {}\n};\n\n\nclass Foo {\n private:\n  SequenceChecker sig_{SequenceChecker::kAttached};\n  SequenceChecker worker_{SequenceChecker::kDetached};\n}\n\n```",
+      "revId": "09ea4f8dd923ec6472a33e406e820313c16450b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "825b7fdf_83537ce0",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9923f557_23a7edbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-21T12:31:26Z",
+      "side": 1,
+      "message": "Can you check if there is anything internal left using this and ... treat it with fire?",
+      "revId": "bfa5098e704593211dab46271fe900496705bf26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

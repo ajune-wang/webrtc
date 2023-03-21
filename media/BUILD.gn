@@ -437,6 +437,7 @@ rtc_library("rtc_audio_video") {
     "../api:field_trials_view",
     "../api:libjingle_peerconnection_api",
     "../api:media_stream_interface",
+    "../api:rtc_error",
     "../api:rtp_parameters",
     "../api:scoped_refptr",
     "../api:sequence_checker",

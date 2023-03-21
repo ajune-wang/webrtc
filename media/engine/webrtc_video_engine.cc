@@ -23,6 +23,7 @@
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/media_stream_interface.h"
+#include "api/rtc_error.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_codec_type.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -2638,11 +2639,24 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::ReconfigureEncoder(
   encoder_config.encoder_specific_settings =
       ConfigureVideoEncoderSettings(codec_settings.codec);
 
-  stream_->ReconfigureVideoEncoder(encoder_config.Copy(), std::move(callback));
-
-  encoder_config.encoder_specific_settings = NULL;
+  webrtc::VideoEncoderConfig encoder_config_copy = encoder_config.Copy();
+  encoder_config.encoder_specific_settings = nullptr;
+  bool num_streams_changed = parameters_.encoder_config.number_of_streams !=
+                             encoder_config.number_of_streams;
+  bool scalability_mode_used = !codec_settings.codec.scalability_modes.empty();
+  bool scalability_modes = absl::c_any_of(
+      rtp_parameters_.encodings,
+      [](const auto& e) { return e.scalability_mode.has_value(); });
 
   parameters_.encoder_config = std::move(encoder_config);
+
+  if (num_streams_changed && (scalability_mode_used != scalability_modes)) {
+    RecreateWebRtcStream();
+    webrtc::InvokeSetParametersCallback(callback, webrtc::RTCError::OK());
+  } else {
+    stream_->ReconfigureVideoEncoder(std::move(encoder_config_copy),
+                                     std::move(callback));
+  }
 }
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::SetSend(bool send) {

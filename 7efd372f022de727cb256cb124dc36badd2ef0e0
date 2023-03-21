@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "232518c3_82152207",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-03-21T14:55:30Z",
+      "side": 1,
+      "message": "How come we had to disable some tests on Mac?",
+      "revId": "7efd372f022de727cb256cb124dc36badd2ef0e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

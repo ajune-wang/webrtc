@@ -1,6 +1,57 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1a5ef06_ab027516",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-21T11:29:19Z",
+      "side": 1,
+      "message": "I think you don\u0027t need to depend on pc/, so you shouldn\u0027t.",
+      "revId": "ac0ffc525b1d99a3ab7489500c3679f7fcee88c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ae23a2_ee0cf76d",
+        "filename": "api/test/video/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-21T11:29:19Z",
+      "side": 1,
+      "message": "With the suggested mod, you don\u0027t need this.",
+      "revId": "ac0ffc525b1d99a3ab7489500c3679f7fcee88c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b53affcd_fca14e94",
+        "filename": "api/test/video/test_video_track_source.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-21T11:29:19Z",
+      "side": 1,
+      "message": "pc/video_track_source.h is just a set of overrides with do-nothings + thread checkers that I don\u0027t think you need here.\n\nIt is better to copy the do-nothings over to this file than to have this dependency from api/ to pc/.",
+      "revId": "ac0ffc525b1d99a3ab7489500c3679f7fcee88c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d904a5cb_fb5d8a0f",
@@ -38,6 +89,30 @@
       "side": 1,
       "message": "video_capturer_ is set once during ctor and then accessed only in read-only fashions so to say. So you don\u0027t need to guard it.",
       "parentUuid": "d904a5cb_fb5d8a0f",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 59
+      },
+      "revId": "ac0ffc525b1d99a3ab7489500c3679f7fcee88c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8bad6b0_f49ac335",
+        "filename": "test/pc/e2e/media/test_video_capturer_video_track_source.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-21T11:29:19Z",
+      "side": 1,
+      "message": "Then make it const.",
+      "parentUuid": "b155fddb_1fd4066c",
       "range": {
         "startLine": 63,
         "startChar": 2,

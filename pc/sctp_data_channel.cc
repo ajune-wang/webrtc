@@ -117,9 +117,7 @@ bool InternalDataChannelInit::IsValid() const {
   return true;
 }
 
-SctpSidAllocator::SctpSidAllocator() {
-  sequence_checker_.Detach();
-}
+SctpSidAllocator::SctpSidAllocator() {}
 
 StreamId SctpSidAllocator::AllocateSid(rtc::SSLRole role) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);

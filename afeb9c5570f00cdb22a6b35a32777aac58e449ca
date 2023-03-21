@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c57f0ec2_2777a99b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-21T18:05:19Z",
+      "side": 1,
+      "message": "LGTM % Comment update",
+      "revId": "afeb9c5570f00cdb22a6b35a32777aac58e449ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8323956b_ad250c36",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-21T18:05:19Z",
+      "side": 1,
+      "message": "Consider splitting this file to a separate change",
+      "range": {
+        "startLine": 146,
+        "startChar": 1,
+        "endLine": 146,
+        "endChar": 54
+      },
+      "revId": "afeb9c5570f00cdb22a6b35a32777aac58e449ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5790de5_2e121525",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-21T18:05:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow?",
+      "range": {
+        "startLine": 158,
+        "startChar": 42,
+        "endLine": 159,
+        "endChar": 20
+      },
+      "revId": "afeb9c5570f00cdb22a6b35a32777aac58e449ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

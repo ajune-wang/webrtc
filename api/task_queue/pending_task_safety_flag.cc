@@ -41,16 +41,19 @@ PendingTaskSafetyFlag::CreateDetachedInactive() {
 
 void PendingTaskSafetyFlag::SetNotAlive() {
   RTC_DCHECK_RUN_ON(&main_sequence_);
+  RTC_CHECK(main_sequence_.IsCurrent());
   alive_ = false;
 }
 
 void PendingTaskSafetyFlag::SetAlive() {
   RTC_DCHECK_RUN_ON(&main_sequence_);
+  RTC_CHECK(main_sequence_.IsCurrent());
   alive_ = true;
 }
 
 bool PendingTaskSafetyFlag::alive() const {
   RTC_DCHECK_RUN_ON(&main_sequence_);
+  RTC_CHECK(main_sequence_.IsCurrent());
   return alive_;
 }
 

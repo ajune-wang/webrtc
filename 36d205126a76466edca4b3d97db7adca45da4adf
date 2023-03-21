@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "58be5359_702aa636",
+        "filename": "api/sequence_checker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-21T10:42:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd99bf6_35b84af2",
+      "revId": "36d205126a76466edca4b3d97db7adca45da4adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "54d076d3_ff781529",
         "filename": "rtc_base/synchronization/sequence_checker_internal.cc",
         "patchSetId": 6
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-21T09:45:29Z",
       "side": 1,
       "message": "no need to query current thread/task queue when !attach_to_current_thread\n\n(but since SequenceChecker is noop in prod, it just would be a tiny slow down in debug enabled builds)",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "36d205126a76466edca4b3d97db7adca45da4adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "514703dc_ed8c5d54",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-21T10:42:48Z",
+      "side": 1,
+      "message": "Yes I figured this wouldn\u0027t make a big difference in practice. Potentially there  might be some debug value in knowing on what thread a checker was constructed on even though it\u0027s not attached, but that\u0027s hypothetical. In the end I figured that in the detached state, it\u0027s normal for the variables to hold an id reflecting the previously attached thread/sequence, so I left this as is.",
+      "parentUuid": "54d076d3_ff781529",
       "range": {
         "startLine": 38,
         "startChar": 7,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abfc6c60_aac65c94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-03-21T19:20:24Z",
+      "side": 1,
+      "message": "Thanks Intel for the contribution!",
+      "revId": "d6b0a449f595e0aab1a5112fad59cd36c9b4fb01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

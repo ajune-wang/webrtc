@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3f9640d_06b02579",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-21T09:34:45Z",
+      "side": 0,
+      "message": "Would it be possible to configure max bitrate for singlecast via encoding parameters beyond what is calculated in ConfigureSvcNormalVideo (like ~400kbps for 640x360, for example) after removing this change?",
+      "range": {
+        "startLine": 206,
+        "startChar": 2,
+        "endLine": 211,
+        "endChar": 3
+      },
+      "revId": "5afb0146b5b0558a77dfbb2e4384b39dc9a73e40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

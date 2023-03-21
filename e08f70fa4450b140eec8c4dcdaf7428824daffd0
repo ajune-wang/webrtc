@@ -33,6 +33,23 @@
       "message": "Hm, before this looks good I want to check if this was tested and verified to be working as expected also on iPhones?",
       "revId": "e08f70fa4450b140eec8c4dcdaf7428824daffd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f9f72a2_1af437a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-03-21T11:31:33Z",
+      "side": 1,
+      "message": "after offline discussion",
+      "revId": "e08f70fa4450b140eec8c4dcdaf7428824daffd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

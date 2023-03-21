@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70daf343_3d20cb3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-21T14:53:05Z",
+      "side": 1,
+      "message": "Updating android runner following https://crrev.com/c/4321748.",
+      "revId": "be5778b612cf75c582da9a470abd9dafd4fb3737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

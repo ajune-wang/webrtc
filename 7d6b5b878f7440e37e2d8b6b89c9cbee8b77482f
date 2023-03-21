@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bc950f4_2a76a3cf",
+        "filename": "rtc_base/physical_socket_server_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-03-21T09:35:05Z",
+      "side": 0,
+      "message": "Nice to have this in place on Mac!",
+      "revId": "7d6b5b878f7440e37e2d8b6b89c9cbee8b77482f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

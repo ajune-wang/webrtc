@@ -474,6 +474,14 @@ void FallbackToDefaultScalabilityModeIfNotSupported(
   for (auto& encoding : encodings) {
     RTC_LOG(LS_INFO) << "Encoding scalability_mode: "
                      << encoding.scalability_mode.value_or("-");
+    if (!encoding.active && !encoding.scalability_mode.has_value()) {
+      // The first layer's scalability mode is the one we actually use in
+      // VideoCodecInitializer due to not yet supporting mixed scalability modes
+      // (https://crbug.com/webrtc/15003). To avoid lower layers thinking we are
+      // using mixed scalability modes, any inactive layer that doesn't specify
+      // the scalability mode gets the same scalability mode as the 0-th layer.
+      encoding.scalability_mode = encodings[0].scalability_mode;
+    }
     if (!encoding.scalability_mode.has_value() ||
         !IsScalabilityModeSupportedByCodec(codec, *encoding.scalability_mode,
                                            config)) {
@@ -2632,17 +2640,41 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::ReconfigureEncoder(
   FallbackToDefaultScalabilityModeIfNotSupported(
       codec_settings.codec, parameters_.config, rtp_parameters_.encodings);
 
+  // Latest config, with and without encoder specfic settings.
   webrtc::VideoEncoderConfig encoder_config =
       CreateVideoEncoderConfig(codec_settings.codec);
-
   encoder_config.encoder_specific_settings =
       ConfigureVideoEncoderSettings(codec_settings.codec);
+  webrtc::VideoEncoderConfig encoder_config_with_specifics =
+      encoder_config.Copy();
+  encoder_config.encoder_specific_settings = nullptr;
 
-  stream_->ReconfigureVideoEncoder(encoder_config.Copy(), std::move(callback));
-
-  encoder_config.encoder_specific_settings = NULL;
+  bool num_streams_changed = parameters_.encoder_config.number_of_streams !=
+                             encoder_config.number_of_streams;
+  bool scalability_mode_used = !codec_settings.codec.scalability_modes.empty();
+  bool scalability_modes = absl::c_any_of(
+      rtp_parameters_.encodings,
+      [](const auto& e) { return e.scalability_mode.has_value(); });
 
   parameters_.encoder_config = std::move(encoder_config);
+
+  if (num_streams_changed && (scalability_mode_used != scalability_modes)) {
+    RTC_LOG(LS_ERROR) << "\n*********\n"
+                      << "\n"
+                      << "NUMBER OF STREAMS CHANGING, RecreateWebRtcStream()!\n"
+                      << "\n"
+                      << "*********\n";
+    RecreateWebRtcStream();
+    RTC_LOG(LS_ERROR) << "\n*********\n"
+                      << "\n"
+                      << "RecreateWebRtcStream() done.\n"
+                      << "\n"
+                      << "*********\n";
+    // webrtc::InvokeSetParametersCallback(callback, webrtc::RTCError::OK());
+  }  // else {
+  stream_->ReconfigureVideoEncoder(std::move(encoder_config_with_specifics),
+                                   std::move(callback));
+  // }
 }
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::SetSend(bool send) {

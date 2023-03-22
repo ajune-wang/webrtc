@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "77b800e1_67d6099e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-22T20:28:50Z",
+      "side": 1,
+      "message": "existing behavior (but I bet we do not have a test asserting that!)\nJSEP https://www.rfc-editor.org/rfc/rfc8829.html#section-5.3.1:\nFor each supported RTP header extension that is present in the offer, an \"a\u003dextmap\" line",
+      "parentUuid": "c8f79567_01282d84",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9492537_cd003257",
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a7c22ab_ac5f90f7",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-22T20:28:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t have a _ at the end so is throw-away?\nNo strong opinion",
+      "parentUuid": "e0ba22b5_525c6837",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efbfa1ad_ace1f8c5",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -106,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb0838c8_2de86896",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-22T20:28:50Z",
+      "side": 1,
+      "message": "Existing behavior is to only respond with the intersection of offer and local caps:\nhttps://jsfiddle.net/fippo/w3ga1qt9/\n-- no holmer in there as mandated by JSEP.\nWe are strict in what we respond with (a subset of the remote offer) but liberal in what we accept (a superset of our offer).",
+      "parentUuid": "384c9de0_918bd18f",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d497d9ce_523a6ddc",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -117,6 +171,24 @@
       "writtenOn": "2023-03-22T15:42:19Z",
       "side": 1,
       "message": "Do we want any check here that the set still includes the mandatory-to-use extension (MID) and fail the function if that doesn\u0027t hold?",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f35edbf_0417fec1",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-22T20:28:50Z",
+      "side": 1,
+      "message": "We say MID is mandatory-to-use but we can get remote offers without bundle which must continue to work without mid?",
+      "parentUuid": "d497d9ce_523a6ddc",
       "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

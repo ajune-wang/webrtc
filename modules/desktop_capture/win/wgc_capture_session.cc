@@ -107,6 +107,8 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!is_capture_started_);
 
+  RTC_DLOG(LS_INFO) << __func__;
+
   if (item_closed_) {
     RTC_LOG(LS_ERROR) << "The target source has been closed.";
     RecordStartCaptureResult(StartCaptureResult::kSourceClosed);
@@ -176,6 +178,11 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
           this, &WgcCaptureSession::OnFrameArrived);
   hr = frame_pool_->add_FrameArrived(frame_arrived_handler.Get(),
                                      frame_arrived_token_.get());
+  if (FAILED(hr)) {
+    RTC_DLOG(LS_ERROR)
+        << "IDirect3D11CaptureFramePool::add_FrameArrived failed: hr=" << hr;
+    return hr;
+  }
 
   hr = frame_pool_->CreateCaptureSession(item_.Get(), &session_);
   if (FAILED(hr)) {
@@ -210,6 +217,8 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
 bool WgcCaptureSession::GetFrame(std::unique_ptr<DesktopFrame>* output_frame) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
+  RTC_DLOG(LS_INFO) << __func__ << " [" << GetCurrentThreadId() << "]";
+
   // When GetFrame() asks for the first frame it can happen that no frame has
   // arrived yet. We therefore try to get a new frame from the frame pool for a
   // maximum of 10 times after sleeping for 20ms. We choose 20ms as it's just a
@@ -231,6 +240,7 @@ bool WgcCaptureSession::GetFrame(std::unique_ptr<DesktopFrame>* output_frame) {
   int sleep_count = 0;
   while (!queue_.current_frame() && sleep_count < max_sleep_count) {
     sleep_count++;
+    RTC_DLOG(LS_INFO) << "No frame => sleeping: " << sleep_count;
     empty_frame_credit_count_ = sleep_count + 1;
     webrtc::SleepMs(sleep_time_ms);
     ProcessFrame();
@@ -285,6 +295,7 @@ HRESULT WgcCaptureSession::OnFrameArrived(
     WGC::IDirect3D11CaptureFramePool* sender,
     IInspectable* event_args) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DLOG(LS_INFO) << "[+++] " << __func__;
   HRESULT hr = ProcessFrame();
   if (FAILED(hr)) {
     RTC_DLOG(LS_WARNING) << "ProcessFrame failed: " << hr;
@@ -294,6 +305,7 @@ HRESULT WgcCaptureSession::OnFrameArrived(
 
 HRESULT WgcCaptureSession::ProcessFrame() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DLOG(LS_INFO) << __func__ << " [" << GetCurrentThreadId() << "]";
 
   if (item_closed_) {
     RTC_LOG(LS_ERROR) << "The target source has been closed.";
@@ -317,6 +329,7 @@ HRESULT WgcCaptureSession::ProcessFrame() {
   }
 
   if (!capture_frame) {
+    RTC_DLOG(LS_WARNING) << "Frame pool was empty => kFrameDropped.";
     // Avoid logging errors while we still have credits (or allowance) to
     // consider this condition as expected and not as an error.
     if (empty_frame_credit_count_ == 0) {
@@ -372,10 +385,14 @@ HRESULT WgcCaptureSession::ProcessFrame() {
     return hr;
   }
 
+  RTC_DLOG(LS_INFO) << "(w x h)=(" << new_size.Width << "," << new_size.Height
+                    << ")";
+
   // If the size changed, we must resize `mapped_texture_` and `frame_pool_` to
   // fit the new size. This must be done before `CopySubresourceRegion` so that
   // the textures are the same size.
   if (size_.Height != new_size.Height || size_.Width != new_size.Width) {
+    RTC_DLOG(LS_INFO) << "Size has changed";
     hr = CreateMappedTexture(texture_2D, new_size.Width, new_size.Height);
     if (FAILED(hr)) {
       RecordGetFrameResult(GetFrameResult::kResizeMappedTextureFailed);
@@ -425,6 +442,8 @@ HRESULT WgcCaptureSession::ProcessFrame() {
   DesktopSize image_size(image_width, image_height);
   if (!queue_.current_frame() ||
       !queue_.current_frame()->size().equals(image_size)) {
+    RTC_DLOG(LS_INFO) << "Allocating memory in queue for size: (" << image_width
+                      << "x" << image_height << ")";
     std::unique_ptr<DesktopFrame> buffer =
         std::make_unique<BasicDesktopFrame>(image_size);
     queue_.ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(buffer)));
@@ -462,10 +481,12 @@ HRESULT WgcCaptureSession::ProcessFrame() {
           // damage regions we should be doing AddRect() with a SetRect() call
           // on a resize.
           damage_region_.SetRect(DesktopRect::MakeSize(current_frame->size()));
+          RTC_DLOG(LS_INFO) << "Mark frame as damaged";
         }
       } else {
         // Mark resized frames as damaged.
         damage_region_.SetRect(DesktopRect::MakeSize(current_frame->size()));
+        RTC_DLOG(LS_INFO) << "Mark frame as damaged";
       }
     }
   }

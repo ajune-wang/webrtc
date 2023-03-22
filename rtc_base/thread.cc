@@ -45,6 +45,10 @@
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
+#if defined(WEBRTC_WIN)
+#include "rtc_base/win/scoped_com_initializer.h"
+#endif
+
 #if defined(WEBRTC_MAC)
 #include "rtc_base/system/cocoa_threading.h"
 
@@ -699,10 +703,20 @@ void* Thread::PreRun(void* pv) {
 #if defined(WEBRTC_MAC)
   ScopedAutoReleasePool pool;
 #endif
+#if defined(WEBRTC_WIN)
+  std::unique_ptr<webrtc::ScopedCOMInitializer> com_initializer;
+  if (thread->com_status() != NONE) {
+    com_initializer.reset((thread->com_status() == STA)
+                              ? new webrtc::ScopedCOMInitializer()
+                              : new webrtc::ScopedCOMInitializer(
+                                    webrtc::ScopedCOMInitializer::kMTA));
+  }
+#endif
   thread->Run();
 
   ThreadManager::Instance()->SetCurrentThread(nullptr);
 #ifdef WEBRTC_WIN
+  com_initializer.reset();
   return 0;
 #else
   return nullptr;

@@ -16,6 +16,46 @@
 
 namespace webrtc {
 
+class MockNetworkControllerInterface : public NetworkControllerInterface {
+ public:
+  MOCK_METHOD(NetworkControlUpdate,
+              OnNetworkAvailability,
+              (NetworkAvailability),
+              ());
+  MOCK_METHOD(NetworkControlUpdate, OnProcessInterval, (ProcessInterval), ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnNetworkRouteChange,
+              (NetworkRouteChange),
+              ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnRemoteBitrateReport,
+              (RemoteBitrateReport),
+              ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnRoundTripTimeUpdate,
+              (RoundTripTimeUpdate),
+              ());
+  MOCK_METHOD(NetworkControlUpdate, OnSentPacket, (SentPacket), ());
+  MOCK_METHOD(NetworkControlUpdate, OnReceivedPacket, (ReceivedPacket), ());
+  MOCK_METHOD(NetworkControlUpdate, OnStreamsConfig, (StreamsConfig), ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnTargetRateConstraints,
+              (TargetRateConstraints),
+              ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnTransportLossReport,
+              (TransportLossReport),
+              ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnTransportPacketsFeedback,
+              (TransportPacketsFeedback),
+              ());
+  MOCK_METHOD(NetworkControlUpdate,
+              OnNetworkStateEstimate,
+              (NetworkStateEstimate),
+              ());
+};
+
 class MockNetworkStateEstimator : public NetworkStateEstimator {
  public:
   MOCK_METHOD(absl::optional<NetworkStateEstimate>,

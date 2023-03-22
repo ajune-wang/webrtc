@@ -785,6 +785,30 @@ webrtc::VideoCodec SimulcastEncoderAdapter::MakeStreamCodec(
   codec_params.qpMax = stream_params.qpMax;
   codec_params.active = stream_params.active;
   codec_params.SetScalabilityMode(stream_params.GetScalabilityMode());
+  {
+    absl::optional<ScalabilityMode> scalability_mode_ =
+        codec.GetScalabilityMode();
+    if (scalability_mode_.has_value()) {
+      RTC_LOG(LS_ERROR) << "*** SimulcastEncoderAdapter's codec: "
+                        << ScalabilityModeToString(*scalability_mode_);
+    } else {
+      RTC_LOG(LS_ERROR) << "*** SimulcastEncoderAdapter's codec: null";
+    }
+  }
+  {
+    absl::optional<ScalabilityMode> scalability_mode_ =
+        stream_params.GetScalabilityMode();
+    if (scalability_mode_.has_value()) {
+      RTC_LOG(LS_ERROR) << "*** SimulcastEncoderAdapter::MakeStreamCodec: "
+                        << ScalabilityModeToString(*scalability_mode_);
+    } else {
+      RTC_LOG(LS_ERROR) << "*** SimulcastEncoderAdapter::MakeStreamCodec: null";
+    }
+  }
+  // Fix by looking at first layer! Who care all the other ones are inactive.
+  if (codec.GetScalabilityMode().has_value()) {
+    codec_params.SetScalabilityMode(codec.GetScalabilityMode().value());
+  }
   // Settings that are based on stream/resolution.
   if (is_lowest_quality_stream) {
     // Settings for lowest spatial resolutions.

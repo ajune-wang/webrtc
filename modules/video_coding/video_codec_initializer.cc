@@ -98,6 +98,15 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
 
   absl::optional<ScalabilityMode> scalability_mode =
       streams[0].scalability_mode;
+  bool first_layer_is_only_active_layer = streams[0].active;
+  if (first_layer_is_only_active_layer) {
+    for (size_t i = 1; i < streams.size(); ++i) {
+      if (streams[i].active) {
+        first_layer_is_only_active_layer = false;
+        break;
+      }
+    }
+  }
   for (size_t i = 0; i < streams.size(); ++i) {
     SimulcastStream* sim_stream = &video_codec.simulcastStream[i];
     RTC_DCHECK_GT(streams[i].width, 0);
@@ -149,6 +158,17 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       }
     }
   }
+  for (size_t i = 0; i < streams.size(); ++i) {
+    std::string foo = "null";
+    if (streams[i].scalability_mode.has_value())
+      foo = std::string(
+          ScalabilityModeToString(streams[i].scalability_mode.value()));
+    RTC_LOG(LS_ERROR) << "VCI: streams[" << i << "]: " << foo;
+  }
+  std::string foo = "null";
+  if (scalability_mode.has_value())
+    foo = std::string(ScalabilityModeToString(scalability_mode.value()));
+  RTC_LOG(LS_ERROR) << "=> scalability_mode: " << foo;
 
   if (scalability_mode.has_value()) {
     video_codec.SetScalabilityMode(*scalability_mode);
@@ -238,7 +258,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
         if (spatial_layers.empty())
           break;
         // Use codec bitrate limits if spatial layering is not requested.
-        if (config.simulcast_layers.size() <= 1 &&
+        if (first_layer_is_only_active_layer &&
             ScalabilityModeToNumSpatialLayers(*scalability_mode) == 1) {
           spatial_layers.back().minBitrate = video_codec.minBitrate;
           spatial_layers.back().targetBitrate = video_codec.maxBitrate;

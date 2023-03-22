@@ -110,6 +110,30 @@
       },
       "revId": "afeb9c5570f00cdb22a6b35a32777aac58e449ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ca37e0_f6128df9",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-22T17:16:40Z",
+      "side": 1,
+      "message": "Got it thanks. That\u0027s clearer now.",
+      "parentUuid": "3eba910e_4dfebbe8",
+      "range": {
+        "startLine": 158,
+        "startChar": 42,
+        "endLine": 159,
+        "endChar": 20
+      },
+      "revId": "afeb9c5570f00cdb22a6b35a32777aac58e449ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Improved the comment. Think I need an fresh OK.\n\nPlease submit if/when things look OK.",
       "revId": "3020668f95745487bdbd5f6029dae6f2b7d484d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a83b9272_f8203a67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-22T17:16:40Z",
+      "side": 1,
+      "message": "Taking this as a request for AutoSubmit+1",
+      "parentUuid": "22c898d1_7e12ed1d",
+      "revId": "3020668f95745487bdbd5f6029dae6f2b7d484d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

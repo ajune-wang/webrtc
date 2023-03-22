@@ -12,15 +12,39 @@
 
 #include <algorithm>
 
+#include "system_wrappers/include/metrics.h"
+
 namespace webrtc {
 namespace {
 // The buffer level for media-rate utilization is allowed to go below zero,
 // down to
 // -(`kMaxMediaUnderrunFrames` / `target_framerate_fps_`) * `target_bitrate_`.
 static constexpr double kMaxMediaUnderrunFrames = 5.0;
+
+void UpdateHistograms(VideoCodecType codec,
+                      uint64_t sum_of_variance_,
+                      uint64_t frame_count) {
+  if (frame_count == 0)
+    return;
+
+  uint64_t bitrate_rmse = std::sqrt(sum_of_variance_ / frame_count);
+  switch (codec) {
+    case VideoCodecType::kVideoCodecVP9:
+      RTC_HISTOGRAM_COUNTS_10000("WebRTC.Video.RMSEOfEncodingBitrateInKbps.Vp9",
+                                 bitrate_rmse);
+      break;
+    case VideoCodecType::kVideoCodecAV1:
+      RTC_HISTOGRAM_COUNTS_10000("WebRTC.Video.RMSEOfEncodingBitrateInKbps.Av1",
+                                 bitrate_rmse);
+      break;
+    default:
+      break;
+  }
+}
 }  // namespace
 
-EncoderOvershootDetector::EncoderOvershootDetector(int64_t window_size_ms)
+EncoderOvershootDetector::EncoderOvershootDetector(int64_t window_size_ms,
+                                                   VideoCodecType codec)
     : window_size_ms_(window_size_ms),
       time_last_update_ms_(-1),
       sum_network_utilization_factors_(0.0),
@@ -28,9 +52,14 @@ EncoderOvershootDetector::EncoderOvershootDetector(int64_t window_size_ms)
       target_bitrate_(DataRate::Zero()),
       target_framerate_fps_(0),
       network_buffer_level_bits_(0),
-      media_buffer_level_bits_(0) {}
+      media_buffer_level_bits_(0),
+      codec_(codec),
+      frame_count_(0),
+      sum_of_variance_(0) {}
 
-EncoderOvershootDetector::~EncoderOvershootDetector() = default;
+EncoderOvershootDetector::~EncoderOvershootDetector() {
+  UpdateHistograms(codec_, sum_of_variance_, frame_count_);
+}
 
 void EncoderOvershootDetector::SetTargetRate(DataRate target_bitrate,
                                              double target_framerate_fps,
@@ -57,6 +86,7 @@ void EncoderOvershootDetector::OnEncodedFrame(size_t bytes, int64_t time_ms) {
   // bitrate.
   LeakBits(time_ms);
 
+  const int64_t frame_size_bits = bytes * 8;
   // Ideal size of a frame given the current rates.
   const int64_t ideal_frame_size_bits = IdealFrameSizeBits();
   if (ideal_frame_size_bits == 0) {
@@ -64,13 +94,22 @@ void EncoderOvershootDetector::OnEncodedFrame(size_t bytes, int64_t time_ms) {
     return;
   }
 
-  const double network_utilization_factor = HandleEncodedFrame(
-      bytes * 8, ideal_frame_size_bits, time_ms, &network_buffer_level_bits_);
-  const double media_utilization_factor = HandleEncodedFrame(
-      bytes * 8, ideal_frame_size_bits, time_ms, &media_buffer_level_bits_);
+  const double network_utilization_factor =
+      HandleEncodedFrame(frame_size_bits, ideal_frame_size_bits, time_ms,
+                         &network_buffer_level_bits_);
+  const double media_utilization_factor =
+      HandleEncodedFrame(frame_size_bits, ideal_frame_size_bits, time_ms,
+                         &media_buffer_level_bits_);
 
   sum_network_utilization_factors_ += network_utilization_factor;
   sum_media_utilization_factors_ += media_utilization_factor;
+
+  // Calculate the bitrate diff in kbps
+  uint64_t diff_kpbs = frame_size_bits > ideal_frame_size_bits
+                           ? (frame_size_bits - ideal_frame_size_bits) / 1000
+                           : (ideal_frame_size_bits - frame_size_bits) / 1000;
+  ++frame_count_;
+  sum_of_variance_ += std::pow(diff_kpbs, 2);
 
   utilization_factors_.emplace_back(network_utilization_factor,
                                     media_utilization_factor, time_ms);
@@ -142,6 +181,9 @@ absl::optional<double> EncoderOvershootDetector::GetMediaRateUtilizationFactor(
 }
 
 void EncoderOvershootDetector::Reset() {
+  UpdateHistograms(codec_, sum_of_variance_, frame_count_);
+  sum_of_variance_ = 0;
+  frame_count_ = 0;
   time_last_update_ms_ = -1;
   utilization_factors_.clear();
   target_bitrate_ = DataRate::Zero();

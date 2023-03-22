@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f79567_01282d84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-22T15:42:19Z",
+      "side": 1,
+      "message": ".... that occur in the offer. (If that\u0027s the Right Thing To Do).",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9492537_cd003257",
@@ -14,6 +31,74 @@
       "writtenOn": "2023-03-22T12:14:12Z",
       "side": 1,
       "message": "...ToNegotiate, not ToOffer :-)",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9398bdc8_fd0c5b18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-22T15:42:19Z",
+      "side": 1,
+      "message": "I\u0027m uneasy whenever I see a change in behavior - this will cause non-offered extensions to not be in the answer, which is not how it used to be (I think).",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ba22b5_525c6837",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-22T15:42:19Z",
+      "side": 1,
+      "message": "naming nit: should we name this local_rtp_extensions_to_reply_with?\n\nwe won\u0027t be doing another negotiation round based on these.",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbfa1ad_ace1f8c5",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-22T15:42:19Z",
+      "side": 1,
+      "message": "the other side effect of this is that we omit all extensions from the answer that did not occur in the offer, while in the Before Times we just dumped them all in.\n\nIntentional behavior?",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d497d9ce_523a6ddc",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-22T15:42:19Z",
+      "side": 1,
+      "message": "Do we want any check here that the set still includes the mandatory-to-use extension (MID) and fail the function if that doesn\u0027t hold?",
       "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

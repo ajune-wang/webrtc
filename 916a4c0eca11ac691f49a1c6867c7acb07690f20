@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c45bebe_59e4c76e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-22T20:15:50Z",
+      "side": 1,
+      "message": "Found a production issue with this. We need to\n- revert this (also in M112 which has the stable cut next Tuesday)\n- add a regression test\n- ship the new API even if not quite compliant but it will offer a way out\n- take the way out, then reland this\nThe revert applies cleanly to the M112 branch at least.\n\nRegression test for the existing behavior and demonstration that the new API is the way forward will come as a separate CL.",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

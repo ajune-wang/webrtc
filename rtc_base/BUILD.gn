@@ -999,7 +999,10 @@ rtc_library("threading") {
     deps += [ ":ifaddrs_android" ]
   }
   if (is_win) {
-    deps += [ ":win32" ]
+    deps += [
+      ":win32",
+      "win:scoped_com_initializer",
+    ]
   }
   if (is_mac || is_ios) {
     deps += [ "system:cocoa_threading" ]

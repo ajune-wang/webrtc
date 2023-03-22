@@ -203,6 +203,7 @@ if (rtc_include_tests) {
       deps += [
         ":desktop_capture_mock",
         "../../system_wrappers:metrics",
+        "../../test:run_loop",
       ]
       public_configs = [ ":x11_config" ]
     }

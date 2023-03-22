@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "869b82eb_d19e0495",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-22T17:54:23Z",
+      "side": 1,
+      "message": "There is one notable difference between {active} and {active,inactive,inactive} from the API\u0027s point of view:\n\nIf scaleResolutionDownBy is not specified, it defaults to {4,2,1} rather than {1}.\n\nWe should decide if the \"standard API\" trigger should be just scalabilityMode (like it is now) or if it needs to be \"both scalabiityMode and scaleResolutionDownBy has been specified\".",
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

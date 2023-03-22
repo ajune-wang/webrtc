@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "384c9de0_918bd18f",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-22T16:20:26Z",
+      "side": 1,
+      "message": "I intended that HeaderExtensionsToNegotiate is whatever you set it to, regardless of what NegotiatedHeaderExtensions is.\n\nE.g. if HeaderExtensionsToNegotiate is \"sendrecv\" but you get back \"stopped\" as the answer then HeaderExtensionsToNegotiate continues to be \"sendrecv\" but NegotiatedHeaderExtensions is \"stopped\".\n\nHowever if your transceiver was created by a remote SDP, then HeaderExtensionsToNegotiate would default to whatever was on offer.\n\nSo if you do an O/A dance where only the offerer uses setHeaderExtensionsToNegotiate() and the answerer side just blindly answers without also doing setHeaderExtensionsToNegotiate() you still default to getting \"whatever was offered\"\n\nIf there is any backwards-compat issues with this design we should reconsider, but my intention is that \"HeaderExtensionsToNegotiate/NegotiatedHeaderExtensions\" behave the same way that \"direction/currentDirection\" behaves.",
+      "parentUuid": "efbfa1ad_ace1f8c5",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d497d9ce_523a6ddc",
         "filename": "pc/media_session.cc",
         "patchSetId": 1

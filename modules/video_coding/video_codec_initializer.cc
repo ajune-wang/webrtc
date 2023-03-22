@@ -149,6 +149,17 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       }
     }
   }
+  // for (size_t i = 0; i < streams.size(); ++i) {
+  //   std::string foo = "null";
+  //   if (streams[i].scalability_mode.has_value())
+  //     foo = std::string(
+  //         ScalabilityModeToString(streams[i].scalability_mode.value()));
+  //   RTC_LOG(LS_ERROR) << "VCI: streams[" << i << "]: " << foo;
+  // }
+  // std::string foo = "null";
+  // if (scalability_mode.has_value())
+  //   foo = std::string(ScalabilityModeToString(scalability_mode.value()));
+  // RTC_LOG(LS_ERROR) << "=> scalability_mode: " << foo;
 
   if (scalability_mode.has_value()) {
     video_codec.SetScalabilityMode(*scalability_mode);
@@ -211,6 +222,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     }
     case kVideoCodecVP9: {
       // Force the first stream to always be active.
+      // This looks like a problem too?
       video_codec.simulcastStream[0].active = codec_active;
 
       if (!config.encoder_specific_settings) {
@@ -238,6 +250,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
         if (spatial_layers.empty())
           break;
         // Use codec bitrate limits if spatial layering is not requested.
+        // This also looks like a problem?
         if (config.simulcast_layers.size() <= 1 &&
             ScalabilityModeToNumSpatialLayers(*scalability_mode) == 1) {
           spatial_layers.back().minBitrate = video_codec.minBitrate;

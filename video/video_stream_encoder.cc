@@ -1395,6 +1395,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   pending_encoder_reconfiguration_ = false;
 
   bool is_svc = false;
+  // TODO(hbos): What about this path?
+
   // Set min_bitrate_bps, max_bitrate_bps, and max padding bit rate for VP9
   // and AV1 and leave only one stream containing all necessary information.
   if ((encoder_config_.codec_type == kVideoCodecVP9 ||

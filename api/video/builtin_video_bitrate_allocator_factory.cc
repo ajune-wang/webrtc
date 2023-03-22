@@ -31,6 +31,9 @@ class BuiltinVideoBitrateAllocatorFactory
 
   std::unique_ptr<VideoBitrateAllocator> CreateVideoBitrateAllocator(
       const VideoCodec& codec) override {
+    // THIS IS A PROBLEM. If one-active-rest-inactive then this results in
+    // the simulcast case.
+
     switch (codec.codecType) {
       case kVideoCodecAV1:
       case kVideoCodecVP9:

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e89b933_f19524e9",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-03-22T16:11:21Z",
+      "side": 0,
+      "message": "Do you think we can eliminate the mode entirely?\n\ne.g. if not file and you add an AudioConfig it will be generated?",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 29
+      },
+      "revId": "041ecb87f57ea5a7489de0a936e64756ee23a7ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

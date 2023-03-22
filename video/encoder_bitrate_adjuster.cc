@@ -48,6 +48,9 @@ EncoderBitrateAdjuster::EncoderBitrateAdjuster(const VideoCodec& codec_settings)
                                       .BitrateAdjusterCanUseNetworkHeadroom()),
       frames_since_layout_change_(0),
       min_bitrates_bps_{} {
+  // THIS IS A PROBLEM. If one-active-rest-inactive then this results in
+  // the simulcast case.
+
   // TODO(https://crbug.com/webrtc/14891): If we want to support simulcast of
   // SVC streams, EncoderBitrateAdjuster needs to be updated to care about both
   // `simulcastStream` and `spatialLayers` at the same time.

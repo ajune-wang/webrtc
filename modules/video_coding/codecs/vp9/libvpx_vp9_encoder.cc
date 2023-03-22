@@ -580,6 +580,12 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
 
   scalability_mode_ = inst->GetScalabilityMode();
   if (scalability_mode_.has_value()) {
+    RTC_LOG(LS_ERROR) << "*** LibvpxVp9Encoder::InitEncode: "
+                      << ScalabilityModeToString(*scalability_mode_);
+  } else {
+    RTC_LOG(LS_ERROR) << "*** LibvpxVp9Encoder::InitEncode: null";
+  }
+  if (scalability_mode_.has_value()) {
     // Use settings from `ScalabilityMode` identifier.
     RTC_LOG(LS_INFO) << "Create scalability structure "
                      << ScalabilityModeToString(*scalability_mode_);

@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0177ff75_92e2a9c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-22T13:48:30Z",
+      "side": 1,
+      "message": "Nice. I have some questions and comments, but overall seems good.\n\nAnother question: Do we unit test anywhere with combine_concealment_decision \u003d true?",
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b255f9_e0e17457",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-22T13:48:30Z",
+      "side": 1,
+      "message": "The old code checks IsExpand. Is there any way we can end up here when we are not in either IsExpand or IsCng? Is that an error? Or document this invariant with DCHECK?",
+      "range": {
+        "startLine": 359,
+        "startChar": 6,
+        "endLine": 359,
+        "endChar": 42
+      },
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b577a0be_b6a515ff",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-22T13:48:30Z",
+      "side": 1,
+      "message": "At this point we know the buffer level is below minimum. Document it with a comment?\n\nWe always want to continue CNG until we are at least at the minimum level. This is the purpose of this if statement, right? Document it.",
+      "range": {
+        "startLine": 411,
+        "startChar": 2,
+        "endLine": 411,
+        "endChar": 70
+      },
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "336c32a1_9d43bd98",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-22T13:48:30Z",
+      "side": 1,
+      "message": "This is confusing. The if statement above checks that last_mode is expand. Then this one checks that packet_buffer_info.dtx_or_cng is false. It looks like that can never be, but I guess that the dtx_or_cng is not directly linked with last_mode.",
+      "range": {
+        "startLine": 418,
+        "startChar": 11,
+        "endLine": 419,
+        "endChar": 47
+      },
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab53de5_27f61d73",
+        "filename": "modules/audio_coding/neteq/decision_logic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-22T13:48:30Z",
+      "side": 1,
+      "message": "Add a comment?",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 65
+      },
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

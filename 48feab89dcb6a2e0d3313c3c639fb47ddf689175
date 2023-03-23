@@ -16,6 +16,24 @@
       "message": "So referencing these keys only depend on the targetSdk at build time, and not the minSdk at runtime? i.e. they are resolved at build time?",
       "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43648ca4_a6cd9c81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-23T16:34:59Z",
+      "side": 1,
+      "message": "I realized that we need to keep locally-defined keys unavailable in current minSdk\u003d21 since everything is link dynamically in Java...\n\nReverted changes in AndroidVideoDecoder. Changes in HardwareVideoEncoder are still correct:\n\nhttps://developer.android.com/reference/android/media/MediaCodecInfo.CodecProfileLevel#AVCLevel3 - introduced in 16\n\nhttps://developer.android.com/reference/android/media/MediaCodecInfo.CodecProfileLevel#AVCProfileHigh - introduced in 16\n\nhttps://developer.android.com/reference/android/media/MediaCodecInfo.EncoderCapabilities#BITRATE_MODE_CBR - introduced in 21",
+      "parentUuid": "e04ab686_61d07aea",
+      "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "830394b6_f7a4418c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T11:56:32Z",
+      "side": 1,
+      "message": "Sounds like a quote for the line that we are overriding in https://w3c.github.io/webrtc-extensions/#modifications-to-existing-procedures-0",
+      "parentUuid": "77b800e1_67d6099e",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9492537_cd003257",
@@ -160,6 +178,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da3b42be_d83e34cf",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T11:56:32Z",
+      "side": 1,
+      "message": "Can we add WPTs for this and debate what behavior we want in that CL? 😊",
+      "parentUuid": "bb0838c8_2de86896",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d497d9ce_523a6ddc",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -189,6 +225,24 @@
       "side": 1,
       "message": "We say MID is mandatory-to-use but we can get remote offers without bundle which must continue to work without mid?",
       "parentUuid": "d497d9ce_523a6ddc",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc60a38c_5dbe5e30",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T11:56:32Z",
+      "side": 1,
+      "message": "Not sure we care enough that we should be able to turn of MID in special cases, I mean if it is not supported, it will be removed in the answer anyway or ignored by the remote",
+      "parentUuid": "2f35edbf_0417fec1",
       "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

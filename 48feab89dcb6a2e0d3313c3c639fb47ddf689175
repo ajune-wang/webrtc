@@ -34,6 +34,24 @@
       "parentUuid": "e04ab686_61d07aea",
       "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20c4575_780ea643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-23T16:48:05Z",
+      "side": 1,
+      "message": "https://developer.android.com/reference/android/media/MediaFormat#KEY_BITRATE_MODE - introduced in 21",
+      "parentUuid": "43648ca4_a6cd9c81",
+      "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

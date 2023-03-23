@@ -26,15 +26,14 @@ import org.webrtc.ThreadUtils.ThreadChecker;
 /**
  * Android hardware video decoder.
  */
-@SuppressWarnings("deprecation")
-// Cannot support API 16 without using deprecated methods.
-// TODO(sakal): Rename to MediaCodecVideoDecoder once the deprecated implementation is removed.
 class AndroidVideoDecoder implements VideoDecoder, VideoSink {
   private static final String TAG = "AndroidVideoDecoder";
 
-  // TODO(magjed): Use MediaFormat.KEY_* constants when part of the public API.
+  // Keys officially introduced in API 23.
   private static final String MEDIA_FORMAT_KEY_STRIDE = "stride";
   private static final String MEDIA_FORMAT_KEY_SLICE_HEIGHT = "slice-height";
+
+  // Keys officially introduced in API 33.
   private static final String MEDIA_FORMAT_KEY_CROP_LEFT = "crop-left";
   private static final String MEDIA_FORMAT_KEY_CROP_RIGHT = "crop-right";
   private static final String MEDIA_FORMAT_KEY_CROP_TOP = "crop-top";
@@ -162,7 +161,7 @@ class AndroidVideoDecoder implements VideoDecoder, VideoSink {
     decoderThreadChecker.checkIsOnValidThread();
     Logging.d(TAG,
         "initDecodeInternal name: " + codecName + " type: " + codecType + " width: " + width
-            + " height: " + height);
+            + " height: " + height + " color format: " + colorFormat);
     if (outputThread != null) {
       Logging.e(TAG, "initDecodeInternal called while the codec is already running");
       return VideoCodecStatus.FALLBACK_SOFTWARE;

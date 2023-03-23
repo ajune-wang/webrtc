@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5e8419d_c577d0d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T10:14:01Z",
+      "side": 1,
+      "message": "OK so the only case that needs spec changing is when local SDP munging is used in place of setHeaderExtensionsToNegotiate(), which to be fair, is a non-standard code path anyway, but still good to get agreement on this for conformance reasons? But overall the spec makes sense.",
+      "parentUuid": "aa04fa21_64d0b6bd",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5cf87da_cca118f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2

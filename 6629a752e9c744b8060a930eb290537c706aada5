@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d3e4a4_dbf31780",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-23T07:57:11Z",
+      "side": 1,
+      "message": "OK. So right now there are no tests that set combine_concealment_decision \u003d true.",
+      "parentUuid": "5a61081d_c90ee0d3",
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44b255f9_e0e17457",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "We can (the previous mode could be normal for example). The result would be the same though, i.e. the expand operation is returned.",
       "parentUuid": "44b255f9_e0e17457",
+      "range": {
+        "startLine": 359,
+        "startChar": 6,
+        "endLine": 359,
+        "endChar": 42
+      },
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9adc0ef_ac55db4a",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-23T07:57:11Z",
+      "side": 1,
+      "message": "OK. I think I have convinced myself that this is the case. 😊",
+      "parentUuid": "faed2023_a1cbbfac",
       "range": {
         "startLine": 359,
         "startChar": 6,
@@ -167,6 +209,30 @@
       "side": 1,
       "message": "Yeah it\u0027s poorly named. `dtx_or_cng` means that the packet buffer contains at least one DTX or CNG packet. I\u0027m making a follow up change to include the packet waiting time in `span_samples` which makes this check obsolete.",
       "parentUuid": "336c32a1_9d43bd98",
+      "range": {
+        "startLine": 418,
+        "startChar": 11,
+        "endLine": 419,
+        "endChar": 47
+      },
+      "revId": "6629a752e9c744b8060a930eb290537c706aada5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ee9334_cd23a96e",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-23T07:57:11Z",
+      "side": 1,
+      "message": "OK. Looking forward to it.",
+      "parentUuid": "16805fb4_83ff812f",
       "range": {
         "startLine": 418,
         "startChar": 11,

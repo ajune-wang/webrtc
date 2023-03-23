@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad41a79_85e72564",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-23T07:57:11Z",
+      "side": 1,
+      "message": "LGTM with one optional nit.",
+      "revId": "2b1341267fb79e82bb5ff365c0745d25b9dcf585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2533c397_0e1b9412",
+        "filename": "modules/audio_coding/neteq/decision_logic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-03-23T07:57:11Z",
+      "side": 1,
+      "message": "Nit: May want to add \"even though a new packet is available\" at the end of the sentence.",
+      "range": {
+        "startLine": 138,
+        "startChar": 5,
+        "endLine": 138,
+        "endChar": 10
+      },
+      "revId": "2b1341267fb79e82bb5ff365c0745d25b9dcf585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

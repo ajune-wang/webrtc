@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e04ab686_61d07aea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-03-23T15:39:17Z",
+      "side": 1,
+      "message": "So referencing these keys only depend on the targetSdk at build time, and not the minSdk at runtime? i.e. they are resolved at build time?",
+      "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

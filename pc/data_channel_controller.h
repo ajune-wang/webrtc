@@ -142,7 +142,7 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   bool data_channel_transport_ready_to_send_
       RTC_GUARDED_BY(signaling_thread()) = false;
 
-  SctpSidAllocator sid_allocator_;
+  SctpSidAllocator sid_allocator_ RTC_GUARDED_BY(network_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_
       RTC_GUARDED_BY(signaling_thread());
   bool has_used_data_channels_ RTC_GUARDED_BY(signaling_thread()) = false;

@@ -106,21 +106,21 @@ void DataChannelController::OnChannelClosing(int channel_id) {
 
 void DataChannelController::OnChannelClosed(int channel_id) {
   RTC_DCHECK_RUN_ON(network_thread());
-  signaling_thread()->PostTask(
-      SafeTask(signaling_safety_.flag(), [this, channel_id] {
-        RTC_DCHECK_RUN_ON(signaling_thread());
-        auto it = FindChannel(StreamId(channel_id));
-        // Remove the channel from our list, close it and free up resources.
-        if (it != sctp_data_channels_.end()) {
-          rtc::scoped_refptr<SctpDataChannel> channel = std::move(*it);
-          // Note: this causes OnSctpDataChannelClosed() to not do anything
-          // when called from within `OnClosingProcedureComplete`.
-          sctp_data_channels_.erase(it);
-          sid_allocator_.ReleaseSid(channel->sid());
+  StreamId sid(channel_id);
+  sid_allocator_.ReleaseSid(sid);
+  signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this, sid] {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    auto it = FindChannel(sid);
+    // Remove the channel from our list, close it and free up resources.
+    if (it != sctp_data_channels_.end()) {
+      rtc::scoped_refptr<SctpDataChannel> channel = std::move(*it);
+      // Note: this causes OnSctpDataChannelClosed() to not do anything
+      // when called from within `OnClosingProcedureComplete`.
+      sctp_data_channels_.erase(it);
 
-          channel->OnClosingProcedureComplete();
-        }
-      }));
+      channel->OnClosingProcedureComplete();
+    }
+  }));
 }
 
 void DataChannelController::OnReadyToSend() {
@@ -262,28 +262,34 @@ DataChannelController::InternalCreateSctpDataChannel(
 
   InternalDataChannelInit new_config = config;
   StreamId sid(new_config.id);
-  if (!sid.HasValue()) {
-    // TODO(bugs.webrtc.org/11547): Use this call to the network thread more
-    // broadly to initialize the channel on the network thread, assign
-    // an id and/or other things that belong on the network thread.
-    // Move `sid_allocator_` to the network thread.
-    absl::optional<rtc::SSLRole> role =
-        network_thread()->BlockingCall([this, &new_config] {
-          RTC_DCHECK_RUN_ON(network_thread());
-          return pc_->GetSctpSslRole_n(new_config.is_caller);
-        });
-    if (role) {
-      sid = sid_allocator_.AllocateSid(*role);
-      if (!sid.HasValue())
-        return nullptr;
+  bool ok = network_thread()->BlockingCall([this, &new_config, &sid] {
+    RTC_DCHECK_RUN_ON(network_thread());
+    if (!sid.HasValue()) {
+      // TODO(bugs.webrtc.org/11547): Use this call to the network thread more
+      // broadly to initialize the channel on the network thread, assign
+      // an id and/or other things that belong on the network thread.
+      // Move `sid_allocator_` to the network thread.
+      absl::optional<rtc::SSLRole> role =
+          pc_->GetSctpSslRole_n(new_config.is_caller);
+      if (role) {
+        sid = sid_allocator_.AllocateSid(*role);
+        if (!sid.HasValue())
+          return false;
+      }
+
+      // Note that when we get here, the ID may still be invalid.
+    } else if (!sid_allocator_.ReserveSid(sid)) {
+      RTC_LOG(LS_ERROR) << "Failed to create a SCTP data channel "
+                           "because the id is already in use or out of range.";
+      return false;
     }
 
-    // Note that when we get here, the ID may still be invalid.
-  } else if (!sid_allocator_.ReserveSid(sid)) {
-    RTC_LOG(LS_ERROR) << "Failed to create a SCTP data channel "
-                         "because the id is already in use or out of range.";
+    return true;
+  });
+
+  if (!ok)
     return nullptr;
-  }
+
   // In case `sid` has changed. Update `new_config` accordingly.
   new_config.id = sid.stream_id_int();
   // TODO(bugs.webrtc.org/11547): The `data_channel_transport_` pointer belongs
@@ -324,7 +330,10 @@ void DataChannelController::AllocateSctpSids(rtc::SSLRole role) {
   std::vector<rtc::scoped_refptr<SctpDataChannel>> channels_to_close;
   for (const auto& channel : sctp_data_channels_) {
     if (!channel->sid().HasValue()) {
-      StreamId sid = sid_allocator_.AllocateSid(role);
+      StreamId sid = network_thread()->BlockingCall([this, role] {
+        RTC_DCHECK_RUN_ON(network_thread());
+        return sid_allocator_.AllocateSid(role);
+      });
       if (!sid.HasValue()) {
         channels_to_close.push_back(channel);
         continue;
@@ -350,7 +359,10 @@ void DataChannelController::OnSctpDataChannelClosed(SctpDataChannel* channel) {
       if (channel->sid().HasValue()) {
         // After the closing procedure is done, it's safe to use this ID for
         // another data channel.
-        sid_allocator_.ReleaseSid(channel->sid());
+        network_thread()->BlockingCall([this, sid = channel->sid()] {
+          RTC_DCHECK_RUN_ON(network_thread());
+          sid_allocator_.ReleaseSid(sid);
+        });
       }
 
       // Since this method is triggered by a signal from the DataChannel,

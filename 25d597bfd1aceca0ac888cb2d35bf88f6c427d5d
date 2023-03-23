@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57e5670a_36e082ef",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-23T09:54:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a596868f_8dcf895e",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 67
+      },
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0751284d_85ef3a91",
@@ -125,6 +149,30 @@
       "writtenOn": "2023-03-23T09:54:23Z",
       "side": 1,
       "message": "In other words, {inactive, active, inactive} + scalabilityMode set is a perfectly valid setup, but because this has never been supported, there will be no backwards compat issues with not supporting it in this CL either :) \n\nMe trying to separate the issue of \"configure the correct number of encodings when the API is used in this way\" from the issue of \"what are all the things we want to be able to do with scalability_mode in the future\"",
+      "parentUuid": "07e2cde9_4f2fe10b",
+      "range": {
+        "startLine": 1516,
+        "startChar": 2,
+        "endLine": 1517,
+        "endChar": 56
+      },
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d80174_5e869af9",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-23T09:54:58Z",
+      "side": 1,
+      "message": "Acknowledged",
       "parentUuid": "07e2cde9_4f2fe10b",
       "range": {
         "startLine": 1516,

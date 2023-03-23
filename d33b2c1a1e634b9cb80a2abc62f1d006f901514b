@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97625d07_bea6a6d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T14:19:55Z",
+      "side": 1,
+      "message": "This CL should not affect any existing QP scaler/BW adaptation differences that may be present as far as I am aware.\n\n\u003e Is that still the case here? Is there a difference in how VP8 vs VP9 works?\n\nThere is no difference AFAIK. I have not found any \"if codec\" gates relating to this.\n\n\u003e what \"behave like singlecast\" means?\n\nWhen I say VP9 simulcast behaves differently from VP9 SVC, I\u0027m talking about things like it having a SimulcastRateAllocator instead of a SvcRateAllocator (something we want to fix for the next milestone). The intent of this CL is to minimize these differences, so that even if you do {active,inactive,inactive} you still get SvcRateAllocator.\n\nThis allows apps to specify scalability mode on the 0-th layer and get the SvcRateAllocator as long as the other two layers are inactive, which is what would have happened in the legacy SVC path anyway due to automatically removing the other layers.",
+      "parentUuid": "8498a472_e4678da6",
+      "revId": "d33b2c1a1e634b9cb80a2abc62f1d006f901514b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78ef33f6_6ce933ed",
         "filename": "api/video_codecs/video_codec.cc",
         "patchSetId": 4
@@ -48,6 +66,30 @@
       "writtenOn": "2023-03-23T13:41:12Z",
       "side": 1,
       "message": "nit: do we support the use case of _all_ layers being inactive to say that encoding is paused? Or is that an illegal setting and pausing should be done with bps \u003d\u003d 0? If the former then this should probably return false for that case. Otherwise perhaps dcheck?",
+      "range": {
+        "startLine": 155,
+        "startChar": 17,
+        "endLine": 155,
+        "endChar": 56
+      },
+      "revId": "d33b2c1a1e634b9cb80a2abc62f1d006f901514b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "808b6458_a54936e3",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T14:19:55Z",
+      "side": 1,
+      "message": "All encodings being inactive is perfectly legal - this is common practise with the JavaScript API. Most apps would use `active`, much fewer apps would use `maxBitrate` and fewer still would mess with field trials. It is critical that this works or else there could be a serious privacy bug.\n\nThis is why I was so scared to read the old comment to \"Force the first stream to always be active\" in VP9, since at first glance this seems like a serious violation. But as the test shows, it is working thanks to either spatial layer \"active\" flag or bitrates being capped to 0.",
+      "parentUuid": "78ef33f6_6ce933ed",
       "range": {
         "startLine": 155,
         "startChar": 17,

@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bf561c3_17c293c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T09:13:23Z",
+      "side": 1,
+      "message": "OK. Not sure. I started to think maybe we should default to accept what was on offer, but that would have the downside of defaulting to not accepting what the app specified in setHeaderExtensionsToNegotiate(). So maybe the spec is OK as is.",
+      "parentUuid": "13c95549_949ed73e",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5cf87da_cca118f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2

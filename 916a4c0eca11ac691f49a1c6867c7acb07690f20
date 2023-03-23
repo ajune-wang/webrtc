@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab30597_d2035fd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T08:59:22Z",
+      "side": 1,
+      "message": "I thought the endpoint that created the m\u003d section would be the one that offer the extensions, and I didn\u0027t realize the other endpoint is allowed to add new extensions, so I made the mistake of thinking [[NegotiatedHeaderExtensions]] would always be a subset of [[HeaderExtensionsToNegotiate]]. Therefore, I had thought that only [[NegotiatedHeaderExtensions]] need be updated in response to setting SDP, but I am open to the idea that we should default to accepting what was offered by default and also update [[HeaderExtensionsToNegotiate]] when SDP offer is set - supporting both the \"remote SDP is adding extensions\" use case and the \"local SDP munging\" use case for backwards compat with apps are using prior to this API existing.",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5cf87da_cca118f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T08:59:22Z",
+      "side": 1,
+      "message": "If we accepted an extension, I think it doesn\u0027t make sense if that extension is not turned on in [[HeaderExtensionsToNegotiate]] for follow-up O/As.",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5c45bebe_59e4c76e",
@@ -14,6 +48,23 @@
       "writtenOn": "2023-03-22T20:15:50Z",
       "side": 1,
       "message": "Found a production issue with this. We need to\n- revert this (also in M112 which has the stable cut next Tuesday)\n- add a regression test\n- ship the new API even if not quite compliant but it will offer a way out\n- take the way out, then reland this\nThe revert applies cleanly to the M112 branch at least.\n\nRegression test for the existing behavior and demonstration that the new API is the way forward will come as a separate CL.",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16750e6_1f4dc900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T08:59:22Z",
+      "side": 1,
+      "message": "+1 to reverting. I think we should follow-up with a spec issue to make sure we support all use cases that make sense and don\u0027t trigger backwards compat issues",
       "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

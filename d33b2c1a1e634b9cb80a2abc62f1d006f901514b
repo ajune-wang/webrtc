@@ -16,6 +16,46 @@
       "message": "+philipel@ for builtin_video_bitrate_allocator_factory.cc stamping again 😊",
       "revId": "d33b2c1a1e634b9cb80a2abc62f1d006f901514b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8498a472_e4678da6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-23T13:41:12Z",
+      "side": 1,
+      "message": "Can you give some more context what \"behave like singlecast\" means?\nHistorically, setting up simulcast and then disabling all but one layer has not been the same as singlecast - as \"true\" singlecast uses the QP scaler and no temporal layers, while the single-active-layer case still uses only bandwidth adaptation and keeps the temporal layering.\n\nIs that still the case here? Is there a difference in how VP8 vs VP9 works?",
+      "revId": "d33b2c1a1e634b9cb80a2abc62f1d006f901514b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ef33f6_6ce933ed",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-03-23T13:41:12Z",
+      "side": 1,
+      "message": "nit: do we support the use case of _all_ layers being inactive to say that encoding is paused? Or is that an illegal setting and pausing should be done with bps \u003d\u003d 0? If the former then this should probably return false for that case. Otherwise perhaps dcheck?",
+      "range": {
+        "startLine": 155,
+        "startChar": 17,
+        "endLine": 155,
+        "endChar": 56
+      },
+      "revId": "d33b2c1a1e634b9cb80a2abc62f1d006f901514b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

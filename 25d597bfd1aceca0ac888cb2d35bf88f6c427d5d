@@ -16,6 +16,52 @@
       "message": "There is one notable difference between {active} and {active,inactive,inactive} from the API\u0027s point of view:\n\nIf scaleResolutionDownBy is not specified, it defaults to {4,2,1} rather than {1}.\n\nWe should decide if the \"standard API\" trigger should be just scalabilityMode (like it is now) or if it needs to be \"both scalabiityMode and scaleResolutionDownBy has been specified\".",
       "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a5bc843_ce2dd777",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-23T09:41:56Z",
+      "side": 1,
+      "message": "What if the 0-th stream is inactive?",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 67
+      },
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0751284d_85ef3a91",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-03-23T09:41:56Z",
+      "side": 1,
+      "message": "Could you add a test, where encodings[1] is the only active one?\n\nAlso a test where only 0th and 2nd encodings are active (but have L1TX mode).",
+      "range": {
+        "startLine": 1516,
+        "startChar": 2,
+        "endLine": 1517,
+        "endChar": 56
+      },
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

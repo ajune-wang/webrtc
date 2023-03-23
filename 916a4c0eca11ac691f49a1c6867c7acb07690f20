@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa04fa21_64d0b6bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-23T09:47:40Z",
+      "side": 1,
+      "message": "in terms of behavior of the new API this makes sense:\nour preference (which should not be influenced by the remote) is to have the extension stopped. Munging in step 3 has the effect that it does show in in getHeaderExtensionsNegotiated which seems like the correct interaction.",
+      "parentUuid": "7bf561c3_17c293c8",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5cf87da_cca118f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2

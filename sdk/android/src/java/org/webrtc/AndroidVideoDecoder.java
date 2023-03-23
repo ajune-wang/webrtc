@@ -32,14 +32,6 @@ import org.webrtc.ThreadUtils.ThreadChecker;
 class AndroidVideoDecoder implements VideoDecoder, VideoSink {
   private static final String TAG = "AndroidVideoDecoder";
 
-  // TODO(magjed): Use MediaFormat.KEY_* constants when part of the public API.
-  private static final String MEDIA_FORMAT_KEY_STRIDE = "stride";
-  private static final String MEDIA_FORMAT_KEY_SLICE_HEIGHT = "slice-height";
-  private static final String MEDIA_FORMAT_KEY_CROP_LEFT = "crop-left";
-  private static final String MEDIA_FORMAT_KEY_CROP_RIGHT = "crop-right";
-  private static final String MEDIA_FORMAT_KEY_CROP_TOP = "crop-top";
-  private static final String MEDIA_FORMAT_KEY_CROP_BOTTOM = "crop-bottom";
-
   // MediaCodec.release() occasionally hangs.  Release stops waiting and reports failure after
   // this timeout.
   private static final int MEDIA_CODEC_RELEASE_TIMEOUT_MS = 5000;
@@ -162,7 +154,7 @@ class AndroidVideoDecoder implements VideoDecoder, VideoSink {
     decoderThreadChecker.checkIsOnValidThread();
     Logging.d(TAG,
         "initDecodeInternal name: " + codecName + " type: " + codecType + " width: " + width
-            + " height: " + height);
+            + " height: " + height + " color format: " + colorFormat);
     if (outputThread != null) {
       Logging.e(TAG, "initDecodeInternal called while the codec is already running");
       return VideoCodecStatus.FALLBACK_SOFTWARE;
@@ -571,14 +563,14 @@ class AndroidVideoDecoder implements VideoDecoder, VideoSink {
     Logging.d(TAG, "Decoder format changed: " + format.toString());
     final int newWidth;
     final int newHeight;
-    if (format.containsKey(MEDIA_FORMAT_KEY_CROP_LEFT)
-        && format.containsKey(MEDIA_FORMAT_KEY_CROP_RIGHT)
-        && format.containsKey(MEDIA_FORMAT_KEY_CROP_BOTTOM)
-        && format.containsKey(MEDIA_FORMAT_KEY_CROP_TOP)) {
-      newWidth = 1 + format.getInteger(MEDIA_FORMAT_KEY_CROP_RIGHT)
-          - format.getInteger(MEDIA_FORMAT_KEY_CROP_LEFT);
-      newHeight = 1 + format.getInteger(MEDIA_FORMAT_KEY_CROP_BOTTOM)
-          - format.getInteger(MEDIA_FORMAT_KEY_CROP_TOP);
+    if (format.containsKey(MediaFormat.KEY_CROP_LEFT)
+        && format.containsKey(MediaFormat.KEY_CROP_RIGHT)
+        && format.containsKey(MediaFormat.KEY_CROP_BOTTOM)
+        && format.containsKey(MediaFormat.KEY_CROP_TOP)) {
+      newWidth = 1 + format.getInteger(MediaFormat.KEY_CROP_RIGHT)
+          - format.getInteger(MediaFormat.KEY_CROP_LEFT);
+      newHeight = 1 + format.getInteger(MediaFormat.KEY_CROP_BOTTOM)
+          - format.getInteger(MediaFormat.KEY_CROP_TOP);
     } else {
       newWidth = format.getInteger(MediaFormat.KEY_WIDTH);
       newHeight = format.getInteger(MediaFormat.KEY_HEIGHT);
@@ -615,11 +607,11 @@ class AndroidVideoDecoder implements VideoDecoder, VideoSink {
 
     // Save stride and sliceHeight under the dimension lock.
     synchronized (dimensionLock) {
-      if (format.containsKey(MEDIA_FORMAT_KEY_STRIDE)) {
-        stride = format.getInteger(MEDIA_FORMAT_KEY_STRIDE);
+      if (format.containsKey(MediaFormat.KEY_STRIDE)) {
+        stride = format.getInteger(MediaFormat.KEY_STRIDE);
       }
-      if (format.containsKey(MEDIA_FORMAT_KEY_SLICE_HEIGHT)) {
-        sliceHeight = format.getInteger(MEDIA_FORMAT_KEY_SLICE_HEIGHT);
+      if (format.containsKey(MediaFormat.KEY_SLICE_HEIGHT)) {
+        sliceHeight = format.getInteger(MediaFormat.KEY_SLICE_HEIGHT);
       }
       Logging.d(TAG, "Frame stride and slice height: " + stride + " x " + sliceHeight);
       stride = Math.max(width, stride);

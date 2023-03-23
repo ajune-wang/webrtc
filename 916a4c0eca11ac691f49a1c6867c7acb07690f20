@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90a5a247_0ee764bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-23T11:59:52Z",
+      "side": 1,
+      "message": "so you are saying that SDP munging may modify header extensions to negotiate? But that requires detecting SDP munging and figuring out what changed in a fine-grained manner which is hard and the reason we all loathe SDP munging in the first place.",
+      "parentUuid": "e5e8419d_c577d0d9",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5cf87da_cca118f5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -155,6 +173,23 @@
       "writtenOn": "2023-03-23T08:59:22Z",
       "side": 1,
       "message": "+1 to reverting. I think we should follow-up with a spec issue to make sure we support all use cases that make sense and don\u0027t trigger backwards compat issues",
+      "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f387b27_1950b2e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-23T11:59:52Z",
+      "side": 1,
+      "message": "Markus, can you rubberstamp while Harald is at IETF?",
       "revId": "916a4c0eca11ac691f49a1c6867c7acb07690f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

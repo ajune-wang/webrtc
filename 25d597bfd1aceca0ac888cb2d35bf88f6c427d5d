@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a596868f_8dcf895e",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T09:50:16Z",
+      "side": 1,
+      "message": "The fact that we only consider the scalability mode of the 0-th layer is an existing limitation:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/video_codec_initializer.cc;l\u003d100;drc\u003d014b244fa00d187243bd43968d8a541861be1c18\n\nWith this CL, I am not aiming to make `scalability_mode` a more fully fletched feature, I am only trying to fix backwards-compatibility issues with existing use cases so that {active, inactive, inactive} is roughly equivalent to {active}.",
+      "parentUuid": "3a5bc843_ce2dd777",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 67
+      },
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0751284d_85ef3a91",
         "filename": "pc/peer_connection_simulcast_unittest.cc",
         "patchSetId": 15
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-23T09:41:56Z",
       "side": 1,
       "message": "Could you add a test, where encodings[1] is the only active one?\n\nAlso a test where only 0th and 2nd encodings are active (but have L1TX mode).",
+      "range": {
+        "startLine": 1516,
+        "startChar": 2,
+        "endLine": 1517,
+        "endChar": 56
+      },
+      "revId": "25d597bfd1aceca0ac888cb2d35bf88f6c427d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e2cde9_4f2fe10b",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-23T09:50:16Z",
+      "side": 1,
+      "message": "As per other comment, there is an existing limitation that scalability mode can only have an effect if specified on the 0-th layer.\n\nI think we should fix this as part of fixing https://crbug.com/webrtc/15003 or mixed L1Tx support in general, but I think that is better suited for follow-up CLs since this is a new use case of scalability mode that has not been supported on any prior version.",
+      "parentUuid": "0751284d_85ef3a91",
       "range": {
         "startLine": 1516,
         "startChar": 2,

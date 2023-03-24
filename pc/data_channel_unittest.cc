@@ -77,10 +77,10 @@ class SctpDataChannelTest : public ::testing::Test {
  protected:
   SctpDataChannelTest()
       : network_thread_(std::make_unique<rtc::NullSocketServer>()),
-        controller_(new FakeDataChannelController()),
-        webrtc_data_channel_(
-            controller_->CreateDataChannel("test", init_, &network_thread_)) {
+        controller_(new FakeDataChannelController()) {
     network_thread_.Start();
+    webrtc_data_channel_ =
+        controller_->CreateDataChannel("test", init_, &network_thread_);
   }
   ~SctpDataChannelTest() override {
     run_loop_.Flush();

@@ -70,6 +70,24 @@
       "parentUuid": "b20c4575_780ea643",
       "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a043de05_fb55d5bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-03-24T11:50:58Z",
+      "side": 1,
+      "message": "Removing locally-defined values. I was pointed to https://docs.oracle.com/javase/specs/jls/se20/html/jls-13.html#jls-13.1 according to check a value of constant field is resolved at compile time. I.e., it is safe to reference keys unavailable in older API.",
+      "parentUuid": "7770b579_e9651d23",
+      "revId": "48feab89dcb6a2e0d3313c3c639fb47ddf689175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

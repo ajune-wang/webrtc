@@ -32,7 +32,6 @@ rtc_library("video_frame_writer") {
 
 rtc_library("test_video_track_source") {
   visibility = [ "*" ]
-  testonly = true
   sources = [
     "test_video_track_source.cc",
     "test_video_track_source.h",

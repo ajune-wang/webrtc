@@ -88,6 +88,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62fd098_7c723925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-24T10:30:05Z",
+      "side": 1,
+      "message": "Waiting until the revert, regression test and the way forward has landed.",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0ba22b5_525c6837",
@@ -190,6 +207,24 @@
       "side": 1,
       "message": "Can we add WPTs for this and debate what behavior we want in that CL? 😊",
       "parentUuid": "bb0838c8_2de86896",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "866e31e0_9de94497",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-24T10:30:05Z",
+      "side": 1,
+      "message": "Having a WPT sounds good but arguing with JSEP or the O/A principle... are you planning to throw out the baby with the bathwater? ;-)",
+      "parentUuid": "da3b42be_d83e34cf",
       "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

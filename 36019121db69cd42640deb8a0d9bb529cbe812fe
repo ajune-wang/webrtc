@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673e4bae_37112e63",
+        "filename": "modules/audio_coding/neteq/tools/neteq_packet_source_input.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-03-24T14:06:28Z",
+      "side": 1,
+      "message": "Return a NetEqPacketSourceInput directly and make it a static function of NetEqPacketSourceInput? Or is this needed someplace else?",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "36019121db69cd42640deb8a0d9bb529cbe812fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

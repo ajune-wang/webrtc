@@ -15,12 +15,14 @@
 
 #include "absl/types/optional.h"
 #include "api/units/data_rate.h"
+#include "api/video_codecs/video_codec.h"
 
 namespace webrtc {
 
 class EncoderOvershootDetector {
  public:
-  explicit EncoderOvershootDetector(int64_t window_size_ms);
+  explicit EncoderOvershootDetector(int64_t window_size_ms,
+                                    VideoCodecType codec = kVideoCodecGeneric);
   ~EncoderOvershootDetector();
 
   void SetTargetRate(DataRate target_bitrate,
@@ -71,6 +73,9 @@ class EncoderOvershootDetector {
   double target_framerate_fps_;
   int64_t network_buffer_level_bits_;
   int64_t media_buffer_level_bits_;
+  VideoCodecType codec_;
+  uint64_t frame_count_;
+  uint64_t sum_of_variance_;
 };
 
 }  // namespace webrtc

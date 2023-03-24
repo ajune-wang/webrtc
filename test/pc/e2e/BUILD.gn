@@ -137,7 +137,6 @@ if (!build_with_chromium) {
       sources = [
         "media/media_helper.cc",
         "media/media_helper.h",
-        "media/test_video_capturer_video_track_source.h",
       ]
       deps = [
         ":test_peer",
@@ -157,6 +156,8 @@ if (!build_with_chromium) {
         "analyzer/video:video_quality_analyzer_injection_helper",
       ]
       absl_deps = [ "//third_party/abseil-cpp/absl/types:variant" ]
+      public_deps =  # no-presubmit-check TODO(webrtc:8603)
+          [ ":test_video_capturer_video_track_source" ]
     }
 
     rtc_library("peer_params_preprocessor") {

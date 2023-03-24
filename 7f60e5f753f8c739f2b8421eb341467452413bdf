@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14650fb0_c5d98e73",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-24T16:12:41Z",
+      "side": 0,
+      "message": "haven\u0027t found any code that would use the FieldTrialBasedConfig.\ncurrent this field_trials is unused (no ongoing experiments in the RtpRtcp module)\nIf there will be some experiments, then this field should be set to not null (main user - Call already does that),\n\nand for testing may be would be helpful to treat empty as no experiments set, \nor force it to be non null for tests too.\n\nPostponing desision how to treat nullptr value here until there would be a usecase.",
+      "range": {
+        "startLine": 125,
+        "startChar": 58,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "7f60e5f753f8c739f2b8421eb341467452413bdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

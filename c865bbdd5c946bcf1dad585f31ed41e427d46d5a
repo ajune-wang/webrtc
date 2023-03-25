@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af112c38_98a08f6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-25T14:23:24Z",
+      "side": 1,
+      "message": "I see two failing tests with my change, both are given by:\n\n```\n[501/1109] ScreenCapturerTest.UseMagnifier (1148 ms)\n(field_trial.cc:164): Setting field trial string:\nNote: Google Test filter \u003d ScreenCapturerTest.UseMagnifier\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 1 test from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 1 test from ScreenCapturerTest\n[ RUN      ] ScreenCapturerTest.UseMagnifier\n(screen_capturer_win_magnifier.cc:112): CaptureFrame: Magnifier capturer failed to capture a frame.\n..\\..\\modules\\desktop_capture\\screen_capturer_unittest.cc(199): error: Expected equality of these values:\n  frame-\u003ecapturer_id()\n    Which is: 541672519\n  DesktopCapturerId::kScreenCapturerWinMagnifier\n    Which is: 2\nStack trace:\n  009DBD51: testing::internal::HandleExceptionsInMethodIfSupported\u003ctesting::Test,void\u003e\n  009DBCD1: testing::Test::Run\n  009DC511: testing::TestInfo::Run\n  009DCB32: testing::TestSuite::Run\n... Google Test internal frames ...\n\n[  FAILED  ] ScreenCapturerTest.UseMagnifier (1000 ms)\n[----------] 1 test from ScreenCapturerTest (1000 ms total)\n\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 1 test from 1 test suite ran. (1001 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] ScreenCapturerTest.UseMagnifier\n\n 1 FAILED TEST\n[501/1109] ScreenCapturerTest.UseMagnifier returned with exit code 1 (1148 ms)\n```\n\nTo me it is clear that the Magnifier API is flaky and that the new check to\nverify that that the selected API is used is \"too strong\". In this case, we have\nreverted to GDI (541672519).",
+      "revId": "c865bbdd5c946bcf1dad585f31ed41e427d46d5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

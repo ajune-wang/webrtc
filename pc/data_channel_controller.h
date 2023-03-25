@@ -142,9 +142,15 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   bool data_channel_transport_ready_to_send_
       RTC_GUARDED_BY(signaling_thread()) = false;
 
-  SctpSidAllocator sid_allocator_;
+  SctpSidAllocator sid_allocator_ RTC_GUARDED_BY(network_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_
       RTC_GUARDED_BY(signaling_thread());
+  // TODO(bugs.webrtc.org/11547): This vector will eventually take over from
+  // `sctp_data_channels_`. While we're migrating away from thread hops
+  // between the signaling and network threads, we need both, so this is
+  // a temporary situation.
+  std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_n_
+      RTC_GUARDED_BY(network_thread());
   bool has_used_data_channels_ RTC_GUARDED_BY(signaling_thread()) = false;
 
   // Owning PeerConnection.

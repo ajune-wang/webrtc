@@ -117,9 +117,7 @@ bool InternalDataChannelInit::IsValid() const {
   return true;
 }
 
-SctpSidAllocator::SctpSidAllocator() {
-  sequence_checker_.Detach();
-}
+SctpSidAllocator::SctpSidAllocator() {}
 
 StreamId SctpSidAllocator::AllocateSid(rtc::SSLRole role) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -154,7 +152,6 @@ rtc::scoped_refptr<SctpDataChannel> SctpDataChannel::Create(
     const InternalDataChannelInit& config,
     rtc::Thread* signaling_thread,
     rtc::Thread* network_thread) {
-  RTC_DCHECK(controller);
   RTC_DCHECK(config.IsValid());
   return rtc::make_ref_counted<SctpDataChannel>(
       config, std::move(controller), label, connected_to_transport,
@@ -190,10 +187,10 @@ SctpDataChannel::SctpDataChannel(
       observer_(nullptr),
       controller_(std::move(controller)),
       connected_to_transport_(connected_to_transport) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  // Note: May be constructed on the network thread so we can't
+  // check `controller_`.
   RTC_UNUSED(network_thread_);
   RTC_DCHECK(config.IsValid());
-  RTC_DCHECK(controller_);
 
   switch (config.open_handshake_role) {
     case InternalDataChannelInit::kNone:  // pre-negotiated
@@ -205,13 +202,6 @@ SctpDataChannel::SctpDataChannel(
     case InternalDataChannelInit::kAcker:
       handshake_state_ = kHandshakeShouldSendAck;
       break;
-  }
-
-  // Try to connect to the transport in case the transport channel already
-  // exists.
-  if (id_.HasValue() && connected_to_transport_) {
-    network_thread_->BlockingCall(
-        [c = controller_.get(), sid = id_] { c->AddSctpDataStream(sid); });
   }
 }
 
@@ -350,10 +340,6 @@ void SctpDataChannel::SetSctpSid(const StreamId& sid) {
   RTC_DCHECK_EQ(state_, kConnecting);
 
   id_ = sid;
-  if (connected_to_transport_) {
-    network_thread_->BlockingCall(
-        [c = controller_.get(), sid] { c->AddSctpDataStream(sid); });
-  }
 }
 
 void SctpDataChannel::OnClosingProcedureStartedRemotely() {
@@ -387,9 +373,7 @@ void SctpDataChannel::OnTransportChannelCreated() {
 
   connected_to_transport_ = true;
 
-  // The sid may have been unassigned when controller_->ConnectDataChannel was
-  // done. So always add the streams even if connected_to_transport_ is true.
-  if (id_.HasValue() && connected_to_transport_) {
+  if (id_.HasValue()) {
     network_thread_->BlockingCall(
         [c = controller_.get(), sid = id_] { c->AddSctpDataStream(sid); });
   }

@@ -132,6 +132,9 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
   void ChangeResolution(size_t width, size_t height);
   void ChangeFramerate(int target_framerate);
 
+  int GetFrameWidth() const override;
+  int GetFrameHeight() const override;
+
   struct Resolution {
     int width;
     int height;

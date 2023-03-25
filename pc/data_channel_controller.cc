@@ -121,10 +121,13 @@ void DataChannelController::OnChannelClosed(int channel_id) {
   StreamId sid(channel_id);
   sid_allocator_.ReleaseSid(sid);
   auto it = absl::c_find_if(sctp_data_channels_n_,
-                            [&](const auto& c) { return c->sid() == sid; });
+                            [&](const auto& c) { return c->sid_n() == sid; });
 
-  if (it != sctp_data_channels_n_.end())
+  if (it != sctp_data_channels_n_.end()) {
+    // TODO(tommi): Should we clear the `sid`` or leave it?
+    // (*it)->SetSctpSid_n(StreamId());
     sctp_data_channels_n_.erase(it);
+  }
 
   signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this, sid] {
     RTC_DCHECK_RUN_ON(signaling_thread());
@@ -349,17 +352,17 @@ void DataChannelController::AllocateSctpSids(rtc::SSLRole role) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> channels_to_close;
   for (const auto& channel : sctp_data_channels_) {
-    if (!channel->sid().HasValue()) {
+    if (!channel->sid_s().HasValue()) {
       StreamId sid = network_thread()->BlockingCall([&] {
         RTC_DCHECK_RUN_ON(network_thread());
         StreamId sid = sid_allocator_.AllocateSid(role);
+        auto it = absl::c_find_if(sctp_data_channels_n_,
+                                  [&](const auto& c) { return c == channel; });
+        RTC_DCHECK(it != sctp_data_channels_n_.end());
         if (sid.HasValue()) {
+          (*it)->SetSctpSid_n(sid);
           AddSctpDataStream(sid);
         } else {
-          auto it = absl::c_find_if(sctp_data_channels_n_, [&](const auto& c) {
-            return c == channel;
-          });
-          RTC_DCHECK(it != sctp_data_channels_n_.end());
           sctp_data_channels_n_.erase(it);
         }
         return sid;
@@ -382,7 +385,7 @@ void DataChannelController::OnSctpDataChannelClosed(SctpDataChannel* channel) {
   RTC_DCHECK_RUN_ON(signaling_thread());
 
   // TODO(tommi): `sid()` should be called on the network thread.
-  network_thread()->BlockingCall([&, sid = channel->sid()] {
+  network_thread()->BlockingCall([&, sid = channel->sid_s()] {
     RTC_DCHECK_RUN_ON(network_thread());
     // After the closing procedure is done, it's safe to use this ID for
     // another data channel.
@@ -466,6 +469,11 @@ void DataChannelController::NotifyDataChannelsOfTransportCreated() {
   // `SctpDataChannel::OnTransportChannelCreated` to here and be consistent
   // with other call sites to `AddSctpDataStream`. We're already
   // on the right (network) thread here.
+  for (const auto& channel : sctp_data_channels_n_) {
+    if (channel->sid_n().HasValue()) {
+      AddSctpDataStream(channel->sid_n());
+    }
+  }
 
   signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this] {
     RTC_DCHECK_RUN_ON(signaling_thread());
@@ -479,8 +487,9 @@ void DataChannelController::NotifyDataChannelsOfTransportCreated() {
 std::vector<rtc::scoped_refptr<SctpDataChannel>>::iterator
 DataChannelController::FindChannel(StreamId stream_id) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  return absl::c_find_if(sctp_data_channels_,
-                         [&](const auto& c) { return c->sid() == stream_id; });
+  return absl::c_find_if(sctp_data_channels_, [&](const auto& c) {
+    return c->sid_s() == stream_id;
+  });
 }
 
 rtc::Thread* DataChannelController::network_thread() const {

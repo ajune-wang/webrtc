@@ -269,7 +269,6 @@ class SctpDataChannel : public DataChannelInterface {
   HandshakeState handshake_state_ RTC_GUARDED_BY(signaling_thread_) =
       kHandshakeInit;
   bool connected_to_transport_ RTC_GUARDED_BY(signaling_thread_) = false;
-  bool writable_ RTC_GUARDED_BY(signaling_thread_) = false;
   // Did we already start the graceful SCTP closing procedure?
   bool started_closing_procedure_ RTC_GUARDED_BY(signaling_thread_) = false;
   // Control messages that always have to get sent out before any queued

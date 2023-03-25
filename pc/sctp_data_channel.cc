@@ -473,9 +473,7 @@ void SctpDataChannel::OnDataReceived(DataMessageType type,
 void SctpDataChannel::OnTransportReady() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
 
-  // TODO(tommi, hta): We don't need the `writable_` flag for SCTP datachannels.
-  // Remove it and just rely on `connected_to_transport_` instead.
-  // In practice the transport is configured inside
+  // TODO(bugs.webrtc.org/11547): The transport is configured inside
   // `PeerConnection::SetupDataChannelTransport_n`, which results in
   // `SctpDataChannel` getting the OnTransportChannelCreated callback, and then
   // that's immediately followed by calling `transport->SetDataSink` which is
@@ -486,7 +484,6 @@ void SctpDataChannel::OnTransportReady() {
   // be on for the below `Send*` calls, which currently do a BlockingCall
   // from the signaling thread to the network thread.
   RTC_DCHECK(connected_to_transport_);
-  writable_ = true;
 
   SendQueuedControlMessages();
   SendQueuedDataMessages();
@@ -542,8 +539,8 @@ void SctpDataChannel::UpdateState() {
           WriteDataChannelOpenAckMessage(&payload);
           SendControlMessage(payload);
         }
-        if (writable_ && (handshake_state_ == kHandshakeReady ||
-                          handshake_state_ == kHandshakeWaitingForAck)) {
+        if (handshake_state_ == kHandshakeReady ||
+            handshake_state_ == kHandshakeWaitingForAck) {
           SetState(kOpen);
           // If we have received buffers before the channel got writable.
           // Deliver them now.
@@ -715,7 +712,6 @@ void SctpDataChannel::QueueControlMessage(
 
 bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  RTC_DCHECK(writable_);
   RTC_DCHECK(connected_to_transport_);
   RTC_DCHECK(id_.HasValue());
 

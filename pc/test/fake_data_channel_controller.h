@@ -13,6 +13,7 @@
 
 #include <set>
 #include <string>
+#include <utility>
 
 #include "pc/sctp_data_channel.h"
 #include "rtc_base/checks.h"
@@ -37,10 +38,24 @@ class FakeDataChannelController
       absl::string_view label,
       webrtc::InternalDataChannelInit init,
       rtc::Thread* network_thread = rtc::Thread::Current()) {
+    rtc::WeakPtr<FakeDataChannelController> my_weak_ptr = weak_ptr();
+    // Explicitly associate the weak ptr instance with the current thread to
+    // catch early any inappropriate referencing of it on the network thread.
+    RTC_CHECK(my_weak_ptr);
+
     rtc::scoped_refptr<webrtc::SctpDataChannel> channel =
-        webrtc::SctpDataChannel::Create(weak_ptr(), std::string(label),
-                                        transport_available_, init,
-                                        signaling_thread_, network_thread);
+        network_thread->BlockingCall([&]() {
+          RTC_DCHECK_RUN_ON(network_thread);
+          rtc::scoped_refptr<webrtc::SctpDataChannel> channel =
+              webrtc::SctpDataChannel::Create(
+                  std::move(my_weak_ptr), std::string(label),
+                  transport_available_, init, signaling_thread_,
+                  network_thread);
+          if (transport_available_ && channel->sid().HasValue()) {
+            AddSctpDataStream(channel->sid());
+          }
+          return channel;
+        });
     if (ReadyToSendData()) {
       signaling_thread_->PostTask(
           SafeTask(signaling_safety_.flag(), [channel = channel] {

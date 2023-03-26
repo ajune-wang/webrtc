@@ -22,6 +22,10 @@
 namespace webrtc {
 
 DataChannelController::~DataChannelController() {
+  network_thread()->BlockingCall([&] {
+    RTC_DCHECK_RUN_ON(network_thread());
+    weak_factory_.InvalidateWeakPtrs();
+  });
 #if RTC_DCHECK_IS_ON
   // `sctp_data_channels_n_` might be empty while `sctp_data_channels_n_` is
   // not. An example of that is when the `DataChannelController` goes out of
@@ -73,7 +77,7 @@ void DataChannelController::RemoveSctpDataStream(StreamId sid) {
 void DataChannelController::OnChannelStateChanged(
     SctpDataChannel* channel,
     DataChannelInterface::DataState state) {
-  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_RUN_ON(network_thread());
   if (state == DataChannelInterface::DataState::kClosed)
     OnSctpDataChannelClosed(channel);
 
@@ -139,21 +143,15 @@ void DataChannelController::OnChannelClosed(int channel_id) {
 
 void DataChannelController::OnReadyToSend() {
   RTC_DCHECK_RUN_ON(network_thread());
-  signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this] {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    auto copy = sctp_data_channels_;
-    for (const auto& channel : copy)
-      channel->OnTransportReady();
-  }));
+  auto copy = sctp_data_channels_n_;
+  for (const auto& channel : copy)
+    channel->OnTransportReady();
 }
 
 void DataChannelController::OnTransportClosed(RTCError error) {
   RTC_DCHECK_RUN_ON(network_thread());
-  signaling_thread()->PostTask(
-      SafeTask(signaling_safety_.flag(), [this, error] {
-        RTC_DCHECK_RUN_ON(signaling_thread());
-        OnTransportChannelClosed(error);
-      }));
+  for (const auto& channel : sctp_data_channels_n_)
+    channel->OnTransportChannelClosed(error);
 }
 
 void DataChannelController::SetupDataChannelTransport_n() {
@@ -167,6 +165,7 @@ void DataChannelController::SetupDataChannelTransport_n() {
 
 void DataChannelController::TeardownDataChannelTransport_n() {
   RTC_DCHECK_RUN_ON(network_thread());
+
   if (data_channel_transport()) {
     data_channel_transport()->SetDataSink(nullptr);
   }
@@ -285,11 +284,11 @@ DataChannelController::InternalCreateDataChannelWithProxy(
   bool ready_to_send = false;
   InternalDataChannelInit new_config = config;
   StreamId sid(new_config.id);
-  auto weak_ptr = weak_factory_.GetWeakPtr();
-  RTC_DCHECK(weak_ptr);  // Associate with current thread.
   auto ret = network_thread()->BlockingCall(
       [&]() -> RTCErrorOr<rtc::scoped_refptr<SctpDataChannel>> {
         RTC_DCHECK_RUN_ON(network_thread());
+        auto weak_ptr = weak_factory_.GetWeakPtr();
+        RTC_DCHECK(weak_ptr);  // Associate with current thread.
         RTCError err = ReserveOrAllocateSid(sid, new_config.fallback_ssl_role);
         if (!err.ok())
           return err;
@@ -367,40 +366,32 @@ void DataChannelController::AllocateSctpSids(rtc::SSLRole role) {
 }
 
 void DataChannelController::OnSctpDataChannelClosed(SctpDataChannel* channel) {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-
-  network_thread()->BlockingCall([&] {
-    RTC_DCHECK_RUN_ON(network_thread());
-    // After the closing procedure is done, it's safe to use this ID for
-    // another data channel.
-    if (channel->sid_n().HasValue()) {
-      sid_allocator_.ReleaseSid(channel->sid_n());
-    }
-
-    auto it = absl::c_find_if(sctp_data_channels_n_, [&](const auto& c) {
-      return c.get() == channel;
-    });
-
-    if (it != sctp_data_channels_n_.end())
-      sctp_data_channels_n_.erase(it);
-  });
-
-  for (auto it = sctp_data_channels_.begin(); it != sctp_data_channels_.end();
-       ++it) {
-    if (it->get() == channel) {
-      // Since this method is triggered by a signal from the DataChannel,
-      // we can't free it directly here; we need to free it asynchronously.
-      rtc::scoped_refptr<SctpDataChannel> release = std::move(*it);
-      sctp_data_channels_.erase(it);
-      signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(),
-                                            [release = std::move(release)] {}));
-      return;
-    }
+  RTC_DCHECK_RUN_ON(network_thread());
+  // After the closing procedure is done, it's safe to use this ID for
+  // another data channel.
+  if (channel->sid_n().HasValue()) {
+    sid_allocator_.ReleaseSid(channel->sid_n());
   }
+
+  auto it = absl::c_find_if(sctp_data_channels_n_,
+                            [&](const auto& c) { return c.get() == channel; });
+
+  if (it != sctp_data_channels_n_.end())
+    sctp_data_channels_n_.erase(it);
+
+  signaling_thread()->PostTask(
+      SafeTask(signaling_safety_.flag(), [this, channel] {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        auto it = absl::c_find_if(sctp_data_channels_, [&](const auto& c) {
+          return c.get() == channel;
+        });
+        if (it != sctp_data_channels_.end())
+          sctp_data_channels_.erase(it);
+      }));
 }
 
 void DataChannelController::OnTransportChannelClosed(RTCError error) {
-  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_RUN_ON(network_thread());
   // Use a temporary copy of the SCTP DataChannel list because the
   // DataChannel may callback to us and try to modify the list.
   // TODO(tommi): `OnTransportChannelClosed` is called from
@@ -410,10 +401,15 @@ void DataChannelController::OnTransportChannelClosed(RTCError error) {
   // we can get rid of this function (OnTransportChannelClosed) and run this
   // loop from within the TeardownDataChannelTransport_n callback.
   std::vector<rtc::scoped_refptr<SctpDataChannel>> temp_sctp_dcs;
-  temp_sctp_dcs.swap(sctp_data_channels_);
+  temp_sctp_dcs.swap(sctp_data_channels_n_);
   for (const auto& channel : temp_sctp_dcs) {
     channel->OnTransportChannelClosed(error);
   }
+
+  signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this] {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+    sctp_data_channels_.clear();
+  }));
 }
 
 DataChannelTransportInterface* DataChannelController::data_channel_transport()
@@ -434,16 +430,10 @@ RTCError DataChannelController::DataChannelSendData(
     StreamId sid,
     const SendDataParams& params,
     const rtc::CopyOnWriteBuffer& payload) {
-  // TODO(bugs.webrtc.org/11547): Expect method to be called on the network
-  // thread instead. Remove the BlockingCall() below and move associated state
-  // to the network thread.
-  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(data_channel_transport());
-
-  return network_thread()->BlockingCall([this, sid, params, payload] {
-    return data_channel_transport()->SendData(sid.stream_id_int(), params,
-                                              payload);
-  });
+  return data_channel_transport()->SendData(sid.stream_id_int(), params,
+                                            payload);
 }
 
 void DataChannelController::NotifyDataChannelsOfTransportCreated() {
@@ -453,14 +443,8 @@ void DataChannelController::NotifyDataChannelsOfTransportCreated() {
   for (const auto& channel : sctp_data_channels_n_) {
     if (channel->sid_n().HasValue())
       AddSctpDataStream(channel->sid_n());
+    channel->OnTransportChannelCreated();
   }
-
-  signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this] {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    for (const auto& channel : sctp_data_channels_) {
-      channel->OnTransportChannelCreated();
-    }
-  }));
 }
 
 std::vector<rtc::scoped_refptr<SctpDataChannel>>::iterator

@@ -5083,11 +5083,10 @@ void SdpOfferAnswerHandler::DestroyDataChannelTransport(RTCError error) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   const bool has_sctp = pc_->sctp_mid().has_value();
 
-  if (has_sctp)
-    data_channel_controller()->OnTransportChannelClosed(error);
-
-  context_->network_thread()->BlockingCall([this] {
+  context_->network_thread()->BlockingCall([&] {
     RTC_DCHECK_RUN_ON(context_->network_thread());
+    if (has_sctp)
+      data_channel_controller()->OnTransportChannelClosed(error);
     pc_->TeardownDataChannelTransport_n();
   });
 

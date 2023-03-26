@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "545616fb_0f8a2b1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "One nit that might matter (BEGIN_PROXY_MAP), the rest are small nits.\n\nA few questions about the need to do BlockingCall when the function callling it doesn\u0027t check the result and doesn\u0027t return a value - the network thread sequences those things anyway.\n\nHigh level comment: When I hacked DataChannelController out of PeerConnection, I left it without much in the way of guards since it was a single thread object - all the methods were called on the signalling thread. Now that this is no longer true, the thread model of the object needs to be explicitly described.\n\nWe will be looking for opportunities to move its state variables to the network thread where appropriate, too.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42108d3c_494cee57",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "I suppose there are still accessors on the signaling thread, so we can\u0027t activate this RTC_DCHECK yet?",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25936920_5941a00f",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "Remove TODO?",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c130a4d_be3c767b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "The difference between PRIMARY and non-PRIMARY proxy maps is that the non-PRIMARY map is more complicated, because it knows of a secondary thread.\n\nSo unless you have stuff dispatched to the secondary, BEGIN_PRIMARY_PROXY_MAP should be preferred.\n\n(And we should rename BEGIN_PRIMARY_PROXY_MAP to BEGIN_ONE_THREAD_PROXY_MAP, and rename BEGIN_PROXY_MAP to BEGIN_TWO_THREAD_PROXY_MAP. So many misleading names to fix....)",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c33c9aa_68675967",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "Given that we don\u0027t return a value, so the caller can\u0027t tell whether it succeeded or not, is there good reason (apart from being cautious) to not make this a PostTask?\n\nIf it\u0027s just out of an abundance of caution, add a TODO.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613aa92f_745a77d1",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "Same comment about the need to block here.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d83d207_4524ea42",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "082501c3_58e644e3",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d735a6b_8ecd1780",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-26T22:14:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we should need the uppercase NOTE here. It\u0027s information.\nYou should add in the class comment that \"Except where noted, methods are called on the thread that created the object.\"\n\n(There is no class comment. Good idea to add one!)",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

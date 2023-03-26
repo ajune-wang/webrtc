@@ -81,17 +81,27 @@ class SctpDataChannelTest : public ::testing::Test {
     network_thread_.Start();
     webrtc_data_channel_ =
         controller_->CreateDataChannel("test", init_, &network_thread_);
+    proxy_ = webrtc::SctpDataChannel::CreateProxy(webrtc_data_channel_);
   }
   ~SctpDataChannelTest() override {
+    proxy_ = nullptr;
     run_loop_.Flush();
     network_thread_.Stop();
   }
 
   void SetChannelReady() {
     controller_->set_transport_available(true);
-    webrtc_data_channel_->OnTransportChannelCreated();
+    StreamId sid(0);
+    network_thread_.BlockingCall([&]() {
+      RTC_DCHECK_RUN_ON(&network_thread_);
+      if (!webrtc_data_channel_->sid_n().HasValue()) {
+        webrtc_data_channel_->SetSctpSid_n(sid);
+        controller_->AddSctpDataStream(sid);
+      }
+      webrtc_data_channel_->OnTransportChannelCreated();
+    });
     if (!webrtc_data_channel_->sid_s().HasValue()) {
-      SetChannelSid(webrtc_data_channel_.get(), StreamId(0));
+      webrtc_data_channel_->SetSctpSid(sid);
     }
     controller_->set_ready_to_send(true);
   }
@@ -110,7 +120,7 @@ class SctpDataChannelTest : public ::testing::Test {
 
   void AddObserver() {
     observer_.reset(new FakeDataChannelObserver());
-    webrtc_data_channel_->RegisterObserver(observer_.get());
+    proxy_->RegisterObserver(observer_.get());
   }
 
   test::RunLoop run_loop_;
@@ -119,6 +129,7 @@ class SctpDataChannelTest : public ::testing::Test {
   std::unique_ptr<FakeDataChannelController> controller_;
   std::unique_ptr<FakeDataChannelObserver> observer_;
   rtc::scoped_refptr<SctpDataChannel> webrtc_data_channel_;
+  rtc::scoped_refptr<DataChannelInterface> proxy_;
 };
 
 TEST_F(SctpDataChannelTest, VerifyConfigurationGetters) {
@@ -193,10 +204,10 @@ TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {
   AddObserver();
   SetChannelReady();
   DataBuffer buffer("abcd");
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffer));
+  EXPECT_TRUE(proxy_->Send(buffer));
   size_t successful_send_count = 1;
 
-  EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
+  EXPECT_EQ(0U, proxy_->buffered_amount());
   EXPECT_EQ(successful_send_count,
             observer_->on_buffered_amount_change_count());
 
@@ -204,16 +215,15 @@ TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {
 
   const int number_of_packets = 3;
   for (int i = 0; i < number_of_packets; ++i) {
-    EXPECT_TRUE(webrtc_data_channel_->Send(buffer));
+    EXPECT_TRUE(proxy_->Send(buffer));
   }
-  EXPECT_EQ(buffer.data.size() * number_of_packets,
-            webrtc_data_channel_->buffered_amount());
+  EXPECT_EQ(buffer.data.size() * number_of_packets, proxy_->buffered_amount());
   EXPECT_EQ(successful_send_count,
             observer_->on_buffered_amount_change_count());
 
   controller_->set_send_blocked(false);
   successful_send_count += number_of_packets;
-  EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
+  EXPECT_EQ(0U, proxy_->buffered_amount());
   EXPECT_EQ(successful_send_count,
             observer_->on_buffered_amount_change_count());
 }

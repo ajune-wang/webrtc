@@ -116,6 +116,18 @@ class DataChannelController : public SctpDataChannelControllerInterface,
                                 const InternalDataChannelInit& config)
       RTC_RUN_ON(signaling_thread());
 
+  // Accepts a `StreamId` which may be pre-negotiated or unassigned. For
+  // pre-negotiated IDs, attempts to reserve the id in the allocation pool,
+  // for unassigned IDs attempts to generate a new ID if possible. Returns
+  // RTCError::OK() if the `sid` is reserved (and may have been generated) or
+  // if not enough information exists to generate an ID, in which case the `sid`
+  // will still be unassigned upon return, but will be assigned later.
+  // If the ID pool has been exhausted or an id has already been reserved, an
+  // error will be returned.
+  RTCError ReserveOrAllocateSid(StreamId& sid,
+                                absl::optional<rtc::SSLRole> fallback_ssl_role)
+      RTC_RUN_ON(network_thread());
+
   // Called from SendData when data_channel_transport() is true.
   RTCError DataChannelSendData(StreamId sid,
                                const SendDataParams& params,
@@ -142,9 +154,15 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   bool data_channel_transport_ready_to_send_
       RTC_GUARDED_BY(signaling_thread()) = false;
 
-  SctpSidAllocator sid_allocator_;
+  SctpSidAllocator sid_allocator_ RTC_GUARDED_BY(network_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_
       RTC_GUARDED_BY(signaling_thread());
+  // TODO(bugs.webrtc.org/11547): This vector will eventually take over from
+  // `sctp_data_channels_`. While we're migrating away from thread hops
+  // between the signaling and network threads, we need both, so this is
+  // a temporary situation.
+  std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_n_
+      RTC_GUARDED_BY(network_thread());
   bool has_used_data_channels_ RTC_GUARDED_BY(signaling_thread()) = false;
 
   // Owning PeerConnection.

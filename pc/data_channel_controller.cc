@@ -70,11 +70,6 @@ void DataChannelController::RemoveSctpDataStream(StreamId sid) {
   }
 }
 
-bool DataChannelController::ReadyToSendData() const {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  return (data_channel_transport() && data_channel_transport_ready_to_send_);
-}
-
 void DataChannelController::OnChannelStateChanged(
     SctpDataChannel* channel,
     DataChannelInterface::DataState state) {
@@ -144,13 +139,9 @@ void DataChannelController::OnChannelClosed(int channel_id) {
 
 void DataChannelController::OnReadyToSend() {
   RTC_DCHECK_RUN_ON(network_thread());
-  signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this] {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    data_channel_transport_ready_to_send_ = true;
-    auto copy = sctp_data_channels_;
-    for (const auto& channel : copy)
-      channel->OnTransportReady();
-  }));
+  auto copy = sctp_data_channels_n_;
+  for (const auto& channel : copy)
+    channel->OnTransportReady();
 }
 
 void DataChannelController::OnTransportClosed(RTCError error) {
@@ -459,14 +450,8 @@ void DataChannelController::NotifyDataChannelsOfTransportCreated() {
   for (const auto& channel : sctp_data_channels_n_) {
     if (channel->sid_n().HasValue())
       AddSctpDataStream(channel->sid_n());
+    channel->OnTransportChannelCreated();
   }
-
-  signaling_thread()->PostTask(SafeTask(signaling_safety_.flag(), [this] {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    for (const auto& channel : sctp_data_channels_) {
-      channel->OnTransportChannelCreated();
-    }
-  }));
 }
 
 std::vector<rtc::scoped_refptr<SctpDataChannel>>::iterator

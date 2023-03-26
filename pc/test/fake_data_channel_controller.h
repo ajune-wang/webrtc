@@ -56,7 +56,7 @@ class FakeDataChannelController
           }
           return channel;
         });
-    if (ReadyToSendData()) {
+    if (ready_to_send_) {
       signaling_thread_->PostTask(
           SafeTask(signaling_safety_.flag(), [channel = channel] {
             if (channel->state() !=
@@ -112,8 +112,6 @@ class FakeDataChannelController
         (*it)->OnClosingProcedureComplete();
     }));
   }
-
-  bool ReadyToSendData() const override { return ready_to_send_; }
 
   void OnChannelStateChanged(
       webrtc::SctpDataChannel* data_channel,

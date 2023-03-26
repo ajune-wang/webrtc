@@ -52,7 +52,6 @@ class DataChannelController : public SctpDataChannelControllerInterface,
                     const rtc::CopyOnWriteBuffer& payload) override;
   void AddSctpDataStream(StreamId sid) override;
   void RemoveSctpDataStream(StreamId sid) override;
-  bool ReadyToSendData() const override;
   void OnChannelStateChanged(SctpDataChannel* channel,
                              DataChannelInterface::DataState state) override;
 
@@ -145,10 +144,6 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   // TODO(bugs.webrtc.org/9987): Accessed on both signaling and network
   // thread.
   DataChannelTransportInterface* data_channel_transport_ = nullptr;
-
-  // Cached value of whether the data channel transport is ready to send.
-  bool data_channel_transport_ready_to_send_
-      RTC_GUARDED_BY(signaling_thread()) = false;
 
   SctpSidAllocator sid_allocator_ RTC_GUARDED_BY(network_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_

@@ -238,6 +238,7 @@ VideoBitrateAllocation SvcRateAllocator::Allocate(
   const ActiveSpatialLayers active_layers =
       GetActiveSpatialLayers(codec_, num_layers_.spatial);
   size_t num_spatial_layers = active_layers.num;
+  // RTC_LOG(LS_ERROR) << "num_spatial_layers = " << num_spatial_layers;
 
   if (num_spatial_layers == 0) {
     return VideoBitrateAllocation();  // All layers are deactivated.
@@ -266,6 +267,7 @@ VideoBitrateAllocation SvcRateAllocator::Allocate(
     }
   } else {
     num_spatial_layers = FindNumEnabledLayers(total_bitrate);
+    // RTC_LOG(LS_ERROR) << " -> " << num_spatial_layers;
   }
   last_active_layer_count_ = num_spatial_layers;
 
@@ -285,6 +287,10 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocationNormalVideo(
     DataRate total_bitrate,
     size_t first_active_layer,
     size_t num_spatial_layers) const {
+  // RTC_LOG(LS_ERROR)
+  //     << "SvcRateAllocator: " << first_active_layer
+  //     << ", num spatial: " << num_spatial_layers;
+
   std::vector<DataRate> spatial_layer_rates;
   if (num_spatial_layers == 0) {
     // Not enough rate for even the base layer. Force allocation at the total
@@ -333,6 +339,8 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocationNormalVideo(
     }
   }
 
+  // RTC_LOG(LS_ERROR) << "bitrate_allocation: " <<
+  // bitrate_allocation.ToString();
   return bitrate_allocation;
 }
 
@@ -396,6 +404,9 @@ size_t SvcRateAllocator::FindNumEnabledLayers(DataRate target_rate) const {
     if (num_enabled_layers == 0 || start_rate <= target_rate) {
       ++num_enabled_layers;
     } else {
+      // RTC_LOG(LS_ERROR) << "num_enabled_layers is " << num_enabled_layers
+      //                   << " because " << start_rate.bps() << " > "
+      //                   << target_rate.bps();
       break;
     }
   }

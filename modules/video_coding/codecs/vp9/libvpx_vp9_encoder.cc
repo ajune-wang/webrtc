@@ -338,6 +338,9 @@ bool LibvpxVp9Encoder::SetSvcRates(
       const bool was_layer_active = (config_->ss_target_bitrate[sl_idx] > 0);
       config_->ss_target_bitrate[sl_idx] =
           bitrate_allocation.GetSpatialLayerSum(sl_idx) / 1000;
+      // RTC_LOG(LS_ERROR)
+      //     << "config_->ss_target_bitrate[" << sl_idx << "]: " <<
+      //     config_->ss_target_bitrate[sl_idx];
 
       for (size_t tl_idx = 0; tl_idx < num_temporal_layers_; ++tl_idx) {
         config_->layer_target_bitrate[sl_idx * num_temporal_layers_ + tl_idx] =
@@ -401,6 +404,8 @@ bool LibvpxVp9Encoder::SetSvcRates(
   bool expect_no_more_active_layers = false;
   for (int i = 0; i < num_spatial_layers_; ++i) {
     if (config_->ss_target_bitrate[i] > 0) {
+      // RTC_LOG(LS_ERROR) << "[hbos] s[" << i
+      //                   << "] target: " << config_->ss_target_bitrate[i];
       RTC_DCHECK(!expect_no_more_active_layers) << "Only middle layer is "
                                                    "deactivated.";
       if (!seen_active_layer) {
@@ -409,6 +414,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
       num_active_spatial_layers_ = i + 1;
       seen_active_layer = true;
     } else {
+      // RTC_LOG(LS_ERROR) << "[hbos] s[" << i << "] target: ZERO";
       expect_no_more_active_layers = seen_active_layer;
     }
   }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fb5c60_6fd01b98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-27T18:15:02Z",
+      "side": 1,
+      "message": "Does the Presubmit bot actually allow this? (I\u0027m fine with it if it does, it\u0027s just surprising to me, but I\u0027m not as familiar with the quirks of the webrtc infra as I am the chrome)",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 9
+      },
+      "revId": "63c9322d918005373c7d06634436cbbc462f5873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "186a02c3_b959f5b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-27T18:15:02Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "63c9322d918005373c7d06634436cbbc462f5873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

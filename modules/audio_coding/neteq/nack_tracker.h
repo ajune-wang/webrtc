@@ -72,8 +72,7 @@ class NackTracker {
   // After Reset() is called sampling rate has to be set.
   void UpdateSampleRate(int sample_rate_hz);
 
-  // Update the sequence number and the timestamp of the last decoded RTP. This
-  // API should be called every time 10 ms audio is pulled from NetEq.
+  // Update the sequence number and the timestamp of the last decoded RTP.
   void UpdateLastDecodedPacket(uint16_t sequence_number, uint32_t timestamp);
 
   // Update the sequence number and the timestamp of the last received RTP. This

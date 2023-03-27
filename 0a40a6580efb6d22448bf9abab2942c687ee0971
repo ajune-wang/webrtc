@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f492da_34891841",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "There\u0027s a lot of stuff on the way that will change this and move the state to the network thread - do you have any plans? If you do, it\u0027s very likely they\u0027ll overlap with what I\u0027m working on so let\u0027s make sure that\u0027s in sync.",
+      "parentUuid": "545616fb_0f8a2b1c",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42108d3c_494cee57",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "246d0847_bc589bfa",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Yes there are still call sites, and some are in the PeerConnection code, not here.",
+      "parentUuid": "42108d3c_494cee57",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25936920_5941a00f",
         "filename": "pc/rtc_stats_collector_unittest.cc",
         "patchSetId": 38
@@ -48,6 +84,24 @@
       "writtenOn": "2023-03-26T22:14:50Z",
       "side": 1,
       "message": "Remove TODO?",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd938bc2_a6135f36",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25936920_5941a00f",
       "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16ce9e02_eb02dfa8",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Follow-up CLs will start moving the methods to the network/secondary thread.\nSince this CL introduces the network thread to several concepts, initializing the controller, channel etc with a valid network thread, so I grouped the initialization of the proxy to align with that. You can get a preview of some of the CLs that are coming up in the \"Relation chain\" on the right side, where this will come more into play.",
+      "parentUuid": "3c130a4d_be3c767b",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c33c9aa_68675967",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 38
@@ -82,6 +154,24 @@
       "writtenOn": "2023-03-26T22:14:50Z",
       "side": 1,
       "message": "Given that we don\u0027t return a value, so the caller can\u0027t tell whether it succeeded or not, is there good reason (apart from being cautious) to not make this a PostTask?\n\nIf it\u0027s just out of an abundance of caution, add a TODO.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bff6c27b_10e2bdd3",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "In upcoming CLs, the calls to AddSctpDataStream/RemoveSctpDataStream move over to the controller and run without needing a dedicated task.",
+      "parentUuid": "1c33c9aa_68675967",
       "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c9b5279_a6e04e7b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Ack. See here for a preview of how this will move over to the controller (CL not sent out for review yet):\nhttps://webrtc-review.googlesource.com/c/src/+/298624/33/pc/data_channel_controller.cc",
+      "parentUuid": "613aa92f_745a77d1",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d83d207_4524ea42",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 38
@@ -116,6 +224,24 @@
       "writtenOn": "2023-03-26T22:14:50Z",
       "side": 1,
       "message": "And here.",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a829286_77d05970",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4d83d207_4524ea42",
       "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +263,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aee9d660_b14a2dc5",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "082501c3_58e644e3",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d735a6b_8ecd1780",
@@ -150,6 +294,24 @@
       "writtenOn": "2023-03-26T22:14:50Z",
       "side": 1,
       "message": "I don\u0027t think we should need the uppercase NOTE here. It\u0027s information.\nYou should add in the class comment that \"Except where noted, methods are called on the thread that created the object.\"\n\n(There is no class comment. Good idea to add one!)",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2a22dd_23cb53b0",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T10:35:10Z",
+      "side": 1,
+      "message": "Eventually all the methods will be called on the network thread. I figured that having a call-out here while we\u0027re in the migration phase would be a useful explicit reminder.\nAdded a short class level comment that describes the purpose of this interface.",
+      "parentUuid": "2d735a6b_8ecd1780",
       "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

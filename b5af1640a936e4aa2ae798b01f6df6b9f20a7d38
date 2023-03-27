@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "497f2639_2e73a813",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2023-03-27T08:48:37Z",
+      "side": 1,
+      "message": "I noticed that your cr-buildbucket.cfg has `luci.buildbucket.omit_python2` experiment.\n\nIf you use this, please follow go/luci/migrations/builder_py3#phase-1-optional-opt-out-python2-removal-from-path\nOtherwise, your builders might be broken around the end of this April without further notice.",
+      "revId": "b5af1640a936e4aa2ae798b01f6df6b9f20a7d38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

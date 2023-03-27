@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a030192f_44b417d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-27T18:20:27Z",
+      "side": 1,
+      "message": "Yes it is fine. I was not able to come up with a catchy name for this small activity and was not sure if you perhaps wanted to remove the Magnifier API at some point.",
+      "parentUuid": "e1fb5c60_6fd01b98",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 9
+      },
+      "revId": "63c9322d918005373c7d06634436cbbc462f5873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "186a02c3_b959f5b7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7

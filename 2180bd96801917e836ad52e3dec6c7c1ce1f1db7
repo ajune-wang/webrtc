@@ -34,6 +34,24 @@
       "parentUuid": "7eb8af40_eff97015",
       "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76d12ce_b6028b71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-27T15:36:25Z",
+      "side": 1,
+      "message": "I think documenting it will be good. User should know if method will crash or not. Regarding testing - I\u0027m fine considering it simple enough to skip it",
+      "parentUuid": "e554fe74_984bc23b",
+      "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

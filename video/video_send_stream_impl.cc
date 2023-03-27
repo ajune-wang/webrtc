@@ -502,7 +502,8 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
     double stream_bitrate_priority_sum = 0;
     for (const auto& stream : streams) {
       // We don't want to allocate more bitrate than needed to inactive streams.
-      encoder_max_bitrate_bps_ += stream.active ? stream.max_bitrate_bps : 0;
+      // encoder_max_bitrate_bps_ += stream.active ? stream.max_bitrate_bps : 0;
+      encoder_max_bitrate_bps_ += stream.max_bitrate_bps;
       if (stream.bitrate_priority) {
         RTC_DCHECK_GT(*stream.bitrate_priority, 0);
         stream_bitrate_priority_sum += *stream.bitrate_priority;
@@ -590,6 +591,11 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(BitrateAllocationUpdate update) {
   RTC_DCHECK_RUN_ON(rtp_transport_queue_);
   RTC_DCHECK(rtp_video_sender_->IsActive())
       << "VideoSendStream::Start has not been called.";
+
+  // RTC_LOG(LS_ERROR) << "target_bitrate = " << update.target_bitrate.bps();
+  // RTC_LOG(LS_ERROR) << "encoder_target_rate_bps_ = " <<
+  // encoder_target_rate_bps_; RTC_LOG(LS_ERROR) << "encoder_max_bitrate_bps_ =
+  // " << encoder_max_bitrate_bps_;
 
   // When the BWE algorithm doesn't pass a stable estimate, we'll use the
   // unstable one instead.

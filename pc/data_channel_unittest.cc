@@ -80,17 +80,30 @@ class SctpDataChannelTest : public ::testing::Test {
         controller_(new FakeDataChannelController(&network_thread_)) {
     network_thread_.Start();
     webrtc_data_channel_ = controller_->CreateDataChannel("test", init_);
+    proxy_ = webrtc::SctpDataChannel::CreateProxy(webrtc_data_channel_);
   }
   ~SctpDataChannelTest() override {
+    proxy_ = nullptr;
     run_loop_.Flush();
+    webrtc_data_channel_ = nullptr;
+    controller_.reset();
+    observer_.reset();
     network_thread_.Stop();
   }
 
   void SetChannelReady() {
     controller_->set_transport_available(true);
-    webrtc_data_channel_->OnTransportChannelCreated();
+    StreamId sid(0);
+    network_thread_.BlockingCall([&]() {
+      RTC_DCHECK_RUN_ON(&network_thread_);
+      if (!webrtc_data_channel_->sid_n().HasValue()) {
+        webrtc_data_channel_->SetSctpSid_n(sid);
+        controller_->AddSctpDataStream(sid);
+      }
+      webrtc_data_channel_->OnTransportChannelCreated();
+    });
     if (!webrtc_data_channel_->sid_s().HasValue()) {
-      SetChannelSid(webrtc_data_channel_.get(), StreamId(0));
+      webrtc_data_channel_->SetSctpSid(sid);
     }
     controller_->set_ready_to_send(true);
   }
@@ -109,7 +122,7 @@ class SctpDataChannelTest : public ::testing::Test {
 
   void AddObserver() {
     observer_.reset(new FakeDataChannelObserver());
-    webrtc_data_channel_->RegisterObserver(observer_.get());
+    proxy_->RegisterObserver(observer_.get());
   }
 
   test::RunLoop run_loop_;
@@ -118,6 +131,7 @@ class SctpDataChannelTest : public ::testing::Test {
   std::unique_ptr<FakeDataChannelController> controller_;
   std::unique_ptr<FakeDataChannelObserver> observer_;
   rtc::scoped_refptr<SctpDataChannel> webrtc_data_channel_;
+  rtc::scoped_refptr<DataChannelInterface> proxy_;
 };
 
 TEST_F(SctpDataChannelTest, VerifyConfigurationGetters) {
@@ -165,23 +179,23 @@ TEST_F(SctpDataChannelTest, ConnectedToTransportOnCreated) {
 TEST_F(SctpDataChannelTest, StateTransition) {
   AddObserver();
 
-  EXPECT_EQ(DataChannelInterface::kConnecting, webrtc_data_channel_->state());
+  EXPECT_EQ(DataChannelInterface::kConnecting, proxy_->state());
   EXPECT_EQ(observer_->on_state_change_count(), 0u);
   SetChannelReady();
 
-  EXPECT_EQ(DataChannelInterface::kOpen, webrtc_data_channel_->state());
+  EXPECT_EQ(DataChannelInterface::kOpen, proxy_->state());
   EXPECT_EQ(observer_->on_state_change_count(), 1u);
 
   // `Close()` should trigger two state changes, first `kClosing`, then
   // `kClose`.
-  webrtc_data_channel_->Close();
+  proxy_->Close();
   // The (simulated) transport close notifications runs on the network thread
   // and posts a completion notification to the signaling (current) thread.
   // Allow that ooperation to complete before checking the state.
   run_loop_.Flush();
-  EXPECT_EQ(DataChannelInterface::kClosed, webrtc_data_channel_->state());
+  EXPECT_EQ(DataChannelInterface::kClosed, proxy_->state());
   EXPECT_EQ(observer_->on_state_change_count(), 3u);
-  EXPECT_TRUE(webrtc_data_channel_->error().ok());
+  EXPECT_TRUE(proxy_->error().ok());
   // Verifies that it's disconnected from the transport.
   EXPECT_FALSE(controller_->IsConnected(webrtc_data_channel_.get()));
 }
@@ -192,10 +206,10 @@ TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {
   AddObserver();
   SetChannelReady();
   DataBuffer buffer("abcd");
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffer));
+  EXPECT_TRUE(proxy_->Send(buffer));
   size_t successful_send_count = 1;
 
-  EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
+  EXPECT_EQ(0U, proxy_->buffered_amount());
   EXPECT_EQ(successful_send_count,
             observer_->on_buffered_amount_change_count());
 
@@ -203,16 +217,15 @@ TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {
 
   const int number_of_packets = 3;
   for (int i = 0; i < number_of_packets; ++i) {
-    EXPECT_TRUE(webrtc_data_channel_->Send(buffer));
+    EXPECT_TRUE(proxy_->Send(buffer));
   }
-  EXPECT_EQ(buffer.data.size() * number_of_packets,
-            webrtc_data_channel_->buffered_amount());
+  EXPECT_EQ(buffer.data.size() * number_of_packets, proxy_->buffered_amount());
   EXPECT_EQ(successful_send_count,
             observer_->on_buffered_amount_change_count());
 
   controller_->set_send_blocked(false);
   successful_send_count += number_of_packets;
-  EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
+  EXPECT_EQ(0U, proxy_->buffered_amount());
   EXPECT_EQ(successful_send_count,
             observer_->on_buffered_amount_change_count());
 }
@@ -271,36 +284,36 @@ TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesSent) {
   });
 
   // Default values.
-  EXPECT_EQ(0U, webrtc_data_channel_->messages_sent());
-  EXPECT_EQ(0U, webrtc_data_channel_->bytes_sent());
+  EXPECT_EQ(0U, proxy_->messages_sent());
+  EXPECT_EQ(0U, proxy_->bytes_sent());
 
   // Send three buffers while not blocked.
   controller_->set_send_blocked(false);
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffers[0]));
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffers[1]));
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffers[2]));
+  EXPECT_TRUE(proxy_->Send(buffers[0]));
+  EXPECT_TRUE(proxy_->Send(buffers[1]));
+  EXPECT_TRUE(proxy_->Send(buffers[2]));
   size_t bytes_sent = buffers[0].size() + buffers[1].size() + buffers[2].size();
-  EXPECT_EQ_WAIT(0U, webrtc_data_channel_->buffered_amount(), kDefaultTimeout);
-  EXPECT_EQ(3U, webrtc_data_channel_->messages_sent());
-  EXPECT_EQ(bytes_sent, webrtc_data_channel_->bytes_sent());
+  EXPECT_EQ_WAIT(0U, proxy_->buffered_amount(), kDefaultTimeout);
+  EXPECT_EQ(3U, proxy_->messages_sent());
+  EXPECT_EQ(bytes_sent, proxy_->bytes_sent());
 
   // Send three buffers while blocked, queuing the buffers.
   controller_->set_send_blocked(true);
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffers[3]));
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffers[4]));
-  EXPECT_TRUE(webrtc_data_channel_->Send(buffers[5]));
+  EXPECT_TRUE(proxy_->Send(buffers[3]));
+  EXPECT_TRUE(proxy_->Send(buffers[4]));
+  EXPECT_TRUE(proxy_->Send(buffers[5]));
   size_t bytes_queued =
       buffers[3].size() + buffers[4].size() + buffers[5].size();
-  EXPECT_EQ(bytes_queued, webrtc_data_channel_->buffered_amount());
-  EXPECT_EQ(3U, webrtc_data_channel_->messages_sent());
-  EXPECT_EQ(bytes_sent, webrtc_data_channel_->bytes_sent());
+  EXPECT_EQ(bytes_queued, proxy_->buffered_amount());
+  EXPECT_EQ(3U, proxy_->messages_sent());
+  EXPECT_EQ(bytes_sent, proxy_->bytes_sent());
 
   // Unblock and make sure everything was sent.
   controller_->set_send_blocked(false);
-  EXPECT_EQ_WAIT(0U, webrtc_data_channel_->buffered_amount(), kDefaultTimeout);
+  EXPECT_EQ_WAIT(0U, proxy_->buffered_amount(), kDefaultTimeout);
   bytes_sent += bytes_queued;
-  EXPECT_EQ(6U, webrtc_data_channel_->messages_sent());
-  EXPECT_EQ(bytes_sent, webrtc_data_channel_->bytes_sent());
+  EXPECT_EQ(6U, proxy_->messages_sent());
+  EXPECT_EQ(bytes_sent, proxy_->bytes_sent());
 }
 
 // Tests that the queued control message is sent when channel is ready.
@@ -473,33 +486,39 @@ TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesReceived) {
   SetChannelSid(webrtc_data_channel_.get(), StreamId(1));
 
   // Default values.
-  EXPECT_EQ(0U, webrtc_data_channel_->messages_received());
-  EXPECT_EQ(0U, webrtc_data_channel_->bytes_received());
+  EXPECT_EQ(0U, proxy_->messages_received());
+  EXPECT_EQ(0U, proxy_->bytes_received());
 
   // Receive three buffers while data channel isn't open.
-  webrtc_data_channel_->OnDataReceived(DataMessageType::kText, buffers[0].data);
-  webrtc_data_channel_->OnDataReceived(DataMessageType::kText, buffers[1].data);
-  webrtc_data_channel_->OnDataReceived(DataMessageType::kText, buffers[2].data);
+  network_thread_.BlockingCall([&] {
+    for (int i : {0, 1, 2}) {
+      webrtc_data_channel_->OnDataReceived(DataMessageType::kText,
+                                           buffers[i].data);
+    }
+  });
   EXPECT_EQ(0U, observer_->messages_received());
-  EXPECT_EQ(0U, webrtc_data_channel_->messages_received());
-  EXPECT_EQ(0U, webrtc_data_channel_->bytes_received());
+  EXPECT_EQ(0U, proxy_->messages_received());
+  EXPECT_EQ(0U, proxy_->bytes_received());
 
   // Open channel and make sure everything was received.
   SetChannelReady();
   size_t bytes_received =
       buffers[0].size() + buffers[1].size() + buffers[2].size();
   EXPECT_EQ(3U, observer_->messages_received());
-  EXPECT_EQ(3U, webrtc_data_channel_->messages_received());
-  EXPECT_EQ(bytes_received, webrtc_data_channel_->bytes_received());
+  EXPECT_EQ(3U, proxy_->messages_received());
+  EXPECT_EQ(bytes_received, proxy_->bytes_received());
 
   // Receive three buffers while open.
-  webrtc_data_channel_->OnDataReceived(DataMessageType::kText, buffers[3].data);
-  webrtc_data_channel_->OnDataReceived(DataMessageType::kText, buffers[4].data);
-  webrtc_data_channel_->OnDataReceived(DataMessageType::kText, buffers[5].data);
+  network_thread_.BlockingCall([&] {
+    for (int i : {3, 4, 5}) {
+      webrtc_data_channel_->OnDataReceived(DataMessageType::kText,
+                                           buffers[i].data);
+    }
+  });
   bytes_received += buffers[3].size() + buffers[4].size() + buffers[5].size();
   EXPECT_EQ(6U, observer_->messages_received());
-  EXPECT_EQ(6U, webrtc_data_channel_->messages_received());
-  EXPECT_EQ(bytes_received, webrtc_data_channel_->bytes_received());
+  EXPECT_EQ(6U, proxy_->messages_received());
+  EXPECT_EQ(bytes_received, proxy_->bytes_received());
 }
 
 // Tests that OPEN_ACK message is sent if the datachannel is created from an

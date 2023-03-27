@@ -89,6 +89,7 @@ TEST_F(DataChannelControllerTest, CreateDataChannelEarlyClose) {
   EXPECT_TRUE(dcc.HasDataChannels());
   EXPECT_TRUE(dcc.HasUsedDataChannels());
   channel->Close();
+  run_loop_.Flush();
   EXPECT_FALSE(dcc.HasDataChannels());
   EXPECT_TRUE(dcc.HasUsedDataChannels());
 }
@@ -132,9 +133,7 @@ TEST_F(DataChannelControllerTest, AsyncChannelCloseTeardown) {
   // eventually reaching `OnSctpDataChannelClosed` where dcc removes
   // the channel from the internal list of data channels, but does not release
   // the reference synchronously since that reference might be the last one.
-  inner_channel->Close();
-  // Now there should be no tracked data channels.
-  EXPECT_FALSE(dcc.HasDataChannels());
+  network_thread_.BlockingCall([&] { inner_channel->Close(); });
   // But there should be an async operation queued that still holds a reference.
   // That means that the test reference, must not be the last one.
   ASSERT_NE(inner_channel->Release(),
@@ -146,6 +145,8 @@ TEST_F(DataChannelControllerTest, AsyncChannelCloseTeardown) {
   // This time, the reference formerly owned by dcc, should be release and the
   // truly last reference is now held by the test.
   run_loop_.Flush();
+  // Now there should be no tracked data channels.
+  EXPECT_FALSE(dcc.HasDataChannels());
   // Check that this is the last reference.
   EXPECT_EQ(inner_channel->Release(),
             rtc::RefCountReleaseStatus::kDroppedLastRef);

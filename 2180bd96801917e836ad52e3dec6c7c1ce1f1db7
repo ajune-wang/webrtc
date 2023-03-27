@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb8af40_eff97015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-03-27T09:37:36Z",
+      "side": 1,
+      "message": "Let\u0027s also mention this behaviour in interface documentation.\n\nAlso maybe add a small test?",
+      "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

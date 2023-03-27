@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '58bc6477fc20004c18e6ac8717a87cd8f5f44b13',
+  'chromium_revision': 'ab07b61cf14304d847978fac576b7dca867c0ebb',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -46,9 +46,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ab3a012e5b2e22f2181d5f19d79dd7430fd35637',
+    'https://chromium.googlesource.com/chromium/src/base@84bf89b5d5ad2e837ad3aade3cb0820ff7bd940d',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@deb9d19209591465b3eb7613e795d3ce2c32dc0b',
+    'https://chromium.googlesource.com/chromium/src/build@dcbd037f3d251c829e17362d1fb16ec5bb17f1d1',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@27356dca4bb789ec6262625fd9f3d16666f6e405',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d6311c15db190e263c12da8b217a5ab6140e4a49',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@13112b52e3a3e0b25fc911629bf541c30ed84e11',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@5387be0979ad18ff80b53233be5329b838b1cfa7',
+    'https://chromium.googlesource.com/chromium/src/testing@7c1b4a02fb345937137b245a4983fa454e4a4552',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2ecfa565842a8f9cf59c74d5bd6e4fdea5923bb1',
+    'https://chromium.googlesource.com/chromium/src/third_party@2cb27d19ec8a818a3862d701646eb0ba7427a087',
 
   'src/buildtools/linux64': {
     'packages': [

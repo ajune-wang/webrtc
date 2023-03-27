@@ -401,6 +401,8 @@ bool LibvpxVp9Encoder::SetSvcRates(
   bool expect_no_more_active_layers = false;
   for (int i = 0; i < num_spatial_layers_; ++i) {
     if (config_->ss_target_bitrate[i] > 0) {
+      RTC_LOG(LS_ERROR) << "[hbos] s[" << i
+                        << "] target: " << config_->ss_target_bitrate[i];
       RTC_DCHECK(!expect_no_more_active_layers) << "Only middle layer is "
                                                    "deactivated.";
       if (!seen_active_layer) {
@@ -409,6 +411,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
       num_active_spatial_layers_ = i + 1;
       seen_active_layer = true;
     } else {
+      RTC_LOG(LS_ERROR) << "[hbos] s[" << i << "] target: ZERO";
       expect_no_more_active_layers = seen_active_layer;
     }
   }

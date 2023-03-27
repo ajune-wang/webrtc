@@ -70,17 +70,22 @@ TEST_F(DataChannelControllerTest, CreateAndDestroy) {
 
 TEST_F(DataChannelControllerTest, CreateDataChannelEarlyRelease) {
   DataChannelController dcc(pc_.get());
-  auto channel = dcc.InternalCreateDataChannelWithProxy(
+  auto ret = dcc.InternalCreateDataChannelWithProxy(
       "label", InternalDataChannelInit(DataChannelInit()));
-  channel = nullptr;  // dcc holds a reference to channel, so not destroyed yet
+  ASSERT_TRUE(ret.ok());
+  auto channel = ret.MoveValue();
+  // DCC still holds a reference to the channel. Release this reference early.
+  channel = nullptr;
 }
 
 TEST_F(DataChannelControllerTest, CreateDataChannelEarlyClose) {
   DataChannelController dcc(pc_.get());
   EXPECT_FALSE(dcc.HasDataChannels());
   EXPECT_FALSE(dcc.HasUsedDataChannels());
-  auto channel = dcc.InternalCreateDataChannelWithProxy(
+  auto ret = dcc.InternalCreateDataChannelWithProxy(
       "label", InternalDataChannelInit(DataChannelInit()));
+  ASSERT_TRUE(ret.ok());
+  auto channel = ret.MoveValue();
   EXPECT_TRUE(dcc.HasDataChannels());
   EXPECT_TRUE(dcc.HasUsedDataChannels());
   channel->Close();
@@ -90,25 +95,30 @@ TEST_F(DataChannelControllerTest, CreateDataChannelEarlyClose) {
 
 TEST_F(DataChannelControllerTest, CreateDataChannelLateRelease) {
   auto dcc = std::make_unique<DataChannelController>(pc_.get());
-  auto channel = dcc->InternalCreateDataChannelWithProxy(
+  auto ret = dcc->InternalCreateDataChannelWithProxy(
       "label", InternalDataChannelInit(DataChannelInit()));
+  ASSERT_TRUE(ret.ok());
+  auto channel = ret.MoveValue();
   dcc.reset();
   channel = nullptr;
 }
 
 TEST_F(DataChannelControllerTest, CloseAfterControllerDestroyed) {
   auto dcc = std::make_unique<DataChannelController>(pc_.get());
-  auto channel = dcc->InternalCreateDataChannelWithProxy(
+  auto ret = dcc->InternalCreateDataChannelWithProxy(
       "label", InternalDataChannelInit(DataChannelInit()));
+  ASSERT_TRUE(ret.ok());
+  auto channel = ret.MoveValue();
   dcc.reset();
   channel->Close();
 }
 
 TEST_F(DataChannelControllerTest, AsyncChannelCloseTeardown) {
   DataChannelController dcc(pc_.get());
-  rtc::scoped_refptr<DataChannelInterface> channel =
-      dcc.InternalCreateDataChannelWithProxy(
-          "label", InternalDataChannelInit(DataChannelInit()));
+  auto ret = dcc.InternalCreateDataChannelWithProxy(
+      "label", InternalDataChannelInit(DataChannelInit()));
+  ASSERT_TRUE(ret.ok());
+  auto channel = ret.MoveValue();
   SctpDataChannel* inner_channel =
       DowncastProxiedDataChannelInterfaceToSctpDataChannelForTesting(
           channel.get());
@@ -159,16 +169,14 @@ TEST_F(DataChannelControllerTest, MaxChannels) {
   // Allocate the maximum number of channels + 1. Inside the loop, the creation
   // process will allocate a stream id for each channel.
   for (channel_id = 0; channel_id <= cricket::kMaxSctpStreams; ++channel_id) {
-    rtc::scoped_refptr<DataChannelInterface> channel =
-        dcc.InternalCreateDataChannelWithProxy(
-            "label", InternalDataChannelInit(DataChannelInit()));
-
+    auto ret = dcc.InternalCreateDataChannelWithProxy(
+        "label", InternalDataChannelInit(DataChannelInit()));
     if (channel_id == cricket::kMaxSctpStreams) {
       // We've reached the maximum and the previous call should have failed.
-      EXPECT_FALSE(channel.get());
+      EXPECT_FALSE(ret.ok());
     } else {
       // We're still working on saturating the pool. Things should be working.
-      EXPECT_TRUE(channel.get());
+      EXPECT_TRUE(ret.ok());
     }
   }
 }

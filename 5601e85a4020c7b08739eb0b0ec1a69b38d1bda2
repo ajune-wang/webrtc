@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "644f1848_a368c40f",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T15:26:08Z",
+      "side": 1,
+      "message": "I think this is what Taylor was seeing it as with the todo that we removed a few CLs ago (iirc the TODO was about using the transport directly).\nAlthough the interface is implemented by the controller and has the word \"Controller\" in it, the methods in it, with the exception of `OnChannelStateChanged` map directly to the transport.\n\nWe could rename the interface? Another option is, once we\u0027ve removed the thread hops, is to use the transport interface directly for methods that map to it and keep things like OnChannelStateChanged().\n\nI think it could even be as simple as:\n```\nclass SctpDataChannelControllerInterface {\n public:\n  // Could even use SctpTransportInterface* since it\u0027s an sctp data channel.\n  virtual DataChannelTransportInterface* transport() const \u003d 0;\n  virtual void OnChannelStateChanged(SctpDataChannel* data_channel,\n                                     DataChannelInterface::DataState state) \u003d 0;\n};\n```",
+      "parentUuid": "1bfd8ec4_c4151201",
+      "revId": "5601e85a4020c7b08739eb0b0ec1a69b38d1bda2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fdec605b_54e70df7",
         "filename": "pc/sctp_data_channel.h",
         "patchSetId": 41
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-27T12:55:39Z",
       "side": 1,
       "message": "I don\u0027t see this as a goal.\n\nCreateDataChannel() comes ultimately from the signaling thread. Whether this module or the PC does the thread jump is a matter of deciding how to divvy up the functions.",
+      "revId": "5601e85a4020c7b08739eb0b0ec1a69b38d1bda2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7854dfb3_5a8d31ab",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T15:26:08Z",
+      "side": 1,
+      "message": "The thinking is to not have to do the blocking thread hops for the most sensitive operations. One example:\n```\nRTCError DataChannelController::DataChannelSendData(\n    StreamId sid,\n    const SendDataParams\u0026 params,\n    const rtc::CopyOnWriteBuffer\u0026 payload) {\n  // \u003csnip\u003e\n  return network_thread()-\u003eBlockingCall([this, sid, params, payload] {\n    return data_channel_transport()-\u003eSendData(sid.stream_id_int(), params,\n                                              payload);\n  });\n}\n```\n\nMost of the operations inside of SctpDataChannel are non-blocking in nature. It\u0027s buffer management and then interfacing with the transport. We could do that on the network thread and not require context switches whenever interaction happens between the channel and the transport. I don\u0027t see this as a \"we have to do the hop somewhere\" but rather \"we don\u0027t need to do the hop\" and that\u0027s what I\u0027m seeing as the goal.\n\nYou\u0027re right that CreateDataChannel is triggered from the signaling thread. I\u0027ll move the call to `SctpDataChannel::Create` to the network thread though a couple of CLs down the line, but the call to `InternalCreateDataChannelWithProxy` will happen on the signaling thread. I\u0027m OK with thread hops when setting things up or tearing down, but in between, when sending and receiving data, I\u0027d like to do as little of that as possible.",
+      "parentUuid": "fdec605b_54e70df7",
       "revId": "5601e85a4020c7b08739eb0b0ec1a69b38d1bda2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

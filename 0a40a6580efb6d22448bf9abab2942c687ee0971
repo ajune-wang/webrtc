@@ -230,6 +230,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bea26e5c_ed467d5a",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-27T15:26:08Z",
+      "side": 1,
+      "message": "Yes, exactly. Those changes are coming 😊 I\u0027m trying to break things up into reviewable CLs while also taking steps towards removing the thread jumping.\nAdmittedly sometimes the seams between CLs could be better.",
+      "parentUuid": "0ebfbf74_19ae9b3b",
+      "revId": "0a40a6580efb6d22448bf9abab2942c687ee0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "613aa92f_745a77d1",

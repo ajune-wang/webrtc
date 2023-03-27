@@ -33,6 +33,207 @@
       "message": "Björn, could you have a look at the analyze_audio.cc changes? we need owners approval.\nSam, could you have a look at the changes on the fuzzer files, neteq_signal_fuzzer.cc and neteq_rtp_fuzzer.cc?",
       "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82063f8f_92e5f210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "LGTM! nits optional",
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10ef8514_b28cff91",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "trailing underscore is an unexpected name for a public member",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77a9636a_960eaf41",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "nit: It\u0027s not clear to me why this is called from the constructor, could you add a comment? Or is it obvious from how NetEqInput is usually used?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee776f4_952ef771",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is called from the constructor, could you add a comment explaining it?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73fb06c_944cc9db",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "nit:\nIt looks like we can check that `event_` is a packet before calling `FuzzIfPacket`, then it could be a `FuzzPacket` and `event_` could be a `unique_ptr\u003cPacketData\u003e packet_` throughout the code. Might make it easier to read (no ambiguity about the type of `event_`). It looks odd to do this validation:\n```\n    RTC_DCHECK(event_ \u0026\u0026 event_-\u003etype() \u003d\u003d Event::Type::kPacketData);\n    PacketData\u0026 packet_data \u003d static_cast\u003cPacketData\u0026\u003e(*event_);\n```\nin the middle of `FuzzHeader`/`MaybeFuzzPayload`.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 19
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41462fe7_85629ad1",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is called from the constructor, could you add a comment explaining it?",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 4
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab925de0_9f1b184f",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "nit: It\u0027s not clear to me why this is called from the constructor, could you add a comment? Or is it obvious from how NetEqInput is usually used? I\u0027m not too familiar with it.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a307409_f55c6317",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "nit: It looks like `packet_` have type `PacketData` and `event` can be cast to it here already, where we have just ensured it is a packet (or null). Where it is done now (lines 124 \u0026 143) it is not obvious why it would be a valid packet.",
+      "range": {
+        "startLine": 119,
+        "startChar": 6,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dda412c6_4c0470fb",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-03-27T15:00:59Z",
+      "side": 1,
+      "message": "(nit: this default value is unused)",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

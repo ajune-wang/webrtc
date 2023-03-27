@@ -299,7 +299,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       // combos we would need to calculate unique spatial layers per simulcast
       // layer, but VideoCodec is not capable of expressing per-simulcastStream
       // spatialLayers.
-      if (video_codec.numberOfSimulcastStreams == 1) {
+      if (video_codec.numberOfSimulcastStreams == 1 ||
+          (video_codec.IsSinglecastOrAllNonFirstLayersInactive() &&
+           spatial_layers.size() > 1)) {
         video_codec.simulcastStream[0].width = spatial_layers.back().width;
         video_codec.simulcastStream[0].height = spatial_layers.back().height;
       }

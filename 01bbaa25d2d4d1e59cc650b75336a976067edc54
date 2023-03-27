@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e32121_d9993fb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-27T21:16:32Z",
+      "side": 1,
+      "message": "Bye bye writable_, it was good to forget you :-)",
+      "revId": "01bbaa25d2d4d1e59cc650b75336a976067edc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71bf84d0_0b11e4ef",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-27T21:16:32Z",
+      "side": 1,
+      "message": "\u003d default?",
+      "revId": "01bbaa25d2d4d1e59cc650b75336a976067edc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

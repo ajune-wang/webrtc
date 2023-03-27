@@ -29,30 +29,38 @@ class FakeDataChannelController
         transport_available_(false),
         ready_to_send_(false),
         transport_error_(false) {}
-  virtual ~FakeDataChannelController() {}
+
+  ~FakeDataChannelController() override {
+    network_thread_->BlockingCall([&] {
+      RTC_DCHECK_RUN_ON(network_thread_);
+      weak_factory_.InvalidateWeakPtrs();
+    });
+  }
 
   rtc::WeakPtr<FakeDataChannelController> weak_ptr() {
+    RTC_DCHECK_RUN_ON(network_thread_);
     return weak_factory_.GetWeakPtr();
   }
 
   rtc::scoped_refptr<webrtc::SctpDataChannel> CreateDataChannel(
       absl::string_view label,
       webrtc::InternalDataChannelInit init) {
-    rtc::WeakPtr<FakeDataChannelController> my_weak_ptr = weak_ptr();
-    // Explicitly associate the weak ptr instance with the current thread to
-    // catch early any inappropriate referencing of it on the network thread.
-    RTC_CHECK(my_weak_ptr);
-
     rtc::scoped_refptr<webrtc::SctpDataChannel> channel =
         network_thread_->BlockingCall([&]() {
           RTC_DCHECK_RUN_ON(network_thread_);
+          rtc::WeakPtr<FakeDataChannelController> my_weak_ptr = weak_ptr();
+          // Explicitly associate the weak ptr instance with the current thread
+          // to catch early any inappropriate referencing of it on the network
+          // thread.
+          RTC_CHECK(my_weak_ptr);
+
           rtc::scoped_refptr<webrtc::SctpDataChannel> channel =
               webrtc::SctpDataChannel::Create(
                   std::move(my_weak_ptr), std::string(label),
                   transport_available_, init, signaling_thread_,
                   network_thread_);
-          if (transport_available_ && channel->sid_s().HasValue()) {
-            AddSctpDataStream(channel->sid_s());
+          if (transport_available_ && channel->sid_n().HasValue()) {
+            AddSctpDataStream(channel->sid_n());
           }
           return channel;
         });
@@ -126,36 +134,40 @@ class FakeDataChannelController
 
   // Set true to emulate the SCTP stream being blocked by congestion control.
   void set_send_blocked(bool blocked) {
-    send_blocked_ = blocked;
-    if (!blocked) {
-      RTC_CHECK(transport_available_);
-      // Make a copy since `connected_channels_` may change while
-      // OnTransportReady is called.
-      auto copy = connected_channels_;
-      for (webrtc::SctpDataChannel* ch : copy) {
-        ch->OnTransportReady();
+    network_thread_->BlockingCall([&]() {
+      send_blocked_ = blocked;
+      if (!blocked) {
+        RTC_CHECK(transport_available_);
+        // Make a copy since `connected_channels_` may change while
+        // OnTransportReady is called.
+        auto copy = connected_channels_;
+        for (webrtc::SctpDataChannel* ch : copy) {
+          ch->OnTransportReady();
+        }
       }
-    }
+    });
   }
 
   // Set true to emulate the transport channel creation, e.g. after
   // setLocalDescription/setRemoteDescription called with data content.
   void set_transport_available(bool available) {
-    transport_available_ = available;
+    network_thread_->BlockingCall([&]() { transport_available_ = available; });
   }
 
   // Set true to emulate the transport OnTransportReady signal when the
   // transport becomes writable for the first time.
   void set_ready_to_send(bool ready) {
     RTC_CHECK(transport_available_);
-    ready_to_send_ = ready;
-    if (ready) {
-      std::set<webrtc::SctpDataChannel*>::iterator it;
-      for (it = connected_channels_.begin(); it != connected_channels_.end();
-           ++it) {
-        (*it)->OnTransportReady();
+    network_thread_->BlockingCall([&]() {
+      ready_to_send_ = ready;
+      if (ready) {
+        std::set<webrtc::SctpDataChannel*>::iterator it;
+        for (it = connected_channels_.begin(); it != connected_channels_.end();
+             ++it) {
+          (*it)->OnTransportReady();
+        }
       }
-    }
+    });
   }
 
   void set_transport_error() { transport_error_ = true; }

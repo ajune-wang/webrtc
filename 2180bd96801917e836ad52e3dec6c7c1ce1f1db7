@@ -52,6 +52,24 @@
       "parentUuid": "e554fe74_984bc23b",
       "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "536d5cc2_bf371ac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-27T15:55:53Z",
+      "side": 1,
+      "message": "Done, need a new +1 though.",
+      "parentUuid": "b76d12ce_b6028b71",
+      "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

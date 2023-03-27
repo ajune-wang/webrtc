@@ -16,6 +16,24 @@
       "message": "Let\u0027s also mention this behaviour in interface documentation.\n\nAlso maybe add a small test?",
       "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e554fe74_984bc23b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-03-27T15:28:02Z",
+      "side": 1,
+      "message": "I started to write a test and update the documentation but it feels a bit weird to test that nothing happens.\nMoreover previous behavior was implicit and not tested, can\u0027t we left this behavior as an undocumented implementation detail ?",
+      "parentUuid": "7eb8af40_eff97015",
+      "revId": "2180bd96801917e836ad52e3dec6c7c1ce1f1db7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

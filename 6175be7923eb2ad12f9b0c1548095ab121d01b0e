@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa188bb_a54104be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T23:44:09Z",
+      "side": 1,
+      "message": "Good cleanup.\n\nSideswipe note: SetData() is not exercised by any test....",
+      "revId": "6175be7923eb2ad12f9b0c1548095ab121d01b0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

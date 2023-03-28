@@ -164,6 +164,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d21a0d2_061f6971",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:18:47Z",
+      "side": 1,
+      "message": "Jacob, I agree but all of those fields (timestamp_ms_, payload, header) are accessed directly in the code and it would be strange to make the timestamp one different.",
+      "parentUuid": "575eb40f_aecdb86f",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77a9636a_960eaf41",

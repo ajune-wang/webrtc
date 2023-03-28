@@ -38,8 +38,8 @@ int GenerateUniqueId() {
 // Define proxy for DataChannelInterface.
 BEGIN_PROXY_MAP(DataChannel)
 PROXY_PRIMARY_THREAD_DESTRUCTOR()
-PROXY_METHOD1(void, RegisterObserver, DataChannelObserver*)
-PROXY_METHOD0(void, UnregisterObserver)
+PROXY_SECONDARY_METHOD1(void, RegisterObserver, DataChannelObserver*)
+PROXY_SECONDARY_METHOD0(void, UnregisterObserver)
 BYPASS_PROXY_CONSTMETHOD0(std::string, label)
 BYPASS_PROXY_CONSTMETHOD0(bool, reliable)
 BYPASS_PROXY_CONSTMETHOD0(bool, ordered)
@@ -52,16 +52,15 @@ BYPASS_PROXY_CONSTMETHOD0(bool, negotiated)
 // Can't bypass the proxy since the id may change.
 PROXY_CONSTMETHOD0(int, id)
 BYPASS_PROXY_CONSTMETHOD0(Priority, priority)
-PROXY_CONSTMETHOD0(DataState, state)
-PROXY_CONSTMETHOD0(RTCError, error)
-PROXY_CONSTMETHOD0(uint32_t, messages_sent)
-PROXY_CONSTMETHOD0(uint64_t, bytes_sent)
-PROXY_CONSTMETHOD0(uint32_t, messages_received)
-PROXY_CONSTMETHOD0(uint64_t, bytes_received)
-PROXY_CONSTMETHOD0(uint64_t, buffered_amount)
-PROXY_METHOD0(void, Close)
-// TODO(bugs.webrtc.org/11547): Change to run on the network thread.
-PROXY_METHOD1(bool, Send, const DataBuffer&)
+PROXY_SECONDARY_CONSTMETHOD0(DataState, state)
+PROXY_SECONDARY_CONSTMETHOD0(RTCError, error)
+PROXY_SECONDARY_CONSTMETHOD0(uint32_t, messages_sent)
+PROXY_SECONDARY_CONSTMETHOD0(uint64_t, bytes_sent)
+PROXY_SECONDARY_CONSTMETHOD0(uint32_t, messages_received)
+PROXY_SECONDARY_CONSTMETHOD0(uint64_t, bytes_received)
+PROXY_SECONDARY_CONSTMETHOD0(uint64_t, buffered_amount)
+PROXY_SECONDARY_METHOD0(void, Close)
+PROXY_SECONDARY_METHOD1(bool, Send, const DataBuffer&)
 END_PROXY_MAP(DataChannel)
 
 }  // namespace
@@ -213,13 +212,13 @@ SctpDataChannel::~SctpDataChannel() {
 }
 
 void SctpDataChannel::RegisterObserver(DataChannelObserver* observer) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   observer_ = observer;
   DeliverQueuedReceivedData();
 }
 
 void SctpDataChannel::UnregisterObserver() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   observer_ = nullptr;
 }
 
@@ -271,12 +270,12 @@ Priority SctpDataChannel::priority() const {
 }
 
 uint64_t SctpDataChannel::buffered_amount() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return queued_send_data_.byte_count();
 }
 
 void SctpDataChannel::Close() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   if (state_ == kClosing || state_ == kClosed)
     return;
   SetState(kClosing);
@@ -285,37 +284,37 @@ void SctpDataChannel::Close() {
 }
 
 SctpDataChannel::DataState SctpDataChannel::state() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return state_;
 }
 
 RTCError SctpDataChannel::error() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return error_;
 }
 
 uint32_t SctpDataChannel::messages_sent() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return messages_sent_;
 }
 
 uint64_t SctpDataChannel::bytes_sent() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return bytes_sent_;
 }
 
 uint32_t SctpDataChannel::messages_received() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return messages_received_;
 }
 
 uint64_t SctpDataChannel::bytes_received() const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   return bytes_received_;
 }
 
 bool SctpDataChannel::Send(const DataBuffer& buffer) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   // TODO(bugs.webrtc.org/11547): Expect this method to be called on the network
   // thread. Bring buffer management etc to the network thread and keep the
   // operational state management on the signaling thread.
@@ -340,8 +339,6 @@ void SctpDataChannel::SetSctpSid(StreamId sid) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(!id_s_.HasValue());
   RTC_DCHECK(sid.HasValue());
-  RTC_DCHECK_NE(handshake_state_, kHandshakeWaitingForAck);
-  RTC_DCHECK_EQ(state_, kConnecting);
 
   id_s_ = sid;
 }
@@ -350,11 +347,13 @@ void SctpDataChannel::SetSctpSid_n(StreamId sid) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DCHECK(!id_n_.HasValue());
   RTC_DCHECK(sid.HasValue());
+  RTC_DCHECK_NE(handshake_state_, kHandshakeWaitingForAck);
+  RTC_DCHECK_EQ(state_, kConnecting);
   id_n_ = sid;
 }
 
 void SctpDataChannel::OnClosingProcedureStartedRemotely() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   if (state_ != kClosing && state_ != kClosed) {
     // Don't bother sending queued data since the side that initiated the
     // closure wouldn't receive it anyway. See crbug.com/559394 for a lengthy
@@ -370,7 +369,7 @@ void SctpDataChannel::OnClosingProcedureStartedRemotely() {
 }
 
 void SctpDataChannel::OnClosingProcedureComplete() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   // If the closing procedure is complete, we should have finished sending
   // all pending data and transitioned to kClosing already.
   RTC_DCHECK_EQ(state_, kClosing);
@@ -379,8 +378,7 @@ void SctpDataChannel::OnClosingProcedureComplete() {
 }
 
 void SctpDataChannel::OnTransportChannelCreated() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
-
+  RTC_DCHECK_RUN_ON(network_thread_);
   connected_to_transport_ = true;
 }
 
@@ -402,25 +400,25 @@ DataChannelStats SctpDataChannel::GetStats() const {
 
 void SctpDataChannel::OnDataReceived(DataMessageType type,
                                      const rtc::CopyOnWriteBuffer& payload) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
 
   if (type == DataMessageType::kControl) {
     if (handshake_state_ != kHandshakeWaitingForAck) {
       // Ignore it if we are not expecting an ACK message.
       RTC_LOG(LS_WARNING)
           << "DataChannel received unexpected CONTROL message, sid = "
-          << id_s_.stream_id_int();
+          << id_n_.stream_id_int();
       return;
     }
     if (ParseDataChannelOpenAckMessage(payload)) {
       // We can send unordered as soon as we receive the ACK message.
       handshake_state_ = kHandshakeReady;
       RTC_LOG(LS_INFO) << "DataChannel received OPEN_ACK message, sid = "
-                       << id_s_.stream_id_int();
+                       << id_n_.stream_id_int();
     } else {
       RTC_LOG(LS_WARNING)
           << "DataChannel failed to parse OPEN_ACK message, sid = "
-          << id_s_.stream_id_int();
+          << id_n_.stream_id_int();
     }
     return;
   }
@@ -429,7 +427,7 @@ void SctpDataChannel::OnDataReceived(DataMessageType type,
              type == DataMessageType::kText);
 
   RTC_DLOG(LS_VERBOSE) << "DataChannel received DATA message, sid = "
-                       << id_s_.stream_id_int();
+                       << id_n_.stream_id_int();
   // We can send unordered as soon as we receive any DATA message since the
   // remote side must have received the OPEN (and old clients do not send
   // OPEN_ACK).
@@ -460,7 +458,7 @@ void SctpDataChannel::OnDataReceived(DataMessageType type,
 }
 
 void SctpDataChannel::OnTransportReady() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
 
   // TODO(bugs.webrtc.org/11547): The transport is configured inside
   // `PeerConnection::SetupDataChannelTransport_n`, which results in
@@ -481,7 +479,7 @@ void SctpDataChannel::OnTransportReady() {
 }
 
 void SctpDataChannel::CloseAbruptlyWithError(RTCError error) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
 
   if (state_ == kClosed) {
     return;
@@ -507,8 +505,8 @@ void SctpDataChannel::CloseAbruptlyWithDataChannelFailure(
   CloseAbruptlyWithError(std::move(error));
 }
 
+// RTC_RUN_ON(network_thread_).
 void SctpDataChannel::UpdateState() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   // UpdateState determines what to do from a few state variables. Include
   // all conditions required for each state transition here for
   // clarity. OnTransportReady(true) will send any queued data and then invoke
@@ -536,7 +534,7 @@ void SctpDataChannel::UpdateState() {
           DeliverQueuedReceivedData();
         }
       } else {
-        RTC_DCHECK(!id_s_.HasValue());
+        RTC_DCHECK(!id_n_.HasValue());
       }
       break;
     }
@@ -552,9 +550,9 @@ void SctpDataChannel::UpdateState() {
           // to complete; after calling RemoveSctpDataStream,
           // OnClosingProcedureComplete will end up called asynchronously
           // afterwards.
-          if (!started_closing_procedure_ && id_s_.HasValue()) {
+          if (!started_closing_procedure_ && id_n_.HasValue()) {
             started_closing_procedure_ = true;
-            network_thread_->BlockingCall([c = controller_.get(), sid = id_s_] {
+            network_thread_->BlockingCall([c = controller_.get(), sid = id_n_] {
               c->RemoveSctpDataStream(sid);
             });
           }
@@ -573,8 +571,8 @@ void SctpDataChannel::UpdateState() {
   }
 }
 
+// RTC_RUN_ON(network_thread_).
 void SctpDataChannel::SetState(DataState state) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   if (state_ == state) {
     return;
   }
@@ -588,8 +586,8 @@ void SctpDataChannel::SetState(DataState state) {
     controller_->OnChannelStateChanged(this, state_);
 }
 
+// RTC_RUN_ON(network_thread_).
 void SctpDataChannel::DeliverQueuedReceivedData() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   if (!observer_) {
     return;
   }
@@ -602,8 +600,8 @@ void SctpDataChannel::DeliverQueuedReceivedData() {
   }
 }
 
+// RTC_RUN_ON(network_thread_).
 void SctpDataChannel::SendQueuedDataMessages() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   if (queued_send_data_.Empty()) {
     return;
   }
@@ -620,9 +618,9 @@ void SctpDataChannel::SendQueuedDataMessages() {
   }
 }
 
+// RTC_RUN_ON(network_thread_).
 bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
                                       bool queue_if_blocked) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   SendDataParams send_params;
   if (!controller_) {
     return false;
@@ -642,7 +640,7 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   send_params.type =
       buffer.binary ? DataMessageType::kBinary : DataMessageType::kText;
 
-  RTCError error = controller_->SendData(id_s_, send_params, buffer.data);
+  RTCError error = controller_->SendData(id_n_, send_params, buffer.data);
 
   if (error.ok()) {
     ++messages_sent_;
@@ -670,8 +668,8 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   return false;
 }
 
+// RTC_RUN_ON(network_thread_).
 bool SctpDataChannel::QueueSendDataMessage(const DataBuffer& buffer) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   size_t start_buffered_amount = queued_send_data_.byte_count();
   if (start_buffered_amount + buffer.size() >
       DataChannelInterface::MaxSendQueueSize()) {
@@ -682,8 +680,8 @@ bool SctpDataChannel::QueueSendDataMessage(const DataBuffer& buffer) {
   return true;
 }
 
+// RTC_RUN_ON(network_thread_).
 void SctpDataChannel::SendQueuedControlMessages() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   PacketQueue control_packets;
   control_packets.Swap(&queued_control_data_);
 
@@ -693,10 +691,10 @@ void SctpDataChannel::SendQueuedControlMessages() {
   }
 }
 
+// RTC_RUN_ON(network_thread_).
 bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(connected_to_transport_);
-  RTC_DCHECK(id_s_.HasValue());
+  RTC_DCHECK(id_n_.HasValue());
   RTC_DCHECK(controller_);
 
   bool is_open_message = handshake_state_ == kHandshakeShouldSendOpen;
@@ -709,10 +707,10 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   send_params.ordered = ordered_ || is_open_message;
   send_params.type = DataMessageType::kControl;
 
-  RTCError err = controller_->SendData(id_s_, send_params, buffer);
+  RTCError err = controller_->SendData(id_n_, send_params, buffer);
   if (err.ok()) {
     RTC_DLOG(LS_VERBOSE) << "Sent CONTROL message on channel "
-                         << id_s_.stream_id_int();
+                         << id_n_.stream_id_int();
 
     if (handshake_state_ == kHandshakeShouldSendAck) {
       handshake_state_ = kHandshakeReady;

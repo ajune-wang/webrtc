@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '64efe0fec7f7eef5703282ad2769278b7162317c',
+  'chromium_revision': '23744a6e1db10d0a6259e236d1a72329a7e8f767',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -46,9 +46,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@13af57d61b34a7d7dd1c1da125854cf80379a4f0',
+    'https://chromium.googlesource.com/chromium/src/base@1c619aba141087cfd0337dae642173ac5dc37268',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@625573ad8b35726421a28b4617119635b75b7c5b',
+    'https://chromium.googlesource.com/chromium/src/build@bb655f139706c55859e784fdeeea04f529ee5b80',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@c97a3b8902379b6e6f705202db03d415d790ebac',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@7061eccc0e6a5920c4bbc4c220aa93b63a923160',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@5f147c755cdf7618603afe391ad5d2628fc46c8c',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@903a10b7dfea1579c5c86f0a2eaa13c0f88fec0c',
+    'https://chromium.googlesource.com/chromium/src/testing@49a69e94eea5c37880d80f513e68921a2f9fb1c8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@161fc2d0b65665233c639aba0bededab6d7a9d56',
+    'https://chromium.googlesource.com/chromium/src/third_party@3b14746c28663e7b19cadde6c5fcbd24dc2107e2',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -183,7 +183,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@f724f296b75b193032693636aee9f6ce71b6ea5d',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@857600b9ef1fb1beda0c1c857c9bb120e80c3dfb',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@a51c75b09b3f54ab2d3efe583dcc89ba84d24c0d',
   'src/third_party/flatbuffers/src':
@@ -287,7 +287,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@c44cab035c6fa258837e947ebc06e4683249d3b2',
+    'https://android.googlesource.com/platform/external/perfetto.git@ad418a3f70f33f6b50cd008b565360ef95446063',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@394de691a0ef570fc49943f565ad53ee0d22a7f3',
   'src/third_party/libyuv':
@@ -312,7 +312,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'BTs9W6pUBDK8YTePjjF3Q0-ZQo1snO7GBCT6frWMIj8C',
+              'version': '0AAkHl3ztCss8QvTqGZbCU0Wy2W-0CIoWwCYZnYg7j0C',
           },
       ],
       'condition': 'checkout_android',
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d7ef7a908e111412f937f1f52c35ff8ea1495343',
+    'https://chromium.googlesource.com/chromium/src/tools@446b90e901412dcacd51c02f1705c9ea1f8e9203',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -1156,17 +1156,6 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/com_google_android_gms_play_services_cloud_messaging',
               'version': 'version:2@16.0.0.cr1',
-          },
-      ],
-      'condition': 'checkout_android',
-      'dep_type': 'cipd',
-  },
-
-  'src/third_party/android_deps/libs/com_google_android_gms_play_services_fido': {
-      'packages': [
-          {
-              'package': 'chromium/third_party/android_deps/libs/com_google_android_gms_play_services_fido',
-              'version': 'version:2@19.0.0-beta.cr1',
           },
       ],
       'condition': 'checkout_android',

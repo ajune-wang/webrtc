@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745734ab_c00f3d40",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 0,
+      "message": "Hm. This test was added in https://webrtc-review.googlesource.com/c/src/+/79061 - I suspect that there was a real gotcha behind that test being needed.\n\nIf it is now racy, it may be a sign that the conditions that caused the test to be written might have resurfaced.\n\nWhat it is trying to guard against is the case where two channels get the same ID when there\u0027s still a time when both referred to valid (non-closed) channels - in this case, where the first channel is in \"closing\" state when the second channel gets created. Otherwise, an user who\u0027s not using labels might see:\n\nopened(1) (the first channel)\nopened(1) (but this is actually the second channel opening)\nclosed(1) (the first channel is now closed, but the client is confused)\n\nYou might have to block the remote end\u0027s reply to the \"close\" in order to provoke the situation in a stable fashion when you\u0027re multithreaded - but deleting the test seems wrong.",
+      "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd15cc2f_af198897",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Bunch of small worry points. The deleted test worries me, because I think it could cover up a real issue.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602324d1_d9f30bf2",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Nit: here you have _n_ on both variables being compared. Delete n_ from one.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a110a14_1e209efd",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "In that case, will there be in-flignt PostTasks to the signaling thread to clear them that will have to be aborted because DCC is gone when they arrive?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e59080c2_0c2bd68b",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "In the endstate, where this is the normative list of channels, this seems wrong - who\u0027s going to fire the \"closed\" state transition signal for those channels left in the list at closing time?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8210faad_5a9ed4d5",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Tell me why this loop isn\u0027t inside the BlockingCall lambda, and iterating over sctp_data_channel_n_?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba7799cd_340ca138",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Hm. AllocateSctopSids should only occur after connection has been made. So the only case where AllocateSid should fail is the case of running out of Sids.\n\nSo the else branch is a failure case. What it does is to erase the channel from sctp_data_channels_n_ - but who, in this case, fires the close signal on it and removes it from sctp_data_channels_ ?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc2a588_3ac1d79d",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Should you add a comment next to the declaration of sid_ saying \"this is missing an RTC_GUARDED_BY and should have one\"?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d77632d_ded46894",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Hypernit: be consistent about ID vs id. Might be easier reading if you just use sid (for the value) and StreamId (for the type) throughout rather than jumping between ID, id and sid.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6de70f9b_9247ca0d",
+        "filename": "pc/data_channel_controller_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "you could write this as \"channel \u003d dcc.InternalCreate(....).MoveValue(), which will assert-fail if ok() is false. This is test code after all; conciseness aids readability, and any failure here would not be what this particular test is testing.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b8c42d8_ad5e6a35",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-28T22:49:20Z",
+      "side": 1,
+      "message": "Test code will be simpler if SetChannelSid takes an rtc::scoped_refptr rather than a raw pointer.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

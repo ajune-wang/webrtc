@@ -15,6 +15,7 @@
 #include <stdint.h>
 
 #include <string>
+#include <utility>
 
 #include "absl/types/optional.h"
 #include "call/rtp_demuxer.h"
@@ -44,8 +45,15 @@ class RtpTransport : public RtpTransportInternal {
   RtpTransport(const RtpTransport&) = delete;
   RtpTransport& operator=(const RtpTransport&) = delete;
 
-  explicit RtpTransport(bool rtcp_mux_enabled)
-      : rtcp_mux_enabled_(rtcp_mux_enabled) {}
+  // Invoked when a packet packet has been decrypted, if  packet encryption is
+  // used, but can not be demuxed.
+  using OnUndemuxablePacketHandler =
+      absl::AnyInvocable<void(RtpPacketReceived parsed_packet)>;
+
+  RtpTransport(bool rtcp_mux_enabled,
+               OnUndemuxablePacketHandler un_demuxable_packet_handler)
+      : rtcp_mux_enabled_(rtcp_mux_enabled),
+        un_demuxable_packet_handler_(std::move(un_demuxable_packet_handler)) {}
 
   bool rtcp_mux_enabled() const override { return rtcp_mux_enabled_; }
   void SetRtcpMuxEnabled(bool enable) override;
@@ -132,6 +140,8 @@ class RtpTransport : public RtpTransportInternal {
   bool ready_to_send_ = false;
   bool rtp_ready_to_send_ = false;
   bool rtcp_ready_to_send_ = false;
+
+  OnUndemuxablePacketHandler un_demuxable_packet_handler_;
 
   RtpDemuxer rtp_demuxer_;
 

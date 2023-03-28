@@ -27,9 +27,13 @@ static const char kDtlsSrtpExporterLabel[] = "EXTRACTOR-dtls_srtp";
 
 namespace webrtc {
 
-DtlsSrtpTransport::DtlsSrtpTransport(bool rtcp_mux_enabled,
-                                     const FieldTrialsView& field_trials)
-    : SrtpTransport(rtcp_mux_enabled, field_trials) {}
+DtlsSrtpTransport::DtlsSrtpTransport(
+    bool rtcp_mux_enabled,
+    RtpTransport::OnUndemuxablePacketHandler un_demuxable_packet_handler,
+    const FieldTrialsView& field_trials)
+    : SrtpTransport(rtcp_mux_enabled,
+                    std::move(un_demuxable_packet_handler),
+                    field_trials) {}
 
 void DtlsSrtpTransport::SetDtlsTransports(
     cricket::DtlsTransportInternal* rtp_dtls_transport,

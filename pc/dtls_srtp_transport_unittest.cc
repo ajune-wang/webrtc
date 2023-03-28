@@ -30,14 +30,18 @@
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
-using cricket::FakeDtlsTransport;
-using cricket::FakeIceTransport;
-using webrtc::DtlsSrtpTransport;
-using webrtc::RtpTransport;
-using webrtc::SrtpTransport;
+using ::cricket::FakeDtlsTransport;
+using ::cricket::FakeIceTransport;
+using ::testing::Mock;
+using ::testing::MockFunction;
+using ::webrtc::DtlsSrtpTransport;
+using ::webrtc::RtpPacketReceived;
+using ::webrtc::RtpTransport;
+using ::webrtc::SrtpTransport;
 
 const int kRtpAuthTagLen = 10;
 
@@ -59,8 +63,9 @@ class DtlsSrtpTransportTest : public ::testing::Test,
       FakeDtlsTransport* rtp_dtls,
       FakeDtlsTransport* rtcp_dtls,
       bool rtcp_mux_enabled) {
-    auto dtls_srtp_transport =
-        std::make_unique<DtlsSrtpTransport>(rtcp_mux_enabled, field_trials_);
+    auto dtls_srtp_transport = std::make_unique<DtlsSrtpTransport>(
+        rtcp_mux_enabled, un_demuxable_packet_handler_.AsStdFunction(),
+        field_trials_);
 
     dtls_srtp_transport->SetDtlsTransports(rtp_dtls, rtcp_dtls);
 
@@ -114,6 +119,7 @@ class DtlsSrtpTransportTest : public ::testing::Test,
     ASSERT_TRUE(dtls_srtp_transport1_->IsSrtpActive());
     ASSERT_TRUE(dtls_srtp_transport2_->IsSrtpActive());
 
+    EXPECT_CALL(un_demuxable_packet_handler_, Call).Times(0);
     size_t rtp_len = sizeof(kPcmuFrame);
     size_t packet_size = rtp_len + kRtpAuthTagLen;
     rtc::Buffer rtp_packet_buffer(packet_size);
@@ -146,6 +152,7 @@ class DtlsSrtpTransportTest : public ::testing::Test,
     EXPECT_EQ(0, memcmp(transport_observer1_.last_recv_rtp_packet().data(),
                         kPcmuFrame, rtp_len));
     EXPECT_EQ(prev_received_packets + 1, transport_observer1_.rtp_count());
+    Mock::VerifyAndClearExpectations(&un_demuxable_packet_handler_);
   }
 
   void SendRecvRtcpPackets() {
@@ -254,6 +261,8 @@ class DtlsSrtpTransportTest : public ::testing::Test,
   rtc::AutoThread main_thread_;
   std::unique_ptr<DtlsSrtpTransport> dtls_srtp_transport1_;
   std::unique_ptr<DtlsSrtpTransport> dtls_srtp_transport2_;
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler_;
   webrtc::TransportObserver transport_observer1_;
   webrtc::TransportObserver transport_observer2_;
 

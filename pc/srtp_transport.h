@@ -37,7 +37,10 @@ namespace webrtc {
 // parameters for the SrtpSession underneath.
 class SrtpTransport : public RtpTransport {
  public:
-  SrtpTransport(bool rtcp_mux_enabled, const FieldTrialsView& field_trials);
+  SrtpTransport(
+      bool rtcp_mux_enabled,
+      RtpTransport::OnUndemuxablePacketHandler un_demuxable_packet_handler,
+      const FieldTrialsView& field_trials);
 
   virtual ~SrtpTransport() = default;
 

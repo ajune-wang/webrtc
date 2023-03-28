@@ -48,13 +48,15 @@
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
-using cricket::DtlsTransportInternal;
-using cricket::FakeVoiceMediaChannel;
-using cricket::RidDescription;
-using cricket::RidDirection;
-using cricket::StreamParams;
-using webrtc::RtpTransceiverDirection;
-using webrtc::SdpType;
+using ::cricket::DtlsTransportInternal;
+using ::cricket::FakeVoiceMediaChannel;
+using ::cricket::RidDescription;
+using ::cricket::RidDirection;
+using ::cricket::StreamParams;
+using ::testing::MockFunction;
+using ::webrtc::RtpPacketReceived;
+using ::webrtc::RtpTransceiverDirection;
+using ::webrtc::SdpType;
 
 namespace {
 const cricket::AudioCodec kPcmuCodec(0, "PCMU", 64000, 8000, 1);
@@ -320,7 +322,8 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       rtc::PacketTransportInternal* rtp_packet_transport,
       rtc::PacketTransportInternal* rtcp_packet_transport) {
     auto rtp_transport = std::make_unique<webrtc::RtpTransport>(
-        rtcp_packet_transport == nullptr);
+        rtcp_packet_transport == nullptr,
+        un_demuxable_packet_handler_.AsStdFunction());
 
     SendTask(network_thread_,
              [&rtp_transport, rtp_packet_transport, rtcp_packet_transport] {
@@ -336,7 +339,8 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       cricket::DtlsTransportInternal* rtp_dtls_transport,
       cricket::DtlsTransportInternal* rtcp_dtls_transport) {
     auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
-        rtcp_dtls_transport == nullptr, field_trials_);
+        rtcp_dtls_transport == nullptr,
+        un_demuxable_packet_handler_.AsStdFunction(), field_trials_);
 
     SendTask(network_thread_,
              [&dtls_srtp_transport, rtp_dtls_transport, rtcp_dtls_transport] {
@@ -1481,6 +1485,8 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       webrtc::PendingTaskSafetyFlag::CreateDetached();
   std::unique_ptr<rtc::Thread> network_thread_keeper_;
   rtc::Thread* network_thread_;
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler_;
   std::unique_ptr<cricket::FakeDtlsTransport> fake_rtp_dtls_transport1_;
   std::unique_ptr<cricket::FakeDtlsTransport> fake_rtcp_dtls_transport1_;
   std::unique_ptr<cricket::FakeDtlsTransport> fake_rtp_dtls_transport2_;

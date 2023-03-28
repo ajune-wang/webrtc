@@ -26,13 +26,16 @@
 #include "rtc_base/containers/flat_set.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
-using rtc::kSrtpAeadAes128Gcm;
-using rtc::kTestKey1;
-using rtc::kTestKey2;
-using rtc::kTestKeyLen;
+using ::rtc::kSrtpAeadAes128Gcm;
+using ::rtc::kTestKey1;
+using ::rtc::kTestKey2;
+using ::rtc::kTestKeyLen;
+using ::testing::MockFunction;
+using ::webrtc::RtpPacketReceived;
 
 namespace webrtc {
 static const uint8_t kTestKeyGcm128_1[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12";
@@ -58,10 +61,12 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
     rtp_packet_transport1_->SetDestination(rtp_packet_transport2_.get(),
                                            asymmetric);
 
-    srtp_transport1_ =
-        std::make_unique<SrtpTransport>(rtcp_mux_enabled, field_trials_);
-    srtp_transport2_ =
-        std::make_unique<SrtpTransport>(rtcp_mux_enabled, field_trials_);
+    srtp_transport1_ = std::make_unique<SrtpTransport>(
+        rtcp_mux_enabled, un_demuxable_packet_handler_.AsStdFunction(),
+        field_trials_);
+    srtp_transport2_ = std::make_unique<SrtpTransport>(
+        rtcp_mux_enabled, un_demuxable_packet_handler_.AsStdFunction(),
+        field_trials_);
 
     srtp_transport1_->SetRtpPacketTransport(rtp_packet_transport1_.get());
     srtp_transport2_->SetRtpPacketTransport(rtp_packet_transport2_.get());
@@ -336,6 +341,8 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
   TransportObserver rtp_sink2_;
 
   int sequence_number_ = 0;
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler_;
   webrtc::test::ScopedKeyValueConfig field_trials_;
 };
 

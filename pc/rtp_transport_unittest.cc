@@ -15,7 +15,10 @@
 #include "rtc_base/buffer.h"
 #include "rtc_base/containers/flat_set.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
+
+using ::testing::MockFunction;
 
 namespace webrtc {
 
@@ -75,7 +78,10 @@ class SignalObserver : public sigslot::has_slots<> {
 };
 
 TEST(RtpTransportTest, SettingRtcpAndRtpSignalsReady) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtcp("fake_rtcp");
   fake_rtcp.SetWritable(true);
@@ -89,7 +95,10 @@ TEST(RtpTransportTest, SettingRtcpAndRtpSignalsReady) {
 }
 
 TEST(RtpTransportTest, SettingRtpAndRtcpSignalsReady) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtcp("fake_rtcp");
   fake_rtcp.SetWritable(true);
@@ -103,7 +112,10 @@ TEST(RtpTransportTest, SettingRtpAndRtcpSignalsReady) {
 }
 
 TEST(RtpTransportTest, SettingRtpWithRtcpMuxEnabledSignalsReady) {
-  RtpTransport transport(kMuxEnabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxEnabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetWritable(true);
@@ -113,7 +125,10 @@ TEST(RtpTransportTest, SettingRtpWithRtcpMuxEnabledSignalsReady) {
 }
 
 TEST(RtpTransportTest, DisablingRtcpMuxSignalsNotReady) {
-  RtpTransport transport(kMuxEnabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxEnabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetWritable(true);
@@ -126,7 +141,10 @@ TEST(RtpTransportTest, DisablingRtcpMuxSignalsNotReady) {
 }
 
 TEST(RtpTransportTest, EnablingRtcpMuxSignalsReady) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetWritable(true);
@@ -140,7 +158,10 @@ TEST(RtpTransportTest, EnablingRtcpMuxSignalsReady) {
 
 // Tests the SignalNetworkRoute is fired when setting a packet transport.
 TEST(RtpTransportTest, SetRtpTransportWithNetworkRouteChanged) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtp("fake_rtp");
 
@@ -169,7 +190,10 @@ TEST(RtpTransportTest, SetRtpTransportWithNetworkRouteChanged) {
 }
 
 TEST(RtpTransportTest, SetRtcpTransportWithNetworkRouteChanged) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   SignalObserver observer(&transport);
   rtc::FakePacketTransport fake_rtcp("fake_rtcp");
 
@@ -202,7 +226,10 @@ TEST(RtpTransportTest, SetRtcpTransportWithNetworkRouteChanged) {
 TEST(RtpTransportTest, RtcpPacketSentOverCorrectTransport) {
   // If the RTCP-mux is not enabled, RTCP packets are expected to be sent over
   // the RtcpPacketTransport.
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   rtc::FakePacketTransport fake_rtcp("fake_rtcp");
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   transport.SetRtcpPacketTransport(&fake_rtcp);  // rtcp ready
@@ -224,7 +251,10 @@ TEST(RtpTransportTest, RtcpPacketSentOverCorrectTransport) {
 }
 
 TEST(RtpTransportTest, ChangingReadyToSendStateOnlySignalsWhenChanged) {
-  RtpTransport transport(kMuxEnabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxEnabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   TransportObserver observer(&transport);
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetWritable(true);
@@ -249,7 +279,10 @@ TEST(RtpTransportTest, ChangingReadyToSendStateOnlySignalsWhenChanged) {
 // Test that SignalPacketReceived fires with rtcp=true when a RTCP packet is
 // received.
 TEST(RtpTransportTest, SignalDemuxedRtcp) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetDestination(&fake_rtp, true);
   transport.SetRtpPacketTransport(&fake_rtp);
@@ -271,8 +304,13 @@ static const int kRtpLen = 12;
 
 // Test that SignalPacketReceived fires with rtcp=false when a RTP packet with a
 // handled payload type is received.
+// The handler for packets that are not demuxable is not invoked.
 TEST(RtpTransportTest, SignalHandledRtpPayloadType) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  EXPECT_CALL(un_demuxable_packet_handler, Call).Times(0);
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetDestination(&fake_rtp, true);
   transport.SetRtpPacketTransport(&fake_rtp);
@@ -294,9 +332,14 @@ TEST(RtpTransportTest, SignalHandledRtpPayloadType) {
 }
 
 // Test that SignalPacketReceived does not fire when a RTP packet with an
-// unhandled payload type is received.
+// unhandled payload type is received. Instead the handler for packets that are
+// not demuxable is invoked.
 TEST(RtpTransportTest, DontSignalUnhandledRtpPayloadType) {
-  RtpTransport transport(kMuxDisabled);
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler;
+  EXPECT_CALL(un_demuxable_packet_handler, Call);
+  RtpTransport transport(kMuxDisabled,
+                         un_demuxable_packet_handler.AsStdFunction());
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetDestination(&fake_rtp, true);
   transport.SetRtpPacketTransport(&fake_rtp);

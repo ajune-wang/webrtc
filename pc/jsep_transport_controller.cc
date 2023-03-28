@@ -466,8 +466,8 @@ JsepTransportController::CreateUnencryptedRtpTransport(
     rtc::PacketTransportInternal* rtp_packet_transport,
     rtc::PacketTransportInternal* rtcp_packet_transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  auto unencrypted_rtp_transport =
-      std::make_unique<RtpTransport>(rtcp_packet_transport == nullptr);
+  auto unencrypted_rtp_transport = std::make_unique<RtpTransport>(
+      rtcp_packet_transport == nullptr, config_.un_demuxable_packet_handler);
   unencrypted_rtp_transport->SetRtpPacketTransport(rtp_packet_transport);
   if (rtcp_packet_transport) {
     unencrypted_rtp_transport->SetRtcpPacketTransport(rtcp_packet_transport);
@@ -482,7 +482,8 @@ JsepTransportController::CreateSdesTransport(
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto srtp_transport = std::make_unique<webrtc::SrtpTransport>(
-      rtcp_dtls_transport == nullptr, *config_.field_trials);
+      rtcp_dtls_transport == nullptr, config_.un_demuxable_packet_handler,
+      *config_.field_trials);
   RTC_DCHECK(rtp_dtls_transport);
   srtp_transport->SetRtpPacketTransport(rtp_dtls_transport);
   if (rtcp_dtls_transport) {
@@ -501,7 +502,8 @@ JsepTransportController::CreateDtlsSrtpTransport(
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
-      rtcp_dtls_transport == nullptr, *config_.field_trials);
+      rtcp_dtls_transport == nullptr, config_.un_demuxable_packet_handler,
+      *config_.field_trials);
   if (config_.enable_external_auth) {
     dtls_srtp_transport->EnableExternalAuth();
   }

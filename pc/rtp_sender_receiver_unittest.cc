@@ -72,6 +72,7 @@ using ::testing::_;
 using ::testing::ContainerEq;
 using ::testing::Exactly;
 using ::testing::InvokeWithoutArgs;
+using ::testing::MockFunction;
 using ::testing::Return;
 using RidList = std::vector<std::string>;
 
@@ -188,7 +189,8 @@ class RtpSenderReceiverTest
 
   std::unique_ptr<webrtc::RtpTransportInternal> CreateDtlsSrtpTransport() {
     auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
-        /*rtcp_mux_required=*/true, field_trials_);
+        /*rtcp_mux_required=*/true,
+        un_demuxable_packet_handler_.AsStdFunction(), field_trials_);
     dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport_.get(),
                                            /*rtcp_dtls_transport=*/nullptr);
     return dtls_srtp_transport;
@@ -550,6 +552,9 @@ class RtpSenderReceiverTest
   std::unique_ptr<cricket::FakeMediaEngine> media_engine_;
   rtc::UniqueRandomIdGenerator ssrc_generator_;
   cricket::FakeCall fake_call_;
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler_;
+
   std::unique_ptr<cricket::FakeVoiceMediaChannel> voice_media_send_channel_;
   std::unique_ptr<cricket::FakeVideoMediaChannel> video_media_send_channel_;
   std::unique_ptr<cricket::FakeVoiceMediaChannel> voice_media_receive_channel_;

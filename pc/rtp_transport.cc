@@ -195,6 +195,7 @@ void RtpTransport::DemuxPacket(rtc::CopyOnWriteBuffer packet,
   if (!rtp_demuxer_.OnRtpPacket(parsed_packet)) {
     RTC_LOG(LS_WARNING) << "Failed to demux RTP packet: "
                         << RtpDemuxer::DescribePacket(parsed_packet);
+    un_demuxable_packet_handler_(std::move(parsed_packet));
   }
 }
 

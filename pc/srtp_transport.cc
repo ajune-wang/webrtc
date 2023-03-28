@@ -33,9 +33,12 @@
 
 namespace webrtc {
 
-SrtpTransport::SrtpTransport(bool rtcp_mux_enabled,
-                             const FieldTrialsView& field_trials)
-    : RtpTransport(rtcp_mux_enabled), field_trials_(field_trials) {}
+SrtpTransport::SrtpTransport(
+    bool rtcp_mux_enabled,
+    OnUndemuxablePacketHandler un_demuxable_packet_handler,
+    const FieldTrialsView& field_trials)
+    : RtpTransport(rtcp_mux_enabled, std::move(un_demuxable_packet_handler)),
+      field_trials_(field_trials) {}
 
 RTCError SrtpTransport::SetSrtpSendKey(const cricket::CryptoParams& params) {
   if (send_params_) {

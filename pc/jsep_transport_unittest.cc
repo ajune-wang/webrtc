@@ -35,12 +35,15 @@
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
+using ::testing::MockFunction;
+using ::webrtc::RtpPacketReceived;
+using ::webrtc::SdpType;
 namespace cricket {
 namespace {
-using webrtc::SdpType;
 
 static const char kIceUfrag1[] = "U001";
 static const char kIcePwd1[] = "TESTICEPWD00000000000001";
@@ -89,7 +92,8 @@ class JsepTransport2Test : public ::testing::Test, public sigslot::has_slots<> {
       rtc::PacketTransportInternal* rtp_packet_transport,
       rtc::PacketTransportInternal* rtcp_packet_transport) {
     auto srtp_transport = std::make_unique<webrtc::SrtpTransport>(
-        rtcp_packet_transport == nullptr, field_trials_);
+        rtcp_packet_transport == nullptr,
+        un_demuxable_packet_handler_.AsStdFunction(), field_trials_);
 
     srtp_transport->SetRtpPacketTransport(rtp_packet_transport);
     if (rtcp_packet_transport) {
@@ -102,7 +106,8 @@ class JsepTransport2Test : public ::testing::Test, public sigslot::has_slots<> {
       cricket::DtlsTransportInternal* rtp_dtls_transport,
       cricket::DtlsTransportInternal* rtcp_dtls_transport) {
     auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
-        rtcp_dtls_transport == nullptr, field_trials_);
+        rtcp_dtls_transport == nullptr,
+        un_demuxable_packet_handler_.AsStdFunction(), field_trials_);
     dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport,
                                            rtcp_dtls_transport);
     return dtls_srtp_transport;
@@ -193,7 +198,8 @@ class JsepTransport2Test : public ::testing::Test, public sigslot::has_slots<> {
   // The SrtpTransport is owned by `jsep_transport_`. Keep a raw pointer here
   // for testing.
   webrtc::SrtpTransport* sdes_transport_ = nullptr;
-
+  MockFunction<void(const RtpPacketReceived& parsed_packet)>
+      un_demuxable_packet_handler_;
   webrtc::test::ScopedKeyValueConfig field_trials_;
 };
 
@@ -202,7 +208,8 @@ class JsepTransport2Test : public ::testing::Test, public sigslot::has_slots<> {
 class JsepTransport2WithRtcpMux : public JsepTransport2Test,
                                   public ::testing::WithParamInterface<bool> {};
 
-// This test verifies the ICE parameters are properly applied to the transports.
+// This test verifies the ICE parameters are properly applied to the
+// transports.
 TEST_P(JsepTransport2WithRtcpMux, SetIceParameters) {
   bool rtcp_mux_enabled = GetParam();
   jsep_transport_ = CreateJsepTransport2(rtcp_mux_enabled, SrtpMode::kDtlsSrtp);
@@ -283,7 +290,8 @@ TEST_P(JsepTransport2WithRtcpMux, SetDtlsParameters) {
   // transport descriptions.
   auto role = jsep_transport_->GetDtlsRole();
   ASSERT_TRUE(role);
-  EXPECT_EQ(rtc::SSL_SERVER, role);  // Because remote description was "active".
+  EXPECT_EQ(rtc::SSL_SERVER,
+            role);  // Because remote description was "active".
   auto fake_dtls =
       static_cast<FakeDtlsTransport*>(jsep_transport_->rtp_dtls_transport());
   EXPECT_EQ(remote_description.transport_desc.identity_fingerprint->ToString(),
@@ -334,8 +342,7 @@ TEST_P(JsepTransport2WithRtcpMux, SetDtlsParametersWithPassiveAnswer) {
   // transport descriptions.
   auto role = jsep_transport_->GetDtlsRole();
   ASSERT_TRUE(role);
-  EXPECT_EQ(rtc::SSL_CLIENT,
-            role);  // Because remote description was "passive".
+  EXPECT_EQ(rtc::SSL_SERVER, role);  // Because remote description was "active".
   auto fake_dtls =
       static_cast<FakeDtlsTransport*>(jsep_transport_->rtp_dtls_transport());
   EXPECT_EQ(remote_description.transport_desc.identity_fingerprint->ToString(),

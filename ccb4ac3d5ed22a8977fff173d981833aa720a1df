@@ -39,6 +39,29 @@
       },
       "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c388396_27103e4d",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-28T17:28:59Z",
+      "side": 1,
+      "message": "We should also check: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_capture_options.h;drc\u003d8101d6d81854e4f437e0f03f77694a01aaa8df7a;l\u003d114 at least for now so we can try turning this behavior on or off.",
+      "range": {
+        "startLine": 241,
+        "startChar": 4,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

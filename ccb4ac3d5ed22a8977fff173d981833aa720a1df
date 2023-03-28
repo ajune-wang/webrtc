@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e149ea3e_66724cf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-28T17:17:27Z",
+      "side": 1,
+      "message": "Can you add that it also fixes the propagation of this in (Copy|Move)FrameInfoFrom",
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16585aab_6691159e",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-28T17:17:27Z",
+      "side": 1,
+      "message": "Since all of this is only done once, I\u0027d prefer either:\n1) Calculating if it\u0027s embedded to happen out here and the bool be the param to LogMouseCursor\n2) LogMouseCursor be renamed to \"ContainsMouseCursor\" or similar (which can also do the QuadPart and Logging as a reasonable side effect)",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 3
+      },
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

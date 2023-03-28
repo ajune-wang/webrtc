@@ -51,8 +51,8 @@ class FakeDataChannelController
                   std::move(my_weak_ptr), std::string(label),
                   transport_available_, init, signaling_thread_,
                   network_thread_);
-          if (transport_available_ && channel->sid_s().HasValue()) {
-            AddSctpDataStream(channel->sid_s());
+          if (transport_available_ && channel->sid_n().HasValue()) {
+            AddSctpDataStream(channel->sid_n());
           }
           return channel;
         });

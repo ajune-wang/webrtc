@@ -94,6 +94,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1865798_bc88fd7e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_input.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "Right, the reason is that there is already a method with that name (without the underscore) in the base class. Do you vote for a different name? I started with a getter in the base class that was get_timestamp_ms() but then we thought that it was better to make that method name on the base shorter.",
+      "parentUuid": "10ef8514_b28cff91",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77a9636a_960eaf41",
         "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
         "patchSetId": 17
@@ -138,6 +162,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e12b601_ea1f94c5",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "Comment added.",
+      "parentUuid": "77a9636a_960eaf41",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77450d85_bbdc0e9c",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "I put a comment there.",
+      "parentUuid": "4ee776f4_952ef771",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c73fb06c_944cc9db",
@@ -151,6 +223,30 @@
       "writtenOn": "2023-03-27T15:00:59Z",
       "side": 1,
       "message": "nit:\nIt looks like we can check that `event_` is a packet before calling `FuzzIfPacket`, then it could be a `FuzzPacket` and `event_` could be a `unique_ptr\u003cPacketData\u003e packet_` throughout the code. Might make it easier to read (no ambiguity about the type of `event_`). It looks odd to do this validation:\n```\n    RTC_DCHECK(event_ \u0026\u0026 event_-\u003etype() \u003d\u003d Event::Type::kPacketData);\n    PacketData\u0026 packet_data \u003d static_cast\u003cPacketData\u0026\u003e(*event_);\n```\nin the middle of `FuzzHeader`/`MaybeFuzzPayload`.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 19
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6a885da_0055aa26",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c73fb06c_944cc9db",
       "range": {
         "startLine": 74,
         "startChar": 4,
@@ -184,6 +280,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1f97028_d33427d1",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "I added a comment.",
+      "parentUuid": "41462fe7_85629ad1",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 4
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab925de0_9f1b184f",
@@ -197,6 +317,30 @@
       "writtenOn": "2023-03-27T15:00:59Z",
       "side": 1,
       "message": "nit: It\u0027s not clear to me why this is called from the constructor, could you add a comment? Or is it obvious from how NetEqInput is usually used? I\u0027m not too familiar with it.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "493ddb9a_fd1aeeca",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "I added a comment.",
+      "parentUuid": "ab925de0_9f1b184f",
       "range": {
         "startLine": 83,
         "startChar": 0,
@@ -230,6 +374,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de652792_42a47a0c",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "I changed this part, please have a look.",
+      "parentUuid": "6a307409_f55c6317",
+      "range": {
+        "startLine": 119,
+        "startChar": 6,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dda412c6_4c0470fb",
@@ -243,6 +411,30 @@
       "writtenOn": "2023-03-27T15:00:59Z",
       "side": 1,
       "message": "(nit: this default value is unused)",
+      "range": {
+        "startLine": 152,
+        "startChar": 34,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "eef8bbdc2232bd89953020c3c57cda3eddf906e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f372ffcb_4d5bf042",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2023-03-28T15:01:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dda412c6_4c0470fb",
       "range": {
         "startLine": 152,
         "startChar": 34,

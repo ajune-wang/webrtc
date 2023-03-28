@@ -16,6 +16,24 @@
       "message": "Suggest using unsigned int_16 and 0x8001 so that it is easy to see that it\u0027s the same as in the draft.\n\nI see that the int for the kType is embedded deeply elsewhere, so that may be harder (or wrong) to change. but always use the same constant format as in the docs if possible.",
       "revId": "d1a829540f9be1a8dad9f8a2152bdb7742a068fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a3c8a9_21f52702",
+        "filename": "net/dcsctp/packet/parameter/zero_checksum_acceptable_chunk_parameter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-03-28T11:16:25Z",
+      "side": 1,
+      "message": "Using constant as stated, but as you say, it\u0027s hard to change to uint16_t in this change. Will write it on my TODO list!",
+      "parentUuid": "b8a89b43_b18c6001",
+      "revId": "d1a829540f9be1a8dad9f8a2152bdb7742a068fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

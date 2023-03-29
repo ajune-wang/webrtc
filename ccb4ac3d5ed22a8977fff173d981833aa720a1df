@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a17c9699_d4403294",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-29T11:33:35Z",
+      "side": 1,
+      "message": "#2 coming up",
+      "parentUuid": "16585aab_6691159e",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 3
+      },
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c388396_27103e4d",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-03-28T17:28:59Z",
       "side": 1,
       "message": "We should also check: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_capture_options.h;drc\u003d8101d6d81854e4f437e0f03f77694a01aaa8df7a;l\u003d114 at least for now so we can try turning this behavior on or off.",
+      "range": {
+        "startLine": 241,
+        "startChar": 4,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b51e3fe_f6f52f95",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-29T11:33:35Z",
+      "side": 1,
+      "message": "Added support for it but did not plumb the option all the way down here. Instead, I stored the option in ScreenCapturerWinDirectx and possibly unset set the embedded cursor there.",
+      "parentUuid": "7c388396_27103e4d",
       "range": {
         "startLine": 241,
         "startChar": 4,

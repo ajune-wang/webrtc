@@ -101,8 +101,9 @@ int ScreenCapturerWinDirectx::GetIndexFromScreenId(
   return -1;
 }
 
-ScreenCapturerWinDirectx::ScreenCapturerWinDirectx()
-    : controller_(DxgiDuplicatorController::Instance()) {}
+ScreenCapturerWinDirectx::ScreenCapturerWinDirectx(
+    const DesktopCaptureOptions& options)
+    : controller_(DxgiDuplicatorController::Instance()), options_(options) {}
 
 ScreenCapturerWinDirectx::~ScreenCapturerWinDirectx() = default;
 
@@ -191,6 +192,12 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
           capture_time_ms);
       frame->set_capture_time_ms(capture_time_ms);
       frame->set_capturer_id(DesktopCapturerId::kScreenCapturerWinDirectx);
+      // The DXGI Output Duplicator supports embedding the cursor but it is
+      // only supported on very few display adapters. This switch allows us
+      // to exclude an integrated cursor for all captured frames.
+      if (!options_.prefer_cursor_embedded()) {
+        frame->set_may_contain_cursor(false);
+      }
 
       // TODO(julien.isorce): http://crbug.com/945468. Set the icc profile on
       // the frame, see WindowCapturerMac::CaptureFrame.

@@ -70,7 +70,7 @@ class RTC_EXPORT ScreenCapturerWinDirectx : public DesktopCapturer {
   static int GetIndexFromScreenId(ScreenId id,
                                   const std::vector<std::string>& device_names);
 
-  explicit ScreenCapturerWinDirectx();
+  explicit ScreenCapturerWinDirectx(const DesktopCaptureOptions& options);
 
   ~ScreenCapturerWinDirectx() override;
 
@@ -87,6 +87,7 @@ class RTC_EXPORT ScreenCapturerWinDirectx : public DesktopCapturer {
 
  private:
   const rtc::scoped_refptr<DxgiDuplicatorController> controller_;
+  DesktopCaptureOptions options_;
 
   // The underlying DxgiDuplicators may retain a reference to the frames that
   // we ask them to duplicate so that they can continue returning valid frames

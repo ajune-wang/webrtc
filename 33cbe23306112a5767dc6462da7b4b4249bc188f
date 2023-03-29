@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1898964d_ce66a019",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-29T17:32:56Z",
+      "side": 1,
+      "message": "I hope not but I assumed that was the reason why you wanted me to add use of the option. If not, please elaborate.",
+      "parentUuid": "27c911b8_5a930b0f",
+      "range": {
+        "startLine": 201,
+        "startChar": 54,
+        "endLine": 202,
+        "endChar": 65
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcb988c2_bbe2d878",
         "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-29T17:00:28Z",
       "side": 1,
       "message": "I don\u0027t think we need to keep this? Or did you find an instance that used it?",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c335fa0b_b1f04109",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-29T17:32:56Z",
+      "side": 1,
+      "message": "We need it. I broke something in host/remote/win. Did not investigate but they use this ctor.",
+      "parentUuid": "dcb988c2_bbe2d878",
       "range": {
         "startLine": 73,
         "startChar": 2,

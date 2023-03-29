@@ -157,9 +157,10 @@ class DataChannelController : public SctpDataChannelControllerInterface,
 
   // Owning PeerConnection.
   PeerConnectionInternal* const pc_;
-  // The weak pointers must be dereferenced and invalidated on the signalling
+  // The weak pointers must be dereferenced and invalidated on the network
   // thread only.
-  rtc::WeakPtrFactory<DataChannelController> weak_factory_{this};
+  rtc::WeakPtrFactory<DataChannelController> weak_factory_
+      RTC_GUARDED_BY(network_thread()){this};
   ScopedTaskSafety signaling_safety_;
 };
 

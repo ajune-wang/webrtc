@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9984b25_5e53631c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-29T17:56:32Z",
+      "side": 1,
+      "message": "s/.../has already embedded the mouse cursor",
+      "range": {
+        "startLine": 18,
+        "startChar": 36,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27c911b8_5a930b0f",
         "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
         "patchSetId": 5
@@ -50,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa0c9b8f_22b4424b",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-29T17:56:32Z",
+      "side": 1,
+      "message": "Right, essentially what I\u0027m asking is that we don\u0027t have a way to stop the capturer from including the mouse cursor; which means that *normally* we should just ignore this switch and do our best to set it when we don\u0027t have a choice. However, for the time being, I\u0027m a bit concerned if this may cause a regression in behavior so I\u0027d like a way to restore the previous logic (e.g. setting this to some non-default value). So we should probably have a bug to remove reading this value since we can\u0027t *actually* respect it, and we\u0027re just kind of (intentionally) abusing this value as a kill switch for this patch.\n\nIs there a corresponding chrome change needed to set prefer_cursor_embedded to true?",
+      "parentUuid": "1898964d_ce66a019",
+      "range": {
+        "startLine": 201,
+        "startChar": 54,
+        "endLine": 202,
+        "endChar": 65
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcb988c2_bbe2d878",
         "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
         "patchSetId": 5
@@ -85,6 +132,30 @@
       "side": 1,
       "message": "We need it. I broke something in host/remote/win. Did not investigate but they use this ctor.",
       "parentUuid": "dcb988c2_bbe2d878",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e22ad0e_82da623d",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-29T17:56:32Z",
+      "side": 1,
+      "message": "😞 I wish they wouldn\u0027t depend on our non-public interfaces. Maybe make a comment that this constructor will hopefully not be long lived and so should not be consumed?",
+      "parentUuid": "c335fa0b_b1f04109",
       "range": {
         "startLine": 73,
         "startChar": 2,

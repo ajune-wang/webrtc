@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76c00ccb_2f1a57d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-29T17:56:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e149ea3e_66724cf0",
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16585aab_6691159e",
@@ -102,6 +120,30 @@
       "side": 1,
       "message": "Added support for it but did not plumb the option all the way down here. Instead, I stored the option in ScreenCapturerWinDirectx and possibly unset set the embedded cursor there.",
       "parentUuid": "7c388396_27103e4d",
+      "range": {
+        "startLine": 241,
+        "startChar": 4,
+        "endLine": 241,
+        "endChar": 61
+      },
+      "revId": "ccb4ac3d5ed22a8977fff173d981833aa720a1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "999a5c69_9b92ca1b",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-29T17:56:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b51e3fe_f6f52f95",
       "range": {
         "startLine": 241,
         "startChar": 4,

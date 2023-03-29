@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18698cf9_217d4ced",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Some replies, I\u0027ll do another follow up",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "602324d1_d9f30bf2",
@@ -35,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1596772_ccc89737",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Done\n(I can understand that being a bit confusing 😊)",
+      "parentUuid": "602324d1_d9f30bf2",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a110a14_1e209efd",
@@ -48,6 +83,24 @@
       "writtenOn": "2023-03-28T22:49:20Z",
       "side": 1,
       "message": "In that case, will there be in-flignt PostTasks to the signaling thread to clear them that will have to be aborted because DCC is gone when they arrive?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "876eae5c_65eb3fac",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Yes. That\u0027s what the tests do to trigger this.",
+      "parentUuid": "0a110a14_1e209efd",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -71,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ead86f21_08ed5e44",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Comparing the sequence of operations today, here\u0027s how it\u0027s triggered today:\n\n```\nvoid SdpOfferAnswerHandler::DestroyDataChannelTransport(RTCError error) {\n  \u003csnip\u003e\n  if (has_sctp)\n    data_channel_controller()-\u003eOnTransportChannelClosed(error);\n\n  context_-\u003enetwork_thread()-\u003eBlockingCall([this] {\n    RTC_DCHECK_RUN_ON(context_-\u003enetwork_thread());\n    pc_-\u003eTeardownDataChannelTransport_n();\n  });\n  \u003csnip\u003e\n}\n```\n\nThe call to `OnTransportChannelClosed` is what goes through all the channels and triggers the state transitions. Notably also that for each channel, there are a few thread hops between the signaling and network thread. Then we eventually get to `TeardownDataChannelTransport_n`.\n\nThe end state will look more like this:\n```\nvoid SdpOfferAnswerHandler::DestroyDataChannelTransport(RTCError error) {\n  \u003csnip\u003e\n  context_-\u003enetwork_thread()-\u003eBlockingCall([\u0026] {\n        if (has_sctp)\n          data_channel_controller-\u003eOnTransportChannelClosed(error);\n        pc_-\u003eTeardownDataChannelTransport_n();\n      });\n  \u003csnip\u003e\n}\n```\n\nThe order of operations is the same, but there\u0027s a single trip to the network thread. `OnTransportChannelClosed` will refer to `sctp_data_channels_n_` and state transitions will be triggered in the same order as before, minus the thread hops.",
+      "parentUuid": "e59080c2_0c2bd68b",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8210faad_5a9ed4d5",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 38
@@ -82,6 +153,24 @@
       "writtenOn": "2023-03-28T22:49:20Z",
       "side": 1,
       "message": "Tell me why this loop isn\u0027t inside the BlockingCall lambda, and iterating over sctp_data_channel_n_?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2944e5_409a2777",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "I\u0027ll take a look at doing that in this CL. What I was thinking about in this CL was to loop over the same vector as before and then in follow up CLs rely more on the n_ vector. I\u0027ll get back on this.",
+      "parentUuid": "8210faad_5a9ed4d5",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +194,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88920f4a_b7f65fd4",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "* The channel is erased from `n_` on the network thread (inside this lambda)\n* The sid is returned to the signaling thread (HasValue() \u003d\u003d false)\n* On the signaling thread, the channel is added to `channels_to_close`\n* Below, all channels_to_close are closed, which causes the state transitions\n* When channels finally reach kClosed, they\u0027re removed from sctp_data_channels_",
+      "parentUuid": "ba7799cd_340ca138",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4bc2a588_3ac1d79d",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 38
@@ -116,6 +223,24 @@
       "writtenOn": "2023-03-28T22:49:20Z",
       "side": 1,
       "message": "Should you add a comment next to the declaration of sid_ saying \"this is missing an RTC_GUARDED_BY and should have one\"?",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42585689_69e888d5",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Done.\nI already have this in upcoming CLs actually.",
+      "parentUuid": "4bc2a588_3ac1d79d",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -133,6 +258,24 @@
       "writtenOn": "2023-03-28T22:49:20Z",
       "side": 1,
       "message": "Hypernit: be consistent about ID vs id. Might be easier reading if you just use sid (for the value) and StreamId (for the type) throughout rather than jumping between ID, id and sid.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaddc0ed_f565bdec",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 38
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d77632d_ded46894",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -156,6 +299,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "185c5533_92cc0573",
+        "filename": "pc/data_channel_controller_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "`MoveValue` will trigger an RTC_DCHECK() if `!ok()`, not the same thing asassert-fail. (i.e. terminate the process vs exiting the test)\n\nHowever I agree that testing `InternalCreateDataChannelWithProxy` is likely not the point of this test - but should we allow it to crash the process (and prevent subsequent tests from running)?\n\nThere isn\u0027t really an explicit EXPECT_TRUE() statement in the test for what it is testing btw, but then again there aren\u0027t many hints about the main purpose of it.",
+      "parentUuid": "6de70f9b_9247ca0d",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b8c42d8_ad5e6a35",
         "filename": "pc/data_channel_unittest.cc",
         "patchSetId": 38
@@ -167,6 +328,24 @@
       "writtenOn": "2023-03-28T22:49:20Z",
       "side": 1,
       "message": "Test code will be simpler if SetChannelSid takes an rtc::scoped_refptr rather than a raw pointer.",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32fe6e9a_6dd7428c",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T11:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8c42d8_ad5e6a35",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a5394e2_7a094222",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T18:49:17Z",
+      "side": 0,
+      "message": "Alright - I took a look at this but it turns out that it\u0027s practically impossible to inject test code at this level in between the data controller and the transport (in order to block the reply).\nHowever, this seems like a good fit as a test for the DataChannelController, since that\u0027s where this logic sits. So, I wrote a test there in the spirit of this one. Also added one extra step to that test which isn\u0027t included here, which is to test what happens once we reach kClosed.\n\nSee pc/data_channel_controller_unittest.cc",
+      "parentUuid": "382d29dc_4a6a2e08",
+      "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5a48d22_bb8e26f5",
         "filename": "pc/peer_connection_end_to_end_unittest.cc",
         "patchSetId": 38
@@ -49,6 +67,24 @@
       "writtenOn": "2023-03-29T11:15:03Z",
       "side": 0,
       "message": "After this call (and all the way through the next several lines), there\u0027s an implicit assumption that the state never gets to kClosed.",
+      "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7265e7_fca7de65",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T18:49:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "d5a48d22_bb8e26f5",
       "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -70,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efd866fe_cc7e9773",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T18:49:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "59aa915e_45aa6426",
+      "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "505271cf_282511e0",
@@ -83,6 +137,24 @@
       "writtenOn": "2023-03-29T11:15:03Z",
       "side": 0,
       "message": "This assumes an implementation detail that everything is happening on the same thread (this current test thread).\n\nWhen running the test, what \"fails\" is that `caller_dc` gets to `kClosed`. What the test is meant to test, isn\u0027t what breaks, it\u0027s that the signaling thread assumptions behind it, don\u0027t hold.\n\nSo it seems like what the test needs to do is somehow, explicitly, prevent the state transition from closing to closed and create a new data channel inside that gap and test that it doesn\u0027t get the same sid.",
+      "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "763fff69_96ccbf2a",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T18:49:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "505271cf_282511e0",
       "revId": "d6c4b1641d27f619f9f33ad2b36e8e5e326ac148",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

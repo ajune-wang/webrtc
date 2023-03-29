@@ -177,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cccd73df_fb833e46",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T18:49:17Z",
+      "side": 1,
+      "message": "Took another stab at it. Since the sid needs to be set on a different thread than it\u0027s allocated (at the stage of this CL), there\u0027s a bit of a trick to it, but there\u0027s now a single thread hop outside the loop.",
+      "parentUuid": "de2944e5_409a2777",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba7799cd_340ca138",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 38
@@ -206,6 +224,24 @@
       "side": 1,
       "message": "* The channel is erased from `n_` on the network thread (inside this lambda)\n* The sid is returned to the signaling thread (HasValue() \u003d\u003d false)\n* On the signaling thread, the channel is added to `channels_to_close`\n* Below, all channels_to_close are closed, which causes the state transitions\n* When channels finally reach kClosed, they\u0027re removed from sctp_data_channels_",
       "parentUuid": "ba7799cd_340ca138",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "383eeddb_0992be9e",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T18:49:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88920f4a_b7f65fd4",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

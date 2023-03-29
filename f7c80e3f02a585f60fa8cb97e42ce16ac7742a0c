@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ec9519_561291d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-29T23:12:29Z",
+      "side": 1,
+      "message": "Harald - wdyt about this? Which behavior is correct?",
+      "revId": "f7c80e3f02a585f60fa8cb97e42ce16ac7742a0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

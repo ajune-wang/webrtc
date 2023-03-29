@@ -140,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e466bec_8d6556fc",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-29T20:19:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ead86f21_08ed5e44",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8210faad_5a9ed4d5",
@@ -189,6 +207,24 @@
       "side": 1,
       "message": "Took another stab at it. Since the sid needs to be set on a different thread than it\u0027s allocated (at the stage of this CL), there\u0027s a bit of a trick to it, but there\u0027s now a single thread hop outside the loop.",
       "parentUuid": "de2944e5_409a2777",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6cda6e_c2552719",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-29T20:19:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cccd73df_fb833e46",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -347,6 +383,24 @@
       "side": 1,
       "message": "`MoveValue` will trigger an RTC_DCHECK() if `!ok()`, not the same thing asassert-fail. (i.e. terminate the process vs exiting the test)\n\nHowever I agree that testing `InternalCreateDataChannelWithProxy` is likely not the point of this test - but should we allow it to crash the process (and prevent subsequent tests from running)?\n\nThere isn\u0027t really an explicit EXPECT_TRUE() statement in the test for what it is testing btw, but then again there aren\u0027t many hints about the main purpose of it.",
       "parentUuid": "6de70f9b_9247ca0d",
+      "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e37eb2f0_0871b69d",
+        "filename": "pc/data_channel_controller_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-29T20:19:13Z",
+      "side": 1,
+      "message": "I remember adding these tests in order to provoke MSAN into giving use-after-free errors - there is an implicit \"Don\u0027t crash under MSAN\" assertion in there :-)",
+      "parentUuid": "185c5533_92cc0573",
       "revId": "d2d93d46d2c5852c8bac9f1c4f871d725e81f577",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

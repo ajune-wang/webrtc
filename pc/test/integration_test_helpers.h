@@ -1154,7 +1154,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
   void OnDataChannel(
       rtc::scoped_refptr<DataChannelInterface> data_channel) override {
-    RTC_LOG(LS_INFO) << debug_name_ << ": OnDataChannel";
+    RTC_LOG(LS_INFO) << debug_name_ << ": OnDataChannel"
+                     << data_channel->state();
     data_channels_.push_back(data_channel);
     data_observers_.push_back(
         std::make_unique<MockDataChannelObserver>(data_channel.get()));

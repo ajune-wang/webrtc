@@ -127,6 +127,8 @@ class JsepTransportController : public sigslot::has_slots<> {
     std::function<void(const rtc::CopyOnWriteBuffer& packet,
                        int64_t packet_time_us)>
         rtcp_handler;
+    std::function<void(RtpPacketReceived parsed_packet)>
+        un_demuxable_packet_handler;
     // Initial value for whether DtlsTransport reset causes a reset
     // of SRTP parameters.
     bool active_reset_srtp_params = false;
@@ -449,6 +451,8 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   void OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
                               int64_t packet_time_us)
+      RTC_RUN_ON(network_thread_);
+  void OnUnDemuxableRtpPacketReceived_n(const webrtc::RtpPacketReceived& packet)
       RTC_RUN_ON(network_thread_);
 
   void OnDtlsHandshakeError(rtc::SSLHandshakeError error);

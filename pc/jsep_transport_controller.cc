@@ -1090,6 +1090,8 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
 
   jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
       this, &JsepTransportController::OnRtcpPacketReceived_n);
+  jsep_transport->rtp_transport()->SignalUnDemuxableRtpPacketReceived.connect(
+      this, &JsepTransportController::OnUnDemuxableRtpPacketReceived_n);
 
   transports_.RegisterTransport(content_info.name, std::move(jsep_transport));
   UpdateAggregateStates_n();
@@ -1408,6 +1410,12 @@ void JsepTransportController::OnRtcpPacketReceived_n(
     int64_t packet_time_us) {
   RTC_DCHECK(config_.rtcp_handler);
   config_.rtcp_handler(*packet, packet_time_us);
+}
+
+void JsepTransportController::OnUnDemuxableRtpPacketReceived_n(
+    const webrtc::RtpPacketReceived& packet) {
+  RTC_DCHECK(config_.un_demuxable_packet_handler);
+  config_.un_demuxable_packet_handler(packet);
 }
 
 void JsepTransportController::OnDtlsHandshakeError(

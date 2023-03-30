@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cf176cd_be9d3e53",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-30T10:03:55Z",
+      "side": 1,
+      "message": "What is the status of the network/worker thread merge experiment? This PostTask looks soon-to-be-unnecessary, wondering if it should be a \"maybe post\"?",
+      "revId": "d89245a4297884b4d167b5a8a2ef4c5feb400ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d29da10_04565db6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-30T10:03:55Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this make DCHECK builds crash if packet is not demuxable? that doesn\u0027t seem desirable.",
+      "revId": "d89245a4297884b4d167b5a8a2ef4c5feb400ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

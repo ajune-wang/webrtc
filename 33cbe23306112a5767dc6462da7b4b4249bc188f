@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05801ff0_ddd73e8f",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-30T17:00:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ffcc989_9044bccc",
+      "range": {
+        "startLine": 201,
+        "startChar": 54,
+        "endLine": 202,
+        "endChar": 65
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcb988c2_bbe2d878",
@@ -204,6 +228,30 @@
       "side": 1,
       "message": "I agree, it is really strange how they depend on this third_pary interface.",
       "parentUuid": "2e22ad0e_82da623d",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a951fad3_2cce7be1",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-03-30T17:00:17Z",
+      "side": 1,
+      "message": "Ah; sorry, I meant the new constructor. It\u0027d be great if we could revert the plumbing to disable it, but maybe it\u0027s better to keep it....",
+      "parentUuid": "ae665fef_8f379b7d",
       "range": {
         "startLine": 73,
         "startChar": 2,

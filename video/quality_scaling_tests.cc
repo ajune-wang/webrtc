@@ -155,6 +155,13 @@ class ScalingObserver : public test::SendTest {
                        test_params_.size());
   }
 
+  Action OnSendRtp(const uint8_t* packet, size_t length) override {
+    // Do not send any packets to avoid going down in target bitrate (could
+    // cause downgrading due to high frame drop percent or not upgrading due to
+    // low bitrate).
+    return DROP_PACKET;
+  }
+
   void PerformTest() override { EXPECT_EQ(expect_scaling_, Wait()); }
 
   test::FunctionVideoEncoderFactory encoder_factory_;

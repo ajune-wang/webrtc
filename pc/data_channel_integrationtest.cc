@@ -415,6 +415,7 @@ TEST_P(DataChannelIntegrationTest, CalleeClosesSctpDataChannel) {
 
   EXPECT_EQ_WAIT(DataChannelInterface::DataState::kClosed,
                  callee()->data_observer()->state(), kDefaultTimeout);
+
   EXPECT_THAT(callee()->data_observer()->states(),
               ::testing::ElementsAreArray(expected_states));
 }

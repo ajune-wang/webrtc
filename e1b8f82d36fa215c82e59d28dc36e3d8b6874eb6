@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ddf8efb_9f56ff2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:33:34Z",
+      "side": 1,
+      "message": "The big internal API change here is that Parse() now takes options. Might want to make a note of that in the CL description.\n\nLooks good to me.",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87dd4095_2b462aab",
+        "filename": "net/dcsctp/packet/sctp_packet_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:33:34Z",
+      "side": 1,
+      "message": "Not very comprehensible test name. What about \"NonZeroIncorrectChecksumGetsRejectedWhenZeroChecksumIsActive\"?",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "724dca8a_336f25eb",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:33:34Z",
+      "side": 1,
+      "message": "Should this be marked as \"for testing only\"? I was momentarily confused about whether it overlapped with disable_checksum_verification.",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa6c93c_06bb733e",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:33:34Z",
+      "side": 1,
+      "message": "If it controls both sending and receiving, it should be \"use_zero_checksum\" or \"enable_zero_checksum\", not \"accept_zero_checksum\".",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69828cb5_89736fc0",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:33:34Z",
+      "side": 1,
+      "message": "This is the same value as DcSctpOptions(). Are you calling them out just to be explicit?",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f4d14e8_28db8dff",
+        "filename": "net/dcsctp/socket/stream_reset_handler_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:33:34Z",
+      "side": 1,
+      "message": "Same comment about \"why set something explicitly to default\".",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

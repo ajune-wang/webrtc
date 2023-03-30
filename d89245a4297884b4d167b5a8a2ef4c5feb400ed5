@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e776eeb1_aa2ee721",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-03-30T14:55:16Z",
+      "side": 1,
+      "message": "This should be whatever is done for RTCP packets (InitializeRtcpCallback()). And RTCP packets are still posted.  I am not aware that network/worker thread experiments have been trying to remove uneccessary posts. There are  multiple places where posts are no longer needed the threads are merged.",
+      "parentUuid": "4cf176cd_be9d3e53",
+      "revId": "d89245a4297884b4d167b5a8a2ef4c5feb400ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d29da10_04565db6",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-30T10:03:55Z",
       "side": 1,
       "message": "Wouldn\u0027t this make DCHECK builds crash if packet is not demuxable? that doesn\u0027t seem desirable.",
+      "revId": "d89245a4297884b4d167b5a8a2ef4c5feb400ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7399153_ff940d24",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3005,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-03-30T14:55:16Z",
+      "side": 1,
+      "message": "Despite the name- this will never be called.\nDeliverRtpPacket is also used from WebRtcVideoChannel::ProcessRecivedPacket (and voiceChannel). Then the callback is used for creating default streams. Here call should never call the method since the type is ANY and the packet cant be demuxed to a stream. But sure, there is no reason to enforce that. So I will remove the DCHECK.",
+      "parentUuid": "0d29da10_04565db6",
       "revId": "d89245a4297884b4d167b5a8a2ef4c5feb400ed5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

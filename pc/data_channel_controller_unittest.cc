@@ -89,6 +89,7 @@ TEST_F(DataChannelControllerTest, CreateDataChannelEarlyClose) {
   EXPECT_TRUE(dcc.HasDataChannelsForTest());
   EXPECT_TRUE(dcc.HasUsedDataChannels());
   channel->Close();
+  run_loop_.Flush();
   EXPECT_FALSE(dcc.HasDataChannelsForTest());
   EXPECT_TRUE(dcc.HasUsedDataChannels());
 }
@@ -125,27 +126,32 @@ TEST_F(DataChannelControllerTest, AsyncChannelCloseTeardown) {
   // Grab a reference for testing purposes.
   inner_channel->AddRef();
 
-  channel = nullptr;  // dcc still holds a reference to `channel`.
   EXPECT_TRUE(dcc.HasDataChannelsForTest());
 
   // Trigger a Close() for the channel. This will send events back to dcc,
   // eventually reaching `OnSctpDataChannelClosed` where dcc removes
   // the channel from the internal list of data channels, but does not release
   // the reference synchronously since that reference might be the last one.
-  inner_channel->Close();
-  // Now there should be no tracked data channels.
-  EXPECT_FALSE(dcc.HasDataChannelsForTest());
-  // But there should be an async operation queued that still holds a reference.
-  // That means that the test reference, must not be the last one.
+  channel->Close();
+  channel = nullptr;  // dcc still holds a reference to `channel`.
+  // As far as DCC is concerned, the state on the signaling thread is still that
+  // data channels exist (see `OnSctpDataChannelClosed` for this handling).
+  EXPECT_TRUE(dcc.HasDataChannelsForTest());
+
+  // But there should be an async operation queued to the signaling thread that
+  // still holds a reference. That means that the test reference, must not be
+  // the last one.
   ASSERT_NE(inner_channel->Release(),
             rtc::RefCountReleaseStatus::kDroppedLastRef);
   // Grab a reference again (using the pointer is safe since the object still
-  // exists and we control the single-threaded environment manually).
+  // exists and we control the signaling thread manually).
   inner_channel->AddRef();
   // Now run the queued up async operations on the signaling (current) thread.
-  // This time, the reference formerly owned by dcc, should be release and the
+  // This time, the reference formerly owned by dcc, should be released and the
   // truly last reference is now held by the test.
   run_loop_.Flush();
+  // Now there should be no tracked data channels.
+  EXPECT_FALSE(dcc.HasDataChannelsForTest());
   // Check that this is the last reference.
   EXPECT_EQ(inner_channel->Release(),
             rtc::RefCountReleaseStatus::kDroppedLastRef);

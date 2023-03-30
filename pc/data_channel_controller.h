@@ -100,6 +100,11 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   void OnSctpDataChannelClosed(SctpDataChannel* channel);
 
  private:
+  // Creates a new SctpDataChannel object on the network thread.
+  RTCErrorOr<rtc::scoped_refptr<SctpDataChannel>> CreateDataChannel(
+      const std::string& label,
+      InternalDataChannelInit& config) RTC_RUN_ON(network_thread());
+
   // Parses and handles open messages.  Returns true if the message is an open
   // message and should be considered to be handled, false otherwise.
   bool HandleOpenMessage_n(int channel_id,
@@ -107,8 +112,8 @@ class DataChannelController : public SctpDataChannelControllerInterface,
                            const rtc::CopyOnWriteBuffer& buffer)
       RTC_RUN_ON(network_thread());
   // Called when a valid data channel OPEN message is received.
-  void OnDataChannelOpenMessage(const std::string& label,
-                                const InternalDataChannelInit& config)
+  void OnDataChannelOpenMessage(rtc::scoped_refptr<SctpDataChannel> channel,
+                                bool ready_to_send)
       RTC_RUN_ON(signaling_thread());
 
   // Accepts a `StreamId` which may be pre-negotiated or unassigned. For
@@ -157,9 +162,10 @@ class DataChannelController : public SctpDataChannelControllerInterface,
 
   // Owning PeerConnection.
   PeerConnectionInternal* const pc_;
-  // The weak pointers must be dereferenced and invalidated on the signalling
+  // The weak pointers must be dereferenced and invalidated on the network
   // thread only.
-  rtc::WeakPtrFactory<DataChannelController> weak_factory_{this};
+  rtc::WeakPtrFactory<DataChannelController> weak_factory_
+      RTC_GUARDED_BY(network_thread()){this};
   ScopedTaskSafety signaling_safety_;
 };
 

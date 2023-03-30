@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ffcc989_9044bccc",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-30T08:46:09Z",
+      "side": 1,
+      "message": "Sorry, I forgot that I also had done a Chrome version. Please check it and see what you feel about the new big picture.\n\nhttps://chromium-review.googlesource.com/c/chromium/src/+/4384467",
+      "parentUuid": "aa0c9b8f_22b4424b",
+      "range": {
+        "startLine": 201,
+        "startChar": 54,
+        "endLine": 202,
+        "endChar": 65
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcb988c2_bbe2d878",
         "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
         "patchSetId": 5
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "😞 I wish they wouldn\u0027t depend on our non-public interfaces. Maybe make a comment that this constructor will hopefully not be long lived and so should not be consumed?",
       "parentUuid": "c335fa0b_b1f04109",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae665fef_8f379b7d",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-03-30T08:46:09Z",
+      "side": 1,
+      "message": "I agree, it is really strange how they depend on this third_pary interface.",
+      "parentUuid": "2e22ad0e_82da623d",
       "range": {
         "startLine": 73,
         "startChar": 2,

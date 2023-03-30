@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9feb4e93_ba6dc002",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-30T09:55:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec8e8d4d_d823ca95",
+      "revId": "225a16afd78cfb1cd8f14066bda42cce31765ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb4d44fb_1f7b1315",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-30T07:44:21Z",
       "side": 1,
       "message": "Why insisting on controller_?\nWhen in the cleanup phase, I imagine that we may have state transitions in flight that arrive after the controller has gone away; I don\u0027t see a reason to block those.\n\nConversely, if we think that everything should die when the controller has gone away, we should have explicit handling of that - probably a straight transition to kClosed.\n\n(SendControlMessage quietly fails if controller_ is null, but the handshake state update goes through.)",
+      "revId": "225a16afd78cfb1cd8f14066bda42cce31765ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "816009e1_0343b2a5",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-30T09:55:10Z",
+      "side": 1,
+      "message": "I\u0027m effectively moving the check for controller_ up from SendControlMessage() so that we catch that earlier and don\u0027t alter the handshake state if we\u0027re unable to send packets. Wdyt?\n\nOn the second point, below, for kClosing, the code now transitions to kClosed if the controller has gone away in the meantime.\n\nFor the kConnecting state, one thing I\u0027ve found with upcoming changes is that when running a particular test on repeat:\n\n```\n./peerconnection_unittests --gtest_filter\u003d*CalleeClosesSctpDataChannel* --gtest_repeat\u003d100 --gtest_break_on_failure\n```\nand things (calls to UpdateState etc() are running on the network thread, that the transport may connect to the controller and call OnTransportReady() _before_ AllocateSctpSids() is called. Most (80/90%) of the time , the order is that sids are allocated first, then the ready notification comes from the transport. I\u0027m not sure exactly how this happens, but it happens for role\u003dSSL_SERVER channels.\n\nAny clue? (order of tasks on the network thread during SetLocalDescription seems to be inconsistent)\n\nHow that matters to UpdateState is that I was seeing calls come in here, with an unassigned id, so I felt more comfortable with having checks for that to be alerted early.",
+      "parentUuid": "eb4d44fb_1f7b1315",
       "revId": "225a16afd78cfb1cd8f14066bda42cce31765ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

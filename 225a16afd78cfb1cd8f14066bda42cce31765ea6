@@ -86,6 +86,24 @@
       "parentUuid": "eb4d44fb_1f7b1315",
       "revId": "225a16afd78cfb1cd8f14066bda42cce31765ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d5bc6e_5b8ffc86",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:24:09Z",
+      "side": 1,
+      "message": "Seems like a sequencing error. The spec (https://w3c.github.io/webrtc-pc/#sctp-transport-connected) says explicitly that the open events on the datachannel should be fired after the state update of the sctptransport - the note indicates that this is implemented by queueing the tasks that fire the open event at the datachannels after the (synchronous) firing of the statechange event on the sctptransport.\n\nI think the call to AllocateSctpSids() should logically occur before the OnTransportReady is fired - that is, it should be a blocking call or a same-thread task in the function that finishes up by firing OnTransportReady.",
+      "parentUuid": "816009e1_0343b2a5",
+      "revId": "225a16afd78cfb1cd8f14066bda42cce31765ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

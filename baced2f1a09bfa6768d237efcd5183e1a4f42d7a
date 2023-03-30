@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "982af924_fddebfde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-03-30T23:24:09Z",
+      "side": 1,
+      "message": "+1 on code. Commentary on the sequencing inconsistency.",
+      "revId": "baced2f1a09bfa6768d237efcd5183e1a4f42d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

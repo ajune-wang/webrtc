@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c04948b_44acd74c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-03-31T12:00:09Z",
+      "side": 1,
+      "message": "Separate CL to make sure that if both are kSendRecv in the internal slot, SDP only includes one of them due to special special?",
+      "parentUuid": "5273406d_6f9770e6",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9492537_cd003257",

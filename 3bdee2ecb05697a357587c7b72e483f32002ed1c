@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5407eb6_1e148f8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-03-31T11:18:49Z",
+      "side": 1,
+      "message": "This is practically noop (just reduce dependencies), i.e. it still picks supported codecs based on build flags.\n\nIs it still a helpful step?\n\nMain question here is what video codecs should be enabled \u0027by default\u0027 when user doesn\u0027t specify list of codecs explicitly in any way.",
+      "revId": "3bdee2ecb05697a357587c7b72e483f32002ed1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -185,6 +185,8 @@ class SctpDataChannel::ObserverAdapter : public DataChannelObserver {
         }));
   }
 
+  bool IsOkToCallOnTheNetworkThread() override { return true; }
+
   rtc::Thread* signaling_thread() const { return channel_->signaling_thread_; }
   rtc::Thread* network_thread() const { return channel_->network_thread_; }
 

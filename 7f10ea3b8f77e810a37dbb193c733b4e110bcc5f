@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5273406d_6f9770e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-31T11:52:06Z",
+      "side": 1,
+      "message": "ugh... apparently we have some SPECIAL RULES for twcc v2:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/media_session.cc;l\u003d1308?q\u003d%22transport-wide-cc-02%22\n\nWe seem to have unit tests too:\nTestOfferAnswerWithTransportSequenceNumber01And02InOffer\net al. Maybe we can migrate this custom logic to the new API?",
+      "parentUuid": "830394b6_f7a4418c",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9492537_cd003257",
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "This doesn\u0027t have a _ at the end so is throw-away?\nNo strong opinion",
       "parentUuid": "e0ba22b5_525c6837",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a78485_344d3dc0",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-31T11:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a7c22ab_ac5f90f7",
       "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -225,6 +261,24 @@
       "side": 1,
       "message": "Having a WPT sounds good but arguing with JSEP or the O/A principle... are you planning to throw out the baby with the bathwater? ;-)",
       "parentUuid": "da3b42be_d83e34cf",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b00f79_d5582aeb",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-31T11:52:06Z",
+      "side": 1,
+      "message": "WPT was added in https://chromium-review.googlesource.com/c/chromium/src/+/4369845",
+      "parentUuid": "866e31e0_9de94497",
       "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

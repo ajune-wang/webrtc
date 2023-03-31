@@ -90,6 +90,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b7c05fa_0fdb3d3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-03-31T14:27:17Z",
+      "side": 1,
+      "message": "I would rather axe this logic alltogether. It doesn\u0027t conform to SDP negotiation rules and one can easily negotiate v1 and v2 but don\u0027t use v1 if v2 is negotiated.\n\nLets followup with the extension owners ;-)",
+      "parentUuid": "0c04948b_44acd74c",
+      "revId": "7f10ea3b8f77e810a37dbb193c733b4e110bcc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9492537_cd003257",

@@ -450,6 +450,19 @@ class ConstMethodCall {
     return c_->method();                     \
   }
 
+// TBD
+#define BYPASS_PROXY_CUSTOM_METHOD0(r, method) \
+  r method() override {                        \
+    TRACE_BOILERPLATE(method);                 \
+    return c_->method();                       \
+  }
+
+// TBD
+#define BYPASS_PROXY_CUSTOM_METHOD1(r, method, t1) \
+  r method(t1 a1) override {                       \
+    TRACE_BOILERPLATE(method);                     \
+    return c_->method(std::move(a1));              \
+  }
 }  // namespace webrtc
 
 #endif  //  PC_PROXY_H_

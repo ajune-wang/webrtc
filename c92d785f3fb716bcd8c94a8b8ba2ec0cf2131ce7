@@ -16,6 +16,24 @@
       "message": "What would guarantee that the sequence checker is re-attached? Should there be a method call there?",
       "revId": "c92d785f3fb716bcd8c94a8b8ba2ec0cf2131ce7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "008e31f9_ef5ae3b5",
+        "filename": "api/legacy_stats_types.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-03-31T10:10:43Z",
+      "side": 1,
+      "message": "oops, that was supposed to be done here explicitly. Fixed.",
+      "parentUuid": "8aacab8e_158a7f15",
+      "revId": "c92d785f3fb716bcd8c94a8b8ba2ec0cf2131ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

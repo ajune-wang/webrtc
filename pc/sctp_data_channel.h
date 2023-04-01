@@ -23,6 +23,7 @@
 #include "api/rtc_error.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "pc/data_channel_utils.h"
 #include "pc/sctp_utils.h"
@@ -169,6 +170,7 @@ class SctpDataChannel : public DataChannelInterface {
   uint32_t messages_received() const override;
   uint64_t bytes_received() const override;
   bool Send(const DataBuffer& buffer) override;
+  void SendAsync(const DataBuffer& buffer) override;
 
   // Close immediately, ignoring any queued data or closing procedure.
   // This is called when the underlying SctpTransport is being destroyed.
@@ -245,13 +247,14 @@ class SctpDataChannel : public DataChannelInterface {
     kHandshakeReady
   };
 
+  RTCError SendImpl(const DataBuffer& buffer) RTC_RUN_ON(network_thread_);
   void UpdateState() RTC_RUN_ON(network_thread_);
   void SetState(DataState state) RTC_RUN_ON(network_thread_);
 
   void DeliverQueuedReceivedData() RTC_RUN_ON(network_thread_);
 
   void SendQueuedDataMessages() RTC_RUN_ON(network_thread_);
-  bool SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked)
+  RTCError SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked)
       RTC_RUN_ON(network_thread_);
   bool QueueSendDataMessage(const DataBuffer& buffer)
       RTC_RUN_ON(network_thread_);
@@ -292,6 +295,8 @@ class SctpDataChannel : public DataChannelInterface {
   PacketQueue queued_control_data_ RTC_GUARDED_BY(network_thread_);
   PacketQueue queued_received_data_ RTC_GUARDED_BY(network_thread_);
   PacketQueue queued_send_data_ RTC_GUARDED_BY(network_thread_);
+  rtc::scoped_refptr<PendingTaskSafetyFlag> network_safety_ =
+      PendingTaskSafetyFlag::CreateDetachedInactive();
 };
 
 // Downcast a PeerConnectionInterface that points to a proxy object

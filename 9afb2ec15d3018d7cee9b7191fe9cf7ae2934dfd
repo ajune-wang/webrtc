@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53219f46_4c52c505",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 20634
+      },
+      "writtenOn": "2023-04-01T00:01:50Z",
+      "side": 1,
+      "message": "could you please change it slightly as follows?\n\n params.putFloat(\"frame-rate\", (float)adjustedFramerateFps);",
+      "revId": "9afb2ec15d3018d7cee9b7191fe9cf7ae2934dfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

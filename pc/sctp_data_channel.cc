@@ -61,6 +61,7 @@ PROXY_SECONDARY_CONSTMETHOD0(uint64_t, bytes_received)
 PROXY_SECONDARY_CONSTMETHOD0(uint64_t, buffered_amount)
 PROXY_SECONDARY_METHOD0(void, Close)
 PROXY_SECONDARY_METHOD1(bool, Send, const DataBuffer&)
+BYPASS_PROXY_CUSTOM_METHOD1(void, SendAsync, const DataBuffer&)
 END_PROXY_MAP(DataChannel)
 }  // namespace
 
@@ -184,6 +185,14 @@ class SctpDataChannel::ObserverAdapter : public DataChannelObserver {
           delegate_->OnBufferedAmountChange(sent_data_size);
         }));
   }
+
+  void OnSendComplete(RTCError error) override {
+    RTC_DCHECK_RUN_ON(network_thread());
+    signaling_thread()->PostTask(SafeTask(
+        safety_.flag(), [this, error] { delegate_->OnSendComplete(error); }));
+  }
+
+  bool IsOkToCallOnTheNetworkThread() override { return true; }
 
   rtc::Thread* signaling_thread() const { return channel_->signaling_thread_; }
   rtc::Thread* network_thread() const { return channel_->network_thread_; }
@@ -454,21 +463,38 @@ uint64_t SctpDataChannel::bytes_received() const {
 
 bool SctpDataChannel::Send(const DataBuffer& buffer) {
   RTC_DCHECK_RUN_ON(network_thread_);
-
-  if (state_ != kOpen) {
+  RTCError err = SendImpl(buffer);
+  if (err.type() == RTCErrorType::INVALID_STATE)
     return false;
+
+  // Always return true for SCTP DataChannel per the spec.
+  return true;
+}
+
+// RTC_RUN_ON(network_thread_);
+RTCError SctpDataChannel::SendImpl(const DataBuffer& buffer) {
+  if (state_ != kOpen) {
+    return RTCError(RTCErrorType::INVALID_STATE);
   }
 
   // If the queue is non-empty, we're waiting for SignalReadyToSend,
   // so just add to the end of the queue and keep waiting.
   if (!queued_send_data_.Empty()) {
-    return QueueSendDataMessage(buffer);
+    return QueueSendDataMessage(buffer)
+               ? RTCError::OK()
+               : RTCError(RTCErrorType::RESOURCE_EXHAUSTED);
   }
 
-  SendDataMessage(buffer, true);
+  return SendDataMessage(buffer, true);
+}
 
-  // Always return true for SCTP DataChannel per the spec.
-  return true;
+void SctpDataChannel::SendAsync(const DataBuffer& buffer) {
+  network_thread_->PostTask(SafeTask(network_safety_, [this, buffer = buffer] {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    RTCError err = SendImpl(buffer);
+    if (observer_)
+      observer_->OnSendComplete(err);
+  }));
 }
 
 void SctpDataChannel::SetSctpSid_n(StreamId sid) {
@@ -508,6 +534,7 @@ void SctpDataChannel::OnClosingProcedureComplete() {
 void SctpDataChannel::OnTransportChannelCreated() {
   RTC_DCHECK_RUN_ON(network_thread_);
   connected_to_transport_ = true;
+  network_safety_->SetAlive();
 }
 
 void SctpDataChannel::OnTransportChannelClosed(RTCError error) {
@@ -615,6 +642,7 @@ void SctpDataChannel::CloseAbruptlyWithError(RTCError error) {
   }
 
   connected_to_transport_ = false;
+  network_safety_->SetNotAlive();
 
   // Closing abruptly means any queued data gets thrown away.
   queued_send_data_.Clear();
@@ -738,7 +766,7 @@ void SctpDataChannel::SendQueuedDataMessages() {
 
   while (!queued_send_data_.Empty()) {
     std::unique_ptr<DataBuffer> buffer = queued_send_data_.PopFront();
-    if (!SendDataMessage(*buffer, false)) {
+    if (!SendDataMessage(*buffer, false).ok()) {
       // Return the message to the front of the queue if sending is aborted.
       queued_send_data_.PushFront(std::move(buffer));
       break;
@@ -747,11 +775,11 @@ void SctpDataChannel::SendQueuedDataMessages() {
 }
 
 // RTC_RUN_ON(network_thread_).
-bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
-                                      bool queue_if_blocked) {
+RTCError SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
+                                          bool queue_if_blocked) {
   SendDataParams send_params;
   if (!controller_) {
-    return false;
+    return RTCError(RTCErrorType::INVALID_STATE);
   }
 
   send_params.ordered = ordered_;
@@ -777,13 +805,15 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
     if (observer_ && buffer.size() > 0) {
       observer_->OnBufferedAmountChange(buffer.size());
     }
-    return true;
+    return error;
   }
 
   if (error.type() == RTCErrorType::RESOURCE_EXHAUSTED) {
-    if (!queue_if_blocked || QueueSendDataMessage(buffer)) {
-      return false;
-    }
+    if (!queue_if_blocked)
+      return error;
+
+    if (QueueSendDataMessage(buffer))
+      return RTCError::OK();
   }
   // Close the channel if the error is not SDR_BLOCK, or if queuing the
   // message failed.
@@ -793,7 +823,7 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   CloseAbruptlyWithError(
       RTCError(RTCErrorType::NETWORK_ERROR, "Failure to send data"));
 
-  return false;
+  return error;
 }
 
 // RTC_RUN_ON(network_thread_).

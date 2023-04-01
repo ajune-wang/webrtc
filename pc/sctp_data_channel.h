@@ -169,6 +169,7 @@ class SctpDataChannel : public DataChannelInterface {
   uint32_t messages_received() const override;
   uint64_t bytes_received() const override;
   bool Send(const DataBuffer& buffer) override;
+  void SendAsync(const DataBuffer& buffer) override;
 
   // Close immediately, ignoring any queued data or closing procedure.
   // This is called when the underlying SctpTransport is being destroyed.
@@ -251,7 +252,7 @@ class SctpDataChannel : public DataChannelInterface {
   void DeliverQueuedReceivedData() RTC_RUN_ON(network_thread_);
 
   void SendQueuedDataMessages() RTC_RUN_ON(network_thread_);
-  bool SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked)
+  RTCError SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked)
       RTC_RUN_ON(network_thread_);
   bool QueueSendDataMessage(const DataBuffer& buffer)
       RTC_RUN_ON(network_thread_);

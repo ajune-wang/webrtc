@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "721c6e4c_51e56120",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-02T09:20:49Z",
+      "side": 1,
+      "message": "FYI - I removed this TODO since it wouldn\u0027t simplify things.",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "900e5881_f58d167a",
@@ -31,6 +48,24 @@
       "writtenOn": "2023-04-02T04:08:58Z",
       "side": 1,
       "message": "This will trigger in tests where you are running with everything on one thread, right?",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07dcda1d_320e4938",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-02T09:20:49Z",
+      "side": 1,
+      "message": "Yes, good catch. I changed it to more accurately be:\n```\n  RTC_DCHECK(current_thread !\u003d network_thread_ ||\n             network_thread_ \u003d\u003d signaling_thread_);\n```\nAlso clarified the comment to include \"assuming a multi-threaded environment where we have a dedicated network thread\" so that the concern is more easily understood.",
+      "parentUuid": "900e5881_f58d167a",
       "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ba2609_8463ec0d",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-02T09:20:49Z",
+      "side": 1,
+      "message": "In the case where `signaling_thread_ \u003d\u003d network_thread_` we can get here. The dcheck above has been updated.",
+      "parentUuid": "d2ee16c5_40c118d4",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56f708b5_5deaceb5",
@@ -65,6 +118,24 @@
       "writtenOn": "2023-04-02T04:08:58Z",
       "side": 1,
       "message": "Same comment as above.",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ebb29b1_d6dfb037",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-02T09:20:49Z",
+      "side": 1,
+      "message": "We can get here when called from unknown threads (e.g. vm owned threads on android or the main JS thread in chrome). Both cases should be fine btw.",
+      "parentUuid": "56f708b5_5deaceb5",
       "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

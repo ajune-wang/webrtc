@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84fb026c_f802c876",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-02T04:08:58Z",
+      "side": 1,
+      "message": "Not a complete reveiw, but I thought the sctp_data_channel worry was worth raising early.",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900e5881_f58d167a",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-02T04:08:58Z",
+      "side": 1,
+      "message": "This will trigger in tests where you are running with everything on one thread, right?",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ee16c5_40c118d4",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-02T04:08:58Z",
+      "side": 1,
+      "message": "You can\u0027t get there from here when DCHECK is on, so you shouldn\u0027t ever get here (for consistency). Please don\u0027t.",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56f708b5_5deaceb5",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-02T04:08:58Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "revId": "652c8cb78a7c5b6f290b86afba07f3a7790438cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -107,6 +107,7 @@ class DataChannelObserverImpl : public webrtc::DataChannelObserver {
     else
       low_buffered_threshold_event_.Reset();
   }
+  bool IsOkToCallOnTheNetworkThread() override { return true; }
 
   bool WaitForOpenState() {
     return dc_->state() == webrtc::DataChannelInterface::DataState::kOpen ||

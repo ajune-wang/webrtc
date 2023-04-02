@@ -32,6 +32,10 @@
 #include "test/gtest.h"
 #include "test/run_loop.h"
 
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+#include "test/testsupport/rtc_expect_death.h"
+#endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+
 namespace webrtc {
 
 namespace {
@@ -768,6 +772,42 @@ TEST_F(SctpSidAllocatorTest, SctpIdReusedForRemovedDataChannel) {
   allocated_id = allocator_.AllocateSid(rtc::SSL_CLIENT);
   EXPECT_EQ(even_id.stream_id_int() + 6, allocated_id.stream_id_int());
 }
+
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+namespace {
+class FakeDataChannel : public DataChannelInterface {
+ public:
+  FakeDataChannel() = default;
+  // Send and SendAsync implementations are provided in the interface.
+
+ private:
+  // Implementation for pure virtual methods, just for compilation sake.
+  void RegisterObserver(DataChannelObserver* observer) override {}
+  void UnregisterObserver() override {}
+  std::string label() const override { return ""; }
+  bool reliable() const override { return false; }
+  int id() const override { return -1; }
+  DataState state() const override { return DataChannelInterface::kClosed; }
+  uint32_t messages_sent() const override { return 0u; }
+  uint64_t bytes_sent() const override { return 0u; }
+  uint32_t messages_received() const override { return 0u; }
+  uint64_t bytes_received() const override { return 0u; }
+  uint64_t buffered_amount() const override { return 0u; }
+  void Close() override {}
+};
+}  // namespace
+
+TEST(DataChannelInterfaceDeathTest, SendDefaultImplDchecks) {
+  auto channel = rtc::make_ref_counted<FakeDataChannel>();
+  RTC_EXPECT_DEATH(channel->Send(DataBuffer("Foo")), "Check failed: false");
+}
+
+TEST(DataChannelInterfaceDeathTest, SendAsyncDefaultImplDchecks) {
+  auto channel = rtc::make_ref_counted<FakeDataChannel>();
+  RTC_EXPECT_DEATH(channel->SendAsync(DataBuffer("Foo")),
+                   "Check failed: false");
+}
+#endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
 }  // namespace
 }  // namespace webrtc

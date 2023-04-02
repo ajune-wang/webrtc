@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccb590ad_41b0ff6d",
+        "filename": "net/dcsctp/packet/sctp_packet_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-02T20:34:08Z",
+      "side": 1,
+      "message": "Thanks - chose \"RejectsNonZeroIncorrectChecksumWhenZeroChecksumIsActive\" which was very similar to yours, but that prevented a line break :)",
+      "parentUuid": "87dd4095_2b462aab",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "724dca8a_336f25eb",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-30T23:33:34Z",
       "side": 1,
       "message": "Should this be marked as \"for testing only\"? I was momentarily confused about whether it overlapped with disable_checksum_verification.",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b6a609_21a47977",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-02T20:34:08Z",
+      "side": 1,
+      "message": "Agree. I added \"For fuzzers only!\" as that\u0027s the only use-case where it makes sense to set it.",
+      "parentUuid": "724dca8a_336f25eb",
       "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53fe6014_432fac91",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-02T20:34:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2aa6c93c_06bb733e",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69828cb5_89736fc0",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "979d7618_f8c38fc2",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-02T20:34:08Z",
+      "side": 1,
+      "message": "It was to make the tests independent of changing default values (I believe we might want to eventually have \"enable_zero_checksum\" be default enabled). But let\u0027s do it the other way: Keep it default here, until the defaults change.",
+      "parentUuid": "69828cb5_89736fc0",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f4d14e8_28db8dff",
@@ -99,6 +171,24 @@
       "writtenOn": "2023-03-30T23:33:34Z",
       "side": 1,
       "message": "Same comment about \"why set something explicitly to default\".",
+      "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a7687e_6aac90f0",
+        "filename": "net/dcsctp/socket/stream_reset_handler_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-02T20:34:08Z",
+      "side": 1,
+      "message": "Reverting - same rationale as the other comment.",
+      "parentUuid": "9f4d14e8_28db8dff",
       "revId": "e1b8f82d36fa215c82e59d28dc36e3d8b6874eb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

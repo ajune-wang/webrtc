@@ -260,6 +260,30 @@
       },
       "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42712ee2_c2aed85f",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-03T08:07:31Z",
+      "side": 1,
+      "message": "Keeping it for now. Sorry. Missed your comment.",
+      "parentUuid": "a951fad3_2cce7be1",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "33cbe23306112a5767dc6462da7b4b4249bc188f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

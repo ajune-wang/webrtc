@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "572e8a9f_66c7dc10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-03T10:48:55Z",
+      "side": 1,
+      "message": "I wonder if there is more inconsistency... or why we are parsing the URL in Chrome and the spec even.",
+      "revId": "ea0cc8243d39dd5de978043afa88a81bfbb1fd69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import androidx.annotation.Nullable;
 import androidx.test.filters.SmallTest;
@@ -30,6 +31,7 @@ public class SoftwareVideoDecoderFactoryTest {
   public void getSupportedCodecs_returnsDefaultCodecs() {
     VideoDecoderFactory factory = new SoftwareVideoDecoderFactory();
     VideoCodecInfo[] codecs = factory.getSupportedCodecs();
+
     assertThat(codecs.length).isEqualTo(6);
     assertThat(codecs[0].name).isEqualTo("VP8");
     assertThat(codecs[1].name).isEqualTo("VP9");

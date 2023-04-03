@@ -1173,12 +1173,6 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
   EXPECT_THAT(*outbound_rtps[0]->scalability_mode, StrEq("L1T1"));
 }
 
-// TODO(https://crbug.com/webrtc/15018): Investigate heap-use-after free during
-// shutdown of the test that is flakily happening on bots. It's not only
-// happening on ASAN, but it is rare enough on non-ASAN that we don't have to
-// disable everywhere.
-#if !defined(ADDRESS_SANITIZER)
-
 TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
        SendingThreeEncodings_VP8_Simulcast) {
   rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper = CreatePc();
@@ -1756,7 +1750,5 @@ TEST_F(PeerConnectionSimulcastWithMediaFlowTests,
   EXPECT_THAT(*outbound_rtps[1]->scalability_mode, StrEq("L1T3"));
   EXPECT_THAT(*outbound_rtps[2]->scalability_mode, StrEq("L1T3"));
 }
-
-#endif  // !defined(ADDRESS_SANITIZER)
 
 }  // namespace webrtc

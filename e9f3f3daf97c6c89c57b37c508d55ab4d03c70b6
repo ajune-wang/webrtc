@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97029dce_96bb2c00",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-04-03T14:21:14Z",
+      "side": 1,
+      "message": "When I ran the event log visualizer with this change, this check sometimes failed: \n\n```\n# Fatal error in: ../../modules/audio_coding/neteq/tools/neteq_test.cc, line 107\n# last system error: 0\n# Check failed: input_-\u003eNextEventTime()\n```\n\nNot sure why.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 40
+      },
+      "revId": "e9f3f3daf97c6c89c57b37c508d55ab4d03c70b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -79,6 +79,8 @@ class RtpTransportInternal : public sigslot::has_slots<> {
                               const rtc::PacketOptions& options,
                               int flags) = 0;
 
+  virtual void SendBatchComplete() = 0;
+
   // This method updates the RTP header extension map so that the RTP transport
   // can parse the received packets and identify the MID. This is called by the
   // BaseChannel when setting the content description.

@@ -36,6 +36,7 @@ struct PacketOptions {
   bool is_retransmit = false;
   bool included_in_feedback = false;
   bool included_in_allocation = false;
+  bool batchable = false;
 };
 
 class Transport {
@@ -44,6 +45,7 @@ class Transport {
                        size_t length,
                        const PacketOptions& options) = 0;
   virtual bool SendRtcp(const uint8_t* packet, size_t length) = 0;
+  virtual void SendBatchComplete() {}
 
  protected:
   virtual ~Transport() {}

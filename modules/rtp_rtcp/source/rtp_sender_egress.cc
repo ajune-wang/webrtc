@@ -293,6 +293,14 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
   }
 }
 
+// RTC_LOCKS_EXCLUDED(lock_)
+void RtpSenderEgress::SendBatchComplete() {
+  RTC_DCHECK_RUN_ON(&pacer_checker_);
+  if (transport_) {
+    transport_->SendBatchComplete();
+  }
+}
+
 RtpSendRates RtpSenderEgress::GetSendRates() const {
   MutexLock lock(&lock_);
   return GetSendRatesLocked(clock_->CurrentTime());

@@ -50,6 +50,9 @@ class RTC_EXPORT PacketTransportInternal : public sigslot::has_slots<> {
                          const rtc::PacketOptions& options,
                          int flags = 0) = 0;
 
+  // Sent from the pacer on send packet batch completion.
+  virtual void SendBatchComplete() {}
+
   // Sets a socket option. Note that not all options are
   // supported by all transport types.
   virtual int SetOption(rtc::Socket::Option opt, int value) = 0;

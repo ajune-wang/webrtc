@@ -62,6 +62,7 @@ class PacketRouter : public PacingController::PacketSender {
       uint32_t ssrc,
       rtc::ArrayView<const uint16_t> sequence_numbers) override;
   absl::optional<uint32_t> GetRtxSsrcForMedia(uint32_t ssrc) const override;
+  void SendBatchComplete() override;
 
   uint16_t CurrentTransportSequenceNumber() const;
 

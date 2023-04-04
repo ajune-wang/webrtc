@@ -53,6 +53,9 @@ class PacingController {
     virtual std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
         DataSize size) = 0;
 
+    // Indicates that the current batch of processed packets is complete.
+    virtual void SendBatchComplete() = 0;
+
     // TODO(bugs.webrtc.org/11340): Make pure virtual once downstream projects
     // have been updated.
     virtual void OnAbortedRetransmissions(

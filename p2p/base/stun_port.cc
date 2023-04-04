@@ -342,6 +342,10 @@ int UDPPort::SendTo(const void* data,
   return sent;
 }
 
+void UDPPort::SendBatchComplete() {
+  socket_->SendBatchComplete();
+}
+
 void UDPPort::UpdateNetworkCost() {
   Port::UpdateNetworkCost();
   stun_keepalive_lifetime_ = GetStunKeepaliveLifetime();

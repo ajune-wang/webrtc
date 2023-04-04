@@ -31,6 +31,17 @@ constexpr TimeDelta kCongestedPacketInterval = TimeDelta::Millis(500);
 constexpr TimeDelta kMaxDebtInTime = TimeDelta::Millis(500);
 constexpr TimeDelta kMaxElapsedTime = TimeDelta::Seconds(2);
 
+class SendBatchCompleteOnDestruction {
+ public:
+  explicit SendBatchCompleteOnDestruction(
+      PacingController::PacketSender& sender)
+      : sender_(sender) {}
+  ~SendBatchCompleteOnDestruction() { sender_.SendBatchComplete(); }
+
+ private:
+  PacingController::PacketSender& sender_;
+};
+
 bool IsDisabled(const FieldTrialsView& field_trials, absl::string_view key) {
   return absl::StartsWith(field_trials.Lookup(key), "Disabled");
 }
@@ -359,6 +370,7 @@ Timestamp PacingController::NextSendTime() const {
 void PacingController::ProcessPackets() {
   const Timestamp now = CurrentTime();
   Timestamp target_send_time = now;
+  SendBatchCompleteOnDestruction send_batch_complete(*packet_sender_);
 
   if (ShouldSendKeepalive(now)) {
     DataSize keepalive_data_sent = DataSize::Zero();

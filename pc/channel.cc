@@ -334,6 +334,13 @@ bool BaseChannel::SendRtcp(rtc::CopyOnWriteBuffer* packet,
   return SendPacket(true, packet, options);
 }
 
+void BaseChannel::SendBatchComplete() {
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (rtp_transport_) {
+    rtp_transport_->SendBatchComplete();
+  }
+}
+
 int BaseChannel::SetOption(SocketType type,
                            rtc::Socket::Option opt,
                            int value) {

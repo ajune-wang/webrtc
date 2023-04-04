@@ -61,6 +61,7 @@ PROXY_SECONDARY_CONSTMETHOD0(uint64_t, bytes_received)
 PROXY_SECONDARY_CONSTMETHOD0(uint64_t, buffered_amount)
 PROXY_SECONDARY_METHOD0(void, Close)
 PROXY_SECONDARY_METHOD1(bool, Send, const DataBuffer&)
+BYPASS_PROXY_METHOD2(void, SendAsync, DataBuffer, void*)
 END_PROXY_MAP(DataChannel)
 }  // namespace
 
@@ -185,6 +186,16 @@ class SctpDataChannel::ObserverAdapter : public DataChannelObserver {
         }));
   }
 
+  void OnSendAsyncComplete(RTCError error, void* context) override {
+    RTC_DCHECK_RUN_ON(network_thread());
+    signaling_thread()->PostTask(
+        SafeTask(safety_.flag(), [this, error, context] {
+          delegate_->OnSendAsyncComplete(error, context);
+        }));
+  }
+
+  bool IsOkToCallOnTheNetworkThread() override { return true; }
+
   rtc::Thread* signaling_thread() const { return channel_->signaling_thread_; }
   rtc::Thread* network_thread() const { return channel_->network_thread_; }
 
@@ -239,13 +250,15 @@ SctpDataChannel::SctpDataChannel(
       negotiated_(config.negotiated),
       ordered_(config.ordered),
       observer_(nullptr),
-      controller_(std::move(controller)),
-      connected_to_transport_(connected_to_transport) {
+      controller_(std::move(controller)) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Since we constructed on the network thread we can't (yet) check the
   // `controller_` pointer since doing so will trigger a thread check.
   RTC_UNUSED(network_thread_);
   RTC_DCHECK(config.IsValid());
+
+  if (connected_to_transport)
+    network_safety_->SetAlive();
 
   switch (config.open_handshake_role) {
     case InternalDataChannelInit::kNone:  // pre-negotiated
@@ -375,9 +388,6 @@ bool SctpDataChannel::negotiated() const {
 
 int SctpDataChannel::id() const {
   RTC_DCHECK_RUN_ON(network_thread_);
-  // TODO(tommi): Once an ID has been assigned, it won't change (can be
-  // considered const). We could do special handling of this and allow bypassing
-  // the proxy so that we can return a valid id without thread hopping.
   return id_n_.stream_id_int();
 }
 
@@ -452,21 +462,48 @@ uint64_t SctpDataChannel::bytes_received() const {
 
 bool SctpDataChannel::Send(const DataBuffer& buffer) {
   RTC_DCHECK_RUN_ON(network_thread_);
-
-  if (state_ != kOpen) {
+  RTCError err = SendImpl(buffer);
+  if (err.type() == RTCErrorType::INVALID_STATE ||
+      err.type() == RTCErrorType::RESOURCE_EXHAUSTED) {
     return false;
+  }
+
+  // Always return true for SCTP DataChannel per the spec.
+  return true;
+}
+
+// RTC_RUN_ON(network_thread_);
+RTCError SctpDataChannel::SendImpl(DataBuffer buffer) {
+  if (state_ != kOpen) {
+    return RTCError(RTCErrorType::INVALID_STATE);
   }
 
   // If the queue is non-empty, we're waiting for SignalReadyToSend,
   // so just add to the end of the queue and keep waiting.
   if (!queued_send_data_.Empty()) {
-    return QueueSendDataMessage(buffer);
+    return QueueSendDataMessage(buffer)
+               ? RTCError::OK()
+               : RTCError(RTCErrorType::RESOURCE_EXHAUSTED);
   }
 
-  SendDataMessage(buffer, true);
+  return SendDataMessage(buffer, true);
+}
 
-  // Always return true for SCTP DataChannel per the spec.
-  return true;
+void SctpDataChannel::SendAsync(DataBuffer buffer, void* context) {
+  // Note: at this point, we do not know on which thread we're being called
+  // since this method bypasses the proxy. On Android the thread might be VM
+  // owned, on other platforms it might be the signaling thread, or in Chrome
+  // it can be the JS thread. We also don't know if it's consistently the same
+  // thread. So we always post to the network thread (even if the current thread
+  // might be the network thread - in theory a call could even come from within
+  // the `OnSendAsyncComplete` lambda).
+  network_thread_->PostTask(
+      SafeTask(network_safety_, [this, buffer = std::move(buffer), context] {
+        RTC_DCHECK_RUN_ON(network_thread_);
+        RTCError err = SendImpl(std::move(buffer));
+        if (observer_)
+          observer_->OnSendAsyncComplete(err, context);
+      }));
 }
 
 void SctpDataChannel::SetSctpSid_n(StreamId sid) {
@@ -505,7 +542,7 @@ void SctpDataChannel::OnClosingProcedureComplete() {
 
 void SctpDataChannel::OnTransportChannelCreated() {
   RTC_DCHECK_RUN_ON(network_thread_);
-  connected_to_transport_ = true;
+  network_safety_->SetAlive();
 }
 
 void SctpDataChannel::OnTransportChannelClosed(RTCError error) {
@@ -594,10 +631,8 @@ void SctpDataChannel::OnTransportReady() {
   // what triggers the callback to `OnTransportReady()`.
   // These steps are currently accomplished via two separate PostTask calls to
   // the signaling thread, but could simply be done in single method call on
-  // the network thread (which incidentally is the thread that we'll need to
-  // be on for the below `Send*` calls, which currently do a BlockingCall
-  // from the signaling thread to the network thread.
-  RTC_DCHECK(connected_to_transport_);
+  // the network thread.
+  RTC_DCHECK(connected_to_transport());
   RTC_DCHECK(id_n_.HasValue());
 
   SendQueuedControlMessages();
@@ -613,7 +648,7 @@ void SctpDataChannel::CloseAbruptlyWithError(RTCError error) {
     return;
   }
 
-  connected_to_transport_ = false;
+  network_safety_->SetNotAlive();
 
   // Closing abruptly means any queued data gets thrown away.
   queued_send_data_.Clear();
@@ -643,7 +678,7 @@ void SctpDataChannel::UpdateState() {
 
   switch (state_) {
     case kConnecting: {
-      if (connected_to_transport_ && controller_) {
+      if (connected_to_transport() && controller_) {
         if (handshake_state_ == kHandshakeShouldSendOpen) {
           rtc::CopyOnWriteBuffer payload;
           WriteDataChannelOpenMessage(label_, protocol_, priority_, ordered_,
@@ -671,7 +706,7 @@ void SctpDataChannel::UpdateState() {
       break;
     }
     case kClosing: {
-      if (connected_to_transport_ && controller_) {
+      if (connected_to_transport() && controller_) {
         // Wait for all queued data to be sent before beginning the closing
         // procedure.
         if (queued_send_data_.Empty() && queued_control_data_.Empty()) {
@@ -737,7 +772,7 @@ void SctpDataChannel::SendQueuedDataMessages() {
 
   while (!queued_send_data_.Empty()) {
     std::unique_ptr<DataBuffer> buffer = queued_send_data_.PopFront();
-    if (!SendDataMessage(*buffer, false)) {
+    if (!SendDataMessage(*buffer, false).ok()) {
       // Return the message to the front of the queue if sending is aborted.
       queued_send_data_.PushFront(std::move(buffer));
       break;
@@ -746,11 +781,11 @@ void SctpDataChannel::SendQueuedDataMessages() {
 }
 
 // RTC_RUN_ON(network_thread_).
-bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
-                                      bool queue_if_blocked) {
+RTCError SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
+                                          bool queue_if_blocked) {
   SendDataParams send_params;
   if (!controller_) {
-    return false;
+    return RTCError(RTCErrorType::INVALID_STATE);
   }
 
   send_params.ordered = ordered_;
@@ -776,13 +811,15 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
     if (observer_ && buffer.size() > 0) {
       observer_->OnBufferedAmountChange(buffer.size());
     }
-    return true;
+    return error;
   }
 
   if (error.type() == RTCErrorType::RESOURCE_EXHAUSTED) {
-    if (!queue_if_blocked || QueueSendDataMessage(buffer)) {
-      return false;
-    }
+    if (!queue_if_blocked)
+      return error;
+
+    if (QueueSendDataMessage(buffer))
+      return RTCError::OK();
   }
   // Close the channel if the error is not SDR_BLOCK, or if queuing the
   // message failed.
@@ -792,7 +829,7 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   CloseAbruptlyWithError(
       RTCError(RTCErrorType::NETWORK_ERROR, "Failure to send data"));
 
-  return false;
+  return error;
 }
 
 // RTC_RUN_ON(network_thread_).
@@ -820,7 +857,7 @@ void SctpDataChannel::SendQueuedControlMessages() {
 
 // RTC_RUN_ON(network_thread_).
 bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
-  RTC_DCHECK(connected_to_transport_);
+  RTC_DCHECK(connected_to_transport());
   RTC_DCHECK(id_n_.HasValue());
   RTC_DCHECK(controller_);
 

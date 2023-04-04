@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9cfd8b7_c3aad5f7",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-04T09:23:28Z",
+      "side": 1,
+      "message": "How did we get away with not calling OnTransportReady here prior to this CL?\nIt looks correct to do it so I\u0027m wondering why we didn\u0027t before - just making sure we don\u0027t accidentally fire the same signal twice",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d30f64_37b720df",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-04T09:23:28Z",
+      "side": 1,
+      "message": "nit: wired",
+      "range": {
+        "startLine": 334,
+        "startChar": 45,
+        "endLine": 334,
+        "endChar": 50
+      },
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67135c1a_87edc188",
+        "filename": "pc/proxy.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-04T09:23:28Z",
+      "side": 1,
+      "message": "What\u0027s \"custom\" about these? Shouldn\u0027t this be called the same as above except without the \"CONST\"? E.g.\n\nBYPASS_PROXY_METHOD0",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "322ff8ff_f057caa2",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-04T09:23:28Z",
+      "side": 1,
+      "message": "It makes sense to assume that a callback for \"OnStateChanged\" would want to inspect state() specifically and optimize for it, but the problem that block-invokes can retrieve states that are no longer the state that provoked the callback is a problem for any PROXY getter, which is why I would argue that in general, callbacks where the app is expected to inspect the state of an object should happen on the same thread where the object can be examined, so that the callback can surface all relevant information in a single \"snapshot\" as opposed to spread out each getter call over multiple block-invokes, risking reading inconsistent attributes because each block-invokes grabs the attribute at different points in time.\n\nIn other words, I think observers that do \"IsOkToCallOnTheNetworkThread \u003d true\" is the right path forward, but caching in the case that \"IsOkToCallOnTheNetworkThread \u003d false\" makes sense until observers have migrated.\n\nIn the future, do you imagine we will remove support for \"IsOkToCallOnTheNetworkThread \u003d false\" or is this intended to stick?",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

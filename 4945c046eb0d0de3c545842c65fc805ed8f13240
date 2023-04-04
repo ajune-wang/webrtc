@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c5bb76f_03a1fb1e",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-04T10:41:32Z",
+      "side": 1,
+      "message": "Before this CL, the call was queued up inside `InternalCreateDataChannelWithProxy` to run on the signaling thread after `InternalCreateDataChannelWithProxy` had returned (see line 316 in the before diff). The reason it\u0027s queued up is to make sure that the initial state is `kConnecting` rather than `kOpen`.\n\nNow we can create the data channel object directly when we get the open message on the network thread. That\u0027s why I split up the `CreateDataChannel` step to be callable separately from `InternalCreateDataChannelWithProxy`. That allows us to take advantage of the fact that we\u0027re already on the network thread when the \u0027open\u0027 message arrives, create the channel object, post to the signaling thread to notify that a new channel exists and once we\u0027ve done that, notify the channel of the transport (which changes the state to `kOpen`).\n\nSo the order of operations is the same as it was before and we call OnTransportReady as many times as before, but it involves fewer thread hops now.",
+      "parentUuid": "e9cfd8b7_c3aad5f7",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64d30f64_37b720df",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 48
@@ -48,6 +66,30 @@
       "writtenOn": "2023-04-04T09:23:28Z",
       "side": 1,
       "message": "nit: wired",
+      "range": {
+        "startLine": 334,
+        "startChar": 45,
+        "endLine": 334,
+        "endChar": 50
+      },
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe7f616c_d2df3517",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-04T10:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d30f64_37b720df",
       "range": {
         "startLine": 334,
         "startChar": 45,
@@ -75,6 +117,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa0242e4_30921618",
+        "filename": "pc/proxy.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-04T10:41:32Z",
+      "side": 1,
+      "message": "good point - renamed",
+      "parentUuid": "67135c1a_87edc188",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "322ff8ff_f057caa2",
@@ -88,6 +148,24 @@
       "writtenOn": "2023-04-04T09:23:28Z",
       "side": 1,
       "message": "It makes sense to assume that a callback for \"OnStateChanged\" would want to inspect state() specifically and optimize for it, but the problem that block-invokes can retrieve states that are no longer the state that provoked the callback is a problem for any PROXY getter, which is why I would argue that in general, callbacks where the app is expected to inspect the state of an object should happen on the same thread where the object can be examined, so that the callback can surface all relevant information in a single \"snapshot\" as opposed to spread out each getter call over multiple block-invokes, risking reading inconsistent attributes because each block-invokes grabs the attribute at different points in time.\n\nIn other words, I think observers that do \"IsOkToCallOnTheNetworkThread \u003d true\" is the right path forward, but caching in the case that \"IsOkToCallOnTheNetworkThread \u003d false\" makes sense until observers have migrated.\n\nIn the future, do you imagine we will remove support for \"IsOkToCallOnTheNetworkThread \u003d false\" or is this intended to stick?",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf73542_1f15cb36",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-04T10:41:32Z",
+      "side": 1,
+      "message": "I expect+hope that we\u0027ll remove `IsOkToCallOnTheNetworkThread` eventually.\n\nThe observer adapter exists for now as a backwards compatibility aid and exactly the problem you point out with block-invokes, which is that they may go _behind_ tasks that alter the state being requested, can cause them to get the wrong state (and actually synchronously flush operations on the network thread in this case). That\u0027s why I examined observer implementations that I\u0027m aware of and implemented the bare minimum handling for the `state()` property that maintains the correct behavior.\n\nI agree that in general for an observer like this that bundling a snapshot of properties makes sense. I could do that in this CL if you prefer (or in a follow up CL).",
+      "parentUuid": "322ff8ff_f057caa2",
       "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

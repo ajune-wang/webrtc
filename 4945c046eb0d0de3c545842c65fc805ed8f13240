@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "017c9774_0cb95302",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-04T11:03:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5c5bb76f_03a1fb1e",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64d30f64_37b720df",
@@ -166,6 +184,24 @@
       "side": 1,
       "message": "I expect+hope that we\u0027ll remove `IsOkToCallOnTheNetworkThread` eventually.\n\nThe observer adapter exists for now as a backwards compatibility aid and exactly the problem you point out with block-invokes, which is that they may go _behind_ tasks that alter the state being requested, can cause them to get the wrong state (and actually synchronously flush operations on the network thread in this case). That\u0027s why I examined observer implementations that I\u0027m aware of and implemented the bare minimum handling for the `state()` property that maintains the correct behavior.\n\nI agree that in general for an observer like this that bundling a snapshot of properties makes sense. I could do that in this CL if you prefer (or in a follow up CL).",
       "parentUuid": "322ff8ff_f057caa2",
+      "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0c0feea_58a62c70",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-04T11:03:39Z",
+      "side": 1,
+      "message": "Sounds like we\u0027re on the same page! For now I think it is OK to document in comments or add TODO for \"IsOkToCallOnTheNetworkThread \u003d false\" use cases out there.",
+      "parentUuid": "ccf73542_1f15cb36",
       "revId": "4945c046eb0d0de3c545842c65fc805ed8f13240",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

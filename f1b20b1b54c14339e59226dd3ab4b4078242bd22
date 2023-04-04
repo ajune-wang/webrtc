@@ -69,6 +69,156 @@
       "message": "sprang@ Friendly ping~",
       "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec6a12c9_5c5b8ec0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "Sorry did not see this. Please always use my @webrtc account in this repo otherwise I might not see it as easily 😊",
+      "parentUuid": "4cd9278d_c6edf498",
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91909e5d_d26de43f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "Two comments:\n1) You probably want to distinguish normal video (camera) from screensharing - as the latter will often undershoot by design.\n2) In addition to RMSE, I think the average under/overshoot in percent or permille would be of interest. That would let us know that on platform X, for AV1, the rate controller is for instance undershooting by 25%. The RMSE would then give a picture of the spread around that.\n\nwdyt?",
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a0dfe8_f0008d6f",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "suggest explicitly listing all value and removing `default`\nIgnoring \"generic\" and \"multiplex\" seems fine to me, but might be good to have histograms for all others even if you are mostly interested in these two 😊",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1af3990_c510e23d",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "nit: maybe comment on variance of what?",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ae08862_1ca1b31d",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "If you make it an `int64_t` instead you don\u0027t need to worry about the order of the subtraction.",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 108,
+        "endChar": 10
+      },
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c28a3f_ab7aeee8",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "nit: I think `diff_kbps * diff_kbps` is faster and easier to tread",
+      "range": {
+        "startLine": 112,
+        "startChar": 22,
+        "endLine": 112,
+        "endChar": 45
+      },
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263a1ff0_e13d0f4f",
+        "filename": "video/encoder_overshoot_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-04T13:34:06Z",
+      "side": 1,
+      "message": "avoid default parameter values",
+      "range": {
+        "startLine": 25,
+        "startChar": 56,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "f1b20b1b54c14339e59226dd3ab4b4078242bd22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

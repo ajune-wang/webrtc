@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43b96a8_ed84856d",
+        "filename": "api/video_codecs/test/video_encoder_factory_template_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-05T10:02:21Z",
+      "side": 1,
+      "message": "why?\nwasn\u0027t the original idea of this check to ensure parameters must be matched exactly?\nas it is now it looks redundant to the expectation just above.\n\nMay be instead change this expectation to \nEXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat(\"Bar\")), NotNull());\nand comment that fuzzy matching should eventually be removed and this expectation reverted to \nEXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat(\"Bar\")), IsNull());\n\n(side note: There are IsNull and NotNull matchers:\nhttps://github.com/google/googletest/blob/main/docs/reference/matchers.md#generic-comparison )",
+      "revId": "a918049bd3b1f7706a796bfc3403afb5ad846a72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d50a4e_7e8fb553",
+        "filename": "api/video_codecs/video_encoder_factory_template.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-05T10:02:21Z",
+      "side": 1,
+      "message": "I do not see a valid reason to use auto here.\neither write type explicitly, or remove matched variable alltogether:\n\nreturn CreateVideoEncoderInternal\u003cTs...\u003e(FuzzyMatchSdpVideoFormat(GetSupportedFormats(), format).value_or(format));",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 8
+      },
+      "revId": "a918049bd3b1f7706a796bfc3403afb5ad846a72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

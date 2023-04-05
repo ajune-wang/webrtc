@@ -94,6 +94,7 @@ class PortInterface {
                      const rtc::SocketAddress& addr,
                      const rtc::PacketOptions& options,
                      bool payload) = 0;
+  virtual void SendBatchComplete() {}
 
   // Indicates that we received a successful STUN binding request from an
   // address that doesn't correspond to any current connection.  To turn this

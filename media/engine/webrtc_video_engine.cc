@@ -30,6 +30,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/call.h"
+#include "media/base/media_channel_impl.h"
 #include "media/engine/webrtc_media_engine.h"
 #include "media/engine/webrtc_voice_engine.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -2058,13 +2059,21 @@ std::vector<webrtc::RtpSource> WebRtcVideoChannel::GetSources(
 bool WebRtcVideoChannel::SendRtp(const uint8_t* data,
                                  size_t len,
                                  const webrtc::PacketOptions& options) {
-  MediaChannel::SendRtp(data, len, options);
+  TRACE_EVENT0(TRACE_DISABLED_BY_DEFAULT("webrtc"),
+               "WebRtcVideoChannel::SendRtp");
+  webrtc::PacketOptions batchable_options = options;
+  batchable_options.batchable = true;
+  MediaChannel::SendRtp(data, len, batchable_options);
   return true;
 }
 
 bool WebRtcVideoChannel::SendRtcp(const uint8_t* data, size_t len) {
   MediaChannel::SendRtcp(data, len);
   return true;
+}
+
+void WebRtcVideoChannel::SendBatchComplete() {
+  MediaChannel::SendBatchComplete();
 }
 
 WebRtcVideoChannel::WebRtcVideoSendStream::VideoSendStreamParameters::

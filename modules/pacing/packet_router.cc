@@ -183,6 +183,15 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
   }
 }
 
+void PacketRouter::SendBatchComplete() {
+  TRACE_EVENT0(TRACE_DISABLED_BY_DEFAULT("webrtc"),
+               "PacketRouter::BatchComplete");
+  MutexLock lock(&modules_mutex_);
+  for (auto& send_module : send_modules_map_) {
+    send_module.second->SendBatchComplete();
+  }
+}
+
 std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::FetchFec() {
   MutexLock lock(&modules_mutex_);
   std::vector<std::unique_ptr<RtpPacketToSend>> fec_packets =

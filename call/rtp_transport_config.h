@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "api/call/transport.h"
 #include "api/field_trials_view.h"
 #include "api/network_state_predictor.h"
 #include "api/rtc_event_log/rtc_event_log.h"
@@ -47,6 +48,9 @@ struct RtpTransportConfig {
 
   // The burst interval of the pacer, see TaskQueuePacedSender constructor.
   absl::optional<TimeDelta> pacer_burst_interval;
+
+  // Batch controller for batched packet sends.
+  TransportSendBatchController* send_batch_controller = nullptr;
 };
 }  // namespace webrtc
 

@@ -54,6 +54,8 @@ struct RTC_EXPORT PacketOptions {
   PacketTimeUpdateParams packet_time_params;
   // PacketInfo is passed to SentPacket when signaling this packet is sent.
   PacketInfo info_signaled_after_sent;
+  // True if this is a batchable packet.
+  bool batchable = false;
 };
 
 // Provides the ability to receive packets asynchronously. Sends are not
@@ -87,6 +89,7 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
                      size_t cb,
                      const SocketAddress& addr,
                      const PacketOptions& options) = 0;
+  virtual void SendBatchComplete() {}
 
   // Close the socket.
   virtual int Close() = 0;

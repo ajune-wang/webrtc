@@ -31,6 +31,21 @@ constexpr TimeDelta kCongestedPacketInterval = TimeDelta::Millis(500);
 constexpr TimeDelta kMaxDebtInTime = TimeDelta::Millis(500);
 constexpr TimeDelta kMaxElapsedTime = TimeDelta::Seconds(2);
 
+class SendBatchCompleteOnDestruction {
+ public:
+  explicit SendBatchCompleteOnDestruction(
+      TransportSendBatchController* send_batch_controller)
+      : send_batch_controller_(send_batch_controller) {}
+  ~SendBatchCompleteOnDestruction() {
+    if (send_batch_controller_) {
+      send_batch_controller_->SendBatchComplete();
+    }
+  }
+
+ private:
+  TransportSendBatchController* send_batch_controller_;
+};
+
 bool IsDisabled(const FieldTrialsView& field_trials, absl::string_view key) {
   return absl::StartsWith(field_trials.Lookup(key), "Disabled");
 }
@@ -52,9 +67,11 @@ const TimeDelta PacingController::kMaxPaddingReplayDuration =
 const TimeDelta PacingController::kMaxEarlyProbeProcessing =
     TimeDelta::Millis(1);
 
-PacingController::PacingController(Clock* clock,
-                                   PacketSender* packet_sender,
-                                   const FieldTrialsView& field_trials)
+PacingController::PacingController(
+    Clock* clock,
+    PacketSender* packet_sender,
+    TransportSendBatchController* send_batch_controller,
+    const FieldTrialsView& field_trials)
     : clock_(clock),
       packet_sender_(packet_sender),
       field_trials_(field_trials),
@@ -86,7 +103,8 @@ PacingController::PacingController(Clock* clock,
       queue_time_limit_(kMaxExpectedQueueLength),
       account_for_audio_(false),
       include_overhead_(false),
-      circuit_breaker_threshold_(1 << 16) {
+      circuit_breaker_threshold_(1 << 16),
+      send_batch_controller_(send_batch_controller) {
   if (!drain_large_queues_) {
     RTC_LOG(LS_WARNING) << "Pacer queues will not be drained,"
                            "pushback experiment must be enabled.";
@@ -359,6 +377,7 @@ Timestamp PacingController::NextSendTime() const {
 void PacingController::ProcessPackets() {
   const Timestamp now = CurrentTime();
   Timestamp target_send_time = now;
+  SendBatchCompleteOnDestruction send_batch_complete(send_batch_controller_);
 
   if (ShouldSendKeepalive(now)) {
     DataSize keepalive_data_sent = DataSize::Zero();

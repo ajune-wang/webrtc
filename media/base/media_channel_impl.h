@@ -172,6 +172,8 @@ class MediaChannel : public MediaSendChannelInterface,
 
   void SendRtcp(const uint8_t* data, size_t len);
 
+  void SendBatchComplete();
+
  private:
   // Apply the preferred DSCP setting to the underlying network interface RTP
   // and RTCP channels. If DSCP is disabled, then apply the default DSCP value.

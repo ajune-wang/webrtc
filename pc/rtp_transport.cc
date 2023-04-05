@@ -138,6 +138,12 @@ bool RtpTransport::SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
   return SendPacket(true, packet, options, flags);
 }
 
+void RtpTransport::SendBatchComplete() {
+  if (rtp_packet_transport_) {
+    rtp_packet_transport_->SendBatchComplete();
+  }
+}
+
 bool RtpTransport::SendPacket(bool rtcp,
                               rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketOptions& options,

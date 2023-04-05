@@ -236,6 +236,7 @@ class BaseChannel : public ChannelInterface,
                   const rtc::PacketOptions& options) override;
   bool SendRtcp(rtc::CopyOnWriteBuffer* packet,
                 const rtc::PacketOptions& options) override;
+  void SendBatchComplete() override;
 
   // From RtpTransportInternal
   void OnWritableState(bool writable);

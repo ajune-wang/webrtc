@@ -1611,6 +1611,13 @@ int P2PTransportChannel::SendPacket(const char* data,
   return sent;
 }
 
+void P2PTransportChannel::SendBatchComplete() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (selected_connection_) {
+    selected_connection_->SendBatchComplete();
+  }
+}
+
 bool P2PTransportChannel::GetStats(IceTransportStats* ice_transport_stats) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Gather candidate and candidate pair stats.

@@ -84,7 +84,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
              config.task_queue_factory,
              TimeDelta::Millis(5),
              3,
-             config.pacer_burst_interval),
+             config.pacer_burst_interval,
+             config.send_batch_controller),
       observer_(nullptr),
       controller_factory_override_(config.network_controller_factory),
       controller_factory_fallback_(

@@ -203,6 +203,7 @@ void MediaChannel::SendRtp(const uint8_t* data,
       [this, packet_id = options.packet_id,
        included_in_feedback = options.included_in_feedback,
        included_in_allocation = options.included_in_allocation,
+       batchable = options.batchable,
        packet = rtc::CopyOnWriteBuffer(data, len, kMaxRtpPacketLen)]() mutable {
         rtc::PacketOptions rtc_options;
         rtc_options.packet_id = packet_id;
@@ -213,6 +214,7 @@ void MediaChannel::SendRtp(const uint8_t* data,
             included_in_feedback;
         rtc_options.info_signaled_after_sent.included_in_allocation =
             included_in_allocation;
+        rtc_options.batchable = batchable;
         SendPacket(&packet, rtc_options);
       };
 
@@ -235,6 +237,19 @@ void MediaChannel::SendRtcp(const uint8_t* data, size_t len) {
       rtc_options.dscp = PreferredDscp();
     }
     SendRtcp(&packet, rtc_options);
+  };
+
+  if (network_thread_->IsCurrent()) {
+    send();
+  } else {
+    network_thread_->PostTask(SafeTask(network_safety_, std::move(send)));
+  }
+}
+
+void MediaChannel::SendBatchComplete() {
+  auto send = [this] {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    network_interface_->SendBatchComplete();
   };
 
   if (network_thread_->IsCurrent()) {

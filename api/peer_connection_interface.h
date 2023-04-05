@@ -86,6 +86,7 @@
 #include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_options.h"
 #include "api/call/call_factory_interface.h"
+#include "api/call/transport.h"
 #include "api/candidate.h"
 #include "api/crypto/crypto_options.h"
 #include "api/data_channel_interface.h"
@@ -690,6 +691,9 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
 
     // The burst interval of the pacer, see TaskQueuePacedSender constructor.
     absl::optional<TimeDelta> pacer_burst_interval;
+
+    // A controller interface to facilitate signaling completed send batches.
+    TransportSendBatchController* send_batch_controller;
 
     //
     // Don't forget to update operator== if adding something.

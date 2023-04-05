@@ -77,6 +77,8 @@ class RtpTransport : public RtpTransportInternal {
                       const rtc::PacketOptions& options,
                       int flags) override;
 
+  void SendBatchComplete() override;
+
   bool IsSrtpActive() const override { return false; }
 
   void UpdateRtpHeaderExtensionMap(

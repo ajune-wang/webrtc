@@ -344,6 +344,11 @@ bool ModuleRtpRtcpImpl2::TrySendPacket(RtpPacketToSend* packet,
   return true;
 }
 
+void ModuleRtpRtcpImpl2::SendBatchComplete() {
+  RTC_DCHECK_RUN_ON(&rtp_sender_->sequencing_checker);
+  rtp_sender_->packet_sender.SendBatchComplete();
+}
+
 void ModuleRtpRtcpImpl2::SetFecProtectionParams(
     const FecProtectionParams& delta_params,
     const FecProtectionParams& key_params) {

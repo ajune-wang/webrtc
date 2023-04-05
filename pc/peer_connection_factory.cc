@@ -311,6 +311,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
     return nullptr;
   }
   call_config.audio_state = media_engine()->voice().GetAudioState();
+  call_config.send_batch_controller = configuration.send_batch_controller;
 
   FieldTrialParameter<DataRate> min_bandwidth("min",
                                               DataRate::KilobitsPerSec(30));

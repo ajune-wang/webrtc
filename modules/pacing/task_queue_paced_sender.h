@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/call/transport.h"
 #include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_factory.h"
@@ -57,7 +58,8 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
       TaskQueueFactory* task_queue_factory,
       TimeDelta max_hold_back_window,
       int max_hold_back_window_in_packets,
-      absl::optional<TimeDelta> burst_interval = absl::nullopt);
+      absl::optional<TimeDelta> burst_interval = absl::nullopt,
+      TransportSendBatchController* send_batch_controller = nullptr);
 
   ~TaskQueuePacedSender() override;
 

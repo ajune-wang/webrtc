@@ -101,7 +101,7 @@ TEST(VideoEncoderFactoryTemplate, TwoTemplateAdaptersCreateEncoders) {
   EXPECT_THAT(factory.CreateVideoEncoder(kBarLowSdp), Ne(nullptr));
   EXPECT_THAT(factory.CreateVideoEncoder(kBarHighSdp), Ne(nullptr));
   EXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat("FooX")), Eq(nullptr));
-  EXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat("Bar")), Eq(nullptr));
+  EXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat("BarX")), Eq(nullptr));
 }
 
 TEST(VideoEncoderFactoryTemplate, TwoTemplateAdaptersCodecSupport) {

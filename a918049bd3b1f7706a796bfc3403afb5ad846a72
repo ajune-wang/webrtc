@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b92a718_bd93526d",
+        "filename": "api/video_codecs/test/video_encoder_factory_template_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-04-05T10:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c43b96a8_ed84856d",
+      "revId": "a918049bd3b1f7706a796bfc3403afb5ad846a72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9d50a4e_7e8fb553",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-05T10:02:21Z",
       "side": 1,
       "message": "I do not see a valid reason to use auto here.\neither write type explicitly, or remove matched variable alltogether:\n\nreturn CreateVideoEncoderInternal\u003cTs...\u003e(FuzzyMatchSdpVideoFormat(GetSupportedFormats(), format).value_or(format));",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 8
+      },
+      "revId": "a918049bd3b1f7706a796bfc3403afb5ad846a72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "137b9587_27711665",
+        "filename": "api/video_codecs/video_encoder_factory_template.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-04-05T10:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9d50a4e_7e8fb553",
       "range": {
         "startLine": 62,
         "startChar": 4,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a4f537c_808af102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-05T12:43:11Z",
+      "side": 1,
+      "message": "Rubberstamp - no change needed?",
+      "revId": "fe11ea1510215ea3c3dacacaeb5a00c8b12c984c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

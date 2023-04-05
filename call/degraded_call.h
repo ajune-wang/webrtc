@@ -165,6 +165,7 @@ class DegradedCall : public Call, private PacketReceiver {
                  size_t length,
                  const PacketOptions& options) override;
     bool SendRtcp(const uint8_t* packet, size_t length) override;
+    void SendBatchComplete() override {}
 
    private:
     FakeNetworkPipeOnTaskQueue* const network_pipe_;

@@ -10,6 +10,7 @@
 #ifndef CALL_CALL_CONFIG_H_
 #define CALL_CALL_CONFIG_H_
 
+#include "api/call/transport.h"
 #include "api/fec_controller.h"
 #include "api/field_trials_view.h"
 #include "api/metronome/metronome.h"
@@ -81,6 +82,9 @@ struct CallConfig {
 
   // The burst interval of the pacer, see TaskQueuePacedSender constructor.
   absl::optional<TimeDelta> pacer_burst_interval;
+
+  // Batch controller for batched packet sends.
+  TransportSendBatchController* send_batch_controller = nullptr;
 };
 
 }  // namespace webrtc

@@ -51,6 +51,7 @@ class MockPacketRouter : public PacketRouter {
               (std::unique_ptr<RtpPacketToSend> packet,
                const PacedPacketInfo& cluster_info),
               (override));
+  MOCK_METHOD(void, SendBatchComplete, (), (override));
   MOCK_METHOD(std::vector<std::unique_ptr<RtpPacketToSend>>,
               FetchFec,
               (),

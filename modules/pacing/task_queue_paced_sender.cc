@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <utility>
 
+#include "api/call/transport.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/transport/network_types.h"
 #include "rtc_base/checks.h"
@@ -43,12 +44,16 @@ TaskQueuePacedSender::TaskQueuePacedSender(
     TaskQueueFactory* task_queue_factory,
     TimeDelta max_hold_back_window,
     int max_hold_back_window_in_packets,
-    absl::optional<TimeDelta> burst_interval)
+    absl::optional<TimeDelta> burst_interval,
+    TransportSendBatchController* send_batch_controller)
     : clock_(clock),
       bursty_pacer_flags_(field_trials),
       max_hold_back_window_(max_hold_back_window),
       max_hold_back_window_in_packets_(max_hold_back_window_in_packets),
-      pacing_controller_(clock, packet_sender, field_trials),
+      pacing_controller_(clock,
+                         packet_sender,
+                         send_batch_controller,
+                         field_trials),
       next_process_time_(Timestamp::MinusInfinity()),
       is_started_(false),
       is_shutdown_(false),

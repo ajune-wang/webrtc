@@ -150,6 +150,7 @@ class DtlsTransport : public DtlsTransportInternal {
                  size_t size,
                  const rtc::PacketOptions& options,
                  int flags) override;
+  void SendBatchComplete() override;
 
   bool GetOption(rtc::Socket::Option opt, int* value) override;
 

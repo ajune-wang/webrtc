@@ -179,6 +179,7 @@ class MediaChannelNetworkInterface {
   virtual int SetOption(SocketType type,
                         rtc::Socket::Option opt,
                         int option) = 0;
+  virtual void SendBatchComplete() = 0;
   virtual ~MediaChannelNetworkInterface() {}
 };
 

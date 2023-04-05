@@ -470,6 +470,12 @@ int DtlsTransport::SendPacket(const char* data,
   }
 }
 
+void DtlsTransport::SendBatchComplete() {
+  if (ice_transport_) {
+    ice_transport_->SendBatchComplete();
+  }
+}
+
 IceTransportInternal* DtlsTransport::ice_transport() {
   return ice_transport_;
 }

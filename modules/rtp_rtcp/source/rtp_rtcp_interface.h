@@ -317,6 +317,10 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   virtual bool TrySendPacket(RtpPacketToSend* packet,
                              const PacedPacketInfo& pacing_info) = 0;
 
+  // Indicate to the RtpRtcpInterface that a current batch of packets have been
+  // entered into TrySendPacket.
+  virtual void SendBatchComplete() = 0;
+
   // Update the FEC protection parameters to use for delta- and key-frames.
   // Only used when deferred FEC is active.
   virtual void SetFecProtectionParams(

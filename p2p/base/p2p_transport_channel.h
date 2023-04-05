@@ -163,6 +163,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
                  size_t len,
                  const rtc::PacketOptions& options,
                  int flags) override;
+  void SendBatchComplete() override;
   int SetOption(rtc::Socket::Option opt, int value) override;
   bool GetOption(rtc::Socket::Option opt, int* value) override;
   int GetError() override;

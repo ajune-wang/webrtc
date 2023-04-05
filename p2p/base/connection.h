@@ -144,6 +144,8 @@ class RTC_EXPORT Connection : public CandidatePairInterface {
   // Error if Send() returns < 0
   virtual int GetError() = 0;
 
+  virtual void SendBatchComplete() {}
+
   sigslot::signal4<Connection*, const char*, size_t, int64_t> SignalReadPacket;
 
   sigslot::signal1<Connection*> SignalReadyToSend;
@@ -488,6 +490,7 @@ class ProxyConnection : public Connection {
            size_t size,
            const rtc::PacketOptions& options) override;
   int GetError() override;
+  void SendBatchComplete() override;
 
  private:
   int error_ = 0;

@@ -1713,6 +1713,12 @@ int ProxyConnection::Send(const void* data,
   return sent;
 }
 
+void ProxyConnection::SendBatchComplete() {
+  if (port_) {
+    port_->SendBatchComplete();
+  }
+}
+
 int ProxyConnection::GetError() {
   return error_;
 }

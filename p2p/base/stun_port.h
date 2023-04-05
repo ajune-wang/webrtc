@@ -145,6 +145,7 @@ class RTC_EXPORT UDPPort : public Port {
              const rtc::SocketAddress& addr,
              const rtc::PacketOptions& options,
              bool payload) override;
+  void SendBatchComplete() override;
 
   void UpdateNetworkCost() override;
 

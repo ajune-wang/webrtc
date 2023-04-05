@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4339ec4_124a8281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-04-05T10:47:54Z",
+      "side": 1,
+      "message": "With this CL (https://webrtc-review.googlesource.com/c/src/+/299946) landed AV1 now match the supported profiles of the BuiltinVideoEncoderFactory.\n\nSergey, PTAL again.",
+      "revId": "e7d4fc384926b8fca7d546b89e2b9b5153264ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

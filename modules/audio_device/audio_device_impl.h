@@ -44,6 +44,9 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
 
   AudioDeviceModuleImpl(AudioLayer audio_layer,
                         TaskQueueFactory* task_queue_factory);
+  AudioDeviceModuleImpl(AudioLayer audio_layer,
+                        std::unique_ptr<AudioDeviceGeneric> audio_device,
+                        TaskQueueFactory* task_queue_factory);
   ~AudioDeviceModuleImpl() override;
 
   // Retrieve the currently utilized audio layer
@@ -157,6 +160,9 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
   int RestartRecordingInternally() override { return -1; }
   int SetPlayoutSampleRate(uint32_t sample_rate) override { return -1; }
   int SetRecordingSampleRate(uint32_t sample_rate) override { return -1; }
+
+ protected:
+  AudioDeviceGeneric* audio_device() { return audio_device_.get(); }
 
  private:
   PlatformType Platform() const;

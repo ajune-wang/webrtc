@@ -20,6 +20,7 @@
 #include "api/array_view.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "modules/audio_device/audio_device_impl.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "rtc_base/buffer.h"
@@ -28,7 +29,7 @@ namespace webrtc {
 
 // TestAudioDeviceModule implements an AudioDevice module that can act both as a
 // capturer and a renderer. It will use 10ms audio frames.
-class TestAudioDeviceModule : public AudioDeviceModule {
+class TestAudioDeviceModule : public AudioDeviceModuleImpl {
  public:
   // Returns the number of samples that Capturers and Renderers with this
   // sampling frequency will work with every time Capture or Render is called.
@@ -129,19 +130,12 @@ class TestAudioDeviceModule : public AudioDeviceModule {
       int sampling_frequency_in_hz,
       int num_channels = 1);
 
-  int32_t Init() override = 0;
-  int32_t RegisterAudioCallback(AudioTransport* callback) override = 0;
-
-  int32_t StartPlayout() override = 0;
-  int32_t StopPlayout() override = 0;
-  int32_t StartRecording() override = 0;
-  int32_t StopRecording() override = 0;
-
-  bool Playing() const override = 0;
-  bool Recording() const override = 0;
-
   // Blocks forever until the Recorder stops producing data.
   virtual void WaitForRecordingEnd() = 0;
+
+ protected:
+  TestAudioDeviceModule(std::unique_ptr<AudioDeviceGeneric> audio_device,
+                        TaskQueueFactory* task_queue_factory);
 };
 
 }  // namespace webrtc

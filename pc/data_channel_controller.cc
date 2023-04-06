@@ -159,8 +159,12 @@ void DataChannelController::OnTransportClosed(RTCError error) {
   }
 }
 
-void DataChannelController::SetupDataChannelTransport_n() {
+void DataChannelController::SetupDataChannelTransport_n(
+    DataChannelTransportInterface* transport) {
   RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK(transport);
+
+  set_data_channel_transport(transport);
 
   // There's a new data channel transport.  This needs to be signaled to the
   // `sctp_data_channels_n_` so that they can reopen and reconnect.  This is

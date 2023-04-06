@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "889e3bef_2c6876ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-04-06T19:05:41Z",
+      "side": 1,
+      "message": "We actually discussed this way back in https://webrtc-review.googlesource.com/c/src/+/115419 but we didn\u0027t consider the case outlined in the cl description.",
+      "revId": "5a44b11bf06e262a99a2c0ebb5d9ddc066afb515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

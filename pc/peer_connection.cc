@@ -2113,12 +2113,14 @@ absl::optional<std::string> PeerConnection::GetDataMid() const {
   return sctp_mid_s_;
 }
 
-void PeerConnection::SetSctpDataMid(const std::string& mid) {
+void PeerConnection::SetSctpDataInfo(const std::string& mid,
+                                     const std::string& transport_name) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   sctp_mid_s_ = mid;
+  SetSctpTransportName(transport_name);
 }
 
-void PeerConnection::ResetSctpDataMid() {
+void PeerConnection::ResetSctpDataInfo() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   sctp_mid_s_.reset();
   SetSctpTransportName("");
@@ -2511,7 +2513,8 @@ absl::optional<AudioDeviceModule::Stats> PeerConnection::GetAudioDeviceStats() {
   return absl::nullopt;
 }
 
-bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
+bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid,
+                                                 std::string* transport_name) {
   DataChannelTransportInterface* transport =
       transport_controller_->GetDataChannelTransport(mid);
   if (!transport) {
@@ -2520,27 +2523,16 @@ bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
         << mid;
     return false;
   }
-  RTC_LOG(LS_INFO) << "Setting up data channel transport for mid=" << mid;
 
-  data_channel_controller_.set_data_channel_transport(transport);
-  data_channel_controller_.SetupDataChannelTransport_n();
   sctp_mid_n_ = mid;
   cricket::DtlsTransportInternal* dtls_transport =
       transport_controller_->GetDtlsTransport(mid);
   if (dtls_transport) {
-    signaling_thread()->PostTask(
-        SafeTask(signaling_thread_safety_.flag(),
-                 [this, name = dtls_transport->transport_name()] {
-                   RTC_DCHECK_RUN_ON(signaling_thread());
-                   SetSctpTransportName(std::move(name));
-                 }));
+    *transport_name = dtls_transport->transport_name();
   }
 
-  // Note: setting the data sink and checking initial state must be done last,
-  // after setting up the data channel.  Setting the data sink may trigger
-  // callbacks to PeerConnection which require the transport to be completely
-  // set up (eg. OnReadyToSend()).
-  transport->SetDataSink(&data_channel_controller_);
+  data_channel_controller_.SetupDataChannelTransport_n(transport);
+
   return true;
 }
 

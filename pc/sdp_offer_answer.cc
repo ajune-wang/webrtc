@@ -3268,20 +3268,16 @@ void SdpOfferAnswerHandler::AllocateSctpSids() {
     return;
   }
 
-  absl::optional<rtc::SSLRole> role = network_thread()->BlockingCall([this] {
-    RTC_DCHECK_RUN_ON(network_thread());
-    return pc_->GetSctpSslRole_n();
-  });
-
-  if (!role) {
-    role = GuessSslRole();
-  }
-
-  if (role) {
-    // TODO(webrtc:11547): Make this call on the network thread too once
-    // `AllocateSctpSids` has been updated.
-    data_channel_controller()->AllocateSctpSids(*role);
-  }
+  absl::optional<rtc::SSLRole> guessed_role = GuessSslRole();
+  network_thread()->BlockingCall(
+      [&, data_channel_controller = data_channel_controller()] {
+        RTC_DCHECK_RUN_ON(network_thread());
+        absl::optional<rtc::SSLRole> role = pc_->GetSctpSslRole_n();
+        if (!role)
+          role = guessed_role;
+        if (role)
+          data_channel_controller->AllocateSctpSids(*role);
+      });
 }
 
 absl::optional<rtc::SSLRole> SdpOfferAnswerHandler::GuessSslRole() const {
@@ -3894,14 +3890,9 @@ RTCError SdpOfferAnswerHandler::UpdateDataChannel(
     RTCError error(RTCErrorType::OPERATION_ERROR_WITH_DATA, sb.Release());
     error.set_error_detail(RTCErrorDetailType::DATA_CHANNEL_FAILURE);
     DestroyDataChannelTransport(error);
-  } else {
-    if (!data_channel_controller()->data_channel_transport()) {
-      RTC_LOG(LS_INFO) << "Creating data channel, mid=" << content.mid();
-      if (!CreateDataChannel(content.name)) {
-        return RTCError(RTCErrorType::INTERNAL_ERROR,
-                        "Failed to create data channel.");
-      }
-    }
+  } else if (!CreateDataChannel(content.name)) {
+    return RTCError(RTCErrorType::INTERNAL_ERROR,
+                    "Failed to create data channel.");
   }
   return RTCError::OK();
 }
@@ -5085,12 +5076,9 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
   }
 
   const cricket::ContentInfo* data = cricket::GetFirstDataContent(&desc);
-  if (data && !data->rejected &&
-      !data_channel_controller()->data_channel_transport()) {
-    if (!CreateDataChannel(data->name)) {
-      return RTCError(RTCErrorType::INTERNAL_ERROR,
-                      "Failed to create data channel.");
-    }
+  if (data && !data->rejected && !CreateDataChannel(data->name)) {
+    return RTCError(RTCErrorType::INTERNAL_ERROR,
+                    "Failed to create data channel.");
   }
 
   return RTCError::OK();
@@ -5098,6 +5086,13 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
 
 bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  if (pc_->sctp_mid().has_value()) {
+    RTC_DCHECK_EQ(mid, *pc_->sctp_mid());
+    return true;  // data channel already created.
+  }
+
+  RTC_LOG(LS_INFO) << "Creating data channel, mid=" << mid;
+
   if (!context_->network_thread()->BlockingCall([this, &mid] {
         RTC_DCHECK_RUN_ON(context_->network_thread());
         return pc_->SetupDataChannelTransport_n(mid);
@@ -5115,18 +5110,12 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
 
 void SdpOfferAnswerHandler::DestroyDataChannelTransport(RTCError error) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  const bool has_sctp = pc_->sctp_mid().has_value();
-
-  if (has_sctp)
-    data_channel_controller()->OnTransportChannelClosed(error);
-
-  context_->network_thread()->BlockingCall([this] {
-    RTC_DCHECK_RUN_ON(context_->network_thread());
-    pc_->TeardownDataChannelTransport_n();
-  });
-
-  if (has_sctp)
-    pc_->ResetSctpDataMid();
+  context_->network_thread()->BlockingCall(
+      [&, data_channel_controller = data_channel_controller()] {
+        RTC_DCHECK_RUN_ON(context_->network_thread());
+        pc_->TeardownDataChannelTransport_n(error);
+      });
+  pc_->ResetSctpDataMid();
 }
 
 void SdpOfferAnswerHandler::DestroyAllChannels() {

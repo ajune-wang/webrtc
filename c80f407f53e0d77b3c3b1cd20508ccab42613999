@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28aee807_47f79452",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-06T19:43:13Z",
+      "side": 1,
+      "message": "This reland is now ready for review again. I\u0027ve landed one CL that contains an interface change from the original CL and is therefore no longer a part of the re-land.\n\nI also discovered a few unexpected ways of doing things in downstream code, which I have fixed and I have a couple of pending CLs in Chromium for code that is ready for these changes and takes advantage of the already-landed interface change.\n\nI made some changes from the original CL though in order to harden the code against situations I saw downstream and those changes can be seen by diffing patch sets 4 and 21 (yes, it\u0027s been a bit of an adventure):\n\nhttps://webrtc-review.googlesource.com/c/src/+/300360/4..21",
+      "revId": "c80f407f53e0d77b3c3b1cd20508ccab42613999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfec843f_ef384063",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-06T14:55:32Z",
+      "side": 1,
+      "message": "We can do the process bits of this together with encoder/decoderImplementation",
+      "revId": "1202c3464368f22ae666908217d847b9f828e14c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -68,7 +68,7 @@ class DataChannelController : public SctpDataChannelControllerInterface,
   void PrepareForShutdown();
 
   // Called from PeerConnection::SetupDataChannelTransport_n
-  void SetupDataChannelTransport_n();
+  void SetupDataChannelTransport_n(DataChannelTransportInterface* transport);
   // Called from PeerConnection::TeardownDataChannelTransport_n
   void TeardownDataChannelTransport_n(RTCError error);
 

@@ -32,6 +32,7 @@
 #include "call/call.h"
 #include "media/engine/webrtc_media_engine.h"
 #include "media/engine/webrtc_voice_engine.h"
+#include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
@@ -3363,6 +3364,22 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   // TODO(bugs.webrtc.org/10662): Add stats for LNTF.
 
   info.timing_frame_info = stats.timing_frame_info;
+
+  if (flexfec_stream_) {
+    info.fec_packets_received = 23;
+    info.fec_packets_discarded = 2;
+    info.fec_bytes_rcvd = 400;
+    const webrtc::ReceiveStatistics* stats = flexfec_stream_->GetStats();
+    if (stats) {
+      const webrtc::StreamStatistician* beancounter =
+          stats->GetStatistician(flexfec_config_.rtp.remote_ssrc);
+      const webrtc::RtpReceiveStats fecRtpStats = beancounter->GetStats();
+      // fecRtpStats.packet_counter.payload_types, .packets, set discarded to 0
+      info.fec_packets_received = fecRtpStats.packet_counter.packets;
+      info.fec_bytes_rcvd = fecRtpStats.packet_counter.payload_bytes;
+      // TODO(fippo): add header bytes to general header bytes?
+    }
+  }
 
   if (log_stats)
     RTC_LOG(LS_INFO) << stats.ToString(rtc::TimeMillis());

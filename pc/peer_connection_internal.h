@@ -117,10 +117,12 @@ class PeerConnectionSdpMethods {
   // Returns true if SRTP (either using DTLS-SRTP or SDES) is required by
   // this session.
   virtual bool SrtpRequired() const = 0;
-  virtual bool SetupDataChannelTransport_n(const std::string& mid) = 0;
+  virtual bool SetupDataChannelTransport_n(const std::string& mid,
+                                           std::string* transport_name) = 0;
   virtual void TeardownDataChannelTransport_n(RTCError error) = 0;
-  virtual void SetSctpDataMid(const std::string& mid) = 0;
-  virtual void ResetSctpDataMid() = 0;
+  virtual void SetSctpDataInfo(const std::string& mid,
+                               const std::string& transport_name) = 0;
+  virtual void ResetSctpDataInfo() = 0;
 
   virtual const FieldTrialsView& trials() const = 0;
 

@@ -49,7 +49,8 @@ RTCError DataChannelController::SendData(
     StreamId sid,
     const SendDataParams& params,
     const rtc::CopyOnWriteBuffer& payload) {
-  if (data_channel_transport())
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (data_channel_transport_)
     return DataChannelSendData(sid, params, payload);
   RTC_LOG(LS_ERROR) << "SendData called before transport is ready";
   return RTCError(RTCErrorType::INVALID_STATE);
@@ -58,15 +59,15 @@ RTCError DataChannelController::SendData(
 void DataChannelController::AddSctpDataStream(StreamId sid) {
   RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(sid.HasValue());
-  if (data_channel_transport()) {
-    data_channel_transport()->OpenChannel(sid.stream_id_int());
+  if (data_channel_transport_) {
+    data_channel_transport_->OpenChannel(sid.stream_id_int());
   }
 }
 
 void DataChannelController::RemoveSctpDataStream(StreamId sid) {
   RTC_DCHECK_RUN_ON(network_thread());
-  if (data_channel_transport()) {
-    data_channel_transport()->CloseChannel(sid.stream_id_int());
+  if (data_channel_transport_) {
+    data_channel_transport_->CloseChannel(sid.stream_id_int());
   }
 }
 
@@ -178,11 +179,11 @@ void DataChannelController::TeardownDataChannelTransport_n() {
 void DataChannelController::OnTransportChanged(
     DataChannelTransportInterface* new_data_channel_transport) {
   RTC_DCHECK_RUN_ON(network_thread());
-  if (data_channel_transport() &&
-      data_channel_transport() != new_data_channel_transport) {
+  if (data_channel_transport_ &&
+      data_channel_transport_ != new_data_channel_transport) {
     // Changed which data channel transport is used for `sctp_mid_` (eg. now
     // it's bundled).
-    data_channel_transport()->SetDataSink(nullptr);
+    data_channel_transport_->SetDataSink(nullptr);
     set_data_channel_transport(new_data_channel_transport);
     if (new_data_channel_transport) {
       new_data_channel_transport->SetDataSink(this);
@@ -418,14 +419,6 @@ void DataChannelController::OnTransportChannelClosed(RTCError error) {
   }
 }
 
-DataChannelTransportInterface* DataChannelController::data_channel_transport()
-    const {
-  // TODO(bugs.webrtc.org/11547): Only allow this accessor to be called on the
-  // network thread.
-  // RTC_DCHECK_RUN_ON(network_thread());
-  return data_channel_transport_;
-}
-
 void DataChannelController::set_data_channel_transport(
     DataChannelTransportInterface* transport) {
   RTC_DCHECK_RUN_ON(network_thread());
@@ -437,14 +430,13 @@ RTCError DataChannelController::DataChannelSendData(
     const SendDataParams& params,
     const rtc::CopyOnWriteBuffer& payload) {
   RTC_DCHECK_RUN_ON(network_thread());
-  RTC_DCHECK(data_channel_transport());
-  return data_channel_transport()->SendData(sid.stream_id_int(), params,
-                                            payload);
+  return data_channel_transport_->SendData(sid.stream_id_int(), params,
+                                           payload);
 }
 
 void DataChannelController::NotifyDataChannelsOfTransportCreated() {
   RTC_DCHECK_RUN_ON(network_thread());
-  RTC_DCHECK(data_channel_transport());
+  RTC_DCHECK(data_channel_transport_);
 
   for (const auto& channel : sctp_data_channels_n_) {
     if (channel->sid_n().HasValue())

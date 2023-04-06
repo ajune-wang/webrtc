@@ -1942,7 +1942,6 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
   bool first_packet = true;
   uint8_t prev_payload_type = 0;
   uint32_t prev_timestamp = 0;
-  uint16_t prev_sequence_number = 0;
   bool next_packet_available = false;
 
   const Packet* next_packet = packet_buffer_->PeekNextPacket();
@@ -1978,7 +1977,6 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
         nack_->UpdateLastDecodedPacket(packet->sequence_number,
                                        packet->timestamp);
       }
-      prev_sequence_number = packet->sequence_number;
       prev_timestamp = packet->timestamp;
       prev_payload_type = packet->payload_type;
     }
@@ -2020,15 +2018,9 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
     next_packet_available = false;
     if (next_packet && prev_payload_type == next_packet->payload_type &&
         !has_cng_packet) {
-      int16_t seq_no_diff = next_packet->sequence_number - prev_sequence_number;
-      size_t ts_diff = next_packet->timestamp - prev_timestamp;
-      if ((seq_no_diff == 1 || seq_no_diff == 0) &&
-          ts_diff <= packet_duration) {
-        // The next sequence number is available, or the next part of a packet
-        // that was split into pieces upon insertion.
+      if (next_packet->timestamp == prev_timestamp + packet_duration) {
         next_packet_available = true;
       }
-      prev_sequence_number = next_packet->sequence_number;
       prev_timestamp = next_packet->timestamp;
     }
   } while (extracted_samples < required_samples && next_packet_available);

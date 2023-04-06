@@ -99,6 +99,9 @@ class DataChannelObserver {
   virtual void OnMessage(const DataBuffer& buffer) = 0;
   // The data channel's buffered_amount has changed.
   virtual void OnBufferedAmountChange(uint64_t sent_data_size) {}
+  // Callback that indicates completion of a call to
+  // `DataChannelInterface::SendAsync`.
+  virtual void OnSendAsyncComplete(RTCError error, void* context) {}
 
   // Override this to get callbacks directly on the network thread.
   // An implementation that does that must not block the network thread
@@ -198,7 +201,14 @@ class RTC_EXPORT DataChannelInterface : public rtc::RefCountInterface {
   // Returns false if the data channel is not in open state or if the send
   // buffer is full.
   // TODO(webrtc:13289): Return an RTCError with information about the failure.
-  virtual bool Send(const DataBuffer& buffer) = 0;
+  // TODO(tommi): Remove this method once downstream implementations don't refer
+  // to it.
+  virtual bool Send(const DataBuffer& buffer);
+
+  // TODO(tommi): Make pure virtual after updating mock class in Chromium.
+  // Deprecate `Send` in favor of this variant since the return value of `Send`
+  // is limiting for a fully async implementation (yet in practice is ignored).
+  virtual void SendAsync(DataBuffer buffer, void* context = nullptr);
 
   // Amount of bytes that can be queued for sending on the data channel.
   // Those are bytes that have not yet been processed at the SCTP level.

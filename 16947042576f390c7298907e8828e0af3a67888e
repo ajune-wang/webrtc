@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "596f49d3_935de9d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-04-07T21:28:01Z",
+      "side": 1,
+      "message": "Seems strange that we have this method defined in a different target than it\u0027s declared in the first place, is there a reason for that?",
+      "revId": "16947042576f390c7298907e8828e0af3a67888e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f5288b936aadffd96c9985de4ce07f075e79f711',
+  'chromium_revision': '7bcda97b62b35f7633fc942c0dbeb5346c845f59',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:12.20230408.2.1',
+  'fuchsia_version': 'version:12.20230408.3.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -48,7 +48,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@6ed9379a1c4e33d90b678fcdc82d4ae02a742bb5',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@ae34ae7be05cf4bd07f591c9517387b7a62340cc',
+    'https://chromium.googlesource.com/chromium/src/build@600ffb7757ed9e3be88b0d8652aa5dd67911672d',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@9e6b2fae10be96f6b2e8cfc4fd88737479aef44a',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -402,7 +402,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'LDqm0S65wmMmhwJ0O9ywLshSC8dR6gIKcgHVdh2S0zQC',
+          'version': 'C1V8wdZiicJ8bNCB6QHd1sbCjKs0_-RrZqp8Fz23AMMC',
       },
     ],
     'condition': 'checkout_android',

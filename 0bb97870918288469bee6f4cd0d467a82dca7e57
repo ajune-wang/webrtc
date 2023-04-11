@@ -33,6 +33,46 @@
       "message": "ping :)",
       "revId": "0bb97870918288469bee6f4cd0d467a82dca7e57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c585e17_3bd8cdb8",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-04-11T07:45:01Z",
+      "side": 1,
+      "message": "Maybe a unit test?",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 29
+      },
+      "revId": "0bb97870918288469bee6f4cd0d467a82dca7e57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4706d58c_60b63683",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-04-11T07:45:01Z",
+      "side": 1,
+      "message": "Maybe a unit test?",
+      "revId": "0bb97870918288469bee6f4cd0d467a82dca7e57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

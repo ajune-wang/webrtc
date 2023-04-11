@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a0f7a6a_0ad5bf25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-11T07:48:17Z",
+      "side": 1,
+      "message": "Thanks for fixing, looks good!\n\nApart from nits, last ask is to add some unit test coverage. You can check recorded metrics using e.g.:\n`EXPECT_METRIC_EQ(1, metrics::NumEvents(\"WebRTC.Video.Foo\", kExpectedStatsValue));`\n\nAlso, remember to update https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/metadata/web_rtc/histograms.xml too for use in chromium.",
+      "revId": "eb590516ff2b675ced88af8d1ec05a7b1d1aa842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f182c272_ef877a4c",
+        "filename": "video/encoder_bitrate_adjuster.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-11T07:48:17Z",
+      "side": 1,
+      "message": "nit: omit this since you\u0027re unconditionally setting this member in the initializer list anyway.",
+      "range": {
+        "startLine": 78,
+        "startChar": 23,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "eb590516ff2b675ced88af8d1ec05a7b1d1aa842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e6af5eb_b5a17eec",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-11T07:48:17Z",
+      "side": 1,
+      "message": "nit: might be easier to read as `diff_kbits`",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 19
+      },
+      "revId": "eb590516ff2b675ced88af8d1ec05a7b1d1aa842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57eafe75_3d315a87",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-11T07:48:17Z",
+      "side": 1,
+      "message": "nit: Maybe `sum_diff_kbps_squared_` ?",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 16
+      },
+      "revId": "eb590516ff2b675ced88af8d1ec05a7b1d1aa842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

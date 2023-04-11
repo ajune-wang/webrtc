@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "395c5faa_0f4959ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-04-11T06:49:39Z",
+      "side": 1,
+      "message": "LGTM with one question.",
+      "revId": "5210e7c048d6649317f04f91fdbfe6a384e1f526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f04b4f75_a923c931",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2020,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-04-11T06:49:39Z",
+      "side": 1,
+      "message": "The old code said `next_packet-\u003etimestamp \u003c\u003d prev_timestamp + packet_duration`, with a less-than-or-equal comparison. Did you analyze the implications of this change?",
+      "range": {
+        "startLine": 2020,
+        "startChar": 8,
+        "endLine": 2020,
+        "endChar": 66
+      },
+      "revId": "5210e7c048d6649317f04f91fdbfe6a384e1f526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

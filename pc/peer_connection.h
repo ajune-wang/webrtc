@@ -402,9 +402,10 @@ class PeerConnection : public PeerConnectionInternal,
   // channels are configured this will return nullopt.
   absl::optional<std::string> GetDataMid() const override;
 
-  void SetSctpDataMid(const std::string& mid) override;
+  void SetSctpDataInfo(const std::string& mid,
+                       const std::string& transport_name) override;
 
-  void ResetSctpDataMid() override;
+  void ResetSctpDataInfo() override;
 
   // Asynchronously calls SctpTransport::Start() on the network thread for
   // `sctp_mid()` if set. Called as part of setting the local description.
@@ -432,7 +433,8 @@ class PeerConnection : public PeerConnectionInternal,
   // this session.
   bool SrtpRequired() const override;
 
-  bool SetupDataChannelTransport_n(const std::string& mid) override
+  bool SetupDataChannelTransport_n(const std::string& mid,
+                                   std::string* transport_name) override
       RTC_RUN_ON(network_thread());
   void TeardownDataChannelTransport_n(RTCError error) override
       RTC_RUN_ON(network_thread());

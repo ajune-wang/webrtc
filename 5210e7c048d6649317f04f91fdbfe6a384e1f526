@@ -39,6 +39,30 @@
       },
       "revId": "5210e7c048d6649317f04f91fdbfe6a384e1f526",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3610aaf3_1894a230",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2020,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-04-11T13:09:42Z",
+      "side": 1,
+      "message": "All other code assumes that next packet needs to exactly follow the previous one (any overlapping packets will be discarded). The issue here I guess is that for some codecs (?) we don\u0027t know the exact frame duration and we guess based on last decoded packet here. I don\u0027t see that it would be an issue though, since frame length changes should be very rare for most codecs and we can just try to do time stretching again for the next packet (assuming that is the only case where we would need to extract more than one packet).",
+      "parentUuid": "f04b4f75_a923c931",
+      "range": {
+        "startLine": 2020,
+        "startChar": 8,
+        "endLine": 2020,
+        "endChar": 66
+      },
+      "revId": "5210e7c048d6649317f04f91fdbfe6a384e1f526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

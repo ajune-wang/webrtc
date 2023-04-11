@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6a42c9c_bd5077a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T17:02:14Z",
+      "side": 1,
+      "message": "Emil for general review,\nBjörn - for logging/ approval.",
+      "revId": "51949e5348f0b3b1ab5f3a76e6de31723a931636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

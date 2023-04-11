@@ -96,7 +96,7 @@ class LoggingNetworkControllerFactory
 
 struct CallClientFakeAudio {
   rtc::scoped_refptr<AudioProcessing> apm;
-  rtc::scoped_refptr<TestAudioDeviceModule> fake_audio_device;
+  rtc::scoped_refptr<AudioDeviceModule> fake_audio_device;
   rtc::scoped_refptr<AudioState> audio_state;
 };
 // CallClient represents a participant in a call scenario. It is created by the

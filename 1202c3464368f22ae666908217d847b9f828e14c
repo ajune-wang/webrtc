@@ -16,6 +16,23 @@
       "message": "We can do the process bits of this together with encoder/decoderImplementation",
       "revId": "1202c3464368f22ae666908217d847b9f828e14c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "028e2d5b_d0a03c0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-11T13:37:50Z",
+      "side": 1,
+      "message": "Since I need an I2D I can just do two properties in one go",
+      "revId": "1202c3464368f22ae666908217d847b9f828e14c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

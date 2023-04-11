@@ -614,7 +614,7 @@ void RTCPReceiver::HandleReportBlock(const ReportBlock& report_block,
   rtcp_report_block.sender_ssrc = remote_ssrc;
   rtcp_report_block.source_ssrc = report_block.source_ssrc();
   rtcp_report_block.fraction_lost = report_block.fraction_lost();
-  rtcp_report_block.packets_lost = report_block.cumulative_lost_signed();
+  rtcp_report_block.packets_lost = report_block.cumulative_lost();
   if (report_block.extended_high_seq_num() >
       report_block_data->report_block().extended_highest_sequence_number) {
     // We have successfully delivered new RTP packets to the remote side after

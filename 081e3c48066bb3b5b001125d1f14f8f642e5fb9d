@@ -16,6 +16,109 @@
       "message": "Danil - do you mind taking a look?",
       "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8e2285_cc6caca4",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T13:25:45Z",
+      "side": 1,
+      "message": "passing \"void* context\" smells like and old way to match call and callback, \nhow about using new, safer constructs:\n```\nvirtual void SendAsync(DataBuffer buffer, absl::AnyInvocable\u003cvoid(RTCError) \u0026\u0026\u003e on_complete);\n                       \nvoid SendAsync(DataBuffer buffer) {\n  // Pass empty invocable to note there is no need to call it on completion.\n  SendAsync(buffer, nullptr);\n  \n  // Or require on_complete to always be not empty and pass noop here:\n  SendAsync(buffer, [](RTCError) {});\n}\n                       \n                       \n```",
+      "range": {
+        "startLine": 211,
+        "startChar": 44,
+        "endLine": 211,
+        "endChar": 57
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78fe638e_b1e70370",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T13:25:45Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Default_Arguments\n\n“Default arguments are banned on virtual functions”",
+      "range": {
+        "startLine": 211,
+        "startChar": 58,
+        "endLine": 211,
+        "endChar": 67
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f73d8d1_b4742a5e",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T13:25:45Z",
+      "side": 1,
+      "message": "why ignore other kind of errors?\nwouldn\u0027t it be simpler to `return err.ok();`?",
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5d2404_66aaeb60",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T13:25:45Z",
+      "side": 1,
+      "message": "with AnyInvocable interface implementation won\u0027t be more complicated:\n```\nnetwork_thread_-\u003ePostTask(SafeTask(network_safety_, [this, buffer \u003d std::move(buffer), on_complete \u003d std::move(on_complete)]() mutable {\n   RTCError err \u003d SendImpl(std::move(buffer));\n   if (on_complete) {\n     std::move(on_complete)(err);\n   }\n}));\n```",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 1
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a354ff8_0e160c07",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T13:25:45Z",
+      "side": 1,
+      "message": "this look like change in behavior - previous code returned an error (false) in this case",
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

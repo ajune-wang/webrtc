@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a8a283_63c603e1",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T14:56:51Z",
+      "side": 1,
+      "message": "In this test all SendAsync are expected to succeed.\nThat could be more visible if you wouldn\u0027t write failed branch.\ne.g.\n```\nauto send_complete \u003d [\u0026](RTCError err) {\n  EXPECT_TRUE(err.ok());\n  ++successful_sends;\n};\n```\nor using MockFunction:\n```\nMockFunction\u003cvoid(RTCError)\u003e send_complete;\nEXPECT_CALL(send_complete, Call(RTCError::OK())).Times(number_of_packets + 1);\n...\nchannel_-\u003eSendAsync(buffer, send_complete.AsStdFunction());\n```\nhttp://google.github.io/googletest/gmock_cook_book.html#MockFunction",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 4
+      },
+      "revId": "0afe15b55f1ed990d333edc6ee76a3c056883b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71f3841b_fb2a3d44",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T14:56:51Z",
+      "side": 1,
+      "message": "prefer to swap the parameters:\nvalue under test 1st, contant/variable it is tested against - 2nd\n\nhttp://go/c-readability-advice#avoid-yoda-style-comparisons",
+      "range": {
+        "startLine": 237,
+        "startChar": 2,
+        "endLine": 237,
+        "endChar": 45
+      },
+      "revId": "0afe15b55f1ed990d333edc6ee76a3c056883b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "619542c1_5de93056",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T14:56:51Z",
+      "side": 1,
+      "message": "add {}\n\nhttps://google.github.io/styleguide/cppguide.html#Formatting_Looping_Branching\n“Put any controlled statements inside blocks”",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 418,
+        "endChar": 45
+      },
+      "revId": "0afe15b55f1ed990d333edc6ee76a3c056883b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef9a4008_6ebb5af0",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T14:56:51Z",
+      "side": 1,
+      "message": "in ... ?",
+      "range": {
+        "startLine": 1082,
+        "startChar": 26,
+        "endLine": 1082,
+        "endChar": 53
+      },
+      "revId": "0afe15b55f1ed990d333edc6ee76a3c056883b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb7234b_9c24a0c2",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 38
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T14:56:51Z",
+      "side": 1,
+      "message": "on_complete ? (which doesn\u0027t have to be lambda)",
+      "range": {
+        "startLine": 598,
+        "startChar": 10,
+        "endLine": 598,
+        "endChar": 29
+      },
+      "revId": "0afe15b55f1ed990d333edc6ee76a3c056883b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

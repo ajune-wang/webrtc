@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f7fd95_e15bf0ff",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 37
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-11T14:56:51Z",
+      "side": 1,
+      "message": "that is why it is not recommended to create mocks for classes/interfaces you don\u0027t own...\n\nhttps://testing.googleblog.com/2020/07/testing-on-toilet-dont-mock-types-you.html",
+      "range": {
+        "startLine": 206,
+        "startChar": 51,
+        "endLine": 206,
+        "endChar": 73
+      },
+      "revId": "a15f3df74c1669cff5981e5f8159d3de57718d2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

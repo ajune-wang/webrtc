@@ -1584,8 +1584,8 @@ TEST(RtcpReceiverTest,
         EXPECT_EQ(rtcp_block.extended_high_seq_num(),
                   report_block.extended_highest_sequence_number);
         EXPECT_EQ(rtcp_block.jitter(), report_block.jitter);
-        EXPECT_EQ(kNtpNowMs * rtc::kNumMicrosecsPerMillisec,
-                  report_block_data.report_block_timestamp_utc_us());
+        EXPECT_EQ(report_block_data.report_block_timestamp_utc(),
+                  Timestamp::Millis(kNtpNowMs));
         // No RTT is calculated in this test.
         EXPECT_EQ(0u, report_block_data.num_rtts());
       });
@@ -1628,10 +1628,10 @@ TEST(RtcpReceiverTest, VerifyRttObtainedFromReportBlockDataObserver) {
         EXPECT_EQ(kReceiverMainSsrc,
                   report_block_data.report_block().source_ssrc);
         EXPECT_EQ(1u, report_block_data.num_rtts());
-        EXPECT_EQ(kRtt.ms(), report_block_data.min_rtt_ms());
-        EXPECT_EQ(kRtt.ms(), report_block_data.max_rtt_ms());
-        EXPECT_EQ(kRtt.ms(), report_block_data.sum_rtt_ms());
-        EXPECT_EQ(kRtt.ms(), report_block_data.last_rtt_ms());
+        EXPECT_EQ(kRtt, report_block_data.min_rtt());
+        EXPECT_EQ(kRtt, report_block_data.max_rtt());
+        EXPECT_EQ(kRtt, report_block_data.sum_rtts());
+        EXPECT_EQ(kRtt, report_block_data.last_rtt());
       });
   EXPECT_CALL(observer, OnReportBlockDataUpdated)
       .WillOnce([](ReportBlockData report_block_data) {

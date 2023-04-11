@@ -138,6 +138,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "08c8cb64_b9ff42c4",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-11T15:33:00Z",
+      "side": 1,
+      "message": "Added documentation for the calling context of `on_complete`. I do mention network thread, but chose to say \"a network thread\" rather than \"the network thread\" in case we want more flexibility in the future. Then again there\u0027s a direct mapping from this context to the `network_thread_` config value for peerconnection factories.",
+      "parentUuid": "14dd7e3e_919712f6",
+      "range": {
+        "startLine": 211,
+        "startChar": 44,
+        "endLine": 211,
+        "endChar": 57
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7f73d8d1_b4742a5e",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 36

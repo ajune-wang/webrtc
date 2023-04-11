@@ -22,7 +22,7 @@ class EncoderOvershootDetectorTest : public ::testing::Test {
   static constexpr int kDefaultBitrateBps = 300000;
   static constexpr double kDefaultFrameRateFps = 15;
   EncoderOvershootDetectorTest()
-      : detector_(kWindowSizeMs),
+      : detector_(kWindowSizeMs, kVideoCodecGeneric, false),
         target_bitrate_(DataRate::BitsPerSec(kDefaultBitrateBps)),
         target_framerate_fps_(kDefaultFrameRateFps) {}
 

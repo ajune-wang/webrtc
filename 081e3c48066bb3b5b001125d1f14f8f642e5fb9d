@@ -66,6 +66,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dad3d0d8_13f231c3",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-11T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78fe638e_b1e70370",
+      "range": {
+        "startLine": 211,
+        "startChar": 58,
+        "endLine": 211,
+        "endChar": 67
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4af3fd6e_55ff627f",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-11T14:10:52Z",
+      "side": 1,
+      "message": "Done.\n\norphis@ and I were discussing this last week and yes the `void* context` approach is a bit old fashioned. What I was thinking about was that there are observer implementations out there that expect callbacks on the signaling thread while other callbacks would benefit from direct callbacks.\n\nHowever since SendAsync is new, we don\u0027t actually need to worry about that.",
+      "parentUuid": "3d8e2285_cc6caca4",
+      "range": {
+        "startLine": 211,
+        "startChar": 44,
+        "endLine": 211,
+        "endChar": 57
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7f73d8d1_b4742a5e",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 36
@@ -77,6 +125,24 @@
       "writtenOn": "2023-04-11T13:25:45Z",
       "side": 1,
       "message": "why ignore other kind of errors?\nwouldn\u0027t it be simpler to `return err.ok();`?",
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07b5c6df_748b1480",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-11T14:10:52Z",
+      "side": 1,
+      "message": "Yes, this does strike me as a bit strange too but I figured I\u0027d keep the existing behavior.",
+      "parentUuid": "7f73d8d1_b4742a5e",
       "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -106,6 +172,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b5ea4b2f_1f39082b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-11T14:10:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed5d2404_66aaeb60",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 1
+      },
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2a354ff8_0e160c07",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 36
@@ -117,6 +207,24 @@
       "writtenOn": "2023-04-11T13:25:45Z",
       "side": 1,
       "message": "this look like change in behavior - previous code returned an error (false) in this case",
+      "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9af25e1d_7825b34b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 36
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-11T14:10:52Z",
+      "side": 1,
+      "message": "hmm...yes... however, I think that must have been a bug.\n\nIn the original `Send()` implementation, there\u0027s a direct call to `QueueSendDataMessage()` in case messages have previously been queued. In that case, successfully queueing a message yields a `true` return value, or `OK()`. So I think that this particular corner case returning `false` when a message was successfully queued, would be a bug.\n\nMy guess is that there was confusion around the way the condition was previously written since this call was mixed with checking the `!queue_if_blocked` flag. If we were not allowed to queue, but failed to send. The return value should be an error. \n\nBut if we were allowed to queue and successfully did so, the return value should indicate success.\n\nwdyt?",
+      "parentUuid": "2a354ff8_0e160c07",
       "revId": "081e3c48066bb3b5b001125d1f14f8f642e5fb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

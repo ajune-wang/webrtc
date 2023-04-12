@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a609c443_8ec1d9bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-04-12T07:52:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72831757_0ae9a9d9",
+      "revId": "11f012cb57483fd4974123020eeb65de047456c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec029d54_01b02856",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-12T07:33:02Z",
       "side": 1,
       "message": "nit: feel free to remove this.",
+      "range": {
+        "startLine": 1039,
+        "startChar": 0,
+        "endLine": 1039,
+        "endChar": 16
+      },
+      "revId": "11f012cb57483fd4974123020eeb65de047456c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7cc0de8_5b40d4f8",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-04-12T07:52:41Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "ec029d54_01b02856",
       "range": {
         "startLine": 1039,
         "startChar": 0,

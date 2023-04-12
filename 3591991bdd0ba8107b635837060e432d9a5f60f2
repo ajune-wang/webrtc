@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ea3693_3747894b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-12T10:05:58Z",
+      "side": 1,
+      "message": "Sorry, it\u0027s DataChannelController. I\u0027ll update the description.",
+      "parentUuid": "169700e5_69568f2e",
+      "range": {
+        "startLine": 11,
+        "startChar": 44,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "3591991bdd0ba8107b635837060e432d9a5f60f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b4868c2_89d6a4c4",
@@ -49,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d695fcf3_5f12b3b5",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2517,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-12T10:05:58Z",
+      "side": 1,
+      "message": "Done.\n\nChanged it to:\n```\n  // Configures the data channel transport on the network thread.\n  // The return value will be unset if an error occurs. If the setup succeeded\n  // the return value will be set and contain the name of the transport\n  // (empty string if a name isn\u0027t available).\n  virtual absl::optional\u003cstd::string\u003e SetupDataChannelTransport_n(\n      absl::string_view mid) \u003d 0;\n```",
+      "parentUuid": "9b4868c2_89d6a4c4",
+      "range": {
+        "startLine": 2517,
+        "startChar": 49,
+        "endLine": 2517,
+        "endChar": 61
+      },
+      "revId": "3591991bdd0ba8107b635837060e432d9a5f60f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "987565fd_12b87156",
         "filename": "pc/peer_connection.h",
         "patchSetId": 15
@@ -60,6 +108,30 @@
       "writtenOn": "2023-04-12T08:30:15Z",
       "side": 1,
       "message": "`absl::string_view` is usually a better parameter type than `const std::string\u0026` \n\n(Implementation calls SetSctpTransportName(std::string name), so there would be a copy anyway)",
+      "range": {
+        "startLine": 406,
+        "startChar": 23,
+        "endLine": 406,
+        "endChar": 41
+      },
+      "revId": "3591991bdd0ba8107b635837060e432d9a5f60f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a74bc66b_930f5b34",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-12T10:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "987565fd_12b87156",
       "range": {
         "startLine": 406,
         "startChar": 23,

@@ -153,8 +153,6 @@ class VideoSendStreamImplTest : public ::testing::Test {
         }));
     ON_CALL(rtp_video_sender_, SetActiveModules)
         .WillByDefault(::testing::SaveArg<0>(&active_modules_));
-    ON_CALL(transport_controller_, GetWorkerQueue())
-        .WillByDefault(Return(&worker_queue_));
   }
   ~VideoSendStreamImplTest() {}
 

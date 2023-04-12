@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72831757_0ae9a9d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-12T07:33:02Z",
+      "side": 1,
+      "message": "Running\n\n```\npython3 tools_webrtc/gn_check_autofix.py -m tryserver.webrtc -b android_arm_rel\n```\n\nshould fix the deps issue.",
+      "revId": "11f012cb57483fd4974123020eeb65de047456c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec029d54_01b02856",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-12T07:33:02Z",
+      "side": 1,
+      "message": "nit: feel free to remove this.",
+      "range": {
+        "startLine": 1039,
+        "startChar": 0,
+        "endLine": 1039,
+        "endChar": 16
+      },
+      "revId": "11f012cb57483fd4974123020eeb65de047456c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -13,6 +13,7 @@
 #include "api/units/data_rate.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/metrics.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -22,7 +23,7 @@ class EncoderOvershootDetectorTest : public ::testing::Test {
   static constexpr int kDefaultBitrateBps = 300000;
   static constexpr double kDefaultFrameRateFps = 15;
   EncoderOvershootDetectorTest()
-      : detector_(kWindowSizeMs),
+      : detector_(kWindowSizeMs, kVideoCodecGeneric, false),
         target_bitrate_(DataRate::BitsPerSec(kDefaultBitrateBps)),
         target_framerate_fps_(kDefaultFrameRateFps) {}
 
@@ -163,4 +164,20 @@ TEST_F(EncoderOvershootDetectorTest, PartialOvershoot) {
       detector_.GetMediaRateUtilizationFactor(rtc::TimeMillis());
   EXPECT_NEAR(media_utilization_factor.value_or(-1), 1.00, 0.01);
 }
+
+TEST_F(EncoderOvershootDetectorTest, MetricsRecord) {
+  // frame_size_bytes = target_bitrate_ / target_framerate_fps_ / 8
+  //                  = 300000 / 15 / 8
+  const int frame_size_bytes = 2500;
+  detector_.SetTargetRate(target_bitrate_, target_framerate_fps_,
+                          rtc::TimeMillis());
+  detector_.OnEncodedFrame(frame_size_bytes, rtc::TimeMillis());
+  detector_.Reset();
+  EXPECT_METRIC_LE(
+      1, metrics::NumEvents("WebRTC.Video.RMSEOfEncodingBitrateInKbps.Generic",
+                            0));
+  EXPECT_METRIC_LE(1, metrics::NumEvents(
+                          "WebRTC.Video.EncodingBitrateOvershoot.Generic", 0));
+}
+
 }  // namespace webrtc

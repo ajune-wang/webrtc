@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a892474_a29703cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-04-12T16:56:45Z",
+      "side": 1,
+      "message": "Same comments about level and presence of D in the macro as chromium CL.",
+      "range": {
+        "startLine": 14,
+        "startChar": 21,
+        "endLine": 14,
+        "endChar": 29
+      },
+      "revId": "f143670043b4b1b0ac345834e49705f10177bca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f380263d_b652c127",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-04-12T16:56:45Z",
+      "side": 1,
+      "message": "Probably here too?",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 52
+      },
+      "revId": "f143670043b4b1b0ac345834e49705f10177bca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

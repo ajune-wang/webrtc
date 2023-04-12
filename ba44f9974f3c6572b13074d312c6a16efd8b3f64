@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60590935_3daa9294",
+        "filename": "net/dcsctp/socket/transmission_control_block.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-04-12T12:36:40Z",
+      "side": 1,
+      "message": "Nit: Is this an official name? I couldn\u0027t find it in the draft spec. No abbreviation would be preferable.",
+      "revId": "ba44f9974f3c6572b13074d312c6a16efd8b3f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

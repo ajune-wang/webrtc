@@ -16,6 +16,29 @@
       "message": "Ok, ready to go!",
       "revId": "b8a82072a46b996d737b4424d2a725c5de7a8e3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8778ebf_53cd18de",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2023-04-12T15:20:25Z",
+      "side": 1,
+      "message": "“The macOS SDK included with Xcode 14.3”. Version numbers in front of “SDK” usually refer to the macOS release number.",
+      "range": {
+        "startLine": 23,
+        "startChar": 68,
+        "endLine": 23,
+        "endChar": 76
+      },
+      "revId": "b8a82072a46b996d737b4424d2a725c5de7a8e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

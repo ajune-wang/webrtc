@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a6e2982_5a134907",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-12T18:13:13Z",
+      "side": 1,
+      "message": "PTAL.\n\nDid not change LS_INFO or did you mean LS_VERBOSE? Not sure how they are mapped into 1 vs. 2.",
+      "revId": "01b3098c18520b374e89cc2af6c5393aae396d06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

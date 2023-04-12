@@ -20,6 +20,25 @@
 #include "rtc_base/trace_event.h"
 #include "sdk/objc/helpers/scoped_cftyperef.h"
 
+// CGDisplayStreamUpdateGetRects() has an incorrect availability annotation
+// in the 14.3 SDK. This has the correct annotation.
+// See https://crbug.com/1431897.
+// TODO(thakis): Remove this once FB12109479 is fixed and we updated to an SDK
+// with the fix.
+static const CGRect* __nullable
+    callCGDisplayStreamUpdateGetRects(CGDisplayStreamUpdateRef __nullable updateRef,
+                                      CGDisplayStreamUpdateRectType rectType,
+                                      size_t* rectCount)
+        CG_AVAILABLE_BUT_DEPRECATED(10.8,
+                                    14.0,
+                                    "Please use ScreenCaptureKit API's SCStreamFrameInfo with "
+                                    "SCStreamFrameInfoContentRect instead") {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+  return CGDisplayStreamUpdateGetRects(updateRef, rectType, rectCount);
+#pragma clang diagnostic pop
+}
+
 namespace webrtc {
 
 namespace {
@@ -459,7 +478,7 @@ bool ScreenCapturerMac::RegisterRefreshAndMoveHandlers() {
 
       size_t count = 0;
       const CGRect* rects =
-          CGDisplayStreamUpdateGetRects(updateRef, kCGDisplayStreamUpdateDirtyRects, &count);
+          callCGDisplayStreamUpdateGetRects(updateRef, kCGDisplayStreamUpdateDirtyRects, &count);
       if (count != 0) {
         // According to CGDisplayStream.h, it's safe to call
         // CGDisplayStreamStop() from within the callback.

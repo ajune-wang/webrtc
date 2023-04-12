@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9355c83d_e7375934",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-12T08:53:11Z",
+      "side": 1,
+      "message": "A few comments:\n\n1. You can avoid manual frame size calculations if you use unit types\n2. Please add tests for both video and screenshare, and for the different codec types - just to check the names of the histograms are created correctly.\n3. Add a few tests where the error is _not_ zero.\n\nHere\u0027s an example using frequency:\n```\nTEST_F(EncoderOvershootDetectorTest,\n       RecordsZeroErrorMetricWithNoOvershootGenericVideo) {\n  DataSize ideal_frame_size \u003d\n      target_bitrate_ / Frequency::Hertz(target_framerate_fps_);\n  detector_.SetTargetRate(target_bitrate_, target_framerate_fps_,\n                          rtc::TimeMillis());\n  detector_.OnEncodedFrame(ideal_frame_size.bytes(), rtc::TimeMillis());\n  detector_.Reset();\n  // RMSE and overshoot percent \u003d 0, since we used ideal frame size.S\n  EXPECT_METRIC_EQ(\n      1, metrics::NumEvents(\"WebRTC.Video.RMSEOfEncodingBitrateInKbps.Generic\",\n                            0));\n  EXPECT_METRIC_EQ(1, metrics::NumEvents(\n                          \"WebRTC.Video.EncodingBitrateOvershoot.Generic\", 0));\n}\n```",
+      "revId": "f14357337a75f6708a546f7aa9a137de00b7a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72ae9720_09048f61",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-12T08:53:11Z",
+      "side": 1,
+      "message": "Why not `EXPECT_METRIC_EQ` ? We expect exactly one data point containing a metric with that name and the value 0, right?",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 18
+      },
+      "revId": "f14357337a75f6708a546f7aa9a137de00b7a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

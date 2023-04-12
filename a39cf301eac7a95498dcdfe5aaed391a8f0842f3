@@ -16,6 +16,29 @@
       "message": "+ asapersson for changes in modules/video_coding/codecs/test/",
       "revId": "a39cf301eac7a95498dcdfe5aaed391a8f0842f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d949976_e7c4d5e2",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-12T13:14:34Z",
+      "side": 1,
+      "message": "Is \"builtin\" the same as SW or is it something else?",
+      "range": {
+        "startLine": 475,
+        "startChar": 23,
+        "endLine": 475,
+        "endChar": 30
+      },
+      "revId": "a39cf301eac7a95498dcdfe5aaed391a8f0842f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

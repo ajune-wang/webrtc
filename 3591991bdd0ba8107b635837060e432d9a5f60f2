@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169700e5_69568f2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-12T08:30:15Z",
+      "side": 1,
+      "message": "what DCC stands for? (Data Channel C?)",
+      "range": {
+        "startLine": 11,
+        "startChar": 44,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "3591991bdd0ba8107b635837060e432d9a5f60f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b4868c2_89d6a4c4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-12T08:30:15Z",
+      "side": 1,
+      "message": "can it be nullptr? look like implementation assume it can\u0027t - pass by (non const) reference. \n\nOr better yet - try to put it into return value.\ne.g. return struct { bool succesfull; std::string transport_name; }\nor return absl::optional\u003cstd::string\u003e (with note that it might be a successful setup, but transport_name still can be empty indicating ... something) \n\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n“Prefer using return values over output parameters”\n“non-optional output and input/output parameters should usually be references (which cannot be null).”",
+      "range": {
+        "startLine": 2517,
+        "startChar": 49,
+        "endLine": 2517,
+        "endChar": 61
+      },
+      "revId": "3591991bdd0ba8107b635837060e432d9a5f60f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "987565fd_12b87156",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-12T08:30:15Z",
+      "side": 1,
+      "message": "`absl::string_view` is usually a better parameter type than `const std::string\u0026` \n\n(Implementation calls SetSctpTransportName(std::string name), so there would be a copy anyway)",
+      "range": {
+        "startLine": 406,
+        "startChar": 23,
+        "endLine": 406,
+        "endChar": 41
+      },
+      "revId": "3591991bdd0ba8107b635837060e432d9a5f60f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

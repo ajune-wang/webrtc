@@ -89,6 +89,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
 
   void Stop() override;
   std::string GetStreamLabel(uint16_t frame_id) override;
+  std::string GetSenderPeerName(uint16_t frame_id) override;
   void OnStatsReports(
       absl::string_view pc_label,
       const rtc::scoped_refptr<const RTCStatsReport>& report) override {}

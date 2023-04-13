@@ -22,6 +22,30 @@
       },
       "revId": "5248228d79f8894b93374a33444ab1e150baac34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19cb6114_f02a6829",
+        "filename": "modules/desktop_capture/desktop_capture_metrics_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-13T18:27:25Z",
+      "side": 0,
+      "message": "Yes, that would work.",
+      "parentUuid": "9ca51ec8_a88b2efd",
+      "range": {
+        "startLine": 38,
+        "startChar": 28,
+        "endLine": 38,
+        "endChar": 55
+      },
+      "revId": "5248228d79f8894b93374a33444ab1e150baac34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -2375,5 +2375,31 @@ TEST_F(DefaultVideoQualityAnalyzerSimulatedTimeTest,
   EXPECT_EQ(frame_counters.dropped, 0);
 }
 
+TEST(DefaultVideoQualityAnalyzerTest, CheckFrameSenderPeerName) {
+  constexpr char kAlice[] = "alice";
+  constexpr char kBob[] = "bob";
+  constexpr char kAliceStreamLabel[] = "alice-video";
+  constexpr char kBobStreamLabel[] = "bob-video";
+  std::unique_ptr<test::FrameGeneratorInterface> frame_generator =
+      test::CreateSquareFrameGenerator(kFrameWidth, kFrameHeight,
+                                       /*type=*/absl::nullopt,
+                                       /*num_squares=*/absl::nullopt);
+  DefaultVideoQualityAnalyzer analyzer(Clock::GetRealTimeClock(),
+                                       test::GetGlobalMetricsLogger(),
+                                       AnalyzerOptionsForTest());
+  analyzer.Start("test_case", std::vector<std::string>{kAlice, kBob},
+                 kAnalyzerMaxThreadsCount);
+
+  VideoFrame frame_alice = NextFrame(frame_generator.get(), /*timestamp_us=*/1);
+  VideoFrame frame_bob = NextFrame(frame_generator.get(), /*timestamp_us=*/2);
+  uint16_t frame_id_alice =
+      analyzer.OnFrameCaptured(kAlice, kAliceStreamLabel, frame_alice);
+  uint16_t frame_id_bob =
+      analyzer.OnFrameCaptured(kBob, kBobStreamLabel, frame_bob);
+
+  EXPECT_EQ(analyzer.GetSenderPeerName(frame_id_alice), kAlice);
+  EXPECT_EQ(analyzer.GetSenderPeerName(frame_id_bob), kBob);
+}
+
 }  // namespace
 }  // namespace webrtc

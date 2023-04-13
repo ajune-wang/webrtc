@@ -63,6 +63,30 @@
       },
       "revId": "a9bf47e4a20630f56497f4ac1d5121336b3813af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b794e2f1_bb286994",
+        "filename": "modules/desktop_capture/desktop_capture_metrics_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-04-13T18:39:12Z",
+      "side": 1,
+      "message": "Yeah; essentially just comment out this entire line so that it\u0027s obvious it\u0027s used/been used; but commented out so that the enum value doesn\u0027t exist anymore for e.g complete switch statements. Not sure if this is used outside of here in some place that could break though.",
+      "parentUuid": "f1d49014_f39181c1",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "a9bf47e4a20630f56497f4ac1d5121336b3813af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

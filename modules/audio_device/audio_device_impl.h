@@ -44,6 +44,9 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
 
   AudioDeviceModuleImpl(AudioLayer audio_layer,
                         TaskQueueFactory* task_queue_factory);
+  AudioDeviceModuleImpl(AudioLayer audio_layer,
+                        std::unique_ptr<AudioDeviceGeneric> audio_device,
+                        TaskQueueFactory* task_queue_factory);
   ~AudioDeviceModuleImpl() override;
 
   // Retrieve the currently utilized audio layer

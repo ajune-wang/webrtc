@@ -9,6 +9,7 @@
  */
 
 #include <memory>
+
 #include "absl/types/optional.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "api/video/color_space.h"

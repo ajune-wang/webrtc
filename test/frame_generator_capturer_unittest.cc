@@ -9,6 +9,7 @@
  */
 
 #include "test/frame_generator_capturer.h"
+
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/time_controller/simulated_time_controller.h"

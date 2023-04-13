@@ -44,8 +44,8 @@ void RunTest(const TestData& test) {
   auto dest_frame = CreateTestFrame(test.dest_frame_rect, 0);
   auto src_frame = CreateTestFrame(test.src_frame_rect, 0xff);
 
-  dest_frame->CopyIntersectingPixelsFrom(
-      *src_frame, test.horizontal_scale, test.vertical_scale);
+  dest_frame->CopyIntersectingPixelsFrom(*src_frame, test.horizontal_scale,
+                                         test.vertical_scale);
 
   // Translate the expected overlap rect to be relative to the dest frame/rect.
   DesktopVector dest_frame_origin = test.dest_frame_rect.top_left();
@@ -106,18 +106,13 @@ TEST(DesktopFrameTest, FrameDataSwitchesBetweenNonBlackAndBlack) {
 
 TEST(DesktopFrameTest, CopyIntersectingPixelsMatchingRects) {
   const TestData tests[] = {
-    {"0 origin",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 2, 2)},
+      {"0 origin", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 2, 2), 1.0, 1.0,
+       DesktopRect::MakeXYWH(0, 0, 2, 2)},
 
-    {"Negative origin",
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(-1, -1, 2, 2)}
-  };
+      {"Negative origin", DesktopRect::MakeXYWH(-1, -1, 2, 2),
+       DesktopRect::MakeXYWH(-1, -1, 2, 2), 1.0, 1.0,
+       DesktopRect::MakeXYWH(-1, -1, 2, 2)}};
 
   RunTests(tests, arraysize(tests));
 }
@@ -126,226 +121,152 @@ TEST(DesktopFrameTest, CopyIntersectingPixelsMatchingRectsScaled) {
   // The scale factors shouldn't affect matching rects (they're only applied
   // to any difference between the origins)
   const TestData tests[] = {
-    {"0 origin 2x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(0, 0, 2, 2)},
+      {"0 origin 2x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 2, 2), 2.0, 2.0,
+       DesktopRect::MakeXYWH(0, 0, 2, 2)},
 
-    {"0 origin 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(0, 0, 2, 2)},
+      {"0 origin 0.5x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 2, 2), 0.5, 0.5,
+       DesktopRect::MakeXYWH(0, 0, 2, 2)},
 
-    {"Negative origin 2x",
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(-1, -1, 2, 2)},
+      {"Negative origin 2x", DesktopRect::MakeXYWH(-1, -1, 2, 2),
+       DesktopRect::MakeXYWH(-1, -1, 2, 2), 2.0, 2.0,
+       DesktopRect::MakeXYWH(-1, -1, 2, 2)},
 
-    {"Negative origin 0.5x",
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(-1, -1, 2, 2)}
-  };
+      {"Negative origin 0.5x", DesktopRect::MakeXYWH(-1, -1, 2, 2),
+       DesktopRect::MakeXYWH(-1, -1, 2, 2), 0.5, 0.5,
+       DesktopRect::MakeXYWH(-1, -1, 2, 2)}};
 
   RunTests(tests, arraysize(tests));
 }
 
 TEST(DesktopFrameTest, CopyIntersectingPixelsFullyContainedRects) {
   const TestData tests[] = {
-    {"0 origin top left",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 1, 1),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 1, 1)},
+      {"0 origin top left", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 1, 1), 1.0, 1.0,
+       DesktopRect::MakeXYWH(0, 0, 1, 1)},
 
-    {"0 origin bottom right",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(1, 1, 1, 1),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(1, 1, 1, 1)},
+      {"0 origin bottom right", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(1, 1, 1, 1), 1.0, 1.0,
+       DesktopRect::MakeXYWH(1, 1, 1, 1)},
 
-    {"Negative origin bottom left",
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     DesktopRect::MakeXYWH(-1, 0, 1, 1),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(-1, 0, 1, 1)}
-  };
+      {"Negative origin bottom left", DesktopRect::MakeXYWH(-1, -1, 2, 2),
+       DesktopRect::MakeXYWH(-1, 0, 1, 1), 1.0, 1.0,
+       DesktopRect::MakeXYWH(-1, 0, 1, 1)}};
 
   RunTests(tests, arraysize(tests));
 }
 
 TEST(DesktopFrameTest, CopyIntersectingPixelsFullyContainedRectsScaled) {
   const TestData tests[] = {
-    {"0 origin top left 2x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 1, 1),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(0, 0, 1, 1)},
+      {"0 origin top left 2x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 1, 1), 2.0, 2.0,
+       DesktopRect::MakeXYWH(0, 0, 1, 1)},
 
-    {"0 origin top left 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 1, 1),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(0, 0, 1, 1)},
+      {"0 origin top left 0.5x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 1, 1), 0.5, 0.5,
+       DesktopRect::MakeXYWH(0, 0, 1, 1)},
 
-    {"0 origin bottom left 2x",
-     DesktopRect::MakeXYWH(0, 0, 4, 4),
-     DesktopRect::MakeXYWH(1, 1, 2, 2),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(2, 2, 2, 2)},
+      {"0 origin bottom left 2x", DesktopRect::MakeXYWH(0, 0, 4, 4),
+       DesktopRect::MakeXYWH(1, 1, 2, 2), 2.0, 2.0,
+       DesktopRect::MakeXYWH(2, 2, 2, 2)},
 
-    {"0 origin bottom middle 2x/1x",
-     DesktopRect::MakeXYWH(0, 0, 4, 3),
-     DesktopRect::MakeXYWH(1, 1, 2, 2),
-     2.0, 1.0,
-     DesktopRect::MakeXYWH(2, 1, 2, 2)},
+      {"0 origin bottom middle 2x/1x", DesktopRect::MakeXYWH(0, 0, 4, 3),
+       DesktopRect::MakeXYWH(1, 1, 2, 2), 2.0, 1.0,
+       DesktopRect::MakeXYWH(2, 1, 2, 2)},
 
-    {"0 origin middle 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 3, 3),
-     DesktopRect::MakeXYWH(2, 2, 1, 1),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(1, 1, 1, 1)},
+      {"0 origin middle 0.5x", DesktopRect::MakeXYWH(0, 0, 3, 3),
+       DesktopRect::MakeXYWH(2, 2, 1, 1), 0.5, 0.5,
+       DesktopRect::MakeXYWH(1, 1, 1, 1)},
 
-    {"Negative origin bottom left 2x",
-     DesktopRect::MakeXYWH(-1, -1, 3, 3),
-     DesktopRect::MakeXYWH(-1, 0, 1, 1),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(-1, 1, 1, 1)},
+      {"Negative origin bottom left 2x", DesktopRect::MakeXYWH(-1, -1, 3, 3),
+       DesktopRect::MakeXYWH(-1, 0, 1, 1), 2.0, 2.0,
+       DesktopRect::MakeXYWH(-1, 1, 1, 1)},
 
-    {"Negative origin near middle 0.5x",
-     DesktopRect::MakeXYWH(-2, -2, 2, 2),
-     DesktopRect::MakeXYWH(0, 0, 1, 1),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(-1, -1, 1, 1)}
-  };
+      {"Negative origin near middle 0.5x", DesktopRect::MakeXYWH(-2, -2, 2, 2),
+       DesktopRect::MakeXYWH(0, 0, 1, 1), 0.5, 0.5,
+       DesktopRect::MakeXYWH(-1, -1, 1, 1)}};
 
   RunTests(tests, arraysize(tests));
 }
 
-
 TEST(DesktopFrameTest, CopyIntersectingPixelsPartiallyContainedRects) {
-  const TestData tests[] = {
-    {"Top left",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(-1, -1, 2, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 1, 1)},
+  const TestData tests[] = {{"Top left", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(-1, -1, 2, 2), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(0, 0, 1, 1)},
 
-    {"Top right",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(1, -1, 2, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(1, 0, 1, 1)},
+                            {"Top right", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(1, -1, 2, 2), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(1, 0, 1, 1)},
 
-    {"Bottom right",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(1, 1, 2, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(1, 1, 1, 1)},
+                            {"Bottom right", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(1, 1, 2, 2), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(1, 1, 1, 1)},
 
-    {"Bottom left",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(-1, 1, 2, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 1, 1, 1)}
-  };
+                            {"Bottom left", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(-1, 1, 2, 2), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(0, 1, 1, 1)}};
 
   RunTests(tests, arraysize(tests));
 }
 
 TEST(DesktopFrameTest, CopyIntersectingPixelsPartiallyContainedRectsScaled) {
   const TestData tests[] = {
-    {"Top left 2x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(-1, -1, 3, 3),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(0, 0, 1, 1)},
+      {"Top left 2x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(-1, -1, 3, 3), 2.0, 2.0,
+       DesktopRect::MakeXYWH(0, 0, 1, 1)},
 
-    {"Top right 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(2, -2, 2, 2),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(1, 0, 1, 1)},
+      {"Top right 0.5x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(2, -2, 2, 2), 0.5, 0.5,
+       DesktopRect::MakeXYWH(1, 0, 1, 1)},
 
-    {"Bottom right 2x",
-     DesktopRect::MakeXYWH(0, 0, 3, 3),
-     DesktopRect::MakeXYWH(-1, 1, 3, 3),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(0, 2, 1, 1)},
+      {"Bottom right 2x", DesktopRect::MakeXYWH(0, 0, 3, 3),
+       DesktopRect::MakeXYWH(-1, 1, 3, 3), 2.0, 2.0,
+       DesktopRect::MakeXYWH(0, 2, 1, 1)},
 
-    {"Bottom left 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(-2, 2, 2, 2),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(0, 1, 1, 1)}
-  };
+      {"Bottom left 0.5x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+       DesktopRect::MakeXYWH(-2, 2, 2, 2), 0.5, 0.5,
+       DesktopRect::MakeXYWH(0, 1, 1, 1)}};
 
   RunTests(tests, arraysize(tests));
 }
 
-
 TEST(DesktopFrameTest, CopyIntersectingPixelsUncontainedRects) {
-  const TestData tests[] = {
-    {"Left",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(-1, 0, 1, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)},
+  const TestData tests[] = {{"Left", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(-1, 0, 1, 2), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)},
 
-    {"Top",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, -1, 2, 1),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)},
+                            {"Top", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(0, -1, 2, 1), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)},
 
-    {"Right",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(2, 0, 1, 2),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)},
+                            {"Right", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(2, 0, 1, 2), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)},
 
-
-    {"Bottom",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 2, 2, 1),
-     1.0, 1.0,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)}
-  };
+                            {"Bottom", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(0, 2, 2, 1), 1.0, 1.0,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)}};
 
   RunTests(tests, arraysize(tests));
 }
 
 TEST(DesktopFrameTest, CopyIntersectingPixelsUncontainedRectsScaled) {
-  const TestData tests[] = {
-    {"Left 2x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(-1, 0, 2, 2),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)},
+  const TestData tests[] = {{"Left 2x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(-1, 0, 2, 2), 2.0, 2.0,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)},
 
-    {"Top 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, -2, 2, 1),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)},
+                            {"Top 0.5x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(0, -2, 2, 1), 0.5, 0.5,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)},
 
-    {"Right 2x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(1, 0, 1, 2),
-     2.0, 2.0,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)},
+                            {"Right 2x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(1, 0, 1, 2), 2.0, 2.0,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)},
 
-
-    {"Bottom 0.5x",
-     DesktopRect::MakeXYWH(0, 0, 2, 2),
-     DesktopRect::MakeXYWH(0, 4, 2, 1),
-     0.5, 0.5,
-     DesktopRect::MakeXYWH(0, 0, 0, 0)}
-  };
+                            {"Bottom 0.5x", DesktopRect::MakeXYWH(0, 0, 2, 2),
+                             DesktopRect::MakeXYWH(0, 4, 2, 1), 0.5, 0.5,
+                             DesktopRect::MakeXYWH(0, 0, 0, 0)}};
 
   RunTests(tests, arraysize(tests));
 }

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4edabb5e_4ef4b5b0",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-04-13T12:46:38Z",
+      "side": 1,
+      "message": "This is just about copying the existing TODOs. The fields will probably be either removed or the API implication addressed in the future.",
+      "parentUuid": "404a9a6f_a0643f7f",
+      "range": {
+        "startLine": 144,
+        "startChar": 10,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "f0eed9210871cbe9e7b4cf4b1ffe95f5f87f6c8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64974cea_0e11807b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-04-13T12:26:41Z",
       "side": 1,
       "message": "/s Not sure I understand what you are trying to say.",
+      "range": {
+        "startLine": 178,
+        "startChar": 5,
+        "endLine": 178,
+        "endChar": 9
+      },
+      "revId": "f0eed9210871cbe9e7b4cf4b1ffe95f5f87f6c8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9405174e_9093ecc4",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-04-13T12:46:38Z",
+      "side": 1,
+      "message": "This is just a refactor copying existing comments. It\u0027s bad and will fix!",
+      "parentUuid": "64974cea_0e11807b",
       "range": {
         "startLine": 178,
         "startChar": 5,

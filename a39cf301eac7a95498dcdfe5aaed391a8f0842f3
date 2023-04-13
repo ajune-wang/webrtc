@@ -39,6 +39,30 @@
       },
       "revId": "a39cf301eac7a95498dcdfe5aaed391a8f0842f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a27a69_7b7cc437",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-04-13T08:41:35Z",
+      "side": 1,
+      "message": "That\u0027s what we get from builtin factories (like https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/builtin_video_encoder_factory.h). Yes, that\u0027s SW. It is called \"builtin\" and not \"software\" because codec we get via MediaCodec API on Android can also be software.",
+      "parentUuid": "2d949976_e7c4d5e2",
+      "range": {
+        "startLine": 475,
+        "startChar": 23,
+        "endLine": 475,
+        "endChar": 30
+      },
+      "revId": "a39cf301eac7a95498dcdfe5aaed391a8f0842f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

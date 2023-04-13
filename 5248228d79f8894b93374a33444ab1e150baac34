@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca51ec8_a88b2efd",
+        "filename": "modules/desktop_capture/desktop_capture_metrics_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-04-13T16:51:32Z",
+      "side": 0,
+      "message": "Can we remove this value too or no?",
+      "range": {
+        "startLine": 38,
+        "startChar": 28,
+        "endLine": 38,
+        "endChar": 55
+      },
+      "revId": "5248228d79f8894b93374a33444ab1e150baac34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

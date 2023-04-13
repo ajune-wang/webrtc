@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da32524_e5747ed3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-04-13T16:51:32Z",
+      "side": 1,
+      "message": "LGTM, would prefer to remove the enum values; but maybe they\u0027re used externally in a way that they can\u0027t be at the moment.",
+      "revId": "a9bf47e4a20630f56497f4ac1d5121336b3813af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfeff547_0c595398",
+        "filename": "modules/desktop_capture/desktop_capture_metrics_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-04-13T16:51:32Z",
+      "side": 1,
+      "message": "I think we should comment out the whole entry so that the value doesn\u0027t exist anymore?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 49
+      },
+      "revId": "a9bf47e4a20630f56497f4ac1d5121336b3813af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -154,12 +154,6 @@ std::string NetworksToString(const std::vector<const rtc::Network*>& networks) {
   return ost.Release();
 }
 
-bool IsDiversifyIpv6InterfacesEnabled(
-    const webrtc::FieldTrialsView* field_trials) {
-  // TODO(bugs.webrtc.org/14334) cleanup
-  return true;
-}
-
 }  // namespace
 
 const uint32_t DISABLE_ALL_PHASES =
@@ -811,34 +805,18 @@ std::vector<const rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
   // hard to define what that means though; it's not just "lowest cost".
   // Alternatively, we could just focus on making our ICE pinging logic smarter
   // such that this filtering isn't necessary in the first place.
-  const webrtc::FieldTrialsView* field_trials = allocator_->field_trials();
-  if (IsDiversifyIpv6InterfacesEnabled(field_trials)) {
-    std::vector<const rtc::Network*> ipv6_networks;
-    for (auto it = networks.begin(); it != networks.end();) {
-      if ((*it)->prefix().family() == AF_INET6) {
-        ipv6_networks.push_back(*it);
-        it = networks.erase(it);
-        continue;
-      }
-      ++it;
+  std::vector<const rtc::Network*> ipv6_networks;
+  for (auto it = networks.begin(); it != networks.end();) {
+    if ((*it)->prefix().family() == AF_INET6) {
+      ipv6_networks.push_back(*it);
+      it = networks.erase(it);
+      continue;
     }
-    ipv6_networks =
-        SelectIPv6Networks(ipv6_networks, allocator_->max_ipv6_networks());
-    networks.insert(networks.end(), ipv6_networks.begin(), ipv6_networks.end());
-  } else {
-    int ipv6_networks = 0;
-    for (auto it = networks.begin(); it != networks.end();) {
-      if ((*it)->prefix().family() == AF_INET6) {
-        if (ipv6_networks >= allocator_->max_ipv6_networks()) {
-          it = networks.erase(it);
-          continue;
-        } else {
-          ++ipv6_networks;
-        }
-      }
-      ++it;
-    }
+    ++it;
   }
+  ipv6_networks =
+      SelectIPv6Networks(ipv6_networks, allocator_->max_ipv6_networks());
+  networks.insert(networks.end(), ipv6_networks.begin(), ipv6_networks.end());
   return networks;
 }
 

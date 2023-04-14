@@ -27,12 +27,12 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "api/video_codecs/video_encoder_software_fallback_wrapper.h"
-#include "media/base/video_common.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/math_utils.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace {
@@ -849,7 +849,7 @@ webrtc::VideoCodec SimulcastEncoderAdapter::MakeStreamCodec(
 void SimulcastEncoderAdapter::OverrideFromFieldTrial(
     VideoEncoder::EncoderInfo* info) const {
   if (encoder_info_override_.requested_resolution_alignment()) {
-    info->requested_resolution_alignment = cricket::LeastCommonMultiple(
+    info->requested_resolution_alignment = rtc::LeastCommonMultiple(
         info->requested_resolution_alignment,
         *encoder_info_override_.requested_resolution_alignment());
     info->apply_alignment_to_all_simulcast_layers =
@@ -896,9 +896,9 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
     const VideoEncoder::EncoderInfo& fallback_info =
         encoder_context->FallbackInfo();
 
-    encoder_info.requested_resolution_alignment = cricket::LeastCommonMultiple(
-        primary_info.requested_resolution_alignment,
-        fallback_info.requested_resolution_alignment);
+    encoder_info.requested_resolution_alignment =
+        rtc::LeastCommonMultiple(primary_info.requested_resolution_alignment,
+                                 fallback_info.requested_resolution_alignment);
 
     encoder_info.apply_alignment_to_all_simulcast_layers =
         primary_info.apply_alignment_to_all_simulcast_layers ||
@@ -957,7 +957,7 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
           encoder_impl_info.is_qp_trusted.value_or(true);
     }
     encoder_info.fps_allocation[i] = encoder_impl_info.fps_allocation[0];
-    encoder_info.requested_resolution_alignment = cricket::LeastCommonMultiple(
+    encoder_info.requested_resolution_alignment = rtc::LeastCommonMultiple(
         encoder_info.requested_resolution_alignment,
         encoder_impl_info.requested_resolution_alignment);
     // request alignment on all layers if any of the encoders may need it, or

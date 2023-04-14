@@ -585,6 +585,14 @@ rtc_library("stringutils") {
   ]
 }
 
+rtc_library("math_utils") {
+  sources = [
+    "math_utils.cc",
+    "math_utils.h",
+  ]
+  deps = [ ":checks" ]
+}
+
 rtc_library("audio_format_to_string") {
   sources = [
     "strings/audio_format_to_string.cc",

@@ -15,12 +15,12 @@
 #include <memory>
 #include <vector>
 
-#include "media/base/video_common.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "modules/video_coding/svc/create_scalability_structure.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/math_utils.h"
 
 namespace webrtc {
 
@@ -105,7 +105,7 @@ std::vector<SpatialLayer> ConfigureSvcNormalVideo(
   if (config) {
     required_divisiblity = 1;
     for (size_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {
-      required_divisiblity = cricket::LeastCommonMultiple(
+      required_divisiblity = rtc::LeastCommonMultiple(
           required_divisiblity, config->scaling_factor_den[sl_idx]);
     }
   }

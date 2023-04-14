@@ -858,6 +858,14 @@ std::string DefaultVideoQualityAnalyzer::GetStreamLabel(uint16_t frame_id) {
   RTC_CHECK(false) << "Unknown frame_id=" << frame_id;
 }
 
+std::string DefaultVideoQualityAnalyzer::GetSenderPeerName(uint16_t frame_id) {
+  std::string stream_label = GetStreamLabel(frame_id);
+  MutexLock lock(&mutex_);
+  size_t stream_index = streams_.index(stream_label);
+  size_t sender_peer_index = stream_states_.at(stream_index).sender();
+  return peers_->name(sender_peer_index);
+}
+
 std::set<StatsKey> DefaultVideoQualityAnalyzer::GetKnownVideoStreams() const {
   MutexLock lock(&mutex_);
   std::set<StatsKey> out;

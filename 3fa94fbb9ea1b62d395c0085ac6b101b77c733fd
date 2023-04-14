@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39b4d916_5e9c3e50",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-04-14T19:10:35Z",
+      "side": 1,
+      "message": "TestADM is based on this ADM and is used in a lot of test. These tests are run on Fuchsia bot, so I added this to support Fuchsia bot. Because TestADM provides custom AudioDeviceGenric implementation, it works with just this fix, but real ADM will fail during CreatePlatformSpecificObjects() call, so it should be safe-ish and won\u0027t actually make prod ADM support Fuchsia for real. Also platform_type_ as I see isn\u0027t exposed outside.",
+      "parentUuid": "73a5d236_53135894",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5955baf_a321f03e",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 6
@@ -48,6 +66,24 @@
       "writtenOn": "2023-04-14T14:56:18Z",
       "side": 1,
       "message": "historical",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d3ab80c_a3260657",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-04-14T19:10:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5955baf_a321f03e",
       "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

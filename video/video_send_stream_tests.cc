@@ -50,6 +50,7 @@
 #include "rtc_base/event.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/math_utils.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/rate_limiter.h"
 #include "rtc_base/strings/string_builder.h"
@@ -3440,7 +3441,7 @@ void VideoSendStreamTest::TestVp9NonFlexMode(
           GetScalabilityConfig();
       int required_divisibility = 1;
       for (int sl_idx = 0; sl_idx < config.num_spatial_layers; ++sl_idx) {
-        required_divisibility = cricket::LeastCommonMultiple(
+        required_divisibility = rtc::LeastCommonMultiple(
             required_divisibility, config.scaling_factor_den[sl_idx]);
       }
       return required_divisibility;

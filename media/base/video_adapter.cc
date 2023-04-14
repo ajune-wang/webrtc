@@ -18,9 +18,9 @@
 #include <utility>
 
 #include "absl/types/optional.h"
-#include "media/base/video_common.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/math_utils.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/field_trial.h"
@@ -32,7 +32,7 @@ struct Fraction {
   int denominator;
 
   void DivideByGcd() {
-    int g = cricket::GreatestCommonDivisor(numerator, denominator);
+    int g = rtc::GreatestCommonDivisor(numerator, denominator);
     numerator /= g;
     denominator /= g;
   }
@@ -345,7 +345,7 @@ void VideoAdapter::OnSinkWants(const rtc::VideoSinkWants& sink_wants) {
       sink_wants.target_pixel_count.value_or(
           resolution_request_max_pixel_count_);
   max_framerate_request_ = sink_wants.max_framerate_fps;
-  resolution_alignment_ = cricket::LeastCommonMultiple(
+  resolution_alignment_ = rtc::LeastCommonMultiple(
       source_resolution_alignment_, sink_wants.resolution_alignment);
 
   if (!sink_wants.aggregates) {

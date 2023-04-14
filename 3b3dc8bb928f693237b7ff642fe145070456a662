@@ -16,6 +16,24 @@
       "message": "Did you notice any speed difference with the new API?",
       "revId": "3b3dc8bb928f693237b7ff642fe145070456a662",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e2ed8b_c649de76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-14T18:07:36Z",
+      "side": 1,
+      "message": "Yes I did but the variance is still rather big from one run to the next that it\u0027s hard to tell definitively the difference. In terms of CPU usage difference, I\u0027m seeing 20-30% less cpu usage in the renderer process in Chrome.",
+      "parentUuid": "621a16e7_dfd49afb",
+      "revId": "3b3dc8bb928f693237b7ff642fe145070456a662",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

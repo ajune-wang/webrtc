@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a96a8a14_2bdf9887",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-14T14:56:18Z",
+      "side": 1,
+      "message": "I don\u0027t understand why you try to add Fuchsia here since we have no implementation for it in WebRTC. And how is it related to the Test ADM?",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a5d236_53135894",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-14T14:56:18Z",
+      "side": 1,
+      "message": "Why do you add this when we have no implementation for it?\n\nHow is this related to the Test ADM?",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5955baf_a321f03e",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-14T14:56:18Z",
+      "side": 1,
+      "message": "historical",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

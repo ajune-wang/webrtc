@@ -16,9 +16,9 @@
 #include "api/video_codecs/video_encoder.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
-#include "media/base/video_common.h"
 #include "modules/video_coding/codecs/multiplex/include/augmented_video_frame_buffer.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/math_utils.h"
 
 namespace webrtc {
 
@@ -133,7 +133,7 @@ int MultiplexEncoderAdapter::InitEncode(
           encoder_impl_info.is_hardware_accelerated;
     }
 
-    encoder_info_.requested_resolution_alignment = cricket::LeastCommonMultiple(
+    encoder_info_.requested_resolution_alignment = rtc::LeastCommonMultiple(
         encoder_info_.requested_resolution_alignment,
         encoder_impl_info.requested_resolution_alignment);
 

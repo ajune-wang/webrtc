@@ -585,6 +585,14 @@ rtc_library("stringutils") {
   ]
 }
 
+rtc_library("math_utils") {
+  sources = [
+    "math_utils.cc",
+    "math_utils.h",
+  ]
+  deps = [ ":checks" ]
+}
+
 rtc_library("audio_format_to_string") {
   sources = [
     "strings/audio_format_to_string.cc",
@@ -1787,6 +1795,7 @@ if (rtc_include_tests) {
         "event_tracer_unittest.cc",
         "event_unittest.cc",
         "logging_unittest.cc",
+        "math_utils_unittest.cc",
         "numerics/divide_round_unittest.cc",
         "numerics/histogram_percentile_counter_unittest.cc",
         "numerics/mod_ops_unittest.cc",
@@ -1835,6 +1844,7 @@ if (rtc_include_tests) {
         ":ip_address",
         ":logging",
         ":macromagic",
+        ":math_utils",
         ":mod_ops",
         ":moving_max_counter",
         ":null_socket_server",

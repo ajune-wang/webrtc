@@ -76,22 +76,4 @@ std::string VideoFormat::ToString() const {
   return sb.str();
 }
 
-int GreatestCommonDivisor(int a, int b) {
-  RTC_DCHECK_GE(a, 0);
-  RTC_DCHECK_GT(b, 0);
-  int c = a % b;
-  while (c != 0) {
-    a = b;
-    b = c;
-    c = a % b;
-  }
-  return b;
-}
-
-int LeastCommonMultiple(int a, int b) {
-  RTC_DCHECK_GT(a, 0);
-  RTC_DCHECK_GT(b, 0);
-  return a * (b / GreatestCommonDivisor(a, b));
-}
-
 }  // namespace cricket

@@ -16,9 +16,9 @@
 #include "absl/types/optional.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_rotation.h"
-#include "media/base/video_common.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/math_utils.h"
 
 namespace rtc {
 
@@ -168,7 +168,7 @@ void VideoBroadcaster::UpdateWants() {
     if (sink.wants.max_framerate_fps < wants.max_framerate_fps) {
       wants.max_framerate_fps = sink.wants.max_framerate_fps;
     }
-    wants.resolution_alignment = cricket::LeastCommonMultiple(
+    wants.resolution_alignment = rtc::LeastCommonMultiple(
         wants.resolution_alignment, sink.wants.resolution_alignment);
 
     // Pick MAX(requested_resolution) since the actual can be downscaled

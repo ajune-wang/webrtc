@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea427087_6aa5b64c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-04-14T08:55:42Z",
+      "side": 1,
+      "message": "Maybe have GetStreamLabelInternal which will require lock to be acquired. And then implement GetSenderPeerName with one lock acquire? WDYT?",
+      "range": {
+        "startLine": 862,
+        "startChar": 29,
+        "endLine": 862,
+        "endChar": 43
+      },
+      "revId": "eb1948e70a972602ab1c05f101d1e3c5af9a812b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

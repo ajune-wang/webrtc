@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac6842c9_7b3114fa",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-15T12:04:00Z",
+      "side": 1,
+      "message": "But what underlying implementation of the ADM is intended to run on Fuchsia. As is, you will return null and no internal ADM will be created? What type of ADM was used before this change? Must you not ensure that the same is used even now?",
+      "parentUuid": "39b4d916_5e9c3e50",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5955baf_a321f03e",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 6

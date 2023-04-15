@@ -35,7 +35,8 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
     kPlatformLinux = 3,
     kPlatformMac = 4,
     kPlatformAndroid = 5,
-    kPlatformIOS = 6
+    kPlatformIOS = 6,
+    kPlatformFuchsia = 7,
   };
 
   int32_t CheckPlatform();
@@ -43,6 +44,9 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
   int32_t AttachAudioBuffer();
 
   AudioDeviceModuleImpl(AudioLayer audio_layer,
+                        TaskQueueFactory* task_queue_factory);
+  AudioDeviceModuleImpl(AudioLayer audio_layer,
+                        std::unique_ptr<AudioDeviceGeneric> audio_device,
                         TaskQueueFactory* task_queue_factory);
   ~AudioDeviceModuleImpl() override;
 

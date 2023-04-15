@@ -67,6 +67,7 @@ AudioDeviceBuffer::AudioDeviceBuffer(TaskQueueFactory* task_queue_factory)
   phase_ = 0.0;
   RTC_LOG(LS_WARNING) << "AUDIO_DEVICE_PLAYS_SINUS_TONE is defined!";
 #endif
+  main_thread_checker_.Detach();
 }
 
 AudioDeviceBuffer::~AudioDeviceBuffer() {

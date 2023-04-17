@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0ce34b6_fdb88868",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-17T08:06:31Z",
+      "side": 1,
+      "message": "Add a comment and possibly a link to a webrtc issue with a goal to refactor and to remove this line.",
+      "revId": "c153354ea26ed010fea9102ca930bf8cb7f5e797",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4be1e19_15165804",
+        "filename": "modules/audio_device/audio_device_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-17T08:06:31Z",
+      "side": 1,
+      "message": "Perhaps add a comment about the fact that there is no native implementation",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "c153354ea26ed010fea9102ca930bf8cb7f5e797",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

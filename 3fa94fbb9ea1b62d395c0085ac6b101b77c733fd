@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e996f5c_f4db2862",
+        "filename": "modules/audio_device/audio_device_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-04-17T10:13:46Z",
+      "side": 1,
+      "message": "Discussed offline: on Fuchsia no ADM were created by WebRTC voice engine before and before voice engine would be unable to create any AMD and this class doesn\u0027t support Fuchsia platform. On the other hand in tests on Fuchsia TestADM was created manually and passed to the WebRTC PCF, so it was used instead. This CL makes TestADM extends production ADM, so this code now also will be executed during manual test ADM creation. Because of it I was required to add partial support of Fuchsia here: make it able to properly determine platform.\n\nIt won\u0027t degrade existing functionality (as before and after voice engine won\u0027t be able to create AMD on Fuchsia), but it will allow to cover AudioDeviceBuffer in tests on all platforms, including Fuchsia",
+      "parentUuid": "ac6842c9_7b3114fa",
+      "revId": "3fa94fbb9ea1b62d395c0085ac6b101b77c733fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5955baf_a321f03e",

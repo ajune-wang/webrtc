@@ -39,6 +39,30 @@
       },
       "revId": "2bcfc27f7a187b833007b3bc49e06227212766af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d211e3_1730513c",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-04-18T12:12:46Z",
+      "side": 1,
+      "message": "I discovered it\u0027s used in the RtpFrameReferenceFinder for something like limiting the old frames cached waiting to be reference frames: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/modules/video_coding/rtp_frame_reference_finder.cc;drc\u003d31d99ff4aa0cc0b75063325ff243e911516a5a6a;l\u003d158\n\nPotentially we could refactor that to use some other monotonic codec-agnostics identifier? frameId maybe? Would need some more investigation.\n\nCould we get away with adding a TODO here? This path isn\u0027t likely to be used much, and is mostly just for API completion/testing - there wouldn\u0027t be much in the way of a production usecase for a client to first encode a frame then immediately decode it again using this.",
+      "parentUuid": "9a27e266_32049eb2",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 59
+      },
+      "revId": "2bcfc27f7a187b833007b3bc49e06227212766af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,23 @@
       "message": "CCing Tommi because he\u0027s been converting interfaces from \"int\" to \"StreamID\". But let\u0027s get this one nailed now.",
       "revId": "1202c3464368f22ae666908217d847b9f828e14c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "897bdbbe_e56cc3f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-18T11:24:03Z",
+      "side": 1,
+      "message": "Thanks for the heads up. I guess that in theory DataChannelStats is one layer above the sctp specific types (since we used to have rtp data channels), so this should be fine for now at least. Btw, I think you need to rebase the CL (ProduceDataChannelStats_s has been renamed)",
+      "revId": "1202c3464368f22ae666908217d847b9f828e14c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

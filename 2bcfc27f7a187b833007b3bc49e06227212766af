@@ -16,6 +16,29 @@
       "message": "Adding Stefan as it seems Harald is out this week.",
       "revId": "2bcfc27f7a187b833007b3bc49e06227212766af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a27e266_32049eb2",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-04-18T11:49:49Z",
+      "side": 1,
+      "message": "Do we even need sequence numbers at this point? NACK/retransmissions have already been dealt with right?\n\nShould we instead have a new constructor for creating a \"final\" RtpFrameObject which is guaranteed to be complete, which doesn\u0027t require sequence numbers, marker bits, etc to be specified?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 59
+      },
+      "revId": "2bcfc27f7a187b833007b3bc49e06227212766af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

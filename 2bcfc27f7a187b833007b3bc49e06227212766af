@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d61daa33_707322f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-04-18T07:06:33Z",
+      "side": 1,
+      "message": "Adding Stefan as it seems Harald is out this week.",
+      "revId": "2bcfc27f7a187b833007b3bc49e06227212766af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

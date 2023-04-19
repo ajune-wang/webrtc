@@ -244,8 +244,9 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
   if (codec_.numberOfSimulcastStreams == 0) {
     codec_.simulcastStream[0].width = codec_.width;
     codec_.simulcastStream[0].height = codec_.height;
+    codec_.simulcastStream[0].maxFramerate =
+        static_cast<float>(codec_.maxFramerate);
   }
-
   for (int i = 0, idx = number_of_streams - 1; i < number_of_streams;
        ++i, --idx) {
     ISVCEncoder* openh264_encoder;
@@ -273,7 +274,8 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     configurations_[i].sending = false;
     configurations_[i].width = codec_.simulcastStream[idx].width;
     configurations_[i].height = codec_.simulcastStream[idx].height;
-    configurations_[i].max_frame_rate = static_cast<float>(codec_.maxFramerate);
+    configurations_[i].max_frame_rate =
+        codec_.simulcastStream[idx].maxFramerate;
     configurations_[i].frame_dropping_on = codec_.GetFrameDropEnabled();
     configurations_[i].key_frame_interval = codec_.H264()->keyFrameInterval;
     configurations_[i].num_temporal_layers =

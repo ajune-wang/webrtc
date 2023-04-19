@@ -378,6 +378,8 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // irrevocable. Must be called on this thread.
   void DisallowBlockingCalls() { SetAllowBlockingCalls(false); }
 
+  rtc::Thread* AsThread() override { return this; }
+
  protected:
   class CurrentThreadSetter : CurrentTaskQueueSetter {
    public:

@@ -19,6 +19,12 @@
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
+namespace rtc {
+
+class Thread;
+
+}  // namespace rtc
+
 namespace webrtc {
 
 // Asynchronously executes tasks in a way that guarantees that they're executed
@@ -146,6 +152,16 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // May be called on any thread or task queue, including this task queue.
   static TaskQueueBase* Current();
   bool IsCurrent() const { return Current() == this; }
+
+  // Returns `this` as rtc::Thread* if this is a thread, otherwise nullptr.
+  // In contexts that have existing block-invoke dependencies using
+  // PostTask+event.Wait, this helper method gives such context access to
+  // rtc::Thread::BlockingCall instead.
+  // TODO(https://crbug.com/webrtc/12649): Please avoid adding new block-invokes
+  // whenever possible! This method should only be used to migrate old uses.
+  // TODO(https://crbug.com/webrtc/15099): Delete this method as part of
+  // deleting rtc::Thread.
+  virtual rtc::Thread* AsThread() { return nullptr; }
 
  protected:
   // This is currently only present here to simplify introduction of future

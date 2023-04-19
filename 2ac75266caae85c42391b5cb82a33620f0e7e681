@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e69dcf9_977cddd0",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-19T08:18:11Z",
+      "side": 1,
+      "message": "Rather than adding `AsThread()` to all task queue instances and expose it as part of the api, I\u0027d rather do a static_cast here. For DegradedCall, we can assume that `network_thread()` is always an rtc::Thread instance. If/when that changes, we\u0027ll know about it soon enough 😊",
+      "range": {
+        "startLine": 177,
+        "startChar": 9,
+        "endLine": 177,
+        "endChar": 25
+      },
+      "revId": "2ac75266caae85c42391b5cb82a33620f0e7e681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

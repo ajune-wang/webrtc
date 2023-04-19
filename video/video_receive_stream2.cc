@@ -540,6 +540,7 @@ void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
   // in some file systems, we can sacrifice ability to use it in the path to
   // dumped video, since it's developers-only feature for debugging.
   absl::c_replace(decoded_output_file, ';', '/');
+  decoded_output_file = "./";
   if (!decoded_output_file.empty()) {
     char filename_buffer[256];
     rtc::SimpleStringBuilder ssb(filename_buffer);

@@ -117,6 +117,7 @@ class VCMGenericDecoder {
   VideoDecoder* const decoder_;
   VideoContentType _last_keyframe_content_type;
   VideoDecoder::DecoderInfo decoder_info_;
+  int frame_num_ = 0;
 };
 
 }  // namespace webrtc

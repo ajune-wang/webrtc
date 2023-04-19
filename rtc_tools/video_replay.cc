@@ -111,6 +111,28 @@ ABSL_FLAG(int,
           -1,
           "RTP extension ID for transmission-offset");
 
+ABSL_FLAG(int,
+          transport_cc_id,
+          -1,
+          "RTP extension ID for transport sequence numbers.");
+
+ABSL_FLAG(int,
+          dependency_descriptor_id,
+          -1,
+          "RTP extension ID for dependency descriptor.");
+
+ABSL_FLAG(int,
+          abs_capture_time_id,
+          -1,
+          "RTP extension ID for abs capture time.");
+
+ABSL_FLAG(int, video_timing_id, -1, "RTP extension ID for video timing.");
+
+ABSL_FLAG(int,
+          video_content_type_id,
+          -1,
+          "RTP extension ID for video content type.");
+
 // Flag for rtpdump input file.
 ABSL_FLAG(std::string, input_file, "", "input file");
 
@@ -565,6 +587,30 @@ class RtpReplayer final {
     if (absl::GetFlag(FLAGS_abs_send_time_id) != -1) {
       extensions.RegisterByUri(absl::GetFlag(FLAGS_abs_send_time_id),
                                RtpExtension::kAbsSendTimeUri);
+    }
+    if (absl::GetFlag(FLAGS_transport_cc_id) != -1) {
+      extensions.RegisterByUri(absl::GetFlag(FLAGS_transport_cc_id),
+                               RtpExtension::kTransportSequenceNumberUri);
+    }
+
+    if (absl::GetFlag(FLAGS_dependency_descriptor_id) != -1) {
+      extensions.RegisterByUri(absl::GetFlag(FLAGS_dependency_descriptor_id),
+                               RtpExtension::kDependencyDescriptorUri);
+    }
+
+    if (absl::GetFlag(FLAGS_abs_capture_time_id) != -1) {
+      extensions.RegisterByUri(absl::GetFlag(FLAGS_abs_capture_time_id),
+                               RtpExtension::kAbsoluteCaptureTimeUri);
+    }
+
+    if (absl::GetFlag(FLAGS_video_timing_id) != -1) {
+      extensions.RegisterByUri(absl::GetFlag(FLAGS_video_timing_id),
+                               RtpExtension::kVideoTimingUri);
+    }
+
+    if (absl::GetFlag(FLAGS_video_content_type_id) != -1) {
+      extensions.RegisterByUri(absl::GetFlag(FLAGS_video_content_type_id),
+                               RtpExtension::kVideoContentTypeUri);
     }
 
     while (true) {

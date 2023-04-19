@@ -275,6 +275,14 @@ int32_t VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, Timestamp now) {
   frame_info.ntp_time_ms = frame.EncodedImage().ntp_time_ms_;
   frame_info.packet_infos = frame.PacketInfos();
 
+  RTC_LOG(LS_ERROR) << "decode frame_num: " << frame_num_
+                    << " ts: " << frame.Timestamp() << " key: "
+                    << (frame.EncodedImage()._frameType ==
+                        VideoFrameType::kVideoFrameKey)
+                    << " size: " << frame.size()
+                    << " sidx: " << frame.SpatialIndex().value_or(-1);
+  ++frame_num_;
+
   // Set correctly only for key frames. Thus, use latest key frame
   // content type. If the corresponding key frame was lost, decode will fail
   // and content type will be ignored.

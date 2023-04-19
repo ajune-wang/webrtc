@@ -182,6 +182,8 @@ int VideoRtpDepacketizerVp9::ParseRtpPayload(
 
   video_header->frame_type =
       p_bit ? VideoFrameType::kVideoFrameDelta : VideoFrameType::kVideoFrameKey;
+  RTC_LOG(LS_ERROR) << "p_bit: " << p_bit << " b_bit: " << b_bit
+                    << " e_bit: " << e_bit << " z_bit: " << z_bit;
 
   auto& vp9_header =
       video_header->video_type_header.emplace<RTPVideoHeaderVP9>();

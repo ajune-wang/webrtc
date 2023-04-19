@@ -583,6 +583,11 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
   ParseGenericDependenciesResult generic_descriptor_state =
       ParseGenericDependenciesExtension(rtp_packet, &video_header);
 
+  RTC_LOG(LS_ERROR) << "packet ssrc: " << rtp_packet.Ssrc()
+                    << " seq_num: " << rtp_packet.SequenceNumber()
+                    << " ts: " << rtp_packet.Timestamp()
+                    << " mbit: " << rtp_packet.Marker();
+
   if (!rtp_packet.recovered()) {
     UpdatePacketReceiveTimestamps(
         rtp_packet, video_header.frame_type == VideoFrameType::kVideoFrameKey);

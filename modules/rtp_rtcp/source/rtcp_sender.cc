@@ -929,7 +929,7 @@ void RTCPSender::SendCombinedRtcpPacket(
   {
     MutexLock lock(&mutex_rtcp_sender_);
     if (method_ == RtcpMode::kOff) {
-      RTC_LOG(LS_WARNING) << "Can't send rtcp if it is disabled.";
+      // RTC_LOG(LS_WARNING) << "Can't send rtcp if it is disabled.";
       return;
     }
 

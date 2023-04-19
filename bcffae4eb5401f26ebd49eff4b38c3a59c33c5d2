@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e7ce6f_218f70e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-04-19T08:12:27Z",
+      "side": 1,
+      "message": "An alternative is to use DeleteSoon to get the call destroyed on the network thread. Could that work?",
+      "revId": "bcffae4eb5401f26ebd49eff4b38c3a59c33c5d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

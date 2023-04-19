@@ -22,6 +22,30 @@
       },
       "revId": "2ac75266caae85c42391b5cb82a33620f0e7e681",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a905f85_bb5a7678",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-19T08:36:33Z",
+      "side": 1,
+      "message": "I agree that is better than polluting the API. Done.",
+      "parentUuid": "9e69dcf9_977cddd0",
+      "range": {
+        "startLine": 177,
+        "startChar": 9,
+        "endLine": 177,
+        "endChar": 25
+      },
+      "revId": "2ac75266caae85c42391b5cb82a33620f0e7e681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

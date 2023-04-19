@@ -18,10 +18,8 @@ import android.opengl.EGLDisplay;
 import android.opengl.EGLExt;
 import android.opengl.EGLSurface;
 import android.opengl.GLException;
-import android.os.Build;
 import android.view.Surface;
 import androidx.annotation.Nullable;
-import org.webrtc.EglBase;
 
 /**
  * Holds EGL state and utility methods for handling an EGL14 EGLContext, an EGLDisplay,
@@ -34,6 +32,7 @@ class EglBase14Impl implements EglBase14 {
   @Nullable private EGLConfig eglConfig;
   private EGLDisplay eglDisplay;
   private EGLSurface eglSurface = EGL14.EGL_NO_SURFACE;
+  private final EglConnection eglConnection;
 
   public static class Context implements EglBase14.Context {
     private final EGLContext egl14Context;
@@ -53,14 +52,74 @@ class EglBase14Impl implements EglBase14 {
     }
   }
 
+  public static class EglConnection implements EglBase14.EglConnection {
+    private final EGLContext eglContext;
+    private final EGLDisplay eglDisplay;
+    private final EGLConfig eglConfig;
+    private final RefCountDelegate refCountDelegate;
+
+    public EglConnection(EGLContext sharedContext, int[] configAttributes) {
+      eglDisplay = getEglDisplay();
+      eglConfig = getEglConfig(eglDisplay, configAttributes);
+      final int openGlesVersion = EglBase.getOpenGlesVersionFromConfig(configAttributes);
+      Logging.d(TAG, "Using OpenGL ES version " + openGlesVersion);
+      eglContext = createEglContext(sharedContext, eglDisplay, eglConfig, openGlesVersion);
+
+      // Ref count delegate with release callback.
+      refCountDelegate =
+          new RefCountDelegate(
+              () -> {
+                synchronized (EglBase.lock) {
+                  EGL14.eglMakeCurrent(
+                      eglDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT);
+                  EGL14.eglDestroyContext(eglDisplay, eglContext);
+                }
+                EGL14.eglReleaseThread();
+                EGL14.eglTerminate(eglDisplay);
+              });
+    }
+
+    @Override
+    public void retain() {
+      refCountDelegate.retain();
+    }
+
+    @Override
+    public void release() {
+      refCountDelegate.release();
+    }
+
+    @Override
+    public EGLContext getContext() {
+      return eglContext;
+    }
+
+    @Override
+    public EGLDisplay getDisplay() {
+      return eglDisplay;
+    }
+
+    @Override
+    public EGLConfig getConfig() {
+      return eglConfig;
+    }
+  }
   // Create a new context with the specified config type, sharing data with sharedContext.
   // `sharedContext` may be null.
   public EglBase14Impl(EGLContext sharedContext, int[] configAttributes) {
-    eglDisplay = getEglDisplay();
-    eglConfig = getEglConfig(eglDisplay, configAttributes);
-    final int openGlesVersion = EglBase.getOpenGlesVersionFromConfig(configAttributes);
-    Logging.d(TAG, "Using OpenGL ES version " + openGlesVersion);
-    eglContext = createEglContext(sharedContext, eglDisplay, eglConfig, openGlesVersion);
+    this.eglConnection = new EglConnection(sharedContext, configAttributes);
+    eglContext = eglConnection.getContext();
+    eglDisplay = eglConnection.getDisplay();
+    eglConfig = eglConnection.getConfig();
+  }
+
+  // Create a new EglBase using an existing, possibly externally managed, EglConnection.
+  public EglBase14Impl(EglConnection eglConnection) {
+    this.eglConnection = eglConnection;
+    this.eglConnection.retain();
+    eglContext = eglConnection.getContext();
+    eglDisplay = eglConnection.getDisplay();
+    eglConfig = eglConnection.getConfig();
   }
 
   // Create EGLSurface from the Android Surface.
@@ -155,12 +214,7 @@ class EglBase14Impl implements EglBase14 {
   public void release() {
     checkIsNotReleased();
     releaseSurface();
-    detachCurrent();
-    synchronized (EglBase.lock) {
-      EGL14.eglDestroyContext(eglDisplay, eglContext);
-    }
-    EGL14.eglReleaseThread();
-    EGL14.eglTerminate(eglDisplay);
+    eglConnection.release();
     eglContext = EGL14.EGL_NO_CONTEXT;
     eglDisplay = EGL14.EGL_NO_DISPLAY;
     eglConfig = null;

@@ -13,7 +13,6 @@ package org.webrtc;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
-import android.opengl.EGL14;
 import android.opengl.GLException;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -38,6 +37,7 @@ class EglBase10Impl implements EglBase10 {
   @Nullable private EGLConfig eglConfig;
   private EGLDisplay eglDisplay;
   private EGLSurface eglSurface = EGL10.EGL_NO_SURFACE;
+  private final EglConnection eglConnection;
 
   // EGL wrapper for an actual EGLContext.
   private static class Context implements EglBase10.Context {
@@ -90,14 +90,81 @@ class EglBase10Impl implements EglBase10 {
     }
   }
 
+  public static class EglConnection implements EglBase10.EglConnection {
+    private final EGL10 egl;
+    private final EGLContext eglContext;
+    private final EGLDisplay eglDisplay;
+    private final EGLConfig eglConfig;
+    private final RefCountDelegate refCountDelegate;
+
+    public EglConnection(EGLContext sharedContext, int[] configAttributes) {
+      egl = (EGL10) EGLContext.getEGL();
+      eglDisplay = getEglDisplay(egl);
+      eglConfig = getEglConfig(egl, eglDisplay, configAttributes);
+      final int openGlesVersion = EglBase.getOpenGlesVersionFromConfig(configAttributes);
+      Logging.d(TAG, "Using OpenGL ES version " + openGlesVersion);
+      eglContext = createEglContext(egl, sharedContext, eglDisplay, eglConfig, openGlesVersion);
+
+      // Ref count delegate with release callback.
+      refCountDelegate =
+          new RefCountDelegate(
+              () -> {
+                synchronized (EglBase.lock) {
+                  egl.eglMakeCurrent(
+                      eglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
+                }
+                egl.eglDestroyContext(eglDisplay, eglContext);
+                egl.eglTerminate(eglDisplay);
+              });
+    }
+
+    @Override
+    public void retain() {
+      refCountDelegate.retain();
+    }
+
+    @Override
+    public void release() {
+      refCountDelegate.release();
+    }
+
+    @Override
+    public EGL10 getEgl() {
+      return egl;
+    }
+
+    @Override
+    public EGLContext getContext() {
+      return eglContext;
+    }
+
+    @Override
+    public EGLDisplay getDisplay() {
+      return eglDisplay;
+    }
+
+    @Override
+    public EGLConfig getConfig() {
+      return eglConfig;
+    }
+  }
+
   // Create a new context with the specified config type, sharing data with sharedContext.
   public EglBase10Impl(EGLContext sharedContext, int[] configAttributes) {
-    this.egl = (EGL10) EGLContext.getEGL();
-    eglDisplay = getEglDisplay();
-    eglConfig = getEglConfig(egl, eglDisplay, configAttributes);
-    final int openGlesVersion = EglBase.getOpenGlesVersionFromConfig(configAttributes);
-    Logging.d(TAG, "Using OpenGL ES version " + openGlesVersion);
-    eglContext = createEglContext(sharedContext, eglDisplay, eglConfig, openGlesVersion);
+    this.eglConnection = new EglConnection(sharedContext, configAttributes);
+    egl = eglConnection.getEgl();
+    eglContext = eglConnection.getContext();
+    eglDisplay = eglConnection.getDisplay();
+    eglConfig = eglConnection.getConfig();
+  }
+
+  public EglBase10Impl(EglConnection eglConnection) {
+    this.eglConnection = eglConnection;
+    this.eglConnection.retain();
+    egl = eglConnection.getEgl();
+    eglContext = eglConnection.getContext();
+    eglDisplay = eglConnection.getDisplay();
+    eglConfig = eglConnection.getConfig();
   }
 
   @Override
@@ -258,9 +325,7 @@ class EglBase10Impl implements EglBase10 {
   public void release() {
     checkIsNotReleased();
     releaseSurface();
-    detachCurrent();
-    egl.eglDestroyContext(eglDisplay, eglContext);
-    egl.eglTerminate(eglDisplay);
+    eglConnection.release();
     eglContext = EGL10.EGL_NO_CONTEXT;
     eglDisplay = EGL10.EGL_NO_DISPLAY;
     eglConfig = null;
@@ -310,7 +375,7 @@ class EglBase10Impl implements EglBase10 {
   }
 
   // Return an EGLDisplay, or die trying.
-  private EGLDisplay getEglDisplay() {
+  private static EGLDisplay getEglDisplay(EGL10 egl) {
     EGLDisplay eglDisplay = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
     if (eglDisplay == EGL10.EGL_NO_DISPLAY) {
       throw new GLException(egl.eglGetError(),
@@ -343,8 +408,12 @@ class EglBase10Impl implements EglBase10 {
   }
 
   // Return an EGLConfig, or die trying.
-  private EGLContext createEglContext(@Nullable EGLContext sharedContext, EGLDisplay eglDisplay,
-      EGLConfig eglConfig, int openGlesVersion) {
+  private static EGLContext createEglContext(
+      EGL10 egl,
+      @Nullable EGLContext sharedContext,
+      EGLDisplay eglDisplay,
+      EGLConfig eglConfig,
+      int openGlesVersion) {
     if (sharedContext != null && sharedContext == EGL10.EGL_NO_CONTEXT) {
       throw new RuntimeException("Invalid sharedContext");
     }

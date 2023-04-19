@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fc63c7b_d965e7ae",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "nit: this is not actually a constant, rename to `const int index \u003d ...`\nAlso, explain in a comment what `index` represents.",
+      "range": {
+        "startLine": 242,
+        "startChar": 12,
+        "endLine": 242,
+        "endChar": 18
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb23eef_baf8701a",
+        "filename": "video/encoder_overshoot_detector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "avoid exposing logic only used for tests",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 3
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fb1212a_c1593bb9",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "nit: _this_ is a constant, so it could be e.g. `kCodecsToTest`",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87700300_b2db0d1c",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "nit: `rmse_histogram_prefix`",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bde459c_b9b4ee6a",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "nit: `overshoot_histogram_prefix`",
+      "range": {
+        "startLine": 105,
+        "startChar": 22,
+        "endLine": 105,
+        "endChar": 47
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c670b92b_1b599dcc",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "nit: Add comment explaining this",
+      "range": {
+        "startLine": 141,
+        "startChar": 4,
+        "endLine": 141,
+        "endChar": 67
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01aa5a75_57cce46d",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-19T08:51:09Z",
+      "side": 1,
+      "message": "If you parameterize the test, then you can avoid doing this loop with a helper method - and also don\u0027t need the \"for testing\" method in the main EncoderOvershootDetector class.\n\nI created an example of how to do that here: https://webrtc-review.googlesource.com/c/src/+/301881",
+      "range": {
+        "startLine": 259,
+        "startChar": 2,
+        "endLine": 260,
+        "endChar": 52
+      },
+      "revId": "f1cc85f3762c7e78d521fc4d91d620a9e8eee143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

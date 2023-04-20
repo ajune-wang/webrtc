@@ -87,6 +87,24 @@
       "parentUuid": "3fa28c24_996d02af",
       "revId": "20551b7eb8524273d09df7f070ece0c8765066dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0639b538_ba33c261",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-04-20T21:53:54Z",
+      "side": 1,
+      "message": "I also wonder if we should add allow_owner_if_submittable DRY_RUN [1][2] to the webrtc gerrit_cq_ability [3] - seems safe due to the Code-Review+1 copy condition? (\"changekind:NO_CODE_CHANGE OR changekind:TRIVIAL_REBASE OR has:unchanged-files OR is:MIN\")\n\nJust to allow the cl owner to start a dry run on already approved CLs, instead of taking time from a committer\n\n\n[1] https://source.chromium.org/chromium/infra/infra/+/main:go/src/go.chromium.org/luci/cv/api/config/v2/config.pb.go;l\u003d1374\n\n[2] https://source.chromium.org/chromium/infra/infra/+/main:go/src/go.chromium.org/luci/cv/internal/acls/run_create.go;l\u003d238\n\n[3]\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/config/commit-queue.cfg;l\u003d25",
+      "parentUuid": "30c41ead_cbde072a",
+      "revId": "20551b7eb8524273d09df7f070ece0c8765066dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '936fdee09ea3d279c5bd778c5c29edf88d91e59f',
+  'chromium_revision': 'dd81a15b6a5307e1904fbb042e7b378e13fba2c9',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -46,9 +46,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@181ecd1f504ac38ed297cdbb64ec3f24e07dc423',
+    'https://chromium.googlesource.com/chromium/src/base@ea16e6a0fcc1925f5d687a75a1f4c834ea55b049',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@ff99a858e2c3fdfbc0e051139416170cbff090c1',
+    'https://chromium.googlesource.com/chromium/src/build@da8c6824432694a6d2de51fae66134e79a5715d9',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@8d06fc2ffa7fff67711b3c5eb4b6660a82329653',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -63,7 +63,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@9ab3d6e6a9a1e2fb0e2e706d81383517f254cb9e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3262d59a8f591a55f8bb1f8415f101173d303738',
+    'https://chromium.googlesource.com/chromium/src/third_party@d8fef5178204877f2a8df8c101751185bea52551',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2e892d60b7907c6158883bb4ad14bb321786ff77',
+    'https://chromium.googlesource.com/chromium/src/tools@66a2b5c7036358329c74f644acfe9a792474d6ea',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef60e4f6_c1fdcc0c",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-20T09:45:26Z",
+      "side": 1,
+      "message": "As far as I know this makes sense, but let\u0027s ask an expert. +Danil, do you have an opinion?",
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb45c6e_426731e4",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2746,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-20T09:45:26Z",
+      "side": 1,
+      "message": "nit: All the power to testing nullopt path, but if we only test one value I would prefer to test that a value is set. If you want to also test nullopt then have two tests, but with only one test we should make sure something is set IMO.",
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Does this also need to take header bytes into account?\n\nIn general it looks we have an issue with accounting for probes which currently do not get counted in the retransmittedPacketsSent :-(",
       "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9f3ec6d_b80d3a55",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3336,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-20T09:45:26Z",
+      "side": 1,
+      "message": "\u003e Does this also need to take header bytes into account?\n\nTL;DR: No. Longer answer:\n\nRegarding headerBytesSent and headerBytesReceived there does not appear to be any way to tell how much of that was RTX or not.\n\nThe total transport payload is headerBytes[Sent/Received] + bytes[Sent/Received]. When we\u0027re talking about bytes[Sent/Received] we\u0027re only talking about payload, not header.\n\nOn the send size, retransmittedBytesSent is \"The total number of bytes that were retransmitted for this SSRC, only including payload bytes\". So my understanding is that the symmetrical way to do this is to say that retransmittedBytesReceived would also only include payload.\n\nI.e. for the metrics you\u0027re adding we don\u0027t care about headers. The headerBytesReceived already covers this, and the fact that you don\u0027t know how much of a header is retransmission-related is an existing design choice.\n\n\u003e In general it looks we have an issue with accounting for probes which currently do not get counted in the retransmittedPacketsSent :-(\n\nI\u0027m a bit confused about the probing issue...gut reaction is send and receive counters should be symmetrical? But is it a bug or a feature that probes are not accounted for? Does the spec need to be clarified?",
+      "parentUuid": "c2431614_a37bb29f",
+      "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

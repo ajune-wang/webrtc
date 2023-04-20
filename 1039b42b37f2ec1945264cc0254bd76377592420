@@ -34,6 +34,24 @@
       "parentUuid": "c2431614_a37bb29f",
       "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12f2623e_06b2e279",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3336,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-20T10:39:55Z",
+      "side": 1,
+      "message": "The packet counter does count header bytes https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/modules/rtp_rtcp/include/rtp_rtcp_defines.h;drc\u003db0f57b7e98590319f0f0786d00e683299b4e96f9;l\u003d299\nand we have one for RTX.\n\nThe question was whether we need to add to add to info.header_and_padding_bytes_rcvd like we do in line 3305 (both RTX header and padding bytes even though the latter should always be 0).\n\nThe problem is that it is very hard to see the difference.\nI am not sure if the payload bytes already include RTX (on a different ssrc) or not.",
+      "parentUuid": "c9f3ec6d_b80d3a55",
+      "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

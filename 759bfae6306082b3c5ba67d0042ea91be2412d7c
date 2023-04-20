@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fd4886a_febbdb31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-20T12:05:04Z",
+      "side": 1,
+      "message": "Had to Google for what #import means - it seems to be documented as a VC++ extension, so I\u0027m a bit surprised that our clang-based infrastructure supports it.\n\nI suppose it is only an objective-c thing (based on directory names), so I don\u0027t think I care either way.",
+      "parentUuid": "abd60bd5_8e323a12",
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "716f0532_39023e4a",
         "filename": "sdk/objc/native/api/video_capturer.h",
         "patchSetId": 2

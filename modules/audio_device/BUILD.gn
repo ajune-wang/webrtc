@@ -57,11 +57,14 @@ rtc_source_set("audio_device_api") {
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
+rtc_library("audio_device_config") {
+  sources = [ "audio_device_config.h" ]
+}
+
 rtc_library("audio_device_buffer") {
   sources = [
     "audio_device_buffer.cc",
     "audio_device_buffer.h",
-    "audio_device_config.h",
     "fine_audio_buffer.cc",
     "fine_audio_buffer.h",
   ]
@@ -207,85 +210,98 @@ rtc_library("test_audio_device_module") {
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
-# Contains default implementations of webrtc::AudioDeviceModule for Windows,
-# Linux, Mac, iOS and Android.
-rtc_library("audio_device_impl") {
+rtc_library("audio_device_factory") {
   visibility = [ "*" ]
+  sources = [ "audio_device_factory.h" ]
   deps = [
     ":audio_device_api",
-    ":audio_device_buffer",
-    ":audio_device_default",
     ":audio_device_generic",
-    ":test_audio_device_module",
-    "../../api:array_view",
-    "../../api:make_ref_counted",
-    "../../api:refcountedbase",
-    "../../api:scoped_refptr",
-    "../../api:sequence_checker",
-    "../../api/task_queue",
-    "../../common_audio",
-    "../../common_audio:common_audio_c",
-    "../../rtc_base:buffer",
-    "../../rtc_base:checks",
-    "../../rtc_base:logging",
-    "../../rtc_base:macromagic",
-    "../../rtc_base:platform_thread",
-    "../../rtc_base:random",
-    "../../rtc_base:rtc_event",
-    "../../rtc_base:rtc_task_queue",
-    "../../rtc_base:safe_conversions",
-    "../../rtc_base:stringutils",
-    "../../rtc_base:timeutils",
-    "../../rtc_base/synchronization:mutex",
-    "../../rtc_base/system:arch",
-    "../../rtc_base/system:file_wrapper",
-    "../../rtc_base/task_utils:repeating_task",
-    "../../system_wrappers",
-    "../../system_wrappers:field_trial",
-    "../../system_wrappers:metrics",
-    "../utility",
   ]
-  absl_deps = [
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/strings:strings",
-  ]
-  if (rtc_include_internal_audio_device && is_ios) {
-    deps += [ "../../sdk:audio_device" ]
-  }
+}
 
+rtc_library("audio_device_dummy") {
+  visibility = [ "*" ]
   sources = [
     "dummy/audio_device_dummy.cc",
     "dummy/audio_device_dummy.h",
-    "dummy/file_audio_device.cc",
-    "dummy/file_audio_device.h",
-    "include/fake_audio_device.h",
-
-    # TODO(crbug.com/webrtc/1510): remove when migrated on the new target
-    "include/test_audio_device.h",
+    "dummy/dummy_audio_device_factory.h",
   ]
+  deps = [
+    ":audio_device_api",
+    ":audio_device_buffer",
+    ":audio_device_factory",
+    ":audio_device_generic",
+  ]
+}
 
-  if (build_with_mozilla) {
-    sources += [
-      "opensl/single_rw_fifo.cc",
-      "opensl/single_rw_fifo.h",
+if (!build_with_chromium) {
+  rtc_library("file_audio_device") {
+    visibility = [ "*" ]
+    sources = [
+      "dummy/file_audio_device.cc",
+      "dummy/file_audio_device.h",
+      "dummy/file_audio_device_factory.cc",
+      "dummy/file_audio_device_factory.h",
     ]
+    deps = [
+      ":audio_device_generic",
+      "../../rtc_base:checks",
+      "../../rtc_base:logging",
+      "../../rtc_base:platform_thread",
+      "../../rtc_base:stringutils",
+      "../../rtc_base:timeutils",
+      "../../rtc_base/synchronization:mutex",
+      "../../rtc_base/system:file_wrapper",
+      "../../system_wrappers",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   }
+}
 
-  defines = []
-  cflags = []
-  if (rtc_audio_device_plays_sinus_tone) {
-    defines += [ "AUDIO_DEVICE_PLAYS_SINUS_TONE" ]
-  }
-  if (rtc_enable_android_aaudio) {
-    defines += [ "WEBRTC_AUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO" ]
-  }
-  if (rtc_include_internal_audio_device) {
-    sources += [
-      "audio_device_data_observer.cc",
-      "audio_device_impl.cc",
-      "audio_device_impl.h",
-      "include/audio_device_data_observer.h",
+if (rtc_include_internal_audio_device) {
+  # Platform specific audio device factory.
+  rtc_library("audio_device_factory_impl") {
+    visibility = [ "*" ]
+    sources = [
+      "audio_device_factory_impl.cc",
+      "audio_device_factory_impl.h",
     ]
+    deps = [
+      ":audio_device_api",
+      ":audio_device_buffer",
+      ":audio_device_config",
+      ":audio_device_dummy",
+      ":audio_device_factory",
+      ":audio_device_generic",
+      ":file_audio_device",
+      "../../api:array_view",
+      "../../api:make_ref_counted",
+      "../../api:scoped_refptr",
+      "../../api:sequence_checker",
+      "../../api/task_queue",
+      "../../rtc_base:checks",
+      "../../rtc_base:logging",
+      "../../rtc_base:macromagic",
+      "../../rtc_base:platform_thread",
+      "../../rtc_base:rtc_event",
+      "../../rtc_base:stringutils",
+      "../../rtc_base:timeutils",
+      "../../rtc_base/synchronization:mutex",
+      "../../rtc_base/system:arch",
+      "../../system_wrappers",
+      "../../system_wrappers:field_trial",
+      "../../system_wrappers:metrics",
+      "../utility",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+    defines = []
+    cflags = []
+    if (rtc_audio_device_plays_sinus_tone) {
+      defines += [ "AUDIO_DEVICE_PLAYS_SINUS_TONE" ]
+    }
+    if (rtc_enable_android_aaudio) {
+      defines += [ "WEBRTC_AUDIO_DEVICE_INCLUDE_ANDROID_AAUDIO" ]
+    }
     if (is_android) {
       sources += [
         "android/audio_common.h",
@@ -393,6 +409,86 @@ rtc_library("audio_device_impl") {
       }
       configs += [ ":audio_device_warnings_config" ]
     }
+
+    if (rtc_include_internal_audio_device && is_ios) {
+      deps += [ "../../sdk:audio_device" ]
+    }
+  }
+}
+
+rtc_library("create_audio_device_factory") {
+  visibility = [ "*" ]
+  sources = [ "create_audio_device_factory.h" ]
+  deps = [ ":audio_device_factory" ]
+  if (rtc_include_internal_audio_device) {
+    # Include real implementation of WebRTC audio device factory
+    sources += [ "create_audio_device_factory_impl.cc" ]
+    deps += [ ":audio_device_factory_impl" ]
+  } else {
+    # Include dummy implementation of WebRTC audio device factory
+    sources += [ "create_audio_device_factory_dummy.cc" ]
+    deps += [ ":audio_device_dummy" ]
+  }
+}
+
+# Contains default implementations of webrtc::AudioDeviceModule for Windows,
+# Linux, Mac, iOS and Android.
+rtc_library("audio_device_impl") {
+  visibility = [ "*" ]
+  deps = [
+    ":audio_device_api",
+    ":audio_device_buffer",
+    ":audio_device_default",
+    ":audio_device_factory",
+    ":audio_device_generic",
+    ":create_audio_device_factory",
+    "../../api:array_view",
+    "../../api:make_ref_counted",
+    "../../api:scoped_refptr",
+    "../../api/task_queue",
+    "../../common_audio",
+    "../../rtc_base:buffer",
+    "../../rtc_base:checks",
+    "../../rtc_base:logging",
+    "../../rtc_base:macromagic",
+    "../../rtc_base:platform_thread",
+    "../../rtc_base:random",
+    "../../rtc_base:rtc_event",
+    "../../rtc_base:rtc_task_queue",
+    "../../rtc_base:safe_conversions",
+    "../../rtc_base:timeutils",
+    "../../rtc_base/synchronization:mutex",
+    "../../rtc_base/task_utils:repeating_task",
+    "../../system_wrappers:metrics",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/base:core_headers",
+    "//third_party/abseil-cpp/absl/strings:strings",
+  ]
+
+  sources = [
+    "audio_device_impl.cc",
+    "audio_device_impl.h",
+    "include/fake_audio_device.h",
+    "include/test_audio_device.cc",
+    "include/test_audio_device.h",
+  ]
+
+  if (build_with_mozilla) {
+    sources += [
+      "opensl/single_rw_fifo.cc",
+      "opensl/single_rw_fifo.h",
+    ]
+  }
+
+  defines = []
+  cflags = []
+  if (rtc_include_internal_audio_device) {
+    sources += [
+      "audio_device_data_observer.cc",
+      "include/audio_device_data_observer.h",
+    ]
+    deps += [ ":audio_device_factory_impl" ]
   } else {
     defines = [ "WEBRTC_DUMMY_AUDIO_BUILD" ]
   }
@@ -400,7 +496,6 @@ rtc_library("audio_device_impl") {
   if (!build_with_chromium) {
     sources += [
       # Do not link these into Chrome since they contain static data.
-      "dummy/file_audio_device_factory.cc",
       "dummy/file_audio_device_factory.h",
     ]
   }
@@ -450,6 +545,7 @@ if (rtc_include_tests && !build_with_chromium) {
     deps = [
       ":audio_device",
       ":audio_device_buffer",
+      ":audio_device_factory_impl",
       ":audio_device_impl",
       ":mock_audio_device",
       ":test_audio_device_module",

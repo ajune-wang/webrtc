@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10616dbc_7a896ad8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-04-20T01:04:59Z",
+      "side": 1,
+      "message": "~half (by line count) of remaining top level folders",
+      "revId": "a2a83221bd9d8668c9b26cde9a4b01938e349b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

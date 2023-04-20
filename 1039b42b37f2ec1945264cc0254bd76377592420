@@ -52,6 +52,24 @@
       "parentUuid": "c9f3ec6d_b80d3a55",
       "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4986e32_b3679240",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3336,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-20T12:42:32Z",
+      "side": 1,
+      "message": "So I did a test by going to https://webrtc.github.io/samples/src/content/peerconnection/bandwidth/ with webrtc-internals open and then calling pc1.getSenders()[0].track.stop() and comparing it to wireshark.\n\nWithout this patch the inbound-rtp is 487 while outbound-rtp is 528. Looking at Wireshark, there are 34 RTX packets. This suggests we currently don\u0027t count the packets and probably don\u0027t count their contribution to header and padding either.\nWith this patch one can see a big jump of headerBytesReceived in the beginning (due to RTX probing)\n\nI assume the same applies to bytes received but this is hard to validate... what kinda works is comparing to the total transport values (but those include RTCP packets sent?). Doing this:\nlocalStream.getTracks()[0].stop();\nconst s1 \u003d await pc1.getStats(); s1.forEach(r \u003d\u003e [\u0027outbound-rtp\u0027, \u0027transport\u0027].includes(r.type) \u0026\u0026 console.log(\u0027SENT\u0027, r.type, \u0027p\u003d\u0027 + r.bytesSent, \u0027h\u003d\u0027 + r.headerBytesSent, \u0027packetsSent\u003d\u0027 + r.packetsSent, \u0027retransmittedPacketsSent\u003d\u0027 + r.retransmittedPacketsSent))\nconst s2 \u003d await pc2.getStats(); s2.forEach(r \u003d\u003e [\u0027inbound-rtp\u0027, \u0027transport\u0027].includes(r.type) \u0026\u0026 console.log(\u0027RECV\u0027, r.type, \u0027p\u003d\u0027 + r.bytesReceived, \u0027h\u003d\u0027 + r.headerBytesReceived, \u0027packetsReceived\u003d\u0027 + r.packetsReceived, \u0027retransmittedPacketsReceived\u003d\u0027 + r.retransmittedPacketsReceived))\n\nwith this patch yields (--force-fieldtrials\u003dWebRtcStatsReportIdl/Disabled/ helps)\nSENT outbound-rtp p\u003d58066 h\u003d5980 packetsSent\u003d98 retransmittedPacketsSent\u003d0\nSENT transport p\u003d66422 h\u003dundefined packetsSent\u003d103 retransmittedPacketsSent\u003dundefined\nRECV inbound-rtp p\u003d58066 h\u003d5980 packetsReceived\u003d98 retransmittedPacketsReceived\u003d21\nRECV transport p\u003d66422 h\u003dundefined packetsReceived\u003d103 retransmittedPacketsReceived\u003dundefined\n\nwhile without it the following (from a different connection)\nSENT outbound-rtp p\u003d83872 h\u003d3536 packetsSent\u003d108 retransmittedPacketsSent\u003d0\nSENT transport p\u003d89814 h\u003dundefined packetsSent\u003d112 retransmittedPacketsSent\u003dundefined\nRECV inbound-rtp p\u003d78714 h\u003d2536 packetsReceived\u003d97 retransmittedPacketsReceived\u003dundefined\nRECV transport p\u003d89814 h\u003dundefined packetsReceived\u003d112 retransmittedPacketsReceived\u003dundefined\n\nSo this patch improves things and does not only implement the new metrics but takes into account what we didn\u0027t so far.",
+      "parentUuid": "12f2623e_06b2e279",
+      "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

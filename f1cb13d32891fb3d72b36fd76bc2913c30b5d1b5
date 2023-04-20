@@ -79,6 +79,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "642adcd4_f23b68b0",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-20T12:42:32Z",
+      "side": 1,
+      "message": "Keeping in style  with the above though, happy to do a replace-all in a different CL (~100 occurences) after landing this one, I found it annoying too!",
+      "parentUuid": "5e0eadb2_beba14fd",
+      "range": {
+        "startLine": 447,
+        "startChar": 47,
+        "endLine": 447,
+        "endChar": 51
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c397e24e_f0ccd96a",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 10
@@ -90,6 +114,30 @@
       "writtenOn": "2023-04-20T10:44:07Z",
       "side": 1,
       "message": "why cast from uint64_t to uint64_t?",
+      "range": {
+        "startLine": 425,
+        "startChar": 50,
+        "endLine": 425,
+        "endChar": 71
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6344808b_20919155",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-20T12:42:32Z",
+      "side": 1,
+      "message": "\"the other things cast too\" - but they do because types differ, here they don\u0027t!",
+      "parentUuid": "c397e24e_f0ccd96a",
       "range": {
         "startLine": 425,
         "startChar": 50,
@@ -113,6 +161,30 @@
       "writtenOn": "2023-04-20T10:44:07Z",
       "side": 1,
       "message": "avoid optional::value() - prefer to deference it with \u0027*\u0027 [after you\u0027ve checked with .has_value() it is not nullopt]\n\nhttps://abseil.io/tips/181#solution\n\n“Testing the absl::StatusOr object for validity (as you would a smart pointer or optional) and accessing it using operator* or operator-\u003e is readable, efficient, and safe.”",
+      "range": {
+        "startLine": 426,
+        "startChar": 8,
+        "endLine": 426,
+        "endChar": 60
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83690c1f_495f7fa5",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-20T12:42:32Z",
+      "side": 1,
+      "message": "hbos has opinions ;-)",
+      "parentUuid": "007ee39d_87047cb9",
       "range": {
         "startLine": 426,
         "startChar": 8,

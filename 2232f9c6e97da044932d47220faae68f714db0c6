@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de3fffc_27121d39",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2023-04-20T08:59:15Z",
+      "side": 1,
+      "message": "The existing logic in release() is calling detachCurrent() rather than makeCurrent(). Shouldn\u0027t we continue doing that?",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3fdad0b_8a44de81",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2023-04-20T08:59:15Z",
+      "side": 1,
+      "message": "I would prefer to remove these as member variables and call eglConnection.getContext() directly.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eead8bff_55406b3c",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2023-04-20T08:59:15Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2466b2ee_185e71b8",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2023-04-20T08:59:15Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

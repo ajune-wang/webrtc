@@ -95,43 +95,49 @@ TEST_F(SsrcEndToEndTest, UnknownRtpPacketTriggersUndemuxablePacketHandler) {
   std::unique_ptr<test::DirectTransport> receive_transport;
   std::unique_ptr<PacketInputObserver> input_observer;
 
-  SendTask(
-      task_queue(),
-      [this, &send_transport, &receive_transport, &input_observer]() {
-        CreateCalls();
+  SendTask(task_queue(), [this, &send_transport, &receive_transport,
+                          &input_observer]() {
+    CreateCalls();
 
-        send_transport = std::make_unique<test::DirectTransport>(
-            task_queue(),
-            std::make_unique<FakeNetworkPipe>(
-                Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
-                                               BuiltInNetworkBehaviorConfig())),
-            sender_call_.get(), payload_type_map_, GetRegisteredExtensions(),
-            GetRegisteredExtensions());
-        receive_transport = std::make_unique<test::DirectTransport>(
-            task_queue(),
-            std::make_unique<FakeNetworkPipe>(
-                Clock::GetRealTimeClock(), std::make_unique<SimulatedNetwork>(
-                                               BuiltInNetworkBehaviorConfig())),
-            receiver_call_.get(), payload_type_map_, GetRegisteredExtensions(),
-            GetRegisteredExtensions());
-        input_observer =
-            std::make_unique<PacketInputObserver>(receiver_call_->Receiver());
-        send_transport->SetReceiver(input_observer.get());
-        receive_transport->SetReceiver(sender_call_->Receiver());
+    send_transport = std::make_unique<test::DirectTransport>(
+        task_queue(),
+        std::make_unique<FakeNetworkPipe>(
+            Clock::GetRealTimeClock(),
+            std::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig())),
+        sender_call_.get(), payload_type_map_, GetRegisteredExtensions(),
+        GetRegisteredExtensions());
+    receive_transport = std::make_unique<test::DirectTransport>(
+        task_queue(),
+        std::make_unique<FakeNetworkPipe>(
+            Clock::GetRealTimeClock(),
+            std::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig())),
+        receiver_call_.get(), payload_type_map_, GetRegisteredExtensions(),
+        GetRegisteredExtensions());
+    input_observer =
+        std::make_unique<PacketInputObserver>(receiver_call_->Receiver());
+    send_transport->SetReceiver(input_observer.get());
+    receive_transport->SetReceiver(sender_call_->Receiver());
 
-        CreateSendConfig(1, 0, 0, send_transport.get());
-        CreateMatchingReceiveConfigs(receive_transport.get());
+    CreateSendConfig(1, 0, 0, send_transport.get());
+    CreateMatchingReceiveConfigs(receive_transport.get());
 
+<<<<<<< PATCH SET (749655 Format the rest)
+    CreateVideoStreams();
+    CreateFrameGeneratorCapturer(kDefaultFramerate, kDefaultWidth,
+                                 kDefaultHeight);
+    Start();
+=======
         CreateVideoStreams();
         CreateFrameGeneratorCapturer(
             test::VideoTestConstants::kDefaultFramerate,
             test::VideoTestConstants::kDefaultWidth,
             test::VideoTestConstants::kDefaultHeight);
         Start();
+>>>>>>> BASE      (b1a174 Relax VideoCaptureImpl::IncomingFrame size check)
 
-        receiver_call_->DestroyVideoReceiveStream(video_receive_streams_[0]);
-        video_receive_streams_.clear();
-      });
+    receiver_call_->DestroyVideoReceiveStream(video_receive_streams_[0]);
+    video_receive_streams_.clear();
+  });
 
   // Wait() waits for a received packet.
   EXPECT_TRUE(input_observer->Wait());

@@ -255,6 +255,18 @@ void PictureIdTest::SetupEncoder(VideoEncoderFactory* encoder_factory,
   observer_.reset(
       new PictureIdObserver(PayloadStringToCodecType(payload_name)));
 
+<<<<<<< PATCH SET (749655 Format the rest)
+  SendTask(task_queue(), [this, encoder_factory, payload_name]() {
+    CreateCalls();
+    CreateSendTransport(BuiltInNetworkBehaviorConfig(), observer_.get());
+    CreateSendConfig(kNumSimulcastStreams, 0, 0, send_transport_.get());
+    GetVideoSendConfig()->encoder_settings.encoder_factory = encoder_factory;
+    GetVideoSendConfig()->rtp.payload_name = payload_name;
+    GetVideoEncoderConfig()->codec_type =
+        PayloadStringToCodecType(payload_name);
+    SetVideoEncoderConfig(/* number_of_streams */ 1);
+  });
+=======
   SendTask(
       task_queue(), [this, encoder_factory, payload_name]() {
         CreateCalls();
@@ -268,6 +280,7 @@ void PictureIdTest::SetupEncoder(VideoEncoderFactory* encoder_factory,
             PayloadStringToCodecType(payload_name);
         SetVideoEncoderConfig(/* number_of_streams */ 1);
       });
+>>>>>>> BASE      (b1a174 Relax VideoCaptureImpl::IncomingFrame size check)
 }
 
 void PictureIdTest::SetVideoEncoderConfig(int num_streams) {

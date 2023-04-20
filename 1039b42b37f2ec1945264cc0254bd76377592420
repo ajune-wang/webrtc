@@ -70,6 +70,24 @@
       "parentUuid": "12f2623e_06b2e279",
       "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba17fd5_2bba044b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3336,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-20T18:14:38Z",
+      "side": 1,
+      "message": "I have done https://jsfiddle.net/fippo/hvpxf5L0/3/ which helps a lot with verification. One can run wireshark in parallel or the WebRTC-Debugging-RtpDump field trial.\nSample result:\n\"outbound-rtp\", \"packetsSent\u003d74\", \"retransmittedPacketsSent\u003d0\", \"bytesSent\u003d46654\", \"headerBytesSent\u003d3148\", \"retransmittedBytesSent\u003d0\"\n\"transport\", \"packetSent\u003d79\", \"bytesSent\u003d50082\"\n\"inbound-rtp\", \"packetsReceived\u003d74\", \"retransmittedPacketsReceived\u003d15\", \"bytesReceived\u003d46654\", \"headerBytesReceived\u003d3148\", \"retransmittedBytesReceived\u003d5932\"\n\"transport\", \"packetsReceived\u003d79\", \"bytesReceived\u003d50082\"\n\nLooking at the pcap, per payload type (97+113 are RTX) lengths/counts are:\nheader:  { \u002797\u0027: 992, \u0027112\u0027:  1524, \u0027113\u0027:  328 } \u003d\u003e  2844\npayload: { \u002797\u0027:   0, \u0027112\u0027: 40833, \u0027113\u0027: 6054 } \u003d\u003e 46887\npacket#: { \u002797\u0027:   4, \u0027112\u0027:    56, \u0027113\u0027:   10 } \u003d\u003e    70\n\nWhat is confusing is that the receive stats show more than what was in the PCAP. This is not from RTCP either, the SRs show a packetCount show a packet count of 70 and octetCount of 46887 (which isn\u0027t entirely correct since it sums RTP and RTX packets and is hence per-ssrc)?\n\nEither way, this is better than before I think.",
+      "parentUuid": "f4986e32_b3679240",
+      "revId": "1039b42b37f2ec1945264cc0254bd76377592420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

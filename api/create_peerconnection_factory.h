@@ -49,7 +49,34 @@ CreatePeerConnectionFactory(
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processing,
-    AudioFrameProcessor* audio_frame_processor = nullptr,
+    AudioFrameProcessor* audio_frame_processor);
+
+RTC_EXPORT rtc::scoped_refptr<PeerConnectionFactoryInterface>
+CreatePeerConnectionFactory(
+    rtc::Thread* network_thread,
+    rtc::Thread* worker_thread,
+    rtc::Thread* signaling_thread,
+    rtc::scoped_refptr<AudioDeviceModule> default_adm,
+    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
+    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
+    std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
+    std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
+    rtc::scoped_refptr<AudioMixer> audio_mixer,
+    rtc::scoped_refptr<AudioProcessing> audio_processing);
+
+RTC_EXPORT rtc::scoped_refptr<PeerConnectionFactoryInterface>
+CreatePeerConnectionFactory(
+    rtc::Thread* network_thread,
+    rtc::Thread* worker_thread,
+    rtc::Thread* signaling_thread,
+    rtc::scoped_refptr<AudioDeviceModule> default_adm,
+    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
+    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
+    std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
+    std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
+    rtc::scoped_refptr<AudioMixer> audio_mixer,
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
+    std::unique_ptr<AudioFrameProcessor> owned_audio_frame_processor,
     std::unique_ptr<FieldTrialsView> field_trials = nullptr);
 
 }  // namespace webrtc

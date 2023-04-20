@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abd60bd5_8e323a12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-20T06:49:50Z",
+      "side": 1,
+      "message": "hta@ what do you think about the #include/#import mix?",
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "716f0532_39023e4a",
+        "filename": "sdk/objc/native/api/video_capturer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-20T06:49:50Z",
+      "side": 1,
+      "message": "This looks strange.\n\nThe style guide doesn\u0027t see to provide any info about such situations (https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes).\n\nBut I would move it earlier (like before) or after the #include.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 33
+      },
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79c7b5d8_86ed3b84",
+        "filename": "sdk/objc/native/api/video_frame_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-20T06:49:50Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 36
+      },
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

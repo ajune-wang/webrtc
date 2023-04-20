@@ -145,8 +145,7 @@ T& RtpFrameReferenceFinderImpl::GetRefFinderAs() {
 RtpFrameReferenceFinder::RtpFrameReferenceFinder()
     : RtpFrameReferenceFinder(0) {}
 
-RtpFrameReferenceFinder::RtpFrameReferenceFinder(
-    int64_t picture_id_offset)
+RtpFrameReferenceFinder::RtpFrameReferenceFinder(int64_t picture_id_offset)
     : picture_id_offset_(picture_id_offset),
       impl_(std::make_unique<internal::RtpFrameReferenceFinderImpl>()) {}
 
@@ -154,8 +153,9 @@ RtpFrameReferenceFinder::~RtpFrameReferenceFinder() = default;
 
 RtpFrameReferenceFinder::ReturnVector RtpFrameReferenceFinder::ManageFrame(
     std::unique_ptr<RtpFrameObject> frame) {
-  // If we have cleared past this frame, drop it.
-  if (cleared_to_seq_num_ != -1 &&
+  // If the frame's GenericDescriptorInfo is set, do not drop it. If it's not
+  // and we have cleared past this frame, drop it.
+  if (!frame->GetRtpVideoHeader().generic && cleared_to_seq_num_ != -1 &&
       AheadOf<uint16_t>(cleared_to_seq_num_, frame->first_seq_num())) {
     return {};
   }

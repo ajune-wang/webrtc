@@ -51,6 +51,24 @@
       "parentUuid": "2ffaa56f_3ca0bff8",
       "revId": "20551b7eb8524273d09df7f070ece0c8765066dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa28c24_996d02af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-20T13:15:02Z",
+      "side": 1,
+      "message": "I saw a rollback earlier today. I think running again will go green.",
+      "parentUuid": "353d32a2_4d9a3377",
+      "revId": "20551b7eb8524273d09df7f070ece0c8765066dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

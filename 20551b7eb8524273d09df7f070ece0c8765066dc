@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc503d2_163d4e7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-04-20T01:02:49Z",
+      "side": 1,
+      "message": "All the macro changes make me a bit uneasy - not sure how strong the guarantees from clang format are. But, seems non destructive to me.. also happy to exclude these from formatting instead",
+      "revId": "20551b7eb8524273d09df7f070ece0c8765066dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

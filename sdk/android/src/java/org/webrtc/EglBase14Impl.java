@@ -18,10 +18,8 @@ import android.opengl.EGLDisplay;
 import android.opengl.EGLExt;
 import android.opengl.EGLSurface;
 import android.opengl.GLException;
-import android.os.Build;
 import android.view.Surface;
 import androidx.annotation.Nullable;
-import org.webrtc.EglBase;
 
 /**
  * Holds EGL state and utility methods for handling an EGL14 EGLContext, an EGLDisplay,
@@ -30,10 +28,8 @@ import org.webrtc.EglBase;
 @SuppressWarnings("ReferenceEquality") // We want to compare to EGL14 constants.
 class EglBase14Impl implements EglBase14 {
   private static final String TAG = "EglBase14Impl";
-  private EGLContext eglContext;
-  @Nullable private EGLConfig eglConfig;
-  private EGLDisplay eglDisplay;
   private EGLSurface eglSurface = EGL14.EGL_NO_SURFACE;
+  private EglConnection eglConnection;
 
   public static class Context implements EglBase14.Context {
     private final EGLContext egl14Context;
@@ -53,14 +49,66 @@ class EglBase14Impl implements EglBase14 {
     }
   }
 
+  public static class EglConnection implements EglBase14.EglConnection {
+    private final EGLContext eglContext;
+    private final EGLDisplay eglDisplay;
+    private final EGLConfig eglConfig;
+    private final RefCountDelegate refCountDelegate;
+
+    public EglConnection(EGLContext sharedContext, int[] configAttributes) {
+      eglDisplay = getEglDisplay();
+      eglConfig = getEglConfig(eglDisplay, configAttributes);
+      final int openGlesVersion = EglBase.getOpenGlesVersionFromConfig(configAttributes);
+      Logging.d(TAG, "Using OpenGL ES version " + openGlesVersion);
+      eglContext = createEglContext(sharedContext, eglDisplay, eglConfig, openGlesVersion);
+
+      // Ref count delegate with release callback.
+      refCountDelegate = new RefCountDelegate(() -> {
+        synchronized (EglBase.lock) {
+          EGL14.eglMakeCurrent(
+              eglDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT);
+          EGL14.eglDestroyContext(eglDisplay, eglContext);
+        }
+        EGL14.eglReleaseThread();
+        EGL14.eglTerminate(eglDisplay);
+      });
+    }
+
+    @Override
+    public void retain() {
+      refCountDelegate.retain();
+    }
+
+    @Override
+    public void release() {
+      refCountDelegate.release();
+    }
+
+    @Override
+    public EGLContext getContext() {
+      return eglContext;
+    }
+
+    @Override
+    public EGLDisplay getDisplay() {
+      return eglDisplay;
+    }
+
+    @Override
+    public EGLConfig getConfig() {
+      return eglConfig;
+    }
+  }
   // Create a new context with the specified config type, sharing data with sharedContext.
   // `sharedContext` may be null.
   public EglBase14Impl(EGLContext sharedContext, int[] configAttributes) {
-    eglDisplay = getEglDisplay();
-    eglConfig = getEglConfig(eglDisplay, configAttributes);
-    final int openGlesVersion = EglBase.getOpenGlesVersionFromConfig(configAttributes);
-    Logging.d(TAG, "Using OpenGL ES version " + openGlesVersion);
-    eglContext = createEglContext(sharedContext, eglDisplay, eglConfig, openGlesVersion);
+    this.eglConnection = new EglConnection(sharedContext, configAttributes);
+  }
+
+  // Create a new EglBase using an existing, possibly externally managed, EglConnection.
+  public EglBase14Impl(EglConnection eglConnection) {
+    this.eglConnection = eglConnection;
+    this.eglConnection.retain();
   }
 
   // Create EGLSurface from the Android Surface.
@@ -85,7 +133,8 @@ class EglBase14Impl implements EglBase14 {
       throw new RuntimeException("Already has an EGLSurface");
     }
     int[] surfaceAttribs = {EGL14.EGL_NONE};
-    eglSurface = EGL14.eglCreateWindowSurface(eglDisplay, eglConfig, surface, surfaceAttribs, 0);
+    eglSurface = EGL14.eglCreateWindowSurface(
+        eglConnection.getDisplay(), eglConnection.getConfig(), surface, surfaceAttribs, 0);
     if (eglSurface == EGL14.EGL_NO_SURFACE) {
       throw new GLException(EGL14.eglGetError(),
           "Failed to create window surface: 0x" + Integer.toHexString(EGL14.eglGetError()));
@@ -104,7 +153,8 @@ class EglBase14Impl implements EglBase14 {
       throw new RuntimeException("Already has an EGLSurface");
     }
     int[] surfaceAttribs = {EGL14.EGL_WIDTH, width, EGL14.EGL_HEIGHT, height, EGL14.EGL_NONE};
-    eglSurface = EGL14.eglCreatePbufferSurface(eglDisplay, eglConfig, surfaceAttribs, 0);
+    eglSurface = EGL14.eglCreatePbufferSurface(
+        eglConnection.getDisplay(), eglConnection.getConfig(), surfaceAttribs, 0);
     if (eglSurface == EGL14.EGL_NO_SURFACE) {
       throw new GLException(EGL14.eglGetError(),
           "Failed to create pixel buffer surface with size " + width + "x" + height + ": 0x"
@@ -114,7 +164,7 @@ class EglBase14Impl implements EglBase14 {
 
   @Override
   public Context getEglBaseContext() {
-    return new Context(eglContext);
+    return new Context(eglConnection.getContext());
   }
 
   @Override
@@ -124,29 +174,28 @@ class EglBase14Impl implements EglBase14 {
 
   @Override
   public int surfaceWidth() {
-    final int widthArray[] = new int[1];
-    EGL14.eglQuerySurface(eglDisplay, eglSurface, EGL14.EGL_WIDTH, widthArray, 0);
+    final int[] widthArray = new int[1];
+    EGL14.eglQuerySurface(eglConnection.getDisplay(), eglSurface, EGL14.EGL_WIDTH, widthArray, 0);
     return widthArray[0];
   }
 
   @Override
   public int surfaceHeight() {
-    final int heightArray[] = new int[1];
-    EGL14.eglQuerySurface(eglDisplay, eglSurface, EGL14.EGL_HEIGHT, heightArray, 0);
+    final int[] heightArray = new int[1];
+    EGL14.eglQuerySurface(eglConnection.getDisplay(), eglSurface, EGL14.EGL_HEIGHT, heightArray, 0);
     return heightArray[0];
   }
 
   @Override
   public void releaseSurface() {
     if (eglSurface != EGL14.EGL_NO_SURFACE) {
-      EGL14.eglDestroySurface(eglDisplay, eglSurface);
+      EGL14.eglDestroySurface(eglConnection.getDisplay(), eglSurface);
       eglSurface = EGL14.EGL_NO_SURFACE;
     }
   }
 
   private void checkIsNotReleased() {
-    if (eglDisplay == EGL14.EGL_NO_DISPLAY || eglContext == EGL14.EGL_NO_CONTEXT
-        || eglConfig == null) {
+    if (eglConnection == null) {
       throw new RuntimeException("This object has been released");
     }
   }
@@ -155,15 +204,8 @@ class EglBase14Impl implements EglBase14 {
   public void release() {
     checkIsNotReleased();
     releaseSurface();
-    detachCurrent();
-    synchronized (EglBase.lock) {
-      EGL14.eglDestroyContext(eglDisplay, eglContext);
-    }
-    EGL14.eglReleaseThread();
-    EGL14.eglTerminate(eglDisplay);
-    eglContext = EGL14.EGL_NO_CONTEXT;
-    eglDisplay = EGL14.EGL_NO_DISPLAY;
-    eglConfig = null;
+    eglConnection.release();
+    eglConnection = null;
   }
 
   @Override
@@ -173,7 +215,8 @@ class EglBase14Impl implements EglBase14 {
       throw new RuntimeException("No EGLSurface - can't make current");
     }
     synchronized (EglBase.lock) {
-      if (!EGL14.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)) {
+      if (!EGL14.eglMakeCurrent(
+              eglConnection.getDisplay(), eglSurface, eglSurface, eglConnection.getContext())) {
         throw new GLException(EGL14.eglGetError(),
             "eglMakeCurrent failed: 0x" + Integer.toHexString(EGL14.eglGetError()));
       }
@@ -184,8 +227,8 @@ class EglBase14Impl implements EglBase14 {
   @Override
   public void detachCurrent() {
     synchronized (EglBase.lock) {
-      if (!EGL14.eglMakeCurrent(
-              eglDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT)) {
+      if (!EGL14.eglMakeCurrent(eglConnection.getDisplay(), EGL14.EGL_NO_SURFACE,
+              EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_CONTEXT)) {
         throw new GLException(EGL14.eglGetError(),
             "eglDetachCurrent failed: 0x" + Integer.toHexString(EGL14.eglGetError()));
       }
@@ -199,7 +242,7 @@ class EglBase14Impl implements EglBase14 {
       throw new RuntimeException("No EGLSurface - can't swap buffers");
     }
     synchronized (EglBase.lock) {
-      EGL14.eglSwapBuffers(eglDisplay, eglSurface);
+      EGL14.eglSwapBuffers(eglConnection.getDisplay(), eglSurface);
     }
   }
 
@@ -212,8 +255,8 @@ class EglBase14Impl implements EglBase14 {
     synchronized (EglBase.lock) {
       // See
       // https://android.googlesource.com/platform/frameworks/native/+/tools_r22.2/opengl/specs/EGL_ANDROID_presentation_time.txt
-      EGLExt.eglPresentationTimeANDROID(eglDisplay, eglSurface, timeStampNs);
-      EGL14.eglSwapBuffers(eglDisplay, eglSurface);
+      EGLExt.eglPresentationTimeANDROID(eglConnection.getDisplay(), eglSurface, timeStampNs);
+      EGL14.eglSwapBuffers(eglConnection.getDisplay(), eglSurface);
     }
   }
 

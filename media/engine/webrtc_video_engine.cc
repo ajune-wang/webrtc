@@ -3364,6 +3364,17 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
 
   info.timing_frame_info = stats.timing_frame_info;
 
+  if (stats.rtx_rtp_stats.has_value()) {
+    info.retransmitted_packets_rcvd =
+        stats.rtx_rtp_stats->packet_counter.packets;
+    info.retransmitted_bytes_rcvd =
+        stats.rtx_rtp_stats->packet_counter.payload_bytes;
+    // RTX header and padding information gets added to primary counters.
+    info.header_and_padding_bytes_rcvd =
+        stats.rtx_rtp_stats->packet_counter.header_bytes +
+        stats.rtx_rtp_stats->packet_counter.padding_bytes;
+  }
+
   if (log_stats)
     RTC_LOG(LS_INFO) << stats.ToString(rtc::TimeMillis());
 

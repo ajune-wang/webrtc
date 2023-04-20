@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c067ea_3d85bfc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-04-20T20:59:13Z",
+      "side": 1,
+      "message": "seems like #import is \"include with built in include guard\" \nanyway, separated; agree doesn\u0027t really matter much",
+      "parentUuid": "5fd4886a_febbdb31",
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "716f0532_39023e4a",
@@ -59,6 +77,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "155e2ff7_53a5463c",
+        "filename": "sdk/objc/native/api/video_capturer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-04-20T20:59:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "716f0532_39023e4a",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 33
+      },
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79c7b5d8_86ed3b84",
@@ -72,6 +114,30 @@
       "writtenOn": "2023-04-20T06:49:50Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 36
+      },
+      "revId": "759bfae6306082b3c5ba67d0042ea91be2412d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d20d9ad_6a71fe0e",
+        "filename": "sdk/objc/native/api/video_frame_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-04-20T20:59:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79c7b5d8_86ed3b84",
       "range": {
         "startLine": 15,
         "startChar": 0,

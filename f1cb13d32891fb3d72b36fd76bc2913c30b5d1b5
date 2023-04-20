@@ -36,6 +36,93 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56df1f20_2a6b8eea",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-20T10:44:07Z",
+      "side": 1,
+      "message": "Yes, without special channel retranmission are hard to distinguish from normal tranmission. You may use some heuristics if you\u0027re using transport sequence number, but I do not think we do, or plan to do it: for BWE purpose it doesn\u0027t matter if packet regular media, retranmission, or pure padding. for regular media it also doesn\u0027t matter if packet arrived regularly (but late) or was retransmitted.\n\n\nFlexfec might make theory a bit more complicated: flexfec can be used not just for Forward Error Correction, but also for pure retranmission (and thus may obsolete RTX).\nWebRTC currently doesn\u0027t use flexfec that way, so it might be better to think how to count such packets later, when/if flexfec implementation would be updated.",
+      "parentUuid": "ef60e4f6_c1fdcc0c",
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0eadb2_beba14fd",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-20T10:44:07Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#General_Naming_Rules\n\n“Do not abbreviate by deleting letters within a word.”",
+      "range": {
+        "startLine": 447,
+        "startChar": 47,
+        "endLine": 447,
+        "endChar": 51
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c397e24e_f0ccd96a",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-20T10:44:07Z",
+      "side": 1,
+      "message": "why cast from uint64_t to uint64_t?",
+      "range": {
+        "startLine": 425,
+        "startChar": 50,
+        "endLine": 425,
+        "endChar": 71
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "007ee39d_87047cb9",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-20T10:44:07Z",
+      "side": 1,
+      "message": "avoid optional::value() - prefer to deference it with \u0027*\u0027 [after you\u0027ve checked with .has_value() it is not nullopt]\n\nhttps://abseil.io/tips/181#solution\n\n“Testing the absl::StatusOr object for validity (as you would a smart pointer or optional) and accessing it using operator* or operator-\u003e is readable, efficient, and safe.”",
+      "range": {
+        "startLine": 426,
+        "startChar": 8,
+        "endLine": 426,
+        "endChar": 60
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdb45c6e_426731e4",

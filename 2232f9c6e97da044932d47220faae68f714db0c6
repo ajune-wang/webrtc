@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de66ebe3_618418d8",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-04-21T09:12:16Z",
+      "side": 1,
+      "message": "Great, thanks!",
+      "parentUuid": "1a16f2d6_094ebaa4",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3fdad0b_8a44de81",
@@ -132,6 +156,30 @@
       "writtenOn": "2023-04-20T08:59:15Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "900ed8a0_4df05be2",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-04-21T09:12:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "eead8bff_55406b3c",
       "range": {
         "startLine": 73,
         "startChar": 18,

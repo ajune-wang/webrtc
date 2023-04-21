@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b580bd01_0c60ac4b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T10:18:22Z",
+      "side": 1,
+      "message": "https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-headerbytesreceived defines it as \"Total number of RTP header and padding bytes\". Which is not great since padding probes can cause spikes but...",
+      "parentUuid": "e0bd161d_74cc6580",
+      "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "874bd0f9_e8bd3732",
@@ -65,6 +83,30 @@
       "writtenOn": "2023-04-21T09:10:49Z",
       "side": 1,
       "message": "testing that _unsigned_ int64 is \u003e\u003d0 feels tautological.\nmay be instead TestMemberIsDefined",
+      "range": {
+        "startLine": 848,
+        "startChar": 15,
+        "endLine": 848,
+        "endChar": 48
+      },
+      "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3da12d71_550d2c78",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T10:18:22Z",
+      "side": 1,
+      "message": "81 occurences of this bad pattern... thanks for catching it, will fix in a separate CL!\n\n(the four occurences of IsNonNegative\u003cint...\u003e don\u0027t look great either...)\n\nKeeping unresolved so I don\u0027t forget.",
+      "parentUuid": "874bd0f9_e8bd3732",
       "range": {
         "startLine": 848,
         "startChar": 15,

@@ -217,6 +217,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "376b6539_d6508304",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-04-21T11:20:44Z",
+      "side": 1,
+      "message": "\u003eDo we have a guarantee that methods accessing eglConnection’s methods in this class are not called after this object is released?\n\nWell, no one *should* be doing it, but EglBase is a public WebRTC API so who knows. I haven\u0027t ever seen any issues with this in Meet though.\n\nWhat about just adding `checkIsNotReleased()` calls in the few places missing them? I don\u0027t want to go too far in allowing/accommodating clients that call an object after release, which by definition is a bug.",
+      "parentUuid": "fade47b3_37ad6f0c",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eead8bff_55406b3c",
         "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
         "patchSetId": 1

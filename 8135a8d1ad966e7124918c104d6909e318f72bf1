@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40c51c1f_26b4e917",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-04-21T08:40:53Z",
+      "side": 1,
+      "message": "Main issue comes from this tool: //rtc_tools:video_replay (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_tools/BUILD.gn;l\u003d252;drc\u003dd12582ae038889135888a1e46b987f9419766807)\n\nIt is available when WebRTC is built with chromium, and it depends on TestADM via next chain of dependencies: //rtc_tools:video_replay -\u003e //test:test_common -\u003e //modules/audio_device:test_audio_device_module. So basically it makes is required for TestADM be available when built with chromium.\n\nAudioDeviceModuleImpl right now isn\u0027t available when built with chromium and contains all platform specific logic. So I want to make TestADM extends AudioDeviceModuleImpl, I need to make it available. On the other hand if I will do it as is, it will require to also compile all platform specific logic with chromium. Effect of the latter seems to me more significant, so with this CL I tried to keep platform specific logic enclosed and avoid compiling it with chromium, but rather move out from AudioDeviceModuleImpl and make only that class available with chromium to satisfy dependency in //rtc_tools:video_replay.",
+      "parentUuid": "af1569ee_8301109e",
+      "revId": "8135a8d1ad966e7124918c104d6909e318f72bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0acf030f_c4acb02c",
         "filename": "modules/audio_device/BUILD.gn",
         "patchSetId": 20

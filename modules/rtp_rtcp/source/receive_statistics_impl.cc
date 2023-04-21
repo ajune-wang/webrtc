@@ -48,7 +48,6 @@ StreamStatisticianImpl::StreamStatisticianImpl(uint32_t ssrc,
       cumulative_loss_is_capped_(false),
       jitter_q4_(0),
       cumulative_loss_(0),
-      cumulative_loss_rtcp_offset_(0),
       last_receive_time_ms_(0),
       last_received_timestamp_(0),
       received_seq_first_(-1),
@@ -254,22 +253,13 @@ void StreamStatisticianImpl::MaybeAppendReportBlockAndReset(
     stats.SetFractionLost(255 * lost_since_last / exp_since_last);
   }
 
-  int packets_lost = cumulative_loss_ + cumulative_loss_rtcp_offset_;
-  if (packets_lost < 0) {
-    // Clamp to zero. Work around to accomodate for senders that misbehave with
-    // negative cumulative loss.
-    packets_lost = 0;
-    cumulative_loss_rtcp_offset_ = -cumulative_loss_;
-  }
-  if (packets_lost > 0x7fffff) {
-    // Packets lost is a 24 bit signed field, and thus should be clamped, as
-    // described in https://datatracker.ietf.org/doc/html/rfc3550#appendix-A.3
-    if (!cumulative_loss_is_capped_) {
-      cumulative_loss_is_capped_ = true;
-      RTC_LOG(LS_WARNING) << "Cumulative loss reached maximum value for ssrc "
-                          << ssrc_;
-    }
-    packets_lost = 0x7fffff;
+  // Packets lost is a 24 bit signed field, and thus should be clamped, as
+  // described in https://datatracker.ietf.org/doc/html/rfc3550#appendix-A.3
+  int packets_lost = std::clamp(cumulative_loss_, -0x80'0000, 0x7f'ffff);
+  if (!cumulative_loss_is_capped_ && packets_lost != cumulative_loss_) {
+    cumulative_loss_is_capped_ = true;
+    RTC_LOG(LS_WARNING) << "Cumulative loss reached maximum value for ssrc "
+                        << ssrc_;
   }
   stats.SetCumulativeLost(packets_lost);
   stats.SetExtHighestSeqNum(received_seq_max_);

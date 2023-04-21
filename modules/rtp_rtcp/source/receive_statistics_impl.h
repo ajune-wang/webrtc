@@ -89,10 +89,6 @@ class StreamStatisticianImpl : public StreamStatisticianImplInterface {
   // Cumulative loss according to RFC 3550, which may be negative (and often is,
   // if packets are reordered and there are non-RTX retransmissions).
   int32_t cumulative_loss_;
-  // Offset added to outgoing rtcp reports, to make ensure that the reported
-  // cumulative loss is non-negative. Reports with negative values confuse some
-  // senders, in particular, our own loss-based bandwidth estimator.
-  int32_t cumulative_loss_rtcp_offset_;
 
   int64_t last_receive_time_ms_;
   uint32_t last_received_timestamp_;

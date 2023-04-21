@@ -197,6 +197,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26e3fd5e_04f8f275",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-21T07:17:07Z",
+      "side": 1,
+      "message": "Do what Danil says :)",
+      "parentUuid": "83690c1f_495f7fa5",
+      "range": {
+        "startLine": 426,
+        "startChar": 8,
+        "endLine": 426,
+        "endChar": 60
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdb45c6e_426731e4",
         "filename": "pc/rtc_stats_collector_unittest.cc",
         "patchSetId": 10

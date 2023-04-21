@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a59e6c9_707a1e19",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 3378,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-21T07:17:07Z",
+      "side": 1,
+      "message": "Are RTX packets always distinct packets from the primary packets? Just making sure we don\u0027t accidentally count the same packet twice.\n\nI would prefer someone who knows this better than I do have a say if this is correct or not. But this would affect these metrics correct?\n\nhttps://w3c.github.io/webrtc-stats/#dom-rtcreceivedrtpstreamstats-packetsreceived\nhttps://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-bytesreceived\nhttps://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-headerbytesreceived",
+      "revId": "9eb17638e028f8ea280aaaf4f140224e489ad0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

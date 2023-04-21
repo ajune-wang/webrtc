@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c97f8afd_783bb6ff",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-04-21T11:42:35Z",
+      "side": 1,
+      "message": "Could we move this block so it\u0027s closer to the other header extensions, maybe around line 486?",
+      "revId": "f66e47a799df80bbb35877fb50217e7024208687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ed027b_fae33994",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-04-21T11:42:35Z",
+      "side": 1,
+      "message": "Could we move this block so it\u0027s closer to the other header extensions, maybe around line 366?",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 3
+      },
+      "revId": "f66e47a799df80bbb35877fb50217e7024208687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

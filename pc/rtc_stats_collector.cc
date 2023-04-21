@@ -459,7 +459,7 @@ std::unique_ptr<RTCInboundRtpStreamStats> CreateInboundAudioStreamStats(
   inbound_audio->kind = "audio";
   if (voice_receiver_info.codec_payload_type.has_value()) {
     auto codec_param_it = voice_media_info.receive_codecs.find(
-        voice_receiver_info.codec_payload_type.value());
+        *voice_receiver_info.codec_payload_type);
     RTC_DCHECK(codec_param_it != voice_media_info.receive_codecs.end());
     if (codec_param_it != voice_media_info.receive_codecs.end()) {
       inbound_audio->codec_id = GetCodecIdAndMaybeCreateCodecStats(
@@ -551,8 +551,7 @@ CreateRemoteOutboundAudioStreamStats(
   auto stats = std::make_unique<RTCRemoteOutboundRtpStreamStats>(
       /*id=*/RTCRemoteOutboundRTPStreamStatsIDFromSSRC(
           cricket::MEDIA_TYPE_AUDIO, voice_receiver_info.ssrc()),
-      Timestamp::Millis(
-          voice_receiver_info.last_sender_report_timestamp_ms.value()));
+      Timestamp::Millis(*voice_receiver_info.last_sender_report_timestamp_ms));
 
   // Populate.
   // - RTCRtpStreamStats.
@@ -567,10 +566,8 @@ CreateRemoteOutboundAudioStreamStats(
   stats->bytes_sent = voice_receiver_info.sender_reports_bytes_sent;
   // - RTCRemoteOutboundRtpStreamStats.
   stats->local_id = inbound_audio_stats.id();
-  RTC_DCHECK(
-      voice_receiver_info.last_sender_report_remote_timestamp_ms.has_value());
   stats->remote_timestamp = static_cast<double>(
-      voice_receiver_info.last_sender_report_remote_timestamp_ms.value());
+      *voice_receiver_info.last_sender_report_remote_timestamp_ms);
   stats->reports_sent = voice_receiver_info.sender_reports_reports_count;
   if (voice_receiver_info.round_trip_time.has_value()) {
     stats->round_trip_time =
@@ -604,7 +601,7 @@ CreateInboundRTPStreamStatsFromVideoReceiverInfo(
   inbound_video->kind = "video";
   if (video_receiver_info.codec_payload_type.has_value()) {
     auto codec_param_it = video_media_info.receive_codecs.find(
-        video_receiver_info.codec_payload_type.value());
+        *video_receiver_info.codec_payload_type);
     RTC_DCHECK(codec_param_it != video_media_info.receive_codecs.end());
     if (codec_param_it != video_media_info.receive_codecs.end()) {
       inbound_video->codec_id = GetCodecIdAndMaybeCreateCodecStats(
@@ -682,7 +679,7 @@ CreateInboundRTPStreamStatsFromVideoReceiverInfo(
   }
   if (video_receiver_info.power_efficient_decoder.has_value()) {
     inbound_video->power_efficient_decoder =
-        video_receiver_info.power_efficient_decoder.value();
+        *video_receiver_info.power_efficient_decoder;
   }
   return inbound_video;
 }
@@ -736,7 +733,7 @@ CreateOutboundRTPStreamStatsFromVoiceSenderInfo(
   }
   if (voice_sender_info.codec_payload_type.has_value()) {
     auto codec_param_it = voice_media_info.send_codecs.find(
-        voice_sender_info.codec_payload_type.value());
+        *voice_sender_info.codec_payload_type);
     RTC_DCHECK(codec_param_it != voice_media_info.send_codecs.end());
     if (codec_param_it != voice_media_info.send_codecs.end()) {
       outbound_audio->codec_id = GetCodecIdAndMaybeCreateCodecStats(
@@ -769,7 +766,7 @@ CreateOutboundRTPStreamStatsFromVideoSenderInfo(
   outbound_video->kind = "video";
   if (video_sender_info.codec_payload_type.has_value()) {
     auto codec_param_it = video_media_info.send_codecs.find(
-        video_sender_info.codec_payload_type.value());
+        *video_sender_info.codec_payload_type);
     RTC_DCHECK(codec_param_it != video_media_info.send_codecs.end());
     if (codec_param_it != video_media_info.send_codecs.end()) {
       outbound_video->codec_id = GetCodecIdAndMaybeCreateCodecStats(
@@ -828,7 +825,7 @@ CreateOutboundRTPStreamStatsFromVideoSenderInfo(
   }
   if (video_sender_info.power_efficient_encoder.has_value()) {
     outbound_video->power_efficient_encoder =
-        video_sender_info.power_efficient_encoder.value();
+        *video_sender_info.power_efficient_encoder;
   }
   if (video_sender_info.scalability_mode) {
     outbound_video->scalability_mode = std::string(
@@ -1296,7 +1293,7 @@ RTCStatsCollector::CreateReportFilteredBySelector(
             encodings.begin(), encodings.end(),
             [ssrc =
                  *outbound_rtp->ssrc](const RtpEncodingParameters& encoding) {
-              return encoding.ssrc.has_value() && encoding.ssrc.value() == ssrc;
+              return encoding.ssrc.has_value() && *encoding.ssrc == ssrc;
             });
         if (it != encodings.end()) {
           rtpstream_ids.push_back(outbound_rtp->id());
@@ -2005,8 +2002,8 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
       continue;
     // Inbound.
     auto inbound_audio = CreateInboundAudioStreamStats(
-        stats.track_media_info_map.voice_media_info().value(),
-        voice_receiver_info, transport_id, mid, timestamp, report);
+        *stats.track_media_info_map.voice_media_info(), voice_receiver_info,
+        transport_id, mid, timestamp, report);
     // TODO(hta): This lookup should look for the sender, not the track.
     rtc::scoped_refptr<AudioTrackInterface> audio_track =
         stats.track_media_info_map.GetAudioTrack(voice_receiver_info);
@@ -2054,8 +2051,7 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
     if (!voice_sender_info.connected())
       continue;
     auto outbound_audio = CreateOutboundRTPStreamStatsFromVoiceSenderInfo(
-        transport_id, mid,
-        stats.track_media_info_map.voice_media_info().value(),
+        transport_id, mid, *stats.track_media_info_map.voice_media_info(),
         voice_sender_info, timestamp, report);
     rtc::scoped_refptr<AudioTrackInterface> audio_track =
         stats.track_media_info_map.GetAudioTrack(voice_sender_info);
@@ -2114,8 +2110,7 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
     if (!video_receiver_info.connected())
       continue;
     auto inbound_video = CreateInboundRTPStreamStatsFromVideoReceiverInfo(
-        transport_id, mid,
-        stats.track_media_info_map.video_media_info().value(),
+        transport_id, mid, *stats.track_media_info_map.video_media_info(),
         video_receiver_info, timestamp, report);
     rtc::scoped_refptr<VideoTrackInterface> video_track =
         stats.track_media_info_map.GetVideoTrack(video_receiver_info);
@@ -2139,8 +2134,7 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
     if (!video_sender_info.connected())
       continue;
     auto outbound_video = CreateOutboundRTPStreamStatsFromVideoSenderInfo(
-        transport_id, mid,
-        stats.track_media_info_map.video_media_info().value(),
+        transport_id, mid, *stats.track_media_info_map.video_media_info(),
         video_sender_info, timestamp, report);
     rtc::scoped_refptr<VideoTrackInterface> video_track =
         stats.track_media_info_map.GetVideoTrack(video_sender_info);

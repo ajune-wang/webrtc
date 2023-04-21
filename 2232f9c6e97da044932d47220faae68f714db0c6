@@ -241,6 +241,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3feaf042_1d3e709d",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-04-21T11:36:07Z",
+      "side": 1,
+      "message": "\u003e I haven\u0027t ever seen any issues with this in Meet though.\n\nMy point is we’re going from a state where use-after-release is possibly returning useless values to a state where use-after-release is certainly crashing (when there’s currently no `checkIsNotReleased()` calls). So we could have harmless use-after-release calls today that we don’t know about.\n\nAdding `checkIsNotReleased()` calls would make these new crashes more explicit, but it doesn’t change the problem.\n\nI’m not against leaving the code as it is and making `EglBase` more strict about use-after-release, I mostly want us to be aware of the change and make it knowingly. And maybe not on a Friday afternoon.",
+      "parentUuid": "376b6539_d6508304",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eead8bff_55406b3c",
         "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
         "patchSetId": 1

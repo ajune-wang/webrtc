@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a71f4fbf_0d590846",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2023-04-21T10:55:41Z",
+      "side": 1,
+      "message": "If we actually want to keep calling some methods after the object is released, I would prefer to do e.g. (eglConnection \u003d\u003d null ? EGL10.EGL_NO_CONTEXT : eglConnection.getContext()), to reduce the amount of state as much as possible.",
+      "parentUuid": "7dbbcf73_b67ada8d",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eead8bff_55406b3c",
         "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
         "patchSetId": 1

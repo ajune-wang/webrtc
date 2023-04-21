@@ -219,6 +219,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d74074d9_8fe64810",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T08:00:12Z",
+      "side": 1,
+      "message": "Yield to written rules. I can do the follow-up CL so we settle this discussion once and for all ;-)",
+      "parentUuid": "26e3fd5e_04f8f275",
+      "range": {
+        "startLine": 426,
+        "startChar": 8,
+        "endLine": 426,
+        "endChar": 60
+      },
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdb45c6e_426731e4",
@@ -232,6 +256,24 @@
       "writtenOn": "2023-04-20T09:45:26Z",
       "side": 1,
       "message": "nit: All the power to testing nullopt path, but if we only test one value I would prefer to test that a value is set. If you want to also test nullopt then have two tests, but with only one test we should make sure something is set IMO.",
+      "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ed0a775_3fd2be0d",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2746,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T08:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdb45c6e_426731e4",
       "revId": "f1cb13d32891fb3d72b36fd76bc2913c30b5d1b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

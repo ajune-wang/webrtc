@@ -158,6 +158,7 @@ class HardwareVideoEncoder implements VideoEncoder {
   // Contents of the last observed config frame output by the MediaCodec. Used by H.264.
   @Nullable private ByteBuffer configBuffer;
   private int adjustedBitrate;
+  private double adjustedFramerateFps;
 
   // Whether the encoder is running.  Volatile so that the output thread can watch this value and
   // exit when the encoder stops.
@@ -218,6 +219,7 @@ class HardwareVideoEncoder implements VideoEncoder {
       bitrateAdjuster.setTargets(settings.startBitrate * 1000, settings.maxFramerate);
     }
     adjustedBitrate = bitrateAdjuster.getAdjustedBitrateBps();
+    adjustedFramerateFps = bitrateAdjuster.getAdjustedFramerateFps();
 
     Logging.d(TAG,
         "initEncode name: " + codecName + " type: " + codecType + " width: " + width
@@ -247,8 +249,7 @@ class HardwareVideoEncoder implements VideoEncoder {
       format.setInteger(MediaFormat.KEY_BIT_RATE, adjustedBitrate);
       format.setInteger(MediaFormat.KEY_BITRATE_MODE, BITRATE_MODE_CBR);
       format.setInteger(MediaFormat.KEY_COLOR_FORMAT, colorFormat);
-      format.setFloat(
-          MediaFormat.KEY_FRAME_RATE, (float) bitrateAdjuster.getAdjustedFramerateFps());
+      format.setFloat(MediaFormat.KEY_FRAME_RATE, (float) adjustedFramerateFps);
       format.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, keyFrameIntervalSec);
       if (codecType == VideoCodecMimeType.H264) {
         String profileLevelId = params.get(VideoCodecInfo.H264_FMTP_PROFILE_LEVEL_ID);
@@ -265,6 +266,11 @@ class HardwareVideoEncoder implements VideoEncoder {
           default:
             Logging.w(TAG, "Unknown profile level id: " + profileLevelId);
         }
+      }
+
+      if (codecName.equals("c2.google.av1.encoder")) {
+        // Enable RTC mode in AV1 HW encoder.
+        format.setInteger("vendor.google-av1enc.encoding-preset.int32.value", 1);
       }
 
       if (isEncodingStatisticsSupported()) {
@@ -687,9 +693,11 @@ class HardwareVideoEncoder implements VideoEncoder {
   private VideoCodecStatus updateBitrate() {
     outputThreadChecker.checkIsOnValidThread();
     adjustedBitrate = bitrateAdjuster.getAdjustedBitrateBps();
+    adjustedFramerateFps = bitrateAdjuster.getAdjustedFramerateFps();
     try {
       Bundle params = new Bundle();
       params.putInt(MediaCodec.PARAMETER_KEY_VIDEO_BITRATE, adjustedBitrate);
+      params.putFloat(MediaFormat.KEY_FRAME_RATE, (float) adjustedFramerateFps);
       codec.setParameters(params);
       return VideoCodecStatus.OK;
     } catch (IllegalStateException e) {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6291983_98e5da6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-21T09:26:09Z",
+      "side": 1,
+      "message": "Two things I\u0027d like to see mentioned in the CL description:\n- The default is still false (always send checksum)\n- Whether or not we have a measurement that is impacted by this change (if default is switched to true)",
+      "revId": "6bfc9caa6e991df26db68a22415996d05ed30b51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

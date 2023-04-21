@@ -52,6 +52,24 @@
       "parentUuid": "2d363395_9d09fcf4",
       "revId": "2c0689ffad8a259f36ec2794daff5bea10df5aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da1f975_fe6a31c8",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T18:41:31Z",
+      "side": 0,
+      "message": "*clears glasses* indeed. Always set at the same time so I guess the DCHECK is ok. Restored with note.",
+      "parentUuid": "7eeb9c2f_f321cd54",
+      "revId": "2c0689ffad8a259f36ec2794daff5bea10df5aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

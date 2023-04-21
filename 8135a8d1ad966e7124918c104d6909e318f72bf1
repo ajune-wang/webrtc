@@ -24,6 +24,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af1569ee_8301109e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-04-21T07:39:32Z",
+      "side": 1,
+      "message": "The original issue says \"Make Test ADM extend AudioDeviceModuleImpl to include AudioDeviceBuffer into SUT\" and I was under the impression that this was a small change that would affect the Test version only.\n\nThings looked fine up until https://webrtc-review.googlesource.com/c/src/+/301704 and it is not clear to me why all these additional changes are now required. It looks way more complex than what was initially stated.\n\nThere are changes that are unique for Android (and iOS). If these are required then why not instead start by removing all support for these platforms in module/ instead since these implementations are now moved to sdk/. It seems like waste of time to add new fancy factories for parts that should be removed anyhow.\n\nPlease add more details on what *exactly* is broken currently and I\u0027ll try to understand it better. Native AudioDeviceModuleImpl is not uses in Chrome and it has it\u0027s own implementation where most parts are empty and I can\u0027t see how changes in the Test ADM can break things in Chrome. Chrome does not use the AudioDeviceBuffer either.",
+      "revId": "8135a8d1ad966e7124918c104d6909e318f72bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0acf030f_c4acb02c",

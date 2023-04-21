@@ -16,6 +16,63 @@
       "message": "LGTM as far as I am concerned, but let\u0027s get a second reviewer to sanity check this just in case since the integration tests are not smart enough to tell if counters like this is correct or not.\n\nAlso to expose this to blink, remember that both the allow list and the WebIDL has to be updated (in two steps)",
       "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e138eb_03243899",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-21T09:10:49Z",
+      "side": 1,
+      "message": "I do not think I know enough about pc level stats to do general review,\nso removing myself from reviewers, leaving readability and low level RTP comments.",
+      "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0bd161d_74cc6580",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-21T09:10:49Z",
+      "side": 1,
+      "message": "in BWE padding bytes are normally added to the payload size, not the headers size.\nNot sure what is more expected for the stats. \n\nmember clearly states \u0027header_and_padding\u0027 bytes though, so I\u0027m wondering a bit how useful is that field.",
+      "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "874bd0f9_e8bd3732",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-21T09:10:49Z",
+      "side": 1,
+      "message": "testing that _unsigned_ int64 is \u003e\u003d0 feels tautological.\nmay be instead TestMemberIsDefined",
+      "range": {
+        "startLine": 848,
+        "startChar": 15,
+        "endLine": 848,
+        "endChar": 48
+      },
+      "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

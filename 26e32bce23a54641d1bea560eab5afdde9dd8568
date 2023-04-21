@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "846e2383_bc6b04b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-21T15:36:22Z",
+      "side": 1,
+      "message": "This is speculative, but in line with how calls to the sdp_handler_ are being made.",
+      "revId": "26e32bce23a54641d1bea560eab5afdde9dd8568",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

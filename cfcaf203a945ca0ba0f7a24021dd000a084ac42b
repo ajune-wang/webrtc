@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbaa23dd_f2f904ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T10:57:00Z",
+      "side": 1,
+      "message": "Will update the other CL after this one is merged.",
+      "revId": "cfcaf203a945ca0ba0f7a24021dd000a084ac42b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47cc3c8f_88d1b0e5",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2015,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T10:57:00Z",
+      "side": 1,
+      "message": "this .value() and the others below is unchecked?",
+      "revId": "cfcaf203a945ca0ba0f7a24021dd000a084ac42b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

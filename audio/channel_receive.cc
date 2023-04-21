@@ -415,6 +415,8 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
     // own mixing/dynamic processing.
     MutexLock lock(&callback_mutex_);
     if (audio_sink_) {
+      // TODO(tommi): Could we feed the RTP audio level value to the sink
+      // here? At least info about whether or not we're muted.
       AudioSinkInterface::Data data(
           audio_frame->data(), audio_frame->samples_per_channel_,
           audio_frame->sample_rate_hz_, audio_frame->num_channels_,

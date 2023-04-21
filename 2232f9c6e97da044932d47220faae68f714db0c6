@@ -193,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fade47b3_37ad6f0c",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 10376
+      },
+      "writtenOn": "2023-04-21T11:16:19Z",
+      "side": 1,
+      "message": "That would work too. I’d rather go with a null object though, an `EglConnection` implementation returning all the default values, to avoid sprinkling null-checks throughout the code (and the risk of forgetting one).\n\nThat doesn’t solve the problem for the former `EGL10 egl` instance variable, which was final and never set to null or a null-like value. Is there a safe default to use for that after release? Or maybe the null-object could implement `getEgl()` by throwing an `IllegalStateException` saying something like “use after release”.",
+      "parentUuid": "a71f4fbf_0d590846",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eead8bff_55406b3c",
         "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
         "patchSetId": 1

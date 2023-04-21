@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dbbcf73_b67ada8d",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-04-21T10:01:17Z",
+      "side": 1,
+      "message": "Do we have a guarantee that methods accessing `eglConnection`’s methods in this class are not called after this object is released? Not all of them are guarded by \n`checkIsNotReleased()`.\n\nBecause with the separate instance variables we get default values for them after release. With only an `eglConnection` instance variable we get `NullPointerException`s.\n\nSince `EglConnection`’s instance variables are all final, it shouldn’t make a difference to make local copies here at construction.",
+      "parentUuid": "1e228305_ce2b2980",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eead8bff_55406b3c",
         "filename": "sdk/android/src/java/org/webrtc/EglBase14Impl.java",
         "patchSetId": 1

@@ -16,6 +16,41 @@
       "message": "Two things I\u0027d like to see mentioned in the CL description:\n- The default is still false (always send checksum)\n- Whether or not we have a measurement that is impacted by this change (if default is switched to true)",
       "revId": "6bfc9caa6e991df26db68a22415996d05ed30b51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46a94e47_c22dcee0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-21T14:37:04Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "revId": "6bfc9caa6e991df26db68a22415996d05ed30b51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca5ba8b_1fa127a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-04-21T14:37:04Z",
+      "side": 1,
+      "message": "Thanks - I have added that to the CL description",
+      "parentUuid": "f6291983_98e5da6c",
+      "revId": "6bfc9caa6e991df26db68a22415996d05ed30b51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

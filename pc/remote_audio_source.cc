@@ -153,6 +153,33 @@ void RemoteAudioSource::RemoveSink(AudioTrackSinkInterface* sink) {
 void RemoteAudioSource::OnData(const AudioSinkInterface::Data& audio) {
   // Called on the externally-owned audio callback thread, via/from webrtc.
   TRACE_EVENT0("webrtc", "RemoteAudioSource::OnData");
+
+  bool last_info_indicates_mute = false;
+  for (const RtpPacketInfo& info : audio.rtp_info) {
+    if (info.audio_level().has_value()) {
+      auto level = info.audio_level().value();
+      last_info_indicates_mute = (level == 127);
+    }
+  }
+
+  if (last_info_indicates_mute != muted_on_audio_thread_) {
+    muted_on_audio_thread_ = last_info_indicates_mute;
+    main_thread_->PostTask([this,
+                            thiz = rtc::scoped_refptr<RemoteAudioSource>(this),
+                            muted = muted_on_audio_thread_] {
+      RTC_DCHECK_RUN_ON(main_thread_);
+      if (muted) {
+        if (state_ == MediaSourceInterface::kLive) {
+          SetState(MediaSourceInterface::kMuted);
+        }
+      } else {
+        if (state_ == MediaSourceInterface::kMuted) {
+          SetState(MediaSourceInterface::kLive);
+        }
+      }
+    });
+  }
+
   MutexLock lock(&sink_lock_);
   for (auto* sink : sinks_) {
     // When peerconnection acts as an audio source, it should not provide

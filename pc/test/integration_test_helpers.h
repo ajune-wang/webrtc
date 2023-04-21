@@ -109,6 +109,7 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/mdns_responder_interface.h"
+#include "rtc_base/null_socket_server.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/socket_address.h"
@@ -123,6 +124,7 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/scoped_key_value_config.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
 
@@ -732,8 +734,10 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
 
  private:
   // Constructor used by friend class PeerConnectionIntegrationBaseTest.
-  explicit PeerConnectionIntegrationWrapper(const std::string& debug_name)
-      : debug_name_(debug_name) {}
+  explicit PeerConnectionIntegrationWrapper(
+      const std::string& debug_name,
+      GlobalSimulatedTimeController* time_controller)
+      : debug_name_(debug_name), time_controller_(time_controller) {}
 
   bool Init(const PeerConnectionFactory::Options* options,
             const PeerConnectionInterface::RTCConfiguration* config,
@@ -768,7 +772,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     pc_factory_dependencies.worker_thread = worker_thread;
     pc_factory_dependencies.signaling_thread = signaling_thread;
     pc_factory_dependencies.task_queue_factory =
-        webrtc::CreateDefaultTaskQueueFactory();
+        time_controller_ ? time_controller_->CreateTaskQueueFactory()
+                         : webrtc::CreateDefaultTaskQueueFactory();
     pc_factory_dependencies.trials = std::make_unique<FieldTrialBasedConfig>();
     pc_factory_dependencies.metronome =
         std::make_unique<TaskQueueMetronome>(TimeDelta::Millis(8));
@@ -1160,7 +1165,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
         std::make_unique<MockDataChannelObserver>(data_channel.get()));
   }
 
-  std::string debug_name_;
+  const std::string debug_name_;
+  GlobalSimulatedTimeController* const time_controller_ = nullptr;
 
   std::unique_ptr<rtc::FakeNetworkManager> fake_network_manager_;
   // Reference to the mDNS responder owned by `fake_network_manager_` after set.
@@ -1381,12 +1387,34 @@ class MockIceTransportFactory : public IceTransportFactory {
 class PeerConnectionIntegrationBaseTest : public ::testing::Test {
  public:
   PeerConnectionIntegrationBaseTest(
+      GlobalSimulatedTimeController& time_controller,
       SdpSemantics sdp_semantics,
       absl::optional<std::string> field_trials = absl::nullopt)
       : sdp_semantics_(sdp_semantics),
+        time_controller_(&time_controller),
         ss_(new rtc::VirtualSocketServer()),
-        fss_(new rtc::FirewallSocketServer(ss_.get())),
-        network_thread_(new rtc::Thread(fss_.get())),
+        network_thread_(time_controller.CreateThread(
+            "PCNetworkThread",
+            std::make_unique<rtc::FirewallSocketServer>(ss_.get()))),
+        worker_thread_(time_controller.CreateThread(
+            "PCWorkerThread",
+            std::make_unique<rtc::NullSocketServer>())),
+        // TODO(bugs.webrtc.org/10335): Pass optional ScopedKeyValueConfig.
+        field_trials_(new test::ScopedKeyValueConfig(
+            field_trials.has_value() ? *field_trials : "")) {
+    RTC_CHECK(network_thread_->Start());
+    RTC_CHECK(worker_thread_->Start());
+    webrtc::metrics::Reset();
+  }
+
+  PeerConnectionIntegrationBaseTest(
+      SdpSemantics sdp_semantics,
+      absl::optional<std::string> field_trials = absl::nullopt)
+      : sdp_semantics_(sdp_semantics),
+        main_thread_(std::make_unique<rtc::AutoThread>()),
+        ss_(new rtc::VirtualSocketServer()),
+        network_thread_(new rtc::Thread(
+            std::make_unique<rtc::FirewallSocketServer>(ss_.get()))),
         worker_thread_(rtc::Thread::Create()),
         // TODO(bugs.webrtc.org/10335): Pass optional ScopedKeyValueConfig.
         field_trials_(new test::ScopedKeyValueConfig(
@@ -1462,10 +1490,10 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
           std::make_unique<FakeRTCCertificateGenerator>();
     }
     std::unique_ptr<PeerConnectionIntegrationWrapper> client(
-        new PeerConnectionIntegrationWrapper(debug_name));
+        new PeerConnectionIntegrationWrapper(debug_name, time_controller_));
 
     if (!client->Init(options, &modified_config, std::move(dependencies),
-                      fss_.get(), network_thread_.get(), worker_thread_.get(),
+                      firewall(), network_thread_.get(), worker_thread_.get(),
                       std::move(event_log_factory), reset_encoder_factory,
                       reset_decoder_factory, create_media_engine)) {
       return nullptr;
@@ -1628,7 +1656,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       cricket::ProtocolType type = cricket::ProtocolType::PROTO_UDP,
       const std::string& common_name = "test turn server") {
     rtc::Thread* thread = network_thread();
-    rtc::SocketFactory* socket_factory = fss_.get();
+    rtc::SocketFactory* socket_factory = firewall();
     std::unique_ptr<cricket::TestTurnServer> turn_server;
     SendTask(network_thread(), [&] {
       turn_server = std::make_unique<cricket::TestTurnServer>(
@@ -1745,7 +1773,10 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
     });
   }
 
-  rtc::FirewallSocketServer* firewall() const { return fss_.get(); }
+  rtc::FirewallSocketServer* firewall() const {
+    return static_cast<rtc::FirewallSocketServer*>(
+        network_thread_->socketserver());
+  }
 
   // Expects the provided number of new frames to be received within
   // kMaxWaitForFramesMs. The new expected frames are specified in
@@ -1905,10 +1936,12 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   SdpSemantics sdp_semantics_;
 
  private:
-  rtc::AutoThread main_thread_;  // Used as the signal thread by most tests.
+  GlobalSimulatedTimeController* time_controller_ = nullptr;
+  // Used as the signal thread by most tests except ones that use
+  // `time_controller_`. The two are mutually exclusive.
+  std::unique_ptr<rtc::AutoThread> main_thread_;
   // `ss_` is used by `network_thread_` so it must be destroyed later.
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
-  std::unique_ptr<rtc::FirewallSocketServer> fss_;
   // `network_thread_` and `worker_thread_` are used by both
   // `caller_` and `callee_` so they must be destroyed
   // later.

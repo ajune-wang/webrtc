@@ -42,6 +42,7 @@
 #include "rtc_base/test_certificate_verifier.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
 
@@ -53,6 +54,10 @@ class PeerConnectionIntegrationTest
  protected:
   PeerConnectionIntegrationTest()
       : PeerConnectionIntegrationBaseTest(GetParam()) {}
+
+  explicit PeerConnectionIntegrationTest(
+      GlobalSimulatedTimeController& time_controller)
+      : PeerConnectionIntegrationBaseTest(time_controller, GetParam()) {}
 };
 
 // Fake clock must be set before threads are started to prevent race on
@@ -61,23 +66,16 @@ class PeerConnectionIntegrationTest
 // where order of construction is finely controlled.
 // This also ensures peerconnection is closed before switching back to non-fake
 // clock, avoiding other races and DCHECK failures such as in rtp_sender.cc.
-class FakeClockForTest : public rtc::ScopedFakeClock {
+class FakeClockForTest {
  protected:
-  FakeClockForTest() {
-    // Some things use a time of "0" as a special value, so we need to start out
-    // the fake clock at a nonzero time.
-    // TODO(deadbeef): Fix this.
-    AdvanceTime(webrtc::TimeDelta::Seconds(1));
-  }
+  FakeClockForTest() {}
 
   // Explicit handle.
-  ScopedFakeClock& FakeClock() { return *this; }
-};
+  // ScopedFakeClock& FakeClock() { return *this; }
+  TimeController& FakeClock() { return time_controller_; }
 
-// Ensure FakeClockForTest is constructed first (see class for rationale).
-class PeerConnectionIntegrationTestWithFakeClock
-    : public FakeClockForTest,
-      public PeerConnectionIntegrationTest {};
+  GlobalSimulatedTimeController time_controller_{Timestamp::Seconds(1000)};
+};
 
 class PeerConnectionIntegrationTestPlanB
     : public PeerConnectionIntegrationBaseTest {
@@ -261,6 +259,13 @@ class PeerConnectionIntegrationIceStatesTest
     port_allocator_flags_ = std::get<1>(std::get<1>(GetParam()));
   }
 
+  explicit PeerConnectionIntegrationIceStatesTest(
+      GlobalSimulatedTimeController& time_controller)
+      : PeerConnectionIntegrationBaseTest(time_controller,
+                                          std::get<0>(GetParam())) {
+    port_allocator_flags_ = std::get<1>(std::get<1>(GetParam()));
+  }
+
   void StartStunServer(const SocketAddress& server_address) {
     stun_server_.reset(
         cricket::TestStunServer::Create(firewall(), server_address));
@@ -315,7 +320,12 @@ class PeerConnectionIntegrationIceStatesTest
 // Ensure FakeClockForTest is constructed first (see class for rationale).
 class PeerConnectionIntegrationIceStatesTestWithFakeClock
     : public FakeClockForTest,
-      public PeerConnectionIntegrationIceStatesTest {};
+      public PeerConnectionIntegrationIceStatesTest {
+ protected:
+  PeerConnectionIntegrationIceStatesTestWithFakeClock()
+      : PeerConnectionIntegrationIceStatesTest(
+            FakeClockForTest::time_controller_) {}
+};
 
 #if !defined(THREAD_SANITIZER)
 // This test provokes TSAN errors. bugs.webrtc.org/11282

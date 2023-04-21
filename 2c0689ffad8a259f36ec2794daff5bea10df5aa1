@@ -34,6 +34,24 @@
       "parentUuid": "32346725_b9959cf2",
       "revId": "2c0689ffad8a259f36ec2794daff5bea10df5aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eeb9c2f_f321cd54",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-21T12:26:50Z",
+      "side": 0,
+      "message": "top of the method checks\nvoice_receiver_info.last_sender_report_timestamp_ms\nnot the same as\nvoice_receiver_info.last_sender_report_remote_timestamp_ms.",
+      "parentUuid": "2d363395_9d09fcf4",
+      "revId": "2c0689ffad8a259f36ec2794daff5bea10df5aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

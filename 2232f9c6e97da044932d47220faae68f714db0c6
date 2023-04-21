@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a16f2d6_094ebaa4",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2023-04-21T06:30:56Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t realize it\u0027s eglMakeCurrent with EGL10.EGL_NO_SURFACE and EGL10.EGL_NO_CONTEXT, i.e. detachCurrent(). Looks good like this!",
+      "parentUuid": "92aa087d_91c3a250",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3fdad0b_8a44de81",

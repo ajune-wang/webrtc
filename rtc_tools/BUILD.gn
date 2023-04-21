@@ -282,7 +282,6 @@ if (!is_component_build) {
       "../test:run_loop",
       "../test:run_test",
       "../test:run_test_interface",
-      "../test:test_common",
       "../test:test_renderer",
       "../test:test_support",
       "../test:test_video_capturer",

@@ -16,6 +16,24 @@
       "message": "why remove this DCHECK? (Can\u0027t see any other checks that this timestamp has value)",
       "revId": "2c0689ffad8a259f36ec2794daff5bea10df5aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d363395_9d09fcf4",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T12:20:35Z",
+      "side": 0,
+      "message": "Checked at the top of the method, the DCHECK might have been left for readability?",
+      "parentUuid": "32346725_b9959cf2",
+      "revId": "2c0689ffad8a259f36ec2794daff5bea10df5aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

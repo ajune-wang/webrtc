@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "177e7bda_10dfd76b",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-21T12:20:35Z",
+      "side": 1,
+      "message": "git cl format even made it nicer!",
+      "parentUuid": "8e77f524_21884621",
+      "range": {
+        "startLine": 1296,
+        "startChar": 14,
+        "endLine": 1296,
+        "endChar": 73
+      },
+      "revId": "cfcaf203a945ca0ba0f7a24021dd000a084ac42b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47cc3c8f_88d1b0e5",

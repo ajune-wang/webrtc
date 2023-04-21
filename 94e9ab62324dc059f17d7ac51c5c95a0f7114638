@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42aa8537_c0903aae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-04-21T08:03:43Z",
+      "side": 1,
+      "message": "LGTM as far as I am concerned, but let\u0027s get a second reviewer to sanity check this just in case since the integration tests are not smart enough to tell if counters like this is correct or not.\n\nAlso to expose this to blink, remember that both the allow list and the WebIDL has to be updated (in two steps)",
+      "revId": "94e9ab62324dc059f17d7ac51c5c95a0f7114638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

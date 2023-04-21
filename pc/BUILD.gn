@@ -2288,6 +2288,7 @@ if (rtc_include_tests && !build_with_chromium) {
       "../rtc_base:ssl",
       "../test:test_main",
       "../test:test_support",
+      "../test/time_controller:time_controller",
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",

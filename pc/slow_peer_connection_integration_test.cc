@@ -42,6 +42,7 @@
 #include "rtc_base/test_certificate_verifier.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 namespace webrtc {
 
@@ -61,17 +62,15 @@ class PeerConnectionIntegrationTest
 // where order of construction is finely controlled.
 // This also ensures peerconnection is closed before switching back to non-fake
 // clock, avoiding other races and DCHECK failures such as in rtp_sender.cc.
-class FakeClockForTest : public rtc::ScopedFakeClock {
+class FakeClockForTest {
  protected:
-  FakeClockForTest() {
-    // Some things use a time of "0" as a special value, so we need to start out
-    // the fake clock at a nonzero time.
-    // TODO(deadbeef): Fix this.
-    AdvanceTime(webrtc::TimeDelta::Seconds(1));
-  }
+  FakeClockForTest() {}
 
   // Explicit handle.
-  ScopedFakeClock& FakeClock() { return *this; }
+  // ScopedFakeClock& FakeClock() { return *this; }
+  TimeController& FakeClock() { return time_controller_; }
+
+  GlobalSimulatedTimeController time_controller_{Timestamp::Seconds(1000)};
 };
 
 // Ensure FakeClockForTest is constructed first (see class for rationale).

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb862699_31829da2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-21T06:43:15Z",
+      "side": 1,
+      "message": "Nit: this should be changed I think.\n\nMaybe \"and migration\nof TestADM on top of AudioDeviceModuleImpl will be unavailable\"?",
+      "range": {
+        "startLine": 12,
+        "startChar": 43,
+        "endLine": 12,
+        "endChar": 50
+      },
+      "revId": "8135a8d1ad966e7124918c104d6909e318f72bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0acf030f_c4acb02c",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-04-21T06:43:15Z",
+      "side": 1,
+      "message": "This is the part that I am a bit worried about.\n\nMy main concern is that we have 3 preprocessor macros at play here:\n\n- WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE\n- WEBRTC_DUMMY_AUDIO_BUILD\n- WEBRTC_DUMMY_FILE_DEVICES\n\nAnd by introducing CreateAudioDeviceFactory() which has different implementation based on rtc_include_internal_audio_device (so the decision at the GN time vs preprocessor time) I think we are adding another branch in the reasoning to get the whole picture.\n\nFor example, is it OK for Chromium to get a Dummy device if they call CreateAudioDeviceFactory()?\n\nLet\u0027s start from here (how Chromium would react) and then let\u0027s see if we can move away from GN and back to preprocessor (to keep behaviour similar to the rest of the code).",
+      "range": {
+        "startLine": 423,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 3
+      },
+      "revId": "8135a8d1ad966e7124918c104d6909e318f72bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

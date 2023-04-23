@@ -75,7 +75,6 @@ std::vector<RtpSource> SourceTracker::GetSources() const {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   Timestamp now = clock_->CurrentTime();
-
   PruneEntries(now);
 
   std::vector<RtpSource> sources;
@@ -92,6 +91,21 @@ std::vector<RtpSource> SourceTracker::GetSources() const {
   }
 
   return sources;
+}
+
+absl::optional<uint8_t> SourceTracker::GetAudioLevel(uint32_t ssrc) const {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+
+  Timestamp now = clock_->CurrentTime();
+  PruneEntries(now);
+
+  SourceKey key(RtpSourceType::SSRC, ssrc);
+  auto map_it = map_.find(key);
+  if (map_it == map_.end())
+    return absl::nullopt;
+  SourceList::iterator pair = map_it->second;
+  const SourceEntry& entry = pair->second;
+  return entry.audio_level;
 }
 
 SourceTracker::SourceEntry& SourceTracker::UpdateEntry(const SourceKey& key) {

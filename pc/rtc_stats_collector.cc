@@ -364,6 +364,15 @@ double DoubleAudioLevelFromIntAudioLevel(int audio_level) {
   return audio_level / 32767.0;
 }
 
+// TODO(tommi): Change audio_level to return the rtp header extension value
+// from the SourceTracker. Then do:
+double DoubleAudioLevelFromUInt8AudioLevel(uint8_t audio_level) {
+  RTC_DCHECK_GE(audio_level, 0);
+  RTC_DCHECK_LE(audio_level, 127);
+  uint8_t reversed = 127 - audio_level;
+  return reversed / 127.0;
+}
+
 // Gets the `codecId` identified by `transport_id` and `codec_params`. If no
 // such `RTCCodecStats` exist yet, create it and add it to `report`.
 std::string GetCodecIdAndMaybeCreateCodecStats(
@@ -481,7 +490,9 @@ std::unique_ptr<RTCInboundRtpStreamStats> CreateInboundAudioStreamStats(
       voice_receiver_info.removed_samples_for_acceleration;
   if (voice_receiver_info.audio_level >= 0) {
     inbound_audio->audio_level =
-        DoubleAudioLevelFromIntAudioLevel(voice_receiver_info.audio_level);
+        // DoubleAudioLevelFromIntAudioLevel(voice_receiver_info.audio_level);
+        DoubleAudioLevelFromUInt8AudioLevel(
+            voice_receiver_info.rtp_audio_level);
   }
   inbound_audio->total_audio_energy = voice_receiver_info.total_output_energy;
   inbound_audio->total_samples_duration =

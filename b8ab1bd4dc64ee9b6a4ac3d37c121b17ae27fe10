@@ -22,6 +22,30 @@
       },
       "revId": "b8ab1bd4dc64ee9b6a4ac3d37c121b17ae27fe10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2729950b_119bebf4",
+        "filename": "modules/audio_mixer/audio_mixer_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-24T08:14:01Z",
+      "side": 1,
+      "message": "Yes, that makes two of us then that are confused 😊\n\nThere are problems related to how we handle muted audio, which is why I\u0027m digging around in this part of the code (although I don\u0027t believe the problem I\u0027m seeing is directly related to this particular class). But this class had be confused for the same reasons and also made it a bit unclear when we change the state of a supposedly const AudioFrame.\n\nI\u0027ll follow up on the comments in a separate CL. (or, in case you\u0027re planning on making changes instead, just let me know).",
+      "parentUuid": "c81c07c9_4591c1bd",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "b8ab1bd4dc64ee9b6a4ac3d37c121b17ae27fe10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

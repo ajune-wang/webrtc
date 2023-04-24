@@ -14,6 +14,43 @@
 #include <stddef.h>
 #include <stdint.h>
 
+<<<<<<< PATCH SET (9d791b Change flexfec header reader to parse according to updated R)
+#include <vector>
+
+#include "modules/rtp_rtcp/source/forward_error_correction.h"
+
+namespace webrtc {
+
+// FlexFEC header, minimum 12 bytes.
+//     0                   1                   2                   3
+//     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  0 |R|F|P|X|  CC   |M| PT recovery |        length recovery        |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  4 |                          TS recovery                          |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  8 |           SN base_i           |k|          Mask [0-14]        |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// 12 |k|                   Mask [15-45] (optional)                   |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// 16 |                     Mask [46-109] (optional)                  |
+// 20 |                                                               |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//    |   ... next SN base and Mask for CSRC_i in CSRC list ...       |
+//
+
+// FlexFEC header in 'inflexible' mode (F = 1), minimum 12 bytes.
+//     0                   1                   2                   3
+//     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  0 |0|1|P|X|  CC   |M| PT recovery |         length recovery       |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  4 |                          TS recovery                          |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  8 |           SN base_i           |  L (columns)  |    D (rows)   |
+//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//    |    ... next SN base and L/D for CSRC_i in CSRC list ...       |
+=======
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
 
 namespace webrtc {
@@ -55,6 +92,7 @@ namespace webrtc {
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 // 16 |           SN base_i           |  M (columns)  |    N (rows)   |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+>>>>>>> BASE      (ad0f0c Initial copy of flexfec_header_reader_writer.)
 
 class FlexfecHeaderReader2 : public FecHeaderReader {
  public:

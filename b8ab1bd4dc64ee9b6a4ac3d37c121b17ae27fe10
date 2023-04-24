@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c81c07c9_4591c1bd",
+        "filename": "modules/audio_mixer/audio_mixer_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-04-24T08:03:21Z",
+      "side": 1,
+      "message": "(I\u0027m not asking you to make any changes here, the CL LGTM)\n\nThis object has me confused:\n\n1) we track seemingly redundant state (\u003d\u003e opportunity for inconsistency)\n   * there is both `muted_` and `audio_frame_.muted()`\n   * `audio_frame_` seems identical to `\u0026source_status_-\u003eaudio_frame`\n   \n2) `SourceFrame` is only partially used when ramping, with arbitrary values for unused fields (`uint32_t energy_` is set to -1 on line 255)\n\nIf I\u0027ve got that right, then it sounds like:\n\n1) we can remove `audio_frame_` and return `\u0026source_status_-\u003eaudio_frame` from `audio_frame()/mutable_audio_frame()`, and\n\n2) `ramp_list` can just be a list of `SourceStatus`, or even be deleted entirely passing each `SourceStatus` individually to `RampAndUpdateGain` on lines 252-256.",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "b8ab1bd4dc64ee9b6a4ac3d37c121b17ae27fe10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

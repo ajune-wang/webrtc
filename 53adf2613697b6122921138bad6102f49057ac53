@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28d1992_2a06d9c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-04-24T13:49:54Z",
+      "side": 1,
+      "message": "Could you help me to send this to CQ? I don\u0027t have permission.",
+      "revId": "53adf2613697b6122921138bad6102f49057ac53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -20,11 +20,15 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/mac/desktop_configuration.h"
 #include "modules/desktop_capture/mock_desktop_capturer_callback.h"
+#include "sdk/objc/helpers/scoped_cftyperef.h"
 #include "test/gtest.h"
 
 using ::testing::_;
 using ::testing::AnyNumber;
-using ::testing::Return;
+using ::testing::Invoke;
+using ::testing::IsEmpty;
+using ::testing::Not;
+using ::testing::ResultOf;
 
 namespace webrtc {
 
@@ -96,6 +100,53 @@ TEST_F(ScreenCapturerMacTest, Capture) {
 
   // Check that subsequent dirty rects are propagated correctly.
   capturer_->CaptureFrame();
+}
+
+std::vector<uint8_t> GetIccData(CFStringRef color_space_name) {
+  std::vector<uint8_t> icc_data;
+  CGColorSpaceRef color_space = CGColorSpaceCreateWithName(color_space_name);
+  if (!color_space)
+    return icc_data;
+
+#if !defined(MAC_OS_X_VERSION_10_13) || \
+    MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_13
+  rtc::ScopedCFTypeRef<CFDataRef> icc_profile(
+      CGColorSpaceCopyICCProfile(color_space));
+#else
+  rtc::ScopedCFTypeRef<CFDataRef> icc_profile(
+      CGColorSpaceCopyICCData(color_space));
+#endif
+  if (!icc_profile)
+    return icc_data;
+
+  const uint8_t* data =
+      reinterpret_cast<const uint8_t*>(CFDataGetBytePtr(icc_profile.get()));
+  const size_t size = CFDataGetLength(icc_profile.get());
+  icc_data = std::vector<uint8_t>(data, data + size);
+  return icc_data;
+}
+
+TEST(ScreenCapturerMacStandaloneTest, ColorSpace) {
+  std::vector<uint8_t> srgb_icc_data = GetIccData(kCGColorSpaceSRGB);
+  ASSERT_THAT(srgb_icc_data, Not(IsEmpty()));
+  for (const bool allow_iosurface : {false, true}) {
+    auto options = DesktopCaptureOptions::CreateDefault();
+    options.set_allow_iosurface(allow_iosurface);
+
+    auto capturer = DesktopCapturer::CreateScreenCapturer(std::move(options));
+
+    MockDesktopCapturerCallback callback;
+    EXPECT_CALL(callback,
+                OnCaptureResultPtr(
+                    DesktopCapturer::Result::SUCCESS,
+                    ResultOf([](auto frame) { return (*frame)->icc_profile(); },
+                             srgb_icc_data)));
+
+    capturer->Start(&callback);
+
+    // Check that the ICC profile is sRGB.
+    capturer->CaptureFrame();
+  }
 }
 
 }  // namespace webrtc

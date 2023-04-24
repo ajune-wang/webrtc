@@ -56,7 +56,7 @@ class ScreenCapturerMac final : public DesktopCapturer {
 
  private:
   // Returns false if the selected screen is no longer valid.
-  bool CgBlit(const DesktopFrame& frame, const DesktopRegion& region);
+  bool CgBlit(DesktopFrame& frame, const DesktopRegion& region);
 
   // Called when the screen configuration is changed.
   void ScreenConfigurationChanged();

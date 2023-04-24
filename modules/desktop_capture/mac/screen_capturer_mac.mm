@@ -77,6 +77,16 @@ static CGError wrapCGDisplayStreamStop(CGDisplayStreamRef cg_nullable displayStr
 #pragma clang diagnostic pop
 }
 
+static CFStringRef wrapkCGDisplayStreamColorSpace() CG_AVAILABLE_BUT_DEPRECATED(
+    10.8,
+    14.0,
+    "Please use ScreenCaptureKit API's SCStreamConfiguration colorSpaceName property instead") {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+  return kCGDisplayStreamColorSpace;
+#pragma clang diagnostic pop
+}
+
 static CFStringRef wrapkCGDisplayStreamShowCursor() CG_AVAILABLE_BUT_DEPRECATED(
     10.8,
     14.0,
@@ -374,7 +384,7 @@ bool ScreenCapturerMac::SelectSource(SourceId id) {
   return true;
 }
 
-bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& region) {
+bool ScreenCapturerMac::CgBlit(DesktopFrame& frame, const DesktopRegion& region) {
   // If not all screen region is dirty, copy the entire contents of the previous capture buffer,
   // to capture over.
   if (queue_.previous_frame() && !region.Equals(DesktopRegion(screen_pixel_bounds_))) {
@@ -489,6 +499,8 @@ bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& r
                  rect_to_copy);
       }
     }
+
+    frame.set_icc_profile(frame_source->icc_profile());
   }
   if (window_list) CFRelease(window_list);
   return true;
@@ -548,13 +560,14 @@ bool ScreenCapturerMac::RegisterRefreshAndMoveHandlers() {
       }
     };
 
-    rtc::ScopedCFTypeRef<CFDictionaryRef> properties_dict(
-        CFDictionaryCreate(kCFAllocatorDefault,
-                           (const void*[]){wrapkCGDisplayStreamShowCursor()},
-                           (const void*[]){kCFBooleanFalse},
-                           1,
-                           &kCFTypeDictionaryKeyCallBacks,
-                           &kCFTypeDictionaryValueCallBacks));
+    CGColorSpaceRef color_space = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    rtc::ScopedCFTypeRef<CFDictionaryRef> properties_dict(CFDictionaryCreate(
+        kCFAllocatorDefault,
+        (const void*[]){wrapkCGDisplayStreamShowCursor(), wrapkCGDisplayStreamColorSpace()},
+        (const void*[]){kCFBooleanFalse, color_space},
+        2,
+        &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks));
 
     CGDisplayStreamRef display_stream = wrapCGDisplayStreamCreate(
         display_id, pixel_width, pixel_height, 'BGRA', properties_dict.get(), handler);

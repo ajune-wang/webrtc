@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/rtp_rtcp/source/flexfec_header_reader_writer.h"
+#include "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h"
 
 #include <string.h>
 
@@ -76,14 +76,14 @@ size_t FlexfecHeaderSize(size_t packet_mask_size) {
 
 }  // namespace
 
-FlexfecHeaderReader::FlexfecHeaderReader()
+FlexfecHeaderReader2::FlexfecHeaderReader2()
     : FecHeaderReader(kMaxTrackedMediaPackets, kMaxFecPackets) {}
 
-FlexfecHeaderReader::~FlexfecHeaderReader() = default;
+FlexfecHeaderReader2::~FlexfecHeaderReader2() = default;
 
 // TODO(brandtr): Update this function when we support flexible masks,
 // retransmissions, and/or several protected SSRCs.
-bool FlexfecHeaderReader::ReadFecHeader(
+bool FlexfecHeaderReader2::ReadFecHeader(
     ForwardErrorCorrection::ReceivedFecPacket* fec_packet) const {
   if (fec_packet->pkt->data.size() <=
       kBaseHeaderSize + kStreamSpecificHeaderSize) {
@@ -195,10 +195,11 @@ bool FlexfecHeaderReader::ReadFecHeader(
 
   // Store "ULPFECized" packet mask info.
   fec_packet->fec_header_size = FlexfecHeaderSize(packet_mask_size);
-  fec_packet->protected_ssrcs.push_back(protected_ssrc);
-  fec_packet->seq_num_bases.push_back(seq_num_base);
-  fec_packet->packet_mask_offsets.push_back(kPacketMaskOffset);
-  fec_packet->packet_mask_sizes.push_back(packet_mask_size);
+  fec_packet->protected_ssrc = protected_ssrc;
+  fec_packet->seq_num_base = seq_num_base;
+  fec_packet->packet_mask_offset = kPacketMaskOffset;
+  fec_packet->packet_mask_size = packet_mask_size;
+
   // In FlexFEC, all media packets are protected in their entirety.
   fec_packet->protection_length =
       fec_packet->pkt->data.size() - fec_packet->fec_header_size;
@@ -206,13 +207,13 @@ bool FlexfecHeaderReader::ReadFecHeader(
   return true;
 }
 
-FlexfecHeaderWriter::FlexfecHeaderWriter()
+FlexfecHeaderWriter2::FlexfecHeaderWriter2()
     : FecHeaderWriter(kMaxMediaPackets, kMaxFecPackets, kHeaderSizes[2]) {}
 
-FlexfecHeaderWriter::~FlexfecHeaderWriter() = default;
+FlexfecHeaderWriter2::~FlexfecHeaderWriter2() = default;
 
-size_t FlexfecHeaderWriter::MinPacketMaskSize(const uint8_t* packet_mask,
-                                              size_t packet_mask_size) const {
+size_t FlexfecHeaderWriter2::MinPacketMaskSize(const uint8_t* packet_mask,
+                                               size_t packet_mask_size) const {
   if (packet_mask_size == kUlpfecPacketMaskSizeLBitClear &&
       (packet_mask[1] & 0x01) == 0) {
     // Packet mask is 16 bits long, with bit 15 clear.
@@ -237,7 +238,7 @@ size_t FlexfecHeaderWriter::MinPacketMaskSize(const uint8_t* packet_mask,
   return kFlexfecPacketMaskSizes[2];
 }
 
-size_t FlexfecHeaderWriter::FecHeaderSize(size_t packet_mask_size) const {
+size_t FlexfecHeaderWriter2::FecHeaderSize(size_t packet_mask_size) const {
   return FlexfecHeaderSize(packet_mask_size);
 }
 
@@ -248,7 +249,7 @@ size_t FlexfecHeaderWriter::FecHeaderSize(size_t packet_mask_size) const {
 //
 // TODO(brandtr): Update this function when we support offset-based masks,
 // retransmissions, and protecting multiple SSRCs.
-void FlexfecHeaderWriter::FinalizeFecHeader(
+void FlexfecHeaderWriter2::FinalizeFecHeader(
     uint32_t media_ssrc,
     uint16_t seq_num_base,
     const uint8_t* packet_mask,

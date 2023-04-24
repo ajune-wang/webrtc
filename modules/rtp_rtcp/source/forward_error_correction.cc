@@ -407,24 +407,28 @@ void ForwardErrorCorrection::InsertFecPacket(
     return;
   }
 
-  // TODO(brandtr): Update here when we support multistream protection.
-  if (fec_packet->protected_ssrc != protected_media_ssrc_) {
+  RTC_DCHECK_EQ(1U, fec_packet->protected_ssrcs.size());
+  RTC_DCHECK_EQ(1U, fec_packet->seq_num_bases.size());
+  RTC_DCHECK_EQ(1U, fec_packet->packet_mask_offsets.size());
+  RTC_DCHECK_EQ(1U, fec_packet->packet_mask_sizes.size());
+
+  if (fec_packet->protected_ssrcs[0] != protected_media_ssrc_) {
     RTC_LOG(LS_INFO)
         << "Received FEC packet is protecting an unknown media SSRC; dropping.";
     return;
   }
 
-  if (fec_packet->packet_mask_offset + fec_packet->packet_mask_size >
+  if (fec_packet->packet_mask_offsets[0] + fec_packet->packet_mask_sizes[0] >
       fec_packet->pkt->data.size()) {
     RTC_LOG(LS_INFO) << "Received corrupted FEC packet; dropping.";
     return;
   }
 
   // Parse packet mask from header and represent as protected packets.
-  for (uint16_t byte_idx = 0; byte_idx < fec_packet->packet_mask_size;
+  for (uint16_t byte_idx = 0; byte_idx < fec_packet->packet_mask_sizes[0];
        ++byte_idx) {
     uint8_t packet_mask =
-        fec_packet->pkt->data[fec_packet->packet_mask_offset + byte_idx];
+        fec_packet->pkt->data[fec_packet->packet_mask_offsets[0] + byte_idx];
     for (uint16_t bit_idx = 0; bit_idx < 8; ++bit_idx) {
       if (packet_mask & (1 << (7 - bit_idx))) {
         std::unique_ptr<ProtectedPacket> protected_packet(
@@ -432,7 +436,7 @@ void ForwardErrorCorrection::InsertFecPacket(
         // This wraps naturally with the sequence number.
         protected_packet->ssrc = protected_media_ssrc_;
         protected_packet->seq_num = static_cast<uint16_t>(
-            fec_packet->seq_num_base + (byte_idx << 3) + bit_idx);
+            fec_packet->seq_num_bases[0] + (byte_idx << 3) + bit_idx);
         protected_packet->pkt = nullptr;
         fec_packet->protected_packets.push_back(std::move(protected_packet));
       }
@@ -583,8 +587,7 @@ bool ForwardErrorCorrection::FinishPacketRecovery(
   // Set the SN field.
   ByteWriter<uint16_t>::WriteBigEndian(&data[2], recovered_packet->seq_num);
   // Set the SSRC field.
-  ByteWriter<uint32_t>::WriteBigEndian(&data[8], fec_packet.protected_ssrc);
-  recovered_packet->ssrc = fec_packet.protected_ssrc;
+  ByteWriter<uint32_t>::WriteBigEndian(&data[8], recovered_packet->ssrc);
   return true;
 }
 
@@ -640,6 +643,7 @@ bool ForwardErrorCorrection::RecoverPacket(const ReceivedFecPacket& fec_packet,
     if (protected_packet->pkt == nullptr) {
       // This is the packet we're recovering.
       recovered_packet->seq_num = protected_packet->seq_num;
+      recovered_packet->ssrc = protected_packet->ssrc;
     } else {
       XorHeaders(*protected_packet->pkt, recovered_packet->pkt.get());
       XorPayloads(*protected_packet->pkt,

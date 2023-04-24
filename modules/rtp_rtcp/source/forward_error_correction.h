@@ -132,10 +132,10 @@ class ForwardErrorCorrection {
     uint32_t ssrc;
     // FEC header fields.
     size_t fec_header_size;
-    uint32_t protected_ssrc;
-    uint16_t seq_num_base;
-    size_t packet_mask_offset;  // Relative start of FEC header.
-    size_t packet_mask_size;
+    std::vector<uint32_t> protected_ssrcs;
+    std::vector<uint16_t> seq_num_bases;
+    std::vector<size_t> packet_mask_offsets;  // Relative start of FEC header.
+    std::vector<size_t> packet_mask_sizes;
     size_t protection_length;
     // Raw data.
     rtc::scoped_refptr<ForwardErrorCorrection::Packet> pkt;

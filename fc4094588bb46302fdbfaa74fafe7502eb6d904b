@@ -22,6 +22,30 @@
       },
       "revId": "fc4094588bb46302fdbfaa74fafe7502eb6d904b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3f65011_9b0c49a8",
+        "filename": "test/video_test_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-04-24T11:04:19Z",
+      "side": 1,
+      "message": "Discussed offline and decided to keep as is for now.",
+      "parentUuid": "614e4ba1_b79c8dfd",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 4
+      },
+      "revId": "fc4094588bb46302fdbfaa74fafe7502eb6d904b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -345,7 +345,9 @@ TEST_P(AudioStateTest,
             audio_frame->sample_rate_hz_ = sample_rate_hz;
             audio_frame->samples_per_channel_ = sample_rate_hz / 100;
             audio_frame->num_channels_ = kNumberOfChannels;
-            return AudioMixer::Source::AudioFrameInfo::kNormal;
+            return audio_frame->muted()
+                       ? AudioMixer::Source::AudioFrameInfo::kMuted
+                       : AudioMixer::Source::AudioFrameInfo::kNormal;
           }));
 
   int16_t audio_buffer[kSampleRate / 100 * kNumberOfChannels];

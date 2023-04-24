@@ -27,9 +27,16 @@
 namespace webrtc {
 
 struct AudioMixerImpl::SourceStatus {
-  SourceStatus(Source* audio_source, bool is_mixed, float gain)
-      : audio_source(audio_source), is_mixed(is_mixed), gain(gain) {}
-  Source* audio_source = nullptr;
+  SourceStatus() = delete;
+  SourceStatus& operator=(const SourceStatus&) = delete;
+
+  explicit SourceStatus(Source* audio_source) : audio_source(audio_source) {}
+
+  uint32_t CalculateEnergy() const {
+    return audio_frame.muted() ? 0u : AudioMixerCalculateEnergy(audio_frame);
+  }
+
+  Source* const audio_source;
   bool is_mixed = false;
   float gain = 0.0f;
 
@@ -44,30 +51,18 @@ class SourceFrame {
   // Default constructor required by call to `vector::resize()` below.
   SourceFrame() = default;
 
-  SourceFrame(AudioMixerImpl::SourceStatus* source_status,
-              AudioFrame* audio_frame,
-              bool muted)
-      : SourceFrame(source_status,
-                    audio_frame,
-                    muted,
-                    muted ? 0u : AudioMixerCalculateEnergy(*audio_frame)) {}
+  explicit SourceFrame(AudioMixerImpl::SourceStatus* source_status)
+      : SourceFrame(source_status, source_status->CalculateEnergy()) {}
 
-  SourceFrame(AudioMixerImpl::SourceStatus* source_status,
-              AudioFrame* audio_frame,
-              bool muted,
-              uint32_t energy)
-      : source_status_(source_status),
-        audio_frame_(audio_frame),
-        muted_(muted),
-        energy_(energy) {
-    RTC_DCHECK(source_status);
-    RTC_DCHECK(audio_frame_);
+  SourceFrame(AudioMixerImpl::SourceStatus* source_status, uint32_t energy)
+      : source_status_(source_status), energy_(energy) {
+    RTC_DCHECK(source_status_);
   }
 
   AudioMixerImpl::SourceStatus* source_status() { return source_status_; }
-  const AudioFrame* audio_frame() const { return audio_frame_; }
-  AudioFrame* mutable_audio_frame() { return audio_frame_; }
-  bool muted() const { return muted_; }
+  const AudioFrame* audio_frame() const { return &source_status_->audio_frame; }
+  AudioFrame* mutable_audio_frame() { return &source_status_->audio_frame; }
+  bool muted() const { return audio_frame()->muted(); }
   uint32_t energy() const { return energy_; }
 
  private:
@@ -76,8 +71,6 @@ class SourceFrame {
   // vectors. Pointer values will be nullptr when default constructed as a
   // result of calling `vector::resize()`.
   AudioMixerImpl::SourceStatus* source_status_ = nullptr;
-  AudioFrame* audio_frame_ = nullptr;
-  bool muted_ = true;
   uint32_t energy_ = 0u;
 };
 
@@ -124,13 +117,11 @@ struct AudioMixerImpl::HelperContainers {
   void resize(size_t size) {
     audio_to_mix.resize(size);
     audio_source_mixing_data_list.resize(size);
-    ramp_list.resize(size);
     preferred_rates.resize(size);
   }
 
   std::vector<AudioFrame*> audio_to_mix;
   std::vector<SourceFrame> audio_source_mixing_data_list;
-  std::vector<SourceFrame> ramp_list;
   std::vector<int> preferred_rates;
 };
 
@@ -194,7 +185,7 @@ bool AudioMixerImpl::AddSource(Source* audio_source) {
   RTC_DCHECK(FindSourceInList(audio_source, &audio_source_list_) ==
              audio_source_list_.end())
       << "Source already added to mixer";
-  audio_source_list_.emplace_back(new SourceStatus(audio_source, false, 0));
+  audio_source_list_.emplace_back(new SourceStatus(audio_source));
   helper_containers_->resize(audio_source_list_.size());
   UpdateSourceCountStats();
   return true;
@@ -221,10 +212,12 @@ rtc::ArrayView<AudioFrame* const> AudioMixerImpl::GetAudioFromSources(
       RTC_LOG_F(LS_WARNING) << "failed to GetAudioFrameWithInfo() from source";
       continue;
     }
+
+    RTC_DCHECK_EQ(audio_frame_info == Source::AudioFrameInfo::kMuted,
+                  source_and_status->audio_frame.muted());
     helper_containers_
         ->audio_source_mixing_data_list[audio_source_mixing_data_count++] =
-        SourceFrame(source_and_status.get(), &source_and_status->audio_frame,
-                    audio_frame_info == Source::AudioFrameInfo::kMuted);
+        SourceFrame(source_and_status.get());
   }
   rtc::ArrayView<SourceFrame> audio_source_mixing_data_view(
       helper_containers_->audio_source_mixing_data_list.data(),
@@ -234,8 +227,10 @@ rtc::ArrayView<AudioFrame* const> AudioMixerImpl::GetAudioFromSources(
   std::sort(audio_source_mixing_data_view.begin(),
             audio_source_mixing_data_view.end(), ShouldMixBefore);
 
+  std::vector<SourceFrame> ramp_list;
+  ramp_list.reserve(max_sources_to_mix_);
+
   int max_audio_frame_counter = max_sources_to_mix_;
-  int ramp_list_length = 0;
   int audio_to_mix_count = 0;
   // Go through list in order and put unmuted frames in result list.
   for (auto& p : audio_source_mixing_data_view) {
@@ -251,14 +246,13 @@ rtc::ArrayView<AudioFrame* const> AudioMixerImpl::GetAudioFromSources(
       --max_audio_frame_counter;
       helper_containers_->audio_to_mix[audio_to_mix_count++] =
           p.mutable_audio_frame();
-      helper_containers_->ramp_list[ramp_list_length++] =
-          SourceFrame(p.source_status(), p.mutable_audio_frame(), false, -1);
+      ramp_list.emplace_back(p.source_status(), ~0u);
       is_mixed = true;
     }
     p.source_status()->is_mixed = is_mixed;
   }
-  RampAndUpdateGain(rtc::ArrayView<SourceFrame>(
-      helper_containers_->ramp_list.data(), ramp_list_length));
+  RampAndUpdateGain(
+      rtc::ArrayView<SourceFrame>(ramp_list.data(), ramp_list.size()));
   return rtc::ArrayView<AudioFrame* const>(
       helper_containers_->audio_to_mix.data(), audio_to_mix_count);
 }

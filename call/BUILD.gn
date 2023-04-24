@@ -79,7 +79,6 @@ rtc_library("call_interfaces") {
   absl_deps = [
     "//third_party/abseil-cpp/absl/functional:any_invocable",
     "//third_party/abseil-cpp/absl/functional:bind_front",
-    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -128,7 +127,6 @@ rtc_library("rtp_interfaces") {
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -157,10 +155,7 @@ rtc_library("rtp_receiver") {
     "../rtc_base/containers:flat_set",
     "../rtc_base/system:no_unique_address",
   ]
-  absl_deps = [
-    "//third_party/abseil-cpp/absl/strings:strings",
-    "//third_party/abseil-cpp/absl/types:optional",
-  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("rtp_sender") {
@@ -226,7 +221,7 @@ rtc_library("rtp_sender") {
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/container:inlined_vector",
-    "//third_party/abseil-cpp/absl/strings:strings",
+    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
     "//third_party/abseil-cpp/absl/types:variant",
   ]
@@ -345,7 +340,6 @@ rtc_library("call") {
   absl_deps = [
     "//third_party/abseil-cpp/absl/functional:bind_front",
     "//third_party/abseil-cpp/absl/memory",
-    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -544,7 +538,6 @@ if (rtc_include_tests) {
         "//third_party/abseil-cpp/absl/container:inlined_vector",
         "//third_party/abseil-cpp/absl/functional:any_invocable",
         "//third_party/abseil-cpp/absl/memory",
-        "//third_party/abseil-cpp/absl/strings",
         "//third_party/abseil-cpp/absl/types:optional",
         "//third_party/abseil-cpp/absl/types:variant",
       ]
@@ -612,10 +605,7 @@ if (rtc_include_tests) {
         "../video/config:encoder_config",
         "//testing/gtest",
       ]
-      absl_deps = [
-        "//third_party/abseil-cpp/absl/flags:flag",
-        "//third_party/abseil-cpp/absl/strings",
-      ]
+      absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
     }
   }
 
@@ -640,7 +630,6 @@ if (rtc_include_tests) {
       "../rtc_base/network:sent_packet",
       "../test:test_support",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   }
   rtc_source_set("mock_bitrate_allocator") {
     testonly = true

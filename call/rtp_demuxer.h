@@ -13,10 +13,10 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/containers/flat_map.h"
 #include "rtc_base/containers/flat_set.h"
 
@@ -29,8 +29,8 @@ class RtpPacketSinkInterface;
 // specific sink.
 class RtpDemuxerCriteria {
  public:
-  explicit RtpDemuxerCriteria(absl::string_view mid,
-                              absl::string_view rsid = absl::string_view());
+  explicit RtpDemuxerCriteria(std::string_view mid,
+                              std::string_view rsid = std::string_view());
   RtpDemuxerCriteria();
   ~RtpDemuxerCriteria();
 
@@ -145,7 +145,7 @@ class RtpDemuxer {
 
   // Registers a sink's association to an RSID. Only one sink may be associated
   // with a given RSID. Null pointer is not allowed.
-  void AddSink(absl::string_view rsid, RtpPacketSinkInterface* sink);
+  void AddSink(std::string_view rsid, RtpPacketSinkInterface* sink);
 
   // Removes a sink. Return value reports if anything was actually removed.
   // Null pointer is not allowed.
@@ -167,12 +167,11 @@ class RtpDemuxer {
   RtpPacketSinkInterface* ResolveSink(const RtpPacketReceived& packet);
 
   // Used by the ResolveSink algorithm.
-  RtpPacketSinkInterface* ResolveSinkByMid(absl::string_view mid,
-                                           uint32_t ssrc);
-  RtpPacketSinkInterface* ResolveSinkByMidRsid(absl::string_view mid,
-                                               absl::string_view rsid,
+  RtpPacketSinkInterface* ResolveSinkByMid(std::string_view mid, uint32_t ssrc);
+  RtpPacketSinkInterface* ResolveSinkByMidRsid(std::string_view mid,
+                                               std::string_view rsid,
                                                uint32_t ssrc);
-  RtpPacketSinkInterface* ResolveSinkByRsid(absl::string_view rsid,
+  RtpPacketSinkInterface* ResolveSinkByRsid(std::string_view rsid,
                                             uint32_t ssrc);
   RtpPacketSinkInterface* ResolveSinkByPayloadType(uint8_t payload_type,
                                                    uint32_t ssrc);

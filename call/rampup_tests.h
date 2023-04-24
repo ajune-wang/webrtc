@@ -14,10 +14,10 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/test/metrics/metric.h"
@@ -65,7 +65,7 @@ class RampUpTester : public test::EndToEndTest {
                        size_t* padding_sent,
                        size_t* media_sent) const;
 
-  void ReportResult(absl::string_view measurement,
+  void ReportResult(std::string_view measurement,
                     size_t value,
                     test::Unit unit,
                     test::ImprovementDirection improvement_direction) const;

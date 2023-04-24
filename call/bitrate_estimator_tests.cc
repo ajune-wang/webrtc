@@ -12,8 +12,8 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <string_view>
 
-#include "absl/strings/string_view.h"
 #include "api/test/create_frame_generator.h"
 #include "call/call.h"
 #include "call/simulated_network.h"
@@ -41,7 +41,7 @@ class LogObserver {
 
   ~LogObserver() { rtc::LogMessage::RemoveLogToStream(&callback_); }
 
-  void PushExpectedLogLine(absl::string_view expected_log_line) {
+  void PushExpectedLogLine(std::string_view expected_log_line) {
     callback_.PushExpectedLogLine(expected_log_line);
   }
 
@@ -51,16 +51,16 @@ class LogObserver {
   class Callback : public rtc::LogSink {
    public:
     void OnLogMessage(const std::string& message) override {
-      OnLogMessage(absl::string_view(message));
+      OnLogMessage(std::string_view(message));
     }
 
-    void OnLogMessage(absl::string_view message) override {
+    void OnLogMessage(std::string_view message) override {
       MutexLock lock(&mutex_);
       // Ignore log lines that are due to missing AST extensions, these are
       // logged when we switch back from AST to TOF until the wrapping bitrate
       // estimator gives up on using AST.
-      if (message.find("BitrateEstimator") != absl::string_view::npos &&
-          message.find("packet is missing") == absl::string_view::npos) {
+      if (message.find("BitrateEstimator") != std::string_view::npos &&
+          message.find("packet is missing") == std::string_view::npos) {
         received_log_lines_.push_back(std::string(message));
       }
 
@@ -71,7 +71,7 @@ class LogObserver {
         received_log_lines_.pop_front();
         expected_log_lines_.pop_front();
         num_popped++;
-        EXPECT_TRUE(a.find(b) != absl::string_view::npos) << a << " != " << b;
+        EXPECT_TRUE(a.find(b) != std::string_view::npos) << a << " != " << b;
       }
       if (expected_log_lines_.empty()) {
         if (num_popped > 0) {
@@ -85,7 +85,7 @@ class LogObserver {
       return done_.Wait(test::VideoTestConstants::kDefaultTimeout);
     }
 
-    void PushExpectedLogLine(absl::string_view expected_log_line) {
+    void PushExpectedLogLine(std::string_view expected_log_line) {
       MutexLock lock(&mutex_);
       expected_log_lines_.emplace_back(expected_log_line);
     }

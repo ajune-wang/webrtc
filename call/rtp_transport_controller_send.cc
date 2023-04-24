@@ -10,11 +10,11 @@
 #include "call/rtp_transport_controller_send.h"
 
 #include <memory>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 #include "absl/strings/match.h"
-#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_base.h"
@@ -62,7 +62,7 @@ TargetRateConstraints ConvertConstraints(const BitrateConstraints& contraints,
                             contraints.start_bitrate_bps, clock);
 }
 
-bool IsEnabled(const FieldTrialsView& trials, absl::string_view key) {
+bool IsEnabled(const FieldTrialsView& trials, std::string_view key) {
   return absl::StartsWith(trials.Lookup(key), "Enabled");
 }
 
@@ -255,7 +255,7 @@ bool RtpTransportControllerSend::IsRelevantRouteChange(
 }
 
 void RtpTransportControllerSend::OnNetworkRouteChanged(
-    absl::string_view transport_name,
+    std::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   // Check if the network route is connected.

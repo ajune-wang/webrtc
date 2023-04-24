@@ -12,15 +12,15 @@
 #define CALL_ADAPTATION_TEST_FAKE_ADAPTATION_CONSTRAINT_H_
 
 #include <string>
+#include <string_view>
 
-#include "absl/strings/string_view.h"
 #include "call/adaptation/adaptation_constraint.h"
 
 namespace webrtc {
 
 class FakeAdaptationConstraint : public AdaptationConstraint {
  public:
-  explicit FakeAdaptationConstraint(absl::string_view name);
+  explicit FakeAdaptationConstraint(std::string_view name);
   ~FakeAdaptationConstraint() override;
 
   void set_is_adaptation_up_allowed(bool is_adaptation_up_allowed);

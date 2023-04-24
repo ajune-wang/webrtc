@@ -10,13 +10,12 @@
 
 #include "call/adaptation/test/fake_adaptation_constraint.h"
 
+#include <string_view>
 #include <utility>
-
-#include "absl/strings/string_view.h"
 
 namespace webrtc {
 
-FakeAdaptationConstraint::FakeAdaptationConstraint(absl::string_view name)
+FakeAdaptationConstraint::FakeAdaptationConstraint(std::string_view name)
     : name_(name), is_adaptation_up_allowed_(true) {}
 
 FakeAdaptationConstraint::~FakeAdaptationConstraint() = default;

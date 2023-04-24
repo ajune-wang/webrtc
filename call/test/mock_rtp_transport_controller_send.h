@@ -14,9 +14,9 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "api/crypto/crypto_options.h"
 #include "api/crypto/frame_encryptor_interface.h"
 #include "api/frame_transformer_interface.h"
@@ -76,7 +76,7 @@ class MockRtpTransportControllerSend
               (override));
   MOCK_METHOD(void,
               OnNetworkRouteChanged,
-              (absl::string_view, const rtc::NetworkRoute&),
+              (std::string_view, const rtc::NetworkRoute&),
               (override));
   MOCK_METHOD(void, OnNetworkAvailability, (bool), (override));
   MOCK_METHOD(RtcpBandwidthObserver*, GetBandwidthObserver, (), (override));

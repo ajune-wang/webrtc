@@ -11,9 +11,9 @@
 #include "call/degraded_call.h"
 
 #include <memory>
+#include <string_view>
 #include <utility>
 
-#include "absl/strings/string_view.h"
 #include "api/sequence_checker.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "rtc_base/thread.h"
@@ -329,7 +329,7 @@ void DegradedCall::OnLocalSsrcUpdated(FlexfecReceiveStream& stream,
 }
 
 void DegradedCall::OnUpdateSyncGroup(AudioReceiveStreamInterface& stream,
-                                     absl::string_view sync_group) {
+                                     std::string_view sync_group) {
   call_->OnUpdateSyncGroup(stream, sync_group);
 }
 

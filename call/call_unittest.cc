@@ -13,10 +13,10 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <string_view>
 #include <utility>
 
 #include "absl/memory/memory.h"
-#include "absl/strings/string_view.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/media_types.h"
 #include "api/rtc_event_log/rtc_event_log.h"
@@ -85,9 +85,9 @@ namespace {
 
 rtc::scoped_refptr<Resource> FindResourceWhoseNameContains(
     const std::vector<rtc::scoped_refptr<Resource>>& resources,
-    absl::string_view name_contains) {
+    std::string_view name_contains) {
   for (const auto& resource : resources) {
-    if (resource->Name().find(std::string(name_contains)) != std::string::npos)
+    if (resource->Name().find(name_contains) != std::string::npos)
       return resource;
   }
   return nullptr;

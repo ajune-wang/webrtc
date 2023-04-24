@@ -17,9 +17,9 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
 #include "api/fec_controller.h"
@@ -108,7 +108,7 @@ class DegradedCall : public Call, private PacketReceiver {
   void OnLocalSsrcUpdated(FlexfecReceiveStream& stream,
                           uint32_t local_ssrc) override;
   void OnUpdateSyncGroup(AudioReceiveStreamInterface& stream,
-                         absl::string_view sync_group) override;
+                         std::string_view sync_group) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
  protected:

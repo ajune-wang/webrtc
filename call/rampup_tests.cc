@@ -11,9 +11,9 @@
 #include "call/rampup_tests.h"
 
 #include <memory>
+#include <string_view>
 
 #include "absl/flags/flag.h"
-#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/rtc_event_log_output_file.h"
 #include "api/task_queue/default_task_queue_factory.h"
@@ -291,7 +291,7 @@ void RampUpTester::PollStats() {
 }
 
 void RampUpTester::ReportResult(
-    absl::string_view measurement,
+    std::string_view measurement,
     size_t value,
     Unit unit,
     ImprovementDirection improvement_direction) const {

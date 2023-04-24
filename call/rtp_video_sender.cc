@@ -13,11 +13,11 @@
 #include <algorithm>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/field_trial_based_config.h"
@@ -56,7 +56,7 @@ static const size_t kPathMTU = 1500;
 
 using webrtc_internal_rtp_video_sender::RtpStreamSender;
 
-bool PayloadTypeSupportsSkippingFecPackets(absl::string_view payload_name,
+bool PayloadTypeSupportsSkippingFecPackets(std::string_view payload_name,
                                            const FieldTrialsView& trials) {
   const VideoCodecType codecType =
       PayloadStringToCodecType(std::string(payload_name));

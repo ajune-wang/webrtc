@@ -16,6 +16,23 @@
       "message": "This is speculative, but in line with how calls to the sdp_handler_ are being made.",
       "revId": "26e32bce23a54641d1bea560eab5afdde9dd8568",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ee4b7fb_ed961989",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-04-24T09:17:47Z",
+      "side": 1,
+      "message": "As far as the data channels are concerned, I believe the current behaviour is to have the channels closed by an error on the transport level.\nA \"clean\" shutdown would be a behaviour change and probably not desired.\nAs long as this comment doesn\u0027t imply it, then it\u0027s probably fine?",
+      "revId": "26e32bce23a54641d1bea560eab5afdde9dd8568",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -190,23 +190,6 @@ bool PreferGlobalIPv6Address(const webrtc::FieldTrialsView* field_trials) {
   // TODO(bugs.webrtc.org/14334) cleanup
   return true;
 }
-
-#if defined(WEBRTC_WIN)
-bool IpAddressAttributesEnabled(const webrtc::FieldTrialsView* field_trials) {
-  // Field trial key reserved in bugs.webrtc.org/14334
-  if (field_trials &&
-      field_trials->IsEnabled("WebRTC-IPv6NetworkResolutionFixes")) {
-    webrtc::FieldTrialParameter<bool> ip_address_attributes_enabled(
-        "IpAddressAttributesEnabled", false);
-    webrtc::ParseFieldTrial(
-        {&ip_address_attributes_enabled},
-        field_trials->Lookup("WebRTC-IPv6NetworkResolutionFixes"));
-    return ip_address_attributes_enabled;
-  }
-  return false;
-}
-#endif  // WEBRTC_WIN
-
 }  // namespace
 
 // These addresses are used as the targets to find out the default local address
@@ -828,14 +811,12 @@ bool BasicNetworkManager::CreateNetworks(
             // PrefixOrigin is equal to IpPrefixOriginRouterAdvertisement and
             // SuffixOrigin equal to IpSuffixOriginRandom.
             int ip_address_attributes = IPV6_ADDRESS_FLAG_NONE;
-            if (IpAddressAttributesEnabled(field_trials_.get())) {
-              if (address->PrefixOrigin == IpPrefixOriginRouterAdvertisement &&
-                  address->SuffixOrigin == IpSuffixOriginRandom) {
-                ip_address_attributes |= IPV6_ADDRESS_FLAG_TEMPORARY;
-              }
-              if (address->PreferredLifetime == 0) {
-                ip_address_attributes |= IPV6_ADDRESS_FLAG_DEPRECATED;
-              }
+            if (address->PrefixOrigin == IpPrefixOriginRouterAdvertisement &&
+                address->SuffixOrigin == IpSuffixOriginRandom) {
+              ip_address_attributes |= IPV6_ADDRESS_FLAG_TEMPORARY;
+            }
+            if (address->PreferredLifetime == 0) {
+              ip_address_attributes |= IPV6_ADDRESS_FLAG_DEPRECATED;
             }
             if (IsIgnoredIPv6(allow_mac_based_ipv6_,
                               InterfaceAddress(v6_addr->sin6_addr,

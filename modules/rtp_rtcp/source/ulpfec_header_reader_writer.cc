@@ -71,10 +71,10 @@ bool UlpfecHeaderReader::ReadFecHeader(
       l_bit ? kUlpfecPacketMaskSizeLBitSet : kUlpfecPacketMaskSizeLBitClear;
   fec_packet->fec_header_size = UlpfecHeaderSize(packet_mask_size);
   uint16_t seq_num_base = ByteReader<uint16_t>::ReadBigEndian(&data[2]);
-  fec_packet->protected_ssrc = fec_packet->ssrc;  // Due to RED.
-  fec_packet->seq_num_base = seq_num_base;
-  fec_packet->packet_mask_offset = kPacketMaskOffset;
-  fec_packet->packet_mask_size = packet_mask_size;
+  fec_packet->protected_ssrcs.push_back(fec_packet->ssrc);  // Due to RED.
+  fec_packet->seq_num_bases.push_back(seq_num_base);
+  fec_packet->packet_mask_offsets.push_back(kPacketMaskOffset);
+  fec_packet->packet_mask_sizes.push_back(packet_mask_size);
   fec_packet->protection_length =
       ByteReader<uint16_t>::ReadBigEndian(&data[10]);
 

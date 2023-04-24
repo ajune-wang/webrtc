@@ -103,18 +103,18 @@ void VerifyReadHeaders(size_t expected_fec_header_size,
                        const ReceivedFecPacket& read_packet) {
   EXPECT_EQ(expected_fec_header_size, read_packet.fec_header_size);
   EXPECT_EQ(ByteReader<uint32_t>::ReadBigEndian(kProtSsrc),
-            read_packet.protected_ssrc);
+            read_packet.protected_ssrcs[0]);
   EXPECT_EQ(ByteReader<uint16_t>::ReadBigEndian(kSnBase),
-            read_packet.seq_num_base);
-  const size_t packet_mask_offset = read_packet.packet_mask_offset;
+            read_packet.seq_num_bases[0]);
+  const size_t packet_mask_offset = read_packet.packet_mask_offsets[0];
   EXPECT_EQ(kFlexfecPacketMaskOffset, packet_mask_offset);
-  EXPECT_EQ(expected_packet_mask_size, read_packet.packet_mask_size);
+  EXPECT_EQ(expected_packet_mask_size, read_packet.packet_mask_sizes[0]);
   EXPECT_EQ(read_packet.pkt->data.size() - expected_fec_header_size,
             read_packet.protection_length);
   // Ensure that the K-bits are removed and the packet mask has been packed.
   EXPECT_THAT(
       ::testing::make_tuple(read_packet.pkt->data.cdata() + packet_mask_offset,
-                            read_packet.packet_mask_size),
+                            read_packet.packet_mask_sizes[0]),
       ::testing::ElementsAreArray(expected_packet_mask,
                                   expected_packet_mask_size));
 }
@@ -142,16 +142,20 @@ void VerifyWrittenAndReadHeaders(size_t expected_fec_header_size,
                                  const ReceivedFecPacket& read_packet) {
   EXPECT_EQ(kFlexfecSsrc, read_packet.ssrc);
   EXPECT_EQ(expected_fec_header_size, read_packet.fec_header_size);
-  EXPECT_EQ(kMediaSsrc, read_packet.protected_ssrc);
-  EXPECT_EQ(kMediaStartSeqNum, read_packet.seq_num_base);
-  EXPECT_EQ(kFlexfecPacketMaskOffset, read_packet.packet_mask_offset);
-  ASSERT_EQ(expected_packet_mask_size, read_packet.packet_mask_size);
+  EXPECT_EQ(read_packet.protected_ssrcs.size(), 1U);
+  EXPECT_EQ(read_packet.seq_num_bases.size(), 1U);
+  EXPECT_EQ(read_packet.packet_mask_offsets.size(), 1U);
+  EXPECT_EQ(read_packet.packet_mask_sizes.size(), 1U);
+  EXPECT_EQ(kMediaSsrc, read_packet.protected_ssrcs[0]);
+  EXPECT_EQ(kMediaStartSeqNum, read_packet.seq_num_bases[0]);
+  EXPECT_EQ(kFlexfecPacketMaskOffset, read_packet.packet_mask_offsets[0]);
+  ASSERT_EQ(expected_packet_mask_size, read_packet.packet_mask_sizes[0]);
   EXPECT_EQ(written_packet.data.size() - expected_fec_header_size,
             read_packet.protection_length);
   // Verify that the call to ReadFecHeader did normalize the packet masks.
   EXPECT_THAT(::testing::make_tuple(
                   read_packet.pkt->data.cdata() + kFlexfecPacketMaskOffset,
-                  read_packet.packet_mask_size),
+                  read_packet.packet_mask_sizes[0]),
               ::testing::ElementsAreArray(expected_packet_mask,
                                           expected_packet_mask_size));
   // Verify that the call to ReadFecHeader did not tamper with the payload.

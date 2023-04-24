@@ -33,6 +33,24 @@
       "message": "As far as the data channels are concerned, I believe the current behaviour is to have the channels closed by an error on the transport level.\nA \"clean\" shutdown would be a behaviour change and probably not desired.\nAs long as this comment doesn\u0027t imply it, then it\u0027s probably fine?",
       "revId": "26e32bce23a54641d1bea560eab5afdde9dd8568",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf4ea66_6dc33339",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-04-24T09:32:22Z",
+      "side": 1,
+      "message": "good point. If we call Close() here then we\u0027d likely change the behaviour. I\u0027ll remove the TODO and clarify the comment.",
+      "parentUuid": "8ee4b7fb_ed961989",
+      "revId": "26e32bce23a54641d1bea560eab5afdde9dd8568",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

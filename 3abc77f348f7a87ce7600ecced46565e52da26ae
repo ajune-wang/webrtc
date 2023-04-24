@@ -70,6 +70,23 @@
       "parentUuid": "066af284_3af77104",
       "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21620347_f706688b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-04-24T10:36:06Z",
+      "side": 1,
+      "message": "See b/265680370\nI don\u0027t see any noticeable negative impact, so think it\u0027s pretty safe to change this default value. The flags is still there if something should crop up.",
+      "revId": "3abc77f348f7a87ce7600ecced46565e52da26ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

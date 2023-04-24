@@ -130,6 +130,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b22959_cb816c48",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-04-24T13:47:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25796ba5_0d850bba",
+      "range": {
+        "startLine": 287,
+        "startChar": 39,
+        "endLine": 287,
+        "endChar": 45
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12a6e438_e62002b8",
@@ -143,6 +167,30 @@
       "writtenOn": "2023-02-28T07:51:55Z",
       "side": 1,
       "message": "RGB24?",
+      "range": {
+        "startLine": 289,
+        "startChar": 39,
+        "endLine": 289,
+        "endChar": 45
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1db473a6_e2bc84e7",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-04-24T13:47:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12a6e438_e62002b8",
       "range": {
         "startLine": 289,
         "startChar": 39,
@@ -214,6 +262,30 @@
       "side": 1,
       "message": "I suspected something like that. Perhaps add a comment about this so others don\u0027t get confused.",
       "parentUuid": "3d610750_9009aad1",
+      "range": {
+        "startLine": 301,
+        "startChar": 39,
+        "endLine": 301,
+        "endChar": 44
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd07e3e8_835ddf6e",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-04-24T13:47:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "480ff108_258ea9f2",
       "range": {
         "startLine": 301,
         "startChar": 39,

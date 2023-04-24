@@ -1,0 +1,233 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "871806ad_90049410",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "lg, just some style and nit comments",
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29420f2a_da12187c",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "this line can be removed since c++17 - it was needed in c++14, but now it is noop.\nSince c++17 class level static constants are inlined by default.",
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a680c036_12978cd8",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "may be also\nRTC_DCHECK(clock_)",
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2565bb69_fe335736",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "I do not understand how it is different - either way you would call copy constructor of the RtpPacketInfos that would do AddRef/RemoveRef instead of deep copy.\n\ni.e.\n[this, packet_infos, now] capture should do the same.\n\nAlternatively... is it possible to change api to pass RtpPacketInfos by value?\nunderneath it is just a scoped_refptr, so passing by value would be faster in most cases.\ne.g. here you would be able to move packet_infos:\n```\n[this, packet_infos \u003d std::move(packet_infos), now]() mutable {\n  OnFrameDeliveredInternal(now, std::move(packet_infos));\n}\n```\n avoiding AddRef/RemoveRef pair altogther.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 48
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca561a6_c95436ca",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n“Use captures only to actually capture variables from the enclosing scope. Do not use captures with initializers to introduce new names, or to substantially change the meaning of an existing name. Instead, declare a new variable in the conventional way and then capture it,”\n\ni.e.\nTimestamp now \u003d clock_-\u003eCurrentTime();\nworker_thread_-\u003ePostTask(... [this, packet_infos, now] ...);",
+      "range": {
+        "startLine": 37,
+        "startChar": 41,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f683b788_e876aa1b",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "now is used just once in this function, so you may\nPruneEntries(clock_-\u003eCurrentTime());",
+      "range": {
+        "startLine": 77,
+        "startChar": 1,
+        "endLine": 79,
+        "endChar": 20
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18b8d04c_a4269df7",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "`Timestamp::MinusInfinity()` might be safer to use:\n(in tests current Timestamp is often near zero, in prod Timestamp is rarely nearly zero,\nso using \u00270\u0027 as default timestamp may cause different behavior in test and prod for code like\n`if (clock_-\u003eCurrentTime() - entry.timstamp \u003e kTimeout)`\n\n(but if you want to keep current behavior, then may be use factory `Timestamp::Zero()` )",
+      "range": {
+        "startLine": 88,
+        "startChar": 37,
+        "endLine": 88,
+        "endChar": 47
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac05e611_6eab0246",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "`timestamp` here and line#109 (just before rtp_timestamp)",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 20
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5355d261_13aa6909",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "can Milliseconds suffix be dropped from the name now that it returns TimeDelta type?",
+      "range": {
+        "startLine": 125,
+        "startChar": 36,
+        "endLine": 125,
+        "endChar": 48
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06f8ea1_bc1c1752",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "TimeDelta::Zero()",
+      "range": {
+        "startLine": 298,
+        "startChar": 41,
+        "endLine": 298,
+        "endChar": 51
+      },
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0079f8_7182f380",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 2725,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-24T11:19:48Z",
+      "side": 1,
+      "message": "when target name is the same as director name, I think convention is to omit target name, i.e.\n`\"../test/time_controller\",`",
+      "revId": "f0912268e98546da6c9d4edb1d63c18522f4d03d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

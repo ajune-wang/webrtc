@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd0ae9456ec24d72631c75924df4d75784c82c9e8',
+  'chromium_revision': 'a10d15a57cf47764a43d187e651e163456666eef',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -48,7 +48,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@f723499917e1b374d01453cb1736b5a5c0308d96',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@f6692ccd70f023b0d07fe2aaef42c0af4738db09',
+    'https://chromium.googlesource.com/chromium/src/build@6c3a433ff04140387cfa695822826ce88cbdef6b',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@539a6f68735c631f57ae33096e9e7fc059e049cf',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@c78294c8c253406f563209a4adca88ae15e41c34',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@ae3775ea60560e9866b208533522b8383a1272e5',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d23247d9e73c9203e316225575de6dcd14c655e0',
+    'https://chromium.googlesource.com/chromium/src/testing@dcb1e6ed8a07c29e5944ce0f1c5a5bf782af3aae',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@fd370504baec292dca401f6e01ed4a184b30ffa2',
+    'https://chromium.googlesource.com/chromium/src/third_party@46872828e5c96f51dc42df05abe10ea32fa5e364',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -170,7 +170,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@6776d5cd8fcdf6c5e05bae2d655076dbeaa56103',
+    'https://boringssl.googlesource.com/boringssl.git@4b6d950d8921d6dd5365de0797fcc97302b9561b',
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@bfde407de559c10d6cef861b3873ff287c24e761',
   'src/third_party/catapult':
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@fdea1c758d5732916133bad173dea6111243d6ac',
+    'https://chromium.googlesource.com/chromium/src/tools@ae4e1abfb7fa99456d485f64c75252e12b87d5a5',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

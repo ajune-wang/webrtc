@@ -263,6 +263,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4118f62_f9ac6b8c",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase10Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-04-25T15:54:49Z",
+      "side": 1,
+      "message": "Picking this back up! Thanks for clarifying, I failed to realize the change in behavior. Defining a \"null EglConnection\" makes sense to me, to avoid the duplicated variables, avoid sprinkled null checks and keep the behavior consistent.\n\nRegarding `EGL10 egl`, I don\u0027t think that is a problem. The `EGL10` instance can\u0027t ever be released and is always valid.",
+      "parentUuid": "3feaf042_1d3e709d",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 42
+      },
+      "revId": "2232f9c6e97da044932d47220faae68f714db0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eead8bff_55406b3c",

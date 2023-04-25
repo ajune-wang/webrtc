@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27242b6e_7bb29edb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2023-04-25T17:14:02Z",
+      "side": 1,
+      "message": "I plan to review but I am not deeply familiar with the Mac capture code in WebRTC so I\u0027ll need to ramp up a bit.",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

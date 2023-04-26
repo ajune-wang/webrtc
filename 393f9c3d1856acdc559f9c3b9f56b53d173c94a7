@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d79dcc_68749bab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-04-26T15:40:11Z",
+      "side": 1,
+      "message": "Please let me know when you\u0027ve had a chance to take a look at the recent patchset with the \"null object\"!",
+      "revId": "393f9c3d1856acdc559f9c3b9f56b53d173c94a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

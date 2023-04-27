@@ -34,6 +34,10 @@ using ::testing::ElementsAreArray;
 using ::testing::make_tuple;
 using ::testing::SizeIs;
 
+/*
+ * Commented out as for now the Reader and Writer are incompatible.
+ * Uncomment and use after Writer is updated.
+
 // General. Assume single-stream protection.
 constexpr uint32_t kMediaSsrc = 1254983;
 constexpr uint16_t kMediaStartSeqNum = 825;
@@ -42,6 +46,9 @@ constexpr uint32_t kFlexfecSsrc = 52142;
 
 constexpr size_t kFlexfecHeaderSizes[] = {20, 24, 32};
 constexpr size_t kFlexfecPacketMaskOffset = 18;
+
+*/
+
 constexpr size_t kFlexfecPacketMaskSizes[] = {2, 6, 14};
 constexpr size_t kFlexfecMaxPacketSize = kFlexfecPacketMaskSizes[2];
 
@@ -51,10 +58,11 @@ constexpr uint8_t kNoFBit = 0 << 6;
 constexpr uint8_t kPtRecovery = 123;
 constexpr uint8_t kLengthRecov[] = {0xab, 0xcd};
 constexpr uint8_t kTsRecovery[] = {0x01, 0x23, 0x45, 0x67};
-constexpr uint8_t kSsrcCount = 1;
-constexpr uint8_t kReservedBits = 0x00;
-constexpr uint8_t kProtSsrc[] = {0x11, 0x22, 0x33, 0x44};
-constexpr uint8_t kSnBase[] = {0xaa, 0xbb};
+constexpr size_t kMaxSsrcNum = 4;
+constexpr uint8_t kSnBases[4][2] = {{0x01, 0x01},
+                                    {0x02, 0x02},
+                                    {0x03, 0x03},
+                                    {0x04, 0x04}};
 constexpr uint8_t kPayloadBits = 0x00;
 
 std::unique_ptr<uint8_t[]> GeneratePacketMask(size_t packet_mask_size,
@@ -75,6 +83,10 @@ void ClearBit(size_t index, uint8_t* packet_mask) {
 void SetBit(size_t index, uint8_t* packet_mask) {
   packet_mask[index / 8] |= (1 << (7 - index % 8));
 }
+
+/*
+ * Commented out as for now the Reader and Writer are incompatible.
+ * Uncomment and use after Writer is updated.
 
 rtc::scoped_refptr<Packet> WriteHeader(const uint8_t* packet_mask,
                                        size_t packet_mask_size) {
@@ -100,11 +112,28 @@ std::unique_ptr<ReceivedFecPacket> ReadHeader(const Packet& written_packet) {
   return read_packet;
 }
 
-void VerifyReadHeaders(size_t expected_fec_header_size,
-                       const uint8_t* expected_packet_mask,
-                       size_t expected_packet_mask_size,
-                       const ReceivedFecPacket& read_packet) {
+*/
+
+void VerifyReadHeaders(
+    size_t expected_fec_header_size,
+    const size_t* expected_mask_offsets,
+    const uint8_t expected_packet_masks[kMaxSsrcNum][kFlexfecMaxPacketSize],
+    const size_t* expected_packet_mask_sizes,
+    const ReceivedFecPacket& read_packet) {
+  const size_t protected_ssrcs_num = read_packet.protected_ssrcs.size();
   EXPECT_EQ(expected_fec_header_size, read_packet.fec_header_size);
+<<<<<<< PATCH SET (ac6a24 Change flexfec header reader to parse according to updated R)
+  EXPECT_EQ(read_packet.seq_num_bases.size(), protected_ssrcs_num);
+  for (size_t i = 0; i < protected_ssrcs_num; ++i) {
+    EXPECT_EQ(read_packet.seq_num_bases[i],
+              ByteReader<uint16_t>::ReadBigEndian(kSnBases[i]));
+  }
+  EXPECT_THAT(::testing::make_tuple(expected_mask_offsets, protected_ssrcs_num),
+              ::testing::ElementsAreArray(read_packet.packet_mask_offsets));
+  EXPECT_THAT(
+      ::testing::make_tuple(expected_packet_mask_sizes, protected_ssrcs_num),
+      ::testing::ElementsAreArray(read_packet.packet_mask_sizes));
+=======
   EXPECT_EQ(ByteReader<uint32_t>::ReadBigEndian(kProtSsrc),
             read_packet.protected_streams[0].ssrc);
   EXPECT_EQ(ByteReader<uint16_t>::ReadBigEndian(kSnBase),
@@ -113,14 +142,29 @@ void VerifyReadHeaders(size_t expected_fec_header_size,
   EXPECT_EQ(kFlexfecPacketMaskOffset, packet_mask_offset);
   EXPECT_EQ(expected_packet_mask_size,
             read_packet.protected_streams[0].packet_mask_size);
+>>>>>>> BASE      (2a3608 Initial copy of flexfec_header_reader_writer.)
   EXPECT_EQ(read_packet.pkt->data.size() - expected_fec_header_size,
             read_packet.protection_length);
   // Ensure that the K-bits are removed and the packet mask has been packed.
+<<<<<<< PATCH SET (ac6a24 Change flexfec header reader to parse according to updated R)
+  for (size_t i = 0; i < protected_ssrcs_num; ++i) {
+    EXPECT_THAT(::testing::make_tuple(read_packet.pkt->data.cdata() +
+                                          read_packet.packet_mask_offsets[i],
+                                      read_packet.packet_mask_sizes[i]),
+                ::testing::ElementsAreArray(expected_packet_masks[i],
+                                            expected_packet_mask_sizes[i]));
+  }
+=======
   EXPECT_THAT(
       make_tuple(read_packet.pkt->data.cdata() + packet_mask_offset.value(),
                  read_packet.protected_streams[0].packet_mask_size.value()),
       ElementsAreArray(expected_packet_mask, expected_packet_mask_size));
+>>>>>>> BASE      (2a3608 Initial copy of flexfec_header_reader_writer.)
 }
+
+/*
+ * Commented out as for now the Reader and Writer are incompatible.
+ * Uncomment and use after Writer is updated.
 
 void VerifyFinalizedHeaders(const uint8_t* expected_packet_mask,
                             size_t expected_packet_mask_size,
@@ -166,166 +210,409 @@ void VerifyWrittenAndReadHeaders(size_t expected_fec_header_size,
                        written_packet.data.size() - expected_fec_header_size));
 }
 
+*/
+
 }  // namespace
 
-TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit0Set) {
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit0SetSingleStream) {
   constexpr uint8_t kKBit0 = 1 << 7;
-  constexpr size_t kExpectedPacketMaskSize = 2;
-  constexpr size_t kExpectedFecHeaderSize = 20;
-  // clang-format off
-  constexpr uint8_t kFlexfecPktMask[] = {kKBit0 | 0x08, 0x81};
-  constexpr uint8_t kUlpfecPacketMask[] =        {0x11, 0x02};
-  // clang-format on
+  constexpr size_t kExpectedPacketMaskSizes[] = {kFlexfecPacketMaskSizes[0]};
+  constexpr size_t kExpectedFecHeaderSize = 12;
+  constexpr uint8_t kFlexfecPktMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kKBit0 | 0x08, 0x81}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x11, 0x02}};
+  constexpr size_t kExpectedMaskOffsets[] = {10};
   constexpr uint8_t kPacketData[] = {
-      kNoRBit | kNoFBit, kPtRecovery,    kLengthRecov[0],    kLengthRecov[1],
-      kTsRecovery[0],    kTsRecovery[1], kTsRecovery[2],     kTsRecovery[3],
-      kSsrcCount,        kReservedBits,  kReservedBits,      kReservedBits,
-      kProtSsrc[0],      kProtSsrc[1],   kProtSsrc[2],       kProtSsrc[3],
-      kSnBase[0],        kSnBase[1],     kFlexfecPktMask[0], kFlexfecPktMask[1],
-      kPayloadBits,      kPayloadBits,   kPayloadBits,       kPayloadBits};
+      kNoRBit | kNoFBit,      kPtRecovery,
+      kLengthRecov[0],        kLengthRecov[1],
+      kTsRecovery[0],         kTsRecovery[1],
+      kTsRecovery[2],         kTsRecovery[3],
+      kSnBases[0][0],         kSnBases[0][1],
+      kFlexfecPktMasks[0][0], kFlexfecPktMasks[0][1],
+      kPayloadBits,           kPayloadBits,
+      kPayloadBits,           kPayloadBits};
   const size_t packet_length = sizeof(kPacketData);
   ReceivedFecPacket read_packet;
   read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
   read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
 
-  VerifyReadHeaders(kExpectedFecHeaderSize, kUlpfecPacketMask,
-                    kExpectedPacketMaskSize, read_packet);
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
 }
 
-TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit1Set) {
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit1SetSingleStream) {
   constexpr uint8_t kKBit0 = 0 << 7;
   constexpr uint8_t kKBit1 = 1 << 7;
-  constexpr size_t kExpectedPacketMaskSize = 6;
-  constexpr size_t kExpectedFecHeaderSize = 24;
-  // clang-format off
-  constexpr uint8_t kFlxfecPktMsk[] = {kKBit0 | 0x48, 0x81,
-                                       kKBit1 | 0x02, 0x11, 0x00, 0x21};
-  constexpr uint8_t kUlpfecPacketMask[] =      {0x91, 0x02,
-                                                0x08, 0x44, 0x00, 0x84};
-  // clang-format on
+  constexpr size_t kExpectedPacketMaskSizes[] = {kFlexfecPacketMaskSizes[1]};
+  constexpr size_t kExpectedFecHeaderSize = 16;
+  constexpr uint8_t kFlexfecPktMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kKBit0 | 0x48, 0x81, kKBit1 | 0x02, 0x11, 0x00, 0x21}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x91, 0x02, 0x08, 0x44, 0x00, 0x84}};
+  constexpr size_t kExpectedMaskOffsets[] = {10};
   constexpr uint8_t kPacketData[] = {
-      kNoRBit | kNoFBit, kPtRecovery,      kLengthRecov[0],  kLengthRecov[1],
-      kTsRecovery[0],    kTsRecovery[1],   kTsRecovery[2],   kTsRecovery[3],
-      kSsrcCount,        kReservedBits,    kReservedBits,    kReservedBits,
-      kProtSsrc[0],      kProtSsrc[1],     kProtSsrc[2],     kProtSsrc[3],
-      kSnBase[0],        kSnBase[1],       kFlxfecPktMsk[0], kFlxfecPktMsk[1],
-      kFlxfecPktMsk[2],  kFlxfecPktMsk[3], kFlxfecPktMsk[4], kFlxfecPktMsk[5],
-      kPayloadBits,      kPayloadBits,     kPayloadBits,     kPayloadBits};
+      kNoRBit | kNoFBit,      kPtRecovery,
+      kLengthRecov[0],        kLengthRecov[1],
+      kTsRecovery[0],         kTsRecovery[1],
+      kTsRecovery[2],         kTsRecovery[3],
+      kSnBases[0][0],         kSnBases[0][1],
+      kFlexfecPktMasks[0][0], kFlexfecPktMasks[0][1],
+      kFlexfecPktMasks[0][2], kFlexfecPktMasks[0][3],
+      kFlexfecPktMasks[0][4], kFlexfecPktMasks[0][5],
+      kPayloadBits,           kPayloadBits,
+      kPayloadBits,           kPayloadBits};
   const size_t packet_length = sizeof(kPacketData);
   ReceivedFecPacket read_packet;
   read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
   read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
 
-  VerifyReadHeaders(kExpectedFecHeaderSize, kUlpfecPacketMask,
-                    kExpectedPacketMaskSize, read_packet);
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
 }
 
-TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit2Set) {
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithNoKBitsSetSingleStream) {
   constexpr uint8_t kKBit0 = 0 << 7;
   constexpr uint8_t kKBit1 = 0 << 7;
-  constexpr uint8_t kKBit2 = 1 << 7;
-  constexpr size_t kExpectedPacketMaskSize = 14;
-  constexpr size_t kExpectedFecHeaderSize = 32;
-  // clang-format off
-  constexpr uint8_t kFlxfcPktMsk[] = {kKBit0 | 0x48, 0x81,
-                                      kKBit1 | 0x02, 0x11, 0x00, 0x21,
-                                      kKBit2 | 0x01, 0x11, 0x11, 0x11,
-                                               0x11, 0x11, 0x11, 0x11};
-  constexpr uint8_t kUlpfecPacketMask[] =     {0x91, 0x02,
-                                               0x08, 0x44, 0x00, 0x84,
-                                               0x08, 0x88, 0x88, 0x88,
-                                               0x88, 0x88, 0x88, 0x88};
-  // clang-format on
+  constexpr size_t kExpectedPacketMaskSizes[] = {kFlexfecPacketMaskSizes[2]};
+  constexpr size_t kExpectedFecHeaderSize = 24;
+  constexpr uint8_t kFlxfcPktMsks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kKBit0 | 0x48, 0x81, kKBit1 | 0x02, 0x11, 0x00, 0x21, 0x01, 0x11, 0x11,
+       0x11, 0x11, 0x11, 0x11, 0x11}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x91, 0x02, 0x08, 0x44, 0x00, 0x84, 0x04, 0x44, 0x44, 0x44, 0x44, 0x44,
+       0x44, 0x44}};
+  constexpr size_t kExpectedMaskOffsets[] = {10};
   constexpr uint8_t kPacketData[] = {
-      kNoRBit | kNoFBit, kPtRecovery,      kLengthRecov[0],  kLengthRecov[1],
-      kTsRecovery[0],    kTsRecovery[1],   kTsRecovery[2],   kTsRecovery[3],
-      kSsrcCount,        kReservedBits,    kReservedBits,    kReservedBits,
-      kProtSsrc[0],      kProtSsrc[1],     kProtSsrc[2],     kProtSsrc[3],
-      kSnBase[0],        kSnBase[1],       kFlxfcPktMsk[0],  kFlxfcPktMsk[1],
-      kFlxfcPktMsk[2],   kFlxfcPktMsk[3],  kFlxfcPktMsk[4],  kFlxfcPktMsk[5],
-      kFlxfcPktMsk[6],   kFlxfcPktMsk[7],  kFlxfcPktMsk[8],  kFlxfcPktMsk[9],
-      kFlxfcPktMsk[10],  kFlxfcPktMsk[11], kFlxfcPktMsk[12], kFlxfcPktMsk[13],
-      kPayloadBits,      kPayloadBits,     kPayloadBits,     kPayloadBits};
+      kNoRBit | kNoFBit,    kPtRecovery,          kLengthRecov[0],
+      kLengthRecov[1],      kTsRecovery[0],       kTsRecovery[1],
+      kTsRecovery[2],       kTsRecovery[3],       kSnBases[0][0],
+      kSnBases[0][1],       kFlxfcPktMsks[0][0],  kFlxfcPktMsks[0][1],
+      kFlxfcPktMsks[0][2],  kFlxfcPktMsks[0][3],  kFlxfcPktMsks[0][4],
+      kFlxfcPktMsks[0][5],  kFlxfcPktMsks[0][6],  kFlxfcPktMsks[0][7],
+      kFlxfcPktMsks[0][8],  kFlxfcPktMsks[0][9],  kFlxfcPktMsks[0][10],
+      kFlxfcPktMsks[0][11], kFlxfcPktMsks[0][12], kFlxfcPktMsks[0][13],
+      kPayloadBits,         kPayloadBits,         kPayloadBits,
+      kPayloadBits};
   const size_t packet_length = sizeof(kPacketData);
   ReceivedFecPacket read_packet;
   read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
   read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
 
-  VerifyReadHeaders(kExpectedFecHeaderSize, kUlpfecPacketMask,
-                    kExpectedPacketMaskSize, read_packet);
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
+}
+
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit0Set2Streams) {
+  constexpr uint8_t kKBit0 = 1 << 7;
+  constexpr size_t kExpectedPacketMaskSizes[] = {kFlexfecPacketMaskSizes[0],
+                                                 kFlexfecPacketMaskSizes[0]};
+  constexpr size_t kExpectedFecHeaderSize = 16;
+  constexpr uint8_t kFlexfecPktMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kKBit0 | 0x08, 0x81}, {kKBit0 | 0x04, 0x41}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x11, 0x02}, {0x08, 0x82}};
+  constexpr size_t kExpectedMaskOffsets[] = {10, 14};
+  constexpr uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit,      kPtRecovery,
+      kLengthRecov[0],        kLengthRecov[1],
+      kTsRecovery[0],         kTsRecovery[1],
+      kTsRecovery[2],         kTsRecovery[3],
+      kSnBases[0][0],         kSnBases[0][1],
+      kFlexfecPktMasks[0][0], kFlexfecPktMasks[0][1],
+      kSnBases[1][0],         kSnBases[1][1],
+      kFlexfecPktMasks[1][0], kFlexfecPktMasks[1][1],
+      kPayloadBits,           kPayloadBits,
+      kPayloadBits,           kPayloadBits};
+  const size_t packet_length = sizeof(kPacketData);
+  ReceivedFecPacket read_packet;
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01, 0x02};
+
+  FlexfecHeaderReader2 reader;
+  EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
+
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
+}
+
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithKBit1Set2Streams) {
+  constexpr uint8_t kKBit0 = 0 << 7;
+  constexpr uint8_t kKBit1 = 1 << 7;
+  constexpr size_t kExpectedPacketMaskSizes[] = {kFlexfecPacketMaskSizes[1],
+                                                 kFlexfecPacketMaskSizes[1]};
+  constexpr size_t kExpectedFecHeaderSize = 24;
+  constexpr uint8_t kFlexfecPktMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kKBit0 | 0x48, 0x81, kKBit1 | 0x02, 0x11, 0x00, 0x21},
+      {kKBit0 | 0x57, 0x82, kKBit1 | 0x04, 0x33, 0x00, 0x51}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x91, 0x02, 0x08, 0x44, 0x00, 0x84},
+      {0xAF, 0x04, 0x10, 0xCC, 0x01, 0x44}};
+  constexpr size_t kExpectedMaskOffsets[] = {10, 18};
+  constexpr uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit,      kPtRecovery,
+      kLengthRecov[0],        kLengthRecov[1],
+      kTsRecovery[0],         kTsRecovery[1],
+      kTsRecovery[2],         kTsRecovery[3],
+      kSnBases[0][0],         kSnBases[0][1],
+      kFlexfecPktMasks[0][0], kFlexfecPktMasks[0][1],
+      kFlexfecPktMasks[0][2], kFlexfecPktMasks[0][3],
+      kFlexfecPktMasks[0][4], kFlexfecPktMasks[0][5],
+      kSnBases[1][0],         kSnBases[1][1],
+      kFlexfecPktMasks[1][0], kFlexfecPktMasks[1][1],
+      kFlexfecPktMasks[1][2], kFlexfecPktMasks[1][3],
+      kFlexfecPktMasks[1][4], kFlexfecPktMasks[1][5],
+      kPayloadBits,           kPayloadBits,
+      kPayloadBits,           kPayloadBits};
+  const size_t packet_length = sizeof(kPacketData);
+  ReceivedFecPacket read_packet;
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01, 0x02};
+
+  FlexfecHeaderReader2 reader;
+  EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
+
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
+}
+
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithNoKBitsSet2Streams) {
+  constexpr uint8_t kKBit0 = 0 << 7;
+  constexpr uint8_t kKBit1 = 0 << 7;
+  constexpr size_t kExpectedPacketMaskSizes[] = {kFlexfecPacketMaskSizes[2],
+                                                 kFlexfecPacketMaskSizes[2]};
+  constexpr size_t kExpectedFecHeaderSize = 40;
+  constexpr uint8_t kFlxfcPktMsks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kKBit0 | 0x48, 0x81, kKBit1 | 0x02, 0x11, 0x00, 0x21, 0x01, 0x11, 0x11,
+       0x11, 0x11, 0x11, 0x11, 0x11},
+      {kKBit0 | 0x32, 0x84, kKBit1 | 0x05, 0x23, 0x00, 0x55, 0xA3, 0x22, 0x22,
+       0x22, 0x22, 0x22, 0x22, 0x35}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x91, 0x02, 0x08, 0x44, 0x00, 0x84, 0x04, 0x44, 0x44, 0x44, 0x44, 0x44,
+       0x44, 0x44},
+      {0x65, 0x08, 0x14, 0x8C, 0x01, 0x56, 0x8C, 0x88, 0x88, 0x88, 0x88, 0x88,
+       0x88, 0xD4}};
+  constexpr size_t kExpectedMaskOffsets[] = {10, 26};
+  constexpr uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit,    kPtRecovery,          kLengthRecov[0],
+      kLengthRecov[1],      kTsRecovery[0],       kTsRecovery[1],
+      kTsRecovery[2],       kTsRecovery[3],       kSnBases[0][0],
+      kSnBases[0][1],       kFlxfcPktMsks[0][0],  kFlxfcPktMsks[0][1],
+      kFlxfcPktMsks[0][2],  kFlxfcPktMsks[0][3],  kFlxfcPktMsks[0][4],
+      kFlxfcPktMsks[0][5],  kFlxfcPktMsks[0][6],  kFlxfcPktMsks[0][7],
+      kFlxfcPktMsks[0][8],  kFlxfcPktMsks[0][9],  kFlxfcPktMsks[0][10],
+      kFlxfcPktMsks[0][11], kFlxfcPktMsks[0][12], kFlxfcPktMsks[0][13],
+      kSnBases[1][0],       kSnBases[1][1],       kFlxfcPktMsks[1][0],
+      kFlxfcPktMsks[1][1],  kFlxfcPktMsks[1][2],  kFlxfcPktMsks[1][3],
+      kFlxfcPktMsks[1][4],  kFlxfcPktMsks[1][5],  kFlxfcPktMsks[1][6],
+      kFlxfcPktMsks[1][7],  kFlxfcPktMsks[1][8],  kFlxfcPktMsks[1][9],
+      kFlxfcPktMsks[1][10], kFlxfcPktMsks[1][11], kFlxfcPktMsks[1][12],
+      kFlxfcPktMsks[1][13], kPayloadBits,         kPayloadBits,
+      kPayloadBits,         kPayloadBits};
+  const size_t packet_length = sizeof(kPacketData);
+  ReceivedFecPacket read_packet;
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01, 0x02};
+
+  FlexfecHeaderReader2 reader;
+  EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
+
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
+}
+
+TEST(FlexfecHeaderReader2Test, ReadsHeaderWithMultipleStreamsMultipleMasks) {
+  constexpr uint8_t kBit0 = 0 << 7;
+  constexpr uint8_t kBit1 = 1 << 7;
+  constexpr size_t kExpectedPacketMaskSizes[] = {
+      kFlexfecPacketMaskSizes[0], kFlexfecPacketMaskSizes[1],
+      kFlexfecPacketMaskSizes[2], kFlexfecPacketMaskSizes[1]};
+  constexpr size_t kExpectedFecHeaderSize = 44;
+  constexpr uint8_t kFlxfcPktMsks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {kBit1 | 0x29, 0x91},
+      {kBit0 | 0x32, 0xA1, kBit1 | 0x02, 0x11, 0x00, 0x21},
+      {kBit0 | 0x48, 0x81, kBit0 | 0x02, 0x11, 0x00, 0x21, 0x01, 0x11, 0x11,
+       0x11, 0x11, 0x11, 0x11, 0x11},
+      {kBit0 | 0x32, 0x84, kBit1 | 0x05, 0x23, 0x00, 0x55}};
+  constexpr uint8_t kUlpfecPacketMasks[kMaxSsrcNum][kFlexfecMaxPacketSize] = {
+      {0x53, 0x22},
+      {0x65, 0x42, 0x08, 0x44, 0x00, 0x84},
+      {0x91, 0x02, 0x08, 0x44, 0x00, 0x84, 0x04, 0x44, 0x44, 0x44, 0x44, 0x44,
+       0x44, 0x44},
+      {0x65, 0x08, 0x14, 0x8C, 0x01, 0x54}};
+  constexpr size_t kExpectedMaskOffsets[] = {10, 14, 22, 38};
+  constexpr uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit,    kPtRecovery,          kLengthRecov[0],
+      kLengthRecov[1],      kTsRecovery[0],       kTsRecovery[1],
+      kTsRecovery[2],       kTsRecovery[3],       kSnBases[0][0],
+      kSnBases[0][1],       kFlxfcPktMsks[0][0],  kFlxfcPktMsks[0][1],
+      kSnBases[1][0],       kSnBases[1][1],       kFlxfcPktMsks[1][0],
+      kFlxfcPktMsks[1][1],  kFlxfcPktMsks[1][2],  kFlxfcPktMsks[1][3],
+      kFlxfcPktMsks[1][4],  kFlxfcPktMsks[1][5],  kSnBases[2][0],
+      kSnBases[2][1],       kFlxfcPktMsks[2][0],  kFlxfcPktMsks[2][1],
+      kFlxfcPktMsks[2][2],  kFlxfcPktMsks[2][3],  kFlxfcPktMsks[2][4],
+      kFlxfcPktMsks[2][5],  kFlxfcPktMsks[2][6],  kFlxfcPktMsks[2][7],
+      kFlxfcPktMsks[2][8],  kFlxfcPktMsks[2][9],  kFlxfcPktMsks[2][10],
+      kFlxfcPktMsks[2][11], kFlxfcPktMsks[2][12], kFlxfcPktMsks[2][13],
+      kSnBases[3][0],       kSnBases[3][1],       kFlxfcPktMsks[3][0],
+      kFlxfcPktMsks[3][1],  kFlxfcPktMsks[3][2],  kFlxfcPktMsks[3][3],
+      kFlxfcPktMsks[3][4],  kFlxfcPktMsks[3][5],  kPayloadBits,
+      kPayloadBits,         kPayloadBits,         kPayloadBits};
+  const size_t packet_length = sizeof(kPacketData);
+  ReceivedFecPacket read_packet;
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01, 0x02, 0x03, 0x04};
+
+  FlexfecHeaderReader2 reader;
+  EXPECT_TRUE(reader.ReadFecHeader(&read_packet));
+
+  VerifyReadHeaders(kExpectedFecHeaderSize, kExpectedMaskOffsets,
+                    kUlpfecPacketMasks, kExpectedPacketMaskSizes, read_packet);
+}
+
+TEST(FlexfecHeaderReader2Test, ReadPacketWithoutProtectedSsrcsShouldFail) {
+  constexpr uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit, kPtRecovery,    kLengthRecov[0], kLengthRecov[1],
+      kTsRecovery[0],    kTsRecovery[1], kTsRecovery[2],  kTsRecovery[3]};
+  const size_t packet_length = sizeof(kPacketData);
+  ReceivedFecPacket read_packet;
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  read_packet.pkt->data.SetData(kPacketData, packet_length);
+  // No protected ssrcs.
+  read_packet.protected_ssrcs = {};
+
+  FlexfecHeaderReader2 reader;
+  EXPECT_FALSE(reader.ReadFecHeader(&read_packet));
 }
 
 TEST(FlexfecHeaderReader2Test,
      ReadPacketWithoutStreamSpecificHeaderShouldFail) {
-  const size_t packet_mask_size = kUlpfecPacketMaskSizeLBitClear;
-  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
-  auto written_packet = WriteHeader(packet_mask.get(), packet_mask_size);
-
   // Simulate short received packet.
+  constexpr uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit, kPtRecovery,    kLengthRecov[0], kLengthRecov[1],
+      kTsRecovery[0],    kTsRecovery[1], kTsRecovery[2],  kTsRecovery[3]};
+  const size_t packet_length = sizeof(kPacketData);
   ReceivedFecPacket read_packet;
-  read_packet.ssrc = kFlexfecSsrc;
-  read_packet.pkt = std::move(written_packet);
-  read_packet.pkt->data.SetSize(12);
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  read_packet.pkt->data.SetData(kPacketData, packet_length);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_FALSE(reader.ReadFecHeader(&read_packet));
 }
 
 TEST(FlexfecHeaderReader2Test, ReadShortPacketWithKBit0SetShouldFail) {
-  const size_t packet_mask_size = kUlpfecPacketMaskSizeLBitClear;
-  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
-  auto written_packet = WriteHeader(packet_mask.get(), packet_mask_size);
-
   // Simulate short received packet.
+  const size_t packet_mask_size = kFlexfecPacketMaskSizes[0];
+  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
+  SetBit(0, packet_mask.get());  // Set kbit0.
+  uint8_t kPacketData[] = {kNoRBit | kNoFBit, kPtRecovery,    kLengthRecov[0],
+                           kLengthRecov[1],   kTsRecovery[0], kTsRecovery[1],
+                           kTsRecovery[2],    kTsRecovery[3], kSnBases[0][0],
+                           kSnBases[0][1],    packet_mask[0], packet_mask[1]};
   ReceivedFecPacket read_packet;
-  read_packet.ssrc = kFlexfecSsrc;
-  read_packet.pkt = std::move(written_packet);
-  read_packet.pkt->data.SetSize(18);
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  // Expected to have 2 bytes of mask but length of packet misses 1 byte.
+  read_packet.pkt->data.SetData(kPacketData, sizeof(kPacketData) - 1);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_FALSE(reader.ReadFecHeader(&read_packet));
 }
 
 TEST(FlexfecHeaderReader2Test, ReadShortPacketWithKBit1SetShouldFail) {
-  const size_t packet_mask_size = kUlpfecPacketMaskSizeLBitClear;
-  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
-  SetBit(15, packet_mask.get());  // This expands the packet mask "once".
-  auto written_packet = WriteHeader(packet_mask.get(), packet_mask_size);
-
   // Simulate short received packet.
+  const size_t packet_mask_size = kFlexfecPacketMaskSizes[1];
+  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
+  // Clear kbit0 and set kbit1.
+  ClearBit(0, packet_mask.get());
+  SetBit(16, packet_mask.get());
+  uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit, kPtRecovery,    kLengthRecov[0], kLengthRecov[1],
+      kTsRecovery[0],    kTsRecovery[1], kTsRecovery[2],  kTsRecovery[3],
+      kSnBases[0][0],    kSnBases[0][1], packet_mask[0],  packet_mask[1],
+      packet_mask[2],    packet_mask[3], packet_mask[4],  packet_mask[5]};
   ReceivedFecPacket read_packet;
-  read_packet.ssrc = kFlexfecSsrc;
-  read_packet.pkt = std::move(written_packet);
-  read_packet.pkt->data.SetSize(20);
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  // Expected to have 6 bytes of mask but length of packet misses 2 bytes.
+  read_packet.pkt->data.SetData(kPacketData, sizeof(kPacketData) - 2);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_FALSE(reader.ReadFecHeader(&read_packet));
 }
 
-TEST(FlexfecHeaderReader2Test, ReadShortPacketWithKBit2SetShouldFail) {
-  const size_t packet_mask_size = kUlpfecPacketMaskSizeLBitSet;
-  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
-  SetBit(47, packet_mask.get());  // This expands the packet mask "twice".
-  auto written_packet = WriteHeader(packet_mask.get(), packet_mask_size);
-
+TEST(FlexfecHeaderReader2Test, ReadShortPacketWithKBit1ClearedShouldFail) {
   // Simulate short received packet.
+  const size_t packet_mask_size = kFlexfecPacketMaskSizes[2];
+  auto packet_mask = GeneratePacketMask(packet_mask_size, 0xabcd);
+  // Clear kbit0 and kbit1.
+  ClearBit(0, packet_mask.get());
+  ClearBit(16, packet_mask.get());
+  uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit, kPtRecovery,     kLengthRecov[0], kLengthRecov[1],
+      kTsRecovery[0],    kTsRecovery[1],  kTsRecovery[2],  kTsRecovery[3],
+      kSnBases[0][0],    kSnBases[0][1],  packet_mask[0],  packet_mask[1],
+      packet_mask[2],    packet_mask[3],  packet_mask[4],  packet_mask[5],
+      packet_mask[6],    packet_mask[7],  packet_mask[8],  packet_mask[9],
+      packet_mask[10],   packet_mask[11], packet_mask[12], packet_mask[13]};
   ReceivedFecPacket read_packet;
-  read_packet.ssrc = kFlexfecSsrc;
-  read_packet.pkt = std::move(written_packet);
-  read_packet.pkt->data.SetSize(24);
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  // Expected to have 14 bytes of mask but length of packet misses 2 bytes.
+  read_packet.pkt->data.SetData(kPacketData, sizeof(kPacketData) - 2);
+  read_packet.protected_ssrcs = {0x01};
 
   FlexfecHeaderReader2 reader;
   EXPECT_FALSE(reader.ReadFecHeader(&read_packet));
 }
+
+TEST(FlexfecHeaderReader2Test, ReadShortPacketMultipleStreamsShouldFail) {
+  // Simulate short received packet with 2 protected ssrcs.
+  auto packet_mask_1 = GeneratePacketMask(kFlexfecPacketMaskSizes[0], 0xabcd);
+  auto packet_mask_2 = GeneratePacketMask(kFlexfecPacketMaskSizes[2], 0xabcd);
+  SetBit(0, packet_mask_1.get());
+  ClearBit(0, packet_mask_2.get());
+  ClearBit(16, packet_mask_2.get());
+  uint8_t kPacketData[] = {
+      kNoRBit | kNoFBit, kPtRecovery,       kLengthRecov[0],
+      kLengthRecov[1],   kTsRecovery[0],    kTsRecovery[1],
+      kTsRecovery[2],    kTsRecovery[3],    kSnBases[0][0],
+      kSnBases[0][1],    packet_mask_1[0],  packet_mask_1[1],
+      kSnBases[1][0],    kSnBases[1][1],    packet_mask_2[0],
+      packet_mask_2[1],  packet_mask_2[2],  packet_mask_2[3],
+      packet_mask_2[4],  packet_mask_2[5],  packet_mask_2[6],
+      packet_mask_2[7],  packet_mask_2[8],  packet_mask_2[9],
+      packet_mask_2[10], packet_mask_2[11], packet_mask_2[12],
+      packet_mask_2[13]};
+  ReceivedFecPacket read_packet;
+  read_packet.pkt = rtc::scoped_refptr<Packet>(new Packet());
+  // Subtract 2 bytes from length, so the read will fail on parsing second mask.
+  read_packet.pkt->data.SetData(kPacketData, sizeof(kPacketData) - 2);
+  read_packet.protected_ssrcs = {0x01, 0x02};
+
+  FlexfecHeaderReader2 reader;
+  EXPECT_FALSE(reader.ReadFecHeader(&read_packet));
+}
+
+/*
+ * Commented out as for now the Reader and Writer are incompatible.
+ * Uncomment and fix after Writer is updated.
 
 TEST(FlexfecHeaderWriter2Test, FinalizesHeaderWithKBit0Set) {
   constexpr size_t kExpectedPacketMaskSize = 2;
@@ -561,5 +848,7 @@ TEST(FlexfecHeaderReaderWriter2Test,
                               kFlexfecPacketMaskSizes[2], *written_packet,
                               *read_packet);
 }
+
+*/
 
 }  // namespace webrtc

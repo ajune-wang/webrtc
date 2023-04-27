@@ -16,6 +16,24 @@
       "message": "Please let me know when you\u0027ve had a chance to take a look at the recent patchset with the \"null object\"!",
       "revId": "393f9c3d1856acdc559f9c3b9f56b53d173c94a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d81e37e_7a8d471b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-04-27T06:39:11Z",
+      "side": 1,
+      "message": "Looks good!",
+      "parentUuid": "83d79dcc_68749bab",
+      "revId": "393f9c3d1856acdc559f9c3b9f56b53d173c94a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

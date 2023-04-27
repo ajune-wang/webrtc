@@ -16,6 +16,52 @@
       "message": "Awesome, thanks!",
       "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fe78c6_4e04f784",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-04-27T13:46:31Z",
+      "side": 1,
+      "message": "Can this be deleted now? It looks like it\u0027s not used anywhere else.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdaba43a_0ee330a3",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-04-27T13:46:31Z",
+      "side": 1,
+      "message": "Do we still need this?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 28
+      },
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

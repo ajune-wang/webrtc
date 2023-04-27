@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1efaa75a_772b59d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-27T12:11:34Z",
+      "side": 1,
+      "message": "Hello Kári!\n\nCould you please review this CL which add profile level information about new devices. I\u0027ve moved to store table by plain machine name because it dramatically simplify update of the table with new devices.\n\nThanks a lot in advance,\nYury.",
+      "revId": "f3cee7653bf8cfc256d046c0b026d238b58e4f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,7 +22,7 @@ class MockDecoderDatabase : public DecoderDatabase {
  public:
   explicit MockDecoderDatabase(
       rtc::scoped_refptr<AudioDecoderFactory> factory = nullptr)
-      : DecoderDatabase(factory, absl::nullopt) {}
+      : DecoderDatabase(factory) {}
   ~MockDecoderDatabase() override { Die(); }
   MOCK_METHOD(void, Die, ());
   MOCK_METHOD(bool, Empty, (), (const, override));

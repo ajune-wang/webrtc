@@ -67,7 +67,6 @@ class ChannelReceiveTest : public Test {
         /* jitter_buffer_fast_playout= */ false,
         /* jitter_buffer_min_delay_ms= */ 0,
         /* enable_non_sender_rtt= */ false, audio_decoder_factory_,
-        /* codec_pair_id= */ absl::nullopt,
         /* frame_decryptor_interface= */ nullptr, crypto_options,
         /* frame_transformer= */ nullptr);
     channel->SetReceiveCodecs(

@@ -170,8 +170,7 @@ TEST(BuiltinAudioEncoderFactoryTest, MaxNrOfChannels) {
     EXPECT_FALSE(aef->MakeAudioEncoder(
         /*payload_type=*/111,
         /*format=*/
-        SdpAudioFormat(codec, 32000, AudioEncoder::kMaxNumberOfChannels + 1),
-        /*codec_pair_id=*/absl::nullopt));
+        SdpAudioFormat(codec, 32000, AudioEncoder::kMaxNumberOfChannels + 1)));
   }
 }
 

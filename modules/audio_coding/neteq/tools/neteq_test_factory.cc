@@ -298,11 +298,9 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
     // Note that capture-by-copy implies that the lambda captures the value of
     // decoder_factory before it's reassigned on the left-hand side.
     decoder_factory = rtc::make_ref_counted<FunctionAudioDecoderFactory>(
-        [decoder_factory, config](
-            const SdpAudioFormat& format,
-            absl::optional<AudioCodecPairId> codec_pair_id) {
+        [decoder_factory, config](const SdpAudioFormat& format) {
           std::unique_ptr<AudioDecoder> decoder =
-              decoder_factory->MakeAudioDecoder(format, codec_pair_id);
+              decoder_factory->MakeAudioDecoder(format);
           if (!decoder && format.name == "replacement") {
             decoder = std::make_unique<FakeDecodeFromFile>(
                 std::make_unique<InputAudioFile>(config.replacement_audio_file),

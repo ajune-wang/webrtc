@@ -105,8 +105,7 @@ class VoiceEngineInterface : public RtpHeaderExtensionQueryInterface {
       webrtc::Call* call,
       const MediaConfig& config,
       const AudioOptions& options,
-      const webrtc::CryptoOptions& crypto_options,
-      webrtc::AudioCodecPairId codec_pair_id) {
+      const webrtc::CryptoOptions& crypto_options) {
     // For the case where a subclass overrides the deprecated method
     // but not the replacement method, call the deprecated method.
     // TODO(bugs.webrtc.org/13931): Remove default implementation
@@ -129,7 +128,7 @@ class VoiceEngineInterface : public RtpHeaderExtensionQueryInterface {
     recursion_guard_ = true;
     auto new_channel =
         CreateMediaChannel(MediaChannel::Role::kBoth, call, config, options,
-                           crypto_options, webrtc::AudioCodecPairId::Create());
+                           crypto_options);
     recursion_guard_ = false;
     return new_channel;
   }

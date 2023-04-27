@@ -135,9 +135,8 @@ rtc::scoped_refptr<MockAudioEncoderFactory> SetupEncoderFactoryMock() {
             }
             return absl::nullopt;
           }));
-  ON_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _, _))
+  ON_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _))
       .WillByDefault(Invoke([](int payload_type, const SdpAudioFormat& format,
-                               absl::optional<AudioCodecPairId> codec_pair_id,
                                std::unique_ptr<AudioEncoder>* return_value) {
         *return_value = SetupAudioEncoderMock(payload_type, format);
       }));
@@ -519,10 +518,9 @@ TEST(AudioSendStreamTest, SendCodecAppliesAudioNetworkAdaptor) {
 
     helper.config().audio_network_adaptor_config = kAnaConfigString;
 
-    EXPECT_CALL(helper.mock_encoder_factory(), MakeAudioEncoderMock(_, _, _, _))
+    EXPECT_CALL(helper.mock_encoder_factory(), MakeAudioEncoderMock(_, _, _))
         .WillOnce(Invoke([&kAnaConfigString, &kAnaReconfigString](
                              int payload_type, const SdpAudioFormat& format,
-                             absl::optional<AudioCodecPairId> codec_pair_id,
                              std::unique_ptr<AudioEncoder>* return_value) {
           auto mock_encoder = SetupAudioEncoderMock(payload_type, format);
           EXPECT_CALL(*mock_encoder,
@@ -550,10 +548,9 @@ TEST(AudioSendStreamTest, AudioNetworkAdaptorReceivesOverhead) {
         AudioSendStream::Config::SendCodecSpec(0, kOpusFormat);
     const std::string kAnaConfigString = "abcde";
 
-    EXPECT_CALL(helper.mock_encoder_factory(), MakeAudioEncoderMock(_, _, _, _))
+    EXPECT_CALL(helper.mock_encoder_factory(), MakeAudioEncoderMock(_, _, _))
         .WillOnce(Invoke(
             [&kAnaConfigString](int payload_type, const SdpAudioFormat& format,
-                                absl::optional<AudioCodecPairId> codec_pair_id,
                                 std::unique_ptr<AudioEncoder>* return_value) {
               auto mock_encoder = SetupAudioEncoderMock(payload_type, format);
               InSequence s;

@@ -29,14 +29,10 @@ class FunctionAudioDecoderFactory : public AudioDecoderFactory {
  public:
   explicit FunctionAudioDecoderFactory(
       std::function<std::unique_ptr<AudioDecoder>()> create)
-      : create_([create](const SdpAudioFormat&,
-                         absl::optional<AudioCodecPairId> codec_pair_id) {
-          return create();
-        }) {}
+      : create_([create](const SdpAudioFormat&) { return create(); }) {}
   explicit FunctionAudioDecoderFactory(
-      std::function<std::unique_ptr<AudioDecoder>(
-          const SdpAudioFormat&,
-          absl::optional<AudioCodecPairId> codec_pair_id)> create)
+      std::function<std::unique_ptr<AudioDecoder>(const SdpAudioFormat&)>
+          create)
       : create_(std::move(create)) {}
 
   // Unused by tests.
@@ -50,15 +46,12 @@ class FunctionAudioDecoderFactory : public AudioDecoderFactory {
   }
 
   std::unique_ptr<AudioDecoder> MakeAudioDecoder(
-      const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) override {
-    return create_(format, codec_pair_id);
+      const SdpAudioFormat& format) override {
+    return create_(format);
   }
 
  private:
-  const std::function<std::unique_ptr<AudioDecoder>(
-      const SdpAudioFormat&,
-      absl::optional<AudioCodecPairId> codec_pair_id)>
+  const std::function<std::unique_ptr<AudioDecoder>(const SdpAudioFormat&)>
       create_;
 };
 

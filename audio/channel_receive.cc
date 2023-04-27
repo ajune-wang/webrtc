@@ -68,13 +68,11 @@ constexpr int kVoiceEngineMaxMinPlayoutDelayMs = 10000;
 acm2::AcmReceiver::Config AcmConfig(
     NetEqFactory* neteq_factory,
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
-    absl::optional<AudioCodecPairId> codec_pair_id,
     size_t jitter_buffer_max_packets,
     bool jitter_buffer_fast_playout) {
   acm2::AcmReceiver::Config acm_config;
   acm_config.neteq_factory = neteq_factory;
   acm_config.decoder_factory = decoder_factory;
-  acm_config.neteq_config.codec_pair_id = codec_pair_id;
   acm_config.neteq_config.max_packets_in_buffer = jitter_buffer_max_packets;
   acm_config.neteq_config.enable_fast_accelerate = jitter_buffer_fast_playout;
   acm_config.neteq_config.enable_muted_state = true;
@@ -99,7 +97,6 @@ class ChannelReceive : public ChannelReceiveInterface,
       int jitter_buffer_min_delay_ms,
       bool enable_non_sender_rtt,
       rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
-      absl::optional<AudioCodecPairId> codec_pair_id,
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
       const webrtc::CryptoOptions& crypto_options,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
@@ -538,7 +535,6 @@ ChannelReceive::ChannelReceive(
     int jitter_buffer_min_delay_ms,
     bool enable_non_sender_rtt,
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
-    absl::optional<AudioCodecPairId> codec_pair_id,
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
     const webrtc::CryptoOptions& crypto_options,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer)
@@ -548,7 +544,6 @@ ChannelReceive::ChannelReceive(
       remote_ssrc_(remote_ssrc),
       acm_receiver_(AcmConfig(neteq_factory,
                               decoder_factory,
-                              codec_pair_id,
                               jitter_buffer_max_packets,
                               jitter_buffer_fast_playout)),
       _outputAudioLevel(),
@@ -1114,7 +1109,6 @@ std::unique_ptr<ChannelReceiveInterface> CreateChannelReceive(
     int jitter_buffer_min_delay_ms,
     bool enable_non_sender_rtt,
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
-    absl::optional<AudioCodecPairId> codec_pair_id,
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
     const webrtc::CryptoOptions& crypto_options,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
@@ -1122,8 +1116,8 @@ std::unique_ptr<ChannelReceiveInterface> CreateChannelReceive(
       clock, neteq_factory, audio_device_module, rtcp_send_transport,
       rtc_event_log, local_ssrc, remote_ssrc, jitter_buffer_max_packets,
       jitter_buffer_fast_playout, jitter_buffer_min_delay_ms,
-      enable_non_sender_rtt, decoder_factory, codec_pair_id,
-      std::move(frame_decryptor), crypto_options, std::move(frame_transformer));
+      enable_non_sender_rtt, decoder_factory, std::move(frame_decryptor),
+      crypto_options, std::move(frame_transformer));
 }
 
 }  // namespace voe

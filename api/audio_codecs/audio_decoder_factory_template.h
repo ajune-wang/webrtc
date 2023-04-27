@@ -33,7 +33,6 @@ struct Helper<> {
   static bool IsSupportedDecoder(const SdpAudioFormat& format) { return false; }
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id,
       const FieldTrialsView* field_trials) {
     return nullptr;
   }
@@ -57,12 +56,10 @@ struct Helper<T, Ts...> {
   }
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id,
       const FieldTrialsView* field_trials) {
     auto opt_config = T::SdpToConfig(format);
-    return opt_config ? T::MakeAudioDecoder(*opt_config, codec_pair_id)
-                      : Helper<Ts...>::MakeAudioDecoder(format, codec_pair_id,
-                                                        field_trials);
+    return opt_config ? T::MakeAudioDecoder(*opt_config)
+                      : Helper<Ts...>::MakeAudioDecoder(format, field_trials);
   }
 };
 
@@ -84,10 +81,14 @@ class AudioDecoderFactoryT : public AudioDecoderFactory {
   }
 
   std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const SdpAudioFormat& format) override {
+    return Helper<Ts...>::MakeAudioDecoder(format, field_trials_);
+  }
+
+  std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) override {
-    return Helper<Ts...>::MakeAudioDecoder(format, codec_pair_id,
-                                           field_trials_);
+      absl::optional<AudioCodecPairId> /*codec_pair_id*/) override {
+    return Helper<Ts...>::MakeAudioDecoder(format, field_trials_);
   }
 
   const FieldTrialsView* field_trials_;
@@ -111,9 +112,7 @@ class AudioDecoderFactoryT : public AudioDecoderFactory {
 //
 //   // Creates an AudioDecoder for the specified format. Used to implement
 //   // AudioDecoderFactory::MakeAudioDecoder().
-//   std::unique_ptr<AudioDecoder> MakeAudioDecoder(
-//       const ConfigType& config,
-//       absl::optional<AudioCodecPairId> codec_pair_id);
+//   std::unique_ptr<AudioDecoder> MakeAudioDecoder(const ConfigType& config);
 //
 // ConfigType should be a type that encapsulates all the settings needed to
 // create an AudioDecoder. T::Config (where T is the decoder struct) should

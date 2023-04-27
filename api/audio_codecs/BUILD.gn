@@ -15,7 +15,6 @@ if (is_android) {
 rtc_library("audio_codecs_api") {
   visibility = [ "*" ]
   sources = [
-    "audio_codec_pair_id.cc",
     "audio_codec_pair_id.h",
     "audio_decoder.cc",
     "audio_decoder.h",

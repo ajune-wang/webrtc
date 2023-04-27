@@ -14,11 +14,13 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <vector>
+
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
 
 namespace webrtc {
 
-// FlexFEC header, minimum 20 bytes.
+// FlexFEC header, minimum 12 bytes.
 //     0                   1                   2                   3
 //     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -26,35 +28,27 @@ namespace webrtc {
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  4 |                          TS recovery                          |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  8 |   SSRCCount   |                    reserved                   |
-//    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-// 12 |                             SSRC_i                            |
+//  8 |           SN base_i           |k|          Mask [0-14]        |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// 16 |           SN base_i           |k|          Mask [0-14]        |
+// 12 |k|                   Mask [15-45] (optional)                   |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// 20 |k|                   Mask [15-45] (optional)                   |
+// 16 |                     Mask [46-109] (optional)                  |
+// 20 |                                                               |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// 24 |k|                                                             |
-//    +-+                   Mask [46-108] (optional)                  |
-// 28 |                                                               |
-//    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-//    :                     ... next in SSRC_i ...                    :
+//    |   ... next SN base and Mask for CSRC_i in CSRC list ...       |
 //
-//
-// FlexFEC header in 'inflexible' mode (F = 1), 20 bytes.
+
+// FlexFEC header in 'inflexible' mode (F = 1), minimum 12 bytes.
 //     0                   1                   2                   3
 //     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  0 |0|1|P|X|  CC   |M| PT recovery |        length recovery        |
+//  0 |0|1|P|X|  CC   |M| PT recovery |         length recovery       |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //  4 |                          TS recovery                          |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  8 |   SSRCCount   |                    reserved                   |
+//  8 |           SN base_i           |  L (columns)  |    D (rows)   |
 //    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// 12 |                             SSRC_i                            |
-//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-// 16 |           SN base_i           |  M (columns)  |    N (rows)   |
-//    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//    |    ... next SN base and L/D for CSRC_i in CSRC list ...       |
 
 class FlexfecHeaderReader2 : public FecHeaderReader {
  public:

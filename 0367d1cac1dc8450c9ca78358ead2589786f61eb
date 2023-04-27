@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0326ff9_d51fc06e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-04-27T15:28:33Z",
+      "side": 1,
+      "message": "Move this above the if () to reduce duplication?",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 77
+      },
+      "revId": "0367d1cac1dc8450c9ca78358ead2589786f61eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

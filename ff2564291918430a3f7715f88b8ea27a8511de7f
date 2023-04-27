@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2eb9435_3cc33cba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-27T14:06:08Z",
+      "side": 1,
+      "message": "Thanks for review. Would you mind if I implement removal as follow up CL which in case of problems due to removal could be reverted?",
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68fe78c6_4e04f784",
@@ -43,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "deb03796_167d3ece",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-27T14:06:08Z",
+      "side": 1,
+      "message": "Yeah, probably this can be deleted as existing usage in WebRTC could be removed (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/objc/components/audio/RTCAudioSessionConfiguration.m;l\u003d85?q\u003dsdk%2Fobjc%2Fcomponents%2Faudio%2FRTCAudioSessionConfiguration.m). But this is a bit risky in a sense I don\u0027t know how many external users of this enum already use it.\nisIOS11OrLater is also could be removed as long as currently min iOS version for webrtc is 12.\nShould I do all of this in this CL or it can be done as followup cl (which could be rolled back in case of any hidden dependency on `RTCDeviceType`)?",
+      "parentUuid": "68fe78c6_4e04f784",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cdaba43a_0ee330a3",
         "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
         "patchSetId": 4
@@ -54,6 +95,30 @@
       "writtenOn": "2023-04-27T13:46:31Z",
       "side": 1,
       "message": "Do we still need this?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 28
+      },
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b8ef8e4_aa63af04",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-27T14:06:08Z",
+      "side": 1,
+      "message": "Seems like could be removed as long as there is no hidden dependecy outside of webrtc repository.",
+      "parentUuid": "cdaba43a_0ee330a3",
       "range": {
         "startLine": 109,
         "startChar": 0,

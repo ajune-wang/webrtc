@@ -51,6 +51,23 @@
       "message": "Thanks!",
       "revId": "393f9c3d1856acdc559f9c3b9f56b53d173c94a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "994b15c9_81bfc304",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-04-27T07:40:07Z",
+      "side": 1,
+      "message": "Seems like Duo failed to build due to blaze OOM error:\n\n```\nFATAL: blaze ran out of memory and crashed. See http://go/blaze-oom for help. If this is an FDO/AutoFDO build, try disabling ThinLTO with --features\u003d-thin_lto. See more info at http://go/thinlto-blaze-oom. Printing stack trace:\njava.lang.OutOfMemoryError: RetainedHeapLimiter forcing exit due to GC thrashing: After back-to-back full GCs, the tenured space is more than 90% occupied (12955108264 out of a tenured space size of 13958643712).\n\tat com.google.devtools.build.lib.runtime.RetainedHeapLimiter.handle(RetainedHeapLimiter.java:133)\n\tat com.google.devtools.build.lib.runtime.MemoryPressureListener.handleNotification(MemoryPressureListener.java:136)\n\tat java.management/sun.management.NotificationEmitterSupport.sendNotification(NotificationEmitterSupport.java:155)\n\tat jdk.management/com.sun.management.internal.GarbageCollectorExtImpl.createGCNotification(GarbageCollectorExtImpl.java:115)\n```",
+      "revId": "393f9c3d1856acdc559f9c3b9f56b53d173c94a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

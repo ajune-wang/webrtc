@@ -24,6 +24,8 @@
 
 namespace webrtc {
 
+class ReceiveStatistics;
+
 class FlexfecReceiveStream : public RtpPacketSinkInterface,
                              public ReceiveStreamInterface {
  public:
@@ -69,6 +71,8 @@ class FlexfecReceiveStream : public RtpPacketSinkInterface,
   // Called to change the payload type after initialization.
   virtual void SetPayloadType(int payload_type) = 0;
   virtual int payload_type() const = 0;
+
+  virtual const ReceiveStatistics* GetStats() const = 0;
 };
 
 }  // namespace webrtc

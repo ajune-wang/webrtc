@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3765c31a_8b09e19d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-04-28T16:11:39Z",
+      "side": 1,
+      "message": "With Chromium no longer depending on this can we break this? PSA and away with it for native, you might need to check internal usage.",
+      "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

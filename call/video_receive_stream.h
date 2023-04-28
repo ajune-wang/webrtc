@@ -145,7 +145,6 @@ class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
     std::string c_name;
     RtpReceiveStats rtp_stats;
     RtcpPacketTypeCounter rtcp_packet_type_counts;
-    absl::optional<RtpReceiveStats> rtx_rtp_stats;
 
     // Timing frame info: all important timestamps for a full lifetime of a
     // single 'timing frame'.

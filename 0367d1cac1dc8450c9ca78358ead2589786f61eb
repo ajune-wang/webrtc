@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a20839d3_9bef0f60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-04-28T07:58:42Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "0367d1cac1dc8450c9ca78358ead2589786f61eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0326ff9_d51fc06e",
@@ -14,6 +31,30 @@
       "writtenOn": "2023-04-27T15:28:33Z",
       "side": 1,
       "message": "Move this above the if () to reduce duplication?",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 77
+      },
+      "revId": "0367d1cac1dc8450c9ca78358ead2589786f61eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a581f1d_21dbdaee",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-04-28T07:58:42Z",
+      "side": 1,
+      "message": "They\u0027re actually sliiightly different types: this one is a TransformableVideo*Sender*Frame so has the additional getters for Sender-specific data. The other is just the interface TransformableVideoFrameInterface, shared between Sender and Receiver frame implementations.",
+      "parentUuid": "f0326ff9_d51fc06e",
       "range": {
         "startLine": 167,
         "startChar": 0,

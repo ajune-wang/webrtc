@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "599df0ff_340ca021",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-28T08:40:21Z",
+      "side": 1,
+      "message": "The follow up CL with removal of code which is no longer required: https://webrtc-review.googlesource.com/c/src/+/303780",
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68fe78c6_4e04f784",
@@ -82,6 +99,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c92b264_4a19aca5",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-28T08:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deb03796_167d3ece",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdaba43a_0ee330a3",
@@ -119,6 +160,30 @@
       "side": 1,
       "message": "Seems like could be removed as long as there is no hidden dependecy outside of webrtc repository.",
       "parentUuid": "cdaba43a_0ee330a3",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 28
+      },
+      "revId": "ff2564291918430a3f7715f88b8ea27a8511de7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85ef8ab7_8a19f396",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-04-28T08:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8ef8e4_aa63af04",
       "range": {
         "startLine": 109,
         "startChar": 0,

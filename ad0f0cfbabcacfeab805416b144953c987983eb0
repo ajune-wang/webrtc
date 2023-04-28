@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc00479_6900d8bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-28T08:43:31Z",
+      "side": 1,
+      "message": "I understand that two versions are needed [at least for a while], but why fork old version instead of creating a fresh implementation?\n\nalso, may be it would be overall cleaner to do other way around: rename current flexfec parser/builder to something that indicate it is older and discouraged version, and for the spec compliant flexfec implementation use names without suffixes.",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447065e2_fb3ca980",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-28T08:43:31Z",
+      "side": 1,
+      "message": "new file, update year",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e7ecc4_7bb46b97",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-28T08:43:31Z",
+      "side": 1,
+      "message": "would these test still be helpful with new flexfec format?\nMay be it would be better to write a new set.\n\nI\u0027m worried about forking code that uses obsolete style and patterns - that adds work for cleaning up that legacy style.",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

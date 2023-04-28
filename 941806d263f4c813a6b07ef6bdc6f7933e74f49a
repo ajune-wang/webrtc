@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b68dbe16_d4f3526b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-28T15:53:59Z",
+      "side": 1,
+      "message": "I would like to continue moving towards class ReportBlockData from struct RTCPReportBlock, I think you\u0027ve started that effort.\n\nDoes it align with your ideas?\n(e.g. there is TODO in RTCPReceiver::PacketInformation that seems to be about it)",
+      "revId": "941806d263f4c813a6b07ef6bdc6f7933e74f49a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

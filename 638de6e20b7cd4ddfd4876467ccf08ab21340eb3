@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea899c04_1c4f6254",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "prefer simple `int`\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\"We use int very often, for integers we know are not going to be too big, e.g., loop counters. Use plain old int for such things. \"\n“You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N.”",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 10
+      },
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a5ab1ef_d21e3d52",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "phrase it as TODO:\nTODO(bugs.webrtc.org/15002): Uncomment and use...",
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c82cb3a_0bd0f5bb",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "may be do not use same hi and low bytes for 16 bit values read from network:\nthat might hide a bug where that value is read as little endian instead of high endian",
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea1d9e6f_c2c762b7",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "prefer rtc::ArrayView\u003cconst size_t\u003e over raw pointer + size",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 18
+      },
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "491ab7e7_770de7da",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "is it possible to avoid two dimensional array?\nput more structure into incoming parameters?\n\nI\u0027m worried this function helper takes too many similar primitive types, making it easy to pass incorrect parameters.\n\nhttps://testing.googleblog.com/2017/11/obsessed-with-primitives.html\n\nmay be `rtc::ArrayView\u003cconst ForwardErrorCorrection\u003e expected` would be a better parameter\n\n(may be it would be cleaner if this function could be written as custom matcher, but that I\u0027m not sure\nhttps://github.com/google/googletest/blob/main/docs/reference/matchers.md#defining-matchers\n)",
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb3e09c5_637d5f71",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "can you help formatter to make it more readable?\nI won\u0027t recomend to turn clang-format off completely, but I can recommend to add empty comments to force new lines:\n```\n{kKBit0 | 0x48, 0x81, //\n kKBit1 | 0x02, 0x11, //\n 0x00, 0x21, 0x01, 0x11 //\n 0x11, ...\n```",
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "275e5902_cc4def8a",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "avoid bare new\n read_packet.pkt \u003d rtc::make_ref_counted\u003cPacket\u003e();",
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede2b3ba_bdea2761",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "type of auto is not obvious here, prefer to write it excplicetely.\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\n“use type deduction only to make the code clearer or safer, and do not use it merely to avoid the inconvenience of writing an explicit type.”",
+      "range": {
+        "startLine": 543,
+        "startChar": 2,
+        "endLine": 543,
+        "endChar": 6
+      },
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d6e2a53_f6a58e8a",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T19:25:16Z",
+      "side": 1,
+      "message": "better way to \u0027comment out\u0027 test is to disable it:\n```\n// TODO(bugs.webrtc.org/15002): Enable when ...\nTEST(FlexfecHeaderWriter2Test, DISABLED_FinalizesHeaderWithKBit0Set) {\n```",
+      "range": {
+        "startLine": 593,
+        "startChar": 3,
+        "endLine": 593,
+        "endChar": 16
+      },
+      "revId": "638de6e20b7cd4ddfd4876467ccf08ab21340eb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

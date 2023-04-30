@@ -16,6 +16,23 @@
       "message": "With Chromium no longer depending on this can we break this? PSA and away with it for native, you might need to check internal usage.",
       "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f2a0dbb_3e0cbfb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-04-30T07:41:04Z",
+      "side": 1,
+      "message": "Yes, there is internal breakage.\n\nPeople with internal access can look at the output of https://webrtc-review.googlesource.com/c/src/+/303940 to see where it is.",
+      "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

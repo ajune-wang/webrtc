@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b28357c2_ea0556a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-04-30T18:38:27Z",
+      "side": 1,
+      "message": "Ack,\nit is easy to mark these files as branch rather than fresh copies?\nInterface would then show the diff from the originator file.\n(I think git would mark them as branch if locally files are created with `git copy old_file new_file` instead of manually creating a copy)\nIf it is not easy, then do not worry. file names clearly indicate where this code was copied from.",
+      "parentUuid": "56b3cf44_7c7b43aa",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "447065e2_fb3ca980",

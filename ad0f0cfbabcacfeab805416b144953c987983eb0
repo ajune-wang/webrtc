@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b3cf44_7c7b43aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-04-30T15:41:01Z",
+      "side": 1,
+      "message": "We want to fork this file, as there are a lot of similarities between the 2 implementations so this makes it easier to see the difference between them in the next CLs that would change the Reader and the Writer accordingly.\n\nRegarding the naming of the file, we saw that this was a common practice in webrtc as a way of deprecation, and wanted to leave the current implementation as is.",
+      "parentUuid": "9cc00479_6900d8bf",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "447065e2_fb3ca980",
@@ -43,6 +61,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9f93acfb_3dfe338a",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-04-30T15:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "447065e2_fb3ca980",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "26e7ecc4_7bb46b97",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 12
@@ -54,6 +96,24 @@
       "writtenOn": "2023-04-28T08:43:31Z",
       "side": 1,
       "message": "would these test still be helpful with new flexfec format?\nMay be it would be better to write a new set.\n\nI\u0027m worried about forking code that uses obsolete style and patterns - that adds work for cleaning up that legacy style.",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b631c88_446fd4fc",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-04-30T15:41:01Z",
+      "side": 1,
+      "message": "Yeah, same as above, due to the large similarities between implementation and tests, copying as is, and will change the tests in next CLs.",
+      "parentUuid": "26e7ecc4_7bb46b97",
       "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

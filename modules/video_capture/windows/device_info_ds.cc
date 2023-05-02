@@ -439,26 +439,34 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
       }
 
       if (hrVC == S_OK) {
-        LONGLONG* frameDurationList = NULL;
         LONGLONG maxFPS = 0;
-        long listSize = 0;
         SIZE size;
         size.cx = capability.width;
         size.cy = capability.height;
 
-        // GetMaxAvailableFrameRate doesn't return max frame rate always
-        // eg: Logitech Notebook. This may be due to a bug in that API
-        // because GetFrameRateList array is reversed in the above camera. So
-        // a util method written. Can't assume the first value will return
-        // the max fps.
-        hrVC = videoControlConfig->GetFrameRateList(
-            outputCapturePin, tmp, size, &listSize, &frameDurationList);
+        {
+          LONGLONG* frameDurationList = NULL;
+          long listSize = 0;
+
+          // GetMaxAvailableFrameRate doesn't return max frame rate always
+          // eg: Logitech Notebook. This may be due to a bug in that API
+          // because GetFrameRateList array is reversed in the above camera. So
+          // a util method written. Can't assume the first value will return
+          // the max fps.
+          hrVC = videoControlConfig->GetFrameRateList(
+              outputCapturePin, tmp, size, &listSize, &frameDurationList);
+
+          if (hrVC == S_OK) {
+            maxFPS = GetMaxOfFrameArray(frameDurationList, listSize);
+          }
+
+          CoTaskMemFree(frameDurationList);
+        }
 
         // On some odd cameras, you may get a 0 for duration. Some others may
         // not update the out vars. GetMaxOfFrameArray returns the lowest
         // duration (highest FPS), or 0 if there was no list with elements.
-        if (hrVC == S_OK &&
-            0 != (maxFPS = GetMaxOfFrameArray(frameDurationList, listSize))) {
+        if (0 != maxFPS) {
           capability.maxFPS = static_cast<int>(10000000 / maxFPS);
           capability.supportFrameRateControl = true;
         } else  // use existing method

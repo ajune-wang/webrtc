@@ -15,6 +15,32 @@
 namespace webrtc {
 
 VideoFrameMetadata::VideoFrameMetadata() = default;
+VideoFrameMetadata::VideoFrameMetadata(const EncodedFrame& frame,
+                                       uint32_t ssrc,
+                                       std::vector<uint32_t> csrcs) {
+  frame_type_ = frame._frameType;
+  width_ = frame._encodedWidth;
+  height_ = frame._encodedHeight;
+  rotation_ = frame.rotation_;
+  content_type_ = frame.content_type_;
+
+  frame_id_ = frame.Id();
+  spatial_index_ = frame.SpatialIndex().value_or(0);
+  temporal_index_ = frame.TemporalIndex().value_or(0);
+  frame_dependencies_ = absl::InlinedVector<int64_t, 5>(
+      std::begin(frame.references),
+      std::begin(frame.references) + frame.num_references);
+
+  is_last_frame_in_picture_ = frame.is_last_spatial_layer;
+  simulcast_idx_ = frame.SimulcastIndex().value_or(0);
+  codec_ = frame.CodecSpecific()->codecType;
+
+  ssrc_ = ssrc;
+  csrcs_ = std::move(csrcs);
+
+  // decode_target_indications_;
+  // codec_specifics_;
+}
 
 VideoFrameType VideoFrameMetadata::GetFrameType() const {
   return frame_type_;

@@ -208,7 +208,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
  private:
   // Implements RtpVideoFrameReceiver.
-  void ManageFrame(std::unique_ptr<RtpFrameObject> frame) override;
+  void ManageFrame(std::unique_ptr<EncodedFrame> frame) override;
 
   void OnCompleteFrames(RtpFrameReferenceFinder::ReturnVector frame)
       RTC_RUN_ON(packet_sequence_checker_);

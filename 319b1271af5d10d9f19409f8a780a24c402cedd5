@@ -34,6 +34,23 @@
       "parentUuid": "78e3c43a_90cd6efe",
       "revId": "319b1271af5d10d9f19409f8a780a24c402cedd5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "971b973e_066bf335",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-02T13:53:28Z",
+      "side": 1,
+      "message": "upstream revert is in the queue",
+      "revId": "319b1271af5d10d9f19409f8a780a24c402cedd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

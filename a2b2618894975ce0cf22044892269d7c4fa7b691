@@ -33,6 +33,23 @@
       "message": "Yes, there is internal breakage.\n\nPeople with internal access can look at the output of https://webrtc-review.googlesource.com/c/src/+/303940 to see where it is.",
       "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f423ca4d_0dc62b2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-02T11:34:28Z",
+      "side": 1,
+      "message": "Needs a fix to internal code before it can be submitted.",
+      "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

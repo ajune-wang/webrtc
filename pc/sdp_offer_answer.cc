@@ -949,7 +949,7 @@ class SdpOfferAnswerHandler::RemoteDescriptionOperation {
   }
 
   // Transfers ownership of the session description object over to `handler_`.
-  bool ReplaceRemoteDescriptionAndCheckEror() {
+  bool ReplaceRemoteDescriptionAndCheckError() {
     RTC_DCHECK_RUN_ON(handler_->signaling_thread());
     RTC_DCHECK(ok());
     RTC_DCHECK(desc_);
@@ -1959,7 +1959,7 @@ void SdpOfferAnswerHandler::ApplyRemoteDescription(
   // description affects the stats.
   pc_->ClearStatsCache();
 
-  if (!operation->ReplaceRemoteDescriptionAndCheckEror())
+  if (!operation->ReplaceRemoteDescriptionAndCheckError())
     return;
 
   if (!operation->UpdateChannels())

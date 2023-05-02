@@ -19,6 +19,7 @@
 #include "absl/types/variant.h"
 #include "api/array_view.h"
 #include "api/transport/rtp/dependency_descriptor.h"
+#include "api/video/encoded_frame.h"
 #include "api/video/video_codec_type.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame_type.h"
@@ -42,6 +43,9 @@ class RTC_EXPORT VideoFrameMetadata {
   VideoFrameMetadata();
   VideoFrameMetadata(const VideoFrameMetadata&) = default;
   VideoFrameMetadata& operator=(const VideoFrameMetadata&) = default;
+  VideoFrameMetadata(const EncodedFrame& frame,
+                     uint32_t ssrc,
+                     std::vector<uint32_t> csrcs);
 
   VideoFrameType GetFrameType() const;
   void SetFrameType(VideoFrameType frame_type);

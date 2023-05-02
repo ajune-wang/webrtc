@@ -10,6 +10,8 @@
 
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 
+#include "api/video/video_frame_metadata.h"
+
 namespace webrtc {
 
 RTPVideoHeader::GenericDescriptorInfo::GenericDescriptorInfo() = default;

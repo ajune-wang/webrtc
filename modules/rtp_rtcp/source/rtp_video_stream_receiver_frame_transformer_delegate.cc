@@ -24,13 +24,10 @@ namespace {
 class TransformableVideoReceiverFrame
     : public TransformableVideoFrameInterface {
  public:
-  TransformableVideoReceiverFrame(std::unique_ptr<RtpFrameObject> frame,
-                                  uint32_t ssrc)
-      : frame_(std::move(frame)),
-        metadata_(frame_->GetRtpVideoHeader().GetAsMetadata()) {
-    metadata_.SetSsrc(ssrc);
-    metadata_.SetCsrcs(frame_->Csrcs());
-  }
+  TransformableVideoReceiverFrame(std::unique_ptr<EncodedFrame> frame,
+                                  uint32_t ssrc,
+                                  std::vector<uint32_t> csrcs)
+      : frame_(std::move(frame)), metadata_(*frame_, ssrc, std::move(csrcs)) {}
   ~TransformableVideoReceiverFrame() override = default;
 
   // Implements TransformableVideoFrameInterface.
@@ -58,14 +55,12 @@ class TransformableVideoReceiverFrame
         << "TransformableVideoReceiverFrame::SetMetadata is not implemented";
   }
 
-  std::unique_ptr<RtpFrameObject> ExtractFrame() && {
-    return std::move(frame_);
-  }
+  std::unique_ptr<EncodedFrame> ExtractFrame() && { return std::move(frame_); }
 
   Direction GetDirection() const override { return Direction::kReceiver; }
 
  private:
-  std::unique_ptr<RtpFrameObject> frame_;
+  std::unique_ptr<EncodedFrame> frame_;
   VideoFrameMetadata metadata_;
 };
 }  // namespace
@@ -95,11 +90,12 @@ void RtpVideoStreamReceiverFrameTransformerDelegate::Reset() {
 }
 
 void RtpVideoStreamReceiverFrameTransformerDelegate::TransformFrame(
-    std::unique_ptr<RtpFrameObject> frame) {
+    std::unique_ptr<EncodedFrame> frame,
+    std::vector<uint32_t> csrcs) {
   RTC_DCHECK_RUN_ON(&network_sequence_checker_);
   frame_transformer_->Transform(
-      std::make_unique<TransformableVideoReceiverFrame>(std::move(frame),
-                                                        ssrc_));
+      std::make_unique<TransformableVideoReceiverFrame>(std::move(frame), ssrc_,
+                                                        std::move(csrcs)));
 }
 
 void RtpVideoStreamReceiverFrameTransformerDelegate::OnTransformedFrame(

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a575fbae_91bf97d9",
+        "filename": "modules/video_capture/windows/device_info_ds.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-05-02T13:23:05Z",
+      "side": 1,
+      "message": "Extra scope is not needed here. Please remove.\n\nThen you can simplify the patch greatly: just add a single |CoTaskMemFree()| somewhere after the |if| which calls the GetFrameRateList. It should be safe to free the memory even if the return value isn\u0027t S_OK.\n\nOr at least move |frameDurationList| and |listSize| declarations back.",
+      "range": {
+        "startLine": 447,
+        "startChar": 7,
+        "endLine": 447,
+        "endChar": 9
+      },
+      "revId": "ea1b74e1fc86539433acc4140d1971d313517911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

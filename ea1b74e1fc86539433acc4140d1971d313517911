@@ -22,6 +22,30 @@
       },
       "revId": "ea1b74e1fc86539433acc4140d1971d313517911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fe6234_cc8346d2",
+        "filename": "modules/video_capture/windows/device_info_ds.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-02T13:30:00Z",
+      "side": 1,
+      "message": "The point was to prevent in the future accidentally doing something with frameDurationList after it was freed (since it is still in scope). But ok, moving things back. I\u0027ll set the list pointer back to NULL at least.",
+      "parentUuid": "a575fbae_91bf97d9",
+      "range": {
+        "startLine": 447,
+        "startChar": 7,
+        "endLine": 447,
+        "endChar": 9
+      },
+      "revId": "ea1b74e1fc86539433acc4140d1971d313517911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

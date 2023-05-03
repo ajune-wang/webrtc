@@ -16,6 +16,24 @@
       "message": "Ping Mirko",
       "revId": "1cbca7feee4d3ccc4ce6e55c34ba480019aa55df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d75e00e3_95f16f15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-03T12:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660e50ac_13713c7c",
+      "revId": "1cbca7feee4d3ccc4ce6e55c34ba480019aa55df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

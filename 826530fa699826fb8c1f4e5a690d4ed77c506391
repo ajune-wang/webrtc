@@ -179,6 +179,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cb5170e_cb30385e",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-03T12:24:03Z",
+      "side": 1,
+      "message": "fwiw v4l2_fourcc goes far back: https://github.com/torvalds/linux/blame/fdd2a7e2dac56a3384068802be46b822f2aed703/include/linux/videodev2.h#L94",
+      "parentUuid": "6b11bea5_37733d10",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25796ba5_0d850bba",

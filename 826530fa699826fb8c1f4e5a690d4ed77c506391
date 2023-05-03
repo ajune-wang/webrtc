@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2203c802_2f1e7be8",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-03T09:00:14Z",
+      "side": 1,
+      "message": "So we use debian 11 to build, but the sysroot is from debian 8.11, which has kernel 3.16.\n\nIf you prefer I can lift these defines out and patch them in on our end.",
+      "parentUuid": "49eb4c91_4cd5f806",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25796ba5_0d850bba",
         "filename": "modules/video_capture/linux/device_info_v4l2.cc",
         "patchSetId": 1

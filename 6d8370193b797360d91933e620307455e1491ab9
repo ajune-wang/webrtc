@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c8ebbdf_3252a074",
+        "filename": "modules/video_capture/linux/video_capture_v4l2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-05-03T12:27:49Z",
+      "side": 1,
+      "message": "Add comment here as well?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "6d8370193b797360d91933e620307455e1491ab9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

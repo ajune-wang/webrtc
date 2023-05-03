@@ -16,6 +16,24 @@
       "message": "1) might make sense to do this only if queue is beyond a certain size/delay? If there is just a single packet in the queue, for the previous frame (which was maybe 99% sent out already), could be good to still send that, especially if the keyframe may lose a packet and need to be nacked, or the receiver has large jb, so there\u0027s no skip forward. But also... probably doesn\u0027t actually matter that much\n\n2) when we do this, it might make sense to remember we cleared here, and not respond to future nacks from before this timestamp either. We might clear packet X from the rtx queue here, but if we get packet X nacked again we\u0027ll add it back. It again, might not matter *too* much because the receiver won\u0027t nack this packet once it receives the full keyframe.. but between now and the time the receiver fully receives the keyframe, we do want to minimize our send rate as much as possible - especially if the whole reason we are sending a keyframe at this time is because the receiver had so much loss they couldn\u0027t decode for 3s, there may be a lot of nacks we\u0027re about to get which we don\u0027t want to respond to...",
       "revId": "aab1bdea1104e82ba8e27424226e1c117ce5c2c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12301abf_ca8f011d",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-05-03T12:21:05Z",
+      "side": 1,
+      "message": "All good points.\n\n1) This first implementation is quite simplistic true, just wanted something landed that can be iterated on. As future improvements, there are a number of heuristics that could be useful. Queue length is definitely one of them. If the queue length is too long we could consider dropping non-essential packets (e.g. for higher temporal layers) or even flushing entirely and requesting a keyframe with high QP. Etc. But those should be in separate CLs ideally with simulation and/or experiment data to back up their usefulness.\n\n2) Yes - I actually intended to add a call to flush the packet history for the RTP module but seem to have overlooked it. Let me add that... Note that any new media packets we flush here won\u0027t be nacked though (as they haven\u0027t been sequence numbered yet), but it\u0027s true that older packet losses might still be nacked.",
+      "parentUuid": "1a4c8648_e1339f8e",
+      "revId": "aab1bdea1104e82ba8e27424226e1c117ce5c2c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -85,6 +85,23 @@
       "message": "No need to revert 😊",
       "revId": "319b1271af5d10d9f19409f8a780a24c402cedd5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad2e74ea_4669981b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-03T19:39:05Z",
+      "side": 1,
+      "message": "-1 seems more appropriate given this was OBE. Whether it would actually matter from me ... I am somewhat curious! ;-)",
+      "revId": "319b1271af5d10d9f19409f8a780a24c402cedd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

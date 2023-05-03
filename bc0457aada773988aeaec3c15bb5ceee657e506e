@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "883a9681_a788f1b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-05-03T09:08:23Z",
+      "side": 1,
+      "message": "need someone with permission add to CQ, thanks :)",
+      "revId": "bc0457aada773988aeaec3c15bb5ceee657e506e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

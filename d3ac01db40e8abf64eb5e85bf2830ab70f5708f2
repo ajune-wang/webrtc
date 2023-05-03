@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fdad8b5_89348ec1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-03T13:23:06Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s any such risk. FWIW Chromium captures in sRGB already: https://source.chromium.org/chromium/chromium/src/+/main:content/browser/media/capture/desktop_capture_device_mac.cc;l\u003d71;drc\u003d3b767fc1f8df04eed57c9016ac5e1a3a73032f85.\n\nI have tested this locally with a P3 XDR color profile and it behaves as expected.",
+      "parentUuid": "194a1a6e_ba4d8003",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ab44352_7d730ba8",
@@ -48,6 +66,23 @@
       "writtenOn": "2023-05-01T17:07:56Z",
       "side": 1,
       "message": "Or just ASSERT_THAT(!srgb_icc_data.empty())?",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "176d4665_c3ac3b96",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-03T13:23:06Z",
+      "side": 1,
+      "message": "Turns out this test case is flawed. I was put off by having an external Dell display which happened to have the same color profile as sRGB though under its own name, making the test pass.\n\nThere are a few problems here:\n- With this patch we request sRGB from the CGDisplayStream, which only works with IOSurfaces: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/mac/desktop_frame_provider.mm;l\u003d55;drc\u003dc01367db40c8c0ed266dad70771ba2b8a5b63c93\n- When not allowing IOSurface, or if calling CaptureFrame() before the first callback with an IOSurface has come in we capture a CGImage through CGDisplayCreateImage instead: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/mac/desktop_frame_provider.mm;l\u003d38;drc\u003dc01367db40c8c0ed266dad70771ba2b8a5b63c93\n- When capturing sRGB IOSurfaces I only got a nullptr ICCProfile out of them, though they reported being in sRGB colorspace.\n- CGDisplayCreateImage has no way of selecting color space so returns one in the display color space. Similarly for window capture.\n- Calling CaptureFrame() directly in the test inevitably led to always using the CGDisplayCreateImage path, as a CFRunLoop needs to run to process the CGDisplayStream.\n- Calling CaptureFrame() at a higher rate than the CGDisplayStream callbacks will pass the same frame multiple times to the callback, which seems unnecessary.\n- Calling CaptureFrame() at a lower rate than the CGDisplayStream callbacks means the CGDisplayStream is doing work in vain, which seems unnecessary.\n\nMay I propose the following short term fixes:\n- When allowing IOSurfaces, never resort to CGDisplayCreateImage.\n- When allowing IOSurfaces, and therefore using a CGDisplayStream, ignore CaptureFrame() and allow setting a maxFps through options instead.\n- When allowing IOSurfaces, always capture in sRGB and don\u0027t set_icc_profile().\n- When not allowing IOSurfaces, do not create a CGDisplayStream.\n- When not allowing IOSurfaces, always set_icc_profile() so the application can handle it when rendering.\n\nNot so sure how to test this except looking at callback rate and whether icc_profile is set. Would love to have some pixel color verification. Thoughts welcome.",
       "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

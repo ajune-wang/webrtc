@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49eb4c91_4cd5f806",
+        "filename": "modules/video_capture/linux/device_info_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-05-03T06:23:40Z",
+      "side": 1,
+      "message": "I see these defined in the NDK sysroot header (https://source.chromium.org/chromium/chromium/src/+/main:third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/linux/videodev2.h)\n\nI don\u0027t think we have a process or a recommended way to handle this. In general I would at least add a comment explaining why they are here and maybe associate a bug to remove this after some time.\n\nHow old is the kernel on the machine on which you build?",
+      "parentUuid": "bb7f5c6e_15f4dd46",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "826530fa699826fb8c1f4e5a690d4ed77c506391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25796ba5_0d850bba",
         "filename": "modules/video_capture/linux/device_info_v4l2.cc",
         "patchSetId": 1

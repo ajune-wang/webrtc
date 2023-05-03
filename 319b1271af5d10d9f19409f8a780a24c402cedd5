@@ -68,6 +68,23 @@
       "message": "Chromium bot is green again so the upstream revert has landed. However, changes to metrics are expected, see the discussion in https://github.com/w3c/webrtc-stats/issues/755. What does the broken test do and how do the stats numbers change (and how does that correlate with what actually goes over the wire)?",
       "revId": "319b1271af5d10d9f19409f8a780a24c402cedd5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ba60b5d_27700bb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-03T17:38:00Z",
+      "side": 1,
+      "message": "No need to revert 😊",
+      "revId": "319b1271af5d10d9f19409f8a780a24c402cedd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

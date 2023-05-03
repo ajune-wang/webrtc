@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "453f58e5_40e1a56b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2023-05-03T17:31:39Z",
+      "side": 1,
+      "message": "Chrome doesn\u0027t use this capturer so I\u0027m open to changes that help Firefox, but I\u0027m concerned about landing breaking changes to the API as I don\u0027t know who else might be using this.  Let\u0027s scope this to fixing the color space reporting.\n\nChrome is also in the process of migrating to ScreenCaptureKit for Mac capture FYI as the CG* APIs are now deprecated in Ventura.",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ab44352_7d730ba8",
@@ -83,6 +100,24 @@
       "writtenOn": "2023-05-03T13:23:06Z",
       "side": 1,
       "message": "Turns out this test case is flawed. I was put off by having an external Dell display which happened to have the same color profile as sRGB though under its own name, making the test pass.\n\nThere are a few problems here:\n- With this patch we request sRGB from the CGDisplayStream, which only works with IOSurfaces: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/mac/desktop_frame_provider.mm;l\u003d55;drc\u003dc01367db40c8c0ed266dad70771ba2b8a5b63c93\n- When not allowing IOSurface, or if calling CaptureFrame() before the first callback with an IOSurface has come in we capture a CGImage through CGDisplayCreateImage instead: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/mac/desktop_frame_provider.mm;l\u003d38;drc\u003dc01367db40c8c0ed266dad70771ba2b8a5b63c93\n- When capturing sRGB IOSurfaces I only got a nullptr ICCProfile out of them, though they reported being in sRGB colorspace.\n- CGDisplayCreateImage has no way of selecting color space so returns one in the display color space. Similarly for window capture.\n- Calling CaptureFrame() directly in the test inevitably led to always using the CGDisplayCreateImage path, as a CFRunLoop needs to run to process the CGDisplayStream.\n- Calling CaptureFrame() at a higher rate than the CGDisplayStream callbacks will pass the same frame multiple times to the callback, which seems unnecessary.\n- Calling CaptureFrame() at a lower rate than the CGDisplayStream callbacks means the CGDisplayStream is doing work in vain, which seems unnecessary.\n\nMay I propose the following short term fixes:\n- When allowing IOSurfaces, never resort to CGDisplayCreateImage.\n- When allowing IOSurfaces, and therefore using a CGDisplayStream, ignore CaptureFrame() and allow setting a maxFps through options instead.\n- When allowing IOSurfaces, always capture in sRGB and don\u0027t set_icc_profile().\n- When not allowing IOSurfaces, do not create a CGDisplayStream.\n- When not allowing IOSurfaces, always set_icc_profile() so the application can handle it when rendering.\n\nNot so sure how to test this except looking at callback rate and whether icc_profile is set. Would love to have some pixel color verification. Thoughts welcome.",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c55824_19ce8456",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2023-05-03T17:31:39Z",
+      "side": 1,
+      "message": "\u003e When allowing IOSurfaces, never resort to CGDisplayCreateImage.\n\nWhat should CaptureFrame() do before the first CGDisplayStream calls back?\n\n\u003e When allowing IOSurfaces, and therefore using a CGDisplayStream, ignore CaptureFrame() and allow setting a maxFps through options instead.\n\nThat\u0027s a breaking change to the API.  CaptureFrame() should do what it says on the box.\n\n\u003e When allowing IOSurfaces, always capture in sRGB and don\u0027t set_icc_profile().\n\nIt\u0027s unfortunate that CGDisplayStream has this bug. I would just null-check the returned profile and continue to pass it along if it\u0027s available, otherwise document in DesktopFrame that Mac capture consumers should assume sRGB if the icc_profile is unset.\n\n\u003e When not allowing IOSurfaces, always set_icc_profile() so the application can handle it when rendering.\n\nIs the ICC profile always available from CGDisplayCreateImage?\n\nTBH ICC profiles are somewhat difficult to deal with and it might be simpler to also communicate via an enum in DesktopFrame the color space reported by the capturer for clients that have their own library of color space matrices.  However, that would be a different mini-project that would need to be implemented across capturers and something that may not be useful to Chromium.",
+      "parentUuid": "176d4665_c3ac3b96",
       "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f3ef183_fbeb2c78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-04T15:28:18Z",
+      "side": 1,
+      "message": "Yeah, tried it at first, but apparently git doesn\u0027t have \"copy\" like hg.. will keep it this way.",
+      "parentUuid": "b28357c2_ea0556a3",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "447065e2_fb3ca980",
@@ -150,6 +168,24 @@
       "side": 1,
       "message": "looking at https://webrtc-review.googlesource.com/c/src/+/303260\nall code in tests looks almost completely rewritten or commented out.\nso I\u0027m not sure what \u0027large similarties\u0027 do you mean.\n\nset of tests looks similar (may be copy just those with empty bodies and todo comments)",
       "parentUuid": "9b631c88_446fd4fc",
+      "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11f37cd6_af5aacc0",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-04T15:28:18Z",
+      "side": 1,
+      "message": "Yeah you\u0027re right, in the tests it\u0027s indeed less similar, used it mainly as reference to the test cases, and used some of the structure for building packets.\nChanged it to have only the test cases with empty bodies.",
+      "parentUuid": "588f6c91_3c94318d",
       "revId": "ad0f0cfbabcacfeab805416b144953c987983eb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

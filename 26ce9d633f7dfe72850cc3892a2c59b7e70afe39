@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa88d292_eea3c43d",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-04T16:00:09Z",
+      "side": 1,
+      "message": "I originally thought we should have the kill switch on the \"bytes_received +\u003d RTX\" layer so that even if we kill it we still expose retransmittedBytesReceived, but I see strong merits in having it here despite it unshipping retransmittedBytesReceived if enabled.\n\nThat\u0027s because the JS app can do this:\n\n`bytesReceived ?? 0 - retransmittedBytesReceived ?? 0`\n\nAnd they will either get the old or the new behavior because the you either get both or neither of the changes. If the kill switch was only affecting bytesReceived but didn\u0027t unship RTX, then the line above would yield the wrong result.\n\nSGTM ship it!",
+      "revId": "26ce9d633f7dfe72850cc3892a2c59b7e70afe39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

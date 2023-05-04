@@ -120,6 +120,24 @@
       "parentUuid": "176d4665_c3ac3b96",
       "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b44684_7ecae64b",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-05-04T08:12:54Z",
+      "side": 1,
+      "message": "\u003e What should CaptureFrame() do before the first CGDisplayStream calls back?\n\nQueue a \"pending capture request\" as the text on the box puts it. Or would there be an anticipation that the callback is called sync? \"involve callback provided by Start() function\" is not exactly specific.\n\n\u003e That\u0027s a breaking change to the API. CaptureFrame() should do what it says on the box.\n\nMaybe, it could be part of an opt-in contract enabled only by setting a flag through options. Either way, I agree I should lift this out to another issue.\n\n\u003e It\u0027s unfortunate that CGDisplayStream has this bug. I would just null-check the returned profile and continue to pass it along if it\u0027s available, otherwise document in DesktopFrame that Mac capture consumers should assume sRGB if the icc_profile is unset.\n\nThis is with IOSurfaceCopyValue(surf, kIOSurfaceICCProfile) which I observed returning null, OTOH IOSurfaceCopyValue(surf, kIOSurfaceColorSpace) would return the name of the display\u0027s color space.\n\nDocumenting that sRGB is expected if icc_profile is empty sounds good to me.\n\n\u003e Is the ICC profile always available from CGDisplayCreateImage?\n\nDocs say that CGImageGetColorSpace returns \"The source color space for the specified bitmap image, or NULL if the image is an image mask.\"\nDocs say that CGColorSpaceCopyICCData returns \"The ICC profile data or NULL if the color space does not have an ICC data profile.\".",
+      "parentUuid": "68c55824_19ce8456",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

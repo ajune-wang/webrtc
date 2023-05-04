@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "981da5b3_5c8e1688",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-05-04T09:55:41Z",
+      "side": 1,
+      "message": "Hello Kári!\n\nIf you think this change could be landed could you please review and approve?\n\nThanks a lot in advance,\nYury.",
+      "revId": "fa89bcd257f26661f4af8b9a1d5059f976fc61e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

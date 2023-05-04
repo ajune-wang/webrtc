@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02dba32a_b0dc01ef",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-05-04T16:44:05Z",
+      "side": 1,
+      "message": "Does this wait for anyone else if other code is running on the thread? I\u0027d assumed that the wait would be a no-op if there was no one else doing anything; but I feel like I had added it because at least once I hit a race; but maybe I was just being overly cautious.",
+      "range": {
+        "startLine": 594,
+        "startChar": 2,
+        "endLine": 594,
+        "endChar": 37
+      },
+      "revId": "7f0d15635734095644297bc1970457385ab0e63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

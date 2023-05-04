@@ -867,8 +867,7 @@ void RtpVideoSender::OnBitrateUpdated(BitrateAllocationUpdate update,
   // is really low, cap the overhead at 50%. This also avoids the case where
   // `encoder_target_rate_bps_` is 0 due to encoder pause event while the
   // packetization rate is positive since packets are still flowing.
-  uint32_t post_encode_overhead_bps = std::min(
-      GetPostEncodeOverhead().bps<uint32_t>(), encoder_target_rate_bps_ / 2);
+  uint32_t post_encode_overhead_bps = GetPostEncodeOverhead().bps<uint32_t>();
   encoder_target_rate_bps_ -= post_encode_overhead_bps;
 
   loss_mask_vector_.clear();

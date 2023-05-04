@@ -16,6 +16,23 @@
       "message": "Hello Kári!\n\nIf you think this change could be landed could you please review and approve?\n\nThanks a lot in advance,\nYury.",
       "revId": "fa89bcd257f26661f4af8b9a1d5059f976fc61e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad7e1845_82092dbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-05-04T11:08:31Z",
+      "side": 1,
+      "message": "Great, thanks!",
+      "revId": "fa89bcd257f26661f4af8b9a1d5059f976fc61e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

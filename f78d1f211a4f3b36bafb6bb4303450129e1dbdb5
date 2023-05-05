@@ -70,6 +70,30 @@
       },
       "revId": "f78d1f211a4f3b36bafb6bb4303450129e1dbdb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34136cc6_eb946b1f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 3373,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-05T09:18:49Z",
+      "side": 1,
+      "message": "Yeah, I forgot to point that out in the description when submitting.\nI just sent out a PSA since it seems to stick now:\nhttps://groups.google.com/g/discuss-webrtc/c/kdWkKIqGMhI\nand will also mention in the release notes.\n\nQuite curious to see who has good enough tests or telemetry to notice such a change!",
+      "parentUuid": "ff8986c1_9b85a8cb",
+      "range": {
+        "startLine": 3373,
+        "startChar": 32,
+        "endLine": 3373,
+        "endChar": 34
+      },
+      "revId": "f78d1f211a4f3b36bafb6bb4303450129e1dbdb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

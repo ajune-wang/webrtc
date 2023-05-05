@@ -1,0 +1,446 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbac424c_562527ea",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "may be change TODO reference to the issue: bugs.webrtc.org/15002",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd047f1d_ec9b11c5",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "prefer `.empty()` over `.size() \u003d\u003d 0`\n\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability/container-size-empty.html",
+      "range": {
+        "startLine": 89,
+        "startChar": 36,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a768b65c_e1687839",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "this read is unsafe if byte_index \u003d\u003d ...data.size() + 1\nmay be change check above to `...size() \u003c byte_index + kStreamSpecificHeaderSize`\n(or `byte_index + sizeof(uint16_t)`)",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 63
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "722b0891_b27e301a",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "or 0b01",
+      "range": {
+        "startLine": 168,
+        "startChar": 48,
+        "endLine": 168,
+        "endChar": 52
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f585a3_6ced67d0",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "or 0b11 - might be cleaner",
+      "range": {
+        "startLine": 196,
+        "startChar": 54,
+        "endLine": 196,
+        "endChar": 58
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee95f6bc_6d5833bc",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "may be clarify it is not \u0027generic\u0027 flexfec header format, but flexible mode (R\u003d0, F\u003d0)\n\ndirect link to right section of the spec is a good idea too ( e.g. https://datatracker.ietf.org/doc/html/rfc8627#section-4.2.2.1 )",
+      "range": {
+        "startLine": 21,
+        "startChar": 17,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2184dca3_0df5fde9",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "may be rename to \u0027fixed\u0027 to match the spec,\nand clarify both F and R flags (F \u003d 1, R \u003d 0)\n\nor remove this section altogether until flexfec header reader would support it (same as retranmission format is absent as not supported)",
+      "range": {
+        "startLine": 39,
+        "startChar": 22,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "868f979d_7ccc7dd6",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "R and F bits have join meaning (de-facto it is a single 2bits field), may be have single constant for them:\n`kNoRFBits \u003d 0b00 \u003c\u003c 6;`\nor \n`kFlexible \u003d 0b00 \u003c\u003c 6;`\n(and later ther will be `kFixed \u003d 0b10 \u003c\u003c 6; kRetransmit \u003d 0b01 \u003c\u003c 6`)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3594c359_dfbb7d30",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#General_Naming_Rules\n“Do not abbreviate by deleting letters within a word.”",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa026381_cf6ca033",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "may be std::vector\u003cuint8_t\u003e (safer, less surprising)\n\nThough I think it would be even cleaner to remove \u0027random\u0027 packet mask altogether:\noften it is even shorter than the seed, so it might be simpler to hardcode \u0027random\u0027 mask:\n\nconstexpr uint8_t kMask0[] \u003d {0xab, 0xcd};\nconstexpr uint8_t kMask1[] \u003d {0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc};\n\nfor testing with \u0027random\u0027 input it would be better to have a fuzzer test.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09361641_9faa8f69",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "if you want to keep unique_ptr, avoid bare new:\n`auto packet_mask \u003d std::make_unique\u003cuint8_t[]\u003e(kFlexfecMaxMaskSize);`",
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f730473b_83a68a62",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "why memset if all bytes are immediately overwritten?",
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "424fdc87_b5a650ab",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "in EXPECT macros it is recommended to put value under test as the 1st parameter, expected value - as the second,\nso in that spirit may be reorder parameters in this helper:\n`read_packet` - first, `expected...` - after that",
+      "range": {
+        "startLine": 90,
+        "startChar": 5,
+        "endLine": 90,
+        "endChar": 22
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc67c3e_0e3950e0",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "either `rtc::ArrayView\u003cconst FecPacketStreamProperties\u003e`\nor `std::vector\u003cFecPacketStreamProperties\u003e`\n\n(type `std::vector\u003cconst T\u003e` looks too strange)",
+      "range": {
+        "startLine": 91,
+        "startChar": 23,
+        "endLine": 91,
+        "endChar": 67
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b5a2e2_7ec054eb",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "may be add \n`SCOPED_TRACE(i);`\n\nhttp://google.github.io/googletest/advanced.html#adding-traces-to-assertions",
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d744bbc5_738f6949",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "or `rtc::MakeArrayView(...cdata()...);`\nthen there is no need to specify type explicitely",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c491c43_df1bac2c",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "add alias above (using `::testing::ElementsAreArray`)",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 35
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fc0ec7_f2e6fdc7",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "may be add empty comments to format this with 4 bytes per line:\n```\n      kNoRBit | kNoFBit, kPtRecovery, kLengthRecov[0], kLengthRecov[1],  //\n      kTsRecovery[0], kTsRecovery[1], kTsRecovery[2], kTsRecovery[3], // \n      kSnBases[0][0], kSnBases[0][1], kFlexfecPktMasks[0], kFlexfecPktMasks[1], //\n      kPayloadBits, kPayloadBits, kPayloadBits, kPayloadBits, //\n      };\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 18
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e93d03b2_5c83b62f",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "there is SetData variant that accept array of uint8_t directly,\nso `read_packet.pkt-\u003edata.SetData(kPacketData)` should work making `packet_length` variable unneeded.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/copy_on_write_buffer.h;l\u003d191;drc\u003de00d7d0ce664233402afb3ece94fc270d2e3a8cf",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 60
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e0e39ff_d2c21191",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-05T10:02:00Z",
+      "side": 1,
+      "message": "this kind of helpers are hard to read: 4 integer parameter which meanings are unclear (require to jump up and down to understand the meaning.\n\nmay be it would be simpler to keep constant sequence numbers as uint16_t (also,  they do not need to be global constants, each test can have own):\n\n`constexpr uint16_t kSnBase \u003d 0x0102;`\n\n`kPacketData[] \u003d { .... ,kSnBase \u003e\u003e 8, kSnBase \u0026 0xFF, ...};`\n\n`{.stream \u003d {.ssrc \u003d 0x01, \n             .seq_num_base \u003d kSnBase,\n             .packet_mask_offset \u003d 10, \n             .packet_mask_size \u003d kFlexfecPacketMaskSizes[0] },\n  .mask{kUlpfecPacketMasks,  kFlexfecPacketMaskSizes[0]}`",
+      "range": {
+        "startLine": 139,
+        "startChar": 17,
+        "endLine": 139,
+        "endChar": 51
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

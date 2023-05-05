@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d4ede12_7a0b5996",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-05T06:43:00Z",
+      "side": 1,
+      "message": "Needs tests obviously but is smaller without them if we are considering a merge.\nWe can even be fancy and use HasDataChannels to see if there are non-closed channels here?\n\nTwo scenarios need to be tested, variants of the fiddle  https://jsfiddle.net/fasqnLz5/1/\n1/ all created data channels are closed. Should keep the existing m-line rejected.\n2/ a new data channel was added. Should recycle the existing m-line.",
+      "revId": "c869616b2e5cfe8aa06a2b645e28933ce9034420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

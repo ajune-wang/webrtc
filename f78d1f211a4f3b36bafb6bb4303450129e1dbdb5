@@ -46,6 +46,30 @@
       },
       "revId": "f78d1f211a4f3b36bafb6bb4303450129e1dbdb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff8986c1_9b85a8cb",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 3373,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-05-05T08:35:37Z",
+      "side": 1,
+      "message": "Got it, good to make this consistent. The CL description could have been more clear though, describing that we both add and change behaviour in the same CL.\n\nThis behavioural change might impact product monitoring, but I think the bugfix is worth the time series breakage caused by the discrete jump.",
+      "parentUuid": "1606c5ce_4e1310b7",
+      "range": {
+        "startLine": 3373,
+        "startChar": 32,
+        "endLine": 3373,
+        "endChar": 34
+      },
+      "revId": "f78d1f211a4f3b36bafb6bb4303450129e1dbdb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b021fc_a82873e4",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-05-05T07:20:04Z",
+      "side": 1,
+      "message": "Since this new class is the RFC version, and the old one (without a number) is the \"-03\" version, can we rename the old one instead?\n\nI\u0027m thinking:\n\nRFC version: FlexfecHeaderReader\n-03 version: Flexfec03HeaderReader\n\nor something like that. (Similar for the file names).\n\nThe motivation would be a) Clarity, and b) The \"2\" suffix inofficially means \"forked from legacy classes that we must support due to _external_ dependencies\" in webrtc.org, and that does not fit fork here.",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "cc85904f9574f75a43dd676d0bfa492746f68037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

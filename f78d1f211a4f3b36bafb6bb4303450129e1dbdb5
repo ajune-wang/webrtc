@@ -22,6 +22,30 @@
       },
       "revId": "f78d1f211a4f3b36bafb6bb4303450129e1dbdb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1606c5ce_4e1310b7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 3373,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-05T08:03:22Z",
+      "side": 1,
+      "message": "Intentional. See https://github.com/w3c/webrtc-stats/issues/755, we already do this for outbound stats but not for inbound which creates a discrepancy in the numbers (see fiddle and comment thread here)",
+      "parentUuid": "b2120620_feacc250",
+      "range": {
+        "startLine": 3373,
+        "startChar": 32,
+        "endLine": 3373,
+        "endChar": 34
+      },
+      "revId": "f78d1f211a4f3b36bafb6bb4303450129e1dbdb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -50,6 +50,24 @@
       "message": "Hm. Seems like GetDataMid() should return a value in this case, and we should have a separate function for checking whether it is rejected or not.\n\nBut there are six callers to GetDataMid(), so changing this logic would need more care in inspecting those six places.\n\nAdd as a TODO for later cleanup?",
       "revId": "c869616b2e5cfe8aa06a2b645e28933ce9034420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d22054d0_35947084",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4266,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-05T08:34:39Z",
+      "side": 1,
+      "message": "TODO added, this seems a bit trickier to fix due to threading.",
+      "parentUuid": "f310fb56_e4d03c57",
+      "revId": "c869616b2e5cfe8aa06a2b645e28933ce9034420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

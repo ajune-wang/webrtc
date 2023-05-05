@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8573a7f_46723e05",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-05T15:58:22Z",
+      "side": 1,
+      "message": "Nit: Why not use ABSL_DEPRECATED?",
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eff0158_fe5a19c9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-05T15:58:22Z",
+      "side": 1,
+      "message": "```suggestion\n  // Called on an RTCP packet with sender or receiver reports with non zero\n```",
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218d6426_2b0f93b5",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-05T15:58:22Z",
+      "side": 1,
+      "message": "```suggestion\n  // Called on an RTCP packet with sender or receiver reports with a report\n```",
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c49687a_e44f4eed",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-05T15:58:22Z",
+      "side": 1,
+      "message": "I\u0027m probably overthinking this...but there are no leap seconds between the NTP prime epoch (1990-01-01) and the Unix epoch (1970-01-01), the first leap second was added to UTC in 1972.\n\nHowever, if `now` includes leap seconds then `now_utc` will be offset by x seconds from the actual Unix epoch. Is this the intended behavior?\n\nBtw, it would be nice if we could offload these things to `webrtc::Clock` instead juggling conversions like this att call sites.",
+      "range": {
+        "startLine": 369,
+        "startChar": 12,
+        "endLine": 369,
+        "endChar": 19
+      },
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d46368_be7a5c47",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-05T15:58:22Z",
+      "side": 1,
+      "message": "Why not use `rtc::kNtpJan1970Millisecs` from rtc_base/time_utils.h?",
+      "range": {
+        "startLine": 369,
+        "startChar": 57,
+        "endLine": 369,
+        "endChar": 77
+      },
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "effba83e_ff4c5bff",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-05T15:58:22Z",
+      "side": 1,
+      "message": "```suggestion\n      // No registered sender for this report block, still report it to the\n```",
+      "range": {
+        "startLine": 389,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 20
+      },
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -4264,9 +4264,24 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanOffer(
   // Lastly, add a m-section if we have requested local data channels and an
   // m section does not already exist.
   if (!pc_->GetDataMid() && data_channel_controller()->HasUsedDataChannels()) {
-    session_options->media_description_options.push_back(
-        GetMediaDescriptionOptionsForActiveData(
-            mid_generator_.GenerateString()));
+    // Attempt to recycle a stopped m-line.
+    bool recycled = false;
+    for (size_t i = 0; i < session_options->media_description_options.size();
+         i++) {
+      auto media_description = session_options->media_description_options[i];
+      if (media_description.type == cricket::MEDIA_TYPE_DATA &&
+          media_description.stopped) {
+        session_options->media_description_options[i] =
+            GetMediaDescriptionOptionsForActiveData(media_description.mid);
+        recycled = true;
+        break;
+      }
+    }
+    if (!recycled) {
+      session_options->media_description_options.push_back(
+          GetMediaDescriptionOptionsForActiveData(
+              mid_generator_.GenerateString()));
+    }
   }
 }
 

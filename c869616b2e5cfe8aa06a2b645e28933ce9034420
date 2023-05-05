@@ -16,6 +16,40 @@
       "message": "Needs tests obviously but is smaller without them if we are considering a merge.\nWe can even be fancy and use HasDataChannels to see if there are non-closed channels here?\n\nTwo scenarios need to be tested, variants of the fiddle  https://jsfiddle.net/fasqnLz5/1/\n1/ all created data channels are closed. Should keep the existing m-line rejected.\n2/ a new data channel was added. Should recycle the existing m-line.",
       "revId": "c869616b2e5cfe8aa06a2b645e28933ce9034420",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "371e6217_55121602",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-05T06:54:38Z",
+      "side": 1,
+      "message": "Yes, there should be at least a rudimentary test before submitting.\nMain tests should probably be WPT tests (we have tests for rejected m\u003dapplication sessions, so it\u0027s a matter of extending those to the reoffer case), but at least a rudimentary test in sdp_offer_answer_unittest would be nice.",
+      "revId": "c869616b2e5cfe8aa06a2b645e28933ce9034420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f310fb56_e4d03c57",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4266,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-05T06:54:38Z",
+      "side": 1,
+      "message": "Hm. Seems like GetDataMid() should return a value in this case, and we should have a separate function for checking whether it is rejected or not.\n\nBut there are six callers to GetDataMid(), so changing this logic would need more care in inspecting those six places.\n\nAdd as a TODO for later cleanup?",
+      "revId": "c869616b2e5cfe8aa06a2b645e28933ce9034420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

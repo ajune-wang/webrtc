@@ -250,7 +250,6 @@ LibvpxVp9Encoder::LibvpxVp9Encoder(const cricket::VideoCodec& codec,
           RateControlSettings::ParseFromKeyValueConfig(&trials)
               .LibvpxVp9TrustedRateController()),
       layer_buffering_(false),
-      full_superframe_drop_(true),
       first_frame_in_picture_(true),
       ss_info_needed_(false),
       force_all_active_layers_(false),
@@ -927,11 +926,8 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
       // Configure encoder to drop entire superframe whenever it needs to drop
       // a layer. This mode is preferred over per-layer dropping which causes
       // quality flickering and is not compatible with RTP non-flexible mode.
-      svc_drop_frame_.framedrop_mode =
-          full_superframe_drop_ ? FULL_SUPERFRAME_DROP : CONSTRAINED_LAYER_DROP;
-      // Buffering is needed only for constrained layer drop, as it's not clear
-      // which frame is the last.
-      layer_buffering_ = !full_superframe_drop_;
+      svc_drop_frame_.framedrop_mode = FULL_SUPERFRAME_DROP;
+      layer_buffering_ = false;
       svc_drop_frame_.max_consec_drop = std::numeric_limits<int>::max();
       for (size_t i = 0; i < num_spatial_layers_; ++i) {
         svc_drop_frame_.framedrop_thresh[i] = config_->rc_dropframe_thresh;

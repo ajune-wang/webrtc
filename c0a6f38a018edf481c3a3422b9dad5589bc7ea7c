@@ -16,6 +16,24 @@
       "message": "can you do \u0027ios in name.lower()\u0027 instead? If so you could combine mac and ios. Also this applies to the win if statement.",
       "revId": "c0a6f38a018edf481c3a3422b9dad5589bc7ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d192f5c_cccae08f",
+        "filename": "infra/config/config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-05-05T12:43:05Z",
+      "side": 1,
+      "message": "Nice, wasn\u0027t sure how to do this in starlark files.",
+      "parentUuid": "193fe314_4c0b2e18",
+      "revId": "c0a6f38a018edf481c3a3422b9dad5589bc7ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

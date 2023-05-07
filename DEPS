@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c394164cc21550b20df4f1261b2d7ba70392c7b3',
+  'chromium_revision': 'ebec8762ae44051103a0d7110e99881f6fe89525',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,9 +61,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@28f4e24de26fda15c9a63076a10133deae849da8',
+    'https://chromium.googlesource.com/chromium/src/testing@3316c773a81428ff182cc0be19b3b0eaf489412d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@eb60c8165932466dda1305b4854d9b9513535a93',
+    'https://chromium.googlesource.com/chromium/src/third_party@232a3e8fa8ccc7b5d9a29f75b982d27fbbd362ed',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -113,9 +113,9 @@ deps = {
   'src/buildtools/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@f8279b01085b800724f5c5629dc365b9f040dc53',
   'src/buildtools/third_party/libc++abi/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@82063d591566ab31b492c3bcd7caaf789c75a802',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@d5e79e117ce9adfdcfdc5dde56ee8cddd7742854',
   'src/buildtools/third_party/libunwind/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@9a92f3b6925b1e4418c4993b10f0c86acee8b16d',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@229ff3e23223299d50a33caa1b90e89b78fdd84b',
 
   'src/third_party/ninja': {
     'packages': [
@@ -312,7 +312,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': '7t2iD2LR8UiTBVZsqwRr_PcMqF4RwBlPgwYziDOt-xQC',
+              'version': '_FuL1VmaJnETpwNIaiuiSLxVNzzt0qXGmsfAck4CPCkC',
           },
       ],
       'condition': 'checkout_android',

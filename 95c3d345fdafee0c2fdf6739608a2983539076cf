@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0f4dddb_d7cbcc5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-05-07T08:19:21Z",
+      "side": 1,
+      "message": "Awesome, thank you!! This is a great QoL improvement for external contributors",
+      "revId": "95c3d345fdafee0c2fdf6739608a2983539076cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18dfc7d7_ef2a0687",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-05-08T12:04:40Z",
+      "side": 0,
+      "message": "MSan is triggering:\n\n```\n[ RUN      ] NetworkTest.TestConvertIfAddrsNotRunning\n\u003d\u003d9360\u003d\u003dWARNING: MemorySanitizer: use-of-uninitialized-value\n    #0 0x55896e2c268b in rtc::BasicNetworkManager::ConvertIfAddrs(ifaddrs*, rtc::IfAddrsConverter*, bool, std::__Cr::vector\u003cstd::__Cr::unique_ptr\u003crtc::Network, std::__Cr::default_delete\u003crtc::Network\u003e\u003e, std::__Cr::allocator\u003cstd::__Cr::unique_ptr\u003crtc::Network, std::__Cr::default_delete\u003crtc::Network\u003e\u003e\u003e\u003e*) const ./../../rtc_base/network.cc:623:48\n    #1 0x55896c01b7a6 in CallConvertIfAddrs ./../../rtc_base/network_unittest.cc:208:21\n    #2 0x55896c01b7a6 in rtc::NetworkTest_TestConvertIfAddrsNotRunning_Test::TestBody() ./../../rtc_base/network_unittest.cc:890:3\n    #3 0x55896ca21831 in testing::Test::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:2670:5\n    #4 0x55896ca267c5 in testing::TestInfo::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:2849:11\n    #5 0x55896ca29826 in testing::TestSuite::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:3008:30\n    #6 0x55896ca68a4d in testing::internal::UnitTestImpl::RunAllTests() ./../../third_party/googletest/src/googletest/src/gtest.cc:5866:44\n    #7 0x55896ca6721a in testing::UnitTest::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:5440:10\n    #8 0x55896d1629a2 in RUN_ALL_TESTS ./../../third_party/googletest/src/googletest/include/gtest/gtest.h:2284:73\n    #9 0x55896d1629a2 in webrtc::(anonymous namespace)::TestMainImpl::Run(int, char**) ./../../test/test_main_lib.cc:195:21\n    #10 0x55896c5fbc29 in main ./../../test/test_main.cc:72:16\n    #11 0x7f0515df7082 in __libc_start_main ??:0:0\n    #12 0x55896ab59e49 in _start ??:0:0\n\n  Uninitialized value was stored to memory at\n    #0 0x55896e2c2684 in rtc::BasicNetworkManager::ConvertIfAddrs(ifaddrs*, rtc::IfAddrsConverter*, bool, std::__Cr::vector\u003cstd::__Cr::unique_ptr\u003crtc::Network, std::__Cr::default_delete\u003crtc::Network\u003e\u003e, std::__Cr::allocator\u003cstd::__Cr::unique_ptr\u003crtc::Network, std::__Cr::default_delete\u003crtc::Network\u003e\u003e\u003e\u003e*) const ./../../rtc_base/network.cc:623:27\n    #1 0x55896c01b7a6 in CallConvertIfAddrs ./../../rtc_base/network_unittest.cc:208:21\n    #2 0x55896c01b7a6 in rtc::NetworkTest_TestConvertIfAddrsNotRunning_Test::TestBody() ./../../rtc_base/network_unittest.cc:890:3\n    #3 0x55896ca21831 in testing::Test::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:2670:5\n    #4 0x55896ca267c5 in testing::TestInfo::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:2849:11\n    #5 0x55896ca29826 in testing::TestSuite::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:3008:30\n    #6 0x55896ca68a4d in testing::internal::UnitTestImpl::RunAllTests() ./../../third_party/googletest/src/googletest/src/gtest.cc:5866:44\n    #7 0x55896ca6721a in testing::UnitTest::Run() ./../../third_party/googletest/src/googletest/src/gtest.cc:5440:10\n    #8 0x55896d1629a2 in RUN_ALL_TESTS ./../../third_party/googletest/src/googletest/include/gtest/gtest.h:2284:73\n    #9 0x55896d1629a2 in webrtc::(anonymous namespace)::TestMainImpl::Run(int, char**) ./../../test/test_main_lib.cc:195:21\n    #10 0x55896c5fbc29 in main ./../../test/test_main.cc:72:16\n    #11 0x7f0515df7082 in __libc_start_main ??:0:0\n\n  Uninitialized value was created by an allocation of \u0027ifa_addr\u0027 in the stack frame\n    #0 0x55896c01b5b7 in rtc::NetworkTest_TestConvertIfAddrsNotRunning_Test::TestBody() ./../../rtc_base/network_unittest.cc:881:3\n\nSUMMARY: MemorySanitizer: use-of-uninitialized-value (/b/s/w/ir/out/linux_msan/rtc_unittests+0x3ef368b) (BuildId: 89872bff949d5267)\nExiting\n```\n\nWhich sounds related, but I didn\u0027t have time to look into it.",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 625,
+        "endChar": 5
+      },
+      "revId": "0df40d1d14be4a92f0a9e94a186401d0b0b267b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

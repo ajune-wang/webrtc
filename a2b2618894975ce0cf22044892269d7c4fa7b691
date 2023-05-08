@@ -67,6 +67,23 @@
       "message": "Internal tests pass, so approving.",
       "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6de1dbcd_74caf796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-08T08:03:28Z",
+      "side": 1,
+      "message": "away with it then!",
+      "revId": "a2b2618894975ce0cf22044892269d7c4fa7b691",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

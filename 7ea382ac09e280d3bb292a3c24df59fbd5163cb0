@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "215975f4_bb9b32d4",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-08T08:55:32Z",
+      "side": 1,
+      "message": "In this case I do not see how to use it: webrtc disallows to use deprecated symbols, so marking this function deprecated would disallow RtcpTransciever to call it.\nI would like to deprecate inheriting this function, but not sure there is syntax for that.\n\n(side note: generally should use c++ standard `[[deprecated(\"message\")]] //` instead of `ABSL_DEPRECATED(\"message\")`)",
+      "parentUuid": "b8573a7f_46723e05",
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3eff0158_fe5a19c9",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-05T15:58:22Z",
       "side": 1,
       "message": "```suggestion\n  // Called on an RTCP packet with sender or receiver reports with non zero\n```",
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f536b477_d3d30be3",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-08T08:55:32Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "3eff0158_fe5a19c9",
       "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -98,6 +134,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61de101f_4e13ad45",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-08T08:55:32Z",
+      "side": 1,
+      "message": "generally I prefer to copy constants \"that would never change\" instead of adding an extra dependency.\nBut I consider it a weak reason. changed to reuse the constant.\n(based on your next comment it may change introducing inconsistency)",
+      "parentUuid": "45d46368_be7a5c47",
+      "range": {
+        "startLine": 369,
+        "startChar": 57,
+        "endLine": 369,
+        "endChar": 77
+      },
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5513ba04_a24a2ac4",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-08T08:55:32Z",
+      "side": 1,
+      "message": "I think this kind of precision is unimportant for the intended use case.\nUser clock precision may be several seconds away from the universal utc clock for other reasons.\n\nIn practice it is the same constant that is used to convert from system time (utc) to ntp time, and then back from ntp time to utc time.\n\nyes, it would be nice if these things are managed by the webrtc::Clock in general. \ne.g. if webrtc::Clock would guarantee time to be monotonic and close to the system time.\nHowever there is currently only one place where utc time is expected.",
+      "parentUuid": "7c49687a_e44f4eed",
+      "range": {
+        "startLine": 369,
+        "startChar": 12,
+        "endLine": 369,
+        "endChar": 19
+      },
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "effba83e_ff4c5bff",
@@ -111,6 +195,30 @@
       "writtenOn": "2023-05-05T15:58:22Z",
       "side": 1,
       "message": "```suggestion\n      // No registered sender for this report block, still report it to the\n```",
+      "range": {
+        "startLine": 389,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 20
+      },
+      "revId": "7ea382ac09e280d3bb292a3c24df59fbd5163cb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "575c981b_bf5aa613",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-08T08:55:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "effba83e_ff4c5bff",
       "range": {
         "startLine": 389,
         "startChar": 12,

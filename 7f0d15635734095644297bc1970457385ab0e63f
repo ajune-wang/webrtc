@@ -22,6 +22,30 @@
       },
       "revId": "7f0d15635734095644297bc1970457385ab0e63f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b8777d2_2c26b155",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-05-08T13:03:14Z",
+      "side": 1,
+      "message": "You are right and it seems to be needed. We might end up destroying PipeWire objects while being in the middle of processing a buffer and crash.",
+      "parentUuid": "02dba32a_b0dc01ef",
+      "range": {
+        "startLine": 594,
+        "startChar": 2,
+        "endLine": 594,
+        "endChar": 37
+      },
+      "revId": "7f0d15635734095644297bc1970457385ab0e63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

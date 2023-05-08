@@ -616,11 +616,8 @@ void BasicNetworkManager::ConvertIfAddrs(
     int scope_id = 0;
 
     // Some interfaces may not have address assigned.
-    if (!cursor->ifa_addr || !cursor->ifa_netmask) {
-      continue;
-    }
-    // Skip ones which are down.
-    if (!(cursor->ifa_flags & IFF_RUNNING)) {
+    if (!cursor->ifa_addr || !cursor->ifa_netmask ||
+        !cursor->ifa_addr->sa_family) {
       continue;
     }
     // Skip unknown family.
@@ -631,6 +628,12 @@ void BasicNetworkManager::ConvertIfAddrs(
     // Convert to InterfaceAddress.
     // TODO(webrtc:13114): Convert ConvertIfAddrs to use rtc::Netmask.
     if (!ifaddrs_converter->ConvertIfAddrsToIPAddress(cursor, &ip, &mask)) {
+      continue;
+    }
+    // Skip ones which are down.
+    if (!(cursor->ifa_flags & IFF_RUNNING)) {
+      RTC_LOG(LS_INFO) << "Skip interface because of not IFF_RUNNING: "
+                       << ip.ToSensitiveString();
       continue;
     }
 

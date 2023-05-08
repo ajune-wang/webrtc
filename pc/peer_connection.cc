@@ -1403,8 +1403,6 @@ PeerConnection::CreateDataChannelOrError(const std::string& label,
                          "CreateDataChannelOrError: PeerConnection is closed.");
   }
 
-  bool first_datachannel = !data_channel_controller_.HasUsedDataChannels();
-
   InternalDataChannelInit internal_config;
   if (config) {
     internal_config = InternalDataChannelInit(*config);
@@ -1420,11 +1418,9 @@ PeerConnection::CreateDataChannelOrError(const std::string& label,
 
   rtc::scoped_refptr<DataChannelInterface> channel = ret.MoveValue();
 
-  // Trigger the onRenegotiationNeeded event for
+  // Check the onRenegotiationNeeded event for
   // the first SCTP DataChannel.
-  if (first_datachannel) {
-    sdp_handler_->UpdateNegotiationNeeded();
-  }
+  sdp_handler_->UpdateNegotiationNeeded();
   NoteUsageEvent(UsageEvent::DATA_ADDED);
   return channel;
 }

@@ -16,6 +16,57 @@
       "message": "Can you take another look at PS5+6? This also attempts to fix ONN and not reactivate the m-line.\n\nThe downside is that this is too large to cherry-pick so it might be worth doing the small initial patch first and then the two additional patch sets for solving it properly.",
       "revId": "6a661b0464625df6049fc739fee0debcbf1d9fbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c635e97_0d501f21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-09T04:59:21Z",
+      "side": 1,
+      "message": "I think it\u0027s not too big to land.",
+      "revId": "6a661b0464625df6049fc739fee0debcbf1d9fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "910151cb_986fef01",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-09T04:59:21Z",
+      "side": 1,
+      "message": "\"Use sparingly\" -\u003e \"Used to decide if a rejected m\u003dapplication section should be reoffered\" - or delete; it\u0027s not very helpful.",
+      "revId": "6a661b0464625df6049fc739fee0debcbf1d9fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b99e392_e997f8db",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-09T04:59:21Z",
+      "side": 1,
+      "message": "This is testing implementation not interface - the fact that it\u0027s currently using \"0\" and not \"A\" is an implementation detail. I suspect the rejecting SDP will work fine if it omits the a\u003dmid line; I don\u0027t know if we will try to verify that the MIDs match on rejection.",
+      "revId": "6a661b0464625df6049fc739fee0debcbf1d9fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da80caa_7f282070",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-05-09T07:32:45Z",
+      "side": 1,
+      "message": "More PostTask removal. PTAL, WDYT?",
+      "revId": "c5d42040bb74c84664618217f707b0178a47cce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

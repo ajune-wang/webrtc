@@ -636,6 +636,7 @@ class VideoMediaSendChannel : public VideoMediaSendChannelInterface {
   bool GetSendCodec(VideoCodec* send_codec) override {
     return impl()->GetSendCodec(send_codec);
   }
+
   bool SetSend(bool send) override { return impl()->SetSend(send); }
   bool SetVideoSend(
       uint32_t ssrc,
@@ -750,7 +751,7 @@ class VideoMediaReceiveChannel : public VideoMediaReceiveChannelInterface {
       override {
     impl()->SetDepacketizerToDecoderFrameTransformer(ssrc, frame_transformer);
   }
-  // Implementation on videoMediaReceiveChannelInterface
+  // Implementation of VideoMediaReceiveChannelInterface
   bool SetRecvParameters(const VideoRecvParameters& params) override {
     return impl()->SetRecvParameters(params);
   }
@@ -796,6 +797,7 @@ class VideoMediaReceiveChannel : public VideoMediaReceiveChannelInterface {
                                           rtx_time);
   }
   MediaChannel* ImplForTesting() override { return impl_; }
+  void SetReceive(bool receive) override { impl()->SetReceive(receive); }
 
  private:
   VideoMediaReceiveChannelInterface* impl() { return impl_; }

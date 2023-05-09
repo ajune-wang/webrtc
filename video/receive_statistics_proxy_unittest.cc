@@ -8,8 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "video/receive_statistics_proxy2.h"
-
 #include <limits>
 #include <memory>
 #include <string>
@@ -29,6 +27,7 @@
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 #include "test/time_controller/simulated_time_controller.h"
+#include "video/receive_statistics_proxy2.h"
 #include "video/video_receive_stream2.h"
 
 namespace webrtc {

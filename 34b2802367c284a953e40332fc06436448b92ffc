@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f736c2c3_9a0a3e97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-05-09T15:19:57Z",
+      "side": 1,
+      "message": "I\u0027ve updated the generator script to resolve issues highlighted by hta@ in comments here https://webrtc-review.googlesource.com/c/src/+/304701/:\n1. Now generator accept path to local PEM file or URL to PEM file;\n2. The timestamp of generation is added to the header;\n3. The file path or URL of source PEM file is added to the header\n4. SHA256 digest of source PEM file is added to the header - for public CA stores this make it easy to google search the PEM files used to generation.\n\nThe diff in generation can be seen here: https://webrtc-review.googlesource.com/c/src/+/304701/1..2",
+      "revId": "34b2802367c284a953e40332fc06436448b92ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

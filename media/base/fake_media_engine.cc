@@ -342,6 +342,9 @@ bool FakeVideoMediaChannel::HasSink(uint32_t ssrc) const {
 bool FakeVideoMediaChannel::SetSend(bool send) {
   return set_sending(send);
 }
+void FakeVideoMediaChannel::SetReceive(bool receive) {
+  set_playout(receive);
+}
 bool FakeVideoMediaChannel::SetVideoSend(
     uint32_t ssrc,
     const VideoOptions* options,

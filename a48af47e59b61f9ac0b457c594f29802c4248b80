@@ -16,6 +16,24 @@
       "message": "I somehow lost the +1 from the review, but I don\u0027t understand how... Please +1 again :)",
       "revId": "a48af47e59b61f9ac0b457c594f29802c4248b80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "488f4154_86caf65c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-05-09T12:05:13Z",
+      "side": 1,
+      "message": "It must have been the changes to stats.md that made me lose the +1. That makes sense, so ptal :)",
+      "parentUuid": "7fe6ef3d_1cc0016b",
+      "revId": "a48af47e59b61f9ac0b457c594f29802c4248b80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

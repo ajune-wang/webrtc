@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee017abe_6a7e1a17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-05-09T10:53:55Z",
+      "side": 1,
+      "message": "Good catch! Done.",
+      "parentUuid": "37c66362_f5fe4e65",
+      "revId": "acf4126637fe583437de768829710f4298b869ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2deb9bd_5a7367a8",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-09T10:15:28Z",
       "side": 1,
       "message": "ReceiveStatisticsProxyTest",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 33
+      },
+      "revId": "acf4126637fe583437de768829710f4298b869ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "febdf12a_88b1b57a",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-05-09T10:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2deb9bd_5a7367a8",
       "range": {
         "startLine": 45,
         "startChar": 6,

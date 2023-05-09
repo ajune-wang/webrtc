@@ -238,14 +238,8 @@ rtc_library("race_checker") {
 
 rtc_library("random") {
   visibility = [ "*" ]
-  sources = [
-    "random.cc",
-    "random.h",
-  ]
-  deps = [
-    ":checks",
-    ":safe_conversions",
-  ]
+  public = [ "random.h" ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/random" ]
 }
 
 rtc_library("rate_statistics") {

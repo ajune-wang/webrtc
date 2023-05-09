@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "562afdf0_bfd827ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-09T11:49:03Z",
+      "side": 1,
+      "message": "LGTM but should we remove the \"if sdp_semantics \u003d\u003d ...\" part?",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f58a5e36_9b870ff7",
@@ -14,6 +31,24 @@
       "writtenOn": "2023-05-09T09:32:21Z",
       "side": 1,
       "message": "unrelated comment: is it possible to remove Plan-B ?",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2a308e7_e2cc0073",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-09T11:49:03Z",
+      "side": 1,
+      "message": "Considering Plan B doesn\u0027t exist on the web and we saw zero native bug reports either before or after the change in behavior, I think we can make this `sdp_semantics`-agnostic",
+      "parentUuid": "f58a5e36_9b870ff7",
       "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

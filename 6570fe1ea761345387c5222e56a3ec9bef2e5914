@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ee5b87_90e1d159",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-09T11:32:24Z",
+      "side": 1,
+      "message": "Ilya please stamp, I just removed the last internal reference to this thing",
+      "revId": "6570fe1ea761345387c5222e56a3ec9bef2e5914",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

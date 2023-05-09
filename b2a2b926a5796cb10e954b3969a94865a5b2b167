@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b5a4cca_275a0c8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-05-09T10:27:26Z",
+      "side": 1,
+      "message": "Hello Mirko,\n\nCould you please review this CL which fixes generation of ssl_roots.h with newer version of OpenSSLs, which dropped ability to generate C code? Fix is done by removing OpenSSL dependency and re-implementing generator with asn1crypto library from CIPD.\n\nThanks a lot in advance,\nYury.",
+      "revId": "b2a2b926a5796cb10e954b3969a94865a5b2b167",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

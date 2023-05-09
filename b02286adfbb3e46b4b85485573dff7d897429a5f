@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbd5be55_52b701c7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-09T13:11:58Z",
+      "side": 1,
+      "message": "Yeah. I look forward to removing those tests. ONN was quite broken in plan-b, this does not fix it.",
+      "parentUuid": "c98bf80d_7aa6c706",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aebb79a6_09318c03",
@@ -84,6 +102,24 @@
       "writtenOn": "2023-05-09T09:32:21Z",
       "side": 1,
       "message": "perhaps add some indentation here and the next line,\nto indicate that it belongs to the previous a\u003d line.",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a1029a9_51668f48",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-09T13:11:58Z",
+      "side": 1,
+      "message": "git cl format rules prevent this sadly.",
+      "parentUuid": "aebb79a6_09318c03",
       "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

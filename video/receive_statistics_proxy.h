@@ -35,6 +35,7 @@
 #include "video/quality_threshold.h"
 #include "video/stats_counter.h"
 #include "video/video_quality_observer2.h"
+#include "video/video_stream_buffer_controller.h"
 
 namespace webrtc {
 
@@ -45,7 +46,7 @@ namespace internal {
 // Declared in video_receive_stream2.h.
 struct VideoFrameMetaData;
 
-class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
+class ReceiveStatisticsProxy : public VideoStreamBufferControllerStatsObserver,
                                public RtcpCnameCallback,
                                public RtcpPacketTypeCounterObserver {
  public:

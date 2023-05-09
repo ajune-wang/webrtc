@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f58a5e36_9b870ff7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2023-05-09T09:32:21Z",
+      "side": 1,
+      "message": "unrelated comment: is it possible to remove Plan-B ?",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aebb79a6_09318c03",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2023-05-09T09:32:21Z",
+      "side": 1,
+      "message": "perhaps add some indentation here and the next line,\nto indicate that it belongs to the previous a\u003d line.",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

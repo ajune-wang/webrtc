@@ -868,6 +868,17 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       EXPECT_TRUE(media_receive_channel2_impl()->playout());
     }
     EXPECT_TRUE(media_send_channel2_impl()->sending());
+
+    // Update `content2` to be Inactive.
+    content2.set_direction(RtpTransceiverDirection::kInactive);
+    EXPECT_TRUE(channel1_->SetLocalContent(&content1, SdpType::kOffer, err));
+    EXPECT_TRUE(channel2_->SetRemoteContent(&content1, SdpType::kOffer, err));
+    EXPECT_TRUE(channel2_->SetLocalContent(&content2, SdpType::kAnswer, err));
+    EXPECT_TRUE(channel1_->SetRemoteContent(&content2, SdpType::kAnswer, err));
+    if (verify_playout_) {
+      EXPECT_FALSE(media_receive_channel2_impl()->playout());
+    }
+    EXPECT_TRUE(media_send_channel2_impl()->sending());
   }
 
   // Tests that when the transport channel signals a candidate pair change

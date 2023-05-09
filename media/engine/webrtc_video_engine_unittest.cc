@@ -1783,6 +1783,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     receive_channel_ =
         std::make_unique<VideoMediaReceiveChannel>(channel_.get());
     send_channel_->OnReadyToSend(true);
+    receive_channel_->SetReceive(true);
     EXPECT_TRUE(channel_.get() != NULL);
     network_interface_.SetDestination(channel_.get());
     channel_->SetInterface(&network_interface_);
@@ -1855,6 +1856,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     return success;
   }
   bool SetSend(bool send) { return channel_->SetSend(send); }
+  void SetReceive(bool receive) { return channel_->SetReceive(receive); }
   void SendFrame() {
     if (frame_forwarder_2_) {
       frame_forwarder_2_->IncomingCapturedFrame(frame_source_->GetFrame());
@@ -1900,6 +1902,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
                                   int duration_sec,
                                   int fps) {
     EXPECT_TRUE(SetOneCodec(codec));
+    SetReceive(true);
     EXPECT_TRUE(SetSend(true));
     channel_->SetDefaultSink(&renderer_);
     EXPECT_EQ(0, renderer_.num_rendered_frames());
@@ -2244,6 +2247,7 @@ TEST_F(WebRtcVideoChannelBaseTest, SetSink) {
 // Tests setting up and configuring a send stream.
 TEST_F(WebRtcVideoChannelBaseTest, AddRemoveSendStreams) {
   EXPECT_TRUE(SetOneCodec(DefaultCodec()));
+  SetReceive(true);
   EXPECT_TRUE(SetSend(true));
   channel_->SetDefaultSink(&renderer_);
   SendFrame();
@@ -2373,6 +2377,7 @@ TEST_F(WebRtcVideoChannelBaseTest, DISABLED_AddRemoveCapturer) {
 // frame is sent).
 TEST_F(WebRtcVideoChannelBaseTest, RemoveCapturerWithoutAdd) {
   EXPECT_TRUE(SetOneCodec(DefaultCodec()));
+  SetReceive(true);
   EXPECT_TRUE(SetSend(true));
   channel_->SetDefaultSink(&renderer_);
   EXPECT_EQ(0, renderer_.num_rendered_frames());
@@ -2430,6 +2435,7 @@ TEST_F(WebRtcVideoChannelBaseTest, AddRemoveCapturerMultipleSources) {
   // TODO(hellner): this seems like an unnecessary constraint, fix it.
   EXPECT_TRUE(channel_->SetVideoSend(1, nullptr, &frame_forwarder1));
   EXPECT_TRUE(channel_->SetVideoSend(2, nullptr, &frame_forwarder2));
+  SetReceive(true);
   EXPECT_TRUE(SetSend(true));
   // Test capturer associated with engine.
   const int kTestWidth = 160;
@@ -2632,6 +2638,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     receive_channel_ =
         std::make_unique<cricket::VideoMediaReceiveChannel>(channel_.get());
     send_channel_->OnReadyToSend(true);
+    receive_channel_->SetReceive(true);
     last_ssrc_ = 123;
     send_parameters_.codecs = engine_.send_codecs();
     recv_parameters_.codecs = engine_.recv_codecs();
@@ -9451,6 +9458,7 @@ class WebRtcVideoChannelSimulcastTest : public ::testing::Test {
     receive_channel_ =
         std::make_unique<VideoMediaReceiveChannel>(channel_.get());
     send_channel_->OnReadyToSend(true);
+    receive_channel_->SetReceive(true);
     last_ssrc_ = 123;
   }
 
@@ -9639,6 +9647,7 @@ TEST_F(WebRtcVideoChannelBaseTest, GetSources) {
 
   channel_->SetDefaultSink(&renderer_);
   EXPECT_TRUE(SetDefaultCodec());
+  SetReceive(true);
   EXPECT_TRUE(SetSend(true));
   EXPECT_EQ(renderer_.num_rendered_frames(), 0);
 

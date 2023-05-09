@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e324d358_f1bea991",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-05-09T12:46:18Z",
+      "side": 1,
+      "message": "Not initially planed, because thought that re-generation of such an important file by random person from internet (me) is not really acceptable :) Let me know if it acceptable and I should create a followup CL with `rtc_base/ssl_roots.h` regenerated based on latest version of https://pki.goog/roots.pem. Thanks for review!",
+      "parentUuid": "d1c96a1f_68a7b75d",
+      "range": {
+        "startLine": 14,
+        "startChar": 41,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "b2a2b926a5796cb10e954b3969a94865a5b2b167",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0b5a4cca_275a0c8c",

@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c98bf80d_7aa6c706",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-09T12:35:06Z",
+      "side": 1,
+      "message": "Oh I see this was needed in order to pass PeerConnectionInterfaceTest/PeerConnectionInterfaceTest.CreateSctpDataChannel/0. +1 to having an sdp_semantics gate for this.",
+      "parentUuid": "b2a308e7_e2cc0073",
+      "revId": "b02286adfbb3e46b4b85485573dff7d897429a5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aebb79a6_09318c03",
         "filename": "pc/sdp_offer_answer_unittest.cc",
         "patchSetId": 7

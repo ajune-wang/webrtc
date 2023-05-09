@@ -1855,6 +1855,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     return success;
   }
   bool SetSend(bool send) { return channel_->SetSend(send); }
+  void SetReceive(bool receive) { return channel_->SetReceive(receive); }
   void SendFrame() {
     if (frame_forwarder_2_) {
       frame_forwarder_2_->IncomingCapturedFrame(frame_source_->GetFrame());
@@ -1901,6 +1902,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
                                   int fps) {
     EXPECT_TRUE(SetOneCodec(codec));
     EXPECT_TRUE(SetSend(true));
+    SetReceive(true);
     channel_->SetDefaultSink(&renderer_);
     EXPECT_EQ(0, renderer_.num_rendered_frames());
     for (int i = 0; i < duration_sec; ++i) {
@@ -2245,6 +2247,7 @@ TEST_F(WebRtcVideoChannelBaseTest, SetSink) {
 TEST_F(WebRtcVideoChannelBaseTest, AddRemoveSendStreams) {
   EXPECT_TRUE(SetOneCodec(DefaultCodec()));
   EXPECT_TRUE(SetSend(true));
+  SetReceive(true);
   channel_->SetDefaultSink(&renderer_);
   SendFrame();
   EXPECT_FRAME(1, kVideoWidth, kVideoHeight);
@@ -2374,6 +2377,7 @@ TEST_F(WebRtcVideoChannelBaseTest, DISABLED_AddRemoveCapturer) {
 TEST_F(WebRtcVideoChannelBaseTest, RemoveCapturerWithoutAdd) {
   EXPECT_TRUE(SetOneCodec(DefaultCodec()));
   EXPECT_TRUE(SetSend(true));
+  SetReceive(true);
   channel_->SetDefaultSink(&renderer_);
   EXPECT_EQ(0, renderer_.num_rendered_frames());
   SendFrame();
@@ -2431,6 +2435,7 @@ TEST_F(WebRtcVideoChannelBaseTest, AddRemoveCapturerMultipleSources) {
   EXPECT_TRUE(channel_->SetVideoSend(1, nullptr, &frame_forwarder1));
   EXPECT_TRUE(channel_->SetVideoSend(2, nullptr, &frame_forwarder2));
   EXPECT_TRUE(SetSend(true));
+  SetReceive(true);
   // Test capturer associated with engine.
   const int kTestWidth = 160;
   const int kTestHeight = 120;
@@ -9640,6 +9645,7 @@ TEST_F(WebRtcVideoChannelBaseTest, GetSources) {
   channel_->SetDefaultSink(&renderer_);
   EXPECT_TRUE(SetDefaultCodec());
   EXPECT_TRUE(SetSend(true));
+  SetReceive(true);
   EXPECT_EQ(renderer_.num_rendered_frames(), 0);
 
   // Send and receive one frame.

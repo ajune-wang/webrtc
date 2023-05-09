@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "be91f340_55276d92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-05-09T13:24:40Z",
+      "side": 1,
+      "message": "Added follow up CL https://webrtc-review.googlesource.com/c/src/+/304701",
+      "parentUuid": "4c094570_ba6e753f",
+      "range": {
+        "startLine": 14,
+        "startChar": 41,
+        "endLine": 14,
+        "endChar": 50
+      },
+      "revId": "b2a2b926a5796cb10e954b3969a94865a5b2b167",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0b5a4cca_275a0c8c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

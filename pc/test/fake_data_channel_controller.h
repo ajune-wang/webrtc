@@ -15,6 +15,7 @@
 #include <string>
 #include <utility>
 
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "pc/sctp_data_channel.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/weak_ptr.h"
@@ -57,8 +58,8 @@ class FakeDataChannelController
           rtc::scoped_refptr<webrtc::SctpDataChannel> channel =
               webrtc::SctpDataChannel::Create(
                   std::move(my_weak_ptr), std::string(label),
-                  transport_available_, init, signaling_thread_,
-                  network_thread_);
+                  transport_available_, init, signaling_safety_.flag(),
+                  signaling_thread_, network_thread_);
           if (transport_available_ && channel->sid_n().HasValue()) {
             AddSctpDataStream(channel->sid_n());
           }
@@ -221,6 +222,7 @@ class FakeDataChannelController
  private:
   rtc::Thread* const signaling_thread_;
   rtc::Thread* const network_thread_;
+  webrtc::ScopedTaskSafety signaling_safety_;
   webrtc::StreamId last_sid_ RTC_GUARDED_BY(network_thread_);
   webrtc::SendDataParams last_send_data_params_ RTC_GUARDED_BY(network_thread_);
   bool send_blocked_ RTC_GUARDED_BY(network_thread_);

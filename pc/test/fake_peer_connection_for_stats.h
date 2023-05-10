@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "media/base/fake_media_engine.h"
 #include "pc/channel.h"
 #include "pc/stream_collection.h"
@@ -342,10 +343,9 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
 
   void AddSctpDataChannel(const std::string& label,
                           const InternalDataChannelInit& init) {
-    // TODO(bugs.webrtc.org/11547): Supply a separate network thread.
     AddSctpDataChannel(SctpDataChannel::Create(
         data_channel_controller_.weak_ptr(), label, false, init,
-        rtc::Thread::Current(), rtc::Thread::Current()));
+        signaling_safety_.flag(), signaling_thread_, network_thread_));
   }
 
   void AddSctpDataChannel(rtc::scoped_refptr<SctpDataChannel> data_channel) {
@@ -522,6 +522,8 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   rtc::Thread* const network_thread_;
   rtc::Thread* const worker_thread_;
   rtc::Thread* const signaling_thread_;
+
+  ScopedTaskSafety signaling_safety_;
 
   PeerConnectionFactoryDependencies dependencies_;
   rtc::scoped_refptr<ConnectionContext> context_;

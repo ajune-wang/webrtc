@@ -32,6 +32,7 @@
 #include "api/stats/rtc_stats.h"
 #include "api/stats/rtc_stats_report.h"
 #include "api/stats/rtcstats_objects.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "api/video/recordable_encoded_frame.h"
@@ -2123,13 +2124,15 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
     EXPECT_EQ(expected, report->Get("P")->cast_to<RTCPeerConnectionStats>());
   }
 
+  ScopedTaskSafety signaling_safety;
+
   FakeDataChannelController controller(pc_->network_thread());
   rtc::scoped_refptr<SctpDataChannel> dummy_channel_a = SctpDataChannel::Create(
       controller.weak_ptr(), "DummyChannelA", false, InternalDataChannelInit(),
-      rtc::Thread::Current(), rtc::Thread::Current());
+      signaling_safety.flag(), rtc::Thread::Current(), rtc::Thread::Current());
   rtc::scoped_refptr<SctpDataChannel> dummy_channel_b = SctpDataChannel::Create(
       controller.weak_ptr(), "DummyChannelB", false, InternalDataChannelInit(),
-      rtc::Thread::Current(), rtc::Thread::Current());
+      signaling_safety.flag(), rtc::Thread::Current(), rtc::Thread::Current());
 
   stats_->stats_collector()->OnSctpDataChannelStateChanged(
       dummy_channel_a->internal_id(), DataChannelInterface::DataState::kOpen);

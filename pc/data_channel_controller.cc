@@ -238,7 +238,7 @@ void DataChannelController::OnDataChannelOpenMessage(
     rtc::scoped_refptr<SctpDataChannel> channel,
     bool ready_to_send) {
   has_used_data_channels_ = true;
-  auto proxy = SctpDataChannel::CreateProxy(channel, signaling_safety_.flag());
+  auto proxy = SctpDataChannel::CreateProxy(channel);
 
   pc_->Observer()->OnDataChannel(proxy);
   pc_->NoteDataAddedEvent();
@@ -291,7 +291,7 @@ DataChannelController::CreateDataChannel(const std::string& label,
 
   rtc::scoped_refptr<SctpDataChannel> channel = SctpDataChannel::Create(
       weak_factory_.GetWeakPtr(), label, data_channel_transport_ != nullptr,
-      config, signaling_thread(), network_thread());
+      config, signaling_safety_.flag(), signaling_thread(), network_thread());
   RTC_DCHECK(channel);
   sctp_data_channels_n_.push_back(channel);
 
@@ -343,8 +343,7 @@ DataChannelController::InternalCreateDataChannelWithProxy(
     return ret.MoveError();
 
   has_used_data_channels_ = true;
-  return SctpDataChannel::CreateProxy(ret.MoveValue(),
-                                      signaling_safety_.flag());
+  return SctpDataChannel::CreateProxy(ret.MoveValue());
 }
 
 void DataChannelController::AllocateSctpSids(rtc::SSLRole role) {

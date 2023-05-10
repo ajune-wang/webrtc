@@ -138,6 +138,24 @@
       "parentUuid": "68c55824_19ce8456",
       "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f86ec9a_df7ffb01",
+        "filename": "modules/desktop_capture/screen_capturer_mac_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2023-05-10T23:15:14Z",
+      "side": 1,
+      "message": "Ok, the plan you suggest sounds good to me, without the change to the maxFps behavior to optimize calls to CaptureFrame().  Let\u0027s make that a separate feature/patch with an opt-in.",
+      "parentUuid": "39b44684_7ecae64b",
+      "revId": "d3ac01db40e8abf64eb5e85bf2830ab70f5708f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

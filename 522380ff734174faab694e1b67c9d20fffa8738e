@@ -34,6 +34,24 @@
       "parentUuid": "f2589fc5_f55e5187",
       "revId": "522380ff734174faab694e1b67c9d20fffa8738e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "002b5f64_99f3ae2d",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4279,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-10T08:27:58Z",
+      "side": 1,
+      "message": "Can you do a cleanup in a follow-up CL? That does not prevent uplifting what already landed in order to save time",
+      "parentUuid": "82ac04e0_cc43b715",
+      "revId": "522380ff734174faab694e1b67c9d20fffa8738e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

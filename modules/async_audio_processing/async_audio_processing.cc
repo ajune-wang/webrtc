@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "absl/types/variant.h"
 #include "api/audio/audio_frame.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "rtc_base/checks.h"
@@ -24,16 +25,39 @@ AsyncAudioProcessing::Factory::Factory(AudioFrameProcessor& frame_processor,
     : frame_processor_(frame_processor),
       task_queue_factory_(task_queue_factory) {}
 
+AsyncAudioProcessing::Factory::Factory(
+    std::unique_ptr<AudioFrameProcessor> frame_processor,
+    TaskQueueFactory& task_queue_factory)
+    : frame_processor_(std::move(frame_processor)),
+      task_queue_factory_(task_queue_factory) {}
+
 std::unique_ptr<AsyncAudioProcessing>
 AsyncAudioProcessing::Factory::CreateAsyncAudioProcessing(
     AudioFrameProcessor::OnAudioFrameCallback on_frame_processed_callback) {
-  return std::make_unique<AsyncAudioProcessing>(
-      frame_processor_, task_queue_factory_,
-      std::move(on_frame_processed_callback));
+  if (absl::holds_alternative<WrappedRefAudioProcessor>(frame_processor_)) {
+    return std::make_unique<AsyncAudioProcessing>(
+        absl::get<WrappedRefAudioProcessor>(frame_processor_).get(),
+        task_queue_factory_, std::move(on_frame_processed_callback));
+  } else if (absl::holds_alternative<UniquePtrAudioProcessor>(
+                 frame_processor_)) {
+    return std::make_unique<AsyncAudioProcessing>(
+        std::move(absl::get<UniquePtrAudioProcessor>(frame_processor_)),
+        task_queue_factory_, std::move(on_frame_processed_callback));
+  }
+
+  RTC_FATAL() << "Expected to have either a WrappedRefAudioProcessor or a "
+                 "UniquePtrAudioProcessor";
 }
 
 AsyncAudioProcessing::~AsyncAudioProcessing() {
-  frame_processor_.SetSink(nullptr);
+  if (absl::holds_alternative<WrappedRefAudioProcessor>(frame_processor_)) {
+    absl::get<WrappedRefAudioProcessor>(frame_processor_)
+        .get()
+        .SetSink(nullptr);
+  } else if (absl::holds_alternative<UniquePtrAudioProcessor>(
+                 frame_processor_)) {
+    absl::get<UniquePtrAudioProcessor>(frame_processor_)->SetSink(nullptr);
+  }
 }
 
 AsyncAudioProcessing::AsyncAudioProcessing(
@@ -45,16 +69,43 @@ AsyncAudioProcessing::AsyncAudioProcessing(
       task_queue_(task_queue_factory.CreateTaskQueue(
           "AsyncAudioProcessing",
           TaskQueueFactory::Priority::NORMAL)) {
-  frame_processor_.SetSink([this](std::unique_ptr<AudioFrame> frame) {
-    task_queue_.PostTask([this, frame = std::move(frame)]() mutable {
-      on_frame_processed_callback_(std::move(frame));
-    });
-  });
+  absl::get<WrappedRefAudioProcessor>(frame_processor_)
+      .get()
+      .SetSink([this](std::unique_ptr<AudioFrame> frame) {
+        task_queue_.PostTask([this, frame = std::move(frame)]() mutable {
+          on_frame_processed_callback_(std::move(frame));
+        });
+      });
+}
+
+AsyncAudioProcessing::AsyncAudioProcessing(
+    std::unique_ptr<AudioFrameProcessor> frame_processor,
+    TaskQueueFactory& task_queue_factory,
+    AudioFrameProcessor::OnAudioFrameCallback on_frame_processed_callback)
+    : on_frame_processed_callback_(std::move(on_frame_processed_callback)),
+      frame_processor_(std::move(frame_processor)),
+      task_queue_(task_queue_factory.CreateTaskQueue(
+          "AsyncAudioProcessing",
+          TaskQueueFactory::Priority::NORMAL)) {
+  absl::get<UniquePtrAudioProcessor>(frame_processor_)
+      ->SetSink([this](std::unique_ptr<AudioFrame> frame) {
+        task_queue_.PostTask([this, frame = std::move(frame)]() mutable {
+          on_frame_processed_callback_(std::move(frame));
+        });
+      });
 }
 
 void AsyncAudioProcessing::Process(std::unique_ptr<AudioFrame> frame) {
   task_queue_.PostTask([this, frame = std::move(frame)]() mutable {
-    frame_processor_.Process(std::move(frame));
+    if (absl::holds_alternative<WrappedRefAudioProcessor>(frame_processor_)) {
+      absl::get<WrappedRefAudioProcessor>(frame_processor_)
+          .get()
+          .Process(std::move(frame));
+    } else if (absl::holds_alternative<UniquePtrAudioProcessor>(
+                   frame_processor_)) {
+      absl::get<UniquePtrAudioProcessor>(frame_processor_)
+          ->Process(std::move(frame));
+    }
   });
 }
 

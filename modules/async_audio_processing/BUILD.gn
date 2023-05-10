@@ -26,6 +26,7 @@ rtc_library("async_audio_processing") {
     "../../rtc_base:refcount",
     "../../rtc_base:rtc_task_queue",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:variant" ]
 }
 
 if (rtc_include_tests) {

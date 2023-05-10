@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5d05045_8895162a",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2023-05-10T15:32:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75f4e9c7_58601937",
+      "revId": "a747a30a0d7825f0169254562b232783d2c5de2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd3e4ba2_bab235dd",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-08T12:59:17Z",
       "side": 1,
       "message": "Why do we need to have both if all the code is \"ifs\"?",
+      "range": {
+        "startLine": 90,
+        "startChar": 45,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "a747a30a0d7825f0169254562b232783d2c5de2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3862d35_dad459c1",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2023-05-10T15:32:20Z",
+      "side": 1,
+      "message": "Using an absl::variant instead.",
+      "parentUuid": "cd3e4ba2_bab235dd",
       "range": {
         "startLine": 90,
         "startChar": 45,

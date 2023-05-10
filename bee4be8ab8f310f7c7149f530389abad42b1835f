@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b5bee9c_85aaf020",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2023-05-10T15:32:20Z",
+      "side": 1,
+      "message": "A couple of weeks at most, preferably a few days. The follow-up is not ready yet but it\u0027s just about removing the old API.",
+      "parentUuid": "2c9f41a0_69da90b2",
+      "revId": "bee4be8ab8f310f7c7149f530389abad42b1835f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70e1c2b1_8a491a4a",

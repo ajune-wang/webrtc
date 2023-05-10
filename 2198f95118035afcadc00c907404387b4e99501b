@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "296aee21_d1bd54d6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-10T09:08:28Z",
+      "side": 0,
+      "message": "This one is actually the core of the problem, starting the receive stream when it gets created.",
+      "revId": "2198f95118035afcadc00c907404387b4e99501b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

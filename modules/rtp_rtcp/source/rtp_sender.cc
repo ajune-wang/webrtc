@@ -16,6 +16,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/random/random.h"
 #include "absl/strings/match.h"
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
@@ -147,7 +148,6 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
                      RtpPacketHistory* packet_history,
                      RtpPacketSender* packet_sender)
     : clock_(config.clock),
-      random_(clock_->TimeInMicroseconds()),
       audio_configured_(config.audio),
       ssrc_(config.local_media_ssrc),
       rtx_ssrc_(config.rtx_send_ssrc),
@@ -168,7 +168,8 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
       supports_bwe_extension_(false),
       retransmission_rate_limiter_(config.retransmission_rate_limiter) {
   // This random initialization is not intended to be cryptographic strong.
-  timestamp_offset_ = random_.Rand<uint32_t>();
+  absl::BitGen gen;
+  timestamp_offset_ = absl::Uniform<uint32_t>(gen);
 
   RTC_DCHECK(paced_sender_);
   RTC_DCHECK(packet_history_);

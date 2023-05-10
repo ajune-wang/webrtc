@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/random/random.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
@@ -34,7 +35,6 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
-#include "rtc_base/random.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/ntp_time.h"
@@ -238,7 +238,7 @@ class RTCPSender final {
   // ModuleRtpRtcpImpl2.
   uint32_t ssrc_ RTC_GUARDED_BY(mutex_rtcp_sender_);
   Clock* const clock_;
-  Random random_ RTC_GUARDED_BY(mutex_rtcp_sender_);
+  absl::BitGen random_ RTC_GUARDED_BY(mutex_rtcp_sender_);
   RtcpMode method_ RTC_GUARDED_BY(mutex_rtcp_sender_);
 
   RtcEventLog* const event_log_;

@@ -2720,6 +2720,7 @@ include_rules = [
   "+absl/memory/memory.h",
   "+absl/meta/type_traits.h",
   "+absl/numeric/bits.h",
+  "+absl/random/random.h",
   "+absl/strings/ascii.h",
   "+absl/strings/escaping.h",
   "+absl/strings/match.h",

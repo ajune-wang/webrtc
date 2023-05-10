@@ -29,7 +29,6 @@
 #include "modules/rtp_rtcp/source/rtp_packet_history.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_interface.h"
-#include "rtc_base/random.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
@@ -172,7 +171,6 @@ class RTPSender {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(send_mutex_);
 
   Clock* const clock_;
-  Random random_ RTC_GUARDED_BY(send_mutex_);
 
   const bool audio_configured_;
 

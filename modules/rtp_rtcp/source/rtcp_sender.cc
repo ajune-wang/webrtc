@@ -141,7 +141,6 @@ RTCPSender::RTCPSender(Configuration config)
     : audio_(config.audio),
       ssrc_(config.local_media_ssrc),
       clock_(config.clock),
-      random_(clock_->TimeInMicroseconds()),
       method_(RtcpMode::kOff),
       event_log_(config.event_log),
       transport_(config.outgoing_transport),
@@ -798,8 +797,8 @@ void RTCPSender::PrepareReport(const FeedbackState& feedback_state) {
     // The interval between RTCP packets is varied randomly over the
     // range [1/2,3/2] times the calculated interval.
     int min_interval_int = rtc::dchecked_cast<int>(min_interval.ms());
-    TimeDelta time_to_next = TimeDelta::Millis(
-        random_.Rand(min_interval_int * 1 / 2, min_interval_int * 3 / 2));
+    TimeDelta time_to_next = TimeDelta::Millis(absl::Uniform(
+        random_, min_interval_int * 1 / 2, min_interval_int * 3 / 2));
 
     RTC_DCHECK(!time_to_next.IsZero());
     SetNextRtcpSendEvaluationDuration(time_to_next);

@@ -25,7 +25,7 @@ namespace webrtc {
 // thread after transformation.
 class RtpVideoFrameReceiver {
  public:
-  virtual void ManageFrame(std::unique_ptr<RtpFrameObject> frame) = 0;
+  virtual void ManageFrame(std::unique_ptr<EncodedFrame> frame) = 0;
 
  protected:
   virtual ~RtpVideoFrameReceiver() = default;
@@ -46,7 +46,8 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
   void Reset();
 
   // Delegates the call to FrameTransformerInterface::TransformFrame.
-  void TransformFrame(std::unique_ptr<RtpFrameObject> frame);
+  void TransformFrame(std::unique_ptr<EncodedFrame> frame,
+                      std::vector<uint32_t> csrcs);
 
   // Implements TransformedFrameCallback. Can be called on any thread. Posts
   // the transformed frame to be managed on the `network_thread_`.

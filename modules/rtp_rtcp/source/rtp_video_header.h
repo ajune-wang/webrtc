@@ -21,7 +21,6 @@
 #include "api/video/color_space.h"
 #include "api/video/video_codec_type.h"
 #include "api/video/video_content_type.h"
-#include "api/video/video_frame_metadata.h"
 #include "api/video/video_frame_type.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
@@ -42,6 +41,8 @@ using RTPVideoTypeHeader = absl::variant<absl::monostate,
                                          RTPVideoHeaderVP9,
                                          RTPVideoHeaderH264,
                                          RTPVideoHeaderLegacyGeneric>;
+
+class VideoFrameMetadata;
 
 struct RTPVideoHeader {
   struct GenericDescriptorInfo {

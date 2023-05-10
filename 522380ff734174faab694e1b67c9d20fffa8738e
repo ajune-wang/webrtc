@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2589fc5_f55e5187",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4279,
+      "author": {
+        "id": 6720
+      },
+      "writtenOn": "2023-05-10T06:14:49Z",
+      "side": 1,
+      "message": "Calling both HasUsedDataChannels() \u0026\u0026 HasDataChannels() seems excessive.\n\nIf we need to count data channels, I\u0027d prefer it if we could change the HasUsedDataChannels() implementations to do the counting instead of changing the \"ForTest\" function to not be for tests. As it\u0027s written it\u0027s rather hacky and I\u0027d like it to go away.\n\nWe might want to change the name of HasUsedDataChannels() if we do that.",
+      "revId": "522380ff734174faab694e1b67c9d20fffa8738e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

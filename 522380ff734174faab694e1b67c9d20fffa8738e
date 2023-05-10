@@ -16,6 +16,24 @@
       "message": "Calling both HasUsedDataChannels() \u0026\u0026 HasDataChannels() seems excessive.\n\nIf we need to count data channels, I\u0027d prefer it if we could change the HasUsedDataChannels() implementations to do the counting instead of changing the \"ForTest\" function to not be for tests. As it\u0027s written it\u0027s rather hacky and I\u0027d like it to go away.\n\nWe might want to change the name of HasUsedDataChannels() if we do that.",
       "revId": "522380ff734174faab694e1b67c9d20fffa8738e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82ac04e0_cc43b715",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4279,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-10T07:32:24Z",
+      "side": 1,
+      "message": "I agree it is hacky but the previous change has caused a nasty regression in behavior so I\u0027d like to uplift this change to M114.\n\nThe impact should be relatively minor since for connections actively using datachannel, GetDataMid() should return a value.",
+      "parentUuid": "f2589fc5_f55e5187",
+      "revId": "522380ff734174faab694e1b67c9d20fffa8738e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

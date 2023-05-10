@@ -34,6 +34,23 @@
       "parentUuid": "f736c2c3_9a0a3e97",
       "revId": "34b2802367c284a953e40332fc06436448b92ffc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65cf774_32e3c3a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-10T11:31:36Z",
+      "side": 1,
+      "message": "No detailed review of the Python code, but I trust Mirko on that.",
+      "revId": "34b2802367c284a953e40332fc06436448b92ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

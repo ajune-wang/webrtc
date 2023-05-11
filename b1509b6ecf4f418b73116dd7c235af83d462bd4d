@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c40d6f22_dacd58e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-11T08:50:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure average RTT (over full call) is the right one to decide re-transmission, just want to have behavior change smaller.",
+      "revId": "b1509b6ecf4f418b73116dd7c235af83d462bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

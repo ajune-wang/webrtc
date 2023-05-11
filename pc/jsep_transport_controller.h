@@ -333,7 +333,7 @@ class JsepTransportController : public sigslot::has_slots<> {
       bool local,
       SdpType type,
       const cricket::SessionDescription* description);
-  RTCError ValidateContent(const cricket::ContentInfo& content_info);
+  RTCError ValidateContentRtcpMux(const cricket::ContentInfo& content_info);
 
   void HandleRejectedContent(const cricket::ContentInfo& content_info)
       RTC_RUN_ON(network_thread_);

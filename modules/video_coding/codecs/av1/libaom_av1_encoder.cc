@@ -12,6 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <iostream>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -547,6 +548,7 @@ int32_t LibaomAv1Encoder::Encode(
   rtc::scoped_refptr<VideoFrameBuffer> buffer = frame.video_frame_buffer();
   absl::InlinedVector<VideoFrameBuffer::Type, kMaxPreferredPixelFormats>
       supported_formats = {VideoFrameBuffer::Type::kI420,
+                           VideoFrameBuffer::Type::kI420A,
                            VideoFrameBuffer::Type::kNV12};
   rtc::scoped_refptr<VideoFrameBuffer> mapped_buffer;
   if (buffer->type() != VideoFrameBuffer::Type::kNative) {
@@ -576,12 +578,31 @@ int32_t LibaomAv1Encoder::Encode(
     mapped_buffer = converted_buffer;
   }
 
+  auto i420a_buffer = mapped_buffer->GetI420A();
+  const uint8_t* alpha_buffer = i420a_buffer->DataA();
+
+  for (int i = 0; i < mapped_buffer->height(); i++) {
+    for (int j = 0; j < mapped_buffer->width(); j++) {
+      std::cerr << (int)alpha_buffer[i * mapped_buffer->width() + j] << " ";
+    }
+    std::cerr << "\n";
+  }
+
+  // const uint8_t *y_buffer = i420a_buffer->DataY();
+
+  // for (int i = 0; i < mapped_buffer->height(); i++) {
+  //   for (int j = 0; j < mapped_buffer->width(); j++) {
+  //     std::cerr << (int)y_buffer[i * mapped_buffer->width() + j] << " ";
+  //   }
+  //   std::cerr << "\n";
+  // }
+
   switch (mapped_buffer->type()) {
     case VideoFrameBuffer::Type::kI420:
     case VideoFrameBuffer::Type::kI420A: {
       // Set frame_for_encode_ data pointers and strides.
       MaybeRewrapImgWithFormat(AOM_IMG_FMT_I420);
-      auto i420_buffer = mapped_buffer->GetI420();
+      auto i420_buffer = mapped_buffer->GetI420A();
       RTC_DCHECK(i420_buffer);
       frame_for_encode_->planes[AOM_PLANE_Y] =
           const_cast<unsigned char*>(i420_buffer->DataY());
@@ -611,6 +632,42 @@ int32_t LibaomAv1Encoder::Encode(
     default:
       return WEBRTC_VIDEO_CODEC_ENCODER_FAILURE;
   }
+
+  // const int y_stride = frame_for_encode_->stride[AOM_PLANE_Y];
+  // const int uv_stride = frame_for_encode_->stride[AOM_PLANE_U];
+
+  // uint8_t *roi_pixel_map = nullptr;
+  // if (!roi_pixel_map)
+  //   free(roi_pixel_map);
+  // roi_pixel_map = (uint8_t *)calloc(buffer->width() * buffer->height(), 1);
+
+  // for (int i = 0; i < buffer->height(); i++) {
+  //   for (int j = 0; j < y_stride; j++) {
+  //     const int y_idx = i * y_stride + j;
+  //     const int uv_idx = (i / 2) * uv_stride + (j / 2);
+  //     // Green YUV
+  //     if (frame_for_encode_->planes[AOM_PLANE_Y][y_idx] == 71 &&
+  //         frame_for_encode_->planes[AOM_PLANE_U][uv_idx] == 102 &&
+  //         frame_for_encode_->planes[AOM_PLANE_V][uv_idx] == 95) {
+  //           roi_pixel_map[y_idx] = 0;
+  //         } else {
+  //           roi_pixel_map[y_idx] = 1;
+  //         }
+  //   }
+  // }
+  // RTC_LOG(LS_ERROR) << buffer->width() << " " << buffer->height();
+  // RTC_LOG(LS_ERROR) << y_stride << " " << uv_stride << "\n";
+
+  // LOG(ERROR) << "Y " << (int)frame_for_encode_->planes[AOM_PLANE_Y][1] <<
+  //               " U " << (int)frame_for_encode_->planes[AOM_PLANE_U][1] <<
+  //               " V " << (int)frame_for_encode_->planes[AOM_PLANE_V][1];
+
+  // LOG(ERROR) << "Y " << (int)frame_for_encode_->planes[AOM_PLANE_Y][1 +
+  // y_stride] <<
+  //               " U " << (int)frame_for_encode_->planes[AOM_PLANE_U][1 +
+  //               uv_stride] << " V " <<
+  //               (int)frame_for_encode_->planes[AOM_PLANE_V][1 + uv_stride] <<
+  //               "\n";
 
   const uint32_t duration =
       kRtpTicksPerSecond / static_cast<float>(encoder_settings_.maxFramerate);

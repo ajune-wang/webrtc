@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c8d546c7b821bf088b379fc30afd2ed21570fe0b',
+  'chromium_revision': '74daee8e87d6ffc0484c66f580d51c5ad1fbbb93',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@77aede9284a97739978456706f6b3ab6be61c11c',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b4206ed1d1f1c890ff34c3ead21cd9919ba05f34',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a5699ff3ceb965d9d6e2620ba78338667e1bb333',
+    'https://chromium.googlesource.com/chromium/src/testing@8d3ac7dfa25319df01d1d7708231f65e5c7c467a',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@62d3fd1064dd5e75b5143cb977177d99ae947ff5',
+    'https://chromium.googlesource.com/chromium/src/third_party@3095f7841463e0d7bc03cb48fd9a553253d9a9e4',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -183,7 +183,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@716022354a88f641ab22be1a8e7dc1b77079620e',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@db74c58138a0c9b429c0eed0b316e6d1fabfba5a',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@8d21d41d8bec5c0b266ee305d1a708dc5c23b594',
   'src/third_party/flatbuffers/src':
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@516711494458f253efa8e9c8f0139d2504b8f68a',
+    'https://chromium.googlesource.com/chromium/src/tools@9ee3fe9039b07d95bdd3c4cc2c5d6f20b12d7b2b',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

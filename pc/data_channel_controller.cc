@@ -29,15 +29,8 @@ DataChannelController::~DataChannelController() {
 }
 
 bool DataChannelController::HasDataChannels() const {
-  auto has_channels = [&] {
-    RTC_DCHECK_RUN_ON(network_thread());
-    return !sctp_data_channels_n_.empty();
-  };
-
-  if (network_thread()->IsCurrent())
-    return has_channels();
-
-  return network_thread()->BlockingCall(std::move(has_channels));
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  return has_data_channels_;
 }
 
 bool DataChannelController::HasUsedDataChannels() const {
@@ -80,11 +73,14 @@ void DataChannelController::OnChannelStateChanged(
   if (state == DataChannelInterface::DataState::kClosed)
     OnSctpDataChannelClosed(channel);
 
-  signaling_thread()->PostTask(
-      SafeTask(signaling_safety_.flag(),
-               [this, channel_id = channel->internal_id(), state = state] {
-                 pc_->OnSctpDataChannelStateChanged(channel_id, state);
-               }));
+  const bool has_data_channels = !sctp_data_channels_n_.empty();
+  signaling_thread()->PostTask(SafeTask(
+      signaling_safety_.flag(), [this, channel_id = channel->internal_id(),
+                                 state = state, has_data_channels] {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        has_data_channels_ = has_data_channels;
+        pc_->OnSctpDataChannelStateChanged(channel_id, state);
+      }));
 }
 
 void DataChannelController::OnDataReceived(
@@ -169,6 +165,7 @@ void DataChannelController::SetupDataChannelTransport_n(
 void DataChannelController::PrepareForShutdown() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   signaling_safety_.reset(PendingTaskSafetyFlag::CreateDetachedInactive());
+  has_data_channels_ = false;
 }
 
 void DataChannelController::TeardownDataChannelTransport_n(RTCError error) {
@@ -238,6 +235,7 @@ void DataChannelController::OnDataChannelOpenMessage(
     rtc::scoped_refptr<SctpDataChannel> channel,
     bool ready_to_send) {
   has_used_data_channels_ = true;
+  has_data_channels_ = true;
   auto proxy = SctpDataChannel::CreateProxy(channel, signaling_safety_.flag());
 
   pc_->Observer()->OnDataChannel(proxy);
@@ -342,6 +340,7 @@ DataChannelController::InternalCreateDataChannelWithProxy(
   if (!ret.ok())
     return ret.MoveError();
 
+  has_data_channels_ = true;
   has_used_data_channels_ = true;
   return SctpDataChannel::CreateProxy(ret.MoveValue(),
                                       signaling_safety_.flag());

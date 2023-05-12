@@ -16,6 +16,24 @@
       "message": "Could you please add unit tests for this change?",
       "revId": "6f5c2c3432d2d9815bf6d713bad258be70f8e172",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d5bbf13_18581fc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20779
+      },
+      "writtenOn": "2023-05-12T15:44:32Z",
+      "side": 1,
+      "message": "Hmm, are there any existing examples of tests for JNI? Couldn\u0027t find any, and little unsure how to implement the unit tests for this.",
+      "parentUuid": "a59f640d_4f8562ed",
+      "revId": "6f5c2c3432d2d9815bf6d713bad258be70f8e172",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

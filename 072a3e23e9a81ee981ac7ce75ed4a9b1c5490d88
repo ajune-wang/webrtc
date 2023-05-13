@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "37eee407_0fd11356",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Prefer to leave as is, because as part of this issue, we are focusing on implementing the \"multiple streams\" feature for now.",
+      "parentUuid": "fbac424c_562527ea",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dd047f1d_ec9b11c5",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "prefer `.empty()` over `.size() \u003d\u003d 0`\n\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability/container-size-empty.html",
+      "range": {
+        "startLine": 89,
+        "startChar": 36,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc95e68_0e09a5e5",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "dd047f1d_ec9b11c5",
       "range": {
         "startLine": 89,
         "startChar": 36,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b5d88520_40585ccc",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Right, Done.",
+      "parentUuid": "a768b65c_e1687839",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 63
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "722b0891_b27e301a",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
         "patchSetId": 11
@@ -95,6 +167,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5722b6b9_f26eadbb",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Prefer to leave this way, as all other binary operations in this file use hex too, so might be a bit confusing to change here.",
+      "parentUuid": "722b0891_b27e301a",
+      "range": {
+        "startLine": 168,
+        "startChar": 48,
+        "endLine": 168,
+        "endChar": 52
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b0f585a3_6ced67d0",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
         "patchSetId": 11
@@ -106,6 +202,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "or 0b11 - might be cleaner",
+      "range": {
+        "startLine": 196,
+        "startChar": 54,
+        "endLine": 196,
+        "endChar": 58
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3207a49_1f7918a0",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "b0f585a3_6ced67d0",
       "range": {
         "startLine": 196,
         "startChar": 54,
@@ -141,6 +261,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "63db1e2f_bdc51413",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ee95f6bc_6d5833bc",
+      "range": {
+        "startLine": 21,
+        "startChar": 17,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2184dca3_0df5fde9",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
         "patchSetId": 11
@@ -164,6 +308,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e62665f4_e05c4570",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "2184dca3_0df5fde9",
+      "range": {
+        "startLine": 39,
+        "startChar": 22,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "868f979d_7ccc7dd6",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -175,6 +343,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "R and F bits have join meaning (de-facto it is a single 2bits field), may be have single constant for them:\n`kNoRFBits \u003d 0b00 \u003c\u003c 6;`\nor \n`kFlexible \u003d 0b00 \u003c\u003c 6;`\n(and later ther will be `kFixed \u003d 0b10 \u003c\u003c 6; kRetransmit \u003d 0b01 \u003c\u003c 6`)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81730598_f7c1bb69",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "868f979d_7ccc7dd6",
       "range": {
         "startLine": 44,
         "startChar": 0,
@@ -210,6 +402,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "47280dc4_e29630d8",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done. Fixed also for other tests.",
+      "parentUuid": "3594c359_dfbb7d30",
+      "range": {
+        "startLine": 47,
+        "startChar": 25,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fa026381_cf6ca033",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -221,6 +437,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "may be std::vector\u003cuint8_t\u003e (safer, less surprising)\n\nThough I think it would be even cleaner to remove \u0027random\u0027 packet mask altogether:\noften it is even shorter than the seed, so it might be simpler to hardcode \u0027random\u0027 mask:\n\nconstexpr uint8_t kMask0[] \u003d {0xab, 0xcd};\nconstexpr uint8_t kMask1[] \u003d {0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc};\n\nfor testing with \u0027random\u0027 input it would be better to have a fuzzer test.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f08459_54d2963e",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done, changed to constant masks with the correct K bit settings.",
+      "parentUuid": "fa026381_cf6ca033",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -250,6 +490,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0d42c23a_e712e950",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Removed this function as for comment above.",
+      "parentUuid": "09361641_9faa8f69",
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f730473b_83a68a62",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -267,6 +525,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0db7c368_0a3e68f8",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "f730473b_83a68a62",
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "424fdc87_b5a650ab",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -278,6 +554,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "in EXPECT macros it is recommended to put value under test as the 1st parameter, expected value - as the second,\nso in that spirit may be reorder parameters in this helper:\n`read_packet` - first, `expected...` - after that",
+      "range": {
+        "startLine": 90,
+        "startChar": 5,
+        "endLine": 90,
+        "endChar": 22
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc4d0fc0_1b628f6f",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "424fdc87_b5a650ab",
       "range": {
         "startLine": 90,
         "startChar": 5,
@@ -313,6 +613,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "295ddc53_72b4deb0",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "efc67c3e_0e3950e0",
+      "range": {
+        "startLine": 91,
+        "startChar": 23,
+        "endLine": 91,
+        "endChar": 67
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "92b5a2e2_7ec054eb",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -330,6 +654,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2d773617_b937c42c",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Nice, Added.",
+      "parentUuid": "92b5a2e2_7ec054eb",
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d744bbc5_738f6949",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -341,6 +683,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "or `rtc::MakeArrayView(...cdata()...);`\nthen there is no need to specify type explicitely",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bdce100_5e6b725d",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Changed.",
+      "parentUuid": "d744bbc5_738f6949",
       "range": {
         "startLine": 106,
         "startChar": 8,
@@ -376,6 +742,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5f31ebd8_007d9928",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Oh right, the alias is actually there, removing the prefix.",
+      "parentUuid": "4c491c43_df1bac2c",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 35
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "44fc0ec7_f2e6fdc7",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
         "patchSetId": 11
@@ -387,6 +777,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "may be add empty comments to format this with 4 bytes per line:\n```\n      kNoRBit | kNoFBit, kPtRecovery, kLengthRecov[0], kLengthRecov[1],  //\n      kTsRecovery[0], kTsRecovery[1], kTsRecovery[2], kTsRecovery[3], // \n      kSnBases[0][0], kSnBases[0][1], kFlexfecPktMasks[0], kFlexfecPktMasks[1], //\n      kPayloadBits, kPayloadBits, kPayloadBits, kPayloadBits, //\n      };\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 18
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96cb9ac3_80d6a0b3",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Tried that, but since it makes the lines too long, the formatter puts each 2 in one line instead. This also happens in other tests where it puts on per line. Not sure how I can do it without disabling formatting..",
+      "parentUuid": "44fc0ec7_f2e6fdc7",
       "range": {
         "startLine": 123,
         "startChar": 6,
@@ -420,6 +834,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ef32a2_597ff1a3",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Cool, changed.",
+      "parentUuid": "e93d03b2_5c83b62f",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 60
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e0e39ff_d2c21191",
@@ -433,6 +871,30 @@
       "writtenOn": "2023-05-05T10:02:00Z",
       "side": 1,
       "message": "this kind of helpers are hard to read: 4 integer parameter which meanings are unclear (require to jump up and down to understand the meaning.\n\nmay be it would be simpler to keep constant sequence numbers as uint16_t (also,  they do not need to be global constants, each test can have own):\n\n`constexpr uint16_t kSnBase \u003d 0x0102;`\n\n`kPacketData[] \u003d { .... ,kSnBase \u003e\u003e 8, kSnBase \u0026 0xFF, ...};`\n\n`{.stream \u003d {.ssrc \u003d 0x01, \n             .seq_num_base \u003d kSnBase,\n             .packet_mask_offset \u003d 10, \n             .packet_mask_size \u003d kFlexfecPacketMaskSizes[0] },\n  .mask{kUlpfecPacketMasks,  kFlexfecPacketMaskSizes[0]}`",
+      "range": {
+        "startLine": 139,
+        "startChar": 17,
+        "endLine": 139,
+        "endChar": 51
+      },
+      "revId": "072a3e23e9a81ee981ac7ce75ed4a9b1c5490d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21a653f_e216f632",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-13T12:43:50Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "8e0e39ff_d2c21191",
       "range": {
         "startLine": 139,
         "startChar": 17,

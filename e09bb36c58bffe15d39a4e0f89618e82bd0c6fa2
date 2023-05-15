@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c1b3cc6_0a1b6431",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 20779
+      },
+      "writtenOn": "2023-05-15T15:37:34Z",
+      "side": 1,
+      "message": "Updated with the ticket. https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15177\n\nCan\u0027t select the component/type for the ticket, can you update those?",
+      "parentUuid": "98631ed2_3e367754",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "e09bb36c58bffe15d39a4e0f89618e82bd0c6fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "765fa847_5600784b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4

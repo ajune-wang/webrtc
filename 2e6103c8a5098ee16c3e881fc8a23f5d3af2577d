@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9571905a_9af4a878",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-05-15T19:11:14Z",
+      "side": 1,
+      "message": "CQ Dry run passed for the 3 CLs in this chain:\nhttps://webrtc-review.googlesource.com/c/src/+/303200\nhttps://webrtc-review.googlesource.com/c/src/+/303240\nhttps://webrtc-review.googlesource.com/c/src/+/303260\n\nCan these be put in the Commit Queue together? Thanks.",
+      "revId": "2e6103c8a5098ee16c3e881fc8a23f5d3af2577d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

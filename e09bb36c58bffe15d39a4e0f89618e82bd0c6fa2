@@ -16,6 +16,24 @@
       "message": "Sergey, can you add the patch to the commit queue?",
       "revId": "e09bb36c58bffe15d39a4e0f89618e82bd0c6fa2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21508093_eb513ecd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-05-15T14:32:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "765fa847_5600784b",
+      "revId": "e09bb36c58bffe15d39a4e0f89618e82bd0c6fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

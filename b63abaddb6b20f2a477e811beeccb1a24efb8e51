@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f4bf7d_6b6620a8",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-15T08:59:59Z",
+      "side": 1,
+      "message": "may be use std::make_tuple from \u003ctuple\u003e instead\n(but then do not alias it)",
+      "revId": "b63abaddb6b20f2a477e811beeccb1a24efb8e51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f5f12f_e5f13c60",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-15T08:59:59Z",
+      "side": 1,
+      "message": "would it work here to write\n`.mask \u003d kUlpfecPacketMasks` or \n`.mask{kUlpfecPacketMasks}`\n(prefer 1st one if both would work)\n\nThen it might be better not to use kFlexfecPacketMaskSizes above either:\n`.packet_mask_size \u003d std::size(kUlpfecPacketMasks)`\n\nit feels a bit brittle to take data from one constants, but its size from another constant.",
+      "range": {
+        "startLine": 115,
+        "startChar": 7,
+        "endLine": 116,
+        "endChar": 77
+      },
+      "revId": "b63abaddb6b20f2a477e811beeccb1a24efb8e51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d08b1d_453b05af",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-15T08:59:59Z",
+      "side": 1,
+      "message": "why ulpfec is mentioned in flexfec reader?",
+      "range": {
+        "startLine": 420,
+        "startChar": 21,
+        "endLine": 420,
+        "endChar": 27
+      },
+      "revId": "b63abaddb6b20f2a477e811beeccb1a24efb8e51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fe14f9_f6ab9adb",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-15T08:59:59Z",
+      "side": 1,
+      "message": "personally I find multi-dimensional arrays hard to read (never remember which dimension is 1st one, which one is 2nd).\nIn particular here I\u0027m also a bit worried that kUlpfecPacketMasks[0] is not really \nuint8_t[14], but uint8_t[2].\n\nSince you never use kUlpfecPacketMasks as an array, may it would be cleaner to use 4 variables instead:\nconstexpr uint8_t kUlpfecPacketMasks0[] \u003d {0x53, 0x22};\nconstexpr uint8_t kUlpfecPacketMasks1[] \u003d {0x64, ...};\n\nOne of the advandages - implicit conversion to rtc::ArrayView\u003cconst uint8_t\u003e would pickup the correct size:\n...\nexpected \u003d {\n...\n.mask \u003d kUlpfecPacketMasks0}, //should automatically use size of 2, no need to manually provide kFlexfecPacketMaskSizes[0]",
+      "range": {
+        "startLine": 420,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 32
+      },
+      "revId": "b63abaddb6b20f2a477e811beeccb1a24efb8e51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a108f7_aab801c6",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-15T08:59:59Z",
+      "side": 1,
+      "message": "why miss 2 bytes, shouldn\u0027t it fail with 1 byte missing?",
+      "range": {
+        "startLine": 570,
+        "startChar": 59,
+        "endLine": 570,
+        "endChar": 73
+      },
+      "revId": "b63abaddb6b20f2a477e811beeccb1a24efb8e51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb41cc61_9cbe8a06",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-15T08:59:59Z",
+      "side": 1,
+      "message": "nit: because this variables uses \"constant name\" format\nhttps://google.github.io/styleguide/cppguide.html#Constant_Names\n\nmark it as `const` (or `constexpr`)",
+      "range": {
+        "startLine": 599,
+        "startChar": 10,
+        "endLine": 599,
+        "endChar": 21
+      },
+      "revId": "b63abaddb6b20f2a477e811beeccb1a24efb8e51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -180,6 +180,7 @@ bool DxgiOutputDuplicator::Duplicate(Context* context,
     if (!texture_->CopyFrom(frame_info, resource.Get())) {
       return false;
     }
+
     updated_region.AddRegion(context->updated_region);
     // TODO(zijiehe): Figure out why clearing context->updated_region() here
     // triggers screen flickering?
@@ -226,6 +227,263 @@ bool DxgiOutputDuplicator::Duplicate(Context* context,
     }
     updated_region.Translate(offset.x(), offset.y());
     target->mutable_updated_region()->AddRegion(updated_region);
+  } else {
+    // If we were at the very first frame, and capturing failed, the
+    // context->updated_region should be kept unchanged for next attempt.
+    context->updated_region.Swap(&updated_region);
+  }
+  // If AcquireNextFrame() failed with timeout error, we do not need to release
+  // the frame.
+  return error.Error() == DXGI_ERROR_WAIT_TIMEOUT || ReleaseFrame();
+}
+
+bool DxgiOutputDuplicator::PrepareVideoProcessor() {
+  _com_error error = device_.d3d_device()->QueryInterface(
+      _uuidof(ID3D11VideoDevice),
+      reinterpret_cast<void**>(video_device_.GetAddressOf()));
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to get video device: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+  error = device_.context()->QueryInterface(
+      _uuidof(ID3D11VideoContext),
+      reinterpret_cast<void**>(video_context_.GetAddressOf()));
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to get video context: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+
+  D3D11_VIDEO_PROCESSOR_CONTENT_DESC vp_desc;
+  vp_desc.InputFrameFormat = D3D11_VIDEO_FRAME_FORMAT_PROGRESSIVE;
+  vp_desc.InputFrameRate.Numerator = 60;
+  vp_desc.InputFrameRate.Denominator = 1;
+  vp_desc.InputWidth = desktop_rect_.width();
+  vp_desc.InputHeight = desktop_rect_.height();
+  vp_desc.OutputFrameRate.Numerator = 60;
+  vp_desc.OutputFrameRate.Denominator = 1;
+  vp_desc.OutputWidth = desktop_rect_.width();
+  vp_desc.OutputHeight = desktop_rect_.height();
+  vp_desc.Usage = D3D11_VIDEO_USAGE_PLAYBACK_NORMAL;
+
+  error = video_device_->CreateVideoProcessorEnumerator(
+      &vp_desc, &processor_enumerator_);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to CreateVideoProcessorEnumerator: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+  error = video_device_->CreateVideoProcessor(processor_enumerator_.Get(), 0,
+                                              &video_processor_);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to CreateVideoProcessor: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+
+  // Create NV12 texture and shared handle
+  const DXGI_FORMAT dxgi_format = DXGI_FORMAT_NV12;
+  D3D11_TEXTURE2D_DESC desc = {
+    .Width = static_cast<UINT>(desktop_rect_.width()),
+    .Height = static_cast<UINT>(desktop_rect_.height()),
+    .MipLevels = 1,
+    .ArraySize = 1,
+    .Format = dxgi_format,
+    .SampleDesc = {1, 0},
+    .Usage = D3D11_USAGE_DEFAULT,
+    .BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
+    .CPUAccessFlags = 0,
+    .MiscFlags = D3D11_RESOURCE_MISC_SHARED_NTHANDLE |
+                  D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX};
+  error = device_.d3d_device()->CreateTexture2D(
+      &desc, nullptr, &last_texture_);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to CreateTexture2D: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+  Microsoft::WRL::ComPtr<IDXGIResource1> dxgi_resource;
+  error = last_texture_.As(&dxgi_resource);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to get IDXGIResource1.";
+    return false;
+  }
+  error = dxgi_resource->CreateSharedHandle(
+      nullptr, DXGI_SHARED_RESOURCE_READ | DXGI_SHARED_RESOURCE_WRITE,
+      nullptr, &last_handle_);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to CreateSharedHandle.";
+    return false;
+  }
+  return true;
+}
+
+bool DxgiOutputDuplicator::ConvertBGRATextureToNV12(
+    ID3D11Texture2D* input_texture,
+    ID3D11Texture2D* output_texture) {
+  D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC output_view_desc = {
+      D3D11_VPOV_DIMENSION_TEXTURE2D};
+  output_view_desc.Texture2D.MipSlice = 0;
+  Microsoft::WRL::ComPtr<ID3D11VideoProcessorOutputView> output_view;
+  _com_error error = video_device_->CreateVideoProcessorOutputView(
+      output_texture, processor_enumerator_.Get(), &output_view_desc,
+      &output_view);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to create output view: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+
+  D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC input_view_desc = {0};
+  input_view_desc.ViewDimension = D3D11_VPIV_DIMENSION_TEXTURE2D;
+  input_view_desc.Texture2D.ArraySlice = 0;
+  input_view_desc.Texture2D.MipSlice = 0;
+  Microsoft::WRL::ComPtr<ID3D11VideoProcessorInputView> input_view;
+  error = video_device_->CreateVideoProcessorInputView(
+      input_texture, processor_enumerator_.Get(), &input_view_desc,
+      &input_view);
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to create input view: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+
+  D3D11_VIDEO_PROCESSOR_STREAM streams = {0};
+  streams.Enable = TRUE;
+  streams.pInputSurface = input_view.Get();
+  // Need set color space?
+  {
+    // D3D11_VIDEO_PROCESSOR_COLOR_SPACE color_space;
+    // video_context_->VideoProcessorSetStreamColorSpace(
+    //     video_processor_.Get(), 0, &color_space);
+    // video_context_->VideoProcessorSetOutputColorSpace(
+    //     video_processor_.Get(), &color_space);
+  }
+
+  Microsoft::WRL::ComPtr<IDXGIKeyedMutex> keyed_mutex;
+  error = output_texture->QueryInterface(_uuidof(IDXGIKeyedMutex),
+      reinterpret_cast<void**>(keyed_mutex.GetAddressOf()));
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to get KeyedMutex: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+  HRESULT hr = keyed_mutex->AcquireSync(0, INFINITE);
+  if (FAILED(hr)) {
+    return false;
+  }
+  error = video_context_->VideoProcessorBlt(video_processor_.Get(),
+                                    output_view.Get(),
+                                    0, 1, &streams);
+  hr = keyed_mutex->ReleaseSync(0);
+  RTC_DCHECK(SUCCEEDED(hr));
+  if (error.Error() != S_OK) {
+    RTC_LOG(LS_ERROR) << "Failed to VideoProcessorBlt: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+  return true;
+}
+
+bool DxgiOutputDuplicator::DuplicateNative(Context* context,
+                                           DesktopVector offset,
+                                           DesktopFrameTexture* target) {
+  RTC_DCHECK(duplication_);
+  RTC_DCHECK(texture_);
+  RTC_DCHECK(target);
+  if (!DesktopRect::MakeSize(target->size())
+           .ContainsRect(GetTranslatedDesktopRect(offset))) {
+    // target size is not large enough to cover current output region.
+    return false;
+  }
+
+  DXGI_OUTDUPL_FRAME_INFO frame_info;
+  memset(&frame_info, 0, sizeof(frame_info));
+  ComPtr<IDXGIResource> resource;
+  _com_error error = duplication_->AcquireNextFrame(
+      kAcquireTimeoutMs, &frame_info, resource.GetAddressOf());
+
+  if (error.Error() != S_OK && error.Error() != DXGI_ERROR_WAIT_TIMEOUT) {
+    RTC_LOG(LS_ERROR) << "Failed to capture frame: "
+                      << desktop_capture::utils::ComErrorToString(error);
+    return false;
+  }
+  //////////////////////////////
+  RTC_LOG(LS_ERROR) << "@AcquireFrame result:" << error.Error() << " resource:"
+    << resource.Get() << " accum: " << frame_info.AccumulatedFrames;
+  RTC_LOG(LS_ERROR) << "@AcquireFrame info LastMouseUpdateTime:"
+    << frame_info.LastMouseUpdateTime.QuadPart
+    << " PointerPosition:" << frame_info.PointerPosition.Position.x << ","
+    << frame_info.PointerPosition.Position.y << " vis:"
+    << frame_info.PointerPosition.Visible;
+  //////////////////////////////
+
+  // We may only spread updated region from current texture in the future.
+  // So keeps a copy of updated region from context here. The `updated_region`
+  // always starts from (0, 0).
+  DesktopRegion updated_region;
+  updated_region.Swap(&context->updated_region);
+  if (error.Error() == S_OK && resource &&
+      (frame_info.AccumulatedFrames > 0 || !last_handle_)) {
+    DetectUpdatedRegion(frame_info, &context->updated_region);
+    SpreadContextChange(context);
+    updated_region.AddRegion(context->updated_region);
+    // Only update texture according to updated region in the furture.
+    last_frame_offset_ = offset;
+    updated_region.Translate(offset.x(), offset.y());
+    target->mutable_updated_region()->AddRegion(updated_region);
+    num_frames_captured_++;
+
+    // Convert to NV12 texture
+    ComPtr<ID3D11Texture2D> src_texture;
+    error = resource->QueryInterface(
+        __uuidof(ID3D11Texture2D),
+        reinterpret_cast<void**>(src_texture.GetAddressOf()));
+    if (error.Error() != S_OK || !src_texture) {
+      RTC_LOG(LS_ERROR) << "Failed to convert IDXGIResource to ID3D11Texture2D: "
+                        << desktop_capture::utils::ComErrorToString(error);
+    } else {
+      RTC_LOG(LS_ERROR) << "Convert ok!";
+    }
+    if (!last_handle_) {
+      if (!PrepareVideoProcessor()) {
+        RTC_LOG(LS_ERROR) << "Failed to prepare video processor.";
+      }
+    }
+    if (!ConvertBGRATextureToNV12(src_texture.Get(), last_texture_.Get())) {
+        RTC_LOG(LS_ERROR) << "Failed to convert to NV12 texture.";
+    }
+    // Duplicate handle for target frame.
+    HANDLE dup_handle;
+    bool dret = DuplicateHandle(GetCurrentProcess(), last_handle_, GetCurrentProcess(),
+                    &dup_handle, 0, FALSE, DUPLICATE_SAME_ACCESS);
+    RTC_LOG(LS_ERROR) << "### dret:" << dret;
+    RTC_LOG(LS_ERROR) << "### dup handle:" << last_handle_ << ", " << dup_handle;
+    target->Init(device_, dup_handle);
+    return ReleaseFrame();
+  }
+
+  if (last_handle_) {
+    // No change since last frame or AcquireNextFrame() timed out, we will
+    // export last frame to the target.
+    for (DesktopRegion::Iterator it(updated_region); !it.IsAtEnd();
+         it.Advance()) {
+      // The DesktopRect in `source`, starts from last_frame_offset_.
+      DesktopRect source_rect = it.rect();
+      // The DesktopRect in `target`, starts from offset.
+      DesktopRect target_rect = source_rect;
+      source_rect.Translate(last_frame_offset_);
+      target_rect.Translate(offset);
+      // target->CopyPixelsFrom(*last_frame_, source_rect.top_left(), target_rect);
+    }
+    updated_region.Translate(offset.x(), offset.y());
+    target->mutable_updated_region()->AddRegion(updated_region);
+    // Duplicate handle for target frame.
+    HANDLE dup_handle;
+    DuplicateHandle(GetCurrentProcess(), last_handle_, GetCurrentProcess(),
+                    &dup_handle, 0, FALSE, DUPLICATE_SAME_ACCESS);
+    target->Init(device_, dup_handle);
   } else {
     // If we were at the very first frame, and capturing failed, the
     // context->updated_region should be kept unchanged for next attempt.

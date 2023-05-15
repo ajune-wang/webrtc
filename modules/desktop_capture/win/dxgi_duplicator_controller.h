@@ -185,17 +185,17 @@ class RTC_EXPORT DxgiDuplicatorController {
 
   bool DoDuplicateUnlocked(Context* context,
                            int monitor_id,
-                           SharedDesktopFrame* target)
+                           DesktopFrameTexture* target)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   // Captures all monitors.
-  bool DoDuplicateAll(Context* context, SharedDesktopFrame* target)
+  bool DoDuplicateAll(Context* context, DesktopFrameTexture* target)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   // Captures one monitor.
   bool DoDuplicateOne(Context* context,
-                      int monitor_id,
-                      SharedDesktopFrame* target)
+                      int monitor_id, 
+                      DesktopFrameTexture* target)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   // The minimum GetNumFramesCaptured() returned by `duplicators_`.

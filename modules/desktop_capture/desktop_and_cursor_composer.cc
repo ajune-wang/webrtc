@@ -21,6 +21,7 @@
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -174,6 +175,8 @@ void DesktopAndCursorComposer::Start(DesktopCapturer::Callback* callback) {
   callback_ = callback;
   if (mouse_monitor_)
     mouse_monitor_->Init(this, MouseCursorMonitor::SHAPE_AND_POSITION);
+  RTC_LOG(LS_ERROR) << " Start:" << this << " cb:" << callback_;
+  RTC_LOG(LS_ERROR) << "# Start desktop_capturer_:" << desktop_capturer_.get();
   desktop_capturer_->Start(this);
 }
 
@@ -225,7 +228,12 @@ void DesktopAndCursorComposer::OnFrameCaptureStart() {
 void DesktopAndCursorComposer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {
-  if (frame && cursor_) {
+  if (frame) {
+  RTC_LOG(LS_ERROR) << "@@Curso frame:" << frame.get();
+  RTC_LOG(LS_ERROR) << "@@Curso compo:" << frame->is_texture();
+  }
+  
+  if (frame && cursor_ && !frame->is_texture()) {
     if (!frame->may_contain_cursor() &&
         frame->rect().Contains(cursor_position_) &&
         !desktop_capturer_->IsOccluded(cursor_position_)) {
@@ -242,14 +250,20 @@ void DesktopAndCursorComposer::OnCaptureResult(
       relative_position.set(relative_position.x() * scale,
                             relative_position.y() * scale);
 #endif
+      RTC_LOG(LS_ERROR) << "#cursor before ur empty:" << frame->updated_region().is_empty();
       auto frame_with_cursor = std::make_unique<DesktopFrameWithCursor>(
           std::move(frame), *cursor_, relative_position, previous_cursor_rect_,
           cursor_changed_);
       previous_cursor_rect_ = frame_with_cursor->cursor_rect();
       cursor_changed_ = false;
+      RTC_LOG(LS_ERROR) << "#cursor after ur empty:" << frame_with_cursor->updated_region().is_empty();
       frame = std::move(frame_with_cursor);
       frame->set_may_contain_cursor(true);
     }
+  }
+
+  if (frame) {
+  RTC_LOG(LS_ERROR) << "@@Curso compo2:" << frame->handle();
   }
 
   callback_->OnCaptureResult(result, std::move(frame));

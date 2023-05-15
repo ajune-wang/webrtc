@@ -468,6 +468,8 @@ rtc_library("desktop_capture") {
       "win/cursor.h",
       "win/d3d_device.cc",
       "win/d3d_device.h",
+      "win/desktop_frame_texture.cc",
+      "win/desktop_frame_texture.h",
       "win/desktop.cc",
       "win/desktop.h",
       "win/desktop_capture_utils.cc",

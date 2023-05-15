@@ -46,11 +46,18 @@ class DxgiAdapterDuplicator {
   // instances owned by this instance, and writes into `target`.
   bool Duplicate(Context* context, SharedDesktopFrame* target);
 
+  bool DuplicateNative(Context* context, DesktopFrameTexture* target);
+
   // Captures one monitor and writes into `target`. `monitor_id` should be
   // between [0, screen_count()).
   bool DuplicateMonitor(Context* context,
                         int monitor_id,
                         SharedDesktopFrame* target);
+
+  bool DuplicateMonitorNative(Context* context,
+                              int monitor_id,
+                              DesktopFrameTexture* target);
+
 
   // Returns desktop rect covered by this DxgiAdapterDuplicator.
   DesktopRect desktop_rect() const { return desktop_rect_; }

@@ -138,14 +138,42 @@ bool DxgiAdapterDuplicator::Duplicate(Context* context,
   return true;
 }
 
-bool DxgiAdapterDuplicator::DuplicateMonitor(Context* context,
-                                             int monitor_id,
-                                             SharedDesktopFrame* target) {
+bool DxgiAdapterDuplicator::DuplicateNative(Context* context,
+                                            DesktopFrameTexture* target) {
+  RTC_DCHECK_EQ(context->contexts.size(), duplicators_.size());
+  for (size_t i = 0; i < duplicators_.size(); i++) {
+    if (!duplicators_[i].DuplicateNative(
+        &context->contexts[i],
+        duplicators_[i].desktop_rect().top_left(),
+        target)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool DxgiAdapterDuplicator::DuplicateMonitor(
+    Context* context,
+    int monitor_id,
+    SharedDesktopFrame* target) {
   RTC_DCHECK_GE(monitor_id, 0);
   RTC_DCHECK_LT(monitor_id, duplicators_.size());
   RTC_DCHECK_EQ(context->contexts.size(), duplicators_.size());
-  return duplicators_[monitor_id].Duplicate(&context->contexts[monitor_id],
-                                            DesktopVector(), target);
+  return duplicators_[monitor_id].Duplicate(
+      &context->contexts[monitor_id],
+      DesktopVector(), target);
+}
+
+bool DxgiAdapterDuplicator::DuplicateMonitorNative(
+    Context* context,
+    int monitor_id,
+    DesktopFrameTexture* target) {
+  RTC_DCHECK_GE(monitor_id, 0);
+  RTC_DCHECK_LT(monitor_id, duplicators_.size());
+  RTC_DCHECK_EQ(context->contexts.size(), duplicators_.size());
+  return duplicators_[monitor_id].DuplicateNative(
+      &context->contexts[monitor_id],
+      DesktopVector(), target);
 }
 
 DesktopRect DxgiAdapterDuplicator::ScreenRect(int id) const {

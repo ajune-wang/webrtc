@@ -64,9 +64,36 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
   return !!frame_;
 }
 
+bool DxgiFrame::PrepareNative(DesktopSize size,
+                              DesktopCapturer::SourceId source_id) {
+  if (source_id != source_id_) {
+    // Once the source has been changed, the entire source should be copied.
+    source_id_ = source_id;
+    context_.Reset();
+  }
+
+  resolution_tracker_.SetResolution(size);
+
+  if (!frame_) {
+  frame_.reset(SharedDesktopFrame::Wrap(
+        new BasicDesktopFrame(size)));
+  }
+  if (!texture_frame_) {
+    texture_frame_.reset(new DesktopFrameTexture(size));
+  }
+  RTC_LOG(LS_ERROR) << "PrepareNative:" << texture_frame_;
+  return !!texture_frame_;
+}
+
+
 SharedDesktopFrame* DxgiFrame::frame() const {
   RTC_DCHECK(frame_);
   return frame_.get();
+}
+
+DesktopFrameTexture* DxgiFrame::texture_frame() const {
+  RTC_DCHECK(texture_frame_);
+  return texture_frame_.get();
 }
 
 DxgiFrame::Context* DxgiFrame::context() {

@@ -75,6 +75,8 @@ class SharedMemoryFactory {
   SharedMemoryFactory& operator=(const SharedMemoryFactory&) = delete;
 
   virtual std::unique_ptr<SharedMemory> CreateSharedMemory(size_t size) = 0;
+  virtual std::unique_ptr<SharedMemory> CreateSharedBufferForDesktopFrame(
+      int32_t width, int32_t height);
 };
 
 }  // namespace webrtc

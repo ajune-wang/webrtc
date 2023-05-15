@@ -17,6 +17,7 @@
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "modules/desktop_capture/desktop_region.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -37,6 +38,9 @@ BlankDetectorDesktopCapturerWrapper::~BlankDetectorDesktopCapturerWrapper() =
 void BlankDetectorDesktopCapturerWrapper::Start(
     DesktopCapturer::Callback* callback) {
   callback_ = callback;
+  RTC_LOG(LS_ERROR) << "@@Start: " << this << ", cb:" << callback;
+  RTC_LOG(LS_ERROR) << "@@Start dc: " << dynamic_cast<DesktopCapturer::Callback*>(this);
+  RTC_LOG(LS_ERROR) << "@@Start capturer: " << capturer_.get();
   capturer_->Start(this);
 }
 
@@ -81,14 +85,26 @@ void BlankDetectorDesktopCapturerWrapper::OnCaptureResult(
     Result result,
     std::unique_ptr<DesktopFrame> frame) {
   RTC_DCHECK(callback_);
+  RTC_LOG(LS_ERROR) << "@BlankD onCaptureResult:" << (int) result
+      << " , " << frame.get();
+  RTC_LOG(LS_ERROR) << "@BlankD is_texture:" << frame->is_texture()
+      << " , handle: " << frame->handle();
+  
   if (result != Result::SUCCESS || non_blank_frame_received_) {
     callback_->OnCaptureResult(result, std::move(frame));
     return;
   }
+  ///////
+  // if (result == Result::SUCCESS) {
+  //   callback_->OnCaptureResult(result, std::move(frame));
+  //   return;
+  // }/////
 
   if (!frame) {
     // Capturer can call the blank detector with empty frame. Blank
     // detector regards it as a blank frame.
+    RTC_LOG(LS_ERROR) << "@BlankD is blank";
+
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY,
                                std::unique_ptr<DesktopFrame>());
     return;
@@ -97,7 +113,12 @@ void BlankDetectorDesktopCapturerWrapper::OnCaptureResult(
   // If nothing has been changed in current frame, we do not need to check it
   // again.
   if (!frame->updated_region().is_empty() || is_first_frame_) {
-    last_frame_is_blank_ = IsBlankFrame(*frame);
+    RTC_LOG(LS_ERROR) << "@BlankD in empty:" << frame->is_texture();
+    if (frame->is_texture()) {
+      last_frame_is_blank_ = false;
+    } else {
+      last_frame_is_blank_ = IsBlankFrame(*frame);
+    }
     is_first_frame_ = false;
   }
   RTC_HISTOGRAM_BOOLEAN("WebRTC.DesktopCapture.BlankFrameDetected",
@@ -108,6 +129,7 @@ void BlankDetectorDesktopCapturerWrapper::OnCaptureResult(
     return;
   }
 
+RTC_LOG(LS_ERROR) << "@BlankD error";
   callback_->OnCaptureResult(Result::ERROR_TEMPORARY,
                              std::unique_ptr<DesktopFrame>());
 }

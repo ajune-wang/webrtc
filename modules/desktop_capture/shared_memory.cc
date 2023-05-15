@@ -21,4 +21,10 @@ const SharedMemory::Handle SharedMemory::kInvalidHandle = -1;
 SharedMemory::SharedMemory(void* data, size_t size, Handle handle, int id)
     : data_(data), size_(size), handle_(handle), id_(id) {}
 
+std::unique_ptr<SharedMemory>
+SharedMemoryFactory::CreateSharedBufferForDesktopFrame(
+    int32_t width, int32_t height) {
+  return nullptr;
+}
+
 }  // namespace webrtc

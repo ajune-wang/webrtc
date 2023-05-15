@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "442e23a3_ba9da614",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-15T10:50:09Z",
+      "side": 1,
+      "message": "Are the tests already adequate?",
+      "revId": "45e83d9cc6ec7677f204c3dabf06d15e9d20d078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347b8724_95865c67",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-15T10:50:09Z",
+      "side": 1,
+      "message": "This firing needs to happen only when you go from non-empty to empty - in that case, you have state \u003d\u003d kClosed (OnSctpDataChannelClosed is the one that does the erasure).\n\nOnly fire the PostTask when you have something to say?\n\n(There are also erases in OnTransportClosed and AllocateSctpSids. Not sure if they all hit this path.)",
+      "revId": "45e83d9cc6ec7677f204c3dabf06d15e9d20d078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb1498e9_bcc61882",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-15T10:50:09Z",
+      "side": 1,
+      "message": "It\u0027s hard to read when you have has_data_channels_ and has_data_channels with different types. Can you make has_data_channels a DataChannelUsage?",
+      "revId": "45e83d9cc6ec7677f204c3dabf06d15e9d20d078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

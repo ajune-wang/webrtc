@@ -233,12 +233,11 @@ struct ConfigHelper {
                                              kTransportSequenceNumberId))
           .Times(1);
       EXPECT_CALL(*channel_send_,
-                  RegisterSenderCongestionControlObjects(
-                      &rtp_transport_, Eq(&bandwidth_observer_)))
+                  RegisterSenderCongestionControlObjects(&rtp_transport_))
           .Times(1);
     } else {
-      EXPECT_CALL(*channel_send_, RegisterSenderCongestionControlObjects(
-                                      &rtp_transport_, Eq(nullptr)))
+      EXPECT_CALL(*channel_send_,
+                  RegisterSenderCongestionControlObjects(&rtp_transport_))
           .Times(1);
     }
     EXPECT_CALL(*channel_send_, ResetSenderCongestionControlObjects()).Times(1);
@@ -798,8 +797,7 @@ TEST(AudioSendStreamTest, ReconfigureTransportCcResetsFirst) {
       EXPECT_CALL(*helper.channel_send(), ResetSenderCongestionControlObjects())
           .Times(1);
       EXPECT_CALL(*helper.channel_send(),
-                  RegisterSenderCongestionControlObjects(helper.transport(),
-                                                         Ne(nullptr)))
+                  RegisterSenderCongestionControlObjects(helper.transport()))
           .Times(1);
     }
 

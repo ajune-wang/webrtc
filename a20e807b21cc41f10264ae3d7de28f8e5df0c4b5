@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5dabe08_b8498dd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-05-15T08:30:54Z",
+      "side": 1,
+      "message": "Looks good!",
+      "revId": "a20e807b21cc41f10264ae3d7de28f8e5df0c4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21e605e_cf1a7884",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtpCapabilitiesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-05-15T08:30:54Z",
+      "side": 1,
+      "message": "Maybe:\n\nList\u003cString\u003e codecNames \u003d new ArrayList\u003c\u003e();\nfor (RtpCapabilities.CodecCapability codec : senderCapabilities.getCodecs()) {\n codecNames.add(codec.name);\n}\n\nassertTrue(codecNames.containsAll(Arrays.asList(\"VP8\", \"H264\")));",
+      "range": {
+        "startLine": 108,
+        "startChar": 14,
+        "endLine": 108,
+        "endChar": 39
+      },
+      "revId": "a20e807b21cc41f10264ae3d7de28f8e5df0c4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eebbf2f_556a01f0",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtpCapabilitiesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-05-15T08:30:54Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 115,
+        "startChar": 6,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "a20e807b21cc41f10264ae3d7de28f8e5df0c4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd54ba9b_f57f2005",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtpCapabilitiesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-05-15T08:30:54Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 139,
+        "startChar": 6,
+        "endLine": 139,
+        "endChar": 37
+      },
+      "revId": "a20e807b21cc41f10264ae3d7de28f8e5df0c4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab41f15_637c70a3",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/RtpCapabilitiesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-05-15T08:30:54Z",
+      "side": 1,
+      "message": "nit: Arrays.asList would also work.",
+      "range": {
+        "startLine": 168,
+        "startChar": 36,
+        "endLine": 168,
+        "endChar": 61
+      },
+      "revId": "a20e807b21cc41f10264ae3d7de28f8e5df0c4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Erik, do you think this is a change we dare to make? 😊",
       "revId": "c3ba5e178b83027c8177aa3d5d45be1c91fa0844",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b877f2_148d9b84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-05-15T08:32:19Z",
+      "side": 1,
+      "message": "I think there are edge cases at low bitrates with high loss where this will lead to retransmissions + encoded bitrate \u003e BWE, leading to very long pacing queues.\nIt was a very long time since I actively digged into that sort of scenario. Would suggest backing any changes here up by simulations and/or experiment data.",
+      "parentUuid": "86dfa658_008b2a23",
+      "revId": "c3ba5e178b83027c8177aa3d5d45be1c91fa0844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "765fa847_5600784b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20779
+      },
+      "writtenOn": "2023-05-15T12:28:34Z",
+      "side": 1,
+      "message": "Sergey, can you add the patch to the commit queue?",
+      "revId": "e09bb36c58bffe15d39a4e0f89618e82bd0c6fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

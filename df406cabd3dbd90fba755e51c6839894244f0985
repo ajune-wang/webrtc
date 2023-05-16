@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1caf7565_747a1f3e",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-05-16T11:11:06Z",
+      "side": 1,
+      "message": "Could we move some (all?) of that in the constructor, to have a complete object from the start?",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8ea9572_042f22f3",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-05-16T11:11:06Z",
+      "side": 1,
+      "message": "We don’t support JellyBean anymore. Can we do the “create on this thread and make it current on the render thread” thing?",
+      "range": {
+        "startLine": 51,
+        "startChar": 9,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce1d90b9_e14f19bd",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-05-16T11:11:06Z",
+      "side": 1,
+      "message": "How are these meant to be used? Can `createEglBaseWithSharedConnection` be called outside of the `Handler`’s thread?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

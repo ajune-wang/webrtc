@@ -50,6 +50,24 @@
       "message": "How does this relate to the Dependency Descriptor?",
       "revId": "ef4854c375fd5fe6b86ca0e5654b2ecfd31851dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c947bafc_29fbcc85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-16T12:41:13Z",
+      "side": 1,
+      "message": "DD has a frame number too:\nhttps://aomediacodec.github.io/av1-rtp-spec/#a8-dependency-descriptor-format\nMaybe it would make more sense to retire this test-only extension?",
+      "parentUuid": "21263211_b375d2db",
+      "revId": "ef4854c375fd5fe6b86ca0e5654b2ecfd31851dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

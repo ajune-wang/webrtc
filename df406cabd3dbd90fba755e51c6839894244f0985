@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c740cc8c_39df3f01",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-16T13:18:51Z",
+      "side": 1,
+      "message": "Sure. But doesn\u0027t that conflict with \"don\u0027t do work in the constructor\"? Or do you mean keep an init method with an empty argument list?",
+      "parentUuid": "1caf7565_747a1f3e",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8ea9572_042f22f3",
         "filename": "sdk/android/api/org/webrtc/EglThread.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-16T11:11:06Z",
       "side": 1,
       "message": "We don’t support JellyBean anymore. Can we do the “create on this thread and make it current on the render thread” thing?",
+      "range": {
+        "startLine": 51,
+        "startChar": 9,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ac9951_55bac923",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-16T13:18:51Z",
+      "side": 1,
+      "message": "Let\u0027s try! :)",
+      "parentUuid": "e8ea9572_042f22f3",
       "range": {
         "startLine": 51,
         "startChar": 9,
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-16T11:11:06Z",
       "side": 1,
       "message": "How are these meant to be used? Can `createEglBaseWithSharedConnection` be called outside of the `Handler`’s thread?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14a106e_6670ccd6",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-16T13:18:51Z",
+      "side": 1,
+      "message": "Yes, an EglBase can be created on any thread but should only be used on the Handler\u0027s thread. I\u0027ll add docs clarifying that.",
+      "parentUuid": "ce1d90b9_e14f19bd",
       "range": {
         "startLine": 87,
         "startChar": 0,

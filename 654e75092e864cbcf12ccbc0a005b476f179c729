@@ -16,6 +16,328 @@
       "message": "Please?",
       "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e044f97_a4c7d854",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "this would look nicer with comment before the line.... but comment looks redundant to function name, so may be remove it altogether.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 63
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df17f73e_fe8c5ad4",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "if extensions_size_ \u003d\u003d 0, then you may count extension_profile_id + length as 4 extra bytes of padding.\n\nThough currently I do not expect pure padding packets without rtp header extension to be practical.",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 262,
+        "endChar": 64
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d2c78d7_38bf04ac",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "this one is a bit misleading: after padding with id\u003d15 there is no such thing as \u0027zero padding\u0027 in the extension block.\n\nMay be this function should ensure new_extension_size is 32bit aligned.\nbtw, it can\u0027t guarantee it would allocate exactly `length` of padding because of 32bit alignment and unknown alignment of the existent extension.\n\nSetPadding may ensure overall packet.size() matches expectation.",
+      "range": {
+        "startLine": 285,
+        "startChar": 6,
+        "endLine": 285,
+        "endChar": 43
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c236e1e_27b01329",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "why \u0027-4\u0027?",
+      "range": {
+        "startLine": 493,
+        "startChar": 58,
+        "endLine": 493,
+        "endChar": 61
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81170225_857c560f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "that would count bwe extensions (e.g. transport sequence number) as padding bytes, but in a regular packet they would be counted as header bytes.\n\nmoreover, can WorldAlignedLength(extension_size_) be larger than padding_bytes_ ?\nin such case -\u003d would underflow, and become a huge value.\ne.g. try to create packet both with tsn and abs-send-time header extensions",
+      "range": {
+        "startLine": 496,
+        "startChar": 4,
+        "endLine": 496,
+        "endChar": 57
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb623331_a729f613",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "prefer to test via RtpPacket, instead of RtpPacketToSend\n\nthese tests do not need any extra features of the RtpPacketToSend\n\n(some current test may still use RtpPacketToSend because initially RtpPacket constructor wasn\u0027t publicly available)",
+      "range": {
+        "startLine": 435,
+        "startChar": 2,
+        "endLine": 435,
+        "endChar": 17
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd812446_d5c57eff",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "this is confusing:\nthere are zero CSRCs in this packet, so claiming extra 4 bytes are because of CSRC doesn\u0027t look correct.",
+      "range": {
+        "startLine": 437,
+        "startChar": 2,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69422542_e3af195f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "RtpPacket has default contructor.\ni.e. write here `RtpPacket packet;`",
+      "range": {
+        "startLine": 441,
+        "startChar": 2,
+        "endLine": 441,
+        "endChar": 27
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf5444a_ef58ff5d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "may be uint16_t\nIn particular because then below you can use simple\n`EXPECT_EQ(packet.GetExtension\u003cTransportSequenceNumber\u003e(), kTransportSequenceNumber);`",
+      "range": {
+        "startLine": 477,
+        "startChar": 12,
+        "endLine": 477,
+        "endChar": 15
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c7826d5_6bdfa346",
+        "filename": "rtc_base/helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "view.data()\n\n(technically .begin() returns you an iterator to the first element,\nwhile .data() returns you pointer to the underneath array)",
+      "range": {
+        "startLine": 162,
+        "startChar": 29,
+        "endLine": 162,
+        "endChar": 34
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa2afaf_ee1d548a",
+        "filename": "rtc_base/helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "I do not think you need `cryptographically` random data.\nThe main point of using random padding data instead of zeros is to avoid packet compression. simpler random data would suffice",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 44
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ec6083_c36025a4",
+        "filename": "rtc_base/helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "may be `FillRandom` or `GenerateRandomBytes`\n\nfunction named Create suggest it returns a new entity using parameter as pure input,\nbut here `view` is sort of input/output parameter.\nand the function fills passed parameter with random data.",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9170de59_aeb351bc",
+        "filename": "rtc_base/helpers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "mark it as const or constexpr\n\nhttps://google.github.io/styleguide/cppguide.html#Constant_Names\n\n“Variables declared `constexpr or const`, and whose value is fixed for the duration of the program, are named with a leading \"k\" followed by mixed case.”",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 33
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eac5b4f_88ac3316",
+        "filename": "rtc_base/helpers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-17T13:33:22Z",
+      "side": 1,
+      "message": "swap parameters, or even better - avoid memcmp.\ne.g. use operator!\u003d of the rtc::Buffer class:\nEXPECT_NE(random1, random2);\n\nyou may swap from rtc::Buffer to raw array here, then you\u0027ll can validate with ElementsAreArray:\n```\nuint8_t random1[kRandomDataLength] \u003d {};\nuint8_t random2[kRandomDataLength] \u003d {};\nEXPECT_TRUE(FillRandom(random1));\nEXPECT_TRUE(FillRandom(random2));\nEXPECT_THAT(random1, Not(ElementsAreArray(random2));\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 72
+      },
+      "revId": "654e75092e864cbcf12ccbc0a005b476f179c729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

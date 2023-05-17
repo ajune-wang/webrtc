@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321cce8f_104c276d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-17T13:27:36Z",
+      "side": 1,
+      "message": "I was like \"but we don\u0027t even use 255 bytes of padding, only 224\".\nThe comment suggests something about SRTP and it doing padding but this was not true for any of the standard SRTP suites ever?\n\nBlame says this is almost ten years old:\nhttps://webrtc.googlesource.com/src/+/a817962bab1602a0229cb1d450bae55f22d9bd74%5E%21/#F0",
+      "revId": "3aa735dd8e55f0d268f79ada6bf65a409d8ed661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

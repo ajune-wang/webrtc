@@ -45,7 +45,7 @@ bool IsLegalRsidName(absl::string_view name) {
           absl::c_all_of(name, isalnum));
 }
 
-StreamDataCounters::StreamDataCounters() : first_packet_time_ms(-1) {}
+StreamDataCounters::StreamDataCounters() = default;
 
 RtpPacketCounter::RtpPacketCounter(const RtpPacket& packet)
     : header_bytes(packet.headers_size()),
@@ -70,6 +70,18 @@ void RtpPacketCounter::AddPacket(const RtpPacketToSend& packet_to_send) {
   AddPacket(static_cast<const RtpPacket&>(packet_to_send));
   total_packet_delay +=
       packet_to_send.time_in_send_queue().value_or(TimeDelta::Zero());
+}
+
+void StreamDataCounters::Add(const StreamDataCounters& other) {
+  transmitted.Add(other.transmitted);
+  retransmitted.Add(other.retransmitted);
+  fec.Add(other.fec);
+  if (first_packet_time == Timestamp::MinusInfinity() ||
+      (other.first_packet_time != Timestamp::MinusInfinity() &&
+       other.first_packet_time < first_packet_time)) {
+    // Use oldest time (i.e. smallest, but exclude MinusInfinity)
+    first_packet_time = other.first_packet_time;
+  }
 }
 
 }  // namespace webrtc

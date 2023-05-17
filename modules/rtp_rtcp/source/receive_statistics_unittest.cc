@@ -259,12 +259,12 @@ TEST_P(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
   ASSERT_TRUE(statistician != NULL);
 
   StreamDataCounters counters = statistician->GetReceiveStreamDataCounters();
-  EXPECT_GT(counters.first_packet_time_ms, -1);
+  EXPECT_GT(counters.first_packet_time, Timestamp::MinusInfinity());
   EXPECT_EQ(1u, counters.transmitted.packets);
 
   receive_statistics_->OnRtpPacket(packet1_);
   counters = statistician->GetReceiveStreamDataCounters();
-  EXPECT_GT(counters.first_packet_time_ms, -1);
+  EXPECT_GT(counters.first_packet_time, Timestamp::MinusInfinity());
   EXPECT_EQ(2u, counters.transmitted.packets);
 }
 
@@ -594,13 +594,13 @@ TEST_P(ReceiveStatisticsTest, LastPacketReceivedTimestamp) {
   StreamDataCounters counters = receive_statistics_->GetStatistician(kSsrc1)
                                     ->GetReceiveStreamDataCounters();
 
-  EXPECT_EQ(42, counters.last_packet_received_timestamp_ms);
+  EXPECT_EQ(counters.last_packet_received_time, clock_.CurrentTime());
 
   clock_.AdvanceTimeMilliseconds(3);
   receive_statistics_->OnRtpPacket(packet1_);
   counters = receive_statistics_->GetStatistician(kSsrc1)
                  ->GetReceiveStreamDataCounters();
-  EXPECT_EQ(45, counters.last_packet_received_timestamp_ms);
+  EXPECT_EQ(counters.last_packet_received_time, clock_.CurrentTime());
 }
 
 TEST_P(ReceiveStatisticsTest, SimpleJitterComputation) {

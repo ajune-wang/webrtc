@@ -106,6 +106,7 @@ int32_t VideoCaptureModuleV4L2::Init(const char* deviceUniqueIdUTF8) {
 
 VideoCaptureModuleV4L2::~VideoCaptureModuleV4L2() {
   RTC_DCHECK_RUN_ON(&main_checker_);
+  RTC_DCHECK_RUN_ON(&capture_checker_);
 
   StopCapture();
   if (_deviceFd != -1)
@@ -115,6 +116,7 @@ VideoCaptureModuleV4L2::~VideoCaptureModuleV4L2() {
 int32_t VideoCaptureModuleV4L2::StartCapture(
     const VideoCaptureCapability& capability) {
   RTC_DCHECK_RUN_ON(&main_checker_);
+  RTC_DCHECK_RUN_ON(&capture_checker_);
 
   if (_captureStarted) {
     if (capability.width == _currentWidth &&
@@ -286,12 +288,14 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
 
   // start capture thread;
   RTC_DCHECK(_captureThread.empty());
+  capture_checker_.Detach();
   quit_ = false;
   _captureThread = rtc::PlatformThread::SpawnJoinable(
       [self = rtc::scoped_refptr(this)] {
         while (self->CaptureProcess()) {
         }
         self->callback_checker_.Detach();
+        self->capture_checker_.Detach();
       },
       "CaptureThread",
       rtc::ThreadAttributes().SetPriority(rtc::ThreadPriority::kHigh));
@@ -310,6 +314,7 @@ int32_t VideoCaptureModuleV4L2::StopCapture() {
     _captureThread.Finalize();
   }
 
+  RTC_DCHECK_RUN_ON(&capture_checker_);
   MutexLock lock(&capture_lock_);
   if (_captureStarted) {
     _captureStarted = false;
@@ -325,6 +330,7 @@ int32_t VideoCaptureModuleV4L2::StopCapture() {
 // critical section protected by the caller
 
 bool VideoCaptureModuleV4L2::AllocateVideoBuffers() {
+  RTC_DCHECK_RUN_ON(&capture_checker_);
   struct v4l2_requestbuffers rbuffer;
   memset(&rbuffer, 0, sizeof(v4l2_requestbuffers));
 
@@ -375,6 +381,7 @@ bool VideoCaptureModuleV4L2::AllocateVideoBuffers() {
 }
 
 bool VideoCaptureModuleV4L2::DeAllocateVideoBuffers() {
+  RTC_DCHECK_RUN_ON(&capture_checker_);
   // unmap buffers
   for (int i = 0; i < _buffersAllocatedByDevice; i++)
     munmap(_pool[i].start, _pool[i].length);
@@ -392,11 +399,13 @@ bool VideoCaptureModuleV4L2::DeAllocateVideoBuffers() {
 }
 
 bool VideoCaptureModuleV4L2::CaptureStarted() {
+  RTC_DCHECK_RUN_ON(&capture_checker_);
   return _captureStarted;
 }
 
 bool VideoCaptureModuleV4L2::CaptureProcess() {
   RTC_DCHECK_RUN_ON(&callback_checker_);
+  RTC_DCHECK_RUN_ON(&capture_checker_);
 
   int retVal = 0;
   fd_set rSet;
@@ -462,6 +471,7 @@ bool VideoCaptureModuleV4L2::CaptureProcess() {
 int32_t VideoCaptureModuleV4L2::CaptureSettings(
     VideoCaptureCapability& settings) {
   RTC_DCHECK_RUN_ON(&main_checker_);
+  RTC_DCHECK_RUN_ON(&capture_checker_);
   settings.width = _currentWidth;
   settings.height = _currentHeight;
   settings.maxFPS = _currentFrameRate;

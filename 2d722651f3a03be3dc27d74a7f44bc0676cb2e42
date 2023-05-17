@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c3ecdac_38f6a567",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-17T12:50:35Z",
+      "side": 1,
+      "message": "Not sure this is actually covered by the spec, JSEPs four occurences of max-bundle don\u0027t explicitly allow this but it makes sense not to require BUNDLE when there is only a single m-line. Test is the third in\n  https://wpt.live/webrtc/protocol/bundle.https.html",
+      "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

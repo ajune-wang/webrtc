@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3bdbe98_0815a84d",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-17T20:08:42Z",
+      "side": 1,
+      "message": "Very true. Thanks for the suggestion!",
+      "parentUuid": "7322a6aa_c1c25dc1",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8ea9572_042f22f3",

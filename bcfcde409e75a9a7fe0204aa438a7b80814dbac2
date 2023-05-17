@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0450d01f_1e361d8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-17T21:59:02Z",
+      "side": 1,
+      "message": "The original block cipher (DES in CBC mode) required encrypting whole blocks. It required padding to a multiple of 8. (3550 section  9.1).\nStream ciphers don\u0027t have this issue (I think).\n\nIn either case, the value of 224 doesn\u0027t seem to be justifiable (by nature, padding to a power of 2 will necessarily be padding by a number that is not a power of 2).",
+      "revId": "bcfcde409e75a9a7fe0204aa438a7b80814dbac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67d7de6_a2a48d76",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-17T21:59:02Z",
+      "side": 1,
+      "message": "should this constant be moved to rtp_sender.h?",
+      "revId": "bcfcde409e75a9a7fe0204aa438a7b80814dbac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

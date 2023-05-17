@@ -57,6 +57,15 @@ TEST_F(RandomTest, TestCreateRandomData) {
   EXPECT_NE(0, memcmp(random1.data(), random2.data(), kRandomDataLength));
 }
 
+TEST_F(RandomTest, TestCreateRandomView) {
+  static size_t kRandomDataLength = 32;
+  Buffer random1(kRandomDataLength);
+  Buffer random2(kRandomDataLength);
+  EXPECT_TRUE(CreateRandomView(random1));
+  EXPECT_TRUE(CreateRandomView(random2));
+  EXPECT_NE(0, memcmp(random1.data(), random2.data(), kRandomDataLength));
+}
+
 TEST_F(RandomTest, TestCreateRandomStringEvenlyDivideTable) {
   static std::string kUnbiasedTable("01234567");
   std::string random;

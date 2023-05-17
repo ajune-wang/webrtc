@@ -158,6 +158,10 @@ bool CreateRandomData(size_t length, std::string* data) {
   return Rng().Generate(&data->at(0), length);
 }
 
+bool CreateRandomView(rtc::ArrayView<uint8_t> view) {
+  return Rng().Generate(view.begin(), view.size());
+}
+
 // Version 4 UUID is of the form:
 // xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
 // Where 'x' is a hex digit, and 'y' is 8, 9, a or b.

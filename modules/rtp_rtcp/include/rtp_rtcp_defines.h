@@ -347,32 +347,12 @@ struct RtpPacketCounter {
 struct StreamDataCounters {
   StreamDataCounters();
 
-  void Add(const StreamDataCounters& other) {
-    transmitted.Add(other.transmitted);
-    retransmitted.Add(other.retransmitted);
-    fec.Add(other.fec);
-    if (other.first_packet_time_ms != -1 &&
-        (other.first_packet_time_ms < first_packet_time_ms ||
-         first_packet_time_ms == -1)) {
-      // Use oldest time.
-      first_packet_time_ms = other.first_packet_time_ms;
-    }
-  }
+  void Add(const StreamDataCounters& other);
+  void Subtract(const StreamDataCounters& other);
 
-  void Subtract(const StreamDataCounters& other) {
-    transmitted.Subtract(other.transmitted);
-    retransmitted.Subtract(other.retransmitted);
-    fec.Subtract(other.fec);
-    if (other.first_packet_time_ms != -1 &&
-        (other.first_packet_time_ms > first_packet_time_ms ||
-         first_packet_time_ms == -1)) {
-      // Use youngest time.
-      first_packet_time_ms = other.first_packet_time_ms;
-    }
-  }
-
-  int64_t TimeSinceFirstPacketInMs(int64_t now_ms) const {
-    return (first_packet_time_ms == -1) ? -1 : (now_ms - first_packet_time_ms);
+  TimeDelta TimeSinceFirstPacket(Timestamp now) const {
+    RTC_DCHECK(now.IsFinite());
+    return now - first_packet_time;
   }
 
   // Returns the number of bytes corresponding to the actual media payload (i.e.
@@ -383,11 +363,13 @@ struct StreamDataCounters {
            fec.payload_bytes;
   }
 
-  int64_t first_packet_time_ms;  // Time when first packet is sent/received.
+  // Time when first packet is sent/received.
+  Timestamp first_packet_time = Timestamp::MinusInfinity();
+
   // The timestamp at which the last packet was received, i.e. the time of the
   // local clock when it was received - not the RTP timestamp of that packet.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-lastpacketreceivedtimestamp
-  absl::optional<int64_t> last_packet_received_timestamp_ms;
+  Timestamp last_packet_received_time = Timestamp::MinusInfinity();
   RtpPacketCounter transmitted;    // Number of transmitted packets/bytes.
   RtpPacketCounter retransmitted;  // Number of retransmitted packets/bytes.
   RtpPacketCounter fec;            // Number of redundancy packets/bytes.

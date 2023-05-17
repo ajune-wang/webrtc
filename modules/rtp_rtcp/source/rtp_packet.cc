@@ -12,11 +12,13 @@
 
 #include <cstdint>
 #include <cstring>
+#include <limits>
 #include <utility>
 
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
@@ -31,6 +33,17 @@ constexpr uint16_t kTwobyteExtensionProfileIdAppBitsFilter = 0xfff0;
 constexpr size_t kOneByteExtensionHeaderLength = 1;
 constexpr size_t kTwoByteExtensionHeaderLength = 2;
 constexpr size_t kDefaultPacketSize = 1500;
+constexpr uint8_t kOneByteHeaderExtensionReservedId = 15;
+
+uint16_t ExtensionsFieldWords(size_t extensions_size) {
+  return rtc::dchecked_cast<uint16_t>((extensions_size + 3) /
+                                      4);  // Wrap up to 32bit.
+}
+
+size_t ExtensionsFieldLength(size_t extensions_size) {
+  return 4 * ExtensionsFieldWords(extensions_size);
+}
+
 }  // namespace
 
 //  0                   1                   2                   3
@@ -225,6 +238,66 @@ void RtpPacket::SetCsrcs(rtc::ArrayView<const uint32_t> csrcs) {
   buffer_.SetSize(payload_offset_);
 }
 
+bool RtpPacket::AllocatePaddingInHeaderExtension15(size_t length) {
+  // https://www.rfc-editor.org/rfc/rfc5285#section-4.2
+  // The local identifier value 15 is reserved for future extension and
+  // MUST NOT be used as an identifier.  If the ID value 15 is
+  // encountered, its length field should be ignored, processing of the
+  // entire extension should terminate at that point, and only the
+  // extension elements present prior to the element with ID 15
+  // considered.
+  const size_t num_csrc = data()[0] & 0x0F;
+  const size_t extensions_offset = kFixedHeaderSize + (num_csrc * 4) + 4;
+  if (extensions_size_ > 0) {
+    uint16_t profile_id =
+        ByteReader<uint16_t>::ReadBigEndian(data() + extensions_offset - 4);
+    if (profile_id != kOneByteExtensionProfileId) {
+      RTC_LOG(LS_ERROR) << "One byte header extension must be used for padding "
+                           "using header extension id 15.";
+      return false;
+    }
+  }
+
+  size_t padding_in_extension =
+      length - extensions_size_ - kOneByteExtensionHeaderLength;
+
+  size_t new_extensions_size =
+      extensions_size_ + kOneByteExtensionHeaderLength + padding_in_extension;
+  if (extensions_offset + ExtensionsFieldLength(new_extensions_size) >
+      capacity()) {
+    RTC_LOG(LS_ERROR)
+        << "Extension cannot be registered: Not enough space left in buffer.";
+    return false;
+  }
+
+  // All checks passed, write down the extension headers.
+  if (extensions_size_ == 0) {
+    RTC_DCHECK_EQ(payload_offset_, kFixedHeaderSize + (num_csrc * 4));
+    WriteAt(0, data()[0] | 0x10);  // Set extension bit.
+    ByteWriter<uint16_t>::WriteBigEndian(WriteAt(extensions_offset - 4),
+                                         kOneByteExtensionProfileId);
+  }
+  WriteAt(extensions_offset + extensions_size_,
+          kOneByteHeaderExtensionReservedId);
+
+  const uint16_t extension_info_offset = rtc::dchecked_cast<uint16_t>(
+      extensions_offset + extensions_size_ + kOneByteExtensionHeaderLength);
+  extensions_size_ = new_extensions_size;
+  uint16_t extensions_size_padded =
+      SetExtensionLengthMaybeAddZeroPadding(extensions_offset);
+  payload_offset_ = extensions_offset + extensions_size_padded;
+  buffer_.SetSize(payload_offset_);
+
+  // Since extensions are stored in header, and is not encrypted by SRTP,
+  // random data is used.
+  if (!rtc::CreateRandomView(rtc::MakeArrayView(WriteAt(extension_info_offset),
+                                                padding_in_extension))) {
+    // If CreateRandom for some reason fail, zero initilize the padding.
+    memset(WriteAt(extension_info_offset), 0, padding_in_extension);
+  }
+  return true;
+}
+
 rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
   RTC_DCHECK_GE(id, RtpExtension::kMinId);
   RTC_DCHECK_LE(id, RtpExtension::kMaxId);
@@ -297,7 +370,8 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
                                            : kTwoByteExtensionHeaderLength;
   size_t new_extensions_size =
       extensions_size_ + extension_header_size + length;
-  if (extensions_offset + new_extensions_size > capacity()) {
+  if (extensions_offset + ExtensionsFieldLength(new_extensions_size) >
+      capacity()) {
     RTC_LOG(LS_ERROR)
         << "Extension cannot be registered: Not enough space left in buffer.";
     return nullptr;
@@ -378,8 +452,7 @@ void RtpPacket::PromoteToTwoByteHeaderExtension() {
 uint16_t RtpPacket::SetExtensionLengthMaybeAddZeroPadding(
     size_t extensions_offset) {
   // Update header length field.
-  uint16_t extensions_words = rtc::dchecked_cast<uint16_t>(
-      (extensions_size_ + 3) / 4);  // Wrap up to 32bit.
+  uint16_t extensions_words = ExtensionsFieldWords(extensions_size_);
   ByteWriter<uint16_t>::WriteBigEndian(WriteAt(extensions_offset - 2),
                                        extensions_words);
   // Fill extension padding place with zeroes.
@@ -414,6 +487,16 @@ bool RtpPacket::SetPadding(size_t padding_bytes) {
                         << (capacity() - payload_offset_ - payload_size_)
                         << " bytes left in buffer.";
     return false;
+  }
+  if (padding_bytes > std::numeric_limits<uint8_t>::max()) {
+    // More padding requested that fits in the padding section.
+    // Instead, we add padding in the extension field with the reserved id 15.
+    // At least one byte is written as normal padding in order to make the
+    // packet look like a padding packet. (extension length is 32bit alligned).
+    if (!AllocatePaddingInHeaderExtension15(padding_bytes - 4)) {
+      return false;
+    }
+    padding_bytes -= ExtensionsFieldLength(extensions_size_);
   }
   padding_size_ = rtc::dchecked_cast<uint8_t>(padding_bytes);
   buffer_.SetSize(payload_offset_ + payload_size_ + padding_size_);
@@ -502,7 +585,6 @@ bool RtpPacket::ParseBuffer(const uint8_t* buffer, size_t size) {
                                            : kTwoByteExtensionHeaderLength;
       constexpr uint8_t kPaddingByte = 0;
       constexpr uint8_t kPaddingId = 0;
-      constexpr uint8_t kOneByteHeaderExtensionReservedId = 15;
       while (extensions_size_ + extension_header_length < extensions_capacity) {
         if (buffer[extension_offset + extensions_size_] == kPaddingByte) {
           extensions_size_++;

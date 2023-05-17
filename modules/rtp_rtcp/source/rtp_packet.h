@@ -10,6 +10,7 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
 
+#include <cstddef>
 #include <string>
 #include <vector>
 
@@ -158,6 +159,8 @@ class RtpPacket {
   // Same as SetPayloadSize but doesn't guarantee to keep current payload.
   uint8_t* AllocatePayload(size_t size_bytes);
 
+  // Set padding. Padding can be larger than 255 if one byte header extensions
+  // are used.
   bool SetPadding(size_t padding_size);
 
   // Returns debug string of RTP packet (without detailed extension info).
@@ -188,6 +191,8 @@ class RtpPacket {
   // Allocates and returns place to store rtp header extension.
   // Returns empty arrayview on failure.
   rtc::ArrayView<uint8_t> AllocateRawExtension(int id, size_t length);
+
+  bool AllocatePaddingInHeaderExtension15(size_t length);
 
   // Promotes existing one-byte header extensions to two-byte header extensions
   // by rewriting the data and updates the corresponding extension offsets.

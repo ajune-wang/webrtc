@@ -7,12 +7,19 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#include "modules/rtp_rtcp/source/rtp_packet.h"
+
+#include <utility>
+
+#include "api/array_view.h"
 #include "common_video/test/utilities.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/helpers.h"
 #include "rtc_base/random.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -422,6 +429,71 @@ TEST(RtpPacketTest, CreatePurePadding) {
   EXPECT_FALSE(packet.SetPadding(kPaddingSize + 1));
   EXPECT_TRUE(packet.SetPadding(kPaddingSize));
   EXPECT_EQ(packet.size(), packet.capacity());
+}
+
+TEST(RtpPacketTest, CreateLargePaddingPacket) {
+  RtpPacketToSend padding_packet(nullptr);
+  constexpr size_t kPaddingSize = 1000;
+  constexpr size_t kFixedHeaderAndCsrcLength = 12 + 4;
+  EXPECT_TRUE(padding_packet.SetPadding(kPaddingSize));
+  EXPECT_EQ(padding_packet.size(), kFixedHeaderAndCsrcLength + kPaddingSize);
+
+  RtpPacket packet(nullptr);
+  EXPECT_TRUE(packet.Parse(padding_packet.Buffer()));
+  EXPECT_EQ(packet.size(), kFixedHeaderAndCsrcLength + kPaddingSize);
+  EXPECT_TRUE(packet.has_padding());
+  EXPECT_GT(packet.padding_size(), 0u);
+  EXPECT_EQ(packet.payload_size(), 0u);
+}
+
+TEST(RtpPacketTest, LargePaddingPacketUseRandomData) {
+  rtc::SetRandomTestMode(true);
+  RtpPacketToSend padding_packet(nullptr);
+  constexpr size_t kPaddingSize = 1000;
+  ASSERT_TRUE(padding_packet.SetPadding(kPaddingSize));
+
+  constexpr size_t kFixedHeaderAndCsrcLength = 12 + 4;
+  constexpr size_t kOneByteExtensionHeaderLength = 1;
+  int extension_padding_length =
+      padding_packet.size() - kFixedHeaderAndCsrcLength -
+      kOneByteExtensionHeaderLength - padding_packet.padding_size();
+  rtc::CopyOnWriteBuffer padding = padding_packet.Buffer().Slice(
+      kFixedHeaderAndCsrcLength + kOneByteExtensionHeaderLength,
+      extension_padding_length);
+  rtc::SetRandomTestMode(true);
+  rtc::Buffer expected_padding(extension_padding_length);
+  rtc::CreateRandomView(expected_padding);
+
+  EXPECT_THAT(
+      rtc::MakeArrayView(padding.data(), padding.size()),
+      ElementsAreArray(expected_padding.data(), extension_padding_length));
+}
+
+TEST(RtpPacketTest, CreateLargePaddingPacketWithTransportSequenceNumber) {
+  RtpPacketToSend::ExtensionManager extensions;
+  constexpr int kExtensionId = 1;
+  extensions.Register<TransportSequenceNumber>(kExtensionId);
+  RtpPacketToSend padding_packet(&extensions);
+  constexpr int kTransportSequenceNumber = 12345;
+  padding_packet.ReserveExtension<TransportSequenceNumber>();
+  constexpr size_t kPaddingSize = 1000;
+  constexpr size_t kFixedHeaderAndCsrcLength = 12 + 4;
+  padding_packet.SetPadding(kPaddingSize);
+  padding_packet.SetExtension<TransportSequenceNumber>(
+      kTransportSequenceNumber);
+
+  RtpPacket packet(&extensions);
+  EXPECT_TRUE(packet.Parse(padding_packet.Buffer()));
+  EXPECT_EQ(packet.size(), kFixedHeaderAndCsrcLength + kPaddingSize);
+  EXPECT_THAT(packet.GetExtension<TransportSequenceNumber>(),
+              ::testing::Optional<uint16_t>(kTransportSequenceNumber));
+  EXPECT_TRUE(packet.has_padding());
+  EXPECT_EQ(packet.payload_size(), 0u);
+}
+
+TEST(RtpPacketTest, CreateLargePaddingFailsIfLargerThanCapacity) {
+  RtpPacketToSend padding_packet(nullptr, /*capacity=*/900);
+  EXPECT_FALSE(padding_packet.SetPadding(1000));
 }
 
 TEST(RtpPacketTest, CreateUnalignedPadding) {

@@ -17,6 +17,7 @@
 #include <string>
 
 #include "absl/strings/string_view.h"
+#include "api/array_view.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
@@ -49,6 +50,9 @@ RTC_EXPORT bool CreateRandomString(size_t length,
 // Generates (cryptographically) random data of the given length.
 // Return false if the random number generator failed.
 bool CreateRandomData(size_t length, std::string* data);
+// Generates (cryptographically) random data and store in view.
+// Return false if the random number generator failed.
+bool CreateRandomView(rtc::ArrayView<uint8_t> view);
 
 // Generates a (cryptographically) random UUID version 4 string.
 std::string CreateRandomUuid();

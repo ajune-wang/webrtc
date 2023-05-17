@@ -268,18 +268,6 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
     return -1;
   }
 
-  // start capture thread;
-  if (_captureThread.empty()) {
-    quit_ = false;
-    _captureThread = rtc::PlatformThread::SpawnJoinable(
-        [this] {
-          while (CaptureProcess()) {
-          }
-        },
-        "CaptureThread",
-        rtc::ThreadAttributes().SetPriority(rtc::ThreadPriority::kHigh));
-  }
-
   // Needed to start UVC camera - from the uvcview application
   enum v4l2_buf_type type;
   type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -289,6 +277,17 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
   }
 
   _captureStarted = true;
+
+  // start capture thread;
+  RTC_DCHECK(_captureThread.empty());
+  quit_ = false;
+  _captureThread = rtc::PlatformThread::SpawnJoinable(
+      [this] {
+        while (CaptureProcess()) {
+        }
+      },
+      "CaptureThread",
+      rtc::ThreadAttributes().SetPriority(rtc::ThreadPriority::kHigh));
   return 0;
 }
 

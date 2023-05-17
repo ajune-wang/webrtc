@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7322a6aa_c1c25dc1",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-05-17T10:44:09Z",
+      "side": 1,
+      "message": "Good point, but then I’d rather have a factory method do the work, and have the constructor take a `Handler` and an `EglConnection`, only keeping the constructor `@VisibleForTesting`.\n\nThe main benefit I see to having the logic in this method execute during (or before) construction is that all your instance variables are final and non-null, you never have to make sure your object have been properly initialised before you use it.\n\nI guess there’s a similar issue of not knowing if the object has been released if all the references are final and you can’t nullify them on release... I don’t have a good answer to that, but it feels like a better position to be in.",
+      "parentUuid": "c740cc8c_39df3f01",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "df406cabd3dbd90fba755e51c6839894244f0985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8ea9572_042f22f3",
         "filename": "sdk/android/api/org/webrtc/EglThread.java",
         "patchSetId": 1

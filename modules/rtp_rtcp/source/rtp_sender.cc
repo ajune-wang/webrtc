@@ -38,8 +38,8 @@
 namespace webrtc {
 
 namespace {
-// Max in the RFC 3550 is 255 bytes, we limit it to be modulus 32 for SRTP.
-constexpr size_t kMaxPaddingLength = 224;
+// Maximum amount of padding in RFC 3550 is 255 bytes.
+constexpr size_t kMaxPaddingLength = 255;
 constexpr size_t kMinAudioPaddingLength = 50;
 constexpr size_t kRtpHeaderLength = 12;
 

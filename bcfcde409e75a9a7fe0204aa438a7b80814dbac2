@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3cee8ec_c3df9766",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-18T09:05:25Z",
+      "side": 1,
+      "message": "Thanks for explaining, that makes sense but predates SRTP and the cipher suites we use.\n\nWhich don\u0027t require padding, updated the description",
+      "parentUuid": "0450d01f_1e361d8d",
+      "revId": "bcfcde409e75a9a7fe0204aa438a7b80814dbac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e67d7de6_a2a48d76",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-17T21:59:02Z",
       "side": 1,
       "message": "should this constant be moved to rtp_sender.h?",
+      "revId": "bcfcde409e75a9a7fe0204aa438a7b80814dbac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6bd82e_cae36b7c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-18T09:05:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e67d7de6_a2a48d76",
       "revId": "bcfcde409e75a9a7fe0204aa438a7b80814dbac2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

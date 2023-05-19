@@ -313,7 +313,7 @@ MATCHER_P2(HasSpatialAndTemporalLayersSMode,
 TEST_P(SvcTest, ScalabilityModeSupported) {
   std::string trials;
   if (UseDependencyDescriptor()) {
-    trials += "WebRTC-DependencyDescriptorAdvertised/Enabled/";
+    trials = "WebRTC-DependencyDescriptorAdvertised/Enabled/";
   }
   webrtc::test::ScopedFieldTrials override_trials(AppendFieldTrials(trials));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =

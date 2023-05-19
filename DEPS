@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f5f75943371a436b619bfab47fd1eb6039a52fad',
+  'chromium_revision': 'beb016bd98d80d9e6d5d831220548a146f7e6e57',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:12.20230519.0.1',
+  'fuchsia_version': 'version:12.20230519.1.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -46,7 +46,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@4033618985a98c11acfeb7dfa0649f448ca6280b',
+    'https://chromium.googlesource.com/chromium/src/base@e22c754e7d5dd779480e7a7ef4a06ed9d46b6e92',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@211e7d56727a0109c64dc6c98ee8e522d929e133',
   'src/buildtools':
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@2c5ac40524f325206f9c5c5a27c7e23944a20962',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@f5661c979ce0b9b5daf074638982a934d1e1f2f1',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4f25c142e6c3dc715f0cab7b5e0497801ca3396b',
+    'https://chromium.googlesource.com/chromium/src/testing@b96cee7bfedc814f9c891f5db70ccb0423845dd1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@727639a237fa317c8d335beadebed0e18fe6454a',
+    'https://chromium.googlesource.com/chromium/src/third_party@7440c4270ac174469e0d1b23a3d8d6e18e8890fd',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -197,7 +197,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@99dadd56a40e6d9ae23b395225ecf9997432d22c',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@115e927540dba128980dd734dadeb06aa7b0f4d8',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@8df5cdbcda495a582e72a7e2ce35d6106401edce',
   'src/third_party/google_benchmark/src': {
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@c6326ae21466e056c2125732fd0d46d83af97824',
+    'https://chromium.googlesource.com/chromium/src/tools@a74a6839f3423bcc8227af3bd9f72dff2758802d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

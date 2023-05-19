@@ -16,6 +16,23 @@
       "message": "I\u0027ve checked the failures of previous time this was landed - they look like use after free somewhere in c++ code. So I suspect there was some race during test destruction.\n\nI\u0027ve rerun bot that started failing then twice - it pass, so may be the root issue was fixed.",
       "revId": "4deec7ab29ab4816001aea57afdc0fa73b190429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "737fd505_1aa1fa7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2023-05-19T15:39:50Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "4deec7ab29ab4816001aea57afdc0fa73b190429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

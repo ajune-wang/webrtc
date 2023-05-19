@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd3b1e24_3d1f4a8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-19T11:36:19Z",
+      "side": 1,
+      "message": "Relanding this change. Original Cl got reverted due to a flaky test (b/280552833)",
+      "revId": "39657228895932102921e66e6ead9c190ca1833f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

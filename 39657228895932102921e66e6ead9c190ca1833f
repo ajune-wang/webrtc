@@ -39,6 +39,30 @@
       },
       "revId": "39657228895932102921e66e6ead9c190ca1833f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db4b0c22_861da3ec",
+        "filename": "sdk/android/api/org/webrtc/ScreenCapturerAndroid.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-19T12:22:33Z",
+      "side": 1,
+      "message": "Good catch, thanks!",
+      "parentUuid": "a1f6f9b7_7ff3c759",
+      "range": {
+        "startLine": 190,
+        "startChar": 27,
+        "endLine": 190,
+        "endChar": 38
+      },
+      "revId": "39657228895932102921e66e6ead9c190ca1833f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

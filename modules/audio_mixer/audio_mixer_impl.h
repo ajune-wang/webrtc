@@ -76,8 +76,9 @@ class AudioMixerImpl : public AudioMixer {
   // Compute what audio sources to mix from audio_source_list_. Ramp
   // in and out. Update mixed status. Mixes up to
   // kMaximumAmountOfMixedAudioSources audio sources.
-  rtc::ArrayView<AudioFrame* const> GetAudioFromSources(int output_frequency)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  rtc::ArrayView<AudioFrame* const> GetAudioFromSources(
+      HelperContainers& containers,
+      int output_frequency) RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   // The critical section lock guards audio source insertion and
   // removal, which can be done from any thread. The race checker

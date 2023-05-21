@@ -37,6 +37,7 @@ using ::testing::Exactly;
 using ::testing::Invoke;
 using ::testing::Return;
 using ::testing::UnorderedElementsAre;
+using ::testing::WithArg;
 
 namespace webrtc {
 
@@ -56,6 +57,7 @@ void ResetFrame(AudioFrame* frame) {
   frame->samples_per_channel_ = kDefaultSampleRateHz / 100;
   frame->vad_activity_ = AudioFrame::kVadActive;
   frame->speech_type_ = AudioFrame::kNormalSpeech;
+  frame->mutable_data();  // To make sure the frame isn't muted by default.
 }
 
 std::string ProduceDebugText(int sample_rate_hz,
@@ -68,7 +70,14 @@ std::string ProduceDebugText(int sample_rate_hz,
   return ss.Release();
 }
 
-AudioFrame frame_for_mixing;
+std::unique_ptr<AudioFrame> CreateUnmutedFrame() {
+  auto frame = std::make_unique<AudioFrame>();
+  frame->mutable_data();
+  RTC_DCHECK(!frame->muted());
+  return frame;
+}
+
+AudioFrame g_frame_for_mixing;
 
 }  // namespace
 
@@ -91,7 +100,7 @@ class MockMixerAudioSource : public ::testing::NiceMock<AudioMixer::Source> {
   MOCK_METHOD(int, PreferredSampleRate, (), (const, override));
   MOCK_METHOD(int, Ssrc, (), (const, override));
 
-  AudioFrame* fake_frame() { return &fake_frame_; }
+  AudioFrame* fake_frame() { return fake_frame_.get(); }
   AudioFrameInfo fake_info() { return fake_audio_frame_info_; }
   void set_fake_info(const AudioFrameInfo audio_frame_info) {
     fake_audio_frame_info_ = audio_frame_info;
@@ -104,7 +113,7 @@ class MockMixerAudioSource : public ::testing::NiceMock<AudioMixer::Source> {
  private:
   AudioFrameInfo FakeAudioFrameWithInfo(int sample_rate_hz,
                                         AudioFrame* audio_frame) {
-    audio_frame->CopyFrom(fake_frame_);
+    audio_frame->CopyFrom(*fake_frame_.get());
     audio_frame->sample_rate_hz_ = sample_rate_hz;
     audio_frame->samples_per_channel_ =
         rtc::CheckedDivExact(sample_rate_hz, 100);
@@ -112,7 +121,7 @@ class MockMixerAudioSource : public ::testing::NiceMock<AudioMixer::Source> {
     return fake_info();
   }
 
-  AudioFrame fake_frame_;
+  std::unique_ptr<AudioFrame> fake_frame_{CreateUnmutedFrame()};
   AudioFrameInfo fake_audio_frame_info_;
   RtpPacketInfos packet_infos_;
 };
@@ -134,10 +143,19 @@ class CustomRateCalculator : public OutputRateCalculator {
 void MixAndCompare(
     const std::vector<AudioFrame>& frames,
     const std::vector<AudioMixer::Source::AudioFrameInfo>& frame_info,
-    const std::vector<bool>& expected_status) {
+    const std::vector<bool>& expected_status,
+    AudioFrame* mix_to_frame) {
   const size_t num_audio_sources = frames.size();
   RTC_DCHECK(frames.size() == frame_info.size());
   RTC_DCHECK(frame_info.size() == expected_status.size());
+
+  for (size_t i = 0; i < frame_info.size(); ++i) {
+    if (frames[i].muted()) {
+      RTC_DCHECK_EQ(frame_info[i], AudioMixer::Source::AudioFrameInfo::kMuted);
+    } else {
+      RTC_DCHECK_NE(frame_info[i], AudioMixer::Source::AudioFrameInfo::kMuted);
+    }
+  }
 
   const auto mixer = AudioMixerImpl::Create();
   std::vector<MockMixerAudioSource> participants(num_audio_sources);
@@ -150,10 +168,20 @@ void MixAndCompare(
   for (size_t i = 0; i < num_audio_sources; ++i) {
     EXPECT_TRUE(mixer->AddSource(&participants[i]));
     EXPECT_CALL(participants[i], GetAudioFrameWithInfo(kDefaultSampleRateHz, _))
-        .Times(Exactly(1));
+        .Times(Exactly(1))
+        .WillOnce(WithArg<1>([&, i = i](AudioFrame* frame) {
+          fprintf(stderr, " *** frame: %s\n",
+                  (frame->muted() ? "muted" : "unmuted"));
+          if (frame_info[i] == AudioMixer::Source::AudioFrameInfo::kMuted) {
+            frame->Mute();
+          } else {
+            frame->mutable_data();
+          }
+          return frame_info[i];
+        }));
   }
 
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, mix_to_frame);
 
   for (size_t i = 0; i < num_audio_sources; ++i) {
     EXPECT_EQ(expected_status[i],
@@ -170,7 +198,7 @@ void MixMonoAtGivenNativeRate(int native_sample_rate,
       .WillByDefault(Return(native_sample_rate));
   audio_source->fake_frame()->sample_rate_hz_ = native_sample_rate;
   audio_source->fake_frame()->samples_per_channel_ = native_sample_rate / 100;
-
+  RTC_DCHECK(!mix_frame->muted());
   mixer->Mix(1, mix_frame);
 }
 
@@ -283,6 +311,8 @@ TEST(AudioMixer, FrameNotModifiedForSingleParticipant) {
 TEST(AudioMixer, SourceAtNativeRateShouldNeverResample) {
   const auto mixer = AudioMixerImpl::Create();
 
+  auto frame_for_mixing = CreateUnmutedFrame();
+
   MockMixerAudioSource audio_source;
   ResetFrame(audio_source.fake_frame());
 
@@ -292,7 +322,7 @@ TEST(AudioMixer, SourceAtNativeRateShouldNeverResample) {
     EXPECT_CALL(audio_source, GetAudioFrameWithInfo(frequency, _))
         .Times(Exactly(1));
 
-    MixMonoAtGivenNativeRate(frequency, &frame_for_mixing, mixer,
+    MixMonoAtGivenNativeRate(frequency, frame_for_mixing.get(), mixer,
                              &audio_source);
   }
 }
@@ -306,10 +336,10 @@ TEST(AudioMixer, MixerShouldMixAtNativeSourceRate) {
   mixer->AddSource(&audio_source);
 
   for (auto frequency : {8000, 16000, 32000, 48000}) {
-    MixMonoAtGivenNativeRate(frequency, &frame_for_mixing, mixer,
+    MixMonoAtGivenNativeRate(frequency, &g_frame_for_mixing, mixer,
                              &audio_source);
 
-    EXPECT_EQ(frequency, frame_for_mixing.sample_rate_hz_);
+    EXPECT_EQ(frequency, g_frame_for_mixing.sample_rate_hz_);
   }
 }
 
@@ -331,9 +361,9 @@ TEST(AudioMixer, MixerShouldAlwaysMixAtNativeRate) {
   participant.fake_frame()->sample_rate_hz_ = expected_mix_frequency;
   participant.fake_frame()->samples_per_channel_ = expected_mix_frequency / 100;
 
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
-  EXPECT_EQ(48000, frame_for_mixing.sample_rate_hz_);
+  EXPECT_EQ(48000, g_frame_for_mixing.sample_rate_hz_);
 }
 
 // Check that the mixing rate is always >= participants preferred rate.
@@ -351,7 +381,7 @@ TEST(AudioMixer, ShouldNotCauseQualityLossForMultipleSources) {
 
     EXPECT_CALL(source, GetAudioFrameWithInfo(::testing::Ge(sample_rate), _));
   }
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 }
 
 TEST(AudioMixer, ParticipantNumberOfChannels) {
@@ -364,8 +394,8 @@ TEST(AudioMixer, ParticipantNumberOfChannels) {
   for (size_t number_of_channels : {1, 2}) {
     EXPECT_CALL(participant, GetAudioFrameWithInfo(kDefaultSampleRateHz, _))
         .Times(Exactly(1));
-    mixer->Mix(number_of_channels, &frame_for_mixing);
-    EXPECT_EQ(number_of_channels, frame_for_mixing.num_channels_);
+    mixer->Mix(number_of_channels, &g_frame_for_mixing);
+    EXPECT_EQ(number_of_channels, g_frame_for_mixing.num_channels_);
   }
 }
 
@@ -393,7 +423,7 @@ TEST(AudioMixer, RampedOutSourcesShouldNotBeMarkedMixed) {
   }
 
   // First mixer iteration
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
   // All participants but the loudest should have been mixed.
   for (int i = 0; i < kAudioSources - 1; ++i) {
@@ -408,7 +438,7 @@ TEST(AudioMixer, RampedOutSourcesShouldNotBeMarkedMixed) {
         .Times(Exactly(1));
   }
 
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
   // The most quiet participant should not have been mixed.
   EXPECT_FALSE(mixer->GetAudioSourceMixabilityStatusForTest(&participants[0]))
@@ -443,7 +473,7 @@ TEST(AudioMixer, ConstructFromOtherThread) {
       .Times(Exactly(1));
 
   // Do one mixer iteration
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 }
 
 TEST(AudioMixer, MutedShouldMixAfterUnmuted) {
@@ -453,15 +483,18 @@ TEST(AudioMixer, MutedShouldMixAfterUnmuted) {
   std::vector<AudioFrame> frames(kAudioSources);
   for (auto& frame : frames) {
     ResetFrame(&frame);
+    RTC_DCHECK(!frame.muted());
   }
 
   std::vector<AudioMixer::Source::AudioFrameInfo> frame_info(
       kAudioSources, AudioMixer::Source::AudioFrameInfo::kNormal);
   frame_info[0] = AudioMixer::Source::AudioFrameInfo::kMuted;
+  frames[0].Mute();
   std::vector<bool> expected_status(kAudioSources, true);
   expected_status[0] = false;
 
-  MixAndCompare(frames, frame_info, expected_status);
+  auto mix_frame = CreateUnmutedFrame();
+  MixAndCompare(frames, frame_info, expected_status, mix_frame.get());
 }
 
 TEST(AudioMixer, PassiveShouldMixAfterNormal) {
@@ -479,7 +512,8 @@ TEST(AudioMixer, PassiveShouldMixAfterNormal) {
   std::vector<bool> expected_status(kAudioSources, true);
   expected_status[0] = false;
 
-  MixAndCompare(frames, frame_info, expected_status);
+  auto mix_frame = CreateUnmutedFrame();
+  MixAndCompare(frames, frame_info, expected_status, mix_frame.get());
 }
 
 TEST(AudioMixer, ActiveShouldMixBeforeLoud) {
@@ -500,7 +534,8 @@ TEST(AudioMixer, ActiveShouldMixBeforeLoud) {
   std::vector<bool> expected_status(kAudioSources, true);
   expected_status[0] = false;
 
-  MixAndCompare(frames, frame_info, expected_status);
+  auto mix_frame = CreateUnmutedFrame();
+  MixAndCompare(frames, frame_info, expected_status, mix_frame.get());
 }
 
 TEST(AudioMixer, ShouldMixUpToSpecifiedNumberOfSourcesToMix) {
@@ -536,7 +571,7 @@ TEST(AudioMixer, ShouldMixUpToSpecifiedNumberOfSourcesToMix) {
         .Times(Exactly(1));
   }
 
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
   std::vector<bool> expected_status = {false, false, false, true, true};
   for (int i = 0; i < kAudioSources; ++i) {
@@ -564,7 +599,8 @@ TEST(AudioMixer, UnmutedShouldMixBeforeLoud) {
   std::vector<bool> expected_status(kAudioSources, true);
   expected_status[0] = false;
 
-  MixAndCompare(frames, frame_info, expected_status);
+  auto mix_frame = CreateUnmutedFrame();
+  MixAndCompare(frames, frame_info, expected_status, mix_frame.get());
 }
 
 TEST(AudioMixer, MixingRateShouldBeDecidedByRateCalculator) {
@@ -580,7 +616,7 @@ TEST(AudioMixer, MixingRateShouldBeDecidedByRateCalculator) {
   EXPECT_CALL(audio_source, GetAudioFrameWithInfo(kOutputRate, _))
       .Times(Exactly(1));
 
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 }
 
 TEST(AudioMixer, ZeroSourceRateShouldBeDecidedByRateCalculator) {
@@ -590,16 +626,16 @@ TEST(AudioMixer, ZeroSourceRateShouldBeDecidedByRateCalculator) {
                                  new CustomRateCalculator(kOutputRate)),
                              true);
 
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
-  EXPECT_EQ(kOutputRate, frame_for_mixing.sample_rate_hz_);
+  EXPECT_EQ(kOutputRate, g_frame_for_mixing.sample_rate_hz_);
 }
 
 TEST(AudioMixer, NoLimiterBasicApiCalls) {
   const auto mixer = AudioMixerImpl::Create(
       std::unique_ptr<OutputRateCalculator>(new DefaultOutputRateCalculator()),
       false);
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 }
 
 TEST(AudioMixer, AnyRateIsPossibleWithNoLimiter) {
@@ -622,9 +658,9 @@ TEST(AudioMixer, AnyRateIsPossibleWithNoLimiter) {
           mixer->AddSource(&source);
         }
 
-        mixer->Mix(number_of_channels, &frame_for_mixing);
-        EXPECT_EQ(rate, frame_for_mixing.sample_rate_hz_);
-        EXPECT_EQ(number_of_channels, frame_for_mixing.num_channels_);
+        mixer->Mix(number_of_channels, &g_frame_for_mixing);
+        EXPECT_EQ(rate, g_frame_for_mixing.sample_rate_hz_);
+        EXPECT_EQ(number_of_channels, g_frame_for_mixing.num_channels_);
       }
     }
   }
@@ -639,7 +675,7 @@ TEST(AudioMixer, MultipleChannelsOneParticipant) {
   ResetFrame(source.fake_frame());
   const auto mixer = AudioMixerImpl::Create();
   mixer->AddSource(&source);
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
   auto* frame = source.fake_frame();
   frame->num_channels_ = kNumberOfChannels;
   std::fill(frame->mutable_data(),
@@ -648,12 +684,13 @@ TEST(AudioMixer, MultipleChannelsOneParticipant) {
     frame->mutable_data()[100 * frame->num_channels_ + i] = 1000 * i;
   }
 
-  mixer->Mix(kNumberOfChannels, &frame_for_mixing);
+  mixer->Mix(kNumberOfChannels, &g_frame_for_mixing);
 
-  EXPECT_EQ(frame_for_mixing.num_channels_, kNumberOfChannels);
+  EXPECT_EQ(g_frame_for_mixing.num_channels_, kNumberOfChannels);
   for (size_t i = 0; i < kNumberOfChannels; ++i) {
-    EXPECT_EQ(frame_for_mixing.data()[100 * frame_for_mixing.num_channels_ + i],
-              static_cast<int16_t>(1000 * i));
+    EXPECT_EQ(
+        g_frame_for_mixing.data()[100 * g_frame_for_mixing.num_channels_ + i],
+        static_cast<int16_t>(1000 * i));
   }
 }
 
@@ -666,7 +703,7 @@ TEST(AudioMixer, MultipleChannelsManyParticipants) {
   const auto mixer = AudioMixerImpl::Create();
   mixer->AddSource(&source);
   ResetFrame(source.fake_frame());
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
   auto* frame = source.fake_frame();
   frame->num_channels_ = kNumberOfChannels;
   std::fill(frame->mutable_data(),
@@ -678,12 +715,13 @@ TEST(AudioMixer, MultipleChannelsManyParticipants) {
   ResetFrame(other_source.fake_frame());
   mixer->AddSource(&other_source);
 
-  mixer->Mix(kNumberOfChannels, &frame_for_mixing);
+  mixer->Mix(kNumberOfChannels, &g_frame_for_mixing);
 
-  EXPECT_EQ(frame_for_mixing.num_channels_, kNumberOfChannels);
+  EXPECT_EQ(g_frame_for_mixing.num_channels_, kNumberOfChannels);
   for (size_t i = 0; i < kNumberOfChannels; ++i) {
-    EXPECT_EQ(frame_for_mixing.data()[100 * frame_for_mixing.num_channels_ + i],
-              static_cast<int16_t>(1000 * i));
+    EXPECT_EQ(
+        g_frame_for_mixing.data()[100 * g_frame_for_mixing.num_channels_ + i],
+        static_cast<int16_t>(1000 * i));
   }
 }
 
@@ -716,16 +754,17 @@ TEST(AudioMixer, ShouldIncludeRtpPacketInfoFromAllMixedSources) {
   source.set_packet_infos(RtpPacketInfos({p0}));
   mixer->AddSource(&source);
   ResetFrame(source.fake_frame());
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
   MockMixerAudioSource other_source;
   other_source.set_packet_infos(RtpPacketInfos({p1, p2}));
   ResetFrame(other_source.fake_frame());
   mixer->AddSource(&other_source);
 
-  mixer->Mix(/*number_of_channels=*/1, &frame_for_mixing);
+  mixer->Mix(/*number_of_channels=*/1, &g_frame_for_mixing);
 
-  EXPECT_THAT(frame_for_mixing.packet_infos_, UnorderedElementsAre(p0, p1, p2));
+  EXPECT_THAT(g_frame_for_mixing.packet_infos_,
+              UnorderedElementsAre(p0, p1, p2));
 }
 
 TEST(AudioMixer, MixerShouldIncludeRtpPacketInfoFromMixedSourcesOnly) {
@@ -756,7 +795,7 @@ TEST(AudioMixer, MixerShouldIncludeRtpPacketInfoFromMixedSourcesOnly) {
   source1.set_packet_infos(RtpPacketInfos({p0}));
   mixer->AddSource(&source1);
   ResetFrame(source1.fake_frame());
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
 
   MockMixerAudioSource source2;
   source2.set_packet_infos(RtpPacketInfos({p1}));
@@ -772,9 +811,9 @@ TEST(AudioMixer, MixerShouldIncludeRtpPacketInfoFromMixedSourcesOnly) {
   source3.fake_frame()->vad_activity_ = AudioFrame::kVadPassive;
   mixer->AddSource(&source3);
 
-  mixer->Mix(/*number_of_channels=*/1, &frame_for_mixing);
+  mixer->Mix(/*number_of_channels=*/1, &g_frame_for_mixing);
 
-  EXPECT_THAT(frame_for_mixing.packet_infos_, UnorderedElementsAre(p0, p1));
+  EXPECT_THAT(g_frame_for_mixing.packet_infos_, UnorderedElementsAre(p0, p1));
 }
 
 class HighOutputRateCalculator : public OutputRateCalculator {
@@ -799,7 +838,7 @@ TEST(AudioMixerDeathTest, MultipleChannelsAndHighRate) {
       std::make_unique<HighOutputRateCalculator>(), true);
   mixer->AddSource(&source);
   ResetFrame(source.fake_frame());
-  mixer->Mix(1, &frame_for_mixing);
+  mixer->Mix(1, &g_frame_for_mixing);
   auto* frame = source.fake_frame();
   frame->num_channels_ = kNumberOfChannels;
   frame->sample_rate_hz_ = HighOutputRateCalculator::kDefaultFrequency;
@@ -816,11 +855,11 @@ TEST(AudioMixerDeathTest, MultipleChannelsAndHighRate) {
   mixer->AddSource(&other_source);
 
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-  EXPECT_DEATH(mixer->Mix(kNumberOfChannels, &frame_for_mixing), "");
+  EXPECT_DEATH(mixer->Mix(kNumberOfChannels, &g_frame_for_mixing), "");
 #elif !RTC_DCHECK_IS_ON
-  mixer->Mix(kNumberOfChannels, &frame_for_mixing);
-  EXPECT_EQ(frame_for_mixing.num_channels_, kNumberOfChannels);
-  EXPECT_EQ(frame_for_mixing.sample_rate_hz_,
+  mixer->Mix(kNumberOfChannels, &g_frame_for_mixing);
+  EXPECT_EQ(g_frame_for_mixing.num_channels_, kNumberOfChannels);
+  EXPECT_EQ(g_frame_for_mixing.sample_rate_hz_,
             HighOutputRateCalculator::kDefaultFrequency);
 #endif
 }

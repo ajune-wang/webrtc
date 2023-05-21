@@ -48,6 +48,7 @@ class AudioReceiveStreamInterface : public MediaReceiveStreamInterface {
     uint32_t jitter_buffer_preferred_ms = 0;
     uint32_t delay_estimate_ms = 0;
     int32_t audio_level = -1;
+    absl::optional<uint8_t> rtp_audio_level;
     // Stats below correspond to similarly-named fields in the WebRTC stats
     // spec. https://w3c.github.io/webrtc-stats/#dom-rtcmediastreamtrackstats
     double total_output_energy = 0.0;

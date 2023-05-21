@@ -235,6 +235,8 @@ int NetEqImpl::GetAudio(AudioFrame* audio_frame,
                         int* current_sample_rate_hz,
                         absl::optional<Operation> action_override) {
   TRACE_EVENT0("webrtc", "NetEqImpl::GetAudio");
+  // TODO(tommi): Could we get the audio_level properties from the
+  // `packet_infos_` of the audio frame?
   MutexLock lock(&mutex_);
   if (GetAudioInternal(audio_frame, muted, action_override) != 0) {
     return kFail;

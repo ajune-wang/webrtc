@@ -24,6 +24,7 @@ group("api") {
 rtc_source_set("call_api") {
   visibility = [ "*" ]
   sources = [ "call/audio_sink.h" ]
+  deps = [ ":rtp_packet_info" ]
 }
 
 rtc_source_set("callfactory_api") {

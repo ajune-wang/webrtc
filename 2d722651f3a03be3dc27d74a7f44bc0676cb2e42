@@ -69,6 +69,23 @@
       "parentUuid": "8e1bdc29_0bdd2ed5",
       "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c08de6_b2dee467",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-22T16:20:07Z",
+      "side": 1,
+      "message": "Firefox allows max-bundle with just a single m-line too so this gets more consistent.",
+      "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

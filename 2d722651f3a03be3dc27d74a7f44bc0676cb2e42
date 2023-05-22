@@ -33,6 +33,24 @@
       "message": "do you need to disable the corresponding WPT test before landing?",
       "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e1bdc29_0bdd2ed5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-22T12:58:27Z",
+      "side": 1,
+      "message": "That https://ci.chromium.org/ui/p/webrtc/builders/try/webrtc_linux_chromium/270/overview (which runs WPT) passes suggests \"no\".\n\nThe reason this still throws is that the WPT actually has two m-lines and we still reject that... \n\nThe spec says https://www.rfc-editor.org/rfc/rfc8829.html#section-4.1.1:\nWhen acting as answerer, the implementation will reject any \"m\u003d\" sections other than the first \"m\u003d\" section, unless they are in the same bundle group as that \"m\u003d\" section\n\nThis change still makes sense (since it would allow a",
+      "parentUuid": "6a0e4255_76f7f9e6",
+      "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

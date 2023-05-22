@@ -10,8 +10,10 @@
 
 #include <stdio.h>
 
+#include <charconv>
 #include <string>
 
+#include "absl/strings/str_split.h"
 #include "api/scoped_refptr.h"
 #include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
@@ -38,9 +40,28 @@ void ParseY4mHeader(std::string filepath,
       << "File " << filepath << " is too small";
   fclose(file);
 
-  RTC_CHECK(sscanf(h, "YUV4MPEG2 W%d H%d", &resolution->width,
-                   &resolution->height) == 2)
+  std::vector<absl::string_view> header = absl::StrSplit(h, ' ');
+  RTC_CHECK(!header.empty() && header[0] == "YUV4MPEG2")
       << filepath << " is not a valid Y4M file";
+
+  for (size_t i = 1; i < header.size(); ++i) {
+    RTC_CHECK(!header[i].empty());
+    switch (header[i][0]) {
+      case 'W': {
+        auto n = header[i].substr(1);
+        std::from_chars(n.begin(), n.end(), resolution->width);
+        continue;
+      }
+      case 'H': {
+        auto n = header[i].substr(1);
+        std::from_chars(n.begin(), n.end(), resolution->height);
+        continue;
+      }
+      default: {
+        continue;
+      }
+    }
+  }
 
   RTC_CHECK_GT(resolution->width, 0) << "Width must be positive";
   RTC_CHECK_GT(resolution->height, 0) << "Height must be positive";

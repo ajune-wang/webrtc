@@ -68,6 +68,24 @@
       "parentUuid": "21263211_b375d2db",
       "revId": "ef4854c375fd5fe6b86ca0e5654b2ecfd31851dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c24564_b222828e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-05-22T08:54:55Z",
+      "side": 1,
+      "message": "IIUC DD\u0027s frame number is generated on the codec level, which makes it harder to track frame through whole system. Maybe it will be possible with some mapping around...",
+      "parentUuid": "c947bafc_29fbcc85",
+      "revId": "ef4854c375fd5fe6b86ca0e5654b2ecfd31851dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

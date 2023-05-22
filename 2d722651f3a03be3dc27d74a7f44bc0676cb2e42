@@ -51,6 +51,24 @@
       "parentUuid": "6a0e4255_76f7f9e6",
       "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56f8f5f_293bd5ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-22T13:02:24Z",
+      "side": 1,
+      "message": "... since it would allow a audio-only connection without negotiating bundle even if max-bundle is set.",
+      "parentUuid": "8e1bdc29_0bdd2ed5",
+      "revId": "2d722651f3a03be3dc27d74a7f44bc0676cb2e42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "195fd585_deb1ca57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2023-05-22T17:49:25Z",
+      "side": 1,
+      "message": "hi, I created a new bug here:\n\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15192",
+      "revId": "033d76b13ab283fc612f3083b2640f0b1f458570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

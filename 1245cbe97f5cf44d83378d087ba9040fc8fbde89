@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b99c695_77d031fc",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-05-22T07:41:43Z",
+      "side": 1,
+      "message": "Should probably add AV1 then too, using `ScalabilityModeToNumSpatialLayers()`\nSince we\u0027re then covering all video codecs, might be good list them explicitly and remove the default clause.",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 12
+      },
+      "revId": "1245cbe97f5cf44d83378d087ba9040fc8fbde89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

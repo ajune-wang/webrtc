@@ -16,6 +16,23 @@
       "message": "Friendly ping that this is ready for review in case it got buried after last week\u0027s holidays :)",
       "revId": "7e8a0720e0e9654246dc1f348651218b3c551371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7f3186a_675ad9bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-23T13:25:12Z",
+      "side": 1,
+      "message": "Thank you!",
+      "revId": "7e8a0720e0e9654246dc1f348651218b3c551371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

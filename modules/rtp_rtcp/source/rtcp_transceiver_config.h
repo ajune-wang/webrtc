@@ -113,8 +113,12 @@ struct RtcpTransceiverConfig {
   // The clock to use when querying for the NTP time. Should be set.
   Clock* clock = nullptr;
 
-  // Transport to send rtcp packets to. Should be set.
-  Transport* outgoing_transport = nullptr;
+  // Transport to send rtcp packets to.
+  union {
+    [[deprecated]] Transport* outgoing_transport = nullptr;
+    Transport* deprecated_outgoing_transport;
+  };
+  std::function<void(rtc::ArrayView<const uint8_t>)> rtcp_transport = nullptr;
 
   // Queue for scheduling delayed tasks, e.g. sending periodic compound packets.
   TaskQueueBase* task_queue = nullptr;

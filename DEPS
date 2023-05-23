@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '692840e03068aa27130f157275f8adaf0030a1a2',
+  'chromium_revision': 'cdad708464c01db20a7446b2687af9d9b1df7045',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@3b159b39d9d89c930e158962496c2cc49a953da5',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@3c5ecd7d34cf79a2f00798dd34ab8119bb81a545',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@7d69a6efe3b7d1d4bfabb3afd5f4b9937f03b9bf',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0a3ca294f8b5d5a1d02fff039f5a789eb9164624',
+    'https://chromium.googlesource.com/chromium/src/third_party@67af821a0b047acbf690a380cc0544f1d4262f98',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -287,7 +287,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@24fae90b5e4ce0b2b970670e2795f9c258db5033',
+    'https://android.googlesource.com/platform/external/perfetto.git@aa75f24dfe875dc1640e9987f455740c6720ac92',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@52076a9c79b980180a86832acd20f17c1e583e3e',
   'src/third_party/libyuv':
@@ -336,7 +336,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@00be3c5a986019bc1abbc45131c966ad12d435d2',
+    'https://chromium.googlesource.com/chromium/src/tools@48bcf179b7a710db4101a694326026cf5b9032c0',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

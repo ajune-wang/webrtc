@@ -16,6 +16,23 @@
       "message": "hi, I created a new bug here:\n\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15192",
       "revId": "033d76b13ab283fc612f3083b2640f0b1f458570",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "403f9c2f_e0ed6fb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2023-05-23T17:22:56Z",
+      "side": 1,
+      "message": "should we close the CL and discuss in the bug instead:\n\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15192",
+      "revId": "033d76b13ab283fc612f3083b2640f0b1f458570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,24 @@
       "message": "OldGetStats...? \u003d.\u003d Why?\n\nEither way I don\u0027t understand this comment about getting audio output level, this gets ssrc.googCaptureStartNtpTimeMs, which isn\u0027t the audio level? What are we trying to achieve exactly?",
       "revId": "e92466bf794554a213819d692ba6b770b1b36f5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5eb0c8b_23e6b9fa",
+        "filename": "pc/peer_connection_mediachannel_split_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-23T07:37:49Z",
+      "side": 1,
+      "message": "This test is a REALLY heavy integration test, but it is the test that led me to discovering the dependency on the sender SSRC in the first place.\n\nThere\u0027s a dependency chain about 4 levels deep on \"a has to be set before b before c before d\" that ends up with populating CaptureStartNtpTime; somewhere near the bottom is a dependency on getting RTCP reports from the \"right\" SSRC.\n\nThe test (which lives in slow_peer_connection_integration_tests) failed when I re-ran the CQ on the flag-flip CL, so I copied it into the test suite that is run with flag both on and off. (This test suite will be deleted once I\u0027ve removed the non-split media channel)\n\nMore direct testing would be preferable :-(",
+      "parentUuid": "8b22f518_3d2e74a3",
+      "revId": "e92466bf794554a213819d692ba6b770b1b36f5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

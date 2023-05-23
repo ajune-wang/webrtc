@@ -154,6 +154,7 @@ class RtcpTransceiverImpl {
                                                     size_t num_max_blocks);
 
   const RtcpTransceiverConfig config_;
+  std::function<void(rtc::ArrayView<const uint8_t>)> rtcp_transport_;
 
   bool ready_to_send_;
   absl::optional<rtcp::Remb> remb_;

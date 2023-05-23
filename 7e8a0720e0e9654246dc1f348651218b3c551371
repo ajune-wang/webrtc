@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc4dde99_2f893bb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-23T09:34:58Z",
+      "side": 1,
+      "message": "Friendly ping that this is ready for review in case it got buried after last week\u0027s holidays :)",
+      "revId": "7e8a0720e0e9654246dc1f348651218b3c551371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

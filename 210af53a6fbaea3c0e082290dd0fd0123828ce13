@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb73522a_50839814",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-24T12:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adb8ad14_8b9bb888",
+      "range": {
+        "startLine": 116,
+        "startChar": 23,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0429f36_6654778d",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-05-24T11:55:25Z",
       "side": 1,
       "message": "Why is this `union` needed?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 4
+      },
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "414cede7_c5572d74",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-24T12:11:27Z",
+      "side": 1,
+      "message": "webrtc is compiled with -Wdeprecated-declarations\ni.e. it is an error use deprecated symbol in it, however for backward compatibility\nRtcpTransceiverImpl still need to read from this variable \n\nalso, for backward compatibility with downstream project, it still should be allowed to set outgoing_transport variable, \n\nunion hack allows to set the variable by one name, and read by another name.\n\nOne alternative is to deprecated just with a comment, without compiler support.\nanother alternative is to use pragma to disable deprecated-declarations\nI find union more robust than 1st alternative and cleaner than 2nd alternative",
+      "parentUuid": "b0429f36_6654778d",
       "range": {
         "startLine": 117,
         "startChar": 0,
@@ -66,6 +114,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cf41db96_19c0fabb",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-24T12:11:27Z",
+      "side": 1,
+      "message": "I\u0027ve expand it. is it better?",
+      "parentUuid": "c07e94f8_de01b7e6",
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e3895471_ea46e52f",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 6
@@ -77,6 +143,24 @@
       "writtenOn": "2023-05-24T11:55:25Z",
       "side": 1,
       "message": "Just to be sure. It\u0027s valid to modify the captured value (by copy) once we\u0027ve returned from `GetRtcpTransport`?",
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "932bf17d_4fc0d816",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-24T12:11:27Z",
+      "side": 1,
+      "message": "yes, captured by values become state of the lambda.\nBy default that state is const, but marking lambda mutable allows to modify that state.\n\ni.e. capture by value is similar to\nstruct Lambda {\n  void operator() { do(); };\n  bool first;\n  std::string log_prefix;\n};\n\nnon mutable lambda is similar to \nstruct Lambda {\n  void operator() const { do(); };\n  bool first;\n  std::string log_prefix;\n};\n\ncapture by reference is similar to\nstruct Lambda {\n  void operator() { do; };\n  bool\u0026 first;\n  std::string\u0026 log_prefix;\n};\n\nWould you prefer me to create a custom functor to make it easier to see?",
+      "parentUuid": "e3895471_ea46e52f",
       "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

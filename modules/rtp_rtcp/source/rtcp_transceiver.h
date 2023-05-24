@@ -29,7 +29,7 @@ namespace webrtc {
 // This class is thread-safe wrapper of RtcpTransceiverImpl
 class RtcpTransceiver : public RtcpFeedbackSenderInterface {
  public:
-  explicit RtcpTransceiver(const RtcpTransceiverConfig& config);
+  explicit RtcpTransceiver(RtcpTransceiverConfig config);
   RtcpTransceiver(const RtcpTransceiver&) = delete;
   RtcpTransceiver& operator=(const RtcpTransceiver&) = delete;
   // Note that interfaces provided in constructor still might be used after the

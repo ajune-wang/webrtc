@@ -16,10 +16,9 @@
 namespace webrtc {
 
 RtcpTransceiverConfig::RtcpTransceiverConfig() = default;
-RtcpTransceiverConfig::RtcpTransceiverConfig(const RtcpTransceiverConfig&) =
-    default;
+RtcpTransceiverConfig::RtcpTransceiverConfig(RtcpTransceiverConfig&&) = default;
 RtcpTransceiverConfig& RtcpTransceiverConfig::operator=(
-    const RtcpTransceiverConfig&) = default;
+    RtcpTransceiverConfig&&) = default;
 RtcpTransceiverConfig::~RtcpTransceiverConfig() = default;
 
 bool RtcpTransceiverConfig::Validate() const {

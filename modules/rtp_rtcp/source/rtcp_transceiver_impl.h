@@ -36,7 +36,7 @@ namespace webrtc {
 // This class is not thread-safe.
 class RtcpTransceiverImpl {
  public:
-  explicit RtcpTransceiverImpl(const RtcpTransceiverConfig& config);
+  explicit RtcpTransceiverImpl(RtcpTransceiverConfig config);
   RtcpTransceiverImpl(const RtcpTransceiverImpl&) = delete;
   RtcpTransceiverImpl& operator=(const RtcpTransceiverImpl&) = delete;
   ~RtcpTransceiverImpl();

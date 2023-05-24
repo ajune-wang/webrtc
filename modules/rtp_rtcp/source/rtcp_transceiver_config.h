@@ -89,8 +89,8 @@ class RtpStreamRtcpHandler {
 
 struct RtcpTransceiverConfig {
   RtcpTransceiverConfig();
-  RtcpTransceiverConfig(const RtcpTransceiverConfig&);
-  RtcpTransceiverConfig& operator=(const RtcpTransceiverConfig&);
+  RtcpTransceiverConfig(RtcpTransceiverConfig&&);
+  RtcpTransceiverConfig& operator=(RtcpTransceiverConfig&&);
   ~RtcpTransceiverConfig();
 
   // Logs the error and returns false if configuration miss key objects or

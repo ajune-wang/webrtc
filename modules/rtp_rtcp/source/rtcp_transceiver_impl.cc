@@ -102,8 +102,9 @@ class RtcpTransceiverImpl::PacketSender {
   uint8_t buffer_[IP_PACKET_SIZE];
 };
 
-RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
-    : config_(config), ready_to_send_(config.initial_ready_to_send) {
+RtcpTransceiverImpl::RtcpTransceiverImpl(RtcpTransceiverConfig config)
+    : config_(std::move(config)),
+      ready_to_send_(config_.initial_ready_to_send) {
   RTC_CHECK(config_.Validate());
   if (ready_to_send_ && config_.schedule_periodic_compound_packets) {
     SchedulePeriodicCompoundPackets(config_.initial_report_delay);

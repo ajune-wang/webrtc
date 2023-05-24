@@ -113,8 +113,12 @@ struct RtcpTransceiverConfig {
   // The clock to use when querying for the NTP time. Should be set.
   Clock* clock = nullptr;
 
-  // Transport to send rtcp packets to. Should be set.
-  Transport* outgoing_transport = nullptr;
+  // Transport to send rtcp packets to.
+  union {
+    [[deprecated]] Transport* outgoing_transport = nullptr;
+    Transport* deprecated_outgoing_transport;
+  };
+  std::function<void(rtc::ArrayView<const uint8_t>)> rtcp_transport = nullptr;
 
   // Queue for scheduling delayed tasks, e.g. sending periodic compound packets.
   TaskQueueBase* task_queue = nullptr;
@@ -131,11 +135,13 @@ struct RtcpTransceiverConfig {
   //  or allow reduced size packets: https://tools.ietf.org/html/rfc5506
   // Receiving accepts both compound and reduced-size packets.
   RtcpMode rtcp_mode = RtcpMode::kCompound;
+
   //
   // Tuning parameters.
   //
-  // Initial state if `outgoing_transport` ready to accept packets.
+  // Initial state if `rtcp_transport` ready to accept packets.
   bool initial_ready_to_send = true;
+
   // Delay before 1st periodic compound packet.
   TimeDelta initial_report_delay = TimeDelta::Millis(500);
 

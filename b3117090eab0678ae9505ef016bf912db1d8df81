@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed1b801_9d71e4a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-24T18:27:56Z",
+      "side": 1,
+      "message": "I only found it because https://webrtc-review.googlesource.com/c/src/+/306440 introduced a circular dependency and deleting this seems like the easiest solution.\n\npeerconnection_client does not use this, it has its own implementation of a Win32 window.",
+      "revId": "b3117090eab0678ae9505ef016bf912db1d8df81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

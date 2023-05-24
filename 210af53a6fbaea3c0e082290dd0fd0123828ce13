@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adb8ad14_8b9bb888",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T11:55:25Z",
+      "side": 1,
+      "message": "```suggestion\n  // Transport to send RTCP packets to.\n```",
+      "range": {
+        "startLine": 116,
+        "startChar": 23,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0429f36_6654778d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T11:55:25Z",
+      "side": 1,
+      "message": "Why is this `union` needed?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 4
+      },
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c07e94f8_de01b7e6",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T11:55:25Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment",
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3895471_ea46e52f",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T11:55:25Z",
+      "side": 1,
+      "message": "Just to be sure. It\u0027s valid to modify the captured value (by copy) once we\u0027ve returned from `GetRtcpTransport`?",
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

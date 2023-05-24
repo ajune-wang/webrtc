@@ -97,6 +97,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cad4ad0f_8f970919",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T13:41:27Z",
+      "side": 1,
+      "message": "Yikes, I\u0027ll ask if we can exempt `deprecated-declarations` from being promoted to an error.",
+      "parentUuid": "414cede7_c5572d74",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 4
+      },
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c07e94f8_de01b7e6",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
         "patchSetId": 6
@@ -132,6 +156,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "656b02a0_ece2b456",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T13:41:27Z",
+      "side": 1,
+      "message": "Yes, thanks",
+      "parentUuid": "cf41db96_19c0fabb",
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e3895471_ea46e52f",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 6
@@ -161,6 +203,24 @@
       "side": 1,
       "message": "yes, captured by values become state of the lambda.\nBy default that state is const, but marking lambda mutable allows to modify that state.\n\ni.e. capture by value is similar to\nstruct Lambda {\n  void operator() { do(); };\n  bool first;\n  std::string log_prefix;\n};\n\nnon mutable lambda is similar to \nstruct Lambda {\n  void operator() const { do(); };\n  bool first;\n  std::string log_prefix;\n};\n\ncapture by reference is similar to\nstruct Lambda {\n  void operator() { do; };\n  bool\u0026 first;\n  std::string\u0026 log_prefix;\n};\n\nWould you prefer me to create a custom functor to make it easier to see?",
       "parentUuid": "e3895471_ea46e52f",
+      "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aea1c34d_9d728610",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-05-24T13:41:27Z",
+      "side": 1,
+      "message": "I thought that was the case. Thanks for the explanation! No need to change anything.",
+      "parentUuid": "932bf17d_4fc0d816",
       "revId": "210af53a6fbaea3c0e082290dd0fd0123828ce13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

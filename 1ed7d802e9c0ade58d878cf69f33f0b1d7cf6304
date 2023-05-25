@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "255eebbc_e64c3d5a",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-05-25T08:09:22Z",
+      "side": 1,
+      "message": "Could you annotate `eglThread` with `@GuardedBy(\"threadLock\")` while you’re here?",
+      "range": {
+        "startLine": 87,
+        "startChar": 40,
+        "endLine": 87,
+        "endChar": 75
+      },
+      "revId": "1ed7d802e9c0ade58d878cf69f33f0b1d7cf6304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

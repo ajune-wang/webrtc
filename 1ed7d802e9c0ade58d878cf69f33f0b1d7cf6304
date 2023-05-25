@@ -22,6 +22,30 @@
       },
       "revId": "1ed7d802e9c0ade58d878cf69f33f0b1d7cf6304",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13d6d0bd_d638e148",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-05-25T08:46:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "255eebbc_e64c3d5a",
+      "range": {
+        "startLine": 87,
+        "startChar": 40,
+        "endLine": 87,
+        "endChar": 75
+      },
+      "revId": "1ed7d802e9c0ade58d878cf69f33f0b1d7cf6304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

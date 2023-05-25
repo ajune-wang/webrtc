@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce5f9d5_af45d6dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-25T06:25:13Z",
+      "side": 1,
+      "message": "the RTRR variant is credible enough that I need to look up the definition every time I talk about this ;-)",
+      "revId": "5bf57cefd5c111cc485a0e4147bb59dd8fec0046",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef38b0a_17d2d0de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-05-26T14:36:45Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "9cde0b1fd3fa341e2ee27c36bb6ecd257af915f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b662866_e13d3025",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2023-05-26T14:36:45Z",
+      "side": 1,
+      "message": "Only one of the two members is *initialized* and used, right?\n\"Have two members\" sounds like they are both initialized - that\u0027s what confused me. (The fact that they are both declared is self-evident.)",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "9cde0b1fd3fa341e2ee27c36bb6ecd257af915f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,29 @@
       "message": "Thanks for the CL. Not sure what it is preferred for WebRTC. Adding Danil and Mirko who may have stumbled upon this before.",
       "revId": "677161191e8914485e14cfadc05d97c374740b30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a51c4ed3_139ca067",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-05-26T12:07:21Z",
+      "side": 1,
+      "message": "I wonder if using `sinf()` and `\u003cmath.h\u003e is more clear. WDYT?",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "677161191e8914485e14cfadc05d97c374740b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c58894d7_b9b6113d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-26T12:14:26Z",
+      "side": 1,
+      "message": "no, I haven\u0027t stumbled upon this before.\nThe change looks harmless to me.",
+      "parentUuid": "28667d61_f008dc7c",
+      "revId": "677161191e8914485e14cfadc05d97c374740b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a51c4ed3_139ca067",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-26T12:07:21Z",
       "side": 1,
       "message": "I wonder if using `sinf()` and `\u003cmath.h\u003e is more clear. WDYT?",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "677161191e8914485e14cfadc05d97c374740b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be68aeb_ac65c721",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-05-26T12:14:26Z",
+      "side": 1,
+      "message": "`::sinf` is just an explicit version of the `sinf`\nI think beeing explicit is better in this case.\n\nit might be good idea to also add a comment so that next person looking at the code won\u0027t \"fix it\" back to std::sinf\n\n`#include \u003cmath.h\u003e` instead of `#include \u003ccmath\u003e`\nmight be more robust: math.h should have symbols in global namespace, while \u003ccmath\u003e may have symbols in the global namespace.",
+      "parentUuid": "a51c4ed3_139ca067",
       "range": {
         "startLine": 64,
         "startChar": 22,

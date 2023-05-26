@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b11d60d_ab9901f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20849
+      },
+      "writtenOn": "2023-05-26T18:02:21Z",
+      "side": 1,
+      "message": "sharing some context: I hit this when trying to build the ChromiumOS downstream, using the gLinux system toolchain, while linking system googletest (which provides libs that are compiled linked with libstdc++).",
+      "parentUuid": "c58894d7_b9b6113d",
+      "revId": "677161191e8914485e14cfadc05d97c374740b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a51c4ed3_139ca067",

@@ -367,9 +367,6 @@ class VoiceMediaSendChannel : public VoiceMediaSendChannelInterface {
 
   // Implementation of MediaBaseChannelInterface
   cricket::MediaType media_type() const override { return MEDIA_TYPE_AUDIO; }
-  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
-    impl()->OnPacketReceived(packet);
-  }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {
     impl()->OnPacketSent(sent_packet);
   }
@@ -473,24 +470,6 @@ class VoiceMediaReceiveChannel : public VoiceMediaReceiveChannelInterface {
   void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
     impl()->OnPacketReceived(packet);
   }
-  void OnPacketSent(const rtc::SentPacket& sent_packet) override {
-    impl()->OnPacketSent(sent_packet);
-  }
-  void OnReadyToSend(bool ready) override { impl()->OnReadyToSend(ready); }
-  void OnNetworkRouteChanged(absl::string_view transport_name,
-                             const rtc::NetworkRoute& network_route) override {
-    impl()->OnNetworkRouteChanged(transport_name, network_route);
-  }
-  void SetExtmapAllowMixed(bool extmap_allow_mixed) override {
-    impl()->SetExtmapAllowMixed(extmap_allow_mixed);
-  }
-  bool ExtmapAllowMixed() const override { return impl()->ExtmapAllowMixed(); }
-  void SetInterface(MediaChannelNetworkInterface* iface) override {
-    return impl()->SetInterface(iface);
-  }
-  bool HasNetworkInterface() const override {
-    return impl()->HasNetworkInterface();
-  }
   // Implementation of Delayable
   bool SetBaseMinimumPlayoutDelayMs(uint32_t ssrc, int delay_ms) override {
     return impl()->SetBaseMinimumPlayoutDelayMs(ssrc, delay_ms);
@@ -590,9 +569,6 @@ class VideoMediaSendChannel : public VideoMediaSendChannelInterface {
 
   // Implementation of MediaBaseChannelInterface
   cricket::MediaType media_type() const override { return MEDIA_TYPE_VIDEO; }
-  void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
-    impl()->OnPacketReceived(packet);
-  }
   void OnPacketSent(const rtc::SentPacket& sent_packet) override {
     impl()->OnPacketSent(sent_packet);
   }
@@ -710,24 +686,6 @@ class VideoMediaReceiveChannel : public VideoMediaReceiveChannelInterface {
   cricket::MediaType media_type() const override { return MEDIA_TYPE_VIDEO; }
   void OnPacketReceived(const webrtc::RtpPacketReceived& packet) override {
     impl()->OnPacketReceived(packet);
-  }
-  void OnPacketSent(const rtc::SentPacket& sent_packet) override {
-    impl()->OnPacketSent(sent_packet);
-  }
-  void OnReadyToSend(bool ready) override { impl()->OnReadyToSend(ready); }
-  void OnNetworkRouteChanged(absl::string_view transport_name,
-                             const rtc::NetworkRoute& network_route) override {
-    impl()->OnNetworkRouteChanged(transport_name, network_route);
-  }
-  void SetExtmapAllowMixed(bool extmap_allow_mixed) override {
-    impl()->SetExtmapAllowMixed(extmap_allow_mixed);
-  }
-  bool ExtmapAllowMixed() const override { return impl()->ExtmapAllowMixed(); }
-  void SetInterface(MediaChannelNetworkInterface* iface) override {
-    return impl()->SetInterface(iface);
-  }
-  bool HasNetworkInterface() const override {
-    return impl()->HasNetworkInterface();
   }
   // Implementation of Delayable
   bool SetBaseMinimumPlayoutDelayMs(uint32_t ssrc, int delay_ms) override {

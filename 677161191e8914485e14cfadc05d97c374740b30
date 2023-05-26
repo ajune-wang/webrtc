@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28667d61_f008dc7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2023-05-26T12:01:15Z",
+      "side": 1,
+      "message": "Thanks for the CL. Not sure what it is preferred for WebRTC. Adding Danil and Mirko who may have stumbled upon this before.",
+      "revId": "677161191e8914485e14cfadc05d97c374740b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,57 @@
       "message": "We actually had a test (which didn\u0027t trigger the crash but we can have two tests instead of just modifying the old test?",
       "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ab8fc41_177dd151",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-29T12:31:40Z",
+      "side": 1,
+      "message": "I think I like it. Nits.",
+      "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2bc051_20f270a2",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-29T12:31:40Z",
+      "side": 1,
+      "message": "Nit: I would use \"fails to negotiate both\" rather than \"does not negotiate\", since \"does not negotiate\" seems to indicate that both are being skipped.\nAmbiguous either way (I couldn\u0027t find a short nonambiguous phrasing), but I think it is slightly better.",
+      "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aaedfe9_a341d29e",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-29T12:31:40Z",
+      "side": 1,
+      "message": "This variable is not used. Was your intent to do a CreateAnswer + Set with the extensions added and see that that would succeed?",
+      "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

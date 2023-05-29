@@ -16,6 +16,23 @@
       "message": "Adding hta@ for approval.",
       "revId": "7ef1fea60bd5761902ee703b4f749be7497140a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a81a402d_477fa2c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-29T12:25:42Z",
+      "side": 1,
+      "message": "It seems that the other 2 occurences of sinf() in the codebase use non-prefixed sinf, so let\u0027s be consistent on this one.",
+      "revId": "7ef1fea60bd5761902ee703b4f749be7497140a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

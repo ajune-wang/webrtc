@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4861fb32_83022922",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-05-30T14:27:55Z",
+      "side": 0,
+      "message": "This is not used anywhere?",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 640,
+        "endChar": 47
+      },
+      "revId": "4b14cb763b324118cafb926df2fee565c354e7d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

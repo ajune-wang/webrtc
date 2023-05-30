@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ce89f1_dc26a243",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2023-05-30T15:33:42Z",
+      "side": 1,
+      "message": "Looks good to me.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b08cd3d_dd9fdd14",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2023-05-30T15:33:42Z",
+      "side": 1,
+      "message": "Changing the resolution for the existing consumer seems strange to me. But v4l2 does the same, so I guess it\u0027s ok.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

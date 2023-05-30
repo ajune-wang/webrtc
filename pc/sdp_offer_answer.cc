@@ -538,6 +538,36 @@ RTCError ValidateBundledRtpHeaderExtensions(
   return RTCError::OK();
 }
 
+RTCError ValidateRtpHeaderExtensionsForSpecSimulcast(
+    const cricket::SessionDescription& description) {
+  for (const ContentInfo& content : description.contents()) {
+    if (content.type != MediaProtocolType::kRtp) {
+      continue;
+    }
+    const auto media_description = content.media_description();
+    if (!media_description->HasSimulcast()) {
+      continue;
+    }
+    bool has_mid_extension = false;
+    bool has_rid_extension = false;
+    for (const auto& extension : media_description->rtp_header_extensions()) {
+      if (extension.uri == RtpExtension::kMidUri) {
+        has_mid_extension = true;
+      } else if (extension.uri == RtpExtension::kRidUri) {
+        has_rid_extension = true;
+      }
+    }
+    if (!(has_mid_extension && has_rid_extension)) {
+      return RTCError(
+          RTCErrorType::INVALID_PARAMETER,
+          "The media section with MID='" + content.mid() +
+              "' negotiates simulcast but fails to negotiate both the MID "
+              "and RID RTP header extensions.");
+    }
+  }
+  return RTCError::OK();
+}
+
 bool IsValidOfferToReceiveMedia(int value) {
   typedef PeerConnectionInterface::RTCOfferAnswerOptions Options;
   return (value >= Options::kUndefined) &&
@@ -3599,6 +3629,12 @@ RTCError SdpOfferAnswerHandler::ValidateSessionDescription(
             "Media section has more than one track specified with a=ssrc lines "
             "which is not supported with Unified Plan.");
       }
+    }
+    // Validate spec-simulcast which only works if the remote end negotiated the
+    // mid and rid header extension.
+    error = ValidateRtpHeaderExtensionsForSpecSimulcast(*sdesc->description());
+    if (!error.ok()) {
+      return error;
     }
   }
 

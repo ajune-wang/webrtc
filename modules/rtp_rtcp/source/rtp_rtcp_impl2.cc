@@ -64,6 +64,7 @@ RtpPacketHistory::PaddingMode GetPaddingMode(
 }  // namespace
 
 ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
+    TaskQueueBase& worker_queue,
     const RtpRtcpInterface::Configuration& config)
     : packet_history(config.clock, GetPaddingMode(config.field_trials)),
       sequencer(config.local_media_ssrc,
@@ -71,7 +72,7 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
                 /*require_marker_before_media_padding=*/!config.audio,
                 config.clock),
       packet_sender(config, &packet_history),
-      non_paced_sender(&packet_sender, &sequencer),
+      non_paced_sender(worker_queue, &packet_sender, &sequencer),
       packet_generator(
           config,
           &packet_history,
@@ -94,7 +95,8 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
   RTC_DCHECK(worker_queue_);
   rtcp_thread_checker_.Detach();
   if (!configuration.receiver_only) {
-    rtp_sender_ = std::make_unique<RtpSenderContext>(configuration);
+    rtp_sender_ =
+        std::make_unique<RtpSenderContext>(*worker_queue_, configuration);
     rtp_sender_->sequencing_checker.Detach();
     // Make sure rtcp sender use same timestamp offset as rtp sender.
     rtcp_sender_.SetTimestampOffset(
@@ -259,7 +261,9 @@ RTCPSender::FeedbackState ModuleRtpRtcpImpl2::GetFeedbackState() {
     state.media_bytes_sent = rtp_stats.transmitted.payload_bytes +
                              rtx_stats.transmitted.payload_bytes;
     state.send_bitrate =
-        rtp_sender_->packet_sender.GetSendRates().Sum().bps<uint32_t>();
+        rtp_sender_->packet_sender.GetSendRates(clock_->CurrentTime())
+            .Sum()
+            .bps<uint32_t>();
   }
   state.receiver = &rtcp_receiver_;
 
@@ -645,9 +649,8 @@ void ModuleRtpRtcpImpl2::SetLocalSsrc(uint32_t local_ssrc) {
 }
 
 RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
-  // Typically called on the `rtp_transport_queue_` owned by an
-  // RtpTransportControllerSendInterface instance.
-  return rtp_sender_->packet_sender.GetSendRates();
+  RTC_DCHECK_RUN_ON(&rtp_sender_->sequencing_checker);
+  return rtp_sender_->packet_sender.GetSendRates(clock_->CurrentTime());
 }
 
 void ModuleRtpRtcpImpl2::OnRequestSendReport() {

@@ -51,6 +51,24 @@
       "parentUuid": "782f61d0_4079f810",
       "revId": "4a02f1d590943bf6a0043470bf8e8f098db540ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "882f6188_2803b1d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-30T10:18:40Z",
+      "side": 1,
+      "message": "Yes, this is guarded by HasSimulcast() which only looks at spec simulcast. I tested with https://fippo.github.io/simulcast-playground/chrome and we do have a chrome fast/ test for SDP munging simulcast (aka cool simulcast even though it is getting woefully unclear why \"spec simulcast\" decides not to be cool since no spec requires being uncool and not including ssrc lines)",
+      "parentUuid": "69ec75f2_fdf507cf",
+      "revId": "4a02f1d590943bf6a0043470bf8e8f098db540ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

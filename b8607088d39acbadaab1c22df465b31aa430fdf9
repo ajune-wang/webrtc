@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74075004_b09b51d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-30T08:18:30Z",
+      "side": 1,
+      "message": "More conceptual documentation ;-)\n\nThe combination of RTX+padding is a bit weird actually since the RTP payload is 0 bytes in that case and doesn\u0027t even leave enough space for the two bytes OSN field.\n\nAnd lets not mention that the RTX+probe sent before any media packet will actually have a RTP timestamp 0 *ducks and runs*",
+      "revId": "b8607088d39acbadaab1c22df465b31aa430fdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -48,7 +48,9 @@ VideoType VideoCaptureModulePipeWire::PipeWireRawFormatToVideoType(
 
 VideoCaptureModulePipeWire::VideoCaptureModulePipeWire(
     VideoCaptureOptions* options)
-    : VideoCaptureImpl(), session_(options->pipewire_session()) {}
+    : VideoCaptureImpl(),
+      session_(options->pipewire_session()),
+      started_(false) {}
 
 VideoCaptureModulePipeWire::~VideoCaptureModulePipeWire() {
   StopCapture();
@@ -113,6 +115,16 @@ static spa_pod* BuildFormat(spa_pod_builder* builder,
 
 int32_t VideoCaptureModulePipeWire::StartCapture(
     const VideoCaptureCapability& capability) {
+  if (started_) {
+    if (capability.width == frameInfo_.width &&
+        capability.height == frameInfo_.height &&
+        capability.videoType == frameInfo_.videoType) {
+      return 0;
+    } else {
+      StopCapture();
+    }
+  }
+
   uint8_t buffer[1024] = {};
 
   RTC_LOG(LS_VERBOSE) << "Creating new PipeWire stream for node " << node_id_;
@@ -160,6 +172,8 @@ int32_t VideoCaptureModulePipeWire::StartCapture(
                       << spa_strerror(res);
     return -1;
   }
+
+  started_ = true;
   return 0;
 }
 
@@ -169,6 +183,8 @@ int32_t VideoCaptureModulePipeWire::StopCapture() {
     pw_stream_destroy(stream_);
     stream_ = nullptr;
   }
+
+  started_ = false;
   return 0;
 }
 

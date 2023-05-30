@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cbe9eab_79bdae7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-30T10:33:18Z",
+      "side": 1,
+      "message": "Mirko: PTAL at build changes. If you also know a less crude way to stop git cl format from reordering includes in ways which do not compile... ;-)",
+      "revId": "1f5b0e4b4938d55c50b6cbcefbe558f9d53b3ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

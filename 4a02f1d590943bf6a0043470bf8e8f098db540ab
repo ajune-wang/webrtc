@@ -16,6 +16,23 @@
       "message": "spec compliance! ;-)",
       "revId": "4a02f1d590943bf6a0043470bf8e8f098db540ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "782f61d0_4079f810",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-05-30T09:32:18Z",
+      "side": 1,
+      "message": "Does this only affect \"spec simulcast\"? We don\u0027t want to break \"legacy simulcast\"?\n\nE.g. if I run Google Meet I see \"a\u003dssrc-group:SIM \u003cssrc\u003e \u003cssrc\u003e \u003cssrc\u003e\" and \"a\u003dextmap:4 urn:ietf:params:rtp-hdrext:sdes:mid\" but I don\u0027t see the RID header extension (embarassingly)",
+      "revId": "4a02f1d590943bf6a0043470bf8e8f098db540ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af7b0b6e_ae7ca1d0",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-30T07:00:11Z",
+      "side": 1,
+      "message": "Done. I do wonder if it is actually necessary to require mid here since technically you can have unbundled simulcast with just the rid. OTOH this will still send multiple RTP streams which are subject to demuxing according to the BUNDLE rules.",
+      "parentUuid": "9c2bc051_20f270a2",
+      "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2aaedfe9_a341d29e",
         "filename": "pc/sdp_offer_answer_unittest.cc",
         "patchSetId": 2
@@ -65,6 +83,24 @@
       "writtenOn": "2023-05-29T12:31:40Z",
       "side": 1,
       "message": "This variable is not used. Was your intent to do a CreateAnswer + Set with the extensions added and see that that would succeed?",
+      "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "372a5848_864a8cba",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-30T07:00:11Z",
+      "side": 1,
+      "message": "That was probably what I had in mind and is now done!",
+      "parentUuid": "2aaedfe9_a341d29e",
       "revId": "de4901e68ea7b638f46af7c5ed2d4c486ced6e5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

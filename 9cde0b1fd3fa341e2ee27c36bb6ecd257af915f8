@@ -39,6 +39,30 @@
       },
       "revId": "9cde0b1fd3fa341e2ee27c36bb6ecd257af915f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4623ddf1_082726f9",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2023-05-30T08:19:24Z",
+      "side": 1,
+      "message": "Since the reference can\u0027t be null we initialize it to the same object as the unique_ptr. Regarding the usage, we check if we have a unique_ptr and use that one if possible. So the reference is never used if the unique_ptr constructor is called.",
+      "parentUuid": "8b662866_e13d3025",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "9cde0b1fd3fa341e2ee27c36bb6ecd257af915f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

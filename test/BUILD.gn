@@ -734,6 +734,7 @@ if (rtc_include_tests) {
         "../api/test/video:function_video_factory",
         "../api/test/video:video_frame_writer",
         "../api/units:time_delta",
+        "../api/units:timestamp",
         "../api/video:encoded_image",
         "../api/video:video_frame",
         "../api/video_codecs:video_codecs_api",
@@ -759,6 +760,7 @@ if (rtc_include_tests) {
         "pc/e2e/analyzer/video/dvqa:dvqa_unittests",
         "peer_scenario/tests",
         "scenario:scenario_unittests",
+        "testsupport/delays:delays_unittests",
         "time_controller:time_controller",
         "time_controller:time_controller_unittests",
       ]

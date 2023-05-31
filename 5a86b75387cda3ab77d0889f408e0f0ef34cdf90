@@ -22,6 +22,30 @@
       },
       "revId": "5a86b75387cda3ab77d0889f408e0f0ef34cdf90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a572f325_8cfd5d90",
+        "filename": "rtc_base/time_utils.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-05-31T10:09:52Z",
+      "side": 1,
+      "message": "Moved from existing code in this file.\nhttps://source.chromium.org/search?q\u003d116444736 has some more references, it is one of those \"365 days * seconds-per-day + HOW MANY LEAP YEARS???\" things.\n\nWhat makes this one tricky is that it is in units of 100ns which is confusing if you compare it to the other values.\n\nThankfully verifying the change is pretty easy, webrtc-internals getStats should still show the correct date with it!",
+      "parentUuid": "f53ae7dd_da6264f9",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "5a86b75387cda3ab77d0889f408e0f0ef34cdf90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

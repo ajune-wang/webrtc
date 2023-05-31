@@ -1820,10 +1820,10 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
   }
 
   // Returns pointer to implementation of the send channel.
-  WebRtcVideoChannel* SendImpl() {
+  WebRtcVideoSendChannel* SendImpl() {
     // Note that this function requires intimate knowledge of how the channel
     // was created.
-    return static_cast<cricket::WebRtcVideoChannel*>(
+    return static_cast<cricket::WebRtcVideoSendChannel*>(
         static_cast<VideoMediaShimChannel*>(channel_.get())
             ->SendImplForTesting());
   }
@@ -2685,10 +2685,10 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
   }
 
   // Returns pointer to implementation of the send channel.
-  WebRtcVideoChannel* SendImpl() {
+  WebRtcVideoSendChannel* SendImpl() {
     // Note that this function requires intimate knowledge of how the channel
     // was created.
-    return static_cast<cricket::WebRtcVideoChannel*>(
+    return static_cast<cricket::WebRtcVideoSendChannel*>(
         static_cast<VideoMediaShimChannel*>(channel_.get())
             ->SendImplForTesting());
   }
@@ -2696,7 +2696,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
   // Casts a shim channel to a webrtc::Transport. Used once.
   webrtc::Transport* ChannelImplAsTransport(VideoMediaChannel* channel) {
     return static_cast<webrtc::Transport*>(
-        static_cast<cricket::WebRtcVideoChannel*>(
+        static_cast<cricket::WebRtcVideoSendChannel*>(
             static_cast<VideoMediaShimChannel*>(channel)
                 ->SendImplForTesting()));
   }
@@ -5848,8 +5848,9 @@ TEST_F(WebRtcVideoChannelTest, GetAggregatedStatsReportWithoutSubStreams) {
   EXPECT_EQ(sender.framerate_input, stats.input_frame_rate);
   EXPECT_EQ(sender.framerate_sent, stats.encode_frame_rate);
   EXPECT_EQ(sender.nominal_bitrate, stats.media_bitrate_bps);
-  EXPECT_NE(sender.adapt_reason & WebRtcVideoChannel::ADAPTREASON_CPU, 0);
-  EXPECT_NE(sender.adapt_reason & WebRtcVideoChannel::ADAPTREASON_BANDWIDTH, 0);
+  EXPECT_NE(sender.adapt_reason & WebRtcVideoSendChannel::ADAPTREASON_CPU, 0);
+  EXPECT_NE(sender.adapt_reason & WebRtcVideoSendChannel::ADAPTREASON_BANDWIDTH,
+            0);
   EXPECT_EQ(sender.adapt_changes, stats.number_of_cpu_adapt_changes);
   EXPECT_EQ(sender.quality_limitation_reason, stats.quality_limitation_reason);
   EXPECT_EQ(sender.quality_limitation_durations_ms,
@@ -5977,8 +5978,9 @@ TEST_F(WebRtcVideoChannelTest, GetAggregatedStatsReportForSubStreams) {
   EXPECT_EQ(sender.framerate_input, stats.input_frame_rate);
   EXPECT_EQ(sender.framerate_sent, stats.encode_frame_rate);
   EXPECT_EQ(sender.nominal_bitrate, stats.media_bitrate_bps);
-  EXPECT_NE(sender.adapt_reason & WebRtcVideoChannel::ADAPTREASON_CPU, 0);
-  EXPECT_NE(sender.adapt_reason & WebRtcVideoChannel::ADAPTREASON_BANDWIDTH, 0);
+  EXPECT_NE(sender.adapt_reason & WebRtcVideoSendChannel::ADAPTREASON_CPU, 0);
+  EXPECT_NE(sender.adapt_reason & WebRtcVideoSendChannel::ADAPTREASON_BANDWIDTH,
+            0);
   EXPECT_EQ(sender.adapt_changes, stats.number_of_cpu_adapt_changes);
   EXPECT_EQ(sender.quality_limitation_reason, stats.quality_limitation_reason);
   EXPECT_EQ(sender.quality_limitation_durations_ms,
@@ -6099,8 +6101,9 @@ TEST_F(WebRtcVideoChannelTest, GetPerLayerStatsReportForSubStreams) {
   EXPECT_EQ(sender.framerate_input, stats.input_frame_rate);
   EXPECT_EQ(sender.framerate_sent, substream.encode_frame_rate);
   EXPECT_EQ(sender.nominal_bitrate, stats.media_bitrate_bps);
-  EXPECT_NE(sender.adapt_reason & WebRtcVideoChannel::ADAPTREASON_CPU, 0);
-  EXPECT_NE(sender.adapt_reason & WebRtcVideoChannel::ADAPTREASON_BANDWIDTH, 0);
+  EXPECT_NE(sender.adapt_reason & WebRtcVideoSendChannel::ADAPTREASON_CPU, 0);
+  EXPECT_NE(sender.adapt_reason & WebRtcVideoSendChannel::ADAPTREASON_BANDWIDTH,
+            0);
   EXPECT_EQ(sender.adapt_changes, stats.number_of_cpu_adapt_changes);
   EXPECT_EQ(sender.quality_limitation_reason, stats.quality_limitation_reason);
   EXPECT_EQ(sender.quality_limitation_durations_ms,
@@ -6286,7 +6289,7 @@ TEST_F(WebRtcVideoChannelTest, GetStatsReportsCpuAdaptationStats) {
   EXPECT_TRUE(channel_->GetReceiveStats(&receive_info));
 
   ASSERT_EQ(1U, send_info.senders.size());
-  EXPECT_EQ(WebRtcVideoChannel::ADAPTREASON_CPU,
+  EXPECT_EQ(WebRtcVideoSendChannel::ADAPTREASON_CPU,
             send_info.senders[0].adapt_reason);
   EXPECT_EQ(stats.number_of_cpu_adapt_changes,
             send_info.senders[0].adapt_changes);
@@ -6306,8 +6309,8 @@ TEST_F(WebRtcVideoChannelTest, GetStatsReportsAdaptationAndBandwidthStats) {
   EXPECT_TRUE(channel_->GetReceiveStats(&receive_info));
 
   ASSERT_EQ(1U, send_info.senders.size());
-  EXPECT_EQ(WebRtcVideoChannel::ADAPTREASON_CPU |
-                WebRtcVideoChannel::ADAPTREASON_BANDWIDTH,
+  EXPECT_EQ(WebRtcVideoSendChannel::ADAPTREASON_CPU |
+                WebRtcVideoSendChannel::ADAPTREASON_BANDWIDTH,
             send_info.senders[0].adapt_reason);
   EXPECT_EQ(stats.number_of_cpu_adapt_changes,
             send_info.senders[0].adapt_changes);
@@ -6507,7 +6510,7 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_TRUE(channel_->GetReceiveStats(&receive_info));
 
   ASSERT_EQ(1U, send_info.senders.size());
-  EXPECT_EQ(WebRtcVideoChannel::ADAPTREASON_BANDWIDTH,
+  EXPECT_EQ(WebRtcVideoSendChannel::ADAPTREASON_BANDWIDTH,
             send_info.senders[0].adapt_reason);
 }
 

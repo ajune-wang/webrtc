@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7b9cee_82202acc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-05-31T06:55:46Z",
+      "side": 1,
+      "message": "Pure refactoring. Needed in order to make the class split simpler.",
+      "revId": "bf0714bf31b9448a09b9c6f71baba57d0bf7b7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

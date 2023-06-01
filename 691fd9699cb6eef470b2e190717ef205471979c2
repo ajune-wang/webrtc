@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c416c084_ee7864a6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-01T13:52:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "961f3860_cf4c730e",
+      "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56f55a0c_e3700279",
@@ -83,6 +101,24 @@
       "writtenOn": "2023-06-01T12:22:33Z",
       "side": 1,
       "message": "if you move the call to List() before this line, you can start the lambda at this point, and pass the result of the call to List() as a lambda argument.",
+      "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e1ea85_2f3820e3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-01T13:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56f55a0c_e3700279",
       "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

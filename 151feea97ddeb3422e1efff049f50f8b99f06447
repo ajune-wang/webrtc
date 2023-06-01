@@ -123,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cc6deda_44f96e08",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T14:07:55Z",
+      "side": 1,
+      "message": "Ok, I guess technically I mean an ordering problem and not a race.\n\nI mean invitation in relation to potential future changes that might miss that sometimes `started_` is set async and sometimes it is set sync. Personally I\u0027d prefer consistency as it\u0027s easy to miss this.",
+      "parentUuid": "39cc539a_2db8bfdd",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adc19141_7a7c78e1",

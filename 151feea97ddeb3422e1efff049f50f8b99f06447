@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "036f376d_f249a231",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T12:46:56Z",
+      "side": 1,
+      "message": "If you have a way to unit test this that would be great. Even if it cannot run in CI it would provide some value as it can be tested consistently by the developer.",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7229ab5e_33404e9a",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T12:46:56Z",
+      "side": 1,
+      "message": "Ehh so `started_` is uninitialized here...",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611b6b4c_3a4a8fd0",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T12:46:56Z",
+      "side": 1,
+      "message": "Isn\u0027t there still a racy case where you could get two `StartCapture()` before `frameInfo_` is set in the callback? I guess then the check will fail and there will only be an unnecessary `StopCapture()` in between.\n\n```\nStartCapture(cap1)\nStartCapture(cap1) -\u003e capability !\u003d frameInfo_ \u003d\u003e StopCapture()\ncallback sets frameInfo_ and started_..\ncallback unsets started_ ..\ncallback sets frameInfo_ and started_..\n```\n\nThe inverse case on the other hand would be a bigger problem:\n\n```\nStartCapture(cap1)\ncallback sets frameInfo_ ..\nStopCapture()\nStartCapture(cap1) -\u003e capability \u003d\u003d frameInfo_ \u003d\u003e return early\ncallback unsets frameInfo_ ..\n```\n\nbut this is guarded by `initialized_` so is fine.\n\nEither way, comparing `capability` to something like [`_requestedCapability`](https://webrtc-review.googlesource.com/c/src/+/306120/2/modules/video_capture/linux/video_capture_pipewire.cc) would help readability here.",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1e24cb_a42ae2a3",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T12:46:56Z",
+      "side": 1,
+      "message": "This feels like an invitation to races as I assume callbacks are async.",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc19141_7a7c78e1",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T12:46:56Z",
+      "side": 1,
+      "message": "Is the pipewire thread loop lock re-entrant? Otherwise this will deadlock.\nCalling StopCapture() off the API thread to me is a code smell regardless.\n\nAn error callback similar to what [desktop capture backends have](https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/modules/desktop_capture/desktop_capturer.h;l\u003d51-53;drc\u003d66941d1f0cfe9155b400aef887fe39a403c1f518) seems like an appropriate response if it can fail async. But VideoCaptureImpl callbacks don\u0027t support this...",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

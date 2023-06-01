@@ -86,6 +86,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8edfda2_2a618930",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-06-01T11:53:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c20992c3_182fc5ab",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb4f1ff3_f4a7ec66",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-06-01T11:53:29Z",
+      "side": 1,
+      "message": "I actually think `started_` shouldn\u0027t be used here as it doesn\u0027t necessarily mean that, when `pw_stream` is created, it is actually streaming. I will use a new variable just to track whether we have successfully initialized everything necessary.",
+      "parentUuid": "4bccdfbf_9d451c38",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f776d46_836ddf72",
@@ -99,6 +135,24 @@
       "writtenOn": "2023-06-01T07:58:44Z",
       "side": 1,
       "message": "VideoCaptureCapability has its own operator\u003d\u003d you can use to simplify this.\n\nRelated: https://webrtc-review.googlesource.com/c/src/+/306122 which changes v4l2 to use this.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8959d901_4ebe9f5d",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-06-01T11:53:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f776d46_836ddf72",
       "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

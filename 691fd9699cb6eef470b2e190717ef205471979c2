@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "961f3860_cf4c730e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-06-01T13:10:03Z",
+      "side": 1,
+      "message": "Done - ended up moving the code over to `OnTransportControllerConnectionState`",
+      "parentUuid": "2ee709af_b9105ce7",
+      "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56f55a0c_e3700279",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2

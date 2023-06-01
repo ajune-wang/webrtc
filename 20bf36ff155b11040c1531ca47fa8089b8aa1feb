@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a2ba119_808d2715",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2404,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-06-01T13:10:03Z",
+      "side": 1,
+      "message": "note here that I\u0027m stashing the `mid` instead of the transport name since the transport name must be read on the network thread.",
+      "revId": "20bf36ff155b11040c1531ca47fa8089b8aa1feb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e23ab033_2923dc09",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2417,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-06-01T13:10:03Z",
+      "side": 1,
+      "message": "and here mapping the mid to the transport.",
+      "revId": "20bf36ff155b11040c1531ca47fa8089b8aa1feb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

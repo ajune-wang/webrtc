@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f675871f_b104c3f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-01T12:08:02Z",
+      "side": 1,
+      "message": "Now I see what you mean!\n\nIt SHOULD solve the problem in the right way (by getting rid of the UnsafeList() call).",
+      "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee709af_b9105ce7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-01T12:08:02Z",
+      "side": 1,
+      "message": "This lambda is now long and convoluted enough that I\u0027m wondering if it should have a name of its own (be a function). Your call.",
+      "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

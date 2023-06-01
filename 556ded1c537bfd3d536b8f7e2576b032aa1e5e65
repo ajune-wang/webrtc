@@ -37,6 +37,74 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e276fa2e_69f6ebba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T07:58:44Z",
+      "side": 1,
+      "message": "I don\u0027t have permissions to set flags but here is some feedback that I think brings up some real concerns.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20992c3_182fc5ab",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T07:58:44Z",
+      "side": 1,
+      "message": "Both `started_` and `frameInfo_` are written to in a pipewire callback. Is this thread safe? Don\u0027t you need to hold the pipewire thread loop lock?\n\nAlso see https://webrtc-review.googlesource.com/c/src/+/306120 and https://webrtc-review.googlesource.com/c/src/+/306121.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bccdfbf_9d451c38",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T07:58:44Z",
+      "side": 1,
+      "message": "Can this [`started_ \u003d false`](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_capture/linux/video_capture_pipewire.cc;l\u003d303;drc\u003d4beafa38d546ab6c0bb423c12762f0c4568aa5ce) be intermediate?\nI.e. after StartCapture() if the stream state can go to anything else than (directly) to PW_STREAM_STATE_STREAMING or PW_STREAM_STATE_ERROR you\u0027re in for some interesting races. I am assuming PW_STREAM_STATE_ERROR is terminal and doesn\u0027t need a StopCapture() to tear things down.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f776d46_836ddf72",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-01T07:58:44Z",
+      "side": 1,
+      "message": "VideoCaptureCapability has its own operator\u003d\u003d you can use to simplify this.\n\nRelated: https://webrtc-review.googlesource.com/c/src/+/306122 which changes v4l2 to use this.",
+      "revId": "556ded1c537bfd3d536b8f7e2576b032aa1e5e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8b08cd3d_dd9fdd14",
         "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
         "patchSetId": 3

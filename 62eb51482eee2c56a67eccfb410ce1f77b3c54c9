@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c0488c_4b048f39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-01T18:53:37Z",
+      "side": 1,
+      "message": "Please take another look!\n\nChange of plan, not throwing on no-mid-extension but it was good to flush out some bad WPT (see chromium bot on previous change set)\n\nRequiring MID belongs at a different level than \"spec simulcast\", this should be about \"can I or the other side demux this???\" which is possible based on rid.",
+      "revId": "62eb51482eee2c56a67eccfb410ce1f77b3c54c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1731,6 +1731,10 @@ TEST_P(PeerConnectionIntegrationTest,
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
                  callee()->ice_connection_state(), kDefaultTimeout);
 
+  // Part of reporting the stats will occur on the network thread, so flush it
+  // before checking NumEvents.
+  SendTask(network_thread(), [] {});
+
   EXPECT_METRIC_EQ(1, webrtc::metrics::NumEvents(
                           "WebRTC.PeerConnection.CandidatePairType_UDP",
                           webrtc::kIceCandidatePairHostNameHostName));

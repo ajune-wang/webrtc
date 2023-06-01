@@ -731,9 +731,6 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
   transport_controller_->SubscribeIceConnectionState(
       [this](cricket::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(network_thread());
-        if (s == cricket::kIceConnectionConnected) {
-          ReportTransportStats();
-        }
         signaling_thread()->PostTask(
             SafeTask(signaling_thread_safety_.flag(), [this, s]() {
               RTC_DCHECK_RUN_ON(signaling_thread());
@@ -2397,6 +2394,35 @@ void PeerConnection::OnTransportControllerConnectionState(
     case cricket::kIceConnectionConnected:
       RTC_LOG(LS_INFO) << "Changing to ICE connected state because "
                           "all transports are writable.";
+      {
+        std::map<std::string, cricket::MediaType> mid_to_type;
+        if (ConfiguredForMedia()) {
+          for (const auto& transceiver :
+               rtp_manager()->transceivers()->List()) {
+            auto* channel = transceiver->internal()->channel();
+            if (channel) {
+              mid_to_type[channel->mid()] = transceiver->media_type();
+            }
+          }
+        }
+        network_thread()->PostTask(SafeTask(
+            network_thread_safety_,
+            [this, mid_to_type = std::move(mid_to_type)] {
+              RTC_DCHECK_RUN_ON(network_thread());
+              std::map<std::string, std::set<cricket::MediaType>>
+                  media_types_by_transport_name;
+              for (auto& mids : mid_to_type) {
+                RtpTransportInternal* t =
+                    transport_controller_n()->GetRtpTransport(mids.first);
+                if (!t)
+                  continue;  // In case the channel was removed between steps.
+                media_types_by_transport_name[t->transport_name()].insert(
+                    mids.second);
+              }
+              ReportTransportStats(std::move(media_types_by_transport_name));
+            }));
+      }
+
       SetIceConnectionState(PeerConnectionInterface::kIceConnectionConnected);
       NoteUsageEvent(UsageEvent::ICE_STATE_CONNECTED);
       break;
@@ -2740,23 +2766,11 @@ void PeerConnection::OnTransportControllerGatheringState(
 }
 
 // Runs on network_thread().
-void PeerConnection::ReportTransportStats() {
+void PeerConnection::ReportTransportStats(
+    std::map<std::string, std::set<cricket::MediaType>>
+        media_types_by_transport_name) {
   TRACE_EVENT0("webrtc", "PeerConnection::ReportTransportStats");
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
-  std::map<std::string, std::set<cricket::MediaType>>
-      media_types_by_transport_name;
-  if (ConfiguredForMedia()) {
-    for (const auto& transceiver :
-         rtp_manager()->transceivers()->UnsafeList()) {
-      if (transceiver->internal()->channel()) {
-        std::string transport_name(
-            transceiver->internal()->channel()->transport_name());
-        media_types_by_transport_name[transport_name].insert(
-            transceiver->media_type());
-      }
-    }
-  }
-
   if (sctp_mid_n_) {
     cricket::DtlsTransportInternal* dtls_transport =
         transport_controller_->GetDtlsTransport(*sctp_mid_n_);

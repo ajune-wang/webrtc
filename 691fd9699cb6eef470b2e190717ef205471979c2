@@ -121,6 +121,24 @@
       "parentUuid": "56f55a0c_e3700279",
       "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5f0b28_8c18798d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-06-01T14:10:36Z",
+      "side": 1,
+      "message": "Sorry for the back and forth - missed this in my last patch set. Now done (and makes the change much simpler).",
+      "parentUuid": "43e1ea85_2f3820e3",
+      "revId": "691fd9699cb6eef470b2e190717ef205471979c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

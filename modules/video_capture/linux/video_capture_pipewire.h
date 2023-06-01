@@ -47,6 +47,7 @@ class VideoCaptureModulePipeWire : public VideoCaptureImpl {
   int node_id_;
   VideoCaptureCapability frameInfo_;
   bool started_;
+  bool initialized_;
 
   struct pw_stream* stream_;
   struct spa_hook stream_listener_;

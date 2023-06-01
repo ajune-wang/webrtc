@@ -48,7 +48,9 @@ VideoType VideoCaptureModulePipeWire::PipeWireRawFormatToVideoType(
 
 VideoCaptureModulePipeWire::VideoCaptureModulePipeWire(
     VideoCaptureOptions* options)
-    : VideoCaptureImpl(), session_(options->pipewire_session()) {}
+    : VideoCaptureImpl(),
+      session_(options->pipewire_session()),
+      initialized_(false) {}
 
 VideoCaptureModulePipeWire::~VideoCaptureModulePipeWire() {
   StopCapture();
@@ -113,11 +115,19 @@ static spa_pod* BuildFormat(spa_pod_builder* builder,
 
 int32_t VideoCaptureModulePipeWire::StartCapture(
     const VideoCaptureCapability& capability) {
+  PipeWireThreadLoopLock thread_loop_lock(session_->pw_main_loop_);
+  if (initialized_) {
+    if (capability == frameInfo_) {
+      return 0;
+    } else {
+      StopCapture();
+    }
+  }
+
   uint8_t buffer[1024] = {};
 
   RTC_LOG(LS_VERBOSE) << "Creating new PipeWire stream for node " << node_id_;
 
-  PipeWireThreadLoopLock thread_loop_lock(session_->pw_main_loop_);
   pw_properties* reuse_props =
       pw_properties_new_string("pipewire.client.reuse=1");
   stream_ = pw_stream_new(session_->pw_core_, "camera-stream", reuse_props);
@@ -160,6 +170,8 @@ int32_t VideoCaptureModulePipeWire::StartCapture(
                       << spa_strerror(res);
     return -1;
   }
+
+  initialized_ = true;
   return 0;
 }
 
@@ -169,6 +181,9 @@ int32_t VideoCaptureModulePipeWire::StopCapture() {
     pw_stream_destroy(stream_);
     stream_ = nullptr;
   }
+
+  started_ = false;
+  initialized_ = false;
   return 0;
 }
 
@@ -296,7 +311,8 @@ void VideoCaptureModulePipeWire::OnStreamStateChanged(
       break;
     case PW_STREAM_STATE_ERROR:
       RTC_LOG(LS_ERROR) << "PipeWire stream state error: " << error_message;
-      [[fallthrough]];
+      that->StopCapture();
+      break;
     case PW_STREAM_STATE_PAUSED:
     case PW_STREAM_STATE_UNCONNECTED:
     case PW_STREAM_STATE_CONNECTING:

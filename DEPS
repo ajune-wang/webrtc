@@ -402,6 +402,17 @@ deps = {
       'condition': 'checkout_android',
   },
 
+  'src/third_party/android_toolchain': {
+    'packages': [
+      {
+        'package': 'chromium/third_party/android_toolchain/r25c/android_toolchain',
+        'version': 'LoL5RmnMV26uBz_KJJ50ixVnRcuY55MpuOYoHCX1c7kC',
+      },
+    ],
+    'condition': 'checkout_android',
+    'dep_type': 'cipd',
+  },
+
   'src/third_party/androidx': {
     'packages': [
       {

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17126c97_f490c2aa",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-02T14:29:52Z",
+      "side": 1,
+      "message": "2023",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "d8d8eb57f3242ed89bff955e19967759c2ce6af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a6c846_b120cb63",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-02T14:29:52Z",
+      "side": 1,
+      "message": "Why not y4m? https://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/test/testsupport/y4m_frame_generator.cc;l\u003d34\n\nIvf generator does decoding.",
+      "range": {
+        "startLine": 46,
+        "startChar": 10,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "d8d8eb57f3242ed89bff955e19967759c2ce6af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

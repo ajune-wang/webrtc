@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11c6016_7f80b131",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-02T15:07:38Z",
+      "side": 1,
+      "message": "Moving myself from reviewer to CC because I\u0027ll be OOO for a week",
+      "revId": "d8d8eb57f3242ed89bff955e19967759c2ce6af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17126c97_f490c2aa",

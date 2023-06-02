@@ -50,6 +50,7 @@
 #include "media/base/rid_description.h"
 #include "media/base/rtp_utils.h"
 #include "media/engine/webrtc_media_engine.h"
+#include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -3607,6 +3608,29 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
         stats.rtx_rtp_stats->packet_counter.header_bytes +
         stats.rtx_rtp_stats->packet_counter.padding_bytes;
     info.packets_received += stats.rtx_rtp_stats->packet_counter.packets;
+  }
+
+  if (flexfec_stream_) {
+    // TODO(fippo): how to count fec_packets_discarded, i.e. FEC packets that
+    // were not used to reconstruct a packet.
+    const webrtc::ReceiveStatistics* fec_stats = flexfec_stream_->GetStats();
+    if (fec_stats) {
+      const webrtc::StreamStatistician* statistican =
+          fec_stats->GetStatistician(flexfec_config_.rtp.remote_ssrc);
+      const webrtc::RtpReceiveStats fec_rtp_stats = statistican->GetStats();
+      info.fec_packets_received = fec_rtp_stats.packet_counter.packets;
+      // TODO(fippo): this is defined as "packets that were received but not
+      // used".
+      //   How to take this into account?
+      info.fec_packets_discarded = 0;
+      info.fec_bytes_received = fec_rtp_stats.packet_counter.payload_bytes;
+      // FEC information gest added to primary counters.
+      info.payload_bytes_received += fec_rtp_stats.packet_counter.payload_bytes;
+      info.header_and_padding_bytes_received +=
+          fec_rtp_stats.packet_counter.header_bytes +
+          fec_rtp_stats.packet_counter.padding_bytes;
+      info.packets_received += fec_rtp_stats.packet_counter.packets;
+    }
   }
 
   if (log_stats)

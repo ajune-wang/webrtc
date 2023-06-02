@@ -469,6 +469,11 @@ class VoiceMediaSendChannel : public VoiceMediaSendChannelInterface {
   bool SenderNonSenderRttEnabled() const override {
     return impl_->SenderNonSenderRttEnabled();
   }
+  bool SendCodecHasNack() const override { return impl()->SendCodecHasNack(); }
+  void SetSendCodecChangedCallback(
+      absl::AnyInvocable<void()> callback) override {
+    impl()->SetSendCodecChangedCallback(std::move(callback));
+  }
   MediaChannel* ImplForTesting() override { return impl_; }
 
  private:

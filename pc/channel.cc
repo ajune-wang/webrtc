@@ -886,7 +886,18 @@ VoiceChannel::VoiceChannel(
                   crypto_options,
                   ssrc_generator),
       send_channel_(media_channel_impl_->AsVoiceChannel()),
-      receive_channel_(media_channel_impl_->AsVoiceChannel()) {}
+      receive_channel_(media_channel_impl_->AsVoiceChannel()) {
+  // TODO(bugs.webrtc.org/13931): Remove when values are set
+  // in a more sensible fashion
+  media_send_channel_impl_->AsVoiceChannel()->SetSendCodecChangedCallback(
+      [this]() {
+        // Adjust receive streams based on send codec.
+        receive_channel_->SetReceiveNackEnabled(
+            send_channel_->SendCodecHasNack());
+        receive_channel_->SetReceiveNonSenderRttEnabled(
+            send_channel_->SenderNonSenderRttEnabled());
+      });
+}
 
 VoiceChannel::~VoiceChannel() {
   TRACE_EVENT0("webrtc", "VoiceChannel::~VoiceChannel");

@@ -601,16 +601,18 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(inbound_stream.power_efficient_decoder);
     }
     verifier.TestMemberIsNonNegative<uint32_t>(inbound_stream.packets_received);
+    verifier.TestMemberIsNonNegative<uint64_t>(
+        inbound_stream.fec_packets_received);
     if (inbound_stream.kind.is_defined() && *inbound_stream.kind == "audio") {
       verifier.TestMemberIsNonNegative<uint64_t>(
           inbound_stream.packets_discarded);
       verifier.TestMemberIsNonNegative<uint64_t>(
-          inbound_stream.fec_packets_received);
-      verifier.TestMemberIsNonNegative<uint64_t>(
           inbound_stream.fec_packets_discarded);
+      verifier.TestMemberIsUndefined(inbound_stream.fec_bytes_received);
     } else {
       verifier.TestMemberIsUndefined(inbound_stream.packets_discarded);
-      verifier.TestMemberIsUndefined(inbound_stream.fec_packets_received);
+      verifier.TestMemberIsNonNegative<uint64_t>(
+          inbound_stream.fec_bytes_received);
       verifier.TestMemberIsUndefined(inbound_stream.fec_packets_discarded);
     }
     verifier.TestMemberIsNonNegative<uint64_t>(inbound_stream.bytes_received);

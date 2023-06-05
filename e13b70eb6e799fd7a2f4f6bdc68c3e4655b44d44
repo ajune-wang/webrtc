@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff355dd2_d5d33af7",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-05T11:59:46Z",
+      "side": 1,
+      "message": "The general concept should go into a different probing.md in modules/pacing?\nTrying to focus on the RTP aspects of probing here.",
+      "parentUuid": "87abd3ce_dfa4a6d9",
+      "range": {
+        "startLine": 56,
+        "startChar": 35,
+        "endLine": 56,
+        "endChar": 41
+      },
+      "revId": "e13b70eb6e799fd7a2f4f6bdc68c3e4655b44d44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84d520bb_49d32f76",
         "filename": "pc/g3doc/rtp.md",
         "patchSetId": 3
@@ -70,6 +94,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bb28c17_25f9f816",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-05T11:59:46Z",
+      "side": 1,
+      "message": "255 bytes padding, 1 byte specifying how much padding is used ;-)",
+      "parentUuid": "91adba96_c0764ae1",
+      "range": {
+        "startLine": 61,
+        "startChar": 78,
+        "endLine": 61,
+        "endChar": 81
+      },
+      "revId": "e13b70eb6e799fd7a2f4f6bdc68c3e4655b44d44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6176cf84_c6333373",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-05T11:59:46Z",
+      "side": 1,
+      "message": "The property we want here is probing with data that can be safely dropped by the remote side  after being processed for the purpose of bandwidth estimation. Tweaked a bit in the second change.",
+      "parentUuid": "84d520bb_49d32f76",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 9
+      },
+      "revId": "e13b70eb6e799fd7a2f4f6bdc68c3e4655b44d44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30d9045e_5cde839d",
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "545c27e6_3695373c",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-05T11:59:46Z",
+      "side": 1,
+      "message": "then we\u0027d have to call the other probing packets \"RTX packets\" and that conflicts with the normal usage of RTX packets for resending nack-ed packets.",
+      "parentUuid": "30d9045e_5cde839d",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "e13b70eb6e799fd7a2f4f6bdc68c3e4655b44d44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ceedfc9_fcd362c8",
         "filename": "pc/g3doc/rtp.md",
         "patchSetId": 3
@@ -106,6 +202,30 @@
       "writtenOn": "2023-05-31T13:14:14Z",
       "side": 1,
       "message": "I am actually trying to run an experiment to change the requirement that they should not yet be acked. \nThe problem is screen share etc where the recent packets may be very small- even smaller than 255 bytes. Therefore I will keep one large packet even though it has been acked. \nThe likelyhood that a padding packet is useful seems very small anyway.\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15201",
+      "range": {
+        "startLine": 88,
+        "startChar": 66,
+        "endLine": 88,
+        "endChar": 78
+      },
+      "revId": "e13b70eb6e799fd7a2f4f6bdc68c3e4655b44d44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904920ef_b799db7a",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-05T11:59:46Z",
+      "side": 1,
+      "message": "I saw and think this kind of redundancy (which isn\u0027t really padding in an RTP sense) isn\u0027t that useful (intuitively, I don\u0027t think anyone ever gathered data answering that question, but it seems inferior to actual RED/FEC) so +1 for the simpler approach. I wonder if this should prefer un-acked packets when available but that would make the rollout results a lot less clear since you can\u0027t know how often the \"large\" packet was used.\n\nWanted to leave it to you to document that however ;-)",
+      "parentUuid": "5ceedfc9_fcd362c8",
       "range": {
         "startLine": 88,
         "startChar": 66,

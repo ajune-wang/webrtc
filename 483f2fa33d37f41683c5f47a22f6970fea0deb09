@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da2772b_600f9e5b",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-05T07:21:17Z",
+      "side": 1,
+      "message": "Why this is a constant and why it is 56?\n\n(I am not a video codecs expert, but I wonder if this can be configurable or have a comment).",
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cab2c281_7b7bf29c",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-05T07:21:17Z",
+      "side": 1,
+      "message": "It is also OK to use https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/checks.h;l\u003d463;drc\u003d802e8e5fdbac5af0e264d7fbe32b16643ad718ae.\n\n(which is present also in Release builds).\n\nThe same in other places.",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 26
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5df79a25_5bd55bae",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-05T07:21:17Z",
+      "side": 1,
+      "message": "Let\u0027s use a https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/strings/string_builder.h (either StringBuilder or SimpleStringBuilder).",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 26
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d188d189_2b3d31e0",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-05T07:21:17Z",
+      "side": 1,
+      "message": "Same here, let\u0027s use StringBuilder or similar.",
+      "range": {
+        "startLine": 201,
+        "startChar": 6,
+        "endLine": 201,
+        "endChar": 8
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe30533_8d2ee9b5",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-05T07:21:17Z",
+      "side": 1,
+      "message": "Should this be LS_VERBOSE?\n\nSame in other places.",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 78
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6db308d_8f146645",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-05T07:21:17Z",
+      "side": 1,
+      "message": "No need to declare here, let\u0027s just do\n\n```\nint ret \u003d ...\n```\n\nat line 479.\n\nThe same in other places.",
+      "range": {
+        "startLine": 460,
+        "startChar": 4,
+        "endLine": 460,
+        "endChar": 12
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

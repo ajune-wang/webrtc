@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c861c38_30d1329a",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "Add comment for the max qp.",
+      "parentUuid": "6da2772b_600f9e5b",
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cab2c281_7b7bf29c",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-06-05T07:21:17Z",
       "side": 1,
       "message": "It is also OK to use https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/checks.h;l\u003d463;drc\u003d802e8e5fdbac5af0e264d7fbe32b16643ad718ae.\n\n(which is present also in Release builds).\n\nThe same in other places.",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 26
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e6b78b0_b5b3d0d2",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cab2c281_7b7bf29c",
       "range": {
         "startLine": 143,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d0857c_7e66d47c",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "Thanks. `SimpleStringBuilder` is very helpful.",
+      "parentUuid": "5df79a25_5bd55bae",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 26
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d188d189_2b3d31e0",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-06-05T07:21:17Z",
       "side": 1,
       "message": "Same here, let\u0027s use StringBuilder or similar.",
+      "range": {
+        "startLine": 201,
+        "startChar": 6,
+        "endLine": 201,
+        "endChar": 8
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf18c33f_d230d824",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d188d189_2b3d31e0",
       "range": {
         "startLine": 201,
         "startChar": 6,
@@ -110,6 +200,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d19854d_2c589389",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "Right. It is repeatedly for every frame, should be `LS_VERBOSE`.",
+      "parentUuid": "8fe30533_8d2ee9b5",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 78
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6db308d_8f146645",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-06-05T07:21:17Z",
       "side": 1,
       "message": "No need to declare here, let\u0027s just do\n\n```\nint ret \u003d ...\n```\n\nat line 479.\n\nThe same in other places.",
+      "range": {
+        "startLine": 460,
+        "startChar": 4,
+        "endLine": 460,
+        "endChar": 12
+      },
+      "revId": "483f2fa33d37f41683c5f47a22f6970fea0deb09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d34c837e_15970e67",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6db308d_8f146645",
       "range": {
         "startLine": 460,
         "startChar": 4,

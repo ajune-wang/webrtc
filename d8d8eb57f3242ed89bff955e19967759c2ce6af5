@@ -209,6 +209,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1903e66c_6bee5905",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-06T01:15:06Z",
+      "side": 1,
+      "message": "@Sergey, \n  The `frame_rate` is used interchangeably with `fps` usually.\n  \n  I searched both \u0027frame_rate\u0027 and \u0027frame_rate_fps\u0027 in libvpx and chromium/src/media, the `frame_rate` is used more commonly.\n  \n  As the command line parameter, \u0027frame_rate\u0027 requires less typing from users. : )\n  \n  I wish that you could agree to keep \u0027frame_rate\u0027 as it is.\n  \n[1] libvpx - Chromium Code Search\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/libvpx/source/libvpx/\n\n[] media - Chromium Code Search\nhttps://source.chromium.org/chromium/chromium/src/+/main:media/",
+      "parentUuid": "c0e58e71_6f7c46a5",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "d8d8eb57f3242ed89bff955e19967759c2ce6af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "259266e7_9e555f38",
         "filename": "rtc_tools/video_encoder/video_encoder.cc",
         "patchSetId": 2

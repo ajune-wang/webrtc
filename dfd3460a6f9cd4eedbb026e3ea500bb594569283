@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a57413_9d04d669",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5623
+      },
+      "writtenOn": "2023-06-06T00:20:30Z",
+      "side": 1,
+      "message": "I should note that there are two options for the WebRTC team here, please note that this change will temporarily increase the checkout size. I can either land this, then land the upstream fix, then patchset 2 to make this a smooth transition roll,\n\nOR\n\nIf you would not prefer the temporary checkout size increase, we can forgo landing this, I can land the upstream change (this will break the WebRTC roller) and then we can land a single patch that swaps the toolchains.",
+      "revId": "dfd3460a6f9cd4eedbb026e3ea500bb594569283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

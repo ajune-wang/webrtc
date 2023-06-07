@@ -233,6 +233,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca595385_593a7803",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-07T11:34:28Z",
+      "side": 1,
+      "message": "It is recommended to use \u003cmetric\u003e\\_\u003cunits\u003e pattern in new code. I don\u0027t see reason to have an exception for frame rate. It is framerate_fps in many places in WebRTC: https://source.chromium.org/search?q\u003dframe%5B_%5D%3Frate_fps%5B_%5D%3F;\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F",
+      "parentUuid": "1903e66c_6bee5905",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "d8d8eb57f3242ed89bff955e19967759c2ce6af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "259266e7_9e555f38",
         "filename": "rtc_tools/video_encoder/video_encoder.cc",
         "patchSetId": 2

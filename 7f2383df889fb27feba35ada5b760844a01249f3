@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32976bb7_20df593d",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-06-07T11:44:16Z",
+      "side": 1,
+      "message": "Just use an explicit value instead of calculating log and casting to int.\nHere and below.",
+      "range": {
+        "startLine": 285,
+        "startChar": 38,
+        "endLine": 285,
+        "endChar": 63
+      },
+      "revId": "7f2383df889fb27feba35ada5b760844a01249f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

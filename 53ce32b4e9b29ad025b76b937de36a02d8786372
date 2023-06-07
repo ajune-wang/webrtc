@@ -16,6 +16,75 @@
       "message": "LGTM, but let\u0027s wait for Sergey\u0027s comments to be addressed before landing.",
       "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f859e397_d74d05db",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-07T11:43:39Z",
+      "side": 1,
+      "message": "Use ScalabilityModeToString instead?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/scalability_mode.cc;l\u003d17?q\u003dscalabilitymodeto\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 34
+      },
+      "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d67b0467_0cccd869",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-07T11:43:39Z",
+      "side": 1,
+      "message": "Is \"video\" prefix needed? Maybe change to \"key-frame\", \"delta-frame\". Or even just \"key\", \"delta\".",
+      "range": {
+        "startLine": 155,
+        "startChar": 14,
+        "endLine": 155,
+        "endChar": 23
+      },
+      "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac88bff_433480b5",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-07T11:43:39Z",
+      "side": 1,
+      "message": "Add \"\u003d\" here? ToString(const EncodedImage\u0026 encoded_image) uses \"\u003d\"",
+      "range": {
+        "startLine": 214,
+        "startChar": 38,
+        "endLine": 214,
+        "endChar": 39
+      },
+      "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

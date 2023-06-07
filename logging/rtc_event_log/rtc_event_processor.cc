@@ -11,6 +11,13 @@
 
 namespace webrtc {
 
+namespace event_processor_impl {
+int64_t GlobalEventProcessorInsertion() {
+  static int64_t total_insertions = 0;
+  return total_insertions++;
+}
+}  // namespace event_processor_impl
+
 RtcEventProcessor::RtcEventProcessor() = default;
 
 RtcEventProcessor::~RtcEventProcessor() = default;

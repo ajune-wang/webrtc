@@ -19,7 +19,9 @@
 #include <vector>
 
 #include "api/function_view.h"
+#include "logging/rtc_event_log/events/logged_rtp_rtcp.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/numerics/sequence_number_unwrapper.h"
 
 namespace webrtc {
 
@@ -39,7 +41,7 @@ class ProcessableEventListInterface {
   virtual void ProcessNext() = 0;
   virtual bool IsEmpty() const = 0;
   virtual int64_t GetNextTime() const = 0;
-  virtual int GetTieBreaker() const = 0;
+  virtual int64_t GetTieBreaker() const = 0;
 };
 
 // ProcessableEventList encapsulates a list of events and a function that will
@@ -50,7 +52,7 @@ class ProcessableEventList : public ProcessableEventListInterface {
   ProcessableEventList(Iterator begin,
                        Iterator end,
                        std::function<void(const T&)> f,
-                       int tie_breaker)
+                       std::function<int64_t(const T&)> tie_breaker)
       : begin_(begin), end_(end), f_(f), tie_breaker_(tie_breaker) {}
 
   void ProcessNext() override {
@@ -65,15 +67,46 @@ class ProcessableEventList : public ProcessableEventListInterface {
     RTC_DCHECK(!IsEmpty());
     return begin_->log_time_us();
   }
-  int GetTieBreaker() const override { return tie_breaker_; }
+
+  int64_t GetTieBreaker() const override {
+    RTC_DCHECK(!IsEmpty());
+    return tie_breaker_(*begin_);
+  }
 
  private:
   Iterator begin_;
   Iterator end_;
   std::function<void(const T&)> f_;
-  int tie_breaker_;
+  std::function<int64_t(const T&)> tie_breaker_;
 };
+
+int64_t GlobalEventProcessorInsertion();
+
 }  // namespace event_processor_impl
+
+template <typename T>
+class BreakTiesByInsertionOrder {
+ public:
+  BreakTiesByInsertionOrder()
+      : insertion_order_(
+            event_processor_impl::GlobalEventProcessorInsertion()) {}
+  int64_t operator()(const T&) { return insertion_order_; }
+
+ private:
+  int64_t insertion_order_;
+};
+
+class BreakTiesByTransportSeqNum {
+ public:
+  int64_t operator()(const LoggedRtpPacket& rtp) {
+    return rtp.header.extension.hasTransportSequenceNumber
+               ? unwrapper_.Unwrap(rtp.header.extension.transportSequenceNumber)
+               : -1;
+  }
+
+ private:
+  RtpSequenceNumberUnwrapper unwrapper_;
+};
 
 // Helper class used to "merge" two or more lists of ordered RtcEventLog events
 // so that they can be treated as a single ordered list. Since the individual
@@ -105,13 +138,22 @@ class RtcEventProcessor {
   void AddEvents(
       const Iterable& iterable,
       std::function<void(const typename Iterable::value_type&)> handler) {
+    AddEvents(iterable, handler,
+              BreakTiesByInsertionOrder<typename Iterable::value_type>());
+  }
+
+  template <typename Iterable>
+  void AddEvents(
+      const Iterable& iterable,
+      std::function<void(const typename Iterable::value_type&)> handler,
+      std::function<int64_t(const typename Iterable::value_type&)>
+          tie_breaker) {
     if (iterable.begin() == iterable.end())
       return;
     event_lists_.push_back(
         std::make_unique<event_processor_impl::ProcessableEventList<
             typename Iterable::const_iterator, typename Iterable::value_type>>(
-            iterable.begin(), iterable.end(), handler,
-            insertion_order_index_++));
+            iterable.begin(), iterable.end(), handler, tie_breaker));
     std::push_heap(event_lists_.begin(), event_lists_.end(), Cmp);
   }
 
@@ -120,7 +162,6 @@ class RtcEventProcessor {
  private:
   using ListPtrType =
       std::unique_ptr<event_processor_impl::ProcessableEventListInterface>;
-  int insertion_order_index_ = 0;
   std::vector<ListPtrType> event_lists_;
   // Comparison function to make `event_lists_` into a min heap.
   static bool Cmp(const ListPtrType& a, const ListPtrType& b);

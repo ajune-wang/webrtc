@@ -25,6 +25,11 @@
 namespace webrtc {
 
 namespace {
+LoggedStartEvent CreateEvent(int64_t time_ms, int64_t utc_time_ms) {
+  return LoggedStartEvent(Timestamp::Millis(time_ms),
+                          Timestamp::Millis(utc_time_ms));
+}
+
 std::vector<LoggedStartEvent> CreateEventList(
     std::initializer_list<int64_t> timestamp_list) {
   std::vector<LoggedStartEvent> v;
@@ -154,6 +159,57 @@ TEST(RtcEventProcessor, DifferentTypes) {
   processor.ProcessEventsInOrder();
 
   std::vector<int64_t> expected_results{1, 2};
+  ASSERT_EQ(result.size(), expected_results.size());
+  for (size_t i = 0; i < expected_results.size(); i++) {
+    EXPECT_EQ(result[i], expected_results[i]);
+  }
+}
+
+TEST(RtcEventProcessor, BreakTiesByInsertionOrder) {
+  std::vector<LoggedStartEvent> events1{CreateEvent(1, 222)};
+  std::vector<LoggedStartEvent> events2{CreateEvent(1, 111)};
+  std::vector<LoggedStartEvent> events3{CreateEvent(1, 333)};
+  std::vector<int64_t> result;
+  auto get_utc_time = [&result](LoggedStartEvent elem) {
+    result.push_back(elem.utc_time().ms());
+  };
+
+  RtcEventProcessor processor;
+  processor.AddEvents(events1, get_utc_time);
+  processor.AddEvents(events2, get_utc_time);
+  processor.AddEvents(events3, get_utc_time);
+  processor.ProcessEventsInOrder();
+
+  std::vector<int64_t> expected_results{222, 111, 333};
+  ASSERT_EQ(result.size(), expected_results.size());
+  for (size_t i = 0; i < expected_results.size(); i++) {
+    EXPECT_EQ(result[i], expected_results[i]);
+  }
+}
+
+TEST(RtcEventProcessor, BreakTiesByCustomKey) {
+  class BreakTiesByUTC {
+   public:
+    int64_t operator()(const LoggedStartEvent& event) {
+      return event.utc_time().ms();
+    }
+  };
+
+  std::vector<LoggedStartEvent> events1{CreateEvent(1, 222)};
+  std::vector<LoggedStartEvent> events2{CreateEvent(1, 111)};
+  std::vector<LoggedStartEvent> events3{CreateEvent(1, 333)};
+  std::vector<int64_t> result;
+  auto get_utc_time = [&result](LoggedStartEvent elem) {
+    result.push_back(elem.utc_time().ms());
+  };
+
+  RtcEventProcessor processor;
+  processor.AddEvents(events1, get_utc_time, BreakTiesByUTC());
+  processor.AddEvents(events2, get_utc_time, BreakTiesByUTC());
+  processor.AddEvents(events3, get_utc_time, BreakTiesByUTC());
+  processor.ProcessEventsInOrder();
+
+  std::vector<int64_t> expected_results{111, 222, 333};
   ASSERT_EQ(result.size(), expected_results.size());
   for (size_t i = 0; i < expected_results.size(); i++) {
     EXPECT_EQ(result[i], expected_results[i]);

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b6237cf_05595da8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5623
+      },
+      "writtenOn": "2023-06-08T06:38:08Z",
+      "side": 1,
+      "message": "Quick note - this CL cannot land (and will fail CQ) until WebRTC rolls, and that requires https://webrtc-review.googlesource.com/c/src/+/308160 to land first.",
+      "revId": "f7282594d94d6d95bb612ae8bf2af89fbc9dcdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

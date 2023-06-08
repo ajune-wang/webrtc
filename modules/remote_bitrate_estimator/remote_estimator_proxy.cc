@@ -35,16 +35,23 @@ constexpr TimeDelta kMaxInterval = TimeDelta::Millis(250);
 constexpr TimeDelta kDefaultInterval = TimeDelta::Millis(100);
 
 TimeDelta GetAbsoluteSendTimeDelta(uint32_t new_sendtime,
-                                   uint32_t previous_sendtime) {
+                                   uint32_t previous_sendtime,
+                                   bool packet_reordered) {
   static constexpr uint32_t kWrapAroundPeriod = 0x0100'0000;
   RTC_DCHECK_LT(new_sendtime, kWrapAroundPeriod);
   RTC_DCHECK_LT(previous_sendtime, kWrapAroundPeriod);
-  uint32_t delta = (new_sendtime - previous_sendtime) % kWrapAroundPeriod;
+
+  uint32_t delta = packet_reordered
+                       ? (previous_sendtime - new_sendtime) % kWrapAroundPeriod
+                       : (new_sendtime - previous_sendtime) % kWrapAroundPeriod;
   if (delta >= kWrapAroundPeriod / 2) {
     // absolute send time wraps around, thus treat deltas larger than half of
-    // the wrap around period as negative. Ignore reordering of packets and
-    // treat them as they have approximately the same send time.
+    // the wrap around period as unknown. Treat them as if send time delta since
+    // last packet is zero.
     return TimeDelta::Zero();
+  }
+  if (packet_reordered) {
+    return TimeDelta::Micros(int64_t{delta} * -1'000'000 / (1 << 18));
   }
   return TimeDelta::Micros(int64_t{delta} * 1'000'000 / (1 << 18));
 }
@@ -138,9 +145,11 @@ void RemoteEstimatorProxy::IncomingPacket(const RtpPacketReceived& packet) {
   if (network_state_estimator_ && absolute_send_time_24bits.has_value()) {
     PacketResult packet_result;
     packet_result.receive_time = packet.arrival_time();
-    abs_send_timestamp_ += GetAbsoluteSendTimeDelta(*absolute_send_time_24bits,
-                                                    previous_abs_send_time_);
+    abs_send_timestamp_ += GetAbsoluteSendTimeDelta(
+        *absolute_send_time_24bits, previous_abs_send_time_,
+        previous_transport_sequence_number_ > seq);
     previous_abs_send_time_ = *absolute_send_time_24bits;
+    previous_transport_sequence_number_ = seq;
     packet_result.sent_packet.send_time = abs_send_timestamp_;
     packet_result.sent_packet.size =
         DataSize::Bytes(packet.size()) + packet_overhead_;

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a22915b_c3237760",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-06-09T09:37:03Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "8f86a134704def0dc0999b5173a9ad618e14c360",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be03aaaf_e947d467",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-06-09T09:37:03Z",
+      "side": 1,
+      "message": "nit: I suspect you\u0027re looking for `video_info.framerate.hertz\u003cdouble\u003e()`",
+      "range": {
+        "startLine": 706,
+        "startChar": 32,
+        "endLine": 706,
+        "endChar": 74
+      },
+      "revId": "8f86a134704def0dc0999b5173a9ad618e14c360",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

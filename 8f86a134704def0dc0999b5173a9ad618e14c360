@@ -39,6 +39,30 @@
       },
       "revId": "8f86a134704def0dc0999b5173a9ad618e14c360",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de09cc18_481c43d7",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-09T10:57:32Z",
+      "side": 1,
+      "message": "Exactly. And it indeed should be hertz. Fixed here and in other places.",
+      "parentUuid": "be03aaaf_e947d467",
+      "range": {
+        "startLine": 706,
+        "startChar": 32,
+        "endLine": 706,
+        "endChar": 74
+      },
+      "revId": "8f86a134704def0dc0999b5173a9ad618e14c360",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

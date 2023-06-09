@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "736f6cec_80185a64",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-09T07:46:42Z",
+      "side": 1,
+      "message": "Since this is not used outside of the for loop, it would be better to move it there.",
+      "range": {
+        "startLine": 584,
+        "startChar": 2,
+        "endLine": 585,
+        "endChar": 24
+      },
+      "revId": "53224df6b6979adb9f2187e1779c1cf60bb94f08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e3cd38_a15feddf",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-09T07:46:42Z",
+      "side": 1,
+      "message": "```suggestion\n    std::vector\u003cwebrtc::VideoFrameType\u003e frame_types \u003d {(i % key_frame_interval)\n                         ? webrtc::VideoFrameType::kVideoFrameDelta\n                         : webrtc::VideoFrameType::kVideoFrameKey};\n```",
+      "range": {
+        "startLine": 590,
+        "startChar": 4,
+        "endLine": 592,
+        "endChar": 66
+      },
+      "revId": "53224df6b6979adb9f2187e1779c1cf60bb94f08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ccc0cd0_4d9975c3",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-09T07:46:42Z",
+      "side": 1,
+      "message": "Are these resets needed?",
+      "range": {
+        "startLine": 606,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 45
+      },
+      "revId": "53224df6b6979adb9f2187e1779c1cf60bb94f08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

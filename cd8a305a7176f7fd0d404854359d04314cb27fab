@@ -33,6 +33,23 @@
       "message": "Approving as owner, trusting Perkj that it\u0027s technically correct.",
       "revId": "cd8a305a7176f7fd0d404854359d04314cb27fab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9478ae3e_59ae90cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-09T13:38:25Z",
+      "side": 1,
+      "message": "I wonder if we can relax ownership for g3doc subfolders... OTOH that may not make sense in all cases",
+      "revId": "cd8a305a7176f7fd0d404854359d04314cb27fab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

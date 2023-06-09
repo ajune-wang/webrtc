@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8a84be6_c28c632a",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-09T03:55:38Z",
+      "side": 1,
+      "message": "Thanks.\nI previously did some search in source tree but without luck, so implement here.",
+      "parentUuid": "f859e397_d74d05db",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 34
+      },
+      "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d67b0467_0cccd869",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ff8ce86_885f61b5",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-09T03:55:38Z",
+      "side": 1,
+      "message": "Right. \n\nThe code was copied from some other places. \nI would fix those places in later CLs as well.",
+      "parentUuid": "d67b0467_0cccd869",
+      "range": {
+        "startLine": 155,
+        "startChar": 14,
+        "endLine": 155,
+        "endChar": 23
+      },
+      "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aac88bff_433480b5",
@@ -94,6 +142,30 @@
       "writtenOn": "2023-06-07T11:43:39Z",
       "side": 1,
       "message": "Add \"\u003d\" here? ToString(const EncodedImage\u0026 encoded_image) uses \"\u003d\"",
+      "range": {
+        "startLine": 214,
+        "startChar": 38,
+        "endLine": 214,
+        "endChar": 39
+      },
+      "revId": "53ce32b4e9b29ad025b76b937de36a02d8786372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50852f09_a8cfd900",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-09T03:55:38Z",
+      "side": 1,
+      "message": "Keep them consistent.",
+      "parentUuid": "aac88bff_433480b5",
       "range": {
         "startLine": 214,
         "startChar": 38,

@@ -11,6 +11,7 @@
 #ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_REMOTE_ESTIMATOR_PROXY_H_
 
+#include <cstdint>
 #include <deque>
 #include <functional>
 #include <memory>
@@ -105,6 +106,7 @@ class RemoteEstimatorProxy {
   // Unwraps absolute send times.
   uint32_t previous_abs_send_time_ RTC_GUARDED_BY(&lock_);
   Timestamp abs_send_timestamp_ RTC_GUARDED_BY(&lock_);
+  Timestamp last_arrival_time_ RTC_GUARDED_BY(&lock_);
 };
 
 }  // namespace webrtc

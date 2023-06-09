@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14512b62_7e8a75b3",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-09T09:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "736f6cec_80185a64",
+      "range": {
+        "startLine": 584,
+        "startChar": 2,
+        "endLine": 585,
+        "endChar": 24
+      },
+      "revId": "53224df6b6979adb9f2187e1779c1cf60bb94f08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20e3cd38_a15feddf",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ef73a8_c2a52cce",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-09T09:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20e3cd38_a15feddf",
+      "range": {
+        "startLine": 590,
+        "startChar": 4,
+        "endLine": 592,
+        "endChar": 66
+      },
+      "revId": "53224df6b6979adb9f2187e1779c1cf60bb94f08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ccc0cd0_4d9975c3",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-06-09T07:46:42Z",
       "side": 1,
       "message": "Are these resets needed?",
+      "range": {
+        "startLine": 606,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 45
+      },
+      "revId": "53224df6b6979adb9f2187e1779c1cf60bb94f08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2030abc_52c77d0b",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-09T09:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ccc0cd0_4d9975c3",
       "range": {
         "startLine": 606,
         "startChar": 0,

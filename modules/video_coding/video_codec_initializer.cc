@@ -333,9 +333,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       }
       break;
     case kVideoCodecH264: {
-      RTC_CHECK(!config.encoder_specific_settings);
-
-      *video_codec.H264() = VideoEncoder::GetDefaultH264Settings();
+      if (!config.encoder_specific_settings)
+        *video_codec.H264() = VideoEncoder::GetDefaultH264Settings();
       video_codec.H264()->numberOfTemporalLayers = static_cast<unsigned char>(
           streams.back().num_temporal_layers.value_or(
               video_codec.H264()->numberOfTemporalLayers));

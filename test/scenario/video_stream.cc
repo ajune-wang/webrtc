@@ -185,10 +185,12 @@ rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
 CreateH264SpecificSettings(VideoStreamConfig config) {
   RTC_DCHECK_EQ(config.encoder.simulcast_streams.size(), 1);
   RTC_DCHECK(config.encoder.simulcast_streams[0] == ScalabilityMode::kL1T1);
-  // TODO(bugs.webrtc.org/6883): Set a key frame interval as a setting that
-  // isn't codec specific.
-  RTC_CHECK_EQ(0, config.encoder.key_frame_interval.value_or(0));
-  return nullptr;
+
+  VideoCodecH264 h264_settings = VideoEncoder::GetDefaultH264Settings();
+  h264_settings.keyFrameInterval =
+      config.encoder.key_frame_interval.value_or(0);
+  return rtc::make_ref_counted<VideoEncoderConfig::H264EncoderSpecificSettings>(
+      h264_settings);
 }
 
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>

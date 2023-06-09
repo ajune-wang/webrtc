@@ -10,6 +10,7 @@
 
 #include "api/video_codecs/video_codec.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <memory>
 #include <string>
@@ -603,6 +604,17 @@ TEST_P(SpatialQualityTest, SpatialQuality) {
     SetTargetRates(frame_settings, frames);
     stream = stats->Aggregate(frames);
     if (field_trial::IsEnabled("WebRTC-QuickPerfTest")) {
+      EXPECT_NEAR(stream.bitrate_mismatch_pct.GetAverage(), 0, 10);
+      EXPECT_NEAR(stream.framerate_mismatch_pct.GetAverage(), 0, 10);
+      EXPECT_LE(stream.transmission_time_ms.GetAverage(),
+                std::max(150.0, 1000 / video_info.framerate.hertz<double>()));
+      EXPECT_LE(stream.transmission_time_ms.GetMax(),
+                std::max(300.0, 1000 / video_info.framerate.hertz<double>()));
+      EXPECT_LE(stream.encode_time_ms.GetAverage(), 66);
+      EXPECT_LE(stream.encode_time_ms.GetMax(), 100);
+      EXPECT_LE(stream.decode_time_ms.GetAverage(), 66);
+      EXPECT_LE(stream.decode_time_ms.GetMax(), 100);
+      EXPECT_EQ(stream.keyframe.GetSum(), 1);
       EXPECT_GE(stream.psnr.y.GetAverage(), psnr);
     }
   }
@@ -690,6 +702,13 @@ TEST_P(BitrateAdaptationTest, BitrateAdaptation) {
     if (field_trial::IsEnabled("WebRTC-QuickPerfTest")) {
       EXPECT_NEAR(stream.bitrate_mismatch_pct.GetAverage(), 0, 10);
       EXPECT_NEAR(stream.framerate_mismatch_pct.GetAverage(), 0, 10);
+      EXPECT_LE(stream.transmission_time_ms.GetAverage(),
+                std::max(150.0, 1000 / video_info.framerate.hertz<double>()));
+      EXPECT_LE(stream.transmission_time_ms.GetMax(),
+                std::max(300.0, 1000 / video_info.framerate.hertz<double>()));
+      EXPECT_LE(stream.encode_time_ms.GetAverage(), 66);
+      EXPECT_LE(stream.encode_time_ms.GetMax(), 100);
+      EXPECT_EQ(stream.keyframe.GetSum(), 0);
     }
   }
 
@@ -769,6 +788,13 @@ TEST_P(FramerateAdaptationTest, FramerateAdaptation) {
     if (field_trial::IsEnabled("WebRTC-QuickPerfTest")) {
       EXPECT_NEAR(stream.bitrate_mismatch_pct.GetAverage(), 0, 10);
       EXPECT_NEAR(stream.framerate_mismatch_pct.GetAverage(), 0, 10);
+      EXPECT_LE(stream.transmission_time_ms.GetAverage(),
+                std::max(150.0, 1000 / video_info.framerate.hertz<double>()));
+      EXPECT_LE(stream.transmission_time_ms.GetMax(),
+                std::max(300.0, 1000 / video_info.framerate.hertz<double>()));
+      EXPECT_LE(stream.encode_time_ms.GetAverage(), 66);
+      EXPECT_LE(stream.encode_time_ms.GetMax(), 100);
+      EXPECT_EQ(stream.keyframe.GetSum(), 0);
     }
   }
 

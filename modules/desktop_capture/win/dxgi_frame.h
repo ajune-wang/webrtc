@@ -20,6 +20,7 @@
 #include "modules/desktop_capture/resolution_tracker.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
 #include "modules/desktop_capture/shared_memory.h"
+#include "modules/desktop_capture/win/desktop_frame_texture.h"
 #include "modules/desktop_capture/win/dxgi_context.h"
 
 namespace webrtc {
@@ -40,6 +41,8 @@ class DxgiFrame final {
   // Should not be called if Prepare() is not executed or returns false.
   SharedDesktopFrame* frame() const;
 
+  DesktopFrameTexture* texture_frame() const;
+
  private:
   // Allows DxgiDuplicatorController to access Prepare() and context() function
   // as well as Context class.
@@ -47,6 +50,8 @@ class DxgiFrame final {
 
   // Prepares current instance with desktop size and source id.
   bool Prepare(DesktopSize size, DesktopCapturer::SourceId source_id);
+  // Prepares current instance for texture frame
+  bool PrepareNative(DesktopSize size, DesktopCapturer::SourceId source_id);
 
   // Should not be called if Prepare() is not executed or returns false.
   Context* context();
@@ -55,6 +60,7 @@ class DxgiFrame final {
   ResolutionTracker resolution_tracker_;
   DesktopCapturer::SourceId source_id_ = kFullDesktopScreenId;
   std::unique_ptr<SharedDesktopFrame> frame_;
+  std::unique_ptr<DesktopFrameTexture> texture_frame_;
   Context context_;
 };
 

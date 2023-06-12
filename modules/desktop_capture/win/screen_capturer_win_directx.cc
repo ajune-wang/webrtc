@@ -109,6 +109,7 @@ ScreenCapturerWinDirectx::~ScreenCapturerWinDirectx() = default;
 void ScreenCapturerWinDirectx::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
+  RTC_LOG(LS_ERROR) << "@@ScreenCaptureWinDirect Start cb:" << callback << " this:" << this;
   RecordCapturerImpl(DesktopCapturerId::kScreenCapturerWinDirectx);
 
   callback_ = callback;
@@ -122,6 +123,8 @@ void ScreenCapturerWinDirectx::SetSharedMemoryFactory(
 void ScreenCapturerWinDirectx::CaptureFrame() {
   RTC_DCHECK(callback_);
   TRACE_EVENT0("webrtc", "ScreenCapturerWinDirectx::CaptureFrame");
+  RTC_LOG(LS_ERROR) << "ScreenCapturerWinDirectx::CaptureFrame this cap:"
+    << dynamic_cast<webrtc::DesktopCapturer*>(this);
 
   int64_t capture_start_time_nanos = rtc::TimeNanos();
 
@@ -140,9 +143,12 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
   DxgiDuplicatorController::Result result;
   if (current_screen_id_ == kFullDesktopScreenId) {
     result = controller_->Duplicate(frames.current_frame());
+    RTC_LOG(LS_ERROR) << "Duplicate:";
   } else {
     result = controller_->DuplicateMonitor(frames.current_frame(),
                                            current_screen_id_);
+    RTC_LOG(LS_ERROR) << "DuplicateMonitor:";
+
   }
 
   using DuplicateResult = DxgiDuplicatorController::Result;
@@ -181,9 +187,11 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
       break;
     }
     case DuplicateResult::SUCCEEDED: {
-      std::unique_ptr<DesktopFrame> frame =
-          frames.current_frame()->frame()->Share();
-
+      std::unique_ptr<DesktopFrameTexture> frame =
+          frames.current_frame()->texture_frame()->Share();
+      RTC_LOG(LS_ERROR) << "DuplicateResult::SUCCEEDED:" << frame->is_texture()
+          << " , handle:" << frame->handle();
+      RTC_LOG(LS_ERROR) << "DuplicateResult::before move:" << frame.get();
       int capture_time_ms = (rtc::TimeNanos() - capture_start_time_nanos) /
                             rtc::kNumNanosecsPerMillisec;
       RTC_HISTOGRAM_COUNTS_1000(
@@ -194,7 +202,6 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
 
       // TODO(julien.isorce): http://crbug.com/945468. Set the icc profile on
       // the frame, see WindowCapturerMac::CaptureFrame.
-
       callback_->OnCaptureResult(Result::SUCCESS, std::move(frame));
       break;
     }

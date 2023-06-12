@@ -189,13 +189,14 @@ DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
     return Result::INITIALIZATION_FAILED;
   }
 
-  if (!frame->Prepare(SelectedDesktopSize(monitor_id), monitor_id)) {
+  if (!frame->PrepareNative(SelectedDesktopSize(monitor_id), monitor_id)) {
     return Result::FRAME_PREPARE_FAILED;
   }
 
   frame->frame()->mutable_updated_region()->Clear();
 
-  if (DoDuplicateUnlocked(frame->context(), monitor_id, frame->frame())) {
+  if (DoDuplicateUnlocked(frame->context(), monitor_id,
+                          frame->texture_frame())) {
     succeeded_duplications_++;
     return Result::SUCCEEDED;
   }
@@ -327,12 +328,12 @@ void DxgiDuplicatorController::Setup(Context* context) {
 
 bool DxgiDuplicatorController::DoDuplicateUnlocked(Context* context,
                                                    int monitor_id,
-                                                   SharedDesktopFrame* target) {
+                                                   DesktopFrameTexture* target) {
   Setup(context);
 
-  if (!EnsureFrameCaptured(context, target)) {
-    return false;
-  }
+  // if (!EnsureFrameCaptured(context, target)) {
+  //   return false;
+  // }
 
   bool result = false;
   if (monitor_id < 0) {
@@ -351,9 +352,9 @@ bool DxgiDuplicatorController::DoDuplicateUnlocked(Context* context,
 }
 
 bool DxgiDuplicatorController::DoDuplicateAll(Context* context,
-                                              SharedDesktopFrame* target) {
+                                              DesktopFrameTexture* target) {
   for (size_t i = 0; i < duplicators_.size(); i++) {
-    if (!duplicators_[i].Duplicate(&context->contexts[i], target)) {
+    if (!duplicators_[i].DuplicateNative(&context->contexts[i], target)) {
       return false;
     }
   }
@@ -362,15 +363,15 @@ bool DxgiDuplicatorController::DoDuplicateAll(Context* context,
 
 bool DxgiDuplicatorController::DoDuplicateOne(Context* context,
                                               int monitor_id,
-                                              SharedDesktopFrame* target) {
+                                              DesktopFrameTexture* target) {
   RTC_DCHECK(monitor_id >= 0);
   for (size_t i = 0; i < duplicators_.size() && i < context->contexts.size();
        i++) {
     if (monitor_id >= duplicators_[i].screen_count()) {
       monitor_id -= duplicators_[i].screen_count();
     } else {
-      if (duplicators_[i].DuplicateMonitor(&context->contexts[i], monitor_id,
-                                           target)) {
+      if (duplicators_[i].DuplicateMonitorNative(
+          &context->contexts[i], monitor_id, target)) {
         target->set_top_left(duplicators_[i].ScreenRect(monitor_id).top_left());
         return true;
       }
@@ -478,8 +479,11 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
 
   const int64_t start_ms = rtc::TimeMillis();
   while (GetNumFramesCaptured() < frames_to_skip) {
-    if (!DoDuplicateAll(context, shared_frame)) {
-      return false;
+    // if (!DoDuplicateAll(context, shared_frame)) {
+    //   return false;
+    // }
+    if (shared_frame) {
+      RTC_LOG(LS_INFO) << "Shared_Frame:" << shared_frame;
     }
 
     // Calling DoDuplicateAll() may change the number of frames captured.

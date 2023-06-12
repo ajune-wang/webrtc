@@ -27,6 +27,19 @@
 
 namespace webrtc {
 
+class TextureComposer {
+ public:
+  virtual std::unique_ptr<DesktopFrame>
+  MayRestoreFrame(std::unique_ptr<DesktopFrame> src,
+                  const DesktopVector& cursor_position,
+                  bool cursor_changed) = 0;
+  virtual void ComposeOnFrame(DesktopFrame* dest,
+                            const uint8_t* src,
+                            int src_stride,
+                            const DesktopRect& dest_rect) = 0;
+  virtual ~TextureComposer() {}
+};
+
 // A wrapper for DesktopCapturer that also captures mouse using specified
 // MouseCursorMonitor and renders it on the generated streams.
 class RTC_EXPORT DesktopAndCursorComposer
@@ -93,6 +106,8 @@ class RTC_EXPORT DesktopAndCursorComposer
   DesktopVector cursor_position_;
   DesktopRect previous_cursor_rect_;
   bool cursor_changed_ = false;
+
+  std::unique_ptr<TextureComposer> texture_composer_;
 };
 
 }  // namespace webrtc

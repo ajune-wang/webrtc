@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1accba2e_1b442512",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20929
+      },
+      "writtenOn": "2023-06-12T22:09:50Z",
+      "side": 1,
+      "message": "Specifically this is fixing an error when building with the new SDK:\n\"../../third_party/webrtc/rtc_base/async_resolver.cc:61:3: error: \u0027dispatch_queue_global_t\u0027 is only available on macOS 10.14 or newer\"\n\nWould also be fixed by changing the min version target of the Chromuium build but that\u0027s a much bigger change that this inlining 😄",
+      "revId": "aecab6f46976e80fa1acb34094e49bcb6bc3dce9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -672,8 +672,10 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
   config_->rc_max_quantizer = 52;
   config_->rc_undershoot_pct = 50;
   config_->rc_overshoot_pct = 50;
-  config_->rc_buf_initial_sz = 500;
-  config_->rc_buf_optimal_sz = 600;
+  // Set maximum 'rc_buf_initial_sz' to let libvpx allocate more budget to the
+  // first key frame.
+  config_->rc_buf_initial_sz = 1000;
+  config_->rc_buf_optimal_sz = 1000;
   config_->rc_buf_sz = 1000;
   // Set the maximum target size of any key-frame.
   rc_max_intra_target_ = MaxIntraTarget(config_->rc_buf_optimal_sz);

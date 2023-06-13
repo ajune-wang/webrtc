@@ -565,8 +565,10 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   vpx_configs_[0].rc_max_quantizer = qp_max_;
   vpx_configs_[0].rc_undershoot_pct = 100;
   vpx_configs_[0].rc_overshoot_pct = 15;
-  vpx_configs_[0].rc_buf_initial_sz = 500;
-  vpx_configs_[0].rc_buf_optimal_sz = 600;
+  // Set maximum 'rc_buf_initial_sz' to let libvpx allocate more budge to the
+  // first key frame.
+  vpx_configs_[0].rc_buf_initial_sz = 1000;
+  vpx_configs_[0].rc_buf_optimal_sz = 1000;
   vpx_configs_[0].rc_buf_sz = 1000;
 
   // Set the maximum target size of any key-frame.

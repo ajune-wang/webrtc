@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3801f7b9_c7abbf77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-13T13:36:42Z",
+      "side": 1,
+      "message": "So I take it that the name of the type has changed between macOS 14.0 and the previous version, and \"auto\" will compile for both, while referencing either name will break on one of them?",
+      "revId": "aecab6f46976e80fa1acb34094e49bcb6bc3dce9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1accba2e_1b442512",

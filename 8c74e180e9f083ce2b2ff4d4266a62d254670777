@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4bd2d1_f4305770",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-13T13:36:42Z",
+      "side": 1,
+      "message": "Approved. Explanation is a little thin, but fix appears to be non-harmful.",
+      "revId": "8c74e180e9f083ce2b2ff4d4266a62d254670777",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

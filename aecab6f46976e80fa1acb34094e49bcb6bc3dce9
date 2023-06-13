@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6266281_790e61d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 20929
+      },
+      "writtenOn": "2023-06-13T19:43:21Z",
+      "side": 1,
+      "message": "https://developer.apple.com/documentation/dispatch/dispatch_queue_global_t?language\u003dobjc\n\nper the docs link above dispatch_queue_global_t is now tagged as only being a usable type in 10.14 and higher (which I think is incorrect).  So if you actually use the type explicitly you\u0027ll get the error I commented above.  Using auto or inlining the call like this bypasses the SDK issue.",
+      "parentUuid": "3801f7b9_c7abbf77",
+      "revId": "aecab6f46976e80fa1acb34094e49bcb6bc3dce9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1accba2e_1b442512",

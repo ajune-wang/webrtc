@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c44c19a_c4863626",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-13T13:01:05Z",
+      "side": 1,
+      "message": "Could one of you please push this too? Thanks!",
+      "revId": "795b52180dc4b8f3ec79fb4c8e4d00b8caf9832c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b968746_fb9aaffe",
@@ -48,6 +65,30 @@
       "writtenOn": "2023-06-13T10:27:18Z",
       "side": 1,
       "message": "May want to annotate apply_rotation_ with a GUARDED_BY(api_lock_) too.",
+      "range": {
+        "startLine": 263,
+        "startChar": 9,
+        "endLine": 263,
+        "endChar": 24
+      },
+      "revId": "795b52180dc4b8f3ec79fb4c8e4d00b8caf9832c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cc507d7_9b51c9c8",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-13T13:01:05Z",
+      "side": 1,
+      "message": "I\u0027m doing this in a [later commit](https://webrtc-review.googlesource.com/c/src/+/305647/7/modules/video_capture/video_capture_impl.h).",
+      "parentUuid": "9b968746_fb9aaffe",
       "range": {
         "startLine": 263,
         "startChar": 9,

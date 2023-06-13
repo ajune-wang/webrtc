@@ -16,6 +16,29 @@
       "message": "Hi Kári,\n\nCould you please take a look?\n\nThanks a lot,\nYury.",
       "revId": "ed354d14721ed90f2aa8e5a05c8cec0dab8aad09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5ff7c78_300e170c",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2023-06-13T15:59:49Z",
+      "side": 1,
+      "message": "Can we keep this in a std::unique_ptr also within the scope of this function? Makes the lifetime of the object a bit clearer IMO.",
+      "range": {
+        "startLine": 374,
+        "startChar": 4,
+        "endLine": 374,
+        "endChar": 43
+      },
+      "revId": "ed354d14721ed90f2aa8e5a05c8cec0dab8aad09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

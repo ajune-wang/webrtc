@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "683cb2a9_2232475f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-06-13T12:11:49Z",
+      "side": 1,
+      "message": "Hi Kári,\n\nCould you please take a look?\n\nThanks a lot,\nYury.",
+      "revId": "ed354d14721ed90f2aa8e5a05c8cec0dab8aad09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

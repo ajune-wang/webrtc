@@ -39,6 +39,30 @@
       },
       "revId": "ed354d14721ed90f2aa8e5a05c8cec0dab8aad09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48024eb8_c63212dd",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-06-14T08:37:09Z",
+      "side": 1,
+      "message": "[CreatePeerConnectionOrError](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/peer_connection_factory.h;l\u003d70-73;drc\u003d041ecb87f57ea5a7489de0a936e64756ee23a7ea) accepts `PeerConnectionDependencies` by value, so somewhere `PeerConnectionDependencies` anyway has to be copied from `std::unique_ptr\u003cwebrtc::PeerConnectionDependencies\u003e` argument. So I could mutate the argument by assigning observer and then copy value from unique_ptr, or keep it as is - have a copy of `PeerConnectionDependencies` which is then modified and passed by value into `CreatePeerConnectionOrError`. Let me know if I should change to modifying unique_ptr and then copy. Or maybe the arguments should be changed from `std::unique_ptr\u003cwebrtc::PeerConnectionDependencies\u003e` to `webrtc::PeerConnectionDependencies`?",
+      "parentUuid": "a5ff7c78_300e170c",
+      "range": {
+        "startLine": 374,
+        "startChar": 4,
+        "endLine": 374,
+        "endChar": 43
+      },
+      "revId": "ed354d14721ed90f2aa8e5a05c8cec0dab8aad09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

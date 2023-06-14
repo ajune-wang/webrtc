@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11e8c8c9_794cb1ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-14T08:25:51Z",
+      "side": 1,
+      "message": "Do you have an opinion on keeping versus deleting these Harald?",
+      "revId": "ef96f51c8f749d7d97833974979c373d3c8c975f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

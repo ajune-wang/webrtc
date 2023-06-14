@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdd6349_56c0d575",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-06-14T14:11:54Z",
+      "side": 1,
+      "message": "Increasing the keyframe size will improve the spatial quality - but there is also a significant risk of adding delay and stuttering on constrained networks. Sacrificing quality for latency is a conscious decision here. Any change of this nature would need to be gated by an experiment so we can verify real-world impact under a variety of conditions.",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,41 @@
       "message": "Increasing the keyframe size will improve the spatial quality - but there is also a significant risk of adding delay and stuttering on constrained networks. Sacrificing quality for latency is a conscious decision here. Any change of this nature would need to be gated by an experiment so we can verify real-world impact under a variety of conditions.",
       "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff0f967_c9638655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-14T14:25:49Z",
+      "side": 1,
+      "message": "Agreed with Erik. Bigger frames mean higher delay. By settings optimal buffer size to 1 second you essentially tell encoder that it is OK to accumulate and keep 1s delay which is very high value for real-time apps (600ms, current default, is already quite high value).",
+      "parentUuid": "4cdd6349_56c0d575",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3154bdf_be008c46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-06-14T14:25:49Z",
+      "side": 1,
+      "message": "Bigger frames mean higher delays (it takes longer to transmit them over channel with a limited capacity).",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

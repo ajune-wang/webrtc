@@ -16,6 +16,23 @@
       "message": "Do you have an opinion on keeping versus deleting these Harald?",
       "revId": "ef96f51c8f749d7d97833974979c373d3c8c975f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "414ac16d_e83bd847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-14T17:53:44Z",
+      "side": 1,
+      "message": "Surprising that these constants and enums were so little used, but given that they\u0027re so little used, the argument for getting rid of them is stronger.\n\nAway with them!",
+      "revId": "ef96f51c8f749d7d97833974979c373d3c8c975f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

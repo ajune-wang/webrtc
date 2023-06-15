@@ -51,6 +51,24 @@
       "message": "Bigger frames mean higher delays (it takes longer to transmit them over channel with a limited capacity).",
       "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "848b8a4c_d2f1a69d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-06-15T01:33:01Z",
+      "side": 1,
+      "message": "`rc_buf_initial_sz` is translated into how many bits of buffer to used for first key frame, it is not necessary to increase the encoding latency [1]. But bigger key frame size could introduce transmit latency, that I will investigate. Overall, the size of hundred of delta frames could be decreased.\n\n[1] vp9_encoder.c - Chromium Code Search\nhttps://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/libvpx/source/libvpx/vp9/encoder/vp9_encoder.c;l\u003d1550;drc\u003d20911ffd8a0e1636801ddf303c17375fdedf9c83;bpv\u003d1;bpt\u003d1\n\nWhat interests me if that set maximum `rc_buf_initial_sz` has little impact on L1T1, and base layer of L1T3; The improvement comes mostly from higher layer of SVC. The rate controller of SVC is probably not optimal for SVC here.\n\nIt should exists some optimal points that the picture quality/bitrate improves `A-Persents`, with the COST of `B-Persents` longer latency.\n\nAgreed it should be very cautious to change current value. I will do more analysis on the delay and picture quality, then back to this CL.",
+      "parentUuid": "1ff0f967_c9638655",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

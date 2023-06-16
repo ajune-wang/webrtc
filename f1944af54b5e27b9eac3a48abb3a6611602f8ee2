@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e7ef9a2_fa31d970",
+        "filename": "call/flexfec_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-06-16T12:10:28Z",
+      "side": 1,
+      "message": "https://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md\n\n“avoid using forward declarations where possible; just #include the headers you need.”",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8073a24_92843941",
         "filename": "media/base/media_channel.h",
         "patchSetId": 13
@@ -48,6 +65,41 @@
       "writtenOn": "2023-06-16T11:43:06Z",
       "side": 1,
       "message": "+Danil do you know?\n\nI think we should only add fec_packets_discarded to rtcstats_objects.h if we can also implement it in the same CL, not if we leave it as absl::nullopt",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a023b2fb_9491fb8e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3624,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-06-16T12:10:28Z",
+      "side": 1,
+      "message": "I do no think we currently collect this kind of stats.\nsearching through the code I think discarding happens here:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/forward_error_correction.cc;l\u003d704;drc\u003dbde7c6ad116bba6e02293ca2d99e4b83ceb4d0b9",
+      "parentUuid": "f4717875_d0d8559e",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af5573eb_da43445c",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-06-16T12:10:28Z",
+      "side": 1,
+      "message": "here and 4 lines below - prefer to dereference optional using `operator *`\n(same as you already do for video)",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

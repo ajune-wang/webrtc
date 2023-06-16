@@ -276,7 +276,6 @@ rtc_library("rtp_rtcp") {
     "../../api:field_trials_view",
     "../../api:frame_transformer_interface",
     "../../api:function_view",
-    "../../api:libjingle_peerconnection_api",
     "../../api:rtp_headers",
     "../../api:rtp_packet_info",
     "../../api:rtp_parameters",

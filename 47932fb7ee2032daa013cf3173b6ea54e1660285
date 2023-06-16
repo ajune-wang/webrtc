@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aeece26_fbcc106c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2023-06-16T09:10:45Z",
+      "side": 1,
+      "message": "PTAL Harald, thanks! This cleans up the remaining preprocessor definition.",
+      "revId": "47932fb7ee2032daa013cf3173b6ea54e1660285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

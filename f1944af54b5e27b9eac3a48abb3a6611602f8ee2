@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66860eff_b328fde4",
+        "filename": "call/flexfec_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-06-16T14:44:50Z",
+      "side": 1,
+      "message": "it looks like `rtp_rtcp` doesn\u0027t use `api:libjingle_peerconnection_api` dependency (and I do not think it should), so may be remove it.\n\nOr add a comment why this class is forward declared.",
+      "parentUuid": "f9a5a9c6_5a6bdf31",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8073a24_92843941",
         "filename": "media/base/media_channel.h",
         "patchSetId": 13

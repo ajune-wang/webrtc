@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b341303d_17797d04",
+        "filename": "logging/rtc_event_log/rtc_event_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-06-16T07:12:37Z",
+      "side": 1,
+      "message": "InTransportSe",
+      "range": {
+        "startLine": 223,
+        "startChar": 24,
+        "endLine": 223,
+        "endChar": 56
+      },
+      "revId": "0fef15ae7791f8bb473d0a1d333f992e9dc53726",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

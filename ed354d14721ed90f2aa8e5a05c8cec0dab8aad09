@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea40b91_7bc525de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-06-16T10:49:29Z",
+      "side": 1,
+      "message": "Hi Kári,\nmay I kindly ask to to have another look at this CL and see my previous comment?\nThanks a lot in advance!",
+      "revId": "ed354d14721ed90f2aa8e5a05c8cec0dab8aad09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5ff7c78_300e170c",

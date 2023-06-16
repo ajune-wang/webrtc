@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9a5a9c6_5a6bdf31",
+        "filename": "call/flexfec_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-16T14:31:36Z",
+      "side": 1,
+      "message": "Dependency problem and I didn\u0027t see how to break it up.\nMaking call_interfaces (of which the flexfec_receive_stream is part of, unlike the rtx_receive_stream) depend on modules/rtp_rtcp creates a cyclic dependency via api:libjingle_peerconnection_api",
+      "parentUuid": "4e7ef9a2_fa31d970",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8073a24_92843941",
         "filename": "media/base/media_channel.h",
         "patchSetId": 13
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-16T11:43:06Z",
       "side": 1,
       "message": "// https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-fecbytesreceived",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb5e1dbe_b97f8c9a",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-16T14:31:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8073a24_92843941",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -89,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1efd5be_97dfd7a3",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3624,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-16T14:31:36Z",
+      "side": 1,
+      "message": "This would need to happen somewhere in\nhttps://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/modules/rtp_rtcp/source/forward_error_correction.cc;drc\u003df80633b34538615fcb73515ad8c4bc56a748abfe;l\u003d668\nbut seems complicated. In theory you can look at the FEC packet, determine if you have already received all media packets it covers and then discard it.\nIn practice this is complicated since you can receive packets out of order and then the plumbing...\n\nIt would be an interesting metric since you can determine if a change you did reduced the number of discarded FEC packets.\n\nChanged to a TODO now that I have a bug reference. This is already on the stats object since we have it for audio.",
+      "parentUuid": "f4717875_d0d8559e",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af5573eb_da43445c",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 13
@@ -100,6 +154,24 @@
       "writtenOn": "2023-06-16T12:10:28Z",
       "side": 1,
       "message": "here and 4 lines below - prefer to dereference optional using `operator *`\n(same as you already do for video)",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f773449_3f697707",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-16T14:31:36Z",
+      "side": 1,
+      "message": "Fixed, this predated the consistency attempt.",
+      "parentUuid": "af5573eb_da43445c",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -117,6 +189,24 @@
       "writtenOn": "2023-06-16T11:43:06Z",
       "side": 1,
       "message": "There\u0027s a field trial too?",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdf3bae0_d0f1d3a3",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-16T14:31:36Z",
+      "side": 1,
+      "message": "But we don\u0027t test stats with field trials. Should we? Probably not worth it...",
+      "parentUuid": "b4ea9366_8ccccec1",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

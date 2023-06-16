@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40506d2c_b86b4f1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-06-16T12:22:22Z",
+      "side": 1,
+      "message": "PTAL\n\nThe difference from PS2 to PS3 is comparing the wrapped sequence number directly rather than unwrapping. This simplifies the code somewhat.\n\nPS4 is just moving the order helpers to a separate file.",
+      "revId": "a8c61fa0e2294ae78fb27519ce9bb705e9bb8884",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

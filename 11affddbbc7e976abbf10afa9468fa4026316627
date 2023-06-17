@@ -16,6 +16,24 @@
       "message": "I am surprised that copying PeerConnectionDependencies ever worked.\n\nwebrtc/files/stable/webrtc/api/peer_connection_interface.h\n\nsays that this class is not copyable or assignable.\nIs the .mm \"webrtc::PeerConnectionDependencies\" a different behaving object than the C++ one?",
       "revId": "11affddbbc7e976abbf10afa9468fa4026316627",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc96b396_bae7eb5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2023-06-17T19:12:45Z",
+      "side": 1,
+      "message": "Sorry, I\u0027ve used incorrect wording when said it was previously copied, it was actually moved. Seems like the problem and fix exactly the same as in this SO question: https://stackoverflow.com/questions/70034513/move-from-unique-ptr-to-stack-variable",
+      "parentUuid": "f6814079_a001105b",
+      "revId": "11affddbbc7e976abbf10afa9468fa4026316627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -28,6 +28,14 @@ class MockTransformableAudioFrame : public TransformableAudioFrameInterface {
               GetContributingSources,
               (),
               (const override));
+  MOCK_METHOD(const absl::optional<uint16_t>,
+              SequenceNumber,
+              (),
+              (const, override));
+  MOCK_METHOD(TransformableFrameInterface::Direction,
+              GetDirection,
+              (),
+              (const, override));
 };
 
 }  // namespace webrtc

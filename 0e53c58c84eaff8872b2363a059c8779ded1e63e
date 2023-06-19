@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5b9ee52_4d0ab835",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-06-19T14:23:45Z",
+      "side": 1,
+      "message": "DCHECK(stride() \u003e\u003d width_in_bytes);\nDCHECK(map_info.RowPitch \u003e\u003d width_in_bytes);",
+      "revId": "0e53c58c84eaff8872b2363a059c8779ded1e63e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5059ed7a_1e277448",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 7

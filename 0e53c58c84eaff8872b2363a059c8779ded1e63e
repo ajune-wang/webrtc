@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3958dce_c54bed46",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-06-19T14:18:28Z",
+      "side": 1,
+      "message": "map_info.RowPitch",
+      "range": {
+        "startLine": 463,
+        "startChar": 31,
+        "endLine": 463,
+        "endChar": 45
+      },
+      "revId": "0e53c58c84eaff8872b2363a059c8779ded1e63e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

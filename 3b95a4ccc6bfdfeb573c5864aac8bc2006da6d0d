@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b18f7e_6816d977",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-19T08:30:29Z",
+      "side": 1,
+      "message": "Since all the counters (fec packets received, fec packets discarded, fed bytes received) now live on the cricket::MediaReceiverInfo and not on the \"voice\" or \"video\" specific child structs you can set the relevant RTCInboundRtpStreamStats members inside SetInboundRTPStreamStatsFromMediaReceiverInfo() instead, that way you don\u0027t have to define the \"fecFoo \u003d fec_foo;\" lines twice (once for audio and once for video) since both kind cases call the SetInboundRTPStreamStatsFromMediaReceiverInfo() method",
+      "revId": "3b95a4ccc6bfdfeb573c5864aac8bc2006da6d0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b7b951e_9741d9f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-20T13:21:23Z",
+      "side": 1,
+      "message": "LGTM, feel free to land but remember that if you want this into M116 then also a chrome CL is also needed so not sure what time that happens if it is too late or not",
+      "revId": "ae4f69e8691afaebe8761b1345f8c5e7ee8223cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

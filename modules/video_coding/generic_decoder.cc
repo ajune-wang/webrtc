@@ -27,6 +27,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -185,6 +186,16 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
         frame_info->timing.network_timestamp_ms - sender_delta_ms;
     timing_frame_info.network2_timestamp_ms =
         frame_info->timing.network2_timestamp_ms - sender_delta_ms;
+
+    RTC_HISTOGRAM_COUNTS_500(
+        "Media.WebMediaPlayerCompositor.A.CaptureToEncode",
+        timing_frame_info.encode_start_ms - timing_frame_info.capture_time_ms);
+    RTC_HISTOGRAM_COUNTS_500(
+        "Media.WebMediaPlayerCompositor.A.EncodeDelay",
+        timing_frame_info.encode_finish_ms - timing_frame_info.encode_start_ms);
+    RTC_HISTOGRAM_COUNTS_500(
+        "Media.WebMediaPlayerCompositor.A.CaptureToPacerOut",
+        timing_frame_info.pacer_exit_ms - timing_frame_info.capture_time_ms);
   }
 
   timing_frame_info.flags = frame_info->timing.flags;
@@ -196,6 +207,10 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   timing_frame_info.receive_start_ms = frame_info->timing.receive_start_ms;
   timing_frame_info.receive_finish_ms = frame_info->timing.receive_finish_ms;
   _timing->SetTimingFrameInfo(timing_frame_info);
+
+  RTC_HISTOGRAM_COUNTS_500(
+      "Media.WebMediaPlayerCompositor.A.ReceiveToDecodeFinish",
+      timing_frame_info.decode_finish_ms - timing_frame_info.receive_finish_ms);
 
   decodedImage.set_timestamp_us(
       frame_info->render_time ? frame_info->render_time->us() : -1);

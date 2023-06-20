@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2306b59a_bc9c6cd8",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-06-20T17:11:31Z",
+      "side": 1,
+      "message": "ISTM that if we\u0027re making this split it\u0027d be reasonable to convert this flag to Desktop-capture-only, WDYT?",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 74
+      },
+      "revId": "58443c9aa4dd0411bbba6983afa02962db78cf39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885161b1_0ab092ad",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-06-20T17:11:31Z",
+      "side": 1,
+      "message": "NIT: Add a newline before the comment.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 79
+      },
+      "revId": "58443c9aa4dd0411bbba6983afa02962db78cf39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -474,6 +474,7 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
   for (auto& packet_info : audio_frame->packet_infos_) {
     absl::optional<int64_t> local_capture_clock_offset_q32x32;
     if (packet_info.absolute_capture_time().has_value()) {
+      MutexLock lock(&ts_stats_lock_);
       local_capture_clock_offset_q32x32 =
           capture_clock_offset_updater_.AdjustEstimatedCaptureClockOffset(
               packet_info.absolute_capture_time()

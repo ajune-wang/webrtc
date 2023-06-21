@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb72ed3_5c7bf054",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-06-21T09:13:08Z",
+      "side": 1,
+      "message": "Thanks! Seems that https://webrtc-review.googlesource.com/c/src/+/309520 fixes this as well.",
+      "revId": "15b287e0adb43272bff0ab13d1225262147410be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

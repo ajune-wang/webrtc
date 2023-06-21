@@ -425,6 +425,24 @@
       "parentUuid": "76ae6a60_f870aca4",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6bfd7da_a36ecd0a",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-21T07:27:40Z",
+      "side": 1,
+      "message": "What SHOULD we do for outgoing streams? Have it be off (current behavior), have it be on or be decided based on negotiation (in which case is this a setCodecPreferences kind of thing or something else)?",
+      "parentUuid": "642ddf60_2d64d96b",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

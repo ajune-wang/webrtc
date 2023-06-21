@@ -389,6 +389,24 @@
       "parentUuid": "d5449488_1c813412",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76ae6a60_f870aca4",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-21T07:09:03Z",
+      "side": 1,
+      "message": "I don\u0027t see any sign that these field trials are used by Chrome.\n\nSo does that mean in practise that FlexFEC is a receive-only thing on Web? But this test does not detect any FlexFEC because it is a loopback where the sender does not use FlexFEC unless we ScopedFieldTrial-enable it?",
+      "parentUuid": "f2daae95_cf281acf",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

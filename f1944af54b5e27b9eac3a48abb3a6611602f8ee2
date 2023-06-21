@@ -353,6 +353,24 @@
       "parentUuid": "d6358adf_73e84841",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5449488_1c813412",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-21T07:00:26Z",
+      "side": 1,
+      "message": "From memory: An external contributor recently (well... 2020, NVIDIA) added the Flexfec-03 trial (always on) as a preliminary to adding RFC-compliant Flexfec (the -03 refers to draft -03 of the specification).\nI think the intent is to have the ability to turn it off once RFC-compliant flexfec is implemented.\n\nhttps://webrtc-review.googlesource.com/c/src/+/195363",
+      "parentUuid": "2a215ad2_f69f999c",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

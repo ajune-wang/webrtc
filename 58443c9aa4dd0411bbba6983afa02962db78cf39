@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09e9043_12db5195",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-06-21T14:31:24Z",
+      "side": 1,
+      "message": "Agree. Will fix.",
+      "parentUuid": "2306b59a_bc9c6cd8",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 74
+      },
+      "revId": "58443c9aa4dd0411bbba6983afa02962db78cf39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "885161b1_0ab092ad",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-20T17:11:31Z",
       "side": 1,
       "message": "NIT: Add a newline before the comment.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 79
+      },
+      "revId": "58443c9aa4dd0411bbba6983afa02962db78cf39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b100dd1_785d340b",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-06-21T14:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "885161b1_0ab092ad",
       "range": {
         "startLine": 171,
         "startChar": 0,

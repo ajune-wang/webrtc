@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7c9bf08_f4d2b6d7",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-06-21T01:19:05Z",
+      "side": 1,
+      "message": "Add `RTC_GUARDED_BY(ts_stats_lock_)`",
+      "range": {
+        "startLine": 295,
+        "startChar": 65,
+        "endLine": 295,
+        "endChar": 66
+      },
+      "revId": "f7f56c70bce6257fc44e0cdd9258777dfcc51894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

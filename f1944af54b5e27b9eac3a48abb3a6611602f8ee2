@@ -461,6 +461,24 @@
       "parentUuid": "a6bfd7da_a36ecd0a",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "088fdee2_0e02d5d6",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-21T10:24:13Z",
+      "side": 1,
+      "message": "This is orthogonal discussion... maybe we should move it to issue 8151?\n\nThere is work ongoing by meta to update flexfec-03 to the RFC version (which differs in the wire format) in https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15002\n\nSee https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8151 and probably internal discussion for why it was never launched. My guess is that the experiments did not show any advantages. However, the question really is whether that experiment was meaningful. Video FEC generally requires a good strategy when to use it (which depends on the RTT mainly) and then another strategy for what packets to protect at what bandwidth cost. We do not have meaningful APIs to let web applications make informed decisions here.\n\nDoing the sender right is much more complex than doing the receiver right. We did reenable the existing receive side for that reason. This solved use-cases like gamestreaming at 120fps where NACK is not an option due to RTT, see the KrankyGeek 2022 talk.",
+      "parentUuid": "daea3ab4_e7fd0eb9",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

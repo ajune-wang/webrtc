@@ -371,6 +371,24 @@
       "parentUuid": "2a215ad2_f69f999c",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2daae95_cf281acf",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-06-21T07:06:40Z",
+      "side": 1,
+      "message": "Found this too:\n```\n  // flexfec-03 is supported as\n  // - receive codec unless WebRTC-FlexFEC-03-Advertised is disabled\n  // - send codec if WebRTC-FlexFEC-03-Advertised is enabled\n```\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d198;drc\u003d328e7b2af2f248b10673211b0ddb75f7523ee06b\n\nAlso found test-only references for `WebRTC-FlexFEC-03/Enabled` but no non-test code that checks this field trial:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/media_session_unittest.cc;l\u003d3351;drc\u003d8c4b9ea535f190ce3ff8bc910b1a0d07071f70cb\n\nDoes that mean RFC-compliant flexfec has or has not shipped?",
+      "parentUuid": "d5449488_1c813412",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

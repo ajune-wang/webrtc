@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b7ec99_10a46d01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-06-21T15:10:08Z",
+      "side": 1,
+      "message": "Now ensured that we also keep the old WGC flag to ensure that this CL still builds without the changes in the Chrome side. The ideas is to\n\n1) Land this CL\n2) Land Chrome part\n3) Remove old WGC flag in WebRTC",
+      "revId": "40aa06a0ed84ca37f3fd7c6d3cef4eb42062c099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

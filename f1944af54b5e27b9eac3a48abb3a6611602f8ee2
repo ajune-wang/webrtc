@@ -407,6 +407,24 @@
       "parentUuid": "f2daae95_cf281acf",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "642ddf60_2d64d96b",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-21T07:12:33Z",
+      "side": 1,
+      "message": "The relevant production code seems to be https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;drc\u003d328e7b2af2f248b10673211b0ddb75f7523ee06b;l\u003d197 (using IsEnabled / IsDisabled).\n\nI take the combo as saying that Chrome will accept FlexFex for incoming streams, but won\u0027t enable it on outgoing streams.",
+      "parentUuid": "76ae6a60_f870aca4",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

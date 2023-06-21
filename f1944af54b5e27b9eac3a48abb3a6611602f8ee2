@@ -443,6 +443,24 @@
       "parentUuid": "642ddf60_2d64d96b",
       "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daea3ab4_e7fd0eb9",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-21T07:41:55Z",
+      "side": 1,
+      "message": "I think it should be a SetCodecPreferences kind of thing. And changing the default shouldn\u0027t be done until we have an RFC-compliant flexfec implementation - increasing the dependence on the -03 version is not a Good Thing.",
+      "parentUuid": "a6bfd7da_a36ecd0a",
+      "revId": "f1944af54b5e27b9eac3a48abb3a6611602f8ee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

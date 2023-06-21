@@ -635,6 +635,9 @@ void CallTest::Start() {
 }
 
 void CallTest::StartVideoStreams() {
+  for (size_t i = 0; i < video_sources_.size(); ++i) {
+    video_sources_[i]->Start();
+  }
   for (size_t i = 0; i < video_send_streams_.size(); ++i) {
     std::vector<bool> active_rtp_streams(
         video_send_configs_[i].rtp.ssrcs.size(), true);

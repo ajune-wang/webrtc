@@ -83,6 +83,16 @@ class TransformableAudioFrameInterface : public TransformableFrameInterface {
   virtual const absl::optional<uint16_t> SequenceNumber() const {
     return absl::nullopt;
   }
+
+  // TODO(crbug.com/1456628): Change this to pure virtual after it
+  // is implemented everywhere.
+  virtual absl::optional<uint64_t> AbsoluteCaptureTimestamp() const {
+    return absl::nullopt;
+  }
+
+  // TODO(crbug.com/1456628): Change this to pure virtual after it
+  // is implemented everywhere.
+  virtual bool VoiceActivity() const { return false; }
 };
 
 // Objects implement this interface to be notified with the transformed frame.

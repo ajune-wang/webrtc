@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f5ff4d_7d63fec6",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-06-22T13:59:05Z",
+      "side": 1,
+      "message": "Hmm, very good question, thanks.\nI had thought that based on the clone impl we couldn\u0027t get empty frames here, but I think we can. Looks like we\u0027ll need our own enum included in the Transformable Frame API header.\n\nDone.",
+      "parentUuid": "ca163d1d_8dcdc7b1",
+      "revId": "5353d2f677f60ee77d2b01ad8c12672ca4a2942f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc604f0c_2d4872ca",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-22T08:24:32Z",
       "side": 1,
       "message": "This will have the effect of turning kEmptyFrame into kAudioFrameCN. Seems a bit iffy.",
+      "revId": "5353d2f677f60ee77d2b01ad8c12672ca4a2942f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30046f1f_5e8043c6",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-06-22T13:59:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc604f0c_2d4872ca",
       "revId": "5353d2f677f60ee77d2b01ad8c12672ca4a2942f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

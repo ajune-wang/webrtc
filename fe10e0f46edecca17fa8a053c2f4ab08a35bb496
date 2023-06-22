@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc4fe2c7_10d6218c",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-22T10:51:53Z",
+      "side": 1,
+      "message": "It actually had both start and init before. We can try to merge them, but in such case I prefer to do it in separate CL. Also init returns a value if init was successful or not (it\u0027s ignored here for some reasons), so it may have some complications during merging of two of them. In addition start is expected to be called multiple times after stopping capturer during stream mute. Init not fully designed for it now, but can be updated.",
+      "parentUuid": "8787dfd1_5be74658",
+      "range": {
+        "startLine": 188,
+        "startChar": 33,
+        "endLine": 188,
+        "endChar": 39
+      },
+      "revId": "fe10e0f46edecca17fa8a053c2f4ab08a35bb496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4775b9f5_7dd37fd7",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-22T10:15:05Z",
       "side": 1,
       "message": "shouldn\u0027t it be StartVideoSources?\n\nHow did the test work before?",
+      "range": {
+        "startLine": 342,
+        "startChar": 6,
+        "endLine": 342,
+        "endChar": 23
+      },
+      "revId": "fe10e0f46edecca17fa8a053c2f4ab08a35bb496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aaa21c2_bd683978",
+        "filename": "video/end_to_end_tests/rtp_rtcp_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-22T10:51:53Z",
+      "side": 1,
+      "message": "Right, typo. Generator was created as sending from the beginning before, it is why test worked",
+      "parentUuid": "4775b9f5_7dd37fd7",
       "range": {
         "startLine": 342,
         "startChar": 6,

@@ -16,6 +16,23 @@
       "message": "Please submit this too, thanks.",
       "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cfb88fe_cfa416e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-22T22:14:44Z",
+      "side": 1,
+      "message": "It would also be great to merge this into M115 and M116 to avoid shipping the deadlock in case any other downstream project than us is using the DS backend.\nI\u0027ll be on PTO and won\u0027t be able to tend to it until after M115 hits stable, however.",
+      "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

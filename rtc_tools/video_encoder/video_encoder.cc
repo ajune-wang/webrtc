@@ -57,7 +57,10 @@ ABSL_FLAG(uint32_t,
           100,
           "Specify key frame interval of video encoder");
 
-ABSL_FLAG(uint32_t, frames, 300, "Specify maximum encoded frames");
+ABSL_FLAG(absl::optional<uint32_t>,
+          frames,
+          absl::nullopt,
+          "Specify maximum encoded frames");
 
 ABSL_FLAG(bool,
           list_formats,
@@ -477,7 +480,7 @@ int main(int argc, char* argv[]) {
   const uint32_t frame_rate_fps = absl::GetFlag(FLAGS_frame_rate_fps);
   const uint32_t bitrate_kbps = absl::GetFlag(FLAGS_bitrate_kbps);
   const uint32_t key_frame_interval = absl::GetFlag(FLAGS_key_frame_interval);
-  const uint32_t maximum_number_of_frames = absl::GetFlag(FLAGS_frames);
+  const absl::optional<uint32_t> max_frames = absl::GetFlag(FLAGS_frames);
 
   std::unique_ptr<webrtc::TestVideoEncoderFactoryWrapper>
       test_video_encoder_factory_wrapper =
@@ -557,7 +560,7 @@ int main(int argc, char* argv[]) {
                    << width << "x" << height << ", frame rate "
                    << frame_rate_fps << ", bitrate_kbps " << bitrate_kbps
                    << ", key frame interval " << key_frame_interval
-                   << ", frames " << maximum_number_of_frames;
+                   << ", frames " << max_frames.value_or(-1);
 
   // Create and initialize video encoder.
   webrtc::VideoCodec video_codec_setting =
@@ -582,7 +585,9 @@ int main(int argc, char* argv[]) {
   const uint32_t kRtpTick = 90000 / frame_rate_fps;
   // `IvfFileWriter` expects non-zero timestamp for the first frame.
   uint32_t rtp_timestamp = 1;
-  for (uint32_t i = 0; i < maximum_number_of_frames; ++i) {
+  for (uint32_t i = 0; i < max_frames ||
+                       (!max_frames && frame_buffer_generator->HasMoreFrames());
+       ++i) {
     // Generate key frame for every `key_frame_interval`.
     std::vector<webrtc::VideoFrameType> frame_types = {
         (i % key_frame_interval) ? webrtc::VideoFrameType::kVideoFrameDelta

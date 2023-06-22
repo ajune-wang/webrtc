@@ -41,6 +41,8 @@ class FrameGeneratorInterface {
 
   virtual ~FrameGeneratorInterface() = default;
 
+  virtual bool HasMoreFrames() const { return true; }
+
   // Returns VideoFrameBuffer and area where most of update was done to set them
   // on the VideoFrame object.
   virtual VideoFrameData NextFrame() = 0;

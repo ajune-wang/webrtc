@@ -33,6 +33,7 @@ class IvfVideoFrameGenerator : public FrameGeneratorInterface {
   explicit IvfVideoFrameGenerator(const std::string& file_name);
   ~IvfVideoFrameGenerator() override;
 
+  bool HasMoreFrames() const override;
   VideoFrameData NextFrame() override;
   void ChangeResolution(size_t width, size_t height) override;
   Resolution GetResolution() const override;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4b7b3e3_db457708",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-22T08:19:20Z",
+      "side": 1,
+      "message": "ping perkj@ or stefan@\n\nToday is my last day of work before summer PTO, so to get the deadlock in https://webrtc-review.googlesource.com/c/src/+/305649 fixed and landed before August this and that commit would need to get their second +1 today. Or feel free to do it later and submit directly, but then I won\u0027t be around to do fixups until August anyway.",
+      "revId": "8bb6288385370cdd3b5f7e4da07020ce1656edb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

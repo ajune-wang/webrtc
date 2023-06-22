@@ -39,6 +39,30 @@
       "message": "would it be more robust to call frame_generator_capturer_-\u003eStart()\nafter it is passed into send_stream_\nor it doesn\u0027t matter as long as framegenerator_capturer_-\u003eStart() is called before send_stream_-\u003eStart()",
       "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be1b0df_5bbedadb",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-06-22T12:01:05Z",
+      "side": 1,
+      "message": "Init() does almost the same things Start() does: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/frame_generator_capturer.cc;l\u003d74;drc\u003d239db68b17aff0280ac6c15720e5fb96de03bdfb\n\nIt also checks that the file is existing. So maybe remove the Init alltogher, copying the missing check to Start()",
+      "parentUuid": "27f9b0c2_e1f2144f",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 0
+      },
+      "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

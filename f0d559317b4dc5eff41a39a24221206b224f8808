@@ -22,6 +22,30 @@
       },
       "revId": "f0d559317b4dc5eff41a39a24221206b224f8808",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74053433_859874c0",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-22T19:22:28Z",
+      "side": 1,
+      "message": "As I see DelayedStart here actually breaks other tests, which makes sense. Example of scalability test failures can be found here: https://ci.chromium.org/ui/p/webrtc/builders/try/mac_rel/66351/overview",
+      "parentUuid": "46a30a2c_4fb2501b",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 51
+      },
+      "revId": "f0d559317b4dc5eff41a39a24221206b224f8808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

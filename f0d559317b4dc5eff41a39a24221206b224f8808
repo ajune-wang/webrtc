@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a30a2c_4fb2501b",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-22T19:19:32Z",
+      "side": 1,
+      "message": "video_engine_tests `ScalabilityMode*` requires delayed start to pass. It seems that just start will be more correct here, but I don\u0027t know those tests well to fix it 😞\n\nÅsa, can you help with it?",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 51
+      },
+      "revId": "f0d559317b4dc5eff41a39a24221206b224f8808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

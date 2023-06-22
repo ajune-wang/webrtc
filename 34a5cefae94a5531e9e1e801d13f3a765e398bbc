@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5206f4_de556707",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-06-22T16:18:22Z",
+      "side": 1,
+      "message": "Could you add a bit more context on what the use case is? These config parameters are not very official and may be removed in the future.\n\nThe recommended way to set a minimum delay is using the RTCRtpReceiver.playoutDelayHint on Web which is equivalent to calling SetJitterBufferMinimumDelay: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/api/rtp_receiver_interface.h",
+      "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

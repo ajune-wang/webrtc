@@ -82,8 +82,6 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
 
   int64_t first_frame_capture_time() const { return first_frame_capture_time_; }
 
-  bool Init();
-
  private:
   void InsertFrame();
   static bool Run(void* obj);

@@ -71,23 +71,6 @@ void FrameGeneratorCapturer::SetFakeColorSpace(
   fake_color_space_ = color_space;
 }
 
-bool FrameGeneratorCapturer::Init() {
-  // This check is added because frame_generator_ might be file based and should
-  // not crash because a file moved.
-  if (frame_generator_.get() == nullptr)
-    return false;
-
-  frame_task_ = RepeatingTaskHandle::DelayedStart(
-      task_queue_.Get(),
-      TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate(),
-      [this] {
-        InsertFrame();
-        return TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate();
-      },
-      TaskQueueBase::DelayPrecision::kHigh);
-  return true;
-}
-
 void FrameGeneratorCapturer::InsertFrame() {
   MutexLock lock(&lock_);
   if (sending_) {

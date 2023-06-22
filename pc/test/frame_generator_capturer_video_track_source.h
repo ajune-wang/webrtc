@@ -52,7 +52,6 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
                                          absl::nullopt,
                                          config.num_squares_generated),
         config.frames_per_second, *task_queue_factory_);
-    video_capturer_->Init();
   }
 
   FrameGeneratorCapturerVideoTrackSource(

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27f9b0c2_e1f2144f",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-06-22T11:20:56Z",
+      "side": 1,
+      "message": "where can I find description what `Init` function is doing? in particular why it exists instead of doing all the work in the constructor.\n\nbetter yet - general documentation how frame_generator_capturer_ supposed to be used. Requiring to call both `Init` and `Start` looks confusing.\n\nI\u0027ve checked `FrameGeneratorCapturer` class - `Init` function lacks documentation there.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 0
+      },
+      "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c2fa62_a67e8b32",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-06-22T11:20:56Z",
+      "side": 1,
+      "message": "would it be more robust to call frame_generator_capturer_-\u003eStart()\nafter it is passed into send_stream_\nor it doesn\u0027t matter as long as framegenerator_capturer_-\u003eStart() is called before send_stream_-\u003eStart()",
+      "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

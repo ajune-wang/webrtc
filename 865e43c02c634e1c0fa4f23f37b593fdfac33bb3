@@ -63,6 +63,48 @@
       },
       "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced3ba63_1e892f45",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-22T12:21:43Z",
+      "side": 1,
+      "message": "Should I do it in this CL or will follow up CL will be better (I prefer the second option)",
+      "parentUuid": "4be1b0df_5bbedadb",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 0
+      },
+      "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53103fcb_256e025e",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-22T12:21:43Z",
+      "side": 1,
+      "message": "IIRC send_stream_ is production code path and it doesn\u0027t know about frame generator capturer. It accepts `VideoSourceInterface` which doesn\u0027t have start method, so send_stream_ can\u0027t invoke it.",
+      "parentUuid": "85c2fa62_a67e8b32",
+      "revId": "865e43c02c634e1c0fa4f23f37b593fdfac33bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

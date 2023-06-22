@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca163d1d_8dcdc7b1",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-22T08:24:32Z",
+      "side": 1,
+      "message": "What about the case of kEmptyFrame?\n\n(if you add an RTC_CHECK(frame_type_ !\u003d kEmptyFrame, this is OK)",
+      "revId": "5353d2f677f60ee77d2b01ad8c12672ca4a2942f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc604f0c_2d4872ca",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-22T08:24:32Z",
+      "side": 1,
+      "message": "This will have the effect of turning kEmptyFrame into kAudioFrameCN. Seems a bit iffy.",
+      "revId": "5353d2f677f60ee77d2b01ad8c12672ca4a2942f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

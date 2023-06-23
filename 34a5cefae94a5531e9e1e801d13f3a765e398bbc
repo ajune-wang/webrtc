@@ -51,6 +51,42 @@
       "message": "Thanks for looking into this! We mainly use the Call interface instead of RTCRtpReceiver for voice/video, which is why we needed this patch in our fork.",
       "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4319637_7e42a7c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-06-23T18:35:49Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "69727516_af274ab1",
+      "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d5029ce_098f33d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-06-23T18:35:49Z",
+      "side": 1,
+      "message": "Ack, the corresponding call interface is here: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/call/audio_receive_stream.h;l\u003d191;drc\u003dafec9eaf1d11cc77e8e06f06cb026fadf0dbf758\n\nBut let\u0027s submit this since it seems to be a mistake from a previous refactoring.",
+      "parentUuid": "f3839a72_6c368f3e",
+      "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

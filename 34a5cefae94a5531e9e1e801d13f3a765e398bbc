@@ -16,6 +16,41 @@
       "message": "Could you add a bit more context on what the use case is? These config parameters are not very official and may be removed in the future.\n\nThe recommended way to set a minimum delay is using the RTCRtpReceiver.playoutDelayHint on Web which is equivalent to calling SetJitterBufferMinimumDelay: https://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/api/rtp_receiver_interface.h",
       "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3839a72_6c368f3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20194
+      },
+      "writtenOn": "2023-06-23T18:30:02Z",
+      "side": 1,
+      "message": "Thanks for looking into this! We mainly use the Call interface instead of RTCRtpReceiver for voice/video, which is why we needed this patch in our fork.",
+      "parentUuid": "0f5206f4_de556707",
+      "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69727516_af274ab1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20194
+      },
+      "writtenOn": "2023-06-23T18:30:02Z",
+      "side": 1,
+      "message": "Thanks for looking into this! We mainly use the Call interface instead of RTCRtpReceiver for voice/video, which is why we needed this patch in our fork.",
+      "revId": "34a5cefae94a5531e9e1e801d13f3a765e398bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

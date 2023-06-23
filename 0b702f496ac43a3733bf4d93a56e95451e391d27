@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3995974a_c6386992",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-06-23T19:32:04Z",
+      "side": 1,
+      "message": "See crbug.com/1446655 for discussion. Also made https://webrtc-review.googlesource.com/c/src/+/309700 that only fixes the glitches. However, I think we concluded that long term we should try to get rid of this mixer and let Chrome drive the receive streams individually (for example so that they can be hooked up to WebAudio without the need for the audio element).",
+      "revId": "0b702f496ac43a3733bf4d93a56e95451e391d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

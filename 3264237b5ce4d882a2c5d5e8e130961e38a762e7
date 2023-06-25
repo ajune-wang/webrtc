@@ -69,6 +69,23 @@
       "parentUuid": "1ff0f967_c9638655",
       "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d6d75ea_23bbbfe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-06-25T08:03:54Z",
+      "side": 1,
+      "message": "I wonder if any HW decoder/encoder in Chromium is following the HRD conformance for VP9/H.264/AV1, especially when we\u0027re operating at low-latency mode.\n\nFor the WebRTC pipeline in Chromium, decoding is driven by the render timing in RTC stack, ignoring the HRD params for H.264, while for VP9/AV1 I don\u0027t find Chromium handling this as well.\n\nAgree the increased key-frame size results in higher transmit latency, which needs to be measured. However I don\u0027t think this will (noticeably) increase the decoding latency when it\u0027s backed HW, and when the host decoder is not overlooking the HRD params in the bitstream.\n\nAdding Jerome@ and Dale@ to the discussion.",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

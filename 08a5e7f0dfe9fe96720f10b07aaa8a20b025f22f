@@ -51,6 +51,24 @@
       "parentUuid": "9cfb88fe_cfa416e5",
       "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee897def_5483c82b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-06-26T12:31:44Z",
+      "side": 1,
+      "message": "No other CLs needed. This is the fix and the others are the proof that this one is OK.\n\nThe deadlock happens because of [a lock in the callback in the base class](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_capture/video_capture_impl.cc;l\u003d146;drc\u003deee10391cac9c63be3ec6c6b6fe0a8b097c859b1). More info in the bug.",
+      "parentUuid": "06552b90_bdddf5c9",
+      "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

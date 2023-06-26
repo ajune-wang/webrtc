@@ -122,13 +122,13 @@ class VoiceEngineInterface : public RtpHeaderExtensionQueryInterface {
 
   // MediaChannel creation
   // Creates a voice media channel. Returns NULL on failure.
-  virtual VoiceMediaChannel* CreateMediaChannel(
-      MediaChannel::Role role,
-      webrtc::Call* call,
-      const MediaConfig& config,
-      const AudioOptions& options,
-      const webrtc::CryptoOptions& crypto_options,
-      webrtc::AudioCodecPairId codec_pair_id) {
+  [[deprecated("Create a send or receive channel")]] virtual VoiceMediaChannel*
+  CreateMediaChannel(MediaChannel::Role role,
+                     webrtc::Call* call,
+                     const MediaConfig& config,
+                     const AudioOptions& options,
+                     const webrtc::CryptoOptions& crypto_options,
+                     webrtc::AudioCodecPairId codec_pair_id) {
     // For the case where a subclass overrides the deprecated method
     // but not the replacement method, call the deprecated method.
     // TODO(bugs.webrtc.org/13931): Remove default implementation
@@ -208,7 +208,8 @@ class VideoEngineInterface : public RtpHeaderExtensionQueryInterface {
 
   // Creates a video media channel.
   // Returns NULL on failure.
-  virtual VideoMediaChannel* CreateMediaChannel(
+  [[deprecated("Create a send or receive channel")]] virtual VideoMediaChannel*
+  CreateMediaChannel(
       MediaChannel::Role role,
       webrtc::Call* call,
       const MediaConfig& config,

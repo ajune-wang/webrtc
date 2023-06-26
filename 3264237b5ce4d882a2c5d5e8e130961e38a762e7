@@ -104,6 +104,24 @@
       "parentUuid": "7d6d75ea_23bbbfe3",
       "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc69c45_69e06a2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7949
+      },
+      "writtenOn": "2023-06-26T19:24:32Z",
+      "side": 1,
+      "message": "\u003e No idea about the hardware decoders, so +jzern.\n\nI\u0027m not aware of any for AV1 and didn\u0027t get any other suggestions when I asked around. VP9 doesn\u0027t have any decoder model information in the bitstream.\n\n\u003e This seems easy enough to experiment with though, but defer to RTC experts.",
+      "parentUuid": "5b54daac_a8a713fc",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

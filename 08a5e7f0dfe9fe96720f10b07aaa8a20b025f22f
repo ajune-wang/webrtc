@@ -69,6 +69,24 @@
       "parentUuid": "06552b90_bdddf5c9",
       "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2ea0975_9878a6b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-06-26T13:18:40Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll try to merge it to M116",
+      "parentUuid": "ee897def_5483c82b",
+      "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

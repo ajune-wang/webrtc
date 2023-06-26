@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "641897d4_72de4d7b",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-26T08:40:51Z",
+      "side": 0,
+      "message": "This was not moved to Start(), can you confirm this is not needed?\n\n(from the comment, it looks like something we don\u0027t need since we should not move files while they are in use)",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "00a8576a67c9e37de52a9d0c18042b4d4fd339a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

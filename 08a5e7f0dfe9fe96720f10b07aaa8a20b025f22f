@@ -33,6 +33,24 @@
       "message": "It would also be great to merge this into M115 and M116 to avoid shipping the deadlock in case any other downstream project than us is using the DS backend.\nI\u0027ll be on PTO and won\u0027t be able to tend to it until after M115 hits stable, however.",
       "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06552b90_bdddf5c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-06-26T09:46:04Z",
+      "side": 1,
+      "message": "Are there any other CLs needed to be merged together with this one?\nOut of your latest CLs only this one didn\u0027t make it into M116. I don\u0027t think we need to merge this one, since it\u0027s only removing api_lock_ locking, but anywhere this lock is acquired it\u0027s the only one. So it can\u0027t cause a deadlock.\n\nWe can\u0027t merge it to M115, since it\u0027s already passed the stable cut and the severity of the fixed issue is not emergency.",
+      "parentUuid": "9cfb88fe_cfa416e5",
+      "revId": "08a5e7f0dfe9fe96720f10b07aaa8a20b025f22f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

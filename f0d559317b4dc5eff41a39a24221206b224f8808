@@ -46,6 +46,30 @@
       },
       "revId": "f0d559317b4dc5eff41a39a24221206b224f8808",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36eb1f6_767efb69",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2023-06-26T15:23:34Z",
+      "side": 1,
+      "message": "The test verifies header fields per packet/frame and it looks like the key frames are shifted one frame.\n\nConfigured encoder key frame interval in test: 31 (kKeyFrameInterval)\n\nWith the change, a key frame is requested at start:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_send_stream_impl.cc;l\u003d357\nwhile without the change the request in ignored due to encoder not yet configured:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d2077\n\nCurrent:\nFrame 0: is_key_frame expected 1, vp9.inter_pic_predicted 0  // Key frames (0, 31, 62)\nFrame 1: is_key_frame expected 0, vp9.inter_pic_predicted 1\nFrame 2: is_key_frame expected 0, vp9.inter_pic_predicted 1\n...\nFrame 31: is_key_frame expected 1, vp9.inter_pic_predicted 0\nFrame 32: is_key_frame expected 0, vp9.inter_pic_predicted 1\n...\nFrame 62: is_key_frame expected 1, vp9.inter_pic_predicted 0\n...\n\nNew:\nFrame 0: is_key_frame expected 1, vp9.inter_pic_predicted 0\nFrame 1: is_key_frame expected 0, vp9.inter_pic_predicted 0  // Key frame requested -\u003e actual (1, 32, 63)\nFrame 2: is_key_frame expected 0, vp9.inter_pic_predicted 1\n...\nFrame 31: is_key_frame expected 1, vp9.inter_pic_predicted 1\nFrame 32: is_key_frame expected 0, vp9.inter_pic_predicted 0\nFrame 33: is_key_frame expected 0, vp9.inter_pic_predicted 1\n...\nFrame 62: is_key_frame expected 1, vp9.inter_pic_predicted 1\nFrame 63: is_key_frame expected 0, vp9.inter_pic_predicted 0",
+      "parentUuid": "74053433_859874c0",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 51
+      },
+      "revId": "f0d559317b4dc5eff41a39a24221206b224f8808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

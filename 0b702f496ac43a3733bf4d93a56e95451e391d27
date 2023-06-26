@@ -16,6 +16,46 @@
       "message": "See crbug.com/1446655 for discussion. Also made https://webrtc-review.googlesource.com/c/src/+/309700 that only fixes the glitches. However, I think we concluded that long term we should try to get rid of this mixer and let Chrome drive the receive streams individually (for example so that they can be hooked up to WebAudio without the need for the audio element).",
       "revId": "0b702f496ac43a3733bf4d93a56e95451e391d27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e552ab3_4330a5b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-06-26T13:03:45Z",
+      "side": 1,
+      "message": "LGTM with one comment.",
+      "revId": "0b702f496ac43a3733bf4d93a56e95451e391d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85310ec5_375bd221",
+        "filename": "modules/audio_mixer/audio_mixer_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-06-26T13:03:45Z",
+      "side": 1,
+      "message": "I think you should omit the default case. You\u0027re switching on an enum, and you\u0027ve already handled all the possible cases.",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "0b702f496ac43a3733bf4d93a56e95451e391d27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

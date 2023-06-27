@@ -65,6 +65,24 @@ class RTC_EXPORT SharedMemory {
   const int id_;
 };
 
+// ScopedHandle is a base class to store SharedMemory::Handle.
+// The stored handle will be closed when ScopedHandle is destroyed.
+class RTC_EXPORT ScopedHandle {
+ public:
+  bool IsValid() { return handle_ != SharedMemory::kInvalidHandle;}
+  SharedMemory::Handle Get() { return handle_; }
+  virtual SharedMemory::Handle Release() = 0;
+
+  virtual ~ScopedHandle() {}
+
+  ScopedHandle(const SharedMemory&) = delete;
+  ScopedHandle& operator=(const SharedMemory&) = delete;
+ protected:
+  ScopedHandle(const SharedMemory::Handle& handle);
+
+  SharedMemory::Handle handle_;
+};
+
 // Interface used to create SharedMemory instances.
 class SharedMemoryFactory {
  public:
@@ -75,6 +93,8 @@ class SharedMemoryFactory {
   SharedMemoryFactory& operator=(const SharedMemoryFactory&) = delete;
 
   virtual std::unique_ptr<SharedMemory> CreateSharedMemory(size_t size) = 0;
+  virtual std::unique_ptr<SharedMemory> CreateSharedBufferForDesktopFrame(
+      int32_t width, int32_t height);
 };
 
 }  // namespace webrtc

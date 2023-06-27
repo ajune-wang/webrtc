@@ -21,7 +21,8 @@
 
 namespace webrtc {
 
-DxgiFrame::DxgiFrame(SharedMemoryFactory* factory) : factory_(factory) {}
+DxgiFrame::DxgiFrame(SharedMemoryFactory* factory, bool use_texture)
+    : factory_(factory), use_texture_(use_texture) {}
 
 DxgiFrame::~DxgiFrame() = default;
 
@@ -39,7 +40,9 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
 
   if (!frame_) {
     std::unique_ptr<DesktopFrame> frame;
-    if (factory_) {
+    if (use_texture_) {
+      frame.reset(new DesktopFrameTexture(size));
+    } else if (factory_) {
       frame = SharedMemoryDesktopFrame::Create(size, factory_);
 
       if (!frame) {
@@ -64,9 +67,36 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
   return !!frame_;
 }
 
+bool DxgiFrame::PrepareNative(DesktopSize size,
+                              DesktopCapturer::SourceId source_id) {
+  if (source_id != source_id_) {
+    // Once the source has been changed, the entire source should be copied.
+    source_id_ = source_id;
+    context_.Reset();
+  }
+
+  resolution_tracker_.SetResolution(size);
+
+  if (!frame_) {
+  frame_.reset(SharedDesktopFrame::Wrap(
+        new DesktopFrameTexture(size)));
+  }
+  if (!texture_frame_) {
+    texture_frame_.reset(new DesktopFrameTexture(size));
+  }
+  RTC_LOG(LS_ERROR) << "PrepareNative:" << texture_frame_;
+  return !!frame_;
+}
+
+
 SharedDesktopFrame* DxgiFrame::frame() const {
   RTC_DCHECK(frame_);
   return frame_.get();
+}
+
+DesktopFrameTexture* DxgiFrame::texture_frame() const {
+  RTC_DCHECK(texture_frame_);
+  return texture_frame_.get();
 }
 
 DxgiFrame::Context* DxgiFrame::context() {

@@ -142,6 +142,10 @@ class RTC_EXPORT DesktopFrame {
     icc_profile_ = icc_profile;
   }
 
+  // Get is_texture and texture handle of the frame.
+  bool is_texture() const { return is_texture_; }
+  HANDLE handle() const { return handle_; }
+
  protected:
   DesktopFrame(DesktopSize size,
                int stride,
@@ -153,6 +157,9 @@ class RTC_EXPORT DesktopFrame {
   // is deleted.
   uint8_t* const data_;
   SharedMemory* const shared_memory_;
+
+  bool is_texture_;
+  HANDLE handle_;
 
  private:
   const DesktopSize size_;

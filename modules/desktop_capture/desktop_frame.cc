@@ -29,6 +29,8 @@ DesktopFrame::DesktopFrame(DesktopSize size,
                            SharedMemory* shared_memory)
     : data_(data),
       shared_memory_(shared_memory),
+      is_texture_(false),
+      handle_(nullptr),
       size_(size),
       stride_(stride),
       capture_time_ms_(0),
@@ -133,6 +135,9 @@ void DesktopFrame::CopyFrameInfoFrom(const DesktopFrame& other) {
   *mutable_updated_region() = other.updated_region();
   set_top_left(other.top_left());
   set_icc_profile(other.icc_profile());
+  set_may_contain_cursor(other.may_contain_cursor());
+  this->is_texture_ = other.is_texture_;
+  this->handle_ = other.handle_;
 }
 
 void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
@@ -142,6 +147,10 @@ void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
   mutable_updated_region()->Swap(other->mutable_updated_region());
   set_top_left(other->top_left());
   set_icc_profile(other->icc_profile());
+  ////
+  set_may_contain_cursor(other->may_contain_cursor());
+  this->is_texture_ = other->is_texture_;
+  this->handle_ = other->handle_;
 }
 
 BasicDesktopFrame::BasicDesktopFrame(DesktopSize size)
@@ -177,8 +186,17 @@ std::unique_ptr<DesktopFrame> SharedMemoryDesktopFrame::Create(
   size_t buffer_size = size.height() * size.width() * kBytesPerPixel;
   std::unique_ptr<SharedMemory> shared_memory =
       shared_memory_factory->CreateSharedMemory(buffer_size);
-  if (!shared_memory)
+  if (!shared_memory) {
+    // Try to get shared gpu memory.
+    std::unique_ptr<SharedMemory> shared_gpu_memory =
+      shared_memory_factory->CreateSharedBufferForDesktopFrame(
+          size.width(), size.height());
+    if (shared_gpu_memory) {
+      return std::make_unique<SharedMemoryDesktopFrame>(
+          size, size.width() * kBytesPerPixel, std::move(shared_gpu_memory));
+    }
     return nullptr;
+  }
 
   return std::make_unique<SharedMemoryDesktopFrame>(
       size, size.width() * kBytesPerPixel, std::move(shared_memory));

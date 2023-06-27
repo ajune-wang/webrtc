@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c306e24a_0f12aabe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-27T07:05:48Z",
+      "side": 1,
+      "message": "ping (and welcome back ;-))",
+      "revId": "5a86b75387cda3ab77d0889f408e0f0ef34cdf90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f53ae7dd_da6264f9",

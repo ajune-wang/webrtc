@@ -95,23 +95,19 @@
     }
   },
   'ios_runtime_cache_15_5': {
-    '$mixin_append': {
-      'swarming': {
-        'named_caches': [{
-          'name': 'runtime_ios_15_5',
-          'path': 'Runtime-ios-15.5'
-        }]
-      }
+    'swarming': {
+      'named_caches': [{
+        'name': 'runtime_ios_15_5',
+        'path': 'Runtime-ios-15.5'
+      }]
     }
   },
   'ios_runtime_cache_16_2': {
-    '$mixin_append': {
-      'swarming': {
-        'named_caches': [{
-          'name': 'runtime_ios_16_2',
-          'path': 'Runtime-ios-16.2'
-        }]
-      }
+    'swarming': {
+      'named_caches': [{
+        'name': 'runtime_ios_16_2',
+        'path': 'Runtime-ios-16.2'
+      }]
     }
   },
   'isolate_profile_data': {
@@ -174,14 +170,12 @@
         'location':
         '.',
         'revision':
-        'git_revision:a598cd77abc01089647a79e3cfa3cc8e8ecb5118'
+        'git_revision:0ecab437ae2532a879b1203efc48f54bc6cadb77'
       }]
     }
   },
   'out_dir_arg': {
-    '$mixin_append': {
-      'args': ['--out-dir', '${ISOLATED_OUTDIR}']
-    }
+    'args': ['--out-dir', '${ISOLATED_OUTDIR}']
   },
   'perf-output': {
     '$mixin_append': {
@@ -323,9 +317,7 @@
     }
   },
   'xcode_14_main': {
-    '$mixin_append': {
-      'args': ['--xcode-build-version', '14c18']
-    },
+    'args': ['--xcode-build-version', '14c18'],
     'swarming': {
       'named_caches': [{
         'name': 'xcode_ios_14c18',
@@ -334,8 +326,6 @@
     }
   },
   'xcode_parallelization': {
-    '$mixin_append': {
-      'args': ['--xcode-parallelization']
-    }
+    'args': ['--xcode-parallelization']
   }
 }

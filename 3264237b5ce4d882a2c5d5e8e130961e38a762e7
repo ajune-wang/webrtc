@@ -122,6 +122,24 @@
       "parentUuid": "5b54daac_a8a713fc",
       "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fbb3ff3_59e8d0bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-06-27T08:59:10Z",
+      "side": 1,
+      "message": "Yeah, not really worried about decode latency - it\u0027s transmission latency when network constrained that\u0027s the main issue.",
+      "parentUuid": "8dc69c45_69e06a2a",
+      "revId": "3264237b5ce4d882a2c5d5e8e130961e38a762e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

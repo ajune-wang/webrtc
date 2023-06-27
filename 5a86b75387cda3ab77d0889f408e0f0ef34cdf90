@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11a33b13_19a7075d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-06-27T10:53:29Z",
+      "side": 1,
+      "message": "Per: FYI since BWE is the only other place where this method is used. You *might* see a minor change in Windows metrics.",
+      "revId": "5a86b75387cda3ab77d0889f408e0f0ef34cdf90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f53ae7dd_da6264f9",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72057003_afde562c",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2023-06-27T13:28:09Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand why this could affect this test?\n\nThe only explanation is that the run was shut off after a layer is encoded but before the decoder sees it, because the `EXPECT_THAT` on line 348 passes, but no the one on line 353.\n\nAnother question is why only `_DD` test fails? What does it mean when using dependency descriptor?",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 50
+      },
+      "revId": "0e1bcccfefe6a03cc25e0878eacfe75b598b6069",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a6bf04c_08fb8e24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-06-28T19:34:57Z",
+      "side": 1,
+      "message": "Impressive number of lines deleted!\n\nCheck that it passes internal_tests as well as internal_compile_lite, and we should be all good.",
+      "revId": "2ac8565acfb1c4722f3ced6d36018d78d60c0214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

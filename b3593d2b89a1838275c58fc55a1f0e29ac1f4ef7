@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da22ef81_14005f4e",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2023-06-28T22:32:51Z",
+      "side": 1,
+      "message": "The build failure is likely caused by a weakness of the Autoroller.\n\nThis change requires some other changes in third_party/libaom. See https://chromium-review.googlesource.com/c/chromium/src/+/4652764\n\nIf I run ./cmake_update.sh in the third_party/libaom directory, then the build succeeds.",
+      "revId": "b3593d2b89a1838275c58fc55a1f0e29ac1f4ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

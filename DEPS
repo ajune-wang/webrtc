@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8e1bd939a3d6f707b6cf5630b6f4abcd0abe94c6',
+  'chromium_revision': '305dfb48da2746632db883f07219038a8d6cf801',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,9 +61,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@1c643c1281ff16a0a1a7867c67914e8833efb633',
+    'https://chromium.googlesource.com/chromium/src/testing@4d0e8fd0cb86600975aa8327fbbed8f91ac17bf7',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ad3fc92f41921aac7ce11b3f9ce5da40c739eae4',
+    'https://chromium.googlesource.com/chromium/src/third_party@e0e9614cf620e0bc4c33b6db1ba99f9a1427f0e3',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -174,7 +174,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8988364bcddd9b194b0bf931c10bc125987330ed',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@b1566ca568205e7b03424bca0ec4be9708d1e1b8',
+    'https://chromium.googlesource.com/catapult.git@b11802026a230d83b6a4f1f74642c949cf33e9de',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -340,7 +340,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@5cdaff5dd6b1c9999105ab8881af3b8cb4f341f8',
+    'https://chromium.googlesource.com/chromium/src/tools@2fae904cbc87bce165161aa3e9f9ea9bafab98d5',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4e064eab42b6d7cf0a9ab3628ec487b66b228e75',
+  'chromium_revision': '9ea6b6c3fdea57808b7aa3776754084449035408',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -46,7 +46,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ecc085374923591c72227223d803e3d13987084c',
+    'https://chromium.googlesource.com/chromium/src/base@691f8bbbb0ead38d3151c5d7e06c35b138f9fe1b',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@829a12f473bdab7883a877a0da3409fbd69de620',
   'src/buildtools':
@@ -57,13 +57,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@370f85a63bf57a6dcc797ff512dec3679ef7479d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b3948fcfd92881743d8974facc4da9b0266c0eaa',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@ef431a43f9adf1a3d7b544e06e44f300bae34678',
+    'https://chromium.googlesource.com/chromium/src/testing@635a992bff0cc487d2668d6c1ba21693a7a0797e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3231eb4d7bea3debecd29ada7d91d434fd98a80a',
+    'https://chromium.googlesource.com/chromium/src/third_party@25d6da1c253526db0b573d1cb9f9f39874def7ef',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -340,7 +340,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@1b9afc400141771633de7dd6c67243e79aa921a2',
+    'https://chromium.googlesource.com/chromium/src/tools@eba7335a2fa9351a4cee0bfaf7a027478d9921ed',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -412,7 +412,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '70eDRk3Khy9tgvMTnWXCKzFIfFYcFv6NvE4YZuTZbssC',
+          'version': 'yq7xO3yYYzfMN3uaj7OHd1jkQVoa0D4BgoxR09C1clkC',
       },
     ],
     'condition': 'checkout_android',

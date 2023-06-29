@@ -87,6 +87,30 @@
       },
       "revId": "0e1bcccfefe6a03cc25e0878eacfe75b598b6069",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ed9987_4f01c88b",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5534
+      },
+      "writtenOn": "2023-06-29T23:23:51Z",
+      "side": 1,
+      "message": "There was another libaom roll in my latest checkout test, which had a change to the frame-dropper that should improve behavior somewhat, so that could be part of it.",
+      "parentUuid": "c98a5aa5_965a38a0",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 50
+      },
+      "revId": "0e1bcccfefe6a03cc25e0878eacfe75b598b6069",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

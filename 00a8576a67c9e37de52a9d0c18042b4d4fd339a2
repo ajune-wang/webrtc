@@ -22,6 +22,30 @@
       },
       "revId": "00a8576a67c9e37de52a9d0c18042b4d4fd339a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6855d7d7_69f27ba0",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-29T13:25:55Z",
+      "side": 0,
+      "message": "As I see this is outdated. In ctor we have a check that `frame_generator_` isn\u0027t null, so probably it was a leftover from some legacy code path which isn\u0027t relevant anymore.",
+      "parentUuid": "641897d4_72de4d7b",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "00a8576a67c9e37de52a9d0c18042b4d4fd339a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

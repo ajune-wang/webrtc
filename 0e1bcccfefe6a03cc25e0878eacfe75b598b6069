@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb83e0a9_fc120fff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-06-29T13:14:25Z",
+      "side": 1,
+      "message": "You need to remove the `Code-Review+1` to avoid:\n\n```\nWARNING: The owner of this change has voted on the Code-Review label. Self-approving a change is not allowed and might prevent it from being submitted.\n```",
+      "revId": "0e1bcccfefe6a03cc25e0878eacfe75b598b6069",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72057003_afde562c",
         "filename": "pc/test/svc_e2e_tests.cc",
         "patchSetId": 1

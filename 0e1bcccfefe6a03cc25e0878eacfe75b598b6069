@@ -63,6 +63,30 @@
       },
       "revId": "0e1bcccfefe6a03cc25e0878eacfe75b598b6069",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98a5aa5_965a38a0",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5534
+      },
+      "writtenOn": "2023-06-29T18:15:47Z",
+      "side": 1,
+      "message": "Yes it was dropping a lot of frames, because the bitrate was low (actually 0 in first SL1) and buffer needed time to stabilize. Although even when it did stabilize there were plenty of encoded enhancement frames (TL1, TL2) for SL1, so not sure why decoder did not receive them, it only did when test run went longer to 7 or 8 sec (i choose 10 just to be safe).\n\nHowever, now with the latest webrtc checkout, it seems that the test passes fine as is. It seems that the svc configuration (bitrate and QP per layer) has changed and now much fewer dropped frames. Do you know if anything changed in the webrtc code regarding this test?",
+      "parentUuid": "5a335472_c7bb0c2a",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 50
+      },
+      "revId": "0e1bcccfefe6a03cc25e0878eacfe75b598b6069",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

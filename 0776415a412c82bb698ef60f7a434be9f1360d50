@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e8129e_fb5333dc",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-06-30T13:47:14Z",
+      "side": 1,
+      "message": "Hi, can we elaborate error message, so it will be clearer what it wrong? \"YO\" seems as not a widely known abbreviation.",
+      "range": {
+        "startLine": 505,
+        "startChar": 29,
+        "endLine": 505,
+        "endChar": 34
+      },
+      "revId": "0776415a412c82bb698ef60f7a434be9f1360d50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -11,8 +11,6 @@
 #ifndef MODULES_AUDIO_DEVICE_AUDIO_DEVICE_IMPL_H_
 #define MODULES_AUDIO_DEVICE_AUDIO_DEVICE_IMPL_H_
 
-#if defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
-
 #include <stdint.h>
 
 #include <memory>
@@ -174,7 +172,5 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
 };
 
 }  // namespace webrtc
-
-#endif  // defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
 
 #endif  // MODULES_AUDIO_DEVICE_AUDIO_DEVICE_IMPL_H_

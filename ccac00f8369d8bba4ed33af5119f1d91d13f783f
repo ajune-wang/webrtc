@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1bbf57_78045f38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2023-06-30T13:41:02Z",
+      "side": 1,
+      "message": "Sorry for the delay! Thanks Philipp for the nudges :-) Tests pass now, which means they were testing the right thing!",
+      "revId": "ccac00f8369d8bba4ed33af5119f1d91d13f783f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "0776415a412c82bb698ef60f7a434be9f1360d50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfa8561f_d9b8feca",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-01T07:35:08Z",
+      "side": 1,
+      "message": "Argh, thas was not supposed to be in there. Will remove, the whole function is dead code.",
+      "parentUuid": "08e8129e_fb5333dc",
+      "range": {
+        "startLine": 505,
+        "startChar": 29,
+        "endLine": 505,
+        "endChar": 34
+      },
+      "revId": "0776415a412c82bb698ef60f7a434be9f1360d50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

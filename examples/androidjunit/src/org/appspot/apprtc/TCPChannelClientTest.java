@@ -59,6 +59,8 @@ public class TCPChannelClientTest {
     MockitoAnnotations.initMocks(this);
 
     executor = Executors.newSingleThreadExecutor();
+    server = new TCPChannelClient();
+    client = new TCPChannelClient();
   }
 
   @After
@@ -84,13 +86,7 @@ public class TCPChannelClientTest {
 
   @Test
   public void testConnectIPv4() {
-    setUpIPv4Server();
-    try {
-      Thread.sleep(SERVER_WAIT);
-    } catch (InterruptedException e) {
-      fail(e.getMessage());
-    }
-    setUpIPv4Client();
+    connectIPv4();
 
     verify(serverEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(true);
     verify(clientEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(false);
@@ -98,13 +94,7 @@ public class TCPChannelClientTest {
 
   @Test
   public void testConnectIPv6() {
-    setUpIPv6Server();
-    try {
-      Thread.sleep(SERVER_WAIT);
-    } catch (InterruptedException e) {
-      fail(e.getMessage());
-    }
-    setUpIPv6Client();
+    connectIPv6();
 
     verify(serverEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(true);
     verify(clientEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(false);
@@ -112,7 +102,7 @@ public class TCPChannelClientTest {
 
   @Test
   public void testSendData() {
-    testConnectIPv4();
+    connectIPv4();
 
     executeAndWait(new Runnable() {
       @Override
@@ -128,7 +118,7 @@ public class TCPChannelClientTest {
 
   @Test
   public void testDisconnectServer() {
-    testConnectIPv4();
+    connectIPv4();
     executeAndWait(new Runnable() {
       @Override
       public void run() {
@@ -142,7 +132,7 @@ public class TCPChannelClientTest {
 
   @Test
   public void testDisconnectClient() {
-    testConnectIPv4();
+    connectIPv4();
     executeAndWait(new Runnable() {
       @Override
       public void run() {
@@ -154,19 +144,23 @@ public class TCPChannelClientTest {
     verify(clientEvents, timeout(DISCONNECT_TIMEOUT)).onTCPClose();
   }
 
-  private void setUpIPv4Server() {
+  private void connectIPv4() {
     setUpServer("0.0.0.0", PORT);
-  }
-
-  private void setUpIPv4Client() {
+    try {
+      Thread.sleep(SERVER_WAIT);
+    } catch (InterruptedException e) {
+      fail(e.getMessage());
+    }
     setUpClient("127.0.0.1", PORT);
   }
 
-  private void setUpIPv6Server() {
+  private void connectIPv6() {
     setUpServer("::", PORT);
-  }
-
-  private void setUpIPv6Client() {
+    try {
+      Thread.sleep(SERVER_WAIT);
+    } catch (InterruptedException e) {
+      fail(e.getMessage());
+    }
     setUpClient("::1", PORT);
   }
 

@@ -483,6 +483,7 @@
           "enable": true,
           "has_native_resultdb_integration": true
         },
+        "shards": 1,
         "test": "android_examples_junit_tests",
         "test_id_prefix": "ninja://examples:android_examples_junit_tests/"
       },
@@ -979,6 +980,7 @@
           "enable": true,
           "has_native_resultdb_integration": true
         },
+        "shards": 1,
         "test": "android_examples_junit_tests",
         "test_id_prefix": "ninja://examples:android_examples_junit_tests/"
       },
@@ -1475,6 +1477,7 @@
           "enable": true,
           "has_native_resultdb_integration": true
         },
+        "shards": 1,
         "test": "android_examples_junit_tests",
         "test_id_prefix": "ninja://examples:android_examples_junit_tests/"
       },
@@ -1997,6 +2000,7 @@
           "enable": true,
           "has_native_resultdb_integration": true
         },
+        "shards": 1,
         "test": "android_examples_junit_tests",
         "test_id_prefix": "ninja://examples:android_examples_junit_tests/"
       },

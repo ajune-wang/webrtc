@@ -9,7 +9,10 @@
 {
   'basic_suites': {
     'android_junit_tests': {
-      'android_examples_junit_tests': {},
+      'android_examples_junit_tests': {
+        # Force number of shards to be one because of none hermetic tests using TCPChannelClient and DirectRTCClient.
+        'shards': 1
+      },
       'android_sdk_junit_tests': {},
     },
     'android_tests': {

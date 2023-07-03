@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b086524a_375937df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-03T12:29:52Z",
+      "side": 1,
+      "message": "Sadly this does not help cleaning up the template mess in media_session yet. It is still a big mess...",
+      "revId": "71d18139b299985322877fcfa38c3f0fd7dc803e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a06950_558a93cc",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-03T12:29:52Z",
+      "side": 1,
+      "message": "tempted to use c_find_if...",
+      "revId": "71d18139b299985322877fcfa38c3f0fd7dc803e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

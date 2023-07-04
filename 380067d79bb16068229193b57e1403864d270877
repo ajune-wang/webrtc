@@ -69,6 +69,24 @@
       "parentUuid": "854d0075_e0422553",
       "revId": "380067d79bb16068229193b57e1403864d270877",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7274d4c_9a6186c8",
+        "filename": "modules/audio_processing/vad/vad_audio_proc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-07-04T08:13:59Z",
+      "side": 1,
+      "message": "Thanks both 😊",
+      "parentUuid": "a5c2182c_82f8cee4",
+      "revId": "380067d79bb16068229193b57e1403864d270877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

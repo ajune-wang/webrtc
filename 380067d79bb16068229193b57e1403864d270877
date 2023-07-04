@@ -51,6 +51,24 @@
       "parentUuid": "48c74e21_40c252e5",
       "revId": "380067d79bb16068229193b57e1403864d270877",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c2182c_82f8cee4",
+        "filename": "modules/audio_processing/vad/vad_audio_proc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 13893
+      },
+      "writtenOn": "2023-07-04T08:09:51Z",
+      "side": 1,
+      "message": "I\u0027m not an expert of webrtc repository, so just my two cents:\n\nbrace is recommended by google style guide, which is the base of chromium\u0027s:\nhttps://google.github.io/styleguide/cppguide.html#Casting\n\n\u003d\u003d quote \u003d\u003d\nUse brace initialization to convert arithmetic types (e.g., int64_t{x}). This is the safest approach because code will not compile if conversion can result in information loss. The syntax is also concise.\n\u003d\u003d quote end \u003d\u003d",
+      "parentUuid": "854d0075_e0422553",
+      "revId": "380067d79bb16068229193b57e1403864d270877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

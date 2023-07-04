@@ -33,6 +33,24 @@
       "message": "I\u0027m curious - why is `size_t{}` better?",
       "revId": "380067d79bb16068229193b57e1403864d270877",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854d0075_e0422553",
+        "filename": "modules/audio_processing/vad/vad_audio_proc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 20849
+      },
+      "writtenOn": "2023-07-04T08:07:18Z",
+      "side": 1,
+      "message": "I think the intention was to use the same style. In the original context, there are some `static_cast\u003csize_t\u003e` and some `size_t{}`. Now that all the original `size_t{}` are removed maybe we can keep the `static_cast\u003csize_t\u003e`. \n\n@hidehiko@chromium.org WDYT?",
+      "parentUuid": "48c74e21_40c252e5",
+      "revId": "380067d79bb16068229193b57e1403864d270877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

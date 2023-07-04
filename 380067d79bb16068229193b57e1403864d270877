@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4090d4b2_72d05cc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-07-04T07:54:46Z",
+      "side": 1,
+      "message": "lgtm - one question out of curiosity",
+      "revId": "380067d79bb16068229193b57e1403864d270877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c74e21_40c252e5",
+        "filename": "modules/audio_processing/vad/vad_audio_proc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-07-04T07:54:46Z",
+      "side": 1,
+      "message": "I\u0027m curious - why is `size_t{}` better?",
+      "revId": "380067d79bb16068229193b57e1403864d270877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

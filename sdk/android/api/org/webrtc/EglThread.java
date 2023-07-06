@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import java.util.concurrent.atomic.AtomicReference;
 import org.webrtc.EglBase.EglConnection;
 
 /** EGL graphics thread that allows multiple clients to share the same underlying EGLContext. */
@@ -33,18 +34,23 @@ public class EglThread {
     renderThread.start();
     Handler handler = new Handler(renderThread.getLooper());
 
-    // If sharedContext is null, then texture frames are disabled. This is typically for old
-    // devices that might not be fully spec compliant, so force EGL 1.0 since EGL 1.4 has
-    // caused trouble on some weird devices.
-    EglConnection eglConnection;
-    if (sharedContext == null) {
-      eglConnection = EglConnection.createEgl10(configAttributes);
-    } else {
-      eglConnection = EglConnection.create(sharedContext, configAttributes);
-    }
+    // Not creating the EGLContext on thread it will be used on seems to cause issues with creating
+    // window surfaces on certain devices. So keep the same legacy behavior as EglRenderer and
+    // create the context on the render thread.
+    AtomicReference<EglConnection> eglConnection = new AtomicReference<>();
+    ThreadUtils.invokeAtFrontUninterruptibly(handler, () -> {
+      // If sharedContext is null, then texture frames are disabled. This is typically for old
+      // devices that might not be fully spec compliant, so force EGL 1.0 since EGL 1.4 has
+      // caused trouble on some weird devices.
+      if (sharedContext == null) {
+        eglConnection.set(EglConnection.createEgl10(configAttributes));
+      } else {
+        eglConnection.set(EglConnection.create(sharedContext, configAttributes));
+      }
+    });
 
     return new EglThread(
-        releaseMonitor != null ? releaseMonitor : eglThread -> true, handler, eglConnection);
+        releaseMonitor != null ? releaseMonitor : eglThread -> true, handler, eglConnection.get());
   }
 
   private final ReleaseMonitor releaseMonitor;

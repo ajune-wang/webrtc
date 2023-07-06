@@ -139,7 +139,6 @@ bool TestAudioDevice::RecordingIsInitialized() const {
 
 int32_t TestAudioDevice::StartRecording() {
   MutexLock lock(&lock_);
-  RTC_CHECK(capturer_);
   capturing_ = true;
   return 0;
 }
@@ -166,17 +165,19 @@ void TestAudioDevice::ProcessAudio() {
     return;
   }
   if (capturing_) {
-    // Capture 10ms of audio. 2 bytes per sample.
-    const bool keep_capturing = capturer_->Capture(&recording_buffer_);
-    if (recording_buffer_.size() > 0) {
-      audio_buffer_->SetRecordedBuffer(
-          recording_buffer_.data(),
-          recording_buffer_.size() / capturer_->NumChannels(),
-          absl::make_optional(rtc::TimeNanos()));
-      audio_buffer_->DeliverRecordedData();
-    }
-    if (!keep_capturing) {
-      capturing_ = false;
+    if (capturer_ != nullptr) {
+      // Capture 10ms of audio. 2 bytes per sample.
+      const bool keep_capturing = capturer_->Capture(&recording_buffer_);
+      if (recording_buffer_.size() > 0) {
+        audio_buffer_->SetRecordedBuffer(
+            recording_buffer_.data(),
+            recording_buffer_.size() / capturer_->NumChannels(),
+            absl::make_optional(rtc::TimeNanos()));
+        audio_buffer_->DeliverRecordedData();
+      }
+      if (!keep_capturing) {
+        capturing_ = false;
+      }
     }
   }
   if (rendering_) {

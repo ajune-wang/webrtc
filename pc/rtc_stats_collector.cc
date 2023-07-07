@@ -678,6 +678,23 @@ CreateInboundRTPStreamStatsFromVideoReceiverInfo(
         *video_receiver_info.power_efficient_decoder;
   }
 
+  // Per-frame entries
+  std::string lper_frame_entries;
+  lper_frame_entries.append("[");
+  for (auto&& tuple : video_receiver_info.per_frame_entries) {
+    uint32_t X;
+    double Y, Z;
+    std::tie(X, Y, Z) = tuple;
+    if (lper_frame_entries.size() != 1)
+      lper_frame_entries.append(", ");
+    std::string refStr = "{\"frameNumber\":" + std::to_string(X) +
+                         ", \"decodeTime\":" + std::to_string(Y) +
+                         ",\"assemblyTime\":" + std::to_string(Z) + "}";
+    lper_frame_entries.append(refStr);
+  }
+  lper_frame_entries.append("]");
+  inbound_video->per_frame_entries = lper_frame_entries;
+
   return inbound_video;
 }
 

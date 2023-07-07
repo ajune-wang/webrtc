@@ -3599,6 +3599,9 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   info.total_freezes_duration_ms = stats.total_freezes_duration_ms;
   info.total_pauses_duration_ms = stats.total_pauses_duration_ms;
 
+  // Per-frame entries
+  info.per_frame_entries = stats.per_frame_entries;
+
   info.content_type = stats.content_type;
 
   info.firs_sent = stats.rtcp_packet_type_counts.fir_packets;

@@ -15,6 +15,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -677,6 +678,9 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
   // Timing frame info: all important timestamps for a full lifetime of a
   // single 'timing frame'.
   absl::optional<webrtc::TimingFrameInfo> timing_frame_info;
+
+  // Per-frame entries
+  std::vector<std::tuple<uint32_t, double, double>> per_frame_entries;
 };
 
 struct BandwidthEstimationInfo {

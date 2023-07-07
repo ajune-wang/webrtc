@@ -717,6 +717,17 @@ void ReceiveStatisticsProxy::OnDecodedFrame(
     ++stats_.frames_assembled_from_multiple_packets;
   }
 
+  // Per-frame entries
+  uint32_t frameN = stats_.frames_rendered;
+  double decodeTimeMs = decode_time.ms();
+  double assblyTimeMs = assembly_time.ms();
+
+  if (stats_.per_frame_entries.size() == 128) {
+    stats_.per_frame_entries.erase(stats_.per_frame_entries.begin());
+  }
+  stats_.per_frame_entries.push_back(
+      std::make_tuple(frameN, decodeTimeMs, assblyTimeMs));
+
   last_content_type_ = content_type;
   decode_fps_estimator_.Update(1, frame_meta.decode_timestamp.ms());
 

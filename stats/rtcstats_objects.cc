@@ -359,7 +359,8 @@ WEBRTC_RTCSTATS_IMPL(
     &relative_packet_arrival_delay,
     &interruption_count,
     &total_interruption_duration,
-    &min_playout_delay)
+    &min_playout_delay,
+    &per_frame_entries)
 // clang-format on
 
 RTCInboundRtpStreamStats::RTCInboundRtpStreamStats(std::string id,
@@ -424,7 +425,8 @@ RTCInboundRtpStreamStats::RTCInboundRtpStreamStats(std::string id,
       relative_packet_arrival_delay("relativePacketArrivalDelay"),
       interruption_count("interruptionCount"),
       total_interruption_duration("totalInterruptionDuration"),
-      min_playout_delay("minPlayoutDelay") {}
+      min_playout_delay("minPlayoutDelay"),
+      per_frame_entries("perFrameEntries") {}
 
 RTCInboundRtpStreamStats::RTCInboundRtpStreamStats(
     const RTCInboundRtpStreamStats& other) = default;

@@ -319,6 +319,9 @@ class RTC_EXPORT RTCInboundRtpStreamStats final
   RTCStatsMember<uint32_t> interruption_count;
   RTCStatsMember<double> total_interruption_duration;
   RTCStatsMember<double> min_playout_delay;
+
+  // Per-frame entries
+  RTCStatsMember<std::string> per_frame_entries;
 };
 
 // https://w3c.github.io/webrtc-stats/#outboundrtpstats-dict*

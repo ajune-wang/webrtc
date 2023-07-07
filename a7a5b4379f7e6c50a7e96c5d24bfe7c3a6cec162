@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64de17bb_5b6a72fc",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-07-07T13:30:05Z",
+      "side": 1,
+      "message": "You could use the overload of `ThreadUtils.invokeAtFrontUninterruptibly` that takes a `Callable\u003cV\u003e`, you would return the `EglConnection` from the lambda and get it directly from the method, without `AtomicReference`:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/java/src/org/webrtc/ThreadUtils.java;l\u003d147-150;drc\u003d02334e07c5c04c729dd3a8a279bb1fbe24ee8b7c",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "a7a5b4379f7e6c50a7e96c5d24bfe7c3a6cec162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce6178b_b9c072fc",
+        "filename": "modules/audio_device/test_audio_device_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-07-07T09:38:36Z",
+      "side": 1,
+      "message": "nit: `if (capturing \u0026\u0026 capturer_)`?",
+      "revId": "810767f30aca0362ff45ebd8d6e7976c671f9ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

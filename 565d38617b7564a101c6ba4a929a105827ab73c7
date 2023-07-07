@@ -16,6 +16,23 @@
       "message": "+philipel@ for changes in a/v/video_frame_type.h\n+sprang@ for changes in m/r/s/rtp_sender_video.cc",
       "revId": "565d38617b7564a101c6ba4a929a105827ab73c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede7c955_fee7f3c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2023-07-07T00:24:20Z",
+      "side": 1,
+      "message": "Friendly ping @stefan @sprang to take a look at `rtp_sender_video.cc`.",
+      "revId": "565d38617b7564a101c6ba4a929a105827ab73c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,24 @@
       "parentUuid": "1c0deb42_5552514c",
       "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2682e0_55d12311",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-07-10T18:59:33Z",
+      "side": 1,
+      "message": "I don\u0027t think there will be an error in case we allocated too big buffer. The docs only mention an error when the buffer is too small and overflows, which is what we should probably handle in case we add additional propertied in the future.",
+      "parentUuid": "155b8063_73446319",
+      "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

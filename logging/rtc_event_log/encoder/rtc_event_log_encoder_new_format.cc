@@ -151,6 +151,12 @@ bool ConvertToProtoFormat(const std::vector<RtpExtension>& extensions,
       proto_config->set_video_rotation_id(extension.id);
     } else if (extension.uri == RtpExtension::kDependencyDescriptorUri) {
       proto_config->set_dependency_descriptor_id(extension.id);
+    } else if (extension.uri == RtpExtension::kMidUri) {
+      proto_config->set_mid_id(extension.id);
+    } else if (extension.uri == RtpExtension::kRidUri) {
+      proto_config->set_rid_id(extension.id);
+    } else if (extension.uri == RtpExtension::kRepairedRidUri) {
+      proto_config->set_rrid_id(extension.id);
     } else {
       ++unknown_extensions;
     }
@@ -481,6 +487,22 @@ void EncodeRtpPacket(const std::vector<const EventType*>& batch,
           *proto_batch->mutable_dependency_descriptor() = *dd_encoded;
         }
       }
+    }
+  }
+
+  {
+    std::string rtp_id;
+    if (base_event->template GetExtension<RtpMid>(&rtp_id)) {
+      RTC_DCHECK_LE(rtp_id.size(), /*kMidMaxSize=*/16);
+      proto_batch->set_mid(rtp_id.data(), rtp_id.size());
+    }
+    if (base_event->template GetExtension<RtpStreamId>(&rtp_id)) {
+      RTC_DCHECK_LE(rtp_id.size(), /*kMidMaxSize=*/16);
+      proto_batch->set_rid(rtp_id.data(), rtp_id.size());
+    }
+    if (base_event->template GetExtension<RepairedRtpStreamId>(&rtp_id)) {
+      RTC_DCHECK_LE(rtp_id.size(), /*kMidMaxSize=*/16);
+      proto_batch->set_rrid(rtp_id.data(), rtp_id.size());
     }
   }
 

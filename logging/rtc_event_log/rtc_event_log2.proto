@@ -172,6 +172,10 @@ message IncomingRtpPackets {
   // Encodes all DD information in the batch, not just the base event.
   optional DependencyDescriptorsWireInfo dependency_descriptor = 21;
   // TODO(terelius): Add other header extensions like playout delay?
+  // MID, RID and RRID extensions.
+  optional bytes mid = 22;
+  optional bytes rid = 23;
+  optional bytes rrid = 24;
 
   // Delta encodings.
   optional bytes timestamp_ms_deltas = 101;
@@ -192,6 +196,10 @@ message IncomingRtpPackets {
   // `audio_level` and `voice_activity` are always used in conjunction.
   optional bytes audio_level_deltas = 119;
   optional bytes voice_activity_deltas = 120;
+  // Field number 121 reserved for dependency descriptor.
+  optional bytes mid_deltas = 122;
+  optional bytes rid_deltas = 123;
+  optional bytes rrid_deltas = 124;
 }
 
 message OutgoingRtpPackets {
@@ -242,6 +250,10 @@ message OutgoingRtpPackets {
   // TODO(terelius): Add other header extensions like playout delay?
   // Encodes all DD information in the batch, not just the base event.
   optional DependencyDescriptorsWireInfo dependency_descriptor = 21;
+  // MID, RID and RRID extensions.
+  optional bytes mid = 22;
+  optional bytes rid = 23;
+  optional bytes rrid = 24;
 
   // Delta encodings.
   optional bytes timestamp_ms_deltas = 101;
@@ -262,6 +274,10 @@ message OutgoingRtpPackets {
   // `audio_level` and `voice_activity` are always used in conjunction.
   optional bytes audio_level_deltas = 119;
   optional bytes voice_activity_deltas = 120;
+  // Field number 121 reserved for dependency descriptor.
+  optional bytes mid_deltas = 122;
+  optional bytes rid_deltas = 123;
+  optional bytes rrid_deltas = 124;
 }
 
 message IncomingRtcpPackets {
@@ -454,6 +470,9 @@ message RtpHeaderExtensionConfig {
   optional int32 video_rotation_id = 4;
   optional int32 audio_level_id = 5;
   optional int32 dependency_descriptor_id = 6;
+  optional int32 mid_id = 7;
+  optional int32 rid_id = 8;
+  optional int32 rrid_id = 9;
   // TODO(terelius): Add other header extensions like playout delay?
 }
 

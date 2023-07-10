@@ -360,6 +360,22 @@ ParsedRtcEventLog::ParseStatus StoreRtpPackets(
     } else {
       RTC_PARSE_CHECK_OR_RETURN(!proto.has_voice_activity());
     }
+    if (proto.has_mid()) {
+      header.extension.mid = proto.mid();
+      RTC_PARSE_CHECK_OR_RETURN_LE(header.extension.mid.size(),
+                                   /*kMidMaxSize=*/16);
+    }
+    if (proto.has_rid()) {
+      header.extension.stream_id = proto.rid();
+      RTC_PARSE_CHECK_OR_RETURN_LE(header.extension.stream_id.size(),
+                                   /*kMidMaxSize=*/16);
+    }
+    if (proto.has_rrid()) {
+      header.extension.repaired_stream_id = proto.rrid();
+      RTC_PARSE_CHECK_OR_RETURN_LE(header.extension.repaired_stream_id.size(),
+                                   /*kMidMaxSize=*/16);
+    }
+
     LoggedType logged_packet(
         Timestamp::Millis(proto.timestamp_ms()), header, proto.header_size(),
         proto.payload_size() + header.headerLength + header.paddingLength);
@@ -565,6 +581,16 @@ ParsedRtcEventLog::ParseStatus StoreRtpPackets(
       RTC_PARSE_CHECK_OR_RETURN(voice_activity_values.size() <= i ||
                                 !voice_activity_values[i].has_value());
     }
+    if (proto.has_mid()) {
+      header.extension.mid = proto.mid();
+    }
+    if (proto.has_rid()) {
+      header.extension.stream_id = proto.rid();
+    }
+    if (proto.has_rrid()) {
+      header.extension.repaired_stream_id = proto.rrid();
+    }
+
     LoggedType logged_packet(Timestamp::Millis(timestamp_ms), header,
                              header.headerLength,
                              payload_size_values[i].value() +
@@ -918,6 +944,18 @@ std::vector<RtpExtension> GetRuntimeRtpHeaderExtensionConfig(
     rtp_extensions.emplace_back(
         RtpExtension::kDependencyDescriptorUri,
         proto_header_extensions.dependency_descriptor_id());
+  }
+  if (proto_header_extensions.has_mid_id()) {
+    rtp_extensions.emplace_back(RtpExtension::kMidUri,
+                                proto_header_extensions.mid_id());
+  }
+  if (proto_header_extensions.has_rid_id()) {
+    rtp_extensions.emplace_back(RtpExtension::kRidUri,
+                                proto_header_extensions.rid_id());
+  }
+  if (proto_header_extensions.has_rrid_id()) {
+    rtp_extensions.emplace_back(RtpExtension::kRepairedRidUri,
+                                proto_header_extensions.rrid_id());
   }
   return rtp_extensions;
 }

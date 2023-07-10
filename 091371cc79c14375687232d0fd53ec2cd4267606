@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e653b091_8094a172",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-10T12:01:42Z",
+      "side": 1,
+      "message": "The getStats() API is the wrong place for per-frame metrics due to the performance overhead of calling getStats() often.\n\nWe also strive not to add non-standard metrics, i.e. metrics that are not defined in https://w3c.github.io/webrtc-stats/, a W3C document that is edited via github issues and PRs: https://github.com/w3c/webrtc-stats/issues\n\nWhere best to expose information like this depends on use case I think, if it should be close to the decoder impl or a higher level API.",
+      "revId": "091371cc79c14375687232d0fd53ec2cd4267606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

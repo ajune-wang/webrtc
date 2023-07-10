@@ -18,6 +18,7 @@
 #include "modules/rtp_rtcp/source/frame_object.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/thread.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
@@ -40,7 +41,8 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
       RtpVideoFrameReceiver* receiver,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
       rtc::Thread* network_thread,
-      uint32_t ssrc);
+      uint32_t ssrc,
+      Clock* clock);
 
   void Init();
   void Reset();
@@ -67,6 +69,7 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
       RTC_GUARDED_BY(network_sequence_checker_);
   rtc::Thread* const network_thread_;
   const uint32_t ssrc_;
+  Clock* const clock_;
 };
 
 }  // namespace webrtc

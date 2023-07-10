@@ -381,6 +381,7 @@ void PipeWireSession::Finish(VideoCaptureOptions::Status status) {
 }
 
 void PipeWireSession::Cleanup() {
+  callback_ = nullptr;
   StopPipeWire();
 }
 

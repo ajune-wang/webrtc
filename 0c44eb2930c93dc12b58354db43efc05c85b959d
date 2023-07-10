@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f23c50de_7de1e049",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2023-07-10T18:59:53Z",
+      "side": 1,
+      "message": "lgtm, but I don\u0027t own any of these files.",
+      "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

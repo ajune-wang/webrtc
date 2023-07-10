@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73e00064_cb283f0c",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-10T16:25:49Z",
+      "side": 1,
+      "message": "This order of the parameters looks strange.\nMay be add clock as 1st or 2nd parameter. 3rd looks reasonable too,\n\nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n“do not add new parameters to the end of the function just because they are new”",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 18
+      },
+      "revId": "d032c444ad2cdc53e24522eb41fea72f96a81699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -382,6 +382,17 @@ bool Convert(std::string inputfile,
       fprintf(output, " transport_seq_no=%u",
               event.rtp.header.extension.transportSequenceNumber);
     }
+    if (!event.rtp.header.extension.mid.empty()) {
+      fprintf(output, " mid='%s'", event.rtp.header.extension.mid.c_str());
+    }
+    if (!event.rtp.header.extension.stream_id.empty()) {
+      fprintf(output, " rid='%s'",
+              event.rtp.header.extension.stream_id.c_str());
+    }
+    if (!event.rtp.header.extension.repaired_stream_id.empty()) {
+      fprintf(output, " rrid='%s'",
+              event.rtp.header.extension.repaired_stream_id.c_str());
+    }
     fprintf(output, " header_length=%zu", event.rtp.header_length);
     fprintf(output, " padding_length=%zu", event.rtp.header.paddingLength);
     fprintf(output, " total_length=%zu", event.rtp.total_length);

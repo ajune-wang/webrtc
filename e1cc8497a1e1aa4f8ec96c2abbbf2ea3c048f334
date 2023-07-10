@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd935c3_1b3fb55f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-10T11:58:40Z",
+      "side": 1,
+      "message": "You don\u0027t even want to know what kind of issues I am looking at to want this :-)\n\n(also ugh, naming inconsistency for the timestamp getter and both return a int64_t instead of a Timestamp...)",
+      "revId": "e1cc8497a1e1aa4f8ec96c2abbbf2ea3c048f334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

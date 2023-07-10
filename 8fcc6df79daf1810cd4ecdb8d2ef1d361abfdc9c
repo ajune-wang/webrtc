@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c0deb42_5552514c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20789
+      },
+      "writtenOn": "2023-07-10T17:36:12Z",
+      "side": 1,
+      "message": "Do these numbers have to be hardcoded?",
+      "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

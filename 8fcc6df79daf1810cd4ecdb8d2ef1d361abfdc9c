@@ -16,6 +16,24 @@
       "message": "Do these numbers have to be hardcoded?",
       "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "155b8063_73446319",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-07-10T18:38:10Z",
+      "side": 1,
+      "message": "Looking at the section \"Constructing A POD\" from https://docs.pipewire.org/page_spa_pod.html It seems like it should be possible to calculate or to dynamically increase this number if needed. Doing something like setting a reasonable default (maybe based on a calculation) and adding auto-scale logic should also be doable; though not sure of the performance trade-off there.\n\nAt the very least it does seem like as a followup maybe we should look at listening for the error that we\u0027ve used too much space and the creation will fail?",
+      "parentUuid": "1c0deb42_5552514c",
+      "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

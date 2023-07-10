@@ -16,6 +16,41 @@
       "message": "lgtm, but I don\u0027t own any of these files.",
       "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a40b9a_49fad8f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-07-10T19:37:06Z",
+      "side": 1,
+      "message": "Thanks! Just wanted to get an in-team reviewer with context first, as my usual go-to OWNERS are OOO.",
+      "parentUuid": "f23c50de_7de1e049",
+      "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d87ab2_89d580a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-07-10T19:37:06Z",
+      "side": 1,
+      "message": "+Erik for OWNERs approval, as hta and holmer are out. Thanks!",
+      "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

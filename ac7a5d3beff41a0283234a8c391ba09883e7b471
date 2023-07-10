@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5dfd2b3_36f5e563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-07-10T17:30:27Z",
+      "side": 1,
+      "message": "Michael, you know this code better than me, do you think my assumption is correct? \n\nWe have a crash in Firefox related to this:\nhttps://crash-stats.mozilla.org/report/index/268a518f-7b52-4701-9a2e-712420230618",
+      "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

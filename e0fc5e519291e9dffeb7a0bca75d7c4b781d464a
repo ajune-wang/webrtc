@@ -16,6 +16,24 @@
       "message": "(please, do not remove me from CC. I\u0027m auto added to CC because I want to track everything that is going on in modules/rtp_rtcp)",
       "revId": "e0fc5e519291e9dffeb7a0bca75d7c4b781d464a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e67c143_2e510c09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-07-10T16:48:20Z",
+      "side": 1,
+      "message": "Not sure why you weren\u0027t tbh - I didn\u0027t (intentionally :)) modify the CCs.\n\n\nOoh, possibly it was while I was testing adding/removing reviewers to see who could cover OWNERS of both directories and was still working? Adding as a reviewer in the dialog removes that person from CC, then removing from reviewers doesn\u0027t re-add the CC. Sorry about that!",
+      "parentUuid": "a642667c_2d30783d",
+      "revId": "e0fc5e519291e9dffeb7a0bca75d7c4b781d464a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "d032c444ad2cdc53e24522eb41fea72f96a81699",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3db8304_caf0ce12",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-07-10T16:48:20Z",
+      "side": 1,
+      "message": "Done.\nAny particular reason that earlier looks better? These are all input-only parameters (as you\u0027d hope on a constructor!), and that\u0027s all that is mentioned in the style guide.",
+      "parentUuid": "73e00064_cb283f0c",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 18
+      },
+      "revId": "d032c444ad2cdc53e24522eb41fea72f96a81699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "d032c444ad2cdc53e24522eb41fea72f96a81699",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ab575c2_e8c2981b",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-11T08:04:17Z",
+      "side": 1,
+      "message": "yes, style guide stress just input vs output parameters for regular function.\nFor the constructor it is not trivial to see if the clock is considered to be input or input/output parameter. Probably input, but that wasn\u0027t my point.\n\nMy point was that it is better to have some logical order of the parameters, instead of adding new parameters as the last.\n\ne.g. all dependencies first, configuration later.\nThere is also some guidance (can\u0027t find it) to put \u0027more constant parameters earlier, parameters that changes more often later\u0027 - clock is the same for different objects of this class, but ssrc is more variable.",
+      "parentUuid": "e3db8304_caf0ce12",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 18
+      },
+      "revId": "d032c444ad2cdc53e24522eb41fea72f96a81699",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

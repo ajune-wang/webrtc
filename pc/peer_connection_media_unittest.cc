@@ -41,6 +41,7 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "media/base/codec.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_channel.h"
@@ -57,7 +58,6 @@
 #include "pc/rtp_media_utils.h"
 #include "pc/rtp_transceiver.h"
 #include "pc/session_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
@@ -186,7 +186,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
         rtc::Thread::Current(),
         std::make_unique<rtc::BasicPacketSocketFactory>(vss_.get()),
         &field_trials_);
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     auto modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
     PeerConnectionDependencies pc_dependencies(observer.get());

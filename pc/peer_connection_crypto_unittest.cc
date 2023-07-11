@@ -28,6 +28,7 @@
 #include "api/jsep.h"
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
 #include "api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h"
@@ -49,7 +50,6 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/sdp_utils.h"
 #include "pc/session_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/rtc_certificate_generator.h"
@@ -113,7 +113,7 @@ class PeerConnectionCryptoBaseTest : public ::testing::Test {
         rtc::Thread::Current(),
         std::make_unique<rtc::BasicPacketSocketFactory>(vss_.get()),
         &field_trials_);
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
     PeerConnectionDependencies pc_dependencies(observer.get());
@@ -671,11 +671,11 @@ TEST_P(PeerConnectionCryptoDtlsCertGenTest, TestCertificateGeneration) {
     ASSERT_EQ(fake_certificate_generator->generated_certificates(), 0);
     fake_certificate_generator->set_should_wait(false);
   }
-  std::vector<rtc::scoped_refptr<MockCreateSessionDescriptionObserver>>
+  std::vector<rtc::scoped_refptr<FakeCreateSessionDescriptionObserver>>
       observers;
   for (size_t i = 0; i < concurrent_calls_; i++) {
-    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+    rtc::scoped_refptr<FakeCreateSessionDescriptionObserver> observer =
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     observers.push_back(observer);
     if (sdp_type_ == SdpType::kOffer) {
       pc->pc()->CreateOffer(observer.get(),

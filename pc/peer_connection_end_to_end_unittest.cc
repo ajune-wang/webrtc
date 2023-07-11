@@ -52,8 +52,8 @@
 #include "pc/test/android_test_initializer.h"
 #endif
 #include "pc/test/peer_connection_test_wrapper.h"
-// Notice that mockpeerconnectionobservers.h must be included after the above!
-#include "pc/test/mock_peer_connection_observers.h"
+// Notice that FakePeerConnectionObservers.h must be included after the above!
+#include "api/test/fake_peer_connection_observers.h"
 #include "test/mock_audio_decoder.h"
 #include "test/mock_audio_decoder_factory.h"
 #include "test/mock_audio_encoder_factory.h"
@@ -164,11 +164,11 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
   void TestDataChannelSendAndReceive(DataChannelInterface* dc1,
                                      DataChannelInterface* dc2,
                                      size_t size = 6) {
-    std::unique_ptr<webrtc::MockDataChannelObserver> dc1_observer(
-        new webrtc::MockDataChannelObserver(dc1));
+    std::unique_ptr<webrtc::FakeDataChannelObserver> dc1_observer(
+        new webrtc::FakeDataChannelObserver(dc1));
 
-    std::unique_ptr<webrtc::MockDataChannelObserver> dc2_observer(
-        new webrtc::MockDataChannelObserver(dc2));
+    std::unique_ptr<webrtc::FakeDataChannelObserver> dc2_observer(
+        new webrtc::FakeDataChannelObserver(dc2));
 
     static const std::string kDummyData =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -637,12 +637,12 @@ TEST_P(PeerConnectionEndToEndTest,
   WaitForDataChannelsToOpen(caller_dc_2.get(), callee_signaled_data_channels_,
                             1);
 
-  std::unique_ptr<webrtc::MockDataChannelObserver> dc_1_observer(
-      new webrtc::MockDataChannelObserver(
+  std::unique_ptr<webrtc::FakeDataChannelObserver> dc_1_observer(
+      new webrtc::FakeDataChannelObserver(
           callee_signaled_data_channels_[0].get()));
 
-  std::unique_ptr<webrtc::MockDataChannelObserver> dc_2_observer(
-      new webrtc::MockDataChannelObserver(
+  std::unique_ptr<webrtc::FakeDataChannelObserver> dc_2_observer(
+      new webrtc::FakeDataChannelObserver(
           callee_signaled_data_channels_[1].get()));
 
   const std::string message_1 = "hello 1";

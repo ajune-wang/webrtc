@@ -23,6 +23,7 @@
 #include "api/sctp_transport_interface.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
@@ -35,7 +36,6 @@
 #include "pc/sctp_transport.h"
 #include "pc/sdp_utils.h"
 #include "pc/session_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rtc_certificate_generator.h"
@@ -135,7 +135,7 @@ class PeerConnectionDataChannelBaseTest : public ::testing::Test {
     rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory =
         CreateModularPeerConnectionFactory(std::move(factory_deps));
     pc_factory->SetOptions(factory_options);
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
     auto result = pc_factory->CreatePeerConnectionOrError(

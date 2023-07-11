@@ -21,6 +21,7 @@
 #include "api/audio/audio_mixer.h"
 #include "api/create_peerconnection_factory.h"
 #include "api/sequence_checker.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
@@ -40,7 +41,6 @@
 #include "p2p/base/port_allocator.h"
 #include "pc/test/fake_periodic_video_source.h"
 #include "pc/test/fake_rtc_certificate_generator.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rtc_certificate_generator.h"
@@ -48,11 +48,11 @@
 #include "rtc_base/time_utils.h"
 #include "test/gtest.h"
 
+using webrtc::FakeSetSessionDescriptionObserver;
 using webrtc::FakeVideoTrackRenderer;
 using webrtc::IceCandidateInterface;
 using webrtc::MediaStreamInterface;
 using webrtc::MediaStreamTrackInterface;
-using webrtc::MockSetSessionDescriptionObserver;
 using webrtc::PeerConnectionInterface;
 using webrtc::RtpReceiverInterface;
 using webrtc::SdpType;
@@ -281,7 +281,7 @@ void PeerConnectionTestWrapper::SetLocalDescription(SdpType type,
                    << ": SetLocalDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   peer_connection_->SetLocalDescription(
       observer.get(), webrtc::CreateSessionDescription(type, sdp).release());
 }
@@ -292,7 +292,7 @@ void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
                    << ": SetRemoteDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   peer_connection_->SetRemoteDescription(
       observer.get(), webrtc::CreateSessionDescription(type, sdp).release());
 }

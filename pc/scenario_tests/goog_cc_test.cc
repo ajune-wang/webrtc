@@ -10,7 +10,7 @@
 
 #include "api/stats/rtc_stats_collector_callback.h"
 #include "api/stats/rtcstats_objects.h"
-#include "pc/test/mock_peer_connection_observers.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/peer_scenario/peer_scenario.h"
@@ -74,7 +74,7 @@ TEST(GoogCcPeerScenarioTest, MAYBE_NoBweChangeFromVideoUnmute) {
 
   auto get_bwe = [&] {
     auto callback =
-        rtc::make_ref_counted<webrtc::MockRTCStatsCollectorCallback>();
+        rtc::make_ref_counted<webrtc::FakeRTCStatsCollectorCallback>();
     caller->pc()->GetStats(callback.get());
     s.net()->time_controller()->Wait([&] { return callback->called(); });
     auto stats =

@@ -16,6 +16,7 @@
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/transport/field_trial_based_config.h"
 #include "call/simulated_network.h"
 #include "media/engine/webrtc_media_engine.h"
@@ -24,7 +25,6 @@
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/client/basic_port_allocator.h"
 #include "pc/peer_connection_wrapper.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/gmock.h"
@@ -140,13 +140,13 @@ TEST(NetworkEmulationManagerPCTest, Run) {
   // Setup peer connections.
   rtc::scoped_refptr<PeerConnectionFactoryInterface> alice_pcf;
   rtc::scoped_refptr<PeerConnectionInterface> alice_pc;
-  std::unique_ptr<MockPeerConnectionObserver> alice_observer =
-      std::make_unique<MockPeerConnectionObserver>();
+  std::unique_ptr<FakePeerConnectionObserver> alice_observer =
+      std::make_unique<FakePeerConnectionObserver>();
 
   rtc::scoped_refptr<PeerConnectionFactoryInterface> bob_pcf;
   rtc::scoped_refptr<PeerConnectionInterface> bob_pc;
-  std::unique_ptr<MockPeerConnectionObserver> bob_observer =
-      std::make_unique<MockPeerConnectionObserver>();
+  std::unique_ptr<FakePeerConnectionObserver> bob_observer =
+      std::make_unique<FakePeerConnectionObserver>();
 
   SendTask(signaling_thread.get(), [&]() {
     alice_pcf = CreatePeerConnectionFactory(signaling_thread.get(),
@@ -251,13 +251,13 @@ TEST(NetworkEmulationManagerPCTest, RunTURN) {
   // Setup peer connections.
   rtc::scoped_refptr<PeerConnectionFactoryInterface> alice_pcf;
   rtc::scoped_refptr<PeerConnectionInterface> alice_pc;
-  std::unique_ptr<MockPeerConnectionObserver> alice_observer =
-      std::make_unique<MockPeerConnectionObserver>();
+  std::unique_ptr<FakePeerConnectionObserver> alice_observer =
+      std::make_unique<FakePeerConnectionObserver>();
 
   rtc::scoped_refptr<PeerConnectionFactoryInterface> bob_pcf;
   rtc::scoped_refptr<PeerConnectionInterface> bob_pc;
-  std::unique_ptr<MockPeerConnectionObserver> bob_observer =
-      std::make_unique<MockPeerConnectionObserver>();
+  std::unique_ptr<FakePeerConnectionObserver> bob_observer =
+      std::make_unique<FakePeerConnectionObserver>();
 
   SendTask(signaling_thread.get(), [&]() {
     alice_pcf = CreatePeerConnectionFactory(signaling_thread.get(),

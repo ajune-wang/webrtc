@@ -35,6 +35,7 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "media/base/media_engine.h"
@@ -50,7 +51,6 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/sdp_utils.h"
 #include "pc/session_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
@@ -116,7 +116,7 @@ class PeerConnectionJsepTest : public ::testing::Test {
     rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory =
         CreateModularPeerConnectionFactory(
             CreatePeerConnectionFactoryDependencies());
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     auto result = pc_factory->CreatePeerConnectionOrError(
         config, PeerConnectionDependencies(observer.get()));
     if (!result.ok()) {

@@ -29,13 +29,13 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/port_allocator.h"
 #include "pc/peer_connection_wrapper.h"
 #include "pc/session_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/internal/default_socket_server.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/strings/string_builder.h"
@@ -103,7 +103,7 @@ class PeerConnectionHeaderExtensionTest
         rtc::Thread::Current(),
         std::make_unique<rtc::BasicPacketSocketFactory>(socket_server_.get()),
         &field_trials_);
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     PeerConnectionInterface::RTCConfiguration config;
     if (semantics)
       config.sdp_semantics = *semantics;

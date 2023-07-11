@@ -39,6 +39,7 @@
 #include "api/scoped_refptr.h"
 #include "api/set_local_description_observer_interface.h"
 #include "api/set_remote_description_observer_interface.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
 #include "api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h"
@@ -58,7 +59,6 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/sdp_utils.h"
 #include "pc/session_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/rtc_certificate_generator.h"
@@ -156,7 +156,7 @@ class PeerConnectionSignalingBaseTest : public ::testing::Test {
   }
 
   WrapperPtr CreatePeerConnection(const RTCConfiguration& config) {
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
     auto result = pc_factory_->CreatePeerConnectionOrError(
@@ -580,9 +580,9 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
   options.offer_to_receive_audio =
       RTCOfferAnswerOptions::kOfferToReceiveMediaTrue;
 
-  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observers[100];
+  rtc::scoped_refptr<FakeCreateSessionDescriptionObserver> observers[100];
   for (auto& observer : observers) {
-    observer = rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+    observer = rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     caller->pc()->CreateOffer(observer.get(), options);
   }
 
@@ -603,7 +603,7 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
 // the WebRtcSessionDescriptionFactory is responsible for it.
 TEST_P(PeerConnectionSignalingTest, CloseCreateOfferAndShutdown) {
   auto caller = CreatePeerConnection();
-  auto observer = rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
   caller->pc()->Close();
   caller->pc()->CreateOffer(observer.get(), RTCOfferAnswerOptions());
   caller.reset(nullptr);
@@ -613,7 +613,7 @@ TEST_P(PeerConnectionSignalingTest, CloseCreateOfferAndShutdown) {
 TEST_P(PeerConnectionSignalingTest,
        ImplicitCreateOfferAndShutdownWithOldObserver) {
   auto caller = CreatePeerConnection();
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetLocalDescription(observer.get());
   caller.reset(nullptr);
   // The old observer does not get invoked because posted messages are lost.
@@ -633,7 +633,7 @@ TEST_P(PeerConnectionSignalingTest, ImplicitCreateOfferAndShutdown) {
 TEST_P(PeerConnectionSignalingTest,
        CloseBeforeImplicitCreateOfferAndShutdownWithOldObserver) {
   auto caller = CreatePeerConnection();
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->Close();
   caller->pc()->SetLocalDescription(observer.get());
   caller.reset(nullptr);
@@ -655,7 +655,7 @@ TEST_P(PeerConnectionSignalingTest, CloseBeforeImplicitCreateOfferAndShutdown) {
 TEST_P(PeerConnectionSignalingTest,
        CloseAfterImplicitCreateOfferAndShutdownWithOldObserver) {
   auto caller = CreatePeerConnection();
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetLocalDescription(observer.get());
   caller->pc()->Close();
   caller.reset(nullptr);
@@ -691,7 +691,7 @@ TEST_P(PeerConnectionSignalingTest,
   auto caller = CreatePeerConnection();
   auto offer = caller->CreateOffer(RTCOfferAnswerOptions());
 
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetLocalDescription(observer.get(), offer.release());
   // The old observer is not invoked immediately.
   EXPECT_FALSE(observer->called());
@@ -728,7 +728,7 @@ TEST_P(PeerConnectionSignalingTest, CreateOfferBlocksSetRemoteDescription) {
 
   EXPECT_EQ(0u, callee->pc()->GetReceivers().size());
   auto offer_observer =
-      rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+      rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
   // Synchronously invoke CreateOffer() and SetRemoteDescription(). The
   // SetRemoteDescription() operation should be chained to be executed
   // asynchronously, when CreateOffer() completes.
@@ -753,7 +753,7 @@ TEST_P(PeerConnectionSignalingTest,
        ParameterlessSetLocalDescriptionCreatesOffer) {
   auto caller = CreatePeerConnectionWithAudioVideo();
 
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetLocalDescription(observer.get());
 
   // The offer is created asynchronously; message processing is needed for it to
@@ -779,7 +779,7 @@ TEST_P(PeerConnectionSignalingTest,
   callee->SetRemoteDescription(caller->CreateOffer());
   EXPECT_EQ(PeerConnection::kHaveRemoteOffer, callee->signaling_state());
 
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   callee->pc()->SetLocalDescription(observer.get());
 
   // The answer is created asynchronously; message processing is needed for it
@@ -803,7 +803,7 @@ TEST_P(PeerConnectionSignalingTest,
 
   // SetLocalDescription(), implicitly creating an offer.
   auto caller_set_local_description_observer =
-      MockSetSessionDescriptionObserver::Create();
+      FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetLocalDescription(
       caller_set_local_description_observer.get());
   EXPECT_TRUE_WAIT(caller_set_local_description_observer->called(),
@@ -812,7 +812,7 @@ TEST_P(PeerConnectionSignalingTest,
 
   // SetRemoteDescription(offer)
   auto callee_set_remote_description_observer =
-      MockSetSessionDescriptionObserver::Create();
+      FakeSetSessionDescriptionObserver::Create();
   callee->pc()->SetRemoteDescription(
       callee_set_remote_description_observer.get(),
       CloneSessionDescription(caller->pc()->pending_local_description())
@@ -820,7 +820,7 @@ TEST_P(PeerConnectionSignalingTest,
 
   // SetLocalDescription(), implicitly creating an answer.
   auto callee_set_local_description_observer =
-      MockSetSessionDescriptionObserver::Create();
+      FakeSetSessionDescriptionObserver::Create();
   callee->pc()->SetLocalDescription(
       callee_set_local_description_observer.get());
   EXPECT_TRUE_WAIT(callee_set_local_description_observer->called(),
@@ -832,7 +832,7 @@ TEST_P(PeerConnectionSignalingTest,
 
   // SetRemoteDescription(answer)
   auto caller_set_remote_description_observer =
-      MockSetSessionDescriptionObserver::Create();
+      FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetRemoteDescription(
       caller_set_remote_description_observer.get(),
       CloneSessionDescription(callee->pc()->current_local_description())
@@ -848,7 +848,7 @@ TEST_P(PeerConnectionSignalingTest,
        ParameterlessSetLocalDescriptionCloseBeforeCreatingOffer) {
   auto caller = CreatePeerConnectionWithAudioVideo();
 
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->Close();
   caller->pc()->SetLocalDescription(observer.get());
 
@@ -868,7 +868,7 @@ TEST_P(PeerConnectionSignalingTest,
        ParameterlessSetLocalDescriptionCloseWhileCreatingOffer) {
   auto caller = CreatePeerConnectionWithAudioVideo();
 
-  auto observer = MockSetSessionDescriptionObserver::Create();
+  auto observer = FakeSetSessionDescriptionObserver::Create();
   caller->pc()->SetLocalDescription(observer.get());
   caller->pc()->Close();
 
@@ -1138,7 +1138,7 @@ TEST_F(PeerConnectionSignalingUnifiedPlanTest,
   // waiting for it would not ensure synchronicity.
   RTC_DCHECK(!caller->pc()->GetTransceivers()[0]->mid().has_value());
   caller->pc()->SetLocalDescription(
-      rtc::make_ref_counted<MockSetSessionDescriptionObserver>().get(),
+      rtc::make_ref_counted<FakeSetSessionDescriptionObserver>().get(),
       offer.release());
   EXPECT_TRUE(caller->pc()->GetTransceivers()[0]->mid().has_value());
 }
@@ -1174,7 +1174,7 @@ TEST_F(PeerConnectionSignalingUnifiedPlanTest,
             // operation executed immediately.
             RTC_DCHECK(!pc->GetTransceivers()[0]->mid().has_value());
             pc->SetLocalDescription(
-                rtc::make_ref_counted<MockSetSessionDescriptionObserver>()
+                rtc::make_ref_counted<FakeSetSessionDescriptionObserver>()
                     .get(),
                 desc);
             EXPECT_TRUE(pc->GetTransceivers()[0]->mid().has_value());
@@ -1265,7 +1265,7 @@ TEST_F(PeerConnectionSignalingUnifiedPlanTest,
       caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO, RtpTransceiverInit());
   EXPECT_TRUE(caller->observer()->has_negotiation_needed_event());
 
-  auto observer = rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
   caller->pc()->CreateOffer(observer.get(), RTCOfferAnswerOptions());
   // For this test to work, the operation has to be pending, i.e. the observer
   // has not yet been invoked.

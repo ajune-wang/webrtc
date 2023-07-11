@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb838de_32aaab76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-07-11T16:22:50Z",
+      "side": 1,
+      "message": "Mostly LGTM, looks like Presubmit wants a bug.",
+      "revId": "4a37ac5d69bfbc14b1a1c920db5dd2ee52fb7a63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d60068e_5f86f3e7",
+        "filename": "modules/desktop_capture/desktop_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-07-11T16:22:50Z",
+      "side": 1,
+      "message": "I think we should just put the logic from this into CreateGenericCapturer for now, the CreateRaw* Pattern is I believe largely intended to be such that we\u0027d implement that only in the platform-specific location.",
+      "range": {
+        "startLine": 121,
+        "startChar": 50,
+        "endLine": 121,
+        "endChar": 74
+      },
+      "revId": "4a37ac5d69bfbc14b1a1c920db5dd2ee52fb7a63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

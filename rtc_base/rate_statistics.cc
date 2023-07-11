@@ -29,7 +29,10 @@ RateStatistics::RateStatistics(int64_t window_size_ms, float scale)
       num_samples_(0),
       scale_(scale),
       max_window_size_ms_(window_size_ms),
-      current_window_size_ms_(max_window_size_ms_) {}
+      current_window_size_ms_(max_window_size_ms_) {
+  RTC_LOG(LS_ERROR) << "max_window_size_ms_: " << max_window_size_ms_
+                    << ", current_window_size_ms_: " << current_window_size_ms_;
+}
 
 RateStatistics::RateStatistics(const RateStatistics& other)
     : buckets_(other.buckets_),
@@ -39,7 +42,10 @@ RateStatistics::RateStatistics(const RateStatistics& other)
       num_samples_(other.num_samples_),
       scale_(other.scale_),
       max_window_size_ms_(other.max_window_size_ms_),
-      current_window_size_ms_(other.current_window_size_ms_) {}
+      current_window_size_ms_(other.current_window_size_ms_) {
+  RTC_LOG(LS_ERROR) << "RateStatistics: other first_timestamp_: "
+                    << first_timestamp_;
+}
 
 RateStatistics::RateStatistics(RateStatistics&& other) = default;
 
@@ -60,14 +66,16 @@ void RateStatistics::Update(int64_t count, int64_t now_ms) {
   EraseOld(now_ms);
   if (first_timestamp_ == -1 || num_samples_ == 0) {
     first_timestamp_ = now_ms;
+    RTC_LOG(LS_ERROR) << "RateStatistics::Update: first_timestamp_: "
+                      << first_timestamp_;
   }
 
   if (buckets_.empty() || now_ms != buckets_.back().timestamp) {
     if (!buckets_.empty() && now_ms < buckets_.back().timestamp) {
-      RTC_LOG(LS_WARNING) << "Timestamp " << now_ms
-                          << " is before the last added "
-                             "timestamp in the rate window: "
-                          << buckets_.back().timestamp << ", aligning to that.";
+      RTC_LOG(LS_ERROR) << "Timestamp " << now_ms
+                        << " is before the last added "
+                           "timestamp in the rate window: "
+                        << buckets_.back().timestamp << ", aligning to that.";
       now_ms = buckets_.back().timestamp;
     }
     buckets_.emplace_back(now_ms);
@@ -95,10 +103,15 @@ absl::optional<int64_t> RateStatistics::Rate(int64_t now_ms) const {
       // Count window as full even if no data points currently in view, if the
       // data stream started before the window.
       active_window_size = current_window_size_ms_;
+      RTC_LOG(LS_ERROR) << "RateStatistics::Rate_ active_window_size:"
+                        << active_window_size;
     } else {
       // Size of a single bucket is 1ms, so even if now_ms == first_timestmap_
       // the window size should be 1.
       active_window_size = now_ms - first_timestamp_ + 1;
+      RTC_LOG(LS_ERROR) << "RateStatistics::Rate first_timestamp_: "
+                        << first_timestamp_
+                        << ", active_window_size:" << active_window_size;
     }
   }
 
@@ -109,6 +122,7 @@ absl::optional<int64_t> RateStatistics::Rate(int64_t now_ms) const {
       (num_samples_ <= 1 &&
        rtc::SafeLt(active_window_size, current_window_size_ms_)) ||
       overflow_) {
+    RTC_LOG(LS_ERROR) << "RateStatistics::Rate unavailable";
     return absl::nullopt;
   }
 
@@ -149,6 +163,9 @@ bool RateStatistics::SetWindowSize(int64_t window_size_ms, int64_t now_ms) {
     // under-estimating the rate.
     first_timestamp_ = std::max(first_timestamp_, now_ms - window_size_ms + 1);
   }
+
+  RTC_LOG(LS_ERROR) << "first_timestamp_: " << first_timestamp_
+                    << ", window_size_ms: " << window_size_ms;
   current_window_size_ms_ = window_size_ms;
   EraseOld(now_ms);
   return true;

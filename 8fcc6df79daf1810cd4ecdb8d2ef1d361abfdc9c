@@ -52,6 +52,24 @@
       "parentUuid": "155b8063_73446319",
       "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8306c9d8_20aa9ae4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20789
+      },
+      "writtenOn": "2023-07-11T07:54:00Z",
+      "side": 1,
+      "message": "Thank you for considering the feasibility and tradeoffs. Resolving, and LGTM\u0027ing to allow importing into google3.\n\nAlso, extracting the literal into a file level constant is better than retyping it at multiple places throughout the file.",
+      "parentUuid": "de2682e0_55d12311",
+      "revId": "8fcc6df79daf1810cd4ecdb8d2ef1d361abfdc9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

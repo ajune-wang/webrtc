@@ -51,6 +51,46 @@
       "message": "+Erik for OWNERs approval, as hta and holmer are out. Thanks!",
       "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9597ef1f_ae7cea4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-07-11T11:47:45Z",
+      "side": 1,
+      "message": "lgtm % nit",
+      "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2ed080c_395d9c63",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-07-11T11:47:45Z",
+      "side": 1,
+      "message": "nit: usually good to sample this once in temporary and use that for the two parameters. I have seen flakiness in the past caused by the unlikely case where the clock shifts in between two consecutive calls to get the current time. If you\u0027re _really_ unlucky (on Android iirc) it might even shift backwards 😮",
+      "range": {
+        "startLine": 172,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 65
+      },
+      "revId": "0c44eb2930c93dc12b58354db43efc05c85b959d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

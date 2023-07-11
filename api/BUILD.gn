@@ -1262,6 +1262,17 @@ if (rtc_include_tests) {
     ]
   }
 
+  rtc_source_set("fake_peer_connection_observers") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [ "test/fake_peer_connection_observers.h" ]
+
+    deps = [
+      ":libjingle_peerconnection_api",
+      "//rtc_base:checks",
+    ]
+  }
+
   rtc_source_set("mock_session_description_interface") {
     visibility = [ "*" ]
     testonly = true

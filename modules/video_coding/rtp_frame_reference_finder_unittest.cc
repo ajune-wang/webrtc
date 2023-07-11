@@ -56,7 +56,8 @@ std::unique_ptr<RtpFrameObject> CreateFrame(
       video_header,
       /*color_space=*/absl::nullopt,
       RtpPacketInfos(),
-      EncodedImageBuffer::Create(/*size=*/0));
+      EncodedImageBuffer::Create(/*size=*/0),
+      /*csrcs=*/std::vector<uint32_t>());
   // clang-format on
 }
 }  // namespace

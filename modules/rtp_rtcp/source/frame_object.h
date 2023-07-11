@@ -36,7 +36,8 @@ class RtpFrameObject : public EncodedFrame {
                  const RTPVideoHeader& video_header,
                  const absl::optional<webrtc::ColorSpace>& color_space,
                  RtpPacketInfos packet_infos,
-                 rtc::scoped_refptr<EncodedImageBuffer> image_buffer);
+                 rtc::scoped_refptr<EncodedImageBuffer> image_buffer,
+                 std::vector<uint32_t> csrcs);
 
   ~RtpFrameObject() override;
   uint16_t first_seq_num() const;

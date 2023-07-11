@@ -807,6 +807,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
       }
 
       const video_coding::PacketBuffer::Packet& last_packet = *packet;
+      const std::vector<uint32_t> csrcs = packet_infos.begin()->csrcs();
       OnAssembledFrame(std::make_unique<RtpFrameObject>(
           first_packet->seq_num,                             //
           last_packet.seq_num,                               //
@@ -824,7 +825,8 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
           first_packet->video_header,                        //
           last_packet.video_header.color_space,              //
           RtpPacketInfos(std::move(packet_infos)),           //
-          std::move(bitstream)));
+          std::move(bitstream),                              //
+          std::move(csrcs)));
       payloads.clear();
       packet_infos.clear();
     }

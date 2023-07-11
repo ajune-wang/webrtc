@@ -175,7 +175,8 @@ RtpVideoFrameAssembler::Impl::AssembleFrames(
           first_packet->video_header,             //
           last_packet.video_header.color_space,   //
           /*packet_infos=*/RtpPacketInfos(),      //
-          std::move(bitstream)));
+          std::move(bitstream),                   //
+          /*csrcs=*/std::vector<uint32_t>()));
     }
   }
 

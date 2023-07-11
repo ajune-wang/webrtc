@@ -36,11 +36,13 @@ RtpFrameObject::RtpFrameObject(
     const RTPVideoHeader& video_header,
     const absl::optional<webrtc::ColorSpace>& color_space,
     RtpPacketInfos packet_infos,
-    rtc::scoped_refptr<EncodedImageBuffer> image_buffer)
+    rtc::scoped_refptr<EncodedImageBuffer> image_buffer,
+    std::vector<uint32_t> csrcs)
     : image_buffer_(image_buffer),
       first_seq_num_(first_seq_num),
       last_seq_num_(last_seq_num),
       last_packet_received_time_(last_packet_received_time),
+      csrcs_(csrcs),
       times_nacked_(times_nacked) {
   rtp_video_header_ = video_header;
 
@@ -62,10 +64,6 @@ RtpFrameObject::RtpFrameObject(
   SetEncodedData(image_buffer_);
   _encodedWidth = rtp_video_header_.width;
   _encodedHeight = rtp_video_header_.height;
-
-  if (packet_infos.begin() != packet_infos.end()) {
-    csrcs_ = packet_infos.begin()->csrcs();
-  }
 
   // EncodedFrame members
   SetPacketInfos(std::move(packet_infos));

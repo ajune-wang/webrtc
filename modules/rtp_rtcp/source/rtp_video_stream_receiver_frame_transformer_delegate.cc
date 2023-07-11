@@ -58,9 +58,36 @@ class TransformableVideoReceiverFrame
 
   VideoFrameMetadata Metadata() const override { return metadata_; }
 
-  void SetMetadata(const VideoFrameMetadata&) override {
-    RTC_DCHECK_NOTREACHED()
-        << "TransformableVideoReceiverFrame::SetMetadata is not implemented";
+  void SetMetadata(const VideoFrameMetadata& metadata) override {
+    metadata_ = metadata;
+    auto header = RTPVideoHeader::FromMetadata(metadata);
+    VideoSendTiming timing;
+    timing.encode_start_delta_ms =
+        frame_->timing_.encode_start_ms - frame_->ntp_time_ms_;
+    timing.encode_finish_delta_ms =
+        frame_->timing_.encode_finish_ms - frame_->ntp_time_ms_;
+    timing.packetization_finish_delta_ms =
+        frame_->timing_.packetization_finish_ms - frame_->ntp_time_ms_;
+    timing.pacer_exit_delta_ms =
+        frame_->timing_.pacer_exit_ms - frame_->ntp_time_ms_;
+    timing.network_timestamp_delta_ms =
+        frame_->timing_.network_timestamp_ms - frame_->ntp_time_ms_;
+    timing.network2_timestamp_delta_ms =
+        frame_->timing_.network2_timestamp_ms - frame_->ntp_time_ms_;
+
+    frame_ = std::make_unique<RtpFrameObject>(
+        frame_->first_seq_num(), frame_->last_seq_num(),
+        frame_->is_last_spatial_layer, frame_->times_nacked(),
+        frame_->timing_.receive_start_ms, frame_->timing_.receive_finish_ms,
+        frame_->Timestamp(), frame_->ntp_time_ms_, timing,
+        frame_->PayloadType(), frame_->codec_type(), frame_->rotation_,
+        frame_->content_type_, header,
+        frame_->ColorSpace() ? absl::optional<ColorSpace>(*frame_->ColorSpace())
+                             : absl::nullopt,
+        frame_->PacketInfos(),
+        EncodedImageBuffer::Create(frame_->GetEncodedData()->data(),
+                                   frame_->GetEncodedData()->size()),
+        metadata.GetCsrcs());
   }
 
   std::unique_ptr<RtpFrameObject> ExtractFrame() && {
@@ -173,7 +200,8 @@ void RtpVideoStreamReceiverFrameTransformerDelegate::ManageFrame(
         /*ntp_time_ms=*/0, timing, transformed_frame->GetPayloadType(),
         metadata.GetCodec(), metadata.GetRotation(), metadata.GetContentType(),
         video_header, video_header.color_space, RtpPacketInfos(),
-        EncodedImageBuffer::Create(data.data(), data.size())));
+        EncodedImageBuffer::Create(data.data(), data.size()),
+        metadata.GetCsrcs()));
   }
 }
 

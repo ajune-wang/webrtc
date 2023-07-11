@@ -16,6 +16,24 @@
       "message": "Michael, you know this code better than me, do you think my assumption is correct? \n\nWe have a crash in Firefox related to this:\nhttps://crash-stats.mozilla.org/report/index/268a518f-7b52-4701-9a2e-712420230618",
       "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b4d08d_d49d8f0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2023-07-11T19:47:53Z",
+      "side": 1,
+      "message": "I don\u0027t think this will help with the crash:\n\n`StopPipeWire()` stops the PipeWire mainloop immediately. This does not tigger `OnCoreDone()`. `OnCoreDone()` is called when the server responds to a sync message.\n\nStopping the main loop includes waiting for any pending events to be handled. To it may look like it causes the event. But it\u0027s just a coincidence.\n\nSo I expect the race happens just before that. If `callback_` is deleted before `PipeWireSession` then you need stop the PipeWire stuff first.\nMaybe in addition to this change, make `Cleanup()` public and call it in the destructor of the `callback_` object or something like that.",
+      "parentUuid": "b5dfd2b3_36f5e563",
+      "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6003c17a_40ee6fd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2023-07-12T09:01:59Z",
+      "side": 1,
+      "message": "Many thanks for the answers.\n\nWe will take the issue back to the drawing-table and discuss with\nthe team how to solve it.\n\nIf I understand the problem correctly, all entries in getStats() have to\nbe defined in W3C standard, and what we are adding is not standard ?\n\nThanks,",
+      "revId": "091371cc79c14375687232d0fd53ec2cd4267606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e653b091_8094a172",

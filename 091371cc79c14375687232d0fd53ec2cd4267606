@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8decc6a_6679f88a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-12T09:31:36Z",
+      "side": 1,
+      "message": "That\u0027s correct, we want all getStats() metrics to be standard.\n\nThere are some exceptions for non-browser use cases like mobile apps using WebRTC etc where it can be OK to add a metric to getStats() as long as we don\u0027t expose it to JavaScript.\n\nBut we try to avoid this when possible, and in any case, getStats() is not suitable for per-frame stats, so some other API should be used there anyway. getStats() is mostly total counters and rates over time etc, the kind of stuff you don\u0027t need more often than every second or even less often",
+      "parentUuid": "6003c17a_40ee6fd4",
+      "revId": "091371cc79c14375687232d0fd53ec2cd4267606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e653b091_8094a172",

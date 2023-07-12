@@ -35,6 +35,7 @@
 #include "api/rtp_transceiver_direction.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/uma_metrics.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
@@ -58,7 +59,6 @@
 #include "pc/session_description.h"
 #include "pc/simulcast_description.h"
 #include "pc/test/fake_audio_capture_module.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "pc/test/simulcast_layer_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/gunit.h"
@@ -143,7 +143,7 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
             nullptr)) {}
 
   rtc::scoped_refptr<PeerConnectionInterface> CreatePeerConnection(
-      MockPeerConnectionObserver* observer) {
+      FakePeerConnectionObserver* observer) {
     PeerConnectionInterface::RTCConfiguration config;
     config.sdp_semantics = SdpSemantics::kUnifiedPlan;
     PeerConnectionDependencies pcd(observer);
@@ -155,7 +155,7 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
   }
 
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnectionWrapper() {
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     auto pc = CreatePeerConnection(observer.get());
     return std::make_unique<PeerConnectionWrapper>(pc_factory_, pc,
                                                    std::move(observer));

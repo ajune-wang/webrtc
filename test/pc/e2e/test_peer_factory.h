@@ -18,6 +18,7 @@
 
 #include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/pclf/peer_configurer.h"
@@ -67,7 +68,7 @@ class TestPeerFactory {
   // injection.
   std::unique_ptr<TestPeer> CreateTestPeer(
       std::unique_ptr<PeerConfigurer> configurer,
-      std::unique_ptr<MockPeerConnectionObserver> observer,
+      std::unique_ptr<FakePeerConnectionObserver> observer,
       absl::optional<RemotePeerAudioConfig> remote_audio_config,
       absl::optional<EchoEmulationConfig> echo_emulation_config);
 

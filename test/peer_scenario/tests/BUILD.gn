@@ -21,6 +21,7 @@ if (rtc_include_tests) {
       "..:peer_scenario",
       "../../:field_trial",
       "../../:test_support",
+      "../../../api:fake_peer_connection_observers",
       "../../../api:rtc_stats_api",
       "../../../api/units:data_rate",
       "../../../api/units:time_delta",

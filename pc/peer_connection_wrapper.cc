@@ -18,6 +18,7 @@
 #include "absl/types/optional.h"
 #include "api/function_view.h"
 #include "api/set_remote_description_observer_interface.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "pc/sdp_utils.h"
 #include "pc/test/fake_video_track_source.h"
 #include "rtc_base/checks.h"
@@ -36,7 +37,7 @@ const uint32_t kDefaultTimeout = 10000U;
 PeerConnectionWrapper::PeerConnectionWrapper(
     rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
     rtc::scoped_refptr<PeerConnectionInterface> pc,
-    std::unique_ptr<MockPeerConnectionObserver> observer)
+    std::unique_ptr<FakePeerConnectionObserver> observer)
     : pc_factory_(std::move(pc_factory)),
       observer_(std::move(observer)),
       pc_(std::move(pc)) {
@@ -59,7 +60,7 @@ PeerConnectionInterface* PeerConnectionWrapper::pc() {
   return pc_.get();
 }
 
-MockPeerConnectionObserver* PeerConnectionWrapper::observer() {
+FakePeerConnectionObserver* PeerConnectionWrapper::observer() {
   return observer_.get();
 }
 
@@ -134,7 +135,7 @@ PeerConnectionWrapper::CreateRollback() {
 std::unique_ptr<SessionDescriptionInterface> PeerConnectionWrapper::CreateSdp(
     rtc::FunctionView<void(CreateSessionDescriptionObserver*)> fn,
     std::string* error_out) {
-  auto observer = rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
   fn(observer.get());
   EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
   if (error_out && !observer->result()) {
@@ -178,7 +179,7 @@ bool PeerConnectionWrapper::SetRemoteDescription(
 bool PeerConnectionWrapper::SetSdp(
     rtc::FunctionView<void(SetSessionDescriptionObserver*)> fn,
     std::string* error_out) {
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   fn(observer.get());
   EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
   if (error_out && !observer->result()) {
@@ -341,7 +342,7 @@ bool PeerConnectionWrapper::IsIceConnected() {
 
 rtc::scoped_refptr<const webrtc::RTCStatsReport>
 PeerConnectionWrapper::GetStats() {
-  auto callback = rtc::make_ref_counted<MockRTCStatsCollectorCallback>();
+  auto callback = rtc::make_ref_counted<FakeRTCStatsCollectorCallback>();
   pc()->GetStats(callback.get());
   EXPECT_TRUE_WAIT(callback->called(), kDefaultTimeout);
   return callback->report();

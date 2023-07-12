@@ -61,6 +61,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/create_peerconnection_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/uma_metrics.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
@@ -74,7 +75,6 @@
 #include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "pc/peer_connection_proxy.h"
 #include "pc/test/fake_audio_capture_module.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/fake_network.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/strings/string_builder.h"
@@ -181,7 +181,7 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     port_allocator->set_step_delay(cricket::kMinimumStepDelay);
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     auto port_allocator_copy = port_allocator.get();
     PeerConnectionDependencies pc_dependencies(observer.get());
     pc_dependencies.allocator = std::move(port_allocator);
@@ -824,7 +824,7 @@ TEST_P(PeerConnectionIceTest,
 
   // Chain an operation that will block AddIceCandidate() from executing.
   auto answer_observer =
-      rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+      rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
   callee->pc()->CreateAnswer(answer_observer.get(), RTCOfferAnswerOptions());
 
   auto jsep_candidate =
@@ -872,7 +872,7 @@ TEST_P(PeerConnectionIceTest,
 
   // Chain an operation that will block AddIceCandidate() from executing.
   auto answer_observer =
-      rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+      rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
   callee->pc()->CreateAnswer(answer_observer.get(), RTCOfferAnswerOptions());
 
   auto jsep_candidate =
@@ -1464,7 +1464,7 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
   std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory_;
   cricket::FakePortAllocator* port_allocator_ = nullptr;
 
-  MockPeerConnectionObserver observer_;
+  FakePeerConnectionObserver observer_;
 };
 
 TEST_F(PeerConnectionIceConfigTest, SetStunCandidateKeepaliveInterval) {

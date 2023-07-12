@@ -50,6 +50,7 @@
 #include "api/stats/rtc_stats.h"
 #include "api/stats/rtc_stats_report.h"
 #include "api/stats/rtcstats_objects.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/mock_encoder_selector.h"
 #include "api/transport/rtp/rtp_source.h"
 #include "api/uma_metrics.h"
@@ -77,7 +78,6 @@
 #include "pc/session_description.h"
 #include "pc/test/fake_periodic_video_source.h"
 #include "pc/test/integration_test_helpers.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/fake_mdns_responder.h"
 #include "rtc_base/fake_network.h"
@@ -2558,7 +2558,7 @@ TEST_P(PeerConnectionIntegrationTest, IceTransportFactoryUsedForConnections) {
                                              /*reset_decoder_factory=*/false);
   ASSERT_TRUE(wrapper);
   wrapper->CreateDataChannel();
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   wrapper->pc()->SetLocalDescription(observer.get(),
                                      wrapper->CreateOfferAndWait().release());
 }
@@ -3151,7 +3151,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   SetSignalIceCandidates(false);  // Workaround candidate outrace sdp.
   caller()->AddVideoTrack();
   callee()->AddVideoTrack();
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   callee()->pc()->SetLocalDescription(observer.get(),
                                       callee()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
@@ -3169,14 +3169,14 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
 
   auto sld_observer =
-      rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+      rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   callee()->pc()->SetLocalDescription(sld_observer.get(),
                                       callee()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(sld_observer->called(), kDefaultTimeout);
   EXPECT_EQ(sld_observer->error(), "");
 
   auto srd_observer =
-      rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+      rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   callee()->pc()->SetRemoteDescription(
       srd_observer.get(), caller()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(srd_observer->called(), kDefaultTimeout);

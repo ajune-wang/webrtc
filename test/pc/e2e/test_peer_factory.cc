@@ -15,6 +15,7 @@
 #include "absl/strings/string_view.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/create_time_controller.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/peer_configurer.h"
 #include "api/test/time_controller.h"
@@ -247,7 +248,7 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
 // Creates PeerConnectionDependencies objects, providing entities
 // from InjectableComponents::PeerConnectionComponents.
 PeerConnectionDependencies CreatePCDependencies(
-    MockPeerConnectionObserver* observer,
+    FakePeerConnectionObserver* observer,
     uint32_t port_allocator_extra_flags,
     std::unique_ptr<PeerConnectionComponents> pc_dependencies) {
   PeerConnectionDependencies pc_deps(observer);
@@ -290,7 +291,7 @@ absl::optional<RemotePeerAudioConfig> RemotePeerAudioConfig::Create(
 
 std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
     std::unique_ptr<PeerConfigurer> configurer,
-    std::unique_ptr<MockPeerConnectionObserver> observer,
+    std::unique_ptr<FakePeerConnectionObserver> observer,
     absl::optional<RemotePeerAudioConfig> remote_audio_config,
     absl::optional<EchoEmulationConfig> echo_emulation_config) {
   std::unique_ptr<InjectableComponents> components =

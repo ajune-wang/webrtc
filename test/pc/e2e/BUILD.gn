@@ -62,6 +62,7 @@ if (!build_with_chromium) {
       ]
       deps = [
         ":stats_provider",
+        "../../../api:fake_peer_connection_observers",
         "../../../api:frame_generator_api",
         "../../../api:function_view",
         "../../../api:libjingle_peerconnection_api",
@@ -96,6 +97,7 @@ if (!build_with_chromium) {
         ":test_peer",
         "../..:copy_to_file_audio_capturer",
         "../../../api:create_time_controller",
+        "../../../api:fake_peer_connection_observers",
         "../../../api:time_controller",
         "../../../api/rtc_event_log:rtc_event_log_factory",
         "../../../api/task_queue:default_task_queue_factory",
@@ -226,6 +228,7 @@ if (!build_with_chromium) {
         "../..:fileutils",
         "../..:perf_test",
         "../../../api:audio_quality_analyzer_api",
+        "../../../api:fake_peer_connection_observers",
         "../../../api:libjingle_peerconnection_api",
         "../../../api:media_stream_interface",
         "../../../api:peer_connection_quality_test_fixture_api",

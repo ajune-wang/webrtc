@@ -55,6 +55,7 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/uma_metrics.h"
 #include "api/units/time_delta.h"
@@ -96,7 +97,6 @@
 #include "pc/test/fake_periodic_video_track_source.h"
 #include "pc/test/fake_rtc_certificate_generator.h"
 #include "pc/test/fake_video_track_renderer.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "pc/video_track_source.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
@@ -426,7 +426,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     data_channels_.push_back(data_channel_or_error.MoveValue());
     ASSERT_TRUE(data_channels_.back().get() != nullptr);
     data_observers_.push_back(
-        std::make_unique<MockDataChannelObserver>(data_channels_.back().get()));
+        std::make_unique<FakeDataChannelObserver>(data_channels_.back().get()));
   }
 
   // Return the last observed data channel.
@@ -441,14 +441,14 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     return data_channels_;
   }
 
-  const MockDataChannelObserver* data_observer() const {
+  const FakeDataChannelObserver* data_observer() const {
     if (data_observers_.size() == 0) {
       return nullptr;
     }
     return data_observers_.back().get();
   }
 
-  std::vector<std::unique_ptr<MockDataChannelObserver>>& data_observers() {
+  std::vector<std::unique_ptr<FakeDataChannelObserver>>& data_observers() {
     return data_observers_;
   }
 
@@ -475,11 +475,11 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     return min_frames;
   }
 
-  // Returns a MockStatsObserver in a state after stats gathering finished,
+  // Returns a FakeStatsObserver in a state after stats gathering finished,
   // which can be used to access the gathered stats.
-  rtc::scoped_refptr<MockStatsObserver> OldGetStatsForTrack(
+  rtc::scoped_refptr<FakeStatsObserver> OldGetStatsForTrack(
       webrtc::MediaStreamTrackInterface* track) {
-    auto observer = rtc::make_ref_counted<MockStatsObserver>();
+    auto observer = rtc::make_ref_counted<FakeStatsObserver>();
     EXPECT_TRUE(peer_connection_->GetStats(
         observer.get(), nullptr,
         PeerConnectionInterface::kStatsOutputLevelStandard));
@@ -488,7 +488,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
 
   // Version that doesn't take a track "filter", and gathers all stats.
-  rtc::scoped_refptr<MockStatsObserver> OldGetStats() {
+  rtc::scoped_refptr<FakeStatsObserver> OldGetStats() {
     return OldGetStatsForTrack(nullptr);
   }
 
@@ -496,7 +496,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // and returns null.
   rtc::scoped_refptr<const webrtc::RTCStatsReport> NewGetStats() {
     auto callback =
-        rtc::make_ref_counted<webrtc::MockRTCStatsCollectorCallback>();
+        rtc::make_ref_counted<webrtc::FakeRTCStatsCollectorCallback>();
     peer_connection_->GetStats(callback.get());
     EXPECT_TRUE_WAIT(callback->called(), kDefaultTimeout);
     return callback->report();
@@ -634,7 +634,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // Returns null on failure.
   std::unique_ptr<SessionDescriptionInterface> CreateOfferAndWait() {
     auto observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     pc()->CreateOffer(observer.get(), offer_answer_options_);
     return WaitForDescriptionFromObserver(observer.get());
   }
@@ -913,13 +913,13 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // Returns null on failure.
   std::unique_ptr<SessionDescriptionInterface> CreateAnswer() {
     auto observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     pc()->CreateAnswer(observer.get(), offer_answer_options_);
     return WaitForDescriptionFromObserver(observer.get());
   }
 
   std::unique_ptr<SessionDescriptionInterface> WaitForDescriptionFromObserver(
-      MockCreateSessionDescriptionObserver* observer) {
+      FakeCreateSessionDescriptionObserver* observer) {
     EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
     if (!observer->result()) {
       return nullptr;
@@ -938,7 +938,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // don't outrace the description.
   bool SetLocalDescriptionAndSendSdpMessage(
       std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
     SdpType type = desc->GetType();
     std::string sdp;
@@ -954,7 +954,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
     pc()->SetRemoteDescription(observer.get(), desc.release());
     RemoveUnusedVideoRenderers();
@@ -1156,7 +1156,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     RTC_LOG(LS_INFO) << debug_name_ << ": OnDataChannel";
     data_channels_.push_back(data_channel);
     data_observers_.push_back(
-        std::make_unique<MockDataChannelObserver>(data_channel.get()));
+        std::make_unique<FakeDataChannelObserver>(data_channel.get()));
   }
 
   std::string debug_name_;
@@ -1201,7 +1201,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   rtc::MockAsyncResolver* remote_async_resolver_ = nullptr;
   // All data channels either created or observed on this peerconnection
   std::vector<rtc::scoped_refptr<DataChannelInterface>> data_channels_;
-  std::vector<std::unique_ptr<MockDataChannelObserver>> data_observers_;
+  std::vector<std::unique_ptr<FakeDataChannelObserver>> data_observers_;
 
   std::vector<std::unique_ptr<MockRtpReceiverObserver>> rtp_receiver_observers_;
 

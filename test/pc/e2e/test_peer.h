@@ -22,6 +22,7 @@
 #include "api/sequence_checker.h"
 #include "api/set_remote_description_observer_interface.h"
 #include "api/task_queue/pending_task_safety_flag.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/frame_generator_interface.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/media_quality_test_params.h"
@@ -63,7 +64,7 @@ class TestPeer final : public StatsProvider {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
     return wrapper_->pc();
   }
-  MockPeerConnectionObserver* observer() {
+  FakePeerConnectionObserver* observer() {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
     return wrapper_->observer();
   }
@@ -155,7 +156,7 @@ class TestPeer final : public StatsProvider {
   friend class TestPeerFactory;
   TestPeer(rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
            rtc::scoped_refptr<PeerConnectionInterface> pc,
-           std::unique_ptr<MockPeerConnectionObserver> observer,
+           std::unique_ptr<FakePeerConnectionObserver> observer,
            Params params,
            ConfigurableParams configurable_params,
            std::vector<PeerConfigurer::VideoSource> video_sources,

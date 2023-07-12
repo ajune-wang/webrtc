@@ -24,6 +24,7 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
 #include "p2p/base/mock_async_resolver.h"
@@ -34,7 +35,6 @@
 #include "pc/peer_connection_proxy.h"
 #include "pc/peer_connection_wrapper.h"
 #include "pc/sdp_utils.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "pc/usage_pattern.h"
 #include "pc/webrtc_sdp.h"
 #include "rtc_base/arraysize.h"
@@ -94,7 +94,7 @@ class PeerConnectionWrapperForUsageHistogramTest;
 
 typedef PeerConnectionWrapperForUsageHistogramTest* RawWrapperPtr;
 
-class ObserverForUsageHistogramTest : public MockPeerConnectionObserver {
+class ObserverForUsageHistogramTest : public FakePeerConnectionObserver {
  public:
   void OnIceCandidate(const webrtc::IceCandidateInterface* candidate) override;
 

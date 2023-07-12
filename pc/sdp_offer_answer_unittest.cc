@@ -20,6 +20,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
 #include "api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h"
@@ -36,7 +37,6 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/session_description.h"
 #include "pc/test/fake_audio_capture_module.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
 #include "system_wrappers/include/metrics.h"
@@ -98,7 +98,7 @@ class SdpOfferAnswerTest : public ::testing::Test {
 
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection(
       const RTCConfiguration& config) {
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     auto result = pc_factory_->CreatePeerConnectionOrError(
         config, PeerConnectionDependencies(observer.get()));
     EXPECT_TRUE(result.ok());

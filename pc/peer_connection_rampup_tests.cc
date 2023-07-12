@@ -27,6 +27,7 @@
 #include "api/stats/rtc_stats.h"
 #include "api/stats/rtc_stats_report.h"
 #include "api/stats/rtcstats_objects.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/metrics/global_metrics_logger_and_exporter.h"
 #include "api/test/metrics/metric.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
@@ -49,7 +50,6 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/test/fake_audio_capture_module.h"
 #include "pc/test/frame_generator_capturer_video_track_source.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/fake_network.h"
 #include "rtc_base/firewall_socket_server.h"
@@ -112,7 +112,7 @@ class PeerConnectionWrapperForRampUpTest : public PeerConnectionWrapper {
   PeerConnectionWrapperForRampUpTest(
       rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
       rtc::scoped_refptr<PeerConnectionInterface> pc,
-      std::unique_ptr<MockPeerConnectionObserver> observer)
+      std::unique_ptr<FakePeerConnectionObserver> observer)
       : PeerConnectionWrapper::PeerConnectionWrapper(pc_factory,
                                                      pc,
                                                      std::move(observer)) {}
@@ -198,7 +198,7 @@ class PeerConnectionRampUpTest : public ::testing::Test {
     fake_network_manager->AddInterface(kDefaultLocalAddress);
     fake_network_managers_.emplace_back(fake_network_manager);
 
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     webrtc::PeerConnectionDependencies dependencies(observer.get());
     cricket::BasicPortAllocator* port_allocator =
         new cricket::BasicPortAllocator(

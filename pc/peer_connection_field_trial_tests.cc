@@ -99,7 +99,7 @@ class PeerConnectionFieldTrialTest : public ::testing::Test {
   }
 
   WrapperPtr CreatePeerConnection() {
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer = std::make_unique<FakePeerConnectionObserver>();
     auto result = pc_factory_->CreatePeerConnectionOrError(
         config_, PeerConnectionDependencies(observer.get()));
     RTC_CHECK(result.ok());

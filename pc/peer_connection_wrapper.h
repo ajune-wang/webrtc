@@ -27,7 +27,7 @@
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/stats/rtc_stats_report.h"
-#include "pc/test/mock_peer_connection_observers.h"
+#include "api/test/fake_peer_connection_observers.h"
 
 namespace webrtc {
 
@@ -49,17 +49,17 @@ class PeerConnectionWrapper {
  public:
   // Constructs a PeerConnectionWrapper from the given PeerConnection.
   // The given PeerConnectionFactory should be the factory that created the
-  // PeerConnection and the MockPeerConnectionObserver should be the observer
+  // PeerConnection and the FakePeerConnectionObserver should be the observer
   // that is watching the PeerConnection.
   PeerConnectionWrapper(
       rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
       rtc::scoped_refptr<PeerConnectionInterface> pc,
-      std::unique_ptr<MockPeerConnectionObserver> observer);
+      std::unique_ptr<FakePeerConnectionObserver> observer);
   virtual ~PeerConnectionWrapper();
 
   PeerConnectionFactoryInterface* pc_factory();
   PeerConnectionInterface* pc();
-  MockPeerConnectionObserver* observer();
+  FakePeerConnectionObserver* observer();
 
   // Calls the underlying PeerConnection's CreateOffer method and returns the
   // resulting SessionDescription once it is available. If the method call
@@ -194,7 +194,7 @@ class PeerConnectionWrapper {
               std::string* error_out);
 
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
-  std::unique_ptr<MockPeerConnectionObserver> observer_;
+  std::unique_ptr<FakePeerConnectionObserver> observer_;
   rtc::scoped_refptr<PeerConnectionInterface> pc_;
 };
 

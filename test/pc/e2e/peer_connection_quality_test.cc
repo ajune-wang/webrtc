@@ -21,13 +21,13 @@
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/rtc_event_log_output_file.h"
 #include "api/scoped_refptr.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/metrics/metric.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/peer_configurer.h"
 #include "api/test/time_controller.h"
 #include "api/test/video_quality_analyzer_interface.h"
 #include "pc/sdp_utils.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
@@ -74,7 +74,7 @@ constexpr char kFlexFecEnabledFieldTrials[] =
 constexpr char kUseStandardsBytesStats[] =
     "WebRTC-UseStandardBytesStats/Enabled/";
 
-class FixturePeerConnectionObserver : public MockPeerConnectionObserver {
+class FixturePeerConnectionObserver : public FakePeerConnectionObserver {
  public:
   // `on_track_callback` will be called when any new track will be added to peer
   // connection.
@@ -91,13 +91,13 @@ class FixturePeerConnectionObserver : public MockPeerConnectionObserver {
 
   void OnTrack(
       rtc::scoped_refptr<RtpTransceiverInterface> transceiver) override {
-    MockPeerConnectionObserver::OnTrack(transceiver);
+    FakePeerConnectionObserver::OnTrack(transceiver);
     on_track_callback_(transceiver);
   }
 
   void OnIceConnectionChange(
       PeerConnectionInterface::IceConnectionState new_state) override {
-    MockPeerConnectionObserver::OnIceConnectionChange(new_state);
+    FakePeerConnectionObserver::OnIceConnectionChange(new_state);
     if (ice_connected_) {
       on_connected_callback_();
     }

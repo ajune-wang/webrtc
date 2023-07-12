@@ -37,6 +37,7 @@
 #include "api/rtp_transceiver_direction.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
@@ -75,7 +76,6 @@
 #include "pc/test/fake_audio_capture_module.h"
 #include "pc/test/fake_rtc_certificate_generator.h"
 #include "pc/test/fake_video_track_source.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "pc/test/test_sdp_strings.h"
 #include "pc/video_track.h"
 #include "rtc_base/checks.h"
@@ -891,7 +891,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
                            const RTCOfferAnswerOptions* options,
                            bool offer) {
     auto observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     if (offer) {
       pc_->CreateOffer(observer.get(),
                        options ? *options : RTCOfferAnswerOptions());
@@ -917,7 +917,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   bool DoSetSessionDescription(
       std::unique_ptr<SessionDescriptionInterface> desc,
       bool local) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
     if (local) {
       pc_->SetLocalDescription(observer.get(), desc.release());
     } else {
@@ -943,7 +943,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   // It does not verify the values in the StatReports since a RTCP packet might
   // be required.
   bool DoGetStats(MediaStreamTrackInterface* track) {
-    auto observer = rtc::make_ref_counted<MockStatsObserver>();
+    auto observer = rtc::make_ref_counted<FakeStatsObserver>();
     if (!pc_->GetStats(observer.get(), track,
                        PeerConnectionInterface::kStatsOutputLevelStandard))
       return false;
@@ -954,7 +954,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   // Call the standards-compliant GetStats function.
   bool DoGetRTCStats() {
     auto callback =
-        rtc::make_ref_counted<webrtc::MockRTCStatsCollectorCallback>();
+        rtc::make_ref_counted<webrtc::FakeRTCStatsCollectorCallback>();
     pc_->GetStats(callback.get());
     EXPECT_TRUE_WAIT(callback->called(), kTimeout);
     return callback->called();
@@ -1210,7 +1210,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
       const RTCOfferAnswerOptions& offer_answer_options) {
     RTC_DCHECK(pc_);
     auto observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     pc_->CreateOffer(observer.get(), offer_answer_options);
     EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
     return observer->MoveDescription();
@@ -1281,7 +1281,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   FakeRTCCertificateGenerator* fake_certificate_generator_ = nullptr;
   rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pc_factory_;
   rtc::scoped_refptr<PeerConnectionInterface> pc_;
-  MockPeerConnectionObserver observer_;
+  FakePeerConnectionObserver observer_;
   rtc::scoped_refptr<StreamCollection> reference_collection_;
   const SdpSemantics sdp_semantics_;
 };
@@ -3782,7 +3782,7 @@ class PeerConnectionMediaConfigTest : public ::testing::Test {
   }
 
   rtc::scoped_refptr<PeerConnectionFactoryForTest> pcf_;
-  MockPeerConnectionObserver observer_;
+  FakePeerConnectionObserver observer_;
 };
 
 // This sanity check validates the test infrastructure itself.

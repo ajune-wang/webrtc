@@ -17,6 +17,7 @@
 #include "api/audio_codecs/opus_audio_encoder_factory.h"
 #include "api/rtp_parameters.h"
 #include "api/stats/rtcstats_objects.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/units/data_rate.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
@@ -30,7 +31,6 @@
 #include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "pc/sdp_utils.h"
 #include "pc/simulcast_description.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "pc/test/peer_connection_test_wrapper.h"
 #include "pc/test/simulcast_layer_util.h"
 #include "rtc_base/gunit.h"
@@ -188,13 +188,13 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     // Create and set offer for `local_pc_wrapper`.
     std::unique_ptr<SessionDescriptionInterface> offer =
         CreateOffer(local_pc_wrapper);
-    rtc::scoped_refptr<MockSetSessionDescriptionObserver> p1 =
+    rtc::scoped_refptr<FakeSetSessionDescriptionObserver> p1 =
         SetLocalDescription(local_pc_wrapper, offer.get());
     // Modify the offer before handoff because `remote_pc_wrapper` only supports
     // receiving singlecast.
     cricket::SimulcastDescription simulcast_description =
         RemoveSimulcast(offer.get());
-    rtc::scoped_refptr<MockSetSessionDescriptionObserver> p2 =
+    rtc::scoped_refptr<FakeSetSessionDescriptionObserver> p2 =
         SetRemoteDescription(remote_pc_wrapper, offer.get());
     EXPECT_TRUE(Await({p1, p2}));
 
@@ -220,7 +220,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
 
   rtc::scoped_refptr<const RTCStatsReport> GetStats(
       rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper) {
-    auto callback = rtc::make_ref_counted<MockRTCStatsCollectorCallback>();
+    auto callback = rtc::make_ref_counted<FakeRTCStatsCollectorCallback>();
     pc_wrapper->pc()->GetStats(callback.get());
     EXPECT_TRUE_WAIT(callback->called(), kDefaultTimeout.ms());
     return callback->report();
@@ -320,7 +320,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
   std::unique_ptr<SessionDescriptionInterface> CreateOffer(
       rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper) {
     auto observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     pc_wrapper->pc()->CreateOffer(observer.get(), {});
     EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout.ms());
     return observer->MoveDescription();
@@ -329,25 +329,25 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
   std::unique_ptr<SessionDescriptionInterface> CreateAnswer(
       rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper) {
     auto observer =
-        rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
+        rtc::make_ref_counted<FakeCreateSessionDescriptionObserver>();
     pc_wrapper->pc()->CreateAnswer(observer.get(), {});
     EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout.ms());
     return observer->MoveDescription();
   }
 
-  rtc::scoped_refptr<MockSetSessionDescriptionObserver> SetLocalDescription(
+  rtc::scoped_refptr<FakeSetSessionDescriptionObserver> SetLocalDescription(
       rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper,
       SessionDescriptionInterface* sdp) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
     pc_wrapper->pc()->SetLocalDescription(
         observer.get(), CloneSessionDescription(sdp).release());
     return observer;
   }
 
-  rtc::scoped_refptr<MockSetSessionDescriptionObserver> SetRemoteDescription(
+  rtc::scoped_refptr<FakeSetSessionDescriptionObserver> SetRemoteDescription(
       rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper,
       SessionDescriptionInterface* sdp) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
     pc_wrapper->pc()->SetRemoteDescription(
         observer.get(), CloneSessionDescription(sdp).release());
     return observer;
@@ -357,7 +357,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
   // the offer it is important to SetLocalDescription() and
   // SetRemoteDescription() are kicked off without awaiting in-between. This
   // helper is used to await multiple observers.
-  bool Await(std::vector<rtc::scoped_refptr<MockSetSessionDescriptionObserver>>
+  bool Await(std::vector<rtc::scoped_refptr<FakeSetSessionDescriptionObserver>>
                  observers) {
     for (auto& observer : observers) {
       EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout.ms());

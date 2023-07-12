@@ -9,13 +9,13 @@
  */
 
 #include "api/stats/rtcstats_objects.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "pc/media_session.h"
-#include "pc/test/mock_peer_connection_observers.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/peer_scenario/peer_scenario.h"
@@ -30,7 +30,7 @@ rtc::scoped_refptr<const RTCStatsReport> GetStatsAndProcess(
     PeerScenario& s,
     PeerScenarioClient* client) {
   auto stats_collector =
-      rtc::make_ref_counted<webrtc::MockRTCStatsCollectorCallback>();
+      rtc::make_ref_counted<webrtc::FakeRTCStatsCollectorCallback>();
   client->pc()->GetStats(stats_collector.get());
   s.ProcessMessages(TimeDelta::Millis(0));
   RTC_CHECK(stats_collector->called());

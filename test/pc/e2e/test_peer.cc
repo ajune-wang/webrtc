@@ -15,6 +15,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/pclf/media_configuration.h"
 #include "api/test/pclf/peer_configurer.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -130,7 +131,7 @@ void TestPeer::Close() {
 TestPeer::TestPeer(
     rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
     rtc::scoped_refptr<PeerConnectionInterface> pc,
-    std::unique_ptr<MockPeerConnectionObserver> observer,
+    std::unique_ptr<FakePeerConnectionObserver> observer,
     Params params,
     ConfigurableParams configurable_params,
     std::vector<PeerConfigurer::VideoSource> video_sources,

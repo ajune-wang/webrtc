@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e3bce8_414285b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "First round - looking good, mostly just want to remove an assumption about 0-th encoding being special if possible",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c45c389_61c49237",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "I think we should ignore `codec` if the encoding is inactive.\n\nI\u0027ve seen real-world uses of setParameters where the app starts by clearing all encoding values and then populates the desired values.\n\nSo it\u0027s easy to imagine that an app that doesn\u0027t use an encoding leaves it with default values cleared, for example {active + vp9, inactive + no codec specified} and that should work just as well as {active + vp9, inactive + vp9}.\n\nI think I saw something similar to this regarding scaleResolutionDownBy and that allowing it to be undefined in the inactive case helped avoid exceptions for existing use cases.",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06532a87_fded7457",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "What if I want to do {inactive, inactive, active + codec:vp9}.\n\nI think we should remove any assumptions about 0-th encoding being special (and I am hoping to do the same for scaling assumptions).\n\nInstead, you can lookup the index of the first `active\u003dtrue` encoding which has a `codec` value and refer to that instead of 0.",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea4feae_a1f7e019",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "+1!! :D Let Plan B rot!",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f92bc8a5_2473e6cd",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "Here assuming 0-th encoding is OK because audio is only one encoding",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "041eed3c_06125457",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "Should we change TEST_F to TEST_P as to get these tests exercised for all codecs?\n(See existing TEST_P for iterating all video codecs in this file)",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9bb5bbf_cc89f39c",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-13T07:50:52Z",
+      "side": 1,
+      "message": "What happens if I start in L3T3_KEY VP9 and then I change to vp8? Let\u0027s have a test",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d94d4dc_5766151d",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-14T20:20:11Z",
+      "side": 1,
+      "message": "To clarify I\u0027m not talking about supporting mixed codecs I\u0027m only talking about not rejecting an inactive encoding when all active encodings are in fact using the same codec. Supporting the use case of not specifying anything on the inactive encodings.",
+      "parentUuid": "16f27542_a01535db",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

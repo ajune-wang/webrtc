@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16f27542_a01535db",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-14T20:17:30Z",
+      "side": 1,
+      "message": "I still think \"not specified\" should be a valid parameter value for an inactive encoding and this is already the case for scalabilityMode and scaleResolutionDownBy. I\u0027ve seen real-world examples where the inactive encodings are cleared so I think we should be consistent and allow codec to also be cleared.\n\nI.e. I don\u0027t think this should fail saying codecs are different because this is not mixed codecs, this is just vp9:\n```\nencodings[0] \u003d {active, codec:vp9}\nencodings[1] \u003d {inactive, codec:nullopt}\n```\n\nI think you\u0027re free to modify this to {vp9,vp9} before passing it down to lower layers if you think that reduces complexity, I just don\u0027t want the API to reject.",
+      "parentUuid": "6da27ce0_cacad3e7",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b24851_60f469e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-14T20:17:30Z",
+      "side": 1,
+      "message": "I\u0027ll be OOO next week so do replace me with a different reviewer but if so let\u0027s get a second opinion about the inactive encoding question that we disagree on",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

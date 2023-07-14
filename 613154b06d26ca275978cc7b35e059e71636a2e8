@@ -46,6 +46,30 @@
       },
       "revId": "613154b06d26ca275978cc7b35e059e71636a2e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ea3b1ba_29790a40",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2023-07-14T20:47:48Z",
+      "side": 1,
+      "message": "Nvm, I missed that. Looks great!",
+      "parentUuid": "91f45eb4_090ccf8a",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "613154b06d26ca275978cc7b35e059e71636a2e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "613154b06d26ca275978cc7b35e059e71636a2e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f45eb4_090ccf8a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 21129
+      },
+      "writtenOn": "2023-07-14T20:22:44Z",
+      "side": 1,
+      "message": "I added it to //modules/desktop_capture/BUILD.gn, was there another place it should be included?",
+      "parentUuid": "b4dc14c4_e68eaca2",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 50
+      },
+      "revId": "613154b06d26ca275978cc7b35e059e71636a2e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -117,7 +117,9 @@ class PipeWireSession : public rtc::RefCountedNonVirtual<PipeWireSession> {
   void Finish(VideoCaptureOptions::Status status);
   void Cleanup();
 
-  VideoCaptureOptions::Callback* callback_ = nullptr;
+  webrtc::Mutex callback_lock_;
+  VideoCaptureOptions::Callback* callback_ RTC_GUARDED_BY(&callback_lock_) =
+      nullptr;
 
   VideoCaptureOptions::Status status_;
 

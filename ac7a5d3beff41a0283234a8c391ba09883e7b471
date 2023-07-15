@@ -34,6 +34,24 @@
       "parentUuid": "b5dfd2b3_36f5e563",
       "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6670c073_da3ca1e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-07-15T09:41:29Z",
+      "side": 1,
+      "message": "I will make sure `PipeWireSession` gets deleted before the callback on Firefox side, but it might still need to reset the `callback_` when tearing it down to be sure. I also made the `callback_` to be guarded by a mutex so there is no chance of concurrent access.",
+      "parentUuid": "96b4d08d_d49d8f0d",
+      "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

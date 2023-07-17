@@ -375,7 +375,7 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   virtual absl::optional<TimeDelta> LastRtt() const = 0;
 
   // Returns the estimated RTT, with fallback to a default value.
-  virtual int64_t ExpectedRetransmissionTimeMs() const = 0;
+  virtual TimeDelta ExpectedRetransmissionTime() const = 0;
 
   // Forces a send of a RTCP packet. Periodic SR and RR are triggered via the
   // process function.

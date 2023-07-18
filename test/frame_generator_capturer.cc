@@ -43,7 +43,7 @@ FrameGeneratorCapturer::FrameGeneratorCapturer(
     int target_fps,
     TaskQueueFactory& task_queue_factory)
     : clock_(clock),
-      sending_(true),
+      sending_(false),
       sink_wants_observer_(nullptr),
       frame_generator_(std::move(frame_generator)),
       source_fps_(target_fps),
@@ -69,23 +69,6 @@ void FrameGeneratorCapturer::SetFakeColorSpace(
     absl::optional<ColorSpace> color_space) {
   MutexLock lock(&lock_);
   fake_color_space_ = color_space;
-}
-
-bool FrameGeneratorCapturer::Init() {
-  // This check is added because frame_generator_ might be file based and should
-  // not crash because a file moved.
-  if (frame_generator_.get() == nullptr)
-    return false;
-
-  frame_task_ = RepeatingTaskHandle::DelayedStart(
-      task_queue_.Get(),
-      TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate(),
-      [this] {
-        InsertFrame();
-        return TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate();
-      },
-      TaskQueueBase::DelayPrecision::kHigh);
-  return true;
 }
 
 void FrameGeneratorCapturer::InsertFrame() {

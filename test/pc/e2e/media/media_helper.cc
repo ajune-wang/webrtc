@@ -120,7 +120,6 @@ std::unique_ptr<test::TestVideoCapturer> MediaHelper::CreateVideoCapturer(
           std::move(source)),
       video_config.fps, *task_queue_factory_);
   capturer->SetFramePreprocessor(std::move(frame_preprocessor));
-  capturer->Init();
   return capturer;
 }
 

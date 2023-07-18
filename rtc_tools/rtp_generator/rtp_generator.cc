@@ -251,7 +251,6 @@ RtpGenerator::RtpGenerator(const RtpGeneratorOptions& options)
                                              send_config.video_height,
                                              absl::nullopt, absl::nullopt),
             send_config.video_fps, *task_queue_);
-    frame_generator->Init();
 
     VideoSendStream* video_send_stream = call_->CreateVideoSendStream(
         std::move(video_config), std::move(encoder_config));

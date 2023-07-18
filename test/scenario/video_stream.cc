@@ -371,7 +371,6 @@ SendVideoStream::SendVideoStream(CallClient* sender,
       sender_->clock_, CreateFrameGenerator(sender_->clock_, config.source),
       config.source.framerate,
       *sender->time_controller_->GetTaskQueueFactory());
-  video_capturer_->Init();
 
   using Encoder = VideoStreamConfig::Encoder;
   using Codec = VideoStreamConfig::Encoder::Codec;

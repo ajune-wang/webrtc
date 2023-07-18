@@ -491,7 +491,6 @@ void CallTest::CreateFrameGeneratorCapturerWithDrift(Clock* clock,
                                            absl::nullopt),
           framerate * speed, *task_queue_factory_);
   frame_generator_capturer_ = frame_generator_capturer.get();
-  frame_generator_capturer->Init();
   video_sources_.push_back(std::move(frame_generator_capturer));
   ConnectVideoSourcesToStreams();
 }
@@ -507,7 +506,6 @@ void CallTest::CreateFrameGeneratorCapturer(int framerate,
                                            absl::nullopt),
           framerate, *task_queue_factory_);
   frame_generator_capturer_ = frame_generator_capturer.get();
-  frame_generator_capturer->Init();
   video_sources_.push_back(std::move(frame_generator_capturer));
   ConnectVideoSourcesToStreams();
 }

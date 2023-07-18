@@ -123,7 +123,6 @@ void MultiStreamTester::RunTest() {
       frame_generators[i] = frame_generator;
       send_streams[i]->SetSource(frame_generator,
                                  DegradationPreference::MAINTAIN_FRAMERATE);
-      frame_generator->Init();
       frame_generator->Start();
     }
   });

@@ -335,7 +335,6 @@ PeerScenarioClient::VideoSendTrack PeerScenarioClient::CreateVideo(
   auto capturer = CreateFrameGeneratorCapturer(clock(), *task_queue_factory_,
                                                config.generator);
   res.capturer = capturer.get();
-  capturer->Init();
   res.source = rtc::make_ref_counted<FrameGeneratorCapturerVideoTrackSource>(
       std::move(capturer), config.screencast);
   res.source->Start();

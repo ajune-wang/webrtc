@@ -1037,7 +1037,6 @@ void VideoQualityTest::SetupThumbnailCapturers(size_t num_thumbnail_streams) {
                                              static_cast<int>(thumbnail.height),
                                              absl::nullopt, absl::nullopt),
             thumbnail.max_framerate, *task_queue_factory_);
-    EXPECT_TRUE(frame_generator_capturer->Init());
     thumbnail_capturers_.push_back(std::move(frame_generator_capturer));
   }
 }
@@ -1142,7 +1141,6 @@ void VideoQualityTest::CreateCapturers() {
         std::make_unique<test::FrameGeneratorCapturer>(
             clock_, std::move(frame_generator), params_.video[video_idx].fps,
             *task_queue_factory_);
-    EXPECT_TRUE(frame_generator_capturer->Init());
     video_sources_[video_idx] = std::move(frame_generator_capturer);
   }
 }

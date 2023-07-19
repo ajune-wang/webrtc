@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8d85025_05d8f92c",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-07-19T09:44:32Z",
+      "side": 1,
+      "message": "You would end up in a situation where just trying to turn on an inactive layer requires the codec to be also set, which also breaks old assumptions (to turn a layer on, just flip the active flag).\nIt\u0027s a tradeoff, and I think it\u0027s just a lot easier if when introducing the new feature, we require it to be on all layers than not.",
+      "parentUuid": "3d94d4dc_5766151d",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

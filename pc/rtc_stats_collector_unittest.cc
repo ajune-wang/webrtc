@@ -2446,6 +2446,9 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRtpStreamStats_Video) {
   video_media_info.receivers[0].last_packet_received = Timestamp::Seconds(1);
   expected_video.last_packet_received_timestamp = 1000.0;
   video_media_info.receivers[0].content_type = VideoContentType::SCREENSHARE;
+  // Make sure content type is reported even when enum is overloaded.
+  videocontenttypehelpers::SetSimulcastId(
+      &video_media_info.receivers[0].content_type, 1);
   expected_video.content_type = "screenshare";
   video_media_info.receivers[0].estimated_playout_ntp_timestamp_ms = 1234;
   expected_video.estimated_playout_timestamp = 1234;

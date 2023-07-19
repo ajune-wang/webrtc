@@ -16,6 +16,312 @@
       "message": "I\u0027ll be OOO next week so do replace me with a different reviewer but if so let\u0027s get a second opinion about the inactive encoding question that we disagree on",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60177fc3_7f506c65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Lots of comments, but most of them are around test naming. Test names should give a strong hint to what happens when they go right; I don\u0027t think this set is good enough.\n\nOn the issue of failing to set codec for all the layers: I think the convenience of not making code that \"just turns on a layer\" more complicated trumps the inconvenience of \"if you set one, you have to set all\".",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bf9e922_72d648ba",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "This seems a bit odd. If it has been negotiated away, shouldn\u0027t a failure be reported?\nAlterntaively, if the codec has been negotiated away, shouldn\u0027t it also be gone from the output of GetRtpParameters()?\n\nI\u0027d like this function (named GetChanged...) to not have to change the parameters itself. (And the SetRtpSendParameters below does a DCHECK if the codec is not found).",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b20e7d04_2616d1e9",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "TODO(bug) is preferred.",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeba5202_99cc026a",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Should there be unit tests in media/engine that exercise these codepaths?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9644e3d2_dead3e24",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Add an RTC_DCHECK that media_type is cricket::MEDIA_TYPE_AUDIO, for belt-and-suspenders safety. (we\u0027re not guaranteed to crash anywhere else on this)",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea751a9_25f3098e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "This sounds like it\u0027s bubbling up the wrong error. Can we change it at the bottom of the stack?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1b7ed4c_c875870d",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "I had to read the code to figure out what it was testing.\nCan you call it \"EncodingParameterCodecIsEmptyWhenCreated\"?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c56f23_429d3ac0",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308b5263_82f90cf1",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "EncodingParameterCodecIsFilledInByOfferAnswer?\n\nI don\u0027t think it\u0027s the AddTransceiver that makes the difference from the previous test.",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e3fd75a_0dc65f21",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80a1ed37_a533277c",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "EncodingParameterCodecIsSetBySetParameters",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6fb1464_00a3e2a6",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e43301cb_88645c50",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904b76a9_785bf989",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b349cd2d_9e57200b",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "RejectedIn, RejectedBy or AddTransceiverRejectsUnknownCodecParameter?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd5c34b0_9b3374fc",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a52c42a6_e39c0d72",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12761408_58b60959",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T14:11:49Z",
+      "side": 1,
+      "message": "Should this argument be cricket::Codec, to match the function name change?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

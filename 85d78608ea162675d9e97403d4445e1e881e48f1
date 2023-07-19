@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b896af0_09a11c4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T18:56:59Z",
+      "side": 1,
+      "message": "Can you add this information to the definition of VideoContentType in api/video/video_content_type.h?\n\nFrom the API, it looks like there can be only 2 values; from the code here and in IsScreenshare(), it seems to behave like a packed struct (not a good coding practice)....",
+      "revId": "85d78608ea162675d9e97403d4445e1e881e48f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "918b74be_20641146",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T18:56:59Z",
+      "side": 1,
+      "message": "Ouch, that\u0027s some ugly abuse of type definitions :-(\n\nLooks good, but want to make sure others can understand this code better.",
+      "revId": "85d78608ea162675d9e97403d4445e1e881e48f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d2215d6_17fc2ab2",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2451,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-19T18:56:59Z",
+      "side": 1,
+      "message": "This seems to need a duplicated test (with and without adding simulcast id).",
+      "revId": "85d78608ea162675d9e97403d4445e1e881e48f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

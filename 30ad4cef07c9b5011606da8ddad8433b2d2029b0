@@ -16,6 +16,24 @@
       "message": "LGTM but there is a merge conflict.",
       "revId": "30ad4cef07c9b5011606da8ddad8433b2d2029b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ae7bc7_903521a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-07-19T11:06:09Z",
+      "side": 1,
+      "message": "Ah, the autoroller just ran.",
+      "parentUuid": "d874e1e1_5207b136",
+      "revId": "30ad4cef07c9b5011606da8ddad8433b2d2029b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

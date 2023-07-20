@@ -31,19 +31,10 @@ RateStatistics::RateStatistics(int64_t window_size_ms, float scale)
       max_window_size_ms_(window_size_ms),
       current_window_size_ms_(max_window_size_ms_) {}
 
-RateStatistics::RateStatistics(const RateStatistics& other)
-    : buckets_(other.buckets_),
-      accumulated_count_(other.accumulated_count_),
-      first_timestamp_(other.first_timestamp_),
-      overflow_(other.overflow_),
-      num_samples_(other.num_samples_),
-      scale_(other.scale_),
-      max_window_size_ms_(other.max_window_size_ms_),
-      current_window_size_ms_(other.current_window_size_ms_) {}
-
+RateStatistics::RateStatistics(const RateStatistics& other) = default;
 RateStatistics::RateStatistics(RateStatistics&& other) = default;
 
-RateStatistics::~RateStatistics() {}
+RateStatistics::~RateStatistics() = default;
 
 void RateStatistics::Reset() {
   accumulated_count_ = 0;

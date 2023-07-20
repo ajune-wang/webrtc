@@ -250,14 +250,29 @@ rtc_library("random") {
 
 rtc_library("rate_statistics") {
   visibility = [ "*" ]
-  sources = [
-    "rate_statistics.cc",
+  public = [
+    "bitrate_tracker.h",
+    "frequency_tracker.h",
+
+    # TODO(bugs.webrtc.org/13756): Move rate_statistics.h to sources to make it
+    # implementation detail when all usage of the RateStatistics is migrated to
+    # BitrateTracker and FrequencyTracker.
     "rate_statistics.h",
+  ]
+  sources = [
+    "bitrate_tracker.cc",
+    "frequency_tracker.cc",
+    "rate_statistics.cc",
   ]
   deps = [
     ":checks",
     ":logging",
     ":safe_conversions",
+    "../api/units:data_rate",
+    "../api/units:data_size",
+    "../api/units:frequency",
+    "../api/units:time_delta",
+    "../api/units:timestamp",
     "system:rtc_export",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
@@ -1772,6 +1787,7 @@ if (rtc_include_tests) {
       sources = [
         "base64_unittest.cc",
         "bit_buffer_unittest.cc",
+        "bitrate_tracker_unittest.cc",
         "bitstream_reader_unittest.cc",
         "bounded_inline_vector_unittest.cc",
         "buffer_queue_unittest.cc",
@@ -1783,6 +1799,7 @@ if (rtc_include_tests) {
         "deprecated/recursive_critical_section_unittest.cc",
         "event_tracer_unittest.cc",
         "event_unittest.cc",
+        "frequency_tracker_unittest.cc",
         "logging_unittest.cc",
         "numerics/divide_round_unittest.cc",
         "numerics/histogram_percentile_counter_unittest.cc",
@@ -1866,7 +1883,11 @@ if (rtc_include_tests) {
         "../api:make_ref_counted",
         "../api:scoped_refptr",
         "../api/numerics",
+        "../api/units:data_rate",
+        "../api/units:data_size",
+        "../api/units:frequency",
         "../api/units:time_delta",
+        "../api/units:timestamp",
         "../system_wrappers",
         "../test:field_trial",
         "../test:fileutils",

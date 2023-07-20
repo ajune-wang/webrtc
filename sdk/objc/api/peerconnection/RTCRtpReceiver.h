@@ -74,6 +74,8 @@ RTC_OBJC_EXPORT
 /** The delegate for this RtpReceiver. */
 @property(nonatomic, weak) id<RTC_OBJC_TYPE(RTCRtpReceiverDelegate)> delegate;
 
+- (void)setDelegate:(id<RTCRtpReceiverDelegate>)delegate;
+
 @end
 
 RTC_OBJC_EXPORT

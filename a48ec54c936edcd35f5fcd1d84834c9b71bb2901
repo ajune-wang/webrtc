@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff19b4d_a3db3eb8",
+        "filename": "rtc_base/bitrate_tracker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-20T16:45:19Z",
+      "side": 1,
+      "message": "to minimize change during intended migration I\u0027m keeping optional here,\n\nthough returning Zero might be cleaner when there is not enough data to estimate the rate.\n\nIn particular I didn\u0027t found a use case where passed values are not positive.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

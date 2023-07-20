@@ -68,6 +68,10 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
 }
 
 - (void)dealloc {
+//    if (_nativeRtpReceiver && _delegate) {
+//      _nativeRtpReceiver->SetObserver(nullptr);
+//    }
+//
   if (_nativeRtpReceiver) {
     _nativeRtpReceiver->SetObserver(nullptr);
   }
@@ -97,6 +101,12 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
   _nativeRtpReceiver->SetFrameDecryptor(frameDecryptor);
 }
 
+//- (void)setDelegate:(id<RTCRtpReceiverDelegate>)delegate {
+//    _observer.reset(new webrtc::RtpReceiverDelegateAdapter(self));
+//    _delegate = delegate;
+//    _nativeRtpReceiver->SetObserver(_observer.get());
+//}
+
 #pragma mark - Private
 
 - (rtc::scoped_refptr<webrtc::RtpReceiverInterface>)nativeRtpReceiver {
@@ -110,6 +120,7 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
     _factory = factory;
     _nativeRtpReceiver = nativeRtpReceiver;
     RTCLogInfo(@"RTC_OBJC_TYPE(RTCRtpReceiver)(%p): created receiver: %@", self, self.description);
+      /// DELETED
     _observer.reset(new webrtc::RtpReceiverDelegateAdapter(self));
     _nativeRtpReceiver->SetObserver(_observer.get());
   }

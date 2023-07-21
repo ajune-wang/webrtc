@@ -170,20 +170,11 @@ NetEq::Operation DecisionLogic::GetDecision(const NetEqStatus& status,
     return NoPacket(status);
   }
 
-  const uint32_t five_seconds_samples =
-      static_cast<uint32_t>(5000 * sample_rate_khz_);
   // Check if the required packet is available.
   if (status.target_timestamp == status.next_packet->timestamp) {
     return ExpectedPacketAvailable(status);
   }
-  if (!PacketBuffer::IsObsoleteTimestamp(status.next_packet->timestamp,
-                                         status.target_timestamp,
-                                         five_seconds_samples)) {
-    return FuturePacketAvailable(status);
-  }
-  // This implies that available_timestamp < target_timestamp, which can
-  // happen when a new stream or codec is received. Signal for a reset.
-  return NetEq::Operation::kUndefined;
+  return FuturePacketAvailable(status);
 }
 
 int DecisionLogic::TargetLevelMs() const {

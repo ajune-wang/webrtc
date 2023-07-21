@@ -316,21 +316,15 @@ int PacketBuffer::DiscardNextPacket(StatisticsCalculator* stats) {
 }
 
 void PacketBuffer::DiscardOldPackets(uint32_t timestamp_limit,
-                                     uint32_t horizon_samples,
                                      StatisticsCalculator* stats) {
-  buffer_.remove_if([timestamp_limit, horizon_samples, stats](const Packet& p) {
+  buffer_.remove_if([timestamp_limit, stats](const Packet& p) {
     if (timestamp_limit == p.timestamp ||
-        !IsObsoleteTimestamp(p.timestamp, timestamp_limit, horizon_samples)) {
+        !IsNewerTimestamp(p.timestamp, timestamp_limit)) {
       return false;
     }
     LogPacketDiscarded(p.priority.codec_level, stats);
     return true;
   });
-}
-
-void PacketBuffer::DiscardAllOldPackets(uint32_t timestamp_limit,
-                                        StatisticsCalculator* stats) {
-  DiscardOldPackets(timestamp_limit, 0, stats);
 }
 
 void PacketBuffer::DiscardPacketsWithPayloadType(uint8_t payload_type,

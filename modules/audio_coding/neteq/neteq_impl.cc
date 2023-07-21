@@ -1036,9 +1036,7 @@ int NetEqImpl::GetDecision(Operation* operation,
   RTC_DCHECK(sync_buffer_.get());
   uint32_t end_timestamp = sync_buffer_->end_timestamp();
   if (!new_codec_) {
-    const uint32_t five_seconds_samples = 5 * fs_hz_;
-    packet_buffer_->DiscardOldPackets(end_timestamp, five_seconds_samples,
-                                      stats_.get());
+    packet_buffer_->DiscardOldPackets(end_timestamp, stats_.get());
   }
   const Packet* packet = packet_buffer_->PeekNextPacket();
 
@@ -1064,8 +1062,7 @@ int NetEqImpl::GetDecision(Operation* operation,
       }
       // Check buffer again.
       if (!new_codec_) {
-        packet_buffer_->DiscardOldPackets(end_timestamp, 5 * fs_hz_,
-                                          stats_.get());
+        packet_buffer_->DiscardOldPackets(end_timestamp, stats_.get());
       }
       packet = packet_buffer_->PeekNextPacket();
     }
@@ -2024,7 +2021,7 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
     // we could end up in the situation where we never decode anything, since
     // all incoming packets are considered too old but the buffer will also
     // never be flooded and flushed.
-    packet_buffer_->DiscardAllOldPackets(timestamp_, stats_.get());
+    packet_buffer_->DiscardOldPackets(timestamp_, stats_.get());
   }
 
   return rtc::dchecked_cast<int>(extracted_samples);

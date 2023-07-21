@@ -67,12 +67,6 @@ class MockPacketBuffer : public PacketBuffer {
               (override));
   MOCK_METHOD(void,
               DiscardOldPackets,
-              (uint32_t timestamp_limit,
-               uint32_t horizon_samples,
-               StatisticsCalculator* stats),
-              (override));
-  MOCK_METHOD(void,
-              DiscardAllOldPackets,
               (uint32_t timestamp_limit, StatisticsCalculator* stats),
               (override));
   MOCK_METHOD(size_t, NumPacketsInBuffer, (), (const, override));

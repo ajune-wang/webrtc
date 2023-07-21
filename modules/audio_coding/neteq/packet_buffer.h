@@ -121,18 +121,9 @@ class PacketBuffer {
   // PacketBuffer::kOK otherwise.
   virtual int DiscardNextPacket(StatisticsCalculator* stats);
 
-  // Discards all packets that are (strictly) older than timestamp_limit,
-  // but newer than timestamp_limit - horizon_samples. Setting horizon_samples
-  // to zero implies that the horizon is set to half the timestamp range. That
-  // is, if a packet is more than 2^31 timestamps into the future compared with
-  // timestamp_limit (including wrap-around), it is considered old.
-  virtual void DiscardOldPackets(uint32_t timestamp_limit,
-                                 uint32_t horizon_samples,
-                                 StatisticsCalculator* stats);
-
   // Discards all packets that are (strictly) older than timestamp_limit.
-  virtual void DiscardAllOldPackets(uint32_t timestamp_limit,
-                                    StatisticsCalculator* stats);
+  virtual void DiscardOldPackets(uint32_t timestamp_limit,
+                                 StatisticsCalculator* stats);
 
   // Removes all packets with a specific payload type from the buffer.
   virtual void DiscardPacketsWithPayloadType(uint8_t payload_type,
@@ -155,20 +146,6 @@ class PacketBuffer {
   // Returns true if the packet buffer contains any DTX or CNG packets.
   virtual bool ContainsDtxOrCngPacket(
       const DecoderDatabase* decoder_database) const;
-
-  // Static method returning true if `timestamp` is older than `timestamp_limit`
-  // but less than `horizon_samples` behind `timestamp_limit`. For instance,
-  // with timestamp_limit = 100 and horizon_samples = 10, a timestamp in the
-  // range (90, 100) is considered obsolete, and will yield true.
-  // Setting `horizon_samples` to 0 is the same as setting it to 2^31, i.e.,
-  // half the 32-bit timestamp range.
-  static bool IsObsoleteTimestamp(uint32_t timestamp,
-                                  uint32_t timestamp_limit,
-                                  uint32_t horizon_samples) {
-    return IsNewerTimestamp(timestamp_limit, timestamp) &&
-           (horizon_samples == 0 ||
-            IsNewerTimestamp(timestamp, timestamp_limit - horizon_samples));
-  }
 
  private:
   absl::optional<SmartFlushingConfig> smart_flushing_config_;

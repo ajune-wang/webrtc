@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1481ceb_5bb114eb",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:31:10Z",
+      "side": 1,
+      "message": "This comment seems OBE.",
+      "parentUuid": "9bff74e0_9f2ba7fe",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fcd5967_aad97105",

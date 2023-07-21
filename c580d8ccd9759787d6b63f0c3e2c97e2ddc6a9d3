@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ced264c2_f0f55ed8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:31:10Z",
+      "side": 1,
+      "message": "BUILD file looks nicer now. Other comments still apply.",
+      "revId": "c580d8ccd9759787d6b63f0c3e2c97e2ddc6a9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

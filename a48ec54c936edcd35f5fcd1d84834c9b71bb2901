@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd599b82_50d9b911",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "The idea of extra tests is to simplify future refactoring of those trackers, e.g. change implementation from RateStatistics into something specific for bitrate use case, or simplify frequency tracker because it doesn\u0027t need to support dynamic window size.\n\nThis tests are also a bit relaxed compared to original RateStatistics,\ne.g. ReturnsRateAfterTwoMeasurements tests doesn\u0027t Rate result exactly, just that it is within logical range of what bitrate can mean after just two measurements.\n\n\nThough some tests might be too much. e.g. behavior where one sample is enough if you call the \u0027Rate\u0027 at exactly the right time looks like weird behavior to keep and thus to test. Removed that test as I do find that behavior important to keep.",
+      "parentUuid": "921462dc_c64635c0",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bff74e0_9f2ba7fe",
@@ -70,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd0aa1dc_be520557",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "Agreed it is a good idea before seeing your comment.",
+      "parentUuid": "3fcd5967_aad97105",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75ea84bb_ba682fcb",
@@ -83,6 +119,24 @@
       "writtenOn": "2023-07-21T11:29:05Z",
       "side": 1,
       "message": "Why do you expose the int method on a new class?",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd92e3bc_cb4eec37",
+        "filename": "rtc_base/bitrate_tracker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "It is common to represent size as plain int or size_t in bytes, much more common that represent size in DataSize. or repersent size as plain int in something other than bytes.\n\nI\u0027m slightly worried that forcing DataSize type would unnecessary clatter the code.\n\ne.g.\n```\nstd::vector\u003cuint8_t\u003e raw_packet;\nbitrate_rate_tracker_.Update(raw_packet.size(), now);\n```\n\nlooks more natural than\n```\nbitrate_rate_tracker_.Update(DataSize::Bytes(raw_packet.size()), now);\n```",
+      "parentUuid": "75ea84bb_ba682fcb",
       "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -121,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "195f9a18_38cdeba0",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "Deleted this test. I wrote this test (based on RateStatisticsTest::RespectsWindowSizeEdges) to demonstrate that allowing one sample when window is full is a strange behavior: Calling Rate function 1ms earlier or 1ms later returns different result.",
+      "parentUuid": "398931af_5e5158cc",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc53c77d_4ac0f40a",
@@ -134,6 +206,24 @@
       "writtenOn": "2023-07-21T11:29:05Z",
       "side": 1,
       "message": "Strictly speaking, it\u0027s 10 bytes every 10 milliseconds.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e3cfc5c_147db2f2",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc53c77d_4ac0f40a",
       "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -155,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8ed34f_102f3794",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca97ddac_0ce10788",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f72a4c0_f9484928",
@@ -168,6 +276,24 @@
       "writtenOn": "2023-07-21T11:29:05Z",
       "side": 1,
       "message": "Can\u0027t parse \"until new bit and bobs\".....",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0178925d_34d634a2",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "hm, me neither. that what happen when you copy paste comment without reading it.\nrephrased.",
+      "parentUuid": "4f72a4c0_f9484928",
       "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -189,6 +315,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63b8087_e0eaabbc",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eb48623_0264afe8",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc13aa9e_100a728a",
@@ -202,6 +346,24 @@
       "writtenOn": "2023-07-21T11:29:05Z",
       "side": 1,
       "message": "increase -\u003e increased",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e578d9_ea57b840",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-21T12:22:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc13aa9e_100a728a",
       "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

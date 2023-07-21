@@ -3,6 +3,74 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "921462dc_c64635c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "I\u0027m approving this, since the basic idea seems sound.\n\nHowever, I\u0027m actually worried about overtesting for this instance - both new classes look like small facades over a common implementation class, and that implementation class presumably has all the tests it needs. Tests should aim to exercise functionality unique to the added code, they shouldn\u0027t exercise all the functions of underlying implementation classes that are used in multiple places. Replicated tests increase maintenance costs.\n\nFeel free to submit or revise; it is not a big worry, but I wanted to mention it.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bff74e0_9f2ba7fe",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "Consult with mbonadei before using \"public\". This concept has caused problems in the past when importing to Google3.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fcd5967_aad97105",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "When adding new files, stick strictly to the \"one .h/.cc file per target\" rule.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ea84bb_ba682fcb",
+        "filename": "rtc_base/bitrate_tracker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "Why do you expose the int method on a new class?",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9ff19b4d_a3db3eb8",
         "filename": "rtc_base/bitrate_tracker.h",
         "patchSetId": 5
@@ -14,6 +82,108 @@
       "writtenOn": "2023-07-20T16:45:19Z",
       "side": 1,
       "message": "to minimize change during intended migration I\u0027m keeping optional here,\n\nthough returning Zero might be cleaner when there is not enough data to estimate the rate.\n\nIn particular I didn\u0027t found a use case where passed values are not positive.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "398931af_5e5158cc",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "More readable to write this comment as \"after one sample, nullopt is returned\".\n\"Shouldn\u0027t work!\" looks as if there\u0027s something wrong. (Nit.)",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc53c77d_4ac0f40a",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "Strictly speaking, it\u0027s 10 bytes every 10 milliseconds.",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca97ddac_0ce10788",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "With all the other kConstants, the 10 looks out of place....",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f72a4c0_f9484928",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "Can\u0027t parse \"until new bit and bobs\".....",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb48623_0264afe8",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "it -\u003e at",
+      "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc13aa9e_100a728a",
+        "filename": "rtc_base/bitrate_tracker_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-21T11:29:05Z",
+      "side": 1,
+      "message": "increase -\u003e increased",
       "revId": "a48ec54c936edcd35f5fcd1d84834c9b71bb2901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

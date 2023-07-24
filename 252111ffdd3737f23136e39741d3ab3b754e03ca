@@ -16,6 +16,23 @@
       "message": "pending approval of spec change",
       "revId": "252111ffdd3737f23136e39741d3ab3b754e03ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c583a308_31c899b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-24T14:56:45Z",
+      "side": 1,
+      "message": "But let\u0027s wait for spec change to merge",
+      "revId": "252111ffdd3737f23136e39741d3ab3b754e03ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

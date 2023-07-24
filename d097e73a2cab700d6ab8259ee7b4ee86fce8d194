@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f235a6d_0acacc9f",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-24T08:21:05Z",
+      "side": 1,
+      "message": "Real world use cases of the API uses \"inactive\" with no other stuff set, and then for each active encoding it has all the desired parameters set. You already require codec to be set on all active layers, all I\u0027m asking is that you\u0027re not required to set it on the inactive layer.\n\nIt\u0027s a couple of lines of code modified, and I prefer that happening in the API than in the application layer.",
+      "parentUuid": "c8d85025_05d8f92c",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

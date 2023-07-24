@@ -16,6 +16,24 @@
       "message": "The max packet size parameter is really only a recommendation then?\nIs there any call site which _requires_ the packet never to grow beyond what was specified in the constructor? If not then this should be fine.",
       "revId": "15276885fec4d268007163643ea1e59765c07f02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b68d68b_a226bac8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-07-24T14:36:26Z",
+      "side": 1,
+      "message": "yes, max packet size become strong recommendation and optimization (packet within max_packet_size avoids reallocation).\nit is still respected: RtpPacket has `capacity` property and packetizers check that property to decide how much rtp payload can be put into the packet.\n\nThis change addresses differently edge case when max_packet_size is not respected.\n\nI do not expect any callsite relies on packet not exceeding the capacity: raw packet is passed as CoWBuffer or ArrayView, i.e. explicetly includes size.\nDid some search how it is used. e.g. pc/BaseChannel and RtpTransport log and drop packet when the size of it exceed 2k, i.e. they still do not rely that packets respects max_packet_size.\n\nI\u0027ve check all callsite to AllocatePacket: majority of them already assumes AllocatePacket never returns nullptr. Some CHECK, some DCHECK, some assume silently.\nin WebRTC I found just two places that do run-time check if packet exceed capacity.\n\nI think RTX one triggered http://bugs.webrtc.org/13896 in the past. With this change that bug would have been mitigated with slightly oversized RTX packets instead of dropped packets.",
+      "parentUuid": "1ac3ae6d_ba8ee24b",
+      "revId": "15276885fec4d268007163643ea1e59765c07f02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

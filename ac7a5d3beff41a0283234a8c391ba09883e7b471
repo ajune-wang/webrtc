@@ -52,6 +52,24 @@
       "parentUuid": "96b4d08d_d49d8f0d",
       "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecfff4df_7bc313dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2023-07-24T11:59:26Z",
+      "side": 1,
+      "message": "I\u0027ve not seen the Firefox code, but this change here looks good.",
+      "parentUuid": "6670c073_da3ca1e5",
+      "revId": "ac7a5d3beff41a0283234a8c391ba09883e7b471",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

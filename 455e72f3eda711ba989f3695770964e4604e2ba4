@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3ec5bc_a50ad597",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-25T14:38:11Z",
+      "side": 1,
+      "message": "*sob* I accidentally added another patch in PS3 and had to revert in PS4, need reapproval please.",
+      "revId": "455e72f3eda711ba989f3695770964e4604e2ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "297d9859_9414f36e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-07-25T15:26:03Z",
+      "side": 1,
+      "message": "Would appreciate if someone with committer rights can add this to the CQ. Thanks!",
+      "revId": "df40c9c8ac256d5860020a74f8172da2129c0e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

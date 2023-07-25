@@ -18,6 +18,40 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29eedb7b_feffd08b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-25T14:59:43Z",
+      "side": 1,
+      "message": "+1 on the changes, wondering what\u0027s the holdout for deleting the template altogether.",
+      "revId": "71d18139b299985322877fcfa38c3f0fd7dc803e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48483a67_aafb56c3",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-25T14:59:43Z",
+      "side": 1,
+      "message": "Is there any usage of C left? Can we delete the \"template\" line?",
+      "revId": "71d18139b299985322877fcfa38c3f0fd7dc803e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15a06950_558a93cc",
@@ -31,6 +65,24 @@
       "writtenOn": "2023-07-03T12:29:52Z",
       "side": 1,
       "message": "tempted to use c_find_if...",
+      "revId": "71d18139b299985322877fcfa38c3f0fd7dc803e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7af884_9fe76735",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-25T14:59:43Z",
+      "side": 1,
+      "message": "the code likely predates c_find_if.... feel free :-) (in another CL)",
+      "parentUuid": "15a06950_558a93cc",
       "revId": "71d18139b299985322877fcfa38c3f0fd7dc803e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

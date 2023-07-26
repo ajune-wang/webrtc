@@ -16,6 +16,24 @@
       "message": "The naming is starting to become awkward. Sadly we have SctpDataContentDescription inheriting from MediaContentDescription, probably because of RTP data channels...\n\nAfter removing the template argument it should be possible to merge this (which primarily adds Codecs) to MediaContentDescription?",
       "revId": "8c9e035edbadd683da26887367e9e4f321b5ab4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c31d64_632deac2",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-07-26T18:58:34Z",
+      "side": 0,
+      "message": "When I moved SctpDataContentDescription to not inherit form MediaContentDescriptionImpl, my thought was that MediaContentDescriptionImpl ought to be renamed to RtpMediaContentDescription. I don\u0027t like the idea of cluttering up SctpDataContentDescription with methods that just have to RTC_CHECK(false) \u003c\u003c \"No, I\u0027m not RTP\".",
+      "parentUuid": "c4371be6_0aa0dee6",
+      "revId": "8c9e035edbadd683da26887367e9e4f321b5ab4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

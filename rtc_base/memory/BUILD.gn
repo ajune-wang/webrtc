@@ -32,10 +32,12 @@ rtc_library("fifo_buffer") {
     "fifo_buffer.cc",
     "fifo_buffer.h",
   ]
+  public_deps = [
+    "../../api/task_queue:pending_task_safety_flag",
+  ]
   deps = [
     "..:stream",
     "..:threading",
-    "../../api/task_queue:pending_task_safety_flag",
     "../synchronization:mutex",
   ]
 }

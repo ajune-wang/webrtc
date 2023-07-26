@@ -37,6 +37,9 @@ rtc_library("audio") {
     "remix_resample.h",
   ]
 
+  public_deps = [
+    "../api:sequence_checker",
+  ]
   deps = [
     "../api:array_view",
     "../api:call_api",
@@ -46,7 +49,6 @@ rtc_library("audio") {
     "../api:rtp_headers",
     "../api:rtp_parameters",
     "../api:scoped_refptr",
-    "../api:sequence_checker",
     "../api:transport_api",
     "../api/audio:aec3_factory",
     "../api/audio:audio_frame_api",

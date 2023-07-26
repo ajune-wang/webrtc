@@ -49,13 +49,15 @@ rtc_library("sequence_checker_internal") {
     "sequence_checker_internal.cc",
     "sequence_checker_internal.h",
   ]
+  public_deps = [
+    "../../api/task_queue",
+  ]
   deps = [
     ":mutex",
     "..:checks",
     "..:macromagic",
     "..:platform_thread_types",
     "..:stringutils",
-    "../../api/task_queue",
     "../system:rtc_export",
   ]
 }

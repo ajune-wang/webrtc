@@ -16,6 +16,9 @@ rtc_source_set("media_configuration") {
     "media_configuration.h",
   ]
 
+  public_deps = [
+    "../..:libjingle_peerconnection_api",
+  ]
   deps = [
     "../..:array_view",
     "../..:audio_options_api",
@@ -24,7 +27,6 @@ rtc_source_set("media_configuration") {
     "../..:fec_controller_api",
     "../..:frame_generator_api",
     "../..:function_view",
-    "../..:libjingle_peerconnection_api",
     "../..:media_stream_interface",
     "../..:packet_socket_factory",
     "../..:peer_network_dependencies",

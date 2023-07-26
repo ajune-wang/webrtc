@@ -16,8 +16,10 @@ rtc_library("task_queue") {
   ]
   sources = [ "task_queue_base.cc" ]
 
+  public_deps = [
+    "..:location"
+  ]
   deps = [
-    "..:location",
     "../../rtc_base:checks",
     "../../rtc_base:macromagic",
     "../../rtc_base/system:rtc_export",
@@ -124,10 +126,12 @@ rtc_library("pending_task_safety_flag") {
     "pending_task_safety_flag.cc",
     "pending_task_safety_flag.h",
   ]
+  public_deps = [
+    "../../api:sequence_checker",
+  ]
   deps = [
     "../../api:refcountedbase",
     "../../api:scoped_refptr",
-    "../../api:sequence_checker",
     "../../rtc_base:checks",
     "../../rtc_base/system:no_unique_address",
   ]

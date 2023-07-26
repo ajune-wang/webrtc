@@ -30,10 +30,11 @@ rtc_library("network_control") {
     "network_types.cc",
     "network_types.h",
   ]
-
+  public_deps = [
+    "../rtc_event_log",
+  ]
   deps = [
     "../../api:field_trials_view",
-    "../rtc_event_log",
     "../units:data_rate",
     "../units:data_size",
     "../units:time_delta",

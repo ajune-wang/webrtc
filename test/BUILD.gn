@@ -48,11 +48,13 @@ rtc_library("frame_generator_impl") {
     "testsupport/ivf_video_frame_generator.cc",
     "testsupport/ivf_video_frame_generator.h",
   ]
+  public_deps = [
+    "../api:sequence_checker",
+  ]
   deps = [
     ":frame_utils",
     "../api:frame_generator_api",
     "../api:scoped_refptr",
-    "../api:sequence_checker",
     "../api/video:encoded_image",
     "../api/video:video_frame",
     "../api/video:video_frame_i010",

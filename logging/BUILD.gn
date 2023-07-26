@@ -516,6 +516,9 @@ if (rtc_enable_protobuf) {
       "rtc_event_log/rtc_event_processor_order.h",
     ]
 
+    public_deps = [
+      "../api/rtc_event_log",
+    ]
     deps = [
       ":dependency_descriptor_encoder_decoder",
       ":ice_log",
@@ -538,7 +541,6 @@ if (rtc_enable_protobuf) {
       "../api:network_state_predictor_api",
       "../api:rtp_headers",
       "../api:rtp_parameters",
-      "../api/rtc_event_log",
       "../api/units:data_rate",
       "../api/units:time_delta",
       "../api/units:timestamp",

@@ -68,10 +68,12 @@ rtc_library("audio_device_buffer") {
     "fine_audio_buffer.cc",
     "fine_audio_buffer.h",
   ]
+  public_deps = [
+    "../../api:sequence_checker",
+  ]
   deps = [
     ":audio_device_api",
     "../../api:array_view",
-    "../../api:sequence_checker",
     "../../api/task_queue",
     "../../common_audio:common_audio_c",
     "../../rtc_base:buffer",

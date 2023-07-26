@@ -413,11 +413,13 @@ rtc_library("rtc_event") {
       "../../webrtc_overrides/rtc_base/event.cc",
       "../../webrtc_overrides/rtc_base/event.h",
     ]
+    public_deps = [
+      "//base",  # Dependency on chromium's waitable_event.
+    ]
     deps = [
       ":checks",
       "../api/units:time_delta",
       "system:rtc_export",  # Only Chromium's rtc::Event use RTC_EXPORT.
-      "//base",  # Dependency on chromium's waitable_event.
     ]
   } else {
     sources = [
@@ -996,6 +998,9 @@ rtc_library("threading") {
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
   ]
+  public_deps = [
+    "../api:location",
+  ]
   deps = [
     ":async_resolver_interface",
     ":byte_order",
@@ -1016,7 +1021,6 @@ rtc_library("threading") {
     ":socket_server",
     ":timeutils",
     "../api:function_view",
-    "../api:location",
     "../api:refcountedbase",
     "../api:scoped_refptr",
     "../api:sequence_checker",
@@ -1316,12 +1320,14 @@ rtc_library("async_packet_socket") {
     "async_packet_socket.cc",
     "async_packet_socket.h",
   ]
+  public_deps = [
+    "../api:sequence_checker",
+  ]
   deps = [
     ":callback_list",
     ":dscp",
     ":socket",
     ":timeutils",
-    "../api:sequence_checker",
     "network:sent_packet",
     "system:no_unique_address",
     "system:rtc_export",
@@ -1382,11 +1388,13 @@ rtc_library("unique_id_generator") {
     "unique_id_generator.cc",
     "unique_id_generator.h",
   ]
+  public_deps = [
+    "../api:sequence_checker",
+  ]
   deps = [
     ":ssl",
     ":stringutils",
     "../api:array_view",
-    "../api:sequence_checker",
     "synchronization:mutex",
     "system:no_unique_address",
   ]
@@ -1408,10 +1416,12 @@ rtc_library("stream") {
     "stream.cc",
     "stream.h",
   ]
+  public_deps = [
+    ":threading",
+  ]
   deps = [
     ":buffer",
     ":checks",
-    ":threading",
     "../api:array_view",
     "system:rtc_export",
     "third_party/sigslot",
@@ -1471,6 +1481,9 @@ rtc_library("ssl") {
     "ssl_stream_adapter.h",
   ]
 
+  public_deps = [
+    ":stream",
+  ]
   deps = [
     ":async_socket",
     ":buffer",
@@ -1481,7 +1494,6 @@ rtc_library("ssl") {
     ":safe_conversions",
     ":socket",
     ":socket_address",
-    ":stream",
     ":stringutils",
     ":threading",
     ":timeutils",
@@ -1573,11 +1585,13 @@ rtc_library("gunit_helpers") {
     "gunit.cc",
     "gunit.h",
   ]
+  public_deps = [
+    ":threading",
+  ]
   deps = [
     ":logging",
     ":rtc_base_tests_utils",
     ":stringutils",
-    ":threading",
     "../test:test_support",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]

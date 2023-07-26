@@ -73,6 +73,9 @@ rtc_library("video") {
     "video_stream_decoder2.h",
   ]
 
+  public_deps = [
+    "../api:rtp_sender_interface",
+  ]
   deps = [
     ":frame_cadence_adapter",
     ":frame_dumping_decoder",

@@ -397,8 +397,10 @@ rtc_source_set("rtcp_mux_filter") {
     "rtcp_mux_filter.cc",
     "rtcp_mux_filter.h",
   ]
-  deps = [
+  public_deps = [
     ":session_description",
+  ]
+  deps = [
     "../rtc_base:logging",
   ]
 }
@@ -671,10 +673,10 @@ rtc_source_set("session_description") {
     "session_description.cc",
     "session_description.h",
   ]
-  deps = [
-    ":media_protocol_names",
-    ":simulcast_description",
+  public_deps = [
     "../api:libjingle_peerconnection_api",
+  ]
+  deps = [
     "../api:rtp_parameters",
     "../api:rtp_transceiver_direction",
     "../media:codec",
@@ -684,10 +686,12 @@ rtc_source_set("session_description") {
     "../media:rtc_media_base",
     "../media:stream_params",
     "../p2p:rtc_p2p",
+    "../rtc_base/system:rtc_export",
     "../rtc_base:checks",
     "../rtc_base:socket_address",
     "../rtc_base:stringutils",
-    "../rtc_base/system:rtc_export",
+    ":media_protocol_names",
+    ":simulcast_description",
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",

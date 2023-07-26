@@ -1118,6 +1118,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
         // We don't check encoder_config_.simulcast_layers[0].max_bitrate_bps
         // here since encoder_config_.max_bitrate_bps is derived from it (as
         // well as from other inputs).
+        // TODO(hbos): We shouldn't ignore parameters here! Be consistent with
+        // the above.
         if (encoder_config_.max_bitrate_bps <= 0) {
           max_bitrate_bps = encoder_bitrate_limits->max_bitrate_bps;
         } else {

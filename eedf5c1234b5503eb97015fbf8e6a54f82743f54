@@ -16,6 +16,24 @@
       "message": "Won\u0027t this cause streams to be entirely torn down and recreated every time the number of streams change? E.g. if we deactive a resolution no one is watching?\nDepending on the codec implementation type that can be a bit expensive and also requires keyframes on all layers. Would be good to avoid of we could. Or is that on another code path?",
       "revId": "eedf5c1234b5503eb97015fbf8e6a54f82743f54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad96d0e6_b5cc3c50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-26T12:54:36Z",
+      "side": 1,
+      "message": "Activating and inactivating encodings does not count as changing the number of streams.\n\nFor VP9, I checked both legacy kSVC and simulcast.\nFor H264 I checked simulcast which uses SimulcastEncoderAdapter.\nAnd for VP8 which uses libvpx pass-through.\n\nIn all cases I avoided stream recreation when turning encodings on and off.",
+      "parentUuid": "645cd2ad_a3a77b3c",
+      "revId": "eedf5c1234b5503eb97015fbf8e6a54f82743f54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

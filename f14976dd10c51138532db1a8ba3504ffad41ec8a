@@ -22,6 +22,30 @@
       },
       "revId": "f14976dd10c51138532db1a8ba3504ffad41ec8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "866138bd_10d303b2",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-07-26T11:02:48Z",
+      "side": 1,
+      "message": "Good point, I rephrased it.",
+      "parentUuid": "acb04076_64c2eda4",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "f14976dd10c51138532db1a8ba3504ffad41ec8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

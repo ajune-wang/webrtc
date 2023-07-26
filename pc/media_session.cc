@@ -113,6 +113,52 @@ cricket::RtpHeaderExtensions UnstoppedOrPresentRtpHeaderExtensions(
 
 namespace cricket {
 
+static bool IsRtxCodec(const Codec& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kRtxCodecName);
+}
+
+static bool IsRtxCodec(const webrtc::RtpCodecCapability& capability) {
+  return absl::EqualsIgnoreCase(capability.name, kRtxCodecName);
+}
+
+static bool ContainsRtxCodec(const std::vector<Codec>& codecs) {
+  for (const auto& codec : codecs) {
+    if (IsRtxCodec(codec)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool IsFlexfecCodec(const Codec& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName);
+}
+
+static bool ContainsFlexfecCodec(const std::vector<Codec>& codecs) {
+  for (const auto& codec : codecs) {
+    if (IsFlexfecCodec(codec)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool IsRedCodec(const Codec& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kRedCodecName);
+}
+
+static bool IsRedCodec(const webrtc::RtpCodecCapability& capability) {
+  return absl::EqualsIgnoreCase(capability.name, kRedCodecName);
+}
+
+static bool IsUlpfecCodec(const Codec& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kUlpfecCodecName);
+}
+
+static bool IsComfortNoiseCodec(const Codec& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kComfortNoiseCodecName);
+}
+
 static RtpTransceiverDirection NegotiateRtpTransceiverDirection(
     RtpTransceiverDirection offer,
     RtpTransceiverDirection wants) {
@@ -394,12 +440,11 @@ static void AddSimulcastToMediaDescription(
 // Adds a StreamParams for each SenderOptions in `sender_options` to
 // content_description.
 // `current_params` - All currently known StreamParams of any media type.
-template <class C>
 static bool AddStreamParams(const std::vector<SenderOptions>& sender_options,
                             const std::string& rtcp_cname,
                             UniqueRandomIdGenerator* ssrc_generator,
                             StreamParamsVec* current_streams,
-                            MediaContentDescriptionImpl<C>* content_description,
+                            MediaContentDescriptionImpl* content_description,
                             const webrtc::FieldTrialsView& field_trials) {
   // SCTP streams are not negotiated using SDP/ContentDescriptions.
   if (IsSctpProtocol(content_description->protocol())) {
@@ -610,51 +655,6 @@ static std::vector<const ContentInfo*> GetActiveContents(
   return active_contents;
 }
 
-template <class C>
-static bool ContainsRtxCodec(const std::vector<C>& codecs) {
-  for (const auto& codec : codecs) {
-    if (IsRtxCodec(codec)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-template <class C>
-static bool IsRedCodec(const C& codec) {
-  return absl::EqualsIgnoreCase(codec.name, kRedCodecName);
-}
-
-template <class C>
-static bool IsRtxCodec(const C& codec) {
-  return absl::EqualsIgnoreCase(codec.name, kRtxCodecName);
-}
-
-template <class C>
-static bool ContainsFlexfecCodec(const std::vector<C>& codecs) {
-  for (const auto& codec : codecs) {
-    if (IsFlexfecCodec(codec)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-template <class C>
-static bool IsFlexfecCodec(const C& codec) {
-  return absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName);
-}
-
-template <class C>
-static bool IsUlpfecCodec(const C& codec) {
-  return absl::EqualsIgnoreCase(codec.name, kUlpfecCodecName);
-}
-
-template <class C>
-static bool IsComfortNoiseCodec(const C& codec) {
-  return absl::EqualsIgnoreCase(codec.name, kComfortNoiseCodecName);
-}
-
 // Create a media content to be offered for the given `sender_options`,
 // according to the given options.rtcp_mux, session_options.is_muc, codecs,
 // secure_transport, crypto, and current_streams. If we don't currently have
@@ -722,7 +722,7 @@ static bool CreateMediaContentOffer(
     const RtpHeaderExtensions& rtp_extensions,
     UniqueRandomIdGenerator* ssrc_generator,
     StreamParamsVec* current_streams,
-    MediaContentDescriptionImpl<C>* offer,
+    MediaContentDescriptionImpl* offer,
     const webrtc::FieldTrialsView& field_trials) {
   offer->AddCodecs(codecs);
   if (!AddStreamParams(media_description_options.sender_options,
@@ -1364,17 +1364,16 @@ static void StripCNCodecs(AudioCodecs* audio_codecs) {
                       audio_codecs->end());
 }
 
-template <class C>
 static bool SetCodecsInAnswer(
-    const MediaContentDescriptionImpl<C>* offer,
-    const std::vector<C>& local_codecs,
+    const MediaContentDescriptionImpl* offer,
+    const std::vector<Codec>& local_codecs,
     const MediaDescriptionOptions& media_description_options,
     const MediaSessionOptions& session_options,
     UniqueRandomIdGenerator* ssrc_generator,
     StreamParamsVec* current_streams,
-    MediaContentDescriptionImpl<C>* answer,
+    MediaContentDescriptionImpl* answer,
     const webrtc::FieldTrialsView& field_trials) {
-  std::vector<C> negotiated_codecs;
+  std::vector<Codec> negotiated_codecs;
   NegotiateCodecs(local_codecs, offer->codecs(), &negotiated_codecs,
                   media_description_options.codec_preferences.empty(),
                   &field_trials);

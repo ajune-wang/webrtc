@@ -261,7 +261,6 @@ class MediaContentDescription {
   virtual MediaContentDescription* CloneInternal() const = 0;
 };
 
-template <class C>
 class MediaContentDescriptionImpl : public MediaContentDescription {
  public:
   void set_protocol(absl::string_view protocol) override {
@@ -303,7 +302,7 @@ class MediaContentDescriptionImpl : public MediaContentDescription {
   std::vector<Codec> codecs_;
 };
 
-class AudioContentDescription : public MediaContentDescriptionImpl<Codec> {
+class AudioContentDescription : public MediaContentDescriptionImpl {
  public:
   AudioContentDescription() {}
 
@@ -317,7 +316,7 @@ class AudioContentDescription : public MediaContentDescriptionImpl<Codec> {
   }
 };
 
-class VideoContentDescription : public MediaContentDescriptionImpl<Codec> {
+class VideoContentDescription : public MediaContentDescriptionImpl {
  public:
   virtual MediaType type() const { return MEDIA_TYPE_VIDEO; }
   virtual VideoContentDescription* as_video() { return this; }

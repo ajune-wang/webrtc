@@ -73,6 +73,7 @@
 using cricket::AudioContentDescription;
 using cricket::Candidate;
 using cricket::Candidates;
+using cricket::Codec;
 using cricket::ContentInfo;
 using cricket::CryptoParams;
 using cricket::ICE_CANDIDATE_COMPONENT_RTCP;
@@ -2654,11 +2655,11 @@ static std::unique_ptr<C> ParseContentDescription(
   for (int pt : payload_types) {
     payload_type_preferences[pt] = preference--;
   }
-  std::vector<cricket::Codec> codecs = media_desc->codecs();
-  absl::c_sort(codecs, [&payload_type_preferences](const cricket::Codec& a,
-                                                   const cricket::Codec& b) {
-    return payload_type_preferences[a.id] > payload_type_preferences[b.id];
-  });
+  std::vector<Codec> codecs = media_desc->codecs();
+  absl::c_sort(
+      codecs, [&payload_type_preferences](const Codec& a, const Codec& b) {
+        return payload_type_preferences[a.id] > payload_type_preferences[b.id];
+      });
   media_desc->set_codecs(codecs);
   return media_desc;
 }
@@ -2856,7 +2857,7 @@ bool ParseMediaDescription(
   return true;
 }
 
-bool VerifyCodec(const cricket::Codec& codec) {
+bool VerifyCodec(const Codec& codec) {
   // Codec has not been populated correctly unless the name has been set. This
   // can happen if an SDP has an fmtp or rtcp-fb with a payload type but doesn't
   // have a corresponding "rtpmap" line.
@@ -2871,8 +2872,7 @@ bool VerifyVideoCodecs(const VideoContentDescription* video_desc) {
   return absl::c_all_of(video_desc->codecs(), &VerifyCodec);
 }
 
-void AddParameters(const cricket::CodecParameterMap& parameters,
-                   cricket::Codec* codec) {
+void AddParameters(const cricket::CodecParameterMap& parameters, Codec* codec) {
   for (const auto& entry : parameters) {
     const std::string& key = entry.first;
     const std::string& value = entry.second;
@@ -2881,12 +2881,12 @@ void AddParameters(const cricket::CodecParameterMap& parameters,
 }
 
 void AddFeedbackParameter(const cricket::FeedbackParam& feedback_param,
-                          cricket::Codec* codec) {
+                          Codec* codec) {
   codec->AddFeedbackParam(feedback_param);
 }
 
 void AddFeedbackParameters(const cricket::FeedbackParams& feedback_params,
-                           cricket::Codec* codec) {
+                           Codec* codec) {
   for (const cricket::FeedbackParam& param : feedback_params.params()) {
     codec->AddFeedbackParam(param);
   }
@@ -2977,11 +2977,10 @@ void UpdateVideoCodecPacketization(VideoContentDescription* video_desc,
                                                                   codec);
 }
 
-template <class T>
-absl::optional<T> PopWildcardCodec(std::vector<T>* codecs) {
+absl::optional<Codec> PopWildcardCodec(std::vector<Codec>* codecs) {
   for (auto iter = codecs->begin(); iter != codecs->end(); ++iter) {
     if (iter->id == kWildcardPayloadType) {
-      T wildcard_codec = *iter;
+      Codec wildcard_codec = *iter;
       codecs->erase(iter);
       return wildcard_codec;
     }
@@ -2989,10 +2988,9 @@ absl::optional<T> PopWildcardCodec(std::vector<T>* codecs) {
   return absl::nullopt;
 }
 
-template <class T>
-void UpdateFromWildcardCodecs(cricket::MediaContentDescriptionImpl<T>* desc) {
+void UpdateFromWildcardCodecs(cricket::MediaContentDescriptionImpl* desc) {
   auto codecs = desc->codecs();
-  absl::optional<T> wildcard_codec = PopWildcardCodec(&codecs);
+  absl::optional<Codec> wildcard_codec = PopWildcardCodec(&codecs);
   if (!wildcard_codec) {
     return;
   }

@@ -33,6 +33,24 @@
       "message": "Do we need to check for the ability to actually open a listening port on this address before we accept this as \"the truth\"?",
       "revId": "45f0d01db06f5becb3160b32bd56572133c5365f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "166c23ff_55d7cd32",
+        "filename": "rtc_base/net_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-07-26T19:17:39Z",
+      "side": 1,
+      "message": "Yes, I think we should check this as well.\n\nBut that is for a follow-up. :)",
+      "parentUuid": "68e74441_30146c6b",
+      "revId": "45f0d01db06f5becb3160b32bd56572133c5365f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

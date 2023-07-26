@@ -94,6 +94,15 @@ static int GetMaxDefaultVideoBitrateKbps(int width,
   return max_bitrate;
 }
 
+absl::optional<int> MinOptional(const absl::optional<int>& a,
+                                const absl::optional<int>& b) {
+  if (!a.has_value())
+    return b;
+  if (!b.has_value())
+    return a;
+  return std::min(*a, *b);
+}
+
 }  // namespace
 
 // TODO(bugs.webrtc.org/8785): Consider removing max_qp as member of
@@ -174,10 +183,25 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
     const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const {
   std::vector<webrtc::VideoStream> layers;
 
+  // The requested max bitrate is what was specified by the API.
+  // - `encoder_config.max_bitrate_bps` comes from "b=AS" or
+  //   "x-google-max-bitrate" in the SDP.
+  // - `encoder_config.simulcast_layers[0].max_bitrate_bps` comes from the first
+  //   RtpEncodingParamters.
+  absl::optional<int> requested_max_bitrate;
+  if (encoder_config.max_bitrate_bps > 0) {
+    requested_max_bitrate = encoder_config.max_bitrate_bps;
+  }
+  if (encoder_config.simulcast_layers[0].max_bitrate_bps > 0) {
+    requested_max_bitrate =
+        MinOptional(encoder_config.simulcast_layers[0].max_bitrate_bps,
+                    requested_max_bitrate);
+  }
+
   // For unset max bitrates set default bitrate for non-simulcast.
   int max_bitrate_bps =
-      (encoder_config.max_bitrate_bps > 0)
-          ? encoder_config.max_bitrate_bps
+      requested_max_bitrate.value_or(0) > 0
+          ? *requested_max_bitrate
           : GetMaxDefaultVideoBitrateKbps(width, height, is_screenshare_) *
                 1000;
 
@@ -189,7 +213,7 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
     // Use set min bitrate.
     min_bitrate_bps = encoder_config.simulcast_layers[0].min_bitrate_bps;
     // If only min bitrate is configured, make sure max is above min.
-    if (encoder_config.max_bitrate_bps <= 0)
+    if (requested_max_bitrate.value_or(0) <= 0)
       max_bitrate_bps = std::max(min_bitrate_bps, max_bitrate_bps);
   }
   int max_framerate = (encoder_config.simulcast_layers[0].max_framerate > 0)
@@ -253,7 +277,7 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
         sum_max_bitrates_kbps += spatial_layer.maxBitrate;
       }
       RTC_DCHECK_GE(sum_max_bitrates_kbps, 0);
-      if (encoder_config.max_bitrate_bps <= 0) {
+      if (requested_max_bitrate.value_or(0) <= 0) {
         max_bitrate_bps = sum_max_bitrates_kbps * 1000;
       } else {
         max_bitrate_bps =

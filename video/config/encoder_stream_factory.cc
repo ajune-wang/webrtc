@@ -60,6 +60,7 @@ bool IsScaleFactorsPowerOfTwo(const webrtc::VideoEncoderConfig& config) {
 bool IsTemporalLayersSupported(const std::string& codec_name) {
   return absl::EqualsIgnoreCase(codec_name, kVp8CodecName) ||
          absl::EqualsIgnoreCase(codec_name, kVp9CodecName) ||
+         absl::EqualsIgnoreCase(codec_name, kH264CodecName) ||
          absl::EqualsIgnoreCase(codec_name, kAv1CodecName);
 }
 

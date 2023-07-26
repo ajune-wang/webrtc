@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aade0625_a84c89a9",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-26T11:47:46Z",
+      "side": 1,
+      "message": "previously this and IsRedCodec seem to have worked through template magic (likewise defining after using it)",
+      "revId": "095d6056e2b84073ad32867a82d6b4ac960aba4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

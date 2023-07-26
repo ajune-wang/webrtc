@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4371be6_0aa0dee6",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-26T11:47:46Z",
+      "side": 0,
+      "message": "The naming is starting to become awkward. Sadly we have SctpDataContentDescription inheriting from MediaContentDescription, probably because of RTP data channels...\n\nAfter removing the template argument it should be possible to merge this (which primarily adds Codecs) to MediaContentDescription?",
+      "revId": "8c9e035edbadd683da26887367e9e4f321b5ab4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

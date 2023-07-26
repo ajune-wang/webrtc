@@ -354,7 +354,7 @@ bool IsCodecDisabledForSimulcast(bool legacy_scalability_mode,
 
 // Returns its smallest positive argument. If neither argument is positive,
 // returns an arbitrary nonpositive value.
-int MinPositive(int a, int b) {
+/*int MinPositive(int a, int b) {
   if (a <= 0) {
     return b;
   }
@@ -362,7 +362,7 @@ int MinPositive(int a, int b) {
     return a;
   }
   return std::min(a, b);
-}
+}*/
 
 bool IsLayerActive(const webrtc::RtpEncodingParameters& layer) {
   return layer.active &&
@@ -2046,22 +2046,8 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   // value below if the RtpParameters max bitrate set with
   // RtpSender::SetParameters has a lower value.
   int stream_max_bitrate = parameters_.max_bitrate_bps;
-  // When simulcast is enabled (when there are multiple encodings),
-  // encodings[i].max_bitrate_bps will be enforced by
-  // encoder_config.simulcast_layers[i].max_bitrate_bps. Otherwise, it's
-  // enforced by stream_max_bitrate, taking the minimum of the two maximums
-  // (one coming from SDP, the other coming from RtpParameters).
-  if (rtp_parameters_.encodings[0].max_bitrate_bps &&
-      rtp_parameters_.encodings.size() == 1) {
-    stream_max_bitrate =
-        MinPositive(*(rtp_parameters_.encodings[0].max_bitrate_bps),
-                    parameters_.max_bitrate_bps);
-  }
-
   // The codec max bitrate comes from the "x-google-max-bitrate" parameter
-  // attribute set in the SDP for a specific codec. As done in
-  // WebRtcVideoSendChannel::SetSendParameters, this value does not override the
-  // stream max_bitrate set above.
+  // attribute set in the SDP for a specific codec.
   int codec_max_bitrate_kbps;
   if (codec.GetParam(kCodecParamMaxBitrate, &codec_max_bitrate_kbps) &&
       stream_max_bitrate == -1) {

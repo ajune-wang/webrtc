@@ -231,7 +231,8 @@ class RtpRtcpImplTest : public ::testing::Test {
     rtp_video_header.video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
 
     const uint8_t payload[100] = {0};
-    EXPECT_TRUE(module->impl_->OnSendingRtpFrame(0, 0, kPayloadType, true));
+    EXPECT_TRUE(module->impl_->OnSendingRtpFrame(0, clock_.CurrentTime(),
+                                                 kPayloadType, true));
     EXPECT_TRUE(sender->SendVideo(
         kPayloadType, VideoCodecType::kVideoCodecVP8, 0, clock_.CurrentTime(),
         payload, sizeof(payload), rtp_video_header, TimeDelta::Zero(), {}));

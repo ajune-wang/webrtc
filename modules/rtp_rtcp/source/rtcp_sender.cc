@@ -316,20 +316,18 @@ void RTCPSender::SetTimestampOffset(uint32_t timestamp_offset) {
 }
 
 void RTCPSender::SetLastRtpTime(uint32_t rtp_timestamp,
-                                absl::optional<Timestamp> capture_time,
-                                absl::optional<int8_t> payload_type) {
+                                Timestamp capture_time,
+                                int payload_type) {
   MutexLock lock(&mutex_rtcp_sender_);
-  // For compatibility with clients who don't set payload type correctly on all
-  // calls.
-  if (payload_type.has_value()) {
-    last_payload_type_ = *payload_type;
-  }
+  RTC_DCHECK_GE(payload_type, 0);
+  RTC_DCHECK_LT(payload_type, 128);
+  last_payload_type_ = payload_type;
   last_rtp_timestamp_ = rtp_timestamp;
-  if (!capture_time.has_value()) {
+  if (!capture_time.IsFinite()) {
     // We don't currently get a capture time from VoiceEngine.
     last_frame_capture_time_ = clock_->CurrentTime();
   } else {
-    last_frame_capture_time_ = *capture_time;
+    last_frame_capture_time_ = capture_time;
   }
 }
 

@@ -205,13 +205,14 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     uint16_t nack_list[kVideoNackListSize];
     for (int frame = 0; frame < kNumFrames; ++frame) {
       RTPVideoHeader video_header;
-      EXPECT_TRUE(rtp_rtcp_module_->OnSendingRtpFrame(timestamp, timestamp / 90,
+      Timestamp capture_time = Timestamp::Millis(timestamp / 90);
+      EXPECT_TRUE(rtp_rtcp_module_->OnSendingRtpFrame(timestamp, capture_time,
                                                       kPayloadType, false));
       video_header.frame_type = VideoFrameType::kVideoFrameDelta;
       EXPECT_TRUE(rtp_sender_video_->SendVideo(
           kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
-          /*capture_time=*/Timestamp::Millis(timestamp / 90), payload_data,
-          sizeof(payload_data), video_header, TimeDelta::Zero(), {}));
+          capture_time, payload_data, sizeof(payload_data), video_header,
+          TimeDelta::Zero(), {}));
       // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
       fake_clock.AdvanceTimeMilliseconds(5);
       int length = BuildNackList(nack_list);
@@ -256,13 +257,14 @@ TEST_F(RtpRtcpRtxNackTest, LongNackList) {
   // enough packets.
   for (int frame = 0; frame < kNumFrames; ++frame) {
     RTPVideoHeader video_header;
-    EXPECT_TRUE(rtp_rtcp_module_->OnSendingRtpFrame(timestamp, timestamp / 90,
+    Timestamp capture_time = Timestamp::Millis(timestamp / 90);
+    EXPECT_TRUE(rtp_rtcp_module_->OnSendingRtpFrame(timestamp, capture_time,
                                                     kPayloadType, false));
     video_header.frame_type = VideoFrameType::kVideoFrameDelta;
     EXPECT_TRUE(rtp_sender_video_->SendVideo(
         kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
-        Timestamp::Millis(timestamp / 90), payload_data, sizeof(payload_data),
-        video_header, TimeDelta::Zero(), {}));
+        capture_time, payload_data, sizeof(payload_data), video_header,
+        TimeDelta::Zero(), {}));
     // Prepare next frame.
     timestamp += 3000;
     fake_clock.AdvanceTimeMilliseconds(33);

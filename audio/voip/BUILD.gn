@@ -89,6 +89,7 @@ rtc_library("audio_egress") {
     "../../api:sequence_checker",
     "../../api/audio_codecs:audio_codecs_api",
     "../../api/task_queue",
+    "../../api/units:timestamp",
     "../../call:audio_sender_interface",
     "../../modules/audio_coding",
     "../../modules/rtp_rtcp",

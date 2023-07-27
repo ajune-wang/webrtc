@@ -26,6 +26,7 @@
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/include/module_fec_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // RTCPPacketType
@@ -139,8 +140,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   void SetAsPartOfAllocation(bool part_of_allocation) override;
 
-  bool OnSendingRtpFrame(uint32_t timestamp,
-                         int64_t capture_time_ms,
+  bool OnSendingRtpFrame(uint32_t rtp_timestamp,
+                         Timestamp capture_time,
                          int payload_type,
                          bool force_sender_report) override;
 

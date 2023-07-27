@@ -358,12 +358,14 @@ class RtpRtcpImpl2Test : public ::testing::Test {
     rtp_video_header.video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
 
     const uint8_t payload[100] = {0};
-    bool success = module->impl_->OnSendingRtpFrame(0, 0, kPayloadType, true);
+    Timestamp capture_time = Timestamp::Millis(capture_time_ms);
+    bool success =
+        module->impl_->OnSendingRtpFrame(0, capture_time, kPayloadType, true);
 
-    success &= sender->SendVideo(
-        kPayloadType, VideoCodecType::kVideoCodecVP8, rtp_timestamp,
-        Timestamp::Millis(capture_time_ms), payload, sizeof(payload),
-        rtp_video_header, TimeDelta::Zero(), {});
+    success &=
+        sender->SendVideo(kPayloadType, VideoCodecType::kVideoCodecVP8,
+                          rtp_timestamp, capture_time, payload, sizeof(payload),
+                          rtp_video_header, TimeDelta::Zero(), {});
     return success;
   }
 

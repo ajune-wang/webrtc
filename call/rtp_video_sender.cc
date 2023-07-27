@@ -22,6 +22,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video_codecs/video_codec.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "modules/pacing/packet_router.h"
@@ -585,7 +586,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   // TODO(nisse): Delete RTCPSender:timestamp_offset_, and see if we can confine
   // knowledge of the offset to a single place.
   if (!rtp_streams_[simulcast_index].rtp_rtcp->OnSendingRtpFrame(
-          encoded_image.Timestamp(), encoded_image.capture_time_ms_,
+          encoded_image.Timestamp(), encoded_image.CaptureTime(),
           rtp_config_.payload_type,
           encoded_image._frameType == VideoFrameType::kVideoFrameKey)) {
     // The payload router could be active but this module isn't sending.

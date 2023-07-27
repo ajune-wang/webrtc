@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/units/timestamp.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
@@ -119,7 +120,7 @@ int32_t AudioEgress::SendData(AudioFrameType frame_type,
   // Currently we don't get a capture time from downstream modules (ADM,
   // AudioTransportImpl).
   // TODO(natim@webrtc.org): Integrate once it's ready.
-  constexpr uint32_t kUndefinedCaptureTime = -1;
+  constexpr Timestamp kUndefinedCaptureTime = Timestamp::MinusInfinity();
 
   // Push data from ACM to RTP/RTCP-module to deliver audio frame for
   // packetization.

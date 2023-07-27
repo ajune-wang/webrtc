@@ -19,6 +19,7 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
@@ -81,7 +82,7 @@ class MockRtpRtcpInterface : public RtpRtcpInterface {
   MOCK_METHOD(RtpSendRates, GetSendRates, (), (const, override));
   MOCK_METHOD(bool,
               OnSendingRtpFrame,
-              (uint32_t, int64_t, int, bool),
+              (uint32_t, Timestamp, int, bool),
               (override));
   MOCK_METHOD(bool,
               TrySendPacket,

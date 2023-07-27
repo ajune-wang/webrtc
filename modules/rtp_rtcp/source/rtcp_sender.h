@@ -126,9 +126,8 @@ class RTCPSender final {
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 
   void SetLastRtpTime(uint32_t rtp_timestamp,
-                      absl::optional<Timestamp> capture_time,
-                      absl::optional<int8_t> payload_type)
-      RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
+                      Timestamp capture_time,
+                      int payload_type) RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 
   void SetRtpClockRate(int8_t payload_type, int rtp_clock_rate_hz)
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);

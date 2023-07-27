@@ -21,6 +21,7 @@
 #include "api/frame_transformer_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
@@ -303,10 +304,22 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
 
   // Record that a frame is about to be sent. Returns true on success, and false
   // if the module isn't ready to send.
-  virtual bool OnSendingRtpFrame(uint32_t timestamp,
-                                 int64_t capture_time_ms,
+  virtual bool OnSendingRtpFrame(uint32_t rtp_timestamp,
+                                 Timestamp capture_time,
                                  int payload_type,
                                  bool force_sender_report) = 0;
+
+  [[deprecated("bugs.webrtc.org/13757")]] bool OnSendingRtpFrame(
+      uint32_t timestamp,
+      int64_t capture_time_ms,
+      int payload_type,
+      bool force_sender_report) {
+    return OnSendingRtpFrame(timestamp,
+                             capture_time_ms > 0
+                                 ? Timestamp::Millis(capture_time_ms)
+                                 : Timestamp::MinusInfinity(),
+                             payload_type, force_sender_report);
+  }
 
   // Try to send the provided packet. Returns true iff packet matches any of
   // the SSRCs for this module (media/rtx/fec etc) and was forwarded to the

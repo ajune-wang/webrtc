@@ -22,6 +22,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/include/module_fec_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
@@ -128,7 +129,7 @@ class ABSL_DEPRECATED("") ModuleRtpRtcpImpl
   void SetAsPartOfAllocation(bool part_of_allocation) override;
 
   bool OnSendingRtpFrame(uint32_t timestamp,
-                         int64_t capture_time_ms,
+                         Timestamp capture_time,
                          int payload_type,
                          bool force_sender_report) override;
 

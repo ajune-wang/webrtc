@@ -310,26 +310,17 @@ void ModuleRtpRtcpImpl2::SetAsPartOfAllocation(bool part_of_allocation) {
 }
 
 bool ModuleRtpRtcpImpl2::OnSendingRtpFrame(uint32_t timestamp,
-                                           int64_t capture_time_ms,
+                                           Timestamp capture_time,
                                            int payload_type,
                                            bool force_sender_report) {
   if (!Sending()) {
     return false;
   }
-  // TODO(bugs.webrtc.org/12873): Migrate this method and it's users to use
-  // optional Timestamps.
-  absl::optional<Timestamp> capture_time;
-  if (capture_time_ms > 0) {
-    capture_time = Timestamp::Millis(capture_time_ms);
-  }
-  absl::optional<int> payload_type_optional;
-  if (payload_type >= 0)
-    payload_type_optional = payload_type;
 
-  auto closure = [this, timestamp, capture_time, payload_type_optional,
+  auto closure = [this, timestamp, capture_time, payload_type,
                   force_sender_report] {
     RTC_DCHECK_RUN_ON(worker_queue_);
-    rtcp_sender_.SetLastRtpTime(timestamp, capture_time, payload_type_optional);
+    rtcp_sender_.SetLastRtpTime(timestamp, capture_time, payload_type);
     // Make sure an RTCP report isn't queued behind a key frame.
     if (rtcp_sender_.TimeToSendRTCPReport(force_sender_report))
       rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);

@@ -22,6 +22,7 @@
 #include "api/crypto/frame_encryptor_interface.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/sequence_checker.h"
+#include "api/units/timestamp.h"
 #include "audio/channel_send_frame_transformer_delegate.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/rtp_transport_controller_send_interface.h"
@@ -345,7 +346,7 @@ int32_t ChannelSend::SendRtpAudio(AudioFrameType frameType,
                                     // Leaving the time when this frame was
                                     // received from the capture device as
                                     // undefined for voice for now.
-                                    -1, payloadType,
+                                    Timestamp::MinusInfinity(), payloadType,
                                     /*force_sender_report=*/false)) {
     return -1;
   }

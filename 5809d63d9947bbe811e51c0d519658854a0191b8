@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dadb7b22_7af1f847",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-27T11:49:28Z",
+      "side": 1,
+      "message": "Done. Due to the interaction with the other int variables I did `_bps` even though `DataRate` is the future.",
+      "parentUuid": "d4034329_d9e39774",
+      "range": {
+        "startLine": 183,
+        "startChar": 22,
+        "endLine": 183,
+        "endChar": 37
+      },
+      "revId": "5809d63d9947bbe811e51c0d519658854a0191b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e733951_86e6a59e",
@@ -108,6 +132,30 @@
       "writtenOn": "2023-07-27T11:28:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 1119,
+        "startChar": 0,
+        "endLine": 1119,
+        "endChar": 8
+      },
+      "revId": "5809d63d9947bbe811e51c0d519658854a0191b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6a5771_f487a1dc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-27T11:49:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e733951_86e6a59e",
       "range": {
         "startLine": 1119,
         "startChar": 0,

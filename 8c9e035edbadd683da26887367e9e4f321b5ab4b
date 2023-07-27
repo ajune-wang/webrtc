@@ -34,6 +34,24 @@
       "parentUuid": "c4371be6_0aa0dee6",
       "revId": "8c9e035edbadd683da26887367e9e4f321b5ab4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cd0ef0_830ccc41",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-27T10:53:38Z",
+      "side": 0,
+      "message": "I like RtpMediaContentDescription as a name! Will do that after detemplating part 2 (which is even more compile orgy). I think moving codecs up in the hierarchy makes sense but that needs to be driven by refactoring that simplifies and removes a few downcasts, not by my opinion ;-)",
+      "parentUuid": "55c31d64_632deac2",
+      "revId": "8c9e035edbadd683da26887367e9e4f321b5ab4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

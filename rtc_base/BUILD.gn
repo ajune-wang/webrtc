@@ -879,7 +879,10 @@ rtc_library("net_helpers") {
     "net_helpers.cc",
     "net_helpers.h",
   ]
-  deps = [ "system:rtc_export" ]
+  deps = [
+    ":net_test_helpers",
+    "system:rtc_export",
+  ]
   if (is_android) {
     deps += [ ":ifaddrs_android" ]
   }
@@ -893,15 +896,14 @@ rtc_library("net_helpers") {
 }
 
 rtc_library("net_test_helpers") {
-  testonly = true
+  # TODO(mbonadei): Enable once net_helpers don't depend
+  # on this target  anymore.
+  # testonly = true
   sources = [
     "net_test_helpers.cc",
     "net_test_helpers.h",
   ]
-  deps = [
-    ":net_helpers",
-    "system:rtc_export",
-  ]
+  deps = [ "system:rtc_export" ]
   if (is_android) {
     deps += [ ":ifaddrs_android" ]
   }

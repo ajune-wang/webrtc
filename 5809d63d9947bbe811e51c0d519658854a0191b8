@@ -34,6 +34,24 @@
       "parentUuid": "13ee3afd_26739111",
       "revId": "5809d63d9947bbe811e51c0d519658854a0191b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e121b4d4_26b04c77",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-07-27T09:57:05Z",
+      "side": 1,
+      "message": "Sum of bitrates makes even more sense! As a separate CL",
+      "parentUuid": "26273306_29cf167f",
+      "revId": "5809d63d9947bbe811e51c0d519658854a0191b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

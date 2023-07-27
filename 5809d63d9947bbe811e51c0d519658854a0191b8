@@ -16,6 +16,24 @@
       "message": "This condition mimics what the code a couple of lines above was doing before we moved it.\n\nIt\u0027s a strange condition though: if `encodings.size() \u003e 1` then it doesn\u0027t matter whether `encodings[0].max_bitrate_bps` was specified. I doubt this was on purpose considering {active,inactive} is a valid singlecast use case.\n\nI\u0027m not sure how widely used \"x-google-max-bitrate\" is but I would prefer that we remove any condition where we see a subtle difference between {active} and {active,inactive}.\n\nWDYT about relaxing this condition, either in this CL or as a follow-up?",
       "revId": "5809d63d9947bbe811e51c0d519658854a0191b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26273306_29cf167f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-07-27T09:54:05Z",
+      "side": 1,
+      "message": "What i find strange is that the new code never uses |parameters_.encodings[0].max_bitrate_bps|\n\nI agree that a follow-up cl which actually takes a sum of bitrates for all active streams would be a great idea.",
+      "parentUuid": "13ee3afd_26739111",
+      "revId": "5809d63d9947bbe811e51c0d519658854a0191b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

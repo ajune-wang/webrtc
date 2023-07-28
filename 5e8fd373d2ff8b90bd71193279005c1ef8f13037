@@ -51,6 +51,24 @@
       "parentUuid": "c7704836_d9ac0862",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "624f9984_0697ed39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-28T05:58:03Z",
+      "side": 1,
+      "message": "We don\u0027t have symmetry in a lot of other places and adding this will require a lot of back and forth since rtp_sender is an interface. Even RtpEncodingParameters contains a ton of stuff that isn\u0027t in the W3C spec.\n\nThe alternative would be to not update RtpEncodingParameters  and call the still-public GenerateKeyFrame method directly from Chromium.",
+      "parentUuid": "1dca978d_7b183303",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

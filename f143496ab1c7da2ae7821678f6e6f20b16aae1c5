@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc7d507_f9013cbc",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-07-28T12:01:26Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this is added?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 19
+      },
+      "revId": "f143496ab1c7da2ae7821678f6e6f20b16aae1c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

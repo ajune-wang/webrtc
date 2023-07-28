@@ -22,6 +22,30 @@
       },
       "revId": "f143496ab1c7da2ae7821678f6e6f20b16aae1c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525760ac_c0c6033a",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2023-07-28T12:04:00Z",
+      "side": 1,
+      "message": "Yeah sorry, since we have not rolled chromium for a while, our mixins.py file is outdated and still contains linux-bionic which was removed in chromium. But we still use this thus need to add it to mixins_webrtc.pyl.",
+      "parentUuid": "4cc7d507_f9013cbc",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 19
+      },
+      "revId": "f143496ab1c7da2ae7821678f6e6f20b16aae1c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

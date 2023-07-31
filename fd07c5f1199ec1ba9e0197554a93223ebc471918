@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f259611_67f7e978",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-31T12:51:01Z",
+      "side": 1,
+      "message": "follow-up on https://webrtc-review.googlesource.com/c/src/+/313500/comment/0513f088_06a082a2/\n\nPlease review media_channel.h and channel.h, the rest is pretty mechanical.",
+      "revId": "fd07c5f1199ec1ba9e0197554a93223ebc471918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fac723c_192a577f",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-31T12:51:01Z",
+      "side": 1,
+      "message": "The correct name would be SendMediaChannelParameters but this name comes closer to where we want to be with cricket::Channel merged into Transceiver I\u0027d say.\n\nhta?",
+      "revId": "fd07c5f1199ec1ba9e0197554a93223ebc471918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

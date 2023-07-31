@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f90e91_3b2ecb01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11254
+      },
+      "writtenOn": "2023-07-31T01:26:37Z",
+      "side": 1,
+      "message": "Similar fix in Chromium has been landed: https://chromium-review.googlesource.com/c/chromium/src/+/4710306",
+      "revId": "b72e662e4e66b7de8040af5b9bcb44620c57fbc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

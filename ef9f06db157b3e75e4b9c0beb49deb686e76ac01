@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca2d0548_14fe7336",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-07-31T17:39:22Z",
+      "side": 1,
+      "message": "Mirko is probably the best person to review (or explain why it is the way it is)",
+      "revId": "ef9f06db157b3e75e4b9c0beb49deb686e76ac01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

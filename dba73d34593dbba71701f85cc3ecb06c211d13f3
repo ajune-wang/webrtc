@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21afc13b_184d0841",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-01T15:25:19Z",
+      "side": 1,
+      "message": "I\u0027m unsure if hardware encoder is wrong or just inconsistent with the webrtc encoder wrapper:\nVP9 spec describe this num_spatial_layers as \"number of spatial layers present in the VP9 stream\".\nThat definition makes it unclear if that is \"maximum\" or \"current\" number of spatial layers. Key question for me there if that number is allowed to change at a (T0) delta frame.",
+      "parentUuid": "36c161af_800054e4",
+      "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc5f6ec3_a22f90ca",
@@ -41,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18d43c7d_a135ec51",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-01T15:25:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc5f6ec3_a22f90ca",
+      "range": {
+        "startLine": 561,
+        "startChar": 15,
+        "endLine": 561,
+        "endChar": 22
+      },
+      "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab575383_63464a8d",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-08-01T14:39:12Z",
       "side": 1,
       "message": "Why this is conditioned on temporal_index\u003d\u003d0? Can encoder deactivate spatial layers on frames belonging to TL \u003e 0?",
+      "range": {
+        "startLine": 570,
+        "startChar": 6,
+        "endLine": 570,
+        "endChar": 25
+      },
+      "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9baa70ba_8ffefcb8",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-01T15:25:19Z",
+      "side": 1,
+      "message": "Here I assume that If a S2T0 frame is dropped, then next S2T0 frame would have no inter-pic dependency, and thus chain for S2 would restart.\nIf S2T1 frame is dropped, but no S2T0 frames are dropped, then 3rd spatial layer can still be decoded without any special frames (include S2T1 layer: next S2T1 would depend on S2T0, but not on dropped S2T1 frame)\n\nI\u0027ve added a comment.\nI do not need filtering by temporal id for the current issue, but I feel safer to have it.",
+      "parentUuid": "ab575383_63464a8d",
       "range": {
         "startLine": 570,
         "startChar": 6,

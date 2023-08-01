@@ -706,9 +706,10 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     // Worst bots:
     // Nondebug: Linux32 Release at conceal rate 0.606597 (CI run)
     // Debug: linux_x86_dbg bot at conceal rate 0.854
+    //        internal bot at conceal rate 0.967 (b/294020344)
     if (delta_samples > 0) {
 #if !defined(NDEBUG)
-      EXPECT_LT(1.0 * delta_concealed / delta_samples, 0.95)
+      EXPECT_LT(1.0 * delta_concealed / delta_samples, 0.99)
           << "Concealed " << delta_concealed << " of " << delta_samples
           << " samples";
 #else

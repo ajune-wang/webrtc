@@ -55,6 +55,8 @@ class FakeEncoder : public VideoEncoder {
   int32_t Release() override;
   void SetRates(const RateControlParameters& parameters)
       RTC_LOCKS_EXCLUDED(mutex_) override;
+  void SetOutputResolution(const Resolution& resolution)
+      RTC_LOCKS_EXCLUDED(mutex_) override;
   EncoderInfo GetEncoderInfo() const override;
 
   int GetConfiguredInputFramerate() const RTC_LOCKS_EXCLUDED(mutex_);

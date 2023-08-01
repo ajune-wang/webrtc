@@ -61,6 +61,7 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
              const std::vector<VideoFrameType>* frame_types) override;
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
   void SetRates(const RateControlParameters& parameters) override;
+  void SetOutputResolution(const Resolution& resolution) override;
   void OnPacketLossRateUpdate(float packet_loss_rate) override;
   void OnRttUpdate(int64_t rtt_ms) override;
   void OnLossNotification(const LossNotification& loss_notification) override;

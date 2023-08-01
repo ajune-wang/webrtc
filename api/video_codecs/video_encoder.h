@@ -21,6 +21,7 @@
 #include "api/fec_controller_override.h"
 #include "api/units/data_rate.h"
 #include "api/video/encoded_image.h"
+#include "api/video/resolution.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_frame.h"
@@ -259,6 +260,10 @@ class RTC_EXPORT VideoEncoder {
     // Indicates whether or not QP value encoder writes into frame/slice/tile
     // header can be interpreted as average frame/slice/tile QP.
     absl::optional<bool> is_qp_trusted;
+
+    // If true, this encoder supports changing the encoded bitstream's
+    // resolution without the need of reinitializing the encoder instance.
+    bool supports_dynamic_output_resolution_change;
   };
 
   struct RTC_EXPORT RateControlParameters {
@@ -405,6 +410,10 @@ class RTC_EXPORT VideoEncoder {
   // instantaneous (i.e. not moving averages) and should apply from now until
   // the next call to SetRates().
   virtual void SetRates(const RateControlParameters& parameters) = 0;
+
+  // Set output resolution if dynamic resolution change is supported.
+  virtual void SetOutputResolution(
+      const webrtc::Resolution& output_resolution) = 0;
 
   // Inform the encoder when the packet loss rate changes.
   //

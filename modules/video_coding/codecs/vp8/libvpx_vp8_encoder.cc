@@ -308,6 +308,10 @@ int LibvpxVp8Encoder::Release() {
   return ret_val;
 }
 
+void LibvpxVp8Encoder::SetOutputResolution(const Resolution& resolution) {
+  return;
+}
+
 void LibvpxVp8Encoder::SetRates(const RateControlParameters& parameters) {
   if (!inited_) {
     RTC_LOG(LS_WARNING) << "SetRates() while not initialize";

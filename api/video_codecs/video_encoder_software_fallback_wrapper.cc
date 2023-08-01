@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include <cstdio>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -133,6 +134,9 @@ class VideoEncoderSoftwareFallbackWrapper final : public VideoEncoder {
 
   int32_t Encode(const VideoFrame& frame,
                  const std::vector<VideoFrameType>* frame_types) override;
+
+  void SetOutputResolution(
+      const webrtc::Resolution& output_resolution) override;
 
   void OnPacketLossRateUpdate(float packet_loss_rate) override;
 
@@ -381,6 +385,12 @@ int32_t VideoEncoderSoftwareFallbackWrapper::EncodeWithMainEncoder(
   }
   // Fallback encoder failed too, return original error code.
   return ret;
+}
+
+void VideoEncoderSoftwareFallbackWrapper::SetOutputResolution(
+    const webrtc::Resolution& output_resolution) {
+  std::cout << __func__ << "SetOutputResolution.";
+  return current_encoder()->SetOutputResolution(output_resolution);
 }
 
 void VideoEncoderSoftwareFallbackWrapper::SetRates(

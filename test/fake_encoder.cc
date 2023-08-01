@@ -245,6 +245,11 @@ void FakeEncoder::SetRates(const RateControlParameters& parameters) {
   SetRatesLocked(parameters);
 }
 
+void FakeEncoder::SetOutputResolution(const Resolution& resolution) {
+  MutexLock lock(&mutex_);
+  return;
+}
+
 void FakeEncoder::SetRatesLocked(const RateControlParameters& parameters) {
   current_rate_settings_ = parameters;
   int allocated_bitrate_kbps = parameters.bitrate.get_sum_kbps();

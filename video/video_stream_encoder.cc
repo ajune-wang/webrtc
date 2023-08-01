@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <array>
+#include <iostream>
 #include <limits>
 #include <memory>
 #include <numeric>
@@ -96,17 +97,28 @@ int GetNumSpatialLayers(const VideoCodec& codec) {
 
 bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
                           const VideoCodec& new_send_codec,
-                          bool was_encode_called_since_last_initialization) {
+                          bool was_encode_called_since_last_initialization,
+                          bool encoder_supports_dynamic_resolution_change) {
   // Does not check max/minBitrate or maxFramerate.
   if (new_send_codec.codecType != prev_send_codec.codecType ||
-      new_send_codec.width != prev_send_codec.width ||
-      new_send_codec.height != prev_send_codec.height ||
+      (!encoder_supports_dynamic_resolution_change &&
+       (new_send_codec.width != prev_send_codec.width ||
+        new_send_codec.height != prev_send_codec.height)) ||
       new_send_codec.qpMax != prev_send_codec.qpMax ||
       new_send_codec.numberOfSimulcastStreams !=
           prev_send_codec.numberOfSimulcastStreams ||
       new_send_codec.mode != prev_send_codec.mode ||
       new_send_codec.GetFrameDropEnabled() !=
           prev_send_codec.GetFrameDropEnabled()) {
+    std::cout << "reason of returnning true:" << std::endl;
+    std::cout << "qpMax?: " << (new_send_codec.qpMax != prev_send_codec.qpMax)
+              << std::endl;
+    std::cout << "mode?: " << (new_send_codec.mode != prev_send_codec.mode)
+              << std::endl;
+    std::cout << "frameDrop?: "
+              << (new_send_codec.GetFrameDropEnabled() !=
+                  prev_send_codec.GetFrameDropEnabled())
+              << std::endl;
     return true;
   }
 
@@ -114,7 +126,10 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
       (new_send_codec.startBitrate != prev_send_codec.startBitrate)) {
     // If start bitrate has changed reconfigure encoder only if encoding had not
     // yet started.
-    return true;
+    std::cout << "Reconfigure because of startBitrate change. We supress this "
+                 "since we don't think this needs reconfigure."
+              << std::endl;
+    return false;
   }
 
   switch (new_send_codec.codecType) {
@@ -132,6 +147,7 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
 
     case kVideoCodecH264:
       if (new_send_codec.H264() != prev_send_codec.H264()) {
+        std::cout << "Codec specific mismatch." << std::endl;
         return true;
       }
       break;
@@ -147,10 +163,11 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
     }
 
     if (!prev_send_codec.simulcastStream[i].active ||
-        new_send_codec.simulcastStream[i].width !=
-            prev_send_codec.simulcastStream[i].width ||
-        new_send_codec.simulcastStream[i].height !=
-            prev_send_codec.simulcastStream[i].height ||
+        (!encoder_supports_dynamic_resolution_change &&
+         (new_send_codec.simulcastStream[i].width !=
+              prev_send_codec.simulcastStream[i].width ||
+          new_send_codec.simulcastStream[i].height !=
+              prev_send_codec.simulcastStream[i].height)) ||
         new_send_codec.simulcastStream[i].numberOfTemporalLayers !=
             prev_send_codec.simulcastStream[i].numberOfTemporalLayers ||
         new_send_codec.simulcastStream[i].qpMax !=
@@ -1281,7 +1298,13 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   // start bitrate or max framerate has changed.
   if (!encoder_reset_required) {
     encoder_reset_required = RequiresEncoderReset(
-        send_codec_, codec, was_encode_called_since_last_initialization_);
+        send_codec_, codec, was_encode_called_since_last_initialization_,
+        encoder_->GetEncoderInfo().supports_dynamic_output_resolution_change);
+    std::cout
+        << "----supports_resolution_update:"
+        << encoder_->GetEncoderInfo().supports_dynamic_output_resolution_change;
+    std::cout << "--- Encoder reset required: " << encoder_reset_required
+              << std::endl;
   }
 
   if (codec.codecType == VideoCodecType::kVideoCodecVP9 &&
@@ -1387,6 +1410,12 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     rate_settings.rate_control.framerate_fps = GetInputFramerateFps();
 
     SetEncoderRates(UpdateBitrateAllocation(rate_settings));
+  }
+
+  if (encoder_->GetEncoderInfo().supports_dynamic_output_resolution_change) {
+    Resolution output_resolution = {.width = send_codec_.width,
+                                    .height = send_codec_.height};
+    SetOutputResolution(output_resolution);
   }
 
   encoder_stats_observer_->OnEncoderReconfigured(encoder_config_, streams);
@@ -1680,6 +1709,18 @@ uint32_t VideoStreamEncoder::GetInputFramerateFps() {
     return default_fps;
   }
   return *input_fps;
+}
+
+void VideoStreamEncoder::SetOutputResolution(
+    const Resolution& output_resolution) {
+  RTC_DCHECK_GT(output_resolution.PixelCount(), 0);
+
+  if (!encoder_)
+    return;
+
+  std::cout << "Set output resolution------:" << output_resolution.width << "x"
+            << output_resolution.height << std::endl;
+  encoder_->SetOutputResolution(output_resolution);
 }
 
 void VideoStreamEncoder::SetEncoderRates(

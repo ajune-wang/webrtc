@@ -268,6 +268,13 @@ void MultiplexEncoderAdapter::SetRates(
   }
 }
 
+void MultiplexEncoderAdapter::SetOutputResolution(
+    const Resolution& resolution) {
+  for (auto& encoder : encoders_) {
+    encoder->SetOutputResolution(resolution);
+  }
+}
+
 void MultiplexEncoderAdapter::OnPacketLossRateUpdate(float packet_loss_rate) {
   for (auto& encoder : encoders_) {
     encoder->OnPacketLossRateUpdate(packet_loss_rate);

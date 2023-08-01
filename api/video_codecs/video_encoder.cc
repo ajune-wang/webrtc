@@ -101,7 +101,8 @@ VideoEncoder::EncoderInfo::EncoderInfo()
           1,
           kMaxFramerateFraction)},
       supports_simulcast(false),
-      preferred_pixel_formats{VideoFrameBuffer::Type::kI420} {}
+      preferred_pixel_formats{VideoFrameBuffer::Type::kI420},
+      supports_dynamic_output_resolution_change(false) {}
 
 VideoEncoder::EncoderInfo::EncoderInfo(const EncoderInfo&) = default;
 

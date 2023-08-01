@@ -246,6 +246,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void SetEncoderRates(const EncoderRateSettings& rate_settings)
       RTC_RUN_ON(&encoder_queue_);
 
+  void SetOutputResolution(const Resolution& output_resolution)
+      RTC_RUN_ON(&encoder_queue_);
+
   void RunPostEncode(const EncodedImage& encoded_image,
                      int64_t time_sent_us,
                      int temporal_index,

@@ -55,6 +55,8 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   void SetRates(const RateControlParameters& parameters) override;
 
+  void SetOutputResolution(const Resolution& resolution) override;
+
   void OnPacketLossRateUpdate(float packet_loss_rate) override;
 
   void OnRttUpdate(int64_t rtt_ms) override;

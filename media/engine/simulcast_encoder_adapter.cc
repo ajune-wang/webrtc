@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <iostream>
 #include <string>
 #include <utility>
 
@@ -583,6 +584,15 @@ int SimulcastEncoderAdapter::RegisterEncodeCompleteCallback(
     stream_contexts_.front().encoder().RegisterEncodeCompleteCallback(callback);
   }
   return WEBRTC_VIDEO_CODEC_OK;
+}
+
+void SimulcastEncoderAdapter::SetOutputResolution(
+    const Resolution& resolution) {
+  std::cout << __FILE__ << ":" << __func__ << std::endl;
+  for (StreamContext& layer_context : stream_contexts_) {
+    layer_context.encoder().SetOutputResolution(resolution);
+  }
+  return;
 }
 
 void SimulcastEncoderAdapter::SetRates(

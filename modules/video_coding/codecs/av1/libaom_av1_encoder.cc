@@ -88,6 +88,8 @@ class LibaomAv1Encoder final : public VideoEncoder {
 
   void SetRates(const RateControlParameters& parameters) override;
 
+  void SetOutputResolution(const Resolution& resolution) override;
+
   EncoderInfo GetEncoderInfo() const override;
 
  private:
@@ -469,6 +471,10 @@ bool LibaomAv1Encoder::SetSvcParams(
   // passed to SetEncoderControlParameters(AV1E_SET_SVC_PARAMS).
 
   return true;
+}
+
+void LibaomAv1Encoder::SetOutputResolution(const Resolution& resolution) {
+  return;
 }
 
 void LibaomAv1Encoder::SetSvcLayerId(

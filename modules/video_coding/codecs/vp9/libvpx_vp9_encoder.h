@@ -58,6 +58,8 @@ class LibvpxVp9Encoder : public VP9Encoder {
 
   void SetRates(const RateControlParameters& parameters) override;
 
+  void SetOutputResolution(const Resolution& resolution) override {}
+
   EncoderInfo GetEncoderInfo() const override;
 
  private:

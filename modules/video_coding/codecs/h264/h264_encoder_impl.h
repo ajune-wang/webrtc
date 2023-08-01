@@ -75,7 +75,10 @@ class H264EncoderImpl : public H264Encoder {
 
   int32_t RegisterEncodeCompleteCallback(
       EncodedImageCallback* callback) override;
+
   void SetRates(const RateControlParameters& parameters) override;
+
+  void SetOutputResolution(const Resolution& resolution) override;
 
   // The result of encoding - an EncodedImage and CodecSpecificInfo - are
   // passed to the encode complete callback.

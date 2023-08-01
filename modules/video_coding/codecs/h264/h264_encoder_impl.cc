@@ -363,6 +363,10 @@ int32_t H264EncoderImpl::RegisterEncodeCompleteCallback(
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+void H264EncoderImpl::SetOutputResolution(const Resolution& resolution) {
+  return;
+}
+
 void H264EncoderImpl::SetRates(const RateControlParameters& parameters) {
   if (encoders_.empty()) {
     RTC_LOG(LS_WARNING) << "SetRates() while uninitialized.";

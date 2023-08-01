@@ -44,22 +44,22 @@ class SrtpSession {
 
   // Configures the session for sending data using the specified
   // cipher-suite and key. Receiving must be done by a separate session.
-  bool SetSend(int cs,
+  bool SetSend(int crypto_suite,
                const uint8_t* key,
                size_t len,
                const std::vector<int>& extension_ids);
-  bool UpdateSend(int cs,
+  bool UpdateSend(int crypto_suite,
                   const uint8_t* key,
                   size_t len,
                   const std::vector<int>& extension_ids);
 
   // Configures the session for receiving data using the specified
   // cipher-suite and key. Sending must be done by a separate session.
-  bool SetRecv(int cs,
+  bool SetRecv(int crypto_suite,
                const uint8_t* key,
                size_t len,
                const std::vector<int>& extension_ids);
-  bool UpdateRecv(int cs,
+  bool UpdateRecv(int crypto_suite,
                   const uint8_t* key,
                   size_t len,
                   const std::vector<int>& extension_ids);
@@ -99,17 +99,17 @@ class SrtpSession {
 
  private:
   bool DoSetKey(int type,
-                int cs,
+                int crypto_suite,
                 const uint8_t* key,
                 size_t len,
                 const std::vector<int>& extension_ids);
   bool SetKey(int type,
-              int cs,
+              int crypto_suite,
               const uint8_t* key,
               size_t len,
               const std::vector<int>& extension_ids);
   bool UpdateKey(int type,
-                 int cs,
+                 int crypto_suite,
                  const uint8_t* key,
                  size_t len,
                  const std::vector<int>& extension_ids);

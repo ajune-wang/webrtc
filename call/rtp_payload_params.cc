@@ -542,7 +542,6 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
   const auto& vp9_header =
       absl::get<RTPVideoHeaderVP9>(rtp_video_header.video_type_header);
   const int num_spatial_layers = kMaxSimulatedSpatialLayers;
-  const int num_active_spatial_layers = vp9_header.num_spatial_layers;
   const int num_temporal_layers = kMaxTemporalStreams;
   static_assert(num_spatial_layers <=
                 RtpGenericFrameDescriptor::kMaxSpatialLayers);
@@ -556,9 +555,30 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
   int temporal_index =
       vp9_header.temporal_idx != kNoTemporalIdx ? vp9_header.temporal_idx : 0;
 
+  // Guess number of active spatial layers based on seen frames and their
+  // end of picture indicator. Do not trust `vp9_header.num_spatial_layers`
+  // because hardware encoder may use it as number of configured rather than
+  // number of activly used spatial layers.
+  int min_num_active_spatial_layers = spatial_index + 1;
+  if (!rtp_video_header.is_last_frame_in_picture) {
+    ++min_num_active_spatial_layers;
+  }
+  if (min_num_active_spatial_layers > num_active_spatial_layers_) {
+    // Increase number of active spatial layers to what is produced by encoder.
+    num_active_spatial_layers_ = min_num_active_spatial_layers;
+  }
+  if (temporal_index == 0 && rtp_video_header.is_last_frame_in_picture &&
+      spatial_index + 1 < num_active_spatial_layers_) {
+    // Decrease number of active spatial layer to what is produced by encoder.
+    for (int sid = spatial_index + 1; sid < num_active_spatial_layers_; ++sid) {
+      chain_last_frame_id_[sid] = -1;
+    }
+    num_active_spatial_layers_ = spatial_index + 1;
+  }
+
   if (spatial_index >= num_spatial_layers ||
       temporal_index >= num_temporal_layers ||
-      num_active_spatial_layers > num_spatial_layers) {
+      num_active_spatial_layers_ > num_spatial_layers) {
     // Prefer to generate no generic layering than an inconsistent one.
     return;
   }
@@ -642,7 +662,7 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
   }
 
   result.active_decode_targets =
-      ((uint32_t{1} << num_temporal_layers * num_active_spatial_layers) - 1);
+      ((uint32_t{1} << num_temporal_layers * num_active_spatial_layers_) - 1);
 
   // Calculate chains, asuming chain includes all frames with temporal_id = 0
   if (!vp9_header.inter_pic_predicted && !vp9_header.inter_layer_predicted) {
@@ -652,7 +672,7 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
     }
   }
   result.chain_diffs.resize(num_spatial_layers, 0);
-  for (int sid = 0; sid < num_active_spatial_layers; ++sid) {
+  for (int sid = 0; sid < num_active_spatial_layers_; ++sid) {
     if (chain_last_frame_id_[sid] == -1) {
       result.chain_diffs[sid] = 0;
       continue;
@@ -663,7 +683,8 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
   if (temporal_index == 0) {
     chain_last_frame_id_[spatial_index] = shared_frame_id;
     if (!vp9_header.non_ref_for_inter_layer_pred) {
-      for (int sid = spatial_index + 1; sid < num_spatial_layers; ++sid) {
+      for (int sid = spatial_index + 1; sid < num_active_spatial_layers_;
+           ++sid) {
         chain_last_frame_id_[sid] = shared_frame_id;
       }
     }

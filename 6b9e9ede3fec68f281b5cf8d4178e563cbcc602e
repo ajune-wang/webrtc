@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03869544_d6b03a5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-01T05:20:28Z",
+      "side": 1,
+      "message": "I think this looks nice. And since this isn\u0027t being used internally any more (we hope!), it should be impactless.",
+      "revId": "6b9e9ede3fec68f281b5cf8d4178e563cbcc602e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dcbddf6_3f4dff93",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-01T05:20:28Z",
+      "side": 1,
+      "message": "Similar here - SetSendParameters -\u003e SetSenderParameters.\n\nTempting to rely on parameter type disambiguation and call it SetParameters... later CL, if any.",
+      "revId": "6b9e9ede3fec68f281b5cf8d4178e563cbcc602e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "584005a9_94e73ee8",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-01T05:20:28Z",
+      "side": 1,
+      "message": "Should we rename this function to SetResceiverParameters while we\u0027re at it? (Death to Recv?)\n\n(see from later comment that you tried and it made the CL too big...)",
+      "revId": "6b9e9ede3fec68f281b5cf8d4178e563cbcc602e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

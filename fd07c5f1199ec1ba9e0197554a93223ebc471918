@@ -33,6 +33,24 @@
       "message": "The correct name would be SendMediaChannelParameters but this name comes closer to where we want to be with cricket::Channel merged into Transceiver I\u0027d say.\n\nhta?",
       "revId": "fd07c5f1199ec1ba9e0197554a93223ebc471918",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b3e1aca_bf2003d4",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-01T05:20:28Z",
+      "side": 1,
+      "message": "Since the subclasses are all named {Audio,Video}SendParameters (changed to Sender), having the superclass be SenderParameters seems OK.",
+      "parentUuid": "8fac723c_192a577f",
+      "revId": "fd07c5f1199ec1ba9e0197554a93223ebc471918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

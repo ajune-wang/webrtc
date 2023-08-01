@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55f55bed_bcf7e888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-01T10:00:46Z",
+      "side": 1,
+      "message": "Found while looking for \"Recv\"...\n\nIt is odd how we have \"cipher suite\" for (D)TLS but \"crypto suite\" for SRTP. I instinctively went for \"cipher\" but \"crypto\" is actually correct.",
+      "revId": "2593034590ba4d8dbfd3772c8f3f6d36537e1d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -97,6 +97,7 @@ class RtpPayloadParams final {
 
   FrameDependenciesCalculator dependencies_calculator_;
   ChainDiffCalculator chains_calculator_;
+  int num_active_spatial_layers_ = 1;
   // TODO(bugs.webrtc.org/10242): Remove once all encoder-wrappers are updated.
   // Holds the last shared frame id for a given (spatial, temporal) layer.
   std::array<std::array<int64_t, RtpGenericFrameDescriptor::kMaxTemporalLayers>,

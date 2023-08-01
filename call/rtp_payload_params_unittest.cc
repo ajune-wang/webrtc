@@ -35,6 +35,7 @@ namespace webrtc {
 namespace {
 
 using ::testing::AllOf;
+using ::testing::AnyOf;
 using ::testing::Each;
 using ::testing::ElementsAre;
 using ::testing::Eq;
@@ -927,7 +928,7 @@ TEST(RtpPayloadParamsVp9ToGenericTest, TemporalScalabilityWith3Layers) {
   EXPECT_THAT(headers[8].generic->chain_diffs[0], Eq(8));
 }
 
-TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityKSvc) {
+TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityL2T1Key) {
   //  1---3--
   //  |     ...
   //  0---2--
@@ -938,7 +939,8 @@ TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityKSvc) {
   CodecSpecificInfo info;
   info.codecType = kVideoCodecVP9;
   info.codecSpecific.VP9.flexible_mode = true;
-  info.codecSpecific.VP9.num_spatial_layers = 2;
+  // Configure 3 layers, but use only 2.
+  info.codecSpecific.VP9.num_spatial_layers = 3;
   info.codecSpecific.VP9.first_frame_in_picture = true;
 
   RTPVideoHeader headers[4];
@@ -985,9 +987,12 @@ TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityKSvc) {
   // Rely on implementation detail there are always kMaxTemporalStreams temporal
   // layers assumed, in particular assume Decode Target#0 matches layer S0T0,
   // and Decode Target#kMaxTemporalStreams matches layer S1T0.
-  ASSERT_GE(num_decode_targets, kMaxTemporalStreams * 2);
+  static constexpr int kS0T0 = 0 * kMaxTemporalStreams;
+  static constexpr int kS1T0 = 1 * kMaxTemporalStreams;
+  static constexpr int kS2T0 = 2 * kMaxTemporalStreams;
+  ASSERT_GE(num_decode_targets, kMaxTemporalStreams * 3);
   int num_chains = headers[0].generic->chain_diffs.size();
-  ASSERT_GE(num_chains, 2);
+  ASSERT_GE(num_chains, 3);
 
   for (int frame_idx = 0; frame_idx < 4; ++frame_idx) {
     const RTPVideoHeader& header = headers[frame_idx];
@@ -1001,23 +1006,23 @@ TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityKSvc) {
   }
 
   // Expect S0 key frame is switch for both Decode Targets.
-  EXPECT_EQ(headers[0].generic->decode_target_indications[0],
+  EXPECT_EQ(headers[0].generic->decode_target_indications[kS0T0],
             DecodeTargetIndication::kSwitch);
-  EXPECT_EQ(headers[0].generic->decode_target_indications[kMaxTemporalStreams],
+  EXPECT_EQ(headers[0].generic->decode_target_indications[kS1T0],
             DecodeTargetIndication::kSwitch);
   // S1 key frame is only needed for the 2nd Decode Targets.
-  EXPECT_EQ(headers[1].generic->decode_target_indications[0],
+  EXPECT_EQ(headers[1].generic->decode_target_indications[kS0T0],
             DecodeTargetIndication::kNotPresent);
-  EXPECT_NE(headers[1].generic->decode_target_indications[kMaxTemporalStreams],
+  EXPECT_NE(headers[1].generic->decode_target_indications[kS1T0],
             DecodeTargetIndication::kNotPresent);
   // Delta frames are only needed for their own Decode Targets.
-  EXPECT_NE(headers[2].generic->decode_target_indications[0],
+  EXPECT_NE(headers[2].generic->decode_target_indications[kS0T0],
             DecodeTargetIndication::kNotPresent);
-  EXPECT_EQ(headers[2].generic->decode_target_indications[kMaxTemporalStreams],
+  EXPECT_EQ(headers[2].generic->decode_target_indications[kS1T0],
             DecodeTargetIndication::kNotPresent);
-  EXPECT_EQ(headers[3].generic->decode_target_indications[0],
+  EXPECT_EQ(headers[3].generic->decode_target_indications[kS0T0],
             DecodeTargetIndication::kNotPresent);
-  EXPECT_NE(headers[3].generic->decode_target_indications[kMaxTemporalStreams],
+  EXPECT_NE(headers[3].generic->decode_target_indications[kS1T0],
             DecodeTargetIndication::kNotPresent);
 
   EXPECT_THAT(headers[0].generic->dependencies, IsEmpty());       // S0, 1
@@ -1025,14 +1030,200 @@ TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityKSvc) {
   EXPECT_THAT(headers[2].generic->dependencies, ElementsAre(1));  // S0, 5
   EXPECT_THAT(headers[3].generic->dependencies, ElementsAre(3));  // S1, 7
 
+  EXPECT_TRUE(headers[0].generic->active_decode_targets[kS0T0]);
+  EXPECT_TRUE(headers[1].generic->active_decode_targets[kS0T0]);
+  EXPECT_TRUE(headers[2].generic->active_decode_targets[kS0T0]);
+  EXPECT_TRUE(headers[3].generic->active_decode_targets[kS0T0]);
   EXPECT_THAT(headers[0].generic->chain_diffs[0], Eq(0));
-  EXPECT_THAT(headers[0].generic->chain_diffs[1], Eq(0));
   EXPECT_THAT(headers[1].generic->chain_diffs[0], Eq(2));
-  EXPECT_THAT(headers[1].generic->chain_diffs[1], Eq(2));
   EXPECT_THAT(headers[2].generic->chain_diffs[0], Eq(4));
-  EXPECT_THAT(headers[2].generic->chain_diffs[1], Eq(2));
   EXPECT_THAT(headers[3].generic->chain_diffs[0], Eq(2));
+
+  EXPECT_TRUE(headers[0].generic->active_decode_targets[kS1T0]);
+  EXPECT_TRUE(headers[1].generic->active_decode_targets[kS1T0]);
+  EXPECT_TRUE(headers[2].generic->active_decode_targets[kS1T0]);
+  EXPECT_TRUE(headers[3].generic->active_decode_targets[kS1T0]);
+  EXPECT_THAT(headers[0].generic->chain_diffs[1], Eq(0));
+  EXPECT_THAT(headers[1].generic->chain_diffs[1], Eq(2));
+  EXPECT_THAT(headers[2].generic->chain_diffs[1], Eq(2));
   EXPECT_THAT(headers[3].generic->chain_diffs[1], Eq(4));
+
+  // Starting with 1st frame with `is_last_frame_in_picture` flag
+  // `RtpPayloadParams` should detected 3rd spatial layer is inactive and thus
+  // there should be no chain diffs for it.
+  EXPECT_FALSE(headers[1].generic->active_decode_targets[kS2T0]);
+  EXPECT_FALSE(headers[2].generic->active_decode_targets[kS2T0]);
+  EXPECT_FALSE(headers[3].generic->active_decode_targets[kS2T0]);
+  EXPECT_THAT(headers[1].generic->chain_diffs[2], Eq(0));
+  EXPECT_THAT(headers[2].generic->chain_diffs[2], Eq(0));
+  EXPECT_THAT(headers[3].generic->chain_diffs[2], Eq(0));
+}
+
+TEST(RtpPayloadParamsVp9ToGenericTest, SpatialScalabilityL3T1Key) {
+  //  2---5--
+  //  |     ..
+  //  1---4--
+  //  |     ...
+  //  0---3--
+  RtpPayloadState state;
+  RtpPayloadParams params(/*ssrc=*/123, &state, FieldTrialBasedConfig());
+
+  EncodedImage image;
+  CodecSpecificInfo info;
+  info.codecType = kVideoCodecVP9;
+  info.codecSpecific.VP9.flexible_mode = true;
+  info.codecSpecific.VP9.num_spatial_layers = 3;
+  info.codecSpecific.VP9.first_frame_in_picture = true;
+
+  RTPVideoHeader headers[6];
+  // Key frame.
+  image._frameType = VideoFrameType::kVideoFrameKey;
+  image.SetSpatialIndex(0);
+  info.codecSpecific.VP9.inter_pic_predicted = false;
+  info.codecSpecific.VP9.inter_layer_predicted = false;
+  info.codecSpecific.VP9.non_ref_for_inter_layer_pred = false;
+  info.codecSpecific.VP9.num_ref_pics = 0;
+  info.codecSpecific.VP9.first_frame_in_picture = true;
+  info.end_of_picture = false;
+  headers[0] = params.GetRtpVideoHeader(image, &info, /*shared_frame_id=*/1);
+
+  image.SetSpatialIndex(1);
+  info.codecSpecific.VP9.inter_layer_predicted = true;
+  info.codecSpecific.VP9.non_ref_for_inter_layer_pred = false;
+  info.codecSpecific.VP9.first_frame_in_picture = false;
+  info.end_of_picture = false;
+  headers[1] = params.GetRtpVideoHeader(image, &info, /*shared_frame_id=*/3);
+
+  image.SetSpatialIndex(2);
+  info.codecSpecific.VP9.inter_layer_predicted = true;
+  info.codecSpecific.VP9.non_ref_for_inter_layer_pred = true;
+  info.codecSpecific.VP9.first_frame_in_picture = false;
+  info.end_of_picture = true;
+  headers[2] = params.GetRtpVideoHeader(image, &info, /*shared_frame_id=*/5);
+
+  // Delta frames.
+  info.codecSpecific.VP9.inter_layer_predicted = false;
+  info.codecSpecific.VP9.non_ref_for_inter_layer_pred = true;
+  info.codecSpecific.VP9.inter_pic_predicted = true;
+  image._frameType = VideoFrameType::kVideoFrameDelta;
+  info.codecSpecific.VP9.num_ref_pics = 1;
+  info.codecSpecific.VP9.p_diff[0] = 1;
+
+  image.SetSpatialIndex(0);
+  info.codecSpecific.VP9.first_frame_in_picture = true;
+  info.end_of_picture = false;
+  headers[3] = params.GetRtpVideoHeader(image, &info, /*shared_frame_id=*/7);
+
+  image.SetSpatialIndex(1);
+  info.codecSpecific.VP9.first_frame_in_picture = false;
+  info.end_of_picture = false;
+  headers[4] = params.GetRtpVideoHeader(image, &info, /*shared_frame_id=*/9);
+
+  image.SetSpatialIndex(2);
+  info.codecSpecific.VP9.first_frame_in_picture = false;
+  info.end_of_picture = true;
+  headers[5] = params.GetRtpVideoHeader(image, &info, /*shared_frame_id=*/11);
+
+  ASSERT_TRUE(headers[0].generic);
+  int num_decode_targets = headers[0].generic->decode_target_indications.size();
+  // Rely on implementation detail there are always kMaxTemporalStreams temporal
+  // layers assumed, in particular assume Decode Target#0 matches layer S0T0,
+  // and Decode Target#kMaxTemporalStreams matches layer S1T0.
+  static constexpr int kS0T0 = 0 * kMaxTemporalStreams;
+  static constexpr int kS1T0 = 1 * kMaxTemporalStreams;
+  static constexpr int kS2T0 = 2 * kMaxTemporalStreams;
+  ASSERT_GE(num_decode_targets, kMaxTemporalStreams * 3);
+  int num_chains = headers[0].generic->chain_diffs.size();
+  ASSERT_GE(num_chains, 3);
+
+  for (int frame_idx = 0; frame_idx < 4; ++frame_idx) {
+    const RTPVideoHeader& header = headers[frame_idx];
+    ASSERT_TRUE(header.generic);
+    EXPECT_EQ(header.generic->temporal_index, 0);
+    EXPECT_EQ(header.generic->frame_id, 1 + 2 * frame_idx);
+    ASSERT_THAT(header.generic->decode_target_indications,
+                SizeIs(num_decode_targets));
+    ASSERT_THAT(header.generic->chain_diffs, SizeIs(num_chains));
+  }
+
+  // Expect S0 key frame is switch for all 3 Decode Targetss.
+  EXPECT_EQ(headers[0].generic->decode_target_indications[kS0T0],
+            DecodeTargetIndication::kSwitch);
+  EXPECT_EQ(headers[0].generic->decode_target_indications[kS1T0],
+            DecodeTargetIndication::kSwitch);
+  EXPECT_EQ(headers[0].generic->decode_target_indications[kS2T0],
+            DecodeTargetIndication::kSwitch);
+
+  EXPECT_EQ(headers[1].generic->decode_target_indications[kS0T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_NE(headers[1].generic->decode_target_indications[kS1T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_NE(headers[1].generic->decode_target_indications[kS2T0],
+            DecodeTargetIndication::kNotPresent);
+
+  EXPECT_EQ(headers[2].generic->decode_target_indications[kS0T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_EQ(headers[2].generic->decode_target_indications[kS1T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_NE(headers[2].generic->decode_target_indications[kS2T0],
+            DecodeTargetIndication::kNotPresent);
+
+  // Delta frames are only needed for their own Decode Targets.
+  EXPECT_NE(headers[3].generic->decode_target_indications[kS0T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_EQ(headers[3].generic->decode_target_indications[kS1T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_EQ(headers[3].generic->decode_target_indications[kS2T0],
+            DecodeTargetIndication::kNotPresent);
+
+  EXPECT_EQ(headers[4].generic->decode_target_indications[kS0T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_NE(headers[4].generic->decode_target_indications[kS1T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_EQ(headers[4].generic->decode_target_indications[kS2T0],
+            DecodeTargetIndication::kNotPresent);
+
+  EXPECT_EQ(headers[5].generic->decode_target_indications[kS0T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_EQ(headers[5].generic->decode_target_indications[kS1T0],
+            DecodeTargetIndication::kNotPresent);
+  EXPECT_NE(headers[5].generic->decode_target_indications[kS2T0],
+            DecodeTargetIndication::kNotPresent);
+
+  EXPECT_THAT(headers[0].generic->dependencies, IsEmpty());       // S0, 1
+  EXPECT_THAT(headers[1].generic->dependencies, ElementsAre(1));  // S1, 3
+  EXPECT_THAT(headers[2].generic->dependencies, ElementsAre(3));  // S2, 5
+  EXPECT_THAT(headers[3].generic->dependencies, ElementsAre(1));  // S0, 7
+  EXPECT_THAT(headers[4].generic->dependencies, ElementsAre(3));  // S1, 9
+  EXPECT_THAT(headers[5].generic->dependencies, ElementsAre(5));  // S2, 11
+
+  EXPECT_TRUE(headers[0].generic->active_decode_targets[kS0T0]);
+  EXPECT_TRUE(headers[0].generic->active_decode_targets[kS1T0]);
+
+  EXPECT_TRUE(headers[1].generic->active_decode_targets[kS0T0]);
+  EXPECT_TRUE(headers[1].generic->active_decode_targets[kS1T0]);
+  EXPECT_TRUE(headers[1].generic->active_decode_targets[kS2T0]);
+
+  EXPECT_THAT(headers[0].generic->chain_diffs[0], Eq(0));
+  EXPECT_THAT(headers[1].generic->chain_diffs[0], Eq(2));
+  EXPECT_THAT(headers[2].generic->chain_diffs[0], Eq(4));
+  EXPECT_THAT(headers[3].generic->chain_diffs[0], Eq(6));
+  EXPECT_THAT(headers[4].generic->chain_diffs[0], Eq(2));
+  EXPECT_THAT(headers[5].generic->chain_diffs[0], Eq(4));
+
+  EXPECT_THAT(headers[0].generic->chain_diffs[1], Eq(0));
+  EXPECT_THAT(headers[1].generic->chain_diffs[1], Eq(2));
+  EXPECT_THAT(headers[2].generic->chain_diffs[1], Eq(2));
+  EXPECT_THAT(headers[3].generic->chain_diffs[1], Eq(4));
+  EXPECT_THAT(headers[4].generic->chain_diffs[1], Eq(6));
+  EXPECT_THAT(headers[5].generic->chain_diffs[1], Eq(2));
+
+  EXPECT_THAT(headers[0].generic->chain_diffs[2], Eq(0));
+  EXPECT_THAT(headers[1].generic->chain_diffs[2], AnyOf(0, 2));
+  EXPECT_THAT(headers[2].generic->chain_diffs[2], Eq(2));
+  EXPECT_THAT(headers[3].generic->chain_diffs[2], Eq(2));
+  EXPECT_THAT(headers[4].generic->chain_diffs[2], Eq(4));
+  EXPECT_THAT(headers[5].generic->chain_diffs[2], Eq(6));
 }
 
 TEST(RtpPayloadParamsVp9ToGenericTest,
@@ -1128,12 +1319,13 @@ TEST(RtpPayloadParamsVp9ToGenericTest,
   EXPECT_THAT(headers[2].generic->dependencies, ElementsAre(3));  // S1, 5
 
   EXPECT_EQ(headers[0].generic->chain_diffs[0], 0);
-
   EXPECT_EQ(headers[1].generic->chain_diffs[0], 2);
-  EXPECT_EQ(headers[1].generic->chain_diffs[1], 0);
-
   EXPECT_EQ(headers[2].generic->chain_diffs[0], 2);
-  EXPECT_EQ(headers[2].generic->chain_diffs[1], 2);
+
+  // It is both valid to tell frame#1 is the previous frame in the chain#1,
+  // or that chain#1 was inactive, and frame#3 restarted it.
+  EXPECT_THAT(headers[1].generic->chain_diffs[1], AnyOf(0, 2));
+  EXPECT_THAT(headers[2].generic->chain_diffs[1], Eq(2));
 }
 
 class RtpPayloadParamsH264ToGenericTest : public ::testing::Test {

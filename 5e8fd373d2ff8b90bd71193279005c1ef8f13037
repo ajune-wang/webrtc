@@ -105,6 +105,24 @@
       "parentUuid": "29d537f8_cedce2a3",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34191de6_0d62f0c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-02T05:53:17Z",
+      "side": 1,
+      "message": "thought .... I\u0027m not sure if the API of SetParameters is sync or async as seen from the C++ API .... could Chrome \"just\" bind the two calls together (setParameters and requestKeyframe)? Less API change, at the cost of cognitive dissonance between C++ and JS.",
+      "parentUuid": "a446db3e_0b31fe60",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -123,6 +123,24 @@
       "parentUuid": "a446db3e_0b31fe60",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deb06257_f4b1fdc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-02T08:00:20Z",
+      "side": 1,
+      "message": "oh we have two variants of setParameters...\n\nWe also have a generate key frame on the video rtp sender:\nhttps://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/pc/rtp_sender.cc;l\u003d822;drc\u003d2d2b9b660aaaa89018ad12bf053075bba58ce787;bpv\u003d1;bpt\u003d1\nfrom the stage when we thought this would be a separate API call.\nBut using that would mean two hops to the worker thread and the dreaded \"what if the first call gets executed on a different frame than the second\" problem?",
+      "parentUuid": "34191de6_0d62f0c1",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

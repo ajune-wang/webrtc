@@ -128,6 +128,30 @@
       },
       "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef095b6c_1eeae5ce",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-02T07:37:14Z",
+      "side": 1,
+      "message": "If T0 is dropped then previous T0 still should be available in reference frame buffer and following frames can use it as reference. No need to issue a frame without inter-pic deps.\n\nI.e., T0 can be dropped as any other frame. We can\u0027t assume that number of spatial layers on T0 is \"true\" number of active spatial layers. It can be lower than vp9_header.num_spatial_layers because of frame dropping.",
+      "parentUuid": "9baa70ba_8ffefcb8",
+      "range": {
+        "startLine": 570,
+        "startChar": 6,
+        "endLine": 570,
+        "endChar": 25
+      },
+      "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

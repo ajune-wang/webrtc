@@ -152,6 +152,30 @@
       },
       "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376a83c5_084303d5",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-02T09:39:02Z",
+      "side": 1,
+      "message": "Yes, guessing is supotimal.\nLet me look into chromium encoder wrapper then - it has more details about future frames and thus can use less guessing.\n\nMeanwhile, do you mind mitigating current issue: https://webrtc-review.googlesource.com/c/src/+/314501",
+      "parentUuid": "ef095b6c_1eeae5ce",
+      "range": {
+        "startLine": 570,
+        "startChar": 6,
+        "endLine": 570,
+        "endChar": 25
+      },
+      "revId": "dba73d34593dbba71701f85cc3ecb06c211d13f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

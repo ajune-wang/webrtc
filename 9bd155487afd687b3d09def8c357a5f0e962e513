@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72575c2_20852717",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2023-08-03T14:48:36Z",
+      "side": 1,
+      "message": "seems more clear/safe to not set to true if prefer_temporal_support is not supported",
+      "range": {
+        "startLine": 135,
+        "startChar": 43,
+        "endLine": 135,
+        "endChar": 47
+      },
+      "revId": "9bd155487afd687b3d09def8c357a5f0e962e513",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

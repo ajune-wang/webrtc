@@ -16,6 +16,24 @@
       "message": "Mirko is probably the best person to review (or explain why it is the way it is)",
       "revId": "ef9f06db157b3e75e4b9c0beb49deb686e76ac01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3aca5b_7c3c0117",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21294
+      },
+      "writtenOn": "2023-08-03T08:04:30Z",
+      "side": 1,
+      "message": "Thanks!\n\nThis was WIP, I was not expected the review to start, but thanks anyway for redirecting to Mirko! I also asked him a few days ago and I got the answer.\n\nTLDR: GN build files are used to generate Bazel build files one. The problem is that Bazel do not really have a concept of `public_deps`. It was decided to downgrade what is expressed toward the common denominator to avoid various problems.\n\nI will instead try to use rtc_common_inherited_config to make the base public dependency to be available toward every targets.",
+      "parentUuid": "ca2d0548_14fe7336",
+      "revId": "ef9f06db157b3e75e4b9c0beb49deb686e76ac01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Grudging acceptance given discussion in bug.\nPlease add a WebRTC bug and a TODO(bug) to revisit this in a way visible to all (add me as CC).\n\nNot sure who should own fixing the underlying issue (that the thread switching in debug mode is so slow as to be bogus).",
       "revId": "49e64e978f1edd82d9cb889c8a166bddff7b8fa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d7073c_fcd1a4df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-08-03T11:36:47Z",
+      "side": 1,
+      "message": "Grudging understood and emphathized with. Done: https://crbug.com/webrtc/15393.",
+      "parentUuid": "bd4ba312_9229d5ec",
+      "revId": "49e64e978f1edd82d9cb889c8a166bddff7b8fa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

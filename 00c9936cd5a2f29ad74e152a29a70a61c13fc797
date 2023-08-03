@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b3a5e1_ea470955",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-03T15:14:31Z",
+      "side": 1,
+      "message": "spec change landed. Chromium CL seems to be needing a rebase...",
+      "revId": "00c9936cd5a2f29ad74e152a29a70a61c13fc797",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

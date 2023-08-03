@@ -63,6 +63,29 @@
       },
       "revId": "9bd155487afd687b3d09def8c357a5f0e962e513",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a5fb84_2339edef",
+        "filename": "test/fake_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-08-03T15:57:48Z",
+      "side": 1,
+      "message": "Nit:\n\nstd::move(implementation_name);\n\nOr better, pass the param as string_view.",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 44
+      },
+      "revId": "9bd155487afd687b3d09def8c357a5f0e962e513",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

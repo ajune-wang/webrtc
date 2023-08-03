@@ -141,6 +141,24 @@
       "parentUuid": "34191de6_0d62f0c1",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29237a68_71b6395c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-03T12:34:07Z",
+      "side": 1,
+      "message": "So it\u0027s async, we can\u0027t depend on them being executed together. Dead idea.\nSo the api/ has to change. Could we change only the API down to the threadjump and ensure a single threadjump at that level? Does that help?",
+      "parentUuid": "deb06257_f4b1fdc2",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

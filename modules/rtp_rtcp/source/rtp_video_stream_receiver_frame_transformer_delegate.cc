@@ -27,12 +27,7 @@ class TransformableVideoReceiverFrame
   TransformableVideoReceiverFrame(std::unique_ptr<RtpFrameObject> frame,
                                   uint32_t ssrc,
                                   RtpVideoFrameReceiver* receiver)
-      : frame_(std::move(frame)),
-        metadata_(frame_->GetRtpVideoHeader().GetAsMetadata()),
-        receiver_(receiver) {
-    metadata_.SetSsrc(ssrc);
-    metadata_.SetCsrcs(frame_->Csrcs());
-  }
+      : frame_(std::move(frame)), receiver_(receiver) {}
   ~TransformableVideoReceiverFrame() override = default;
 
   // Implements TransformableVideoFrameInterface.
@@ -46,7 +41,7 @@ class TransformableVideoReceiverFrame
   }
 
   uint8_t GetPayloadType() const override { return frame_->PayloadType(); }
-  uint32_t GetSsrc() const override { return metadata_.GetSsrc(); }
+  uint32_t GetSsrc() const override { return Metadata().GetSsrc(); }
   uint32_t GetTimestamp() const override { return frame_->Timestamp(); }
   void SetRTPTimestamp(uint32_t timestamp) override {
     frame_->SetTimestamp(timestamp);
@@ -56,11 +51,21 @@ class TransformableVideoReceiverFrame
     return frame_->FrameType() == VideoFrameType::kVideoFrameKey;
   }
 
-  VideoFrameMetadata Metadata() const override { return metadata_; }
+  VideoFrameMetadata Metadata() const override {
+    return frame_->GetRtpVideoHeader().GetAsMetadata();
+  }
 
-  void SetMetadata(const VideoFrameMetadata&) override {
-    RTC_DCHECK_NOTREACHED()
-        << "TransformableVideoReceiverFrame::SetMetadata is not implemented";
+  void SetMetadata(const VideoFrameMetadata& metadata) override {
+    VideoFrameMetadata copiedMetadata = metadata;
+    copiedMetadata.SetFrameId(Metadata().GetFrameId());
+    copiedMetadata.SetFrameDependencies(Metadata().GetFrameDependencies());
+
+    if (copiedMetadata != Metadata()) {
+      RTC_DCHECK_NOTREACHED() << "TransformableVideoReceiverFrame::SetMetadata "
+                                 "is not implemented for this attribute";
+    }
+
+    frame_->SetHeaderFromMetadata(metadata);
   }
 
   std::unique_ptr<RtpFrameObject> ExtractFrame() && {
@@ -73,7 +78,6 @@ class TransformableVideoReceiverFrame
 
  private:
   std::unique_ptr<RtpFrameObject> frame_;
-  VideoFrameMetadata metadata_;
   RtpVideoFrameReceiver* receiver_;
 };
 }  // namespace

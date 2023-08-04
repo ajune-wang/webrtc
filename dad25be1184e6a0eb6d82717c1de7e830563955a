@@ -37,6 +37,41 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8a6680be_bfc2b4c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T09:51:04Z",
+      "side": 1,
+      "message": "I was a bit taken aback by the number of classes that subclass this one, so the process of deprecation and removal will be long. Seems like the std::span introduction will have to make things smooth for people (no semantic change, just rename), so this shouldn\u0027t add to the burden.\n\nSubmitting this one, let\u0027s see when the next one gets done.",
+      "parentUuid": "687b3328_6b26cd5d",
+      "revId": "dad25be1184e6a0eb6d82717c1de7e830563955a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e816d9ce_67c4b390",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T09:51:04Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "dad25be1184e6a0eb6d82717c1de7e830563955a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "67e4babb_3dfb3a16",
         "filename": "api/call/transport.h",
         "patchSetId": 1
@@ -48,6 +83,30 @@
       "writtenOn": "2023-08-04T09:32:11Z",
       "side": 1,
       "message": "May be have default implementation for this two functions too, that call SendRtc?p functions with ArrayView argument.\n\nThen you would need to update each Transport implementation just once - replace old signature with the new one:\nstep 1. Add new functions\nstep 2a. Migrate all callers to use new functions\nstep 2b. Migrate all implementation to new functions\nstep 3. Delete old functions\n\nIf you keep these as virtual, then migration would need extra steps:\nStep 1. [this change] Add new functions\nStep 2a. Migrate all callers to new functions\nStep 2b. Add new functions to all the implementations\nStep 3. Make new functions virtual, old functions non-virtual\nStep 4. Remove old functions from all the implementaions\nStep 5. Delete old functions.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 66
+      },
+      "revId": "dad25be1184e6a0eb6d82717c1de7e830563955a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f23d8229_cf2efe49",
+        "filename": "api/call/transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T09:51:04Z",
+      "side": 1,
+      "message": "I did that in another place (MediaStream), it looks awfully messy (if you ever subclass without overriding either, the compiler will *not* warn you, and you will get a stack overflow if you call either function). They have to remain virtual until deleted, of course.\n\nPerhaps consider that in the next CL (the one where I add [[deprecated]])?",
+      "parentUuid": "67e4babb_3dfb3a16",
       "range": {
         "startLine": 59,
         "startChar": 0,
@@ -83,6 +142,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "210a4c61_3cd609c3",
+        "filename": "media/base/media_channel_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T09:51:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3c96b09f_f49e9615",
+      "range": {
+        "startLine": 204,
+        "startChar": 18,
+        "endLine": 204,
+        "endChar": 58
+      },
+      "revId": "dad25be1184e6a0eb6d82717c1de7e830563955a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b28ba9f0_7dbdc73c",
         "filename": "media/base/media_channel_impl.cc",
         "patchSetId": 1
@@ -94,6 +177,30 @@
       "writtenOn": "2023-08-04T09:32:11Z",
       "side": 1,
       "message": "to avoid memcpy like this one,\nhave you consider to migrate Transport interface to pass data with ownership?\ni.e. SendRtcp(rtc::CopyOnWriteBuffer packet) rather than SendRtcp(ArrayView);\n\nThough that is sure more complicated migration. And may be better be done by introducing new interface and migrating each place where Transport is used individually.",
+      "range": {
+        "startLine": 209,
+        "startChar": 21,
+        "endLine": 210,
+        "endChar": 50
+      },
+      "revId": "dad25be1184e6a0eb6d82717c1de7e830563955a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d29186f9_137cd53b",
+        "filename": "media/base/media_channel_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T09:51:04Z",
+      "side": 1,
+      "message": "I don\u0027t love the transport interface much - it seems like the wrong name at the wrong level. But changing semantics is harder. CopyOnWriteBuffer is an rtc_base function - do we encourage people to use that?\n\nOr should we do something like std::move()?\n(I\u0027m not sure why this buffer is CopyOnWrite. Can\u0027t see why sending it needs to write to it. But that might be just my lack of imagination.)",
+      "parentUuid": "b28ba9f0_7dbdc73c",
       "range": {
         "startLine": 209,
         "startChar": 21,

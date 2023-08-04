@@ -1288,7 +1288,10 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   }
 
   vpx_svc_layer_id_t layer_id = {0};
-  libvpx_->codec_control(encoder_, VP9E_GET_SVC_LAYER_ID, &layer_id);
+  auto err = libvpx_->codec_control(encoder_, VP9E_GET_SVC_LAYER_ID, &layer_id);
+  RTC_DCHECK_EQ(err, VPX_CODEC_OK);
+  RTC_LOG(LS_INFO) << "first_frame_in_picture:" << first_frame_in_picture_
+                   << ", spatial_id: " << layer_id.spatial_layer_id;
 
   // Can't have keyframe with non-zero temporal layer.
   RTC_DCHECK(pics_since_key_ != 0 || layer_id.temporal_layer_id == 0);

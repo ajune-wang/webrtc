@@ -86,6 +86,30 @@
       },
       "revId": "9bd155487afd687b3d09def8c357a5f0e962e513",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf1ae4b3_f1128dcf",
+        "filename": "test/fake_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-04T12:01:06Z",
+      "side": 1,
+      "message": "Changed to string_view.",
+      "parentUuid": "76a5fb84_2339edef",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 44
+      },
+      "revId": "9bd155487afd687b3d09def8c357a5f0e962e513",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

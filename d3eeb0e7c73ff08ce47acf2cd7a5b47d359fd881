@@ -16,6 +16,52 @@
       "message": "That seems easy enough. Won\u0027t be able to check against internal until the importer is fresh again, though.",
       "revId": "d3eeb0e7c73ff08ce47acf2cd7a5b47d359fd881",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9957d411_da32bb38",
+        "filename": "api/call/transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-04T12:29:37Z",
+      "side": 1,
+      "message": "or bugs.webrtc.org/14870 - Use ArrayView version\n\n(Though in this case link to the issue doesn\u0027t add much. Here alternative is very straightforward)",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "d3eeb0e7c73ff08ce47acf2cd7a5b47d359fd881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df33d60_6254bc45",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-04T12:29:37Z",
+      "side": 1,
+      "message": "or\n`transport-\u003eSendRtcp(*packet-\u003eraw_packet())`\n\nor\nadd NetworkPacket::size() [it is named data_length currently)\nthen here it can be simpler:\n`transport-\u003eSendRtcp(*packet)`",
+      "range": {
+        "startLine": 360,
+        "startChar": 10,
+        "endLine": 360,
+        "endChar": 67
+      },
+      "revId": "d3eeb0e7c73ff08ce47acf2cd7a5b47d359fd881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

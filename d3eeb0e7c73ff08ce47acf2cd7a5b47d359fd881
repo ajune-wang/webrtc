@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6ca61fb1_3d2156c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T12:39:01Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "d3eeb0e7c73ff08ce47acf2cd7a5b47d359fd881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9957d411_da32bb38",
         "filename": "api/call/transport.h",
         "patchSetId": 1
@@ -43,6 +60,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b43b0575_e0563e70",
+        "filename": "api/call/transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T12:39:01Z",
+      "side": 1,
+      "message": "shorter messaging is usually better :-) and the bug link is in the source directly above.",
+      "parentUuid": "9957d411_da32bb38",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "d3eeb0e7c73ff08ce47acf2cd7a5b47d359fd881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8df33d60_6254bc45",
         "filename": "call/fake_network_pipe.cc",
         "patchSetId": 1
@@ -54,6 +95,30 @@
       "writtenOn": "2023-08-04T12:29:37Z",
       "side": 1,
       "message": "or\n`transport-\u003eSendRtcp(*packet-\u003eraw_packet())`\n\nor\nadd NetworkPacket::size() [it is named data_length currently)\nthen here it can be simpler:\n`transport-\u003eSendRtcp(*packet)`",
+      "range": {
+        "startLine": 360,
+        "startChar": 10,
+        "endLine": 360,
+        "endChar": 67
+      },
+      "revId": "d3eeb0e7c73ff08ce47acf2cd7a5b47d359fd881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f51fa9dd_70a0eaa5",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-04T12:39:01Z",
+      "side": 1,
+      "message": "Yep, I wondered about that given the autoconverter in ArrayView, but decided not to pursue - a better fix (it seems to me) would make the packet have a data_view() function that returns an ArrayView and (eventually) remove the current pointer and data_length() functions.",
+      "parentUuid": "8df33d60_6254bc45",
       "range": {
         "startLine": 360,
         "startChar": 10,

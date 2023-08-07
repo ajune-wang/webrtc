@@ -38,6 +38,7 @@ namespace {
 const uint32_t kSenderSsrc = 0x12345;
 const uint32_t kReceiverSsrc = 0x23456;
 constexpr TimeDelta kOneWayNetworkDelay = TimeDelta::Millis(100);
+constexpr TimeDelta kEpsilon = TimeDelta::Millis(1);
 const uint8_t kBaseLayerTid = 0;
 const uint8_t kHigherLayerTid = 1;
 const uint16_t kSequenceNumber = 100;
@@ -125,7 +126,7 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
   SendTransport transport_;
   RtcpRttStatsTestImpl rtt_stats_;
   std::unique_ptr<ModuleRtpRtcpImpl> impl_;
-  int rtcp_report_interval_ms_ = 0;
+  TimeDelta rtcp_report_interval_ = TimeDelta::Zero();
 
   void RtcpPacketTypesCounterUpdated(
       uint32_t ssrc,
@@ -149,8 +150,8 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
   std::vector<uint16_t> LastNackListSent() {
     return transport_.last_nack_list_;
   }
-  void SetRtcpReportIntervalAndReset(int rtcp_report_interval_ms) {
-    rtcp_report_interval_ms_ = rtcp_report_interval_ms;
+  void SetRtcpReportIntervalAndReset(TimeDelta rtcp_report_interval) {
+    rtcp_report_interval_ = rtcp_report_interval;
     CreateModuleImpl();
   }
 
@@ -163,7 +164,7 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
     config.receive_statistics = receive_statistics_.get();
     config.rtcp_packet_type_counter_observer = this;
     config.rtt_stats = &rtt_stats_;
-    config.rtcp_report_interval_ms = rtcp_report_interval_ms_;
+    config.rtcp_report_interval = rtcp_report_interval_;
     config.local_media_ssrc = is_sender_ ? kSenderSsrc : kReceiverSsrc;
     config.need_rtp_packet_infos = true;
     config.non_sender_rtt_measurement = true;
@@ -497,7 +498,7 @@ TEST_F(RtpRtcpImplTest, UniqueNackRequests) {
 }
 
 TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
-  const int kVideoReportInterval = 3000;
+  const TimeDelta kVideoReportInterval = TimeDelta::Seconds(3);
 
   // Recreate sender impl with new configuration, and redo setup.
   sender_.SetRtcpReportIntervalAndReset(kVideoReportInterval);
@@ -510,19 +511,19 @@ TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
   EXPECT_EQ(0u, sender_.transport_.NumRtcpSent());
 
   // Move ahead to the last ms before a rtcp is expected, no action.
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2 - 1);
+  clock_.AdvanceTime(kVideoReportInterval / 2 - kEpsilon);
   sender_.impl_->Process();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 0u);
 
   // Move ahead to the first rtcp. Send RTCP.
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(kEpsilon);
   sender_.impl_->Process();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
 
   SendFrame(&sender_, sender_video_.get(), kBaseLayerTid);
 
   // Move ahead to the last possible second before second rtcp is expected.
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval * 1 / 2 - 1);
+  clock_.AdvanceTime(kVideoReportInterval * 1 / 2 - kEpsilon);
   sender_.impl_->Process();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
 
@@ -531,12 +532,12 @@ TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
   sender_.impl_->Process();
   EXPECT_GE(sender_.transport_.NumRtcpSent(), 1u);
 
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2);
+  clock_.AdvanceTime(kVideoReportInterval / 2);
   sender_.impl_->Process();
   EXPECT_GE(sender_.transport_.NumRtcpSent(), 1u);
 
   // Move out the range of second rtcp, the second rtcp must have been sent.
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2);
+  clock_.AdvanceTime(kVideoReportInterval / 2);
   sender_.impl_->Process();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 2u);
 }

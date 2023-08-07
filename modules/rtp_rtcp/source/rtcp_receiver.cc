@@ -66,9 +66,6 @@ constexpr TimeDelta kRtcpMinFrameLength = TimeDelta::Millis(17);
 // Maximum number of received RRTRs that will be stored.
 constexpr size_t kMaxNumberOfStoredRrtrs = 300;
 
-constexpr TimeDelta kDefaultVideoReportInterval = TimeDelta::Seconds(1);
-constexpr TimeDelta kDefaultAudioReportInterval = TimeDelta::Seconds(5);
-
 // Returns true if the `timestamp` has exceeded the |interval *
 // kRrTimeoutIntervals| period and was reset (set to PlusInfinity()). Returns
 // false if the timer was either already reset or if it has not expired.
@@ -148,10 +145,7 @@ RTCPReceiver::RTCPReceiver(const RtpRtcpInterface::Configuration& config,
       rtcp_loss_notification_observer_(config.rtcp_loss_notification_observer),
       network_state_estimate_observer_(config.network_state_estimate_observer),
       bitrate_allocation_observer_(config.bitrate_allocation_observer),
-      report_interval_(config.rtcp_report_interval_ms > 0
-                           ? TimeDelta::Millis(config.rtcp_report_interval_ms)
-                           : (config.audio ? kDefaultAudioReportInterval
-                                           : kDefaultVideoReportInterval)),
+      report_interval_(RtcpReportInterval(config)),
       // TODO(bugs.webrtc.org/10774): Remove fallback.
       remote_ssrc_(0),
       xr_rrtr_status_(config.non_sender_rtt_measurement),
@@ -175,10 +169,7 @@ RTCPReceiver::RTCPReceiver(const RtpRtcpInterface::Configuration& config,
       rtcp_loss_notification_observer_(config.rtcp_loss_notification_observer),
       network_state_estimate_observer_(config.network_state_estimate_observer),
       bitrate_allocation_observer_(config.bitrate_allocation_observer),
-      report_interval_(config.rtcp_report_interval_ms > 0
-                           ? TimeDelta::Millis(config.rtcp_report_interval_ms)
-                           : (config.audio ? kDefaultAudioReportInterval
-                                           : kDefaultVideoReportInterval)),
+      report_interval_(RtcpReportInterval(config)),
       // TODO(bugs.webrtc.org/10774): Remove fallback.
       remote_ssrc_(0),
       xr_rrtr_status_(config.non_sender_rtt_measurement),

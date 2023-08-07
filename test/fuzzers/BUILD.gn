@@ -202,6 +202,7 @@ webrtc_fuzzer_test("rtp_video_frame_assembler_fuzzer") {
 webrtc_fuzzer_test("rtcp_receiver_fuzzer") {
   sources = [ "rtcp_receiver_fuzzer.cc" ]
   deps = [
+    "../../api/units:time_delta",
     "../../modules/rtp_rtcp",
     "../../modules/rtp_rtcp:rtp_rtcp_format",
     "../../rtc_base:checks",

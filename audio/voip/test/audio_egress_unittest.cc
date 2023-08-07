@@ -39,7 +39,7 @@ std::unique_ptr<ModuleRtpRtcpImpl2> CreateRtpStack(Clock* clock,
   RtpRtcpInterface::Configuration rtp_config;
   rtp_config.clock = clock;
   rtp_config.audio = true;
-  rtp_config.rtcp_report_interval_ms = 5000;
+  rtp_config.rtcp_report_interval = TimeDelta::Seconds(5);
   rtp_config.outgoing_transport = transport;
   rtp_config.local_media_ssrc = remote_ssrc;
   auto rtp_rtcp = ModuleRtpRtcpImpl2::Create(rtp_config);

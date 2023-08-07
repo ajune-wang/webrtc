@@ -190,7 +190,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
     Clock* clock,
     const RtpConfig& rtp_config,
     const RtpSenderObservers& observers,
-    int rtcp_report_interval_ms,
+    TimeDelta rtcp_report_interval,
     Transport* send_transport,
     RtpTransportControllerSendInterface* transport,
     const std::map<uint32_t, RtpState>& suspended_ssrcs,
@@ -233,7 +233,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
   configuration.require_frame_encryption =
       crypto_options.sframe.require_frame_encryption;
   configuration.extmap_allow_mixed = rtp_config.extmap_allow_mixed;
-  configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
+  configuration.rtcp_report_interval = rtcp_report_interval;
   configuration.field_trials = &trials;
   configuration.enable_send_packet_batching =
       rtp_config.enable_send_packet_batching;
@@ -365,7 +365,7 @@ RtpVideoSender::RtpVideoSender(
     const std::map<uint32_t, RtpState>& suspended_ssrcs,
     const std::map<uint32_t, RtpPayloadState>& states,
     const RtpConfig& rtp_config,
-    int rtcp_report_interval_ms,
+    TimeDelta rtcp_report_interval,
     Transport* send_transport,
     const RtpSenderObservers& observers,
     RtpTransportControllerSendInterface* transport,
@@ -388,7 +388,7 @@ RtpVideoSender::RtpVideoSender(
       rtp_streams_(CreateRtpStreamSenders(clock,
                                           rtp_config,
                                           observers,
-                                          rtcp_report_interval_ms,
+                                          rtcp_report_interval,
                                           send_transport,
                                           transport,
                                           suspended_ssrcs,

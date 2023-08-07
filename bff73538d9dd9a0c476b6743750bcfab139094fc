@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "346269f3_384cbe4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-07T17:10:15Z",
+      "side": 1,
+      "message": "Falling back to non-RED seems to be the best choice. I tried a one byte RED header but oddly that did not play audio in the sample given in the bug",
+      "revId": "bff73538d9dd9a0c476b6743750bcfab139094fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

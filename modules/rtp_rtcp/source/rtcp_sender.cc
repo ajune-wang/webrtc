@@ -53,8 +53,6 @@ namespace {
 const uint32_t kRtcpAnyExtendedReports = kRtcpXrReceiverReferenceTime |
                                          kRtcpXrDlrrReportBlock |
                                          kRtcpXrTargetBitrate;
-constexpr int32_t kDefaultVideoReportInterval = 1000;
-constexpr int32_t kDefaultAudioReportInterval = 5000;
 }  // namespace
 
 // Helper to put several RTCP packets into lower layer datagram RTCP packet.
@@ -127,10 +125,7 @@ RTCPSender::Configuration RTCPSender::Configuration::FromRtpRtcpConfiguration(
   result.outgoing_transport = configuration.outgoing_transport;
   result.non_sender_rtt_measurement = configuration.non_sender_rtt_measurement;
   result.event_log = configuration.event_log;
-  if (configuration.rtcp_report_interval_ms) {
-    result.rtcp_report_interval =
-        TimeDelta::Millis(configuration.rtcp_report_interval_ms);
-  }
+  result.rtcp_report_interval = RtcpReportInterval(configuration);
   result.receive_statistics = configuration.receive_statistics;
   result.rtcp_packet_type_counter_observer =
       configuration.rtcp_packet_type_counter_observer;
@@ -145,9 +140,7 @@ RTCPSender::RTCPSender(Configuration config)
       method_(RtcpMode::kOff),
       event_log_(config.event_log),
       transport_(config.outgoing_transport),
-      report_interval_(config.rtcp_report_interval.value_or(
-          TimeDelta::Millis(config.audio ? kDefaultAudioReportInterval
-                                         : kDefaultVideoReportInterval))),
+      report_interval_(config.rtcp_report_interval),
       schedule_next_rtcp_send_evaluation_function_(
           std::move(config.schedule_next_rtcp_send_evaluation_function)),
       sending_(false),

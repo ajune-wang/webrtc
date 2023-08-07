@@ -99,7 +99,7 @@ class RtcpSenderTest : public ::testing::Test {
     configuration.audio = false;
     configuration.clock = &clock_;
     configuration.outgoing_transport = &test_transport_;
-    configuration.rtcp_report_interval = TimeDelta::Millis(1000);
+    configuration.rtcp_report_interval = TimeDelta::Seconds(1);
     configuration.receive_statistics = receive_statistics_.get();
     configuration.local_media_ssrc = kSenderSsrc;
     return configuration;
@@ -111,7 +111,7 @@ class RtcpSenderTest : public ::testing::Test {
     result.audio = config.audio;
     result.clock = config.clock;
     result.outgoing_transport = config.outgoing_transport;
-    result.rtcp_report_interval_ms = config.rtcp_report_interval->ms();
+    result.rtcp_report_interval = config.rtcp_report_interval;
     result.receive_statistics = config.receive_statistics;
     result.local_media_ssrc = config.local_media_ssrc;
     return result;

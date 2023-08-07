@@ -101,7 +101,11 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     RateLimiter* retransmission_rate_limiter = nullptr;
     StreamDataCountersCallback* rtp_stats_callback = nullptr;
 
-    int rtcp_report_interval_ms = 0;
+    union {
+      int deprecated_rtcp_report_interval_ms = 0;
+      [[deprecated]] int rtcp_report_interval_ms;
+    };
+    TimeDelta rtcp_report_interval = TimeDelta::Zero();
 
     // Update network2 instead of pacer_exit field of video timing extension.
     bool populate_network2_timestamp = false;
@@ -442,6 +446,17 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
                                        bool decodability_flag,
                                        bool buffering_allowed) = 0;
 };
+
+inline TimeDelta RtcpReportInterval(
+    const RtpRtcpInterface::Configuration& config) {
+  if (config.rtcp_report_interval > TimeDelta::Zero()) {
+    return config.rtcp_report_interval;
+  }
+  if (config.deprecated_rtcp_report_interval_ms > 0) {
+    return TimeDelta::Millis(config.deprecated_rtcp_report_interval_ms);
+  }
+  return config.audio ? TimeDelta::Seconds(5) : TimeDelta::Seconds(1);
+}
 
 }  // namespace webrtc
 

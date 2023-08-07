@@ -244,7 +244,7 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver,
     config.receive_statistics = receive_statistics_.get();
     config.rtcp_packet_type_counter_observer = this;
     config.rtt_stats = &rtt_stats_;
-    config.rtcp_report_interval_ms = rtcp_report_interval_.ms();
+    config.rtcp_report_interval = rtcp_report_interval_;
     config.local_media_ssrc = is_sender_ ? kSenderSsrc : kReceiverSsrc;
     config.rtx_send_ssrc =
         is_sender_ ? absl::make_optional(kRtxSenderSsrc) : absl::nullopt;

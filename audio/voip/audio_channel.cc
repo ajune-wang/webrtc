@@ -23,7 +23,7 @@ namespace webrtc {
 
 namespace {
 
-constexpr int kRtcpReportIntervalMs = 5000;
+constexpr TimeDelta kRtcpReportInterval = TimeDelta::Seconds(5);
 
 }  // namespace
 
@@ -44,7 +44,7 @@ AudioChannel::AudioChannel(
   rtp_config.clock = clock;
   rtp_config.audio = true;
   rtp_config.receive_statistics = receive_statistics_.get();
-  rtp_config.rtcp_report_interval_ms = kRtcpReportIntervalMs;
+  rtp_config.rtcp_report_interval = kRtcpReportInterval;
   rtp_config.outgoing_transport = transport;
   rtp_config.local_media_ssrc = local_ssrc;
 

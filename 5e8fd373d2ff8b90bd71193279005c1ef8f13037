@@ -159,6 +159,24 @@
       "parentUuid": "deb06257_f4b1fdc2",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7143deee_7e21b683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-07T12:41:08Z",
+      "side": 1,
+      "message": "The thread jump is here:\nhttps://source.chromium.org/chromium/chromium/src/+/refs/heads/main:third_party/webrtc/pc/rtp_sender.cc;l\u003d821;drc\u003ddf097ef9b722789243248f807ad66c7085a14099;bpv\u003d1;bpt\u003d1 but that is for the \"public\" version which is on the old spec.\n\nVideoMediaSendChannelInterface::GenerateSendKeyFrame is already on the right thread since it gets called from here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/rtp_sender.cc;l\u003d284?q\u003drtp_sender.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nI can try moving the call to GenerateKeyFrame from WebRtcVideoSendStream::SetRtpParameters to there but removing the boolean from the rtp parameters would still require a lot of plumbing that I\u0027d like to avoid.",
+      "parentUuid": "29237a68_71b6395c",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

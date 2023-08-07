@@ -184,7 +184,6 @@ class RtpSenderVideoTest : public ::testing::Test {
 
  protected:
   rtc::AutoThread main_thread_;
-  const RtpRtcpInterface::Configuration config_;
   test::ExplicitKeyValueConfig field_trials_{""};
   SimulatedClock fake_clock_;
   LoopbackTransportTest transport_;

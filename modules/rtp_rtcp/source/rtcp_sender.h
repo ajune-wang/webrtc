@@ -79,7 +79,7 @@ class RTCPSender final {
     std::function<void(TimeDelta)> schedule_next_rtcp_send_evaluation_function;
 
     RtcEventLog* event_log = nullptr;
-    absl::optional<TimeDelta> rtcp_report_interval;
+    TimeDelta rtcp_report_interval = TimeDelta::Seconds(1);
     ReceiveStatisticsProvider* receive_statistics = nullptr;
     RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer = nullptr;
   };

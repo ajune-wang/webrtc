@@ -177,6 +177,24 @@
       "parentUuid": "29237a68_71b6395c",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dacbb6ae_648c6fb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-07T12:42:06Z",
+      "side": 1,
+      "message": "ah, the other tricky thing about splitting that up is when the setParameters callback is executed. We want generateKeyFrame to run before that.",
+      "parentUuid": "7143deee_7e21b683",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

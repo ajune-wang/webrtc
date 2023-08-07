@@ -192,6 +192,75 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
 }
 
 TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
+     TransformableFrameMetadataHasCorrectValueAfterSetMetadat) {
+  TestRtpVideoFrameReceiver receiver;
+  auto mock_frame_transformer =
+      rtc::make_ref_counted<NiceMock<MockFrameTransformer>>();
+  SimulatedClock clock(0);
+  auto delegate =
+      rtc::make_ref_counted<RtpVideoStreamReceiverFrameTransformerDelegate>(
+          &receiver, &clock, mock_frame_transformer, rtc::Thread::Current(),
+          1111);
+
+  rtc::scoped_refptr<TransformedFrameCallback> callback;
+  EXPECT_CALL(*mock_frame_transformer, RegisterTransformedFrameSinkCallback)
+      .WillOnce(SaveArg<0>(&callback));
+  delegate->Init();
+  ASSERT_TRUE(callback);
+
+  RTPVideoHeader video_header;
+  video_header.width = 1280u;
+  video_header.height = 720u;
+  RTPVideoHeader::GenericDescriptorInfo& generic =
+      video_header.generic.emplace();
+  generic.frame_id = 10;
+  generic.temporal_index = 3;
+  generic.spatial_index = 2;
+  generic.decode_target_indications = {DecodeTargetIndication::kSwitch};
+  generic.dependencies = {5};
+
+  std::vector<uint32_t> csrcs = {234, 345, 456};
+
+  // Check that the transformable frame passed to the frame transformer has the
+  // correct metadata.
+  EXPECT_CALL(*mock_frame_transformer, Transform)
+      .WillOnce([&](std::unique_ptr<TransformableFrameInterface>
+                        transformable_frame) {
+        auto frame =
+            absl::WrapUnique(static_cast<TransformableVideoFrameInterface*>(
+                transformable_frame.release()));
+        ASSERT_TRUE(frame);
+        auto metadata = frame->Metadata();
+        EXPECT_EQ(metadata.GetWidth(), 1280u);
+        EXPECT_EQ(metadata.GetHeight(), 720u);
+        EXPECT_EQ(metadata.GetFrameId(), 10);
+        EXPECT_EQ(metadata.GetTemporalIndex(), 3);
+        EXPECT_EQ(metadata.GetSpatialIndex(), 2);
+        EXPECT_THAT(metadata.GetFrameDependencies(), ElementsAre(5));
+        EXPECT_THAT(metadata.GetDecodeTargetIndications(),
+                    ElementsAre(DecodeTargetIndication::kSwitch));
+        EXPECT_EQ(metadata.GetCsrcs(), csrcs);
+        metadata.SetFrameId(20);
+        metadata.SetFrameDependencies(std::vector<int64_t>{15});
+        frame->SetMetadata(metadata);
+        callback->OnTransformedFrame(std::move(frame));
+      });
+
+  EXPECT_CALL(receiver, ManageFrame)
+      .WillOnce([&](std::unique_ptr<RtpFrameObject> frame) {
+        const absl::optional<RTPVideoHeader::GenericDescriptorInfo>&
+            descriptor = frame->GetRtpVideoHeader().generic;
+        EXPECT_TRUE(descriptor.has_value());
+        EXPECT_EQ(frame->Csrcs(), csrcs);
+        EXPECT_EQ(descriptor->frame_id, 20);
+        EXPECT_EQ(descriptor->dependencies, ElementsAre(15));
+      });
+
+  // The delegate creates a transformable frame from the RtpFrameObject.
+  delegate->TransformFrame(CreateRtpFrameObject(video_header, csrcs));
+}
+
+TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
      SenderFramesAreConvertedToReceiverFrames) {
   rtc::AutoThread main_thread_;
   TestRtpVideoFrameReceiver receiver;

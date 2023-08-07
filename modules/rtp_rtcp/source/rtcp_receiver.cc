@@ -148,8 +148,8 @@ RTCPReceiver::RTCPReceiver(const RtpRtcpInterface::Configuration& config,
       rtcp_loss_notification_observer_(config.rtcp_loss_notification_observer),
       network_state_estimate_observer_(config.network_state_estimate_observer),
       bitrate_allocation_observer_(config.bitrate_allocation_observer),
-      report_interval_(config.rtcp_report_interval_ms > 0
-                           ? TimeDelta::Millis(config.rtcp_report_interval_ms)
+      report_interval_(config.rtcp_report_interval > TimeDelta::Zero()
+                           ? config.rtcp_report_interval
                            : (config.audio ? kDefaultAudioReportInterval
                                            : kDefaultVideoReportInterval)),
       // TODO(bugs.webrtc.org/10774): Remove fallback.
@@ -175,8 +175,8 @@ RTCPReceiver::RTCPReceiver(const RtpRtcpInterface::Configuration& config,
       rtcp_loss_notification_observer_(config.rtcp_loss_notification_observer),
       network_state_estimate_observer_(config.network_state_estimate_observer),
       bitrate_allocation_observer_(config.bitrate_allocation_observer),
-      report_interval_(config.rtcp_report_interval_ms > 0
-                           ? TimeDelta::Millis(config.rtcp_report_interval_ms)
+      report_interval_(config.rtcp_report_interval > TimeDelta::Zero()
+                           ? config.rtcp_report_interval
                            : (config.audio ? kDefaultAudioReportInterval
                                            : kDefaultVideoReportInterval)),
       // TODO(bugs.webrtc.org/10774): Remove fallback.

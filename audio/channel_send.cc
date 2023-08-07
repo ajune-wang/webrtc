@@ -411,7 +411,8 @@ ChannelSend::ChannelSend(
   configuration.retransmission_rate_limiter =
       retransmission_rate_limiter_.get();
   configuration.extmap_allow_mixed = extmap_allow_mixed;
-  configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
+  configuration.rtcp_report_interval =
+      TimeDelta::Millis(rtcp_report_interval_ms);
   configuration.rtcp_packet_type_counter_observer = this;
 
   configuration.local_media_ssrc = ssrc;

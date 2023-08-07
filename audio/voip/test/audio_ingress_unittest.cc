@@ -47,7 +47,7 @@ class AudioIngressTest : public ::testing::Test {
     rtp_config.clock = time_controller_.GetClock();
     rtp_config.audio = true;
     rtp_config.receive_statistics = receive_statistics_.get();
-    rtp_config.rtcp_report_interval_ms = 5000;
+    rtp_config.rtcp_report_interval = TimeDelta::Seconds(5);
     rtp_config.outgoing_transport = &transport_;
     rtp_config.local_media_ssrc = 0xdeadc0de;
     rtp_rtcp_ = ModuleRtpRtcpImpl2::Create(rtp_config);

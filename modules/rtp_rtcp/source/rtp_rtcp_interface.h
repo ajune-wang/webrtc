@@ -101,7 +101,11 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     RateLimiter* retransmission_rate_limiter = nullptr;
     StreamDataCountersCallback* rtp_stats_callback = nullptr;
 
-    int rtcp_report_interval_ms = 0;
+    union {
+      int deprecated_rtcp_report_interval_ms = 0;
+      [[deprecated]] int rtcp_report_interval_ms;
+    };
+    TimeDelta rtcp_report_interval = TimeDelta::Zero();
 
     // Update network2 instead of pacer_exit field of video timing extension.
     bool populate_network2_timestamp = false;

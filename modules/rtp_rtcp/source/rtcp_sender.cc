@@ -127,9 +127,11 @@ RTCPSender::Configuration RTCPSender::Configuration::FromRtpRtcpConfiguration(
   result.outgoing_transport = configuration.outgoing_transport;
   result.non_sender_rtt_measurement = configuration.non_sender_rtt_measurement;
   result.event_log = configuration.event_log;
-  if (configuration.rtcp_report_interval_ms) {
+  if (configuration.rtcp_report_interval > TimeDelta::Zero()) {
+    result.rtcp_report_interval = configuration.rtcp_report_interval;
+  } else if (configuration.deprecated_rtcp_report_interval_ms > 0) {
     result.rtcp_report_interval =
-        TimeDelta::Millis(configuration.rtcp_report_interval_ms);
+        TimeDelta::Millis(configuration.deprecated_rtcp_report_interval_ms);
   }
   result.receive_statistics = configuration.receive_statistics;
   result.rtcp_packet_type_counter_observer =

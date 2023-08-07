@@ -134,7 +134,7 @@ constexpr uint32_t kReceiverExtraSsrc = 0x1234567;
 constexpr uint32_t kNotToUsSsrc = 0x654321;
 constexpr uint32_t kUnknownSenderSsrc = 0x54321;
 
-constexpr int64_t kRtcpIntervalMs = 1000;
+constexpr TimeDelta kRtcpInterval = TimeDelta::Seconds(1);
 constexpr TimeDelta kEpsilon = TimeDelta::Millis(1);
 
 }  // namespace
@@ -164,7 +164,7 @@ RtpRtcpInterface::Configuration DefaultConfiguration(ReceiverMocks* mocks) {
   config.rtcp_loss_notification_observer =
       &mocks->rtcp_loss_notification_observer;
   config.bitrate_allocation_observer = &mocks->bitrate_allocation_observer;
-  config.rtcp_report_interval_ms = kRtcpIntervalMs;
+  config.rtcp_report_interval = kRtcpInterval;
   config.local_media_ssrc = kReceiverMainSsrc;
   config.rtx_send_ssrc = kReceiverExtraSsrc;
   return config;
@@ -1336,7 +1336,7 @@ TEST(RtcpReceiverTest, ReceiveReportTimeout) {
   receiver.SetRemoteSSRC(kSenderSsrc);
 
   const uint16_t kSequenceNumber = 1234;
-  mocks.clock.AdvanceTimeMilliseconds(3 * kRtcpIntervalMs);
+  mocks.clock.AdvanceTime(3 * kRtcpInterval);
 
   // No RR received, shouldn't trigger a timeout.
   EXPECT_FALSE(receiver.RtcpRrTimeout());
@@ -1353,7 +1353,7 @@ TEST(RtcpReceiverTest, ReceiveReportTimeout) {
   EXPECT_CALL(mocks.rtp_rtcp_impl, OnReceivedRtcpReportBlocks);
   receiver.IncomingPacket(rr1.Build());
 
-  mocks.clock.AdvanceTimeMilliseconds(3 * kRtcpIntervalMs - 1);
+  mocks.clock.AdvanceTime(3 * kRtcpInterval - kEpsilon);
   EXPECT_FALSE(receiver.RtcpRrTimeout());
   EXPECT_FALSE(receiver.RtcpRrSequenceNumberTimeout());
 
@@ -1367,7 +1367,7 @@ TEST(RtcpReceiverTest, ReceiveReportTimeout) {
   EXPECT_TRUE(receiver.RtcpRrSequenceNumberTimeout());
 
   // Advance clock enough to trigger an RR timeout too.
-  mocks.clock.AdvanceTimeMilliseconds(3 * kRtcpIntervalMs);
+  mocks.clock.AdvanceTime(3 * kRtcpInterval);
   EXPECT_TRUE(receiver.RtcpRrTimeout());
 
   // We should only get one timeout even though we still haven't received a new
@@ -1390,15 +1390,15 @@ TEST(RtcpReceiverTest, ReceiveReportTimeout) {
   EXPECT_FALSE(receiver.RtcpRrSequenceNumberTimeout());
 
   // Verify we can get a timeout again once we've received new RR.
-  mocks.clock.AdvanceTimeMilliseconds(2 * kRtcpIntervalMs);
+  mocks.clock.AdvanceTime(2 * kRtcpInterval);
   EXPECT_CALL(mocks.rtp_rtcp_impl, OnReceivedRtcpReportBlocks);
   receiver.IncomingPacket(rr2.Build());
 
-  mocks.clock.AdvanceTimeMilliseconds(kRtcpIntervalMs + 1);
+  mocks.clock.AdvanceTime(kRtcpInterval + kEpsilon);
   EXPECT_FALSE(receiver.RtcpRrTimeout());
   EXPECT_TRUE(receiver.RtcpRrSequenceNumberTimeout());
 
-  mocks.clock.AdvanceTimeMilliseconds(2 * kRtcpIntervalMs);
+  mocks.clock.AdvanceTime(2 * kRtcpInterval);
   EXPECT_TRUE(receiver.RtcpRrTimeout());
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2012 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2016 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -8,11 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// This file contains mock implementations of observers used in PeerConnection.
-// TODO(steveanton): These aren't really mocks and should be renamed.
-
-#ifndef PC_TEST_MOCK_PEER_CONNECTION_OBSERVERS_H_
-#define PC_TEST_MOCK_PEER_CONNECTION_OBSERVERS_H_
+#ifndef API_TEST_FAKE_PEER_CONNECTION_OBSERVERS_H_
+#define API_TEST_FAKE_PEER_CONNECTION_OBSERVERS_H_
 
 #include <map>
 #include <memory>
@@ -22,16 +19,12 @@
 
 #include "api/data_channel_interface.h"
 #include "api/jsep_ice_candidate.h"
-#include "api/test/fake_peer_connection_observers.h"
-#include "pc/stream_collection.h"
+#include "api/peer_connection_interface.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 
-// TODO(bugs.webrtc.org/15351): Migrate users of these mocks to the fakes in
-// api/test/fake_peer_connection_observers.h and delete these.
-
-class MockPeerConnectionObserver : public PeerConnectionObserver {
+class FakePeerConnectionObserver : public PeerConnectionObserver {
  public:
   struct AddTrackEvent {
     explicit AddTrackEvent(
@@ -60,8 +53,78 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
         snapshotted_stream_tracks;
   };
 
-  MockPeerConnectionObserver() : remote_streams_(StreamCollection::Create()) {}
-  virtual ~MockPeerConnectionObserver() {}
+  // A simple std::vector based stream collection.
+  class StreamCollection : public StreamCollectionInterface {
+   public:
+    virtual size_t count() { return media_streams_.size(); }
+
+    virtual MediaStreamInterface* at(size_t index) {
+      return media_streams_.at(index).get();
+    }
+
+    virtual MediaStreamInterface* find(const std::string& id) {
+      StreamVector::const_iterator it = findInternal(id);
+      if (it != media_streams_.cend()) {
+        return (*it).get();
+      }
+      return NULL;
+    }
+
+    virtual MediaStreamTrackInterface* FindAudioTrack(const std::string& id) {
+      for (size_t i = 0; i < media_streams_.size(); ++i) {
+        MediaStreamTrackInterface* track =
+            media_streams_[i]->FindAudioTrack(id).get();
+        if (track) {
+          return track;
+        }
+      }
+      return NULL;
+    }
+
+    virtual MediaStreamTrackInterface* FindVideoTrack(const std::string& id) {
+      for (size_t i = 0; i < media_streams_.size(); ++i) {
+        MediaStreamTrackInterface* track =
+            media_streams_[i]->FindVideoTrack(id).get();
+        if (track) {
+          return track;
+        }
+      }
+      return NULL;
+    }
+
+    void AddStream(rtc::scoped_refptr<MediaStreamInterface> stream) {
+      if (findInternal(stream->id()) != media_streams_.cend()) {
+        return;
+      }
+      media_streams_.push_back(std::move(stream));
+    }
+
+    void RemoveStream(MediaStreamInterface* remove_stream) {
+      StreamVector::const_iterator it = findInternal(remove_stream->id());
+      if (it != media_streams_.cend()) {
+        media_streams_.erase(it);
+      }
+    }
+
+   private:
+    typedef std::vector<rtc::scoped_refptr<MediaStreamInterface>> StreamVector;
+
+    StreamVector::const_iterator findInternal(const std::string& id) const {
+      for (StreamVector::const_iterator it = media_streams_.cbegin();
+           it != media_streams_.cend(); ++it) {
+        if ((*it)->id().compare(id) == 0) {
+          return it;
+        }
+      }
+      return media_streams_.cend();
+    }
+
+    StreamVector media_streams_;
+  };
+
+  FakePeerConnectionObserver()
+      : remote_streams_(rtc::make_ref_counted<StreamCollection>()) {}
+  virtual ~FakePeerConnectionObserver() {}
   void SetPeerConnectionInterface(PeerConnectionInterface* pc) {
     pc_ = pc;
     if (pc) {
@@ -257,13 +320,15 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
   rtc::scoped_refptr<MediaStreamInterface> last_removed_stream_;
 };
 
-class MockCreateSessionDescriptionObserver
+static_assert(!std::is_abstract_v<FakePeerConnectionObserver>);
+
+class FakeCreateSessionDescriptionObserver
     : public webrtc::CreateSessionDescriptionObserver {
  public:
-  MockCreateSessionDescriptionObserver()
+  FakeCreateSessionDescriptionObserver()
       : called_(false),
-        error_("MockCreateSessionDescriptionObserver not called") {}
-  virtual ~MockCreateSessionDescriptionObserver() {}
+        error_("FakeCreateSessionDescriptionObserver not called") {}
+  virtual ~FakeCreateSessionDescriptionObserver() {}
   void OnSuccess(SessionDescriptionInterface* desc) override {
     MutexLock lock(&mutex_);
     called_ = true;
@@ -299,17 +364,20 @@ class MockCreateSessionDescriptionObserver
   std::unique_ptr<SessionDescriptionInterface> desc_ RTC_GUARDED_BY(mutex_);
 };
 
-class MockSetSessionDescriptionObserver
+static_assert(!std::is_abstract_v<
+              rtc::RefCountedObject<FakeCreateSessionDescriptionObserver>>);
+
+class FakeSetSessionDescriptionObserver
     : public webrtc::SetSessionDescriptionObserver {
  public:
-  static rtc::scoped_refptr<MockSetSessionDescriptionObserver> Create() {
-    return rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  static rtc::scoped_refptr<FakeSetSessionDescriptionObserver> Create() {
+    return rtc::make_ref_counted<FakeSetSessionDescriptionObserver>();
   }
 
-  MockSetSessionDescriptionObserver()
+  FakeSetSessionDescriptionObserver()
       : called_(false),
-        error_("MockSetSessionDescriptionObserver not called") {}
-  ~MockSetSessionDescriptionObserver() override {}
+        error_("FakeSetSessionDescriptionObserver not called") {}
+  ~FakeSetSessionDescriptionObserver() override {}
   void OnSuccess() override {
     MutexLock lock(&mutex_);
 
@@ -341,19 +409,66 @@ class MockSetSessionDescriptionObserver
   std::string error_;
 };
 
-class MockDataChannelObserver : public webrtc::DataChannelObserver {
+static_assert(!std::is_abstract_v<
+              rtc::RefCountedObject<FakeSetSessionDescriptionObserver>>);
+
+class FakeSetLocalDescriptionObserver
+    : public SetLocalDescriptionObserverInterface {
+ public:
+  bool called() const { return error_.has_value(); }
+  RTCError& error() {
+    RTC_DCHECK(error_.has_value());
+    return *error_;
+  }
+
+  // SetLocalDescriptionObserverInterface implementation.
+  void OnSetLocalDescriptionComplete(RTCError error) override {
+    error_ = std::move(error);
+  }
+
+ private:
+  // Set on complete, on success this is set to an RTCError::OK() error.
+  absl::optional<RTCError> error_;
+};
+
+static_assert(!std::is_abstract_v<
+              rtc::RefCountedObject<FakeSetLocalDescriptionObserver>>);
+
+class FakeSetRemoteDescriptionObserver
+    : public SetRemoteDescriptionObserverInterface {
+ public:
+  bool called() const { return error_.has_value(); }
+  RTCError& error() {
+    RTC_DCHECK(error_.has_value());
+    return *error_;
+  }
+
+  // SetRemoteDescriptionObserverInterface implementation.
+  void OnSetRemoteDescriptionComplete(RTCError error) override {
+    error_ = std::move(error);
+  }
+
+ private:
+  // Set on complete, on success this is set to an RTCError::OK() error.
+  absl::optional<RTCError> error_;
+};
+
+static_assert(!std::is_abstract_v<
+              rtc::RefCountedObject<FakeSetRemoteDescriptionObserver>>);
+
+class FakeDataChannelObserver : public webrtc::DataChannelObserver {
  public:
   struct Message {
     std::string data;
     bool binary;
   };
 
-  explicit MockDataChannelObserver(webrtc::DataChannelInterface* channel)
+  explicit FakeDataChannelObserver(webrtc::DataChannelInterface* channel)
       : channel_(channel) {
     channel_->RegisterObserver(this);
     states_.push_back(channel_->state());
   }
-  virtual ~MockDataChannelObserver() { channel_->UnregisterObserver(); }
+  virtual ~FakeDataChannelObserver() { channel_->UnregisterObserver(); }
 
   void OnBufferedAmountChange(uint64_t previous_amount) override {}
 
@@ -390,10 +505,12 @@ class MockDataChannelObserver : public webrtc::DataChannelObserver {
   std::vector<Message> messages_;
 };
 
-class MockStatsObserver : public webrtc::StatsObserver {
+static_assert(!std::is_abstract_v<FakeDataChannelObserver>);
+
+class FakeStatsObserver : public webrtc::StatsObserver {
  public:
-  MockStatsObserver() : called_(false), stats_() {}
-  virtual ~MockStatsObserver() {}
+  FakeStatsObserver() : called_(false), stats_() {}
+  virtual ~FakeStatsObserver() {}
 
   virtual void OnComplete(const StatsReports& reports) {
     RTC_CHECK(!called_);
@@ -541,8 +658,10 @@ class MockStatsObserver : public webrtc::StatsObserver {
   } stats_;
 };
 
+static_assert(!std::is_abstract_v<rtc::RefCountedObject<FakeStatsObserver>>);
+
 // Helper class that just stores the report from the callback.
-class MockRTCStatsCollectorCallback : public webrtc::RTCStatsCollectorCallback {
+class FakeRTCStatsCollectorCallback : public webrtc::RTCStatsCollectorCallback {
  public:
   rtc::scoped_refptr<const RTCStatsReport> report() { return report_; }
 
@@ -560,6 +679,9 @@ class MockRTCStatsCollectorCallback : public webrtc::RTCStatsCollectorCallback {
   rtc::scoped_refptr<const RTCStatsReport> report_;
 };
 
+static_assert(
+    !std::is_abstract_v<rtc::RefCountedObject<FakeRTCStatsCollectorCallback>>);
+
 }  // namespace webrtc
 
-#endif  // PC_TEST_MOCK_PEER_CONNECTION_OBSERVERS_H_
+#endif  // API_TEST_FAKE_PEER_CONNECTION_OBSERVERS_H_

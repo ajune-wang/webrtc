@@ -16,6 +16,24 @@
       "message": "Could you expand on why this should not be done? It\u0027s not immediately clear to me why.",
       "revId": "c7695a5b3abb0b9309fd9b64efcdffe864de3128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0573dbd4_c2209ceb",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-08T13:29:04Z",
+      "side": 1,
+      "message": "libWebRTC doesn\u0027t bother resending probe packets and if the receiver NACKs those it will never receive anything and might get stuck. https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14216 has some pointers.",
+      "parentUuid": "3f5ac43d_46de4d0d",
+      "revId": "c7695a5b3abb0b9309fd9b64efcdffe864de3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

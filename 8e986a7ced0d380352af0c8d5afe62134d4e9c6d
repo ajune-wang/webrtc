@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e1b6cb2_1806be7d",
+        "filename": "modules/rtp_rtcp/source/frame_object.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T14:33:53Z",
+      "side": 1,
+      "message": "Error like this a reason you really should try to include and resolve problems that come with it (like circular dependencies or forbidden dependency)\n\nHowever when I try to do the same, I do not get the same error.\ndo you have more details about it, like why it can\u0027t include this header?\n\n(sure, you\u0027ll also need to modify BUILD.gn to add the dependency of rtp_rtcp on api/video:video_frame_metadata)",
+      "parentUuid": "6e0e6f8c_4fe731f0",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04b93906_5c18f857",
         "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
         "patchSetId": 15

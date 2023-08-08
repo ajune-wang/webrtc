@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a275c451_c0a99871",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-08T07:43:33Z",
+      "side": 1,
+      "message": "found while looking at issue 15396, away with it.",
+      "revId": "f05d10f042a3c38c6f65cbe6ff99a596453c9afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

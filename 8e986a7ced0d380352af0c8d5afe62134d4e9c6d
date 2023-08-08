@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0e6f8c_4fe731f0",
+        "filename": "modules/rtp_rtcp/source/frame_object.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "I get this error while trying to do so\n\nERROR at //third_party/webrtc/modules/rtp_rtcp/source/frame_object.h:18:11: Can\u0027t include this header from here.\n#include \"api/video/video_frame_metadata.h\"\n          ^-------------------------------\nThe target:\n  //third_party/webrtc/modules/rtp_rtcp:rtp_rtcp\nis including a file from the target:\n  //third_party/webrtc/api/video:video_frame_metadata",
+      "parentUuid": "d162da98_bd40c614",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04b93906_5c18f857",
@@ -66,6 +84,24 @@
       "writtenOn": "2023-08-08T10:53:00Z",
       "side": 1,
       "message": "Should we adjust the TransformableVideoFrameInterface::SetMetadata interface definition to explicitly say only these two fields are supported? (in a follow up cl)",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4fc540_8a3508e0",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "04b93906_5c18f857",
       "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -93,6 +129,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e4d861_e574eb70",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b4036e_d364a920",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 37
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9321e43a_e57645cd",
@@ -106,6 +166,24 @@
       "writtenOn": "2023-08-08T10:53:00Z",
       "side": 1,
       "message": "In production builds without dchecks, this will just continue through, applying arbitrary changes to the metadata - is that safe?\n\nPotential safer way would be to construct new_metadata from Metadata(), set the frameId and dependencies from the metadata param, have a DCHECK that new_metadata \u003d\u003d metadata, and then finally call SetHeaderFromMetadata(new_metadata). Then in production we\u0027ll just throw away any unexpected changes.",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e0bb75f_df0767d7",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9321e43a_e57645cd",
       "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -156,6 +234,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d90c5a_b4e5c548",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "761bef09_3a9934f8",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 44
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad0b0dbd_efafc0a6",
@@ -179,6 +281,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "663cc8a6_d683f422",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad0b0dbd_efafc0a6",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 27
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ef23c7a_40a701ac",
@@ -192,6 +318,30 @@
       "writtenOn": "2023-08-08T12:00:40Z",
       "side": 1,
       "message": "do not use `auto` here - return type of the `frame-\u003eMetadata` is not obvious from the context.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 12
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b96eb6ab_d375d493",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2023-08-08T14:26:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ef23c7a_40a701ac",
       "range": {
         "startLine": 239,
         "startChar": 8,

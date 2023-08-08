@@ -50,6 +50,24 @@
       "message": "This double if looks ugly.\nif (info.encoded_bytes \u003d\u003d 0) {\n  return info;\n}\nif (info.encoded_bytes \u003e kRedMaxPacketSize) {\n  encoded-\u003eAppendData(primary_encoded_);\n  return info;\n}",
       "revId": "bff73538d9dd9a0c476b6743750bcfab139094fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba659c6a_007b7e04",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-08T08:54:26Z",
+      "side": 1,
+      "message": "Done. It would have probably been safe to append the zero-length but IIRC this gets called for every other 10ms frame to reach a frame size of 20ms.",
+      "parentUuid": "4e857799_ca4c5f9f",
+      "revId": "bff73538d9dd9a0c476b6743750bcfab139094fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

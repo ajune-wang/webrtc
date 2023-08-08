@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "564a2753_8c9bf1b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-08-08T12:19:14Z",
+      "side": 1,
+      "message": "Thanks, Philipp! LGTM with one nit.",
+      "revId": "0caf89cc920b8a136d745656d165df325ef21863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b206ae_dd6fd22e",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2023-08-08T12:19:14Z",
+      "side": 1,
+      "message": "I get a parsing error in my brain when reading this sentence. 😊\nPlease, take a look at it.",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 78
+      },
+      "revId": "0caf89cc920b8a136d745656d165df325ef21863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

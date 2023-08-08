@@ -29,6 +29,7 @@
 
 #include "api/test/fake_frame_decryptor.h"
 #include "api/test/fake_frame_encryptor.h"
+#include "api/test/fake_peer_connection_observers.h"
 #include "api/test/mock_async_dns_resolver.h"
 #include "api/test/mock_audio_mixer.h"
 #include "api/test/mock_audio_sink.h"

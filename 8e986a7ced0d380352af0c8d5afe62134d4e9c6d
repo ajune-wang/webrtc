@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d162da98_bd40c614",
+        "filename": "modules/rtp_rtcp/source/frame_object.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T12:00:40Z",
+      "side": 1,
+      "message": "+1\nit is not just good, it is required by the style guide:\n\nhttps://google.github.io/styleguide/cppguide.html#Include_What_You_Use\n\n“If a source or header file refers to a symbol defined elsewhere, the file should directly include a header file which properly intends to provide a declaration or definition of that symbol.”\n\"Do not rely on transitive inclusions.\"",
+      "parentUuid": "2a36003a_e75aeeaa",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04b93906_5c18f857",
         "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
         "patchSetId": 15
@@ -54,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81b4036e_d364a920",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T12:00:40Z",
+      "side": 1,
+      "message": "if this condition is just for the dcheck - you should use different DCHECK variant:\n\nRTC_DCHECK_EQ(new_metadata, Metadata()) \u003c\u003c \"same error message\";\nor (if above doesn\u0027t work)\nRTC_DCHECK(new_metadata \u003d\u003d Metadata()) \u003c\u003c \"...\";",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 37
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9321e43a_e57645cd",
         "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
         "patchSetId": 15
@@ -65,6 +106,98 @@
       "writtenOn": "2023-08-08T10:53:00Z",
       "side": 1,
       "message": "In production builds without dchecks, this will just continue through, applying arbitrary changes to the metadata - is that safe?\n\nPotential safer way would be to construct new_metadata from Metadata(), set the frameId and dependencies from the metadata param, have a DCHECK that new_metadata \u003d\u003d metadata, and then finally call SetHeaderFromMetadata(new_metadata). Then in production we\u0027ll just throw away any unexpected changes.",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9557dcaa_1218153f",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T12:00:40Z",
+      "side": 1,
+      "message": "time 0 sometimes is treated as unset.\nprefer to put some bigger number",
+      "range": {
+        "startLine": 200,
+        "startChar": 23,
+        "endLine": 200,
+        "endChar": 24
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761bef09_3a9934f8",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T12:00:40Z",
+      "side": 1,
+      "message": "if descriptor doesn\u0027t have value, then EXPECT two lines below would crash.\nmay be\n```\nEXPECT_THAT(descriptor, \n Optional(\n   AllOf(\n     Field(\u0026RTPVideoHeader::GenericDescriptorInfo::frame_id, \n           Eq(20)),\n     Field(\u0026RTPVideoHeader::GenericDescriptorInfo::dependencies,\n           ElementsAre(15)))));\n```\n               \nor, if EXPECT above looks too wordy:\n```\nif (!descriptor.has_value()) {\n  ADD_FAILURE();\n} else {\n  EXPECT_EQ(descriptor-\u003eframe_id, 20);\n  EXPECT_EQ(descriptor-\u003edependencies, ElementsAre(15));\n}\n```\n\nor you may assert:\n```\nASSERT_TRUE(descriptor.has_value());\nEXPECT_EQ(descriptor-\u003e...\n```\nbut that is discouraged outside TEST body:\nhttp://go/totw/113#tldr",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 44
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad0b0dbd_efafc0a6",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T12:00:40Z",
+      "side": 1,
+      "message": "please avoid WrapUnique and .release:\nhere you don\u0027t really need unique_ptr\u003cVideoFrame\u003e, so you can update it using reference:\n\nASSERT_THAT(frame, NotNull());\nauto\u0026 video_frame \u003d static_cast\u003cTransformableVideoFrameInterface\u0026\u003e(*transformable_frame);\nVideoFrameMetadata metadata \u003d video_frame.Metadata();\n...\ncallback-\u003eOnTransformedFrame(std::move(transformable_frame));",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 27
+      },
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef23c7a_40a701ac",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-08T12:00:40Z",
+      "side": 1,
+      "message": "do not use `auto` here - return type of the `frame-\u003eMetadata` is not obvious from the context.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction",
+      "range": {
+        "startLine": 239,
+        "startChar": 8,
+        "endLine": 239,
+        "endChar": 12
+      },
       "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

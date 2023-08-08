@@ -33,6 +33,24 @@
       "message": "I\u0027m favorable to this change, but I think we also need to have a few more checks for those fakes and make sure they all compile. You should probably include them from the file `api/test/compile_all_headers.cc` just to be sure.\nAlso, you can add for each of them a line like `static_assert(!std::is_abstract_v\u003cFakeFoobar\u003e);` to ensure the interface is complete.",
       "revId": "41c4e5bdb5c051de15c6dc75e66bf3d9f75464f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e623ac0d_4578f254",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2023-08-08T13:44:32Z",
+      "side": 1,
+      "message": "Thank for the suggestions! Incorporated in ps#3.",
+      "parentUuid": "c70af70b_4b4cbf94",
+      "revId": "41c4e5bdb5c051de15c6dc75e66bf3d9f75464f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

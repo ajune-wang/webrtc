@@ -34,6 +34,24 @@
       "parentUuid": "3f5ac43d_46de4d0d",
       "revId": "c7695a5b3abb0b9309fd9b64efcdffe864de3128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06468bf8_5ad41fd9",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 21449
+      },
+      "writtenOn": "2023-08-08T14:00:04Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "0573dbd4_c2209ceb",
+      "revId": "c7695a5b3abb0b9309fd9b64efcdffe864de3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

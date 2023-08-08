@@ -257,7 +257,7 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
     return false;
   }
 
-  std::unique_ptr<RtpPacketToSend> packet = rtp_sender_->AllocatePacket();
+  std::unique_ptr<RtpPacketToSend> packet = rtp_sender_->CreatePacket();
   packet->SetMarker(MarkerBit(frame_type, payload_type));
   packet->SetPayloadType(payload_type);
   packet->SetTimestamp(rtp_timestamp);

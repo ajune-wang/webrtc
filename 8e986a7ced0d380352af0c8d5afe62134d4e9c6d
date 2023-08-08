@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f12af23_28748f95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-08T10:53:00Z",
+      "side": 1,
+      "message": "Seems great given the unittests!\n\nLet\u0027s chat later about how we should evolve the interface - seems annoying to have a broad C++ interface which will fail dchecks/ignore some modifications. Definitely better than before and enough for now!",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a36003a_e75aeeaa",
+        "filename": "modules/rtp_rtcp/source/frame_object.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-08T10:53:00Z",
+      "side": 1,
+      "message": "Probably good to include api/video/video_frame_metadata.h explicitly",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b93906_5c18f857",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-08T10:53:00Z",
+      "side": 1,
+      "message": "Should we adjust the TransformableVideoFrameInterface::SetMetadata interface definition to explicitly say only these two fields are supported? (in a follow up cl)",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9321e43a_e57645cd",
+        "filename": "modules/rtp_rtcp/source/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-08T10:53:00Z",
+      "side": 1,
+      "message": "In production builds without dchecks, this will just continue through, applying arbitrary changes to the metadata - is that safe?\n\nPotential safer way would be to construct new_metadata from Metadata(), set the frameId and dependencies from the metadata param, have a DCHECK that new_metadata \u003d\u003d metadata, and then finally call SetHeaderFromMetadata(new_metadata). Then in production we\u0027ll just throw away any unexpected changes.",
+      "revId": "8e986a7ced0d380352af0c8d5afe62134d4e9c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

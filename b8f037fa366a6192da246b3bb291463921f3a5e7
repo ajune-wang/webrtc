@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745efaf5_93b10192",
+        "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1125,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-08-08T07:12:23Z",
+      "side": 1,
+      "message": "Nit: to me, it would be clearer with a copy here.",
+      "range": {
+        "startLine": 1125,
+        "startChar": 41,
+        "endLine": 1125,
+        "endChar": 42
+      },
+      "revId": "b8f037fa366a6192da246b3bb291463921f3a5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8a9924f_4f92cc21",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-08-08T07:12:23Z",
+      "side": 1,
+      "message": "Would probably be good to migrate this class to injectable field trials soon.",
+      "range": {
+        "startLine": 89,
+        "startChar": 6,
+        "endLine": 89,
+        "endChar": 36
+      },
+      "revId": "b8f037fa366a6192da246b3bb291463921f3a5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

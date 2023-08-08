@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5ac43d_46de4d0d",
+        "filename": "pc/g3doc/rtp.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 21449
+      },
+      "writtenOn": "2023-08-08T13:25:16Z",
+      "side": 1,
+      "message": "Could you expand on why this should not be done? It\u0027s not immediately clear to me why.",
+      "revId": "c7695a5b3abb0b9309fd9b64efcdffe864de3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

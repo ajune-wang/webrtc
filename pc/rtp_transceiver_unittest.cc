@@ -480,6 +480,130 @@ TEST_F(RtpTransceiverTestForHeaderExtensions,
                                 RtpTransceiverDirection::kStopped)));
 }
 
+RTCError VerifyCodecPreferences(
+    const std::vector<RtpCodecCapability>& codecs,
+    const std::vector<cricket::Codec>& send_codecs,
+    const std::vector<cricket::Codec>& recv_codecs) {
+  // If the intersection between codecs and
+  // RTCRtpSender.getCapabilities(kind).codecs and the intersection between
+  // codecs and RTCRtpReceiver.getCapabilities(kind).codecs only contains RTX,
+  // RED or FEC codecs or is an empty set, throw InvalidModificationError.
+  // This ensures that we always have something to offer, regardless of
+  // transceiver.direction.
+
+  bool common_receive =
+      absl::c_any_of(codecs, [&recv_codecs](const RtpCodecCapability& codec) {
+        return codec.name != cricket::kRtxCodecName &&
+               codec.name != cricket::kRedCodecName &&
+               codec.name != cricket::kFlexfecCodecName &&
+               absl::c_any_of(recv_codecs,
+                              [&codec](const cricket::Codec& recv_codec) {
+                                return recv_codec.MatchesCapability(codec);
+                              });
+      });
+
+  bool common_send =
+      absl::c_any_of(codecs, [&send_codecs](const RtpCodecCapability& codec) {
+        return codec.name != cricket::kRtxCodecName &&
+               codec.name != cricket::kRedCodecName &&
+               codec.name != cricket::kFlexfecCodecName &&
+               absl::c_any_of(send_codecs,
+                              [&codec](const cricket::Codec& send_codec) {
+                                return send_codec.MatchesCapability(codec);
+                              });
+      });
+  RTC_LOG(LS_ERROR) << "SEND " << common_send << " RECV " << common_receive;
+  if (!(common_receive || common_send)) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
+                         "Invalid codec preferences: Missing codec from send "
+                         "or receive codec capabilities");
+  }
+
+  // Let codecCapabilities be the union of
+  // RTCRtpSender.getCapabilities(kind).codecs and
+  // RTCRtpReceiver.getCapabilities(kind).codecs. For each codec in codecs, If
+  // codec is not in codecCapabilities, throw InvalidModificationError.
+  for (const auto& codec_preference : codecs) {
+    bool is_recv_codec = absl::c_any_of(
+        recv_codecs, [&codec_preference](const cricket::Codec& codec) {
+          return codec.MatchesCapability(codec_preference);
+        });
+
+    bool is_send_codec = absl::c_any_of(
+        send_codecs, [&codec_preference](const cricket::Codec& codec) {
+          return codec.MatchesCapability(codec_preference);
+        });
+
+    if (!is_recv_codec && !is_send_codec) {
+      LOG_AND_RETURN_ERROR(
+          RTCErrorType::INVALID_MODIFICATION,
+          std::string("Invalid codec preferences: invalid codec with name \"") +
+              codec_preference.name + "\".");
+    }
+  }
+
+  // Check we have a real codec (not just rtx, red or fec)
+  if (absl::c_all_of(codecs, [](const RtpCodecCapability& codec) {
+        return codec.name == cricket::kRtxCodecName ||
+               codec.name == cricket::kRedCodecName ||
+               codec.name == cricket::kUlpfecCodecName;
+      })) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::INVALID_MODIFICATION,
+        "Invalid codec preferences: codec list must have a non "
+        "RTX, RED or FEC entry.");
+  }
+
+  return RTCError::OK();
+}
+
+TEST_F(RtpTransceiverTest, AndroidAsymmetry) {
+  RtpCodecCapability cap;
+  cap.name = cricket::kH264CodecName;
+  cap.kind = cricket::MEDIA_TYPE_VIDEO;
+  cap.clock_rate = cricket::kVideoCodecClockrate;
+  cap.num_channels = absl::nullopt;
+  cap.parameters["profile-level-id"] = "42e032";
+  cap.parameters["level-asymmetry-allowed"] = "1";
+  cap.parameters["packetization-mode"] =
+      "1";  // CreateVideoCodec magically adds that one..
+
+  cricket::Codec android = cricket::CreateVideoCodec(cricket::kH264CodecName);
+  android.SetParam("profile-level-id", "42e032");
+  android.SetParam("level-asymmetry-allowed", "1");
+
+  /*
+  RTC_LOG(LS_ERROR) << "M " << android.MatchesCapability(cap);
+  RTC_LOG(LS_ERROR) << "NAME "
+                    << (android.ToCodecParameters().name == cap.name);
+  RTC_LOG(LS_ERROR) << "KIND "
+                    << (android.ToCodecParameters().kind == cap.kind);
+  RTC_LOG(LS_ERROR) << "CHAN "
+                    << (android.ToCodecParameters().num_channels ==
+                        cap.num_channels);
+  RTC_LOG(LS_ERROR) << "CLOC "
+                    << (android.ToCodecParameters().clock_rate ==
+                        cap.clock_rate);
+  RTC_LOG(LS_ERROR) << "PARA "
+                    << (android.ToCodecParameters().parameters ==
+                        cap.parameters);
+  RTC_LOG(LS_ERROR) << "PAR1 "
+                    << (android.ToCodecParameters().parameters.size());
+  for (const auto& p : android.ToCodecParameters().parameters) {
+    RTC_LOG(LS_ERROR) << "PA11 " << p.first << " = > " << p.second;
+  }
+  RTC_LOG(LS_ERROR) << "PAR2 " << (cap.parameters.size());
+  for (const auto& p : cap.parameters) {
+    RTC_LOG(LS_ERROR) << "PA22 " << p.first << "=>" << p.second;
+  }
+  */
+
+  cricket::Codec baseline = cricket::CreateVideoCodec(cricket::kH264CodecName);
+  baseline.AddFeedbackParam({"profile-level-id", "42e01f"});
+  baseline.AddFeedbackParam({"level-asymmetry-allowed", "1"});
+  EXPECT_TRUE(VerifyCodecPreferences({cap}, {android}, {baseline}).ok());
+}
+
 }  // namespace
 
 }  // namespace webrtc

@@ -65,10 +65,13 @@ FakeFrameBuilder& FakeFrameBuilder::Refs(
   return *this;
 }
 
-FakeFrameBuilder& FakeFrameBuilder::PlayoutDelay(
-    VideoPlayoutDelay playout_delay) {
-  playout_delay_ = playout_delay;
+FakeFrameBuilder& FakeFrameBuilder::PlayoutDelay(VideoPlayoutDelay delay) {
+  playout_delay_ = delay;
   return *this;
+}
+
+FakeFrameBuilder& FakeFrameBuilder::PlayoutDelay(TimeDelta min, TimeDelta max) {
+  return PlayoutDelay(VideoPlayoutDelay(min, max));
 }
 
 FakeFrameBuilder& FakeFrameBuilder::SpatialLayer(int spatial_layer) {

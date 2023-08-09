@@ -1334,7 +1334,8 @@ TEST_F(RtpSenderVideoTest, PopulatesPlayoutDelay) {
   uint8_t kFrame[kPacketSize];
   rtp_module_->RegisterRtpHeaderExtension(PlayoutDelayLimits::Uri(),
                                           kPlayoutDelayExtensionId);
-  const VideoPlayoutDelay kExpectedDelay = {10, 20};
+  VideoPlayoutDelay expected_delay;
+  expected_delay.Set(TimeDelta::Millis(10), TimeDelta::Millis(20));
 
   // Send initial key-frame without playout delay.
   RTPVideoHeader hdr;
@@ -1350,16 +1351,14 @@ TEST_F(RtpSenderVideoTest, PopulatesPlayoutDelay) {
       transport_.last_sent_packet().HasExtension<PlayoutDelayLimits>());
 
   // Set playout delay on a discardable frame.
-  hdr.playout_delay = kExpectedDelay;
+  hdr.playout_delay = expected_delay;
   hdr.frame_type = VideoFrameType::kVideoFrameDelta;
   vp8_header.temporalIdx = 1;
   rtp_sender_video_->SendVideo(
       kPayload, kType, kTimestamp, fake_clock_.CurrentTime(), kFrame,
       sizeof(kFrame), hdr, kDefaultExpectedRetransmissionTime, {});
-  VideoPlayoutDelay received_delay = VideoPlayoutDelay();
-  ASSERT_TRUE(transport_.last_sent_packet().GetExtension<PlayoutDelayLimits>(
-      &received_delay));
-  EXPECT_EQ(received_delay, kExpectedDelay);
+  EXPECT_EQ(transport_.last_sent_packet().GetExtension<PlayoutDelayLimits>(),
+            expected_delay);
 
   // Set playout delay on a non-discardable frame, the extension should still
   // be populated since dilvery wasn't guaranteed on the last one.
@@ -1368,9 +1367,8 @@ TEST_F(RtpSenderVideoTest, PopulatesPlayoutDelay) {
   rtp_sender_video_->SendVideo(
       kPayload, kType, kTimestamp, fake_clock_.CurrentTime(), kFrame,
       sizeof(kFrame), hdr, kDefaultExpectedRetransmissionTime, {});
-  ASSERT_TRUE(transport_.last_sent_packet().GetExtension<PlayoutDelayLimits>(
-      &received_delay));
-  EXPECT_EQ(received_delay, kExpectedDelay);
+  EXPECT_EQ(transport_.last_sent_packet().GetExtension<PlayoutDelayLimits>(),
+            expected_delay);
 
   // The next frame does not need the extensions since it's delivery has
   // already been guaranteed.
@@ -1385,9 +1383,8 @@ TEST_F(RtpSenderVideoTest, PopulatesPlayoutDelay) {
   rtp_sender_video_->SendVideo(
       kPayload, kType, kTimestamp, fake_clock_.CurrentTime(), kFrame,
       sizeof(kFrame), hdr, kDefaultExpectedRetransmissionTime, {});
-  ASSERT_TRUE(transport_.last_sent_packet().GetExtension<PlayoutDelayLimits>(
-      &received_delay));
-  EXPECT_EQ(received_delay, kExpectedDelay);
+  EXPECT_EQ(transport_.last_sent_packet().GetExtension<PlayoutDelayLimits>(),
+            expected_delay);
 }
 
 TEST_F(RtpSenderVideoTest, SendGenericVideo) {

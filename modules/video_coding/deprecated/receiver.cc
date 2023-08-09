@@ -81,8 +81,7 @@ VCMEncodedFrame* VCMReceiver::FrameForDecoding(uint16_t max_wait_time_ms,
                                                bool prefer_late_decoding) {
   const int64_t start_time_ms = clock_->TimeInMilliseconds();
   uint32_t frame_timestamp = 0;
-  int min_playout_delay_ms = -1;
-  int max_playout_delay_ms = -1;
+  absl::optional<VideoPlayoutDelay> playout_delay;
   int64_t render_time_ms = 0;
   // Exhaust wait time to get a complete frame for decoding.
   VCMEncodedFrame* found_frame =
@@ -90,17 +89,15 @@ VCMEncodedFrame* VCMReceiver::FrameForDecoding(uint16_t max_wait_time_ms,
 
   if (found_frame) {
     frame_timestamp = found_frame->Timestamp();
-    min_playout_delay_ms = found_frame->EncodedImage().playout_delay_.min_ms;
-    max_playout_delay_ms = found_frame->EncodedImage().playout_delay_.max_ms;
+    playout_delay = found_frame->EncodedImage().PlayoutDelay();
   } else {
     return nullptr;
   }
 
-  if (min_playout_delay_ms >= 0)
-    timing_->set_min_playout_delay(TimeDelta::Millis(min_playout_delay_ms));
-
-  if (max_playout_delay_ms >= 0)
-    timing_->set_max_playout_delay(TimeDelta::Millis(max_playout_delay_ms));
+  if (playout_delay.has_value()) {
+    timing_->set_min_playout_delay(playout_delay->min());
+    timing_->set_max_playout_delay(playout_delay->max());
+  }
 
   // We have a frame - Set timing and render timestamp.
   timing_->SetJitterDelay(

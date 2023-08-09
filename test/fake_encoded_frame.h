@@ -60,7 +60,8 @@ class FakeFrameBuilder {
   FakeFrameBuilder& Id(int64_t frame_id);
   FakeFrameBuilder& AsLast();
   FakeFrameBuilder& Refs(const std::vector<int64_t>& references);
-  FakeFrameBuilder& PlayoutDelay(VideoPlayoutDelay playout_delay);
+  FakeFrameBuilder& PlayoutDelay(VideoPlayoutDelay delay);
+  FakeFrameBuilder& PlayoutDelay(TimeDelta min, TimeDelta max);
   FakeFrameBuilder& SpatialLayer(int spatial_layer);
   FakeFrameBuilder& ReceivedTime(Timestamp receive_time);
   FakeFrameBuilder& Size(size_t size);

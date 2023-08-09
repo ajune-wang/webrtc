@@ -138,6 +138,22 @@ class RTC_EXPORT EncodedImage {
     color_space_ = color_space;
   }
 
+  void SetPlayoutDelay(absl::optional<VideoPlayoutDelay> playout_delay) {
+    if (playout_delay.has_value()) {
+      playout_delay_ = *playout_delay;
+    } else {
+      playout_delay_.deprecated_min_ms = -1;
+      playout_delay_.deprecated_max_ms = -1;
+    }
+  }
+
+  absl::optional<VideoPlayoutDelay> PlayoutDelay() const {
+    if (playout_delay_.Valid()) {
+      return playout_delay_;
+    }
+    return absl::nullopt;
+  }
+
   // These methods along with the private member video_frame_tracking_id_ are
   // meant for media quality testing purpose only.
   absl::optional<uint16_t> VideoFrameTrackingId() const {

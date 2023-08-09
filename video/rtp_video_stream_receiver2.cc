@@ -253,8 +253,6 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       config_(*config),
       packet_router_(packet_router),
       ntp_estimator_(clock),
-      forced_playout_delay_max_ms_("max_ms", absl::nullopt),
-      forced_playout_delay_min_ms_("min_ms", absl::nullopt),
       rtp_receive_statistics_(rtp_receive_statistics),
       ulpfec_receiver_(
           MaybeConstructUlpfecReceiver(config->rtp.remote_ssrc,
@@ -314,9 +312,17 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
     rtp_receive_statistics_->SetMaxReorderingThreshold(config_.rtp.remote_ssrc,
                                                        kMaxPacketAgeToNack);
   }
-  ParseFieldTrial(
-      {&forced_playout_delay_max_ms_, &forced_playout_delay_min_ms_},
-      field_trials_.Lookup("WebRTC-ForcePlayoutDelay"));
+
+  {
+    FieldTrialOptional<int> max_ms("max_ms", absl::nullopt);
+    FieldTrialOptional<int> min_ms("min_ms", absl::nullopt);
+    ParseFieldTrial({&max_ms, &min_ms},
+                    field_trials_.Lookup("WebRTC-ForcePlayoutDelay"));
+    if (max_ms && min_ms) {
+      forced_playout_delay_.emplace().Set(TimeDelta::Millis(*min_ms),
+                                          TimeDelta::Millis(*max_ms));
+    }
+  }
 
   if (config_.rtp.lntf.enabled) {
     loss_notification_controller_ =
@@ -573,11 +579,10 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
   rtp_packet.GetExtension<VideoContentTypeExtension>(
       &video_header.content_type);
   rtp_packet.GetExtension<VideoTimingExtension>(&video_header.video_timing);
-  if (forced_playout_delay_max_ms_ && forced_playout_delay_min_ms_) {
-    video_header.playout_delay.max_ms = *forced_playout_delay_max_ms_;
-    video_header.playout_delay.min_ms = *forced_playout_delay_min_ms_;
+  if (forced_playout_delay_.has_value()) {
+    video_header.playout_delay = forced_playout_delay_;
   } else {
-    rtp_packet.GetExtension<PlayoutDelayLimits>(&video_header.playout_delay);
+    video_header.playout_delay = rtp_packet.GetExtension<PlayoutDelayLimits>();
   }
 
   ParseGenericDependenciesResult generic_descriptor_state =

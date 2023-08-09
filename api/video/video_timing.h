@@ -16,6 +16,7 @@
 #include <limits>
 #include <string>
 
+#include "absl/types/optional.h"
 #include "api/units/time_delta.h"
 
 namespace webrtc {
@@ -113,15 +114,53 @@ struct TimingFrameInfo {
 //
 // min = x, max = y indicates that the receiver is free to adapt
 // in the range (x, y) based on network jitter.
-struct VideoPlayoutDelay {
-  VideoPlayoutDelay() = default;
-  VideoPlayoutDelay(int min_ms, int max_ms) : min_ms(min_ms), max_ms(max_ms) {}
-  int min_ms = -1;
-  int max_ms = -1;
+class VideoPlayoutDelay {
+ public:
+  static constexpr TimeDelta kMax = 0xfff * TimeDelta::Millis(10);
 
-  bool operator==(const VideoPlayoutDelay& rhs) const {
-    return min_ms == rhs.min_ms && max_ms == rhs.max_ms;
+  VideoPlayoutDelay() = default;
+  constexpr VideoPlayoutDelay(TimeDelta min, TimeDelta max)
+      : deprecated_min_ms(min.ms()), deprecated_max_ms(max.ms()) {
+    RTC_DCHECK_LE(TimeDelta::Zero(), min);
+    RTC_DCHECK_LE(min, max);
+    RTC_DCHECK_LE(max, kMax);
   }
+  [[deprecated]] VideoPlayoutDelay(int min_ms, int max_ms)
+      : min_ms(min_ms), max_ms(max_ms) {}
+  VideoPlayoutDelay(const VideoPlayoutDelay&) = default;
+  VideoPlayoutDelay& operator=(const VideoPlayoutDelay&) = default;
+
+  bool Set(TimeDelta min, TimeDelta max);
+
+  TimeDelta min() const { return TimeDelta::Millis(deprecated_min_ms); }
+  TimeDelta max() const { return TimeDelta::Millis(deprecated_max_ms); }
+
+  friend bool operator==(const VideoPlayoutDelay& lhs,
+                         const VideoPlayoutDelay& rhs) {
+    return lhs.deprecated_min_ms == rhs.deprecated_min_ms &&
+           lhs.deprecated_max_ms == rhs.deprecated_max_ms;
+  }
+
+  friend bool operator!=(const VideoPlayoutDelay& lhs,
+                         const VideoPlayoutDelay& rhs) {
+    return !(lhs == rhs);
+  }
+
+  // TODO(bugs.webrtc.org/13756): Remove when members become private and
+  // thus invariants can be enforced by the setter.
+  bool Valid() const {
+    return TimeDelta::Zero() <= min() && min() <= max() && max() <= kMax;
+  }
+
+  // TODO(bugs.webrtc.org/13756): Make private and convert into TimeDelta.
+  union {
+    [[deprecated("Use accessors")]] int min_ms = -1;
+    int deprecated_min_ms;
+  };
+  union {
+    [[deprecated("Use accessors")]] int max_ms = -1;
+    int deprecated_max_ms;
+  };
 };
 
 }  // namespace webrtc

@@ -321,8 +321,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   // Set by the field trial WebRTC-ForcePlayoutDelay to override any playout
   // delay that is specified in the received packets.
-  FieldTrialOptional<int> forced_playout_delay_max_ms_;
-  FieldTrialOptional<int> forced_playout_delay_min_ms_;
+  absl::optional<VideoPlayoutDelay> forced_playout_delay_;
   ReceiveStatistics* const rtp_receive_statistics_;
   std::unique_ptr<UlpfecReceiver> ulpfec_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);

@@ -469,12 +469,18 @@ void ApplySpatialLayerBitrateLimits(
 void ApplyEncoderBitrateLimitsIfSingleActiveStream(
     const VideoEncoder::EncoderInfo& encoder_info,
     const std::vector<VideoStream>& encoder_config_layers,
-    std::vector<VideoStream>* streams) {
+    std::vector<VideoStream>* streams,
+    bool is_av1_and_ingore_encoder_config_layers) {
   // Apply limits if simulcast with one active stream (expect lowest).
   bool single_active_stream =
       streams->size() > 1 && NumActiveStreams(*streams) == 1 &&
       !streams->front().active && NumActiveStreams(encoder_config_layers) == 1;
-  if (!single_active_stream) {
+
+  bool av1_single_stream = is_av1_and_ingore_encoder_config_layers &&
+                           streams->size() == 1 &&
+                           NumActiveStreams(*streams) == 1;
+
+  if (!single_active_stream && !av1_single_stream) {
     return;
   }
 
@@ -484,6 +490,16 @@ void ApplyEncoderBitrateLimitsIfSingleActiveStream(
     if (encoder_config_layers[i].active)
       index = i;
   }
+
+  // When AV1 is used `streams->size()` will always be one (due to the
+  // `IsCodecDisabledForSimulcast` check in WebrtcVideoEngine), but there can
+  // still be mulitiple encodings configured. Sometimes the only active encoding
+  // is not the first layer, in which case the check following this one would
+  // fail. Always set the index to 0.
+  if (av1_single_stream) {
+    index = 0;
+  }
+
   if (streams->size() < (index + 1) || !(*streams)[index].active) {
     return;
   }
@@ -734,6 +750,8 @@ VideoStreamEncoder::VideoStreamEncoder(
                                     /*source=*/nullptr),
       default_limits_allowed_(
           !field_trials.IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
+      av1_ignore_encoder_config_layers_(
+          field_trials.IsEnabled("WebRTC-Av1IgnoreEncoderConfigLayers")),
       qp_parsing_allowed_(
           !field_trials.IsEnabled("WebRTC-QpParsingKillSwitch")),
       switch_encoder_on_init_failures_(!field_trials.IsDisabled(
@@ -1157,7 +1175,9 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   ApplyEncoderBitrateLimitsIfSingleActiveStream(
       GetEncoderInfoWithBitrateLimitUpdate(
           encoder_->GetEncoderInfo(), encoder_config_, default_limits_allowed_),
-      encoder_config_.simulcast_layers, &streams);
+      encoder_config_.simulcast_layers, &streams,
+      av1_ignore_encoder_config_layers_ &&
+          encoder_config_.codec_type == kVideoCodecAV1);
 
   VideoCodec codec;
   if (!VideoCodecInitializer::SetupCodec(encoder_config_, streams, &codec)) {

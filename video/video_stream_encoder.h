@@ -454,6 +454,10 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // Default bitrate limits in EncoderInfoSettings allowed.
   const bool default_limits_allowed_;
 
+  // Field trial switch to ignore `encoder_config_layers` in
+  // ApplyEncoderBitrateLimitsIfSingleActiveStream when AV1 is being used.
+  const bool av1_ignore_encoder_config_layers_;
+
   // QP parser is used to extract QP value from encoded frame when that is not
   // provided by encoder.
   QpParser qp_parser_;

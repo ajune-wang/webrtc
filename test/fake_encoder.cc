@@ -276,7 +276,7 @@ void FakeEncoder::SetRatesLocked(const RateControlParameters& parameters) {
   }
 }
 
-const char* FakeEncoder::kImplementationName = "fake_encoder";
+constexpr char* FakeEncoder::kImplementationName = "fake_encoder";
 VideoEncoder::EncoderInfo FakeEncoder::GetEncoderInfo() const {
   EncoderInfo info;
   MutexLock lock(&mutex_);

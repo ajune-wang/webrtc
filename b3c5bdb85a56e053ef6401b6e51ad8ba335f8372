@@ -16,6 +16,24 @@
       "message": "This is checking buffer_[start_index], but just once *before* we start decrementing start_index, while start_index is the same as index.\nAs in - this will only be true when the frame size is 1 packet",
       "revId": "b3c5bdb85a56e053ef6401b6e51ad8ba335f8372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8bceb96_37364b36",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-08-09T08:59:57Z",
+      "side": 1,
+      "message": "The DD is sent on every packet, not only the first, so AFAICT that should not be a problem. Maybe I\u0027m missing something?",
+      "parentUuid": "0a41ed0c_dc0afa61",
+      "revId": "b3c5bdb85a56e053ef6401b6e51ad8ba335f8372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

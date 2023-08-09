@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5f39c271_ef1ee101",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-09T11:45:58Z",
+      "side": 1,
+      "message": "Theoretically yes, some code somewhere may set CSRCs between creation of RTPSender and RTPSenderVideo.\nIn practice - I haven\u0027t found such code.\n\nwebrtc itself doesn\u0027t do that:\nRTPSenderVideo created here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/rtp_video_sender.cc;l\u003d301;drc\u003d0145db40912babe3f74e00bed01df1a7b4502105\nand uses RTPSender created in the same function at line#268 (insider ModuleRtpRtcpImpl2)\n\nin webrtc the only place where RTPSender::SetCsrcs is called is RTPSenderVideo::SendVideo, just before creating a packet.\n\nIn a followup I plan to remove RTPSender::SetCsrcs altogether.",
+      "parentUuid": "39dd76d1_91d1623a",
+      "revId": "51c150aa699c6ab61675c10ab19f8ee61787cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cfc08c58_784bb8a9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3

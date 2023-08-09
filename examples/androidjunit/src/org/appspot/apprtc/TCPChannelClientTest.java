@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class TCPChannelClientTest {
-  private static final int PORT = 8888;
+  private static final int PORT = 7890;
   /**
    * How long we wait before trying to connect to the server. Note: was
    * previously only 10, which was too short (tests were flaky).

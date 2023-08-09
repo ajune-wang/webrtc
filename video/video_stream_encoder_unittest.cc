@@ -6002,6 +6002,51 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->Stop();
 }
 
+TEST_F(VideoStreamEncoderTest, Av1BitrateUsedWithSingleActiveEncoding) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-Av1IgnoreEncoderConfigLayers/Enabled/");
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(PayloadStringToCodecType("AV1"), 1,
+                                 &video_encoder_config);
+
+  video_encoder_config.simulcast_layers.resize(3);
+  video_encoder_config.simulcast_layers[0].active = true;
+  video_encoder_config.simulcast_layers[1].active = false;
+  video_encoder_config.simulcast_layers[2].active = false;
+
+  ConfigureEncoder(video_encoder_config.Copy());
+  fake_encoder_.SetResolutionBitrateLimits(
+      {VideoEncoder::ResolutionBitrateLimits(320 * 240, 0, 20000, 225000),
+       VideoEncoder::ResolutionBitrateLimits(640 * 480, 30000, 80000, 350000)});
+  video_stream_encoder_->ConfigureEncoder(video_encoder_config.Copy(),
+                                          kMaxPayloadLength);
+
+  video_source_.IncomingCapturedFrame(CreateFrame(1, 320, 240));
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  EXPECT_EQ(fake_encoder_.config().spatialLayers[0].width, 320);
+  EXPECT_EQ(fake_encoder_.config().spatialLayers[0].height, 240);
+  EXPECT_EQ(fake_encoder_.config().spatialLayers[0].maxBitrate, 225UL);
+
+  video_encoder_config.simulcast_layers[0].active = false;
+  video_encoder_config.simulcast_layers[1].active = true;
+  video_encoder_config.simulcast_layers[2].active = false;
+
+  ConfigureEncoder(video_encoder_config.Copy());
+  fake_encoder_.SetResolutionBitrateLimits(
+      {VideoEncoder::ResolutionBitrateLimits(320 * 240, 0, 20000, 225000),
+       VideoEncoder::ResolutionBitrateLimits(640 * 480, 30000, 80000, 350000)});
+  video_stream_encoder_->ConfigureEncoder(video_encoder_config.Copy(),
+                                          kMaxPayloadLength);
+
+  video_source_.IncomingCapturedFrame(CreateFrame(1, 640, 480));
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  EXPECT_EQ(fake_encoder_.config().spatialLayers[0].width, 640);
+  EXPECT_EQ(fake_encoder_.config().spatialLayers[0].height, 480);
+  EXPECT_EQ(fake_encoder_.config().spatialLayers[0].maxBitrate, 350UL);
+
+  video_stream_encoder_->Stop();
+}
+
 TEST_F(VideoStreamEncoderTest,
        InitialFrameDropActivatesWhenResolutionIncreases) {
   const int kWidth = 640;

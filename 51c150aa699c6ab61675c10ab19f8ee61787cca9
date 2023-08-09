@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "39dd76d1_91d1623a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-09T11:28:46Z",
+      "side": 1,
+      "message": "Is it guaranteed to always be empty at creation? I thought (theoretically 😊) someone could have called RTPSender::SetCsrcs() before creating the RTPVideoSender, so we\u0027d have some non-empty list.",
+      "revId": "51c150aa699c6ab61675c10ab19f8ee61787cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cfc08c58_784bb8a9",

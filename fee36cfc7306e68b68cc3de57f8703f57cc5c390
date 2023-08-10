@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e43f17b4_c48e1120",
+        "filename": "sdk/android/tests/resources/robolectric.properties",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-10T07:08:21Z",
+      "side": 1,
+      "message": "This change (removing sdk\u003d26) will disable LowLatencyAudioBufferManagerTest: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/tests/src/org/webrtc/audio/LowLatencyAudioBufferManagerTest.java;l\u003d36\n\nIs this intended/expected? Why is change needed?",
+      "range": {
+        "startLine": 1,
+        "startChar": 4,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "fee36cfc7306e68b68cc3de57f8703f57cc5c390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

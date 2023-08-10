@@ -22,6 +22,30 @@
       },
       "revId": "fee36cfc7306e68b68cc3de57f8703f57cc5c390",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1c337b8_4a5ca41a",
+        "filename": "sdk/android/tests/resources/robolectric.properties",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-08-10T07:17:29Z",
+      "side": 1,
+      "message": "The change is needed due to the non-hermetic test TCPChannelClientTest, which doesn\u0027t seem to work if multiple executions are running in parallel. See forwarded email.\n\nThe chromium DEPS roll has been broken for over two weeks, so it\u0027s quite urgent to get this CL landed.",
+      "parentUuid": "e43f17b4_c48e1120",
+      "range": {
+        "startLine": 1,
+        "startChar": 4,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "fee36cfc7306e68b68cc3de57f8703f57cc5c390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

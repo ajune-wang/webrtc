@@ -52,6 +52,24 @@
       "parentUuid": "e8bceb96_37364b36",
       "revId": "b3c5bdb85a56e053ef6401b6e51ad8ba335f8372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b831371_ac9b40b1",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 14634
+      },
+      "writtenOn": "2023-08-10T00:39:48Z",
+      "side": 1,
+      "message": "ah yeah I see - the repro was with GFD, not DD. Works fine when using the real DD",
+      "parentUuid": "2a4e5cf0_a8ddbe1f",
+      "revId": "b3c5bdb85a56e053ef6401b6e51ad8ba335f8372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

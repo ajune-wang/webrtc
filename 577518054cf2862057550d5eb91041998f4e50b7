@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "640ebc9c_d154bf52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-10T17:42:34Z",
+      "side": 1,
+      "message": "patchset#1 is the original change\npatchset#3 is what is different to it, basically I\u0027ve reverted how random_ is used to calculate the next interval.\nSome downstream tests are too sensentive to such random_ changes. 😞",
+      "revId": "577518054cf2862057550d5eb91041998f4e50b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df77a29_edd7ad9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21164
+      },
+      "writtenOn": "2023-08-10T18:54:59Z",
+      "side": 1,
+      "message": "Hi Sergey, thanks for reviewing it. Now the merge is approved, but I don\u0027t have permissions for submitting it, could you please help me to submit it.",
+      "revId": "40e3e81a0ba3c68f351e99486b1c1f4249256482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

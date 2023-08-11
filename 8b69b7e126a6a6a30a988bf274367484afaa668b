@@ -16,6 +16,23 @@
       "message": "This is the first CL I ever submitted. what is the next step here?",
       "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf67eb3_18b7a389",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21299
+      },
+      "writtenOn": "2023-08-11T17:21:14Z",
+      "side": 1,
+      "message": "Hi, \nCan you please review this diff? This is blocking the workaround to disable temporal layering for screen share.",
+      "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

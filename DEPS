@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b5f5329314b786970186e35cff583209e0c16789',
+  'chromium_revision': 'f95b9ba3f80a99e451cb3b2ed3d1dd835d8174af',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,7 +50,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@690397edbb9a5a5e794ddb72090d4083400061b3',
+    'https://chromium.googlesource.com/chromium/src/base@a790c5050ac4a1492b2aa9d70102a6a1543bad34',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@4fb90f22dd04845ff72de49b3538d1fd8921823d',
   'src/buildtools':
@@ -65,9 +65,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@3ec40913ae00b076f031e11b48f39329affc9da7',
+    'https://chromium.googlesource.com/chromium/src/testing@d2f7d2908c0eb3df14a88373c536213f5bc435ad',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@cbb8f87abb060c39f5df15e68170e4f07e86b301',
+    'https://chromium.googlesource.com/chromium/src/third_party@4d4de283c2a77d318e779365725622eeda39c1b3',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -178,7 +178,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8988364bcddd9b194b0bf931c10bc125987330ed',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@e758fe642e58a5e89afc5c0ab1373807e9992230',
+    'https://chromium.googlesource.com/catapult.git@598916632caa57b057f0fede290688851dc6b3ef',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0b7a2d2c38a6341a89026169986296657efd49d3',
+    'https://chromium.googlesource.com/chromium/src/tools@631f4cfea1d9b63e079ad4e89a4effcefcc96d9f',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

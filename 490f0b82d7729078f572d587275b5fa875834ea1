@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24daeb8_74b53db9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-11T09:39:05Z",
+      "side": 0,
+      "message": "small bonus: no extra acquiring rtp_sender_-\u003esend_mutex_",
+      "revId": "490f0b82d7729078f572d587275b5fa875834ea1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

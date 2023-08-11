@@ -23,6 +23,7 @@
 #include "api/test/metrics/metric.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "api/video/video_codec_constants.h"
 #include "api/video/video_frame.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -1245,7 +1246,9 @@ void DefaultVideoQualityAnalyzer::ReportResults(
       "target_encode_bitrate", test_case_name,
       stats.target_encode_bitrate / 1000, Unit::kKilobitsPerSecond,
       ImprovementDirection::kNeitherIsBetter, metric_metadata);
+  std::set<int> spatial_layers_seen;
   for (const auto& [spatial_layer, qp] : stats.spatial_layers_qp) {
+    spatial_layers_seen.insert(spatial_layer);
     std::map<std::string, std::string> qp_metadata = metric_metadata;
     qp_metadata[MetricMetadataKey::kSpatialLayerMetadataKey] =
         std::to_string(spatial_layer);
@@ -1254,6 +1257,28 @@ void DefaultVideoQualityAnalyzer::ReportResults(
                                ImprovementDirection::kSmallerIsBetter,
                                std::move(qp_metadata));
   }
+  // If a spatial layer was not used, let's generate a time series of -1 values
+  // mapping the sample series of the spatial layer 0.
+  for (int spatial_layer_index = 0; spatial_layer_index < kMaxSpatialLayers;
+       ++spatial_layer_index) {
+    if (spatial_layers_seen.find(spatial_layer_index) ==
+        spatial_layers_seen.end()) {
+      SamplesStatsCounter generated_stats;
+      for (const auto& sample :
+           stats.spatial_layers_qp.at(0).GetTimedSamples()) {
+        generated_stats.AddSample(
+            {.value = -1, .time = sample.time, .metadata = sample.metadata});
+      }
+      std::map<std::string, std::string> qp_metadata = metric_metadata;
+      qp_metadata[MetricMetadataKey::kSpatialLayerMetadataKey] =
+          std::to_string(spatial_layer_index);
+      metrics_logger_->LogMetric(
+          "qp_sl" + std::to_string(spatial_layer_index), test_case_name,
+          generated_stats, Unit::kUnitless,
+          ImprovementDirection::kSmallerIsBetter, std::move(qp_metadata));
+    }
+  }
+
   metrics_logger_->LogSingleValueMetric(
       "actual_encode_bitrate", test_case_name,
       static_cast<double>(stats.total_encoded_images_payload) /

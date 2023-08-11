@@ -306,6 +306,7 @@ rtc_library("default_video_quality_analyzer") {
     "../../../../../api/units:time_delta",
     "../../../../../api/units:timestamp",
     "../../../../../api/video:encoded_image",
+    "../../../../../api/video:video_codec_constants",
     "../../../../../api/video:video_frame",
     "../../../../../rtc_base:checks",
     "../../../../../rtc_base:logging",

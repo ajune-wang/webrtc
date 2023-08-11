@@ -34,6 +34,23 @@
       "parentUuid": "d17c77b9_65278d43",
       "revId": "715d02334bc0ad1fb60da1f0ca920e658a83852b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1199385f_e9e65165",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21499
+      },
+      "writtenOn": "2023-08-11T22:04:10Z",
+      "side": 1,
+      "message": "Hi,\n\nI was wondering if there was ever a long term solution to this problem.\n\nI think I\u0027m seeing a case where a network is allowing UDP traffic between 2 peers just for a brief moment, then it starts dropping UDP traffic between the 2 peers. This is making WebRTC choose the local link because it succeeds at first, but has no fallback once the network starts dropping the UDP packets since the TURN candidates are discarded.\n\nThanks.",
+      "revId": "715d02334bc0ad1fb60da1f0ca920e658a83852b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

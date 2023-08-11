@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd6e852857cdbf2b9aad436eb0947a60a0edb2cf8',
+  'chromium_revision': '19a77d46ea1d77be74487937f8ed70d040730ae6',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -25,7 +25,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/core/',
-  'fuchsia_version': 'version:14.20230804.1.1',
+  'fuchsia_version': 'version:14.20230811.1.1',
   # By default, download the fuchsia images from the fuchsia GCS bucket.
   'fuchsia_images_bucket': 'fuchsia',
   'checkout_fuchsia': False,
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@92e615fe8e55f1c4af8965bd29f6cb5c56e8a7d1',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d3bb1ba0a5ffcf818b61ad02c9b84bbdb21c7be6',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@19386a696ad9d6db4ea066385ab51816e29a54ef',
+    'https://chromium.googlesource.com/chromium/src/testing@dada3adc5c0515b17daa6d54b69b1d046e4cad0f',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@aa4cb2f252cdcb87a910cc856b0c4edaef54eb56',
+    'https://chromium.googlesource.com/chromium/src/third_party@4e84edb248a97e216b46623b97dbc105c08fd78e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -320,7 +320,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'c5gwBJlApOcrNvnktaZlEXQ168Ig5dECf1tJyt5fcjwC',
+              'version': 'gAkFIrXkgbLOsddL5MkR5JZs0IR02MvXqPL9v075pm8C',
           },
       ],
       'condition': 'checkout_android',
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@be158fa0f41cc72b53963cb3392ea2e99b25b132',
+    'https://chromium.googlesource.com/chromium/src/tools@7f87123c3f44a01ad9f089c40c6dd6800ec7f103',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

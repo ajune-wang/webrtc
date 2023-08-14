@@ -219,7 +219,7 @@ class VideoReceiveStream2Test : public ::testing::TestWithParam<bool> {
         .WillByDefault(Invoke(&fake_decoder_, &test::FakeDecoder::Release));
     ON_CALL(mock_transport_, SendRtcp)
         .WillByDefault(
-            Invoke(&rtcp_packet_parser_, &test::RtcpPacketParser::Parse));
+            Invoke(&rtcp_packet_parser_, &test::RtcpPacketParser::ParseView));
   }
 
   ~VideoReceiveStream2Test() override {

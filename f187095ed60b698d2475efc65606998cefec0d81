@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e8e216_d3154170",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-08-14T13:24:50Z",
+      "side": 1,
+      "message": "Please add test for this logic. Also I suppose some tests will fail now, so please fix them.",
+      "range": {
+        "startLine": 1249,
+        "startChar": 2,
+        "endLine": 1249,
+        "endChar": 36
+      },
+      "revId": "f187095ed60b698d2475efc65606998cefec0d81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f115ab_da541d2a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1265,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-08-14T13:24:50Z",
+      "side": 1,
+      "message": "I think it can be a bit more readable like this:\n```\nif (spatial_layers_seen.find(spatial_layer_index) !\u003d\n        spatial_layers_seen.end()) {\n  continue;\n}\n\n...\n```",
+      "range": {
+        "startLine": 1264,
+        "startChar": 4,
+        "endLine": 1265,
+        "endChar": 36
+      },
+      "revId": "f187095ed60b698d2475efc65606998cefec0d81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c0d5a2_8055dbac",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-08-14T13:24:50Z",
+      "side": 1,
+      "message": "Can it be that there are no value? Simple example: what if there is no video received?",
+      "range": {
+        "startLine": 1268,
+        "startChar": 35,
+        "endLine": 1268,
+        "endChar": 40
+      },
+      "revId": "f187095ed60b698d2475efc65606998cefec0d81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

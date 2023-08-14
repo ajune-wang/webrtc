@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1b977d_1e6d01ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6757
+      },
+      "writtenOn": "2023-08-14T16:39:41Z",
+      "side": 1,
+      "message": "lgtm - I have no CR+1 here.\n\nYou could create a luci-notify entry instead for this builder, e.g. on state change to this trooper email. I think your instance fails rarely, so it wouldn\u0027t be spammy.",
+      "revId": "2a82731e4446d64d8c8c01c8542eb4d9f8ec6fe1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

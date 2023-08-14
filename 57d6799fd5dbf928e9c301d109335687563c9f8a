@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c0446044_5efb72e3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-14T12:21:02Z",
+      "side": 1,
+      "message": "You\u0027re right, it is not needed.\nRemoved",
+      "parentUuid": "ae2de428_8dd05809",
+      "range": {
+        "startLine": 625,
+        "startChar": 0,
+        "endLine": 628,
+        "endChar": 3
+      },
+      "revId": "57d6799fd5dbf928e9c301d109335687563c9f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "12e06e0f_9b0e7d48",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 11

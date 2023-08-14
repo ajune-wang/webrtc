@@ -472,6 +472,8 @@ rtc_library("desktop_capture") {
       "win/desktop.h",
       "win/desktop_capture_utils.cc",
       "win/desktop_capture_utils.h",
+      "win/desktop_frame_texture.cc",
+      "win/desktop_frame_texture.h",
       "win/display_configuration_monitor.cc",
       "win/display_configuration_monitor.h",
       "win/dxgi_adapter_duplicator.cc",

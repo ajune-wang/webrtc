@@ -24,6 +24,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -102,7 +103,14 @@ int ScreenCapturerWinDirectx::GetIndexFromScreenId(
 }
 
 ScreenCapturerWinDirectx::ScreenCapturerWinDirectx()
-    : controller_(DxgiDuplicatorController::Instance()) {}
+    : controller_(DxgiDuplicatorController::Instance()) {
+}
+
+ScreenCapturerWinDirectx::ScreenCapturerWinDirectx(
+    const DesktopCaptureOptions& options)
+    : ScreenCapturerWinDirectx() {
+  options_ = options;
+}
 
 ScreenCapturerWinDirectx::~ScreenCapturerWinDirectx() = default;
 
@@ -110,7 +118,6 @@ void ScreenCapturerWinDirectx::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
   RecordCapturerImpl(DesktopCapturerId::kScreenCapturerWinDirectx);
-
   callback_ = callback;
 }
 
@@ -134,7 +141,8 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
 
   if (!frames.current_frame()) {
     frames.ReplaceCurrentFrame(
-        std::make_unique<DxgiFrame>(shared_memory_factory_.get()));
+        std::make_unique<DxgiFrame>(
+            shared_memory_factory_.get(), options_.allow_texture_frame()));
   }
 
   DxgiDuplicatorController::Result result;
@@ -183,7 +191,6 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
     case DuplicateResult::SUCCEEDED: {
       std::unique_ptr<DesktopFrame> frame =
           frames.current_frame()->frame()->Share();
-
       int capture_time_ms = (rtc::TimeNanos() - capture_start_time_nanos) /
                             rtc::kNumNanosecsPerMillisec;
       RTC_HISTOGRAM_COUNTS_1000(
@@ -194,7 +201,6 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
 
       // TODO(julien.isorce): http://crbug.com/945468. Set the icc profile on
       // the frame, see WindowCapturerMac::CaptureFrame.
-
       callback_->OnCaptureResult(Result::SUCCESS, std::move(frame));
       break;
     }

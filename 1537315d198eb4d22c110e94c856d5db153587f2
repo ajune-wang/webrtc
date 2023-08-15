@@ -16,6 +16,98 @@
       "message": "One step at a time.",
       "revId": "1537315d198eb4d22c110e94c856d5db153587f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c9fab20_3e9ff23d",
+        "filename": "audio/channel_receive_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-15T11:28:29Z",
+      "side": 1,
+      "message": "`.data()` is redundant: `ArrayView` (same as `std::span`) have operator[],\ni.e.\n`packet[1] \u003d\u003d ...`",
+      "range": {
+        "startLine": 177,
+        "startChar": 18,
+        "endLine": 177,
+        "endChar": 25
+      },
+      "revId": "1537315d198eb4d22c110e94c856d5db153587f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce0b7727_9e23a8e7",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-15T11:28:29Z",
+      "side": 1,
+      "message": "`rtc::CopyOnWriteBuffer(packet), ...` here and in the SendRtp above.\n\nsame as in `SendRtp` few lines below\n\n(I think this constructor will be used in such case:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/copy_on_write_buffer.h;l\u003d83;drc\u003db38d9d2b6fa44bdb579c8a9f20346e7db52ecae6)",
+      "range": {
+        "startLine": 169,
+        "startChar": 16,
+        "endLine": 169,
+        "endChar": 68
+      },
+      "revId": "1537315d198eb4d22c110e94c856d5db153587f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9688131b_70b6a0a6",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-15T11:28:29Z",
+      "side": 1,
+      "message": "`rtcp_parser.Parse(*packet)`",
+      "range": {
+        "startLine": 935,
+        "startChar": 24,
+        "endLine": 936,
+        "endChar": 80
+      },
+      "revId": "1537315d198eb4d22c110e94c856d5db153587f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdac0330_20962d7b",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-15T11:28:29Z",
+      "side": 1,
+      "message": "or\n`std::vector\u003cuint8_t\u003e(data.begin(), data.end())`",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 119,
+        "endChar": 75
+      },
+      "revId": "1537315d198eb4d22c110e94c856d5db153587f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

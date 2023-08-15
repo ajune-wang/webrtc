@@ -932,7 +932,8 @@ TEST_F(WebRtcVideoEngineTest, SendsFeedbackAfterUnsignaledRtxPacket) {
   ON_CALL(network, SendRtcp)
       .WillByDefault(testing::DoAll(
           WithArg<0>([&](rtc::CopyOnWriteBuffer* packet) {
-            ASSERT_TRUE(rtcp_parser.Parse(packet->cdata(), packet->size()));
+            ASSERT_TRUE(rtcp_parser.Parse(
+                rtc::ArrayView<const uint8_t>(packet->data(), packet->size())));
           }),
           Return(true)));
   std::unique_ptr<VideoMediaSendChannelInterface> send_channel =

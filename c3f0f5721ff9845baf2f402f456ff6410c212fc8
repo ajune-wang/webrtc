@@ -87,6 +87,24 @@
       "parentUuid": "3630b0c8_63a85fd5",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f2cd56e_2f6adf20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-08-16T21:26:22Z",
+      "side": 1,
+      "message": "Sounds good, I will add a param to PeerConnectionFactory::Options instead.\n\n\u003e Interesting that you found code that forced it false!\n\nTo be clear, this was the case only in Meta-internal code. In the public repo there are no use cases I\u0027m aware of that force it to false.",
+      "parentUuid": "945aa92c_8e0473c2",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

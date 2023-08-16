@@ -33,6 +33,9 @@ std::unique_ptr<VideoRtpDepacketizer> CreateVideoRtpDepacketizer(
       return std::make_unique<VideoRtpDepacketizerVp9>();
     case kVideoCodecAV1:
       return std::make_unique<VideoRtpDepacketizerAv1>();
+    case kVideoCodecH265:
+      // TODO(Qiujiao): Implement VideoRtpDepacketizerH265.
+      return nullptr;
     case kVideoCodecGeneric:
     case kVideoCodecMultiplex:
       return std::make_unique<VideoRtpDepacketizerGeneric>();

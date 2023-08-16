@@ -28,6 +28,7 @@ constexpr char kPayloadNameAv1x[] = "AV1X";
 constexpr char kPayloadNameH264[] = "H264";
 constexpr char kPayloadNameGeneric[] = "Generic";
 constexpr char kPayloadNameMultiplex[] = "Multiplex";
+constexpr char kPayloadNameH265[] = "H265";
 }  // namespace
 
 bool VideoCodecVP8::operator==(const VideoCodecVP8& other) const {
@@ -116,6 +117,8 @@ const char* CodecTypeToPayloadString(VideoCodecType type) {
       return kPayloadNameMultiplex;
     case kVideoCodecGeneric:
       return kPayloadNameGeneric;
+    case kVideoCodecH265:
+      return kPayloadNameH265;
   }
   RTC_CHECK_NOTREACHED();
 }

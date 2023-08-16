@@ -105,6 +105,24 @@
       "parentUuid": "945aa92c_8e0473c2",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7258b0ae_e187ab54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-08-16T22:05:21Z",
+      "side": 1,
+      "message": "Looking more at it, using PeerConnectionFactoryInterface::Options will not work. Several other classes (RtpTransceiver, MediaSessionDescriptionFactory) also read use_rtx() from ConnectionContext without having access to the PCF options. And ConnectionContext is constructed in PeerConnectionFactory::Create, before we can call PeerConnectionFactory::SetOptions.\n\nSo if we don\u0027t allow ConnectionContext to have a mutable set_use_rtx method, we\u0027re forced to pass down this bool param to the PeerConnectionFactory::Create method. But it doesn\u0027t really fit inside the PeerConnectionFactoryDependencies struct since it\u0027s a config option, not a dependency, so it ends up looking not very elegant.\n\nAlternatively, I can add field trial...",
+      "parentUuid": "5f2cd56e_2f6adf20",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

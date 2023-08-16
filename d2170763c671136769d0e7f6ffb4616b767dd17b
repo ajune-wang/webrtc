@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d824a1_33c45b4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-16T07:46:36Z",
+      "side": 1,
+      "message": "webrtc:13485. Otherwise it points to https://bugs.chromium.org/p/chromium/issues/detail?id\u003d13485",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "d2170763c671136769d0e7f6ffb4616b767dd17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "54c3330b_649b03c0",
@@ -14,6 +37,92 @@
       "writtenOn": "2023-08-16T06:56:59Z",
       "side": 1,
       "message": "Add codec name H265 so that it can be used by H265 RTP/SDP implementation.",
+      "revId": "d2170763c671136769d0e7f6ffb4616b767dd17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601c95c2_08a678bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-16T07:46:36Z",
+      "side": 1,
+      "message": "Seems there are more places to update. Maybe search for kVideoCodecH264 and see if H265 should be handled there too: https://source.chromium.org/search?q\u003dkVideoCodecH264\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F",
+      "revId": "d2170763c671136769d0e7f6ffb4616b767dd17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98100712_fbaff02b",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-16T07:46:36Z",
+      "side": 1,
+      "message": "Handle kVideoCodecH265",
+      "range": {
+        "startLine": 126,
+        "startChar": 15,
+        "endLine": 126,
+        "endChar": 39
+      },
+      "revId": "d2170763c671136769d0e7f6ffb4616b767dd17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56a58cd_5c2332c1",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-16T07:46:36Z",
+      "side": 1,
+      "message": "bugs.webrtc.org/13485",
+      "range": {
+        "startLine": 345,
+        "startChar": 14,
+        "endLine": 345,
+        "endChar": 21
+      },
+      "revId": "d2170763c671136769d0e7f6ffb4616b767dd17b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0324bfac_ee295a5a",
+        "filename": "modules/rtp_rtcp/source/create_video_rtp_depacketizer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-08-16T07:46:36Z",
+      "side": 1,
+      "message": "bugs.webrtc.org/13485",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 21
+      },
       "revId": "d2170763c671136769d0e7f6ffb4616b767dd17b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

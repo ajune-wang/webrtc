@@ -33,6 +33,24 @@
       "message": "can you add a test?",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a431fcc_d4f3dc64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-16T06:26:21Z",
+      "side": 1,
+      "message": "An unit test should be reasonable to write - just (??) inject (??) a client that hardcodes use_rtx to false and call GetRtpSenderCapabilities (and ReceiverCapabilities for good meaure), and check that RTX codecs don\u0027t occur in the output.\n\n(would be nice to have a test that checks the use_rtx\u003dtrue case too)",
+      "parentUuid": "25067e1e_60852575",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

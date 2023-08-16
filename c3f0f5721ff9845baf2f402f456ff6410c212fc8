@@ -69,6 +69,24 @@
       "parentUuid": "7a431fcc_d4f3dc64",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "945aa92c_8e0473c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-16T21:21:02Z",
+      "side": 1,
+      "message": "Adding use_rtx with a default value of true (I don\u0027t want to have disable_rtx in one place and use_rtx in another) to the PeerConnectionFactory::Options struct sounds good to me.\n\nI found this comment: \n\n  // Note: There is lots of code that wants to know whether or not we\n  // use RTX, but so far, no code has been found that sets it to false.\n  // Kept in the API in order to ease introduction if we want to resurrect\n  // the functionality.\n  bool use_rtx() { return true; }\n  \nInteresting that you found code that forced it false!\n  \nA custom ConnectionContext object seems like a Bad Idea architecturally to me; this is very much an implementation detail, not something we want to be injected from outside. (I ripped it out of PeerConnectionFactory a year or two back, in order to split between the factory (only accessed when creating a PC) and the context (accessed throughout the lifetime of the PC).",
+      "parentUuid": "3630b0c8_63a85fd5",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

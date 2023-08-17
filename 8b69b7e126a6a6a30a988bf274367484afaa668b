@@ -33,6 +33,23 @@
       "message": "Hi, \nCan you please review this diff? This is blocking the workaround to disable temporal layering for screen share.",
       "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "233cbecf_de9e69cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-08-17T16:41:59Z",
+      "side": 1,
+      "message": "@sprang@webrtc.org could you take a look? This needs OWNERS approval.\n\nWe\u0027re happy to share more details on the issue or additional test cases if needed. Without this change, H.264 is automatically configured to use temporal layering during screenshare simulcast, and the knob that\u0027s supposed to let applications disable temporal layering (RtpSender::setParameters) does not work for H.264.",
+      "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

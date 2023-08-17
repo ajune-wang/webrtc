@@ -14,18 +14,17 @@
 #include "api/units/time_delta.h"
 
 #if defined(WEBRTC_POSIX)
-#if defined(WEBRTC_LINUX)
-// On Linux, use epoll.
-#include <sys/epoll.h>
-#define WEBRTC_USE_EPOLL 1
-#elif defined(WEBRTC_FUCHSIA)
 // Fuchsia implements select and poll but not epoll, and testing shows that poll
 // is faster than select.
 #include <poll.h>
 #define WEBRTC_USE_POLL 1
+#if defined(WEBRTC_LINUX)
+// On Linux, use epoll.
+#include <sys/epoll.h>
+#define WEBRTC_USE_EPOLL 1
 #else
 // On other POSIX systems, use select by default.
-#endif  // WEBRTC_LINUX, WEBRTC_FUCHSIA
+#endif  // WEBRTC_LINUX
 #endif  // WEBRTC_POSIX
 
 #include <array>

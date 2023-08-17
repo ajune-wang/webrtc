@@ -99,15 +99,19 @@ int64_t GetSocketRecvTimestamp(int socket) {
 typedef char* SockOptArg;
 #endif
 
-#if defined(WEBRTC_USE_EPOLL)
+#if defined(WEBRTC_USE_POLL)
 // POLLRDHUP / EPOLLRDHUP are only defined starting with Linux 2.6.17.
+#if defined(WEBRTC_LINUX)
 #if !defined(POLLRDHUP)
 #define POLLRDHUP 0x2000
-#endif
+#endif  // !defined(POLLRDHUP)
+#endif  // defined(WEBRTC_LINUX)
+#endif  // defined(WEBRTC_USE_POLL)
+#if defined(WEBRTC_USE_EPOLL)
 #if !defined(EPOLLRDHUP)
 #define EPOLLRDHUP 0x2000
-#endif
-#endif
+#endif  // !defined(EPOLLRDHUP)
+#endif  // defined(WEBRTC_USE_EPOLL)
 
 namespace {
 class ScopedSetTrue {
@@ -1269,9 +1273,6 @@ bool PhysicalSocketServer::Wait(webrtc::TimeDelta max_wait_duration,
   ScopedSetTrue s(&waiting_);
   const int cmsWait = ToCmsWait(max_wait_duration);
 
-#if defined(WEBRTC_USE_POLL)
-  return WaitPoll(cmsWait, process_io);
-#else
 #if defined(WEBRTC_USE_EPOLL)
   // We don't keep a dedicated "epoll" descriptor containing only the non-IO
   // (i.e. signaling) dispatcher, so "poll" will be used instead of the default
@@ -1281,7 +1282,9 @@ bool PhysicalSocketServer::Wait(webrtc::TimeDelta max_wait_duration,
   } else if (epoll_fd_ != INVALID_SOCKET) {
     return WaitEpoll(cmsWait);
   }
-#endif
+#elif defined(WEBRTC_USE_POLL)
+  return WaitPoll(cmsWait, process_io);
+#else
   return WaitSelect(cmsWait, process_io);
 #endif
 }
@@ -1357,7 +1360,13 @@ static void ProcessEvents(Dispatcher* dispatcher,
 static void ProcessPollEvents(Dispatcher* dispatcher, const pollfd& pfd) {
   bool readable = (pfd.revents & (POLLIN | POLLPRI));
   bool writable = (pfd.revents & POLLOUT);
-  bool error = (pfd.revents & (POLLRDHUP | POLLERR | POLLHUP));
+
+#if defined(WEBRTC_LINUX) || defined(WEBRTC_FUCHSIA)
+  constexpr short kEvents = POLLRDHUP | POLLERR | POLLHUP;
+#else
+  constexpr short kEvents = POLLERR | POLLHUP;
+#endif
+  bool error = (pfd.revents & kEvents);
 
   ProcessEvents(dispatcher, readable, writable, error, error);
 }

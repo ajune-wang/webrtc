@@ -141,6 +141,24 @@
       "parentUuid": "7258b0ae_e187ab54",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377d9802_0545a7ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-08-17T16:27:47Z",
+      "side": 1,
+      "message": "\u003e Question: Do we ever want a situation where some PeerConnections have RTX and other PeerConnections (constructed from the same factory) don\u0027t have it?\n\u003e Do we ever want a PeerConnection to be able to change its use_rtx over time?\n\nBoth of those use cases should already be possible via the setCodecPreferences API. From the spec: \"This method allows applications to disable the negotiation of specific codecs (including RTX/RED/FEC).\". Separately from this change, I can test the API and see if I find any issues with controlling RTX in that way.\n\nSo for the purposes of unit testing this change, having a const config on the entire PeerConnectionFactory would be adequate. \n\nThough given the existence of setCodecPreferences, leaving ConnectionContext::use_rtx() as something not controllable from outside would also be reasonable. But I\u0027d still like the 1-line bug fixed - even if not testable, it is obviously more correct than the current code.",
+      "parentUuid": "1a2ddcbd_be98d0e0",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

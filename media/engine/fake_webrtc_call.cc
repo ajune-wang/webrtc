@@ -383,6 +383,14 @@ void FakeVideoSendStream::SetSource(
                                       : rtc::VideoSinkWants());
 }
 
+void FakeVideoSendStream::GenerateKeyFrame(
+    const std::vector<std::string>& rids) {
+  keyframes_requested_by_rid_.clear();
+  for (const auto& rid : rids) {
+    keyframes_requested_by_rid_.push_back(rid);
+  }
+}
+
 void FakeVideoSendStream::InjectVideoSinkWants(
     const rtc::VideoSinkWants& wants) {
   sink_wants_ = wants;

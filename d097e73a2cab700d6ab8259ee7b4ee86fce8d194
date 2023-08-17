@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63087a76_aa10256a",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-08-17T18:12:44Z",
+      "side": 1,
+      "message": "I understand that this issue would be easy to work around from the app calling site (so I won\u0027t continue arguing after this message I promise), but isn\u0027t supporting my preference just ~10 lines of code inside `SetParameters`?\n\nJust change undefined of the inactive encodings to the codec value of the active encoding(s). The rest of the pipeline does not need to do anything differently.\n\n\u003e There is no precedent for not enforcing parameter validation when an encoding is inactive\n\nYes there is. `{scalabilityMode:\u0027L3T3_KEY\u0027, inactive, inactive}` does _not_ throw with a bogus message about \"mixed scalability modes\"[1]. And the same logic applies for `scaleResolutionDownBy` in the way we use it to decide if standard or legacy API is set[2] - you don\u0027t need to specify scales for inactive encodings to opt-in to standard API.\n\nThere\u0027s no reason why `{codec:\u0027VP8\u0027, inactive, inactive}` should throw either.\n\nI\u0027m perfectly happy with `{active+codec:VP8\u0027, inactive+\u0027VP9\u0027}` throwing but I don\u0027t think `codec:undefined` should be treated as \"not the same codec as the active encoding\".\n\n[1] https://orphis.github.io/webrtc-sandbox/simulcast-playground.html?resolution\u003dHD\u0026captureFramerate\u003d30\u0026codec\u003dVP9\u0026contentHint\u003d\u0026encodings.0.rid\u003d\u0026encodings.0.active\u003dtrue\u0026encodings.0.priority\u003dlow\u0026encodings.0.maxBitrate\u003d\u0026encodings.0.scaleResolutionDownBy\u003d1\u0026encodings.0.maxFramerate\u003d\u0026encodings.0.scalabilityMode\u003dL3T3_KEY\u0026encodings.1.rid\u003d1\u0026encodings.1.active\u003d\u0026encodings.1.priority\u003dlow\u0026encodings.1.maxBitrate\u003d\u0026encodings.1.scaleResolutionDownBy\u003d\u0026encodings.1.maxFramerate\u003d\u0026encodings.1.scalabilityMode\u003d\u0026encodings.2.rid\u003d2\u0026encodings.2.active\u003d\u0026encodings.2.priority\u003dlow\u0026encodings.2.maxBitrate\u003d\u0026encodings.2.scaleResolutionDownBy\u003d\u0026encodings.2.maxFramerate\u003d\u0026encodings.2.scalabilityMode\u003d\u0026degradationPreference\u003d\u0026splitLayer\u003dsplit\n\n[2] https://groups.google.com/g/discuss-webrtc/c/-QQ3pxrl-fw\n\n\u003e Real world does not use the API yet\n\nNot `codec` specifically but Google Meet does this for all other parameters and it\u0027s probably not the only app: `{encoding:XYZ, inactive, inactive}`.",
+      "parentUuid": "ff7e8a32_f59bf937",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

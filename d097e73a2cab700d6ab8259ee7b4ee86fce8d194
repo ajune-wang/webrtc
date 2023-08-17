@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba52298e_9c734ff8",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-17T22:37:48Z",
+      "side": 1,
+      "message": "My worry about this is the case where you activate the second encoding layer.\nif you do a getParameters(), encodings[1] \u003d active, setParameters(), and the error message that comes back deals with codecs not matching, this is going to be hugely confusing.\n\nIf the encoding propagates to the inactive layers, so that {codec: vp8, inactive, inactive} comes back as {{codec: vp8}, {codec: vp8, inactive}, {codec:vp8, inactive}}, I\u0027m not so worried from an usability perspective.\n\nBut getting a codec error when you are \"only\" flipping the active flag worries me.",
+      "parentUuid": "63087a76_aa10256a",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

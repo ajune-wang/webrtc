@@ -265,6 +265,42 @@
       "message": "OK, I admit defeat in the name of getting it done :-)\n\nI\u0027ll ask my standard question #3 again instead: Where\u0027s the test?",
       "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b504be4_e6e23866",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-17T18:59:32Z",
+      "side": 1,
+      "message": "Added now that this was worth the effort (famous last words, I still have to cross the I2S bar). The test is a bit dirty and I would have preferred a mock instead of the fake but ...\n\nA higher level integration test with RtpSender::SetParameters would be nice but I don\u0027t see how to get access to the FakeVideoSendStream from the FakeMediaEngine?\n\nfake_call_.GetVideoSendStreams() returns a zero-length vector after calling CreateVideoRtpSenderWithSimulcast({\"1\", \"2\", \"3\"});",
+      "parentUuid": "519b1c58_f94644cf",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a77ea659_3d9a43c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-17T18:59:32Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "eda0acbf_46725811",
+      "revId": "5e8fd373d2ff8b90bd71193279005c1ef8f13037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

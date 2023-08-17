@@ -61,6 +61,7 @@ bool IsSameCodecSpecific(const SdpVideoFormat& format1,
       return VP9IsSameProfile(format1.parameters, format2.parameters);
     case kVideoCodecAV1:
       return AV1IsSameProfile(format1.parameters, format2.parameters);
+    // TODO(bugs.webrtc.org/13485): Implement H265 profile check
     default:
       return true;
   }

@@ -234,6 +234,9 @@ VideoEncoderWrapper::GetScalingSettingsInternal(JNIEnv* jni) const {
       return ScalingSettings(low.value_or(kLowH264QpThreshold),
                              high.value_or(kHighH264QpThreshold));
     }
+    case kVideoCodecH265:
+      // TODO(bugs.webrtc.org/13485)
+      break;
     default:
       return ScalingSettings::kOff;
   }
@@ -354,6 +357,10 @@ int VideoEncoderWrapper::ParseQp(rtc::ArrayView<const uint8_t> buffer) {
       h264_bitstream_parser_.ParseBitstream(buffer);
       qp = h264_bitstream_parser_.GetLastSliceQp().value_or(-1);
       success = (qp >= 0);
+      break;
+    case kVideoCodecH265:
+      // TODO(bugs.webrtc.org/13485)
+      success = false;
       break;
     default:  // Default is to not provide QP.
       success = false;

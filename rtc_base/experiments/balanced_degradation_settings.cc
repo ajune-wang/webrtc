@@ -171,6 +171,9 @@ absl::optional<VideoEncoder::QpThresholds> GetThresholds(
       low = config.generic.GetQpLow();
       high = config.generic.GetQpHigh();
       break;
+    case kVideoCodecH265:
+      //  TODO(bugs.webrtc.org/13485)
+      break;
     default:
       break;
   }
@@ -206,6 +209,9 @@ int GetFps(VideoCodecType type,
     case kVideoCodecGeneric:
       fps = config->generic.GetFps();
       break;
+    case kVideoCodecH265:
+      //  TODO(bugs.webrtc.org/13485)
+      break;
     default:
       break;
   }
@@ -237,6 +243,9 @@ absl::optional<int> GetKbps(
       break;
     case kVideoCodecGeneric:
       kbps = config->generic.GetKbps();
+      break;
+    case kVideoCodecH265:
+      //  TODO(bugs.webrtc.org/13485)
       break;
     default:
       break;
@@ -270,6 +279,9 @@ absl::optional<int> GetKbpsRes(
       break;
     case kVideoCodecGeneric:
       kbps_res = config->generic.GetKbpsRes();
+      break;
+    case kVideoCodecH265:
+      //  TODO(bugs.webrtc.org/13485)
       break;
     default:
       break;

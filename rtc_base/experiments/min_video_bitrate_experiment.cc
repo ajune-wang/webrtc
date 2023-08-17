@@ -100,6 +100,8 @@ absl::optional<DataRate> GetExperimentalMinVideoBitrate(VideoCodecType type) {
         return min_bitrate_av1.GetOptional();
       case kVideoCodecH264:
         return min_bitrate_h264.GetOptional();
+      case kVideoCodecH265:
+      // TODO(bugs.webrtc.org/13485): Implement H265 min bitrate.
       case kVideoCodecGeneric:
       case kVideoCodecMultiplex:
         return absl::nullopt;

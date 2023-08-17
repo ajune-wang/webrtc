@@ -86,6 +86,7 @@ QualityScalingExperiment::GetQpThresholds(VideoCodecType codec_type) {
     case kVideoCodecGeneric:
       return GetThresholds(settings->generic_low, settings->generic_high,
                            kMaxGenericQp);
+    // TODO(bugs.webrtc.org/13485)
     default:
       return absl::nullopt;
   }

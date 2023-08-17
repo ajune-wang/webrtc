@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff7e8a32_f59bf937",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "There is no precedent for not enforcing parameter validation when an encoding is inactive. Real world does not use the API yet, so it\u0027s not a breaking change, and if they want to use it, they\u0027ll have to adapt, it\u0027s ok.\n\nThere\u0027s also real code that is enabling layers by just changing the active flag. This code deserves to be valid too if they decide to use the new API, and it would trip if you don\u0027t require the codec parameter on all layers in Chrome.",
+      "parentUuid": "7f235a6d_0acacc9f",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11519f48_9fd1facf",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "No, by the specification, if you forced a codec but it\u0027s no longer available after negotiation, it is cleared from the parameters, there\u0027s no failure.\n\nThis function is called when you apply a description and want to update the senders accordingly, not from a regular \"SetParameters\" call.",
+      "parentUuid": "7bf9e922_72d648ba",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b20e7d04_2616d1e9",
@@ -82,6 +100,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "TODO(bug) is preferred.",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb85d31c_ff30b2ff",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b20e7d04_2616d1e9",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +139,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6164bd5f_d3a98914",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Added a test for this bit of behaviour in both video and voice media engine.",
+      "parentUuid": "aeba5202_99cc026a",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9644e3d2_dead3e24",
@@ -116,6 +170,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "Add an RTC_DCHECK that media_type is cricket::MEDIA_TYPE_AUDIO, for belt-and-suspenders safety. (we\u0027re not guaranteed to crash anywhere else on this)",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df286f34_acf597c3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Turned this into an \"else if\" instead.",
+      "parentUuid": "9644e3d2_dead3e24",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +209,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80ba3f8d_a261e695",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "No, errors reported from SetParameters and AddTransceiver are different and I don\u0027t think we want to pass an extra parameter to those validation functions to indicate the provenance.\nMaybe UNSUPPORTED_PARAMETER would be better?",
+      "parentUuid": "1ea751a9_25f3098e",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1b7ed4c_c875870d",
@@ -150,6 +240,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "I had to read the code to figure out what it was testing.\nCan you call it \"EncodingParameterCodecIsEmptyWhenCreated\"?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "644aeb7f_c302e076",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1b7ed4c_c875870d",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +279,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7056a857_54a8d5f7",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c56f23_429d3ac0",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "308b5263_82f90cf1",
@@ -184,6 +310,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "EncodingParameterCodecIsFilledInByOfferAnswer?\n\nI don\u0027t think it\u0027s the AddTransceiver that makes the difference from the previous test.",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "628960e3_b5527c71",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Offer / Answer does not change the encoding parameter in this case.\nThis is checking the handling for using it with the parameter in sendEncodings which is a different behaviour in code than with setParameters(). \nUsed another name more in line with your new suggestions.",
+      "parentUuid": "308b5263_82f90cf1",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -205,6 +349,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8979263_d1da760a",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e3fd75a_0dc65f21",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80a1ed37_a533277c",
@@ -218,6 +380,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "EncodingParameterCodecIsSetBySetParameters",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a046c2ae_6c4816f8",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80a1ed37_a533277c",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -239,6 +419,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c12650a3_1181199f",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6fb1464_00a3e2a6",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e43301cb_88645c50",
@@ -252,6 +450,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52f6b7d_31e308c5",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e43301cb_88645c50",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -273,6 +489,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7172da37_22386242",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "904b76a9_785bf989",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b349cd2d_9e57200b",
@@ -286,6 +520,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "RejectedIn, RejectedBy or AddTransceiverRejectsUnknownCodecParameter?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a7b95ea_9d7b2a5d",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b349cd2d_9e57200b",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -307,6 +559,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede481d9_1a8e135d",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd5c34b0_9b3374fc",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a52c42a6_e39c0d72",
@@ -324,6 +594,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3dcfa06_ada6b21c",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a52c42a6_e39c0d72",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12761408_58b60959",
@@ -337,6 +625,24 @@
       "writtenOn": "2023-07-19T14:11:49Z",
       "side": 1,
       "message": "Should this argument be cricket::Codec, to match the function name change?",
+      "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "257db54e_cef7d833",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-17T15:25:10Z",
+      "side": 1,
+      "message": "I\u0027m planning a mass rename later to remove internal uses of the old name too.",
+      "parentUuid": "12761408_58b60959",
       "revId": "3b24c3317d2d6cb13c44b2ebdfd3022b6b4cbd77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

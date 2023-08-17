@@ -1988,19 +1988,13 @@ int32_t AudioDeviceMac::HandleStreamFormatChange(
       objectId, &propertyAddress, 0, NULL, &size, &streamFormat));
 
   if (streamFormat.mFormatID != kAudioFormatLinearPCM) {
-    logCAMsg(rtc::LS_ERROR, "Unacceptable input stream format -> mFormatID",
+    logCAMsg(rtc::LS_ERROR, "Unacceptable stream format -> mFormatID",
              (const char*)&streamFormat.mFormatID);
     return -1;
   }
 
   if (streamFormat.mChannelsPerFrame > N_DEVICE_CHANNELS) {
     RTC_LOG(LS_ERROR) << "Too many channels on device (mChannelsPerFrame = "
-                      << streamFormat.mChannelsPerFrame << ")";
-    return -1;
-  }
-
-  if (_ptrAudioBuffer && streamFormat.mChannelsPerFrame != _recChannels) {
-    RTC_LOG(LS_ERROR) << "Changing channels not supported (mChannelsPerFrame = "
                       << streamFormat.mChannelsPerFrame << ")";
     return -1;
   }
@@ -2018,6 +2012,12 @@ int32_t AudioDeviceMac::HandleStreamFormatChange(
   logCAMsg(rtc::LS_VERBOSE, "mFormatID", (const char*)&streamFormat.mFormatID);
 
   if (propertyAddress.mScope == kAudioDevicePropertyScopeInput) {
+    if (_ptrAudioBuffer && streamFormat.mChannelsPerFrame != _recChannels) {
+      RTC_LOG(LS_ERROR)
+          << "Changing channels not supported (mChannelsPerFrame = "
+          << streamFormat.mChannelsPerFrame << ")";
+      return -1;
+    }
     const int io_block_size_samples = streamFormat.mChannelsPerFrame *
                                       streamFormat.mSampleRate / 100 *
                                       N_BLOCKS_IO;

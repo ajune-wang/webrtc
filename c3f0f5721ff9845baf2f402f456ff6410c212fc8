@@ -123,6 +123,24 @@
       "parentUuid": "5f2cd56e_2f6adf20",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a2ddcbd_be98d0e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-17T04:56:37Z",
+      "side": 1,
+      "message": "Misspoke!\n\nI was thinking of PeerConnectionFactoryDependencies, which is the global control for construction of contexts.\n\nQuestion: Do we ever want a situation where some PeerConnections have RTX and other PeerConnections (constructed from the same factory) don\u0027t have it?\n\nDo we ever want a PeerConnection to be able to change its use_rtx over time?\n\n(It\u0027s in theory possible to have multiple factories with different ConnectionContexts, but that\u0027s a config that hasn\u0027t been exercised in production AFAIK, so there might be dragons here.)\n\nThe net-net seems to be that varying use_rtx is a new feature, and we should design it before bothering to fix the present dependency on it always being true.",
+      "parentUuid": "7258b0ae_e187ab54",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

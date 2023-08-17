@@ -14,18 +14,15 @@
 #include "api/units/time_delta.h"
 
 #if defined(WEBRTC_POSIX)
-#if defined(WEBRTC_LINUX)
-// On Linux, use epoll.
-#include <sys/epoll.h>
-#define WEBRTC_USE_EPOLL 1
-#elif defined(WEBRTC_FUCHSIA)
 // Fuchsia implements select and poll but not epoll, and testing shows that poll
 // is faster than select.
 #include <poll.h>
 #define WEBRTC_USE_POLL 1
-#else
-// On other POSIX systems, use select by default.
-#endif  // WEBRTC_LINUX, WEBRTC_FUCHSIA
+#if defined(WEBRTC_LINUX)
+// On Linux, use epoll.
+#include <sys/epoll.h>
+#define WEBRTC_USE_EPOLL 1
+#endif  // WEBRTC_LINUX
 #endif  // WEBRTC_POSIX
 
 #include <array>
@@ -118,13 +115,11 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   std::array<epoll_event, kNumEpollEvents> epoll_events_;
   const int epoll_fd_ = INVALID_SOCKET;
 
-#elif defined(WEBRTC_USE_POLL)
-  void AddPoll(Dispatcher* dispatcher, uint64_t key);
-  void RemovePoll(Dispatcher* dispatcher);
-  void UpdatePoll(Dispatcher* dispatcher, uint64_t key);
+#endif  // WEBRTC_USE_EPOLL
+#if defined(WEBRTC_USE_POLL)
   bool WaitPoll(int cmsWait, bool process_io);
 
-#endif  // WEBRTC_USE_EPOLL, WEBRTC_USE_POLL
+#endif  // WEBRTC_USE_POLL
 #endif  // WEBRTC_POSIX
 
   // uint64_t keys are used to uniquely identify a dispatcher in order to avoid

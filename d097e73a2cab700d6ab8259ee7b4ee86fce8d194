@@ -181,6 +181,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4beb48a6_79ef3ab5",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-08-18T06:23:37Z",
+      "side": 1,
+      "message": "My suggestion of tweaking the input parameters as the first step of setParameters means that when you getParameters the codec flag on the inactive encoding would come back as vp8, since the code would have behaved identically to as-if you setParamaters with codec set to vp8 on all parameters. So just flipping the active flag would work.\n\nYou could argue that setting {active+vp8,inactive+null} and getting back {active+vp8,inactive+vp8} is surprising, and that seems like a valid counter-argument to my preference, but I can\u0027t think of any use case where this would cause problems, since if you wanted to change codec you would need to specify it on all active encodings anyway.\n\nSo what is least surprising do you think?\n1. {active+vp8, inactive} throwing, or\n2. {active+vp8, inactive} not throwing but coming back {active+vp8, inactive+vp8}\n\nBoth have some level of surprise",
+      "parentUuid": "ba52298e_9c734ff8",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

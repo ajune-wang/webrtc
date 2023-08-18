@@ -199,6 +199,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f7b534d_a3543d9e",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-08-18T07:04:49Z",
+      "side": 1,
+      "message": "No I\u0027m wrong, if we did 2) then things would break in the event of \"only changing codec of the first layer to h264\" because this would result in {active+h264,inactive+vp8} which would be wrong.\n\nSo I only see two option: throwing (current CL), or supporting null as \"no preference\" in a way where getParameters still returns null.",
+      "parentUuid": "4beb48a6_79ef3ab5",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

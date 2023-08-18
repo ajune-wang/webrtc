@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include "audio/channel_receive_frame_transformer_delegate.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -22,6 +23,8 @@
 namespace webrtc {
 namespace {
 
+using ::testing::_;
+using ::testing::ElementsAre;
 using ::testing::NiceMock;
 using ::testing::SaveArg;
 
@@ -98,6 +101,39 @@ TEST(ChannelSendFrameTransformerDelegateTest,
       .WillByDefault(
           [&callback](std::unique_ptr<TransformableFrameInterface> frame) {
             callback->OnTransformedFrame(std::move(frame));
+          });
+  delegate->Transform(AudioFrameType::kEmptyFrame, 0, 0, 0, data, sizeof(data),
+                      0, 0);
+  channel_queue.WaitForPreviouslyPostedTasks();
+}
+
+// Test that when the delegate receives a Incoming frame from the frame
+// transformer, it passes it to the channel using the SendFrameCallback.
+TEST(ChannelSendFrameTransformerDelegateTest,
+     TransformRunsChannelSendCallbackForIncomingFrame) {
+  TaskQueueForTest channel_queue("channel_queue");
+  rtc::scoped_refptr<MockFrameTransformer> mock_frame_transformer =
+      rtc::make_ref_counted<NiceMock<MockFrameTransformer>>();
+  MockChannelSend mock_channel;
+  rtc::scoped_refptr<ChannelSendFrameTransformerDelegate> delegate =
+      rtc::make_ref_counted<ChannelSendFrameTransformerDelegate>(
+          mock_channel.callback(), mock_frame_transformer, &channel_queue);
+  rtc::scoped_refptr<TransformedFrameCallback> callback;
+  EXPECT_CALL(*mock_frame_transformer, RegisterTransformedFrameCallback)
+      .WillOnce(SaveArg<0>(&callback));
+  delegate->Init();
+  ASSERT_TRUE(callback);
+
+  const uint8_t data[] = {1, 2, 3, 4};
+  EXPECT_CALL(mock_channel, SendFrame(AudioFrameType::kEmptyFrame, 0, 0,
+                                      ElementsAre(1, 2, 3, 4), _));
+  ON_CALL(*mock_frame_transformer, Transform)
+      .WillByDefault(
+          [&callback](std::unique_ptr<TransformableFrameInterface> frame) {
+            RTPHeader header;
+            callback->OnTransformedFrame(
+                std::make_unique<TransformableIncomingAudioFrame>(
+                    frame->GetData(), header, frame->GetSsrc()));
           });
   delegate->Transform(AudioFrameType::kEmptyFrame, 0, 0, 0, data, sizeof(data),
                       0, 0);

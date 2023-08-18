@@ -15,6 +15,7 @@
 
 #include "api/frame_transformer_interface.h"
 #include "api/sequence_checker.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread.h"
@@ -70,5 +71,54 @@ class ChannelReceiveFrameTransformerDelegate : public TransformedFrameCallback {
   TaskQueueBase* const channel_receive_thread_;
 };
 
+class TransformableIncomingAudioFrame
+    : public TransformableAudioFrameInterface {
+ public:
+  TransformableIncomingAudioFrame(rtc::ArrayView<const uint8_t> payload,
+                                  const RTPHeader& header,
+                                  uint32_t ssrc)
+      : payload_(payload.data(), payload.size()),
+        header_(header),
+        ssrc_(ssrc) {}
+  ~TransformableIncomingAudioFrame() override = default;
+  rtc::ArrayView<const uint8_t> GetData() const override { return payload_; }
+
+  void SetData(rtc::ArrayView<const uint8_t> data) override {
+    payload_.SetData(data.data(), data.size());
+  }
+
+  void SetRTPTimestamp(uint32_t timestamp) override {
+    header_.timestamp = timestamp;
+  }
+
+  uint8_t GetPayloadType() const override { return header_.payloadType; }
+  uint32_t GetSsrc() const override { return ssrc_; }
+  uint32_t GetTimestamp() const override { return header_.timestamp; }
+  rtc::ArrayView<const uint32_t> GetContributingSources() const override {
+    return rtc::ArrayView<const uint32_t>(header_.arrOfCSRCs, header_.numCSRCs);
+  }
+  Direction GetDirection() const override { return Direction::kReceiver; }
+
+  const absl::optional<uint16_t> SequenceNumber() const override {
+    return header_.sequenceNumber;
+  }
+
+  absl::optional<uint64_t> AbsoluteCaptureTimestamp() const override {
+    // This could be extracted from received header extensions + extrapolation,
+    // if required in future, eg for being able to re-send received frames.
+    return absl::nullopt;
+  }
+  const RTPHeader& Header() const { return header_; }
+
+  FrameType Type() const override {
+    return header_.extension.voiceActivity ? FrameType::kAudioFrameSpeech
+                                           : FrameType::kAudioFrameCN;
+  }
+
+ private:
+  rtc::Buffer payload_;
+  RTPHeader header_;
+  uint32_t ssrc_;
+};
 }  // namespace webrtc
 #endif  // AUDIO_CHANNEL_RECEIVE_FRAME_TRANSFORMER_DELEGATE_H_

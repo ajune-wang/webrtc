@@ -67,6 +67,24 @@
       "message": "An integration test for this would be great!\n\nI have some vague memory of something like this being tried and then being reverted because of some issue. But I can\u0027t really find any trace of that now, so I could just be misremembering. \n\ncc fippo, do you remember any issues around H264 temporal layers? Any thoughts in general, since you are bigger user of H264...",
       "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "008a524f_aeb18400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-18T11:21:36Z",
+      "side": 1,
+      "message": "+1, even though i\u0027m a bit surprised this is required since using insertable streams one can see temporal layers being set (the signaling to the remote end is not there without the removed frame marking extension, see issue 11637)\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc;l\u003d279;bpv\u003d1;bpt\u003d0 configures them.\n\nNow as with anything H264 testing is tricky ;-)",
+      "parentUuid": "ed418cbe_1ba11eb9",
+      "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

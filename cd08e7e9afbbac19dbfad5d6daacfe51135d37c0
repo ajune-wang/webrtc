@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b8fb4d3_ff0f910d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-18T12:03:06Z",
+      "side": 1,
+      "message": "didn\u0027t found any usage of the code, \nand documentation comment looks obsolete too (e.g. there is no SetReceiverTransport function that comment near SendRtp/SendRtcp mention)",
+      "revId": "cd08e7e9afbbac19dbfad5d6daacfe51135d37c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

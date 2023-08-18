@@ -85,6 +85,24 @@
       "parentUuid": "ed418cbe_1ba11eb9",
       "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0a4c7e_102385cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-08-18T16:33:31Z",
+      "side": 1,
+      "message": "The bug is that we already have the following code in EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams. Today temporal layers are enabled by default in production whenever H.264 screenshare + simulcast is used:\n\n```\n  const bool temporal_layers_supported \u003d\n      absl::EqualsIgnoreCase(codec_name_, kVp8CodecName) ||\n      absl::EqualsIgnoreCase(codec_name_, kH264CodecName);\n  ...\n  // This function sets layers[i].num_temporal_layers to 2\n  layers \u003d GetSimulcastConfig(temporal_layers_supported);\n```\n      \nHowever, using the SetParameters API to _disable_ these temporal layers doesn\u0027t work, because later in the same function, the arguments we pass in via the RTCRtpEncodingParameters API (scalabilityMode) are ignored due to this:\n\n```\n    // Update with configured num temporal layers if supported by codec.\n    if (encoder_config.simulcast_layers[i].num_temporal_layers \u0026\u0026\n        IsTemporalLayersSupported(codec_name_)) {\n      layers[i].num_temporal_layers \u003d\n          *encoder_config.simulcast_layers[i].num_temporal_layers;\n    }\n```\n\nHence, applications today has no way to disable the screenshare TL. This causes some issues reported in https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14877\n\nIf supporting TL for regular H.264 video streams is risky, we could alternatively limit the scope of the fix to only apply to the screenshare function CreateSimulcastOrConferenceModeScreenshareStreams, and not to regular video streams. After all, these streams already use TL today, so the chance of regressing anything seems low.",
+      "parentUuid": "008a524f_aeb18400",
+      "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

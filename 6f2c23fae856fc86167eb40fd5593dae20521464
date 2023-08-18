@@ -16,6 +16,23 @@
       "message": "tiny",
       "revId": "6f2c23fae856fc86167eb40fd5593dae20521464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4601ff71_94d118e4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-08-18T12:16:36Z",
+      "side": 1,
+      "message": "This would log \"...)1\" if error is 1.\n\nPlease change this to `\"). Error: \" \u003c\u003c error;`",
+      "revId": "6f2c23fae856fc86167eb40fd5593dae20521464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

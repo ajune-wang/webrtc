@@ -217,6 +217,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d070d66_b28a4dcf",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-08-18T11:02:35Z",
+      "side": 1,
+      "message": "I\u0027m not going to let perfect be the obstacle of progress so LGTM, but I still see value in API consistency with scalabilityMode and codec since they are so closely related. But if we want to support this we can do it in a separate CL. (And if we don\u0027t, that\u0027s not the end of the world.)",
+      "parentUuid": "2f7b534d_a3543d9e",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06532a87_fded7457",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1

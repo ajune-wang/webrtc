@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7d904ee_6cbb1842",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-08-18T12:20:45Z",
+      "side": 1,
+      "message": "I have made two prior changes before relanding this change compared to last time in order to preserve the legacy behavior as much as possible:\n1. EglThread now creates its EGLContext on the render thread\n2. EglThread now has an exception callback that EglRenderer subscribes to, allowing the renderer to clear its EglThread variable after an exception and not post any more work.",
+      "revId": "9e3f5886077d889a80a58b068bdfb50ca4f83005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

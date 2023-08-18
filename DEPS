@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4b024ef0b5c4c262bb6be8c073e70a288e73450e',
+  'chromium_revision': '3506afbc42d52932a958456da939c5452e770361',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,7 +50,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@0a8c04c3f53d44bb06bc7b523f733b3ea7e888de',
+    'https://chromium.googlesource.com/chromium/src/base@32aba55ab531a1d7efdcdbb224fc254110da93e6',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@e9f9f56b0dee9032936d23c81c8246ae0ffe36bd',
   'src/buildtools':
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@ddb9c93802b7ba2ab3766f932ca4a55ff24457fc',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@49b59989b0cd20f78c6923fd79c8f89009c07473',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@be1a5077d7a29eb23f49940206d2e76a932032a3',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c6d7f3b75f0985ce7d4b114e7d24dd7fc8013284',
+    'https://chromium.googlesource.com/chromium/src/third_party@aa27b09342463655b9d9bb23f0eb174d6edee282',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@f5f4d48512b4242425edcc0059355fc7f2548ed1',
+    'https://chromium.googlesource.com/chromium/src/tools@24d4c6d1d4fdc3ca0e24bc67947ac3b2efb20b7a',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

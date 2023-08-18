@@ -14,11 +14,8 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES20;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
 import android.view.Surface;
+import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
 import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
@@ -86,115 +83,121 @@ public class EglRenderer implements VideoSink {
     }
   }
 
-  /**
-   * Handler that triggers a callback when an uncaught exception happens when handling a message.
-   */
-  private static class HandlerWithExceptionCallback extends Handler {
-    private final Runnable exceptionCallback;
-
-    public HandlerWithExceptionCallback(Looper looper, Runnable exceptionCallback) {
-      super(looper);
-      this.exceptionCallback = exceptionCallback;
-    }
-
-    @Override
-    public void dispatchMessage(Message msg) {
-      try {
-        super.dispatchMessage(msg);
-      } catch (Exception e) {
-        Logging.e(TAG, "Exception on EglRenderer thread", e);
-        exceptionCallback.run();
-        throw e;
-      }
-    }
-  }
-
   protected final String name;
 
-  // `renderThreadHandler` is a handler for communicating with `renderThread`, and is synchronized
-  // on `handlerLock`.
-  private final Object handlerLock = new Object();
-  @Nullable private Handler renderThreadHandler;
+  // `eglThread` is used for rendering, and is synchronized on `threadLock`.
+  private final Object threadLock = new Object();
+  @GuardedBy("threadLock") @Nullable private EglThread eglThread;
 
-  private final ArrayList<FrameListenerAndParams> frameListeners = new ArrayList<>();
+  private final Runnable eglExceptionCallback = () -> {synchronized (threadLock){eglThread = null;
+}
+}
+;
 
-  private volatile ErrorCallback errorCallback;
+private final ArrayList<FrameListenerAndParams> frameListeners = new ArrayList<>();
 
-  // Variables for fps reduction.
-  private final Object fpsReductionLock = new Object();
-  // Time for when next frame should be rendered.
-  private long nextFrameTimeNs;
-  // Minimum duration between frames when fps reduction is active, or -1 if video is completely
-  // paused.
-  private long minRenderPeriodNs;
+private volatile ErrorCallback errorCallback;
 
-  // EGL and GL resources for drawing YUV/OES textures. After initialization, these are only
-  // accessed from the render thread.
-  @Nullable private EglBase eglBase;
-  private final VideoFrameDrawer frameDrawer;
-  @Nullable private RendererCommon.GlDrawer drawer;
-  private boolean usePresentationTimeStamp;
-  private final Matrix drawMatrix = new Matrix();
+// Variables for fps reduction.
+private final Object fpsReductionLock = new Object();
+// Time for when next frame should be rendered.
+private long nextFrameTimeNs;
+// Minimum duration between frames when fps reduction is active, or -1 if video is completely
+// paused.
+private long minRenderPeriodNs;
 
-  // Pending frame to render. Serves as a queue with size 1. Synchronized on `frameLock`.
-  private final Object frameLock = new Object();
-  @Nullable private VideoFrame pendingFrame;
+// EGL and GL resources for drawing YUV/OES textures. After initialization, these are only
+// accessed from the render thread.
+@Nullable private EglBase eglBase;
+private final VideoFrameDrawer frameDrawer;
+@Nullable private RendererCommon.GlDrawer drawer;
+private boolean usePresentationTimeStamp;
+private final Matrix drawMatrix = new Matrix();
 
-  // These variables are synchronized on `layoutLock`.
-  private final Object layoutLock = new Object();
-  private float layoutAspectRatio;
-  // If true, mirrors the video stream horizontally.
-  private boolean mirrorHorizontally;
-  // If true, mirrors the video stream vertically.
-  private boolean mirrorVertically;
+// Pending frame to render. Serves as a queue with size 1. Synchronized on `frameLock`.
+private final Object frameLock = new Object();
+@Nullable private VideoFrame pendingFrame;
 
-  // These variables are synchronized on `statisticsLock`.
-  private final Object statisticsLock = new Object();
-  // Total number of video frames received in renderFrame() call.
-  private int framesReceived;
-  // Number of video frames dropped by renderFrame() because previous frame has not been rendered
-  // yet.
-  private int framesDropped;
-  // Number of rendered video frames.
-  private int framesRendered;
-  // Start time for counting these statistics, or 0 if we haven't started measuring yet.
-  private long statisticsStartTimeNs;
-  // Time in ns spent in renderFrameOnRenderThread() function.
-  private long renderTimeNs;
-  // Time in ns spent by the render thread in the swapBuffers() function.
-  private long renderSwapBufferTimeNs;
+// These variables are synchronized on `layoutLock`.
+private final Object layoutLock = new Object();
+private float layoutAspectRatio;
+// If true, mirrors the video stream horizontally.
+private boolean mirrorHorizontally;
+// If true, mirrors the video stream vertically.
+private boolean mirrorVertically;
 
-  // Used for bitmap capturing.
-  private final GlTextureFrameBuffer bitmapTextureFramebuffer =
-      new GlTextureFrameBuffer(GLES20.GL_RGBA);
+// These variables are synchronized on `statisticsLock`.
+private final Object statisticsLock = new Object();
+// Total number of video frames received in renderFrame() call.
+private int framesReceived;
+// Number of video frames dropped by renderFrame() because previous frame has not been rendered
+// yet.
+private int framesDropped;
+// Number of rendered video frames.
+private int framesRendered;
+// Start time for counting these statistics, or 0 if we haven't started measuring yet.
+private long statisticsStartTimeNs;
+// Time in ns spent in renderFrameOnRenderThread() function.
+private long renderTimeNs;
+// Time in ns spent by the render thread in the swapBuffers() function.
+private long renderSwapBufferTimeNs;
 
-  private final Runnable logStatisticsRunnable = new Runnable() {
-    @Override
-    public void run() {
-      logStatistics();
-      synchronized (handlerLock) {
-        if (renderThreadHandler != null) {
-          renderThreadHandler.removeCallbacks(logStatisticsRunnable);
-          renderThreadHandler.postDelayed(
-              logStatisticsRunnable, TimeUnit.SECONDS.toMillis(LOG_INTERVAL_SEC));
-        }
+// Used for bitmap capturing.
+private final GlTextureFrameBuffer bitmapTextureFramebuffer =
+    new GlTextureFrameBuffer(GLES20.GL_RGBA);
+
+private final Runnable logStatisticsRunnable = new Runnable() {
+  @Override
+  public void run() {
+    logStatistics();
+    synchronized (threadLock) {
+      if (eglThread != null) {
+        eglThread.getHandler().removeCallbacks(logStatisticsRunnable);
+        eglThread.getHandler().postDelayed(
+            logStatisticsRunnable, TimeUnit.SECONDS.toMillis(LOG_INTERVAL_SEC));
       }
     }
-  };
-
-  private final EglSurfaceCreation eglSurfaceCreationRunnable = new EglSurfaceCreation();
-
-  /**
-   * Standard constructor. The name will be used for the render thread name and included when
-   * logging. In order to render something, you must first call init() and createEglSurface.
-   */
-  public EglRenderer(String name) {
-    this(name, new VideoFrameDrawer());
   }
+};
+
+private final EglSurfaceCreation eglSurfaceCreationRunnable = new EglSurfaceCreation();
+
+/**
+ * Standard constructor. The name will be included when logging. In order to render something, you
+ * must first call init() and createEglSurface.
+ */
+public EglRenderer(String name) {
+  this(name, new VideoFrameDrawer());
+}
 
   public EglRenderer(String name, VideoFrameDrawer videoFrameDrawer) {
     this.name = name;
     this.frameDrawer = videoFrameDrawer;
+  }
+
+  public void init(
+      EglThread eglThread, RendererCommon.GlDrawer drawer, boolean usePresentationTimeStamp) {
+    synchronized (threadLock) {
+      if (this.eglThread != null) {
+        throw new IllegalStateException(name + "Already initialized");
+      }
+
+      logD("Initializing EglRenderer");
+      this.eglThread = eglThread;
+      this.drawer = drawer;
+      this.usePresentationTimeStamp = usePresentationTimeStamp;
+
+      eglThread.addExceptionCallback(eglExceptionCallback);
+
+      eglBase = eglThread.createEglBaseWithSharedConnection();
+      eglThread.getHandler().post(eglSurfaceCreationRunnable);
+
+      final long currentTimeNs = System.nanoTime();
+      resetStatistics(currentTimeNs);
+
+      eglThread.getHandler().postDelayed(
+          logStatisticsRunnable, TimeUnit.SECONDS.toMillis(LOG_INTERVAL_SEC));
+    }
   }
 
   /**
@@ -207,46 +210,9 @@ public class EglRenderer implements VideoSink {
    */
   public void init(@Nullable final EglBase.Context sharedContext, final int[] configAttributes,
       RendererCommon.GlDrawer drawer, boolean usePresentationTimeStamp) {
-    synchronized (handlerLock) {
-      if (renderThreadHandler != null) {
-        throw new IllegalStateException(name + "Already initialized");
-      }
-      logD("Initializing EglRenderer");
-      this.drawer = drawer;
-      this.usePresentationTimeStamp = usePresentationTimeStamp;
-
-      final HandlerThread renderThread = new HandlerThread(name + "EglRenderer");
-      renderThread.start();
-      renderThreadHandler =
-          new HandlerWithExceptionCallback(renderThread.getLooper(), new Runnable() {
-            @Override
-            public void run() {
-              synchronized (handlerLock) {
-                renderThreadHandler = null;
-              }
-            }
-          });
-      // Create EGL context on the newly created render thread. It should be possibly to create the
-      // context on this thread and make it current on the render thread, but this causes failure on
-      // some Marvel based JB devices. https://bugs.chromium.org/p/webrtc/issues/detail?id=6350.
-      ThreadUtils.invokeAtFrontUninterruptibly(renderThreadHandler, () -> {
-        // If sharedContext is null, then texture frames are disabled. This is typically for old
-        // devices that might not be fully spec compliant, so force EGL 1.0 since EGL 1.4 has
-        // caused trouble on some weird devices.
-        if (sharedContext == null) {
-          logD("EglBase10.create context");
-          eglBase = EglBase.createEgl10(configAttributes);
-        } else {
-          logD("EglBase.create shared context");
-          eglBase = EglBase.create(sharedContext, configAttributes);
-        }
-      });
-      renderThreadHandler.post(eglSurfaceCreationRunnable);
-      final long currentTimeNs = System.nanoTime();
-      resetStatistics(currentTimeNs);
-      renderThreadHandler.postDelayed(
-          logStatisticsRunnable, TimeUnit.SECONDS.toMillis(LOG_INTERVAL_SEC));
-    }
+    EglThread thread =
+        EglThread.create(/* releaseMonitor= */ null, sharedContext, configAttributes);
+    init(thread, drawer, usePresentationTimeStamp);
   }
 
   /**
@@ -281,14 +247,16 @@ public class EglRenderer implements VideoSink {
   public void release() {
     logD("Releasing.");
     final CountDownLatch eglCleanupBarrier = new CountDownLatch(1);
-    synchronized (handlerLock) {
-      if (renderThreadHandler == null) {
+    synchronized (threadLock) {
+      if (eglThread == null) {
         logD("Already released");
         return;
       }
-      renderThreadHandler.removeCallbacks(logStatisticsRunnable);
+      eglThread.getHandler().removeCallbacks(logStatisticsRunnable);
+      eglThread.removeExceptionCallback(eglExceptionCallback);
+
       // Release EGL and GL resources on render thread.
-      renderThreadHandler.postAtFrontOfQueue(() -> {
+      eglThread.getHandler().postAtFrontOfQueue(() -> {
         // Detach current shader program.
         synchronized (EglBase.lock) {
           GLES20.glUseProgram(/* program= */ 0);
@@ -299,23 +267,19 @@ public class EglRenderer implements VideoSink {
         }
         frameDrawer.release();
         bitmapTextureFramebuffer.release();
+
         if (eglBase != null) {
-          logD("eglBase detach and release.");
-          eglBase.detachCurrent();
           eglBase.release();
           eglBase = null;
         }
+
         frameListeners.clear();
         eglCleanupBarrier.countDown();
       });
-      final Looper renderLooper = renderThreadHandler.getLooper();
-      // TODO(magjed): Replace this post() with renderLooper.quitSafely() when API support >= 18.
-      renderThreadHandler.post(() -> {
-        logD("Quitting render thread.");
-        renderLooper.quit();
-      });
+
       // Don't accept any more frames or messages to the render thread.
-      renderThreadHandler = null;
+      eglThread.release();
+      eglThread = null;
     }
     // Make sure the EGL/GL cleanup posted above is executed.
     ThreadUtils.awaitUninterruptibly(eglCleanupBarrier);
@@ -343,9 +307,9 @@ public class EglRenderer implements VideoSink {
   }
 
   public void printStackTrace() {
-    synchronized (handlerLock) {
+    synchronized (threadLock) {
       final Thread renderThread =
-          (renderThreadHandler == null) ? null : renderThreadHandler.getLooper().getThread();
+          (eglThread == null) ? null : eglThread.getHandler().getLooper().getThread();
       if (renderThread != null) {
         final StackTraceElement[] renderStackTrace = renderThread.getStackTrace();
         if (renderStackTrace.length > 0) {
@@ -475,11 +439,11 @@ public class EglRenderer implements VideoSink {
    */
   public void removeFrameListener(final FrameListener listener) {
     final CountDownLatch latch = new CountDownLatch(1);
-    synchronized (handlerLock) {
-      if (renderThreadHandler == null) {
+    synchronized (threadLock) {
+      if (eglThread == null) {
         return;
       }
-      if (Thread.currentThread() == renderThreadHandler.getLooper().getThread()) {
+      if (Thread.currentThread() == eglThread.getHandler().getLooper().getThread()) {
         throw new RuntimeException("removeFrameListener must not be called on the render thread.");
       }
       postToRenderThread(() -> {
@@ -507,8 +471,8 @@ public class EglRenderer implements VideoSink {
       ++framesReceived;
     }
     final boolean dropOldFrame;
-    synchronized (handlerLock) {
-      if (renderThreadHandler == null) {
+    synchronized (threadLock) {
+      if (eglThread == null) {
         logD("Dropping frame - Not initialized or already released.");
         return;
       }
@@ -519,7 +483,7 @@ public class EglRenderer implements VideoSink {
         }
         pendingFrame = frame;
         pendingFrame.retain();
-        renderThreadHandler.post(this ::renderFrameOnRenderThread);
+        eglThread.getHandler().post(this::renderFrameOnRenderThread);
       }
     }
     if (dropOldFrame) {
@@ -536,12 +500,11 @@ public class EglRenderer implements VideoSink {
     // Ensure that the render thread is no longer touching the Surface before returning from this
     // function.
     eglSurfaceCreationRunnable.setSurface(null /* surface */);
-    synchronized (handlerLock) {
-      if (renderThreadHandler != null) {
-        renderThreadHandler.removeCallbacks(eglSurfaceCreationRunnable);
-        renderThreadHandler.postAtFrontOfQueue(() -> {
+    synchronized (threadLock) {
+      if (eglThread != null) {
+        eglThread.getHandler().removeCallbacks(eglSurfaceCreationRunnable);
+        eglThread.getHandler().postAtFrontOfQueue(() -> {
           if (eglBase != null) {
-            eglBase.detachCurrent();
             eglBase.releaseSurface();
           }
           completionCallback.run();
@@ -556,9 +519,9 @@ public class EglRenderer implements VideoSink {
    * Private helper function to post tasks safely.
    */
   private void postToRenderThread(Runnable runnable) {
-    synchronized (handlerLock) {
-      if (renderThreadHandler != null) {
-        renderThreadHandler.post(runnable);
+    synchronized (threadLock) {
+      if (eglThread != null) {
+        eglThread.getHandler().post(runnable);
       }
     }
   }
@@ -566,6 +529,7 @@ public class EglRenderer implements VideoSink {
   private void clearSurfaceOnRenderThread(float r, float g, float b, float a) {
     if (eglBase != null && eglBase.hasSurface()) {
       logD("clearSurface");
+      eglBase.makeCurrent();
       GLES20.glClearColor(r, g, b, a);
       GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
       eglBase.swapBuffers();
@@ -583,11 +547,11 @@ public class EglRenderer implements VideoSink {
    * Post a task to clear the surface to a specific color.
    */
   public void clearImage(final float r, final float g, final float b, final float a) {
-    synchronized (handlerLock) {
-      if (renderThreadHandler == null) {
+    synchronized (threadLock) {
+      if (eglThread == null) {
         return;
       }
-      renderThreadHandler.postAtFrontOfQueue(() -> clearSurfaceOnRenderThread(r, g, b, a));
+      eglThread.getHandler().postAtFrontOfQueue(() -> clearSurfaceOnRenderThread(r, g, b, a));
     }
   }
 
@@ -609,6 +573,8 @@ public class EglRenderer implements VideoSink {
       frame.release();
       return;
     }
+    eglBase.makeCurrent();
+
     // Check if fps reduction is active.
     final boolean shouldRenderFrame;
     synchronized (fpsReductionLock) {

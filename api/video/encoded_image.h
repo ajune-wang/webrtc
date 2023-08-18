@@ -149,8 +149,8 @@ class RTC_EXPORT EncodedImage {
     if (playout_delay.has_value()) {
       playout_delay_ = *playout_delay;
     } else {
-      playout_delay_.min_ms = -1;
-      playout_delay_.max_ms = -1;
+      playout_delay_.deprecated_min_ms = -1;
+      playout_delay_.deprecated_max_ms = -1;
     }
   }
 

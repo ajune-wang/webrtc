@@ -101,8 +101,8 @@ std::string TimingFrameInfo::ToString() const {
 }
 
 VideoPlayoutDelay::VideoPlayoutDelay(TimeDelta min, TimeDelta max)
-    : min_ms(std::clamp(min, TimeDelta::Zero(), kMax).ms()),
-      max_ms(std::clamp(max, min, kMax).ms()) {
+    : deprecated_min_ms(std::clamp(min, TimeDelta::Zero(), kMax).ms()),
+      deprecated_max_ms(std::clamp(max, min, kMax).ms()) {
   if (!(TimeDelta::Zero() <= min && min <= max && max <= kMax)) {
     RTC_LOG(LS_ERROR) << "Invalid video playout delay: [" << min << "," << max
                       << "]. Clamped to [" << this->min() << "," << this->max()
@@ -112,8 +112,8 @@ VideoPlayoutDelay::VideoPlayoutDelay(TimeDelta min, TimeDelta max)
 
 bool VideoPlayoutDelay::Set(TimeDelta min, TimeDelta max) {
   if (TimeDelta::Zero() <= min && min <= max && max <= kMax) {
-    min_ms = min.ms();
-    max_ms = max.ms();
+    deprecated_min_ms = min.ms();
+    deprecated_max_ms = max.ms();
     return true;
   }
   return false;

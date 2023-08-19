@@ -103,6 +103,24 @@
       "parentUuid": "008a524f_aeb18400",
       "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d708b22_e9442fd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-19T06:48:32Z",
+      "side": 1,
+      "message": "Makes sense. Shouldn\u0027t this helper function also be used in the first place you quote for consistency?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/config/encoder_stream_factory.cc;l\u003d316;drc\u003d48290eaa6a80203b317bff0b5e6cf91005602c41;bpv\u003d1;bpt\u003d1",
+      "parentUuid": "fd0a4c7e_102385cb",
+      "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8486e164785d01f31c689705ff51746359a768a0',
+  'chromium_revision': 'effa7eeeef74607a8cb90011530e7e6551282400',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,7 +61,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@4f770be4d155107890194fe6f6a4be50321f8649',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@79e86db4ef2eeb5f8ecf11e11b8f97fb956b66ef',
     'condition': 'checkout_ios',
   },
   'src/testing':
@@ -295,7 +295,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@750c6cc9bab16a510d740efc1a9a03eb79ac62dd',
+    'https://android.googlesource.com/platform/external/perfetto.git@7f196bdc6e5ebe2bca86482fa245aefaeb0cb862',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@335728c987b3164ff25c58c06d29eb49e19e21d4',
   'src/third_party/libyuv':
@@ -416,7 +416,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 's0BP2VzrfVz8BFQGrKsjEs-LG7f8nkOTToR3K5KrMWgC',
+          'version': 'jC8-ky1LtSyuidrgfbClewPp00WpJoEAt-ICRtp2d1EC',
       },
     ],
     'condition': 'checkout_android',

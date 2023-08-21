@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b928b83_0125c61b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-08-21T08:03:09Z",
+      "side": 1,
+      "message": "Fixed fuzzing issues reported by Chromium testing. These 2 issues do not appear in previous WebRTC fuzzing testing locally. Fuzzing test target with this fix has been run over 2 hours locally in Chromium build environment.",
+      "revId": "0485c48b620907d7f7f73ffd6e0e7f50fbe1a2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

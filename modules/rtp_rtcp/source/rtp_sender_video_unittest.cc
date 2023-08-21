@@ -1333,7 +1333,8 @@ TEST_F(RtpSenderVideoTest, PopulatesPlayoutDelay) {
   uint8_t kFrame[kPacketSize];
   rtp_module_->RegisterRtpHeaderExtension(PlayoutDelayLimits::Uri(),
                                           kPlayoutDelayExtensionId);
-  const VideoPlayoutDelay kExpectedDelay = {10, 20};
+  const VideoPlayoutDelay kExpectedDelay(TimeDelta::Millis(10),
+                                         TimeDelta::Millis(20));
 
   // Send initial key-frame without playout delay.
   RTPVideoHeader hdr;

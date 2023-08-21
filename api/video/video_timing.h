@@ -122,13 +122,12 @@ struct VideoPlayoutDelay {
   }
 
   VideoPlayoutDelay() = default;
-  VideoPlayoutDelay(int min_ms, int max_ms) : min_ms(min_ms), max_ms(max_ms) {}
   VideoPlayoutDelay(TimeDelta min, TimeDelta max);
 
   bool Set(TimeDelta min, TimeDelta max);
 
-  TimeDelta min() const { return TimeDelta::Millis(min_ms); }
-  TimeDelta max() const { return TimeDelta::Millis(max_ms); }
+  TimeDelta min() const { return TimeDelta::Millis(deprecated_min_ms); }
+  TimeDelta max() const { return TimeDelta::Millis(deprecated_max_ms); }
 
   // TODO(bugs.webrtc.org/13756): Make members private and enforce the invariant
   // in the constructors and setter.
@@ -138,11 +137,18 @@ struct VideoPlayoutDelay {
 
   // TODO(bugs.webrtc.org/13756): Make members private and change their type to
   // TimeDelta.
-  int min_ms = -1;
-  int max_ms = -1;
+  union {
+    [[deprecated("bugs.webrtc.org/13756")]] int min_ms = -1;
+    int deprecated_min_ms;
+  };
+  union {
+    [[deprecated("bugs.webrtc.org/13756")]] int max_ms = -1;
+    int deprecated_max_ms;
+  };
 
   bool operator==(const VideoPlayoutDelay& rhs) const {
-    return min_ms == rhs.min_ms && max_ms == rhs.max_ms;
+    return deprecated_min_ms == rhs.deprecated_min_ms &&
+           deprecated_max_ms == rhs.deprecated_max_ms;
   }
 };
 

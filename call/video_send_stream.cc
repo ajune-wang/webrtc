@@ -50,8 +50,6 @@ std::string VideoSendStream::StreamStats::ToString() const {
   ss << "delta: " << frame_counts.delta_frames << ", ";
   ss << "total_bps: " << total_bitrate_bps << ", ";
   ss << "retransmit_bps: " << retransmit_bitrate_bps << ", ";
-  ss << "avg_delay_ms: " << avg_delay_ms << ", ";
-  ss << "max_delay_ms: " << max_delay_ms << ", ";
   if (report_block_data) {
     ss << "cum_loss: " << report_block_data->cumulative_lost() << ", ";
     ss << "max_ext_seq: "

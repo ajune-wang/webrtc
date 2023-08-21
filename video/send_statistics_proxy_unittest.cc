@@ -151,8 +151,6 @@ class SendStatisticsProxyTest : public ::testing::Test {
       EXPECT_EQ(a.frame_counts.key_frames, b.frame_counts.key_frames);
       EXPECT_EQ(a.frame_counts.delta_frames, b.frame_counts.delta_frames);
       EXPECT_EQ(a.total_bitrate_bps, b.total_bitrate_bps);
-      EXPECT_EQ(a.avg_delay_ms, b.avg_delay_ms);
-      EXPECT_EQ(a.max_delay_ms, b.max_delay_ms);
 
       EXPECT_EQ(a.rtp_stats.transmitted.payload_bytes,
                 b.rtp_stats.transmitted.payload_bytes);
@@ -327,8 +325,6 @@ TEST_F(SendStatisticsProxyTest, SendSideDelay) {
     int avg_delay_ms = ssrc;
     int max_delay_ms = ssrc + 1;
     observer->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, ssrc);
-    expected_.substreams[ssrc].avg_delay_ms = avg_delay_ms;
-    expected_.substreams[ssrc].max_delay_ms = max_delay_ms;
   }
   for (const auto& ssrc : config_.rtp.rtx.ssrcs) {
     // Use ssrc as avg_delay_ms and max_delay_ms to get a unique value for each
@@ -336,8 +332,6 @@ TEST_F(SendStatisticsProxyTest, SendSideDelay) {
     int avg_delay_ms = ssrc;
     int max_delay_ms = ssrc + 1;
     observer->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, ssrc);
-    expected_.substreams[ssrc].avg_delay_ms = avg_delay_ms;
-    expected_.substreams[ssrc].max_delay_ms = max_delay_ms;
   }
   VideoSendStream::Stats stats = statistics_proxy_->GetStats();
   ExpectEqual(expected_, stats);

@@ -212,9 +212,6 @@ TEST_F(StatsEndToEndTest, GetStats) {
         send_stats_filled_[CompoundKey("OutgoingRate", kv.first)] |=
             stats.encode_frame_rate != 0;
 
-        send_stats_filled_[CompoundKey("Delay", kv.first)] |=
-            stream_stats.avg_delay_ms != 0 || stream_stats.max_delay_ms != 0;
-
         // TODO(pbos): Use CompoundKey when the test makes sure that all SSRCs
         // report dropped packets.
         send_stats_filled_["RtcpPacketTypeCount"] |=

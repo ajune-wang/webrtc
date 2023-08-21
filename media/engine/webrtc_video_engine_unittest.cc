@@ -5902,8 +5902,6 @@ TEST_F(WebRtcVideoChannelTest, GetAggregatedStatsReportForSubStreams) {
   substream.height = 4;
   substream.total_bitrate_bps = 5;
   substream.retransmit_bitrate_bps = 6;
-  substream.avg_delay_ms = 7;
-  substream.max_delay_ms = 8;
   substream.rtp_stats.transmitted.total_packet_delay =
       webrtc::TimeDelta::Millis(9);
   substream.rtp_stats.transmitted.header_bytes = 10;
@@ -6026,8 +6024,6 @@ TEST_F(WebRtcVideoChannelTest, GetPerLayerStatsReportForSubStreams) {
   substream.height = 4;
   substream.total_bitrate_bps = 5;
   substream.retransmit_bitrate_bps = 6;
-  substream.avg_delay_ms = 7;
-  substream.max_delay_ms = 8;
   substream.rtp_stats.transmitted.total_packet_delay =
       webrtc::TimeDelta::Millis(9);
   substream.rtp_stats.transmitted.header_bytes = 10;

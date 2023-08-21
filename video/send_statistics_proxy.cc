@@ -1395,8 +1395,6 @@ void SendStatisticsProxy::SendSideDelayUpdated(int avg_delay_ms,
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
   if (!stats)
     return;
-  stats->avg_delay_ms = avg_delay_ms;
-  stats->max_delay_ms = max_delay_ms;
 
   uma_container_->delay_counter_.Add(avg_delay_ms);
   uma_container_->max_delay_counter_.Add(max_delay_ms);

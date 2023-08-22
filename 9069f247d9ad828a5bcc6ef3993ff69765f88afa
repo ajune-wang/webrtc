@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff6b8ad_b77a48ef",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-08-22T09:49:32Z",
+      "side": 1,
+      "message": "Is 1..1000 a correct span here? Note that all the values above 1000ms would be clamped here. Is that fine? Also, note that histograms have only 50 buckets. Is this precision enough for you?",
+      "range": {
+        "startLine": 203,
+        "startChar": 24,
+        "endLine": 203,
+        "endChar": 29
+      },
+      "revId": "9069f247d9ad828a5bcc6ef3993ff69765f88afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399f250a_12d72d91",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-08-22T09:49:32Z",
+      "side": 1,
+      "message": "Please add the histograms in the same CL to tools/metrics/histograms/metadata/web_rtc/histograms.xml, similar to https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/metadata/web_rtc/histograms.xml;l\u003d2309;drc\u003d21b68e148fd7e7ab1bcce32c00af88993665b35f\n(probably don\u0027t mark it as \"never\" expiring).",
+      "range": {
+        "startLine": 204,
+        "startChar": 37,
+        "endLine": 204,
+        "endChar": 60
+      },
+      "revId": "9069f247d9ad828a5bcc6ef3993ff69765f88afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

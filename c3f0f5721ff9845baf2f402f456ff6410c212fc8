@@ -159,6 +159,24 @@
       "parentUuid": "1a2ddcbd_be98d0e0",
       "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3976093_a6884d93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T08:07:21Z",
+      "side": 1,
+      "message": "Should have deleted use_rtx() when I had the chance :-)\n\nI agree that the CL fixes an inconsistency, and is now tested (albeit awkwardly), so I think we should submit it. Separately, if we find that you can get done what you want to get done by manipulating setCodecPreferences, I think we should delete use_rtx entirely. I\u0027ll file a bug on that.",
+      "parentUuid": "377d9802_0545a7ae",
+      "revId": "c3f0f5721ff9845baf2f402f456ff6410c212fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

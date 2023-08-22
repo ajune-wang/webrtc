@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c82f1c3_5e67e758",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-22T17:01:42Z",
+      "side": 1,
+      "message": "That should have been burned a while ago, any reason not to?",
+      "revId": "18d1c7969cca4590a2dc94bd47de56a43f7e029e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

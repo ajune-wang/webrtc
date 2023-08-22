@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7010c0507b11f77be647baeeeab91f84e46c3864',
+  'chromium_revision': '419cb2f4fe6ebd24130c3ac54f0e40208b7e3a8e',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,7 +50,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@01fe391592a6b6095d32e039b69549f8ef2ef507',
+    'https://chromium.googlesource.com/chromium/src/base@abf04abb9e27ccc5f397edb8d4dde4a81a758a7e',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@7000c92a0593c585976a8aefd5b254feacef3feb',
   'src/buildtools':
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@b50351efe03478c3ff5963f59c8167782c44e827',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@36d9e00caa4600c3a5dd0f5529133cace157358a',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@79c1c4af99efae0872cfee237f831cdefce1d2bb',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ba53e458acb7cd25bdcff5a0d887c2d26a928baf',
+    'https://chromium.googlesource.com/chromium/src/third_party@19b1d31ec1c59b38300f63be9d5692c09f9bb5c0',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@e51472f9faf80f34f5b89c4e53cfbc0243dd0d72',
+    'https://chromium.googlesource.com/chromium/src/tools@9884d434367ec56754143ee69810f116a44e1690',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -416,7 +416,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '84jRVDAs3H8N5K3z5rMB6TRrG-g1tl0-EDU11BYWVOkC',
+          'version': 'nW298JL5_8WOibrC3kxRXgMsBwmUseU59P14H26Hl5AC',
       },
     ],
     'condition': 'checkout_android',

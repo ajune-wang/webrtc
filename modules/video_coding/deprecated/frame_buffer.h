@@ -16,6 +16,7 @@
 
 #include <vector>
 
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "modules/video_coding/deprecated/jitter_buffer_common.h"
 #include "modules/video_coding/deprecated/packet.h"
@@ -70,6 +71,18 @@ class VCMFrameBuffer : public VCMEncodedFrame {
 
   webrtc::VideoFrameType FrameType() const;
 
+  /**
+   *   Get codec specific info.
+   *   The returned pointer is only valid as long as the VCMEncodedFrame
+   *   is valid. Also, VCMEncodedFrame owns the pointer and will delete
+   *   the object.
+   */
+  const CodecSpecificInfo* CodecSpecific() const { return &_codecSpecificInfo; }
+  void SetCodecSpecific(const CodecSpecificInfo* codec_specific) {
+    _codecSpecificInfo = *codec_specific;
+  }
+  void CopyCodecSpecific(const RTPVideoHeader* header);
+
  private:
   void SetState(VCMFrameBufferStateEnum state);  // Set state of frame
 
@@ -80,6 +93,7 @@ class VCMFrameBuffer : public VCMEncodedFrame {
   VCMSessionInfo _sessionInfo;
   uint16_t _nackCount;
   int64_t _latestPacketTimeMs;
+  CodecSpecificInfo _codecSpecificInfo;
 };
 
 }  // namespace webrtc

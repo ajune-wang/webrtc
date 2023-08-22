@@ -75,7 +75,7 @@ class WebRtcRecordableEncodedFrame : public RecordableEncodedFrame {
       RecordableEncodedFrame::EncodedResolution resolution)
       : buffer_(frame.GetEncodedData()),
         render_time_ms_(frame.RenderTime()),
-        codec_(frame.CodecSpecific()->codecType),
+        codec_(frame.Codec()),
         is_key_frame_(frame.FrameType() == VideoFrameType::kVideoFrameKey),
         resolution_(resolution) {
     if (frame.ColorSpace()) {
@@ -763,12 +763,12 @@ void VideoReceiveStream2::OnEncodedFrame(std::unique_ptr<EncodedFrame> frame) {
   // Current OnPreDecode only cares about QP for VP8.
   // TODO(brandtr): Move to stats_proxy_.OnDecodableFrame in VSBC, or deprecate.
   int qp = -1;
-  if (frame->CodecSpecific()->codecType == kVideoCodecVP8) {
+  if (frame->Codec() == kVideoCodecVP8) {
     if (!vp8::GetQp(frame->data(), frame->size(), &qp)) {
       RTC_LOG(LS_WARNING) << "Failed to extract QP from VP8 video frame";
     }
   }
-  stats_proxy_.OnPreDecode(frame->CodecSpecific()->codecType, qp);
+  stats_proxy_.OnPreDecode(frame->Codec(), qp);
 
   decode_queue_.PostTask([this, now, keyframe_request_is_due,
                           received_frame_is_keyframe, frame = std::move(frame),

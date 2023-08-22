@@ -68,6 +68,24 @@
       "message": "orphis: quick second set of eyes please",
       "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41274ea6_38bf684f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-22T13:08:09Z",
+      "side": 1,
+      "message": "*must* be called unconditionally",
+      "parentUuid": "3d145c5d_450e321c",
+      "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

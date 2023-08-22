@@ -13,6 +13,9 @@
 #include "absl/types/optional.h"
 
 namespace webrtc {
+EncodedFrame::~EncodedFrame() {
+  Reset();
+}
 
 absl::optional<Timestamp> EncodedFrame::ReceivedTimestamp() const {
   return ReceivedTime() >= 0
@@ -28,6 +31,22 @@ absl::optional<Timestamp> EncodedFrame::RenderTimestamp() const {
 
 bool EncodedFrame::delayed_by_retransmission() const {
   return false;
+}
+
+void EncodedFrame::Reset() {
+  SetTimestamp(0);
+  SetSpatialIndex(absl::nullopt);
+  _renderTimeMs = -1;
+  _payloadType = 0;
+  _frameType = VideoFrameType::kVideoFrameDelta;
+  _encodedWidth = 0;
+  _encodedHeight = 0;
+  _missingFrame = false;
+  set_size(0);
+  _codec = kVideoCodecGeneric;
+  rotation_ = kVideoRotation_0;
+  content_type_ = VideoContentType::UNSPECIFIED;
+  timing_.flags = VideoSendTiming::kInvalid;
 }
 
 }  // namespace webrtc

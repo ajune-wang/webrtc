@@ -16,6 +16,23 @@
       "message": "That should have been burned a while ago, any reason not to?",
       "revId": "18d1c7969cca4590a2dc94bd47de56a43f7e029e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc1067f4_c6139c73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T19:03:46Z",
+      "side": 1,
+      "message": "When we tried this previously (a few months ago), we were told that we first had to deprecate the policy flag in Chrome that allowed it - there\u0027s a process for that, but it was so complex, I didn\u0027t have the guts to start on it.",
+      "revId": "18d1c7969cca4590a2dc94bd47de56a43f7e029e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

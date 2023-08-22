@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13153f93_13e0d49b",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "I don\u0027t like this style much - the #ifdef is too long.\nBut still - probably more readable. Done.",
+      "parentUuid": "a4700992_918ebe60",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f163f94_dc93481e",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-08-22T13:11:28Z",
       "side": 1,
       "message": "is a null `addresses` pointer allowed? (if not, should we use reference?)",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04ffe3a0_aa5c8178",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "Yes, let\u0027s use references. This code was cloned from stuff that\u0027s older than the allowance for references.",
+      "parentUuid": "7f163f94_dc93481e",
       "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fdd7c79f_da5b7272",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "It\u0027s a wrapper around getaddrinfo(), which returns an int, so it could return an alternative between an int and a vector of addresses. RTCError isn\u0027t involved at this level. But I think it\u0027s not worth bothering with.",
+      "parentUuid": "90a8ca9c_84fd9d08",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "362e3256_9c6e1b34",
         "filename": "rtc_base/async_dns_resolver.cc",
         "patchSetId": 2
@@ -82,6 +136,24 @@
       "writtenOn": "2023-08-22T13:11:28Z",
       "side": 1,
       "message": "nit: #endif  // defined(WEBRTC_MAC) || defined(WEBRTC_IOS)",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71a71770_89d2d2ff",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "362e3256_9c6e1b34",
       "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -99,6 +171,24 @@
       "writtenOn": "2023-08-22T13:11:28Z",
       "side": 1,
       "message": "nit: \u003d default;",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21990a1a_2c2c9373",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "I\u0027ll delete it. When I started, I thought I\u0027d need to put something there, but I don\u0027t see the need any more.",
+      "parentUuid": "4f9b5190_eccab155",
       "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf95b07c_72951e36",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "That would change the signature of the class, and the signature is 2 years old. Might do that in a separate CL, after having landed the change of \"default implementation\" to the new one.\n\nstd::move makes sense.",
+      "parentUuid": "d51aefec_09be15c2",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4438f615_3e2e941f",
         "filename": "rtc_base/async_dns_resolver.cc",
         "patchSetId": 2
@@ -133,6 +241,24 @@
       "writtenOn": "2023-08-22T13:11:28Z",
       "side": 1,
       "message": "same here",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "281a2e99_2666952b",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "later CL.",
+      "parentUuid": "4438f615_3e2e941f",
       "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +280,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1c823c6_02a136a7",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "Old code! Changed.",
+      "parentUuid": "b9adddb1_eb13e5d0",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a50fd2c1_8c0b5d43",
@@ -167,6 +311,30 @@
       "writtenOn": "2023-08-22T13:11:28Z",
       "side": 1,
       "message": "RunLoop should work fine here instead",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e7f8ce_62e7cf82",
+        "filename": "rtc_base/async_dns_resolver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a50fd2c1_8c0b5d43",
       "range": {
         "startLine": 26,
         "startChar": 33,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8959afe6_f425e7c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T13:54:51Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nDon\u0027t want to change the API of the class that\u0027s in api/ at the same time as messing around with the implementation, so leaving std::function -\u003e absl::AnyInvocable to a later CL.",
+      "revId": "120ca59cd7966e0ec5d81340004208b6804fe79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

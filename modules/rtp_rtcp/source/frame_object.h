@@ -16,6 +16,7 @@
 #include "absl/types/optional.h"
 #include "api/video/encoded_frame.h"
 #include "api/video/video_frame_metadata.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 
 namespace webrtc {
 

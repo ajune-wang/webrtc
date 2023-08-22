@@ -16,6 +16,165 @@
       "message": "I think you reviewed some of the CLs of this 2 years ago.",
       "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4700992_918ebe60",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "nit: can we change this so that this #ifdef isn\u0027t a part of the main implementation?  Having it mixed in is a bit distracting I find.\n\nI.e.\n\n#ifdef __native_client__\nint ResolveHostname(absl::string_view hostname,\n                    int family,\n                    std::vector\u003crtc::IPAddress\u003e* addresses) {\n  RTC_DCHECK_NOTREACHED();\n  RTC_LOG(LS_WARNING) \u003c\u003c \"ResolveHostname() is not implemented for NaCl\";\n  return -1;\n}\n\n#else\n\nint ResolveHostname(absl::string_view hostname,\n                    int family,\n                    std::vector\u003crtc::IPAddress\u003e* addresses) {\n  \u003cmain implementation\u003e\n}\n\n#endif",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f163f94_dc93481e",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "is a null `addresses` pointer allowed? (if not, should we use reference?)",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90a8ca9c_84fd9d08",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "RTC_DCHECK(addresses-\u003eempty())?\n\nActually, would it make sense for `ResolveHostname` to use `RTCErrorOr\u003cstd::vector\u003crtc::IPAddress\u003e\u003e` as the return type?",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "362e3256_9c6e1b34",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "nit: #endif  // defined(WEBRTC_MAC) || defined(WEBRTC_IOS)",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9b5190_eccab155",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "nit: \u003d default;",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d51aefec_09be15c2",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "std::move()?\n\nactually, should we use absl::AnyInvocable here instead of std::function?",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4438f615_3e2e941f",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9adddb1_eb13e5d0",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "nit: `for (const auto\u0026 address : addresses_) {` (or is there a reason for why that doesn\u0027t work?)",
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a50fd2c1_8c0b5d43",
+        "filename": "rtc_base/async_dns_resolver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-22T13:11:28Z",
+      "side": 1,
+      "message": "RunLoop should work fine here instead",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 34
+      },
+      "revId": "6bda550af1d13676af0d5c8f26d47ea2be25b8ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

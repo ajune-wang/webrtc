@@ -28,6 +28,7 @@
 #include "rtc_base/string_encode.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -186,6 +187,23 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
         frame_info->timing.network_timestamp_ms - sender_delta_ms;
     timing_frame_info.network2_timestamp_ms =
         frame_info->timing.network2_timestamp_ms - sender_delta_ms;
+    RTC_HISTOGRAM_COUNTS_1000(
+        "WebRTC.Video.GenericDecoder.CaptureToEncodeDelay",
+        timing_frame_info.encode_start_ms - timing_frame_info.capture_time_ms);
+    RTC_HISTOGRAM_COUNTS_1000(
+        "WebRTC.Video.GenericDecoder.EncodeDelay",
+        timing_frame_info.encode_finish_ms - timing_frame_info.encode_start_ms);
+    RTC_HISTOGRAM_COUNTS_1000(
+        "WebRTC.Video.GenericDecoder.CaptureToPacerOutDelay",
+        timing_frame_info.pacer_exit_ms - timing_frame_info.capture_time_ms);
+    RTC_HISTOGRAM_COUNTS_1000(
+        "WebRTC.Video.GenericDecoder.PacerOutToNetworkDelay",
+        timing_frame_info.capture_time_ms -
+            timing_frame_info.network_timestamp_ms);
+    RTC_HISTOGRAM_COUNTS_1000(
+        "WebRTC.Video.GenericDecoder.PacerOutToNetwork2Delay",
+        timing_frame_info.capture_time_ms -
+            timing_frame_info.network2_timestamp_ms);
   }
 
   timing_frame_info.flags = frame_info->timing.flags;

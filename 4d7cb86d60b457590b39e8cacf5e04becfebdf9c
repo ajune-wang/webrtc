@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2ed928_ae16898c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:53:47Z",
+      "side": 1,
+      "message": "Ignoring",
+      "parentUuid": "d46dd277_c450fdc7",
+      "revId": "4d7cb86d60b457590b39e8cacf5e04becfebdf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1617fb65_7b04ea04",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-08-22T11:32:09Z",
       "side": 1,
       "message": "A typo here.",
+      "range": {
+        "startLine": 217,
+        "startChar": 50,
+        "endLine": 217,
+        "endChar": 70
+      },
+      "revId": "4d7cb86d60b457590b39e8cacf5e04becfebdf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d876ab9_7d90df10",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:53:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1617fb65_7b04ea04",
       "range": {
         "startLine": 217,
         "startChar": 50,

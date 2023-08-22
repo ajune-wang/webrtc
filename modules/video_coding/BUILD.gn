@@ -18,7 +18,7 @@ rtc_library("encoded_frame") {
   deps = [
     ":codec_globals_headers",
     ":video_codec_interface",
-    "../../api/video:encoded_image",
+    "../../api/video:encoded_frame",
     "../../api/video:video_frame",
     "../../api/video:video_rtp_headers",
     "../../modules:module_api_public",

@@ -122,6 +122,9 @@ class WebRtcVideoEngine : public VideoEngineInterface {
   std::vector<VideoCodec> recv_codecs() const override {
     return recv_codecs(true);
   }
+  void AddSendCodec(const VideoCodec& codec) override;
+  void AddReceiveCodec(const VideoCodec& codec) override;
+
   std::vector<VideoCodec> send_codecs(bool include_rtx) const override;
   std::vector<VideoCodec> recv_codecs(bool include_rtx) const override;
   std::vector<webrtc::RtpHeaderExtensionCapability> GetRtpHeaderExtensions()
@@ -133,6 +136,10 @@ class WebRtcVideoEngine : public VideoEngineInterface {
   const std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
       bitrate_allocator_factory_;
   const webrtc::FieldTrialsView& trials_;
+
+  // User defined send and receive codecs, used for SDP negotiation only
+  std::vector<VideoCodec> user_defined_send_codecs_;
+  std::vector<VideoCodec> user_defined_receive_codecs_;
 };
 
 struct VideoCodecSettings {

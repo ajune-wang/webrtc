@@ -169,6 +169,11 @@ class SdpOfferAnswerHandler : public SdpStateProvider {
   // Destroys all BaseChannels and destroys the SCTP data channel, if present.
   void DestroyAllChannels();
 
+  RTCError AddSenderCodecCapability(absl::string_view kind,
+                                    const RtpCodecCapability& capability);
+  RTCError AddReceiverCodecCapability(absl::string_view kind,
+                                      const RtpCodecCapability& capability);
+
   rtc::scoped_refptr<StreamCollectionInterface> local_streams();
   rtc::scoped_refptr<StreamCollectionInterface> remote_streams();
 

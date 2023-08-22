@@ -235,6 +235,19 @@ class PeerConnection : public PeerConnectionInternal,
   bool RemoveIceCandidates(
       const std::vector<cricket::Candidate>& candidates) override;
 
+  RTCError AddSenderCodecCapability(absl::string_view kind,
+                                    RtpCodecCapability capability) override {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+
+    return sdp_handler_->AddSenderCodecCapability(kind, capability);
+  }
+  RTCError AddReceiverCodecCapability(absl::string_view kind,
+                                      RtpCodecCapability capability) override {
+    RTC_DCHECK_RUN_ON(signaling_thread());
+
+    return sdp_handler_->AddReceiverCodecCapability(kind, capability);
+  }
+
   RTCError SetBitrate(const BitrateSettings& bitrate) override;
 
   void SetAudioPlayout(bool playout) override;

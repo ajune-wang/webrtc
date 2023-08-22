@@ -114,6 +114,10 @@ class RTC_EXPORT RtpSenderInterface : public rtc::RefCountInterface {
     return RTCError::OK();
   }
 
+  virtual RTCError SetEncodingCodec(RtpCodecCapability codec) {
+    return RTCError(RTCErrorType::INTERNAL_ERROR, "Not implemented");
+  }
+
  protected:
   ~RtpSenderInterface() override = default;
 };

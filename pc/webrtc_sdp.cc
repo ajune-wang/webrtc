@@ -1931,6 +1931,8 @@ void BuildRtpmap(const MediaContentDescription* media_desc,
   RTC_DCHECK(media_desc != NULL);
   rtc::StringBuilder os;
   if (media_type == cricket::MEDIA_TYPE_VIDEO) {
+    RTC_LOG(LS_ERROR) << "DEBUG: Number of codecs is "
+                      << media_desc->as_video()->codecs().size();
     for (const cricket::VideoCodec& codec : media_desc->as_video()->codecs()) {
       // RFC 4566
       // a=rtpmap:<payload type> <encoding name>/<clock rate>

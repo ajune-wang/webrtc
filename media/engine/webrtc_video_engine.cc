@@ -747,15 +747,33 @@ WebRtcVideoEngine::CreateReceiveChannel(
 }
 
 std::vector<VideoCodec> WebRtcVideoEngine::send_codecs(bool include_rtx) const {
-  return GetPayloadTypesAndDefaultCodecs(encoder_factory_.get(),
-                                         /*is_decoder_factory=*/false,
-                                         include_rtx, trials_);
+  auto temp = GetPayloadTypesAndDefaultCodecs(encoder_factory_.get(),
+                                              /*is_decoder_factory=*/false,
+                                              include_rtx, trials_);
+  temp.insert(temp.end(), user_defined_send_codecs_.begin(),
+              user_defined_send_codecs_.end());
+  RTC_LOG(LS_ERROR) << "DEBUG: send_codecs() returning size " << temp.size()
+                    << " including " << user_defined_send_codecs_.size()
+                    << " custom codecs";
+  return temp;
 }
 
 std::vector<VideoCodec> WebRtcVideoEngine::recv_codecs(bool include_rtx) const {
-  return GetPayloadTypesAndDefaultCodecs(decoder_factory_.get(),
-                                         /*is_decoder_factory=*/true,
-                                         include_rtx, trials_);
+  auto temp = GetPayloadTypesAndDefaultCodecs(decoder_factory_.get(),
+                                              /*is_decoder_factory=*/true,
+                                              include_rtx, trials_);
+  temp.insert(temp.end(), user_defined_receive_codecs_.begin(),
+              user_defined_receive_codecs_.end());
+  return temp;
+}
+
+void WebRtcVideoEngine::AddSendCodec(const VideoCodec& codec) {
+  RTC_LOG(LS_ERROR) << "DEBUG: Adding custom send codec";
+  user_defined_send_codecs_.push_back(codec);
+}
+
+void WebRtcVideoEngine::AddReceiveCodec(const VideoCodec& codec) {
+  user_defined_receive_codecs_.push_back(codec);
 }
 
 std::vector<webrtc::RtpHeaderExtensionCapability>

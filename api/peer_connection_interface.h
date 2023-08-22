@@ -1134,6 +1134,18 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   virtual bool RemoveIceCandidates(
       const std::vector<cricket::Candidate>& candidates) = 0;
 
+  // Functions for manipulating the SDP-negotiated codec names.
+  // Useful in conjunction with encoded insertable streams.
+  // TODO(hta): Make pure virtual when finished.
+  virtual RTCError AddSenderCodecCapability(absl::string_view kind,
+                                            RtpCodecCapability capability) {
+    return RTCError(RTCErrorType::INTERNAL_ERROR, "Not implemented");
+  }
+  virtual RTCError AddReceiverCodecCapability(absl::string_view kind,
+                                              RtpCodecCapability capability) {
+    return RTCError(RTCErrorType::INTERNAL_ERROR, "Not implemented");
+  }
+
   // SetBitrate limits the bandwidth allocated for all RTP streams sent by
   // this PeerConnection. Other limitations might affect these limits and
   // are respected (for example "b=AS" in SDP).

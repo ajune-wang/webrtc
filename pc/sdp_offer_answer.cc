@@ -5172,6 +5172,45 @@ void SdpOfferAnswerHandler::DestroyAllChannels() {
 
   DestroyDataChannelTransport({});
 }
+RTCError SdpOfferAnswerHandler::AddSenderCodecCapability(
+    absl::string_view kind,
+    const RtpCodecCapability& capability) {
+  if (capability.kind == cricket::MEDIA_TYPE_AUDIO) {
+    int preferred_payload_type = capability.preferred_payload_type
+                                     ? *capability.preferred_payload_type
+                                     : 555;
+    cricket::Codec codec = cricket::CreateAudioCodec(
+        preferred_payload_type, capability.name,
+        capability.clock_rate ? *capability.clock_rate : 8000,
+        capability.num_channels ? *capability.num_channels : 2);
+    context_->media_engine()->voice().AddSendCodec(codec);
+  } else {
+    RTC_DCHECK(capability.kind == cricket::MEDIA_TYPE_VIDEO);
+    cricket::Codec codec = cricket::CreateVideoCodec(capability.name);
+    context_->media_engine()->video().AddSendCodec(codec);
+  }
+  return RTCError::OK();
+}
+
+RTCError SdpOfferAnswerHandler::AddReceiverCodecCapability(
+    absl::string_view kind,
+    const RtpCodecCapability& capability) {
+  if (capability.kind == cricket::MEDIA_TYPE_AUDIO) {
+    int preferred_payload_type = capability.preferred_payload_type
+                                     ? *capability.preferred_payload_type
+                                     : 555;
+    cricket::Codec codec = cricket::CreateAudioCodec(
+        preferred_payload_type, capability.name,
+        capability.clock_rate ? *capability.clock_rate : 8000,
+        capability.num_channels ? *capability.num_channels : 2);
+    context_->media_engine()->voice().AddReceiveCodec(codec);
+  } else {
+    RTC_DCHECK(capability.kind == cricket::MEDIA_TYPE_VIDEO);
+    cricket::Codec codec = cricket::CreateVideoCodec(capability.name);
+    context_->media_engine()->video().AddReceiveCodec(codec);
+  }
+  return RTCError::OK();
+}
 
 void SdpOfferAnswerHandler::GenerateMediaDescriptionOptions(
     const SessionDescriptionInterface* session_desc,

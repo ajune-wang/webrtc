@@ -114,6 +114,10 @@ class RTC_EXPORT RtpReceiverInterface : public rtc::RefCountInterface {
   virtual void SetDepacketizerToDecoderFrameTransformer(
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
 
+  virtual RTCError AddDecodingCodec(RtpCodecParameters parameters) {
+    return RTCError(RTCErrorType::INTERNAL_ERROR, "Not implemented");
+  }
+
  protected:
   ~RtpReceiverInterface() override = default;
 };

@@ -120,6 +120,16 @@ class VoiceEngineInterface : public RtpHeaderExtensionQueryInterface {
   virtual const std::vector<AudioCodec>& send_codecs() const = 0;
   virtual const std::vector<AudioCodec>& recv_codecs() const = 0;
 
+  virtual void AddSendCodec(const AudioCodec& codec) {
+    // Default impl in order to not bother the mocks
+    RTC_CHECK_NOTREACHED();
+  }
+
+  virtual void AddReceiveCodec(const AudioCodec& codec) {
+    // Default impl in order to not bother the mocks
+    RTC_CHECK_NOTREACHED();
+  }
+
   // Starts AEC dump using existing file, a maximum file size in bytes can be
   // specified. Logging is stopped just before the size limit is exceeded.
   // If max_size_bytes is set to a value <= 0, no limit will be used.
@@ -175,6 +185,16 @@ class VideoEngineInterface : public RtpHeaderExtensionQueryInterface {
   virtual std::vector<VideoCodec> recv_codecs(bool include_rtx) const {
     RTC_DCHECK(include_rtx);
     return recv_codecs();
+  }
+
+  virtual void AddSendCodec(const VideoCodec& codec) {
+    // Default impl in order to not bother the mocks
+    RTC_CHECK_NOTREACHED();
+  }
+
+  virtual void AddReceiveCodec(const VideoCodec& codec) {
+    // Default impl in order to not bother the mocks
+    RTC_CHECK_NOTREACHED();
   }
 };
 

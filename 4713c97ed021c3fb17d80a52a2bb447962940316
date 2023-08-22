@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09dfd46_9fe56d0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-22T14:27:12Z",
+      "side": 1,
+      "message": "since you reminded me... will land only after M118 branch cut.",
+      "revId": "4713c97ed021c3fb17d80a52a2bb447962940316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

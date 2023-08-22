@@ -16,6 +16,23 @@
       "message": "Typically this is showing that the transport is null which is boring.",
       "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01ec2249_9e16d35a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-22T11:03:14Z",
+      "side": 1,
+      "message": "Does SetRtcpDtlsTransport and SetRtcpPacketTransport do anything when transport is null?\n\nI guess if we switch from non-RTCPmux to RTCPmux, there might be a point to them.",
+      "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,41 @@
       "message": "Does SetRtcpDtlsTransport and SetRtcpPacketTransport do anything when transport is null?\n\nI guess if we switch from non-RTCPmux to RTCPmux, there might be a point to them.",
       "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d145c5d_450e321c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-22T11:26:20Z",
+      "side": 1,
+      "message": "changing from non-null to null would unsubscribe an event so this might be called unconditionally.",
+      "parentUuid": "01ec2249_9e16d35a",
+      "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b36cdd8a_5fcbcaf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-08-22T11:26:20Z",
+      "side": 1,
+      "message": "orphis: quick second set of eyes please",
+      "revId": "af5a3c30718710f06cf2394d5f1c9824f4b1d123",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fca2f8d4_a96e992d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:00:28Z",
+      "side": 1,
+      "message": "Great proposal. Will add. Understand that these three are local.",
+      "parentUuid": "fba48275_6c82991c",
+      "revId": "9069f247d9ad828a5bcc6ef3993ff69765f88afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17c1b22b_df1131bc",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-08-22T10:23:09Z",
       "side": 1,
       "message": "You shouldn\u0027t really use network_timestamp_ms and network_timestamp2_ms at all. These are left there for the application to keep track of the backend processing delay. So reporting it in chromium doesn\u0027t make a lot of sense.",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 43
+      },
+      "revId": "9069f247d9ad828a5bcc6ef3993ff69765f88afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8d75c7_916688bb",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:00:28Z",
+      "side": 1,
+      "message": "Removed. Thanks.",
+      "parentUuid": "17c1b22b_df1131bc",
       "range": {
         "startLine": 201,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d23148_10792233",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:00:28Z",
+      "side": 1,
+      "message": "We have tried _500 before and it worked well in a typical screenshare case even with passive listener. Extended to 1000 just in case. Default resolution works for me since I am mainly trying to find large diffenences.",
+      "parentUuid": "1ff6b8ad_b77a48ef",
+      "range": {
+        "startLine": 203,
+        "startChar": 24,
+        "endLine": 203,
+        "endChar": 29
+      },
+      "revId": "9069f247d9ad828a5bcc6ef3993ff69765f88afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "399f250a_12d72d91",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-08-22T09:49:32Z",
       "side": 1,
       "message": "Please add the histograms in the same CL to tools/metrics/histograms/metadata/web_rtc/histograms.xml, similar to https://source.chromium.org/chromium/chromium/src/+/main:tools/metrics/histograms/metadata/web_rtc/histograms.xml;l\u003d2309;drc\u003d21b68e148fd7e7ab1bcce32c00af88993665b35f\n(probably don\u0027t mark it as \"never\" expiring).",
+      "range": {
+        "startLine": 204,
+        "startChar": 37,
+        "endLine": 204,
+        "endChar": 60
+      },
+      "revId": "9069f247d9ad828a5bcc6ef3993ff69765f88afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc6bf03_bc321cf8",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:00:28Z",
+      "side": 1,
+      "message": "Will add after fixing the other comments first.",
+      "parentUuid": "399f250a_12d72d91",
       "range": {
         "startLine": 204,
         "startChar": 37,

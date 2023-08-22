@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16a34bcd_09d884ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-08-22T11:00:28Z",
+      "side": 1,
+      "message": "Fixed all non-XML parts. Plan to upload XML next.",
+      "revId": "4d7cb86d60b457590b39e8cacf5e04becfebdf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

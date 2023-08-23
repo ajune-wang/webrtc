@@ -25,6 +25,7 @@
 #if defined(WEBRTC_USE_GIO)
 #include "modules/desktop_capture/desktop_capture_metadata.h"
 #endif  // defined(WEBRTC_USE_GIO)
+#include "api/units/frequency.h"
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/shared_memory.h"
@@ -55,6 +56,12 @@ class RTC_EXPORT DesktopCapturer {
     MAX_VALUE = ERROR_PERMANENT
   };
 
+#if defined(CHROMEOS)
+  typedef int64_t SourceId;
+#else
+  typedef intptr_t SourceId;
+#endif
+
   // Interface that must be implemented by the DesktopCapturer consumers.
   class Callback {
    public:
@@ -66,15 +73,20 @@ class RTC_EXPORT DesktopCapturer {
     virtual void OnCaptureResult(Result result,
                                  std::unique_ptr<DesktopFrame> frame) = 0;
 
+    // Called recurrently after a new frame has been captured. `frame` is not
+    // nullptr if and only if `result` is SUCCESS. `source_id` specifies the id
+    // of the captured source.
+    virtual void OnRecurrentCaptureResult(Result result,
+                                          std::unique_ptr<DesktopFrame> frame,
+                                          SourceId source_id) {}
+
+    // Called after the list of sources has been updated if there were any
+    // changes to the list.
+    virtual void OnSourceListUpdated() {}
+
    protected:
     virtual ~Callback() {}
   };
-
-#if defined(CHROMEOS)
-  typedef int64_t SourceId;
-#else
-  typedef intptr_t SourceId;
-#endif
 
   static_assert(std::is_same<SourceId, ScreenId>::value,
                 "SourceId should be a same type as ScreenId.");
@@ -104,6 +116,22 @@ class RTC_EXPORT DesktopCapturer {
   // Called at the beginning of a capturing session. `callback` must remain
   // valid until capturer is destroyed.
   virtual void Start(Callback* callback) = 0;
+
+  // Called at the beginning of a capturing session. Must only be called if
+  // SupportsRecurrentMode() returns true. After this function has been called,
+  // the capturer will begin capturing the sources in the list and call
+  // Callback::OnRecurrentCaptureResult() for each captured frame.
+  // Callback::OnSourceListUpdated() is called whenever the source list is
+  // changed. `callback` must remain valid until capturer is destroyed.
+  // `max_frame_rate` specifies the maximum capture frame rate per source, that
+  // is, the combined rate at which Callback::OnRecurrentCaptureResult() is
+  // called may be higher if there are multiple sources.
+  virtual void StartRecurrent(Callback* callback,
+                              webrtc::Frequency max_frame_rate) {}
+
+  // Returns true if the capturer supports recurrent mode. See the comment for
+  // StartRecurrent().
+  virtual bool SupportsRecurrentMode() const { return false; }
 
   // Sets max frame rate for the capturer. This is best effort and may not be
   // supported by all capturers. This will only affect the frequency at which

@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e4b74c1_3d2b82ba",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-08-23T21:49:12Z",
+      "side": 1,
+      "message": "SelectSources (only valid for OnDemand perhaps) would seem reasonable; though perhaps the picker could also be updated (feels like it would have to be to handle this anyway) to just create multiple desktop capturers which each would only handle a single source, rather than jamming this paradigm onto the DesktopCapturer interface that now multiple sources are simultaneously capturable? That\u0027s a pretty big change in the usage pattern.",
+      "parentUuid": "d55698e4_23999d9e",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "400eedfe_11a991c0",
         "filename": "modules/desktop_capture/desktop_capturer.h",
         "patchSetId": 3
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "What do you think of making FrameDeliveryMethod a static property of the capturer, where the default implementation would return kOnRequest?\n\nThe benefit of having a unique name for the OnChange callback is that the name uniquely identifies the function to be called. I haven\u0027t looked into this in detail, but there was an issue with a previous patch, where I reused the name OnCaptureResult, because it was ambiguous which method that was meant by this. I think that passing on the SourceId together with the frame is necessary to not have to deal with synchronization issues since the frames may arrive in arbitrary order.",
       "parentUuid": "400eedfe_11a991c0",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7edf272_58963bfc",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-08-23T21:49:12Z",
+      "side": 1,
+      "message": "We have capturers right now that could work in either mode, so I\u0027d be hesitant in making it look like a capturer could only support a single mode. For instance, the WGC and Wayland capturers are both event-driven by the OS, but we just manage a \"latest available frame\" that can be polled to still support the polling mechanism. \nThe Mac capturers could likely do something like that as well, which wouldn\u0027t require a full re-write of the consumers to manage the event-based API just yet.\n\nI assume the ambiguity with OnCaptureResult largely stems from supporting getting frames from multiple Sources instead of just a single source. If we stick to a single-sourced capturer I think that it is less of an issue.",
+      "parentUuid": "f0d49dd8_2683a434",
       "range": {
         "startLine": 129,
         "startChar": 20,

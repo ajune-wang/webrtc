@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "183d0c04_417d1ac6",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-08-23T21:20:52Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right about the use case. The motivation for these changes is a Chromium CL that I\u0027m working on where we want to update the picker to use ScreenCaptureKit due to deprecations of the old/legacy capture APIs on macOS.\n\nSo, I\u0027ve been trying to create something that would work with the existing picker implementation. One reason to not make any drastic changes to the picker is that the existing way of calling the capturers will still be in use for other platforms.\n\nWhat do you think of the following change:\n- Add a function `SelectSources(std::vector\u003cSourceId\u003e)` to the interface where the sources to be captured are specified.\n- Maybe, add a parameter \"maximum concurrent capture streams\" to the Start-call. The reason to have this parameter is that it enables a default mode to capture the first N sources before any sources have been selected.",
+      "parentUuid": "cea4c5f8_f3cbb64b",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "400eedfe_11a991c0",
         "filename": "modules/desktop_capture/desktop_capturer.h",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-23T17:23:38Z",
       "side": 1,
       "message": "I\u0027m not the biggest fan of the \"Recurrent\" terminology as it\u0027s not the most readily apparent. Perhaps a better option would be an option passed in to start that\u0027s an enum like\n\nFrameDeliveryMethod {\n  kOnRequest\n  kOnChanged\n}\n\nand then we just re-use the existing OnCaptureResult method?  (Or do some kind of staggered replacement to add the SourceId if we feel that\u0027s necessary but maybe keep the name the same).\n\nFWIW, for Wayland we\u0027d already introduced a bool that could be set to send frames immediately and just re-uses the existing mechanism after \"Start\": https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/base_capturer_pipewire.h;drc\u003d93f41097bb9b07efd4b8e7e4536b8bf920baa915;l\u003d70",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0d49dd8_2683a434",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-08-23T21:20:52Z",
+      "side": 1,
+      "message": "What do you think of making FrameDeliveryMethod a static property of the capturer, where the default implementation would return kOnRequest?\n\nThe benefit of having a unique name for the OnChange callback is that the name uniquely identifies the function to be called. I haven\u0027t looked into this in detail, but there was an issue with a previous patch, where I reused the name OnCaptureResult, because it was ambiguous which method that was meant by this. I think that passing on the SourceId together with the frame is necessary to not have to deal with synchronization issues since the frames may arrive in arbitrary order.",
+      "parentUuid": "400eedfe_11a991c0",
       "range": {
         "startLine": 129,
         "startChar": 20,
@@ -125,6 +173,30 @@
       "side": 1,
       "message": "Further, how does this align with SetMaxFrameRate below ?",
       "parentUuid": "f3c5f8c6_0dcef2e6",
+      "range": {
+        "startLine": 130,
+        "startChar": 30,
+        "endLine": 130,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5539bd90_207855b8",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-08-23T21:20:52Z",
+      "side": 1,
+      "message": "Elad, what do you say? Perhaps it\u0027s better to just use the existing SetMaxFrameRate function?",
+      "parentUuid": "a2b75ae4_d730cfea",
       "range": {
         "startLine": 130,
         "startChar": 30,

@@ -16,6 +16,24 @@
       "message": "Åsa, there are some TODOs assigned to you to remove SendSideDelayUpdated callbacks and SendSideDelayObserver interface that owns it.\n\nIs it a right step in that direction.\nWhat should be done with this uma_container_, should delay counters be removed from it, or should they be filled differently?",
       "revId": "60321c44a56d91f2d5e76ac4ee8a81d1ad67ce61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a34dd2_a0520902",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2023-08-23T13:09:24Z",
+      "side": 1,
+      "message": "The plan was to use information from OnSentPacket instead (fill counters with capture -\u003e sent, https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/send_delay_stats.cc;l\u003d100;bpv\u003d1).",
+      "parentUuid": "e135448b_f65a0584",
+      "revId": "60321c44a56d91f2d5e76ac4ee8a81d1ad67ce61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

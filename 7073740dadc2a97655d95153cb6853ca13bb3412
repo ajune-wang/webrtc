@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08af5ff_f2bdbe6d",
+        "filename": "call/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2023-08-23T13:09:24Z",
+      "side": 0,
+      "message": "This removes delay stats from the periodically logged VideoSendStream stream stats (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d1428;drc\u003def54bf45d50e6f9990713781e788c48102639d5e). Maybe mention this in the description.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 49
+      },
+      "revId": "7073740dadc2a97655d95153cb6853ca13bb3412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

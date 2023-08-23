@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efdb8f32_d415d3c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-08-23T17:23:38Z",
+      "side": 1,
+      "message": "+mfoltz as FYI",
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea4c5f8_f3cbb64b",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-08-23T17:23:38Z",
+      "side": 1,
+      "message": "I\u0027m a little hesitant about this because it implies that we don\u0027t have a mechanism to restrict this; which can result in a lot of wasted work. I think the picker is the only place we\u0027d want to do this so maybe worth a custom design just for it.",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "400eedfe_11a991c0",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-08-23T17:23:38Z",
+      "side": 1,
+      "message": "I\u0027m not the biggest fan of the \"Recurrent\" terminology as it\u0027s not the most readily apparent. Perhaps a better option would be an option passed in to start that\u0027s an enum like\n\nFrameDeliveryMethod {\n  kOnRequest\n  kOnChanged\n}\n\nand then we just re-use the existing OnCaptureResult method?  (Or do some kind of staggered replacement to add the SourceId if we feel that\u0027s necessary but maybe keep the name the same).\n\nFWIW, for Wayland we\u0027d already introduced a bool that could be set to send frames immediately and just re-uses the existing mechanism after \"Start\": https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/base_capturer_pipewire.h;drc\u003d93f41097bb9b07efd4b8e7e4536b8bf920baa915;l\u003d70",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fd82127_39f1320e",
@@ -38,6 +101,30 @@
       "side": 1,
       "message": "I guess this is subjective, but to me max_frame_rate is a more intuitive name than min_frame_interval. max_frame_rate is also used further down in this class. The unit for frequency is 1/s so I think the match is reasonable okay.",
       "parentUuid": "2fd82127_39f1320e",
+      "range": {
+        "startLine": 130,
+        "startChar": 30,
+        "endLine": 130,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2b75ae4_d730cfea",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-08-23T17:23:38Z",
+      "side": 1,
+      "message": "Further, how does this align with SetMaxFrameRate below ?",
+      "parentUuid": "f3c5f8c6_0dcef2e6",
       "range": {
         "startLine": 130,
         "startChar": 30,

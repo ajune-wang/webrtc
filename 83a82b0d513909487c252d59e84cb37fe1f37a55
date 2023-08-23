@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d55698e4_23999d9e",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-08-23T21:24:12Z",
+      "side": 1,
+      "message": "This is WIP and **not** ready for review yet and of course dependent on the outcome of this review, but here\u0027s the Chromium CL that would use the new interface functions,\n\nhttps://chromium-review.googlesource.com/c/chromium/src/+/4798390",
+      "parentUuid": "183d0c04_417d1ac6",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "400eedfe_11a991c0",
         "filename": "modules/desktop_capture/desktop_capturer.h",
         "patchSetId": 3

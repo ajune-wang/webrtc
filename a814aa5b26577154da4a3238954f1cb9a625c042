@@ -63,6 +63,30 @@
       },
       "revId": "a814aa5b26577154da4a3238954f1cb9a625c042",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7faa3dd5_40f617d1",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-08-23T11:22:35Z",
+      "side": 1,
+      "message": "Ah, so the `uint32_t`s that was used before was just used to store the bit representation, not to represent the actual values.",
+      "parentUuid": "a728a0c6_a0c59db0",
+      "range": {
+        "startLine": 441,
+        "startChar": 0,
+        "endLine": 442,
+        "endChar": 46
+      },
+      "revId": "a814aa5b26577154da4a3238954f1cb9a625c042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

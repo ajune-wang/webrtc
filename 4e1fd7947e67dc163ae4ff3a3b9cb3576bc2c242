@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53f04897_aa35f970",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-23T10:52:52Z",
+      "side": 1,
+      "message": "nit:\nWghe",
+      "revId": "4e1fd7947e67dc163ae4ff3a3b9cb3576bc2c242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5341c6e2_45fcf7f8",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-23T10:52:52Z",
+      "side": 1,
+      "message": "When both are called `OnCaptureResult`, it\u0027s difficult for a reader to understand which is going to be called, or why. Could you change the new one to be called `OnRecurrentCaptureResult`?\n\n(It looks like the compiler is also confused when doing `BindOnce` etc., and I don\u0027t think you want to edit those code locations to specify which of the overloaded versions should be used - the syntax for that is not pretty.)",
+      "revId": "4e1fd7947e67dc163ae4ff3a3b9cb3576bc2c242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faed24f1_32e291ba",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-23T10:52:52Z",
+      "side": 1,
+      "message": "nit: Please add an empty line between the previous function and this function-description.",
+      "revId": "4e1fd7947e67dc163ae4ff3a3b9cb3576bc2c242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad87661_faefd31b",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-23T10:52:52Z",
+      "side": 1,
+      "message": "```\nvirtual void StartRecurrent(Callback* callback, TimeDelta target_time_delta) {}\n```",
+      "range": {
+        "startLine": 123,
+        "startChar": 15,
+        "endLine": 123,
+        "endChar": 26
+      },
+      "revId": "4e1fd7947e67dc163ae4ff3a3b9cb3576bc2c242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ed0b5c_596d5258",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-23T10:52:52Z",
+      "side": 1,
+      "message": "nit: Please add an empty line between the previous function and this function-description.",
+      "revId": "4e1fd7947e67dc163ae4ff3a3b9cb3576bc2c242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c5f8c6_0dcef2e6",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-08-23T14:08:46Z",
+      "side": 1,
+      "message": "I guess this is subjective, but to me max_frame_rate is a more intuitive name than min_frame_interval. max_frame_rate is also used further down in this class. The unit for frequency is 1/s so I think the match is reasonable okay.",
+      "parentUuid": "2fd82127_39f1320e",
+      "range": {
+        "startLine": 130,
+        "startChar": 30,
+        "endLine": 130,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Thanks for the review!\n\nDon\u0027t want to change the API of the class that\u0027s in api/ at the same time as messing around with the implementation, so leaving std::function -\u003e absl::AnyInvocable to a later CL.",
       "revId": "120ca59cd7966e0ec5d81340004208b6804fe79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2a9b36f_2cf4a9ac",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-23T09:48:28Z",
+      "side": 1,
+      "message": "nit: doesn\u0027t `hostname.data()` work? (is hostname potentially not zero terminated?)",
+      "revId": "120ca59cd7966e0ec5d81340004208b6804fe79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

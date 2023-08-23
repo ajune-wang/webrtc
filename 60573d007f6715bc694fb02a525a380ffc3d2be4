@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfeda5f6_b95a4c8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21299
+      },
+      "writtenOn": "2023-08-23T21:25:30Z",
+      "side": 1,
+      "message": "The fix is for the bug https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15442\n\nBased on the discussion here https://webrtc-review.googlesource.com/c/src/+/313360, we use IsTemporalLayersSupported to check if temporal layer is supported.",
+      "revId": "60573d007f6715bc694fb02a525a380ffc3d2be4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

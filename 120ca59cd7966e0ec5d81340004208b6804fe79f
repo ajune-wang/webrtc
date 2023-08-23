@@ -33,6 +33,24 @@
       "message": "nit: doesn\u0027t `hostname.data()` work? (is hostname potentially not zero terminated?)",
       "revId": "120ca59cd7966e0ec5d81340004208b6804fe79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac6663dd_932880e3",
+        "filename": "rtc_base/async_dns_resolver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-23T10:03:46Z",
+      "side": 1,
+      "message": "Play it safe ... absl::string_view.data() returns a view without copying (as far as I remember) - resolving benign.host out of a buffer containing benign.host.attacker.controlled.domain is potentially disastrous.",
+      "parentUuid": "b2a9b36f_2cf4a9ac",
+      "revId": "120ca59cd7966e0ec5d81340004208b6804fe79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

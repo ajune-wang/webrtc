@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd82127_39f1320e",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-23T13:55:17Z",
+      "side": 1,
+      "message": "For my education - what\u0027s the rationale that led you to prefer Frequency over TimeDelta here? Is it because it\u0027s more descriptive, or...? (I\u0027m not sure the name still matches the type, btw.)",
+      "range": {
+        "startLine": 130,
+        "startChar": 30,
+        "endLine": 130,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

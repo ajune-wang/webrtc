@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a8eed91_e0fd8100",
+        "filename": "video/rtp_video_stream_receiver2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-23T08:47:49Z",
+      "side": 0,
+      "message": "Here a variable with dynamic initialization used for dynamic initialization of another variable. i.e. violates style guide.\nThus I\u0027ve changed it to safer pattern of function that return desired value instead of a constant with dynamic initialization.\nThat also solve issue that kDefaultBehavior is not trivially destructable because contains std::string.\n\nWhile all of that is possible to address and create constants as constexpr, I\u0027m not sure it is worth effort for this test-only code.\n\nhttps://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables\n\n“Objects with static storage duration are forbidden unless they are trivially destructible.”\n\n“Dynamic initialization of nonlocal variables is discouraged, and in general it is forbidden. However, we do permit it if no aspect of the program depends on the sequencing of this initialization with respect to all other initializations. Under those restrictions, the ordering of the initialization does not make an observable difference.”",
+      "range": {
+        "startLine": 1184,
+        "startChar": 43,
+        "endLine": 1184,
+        "endChar": 67
+      },
+      "revId": "c146b5f77bad79390db991a7200f753534819352",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

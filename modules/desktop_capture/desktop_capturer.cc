@@ -49,11 +49,29 @@ void DesktopCapturer::SetSharedMemoryFactory(
 
 void DesktopCapturer::SetExcludedWindow(WindowId window) {}
 
+void DesktopCapturer::Start(Callback* callback, FrameDeliveryMethod method) {
+  if (method == FrameDeliveryMethod::kOnRequest) {
+    Start(callback);
+  }
+}
+
+bool DesktopCapturer::SupportsFrameDeliveryMethod(
+    FrameDeliveryMethod method) const {
+  return method == FrameDeliveryMethod::kOnRequest;
+}
+
 bool DesktopCapturer::GetSourceList(SourceList* sources) {
   return true;
 }
 
 bool DesktopCapturer::SelectSource(SourceId id) {
+  return false;
+}
+
+bool DesktopCapturer::SelectSources(std::vector<SourceId> ids) {
+  if (ids.size() == 1) {
+    return SelectSource(ids.front());
+  }
   return false;
 }
 

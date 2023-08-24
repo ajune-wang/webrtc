@@ -55,6 +55,21 @@ class RTC_EXPORT DesktopCapturer {
     MAX_VALUE = ERROR_PERMANENT
   };
 
+  enum class FrameDeliveryMethod {
+    // Frames are delivered on request for the selected source when
+    // CaptureFrame() is called.
+    kOnRequest,
+
+    // Frames are delivered when there's an update for the selected sources.
+    kMultipleSourcesOnChange,
+  };
+
+#if defined(CHROMEOS)
+  typedef int64_t SourceId;
+#else
+  typedef intptr_t SourceId;
+#endif
+
   // Interface that must be implemented by the DesktopCapturer consumers.
   class Callback {
    public:
@@ -66,15 +81,21 @@ class RTC_EXPORT DesktopCapturer {
     virtual void OnCaptureResult(Result result,
                                  std::unique_ptr<DesktopFrame> frame) = 0;
 
+    // Called recurrently after a new frame has been captured. `frame` is not
+    // nullptr if and only if `result` is SUCCESS. `source_id` specifies the id
+    // of the captured source.
+    virtual void OnChangeCaptureResult(Result result,
+                                       std::unique_ptr<DesktopFrame> frame,
+                                       SourceId source_id) {}
+
+    // Called after the list of sources has been updated if there were any
+    // changes to the list and the frame deliver method is set to
+    // kMultipleSourceOnChange.
+    virtual void OnSourceListUpdated() {}
+
    protected:
     virtual ~Callback() {}
   };
-
-#if defined(CHROMEOS)
-  typedef int64_t SourceId;
-#else
-  typedef intptr_t SourceId;
-#endif
 
   static_assert(std::is_same<SourceId, ScreenId>::value,
                 "SourceId should be a same type as ScreenId.");
@@ -101,9 +122,23 @@ class RTC_EXPORT DesktopCapturer {
 
   virtual ~DesktopCapturer();
 
-  // Called at the beginning of a capturing session. `callback` must remain
-  // valid until capturer is destroyed.
+  // Called at the beginning of a capturing session. This will use the default
+  // frame delivery method kOnRequest. The behavior is undefined if this method
+  // is not supported. `callback` must remain valid until capturer is destroyed.
   virtual void Start(Callback* callback) = 0;
+
+  // Called at the beginning of a capturing session. The specified frame
+  // delivery method must be supported by the capture implementation.
+  // After this function has been called, the capturer will begin capturing the
+  // sources in the list that have been selected through the call to
+  // SelectSources() and call Callback::OnChangeCaptureResult() for each
+  // captured frame. Callback::OnSourceListUpdated() is called whenever the
+  // source list is changed. `callback` must remain valid until capturer is
+  // destroyed.
+  virtual void Start(Callback* callback, FrameDeliveryMethod method);
+
+  // Returns true if the capturer supports the specified frame deliver method.
+  virtual bool SupportsFrameDeliveryMethod(FrameDeliveryMethod method) const;
 
   // Sets max frame rate for the capturer. This is best effort and may not be
   // supported by all capturers. This will only affect the frequency at which
@@ -165,6 +200,12 @@ class RTC_EXPORT DesktopCapturer {
   // selecting a SourceID that is not in the returned source list as a form of
   // restore token.
   virtual bool SelectSource(SourceId id);
+
+  // Selects sources to be captured simultaneously. Multiple sources can only be
+  // selected if the frame delivery method is set to kMultipleSourcesOnChange.
+  // Returns false in case of a failure (e.g. if there is no source with the
+  // specified type and id.)
+  virtual bool SelectSources(std::vector<SourceId> ids);
 
   // Brings the selected source to the front and sets the input focus on it.
   // Returns false in case of a failure or no source has been selected or the

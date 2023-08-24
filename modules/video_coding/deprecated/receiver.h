@@ -18,13 +18,13 @@
 #include "modules/video_coding/deprecated/event_wrapper.h"
 #include "modules/video_coding/deprecated/jitter_buffer.h"
 #include "modules/video_coding/deprecated/packet.h"
+#include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/timing/timing.h"
 
 namespace webrtc {
 
 class Clock;
-class VCMEncodedFrame;
 
 class VCMReceiver {
  public:

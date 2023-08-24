@@ -23,6 +23,7 @@
 #include "modules/video_coding/deprecated/decoding_state.h"
 #include "modules/video_coding/deprecated/event_wrapper.h"
 #include "modules/video_coding/deprecated/jitter_buffer_common.h"
+#include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/timing/inter_frame_delay_variation_calculator.h"
 #include "modules/video_coding/timing/jitter_estimator.h"
@@ -35,7 +36,6 @@ namespace webrtc {
 class Clock;
 class VCMFrameBuffer;
 class VCMPacket;
-class VCMEncodedFrame;
 
 typedef std::list<VCMFrameBuffer*> UnorderedFrameList;
 

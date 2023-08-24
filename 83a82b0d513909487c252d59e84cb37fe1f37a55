@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d9ee402_6598df2e",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-08-24T08:21:56Z",
+      "side": 1,
+      "message": "\u003e to just create multiple desktop capturers which each would only handle a single source\n\nGreat minds think alike - we\u0027ve discussed that possibility yesterday. It sounds like it would be a bit of a big change, though, and might risk the timeline - we want this fix in by m118, as it seems like macOS Sonoma will deprecate the non-SCK APIs the picker currently uses.\n\nI propose that we go with the current approach, but add some TODOs and warnings to discourage anyone relying on the temporary code we introduce. We can proceed with a better way of doing things after we\u0027ve landed a functioning deprecation-proof solution. Wdys?",
+      "parentUuid": "4e4b74c1_3d2b82ba",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "83a82b0d513909487c252d59e84cb37fe1f37a55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "400eedfe_11a991c0",
         "filename": "modules/desktop_capture/desktop_capturer.h",
         "patchSetId": 3

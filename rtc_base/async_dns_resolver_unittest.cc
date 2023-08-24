@@ -34,6 +34,8 @@ TEST(AsyncDnsResolver, ResolvingLocalhostWorks) {
   ASSERT_TRUE_WAIT(done, kDefaultTimeout);
   EXPECT_EQ(resolver.result().GetError(), 0);
   EXPECT_TRUE(resolver.result().GetResolvedAddress(AF_INET, &resolved_address));
+  RTC_LOG(LS_ERROR) << "DEBUG: Resolved to address "
+                    << resolved_address.ipaddr().ToString();
   EXPECT_EQ(resolved_address, rtc::SocketAddress("127.0.0.1", kPortNumber));
 }
 

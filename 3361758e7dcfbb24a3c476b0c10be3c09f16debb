@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb3b780_aa9a9de0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-24T05:56:18Z",
+      "side": 1,
+      "message": "Forward fix for the import break.",
+      "revId": "3361758e7dcfbb24a3c476b0c10be3c09f16debb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,7 @@
 
 #include <vector>
 
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "modules/video_coding/deprecated/jitter_buffer_common.h"
 #include "modules/video_coding/deprecated/packet.h"
@@ -80,6 +81,7 @@ class VCMFrameBuffer : public VCMEncodedFrame {
   VCMSessionInfo _sessionInfo;
   uint16_t _nackCount;
   int64_t _latestPacketTimeMs;
+  CodecSpecificInfo _codecSpecificInfo;
 };
 
 }  // namespace webrtc

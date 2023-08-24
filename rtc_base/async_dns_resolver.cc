@@ -109,7 +109,7 @@ void AsyncDnsResolver::Start(const rtc::SocketAddress& addr,
                              std::function<void()> callback) {
   RTC_DCHECK_RUN_ON(&result_.sequence_checker_);
   result_.addr_ = addr;
-  auto thread_function = [this, addr, family,
+  auto thread_function = [this, addr = addr, family,
                           caller_task_queue = webrtc::TaskQueueBase::Current(),
                           callback = std::move(callback)] {
     std::vector<rtc::IPAddress> addresses;

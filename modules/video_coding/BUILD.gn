@@ -11,14 +11,11 @@ import("../../webrtc.gni")
 
 rtc_library("encoded_frame") {
   visibility = [ "*" ]
-  sources = [
-    "encoded_frame.cc",
-    "encoded_frame.h",
-  ]
+  sources = [ "encoded_frame.h" ]
   deps = [
     ":codec_globals_headers",
     ":video_codec_interface",
-    "../../api/video:encoded_image",
+    "../../api/video:encoded_frame",
     "../../api/video:video_frame",
     "../../api/video:video_rtp_headers",
     "../../modules:module_api_public",

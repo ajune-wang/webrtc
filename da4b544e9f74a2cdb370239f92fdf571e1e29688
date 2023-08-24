@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2bab19_c7727a4b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-24T09:21:06Z",
+      "side": 1,
+      "message": "That test is `PeerConnectionEncodingsIntegrationTest.AddTransceiverRejectsMixedCodecSimulcast`. The validation is done in the upper layer, the same as all the other parameters.",
+      "parentUuid": "d98caf00_11d95f20",
+      "revId": "da4b544e9f74a2cdb370239f92fdf571e1e29688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c90b594_e52baac4",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-08-18T11:02:35Z",
       "side": 1,
       "message": "We\u0027ve historically seen a lot of reconfiguration errors reach stable because of DCHECKs not being CHECKs, care to promote this to a CHECK since it is for free?",
+      "revId": "da4b544e9f74a2cdb370239f92fdf571e1e29688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ebbf6d_7473e75d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-24T09:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c90b594_e52baac4",
       "revId": "da4b544e9f74a2cdb370239f92fdf571e1e29688",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37055809_6cd482f3",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-24T09:21:06Z",
+      "side": 1,
+      "message": "I believe that multiple send_streams_ on a SendChannel means PlanB.\nIf you set the codec on the first encoding, it\u0027ll use it for all the other codecs on the same channel. It\u0027s \"ok\" as I don\u0027t expect anyone to use PlanB and this new API anyway. We ought to remove PlanB too, so this kind of logic can be simplified when we do not have an array of streams anymore.",
+      "parentUuid": "c297805c_e01991fe",
+      "revId": "da4b544e9f74a2cdb370239f92fdf571e1e29688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae8cee27_6118bc59",
@@ -99,6 +153,24 @@
       "writtenOn": "2023-08-17T22:37:48Z",
       "side": 1,
       "message": "How did the formatter pass this one????",
+      "revId": "da4b544e9f74a2cdb370239f92fdf571e1e29688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77fe4daa_45d78fd7",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-24T09:21:06Z",
+      "side": 1,
+      "message": "I only run the formatter manually in my workflow and forgot it there. I do expect CI to remind me if I ever forget anyway!",
+      "parentUuid": "ae8cee27_6118bc59",
       "revId": "da4b544e9f74a2cdb370239f92fdf571e1e29688",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

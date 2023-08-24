@@ -233,6 +233,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "566d6ed9_5b925df3",
+        "filename": "media/base/media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-08-24T09:21:06Z",
+      "side": 1,
+      "message": "The main difference with scalabilityMode is that is it not required on each simulcast layer to use it on any, nor is scaleResolutionDownBy with our implementation.\nThat\u0027s how codec is different (for now, hopefully, we can get mixed-codec simulcast implemented).\n\nLet\u0027s revisit this later if it seems needed.",
+      "parentUuid": "2d070d66_b28a4dcf",
+      "revId": "d097e73a2cab700d6ab8259ee7b4ee86fce8d194",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06532a87_fded7457",

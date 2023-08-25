@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b1f4f0_9d2adaac",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-25T12:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebfbdf31_12317ef6",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "6b787d0aacd09525d155437079f9ee1be33d92e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38b1822c_9254276b",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-25T12:34:12Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 5
+      },
+      "revId": "6b787d0aacd09525d155437079f9ee1be33d92e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0883a491_7dca6ab4",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-25T12:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b1822c_9254276b",
       "range": {
         "startLine": 74,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97f303f_a8a6eb6a",
+        "filename": "modules/video_coding/decoder_database.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-25T12:55:23Z",
+      "side": 1,
+      "message": "Done here. Left in the BUILD.gn as it shares a library with GenericDecoder which still needs the header.",
+      "parentUuid": "c8f878c9_b05db153",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "6b787d0aacd09525d155437079f9ee1be33d92e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18bcb6cb_bd14051c",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-08-25T12:34:12Z",
       "side": 1,
       "message": "remove, also remove dependency from BUILD.gn",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "6b787d0aacd09525d155437079f9ee1be33d92e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a1fc90f_c4f56e59",
+        "filename": "modules/video_coding/video_receiver2.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-08-25T12:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18bcb6cb_bd14051c",
       "range": {
         "startLine": 22,
         "startChar": 0,

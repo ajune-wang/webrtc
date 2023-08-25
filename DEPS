@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '6aaff43ef61207253fe2b3833be8fe7dbdf1c20b',
+  'chromium_revision': '0f89c25d3a6d41c086756ee005e06e2e597becd1',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,9 +50,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@0a1b30c19460bba8bf23343bfbb25e5c31b3362d',
+    'https://chromium.googlesource.com/chromium/src/base@1331a385dbf638104f3f48cd133647204547955e',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@4cee92ef223b321d4e368556ad0234662e945dc5',
+    'https://chromium.googlesource.com/chromium/src/build@1a55631ba9032fd42593956c7cb3178fd58817dc',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@f6e67ef3b231bb1af3ca9e9c31bf245fec84f63f',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -67,7 +67,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@d41ed39657c8b986e7cd24a68432ce85e77ceb2c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d200034e59bb58f5ac078abaa36081eeeab3d4ee',
+    'https://chromium.googlesource.com/chromium/src/third_party@5e8b491ba5fdffb99fd6ad5c071c443cc7cb2bde',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -295,7 +295,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@10b980190fea75c5472eee93fc42a8c4a3eaadd3',
+    'https://android.googlesource.com/platform/external/perfetto.git@896fee12b0e9dbc811324645cc03dc0bb44a84f8',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@24c0dcc8513b8c1ba4ffbf934a399f89de646ffe',
   'src/third_party/libyuv':
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a6385eceab4eadd842adcae3eb5fe561ea9b36cf',
+    'https://chromium.googlesource.com/chromium/src/tools@f96697c31f08e88e20a540461569a2bf8d4ddb02',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

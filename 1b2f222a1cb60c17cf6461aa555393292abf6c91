@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f1cd4a_18180b24",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-25T10:44:37Z",
+      "side": 1,
+      "message": "chromium uses both the constructor and this accessor, so can\u0027t mark them as [[deprecated]]",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "1b2f222a1cb60c17cf6461aa555393292abf6c91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

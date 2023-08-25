@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4422048_8a3ca8fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-25T09:14:34Z",
+      "side": 1,
+      "message": "stamping as well as a second reviewer.",
+      "revId": "45a985c71d8c0a999d28b20303baf0b5ddf5bb8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85f3ead_7e36b8a8",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-25T09:14:34Z",
+      "side": 1,
+      "message": "nit: if it\u0027s only meant for testing, the name would more traditionally be `SetUseRtxForTesting` (look for \"ForTesting\" across the code base for examples).",
+      "revId": "45a985c71d8c0a999d28b20303baf0b5ddf5bb8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

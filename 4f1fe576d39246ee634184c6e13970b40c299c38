@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "414099e7_6c0aee9d",
+        "filename": "api/video_codecs/video_decoder_software_fallback_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-08-25T02:08:54Z",
+      "side": 1,
+      "message": "So let\u0027s keep this case here currently",
+      "parentUuid": "46c070b7_da0d3481",
+      "revId": "4f1fe576d39246ee634184c6e13970b40c299c38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34391b93_16c90e01",
@@ -88,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03918fab_c76b2200",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-08-25T02:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "513db76b_73a5b0c8",
+      "revId": "4f1fe576d39246ee634184c6e13970b40c299c38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7dff69e3_9859c2cf",
@@ -101,6 +137,24 @@
       "writtenOn": "2023-08-17T13:20:45Z",
       "side": 1,
       "message": "Please confirm the fourcc to be set here is H.265 instead of HEVC?",
+      "revId": "4f1fe576d39246ee634184c6e13970b40c299c38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "773922b8_b843a301",
+        "filename": "modules/video_coding/utility/ivf_file_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-08-25T02:08:54Z",
+      "side": 1,
+      "message": "The video codec page is not available in https://fourcc.org/, according to https://github.com/larsmagne/mplayer/blob/master/etc/codecs.conf and https://patchwork.ffmpeg.org/project/ffmpeg/patch/20181001180146.49151-1-alx.sukhanov@gmail.com/#32279, it seems mplayer and ffmpeg are using \"HEVC\", so modify to HEVC here.",
+      "parentUuid": "7dff69e3_9859c2cf",
       "revId": "4f1fe576d39246ee634184c6e13970b40c299c38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

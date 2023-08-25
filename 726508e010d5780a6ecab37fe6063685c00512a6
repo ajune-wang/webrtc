@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de817fef_0bac0fcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-25T09:32:46Z",
+      "side": 1,
+      "message": "This is a mostly noop piece of https://webrtc-review.googlesource.com/c/src/+/316924\nI think this change would be helpful regardless if the approach in CL above is a right one.\n\nThis CL shouldn\u0027t change behaviour much:\nkMaxSsrcMapSize check becomes stricter (but we shouldn\u0027t come anywhere near 50 SSRC limit anyway),\nFinal text log would report the number of registered, instead of the number of used SSRCs (histogram has check on num_samples, so still would exclude unused SSRCs)\n\nmain part should behave the same, just a bit faster, and, I think, code becomes a bit cleaner.\n\nI didn\u0027t try to optimize packets_ map - there could be larger wins, but it is also not as straightforward.",
+      "revId": "726508e010d5780a6ecab37fe6063685c00512a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

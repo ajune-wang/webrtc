@@ -35,6 +35,52 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db7c9f2_06fbd898",
+        "filename": "media/engine/fake_webrtc_call.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-08-28T08:31:52Z",
+      "side": 1,
+      "message": "nit: Can simple assignment or std::assign be used instead of a loop?\n\nThis is way more readable, IMHO:\n\n    keyframes_requested_by_rid_ \u003d rids;",
+      "range": {
+        "startLine": 389,
+        "startChar": 2,
+        "endLine": 390,
+        "endChar": 47
+      },
+      "revId": "3319e533188d8c4f7fc7cc0ae1b6842470fce007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fccaa19_d6fb9804",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1924,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-08-28T08:31:52Z",
+      "side": 1,
+      "message": "nit: this is list of rids, so put it somewhere in the name. E.g. \"_by_rid\" at the end",
+      "range": {
+        "startLine": 1924,
+        "startChar": 27,
+        "endLine": 1924,
+        "endChar": 47
+      },
+      "revId": "3319e533188d8c4f7fc7cc0ae1b6842470fce007",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71e2ab60_d75e1d23",

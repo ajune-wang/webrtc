@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "045307e4_da7c6b1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-28T13:16:01Z",
+      "side": 1,
+      "message": "Looks good, just want a TODO (or something).",
+      "revId": "5a9a1d1d9109306866b947d1a0a49dd9147705d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584e53dc_c594cb2f",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-28T13:16:01Z",
+      "side": 1,
+      "message": "Why not [[deprecated]]?\nAdd TODO(bug): deprecate and remove after X if it\u0027s just that X has to be fixed first; reasoning if not planning to remove.",
+      "revId": "5a9a1d1d9109306866b947d1a0a49dd9147705d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

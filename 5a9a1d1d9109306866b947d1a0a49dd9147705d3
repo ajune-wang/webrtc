@@ -33,6 +33,24 @@
       "message": "Why not [[deprecated]]?\nAdd TODO(bug): deprecate and remove after X if it\u0027s just that X has to be fixed first; reasoning if not planning to remove.",
       "revId": "5a9a1d1d9109306866b947d1a0a49dd9147705d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b37ac73_7b0b8acd",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-08-28T16:35:09Z",
+      "side": 1,
+      "message": "chromium uses this accessor and constructor,\nso marking [[deprecated]] will not compile there.\n\nreplaced with a TODO comment\n(side note, cpplint still forces old style for the TODO, even though recommended style for TODO was changed recently: https://google.github.io/styleguide/cppguide.html#TODO_Comments )",
+      "parentUuid": "584e53dc_c594cb2f",
+      "revId": "5a9a1d1d9109306866b947d1a0a49dd9147705d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

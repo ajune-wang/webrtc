@@ -187,6 +187,13 @@ HRESULT WgcCaptureSession::StartCapture(const DesktopCaptureOptions& options) {
     }
   }
 
+  ComPtr<ABI::Windows::Graphics::Capture::IGraphicsCaptureSession3> session3;
+  if (SUCCEEDED(session_->QueryInterface(
+          ABI::Windows::Graphics::Capture::IID_IGraphicsCaptureSession3,
+          &session3))) {
+    session3->put_IsBorderRequired(false);
+  }
+
   allow_zero_hertz_ = options.allow_wgc_zero_hertz();
 
   hr = session_->StartCapture();

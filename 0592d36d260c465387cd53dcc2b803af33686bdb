@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6894508a_1726059d",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-29T09:05:24Z",
+      "side": 1,
+      "message": "Thanks. Originally I was looking specifically at the username but then of course username and password go together, so I added guards for both. Along those lines I figured that I\u0027d keep the getters alike, so no specific reason for the return type beyond that.",
+      "parentUuid": "5146122f_22f15b94",
+      "revId": "0592d36d260c465387cd53dcc2b803af33686bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8b363adb_1f30a8a3",
         "filename": "p2p/base/port.h",
         "patchSetId": 1
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Found the comment in #1 of the file:\n\n\n  // ICE requires a single username/password per content/media line. So the\n  // |ice_username_fragment_| of the ports that belongs to the same content will\n  // be the same. However this causes a small complication with our relay\n  // server, which expects different username for RTP and RTCP.\n  //\n  // To resolve this problem, we implemented the username_fragment(),\n  // which returns a different username (calculated from\n  // |ice_username_fragment_|) for RTCP in the case of ICEPROTO_GOOGLE. And the\n  // username_fragment() simply returns |ice_username_fragment_| when running\n  // in ICEPROTO_RFC5245.\n  //\n  // As a result the ICEPROTO_GOOGLE will use different usernames for RTP and\n  // RTCP. And the ICEPROTO_RFC5245 will use same username for both RTP and\n  // RTCP.\n\nThis reason went away with ICEPROTO_GOOGLE. Comment should be deleted.",
       "parentUuid": "8b363adb_1f30a8a3",
+      "revId": "0592d36d260c465387cd53dcc2b803af33686bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35113494_efd3f8c8",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-08-29T09:05:24Z",
+      "side": 1,
+      "message": "Thanks - comment gone 😊",
+      "parentUuid": "2c2da797_d022b03d",
       "revId": "0592d36d260c465387cd53dcc2b803af33686bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

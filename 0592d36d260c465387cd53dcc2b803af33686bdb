@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5146122f_22f15b94",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-29T08:04:12Z",
+      "side": 1,
+      "message": "With the addition of the thread guard, I think this is OK.\nice_username_fragment_ is NOT const, it can be changed by SetIceParameters (but that was guarded by \"run on thread_\" already).\n\nAnyone passing an unguarded string reference across threads is \"asking for it\"....\n\nBTW: Why not absl::StringView?",
+      "revId": "0592d36d260c465387cd53dcc2b803af33686bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8b363adb_1f30a8a3",
@@ -14,6 +31,24 @@
       "writtenOn": "2023-08-28T16:51:50Z",
       "side": 1,
       "message": "This comment has me pondering.  I don\u0027t see a comment in this file that this might be referring to, but this might also be out of date since it looks like the comment was written many years (decade?) ago.",
+      "revId": "0592d36d260c465387cd53dcc2b803af33686bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c2da797_d022b03d",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-08-29T08:04:12Z",
+      "side": 1,
+      "message": "Found the comment in #1 of the file:\n\n\n  // ICE requires a single username/password per content/media line. So the\n  // |ice_username_fragment_| of the ports that belongs to the same content will\n  // be the same. However this causes a small complication with our relay\n  // server, which expects different username for RTP and RTCP.\n  //\n  // To resolve this problem, we implemented the username_fragment(),\n  // which returns a different username (calculated from\n  // |ice_username_fragment_|) for RTCP in the case of ICEPROTO_GOOGLE. And the\n  // username_fragment() simply returns |ice_username_fragment_| when running\n  // in ICEPROTO_RFC5245.\n  //\n  // As a result the ICEPROTO_GOOGLE will use different usernames for RTP and\n  // RTCP. And the ICEPROTO_RFC5245 will use same username for both RTP and\n  // RTCP.\n\nThis reason went away with ICEPROTO_GOOGLE. Comment should be deleted.",
+      "parentUuid": "8b363adb_1f30a8a3",
       "revId": "0592d36d260c465387cd53dcc2b803af33686bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -157,9 +157,13 @@ class TCPConnection : public Connection, public sigslot::has_slots<> {
   // related to socket close.
   void MaybeReconnect();
 
-  void CreateOutgoingTcpSocket();
+  void CreateOutgoingTcpSocket() RTC_RUN_ON(network_thread());
 
-  void ConnectSocketSignals(rtc::AsyncPacketSocket* socket);
+  void ConnectSocketSignals(rtc::AsyncPacketSocket* socket)
+      RTC_RUN_ON(network_thread());
+
+  void DisconnectSocketSignals(rtc::AsyncPacketSocket* socket)
+      RTC_RUN_ON(network_thread());
 
   void OnConnect(rtc::AsyncPacketSocket* socket);
   void OnClose(rtc::AsyncPacketSocket* socket, int error);

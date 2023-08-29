@@ -497,6 +497,7 @@ void TCPConnection::OnConnect(rtc::AsyncPacketSocket* socket) {
 }
 
 void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
+  RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK_EQ(socket, socket_.get());
   RTC_LOG(LS_INFO) << ToString() << ": Connection closed with error " << error;
 
@@ -533,12 +534,13 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     // initial connect() (i.e. `pretending_to_be_writable_` is false) . We have
     // to manually destroy here as this connection, as never connected, will not
     // be scheduled for ping to trigger destroy.
-    socket_->UnsubscribeClose(this);
+    DisconnectSocketSignals(socket_.get());
     port()->DestroyConnectionAsync(this);
   }
 }
 
 void TCPConnection::MaybeReconnect() {
+  RTC_DCHECK_RUN_ON(network_thread());
   // Only reconnect for an outgoing TCPConnection when OnClose was signaled and
   // no outstanding reconnect is pending.
   if (connected() || connection_pending_ || !outgoing_) {
@@ -574,7 +576,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
                  : 0;
 
   if (socket_) {
-    socket_->UnsubscribeClose(this);
+    DisconnectSocketSignals(socket_.get());
   }
 
   rtc::PacketSocketTcpOptions tcp_opts;
@@ -615,6 +617,15 @@ void TCPConnection::ConnectSocketSignals(rtc::AsyncPacketSocket* socket) {
     if (safety->alive())
       OnClose(s, err);
   });
+}
+
+void TCPConnection::DisconnectSocketSignals(rtc::AsyncPacketSocket* socket) {
+  if (outgoing_) {
+    socket->SignalConnect.disconnect(this);
+  }
+  socket->SignalReadPacket.disconnect(this);
+  socket->SignalReadyToSend.disconnect(this);
+  socket->UnsubscribeClose(this);
 }
 
 }  // namespace cricket

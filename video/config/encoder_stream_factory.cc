@@ -143,6 +143,14 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   // as simulcast since the simulcast configuration assumes very low bitrates
   // on the first layer. This would prevent rampup of multiple spatial layers.
   // See https://crbug.com/webrtc/15041.
+
+  // For AV1 `encoder_config.number_of_streams` is always set to 1 in the
+  // WebrtcVideoEngine. Use a separate `is_simulcast` check for AV1.
+  is_simulcast |=
+      trials_.IsEnabled("WebRTC-AV1SimulcastIfMultipleSimulcastLayers") &&
+      encoder_config.codec_type == webrtc::kVideoCodecAV1 &&
+      encoder_config.simulcast_layers.size() > 1;
+
   if (is_simulcast &&
       encoder_config.simulcast_layers[0].scalability_mode.has_value()) {
     // Require at least one non-first layer to be active for is_simulcast=true.

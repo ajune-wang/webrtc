@@ -11,6 +11,7 @@
 #include "video/config/encoder_stream_factory.h"
 
 #include "call/adaptation/video_source_restrictions.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -78,6 +79,27 @@ TEST(EncoderStreamFactory, SinglecastRequestedResolutionWithAdaptation) {
   EXPECT_EQ(GetStreamResolutions(streams), (std::vector<Resolution>{
                                                {.width = 320, .height = 180},
                                            }));
+}
+
+TEST(EncoderStreamFactory,
+     MultipleSimulcastStreamsReturnSimulcastConfigForAv1) {
+  test::ScopedFieldTrials scoped_field_trials(
+      "WebRTC-AV1SimulcastIfMultipleSimulcastLayers/Enabled/");
+  auto factory =
+      rtc::make_ref_counted<EncoderStreamFactory>("AV1", kMaxQp,
+                                                  /*is_screenshare=*/false,
+                                                  /*conference_mode=*/false);
+  VideoEncoderConfig encoder_config;
+  encoder_config.codec_type = kVideoCodecAV1;
+  encoder_config.number_of_streams = 1;
+  encoder_config.simulcast_layers.push_back(
+      LayerWithRequestedResolution({.width = 320, .height = 180}));
+  encoder_config.simulcast_layers.push_back(
+      LayerWithRequestedResolution({.width = 640, .height = 360}));
+  auto streams = factory->CreateEncoderStreams(320, 180, encoder_config);
+  ASSERT_EQ(streams.size(), 1U);
+  EXPECT_EQ(streams[0].min_bitrate_bps, 30000);
+  EXPECT_EQ(streams[0].max_bitrate_bps, 200000);
 }
 
 }  // namespace webrtc

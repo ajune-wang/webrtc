@@ -122,24 +122,6 @@ TEST(Av1SvcConfigTest, SetsNumberOfTemporalLayers) {
   EXPECT_EQ(video_codec.spatialLayers[0].numberOfTemporalLayers, 3);
 }
 
-TEST(Av1SvcConfigTest, CopiesMinMaxBitrateForSingleSpatialLayer) {
-  VideoCodec video_codec;
-  video_codec.codecType = kVideoCodecAV1;
-  video_codec.SetScalabilityMode(ScalabilityMode::kL1T3);
-  video_codec.minBitrate = 100;
-  video_codec.maxBitrate = 500;
-
-  EXPECT_TRUE(SetAv1SvcConfig(video_codec, /*num_temporal_layers=*/kDontCare,
-                              /*num_spatial_layers=*/kDontCare));
-
-  EXPECT_EQ(video_codec.spatialLayers[0].minBitrate, 100u);
-  EXPECT_EQ(video_codec.spatialLayers[0].maxBitrate, 500u);
-  EXPECT_LE(video_codec.spatialLayers[0].minBitrate,
-            video_codec.spatialLayers[0].targetBitrate);
-  EXPECT_LE(video_codec.spatialLayers[0].targetBitrate,
-            video_codec.spatialLayers[0].maxBitrate);
-}
-
 TEST(Av1SvcConfigTest, SetsBitratesForMultipleSpatialLayers) {
   VideoCodec video_codec;
   video_codec.codecType = kVideoCodecAV1;

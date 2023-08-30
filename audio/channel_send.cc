@@ -156,6 +156,7 @@ class ChannelSend : public ChannelSendInterface,
   // From AudioPacketizationCallback in the ACM
   int32_t SendData(AudioFrameType frameType,
                    uint8_t payloadType,
+                   AudioEncoder::CodecType codecType,
                    uint32_t rtp_timestamp,
                    const uint8_t* payloadData,
                    size_t payloadSize,
@@ -270,6 +271,7 @@ class RtpPacketSenderProxy : public RtpPacketSender {
 
 int32_t ChannelSend::SendData(AudioFrameType frameType,
                               uint8_t payloadType,
+                              AudioEncoder::CodecType codecType,
                               uint32_t rtp_timestamp,
                               const uint8_t* payloadData,
                               size_t payloadSize,
@@ -280,9 +282,9 @@ int32_t ChannelSend::SendData(AudioFrameType frameType,
     // Asynchronously transform the payload before sending it. After the payload
     // is transformed, the delegate will call SendRtpAudio to send it.
     frame_transformer_delegate_->Transform(
-        frameType, payloadType, rtp_timestamp + rtp_rtcp_->StartTimestamp(),
-        payloadData, payloadSize, absolute_capture_timestamp_ms,
-        rtp_rtcp_->SSRC());
+        frameType, payloadType, codecType,
+        rtp_timestamp + rtp_rtcp_->StartTimestamp(), payloadData, payloadSize,
+        absolute_capture_timestamp_ms, rtp_rtcp_->SSRC());
     return 0;
   }
   return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,

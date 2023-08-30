@@ -106,6 +106,7 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
   // Implementation of AudioPacketizationCallback interface.
   int32_t SendData(AudioFrameType frame_type,
                    uint8_t payload_type,
+                   AudioEncoder::CodecType codecType,
                    uint32_t timestamp,
                    const uint8_t* payload_data,
                    size_t payload_size) override;

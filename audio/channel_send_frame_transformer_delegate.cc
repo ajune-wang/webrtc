@@ -10,6 +10,7 @@
 
 #include "audio/channel_send_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 
 namespace webrtc {
@@ -50,6 +51,7 @@ class TransformableOutgoingAudioFrame
  public:
   TransformableOutgoingAudioFrame(AudioFrameType frame_type,
                                   uint8_t payload_type,
+                                  AudioEncoder::CodecType codec_type,
                                   uint32_t rtp_timestamp_with_offset,
                                   const uint8_t* payload_data,
                                   size_t payload_size,
@@ -60,7 +62,8 @@ class TransformableOutgoingAudioFrame
         rtp_timestamp_with_offset_(rtp_timestamp_with_offset),
         payload_(payload_data, payload_size),
         absolute_capture_timestamp_ms_(absolute_capture_timestamp_ms),
-        ssrc_(ssrc) {}
+        ssrc_(ssrc),
+        codec_type_(codec_type) {}
   ~TransformableOutgoingAudioFrame() override = default;
   rtc::ArrayView<const uint8_t> GetData() const override { return payload_; }
   void SetData(rtc::ArrayView<const uint8_t> data) override {
@@ -75,6 +78,37 @@ class TransformableOutgoingAudioFrame
 
   uint8_t GetPayloadType() const override { return payload_type_; }
   Direction GetDirection() const override { return Direction::kSender; }
+  AudioEncoder::CodecType GetCodecType() const override { return codec_type_; }
+  std::string GetMimeType() const override {
+    std::string mime_type = "audio/";
+    switch (codec_type_) {
+      case AudioEncoder::CodecType::kOther:
+        mime_type += "x-other";
+        break;
+      case AudioEncoder::CodecType::kOpus:
+        mime_type += "opus";
+        break;
+      case AudioEncoder::CodecType::kIsac:
+        mime_type += "isac";
+        break;
+      case AudioEncoder::CodecType::kPcmA:
+        mime_type += "PCMA";
+        break;
+      case AudioEncoder::CodecType::kPcmU:
+        mime_type += "PCMU";
+        break;
+      case AudioEncoder::CodecType::kG722:
+        mime_type += "G722";
+        break;
+      case AudioEncoder::CodecType::kIlbc:
+        mime_type += "ilbc";
+        break;
+      default:
+        mime_type += "x-unknown";
+        break;
+    }
+    return mime_type;
+  }
 
   rtc::ArrayView<const uint32_t> GetContributingSources() const override {
     return {};
@@ -99,6 +133,7 @@ class TransformableOutgoingAudioFrame
   rtc::Buffer payload_;
   int64_t absolute_capture_timestamp_ms_;
   uint32_t ssrc_;
+  AudioEncoder::CodecType codec_type_;
 };
 }  // namespace
 
@@ -126,6 +161,7 @@ void ChannelSendFrameTransformerDelegate::Reset() {
 void ChannelSendFrameTransformerDelegate::Transform(
     AudioFrameType frame_type,
     uint8_t payload_type,
+    AudioEncoder::CodecType codec_type,
     uint32_t rtp_timestamp,
     const uint8_t* payload_data,
     size_t payload_size,
@@ -133,8 +169,8 @@ void ChannelSendFrameTransformerDelegate::Transform(
     uint32_t ssrc) {
   frame_transformer_->Transform(
       std::make_unique<TransformableOutgoingAudioFrame>(
-          frame_type, payload_type, rtp_timestamp, payload_data, payload_size,
-          absolute_capture_timestamp_ms, ssrc));
+          frame_type, payload_type, codec_type, rtp_timestamp, payload_data,
+          payload_size, absolute_capture_timestamp_ms, ssrc));
 }
 
 void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
@@ -171,9 +207,10 @@ std::unique_ptr<TransformableAudioFrameInterface> CloneSenderAudioFrame(
   // TODO(crbug.com/webrtc/14949): Ensure the correct timestamps are passed.
   return std::make_unique<TransformableOutgoingAudioFrame>(
       InterfaceFrameTypeToInternalFrameType(original->Type()),
-      original->GetPayloadType(), original->GetTimestamp(),
-      original->GetData().data(), original->GetData().size(),
-      original->GetTimestamp(), original->GetSsrc());
+      original->GetPayloadType(), original->GetCodecType(),
+      original->GetTimestamp(), original->GetData().data(),
+      original->GetData().size(), original->GetTimestamp(),
+      original->GetSsrc());
 }
 
 }  // namespace webrtc

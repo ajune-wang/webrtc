@@ -269,9 +269,9 @@ int32_t AudioCodingModuleImpl::Encode(
     MutexLock lock(&callback_mutex_);
     if (packetization_callback_) {
       packetization_callback_->SendData(
-          frame_type, encoded_info.payload_type, encoded_info.encoded_timestamp,
-          encode_buffer_.data(), encode_buffer_.size(),
-          absolute_capture_timestamp_ms.value_or(-1));
+          frame_type, encoded_info.payload_type, encoded_info.encoder_type,
+          encoded_info.encoded_timestamp, encode_buffer_.data(),
+          encode_buffer_.size(), absolute_capture_timestamp_ms.value_or(-1));
     }
   }
   previous_pltype_ = encoded_info.payload_type;

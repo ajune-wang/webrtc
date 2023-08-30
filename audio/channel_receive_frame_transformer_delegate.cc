@@ -10,6 +10,7 @@
 
 #include "audio/channel_receive_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 
 #include "rtc_base/buffer.h"
@@ -44,6 +45,10 @@ class TransformableIncomingAudioFrame
     return rtc::ArrayView<const uint32_t>(header_.arrOfCSRCs, header_.numCSRCs);
   }
   Direction GetDirection() const override { return Direction::kReceiver; }
+  std::string GetMimeType() const override { return "audio/x-unknown"; }
+  AudioEncoder::CodecType GetCodecType() const override {
+    return AudioEncoder::CodecType::kOther;
+  }
 
   const absl::optional<uint16_t> SequenceNumber() const override {
     return header_.sequenceNumber;

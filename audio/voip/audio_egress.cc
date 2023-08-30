@@ -109,6 +109,7 @@ void AudioEgress::SendAudioData(std::unique_ptr<AudioFrame> audio_frame) {
 
 int32_t AudioEgress::SendData(AudioFrameType frame_type,
                               uint8_t payload_type,
+                              AudioEncoder::CodecType codecType,
                               uint32_t timestamp,
                               const uint8_t* payload_data,
                               size_t payload_size) {

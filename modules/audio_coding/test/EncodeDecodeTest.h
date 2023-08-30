@@ -32,6 +32,7 @@ class TestPacketization : public AudioPacketizationCallback {
   ~TestPacketization();
   int32_t SendData(AudioFrameType frameType,
                    uint8_t payloadType,
+                   AudioEncoder::CodecType codecType,
                    uint32_t timeStamp,
                    const uint8_t* payloadData,
                    size_t payloadSize,

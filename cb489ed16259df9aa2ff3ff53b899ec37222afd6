@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b49da1_b1bdfb4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-08-30T17:46:43Z",
+      "side": 1,
+      "message": "LGTM.\n\nThe issue with CQ is unfortunately caused by a change in DEPS to support reclient.\n\nWe can patch the DEPS change if you want to run CQ, but the CL looks safe.",
+      "revId": "cb489ed16259df9aa2ff3ff53b899ec37222afd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

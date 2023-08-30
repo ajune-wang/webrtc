@@ -318,7 +318,6 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(
     bool temporal_layers_supported,
     const webrtc::FieldTrialsView& trials) {
   RTC_DCHECK_LE(min_layers, max_layers);
-  RTC_DCHECK(max_layers > 1 || is_screenshare_with_conference_mode);
 
   const bool base_heavy_tl3_rate_alloc =
       webrtc::RateControlSettings::ParseFromKeyValueConfig(&trials)

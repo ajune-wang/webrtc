@@ -41,10 +41,6 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
                      webrtc::TurnCustomizer* customizer = nullptr,
                      RelayPortFactoryInterface* relay_port_factory = nullptr,
                      const webrtc::FieldTrialsView* field_trials = nullptr);
-  BasicPortAllocator(
-      rtc::NetworkManager* network_manager,
-      std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
-      const webrtc::FieldTrialsView* field_trials = nullptr);
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
                      const ServerAddresses& stun_servers,
@@ -64,7 +60,7 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
   // creates its own socket factory.
   rtc::PacketSocketFactory* socket_factory() {
     CheckRunOnValidThreadIfInitialized();
-    return socket_factory_.get();
+    return socket_factory_;
   }
 
   PortAllocatorSession* CreateSessionInternal(
@@ -100,8 +96,8 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
                              webrtc::FieldTrialBasedConfig>
       field_trials_;
   rtc::NetworkManager* network_manager_;
-  const webrtc::AlwaysValidPointerNoDefault<rtc::PacketSocketFactory>
-      socket_factory_;
+  // Always externally-owned pointer to a socket factory.
+  rtc::PacketSocketFactory* const socket_factory_;
   int network_ignore_mask_ = rtc::kDefaultNetworkIgnoreMask;
 
   // This is the factory being used.

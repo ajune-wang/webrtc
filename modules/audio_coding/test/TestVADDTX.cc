@@ -37,13 +37,15 @@ MonitoringAudioPacketizationCallback::MonitoringAudioPacketizationCallback(
 int32_t MonitoringAudioPacketizationCallback::SendData(
     AudioFrameType frame_type,
     uint8_t payload_type,
+    AudioEncoder::CodecType codec_type,
     uint32_t timestamp,
     const uint8_t* payload_data,
     size_t payload_len_bytes,
     int64_t absolute_capture_timestamp_ms) {
   counter_[static_cast<int>(frame_type)]++;
-  return next_->SendData(frame_type, payload_type, timestamp, payload_data,
-                         payload_len_bytes, absolute_capture_timestamp_ms);
+  return next_->SendData(frame_type, payload_type, codec_type, timestamp,
+                         payload_data, payload_len_bytes,
+                         absolute_capture_timestamp_ms);
 }
 
 void MonitoringAudioPacketizationCallback::PrintStatistics() {

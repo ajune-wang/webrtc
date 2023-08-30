@@ -119,6 +119,7 @@ std::unique_ptr<Packet> AcmSendTestOldApi::NextPacket() {
 // This method receives the callback from ACM when a new packet is produced.
 int32_t AcmSendTestOldApi::SendData(AudioFrameType frame_type,
                                     uint8_t payload_type,
+                                    AudioEncoder::CodecType codecType,
                                     uint32_t timestamp,
                                     const uint8_t* payload_data,
                                     size_t payload_len_bytes,

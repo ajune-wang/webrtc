@@ -121,6 +121,24 @@
       "parentUuid": "fd0a4c7e_102385cb",
       "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40caf2be_f3d5dbe5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2023-08-31T18:28:21Z",
+      "side": 1,
+      "message": "You\u0027re absolutely right, that particular bug has now been fixed in https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15442.\n\nThat said, will plan to update this CL with more tests, since properly supporting H.264 temporal layering would be good for our use cases.",
+      "parentUuid": "2d708b22_e9442fd7",
+      "revId": "8b69b7e126a6a6a30a988bf274367484afaa668b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

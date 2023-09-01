@@ -1808,3 +1808,42 @@ TEST_F(SSLStreamAdapterTestDTLSLegacyProtocols,
   SetupProtocolVersions(rtc::SSL_PROTOCOL_DTLS_10, rtc::SSL_PROTOCOL_DTLS_10);
   TestHandshake(false);
 }
+
+// TODO(https://bugs.webrtc.org/10261): when removing the class this
+// inherits from just rename it.
+class SSLStreamAdapterTestDTLSExtensionPermutation
+    : public SSLStreamAdapterTestDTLSLegacyProtocols {
+ public:
+  SSLStreamAdapterTestDTLSExtensionPermutation()
+      : SSLStreamAdapterTestDTLSLegacyProtocols() {}
+};
+
+// Tests for enabling the (D)TLS extension permutation which randomizes the
+// order of extensions in the client hello.
+TEST_F(SSLStreamAdapterTestDTLSExtensionPermutation,
+       ClientDefaultServerDefault) {
+  ConfigureClient("");
+  ConfigureServer("");
+  TestHandshake();
+}
+
+TEST_F(SSLStreamAdapterTestDTLSExtensionPermutation,
+       ClientDefaultServerPermute) {
+  ConfigureClient("");
+  ConfigureServer("WebRTC-PermuteTlsClientHello/Enabled/");
+  TestHandshake();
+}
+
+TEST_F(SSLStreamAdapterTestDTLSExtensionPermutation,
+       ClientPermuteServerDefault) {
+  ConfigureClient("WebRTC-PermuteTlsClientHello/Enabled/");
+  ConfigureServer("");
+  TestHandshake();
+}
+
+TEST_F(SSLStreamAdapterTestDTLSExtensionPermutation,
+       ClientPermuteServerPermute) {
+  ConfigureClient("WebRTC-PermuteTlsClientHello/Enabled/");
+  ConfigureServer("WebRTC-PermuteTlsClientHello/Enabled/");
+  TestHandshake();
+}

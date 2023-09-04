@@ -286,7 +286,7 @@ void RtpTransport::MaybeSignalReadyToSend() {
       rtp_ready_to_send_ && (rtcp_ready_to_send_ || rtcp_mux_enabled_);
   if (ready_to_send != ready_to_send_) {
     ready_to_send_ = ready_to_send;
-    SignalReadyToSend(ready_to_send);
+    SendReadyToSend(ready_to_send);
   }
 }
 

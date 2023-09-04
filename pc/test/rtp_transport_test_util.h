@@ -28,8 +28,8 @@ class TransportObserver : public RtpPacketSinkInterface,
   explicit TransportObserver(RtpTransportInternal* rtp_transport) {
     rtp_transport->SignalRtcpPacketReceived.connect(
         this, &TransportObserver::OnRtcpPacketReceived);
-    rtp_transport->SignalReadyToSend.connect(this,
-                                             &TransportObserver::OnReadyToSend);
+    rtp_transport->SubscribeReadyToSend(
+        this, [this](bool arg) { OnReadyToSend(arg); });
     rtp_transport->SignalUnDemuxableRtpPacketReceived.connect(
         this, &TransportObserver::OnUndemuxableRtpPacket);
   }

@@ -80,14 +80,16 @@ class DtlsSrtpTransportTest : public ::testing::Test,
     dtls_srtp_transport1_->SignalRtcpPacketReceived.connect(
         &transport_observer1_,
         &webrtc::TransportObserver::OnRtcpPacketReceived);
-    dtls_srtp_transport1_->SignalReadyToSend.connect(
-        &transport_observer1_, &webrtc::TransportObserver::OnReadyToSend);
+    dtls_srtp_transport1_->SubscribeReadyToSend(
+        &transport_observer1_,
+        [this](bool ready) { transport_observer1_.OnReadyToSend(ready); });
 
     dtls_srtp_transport2_->SignalRtcpPacketReceived.connect(
         &transport_observer2_,
         &webrtc::TransportObserver::OnRtcpPacketReceived);
-    dtls_srtp_transport2_->SignalReadyToSend.connect(
-        &transport_observer2_, &webrtc::TransportObserver::OnReadyToSend);
+    dtls_srtp_transport2_->SubscribeReadyToSend(
+        &transport_observer2_,
+        [this](bool ready) { transport_observer2_.OnReadyToSend(ready); });
     webrtc::RtpDemuxerCriteria demuxer_criteria;
     // 0x00 is the payload type used in kPcmuFrame.
     demuxer_criteria.payload_types() = {0x00};

@@ -20,6 +20,7 @@
 #include "modules/desktop_capture/resolution_tracker.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
 #include "modules/desktop_capture/shared_memory.h"
+#include "modules/desktop_capture/win/desktop_frame_texture.h"
 #include "modules/desktop_capture/win/dxgi_context.h"
 
 namespace webrtc {
@@ -34,7 +35,7 @@ class DxgiFrame final {
 
   // DxgiFrame does not take ownership of `factory`, consumers should ensure it
   // outlives this instance. nullptr is acceptable.
-  explicit DxgiFrame(SharedMemoryFactory* factory);
+  explicit DxgiFrame(SharedMemoryFactory* factory, bool use_texture);
   ~DxgiFrame();
 
   // Should not be called if Prepare() is not executed or returns false.
@@ -55,6 +56,7 @@ class DxgiFrame final {
   ResolutionTracker resolution_tracker_;
   DesktopCapturer::SourceId source_id_ = kFullDesktopScreenId;
   std::unique_ptr<SharedDesktopFrame> frame_;
+  bool use_texture_;
   Context context_;
 };
 

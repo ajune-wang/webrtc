@@ -21,7 +21,8 @@
 
 namespace webrtc {
 
-DxgiFrame::DxgiFrame(SharedMemoryFactory* factory) : factory_(factory) {}
+DxgiFrame::DxgiFrame(SharedMemoryFactory* factory, bool use_texture)
+    : factory_(factory), use_texture_(use_texture) {}
 
 DxgiFrame::~DxgiFrame() = default;
 
@@ -41,7 +42,6 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
     std::unique_ptr<DesktopFrame> frame;
     if (factory_) {
       frame = SharedMemoryDesktopFrame::Create(size, factory_);
-
       if (!frame) {
         RTC_LOG(LS_WARNING) << "DxgiFrame cannot create a new DesktopFrame.";
         return false;
@@ -56,6 +56,9 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
       memset(frame->data(), 0, frame->stride() * frame->size().height());
     } else {
       frame.reset(new BasicDesktopFrame(size));
+    }
+    if (use_texture_) {
+      frame->set_is_texture(true);
     }
 
     frame_ = SharedDesktopFrame::Wrap(std::move(frame));

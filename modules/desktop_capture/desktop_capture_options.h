@@ -158,6 +158,13 @@ class RTC_EXPORT DesktopCaptureOptions {
     allow_cropping_window_capturer_ = allow;
   }
 
+  bool allow_texture_frame() const {
+    return allow_texture_frame_;
+  }
+  void set_allow_texture_frame(bool allow) {
+    allow_texture_frame_ = allow;
+  }
+
 #if defined(RTC_ENABLE_WIN_WGC)
   // This flag enables the WGC capturer for capturing the screen.
   // This capturer should offer similar or better performance than the cropping
@@ -243,6 +250,7 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool enumerate_current_process_windows_ = true;
   bool allow_directx_capturer_ = false;
   bool allow_cropping_window_capturer_ = false;
+  bool allow_texture_frame_ = true;
 #if defined(RTC_ENABLE_WIN_WGC)
   bool allow_wgc_screen_capturer_ = false;
   bool allow_wgc_window_capturer_ = false;

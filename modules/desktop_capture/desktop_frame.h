@@ -148,6 +148,18 @@ class RTC_EXPORT DesktopFrame {
   // Returns true if all pixel values in the data buffer are zero or false
   // otherwise. Also returns false if the frame is empty.
   bool FrameDataIsBlack() const;
+  // Get is_texture and texture handle of the frame.
+  bool is_texture() const { return is_texture_; }
+  void set_is_texture(bool is_texture) {
+    is_texture_ = is_texture;
+  }
+
+  void set_scoped_handle(rtc::scoped_refptr<ScopedHandle> scoped_handle) {
+    scoped_handle_ = scoped_handle;
+  }
+  rtc::scoped_refptr<ScopedHandle> scoped_handle() const {
+    return scoped_handle_;
+  }
 
  protected:
   DesktopFrame(DesktopSize size,
@@ -172,6 +184,9 @@ class RTC_EXPORT DesktopFrame {
   int64_t capture_time_ms_;
   uint32_t capturer_id_;
   std::vector<uint8_t> icc_profile_;
+
+  bool is_texture_;
+  rtc::scoped_refptr<ScopedHandle> scoped_handle_;
 };
 
 // A DesktopFrame that stores data in the heap.

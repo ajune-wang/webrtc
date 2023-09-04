@@ -21,6 +21,8 @@ typedef void* HANDLE;
 
 #include <memory>
 
+#include "api/scoped_refptr.h"
+#include "rtc_base/ref_count.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -63,6 +65,29 @@ class RTC_EXPORT SharedMemory {
   const size_t size_;
   const Handle handle_;
   const int id_;
+};
+
+// ScopedHandle is a base class to store SharedMemory::Handle.
+// The stored handle will be closed when ScopedHandle is destroyed.
+class RTC_EXPORT ScopedHandle : public rtc::RefCountInterface {
+ public:
+  bool IsValid() { return handle_ != SharedMemory::kInvalidHandle;}
+  SharedMemory::Handle Get() { return handle_; }
+  int id() const { return id_; }
+  int device_id() const { return device_id_; }
+  virtual SharedMemory::Handle ReleaseHandle() = 0;
+  virtual rtc::scoped_refptr<ScopedHandle> Duplicate() = 0;
+
+  virtual ~ScopedHandle() {}
+
+  ScopedHandle(const SharedMemory&) = delete;
+  ScopedHandle& operator=(const SharedMemory&) = delete;
+ protected:
+  ScopedHandle(const SharedMemory::Handle& handle, int id, int device_id);
+
+  SharedMemory::Handle handle_;
+  const int id_;
+  const int device_id_;
 };
 
 // Interface used to create SharedMemory instances.

@@ -25,6 +25,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
 #include "modules/desktop_capture/win/d3d_device.h"
+#include "modules/desktop_capture/win/desktop_frame_texture.h"
 #include "modules/desktop_capture/win/dxgi_context.h"
 #include "modules/desktop_capture/win/dxgi_texture.h"
 #include "rtc_base/thread_annotations.h"
@@ -69,6 +70,10 @@ class DxgiOutputDuplicator {
   bool Duplicate(Context* context,
                  DesktopVector offset,
                  SharedDesktopFrame* target);
+
+  bool DuplicateNative(Context* context,
+                       DesktopVector offset,
+                       SharedDesktopFrame* target);
 
   // Returns the desktop rect covered by this DxgiOutputDuplicator.
   DesktopRect desktop_rect() const { return desktop_rect_; }
@@ -123,6 +128,13 @@ class DxgiOutputDuplicator {
   // Returns the size of desktop rectangle current instance representing.
   DesktopSize desktop_size() const;
 
+  // Prepare video processor for NV12 texture converting.
+  bool PrepareVideoProcessor();
+  // Convert BGRA texture to shared NV12 texture.
+  bool ConvertBGRATextureToNV12(
+      ID3D11Texture2D* input_texture,
+      ID3D11Texture2D* output_texture);
+
   const D3dDevice device_;
   const Microsoft::WRL::ComPtr<IDXGIOutput1> output_;
   const std::string device_name_;
@@ -145,6 +157,13 @@ class DxgiOutputDuplicator {
   // `last_frame_`.
   std::unique_ptr<SharedDesktopFrame> last_frame_;
   DesktopVector last_frame_offset_;
+
+  // Video processor variables
+  Microsoft::WRL::ComPtr<ID3D11VideoDevice> video_device_;
+  Microsoft::WRL::ComPtr<ID3D11VideoProcessorEnumerator> processor_enumerator_;
+  Microsoft::WRL::ComPtr<ID3D11VideoProcessor> video_processor_;
+  Microsoft::WRL::ComPtr<ID3D11VideoContext> video_context_;
+  int texture_pool_id_ = -1;
 
   int64_t num_frames_captured_ = 0;
 };

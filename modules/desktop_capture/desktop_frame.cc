@@ -32,7 +32,8 @@ DesktopFrame::DesktopFrame(DesktopSize size,
       size_(size),
       stride_(stride),
       capture_time_ms_(0),
-      capturer_id_(DesktopCapturerId::kUnknown) {
+      capturer_id_(DesktopCapturerId::kUnknown),
+      is_texture_(false) {
   RTC_DCHECK(size_.width() >= 0);
   RTC_DCHECK(size_.height() >= 0);
 }
@@ -134,6 +135,8 @@ void DesktopFrame::CopyFrameInfoFrom(const DesktopFrame& other) {
   set_top_left(other.top_left());
   set_icc_profile(other.icc_profile());
   set_may_contain_cursor(other.may_contain_cursor());
+  set_scoped_handle(other.scoped_handle());
+  set_is_texture(other.is_texture());
 }
 
 void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
@@ -144,6 +147,8 @@ void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
   set_top_left(other->top_left());
   set_icc_profile(other->icc_profile());
   set_may_contain_cursor(other->may_contain_cursor());
+  set_scoped_handle(other->scoped_handle());
+  set_is_texture(other->is_texture_);
 }
 
 bool DesktopFrame::FrameDataIsBlack() const {
@@ -196,8 +201,9 @@ std::unique_ptr<DesktopFrame> SharedMemoryDesktopFrame::Create(
   size_t buffer_size = size.height() * size.width() * kBytesPerPixel;
   std::unique_ptr<SharedMemory> shared_memory =
       shared_memory_factory->CreateSharedMemory(buffer_size);
-  if (!shared_memory)
+  if (!shared_memory) {
     return nullptr;
+  }
 
   return std::make_unique<SharedMemoryDesktopFrame>(
       size, size.width() * kBytesPerPixel, std::move(shared_memory));

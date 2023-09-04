@@ -195,7 +195,8 @@ DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
 
   frame->frame()->mutable_updated_region()->Clear();
 
-  if (DoDuplicateUnlocked(frame->context(), monitor_id, frame->frame())) {
+  if (DoDuplicateUnlocked(frame->context(), monitor_id,
+                          frame->frame())) {
     succeeded_duplications_++;
     return Result::SUCCEEDED;
   }
@@ -370,8 +371,8 @@ bool DxgiDuplicatorController::DoDuplicateOne(Context* context,
     if (monitor_id >= duplicators_[i].screen_count()) {
       monitor_id -= duplicators_[i].screen_count();
     } else {
-      if (duplicators_[i].DuplicateMonitor(&context->contexts[i], monitor_id,
-                                           target)) {
+      if (duplicators_[i].DuplicateMonitor(
+          &context->contexts[i], monitor_id, target)) {
         target->set_top_left(duplicators_[i].ScreenRect(monitor_id).top_left());
         return true;
       }
@@ -481,6 +482,9 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
   while (GetNumFramesCaptured() < frames_to_skip) {
     if (!DoDuplicateAll(context, shared_frame)) {
       return false;
+    }
+    if (shared_frame) {
+      RTC_LOG(LS_INFO) << "Shared_Frame:" << shared_frame;
     }
 
     // Calling DoDuplicateAll() may change the number of frames captured.

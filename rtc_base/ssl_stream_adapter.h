@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
@@ -118,7 +119,8 @@ class SSLStreamAdapter : public StreamInterface, public sigslot::has_slots<> {
   // (using the selected implementation for the platform).
   // Caller is responsible for freeing the returned object.
   static std::unique_ptr<SSLStreamAdapter> Create(
-      std::unique_ptr<StreamInterface> stream);
+      std::unique_ptr<StreamInterface> stream,
+      std::function<void(SSLHandshakeError)> handshake_error = nullptr);
 
   SSLStreamAdapter() = default;
   ~SSLStreamAdapter() override = default;
@@ -261,6 +263,8 @@ class SSLStreamAdapter : public StreamInterface, public sigslot::has_slots<> {
   // authentication.
   bool GetClientAuthEnabled() const { return client_auth_enabled_; }
 
+ protected:
+  // TODO(bugs.webrtc.org/11943): Remove after updating downstream code.
   sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
 
  private:

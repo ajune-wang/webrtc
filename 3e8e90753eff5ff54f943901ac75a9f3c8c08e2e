@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8ba4e6e_5d49bdea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-04T10:25:54Z",
+      "side": 1,
+      "message": "I ran into this writing some SSL tests on windows. From the git blame it seems this was disabled in  https://source.chromium.org/chromium/_/webrtc/src.git/+/e7c79fd3d66e0f6c54c027f880a8b1682ebae58a\nbut seems safe to re-enable at least on Windows? (or the WebRTC Chromium compile does not catch this...)",
+      "revId": "3e8e90753eff5ff54f943901ac75a9f3c8c08e2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

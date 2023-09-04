@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e206d93_effffd2f",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T20:05:38Z",
+      "side": 1,
+      "message": "Yes, in this case the problem is that Close is used as both an event name and as a verb. If it had been CloseEvent in all cases, it would have been obvious.\n\ngo/sigslot-to-callback-list recommends SubscribeSomeEvent and UnsubscribeSomeEvent for what used to be SignalSomeEvent. If the event was \"Close\", this is the result.",
+      "parentUuid": "3925366b_2a75da8a",
+      "revId": "c8899554151d09d4aa80174c9f526e61ccfc4b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33863472_6456e9a8",
         "filename": "p2p/base/tcp_port.h",
         "patchSetId": 6

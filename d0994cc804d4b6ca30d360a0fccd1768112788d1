@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbdcff0f_db3fae54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T14:20:56Z",
+      "side": 1,
+      "message": "Sideline comment.",
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41892f5d_8d5be4a6",
@@ -173,6 +190,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "I\u0027m not sure what would be an official source of truth here, but at least ffmpeg recognizes both HEVC and H265: https://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavformat/riff.c;l\u003d510-511\n\nI would suggest to use H265 for consistency.",
+      "range": {
+        "startLine": 32,
+        "startChar": 55,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a61aef62_504f286e",
+        "filename": "modules/video_coding/utility/ivf_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T14:20:56Z",
+      "side": 1,
+      "message": "If these are fourcc codes (https://fourcc.org/codecs.php#letter_h), then that registry has gone for HEVC not H265 (just like it went for AV01 not AV1).\n\nRecognizing both seems good, but emitting HEVC (if we ever do) is likely best.",
+      "parentUuid": "e3f951ec_9a7bf837",
       "range": {
         "startLine": 32,
         "startChar": 55,

@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e727497d_d1ab12d3",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-04T08:59:03Z",
+      "side": 1,
+      "message": "ssilkin@/qiujiao@  Are you sure depacketizer can be added first before this CL? Per my understanding, all depacketizers fill in the codec_type member of RTPHeader internally with their override of Parse(), so VideoCodecType needs to be defined for H.265 first before depacketizer can do this?",
+      "parentUuid": "319d9d60_d96e48e2",
+      "range": {
+        "startLine": 55,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e822445_8d03f6ce",
         "filename": "api/video_codecs/sdp_video_format.cc",
         "patchSetId": 4

@@ -16,6 +16,57 @@
       "message": "I assume we can land behind field trial without much process and then start asking people to test already.",
       "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a780cd45_e500f8ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T07:41:21Z",
+      "side": 1,
+      "message": "Looks harmless from an internal perspective!",
+      "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1feb2c2e_a9c83017",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T07:41:21Z",
+      "side": 1,
+      "message": "Rename to what? (probably fine if you have context, but context is missing)",
+      "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8faca0f4_42203e09",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T07:41:21Z",
+      "side": 1,
+      "message": "Should this whole block be under #ifdef OPENSSL_IS_BORINGSSL?\nNot because tests will fail (OpenSsl won\u0027t permute), but to document that they won\u0027t detect any error.",
+      "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "906f67f9_def213df",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "Seems you are right. Let\u0027s land this first then.",
+      "parentUuid": "e727497d_d1ab12d3",
+      "range": {
+        "startLine": 55,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 72
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e822445_8d03f6ce",
@@ -131,6 +155,328 @@
         "startChar": 4,
         "endLine": 64,
         "endChar": 64
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f951ec_9a7bf837",
+        "filename": "modules/video_coding/utility/ivf_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "I\u0027m not sure what would be an official source of truth here, but at least ffmpeg recognizes both HEVC and H265: https://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavformat/riff.c;l\u003d510-511\n\nI would suggest to use H265 for consistency.",
+      "range": {
+        "startLine": 32,
+        "startChar": 55,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48b8d35e_73531e65",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use H264 QP thresholds for now.\n    case kVideoCodecH264:\n```",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71eca19_28d49f23",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use VP9 frame rate limits for now.\n    case kVideoCodecVP9:\n```",
+      "range": {
+        "startLine": 200,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 23
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da954843_020c9025",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "Since VP9 and H265 are close in terms of compression efficiency it makes sense to re-use VP9 bitrate limits for H265 for now.\n\n```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use VP9 bitrate limits for now.\n    case kVideoCodecVP9:\n```",
+      "range": {
+        "startLine": 235,
+        "startChar": 9,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9b6f523_43df8c66",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use VP9 bitrate limits for now.\n    case kVideoCodecVP9:\n```",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 23
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa13476f_20758529",
+        "filename": "rtc_base/experiments/min_video_bitrate_experiment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "```suggestion\n      case kVideoCodecH265:\n      // TODO(bugs.webrtc.org/13485): Use VP9 bitrate limits for now.\n      case kVideoCodecVP9:\n```",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 25
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d7f571c_14bf7648",
+        "filename": "rtc_base/experiments/quality_scaling_experiment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use H264 QP thresholds for now.\n    case kVideoCodecH264:\n```",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 24
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa8a8c5_fe562629",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "We should start using kPayloadName (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_codec.cc;l\u003d22-28) here.\n\nIt would be good to fix this. But not a strict requirement for this CL.",
+      "range": {
+        "startLine": 271,
+        "startChar": 25,
+        "endLine": 271,
+        "endChar": 29
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c776e95_4242a97c",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use H264 QP thresholds for now.\n    case kVideoCodecH264: {\n```",
+      "range": {
+        "startLine": 230,
+        "startChar": 9,
+        "endLine": 230,
+        "endChar": 24
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d67cc2_e08b64e8",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "H265 parser has already be landed. I.e., this can be addressed in this CL.",
+      "range": {
+        "startLine": 362,
+        "startChar": 6,
+        "endLine": 363,
+        "endChar": 22
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e7aeb7_ee18e6f8",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "This can be addressed in this CL.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c85603f_8a164db4",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "This can be addressed in this CL.",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc4a629d_21e20e27",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "This can be addressed in this CL.",
+      "range": {
+        "startLine": 139,
+        "startChar": 6,
+        "endLine": 139,
+        "endChar": 67
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a1c073_240749b3",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 8826,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-04T14:12:07Z",
+      "side": 1,
+      "message": "It is unlikely we will ever have integrate a SW H265 encoder into WebRTC. Should probably use a fake encoder here.\n```suggestion\n        // TODO(bugs.webrtc.org/13485): Use a fake encoder.\n```",
+      "range": {
+        "startLine": 8826,
+        "startChar": 40,
+        "endLine": 8826,
+        "endChar": 62
       },
       "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

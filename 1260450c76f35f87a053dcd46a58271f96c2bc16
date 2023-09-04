@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eef7ade_dc0398ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-04T19:30:03Z",
+      "side": 1,
+      "message": "Remaining nit isn\u0027t big enough to not give +1.",
+      "revId": "1260450c76f35f87a053dcd46a58271f96c2bc16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

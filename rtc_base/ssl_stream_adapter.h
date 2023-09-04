@@ -20,6 +20,7 @@
 
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
+#include "api/function_view.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/stream.h"
@@ -118,7 +119,8 @@ class SSLStreamAdapter : public StreamInterface, public sigslot::has_slots<> {
   // (using the selected implementation for the platform).
   // Caller is responsible for freeing the returned object.
   static std::unique_ptr<SSLStreamAdapter> Create(
-      std::unique_ptr<StreamInterface> stream);
+      std::unique_ptr<StreamInterface> stream,
+      rtc::FunctionView<void(SSLHandshakeError)> handshake_error = nullptr);
 
   SSLStreamAdapter() = default;
   ~SSLStreamAdapter() override = default;
@@ -261,6 +263,7 @@ class SSLStreamAdapter : public StreamInterface, public sigslot::has_slots<> {
   // authentication.
   bool GetClientAuthEnabled() const { return client_auth_enabled_; }
 
+  // TODO(tommi): Deprecated. Remove once downstream code uses FunctionView.
   sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
 
  private:

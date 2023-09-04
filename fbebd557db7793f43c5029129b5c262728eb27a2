@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60eae234_b6f22f73",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-04T07:47:46Z",
+      "side": 1,
+      "message": "Clarified. I am still hoping the DTLSLegacyProtocols go away and then one needs to rename the test fixture class to SSLStreamAdapterTestDTLSExtensionPermutation instead of deleting it.\n\nWe\u0027ll see if that is understood when the time comes ;-)",
+      "parentUuid": "1feb2c2e_a9c83017",
+      "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8faca0f4_42203e09",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-09-04T07:41:21Z",
       "side": 1,
       "message": "Should this whole block be under #ifdef OPENSSL_IS_BORINGSSL?\nNot because tests will fail (OpenSsl won\u0027t permute), but to document that they won\u0027t detect any error.",
+      "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61f5e23_968f5c9a",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-04T07:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8faca0f4_42203e09",
       "revId": "fbebd557db7793f43c5029129b5c262728eb27a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

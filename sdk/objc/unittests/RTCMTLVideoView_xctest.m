@@ -292,7 +292,7 @@ static size_t kBufferHeight = 200;
   RTC_OBJC_TYPE(RTCMTLVideoView) *realView = [[RTC_OBJC_TYPE(RTCMTLVideoView) alloc] init];
   [realView setVideoContentMode:UIViewContentModeScaleAspectFill];
 
-  OCMVerify(metalKitView);
+  OCMVerifyAll(metalKitView);
 }
 
 @end

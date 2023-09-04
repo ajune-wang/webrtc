@@ -1531,6 +1531,7 @@ rtc_library("ssl") {
     ":threading",
     ":timeutils",
     "../api:array_view",
+    "../api:function_view",
     "../api:refcountedbase",
     "../api:scoped_refptr",
     "../api/task_queue:pending_task_safety_flag",

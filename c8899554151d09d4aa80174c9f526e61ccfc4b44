@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3925366b_2a75da8a",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-04T20:00:05Z",
+      "side": 1,
+      "message": "That makes it more confusing imho. I don\u0027t see a need to echo the names of all the implementations behind the callbacks, or to call out the Close event specifically and not the others. Doing so just raises questions. The method just disconnects callbacks from the socket, the rest is implementation detail.\n\nIn case the UnsubscribeClose() method is confusing - it\u0027s there instead of what used to be a sigslot signal. Instead of `SignalEventClose.connect()` and `SignalEventClose.disconnect()`, we have `SubscribeClose()` and `UnsubscribeClose`.  Using the words subscribe/unsubscribe to connect to event sources, is fairly common practice, so weird or not - it\u0027s not unusual.\n\nBtw, [Un]SubscribeClose() methods use `CallbackList\u003c\u003e`, which uses yet another set of names for these callback subscription operations.",
+      "parentUuid": "eda79b0b_89fdeb50",
+      "revId": "c8899554151d09d4aa80174c9f526e61ccfc4b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33863472_6456e9a8",
         "filename": "p2p/base/tcp_port.h",
         "patchSetId": 6

@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e55c075_11ac8cf4",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-04T17:37:06Z",
+      "side": 1,
+      "message": "It does only disconnect the signals actually - it calls UnsubscribeClose() (and not Close()).",
+      "parentUuid": "c0fcade7_0b5936f6",
+      "revId": "c8899554151d09d4aa80174c9f526e61ccfc4b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33863472_6456e9a8",
         "filename": "p2p/base/tcp_port.h",
         "patchSetId": 6
@@ -65,6 +83,24 @@
       "writtenOn": "2023-09-04T13:56:06Z",
       "side": 1,
       "message": "Why does this have to move to the \"protected\" section?\n\nI don\u0027t think this makes sense given that \"friend\" is section-agnostic.",
+      "revId": "c8899554151d09d4aa80174c9f526e61ccfc4b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efdc1183_4f35b646",
+        "filename": "p2p/base/tcp_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-04T17:37:06Z",
+      "side": 1,
+      "message": "oops, I meant to move the friend declaration to where MaybeReconnect() is. I must have unintentionally moved the private section to below MaybeReconnect when editing something else\n\nFixed now and moved the friend declaration to immediately before MaybeReconnect.",
+      "parentUuid": "33863472_6456e9a8",
       "revId": "c8899554151d09d4aa80174c9f526e61ccfc4b44",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,23 @@
       "message": "For the record: this patch, as well as https://webrtc-review.googlesource.com/c/src/+/318642,  gets shipped already in the Firefox downstream Capyloon (https://capyloon.org/). It\u0027s useful on devices like the PinePhone Pro.",
       "revId": "bd5c49e356764b276b7c3f0f1501990916272385",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da284f6b_7e81d87f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-09-04T06:56:57Z",
+      "side": 1,
+      "message": "Looks good to me.",
+      "revId": "bd5c49e356764b276b7c3f0f1501990916272385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

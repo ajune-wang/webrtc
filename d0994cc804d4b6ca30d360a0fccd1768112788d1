@@ -291,6 +291,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b6e3db0_742807ef",
+        "filename": "modules/video_coding/utility/ivf_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-05T08:17:17Z",
+      "side": 1,
+      "message": "Even Microsoft themselves are not following the names in fourcc database: https://learn.microsoft.com/en-us/windows/win32/medfound/video-subtype-guids#encoded-video-types\n\nWith H.264 as example, FourCC database registers AVC1 (which is MPEG name intead of ITU name), but Windows convention is to use H264.\n\nThe tool Chrome media team often uses is VQAnalyzer. It does not recognize either H265 or HEVC in the IVF header.(You need to explicitly specify HEVC when loading stream).\n\nSame with FFMPEG. It does not support writing IVF of either H265 or HEVC as fourcc.\n\nI +1 for using H265 as this is just for debugging purpose and neither works for VQAnalyzer.",
+      "parentUuid": "3fbc2e38_74ac9c35",
+      "range": {
+        "startLine": 32,
+        "startChar": 55,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48b8d35e_73531e65",
         "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
         "patchSetId": 4

@@ -263,9 +263,6 @@ class SSLStreamAdapter : public StreamInterface, public sigslot::has_slots<> {
   // authentication.
   bool GetClientAuthEnabled() const { return client_auth_enabled_; }
 
-  // TODO(bugs.webrtc.org/11943): Remove after updating downstream code.
-  sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
-
  private:
   // If true (default), the client is required to provide a certificate during
   // handshake. If no certificate is given, handshake fails. This applies to

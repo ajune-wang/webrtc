@@ -166,8 +166,8 @@ bool BaseChannel::ConnectToRtpTransport_n() {
   if (!rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria_, this)) {
     return false;
   }
-  rtp_transport_->SignalReadyToSend.connect(
-      this, &BaseChannel::OnTransportReadyToSend);
+  rtp_transport_->SubscribeReadyToSend(
+      this, [this](bool ready) { OnTransportReadyToSend(ready); });
   rtp_transport_->SignalNetworkRouteChanged.connect(
       this, &BaseChannel::OnNetworkRouteChanged);
   rtp_transport_->SignalWritableState.connect(this,
@@ -181,7 +181,7 @@ void BaseChannel::DisconnectFromRtpTransport_n() {
   RTC_DCHECK(rtp_transport_);
   RTC_DCHECK(media_send_channel());
   rtp_transport_->UnregisterRtpDemuxerSink(this);
-  rtp_transport_->SignalReadyToSend.disconnect(this);
+  rtp_transport_->UnsubscribeReadyToSend(this);
   rtp_transport_->SignalNetworkRouteChanged.disconnect(this);
   rtp_transport_->SignalWritableState.disconnect(this);
   rtp_transport_->SignalSentPacket.disconnect(this);

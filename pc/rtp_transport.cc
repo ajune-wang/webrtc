@@ -195,7 +195,7 @@ void RtpTransport::DemuxPacket(rtc::CopyOnWriteBuffer packet,
   if (!rtp_demuxer_.OnRtpPacket(parsed_packet)) {
     RTC_LOG(LS_VERBOSE) << "Failed to demux RTP packet: "
                         << RtpDemuxer::DescribePacket(parsed_packet);
-    SignalUnDemuxableRtpPacketReceived(parsed_packet);
+    NotifyUnDemuxableRtpPacketReceived(parsed_packet);
   }
 }
 
@@ -236,7 +236,7 @@ void RtpTransport::OnRtpPacketReceived(rtc::CopyOnWriteBuffer packet,
 
 void RtpTransport::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                                         int64_t packet_time_us) {
-  SignalRtcpPacketReceived(&packet, packet_time_us);
+  SendRtcpPacketReceived(&packet, packet_time_us);
 }
 
 void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
@@ -286,7 +286,7 @@ void RtpTransport::MaybeSignalReadyToSend() {
       rtp_ready_to_send_ && (rtcp_ready_to_send_ || rtcp_mux_enabled_);
   if (ready_to_send != ready_to_send_) {
     ready_to_send_ = ready_to_send;
-    SignalReadyToSend(ready_to_send);
+    SendReadyToSend(ready_to_send);
   }
 }
 

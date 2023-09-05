@@ -244,7 +244,7 @@ void SrtpTransport::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
     return;
   }
   packet.SetSize(len);
-  SignalRtcpPacketReceived(&packet, packet_time_us);
+  SendRtcpPacketReceived(&packet, packet_time_us);
 }
 
 void SrtpTransport::OnNetworkRouteChanged(

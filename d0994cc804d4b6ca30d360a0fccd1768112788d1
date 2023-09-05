@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b079482_e24b7b1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T06:34:57Z",
+      "side": 1,
+      "message": "Won\u0027t block over this, but I think deviations from external specs are unwise.",
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41892f5d_8d5be4a6",
@@ -238,6 +255,30 @@
       "side": 1,
       "message": "These IVF writer/reader are debug tools. We merely need to make sure that the writer produces a stream decodable by ffmpeg. Since we already use \"H264\" and it is \"H265\" in the code, and ffmpeg recognizes \"H265\", then, for consistency, it would be better to use \"H265\" in IVF reader/writer too.",
       "parentUuid": "a61aef62_504f286e",
+      "range": {
+        "startLine": 32,
+        "startChar": 55,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fbc2e38_74ac9c35",
+        "filename": "modules/video_coding/utility/ivf_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T06:34:57Z",
+      "side": 1,
+      "message": "I won\u0027t die on this hill, but IVF is an external specification, which references another external specification (fourcc).\nEven though we currently think that we\u0027re feeding this to a single tool that also tolerates deviations from the external specification, I think it\u0027s unwise to depart from it.\n\n(Note - this list of constants should have a comment next to it saying that these are fourcc codes, and give the URL where fourcc codes are found. This minimizes the chance of unintended deviations.)",
+      "parentUuid": "4f788d15_4a2e1d3a",
       "range": {
         "startLine": 32,
         "startChar": 55,

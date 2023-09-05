@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "099437fa_8adf520e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T10:40:52Z",
+      "side": 1,
+      "message": "great stuff!",
+      "revId": "ce04057e14fa19d5ff0a80402472564fc3d4b8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42cedae5_f8c880a1",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T10:40:52Z",
+      "side": 1,
+      "message": "Interesting that the `RTC_RUN_ON(network_thread_)` annotation was actually false advertising before.",
+      "revId": "ce04057e14fa19d5ff0a80402472564fc3d4b8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

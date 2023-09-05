@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90bfe81c_191a230d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T10:40:52Z",
+      "side": 1,
+      "message": "Sounds good. Agree about the Add* prefix. I was thinking about something more in line with the js [Add|Remove]EventListener convention, but that in itself is too long.",
+      "parentUuid": "a9c0a8ec_6be90e9a",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "422fc117_5b5b155c",

@@ -12,10 +12,12 @@
 #define PC_RTP_TRANSPORT_INTERNAL_H_
 
 #include <string>
+#include <utility>
 
 #include "call/rtp_demuxer.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "pc/session_description.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/network_route.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
@@ -50,12 +52,23 @@ class RtpTransportInternal : public sigslot::has_slots<> {
   // Called whenever a transport's ready-to-send state changes. The argument
   // is true if all used transports are ready to send. This is more specific
   // than just "writable"; it means the last send didn't return ENOTCONN.
-  sigslot::signal1<bool> SignalReadyToSend;
+  void SubscribeReadyToSend(const void* tag,
+                            absl::AnyInvocable<void(bool)> callback) {
+    callback_list_ready_to_send_.AddReceiver(tag, std::move(callback));
+  }
+  void UnsubscribeReadyToSend(const void* tag) {
+    callback_list_ready_to_send_.RemoveReceivers(tag);
+  }
 
   // Called whenever an RTCP packet is received. There is no equivalent signal
   // for demuxable RTP packets because they would be forwarded to the
   // BaseChannel through the RtpDemuxer callback.
-  sigslot::signal2<rtc::CopyOnWriteBuffer*, int64_t> SignalRtcpPacketReceived;
+  void SubscribeRtcpPacketReceived(
+      const void* tag,
+      absl::AnyInvocable<void(rtc::CopyOnWriteBuffer*, int64_t)> callback) {
+    callback_list_rtcp_packet_received_.AddReceiver(tag, std::move(callback));
+  }
+  // There doesn't seem to be a need to unsubscribe from this signal.
 
   // Called whenever a RTP packet that can not be demuxed by the transport is
   // received.
@@ -103,6 +116,18 @@ class RtpTransportInternal : public sigslot::has_slots<> {
                                       RtpPacketSinkInterface* sink) = 0;
 
   virtual bool UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) = 0;
+
+ protected:
+  void SendReadyToSend(bool arg) { callback_list_ready_to_send_.Send(arg); }
+  void SendRtcpPacketReceived(rtc::CopyOnWriteBuffer* buffer,
+                              int64_t packet_time_us) {
+    callback_list_rtcp_packet_received_.Send(buffer, packet_time_us);
+  }
+
+ private:
+  CallbackList<bool> callback_list_ready_to_send_;
+  CallbackList<rtc::CopyOnWriteBuffer*, int64_t>
+      callback_list_rtcp_packet_received_;
 };
 
 }  // namespace webrtc

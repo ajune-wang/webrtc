@@ -1090,8 +1090,11 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
             UpdateAggregateStates_n();
           });
 
-  jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
-      this, &JsepTransportController::OnRtcpPacketReceived_n);
+  jsep_transport->rtp_transport()->SubscribeRtcpPacketReceived(
+      this, [this](rtc::CopyOnWriteBuffer* buffer, int64_t packet_time_ms) {
+        RTC_DCHECK_RUN_ON(network_thread_);
+        OnRtcpPacketReceived_n(buffer, packet_time_ms);
+      });
   jsep_transport->rtp_transport()->SignalUnDemuxableRtpPacketReceived.connect(
       this, &JsepTransportController::OnUnDemuxableRtpPacketReceived_n);
 

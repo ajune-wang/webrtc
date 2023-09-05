@@ -13,8 +13,11 @@
 
 #include <memory>
 
+#include "absl/functional/any_invocable.h"
 #include "api/array_view.h"
+#include "api/sequence_checker.h"
 #include "rtc_base/buffer.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
@@ -81,6 +84,23 @@ class RTC_EXPORT StreamInterface {
   // signalled as a result of this call.
   virtual void Close() = 0;
 
+  // Streams may issue one or more StreamEvents to indicate state changes to a
+  // provided callback.
+  // The first argument to the identifies the stream on which the state change
+  // occurred.
+  // The second argument is a bit-wise combination of StreamEvents.
+  // If SE_CLOSE is signalled, then the third argument is the associated error
+  // code.  Otherwise, the value is undefined.
+  // Note: Not all streams will support asynchronous event signalling.  However,
+  // SS_OPENING and SR_BLOCK returned from stream member functions imply that
+  // certain events will be raised in the future.
+  virtual void SetEventHandler(
+      absl::AnyInvocable<void(StreamInterface*, int, int)> callback) {
+    RTC_CHECK(false);
+  }
+
+ protected:
+  // TODO(tommi): Remove.
   // Streams may signal one or more StreamEvents to indicate state changes.
   // The first argument identifies the stream on which the state change occured.
   // The second argument is a bit-wise combination of StreamEvents.
@@ -91,8 +111,12 @@ class RTC_EXPORT StreamInterface {
   // certain events will be raised in the future.
   sigslot::signal3<StreamInterface*, int, int> SignalEvent;
 
+ public:
   // Return true if flush is successful.
   virtual bool Flush();
+
+  // TODO(tommi): Move the convenience methods/implementation to the
+  // StreamInterfaceBase class.
 
   //
   // CONVENIENCE METHODS
@@ -121,6 +145,36 @@ class RTC_EXPORT StreamInterface {
 
  protected:
   StreamInterface();
+};
+
+// Provides basic implementation for some methods in StreamInterface and
+// contains some common utilities for derived implementations.
+class StreamInterfaceBase : public StreamInterface {
+ public:
+  ~StreamInterfaceBase() override = default;
+
+  void SetEventHandler(
+      absl::AnyInvocable<void(StreamInterface*, int, int)> callback) override {
+    RTC_DCHECK_RUN_ON(&construction_sequence_);
+    RTC_DCHECK(!callback_ || !callback);
+    callback_ = std::move(callback);
+  }
+
+ protected:
+  StreamInterfaceBase() = default;
+
+  void FireStreamEvent(int stream_events, int err)
+      RTC_RUN_ON(&construction_sequence_) {
+    if (callback_) {
+      callback_(this, stream_events, err);
+    }
+  }
+
+  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker construction_sequence_;
+
+ private:
+  absl::AnyInvocable<void(StreamInterface*, int, int)> callback_
+      RTC_GUARDED_BY(&construction_sequence_);
 };
 
 }  // namespace rtc

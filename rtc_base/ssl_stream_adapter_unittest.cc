@@ -154,8 +154,10 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
                      rtc::StreamInterface* in,
                      rtc::StreamInterface* out)
       : test_base_(test), side_(side), in_(in), out_(out), first_packet_(true) {
-    in_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventIn);
-    out_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventOut);
+    in_->SetEventHandler([this](rtc::StreamInterface* stream, int events,
+                                int err) { OnEventIn(stream, events, err); });
+    out_->SetEventHandler([this](rtc::StreamInterface* stream, int events,
+                                 int err) { OnEventOut(stream, events, err); });
   }
 
   rtc::StreamState GetState() const override { return rtc::SS_OPEN; }
@@ -351,9 +353,15 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     server_ssl_ =
         rtc::SSLStreamAdapter::Create(absl::WrapUnique(server_stream_));
 
-    // Set up the slots
-    client_ssl_->SignalEvent.connect(this, &SSLStreamAdapterTestBase::OnEvent);
-    server_ssl_->SignalEvent.connect(this, &SSLStreamAdapterTestBase::OnEvent);
+    // Set up the event handlers.
+    client_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
+    server_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
 
     std::unique_ptr<rtc::SSLIdentity> client_identity;
     if (!client_cert_pem_.empty() && !client_private_key_pem_.empty()) {
@@ -386,8 +394,14 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
     server_ssl_ =
         rtc::SSLStreamAdapter::Create(absl::WrapUnique(server_stream_));
 
-    client_ssl_->SignalEvent.connect(this, &SSLStreamAdapterTestBase::OnEvent);
-    server_ssl_->SignalEvent.connect(this, &SSLStreamAdapterTestBase::OnEvent);
+    client_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
+    server_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
 
     time_t now = time(nullptr);
 
@@ -1078,13 +1092,15 @@ class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
     server_ssl_ =
         rtc::SSLStreamAdapter::Create(absl::WrapUnique(server_stream_));
 
-    // Set up the slots
-    client_ssl_->SignalEvent.connect(
-        reinterpret_cast<SSLStreamAdapterTestBase*>(this),
-        &SSLStreamAdapterTestBase::OnEvent);
-    server_ssl_->SignalEvent.connect(
-        reinterpret_cast<SSLStreamAdapterTestBase*>(this),
-        &SSLStreamAdapterTestBase::OnEvent);
+    // Set up the event handlers.
+    client_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
+    server_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
 
     std::unique_ptr<rtc::SSLIdentity> client_identity;
     if (!client_cert_pem_.empty() && !client_private_key_pem_.empty()) {
@@ -1629,9 +1645,10 @@ class SSLStreamAdapterTestDTLSLegacyProtocols
         new SSLDummyStreamDTLS(this, "c2s", &client_buffer_, &server_buffer_);
     client_ssl_ =
         rtc::SSLStreamAdapter::Create(absl::WrapUnique(client_stream_));
-    client_ssl_->SignalEvent.connect(
-        static_cast<SSLStreamAdapterTestBase*>(this),
-        &SSLStreamAdapterTestBase::OnEvent);
+    client_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
     auto client_identity = rtc::SSLIdentity::Create("client", client_key_type_);
     client_ssl_->SetIdentity(std::move(client_identity));
   }
@@ -1642,9 +1659,10 @@ class SSLStreamAdapterTestDTLSLegacyProtocols
         new SSLDummyStreamDTLS(this, "s2c", &server_buffer_, &client_buffer_);
     server_ssl_ =
         rtc::SSLStreamAdapter::Create(absl::WrapUnique(server_stream_));
-    server_ssl_->SignalEvent.connect(
-        static_cast<SSLStreamAdapterTestBase*>(this),
-        &SSLStreamAdapterTestBase::OnEvent);
+    server_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEvent(stream, events, err);
+        });
     server_ssl_->SetIdentity(
         rtc::SSLIdentity::Create("server", server_key_type_));
   }

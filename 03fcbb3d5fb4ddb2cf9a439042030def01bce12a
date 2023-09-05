@@ -33,6 +33,24 @@
       "message": "Still needed? (same for BUILD.gn?)",
       "revId": "03fcbb3d5fb4ddb2cf9a439042030def01bce12a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e712465b_78232da2",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T09:51:41Z",
+      "side": 0,
+      "message": "Not needed. Removed.",
+      "parentUuid": "2ec22c65_47aa6163",
+      "revId": "03fcbb3d5fb4ddb2cf9a439042030def01bce12a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

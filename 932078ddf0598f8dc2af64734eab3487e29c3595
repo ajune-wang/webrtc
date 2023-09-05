@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6bf890_6ad4656a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T09:51:41Z",
+      "side": 1,
+      "message": "Fixed the easy stuff....",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db88967e_3bd3bf46",
@@ -54,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9c0a8ec_6be90e9a",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T09:51:41Z",
+      "side": 1,
+      "message": "I\u0027d make it SubscribeTo / UnsubscribeFrom. But I think we can continue this conversation in the conversion guide document.\n\n\"AddOnClose\" doesn\u0027t read well to me - it requires you to read \"OnClose\" as the event name and \"Add\" as the action of subscribing to it.",
+      "parentUuid": "db88967e_3bd3bf46",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "422fc117_5b5b155c",
         "filename": "pc/rtp_transport_internal.h",
         "patchSetId": 6
@@ -65,6 +100,24 @@
       "writtenOn": "2023-09-05T09:34:47Z",
       "side": 1,
       "message": "Can the has_slots\u003c\u003e inheritance be removed from the interface?",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "671ff9c9_6771d694",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T09:51:41Z",
+      "side": 1,
+      "message": "No - it connects to signals from the packet transport.",
+      "parentUuid": "422fc117_5b5b155c",
       "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -88,6 +141,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6471ba3d_6fb8f5d4",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T09:51:41Z",
+      "side": 1,
+      "message": "That would move it to RtpTransport (its only direct subclass), which is in turn subclassed by SrtpTransport.\n\nThe signal variables already broke the \"pure interface\" convention (and it\u0027s not calling itself an interface anyway), so I thought this would be \"just wallowing around in the muck at the bottom of the slippery slope\".\n\n(I also wondered about my excessive use of inlining here....)",
+      "parentUuid": "35a197e2_2211c257",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4a02a5a_00ab7b8a",
         "filename": "pc/test/rtp_transport_test_util.h",
         "patchSetId": 6
@@ -99,6 +170,24 @@
       "writtenOn": "2023-09-05T09:34:47Z",
       "side": 1,
       "message": "can has_slots be removed?",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f5b09ce_17052278",
+        "filename": "pc/test/rtp_transport_test_util.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T09:51:41Z",
+      "side": 1,
+      "message": "Yes!",
+      "parentUuid": "f4a02a5a_00ab7b8a",
       "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

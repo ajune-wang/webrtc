@@ -361,6 +361,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49558c17_c6c67ca7",
+        "filename": "modules/video_coding/utility/ivf_file_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T11:39:11Z",
+      "side": 1,
+      "message": "and I misread the fourcc registry. It reserves H260-H269 here:\nhttps://fourcc.org/h260-through-h269/\nSo HEVC/H265 gets two entries; all is \"legal\"!",
+      "parentUuid": "3dc28ac9_7c89c99c",
+      "range": {
+        "startLine": 32,
+        "startChar": 55,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48b8d35e_73531e65",

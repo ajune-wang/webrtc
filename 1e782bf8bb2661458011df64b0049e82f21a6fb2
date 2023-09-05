@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e5506fc_b4670b2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T06:31:47Z",
+      "side": 1,
+      "message": "Only one question, given the push for using absl::AnyInvocable in other places.",
+      "revId": "1e782bf8bb2661458011df64b0049e82f21a6fb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a67a3c8_3ade2071",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-05T06:31:47Z",
+      "side": 1,
+      "message": "Why is this std::function and not absl::AnyInvocable?",
+      "revId": "1e782bf8bb2661458011df64b0049e82f21a6fb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

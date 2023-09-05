@@ -56,7 +56,7 @@ class RtpSource {
         extensions_(extensions),
         rtp_timestamp_(rtp_timestamp) {}
 
-  // TODO(bugs.webrtc.org/13757): deprecate when chromium stop using this
+  // TODO: bugs.webrtc.org/13757 - deprecate when chromium stop using this
   // and remove after 2023-09-18
   RtpSource(int64_t timestamp_ms,
             uint32_t source_id,

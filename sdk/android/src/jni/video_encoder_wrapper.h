@@ -103,6 +103,7 @@ class VideoEncoderWrapper : public VideoEncoder {
   VideoCodec codec_settings_;
   EncoderInfo encoder_info_;
   H264BitstreamParser h264_bitstream_parser_;
+  H265BitstreamParser h265_bitstream_parser_;
 
   // Fills frame dependencies in codec-agnostic format.
   ScalableVideoControllerNoLayering svc_controller_;

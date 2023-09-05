@@ -135,7 +135,8 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
         return true;
       }
       break;
-
+    case kVideoCodecH265:
+      [[fallthrough]];
     default:
       break;
   }
@@ -1351,6 +1352,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     // TODO(sprang): Add a better way to disable frame dropping.
     num_layers = codec.simulcastStream[0].numberOfTemporalLayers;
   } else {
+    // TODO(bugs.webrtc.org/13485): Implement H265 temporal layer
     num_layers = 1;
   }
 

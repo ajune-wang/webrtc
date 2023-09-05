@@ -33,6 +33,24 @@
       "message": "Why is this std::function and not absl::AnyInvocable?",
       "revId": "1e782bf8bb2661458011df64b0049e82f21a6fb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dd56e74_7071647c",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T07:20:01Z",
+      "side": 1,
+      "message": "doh, old habit :) Fixed",
+      "parentUuid": "8a67a3c8_3ade2071",
+      "revId": "1e782bf8bb2661458011df64b0049e82f21a6fb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

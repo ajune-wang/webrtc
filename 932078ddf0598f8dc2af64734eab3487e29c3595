@@ -16,6 +16,91 @@
       "message": "Straightforward conversion.",
       "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b09e7790_44087596",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 1,
+      "message": "great! a few questions. The comment about the naming convention can be addressed/discussed separately, just raising it here.",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db88967e_3bd3bf46",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 1,
+      "message": "Since we were discussing these names, when reading this, I do think that `SubscribeReadyToSend` is clear. However, it\u0027s not `SubscribeReadyToSendEvent`, using the Event suffix. The function name is already long, but as you pointed out, `SubscribeClose` is an example of a name that can be confusing. Wdyt about a convention of using `SubscribeOn` as the prefix and no suffix? In that case, this would become `SubscribeOnReadyToSend`.\n\nI don\u0027t care too strongly about this since I think it\u0027s already readable but having a convention for this makes sense to me.\n\nPS: An even shorter potential prefix could be `AddOn`, as in `AddOnClose`, `RemoveOnClose`.",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "422fc117_5b5b155c",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 1,
+      "message": "Can the has_slots\u003c\u003e inheritance be removed from the interface?",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a197e2_2211c257",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 1,
+      "message": "this does change the Interface from being a true virtual interface to having an implementation. Can we move this over to the implementation? That would presumably also mean that the subscription methods would need to be pure virtual.",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a02a5a_00ab7b8a",
+        "filename": "pc/test/rtp_transport_test_util.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 1,
+      "message": "can has_slots be removed?",
+      "revId": "932078ddf0598f8dc2af64734eab3487e29c3595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

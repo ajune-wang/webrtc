@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c805321_6aeecd04",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 0,
+      "message": "woohoo!",
+      "revId": "03fcbb3d5fb4ddb2cf9a439042030def01bce12a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ec22c65_47aa6163",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-05T09:34:47Z",
+      "side": 0,
+      "message": "Still needed? (same for BUILD.gn?)",
+      "revId": "03fcbb3d5fb4ddb2cf9a439042030def01bce12a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -158,6 +158,10 @@ class RtpVideoSender : public RtpVideoSenderInterface,
       std::vector<StreamPacketInfo> packet_feedback_vector)
       RTC_LOCKS_EXCLUDED(mutex_) override;
 
+  // Whether any stream within this sender has had encoded video frames injected
+  // via the Encoded Transforms API which weren't produced by this encoder.
+  bool HasSentExternallyEncodedMedia() override;
+
  private:
   bool IsActiveLocked() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   void SetActiveModulesLocked(const std::vector<bool>& active_modules)

@@ -16,6 +16,24 @@
       "message": "Since we can\u0027t document the constness of this ptr by the const qualifier, please add a comment saying that this is const over the lifetime of the ConnectionContext, and only touched in the destructor.\n\n(I added the constness and the cast because I thought it important to document that it never changes.)",
       "revId": "ebc5863b14e6484d938dbec83156c446e4f529b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f91b33d_796f9610",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2023-09-06T07:25:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9acf6ac_dad96a7c",
+      "revId": "ebc5863b14e6484d938dbec83156c446e4f529b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

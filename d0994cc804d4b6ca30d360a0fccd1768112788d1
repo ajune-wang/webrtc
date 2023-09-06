@@ -194,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f822ba1_b2e0d0d4",
+        "filename": "api/video_codecs/sdp_video_format.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1037303_a7901579",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 64
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3f951ec_9a7bf837",
@@ -408,6 +432,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d8c124f_9868feb4",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48b8d35e_73531e65",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f71eca19_28d49f23",
@@ -421,6 +469,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use VP9 frame rate limits for now.\n    case kVideoCodecVP9:\n```",
+      "range": {
+        "startLine": 200,
+        "startChar": 9,
+        "endLine": 200,
+        "endChar": 23
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102afb30_fe5c0ed0",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f71eca19_28d49f23",
       "range": {
         "startLine": 200,
         "startChar": 9,
@@ -454,6 +526,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0338d65e_daf09aba",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da954843_020c9025",
+      "range": {
+        "startLine": 235,
+        "startChar": 9,
+        "endLine": 235,
+        "endChar": 23
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9b6f523_43df8c66",
@@ -467,6 +563,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use VP9 bitrate limits for now.\n    case kVideoCodecVP9:\n```",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 23
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b8f935_c3090b47",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9b6f523_43df8c66",
       "range": {
         "startLine": 271,
         "startChar": 9,
@@ -500,6 +620,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9668fdf1_c5caf4a9",
+        "filename": "rtc_base/experiments/min_video_bitrate_experiment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa13476f_20758529",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 25
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d7f571c_14bf7648",
@@ -513,6 +657,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use H264 QP thresholds for now.\n    case kVideoCodecH264:\n```",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 24
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51536384_b1fa8136",
+        "filename": "rtc_base/experiments/quality_scaling_experiment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d7f571c_14bf7648",
       "range": {
         "startLine": 84,
         "startChar": 9,
@@ -546,6 +714,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb4c1e41_df446d5f",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "I will submit another CL to fix this.",
+      "parentUuid": "ffa8a8c5_fe562629",
+      "range": {
+        "startLine": 271,
+        "startChar": 25,
+        "endLine": 271,
+        "endChar": 29
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c776e95_4242a97c",
@@ -559,6 +751,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "```suggestion\n    case kVideoCodecH265:\n    // TODO(bugs.webrtc.org/13485): Use H264 QP thresholds for now.\n    case kVideoCodecH264: {\n```",
+      "range": {
+        "startLine": 230,
+        "startChar": 9,
+        "endLine": 230,
+        "endChar": 24
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4c3ccca_311b5f6a",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c776e95_4242a97c",
       "range": {
         "startLine": 230,
         "startChar": 9,
@@ -592,6 +808,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d37a19ee_8259d833",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d67cc2_e08b64e8",
+      "range": {
+        "startLine": 362,
+        "startChar": 6,
+        "endLine": 363,
+        "endChar": 22
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34e7aeb7_ee18e6f8",
@@ -605,6 +845,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "This can be addressed in this CL.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc77a8e_d88a6871",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34e7aeb7_ee18e6f8",
       "range": {
         "startLine": 55,
         "startChar": 6,
@@ -638,6 +902,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c257f9f9_44f631c3",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c85603f_8a164db4",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc4a629d_21e20e27",
@@ -661,6 +949,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "beb8b131_7ce90ca6",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc4a629d_21e20e27",
+      "range": {
+        "startLine": 139,
+        "startChar": 6,
+        "endLine": 139,
+        "endChar": 67
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27a1c073_240749b3",
@@ -674,6 +986,30 @@
       "writtenOn": "2023-09-04T14:12:07Z",
       "side": 1,
       "message": "It is unlikely we will ever have integrate a SW H265 encoder into WebRTC. Should probably use a fake encoder here.\n```suggestion\n        // TODO(bugs.webrtc.org/13485): Use a fake encoder.\n```",
+      "range": {
+        "startLine": 8826,
+        "startChar": 40,
+        "endLine": 8826,
+        "endChar": 62
+      },
+      "revId": "d0994cc804d4b6ca30d360a0fccd1768112788d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8292bdf_dc8fffa0",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 8826,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-06T01:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27a1c073_240749b3",
       "range": {
         "startLine": 8826,
         "startChar": 40,

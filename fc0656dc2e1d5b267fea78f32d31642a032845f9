@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6262a8a_5d3dede9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-06T18:19:17Z",
+      "side": 1,
+      "message": "would be clearer what it does if you make it \"Mark RtpSource timestamp_ms constructor and accessor deprecated\".",
+      "revId": "fc0656dc2e1d5b267fea78f32d31642a032845f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa8b5c2f_1c74518b",
@@ -14,6 +31,23 @@
       "writtenOn": "2023-09-06T15:10:17Z",
       "side": 1,
       "message": "chromium usage was cleaned.\nMarking deprecated to avoid accidental backsliding in webrtc or chromium,\nand to add extra visibility in other codebases.",
+      "revId": "fc0656dc2e1d5b267fea78f32d31642a032845f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e182b5b1_7c8735c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-06T18:19:17Z",
+      "side": 1,
+      "message": "Approved, just nitting on title.",
       "revId": "fc0656dc2e1d5b267fea78f32d31642a032845f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

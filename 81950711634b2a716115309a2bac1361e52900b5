@@ -16,6 +16,23 @@
       "message": "This should do it, right?\n\n(a second +1 would be nice, I always need those ;-)",
       "revId": "81950711634b2a716115309a2bac1361e52900b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d004c5c0_28b9a732",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 8070
+      },
+      "writtenOn": "2023-09-06T17:29:04Z",
+      "side": 1,
+      "message": "This doesn\u0027t do anything on the server right now. We probably ought to do it for the other messages too, but we never implemented that. (Other extension lists are *mostly* in response to the ClientHello so there\u0027s a little less variability there in the first place.)",
+      "revId": "81950711634b2a716115309a2bac1361e52900b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

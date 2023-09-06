@@ -33,6 +33,24 @@
       "message": "LGTM, but fyi that hta@ filed a bug recently that we have too many scattered exports in DesktopCapture: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d15452\n\nHopefully this can be a short-lived export.",
       "revId": "abdf737fb87a747e35d9e195f5fee65a3a9f6546",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdf1327_ee8c569f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-09-06T20:58:48Z",
+      "side": 1,
+      "message": "Thanks!\n\nI know of the bug. The alternative would be to duplicate the code so I think it makes sense for now.",
+      "parentUuid": "290e2fb2_e7c1f0cd",
+      "revId": "abdf737fb87a747e35d9e195f5fee65a3a9f6546",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

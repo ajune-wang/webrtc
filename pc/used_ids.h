@@ -155,9 +155,10 @@ class UsedRtpHeaderExtensionIds : public UsedIds<webrtc::RtpExtension> {
     if (id_domain_ == IdDomain::kTwoByteAllowed) {
       if (next_extension_id_ < min_allowed_id_) {
         // We have searched among all one-byte IDs without finding an unused ID,
-        // continue at the first two-byte ID.
+        // continue at the first two-byte ID but avoid it since 15 is disallowed
+        // by https://www.rfc-editor.org/rfc/rfc8285#section-4.2
         next_extension_id_ =
-            webrtc::RtpExtension::kOneByteHeaderExtensionMaxId + 1;
+            webrtc::RtpExtension::kOneByteHeaderExtensionMaxId + 2;
       }
 
       if (next_extension_id_ >

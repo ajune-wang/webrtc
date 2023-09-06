@@ -31,7 +31,7 @@ struct BitrateAllocationLimits {
   // The total minimum send bitrate required by all sending streams.
   DataRate min_allocatable_rate = DataRate::Zero();
   // The total maximum allocatable bitrate for all currently available streams.
-  DataRate max_allocatable_rate = DataRate::Zero();
+  absl::optional<DataRate> max_allocatable_rate = absl::nullopt;
   // The max bitrate to use for padding. The sum of the per-stream max padding
   // rate.
   DataRate max_padding_rate = DataRate::Zero();

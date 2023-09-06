@@ -64,6 +64,9 @@ class RtpVideoSenderInterface : public EncodedImageCallback,
 
   // Implements FecControllerOverride.
   void SetFecAllowed(bool fec_allowed) override = 0;
+
+  // DO NOT SUBMIT without adding implementations
+  virtual bool HasSentExternallyEncodedMedia() { return false; }
 };
 }  // namespace webrtc
 #endif  // CALL_RTP_VIDEO_SENDER_INTERFACE_H_

@@ -16,6 +16,23 @@
       "message": "Sad to see that we need to add automatic_resize to AV1. I\u0027m trying to get rid of this flag in https://webrtc-review.googlesource.com/c/src/+/297402. Encoder can/should always provide QP thresholds. It is up to encoder\u0027s user to decide how/where to use them.\n\nLGTM. Will try to remove it later.",
       "revId": "3fc6ea583f9d75c2a0c930b93074c30447e23d63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e42bdb5b_f923614c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-09-06T11:24:15Z",
+      "side": 1,
+      "message": "I assume that you looked at updated NumActiveStream() https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d376 to take into account if the scalability mode for each stream has more than one spatial layer?\nSeems like that would accomplish pretty much the same thing without the need for a codec specifics? Or does that subtle break some other use case?",
+      "revId": "3fc6ea583f9d75c2a0c930b93074c30447e23d63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

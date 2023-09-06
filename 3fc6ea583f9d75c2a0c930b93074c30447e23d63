@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "205a35fb_7c6324a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-06T10:54:54Z",
+      "side": 1,
+      "message": "Sad to see that we need to add automatic_resize to AV1. I\u0027m trying to get rid of this flag in https://webrtc-review.googlesource.com/c/src/+/297402. Encoder can/should always provide QP thresholds. It is up to encoder\u0027s user to decide how/where to use them.\n\nLGTM. Will try to remove it later.",
+      "revId": "3fc6ea583f9d75c2a0c930b93074c30447e23d63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

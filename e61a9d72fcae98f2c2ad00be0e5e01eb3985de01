@@ -16,6 +16,23 @@
       "message": "Looks good to me.",
       "revId": "e61a9d72fcae98f2c2ad00be0e5e01eb3985de01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "887d3421_31944a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-09-06T17:09:19Z",
+      "side": 1,
+      "message": "LGTM; however please wait for an answer on the thread that I\u0027ve kicked off. I believe most of you are on the same time zone, so if you can also drive that conversation to a quicker resolution that\u0027d be great!",
+      "revId": "e61a9d72fcae98f2c2ad00be0e5e01eb3985de01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa8b5c2f_1c74518b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-06T15:10:17Z",
+      "side": 1,
+      "message": "chromium usage was cleaned.\nMarking deprecated to avoid accidental backsliding in webrtc or chromium,\nand to add extra visibility in other codebases.",
+      "revId": "fc0656dc2e1d5b267fea78f32d31642a032845f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

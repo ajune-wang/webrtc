@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3944a806_5455c81b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-07T17:29:08Z",
+      "side": 1,
+      "message": "With an intent to move send_delay calculation into statistics proxy too\n(as agreed in https://webrtc-review.googlesource.com/c/src/+/317801)\n\nsend_delay calculation happens per SSRC, and I plan to extend introduced Tracker class with something that calculates average and max send_delay over a window.\nlarge draft: https://webrtc-review.googlesource.com/c/src/+/319500",
+      "revId": "2a35f1824c2ef0cffc240133a8deb1161627131e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

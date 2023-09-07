@@ -92,6 +92,20 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
 
   virtual ~RTPSenderVideo();
 
+  bool SendVideo(int payload_type,
+                 absl::optional<VideoCodecType> codec_type,
+                 uint32_t rtp_timestamp,
+                 Timestamp capture_time,
+                 rtc::ArrayView<const uint8_t> payload,
+                 size_t encoder_output_size,
+                 RTPVideoHeader video_header,
+                 TimeDelta expected_retransmission_time,
+                 std::vector<uint32_t> csrcs) {
+    return SendVideo(payload_type, codec_type, rtp_timestamp, capture_time,
+                     payload, encoder_output_size, video_header,
+                     expected_retransmission_time, csrcs,
+                     /*externally_encded=*/false);
+  }
   // `capture_time` and `clock::CurrentTime` should be using the same epoch.
   // `expected_retransmission_time.IsFinite()` -> retransmission allowed.
   // `encoder_output_size` is the size of the video frame as it came out of the
@@ -105,7 +119,8 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
                  size_t encoder_output_size,
                  RTPVideoHeader video_header,
                  TimeDelta expected_retransmission_time,
-                 std::vector<uint32_t> csrcs) override;
+                 std::vector<uint32_t> csrcs,
+                 bool externally_encoded) override;
 
   bool SendEncodedImage(int payload_type,
                         absl::optional<VideoCodecType> codec_type,
@@ -147,6 +162,10 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
   // 'retransmission_mode' is either a value of enum RetransmissionMode, or
   // computed with bitwise operators on values of enum RetransmissionMode.
   void SetRetransmissionSetting(int32_t retransmission_settings);
+
+  bool HasSentExternallyEncodedMedia() {
+    return has_sent_externally_encoded_media_;
+  }
 
  protected:
   static uint8_t GetTemporalId(const RTPVideoHeader& header);
@@ -251,6 +270,10 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
 
   const rtc::scoped_refptr<RTPSenderVideoFrameTransformerDelegate>
       frame_transformer_delegate_;
+
+  // Whether this sender has had encoded video frames injected via the Encoded
+  // Transforms API which weren't produced by this encoder.
+  bool has_sent_externally_encoded_media_;
 };
 
 }  // namespace webrtc

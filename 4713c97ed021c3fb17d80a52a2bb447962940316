@@ -16,6 +16,23 @@
       "message": "since you reminded me... will land only after M118 branch cut.",
       "revId": "4713c97ed021c3fb17d80a52a2bb447962940316",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbcdf79_72222124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-07T12:05:03Z",
+      "side": 1,
+      "message": "No complaints about this in M116. Will cleanup the UMA too",
+      "revId": "4713c97ed021c3fb17d80a52a2bb447962940316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

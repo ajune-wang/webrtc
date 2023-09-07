@@ -16,6 +16,24 @@
       "message": "The change you made to the formula for min_bitrate_kbps seems reasonable given AV1\u0027s improved coding efficiency vs. VP9.  FYI, according to the formula, the min_bitrate_kbps value for 320x180 is ~115kbps and for 1280x720 is ~461 kbps.  I don\u0027t know/recall how min_bitrate_kbps parameter here affects AV1 video. In particular, I don\u0027t know how it interplays with the AV1 bitrate limits that were recently launched?",
       "revId": "c5a46a1e0bd51cfd6e06318c6ad9ff42574d0186",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d110595f_81517a67",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2023-09-07T16:23:24Z",
+      "side": 1,
+      "message": "My apologies. I mis-computed the values for min_bitrate_kbp. 320x180 is ~20 kbps and for 1280x720 is ~366 kbps. Much closer to the values of the min bitrate limits for AV1.",
+      "parentUuid": "2deb0931_cd0ed13f",
+      "revId": "c5a46a1e0bd51cfd6e06318c6ad9ff42574d0186",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

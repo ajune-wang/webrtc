@@ -33,6 +33,23 @@
       "message": "Wait, I wanted to wait until after branch cut with landing this...",
       "revId": "f662aa41c67546501435020d78ed0a4ac051f615",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa17e84_edbcff1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-07T12:04:20Z",
+      "side": 1,
+      "message": "And we have branched.",
+      "revId": "f662aa41c67546501435020d78ed0a4ac051f615",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

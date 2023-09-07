@@ -16,6 +16,24 @@
       "message": "+Michael, to review changes in bitrate limits",
       "revId": "0e0cf5ce66287655bd71590c62e5d00e3c01587a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e59b1c_73e6dd41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-09-07T09:35:30Z",
+      "side": 1,
+      "message": "Some min/max bitrate limits for typical resolutions:\n\n\n    +------------+-----+------+\n    | Resolution | min | max  |\n    +------------+-----+------+\n    | 320x180    |  20 |  147 |\n    | 480x270    |  79 |  262 |\n    | 640x360    | 135 |  424 |\n    | 960x540    | 251 |  884 |\n    | 1280x720   | 365 | 1529 |\n    | 1600x900   | 481 | 2359 |\n    | 1920x1080  | 596 | 3372 |\n    +------------+-----+------+",
+      "parentUuid": "c9c33ac2_fb16f82d",
+      "revId": "0e0cf5ce66287655bd71590c62e5d00e3c01587a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

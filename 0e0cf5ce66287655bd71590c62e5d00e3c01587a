@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c33ac2_fb16f82d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-07T09:16:06Z",
+      "side": 1,
+      "message": "+Michael, to review changes in bitrate limits",
+      "revId": "0e0cf5ce66287655bd71590c62e5d00e3c01587a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

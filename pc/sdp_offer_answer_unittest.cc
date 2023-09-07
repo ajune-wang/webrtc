@@ -959,4 +959,33 @@ TEST_F(SdpOfferAnswerTest, OfferWithRtxAndNoMsidIsNotRejected) {
   EXPECT_TRUE(pc->SetRemoteDescription(std::move(offer)));
 }
 
+TEST_F(SdpOfferAnswerTest, RecyclingWithDifferentKindAndSameMidFails) {
+  auto pc1 = CreatePeerConnection();
+  pc1->AddAudioTrack("audio_track", {});
+  auto pc2 = CreatePeerConnection();
+  pc2->AddVideoTrack("video_track", {});
+
+  auto initial_offer = pc1->CreateOfferAndSetAsLocal();
+  ASSERT_EQ(initial_offer->description()->contents().size(), 1u);
+  auto mid1 = initial_offer->description()->contents()[0].mid();
+  std::string rejected_answer_sdp =
+      "v=0\r\n"
+      "o=- 8621259572628890423 2 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "m=audio 0 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n";
+  auto rejected_answer =
+      CreateSessionDescription(SdpType::kAnswer, rejected_answer_sdp);
+  EXPECT_TRUE(pc1->SetRemoteDescription(std::move(rejected_answer)));
+
+  auto offer =
+      pc2->CreateOfferAndSetAsLocal();  // This will generate a mid=0 too
+  ASSERT_EQ(offer->description()->contents().size(), 1u);
+  auto mid2 = offer->description()->contents()[0].mid();
+  EXPECT_EQ(mid1, mid2);  // Check that the mids collided.
+  EXPECT_TRUE(pc1->SetRemoteDescription(std::move(offer)));
+  EXPECT_TRUE(pc1->CreateAnswerAndSetAsLocal());
+}
+
 }  // namespace webrtc

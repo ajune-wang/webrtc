@@ -52,6 +52,24 @@
       "parentUuid": "13e59b1c_73e6dd41",
       "revId": "0e0cf5ce66287655bd71590c62e5d00e3c01587a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b456f09e_662d9f18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-09-07T10:54:12Z",
+      "side": 1,
+      "message": "That was just to get the ~150 kbps QVGA max bitrate that I though we were aiming for.\n\nChanged it back to match VP9 settings.",
+      "parentUuid": "5405ffb4_d8c45fb9",
+      "revId": "0e0cf5ce66287655bd71590c62e5d00e3c01587a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

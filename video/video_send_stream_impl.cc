@@ -382,7 +382,12 @@ void VideoSendStreamImpl::SignalEncoderTimedOut() {
   // If the encoder has not produced anything the last kEncoderTimeOut and it
   // is supposed to, deregister as BitrateAllocatorObserver. This can happen
   // if a camera stops producing frames.
-  if (encoder_target_rate_bps_ > 0) {
+  RTC_LOG(LS_ERROR)
+      << "SignalEncoderTimedOut, has sent externallyencoded media: "
+      << (rtp_video_sender_->HasSentExternallyEncodedMedia() ? "true"
+                                                             : "false");
+  if (encoder_target_rate_bps_ > 0 &&
+      !rtp_video_sender_->HasSentExternallyEncodedMedia()) {
     RTC_LOG(LS_INFO) << "SignalEncoderTimedOut, Encoder timed out.";
     bitrate_allocator_->RemoveObserver(this);
   }
@@ -459,7 +464,8 @@ MediaStreamAllocationConfig VideoSendStreamImpl::GetAllocationConfig() const {
       static_cast<uint32_t>(disable_padding_ ? 0 : max_padding_bitrate_),
       /* priority_bitrate */ 0,
       !config_->suspend_below_min_bitrate,
-      encoder_bitrate_priority_};
+      encoder_bitrate_priority_,
+      rtp_video_sender_->HasSentExternallyEncodedMedia()};
 }
 
 void VideoSendStreamImpl::OnEncoderConfigurationChanged(

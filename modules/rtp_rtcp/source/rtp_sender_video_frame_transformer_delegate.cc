@@ -23,14 +23,16 @@ namespace {
 
 class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
  public:
-  TransformableVideoSenderFrame(const EncodedImage& encoded_image,
-                                const RTPVideoHeader& video_header,
-                                int payload_type,
-                                absl::optional<VideoCodecType> codec_type,
-                                uint32_t rtp_timestamp,
-                                TimeDelta expected_retransmission_time,
-                                uint32_t ssrc,
-                                std::vector<uint32_t> csrcs)
+  TransformableVideoSenderFrame(
+      const EncodedImage& encoded_image,
+      const RTPVideoHeader& video_header,
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      TimeDelta expected_retransmission_time,
+      uint32_t ssrc,
+      std::vector<uint32_t> csrcs,
+      RTPVideoFrameSenderInterface* originating_sender)
       : encoded_data_(encoded_image.GetEncodedData()),
         pre_transform_payload_size_(encoded_image.size()),
         header_(video_header),
@@ -42,7 +44,8 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
         capture_time_identifier_(encoded_image.CaptureTimeIdentifier()),
         expected_retransmission_time_(expected_retransmission_time),
         ssrc_(ssrc),
-        csrcs_(csrcs) {
+        csrcs_(csrcs),
+        originating_sender_for_equality_checks_(originating_sender) {
     RTC_DCHECK_GE(payload_type_, 0);
     RTC_DCHECK_LE(payload_type_, 127);
   }
@@ -98,6 +101,10 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
 
   Direction GetDirection() const override { return Direction::kSender; }
 
+  RTPVideoFrameSenderInterface* OriginatingSenderForEqualityChecks() {
+    return originating_sender_for_equality_checks_;
+  }
+
  private:
   rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data_;
   const size_t pre_transform_payload_size_;
@@ -112,6 +119,11 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
 
   uint32_t ssrc_;
   std::vector<uint32_t> csrcs_;
+
+  // Identifier of the sender which created this frame, or nullptr for frames
+  // created by a RTPReceiver etc. Should only be used for equality checks and
+  // never dereferenced - the object could have been destroyed!
+  RTPVideoFrameSenderInterface* originating_sender_for_equality_checks_;
 };
 }  // namespace
 
@@ -139,10 +151,11 @@ bool RTPSenderVideoFrameTransformerDelegate::TransformFrame(
     const EncodedImage& encoded_image,
     RTPVideoHeader video_header,
     TimeDelta expected_retransmission_time) {
+  MutexLock lock(&sender_lock_);
   frame_transformer_->Transform(std::make_unique<TransformableVideoSenderFrame>(
       encoded_image, video_header, payload_type, codec_type, rtp_timestamp,
       expected_retransmission_time, ssrc_,
-      /*csrcs=*/std::vector<uint32_t>()));
+      /*csrcs=*/std::vector<uint32_t>(), sender_));
   return true;
 }
 
@@ -171,15 +184,19 @@ void RTPSenderVideoFrameTransformerDelegate::SendVideo(
       TransformableFrameInterface::Direction::kSender) {
     auto* transformed_video_frame =
         static_cast<TransformableVideoSenderFrame*>(transformed_frame.get());
-    sender_->SendVideo(transformed_video_frame->GetPayloadType(),
-                       transformed_video_frame->GetCodecType(),
-                       transformed_video_frame->GetTimestamp(),
-                       transformed_video_frame->GetCaptureTime(),
-                       transformed_video_frame->GetData(),
-                       transformed_video_frame->GetPreTransformPayloadSize(),
-                       transformed_video_frame->GetHeader(),
-                       transformed_video_frame->GetExpectedRetransmissionTime(),
-                       transformed_video_frame->Metadata().GetCsrcs());
+    sender_->SendVideo(
+        transformed_video_frame->GetPayloadType(),
+        transformed_video_frame->GetCodecType(),
+        transformed_video_frame->GetTimestamp(),
+        transformed_video_frame->GetCaptureTime(),
+        transformed_video_frame->GetData(),
+        transformed_video_frame->GetPreTransformPayloadSize(),
+        transformed_video_frame->GetHeader(),
+        transformed_video_frame->GetExpectedRetransmissionTime(),
+        transformed_video_frame->Metadata().GetCsrcs(),
+        /*externally_encoded=*/
+        transformed_video_frame->OriginatingSenderForEqualityChecks() !=
+            sender_);
   } else {
     auto* transformed_video_frame =
         static_cast<TransformableVideoFrameInterface*>(transformed_frame.get());
@@ -192,7 +209,8 @@ void RTPSenderVideoFrameTransformerDelegate::SendVideo(
         transformed_video_frame->GetData().size(),
         RTPVideoHeader::FromMetadata(metadata),
         /*expected_retransmission_time=*/TimeDelta::PlusInfinity(),
-        metadata.GetCsrcs());
+        metadata.GetCsrcs(),
+        /*externally_encoded=*/true);
   }
 }
 
@@ -229,6 +247,14 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
                                  ? VideoFrameType::kVideoFrameKey
                                  : VideoFrameType::kVideoFrameDelta;
   // TODO(bugs.webrtc.org/14708): Fill in other EncodedImage parameters
+  RTPVideoFrameSenderInterface* originating_sender = nullptr;
+  if (original->GetDirection() ==
+      TransformableFrameInterface::Direction::kSender) {
+    auto* transformed_video_sender_frame =
+        static_cast<TransformableVideoSenderFrame*>(original);
+    originating_sender =
+        transformed_video_sender_frame->OriginatingSenderForEqualityChecks();
+  }
 
   VideoFrameMetadata metadata = original->Metadata();
   RTPVideoHeader new_header = RTPVideoHeader::FromMetadata(metadata);
@@ -236,7 +262,7 @@ std::unique_ptr<TransformableVideoFrameInterface> CloneSenderVideoFrame(
       encoded_image, new_header, original->GetPayloadType(), new_header.codec,
       original->GetTimestamp(),
       /*expected_retransmission_time=*/TimeDelta::PlusInfinity(),
-      original->GetSsrc(), metadata.GetCsrcs());
+      original->GetSsrc(), metadata.GetCsrcs(), originating_sender);
 }
 
 }  // namespace webrtc

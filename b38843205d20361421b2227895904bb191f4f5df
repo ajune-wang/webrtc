@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d046bd8_ff3b23c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2023-09-08T08:59:06Z",
+      "side": 1,
+      "message": "I noticed bots are still marked as alive even if the connected iOS device is dead, all failures I\u0027ve seen, the device is unavailable and xcode just waits for the device to show up.",
+      "revId": "b38843205d20361421b2227895904bb191f4f5df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -60,9 +60,12 @@ void SendDelayStats::AddSsrcs(const VideoSendStream::Config& config) {
   }
 }
 
-void SendDelayStats::OnSendPacket(uint16_t packet_id,
+void SendDelayStats::OnSendPacket(absl::optional<uint16_t> packet_id,
                                   Timestamp capture_time,
                                   uint32_t ssrc) {
+  if (!packet_id.has_value()) {
+    return;
+  }
   // Packet sent to transport.
   MutexLock lock(&mutex_);
   auto it = send_delay_counters_.find(ssrc);
@@ -80,9 +83,9 @@ void SendDelayStats::OnSendPacket(uint16_t packet_id,
   // invalidate existent iterators, and it has pointer stability for values.
   // Entries are never remove from the `send_delay_counters_`.
   // Thus memorizing pointer to the AvgCounter is safe.
-  packets_.emplace(packet_id, Packet{.send_delay = &it->second,
-                                     .capture_time = capture_time,
-                                     .send_time = now});
+  packets_.emplace(*packet_id, Packet{.send_delay = &it->second,
+                                      .capture_time = capture_time,
+                                      .send_time = now});
 }
 
 bool SendDelayStats::OnSentPacket(int packet_id, Timestamp time) {

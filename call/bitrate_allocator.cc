@@ -498,6 +498,8 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
 
 void BitrateAllocator::UpdateAllocationLimits() {
   BitrateAllocationLimits limits;
+  bool max_allocatable_rate_known = true;
+  DataRate total_max_bitrates = DataRate::Zero();
   for (const auto& config : allocatable_tracks_) {
     uint32_t stream_padding = config.config.pad_up_bitrate_bps;
     if (config.config.enforce_min_bitrate) {
@@ -508,8 +510,14 @@ void BitrateAllocator::UpdateAllocationLimits() {
           std::max(config.MinBitrateWithHysteresis(), stream_padding);
     }
     limits.max_padding_rate += DataRate::BitsPerSec(stream_padding);
-    limits.max_allocatable_rate +=
-        DataRate::BitsPerSec(config.config.max_bitrate_bps);
+    if (config.config.external_encoder) {
+      max_allocatable_rate_known = false;
+    } else {
+      total_max_bitrates += DataRate::BitsPerSec(config.config.max_bitrate_bps);
+    }
+  }
+  if (max_allocatable_rate_known) {
+    limits.max_allocatable_rate = total_max_bitrates;
   }
 
   if (limits.min_allocatable_rate == current_limits_.min_allocatable_rate &&
@@ -524,7 +532,9 @@ void BitrateAllocator::UpdateAllocationLimits() {
                    << ", total_requested_padding_bitrate: "
                    << ToString(limits.max_padding_rate)
                    << ", total_requested_max_bitrate: "
-                   << ToString(limits.max_allocatable_rate);
+                   << (limits.max_allocatable_rate
+                           ? ToString(*limits.max_allocatable_rate)
+                           : "absent");
 
   limit_observer_->OnAllocationLimitsChanged(limits);
 }

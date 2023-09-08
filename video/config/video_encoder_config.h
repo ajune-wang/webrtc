@@ -127,6 +127,7 @@ class VideoEncoderConfig {
     kRealtimeVideo,
     kScreen,
   };
+  std::string ToString(ContentType content_type) const;
 
   class VideoStreamFactoryInterface : public rtc::RefCountInterface {
    public:

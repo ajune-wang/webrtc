@@ -899,6 +899,7 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(sink_);
     RTC_LOG(LS_INFO) << "ConfigureEncoder requested.";
+    RTC_LOG(LS_VERBOSE) << "Config: " << config.ToString();
 
     // Set up the frame cadence adapter according to if we're going to do
     // screencast. The final number of spatial layers is based on info

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ec4b0f_53357e3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-09-08T08:17:28Z",
+      "side": 1,
+      "message": "Removed myself as reviewer since I don\u0027t have sufficient knowledge in video coding parts of WebRTC to perform a proper review.",
+      "revId": "eaafa7ca9d2659a274f061d870ebf248eca46e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

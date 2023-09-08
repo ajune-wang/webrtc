@@ -46,7 +46,7 @@ class SendDelayStats : public SendPacketObserver {
 
   // From SendPacketObserver.
   // Called when a packet is sent to the transport.
-  void OnSendPacket(uint16_t packet_id,
+  void OnSendPacket(absl::optional<uint16_t> packet_id,
                     Timestamp capture_time,
                     uint32_t ssrc) override;
 

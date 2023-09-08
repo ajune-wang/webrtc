@@ -34,6 +34,24 @@
       "parentUuid": "fa4386ac_68b2159c",
       "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a603a8_505472f3",
+        "filename": "video/config/video_encoder_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-08T16:27:12Z",
+      "side": 1,
+      "message": "I was pondering this but since the enum is class-internal, so should be the ToString?",
+      "parentUuid": "9b24056c_09395c42",
+      "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

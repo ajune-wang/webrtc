@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa4386ac_68b2159c",
+        "filename": "video/config/video_encoder_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-08T09:38:07Z",
+      "side": 1,
+      "message": "I expected to log the content type more but didn\u0027t in the end. Still a tiny improvement.",
+      "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

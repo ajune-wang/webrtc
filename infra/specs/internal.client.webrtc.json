@@ -11,45 +11,6 @@
           "--out-dir",
           "${ISOLATED_OUTDIR}"
         ],
-        "isolate_name": "common_audio_unittests",
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "common_audio_unittests",
-        "resultdb": {
-          "enable": true,
-          "has_native_resultdb_integration": true
-        },
-        "swarming": {
-          "cipd_packages": [
-            {
-              "cipd_package": "infra/tools/mac_toolchain/${platform}",
-              "location": ".",
-              "revision": "git_revision:59ddedfe3849abf560cbe0b41bb8e431041cd2bb"
-            }
-          ],
-          "dimensions": {
-            "os": "iOS-16.6",
-            "pool": "chrome.tests"
-          },
-          "named_caches": [
-            {
-              "name": "xcode_ios_15a5229h",
-              "path": "Xcode.app"
-            }
-          ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
-        },
-        "test_id_prefix": "ninja://common_audio:common_audio_unittests/"
-      },
-      {
-        "args": [
-          "--xctest",
-          "--xcode-build-version",
-          "15a5229h",
-          "--out-dir",
-          "${ISOLATED_OUTDIR}"
-        ],
         "isolate_name": "common_video_unittests",
         "merge": {
           "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
@@ -495,45 +456,6 @@
   },
   "iOS64 Release": {
     "isolated_scripts": [
-      {
-        "args": [
-          "--xctest",
-          "--xcode-build-version",
-          "15a5229h",
-          "--out-dir",
-          "${ISOLATED_OUTDIR}"
-        ],
-        "isolate_name": "common_audio_unittests",
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "common_audio_unittests",
-        "resultdb": {
-          "enable": true,
-          "has_native_resultdb_integration": true
-        },
-        "swarming": {
-          "cipd_packages": [
-            {
-              "cipd_package": "infra/tools/mac_toolchain/${platform}",
-              "location": ".",
-              "revision": "git_revision:59ddedfe3849abf560cbe0b41bb8e431041cd2bb"
-            }
-          ],
-          "dimensions": {
-            "os": "iOS-16.6",
-            "pool": "chrome.tests"
-          },
-          "named_caches": [
-            {
-              "name": "xcode_ios_15a5229h",
-              "path": "Xcode.app"
-            }
-          ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
-        },
-        "test_id_prefix": "ninja://common_audio:common_audio_unittests/"
-      },
       {
         "args": [
           "--xctest",

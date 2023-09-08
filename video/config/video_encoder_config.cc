@@ -65,20 +65,21 @@ VideoEncoderConfig::VideoEncoderConfig(VideoEncoderConfig&&) = default;
 
 VideoEncoderConfig::~VideoEncoderConfig() = default;
 
+std::string VideoEncoderConfig::ToString(ContentType content_type) const {
+  switch (content_type) {
+    case ContentType::kRealtimeVideo:
+      return "kRealtimeVideo";
+    case ContentType::kScreen:
+      return "kScreenshare";
+  }
+  RTC_CHECK_NOTREACHED();
+}
+
 std::string VideoEncoderConfig::ToString() const {
   char buf[1024];
   rtc::SimpleStringBuilder ss(buf);
-  ss << "{codec_type: ";
-  ss << CodecTypeToPayloadString(codec_type);
-  ss << ", content_type: ";
-  switch (content_type) {
-    case ContentType::kRealtimeVideo:
-      ss << "kRealtimeVideo";
-      break;
-    case ContentType::kScreen:
-      ss << "kScreenshare";
-      break;
-  }
+  ss << "{codec_type: " << CodecTypeToPayloadString(codec_type);
+  ss << ", content_type: " << ToString(content_type);
   ss << ", frame_drop_enabled: " << frame_drop_enabled;
   ss << ", encoder_specific_settings: ";
   ss << (encoder_specific_settings != nullptr ? "(ptr)" : "NULL");

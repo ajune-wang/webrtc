@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d004ae9e_f4f80d51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-08T10:10:17Z",
+      "side": 1,
+      "message": "remember to mark them obsolete in the chromium-level maps.... (I think you\u0027re supposed to mark them obsolete, not delete them, at least at first .... for interpreting old data).",
+      "revId": "4713c97ed021c3fb17d80a52a2bb447962940316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d09dfd46_9fe56d0a",

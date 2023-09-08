@@ -16,6 +16,24 @@
       "message": "I expected to log the content type more but didn\u0027t in the end. Still a tiny improvement.",
       "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b24056c_09395c42",
+        "filename": "video/config/video_encoder_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-09-08T13:47:42Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be a member function. Can you make it a global ContentTypeToString(ContentType) instead?\n\nIf it\u0027s only used here it can be in the anonymous namespace",
+      "parentUuid": "fa4386ac_68b2159c",
+      "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

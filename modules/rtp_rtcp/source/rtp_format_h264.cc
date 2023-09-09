@@ -153,6 +153,7 @@ bool RtpPacketizerH264::PacketizeFuA(size_t fragment_index) {
 size_t RtpPacketizerH264::PacketizeStapA(size_t fragment_index) {
   // Aggregate fragments into one packet (STAP-A).
   size_t payload_size_left = limits_.max_payload_len;
+  const bool has_first_fragment = fragment_index == 0;
   if (input_fragments_.size() == 1)
     payload_size_left -= limits_.single_packet_reduction_len;
   else if (fragment_index == 0)
@@ -172,7 +173,16 @@ size_t RtpPacketizerH264::PacketizeStapA(size_t fragment_index) {
     }
     if (fragment_index == input_fragments_.size() - 1) {
       // Last fragment, so STAP-A might be the last packet.
-      return fragment_size + limits_.last_packet_reduction_len;
+      if (has_first_fragment) {
+        // Packet contains both first and last fragment, switch from
+        // first_packet_reduction_len to single_packet_reduction_len.
+        RTC_CHECK_GE(limits_.single_packet_reduction_len,
+                     limits_.first_packet_reduction_len);
+        return fragment_size + (limits_.single_packet_reduction_len -
+                                limits_.first_packet_reduction_len);
+      } else {
+        return fragment_size + limits_.last_packet_reduction_len;
+      }
     }
     return fragment_size;
   };

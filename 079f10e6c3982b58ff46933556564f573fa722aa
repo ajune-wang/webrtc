@@ -70,6 +70,30 @@
       },
       "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a74819_a0a1ec00",
+        "filename": "api/video_codecs/scalability_mode_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-09-11T15:30:44Z",
+      "side": 1,
+      "message": "Updated to `ScalabilityModeStringToEnum`",
+      "parentUuid": "7cba532e_380d8052",
+      "range": {
+        "startLine": 37,
+        "startChar": 32,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

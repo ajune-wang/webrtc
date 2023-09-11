@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cff3a6ce_04ee4e9f",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-11T08:54:36Z",
+      "side": 1,
+      "message": "I got confused by this block that already handles `single_packet_reduction_len`, thought only in one corner case (thank you for adding new test case that shows the bug).\n\nMay it would be overall cleaner to remove this block, and instead rewrite payload_size_needed() as :\n\n```\nsize_t fragment_size \u003d fragment.size() + fragment_headers_length;\nbool has_last_fragment \u003d input_fragments_.size() - 1;\nif (has_first_fragment \u0026\u0026 has_last_fragment) {\n  return fragment_size + limits.single_packet_reduction_len;\n} else if (has_first_fragment) {\n  return fragment_size + limits.first_packet_reduction_len;\n} else if (has_last_fragment) {\n  return fragment_size + limits.last_packet_reduction_len;\n} else {\n  return fragment_size;\n}\n```\n\nwould that work?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 60
+      },
+      "revId": "1127044ae7eea291be4dc5e2e274bea52debf5fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

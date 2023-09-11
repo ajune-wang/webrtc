@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "422666c3_ff297e6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-11T13:52:33Z",
+      "side": 1,
+      "message": "key step of moving the send side delay calculation to the send_statistics_proxy.\n\nBefore were preparations,\nafter this one should be just trivial cleanups.",
+      "revId": "a646040a1768e7a55d3be4ebdd6283e359afe060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

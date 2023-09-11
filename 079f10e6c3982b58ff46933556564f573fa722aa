@@ -46,6 +46,30 @@
       },
       "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cba532e_380d8052",
+        "filename": "api/video_codecs/scalability_mode_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-11T14:58:06Z",
+      "side": 1,
+      "message": "I think it is important to settle on name in the public api now, later would be harder to change.\n\nwhat name would you prefer in the end? \n`ScalabilityModeFromString`\nor\n`ScalabilityModeEnumFromString` ?\n\nor, may be, for consistency with other functions in the file:\n`ScalabilityModeStringToEnum`\n\n\nIf you prefer the very 1st one then may be keep the header as is (just change the name back), and in the .cc\nreplace the forwarding implementation with comment that implementation resides in scalability_mode_util.",
+      "parentUuid": "055d6e47_fd02a032",
+      "range": {
+        "startLine": 37,
+        "startChar": 32,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1006,6 +1006,15 @@ void RtpVideoSender::OnPacketFeedbackVector(
   }
 }
 
+bool RtpVideoSender::HasSentExternallyEncodedMedia() const {
+  for (const RtpStreamSender& rtp_stream : rtp_streams_) {
+    if (rtp_stream.sender_video->HasSentExternallyEncodedMedia()) {
+      return true;
+    }
+  }
+  return false;
+}
+
 void RtpVideoSender::SetEncodingData(size_t width,
                                      size_t height,
                                      size_t num_temporal_layers) {

@@ -22,6 +22,30 @@
       },
       "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055d6e47_fd02a032",
+        "filename": "api/video_codecs/scalability_mode_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-09-11T14:36:37Z",
+      "side": 1,
+      "message": "Oops, good catch.\n\nCleaning up and structuring scalability mode related support functions could be done as a small refactoring project, I would prefer to do that later.",
+      "parentUuid": "6762177c_1a2f1a9f",
+      "range": {
+        "startLine": 37,
+        "startChar": 32,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

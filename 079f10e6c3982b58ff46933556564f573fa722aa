@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6762177c_1a2f1a9f",
+        "filename": "api/video_codecs/scalability_mode_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-11T14:29:57Z",
+      "side": 1,
+      "message": "this function looks unused (its name doesn\u0027t match declaration in the header)\n\nmay be instead rename the function in the svc/scalability_mode_util.h to make it clear it shouldn\u0027t be widely used (something like ScalabilityModeFromStringInternal), call it here, and update webrtc to using name defined in the api.\n\nOtherwise there would be two widely used functions with different names that do the same, which would be confusing.",
+      "range": {
+        "startLine": 37,
+        "startChar": 32,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "079f10e6c3982b58ff46933556564f573fa722aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

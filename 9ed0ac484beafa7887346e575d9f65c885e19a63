@@ -16,6 +16,24 @@
       "message": "Do we have any easy way to write a unit test for this?",
       "revId": "9ed0ac484beafa7887346e575d9f65c885e19a63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d0552f_ddbb1365",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2023-09-12T12:19:09Z",
+      "side": 1,
+      "message": "The AdjustEstimatedCaptureClockOffset is tested\nhttps://cs.android.com/android/platform/superproject/+/master:external/webrtc/modules/rtp_rtcp/source/capture_clock_offset_updater_unittest.cc;drc\u003d63b3095d2ba163eb189c8af798d89f9a75dfad4f;l\u003d26\n\n\nTo test this change, we would\n1. Create a ChannelReceive (defined in channel_receive.cc)\nhttps://cs.android.com/android/platform/superproject/+/master:external/webrtc/audio/channel_receive.cc;drc\u003d8a31b755253dcadb062cc71003793c52435c6b26;l\u003d87\n\n2. Populate rtp_rtcp_, ntp_estimator_, and capture_clock_offset_updater_by calling ChannelReceive::ReceivedRTCPPacket\nhttps://cs.android.com/android/platform/superproject/+/master:external/webrtc/audio/channel_receive.cc;drc\u003d8a31b755253dcadb062cc71003793c52435c6b26;l\u003d731\n\n3. Check local capture clock offset in packet_infos from the audio_frame after calling ChannelReceive::GetAudioFrameWithInfo()\nhttps://cs.android.com/android/platform/superproject/+/master:external/webrtc/audio/channel_receive.cc;drc\u003d8a31b755253dcadb062cc71003793c52435c6b26;l\u003d376\n\nIf we want to add a test for this. I would suggest adding a function for setting absolute capture time and local capture clock offset on a packet info. That function would take the packet info and capture_clock_offset_updater_ as parameters. That would give us the control to easily test this code.\nI.e. move the lines https://cs.android.com/android/platform/superproject/+/master:external/webrtc/audio/channel_receive.cc;l\u003d474-486?q\u003daudio%2Fchannel_receive.cc\u0026ss\u003dandroid%2Fplatform%2Fsuperproject:external%2Fwebrtc%2F\nFrom ChannelReceive::GetAudioFrameWithInfo() to a new testable function.",
+      "parentUuid": "547046e7_909d1bbe",
+      "revId": "9ed0ac484beafa7887346e575d9f65c885e19a63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

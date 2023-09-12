@@ -34,6 +34,24 @@
       "parentUuid": "547046e7_909d1bbe",
       "revId": "9ed0ac484beafa7887346e575d9f65c885e19a63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "372f57a6_d0fc958b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-09-12T12:22:32Z",
+      "side": 1,
+      "message": "Sounds like a lot of work :) I guess we can skip it in this case since the change is so small.",
+      "parentUuid": "e4d0552f_ddbb1365",
+      "revId": "9ed0ac484beafa7887346e575d9f65c885e19a63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

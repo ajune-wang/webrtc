@@ -52,6 +52,24 @@
       "parentUuid": "9b24056c_09395c42",
       "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf15961_9068ee50",
+        "filename": "video/config/video_encoder_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-09-12T17:42:40Z",
+      "side": 1,
+      "message": "You should be able to do it like so (const char* too):\n\n```\nnamespace {\n\nconst char* ContentTypeToString(VideoEncoderConfig::ContentType content_type) {\n  ...\n}\n\n}  // namespace\n```",
+      "parentUuid": "f4a603a8_505472f3",
+      "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

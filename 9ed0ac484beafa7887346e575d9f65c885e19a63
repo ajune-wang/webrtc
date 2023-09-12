@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547046e7_909d1bbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2023-09-12T11:31:35Z",
+      "side": 1,
+      "message": "Do we have any easy way to write a unit test for this?",
+      "revId": "9ed0ac484beafa7887346e575d9f65c885e19a63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

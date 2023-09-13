@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "633ff471_c0726a49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-13T15:24:17Z",
+      "side": 1,
+      "message": "I\u0027m confused by this change.\nit feels too hacky for the described problem, introduces too many things at the same time.\n\nissue mentions options C as preferred way, i.e. application somehow disables bandwidth allocator, I do not see why rtp layer need to be touched for such solution.",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5669a6_49600c68",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-13T15:24:17Z",
+      "side": 1,
+      "message": "why keep this flag in RtpSenderVideo, if RtpSenderVideo doesn\u0027t use it itself\n\nand why pass it in SendVideo function that is already has way too many parameters.\n(if it still has to be kept in RtpSenderVideo, then may be add a separate small setter just for it)",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e58e7b1_45873a0e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-13T15:24:17Z",
+      "side": 1,
+      "message": "equality check of pointer for a deleted object is sort of UB:\n\nT* object1 \u003d new T;\n\nmemorize(object1);\n\ndelete object1;\n\nT* object2 \u003d new T;\n\n(object2 \u003d\u003d saved_pointer_to_object1) can be true if allocate happen to reuse deleted object space.",
+      "range": {
+        "startLine": 124,
+        "startChar": 35,
+        "endLine": 125,
+        "endChar": 72
+      },
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

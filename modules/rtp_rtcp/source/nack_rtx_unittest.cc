@@ -210,7 +210,8 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
       EXPECT_TRUE(rtp_sender_video_->SendVideo(
           kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
           /*capture_time=*/Timestamp::Millis(timestamp / 90), payload_data,
-          sizeof(payload_data), video_header, TimeDelta::Zero(), {}));
+          sizeof(payload_data), video_header, TimeDelta::Zero(), /*csrcs=*/{},
+          /*externally_encoded=*/false));
       // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
       fake_clock.AdvanceTimeMilliseconds(5);
       int length = BuildNackList(nack_list);
@@ -261,7 +262,8 @@ TEST_F(RtpRtcpRtxNackTest, LongNackList) {
     EXPECT_TRUE(rtp_sender_video_->SendVideo(
         kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
         Timestamp::Millis(timestamp / 90), payload_data, sizeof(payload_data),
-        video_header, TimeDelta::Zero(), {}));
+        video_header, TimeDelta::Zero(), /*csrcs=*/{},
+        /*externally_encoded=*/false));
     // Prepare next frame.
     timestamp += 3000;
     fake_clock.AdvanceTimeMilliseconds(33);

@@ -61,6 +61,10 @@ struct MediaStreamAllocationConfig {
   // observers. If an observer has twice the bitrate_priority of other
   // observers, it should be allocated twice the bitrate above its min.
   double bitrate_priority;
+
+  // If true, encoded media comes from an external source, so the max bitrate
+  // is unknown, and allocations may not be followed.
+  bool external_encoder = false;
 };
 
 // Interface used for mocking

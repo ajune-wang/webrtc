@@ -16,6 +16,29 @@
       "message": "key step of moving the send side delay calculation to the send_statistics_proxy.\n\nBefore were preparations,\nafter this one should be just trivial cleanups.",
       "revId": "a646040a1768e7a55d3be4ebdd6283e359afe060",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c8c8f9b_e7973ed6",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2023-09-13T08:29:14Z",
+      "side": 1,
+      "message": "Maybe check this first to not update track for unknown ssrc.",
+      "range": {
+        "startLine": 1427,
+        "startChar": 0,
+        "endLine": 1429,
+        "endChar": 11
+      },
+      "revId": "a646040a1768e7a55d3be4ebdd6283e359afe060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

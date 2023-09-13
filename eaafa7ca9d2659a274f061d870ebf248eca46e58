@@ -16,6 +16,40 @@
       "message": "Removed myself as reviewer since I don\u0027t have sufficient knowledge in video coding parts of WebRTC to perform a proper review.",
       "revId": "eaafa7ca9d2659a274f061d870ebf248eca46e58",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9d9615a_fededa7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-13T14:03:49Z",
+      "side": 1,
+      "message": "I\u0027ve summarily reviewed api/ and some of the other files I\u0027m approver for. Looks clean to me, so I\u0027ll take the word of the video folks that this is OK to go.",
+      "revId": "eaafa7ca9d2659a274f061d870ebf248eca46e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c796346_a6a3ddce",
+        "filename": "api/video/rtp_video_frame_assembler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-13T14:03:49Z",
+      "side": 1,
+      "message": "Should this be decorated with a RTC_DCHECK_NOTREACHED() until implemented, in order to match present behavior on unknown codec names?",
+      "revId": "eaafa7ca9d2659a274f061d870ebf248eca46e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

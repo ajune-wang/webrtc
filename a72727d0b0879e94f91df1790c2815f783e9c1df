@@ -70,6 +70,24 @@
       "parentUuid": "f4a603a8_505472f3",
       "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25c6115c_33113ef7",
+        "filename": "video/config/video_encoder_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-13T08:14:19Z",
+      "side": 1,
+      "message": "The argument against putting it into an anonymous namespace is that it should be serialized in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/rtc_stats_collector.cc;l\u003d671?q\u003drtc_stats_collector.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc too (but that needs to drop the \"k\").\nBut that turned out to be a similar but different enum...\nReverted to the previous code.",
+      "parentUuid": "cbf15961_9068ee50",
+      "revId": "a72727d0b0879e94f91df1790c2815f783e9c1df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

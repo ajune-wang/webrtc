@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "924a6c17_688182c3",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2023-09-13T16:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d784209_8a6bd6ad",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "7021f80e74d9058398a129a28ba04c108a7e164a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b21dfa7_2402dd1c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-13T15:02:20Z",
       "side": 1,
       "message": "may be remove 2nd sentence:\nhttp://go/totw/138",
+      "range": {
+        "startLine": 46,
+        "startChar": 67,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "7021f80e74d9058398a129a28ba04c108a7e164a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "353f5254_4f664950",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2023-09-13T16:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b21dfa7_2402dd1c",
       "range": {
         "startLine": 46,
         "startChar": 67,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e7b8453_fa944a72",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2023-09-13T16:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "729cbca8_3643de4c",
+      "range": {
+        "startLine": 50,
+        "startChar": 30,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "7021f80e74d9058398a129a28ba04c108a7e164a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd90e194_885ba5f0",
@@ -104,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35bbd860_e01b74bb",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2023-09-13T16:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd90e194_885ba5f0",
+      "revId": "7021f80e74d9058398a129a28ba04c108a7e164a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caea53df_cae425c5",
@@ -117,6 +207,30 @@
       "writtenOn": "2023-09-13T15:02:20Z",
       "side": 1,
       "message": "EXPECT_EQ(Convert(value), TimeDelta::Millis(kNegativeMs));\n\nor add some slack to avoid blocking different implementation that would have better precision:\n\nabsl::optional\u003cTimeDelta\u003e converted \u003d Convert...(...);\nconstexpr TimeDelta kEpsilong \u003d TimeDelta::Millis(1);\nEXPECT_GT(converted, kNegative - kEpsilon);\nEXPECT_LT(converted, kNegative + kEpsilon);\n\n(.value() accessor for optional is practically never a right choice: http://go/totw/224 )",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "7021f80e74d9058398a129a28ba04c108a7e164a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb557f4_c8297117",
+        "filename": "modules/rtp_rtcp/source/capture_clock_offset_updater_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2023-09-13T16:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caea53df_cae425c5",
       "range": {
         "startLine": 65,
         "startChar": 2,

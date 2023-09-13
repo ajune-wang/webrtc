@@ -1346,7 +1346,8 @@ TEST_F(RtpSenderTest, MarksPacketsWithKeyframeStatus) {
         kPayloadType, kCodecType,
         capture_time.ms() * kCaptureTimeMsToRtpTimestamp, capture_time,
         kPayloadData, sizeof(kPayloadData), video_header,
-        kDefaultExpectedRetransmissionTime, {}));
+        kDefaultExpectedRetransmissionTime, /*csrcs=*/{},
+        /*externally_encoded=*/false));
 
     time_controller_.AdvanceTime(TimeDelta::Millis(33));
   }
@@ -1363,7 +1364,8 @@ TEST_F(RtpSenderTest, MarksPacketsWithKeyframeStatus) {
         kPayloadType, kCodecType,
         capture_time.ms() * kCaptureTimeMsToRtpTimestamp, capture_time,
         kPayloadData, sizeof(kPayloadData), video_header,
-        kDefaultExpectedRetransmissionTime, {}));
+        kDefaultExpectedRetransmissionTime, /*csrcs=*/{},
+        /*externally_encoded=*/false));
 
     time_controller_.AdvanceTime(TimeDelta::Millis(33));
   }

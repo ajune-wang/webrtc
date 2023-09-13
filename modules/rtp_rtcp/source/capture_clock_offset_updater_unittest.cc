@@ -55,4 +55,24 @@ TEST(AbsoluteCaptureTimeReceiverTest, EstimatedCaptureClockOffsetArithmetic) {
                                         *kRemoteToLocalClockOffset)));
 }
 
+TEST(AbsoluteCaptureTimeReceiverTest, ConvertClockOffset) {
+  static const int kNegativeMs = -350;
+  static const int kPositiveMs = 400;
+  static const absl::optional<int64_t> kNegativeCaptureClockOffset =
+      Int64MsToQ32x32(kNegativeMs);
+  static const absl::optional<int64_t> kPositiveClockOffset =
+      Int64MsToQ32x32(kPositiveMs);
+  EXPECT_EQ(
+      CaptureClockOffsetUpdater::ConvertToTimeDela(kNegativeCaptureClockOffset)
+          .value()
+          .ms(),
+      kNegativeMs);
+  EXPECT_EQ(CaptureClockOffsetUpdater::ConvertToTimeDela(kPositiveClockOffset)
+                .value()
+                .ms(),
+            kPositiveMs);
+  EXPECT_FALSE(
+      CaptureClockOffsetUpdater::ConvertToTimeDela(absl::nullopt).has_value());
+}
+
 }  // namespace webrtc

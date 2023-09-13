@@ -56,7 +56,7 @@ class RtpSource {
         extensions_(extensions),
         rtp_timestamp_(rtp_timestamp) {}
 
-  // TODO(bugs.webrtc.org/13757): Remove after 2023-09-18
+  // TODO: bugs.webrtc.org/13757 - Remove after 2023-09-18
   [[deprecated]] RtpSource(int64_t timestamp_ms,
                            uint32_t source_id,
                            RtpSourceType source_type,

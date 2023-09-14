@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbfc1c28_b6b3f344",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2023-09-14T13:25:39Z",
+      "side": 1,
+      "message": "When a packetization matches in of the recv_codecs, it can be either default or raw. No need to say \"custom\"? It\u0027s just a packetization match.",
+      "range": {
+        "startLine": 1047,
+        "startChar": 15,
+        "endLine": 1047,
+        "endChar": 22
+      },
+      "revId": "2bc024ab83ff7ae55485a3bfdd0d28af6a6a85df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1405f770_21998256",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2023-09-14T13:25:39Z",
+      "side": 1,
+      "message": "Should it be `continue` to proceed to verifying the next send codec?",
+      "revId": "2bc024ab83ff7ae55485a3bfdd0d28af6a6a85df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

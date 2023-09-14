@@ -33,6 +33,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/rapid_resync_request.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remb.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/rpsi.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmbr.h"
@@ -76,6 +77,10 @@ class MockRtcpPacketTypeCounterObserver : public RtcpPacketTypeCounterObserver {
 class MockRtcpIntraFrameObserver : public RtcpIntraFrameObserver {
  public:
   MOCK_METHOD(void, OnReceivedIntraFrameRequest, (uint32_t), (override));
+  MOCK_METHOD(void,
+              OnReceivedRPSI,
+              (uint32_t ssrc, uint32_t pic_order_cnt),
+              (override));
 };
 
 class MockRtcpLossNotificationObserver : public RtcpLossNotificationObserver {
@@ -729,6 +734,36 @@ TEST(RtcpReceiverTest, FirPacketNotToUsIgnored) {
 
   EXPECT_CALL(mocks.intra_frame_observer, OnReceivedIntraFrameRequest).Times(0);
   receiver.IncomingPacket(fir.Build());
+}
+
+TEST(RtcpReceiverTest, InjectRpsiPacket) {
+  ReceiverMocks mocks;
+  RTCPReceiver receiver(DefaultConfiguration(&mocks), &mocks.rtp_rtcp_impl);
+  receiver.SetRemoteSSRC(kSenderSsrc);
+  constexpr uint8_t kPayloadType = 100;
+  constexpr uint8_t kLayerId = 1;
+  constexpr uint32_t kPictureOrderCnt = 300;
+
+  rtcp::Rpsi rpsi;
+  rpsi.SetPayloadType(kPayloadType);
+  rpsi.SetLayerId(kLayerId);
+  rpsi.SetPictureOrderCnt(kPictureOrderCnt);
+  rpsi.SetSenderSsrc(kSenderSsrc);
+
+  EXPECT_CALL(mocks.intra_frame_observer, OnReceivedRPSI(_, kPictureOrderCnt));
+  receiver.IncomingPacket(rpsi.Build());
+}
+
+TEST(RtcpReceiverTest, RpsiWithInvalidPaddingSizeIsIgnored) {
+  ReceiverMocks mocks;
+  RTCPReceiver receiver(DefaultConfiguration(&mocks), &mocks.rtp_rtcp_impl);
+  receiver.SetRemoteSSRC(kSenderSsrc);
+  constexpr uint8_t kPacket[] = {0x83, 206,  0x00, 0x04, 0x12, 0x34, 0x56,
+                                 0x78, 0x23, 0x45, 0x67, 0x89, 1,    100,
+                                 48,   49,   0x00, 0x00, 0x33, 0x34};
+
+  EXPECT_CALL(mocks.intra_frame_observer, OnReceivedRPSI(_, _)).Times(0);
+  receiver.IncomingPacket(kPacket);
 }
 
 TEST(RtcpReceiverTest, ExtendedReportsPacketWithZeroReportBlocksIgnored) {

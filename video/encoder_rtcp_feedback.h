@@ -40,7 +40,10 @@ class EncoderRtcpFeedback : public RtcpIntraFrameObserver,
           const std::vector<uint16_t>& seq_nums)> get_packet_infos);
   ~EncoderRtcpFeedback() override = default;
 
+  // Implements RtcpIntraFrameObserver.
   void OnReceivedIntraFrameRequest(uint32_t ssrc) override;
+
+  void OnReceivedRPSI(uint32_t ssrc, uint32_t pic_order_cnt) override;
 
   // Implements RtcpLossNotificationObserver.
   void OnReceivedLossNotification(uint32_t ssrc,

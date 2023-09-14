@@ -42,6 +42,10 @@ class VieKeyRequestTest : public ::testing::Test {
 TEST_F(VieKeyRequestTest, CreateAndTriggerRequests) {
   EXPECT_CALL(encoder_, SendKeyFrame(_)).Times(1);
   encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+
+  constexpr uint32_t rpsi_pic_order_cnt = 8;
+  EXPECT_CALL(encoder_, OnReceivedRPSI(rpsi_pic_order_cnt)).Times(1);
+  encoder_rtcp_feedback_.OnReceivedRPSI(kSsrc, rpsi_pic_order_cnt);
 }
 
 TEST_F(VieKeyRequestTest, TooManyOnReceivedIntraFrameRequest) {

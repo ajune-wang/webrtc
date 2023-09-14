@@ -29,6 +29,8 @@ namespace rtc {
 // String Encoding Utilities
 //////////////////////////////////////////////////////////////////////
 
+char hex_encode(unsigned char val);
+bool hex_decode(char ch, unsigned char* val);
 std::string hex_encode(absl::string_view str);
 std::string hex_encode_with_delimiter(absl::string_view source, char delimiter);
 

@@ -61,6 +61,9 @@ bool RtcpPacketParser::Parse(rtc::ArrayView<const uint8_t> data) {
               RTC_LOG(LS_WARNING) << "Unknown application layer FB message.";
             }
             break;
+          case rtcp::Rpsi::kFeedbackMessageType:
+            rpsi_.Parse(header, &sender_ssrc_);
+            break;
           default:
             RTC_LOG(LS_WARNING)
                 << "Unknown rtcp payload specific feedback type "

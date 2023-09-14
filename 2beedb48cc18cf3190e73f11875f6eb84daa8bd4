@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31fba364_ff4e393d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-14T14:53:13Z",
+      "side": 1,
+      "message": "Like that filename much better, but the class name is still the same...",
+      "revId": "2beedb48cc18cf3190e73f11875f6eb84daa8bd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc12394_1d80dc7a",
+        "filename": "pc/simulcast_sdp_serializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-14T14:53:13Z",
+      "side": 1,
+      "message": "Should you change the class name too? It\u0027s nice to have filenames and class names match when possible, so SimulcastSdpSerializer should be available.",
+      "revId": "2beedb48cc18cf3190e73f11875f6eb84daa8bd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c97ef601_d25b51cb",
+        "filename": "video/encoder_bitrate_adjuster_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2023-09-14T20:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e749acee_a342ae8e",
+      "range": {
+        "startLine": 507,
+        "startChar": 2,
+        "endLine": 507,
+        "endChar": 19
+      },
+      "revId": "a24f7c7250c77aa27e08d8a411306d5f035ed8b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38423492_6334d0cc",
@@ -71,6 +95,30 @@
       "writtenOn": "2023-09-14T14:54:29Z",
       "side": 1,
       "message": "Shouldn\u0027t this be overshooting to actually show the new logic?\n\nI think what you want here is something like:\n* the default min bitrate is 30k\n* the even lower min bitrate from resolution limits is 20k\n* use 30k as the target bitrate\n* let the encoder overshoot by a lot (2.0?)\n\nverify the adjuster pushes it down to 20k",
+      "range": {
+        "startLine": 520,
+        "startChar": 17,
+        "endLine": 520,
+        "endChar": 20
+      },
+      "revId": "a24f7c7250c77aa27e08d8a411306d5f035ed8b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd5bcc4c_b6be5853",
+        "filename": "video/encoder_bitrate_adjuster_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2023-09-14T20:14:10Z",
+      "side": 1,
+      "message": "The original test was testing whether the minbitrate parameter had changed, without testing whether the modified parameter has the intended effect. I suppose it is better to test the modified minBitrate has the intended effect.  Modified test scenario.",
+      "parentUuid": "38423492_6334d0cc",
       "range": {
         "startLine": 520,
         "startChar": 17,

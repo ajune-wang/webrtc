@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ddb7da3_ae39cd33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2023-09-14T15:49:31Z",
+      "side": 1,
+      "message": "LGTM assuming the resolution of sprang@\u0027s comment.",
+      "revId": "a24f7c7250c77aa27e08d8a411306d5f035ed8b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e749acee_a342ae8e",

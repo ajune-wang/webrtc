@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fd701c_89a6ebe2",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-14T08:54:27Z",
+      "side": 1,
+      "message": "I actually don\u0027t want to expose these two APIs. However enclosing them in rpsi.cc will create a duplication which I don\u0027t like.",
+      "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

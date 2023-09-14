@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8372c5d2_dc2af836",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-14T17:51:52Z",
+      "side": 1,
+      "message": "autocompletes better on the shell? ;-)",
+      "revId": "747e18c2795401f3b1ad3ba342e98cdb73428872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

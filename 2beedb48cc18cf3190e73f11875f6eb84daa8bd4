@@ -33,6 +33,24 @@
       "message": "Should you change the class name too? It\u0027s nice to have filenames and class names match when possible, so SimulcastSdpSerializer should be available.",
       "revId": "2beedb48cc18cf3190e73f11875f6eb84daa8bd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea2df90d_f46a35fd",
+        "filename": "pc/simulcast_sdp_serializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-14T17:51:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fc12394_1d80dc7a",
+      "revId": "2beedb48cc18cf3190e73f11875f6eb84daa8bd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

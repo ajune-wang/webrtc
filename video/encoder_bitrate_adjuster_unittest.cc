@@ -502,5 +502,33 @@ TEST_F(EncoderBitrateAdjusterTest, DontExceedMediaRateEvenWithHeadroom) {
   }
 }
 
+TEST_F(EncoderBitrateAdjusterTest, HonorMinBitrateSettingFromEncoderInfo) {
+  // Single layer, well behaved encoder.
+  const int high_bitrate = 20000;
+  const int a_lower_min_bitrate = 12000;
+  current_input_allocation_.SetBitrate(0, 0, high_bitrate);
+  VideoBitrateAllocation expected_input_allocation;
+  expected_input_allocation.SetBitrate(0, 0, a_lower_min_bitrate);
+
+  target_framerate_fps_ = 30;
+
+  SetUpAdjuster(1, 1, false);
+
+  auto new_resolution_limit = VideoEncoder::ResolutionBitrateLimits(
+      codec_.spatialLayers[0].width * codec_.spatialLayers[0].height, 15000,
+      a_lower_min_bitrate, 2000000);
+  encoder_info_.resolution_bitrate_limits.push_back(new_resolution_limit);
+  adjuster_->OnEncoderInfo(encoder_info_);
+
+  InsertFrames({{2.0}}, kWindowSizeMs);
+
+  current_adjusted_allocation_ =
+      adjuster_->AdjustRateAllocation(VideoEncoder::RateControlParameters(
+          current_input_allocation_, target_framerate_fps_));
+  // Adjusted allocation near input. Allow 1% error margin due to rounding
+  // errors etc.
+  ExpectNear(expected_input_allocation, current_adjusted_allocation_, 0.01);
+}
+
 }  // namespace test
 }  // namespace webrtc

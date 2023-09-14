@@ -1036,20 +1036,38 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   bool needs_send_params_update = false;
   if (type == SdpType::kAnswer || type == SdpType::kPrAnswer) {
-    for (auto& send_codec : send_params.codecs) {
-      auto* recv_codec = FindMatchingCodec(recv_params.codecs, send_codec);
-      if (recv_codec) {
-        if (!recv_codec->packetization && send_codec.packetization) {
-          send_codec.packetization.reset();
-          needs_send_params_update = true;
-        } else if (recv_codec->packetization != send_codec.packetization) {
-          error_desc = StringFormat(
-              "Failed to set local answer due to invalid codec packetization "
-              "specified in m-section with mid='%s'.",
-              mid().c_str());
-          return false;
+    for (VideoCodec& send_codec : send_params.codecs) {
+      std::vector<const VideoCodec*> recv_codecs =
+          FindAllMatchingCodecs(recv_params.codecs, send_codec);
+      if (recv_codecs.empty()) {
+        continue;
+      }
+
+      bool has_default_packetization_candidate = false;
+      bool has_custom_packetization_match = false;
+      for (const VideoCodec* recv_codec : recv_codecs) {
+        if (!recv_codec->packetization.has_value() &&
+            send_codec.packetization.has_value()) {
+          has_default_packetization_candidate = true;
+        } else if (recv_codec->packetization == send_codec.packetization) {
+          has_custom_packetization_match = true;
         }
       }
+
+      if (has_custom_packetization_match) {
+        break;
+      }
+
+      if (!has_default_packetization_candidate) {
+        error_desc = StringFormat(
+            "Failed to set local answer due to invalid codec packetization "
+            "specified in m-section with mid='%s'.",
+            mid().c_str());
+        return false;
+      }
+
+      send_codec.packetization = absl::nullopt;
+      needs_send_params_update = true;
     }
   }
 
@@ -1121,20 +1139,38 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
 
   bool needs_recv_params_update = false;
   if (type == SdpType::kAnswer || type == SdpType::kPrAnswer) {
-    for (auto& recv_codec : recv_params.codecs) {
-      auto* send_codec = FindMatchingCodec(send_params.codecs, recv_codec);
-      if (send_codec) {
-        if (!send_codec->packetization && recv_codec.packetization) {
-          recv_codec.packetization.reset();
-          needs_recv_params_update = true;
-        } else if (send_codec->packetization != recv_codec.packetization) {
-          error_desc = StringFormat(
-              "Failed to set remote answer due to invalid codec packetization "
-              "specifid in m-section with mid='%s'.",
-              mid().c_str());
-          return false;
+    for (VideoCodec& recv_codec : recv_params.codecs) {
+      std::vector<const VideoCodec*> send_codecs =
+          FindAllMatchingCodecs(send_params.codecs, recv_codec);
+      if (send_codecs.empty()) {
+        continue;
+      }
+
+      bool has_default_packetization_candidate = false;
+      bool has_custom_packetization_match = false;
+      for (const VideoCodec* send_codec : send_codecs) {
+        if (!send_codec->packetization.has_value() &&
+            recv_codec.packetization.has_value()) {
+          has_default_packetization_candidate = true;
+        } else if (send_codec->packetization == recv_codec.packetization) {
+          has_custom_packetization_match = true;
         }
       }
+
+      if (has_custom_packetization_match) {
+        break;
+      }
+
+      if (!has_default_packetization_candidate) {
+        error_desc = StringFormat(
+            "Failed to set remote answer due to invalid codec packetization "
+            "specifid in m-section with mid='%s'",
+            mid().c_str());
+        return false;
+      }
+
+      recv_codec.packetization = absl::nullopt;
+      needs_recv_params_update = true;
     }
   }
 

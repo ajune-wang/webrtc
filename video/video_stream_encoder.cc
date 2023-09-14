@@ -2381,6 +2381,19 @@ bool VideoStreamEncoder::DropDueToSize(uint32_t source_pixel_count) const {
   return false;
 }
 
+void VideoStreamEncoder::OnReceivedRPSI(uint32_t pic_order_cnt) {
+  if (!encoder_queue_.IsCurrent()) {
+    encoder_queue_.PostTask(
+        [this, pic_order_cnt] { OnReceivedRPSI(pic_order_cnt); });
+    return;
+  }
+
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  if (encoder_) {
+    encoder_->OnReceivedRPSI(pic_order_cnt);
+  }
+}
+
 void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
     VideoSourceRestrictions restrictions,
     const VideoAdaptationCounters& adaptation_counters,

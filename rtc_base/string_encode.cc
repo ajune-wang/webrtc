@@ -26,26 +26,6 @@ namespace rtc {
 namespace {
 const char HEX[] = "0123456789abcdef";
 
-// Convert an unsigned value from 0 to 15 to the hex character equivalent...
-char hex_encode(unsigned char val) {
-  RTC_DCHECK_LT(val, 16);
-  return (val < 16) ? HEX[val] : '!';
-}
-
-// ...and vice-versa.
-bool hex_decode(char ch, unsigned char* val) {
-  if ((ch >= '0') && (ch <= '9')) {
-    *val = ch - '0';
-  } else if ((ch >= 'A') && (ch <= 'F')) {
-    *val = (ch - 'A') + 10;
-  } else if ((ch >= 'a') && (ch <= 'f')) {
-    *val = (ch - 'a') + 10;
-  } else {
-    return false;
-  }
-  return true;
-}
-
 size_t hex_encode_output_length(size_t srclen, char delimiter) {
   return delimiter && srclen > 0 ? (srclen * 3 - 1) : (srclen * 2);
 }
@@ -78,6 +58,26 @@ void hex_encode_with_delimiter(char* buffer,
 }
 
 }  // namespace
+
+// Convert an unsigned value from 0 to 15 to the hex character equivalent.
+char hex_encode(unsigned char val) {
+  RTC_DCHECK_LT(val, 16);
+  return (val < 16) ? HEX[val] : '!';
+}
+
+// Convert a hex character to an unsigned value from 0 to 15.
+bool hex_decode(char ch, unsigned char* val) {
+  if ((ch >= '0') && (ch <= '9')) {
+    *val = ch - '0';
+  } else if ((ch >= 'A') && (ch <= 'F')) {
+    *val = (ch - 'A') + 10;
+  } else if ((ch >= 'a') && (ch <= 'f')) {
+    *val = (ch - 'a') + 10;
+  } else {
+    return false;
+  }
+  return true;
+}
 
 std::string hex_encode(absl::string_view str) {
   return hex_encode_with_delimiter(str, 0);

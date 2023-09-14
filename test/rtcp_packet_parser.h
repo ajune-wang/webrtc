@@ -27,6 +27,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/rapid_resync_request.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remb.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/rpsi.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmbn.h"
@@ -95,6 +96,7 @@ class RtcpPacketParser {
     return &loss_notification_;
   }
   PacketCounter<rtcp::Remb>* remb() { return &remb_; }
+  PacketCounter<rtcp::Rpsi>* rpsi() { return &rpsi_; }
   PacketCounter<rtcp::Sdes>* sdes() { return &sdes_; }
   PacketCounter<rtcp::SenderReport>* sender_report() { return &sender_report_; }
   PacketCounter<rtcp::Tmmbn>* tmmbn() { return &tmmbn_; }
@@ -116,6 +118,7 @@ class RtcpPacketParser {
   PacketCounter<rtcp::ReceiverReport> receiver_report_;
   PacketCounter<rtcp::LossNotification> loss_notification_;
   PacketCounter<rtcp::Remb> remb_;
+  PacketCounter<rtcp::Rpsi> rpsi_;
   PacketCounter<rtcp::Sdes> sdes_;
   PacketCounter<rtcp::SenderReport> sender_report_;
   PacketCounter<rtcp::Tmmbn> tmmbn_;

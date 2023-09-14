@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36575a46_3690112e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2023-09-14T14:32:44Z",
+      "side": 1,
+      "message": "Can you help me take a look at the changes to propagate minimum bitrates from EncoderInfo to EncoderBitrateAdjuster?",
+      "revId": "a24f7c7250c77aa27e08d8a411306d5f035ed8b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

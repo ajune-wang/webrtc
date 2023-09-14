@@ -39,6 +39,24 @@
       "message": "The code is structured as if this nullification is a typical success path while the early returns are exceptional. In fact this nullification is non-typical. I suggest not to have early returns/breaks.",
       "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cbd1cbe_3eaf23f3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-14T10:44:54Z",
+      "side": 1,
+      "message": "The whole point of this path at all is to potentially perform the nullification (even if it may rarely happen in practice). I think it\u0027s much clearer with this structure than it was before because it shows intent.\n\nIf there\u0027s a matching packetization we want to break out from the loop since there\u0027s no point in looking any further. How would you suggest doing this without a break?\n\nThe return is just a remnant from before and I don\u0027t see how things would improve without it?",
+      "parentUuid": "73856b28_d49eb3dd",
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

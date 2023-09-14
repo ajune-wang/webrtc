@@ -264,9 +264,12 @@ OCMLocation *OCMMakeLocation(id testCase, const char *fileCString, int line){
   EXPECT_EQ(NO, [mockAVAudioSession setActive:YES withOptions:0 error:&error]);
   [audioSession unlockForConfiguration];
 
+  // The -Wunused-value is a workaround for https://bugs.llvm.org/show_bug.cgi?id=45245
+  _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wunused-value\"");
   OCMVerify([mockAudioSession session]);
   OCMVerify([[mockAVAudioSession ignoringNonObjectArgs] setActive:YES withOptions:0 error:&error]);
   OCMVerify([[mockAVAudioSession ignoringNonObjectArgs] setActive:NO withOptions:0 error:&error]);
+  _Pragma("clang diagnostic pop");
 
   [mockAVAudioSession stopMocking];
   [mockAudioSession stopMocking];

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "588b3ddd_47ef43d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-14T16:31:06Z",
+      "side": 1,
+      "message": "Drive-by comment.",
+      "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1fd701c_89a6ebe2",
@@ -14,6 +31,24 @@
       "writtenOn": "2023-09-14T08:54:27Z",
       "side": 1,
       "message": "I actually don\u0027t want to expose these two APIs. However enclosing them in rpsi.cc will create a duplication which I don\u0027t like.",
+      "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5baa4317_8b12ec31",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-14T16:31:06Z",
+      "side": 1,
+      "message": "These are butt-ugly APIs (using unsigned char as a stand-in for uint8_, using pointer arg instead of reference arg or tuple return). Can you rewrite the caller to use less ugly ones?",
+      "parentUuid": "e1fd701c_89a6ebe2",
       "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

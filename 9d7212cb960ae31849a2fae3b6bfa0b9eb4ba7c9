@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cffa90b3_08b5d238",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2023-09-14T12:10:12Z",
+      "side": 1,
+      "message": "This variable name is more grammatically correct, but it\u0027s still confusing. What is the subject of this \"is\"? Maybe \"there_is_\" or \"has_...\". In case of \"has_\" the subject would be the `send_codec` who has a candidate with default packetization among `recv_codecs`.",
+      "range": {
+        "startLine": 1051,
+        "startChar": 10,
+        "endLine": 1051,
+        "endChar": 13
+      },
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73856b28_d49eb3dd",
         "filename": "pc/channel.cc",
         "patchSetId": 1
@@ -55,6 +78,41 @@
       "side": 1,
       "message": "The whole point of this path at all is to potentially perform the nullification (even if it may rarely happen in practice). I think it\u0027s much clearer with this structure than it was before because it shows intent.\n\nIf there\u0027s a matching packetization we want to break out from the loop since there\u0027s no point in looking any further. How would you suggest doing this without a break?\n\nThe return is just a remnant from before and I don\u0027t see how things would improve without it?",
       "parentUuid": "73856b28_d49eb3dd",
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca47793_b4398513",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2023-09-14T12:10:12Z",
+      "side": 1,
+      "message": "I interpreted the old code as input validation with one quirky exception allowing the mismatch in some cases.\n\n```\nif (!is_custom_packetization_match) { // if there\u0027s a mismatch...\n  if (is_default_packetization_candidate) {\n    // handle exception from the validation\n  } else {\n    // fail the validation\n  }\n}\n```\n\nYou can argue that nullification is a mutating side effect of this code, and therefore it needs to be more conspicuous. I won\u0027t insist on my interpretation.",
+      "parentUuid": "1cbd1cbe_3eaf23f3",
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2e24f98_b07af3cb",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2023-09-14T12:10:12Z",
+      "side": 1,
+      "message": "Maybe add a multi-codec version of TestSetLocalAnswerWithoutPacketization to test, for example, local codecs being [vp8/96, vp8/97/raw] and remote answering with [vp8/96, vp8/97], effectively refusing to use raw.",
       "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

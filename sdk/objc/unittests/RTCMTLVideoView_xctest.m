@@ -292,7 +292,10 @@ static size_t kBufferHeight = 200;
   RTC_OBJC_TYPE(RTCMTLVideoView) *realView = [[RTC_OBJC_TYPE(RTCMTLVideoView) alloc] init];
   [realView setVideoContentMode:UIViewContentModeScaleAspectFill];
 
+  // The -Wunused-value is a workaround for https://bugs.llvm.org/show_bug.cgi?id=45245
+  _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wunused-value\"");
   OCMVerify(metalKitView);
+  _Pragma("clang diagnostic pop");
 }
 
 @end

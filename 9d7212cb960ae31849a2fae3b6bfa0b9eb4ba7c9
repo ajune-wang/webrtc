@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901406a7_4f82a5c5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 18365
+      },
+      "writtenOn": "2023-09-14T10:30:45Z",
+      "side": 1,
+      "message": "The grammar of the variable name is a bit off.\n\nMaybe\ncustom_packetizations_match?\nhas_custom_packetization_match?",
+      "range": {
+        "startLine": 1047,
+        "startChar": 11,
+        "endLine": 1047,
+        "endChar": 40
+      },
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73856b28_d49eb3dd",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 18365
+      },
+      "writtenOn": "2023-09-14T10:30:45Z",
+      "side": 1,
+      "message": "The code is structured as if this nullification is a typical success path while the early returns are exceptional. In fact this nullification is non-typical. I suggest not to have early returns/breaks.",
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

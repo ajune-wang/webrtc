@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20ad965_15a7074b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-14T12:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "901406a7_4f82a5c5",
+      "range": {
+        "startLine": 1047,
+        "startChar": 11,
+        "endLine": 1047,
+        "endChar": 40
+      },
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cffa90b3_08b5d238",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-14T12:10:12Z",
       "side": 1,
       "message": "This variable name is more grammatically correct, but it\u0027s still confusing. What is the subject of this \"is\"? Maybe \"there_is_\" or \"has_...\". In case of \"has_\" the subject would be the `send_codec` who has a candidate with default packetization among `recv_codecs`.",
+      "range": {
+        "startLine": 1051,
+        "startChar": 10,
+        "endLine": 1051,
+        "endChar": 13
+      },
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c4c347d_122216ee",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-14T12:56:03Z",
+      "side": 1,
+      "message": "In my mind the subject is the send codec, i.e. this codec _is_ a candidate for the receive codec. Changed it to `has_` instead.",
+      "parentUuid": "cffa90b3_08b5d238",
       "range": {
         "startLine": 1051,
         "startChar": 10,
@@ -100,6 +148,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e573dc1_ca92182f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-14T12:56:03Z",
+      "side": 1,
+      "message": "\u003e I interpreted the old code as input validation with one quirky exception allowing the mismatch in some cases.\n\nYes, that too.\n \n\u003e ```\n\u003e if (!is_custom_packetization_match) { // if there\u0027s a mismatch...\n\u003e   if (is_default_packetization_candidate) {\n\u003e     // handle exception from the validation\n\u003e   } else {\n\u003e     // fail the validation\n\u003e   }\n\u003e }\n\u003e ```\n\nThis doesn\u0027t work since it will modify the element in place so it can potentially modify one of the matching codecs in the next iteration.",
+      "parentUuid": "3ca47793_b4398513",
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2e24f98_b07af3cb",
@@ -113,6 +179,24 @@
       "writtenOn": "2023-09-14T12:10:12Z",
       "side": 1,
       "message": "Maybe add a multi-codec version of TestSetLocalAnswerWithoutPacketization to test, for example, local codecs being [vp8/96, vp8/97/raw] and remote answering with [vp8/96, vp8/97], effectively refusing to use raw.",
+      "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f72d44_064bc9a2",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-14T12:56:03Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s correct. If the remote doesn\u0027t want to use raw it would just answer with `[vp8/96]`, effectively just removing the raw payload. This behavior is already implicitly tested in the new ConsidersAllCodecs* tests.",
+      "parentUuid": "c2e24f98_b07af3cb",
       "revId": "9d7212cb960ae31849a2fae3b6bfa0b9eb4ba7c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

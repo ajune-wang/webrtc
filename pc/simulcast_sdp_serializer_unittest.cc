@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "pc/sdp_serializer.h"
+#include "pc/simulcast_sdp_serializer.h"
 
 #include <stddef.h>
 

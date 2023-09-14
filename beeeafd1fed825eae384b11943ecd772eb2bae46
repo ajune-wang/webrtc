@@ -20,6 +20,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3858eea9_1362bb5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-09-14T09:23:49Z",
+      "side": 1,
+      "message": "The \"Option C\" in the bug would require standardising new JS APIs, beyond the ones we\u0027re currently discussing in the WG, so is likely ~years out.\n\nI feel like it does make sense to have at least some of this state handling within WebRTC - given that the insertable encoded streams allows injecting media, it makes sense for the VideoSendStream to not give out wildly incorrect Max Allocatable Bandwidth values - ie Harald\u0027s comment #1. WDYT?\n\nThe implementation could definitely do with some iteration... - was why I added you as a thorough reviewer who would have some good ideas 😊. Thanks!",
+      "parentUuid": "633ff471_c0726a49",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f8d5c7c_4496a5c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-09-14T09:23:49Z",
+      "side": 1,
+      "message": "Thanks! Added a little more context.",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e5669a6_49600c68",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 13
@@ -37,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc713f05_56419a84",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-09-14T09:23:49Z",
+      "side": 1,
+      "message": "It had to be here, for now, as the injection point of frames coming from the Encoded Insertable Streams API is here (via rtp_sender_video_frame_transformer_delegate calling SendVideo()), so this is the only place which knows if frames which didn\u0027t come from the sender\u0027s own encoder are injected and sent.\nIt does feel too low down the stack to run the transform tbh, would be nicer to do it up in RtpVideoSender/VideoSendStream or somewhere that\u0027s more frame-level, but that wouldn\u0027t be a trivial refactoring - the current Encoded Frames interface does want some of the RTP metadata to be provided, and is currently per-RTP-stream.\n\nA setter sounds pretty good, but does put the onus on external classes to maintain this internal state. Maybe we could actually have RtpSenderVideo::SendVideo() recognise if it was the one which produced the payload and set this, rather than being told it by the caller? I\u0027ll hold off on implementing until we have a better idea of where this should live.",
+      "parentUuid": "9e5669a6_49600c68",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e58e7b1_45873a0e",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 13
@@ -48,6 +101,30 @@
       "writtenOn": "2023-09-13T15:24:17Z",
       "side": 1,
       "message": "equality check of pointer for a deleted object is sort of UB:\n\nT* object1 \u003d new T;\n\nmemorize(object1);\n\ndelete object1;\n\nT* object2 \u003d new T;\n\n(object2 \u003d\u003d saved_pointer_to_object1) can be true if allocate happen to reuse deleted object space.",
+      "range": {
+        "startLine": 124,
+        "startChar": 35,
+        "endLine": 125,
+        "endChar": 72
+      },
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83841a4_c5469ba1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-09-14T09:23:49Z",
+      "side": 1,
+      "message": "Yeah, indeed. We had a small design debate over how to do this on the Receiver side too, but didn\u0027t find a better small solution.\nAny ideas for a better identity token? I\u0027d definitely like something that wasn\u0027t a raw pointer which risks getting accidentally dereferenced.",
+      "parentUuid": "5e58e7b1_45873a0e",
       "range": {
         "startLine": 124,
         "startChar": 35,

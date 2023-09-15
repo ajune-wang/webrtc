@@ -35,6 +35,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remb.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remote_estimate.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/rpsi.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmbn.h"
@@ -135,6 +136,7 @@ struct RTCPReceiver::PacketInformation {
   absl::optional<VideoBitrateAllocation> target_bitrate_allocation;
   absl::optional<NetworkStateEstimate> network_state_estimate;
   std::unique_ptr<rtcp::LossNotification> loss_notification;
+  std::unique_ptr<rtcp::Rpsi> reference_picture_selection_indication;
 };
 
 RTCPReceiver::RTCPReceiver(const RtpRtcpInterface::Configuration& config,
@@ -451,6 +453,9 @@ bool RTCPReceiver::ParseCompoundPacket(rtc::ArrayView<const uint8_t> packet,
             break;
           case rtcp::Fir::kFeedbackMessageType:
             valid = HandleFir(rtcp_block, packet_information);
+            break;
+          case rtcp::Rpsi::kFeedbackMessageType:
+            valid = HandleRpsi(rtcp_block, packet_information);
             break;
           case rtcp::Psfb::kAfbMessageType:
             HandlePsfbApp(rtcp_block, packet_information);
@@ -962,6 +967,23 @@ bool RTCPReceiver::HandleSrReq(const CommonHeader& rtcp_block,
   return true;
 }
 
+bool RTCPReceiver::HandleRpsi(const CommonHeader& rtcp_block,
+                              PacketInformation* packet_information) {
+  {
+    auto rpsi = std::make_unique<rtcp::Rpsi>();
+    if (rpsi->Parse(rtcp_block)) {
+      packet_information->packet_type_flags |= kRtcpRpsi;
+      packet_information->reference_picture_selection_indication =
+          std::move(rpsi);
+    } else {
+      return false;
+    }
+  }
+
+  packet_information->packet_type_flags |= kRtcpRpsi;
+  return true;
+}
+
 void RTCPReceiver::HandlePsfbApp(const CommonHeader& rtcp_block,
                                  PacketInformation* packet_information) {
   {
@@ -1105,6 +1127,14 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
       }
       rtcp_intra_frame_observer_->OnReceivedIntraFrameRequest(
           local_media_ssrc());
+    } else if (packet_information.packet_type_flags & kRtcpRpsi) {
+      RTC_LOG(LS_VERBOSE) << "Incoming RPSI from SSRC "
+                          << packet_information.remote_ssrc;
+      rtcp::Rpsi* rpsi =
+          packet_information.reference_picture_selection_indication.get();
+      RTC_DCHECK(rpsi);
+      rtcp_intra_frame_observer_->OnReceivedRPSI(rpsi->media_ssrc(),
+                                                 rpsi->picture_order_cnt());
     }
   }
   if (rtcp_loss_notification_observer_ &&

@@ -118,6 +118,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void SendKeyFrame(const std::vector<VideoFrameType>& layers = {}) override;
 
+  void OnReceivedRPSI(uint32_t pic_order_cnt) override;
+
   void OnLossNotification(
       const VideoEncoder::LossNotification& loss_notification) override;
 

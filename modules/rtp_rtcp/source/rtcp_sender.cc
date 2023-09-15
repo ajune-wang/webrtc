@@ -34,6 +34,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/pli.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remb.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/rpsi.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmbn.h"
@@ -183,6 +184,7 @@ RTCPSender::RTCPSender(Configuration config)
   builders_[kRtcpTmmbr] = &RTCPSender::BuildTMMBR;
   builders_[kRtcpTmmbn] = &RTCPSender::BuildTMMBN;
   builders_[kRtcpNack] = &RTCPSender::BuildNACK;
+  builders_[kRtcpRpsi] = &RTCPSender::BuildRPSI;
   builders_[kRtcpAnyExtendedReports] = &RTCPSender::BuildExtendedReports;
 }
 
@@ -294,6 +296,11 @@ bool RTCPSender::TMMBR() const {
 void RTCPSender::SetMaxRtpPacketSize(size_t max_packet_size) {
   MutexLock lock(&mutex_rtcp_sender_);
   max_packet_size_ = max_packet_size;
+}
+
+void RTCPSender::SetLastLTRPictureOrderCnt(uint32_t pic_order_cnt) {
+  MutexLock lock(&mutex_rtcp_sender_);
+  last_ltr_pic_order_cnt_ = pic_order_cnt;
 }
 
 void RTCPSender::SetTimestampOffset(uint32_t timestamp_offset) {
@@ -420,6 +427,16 @@ void RTCPSender::BuildPLI(const RtcpContext& ctx, PacketSender& sender) {
 
   ++packet_type_counter_.pli_packets;
   sender.AppendPacket(pli);
+}
+
+void RTCPSender::BuildRPSI(const RtcpContext& ctx, PacketSender& sender) {
+  rtcp::Rpsi rpsi;
+  rpsi.SetSenderSsrc(ssrc_);
+  rpsi.SetMediaSsrc(remote_ssrc_);
+  rpsi.SetPayloadType(last_payload_type_);
+  rpsi.SetPictureOrderCnt(last_ltr_pic_order_cnt_);
+
+  sender.AppendPacket(rpsi);
 }
 
 void RTCPSender::BuildFIR(const RtcpContext& ctx, PacketSender& sender) {

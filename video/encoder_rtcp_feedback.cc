@@ -59,6 +59,14 @@ void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
   video_stream_encoder_->SendKeyFrame();
 }
 
+void EncoderRtcpFeedback::OnReceivedRPSI(uint32_t ssrc,
+                                         uint32_t pic_order_cnt) {
+  RTC_DCHECK_RUN_ON(&packet_delivery_queue_);
+  RTC_DCHECK(std::find(ssrcs_.begin(), ssrcs_.end(), ssrc) != ssrcs_.end());
+
+  video_stream_encoder_->OnReceivedRPSI(pic_order_cnt);
+}
+
 void EncoderRtcpFeedback::OnReceivedLossNotification(
     uint32_t ssrc,
     uint16_t seq_num_of_last_decodable,

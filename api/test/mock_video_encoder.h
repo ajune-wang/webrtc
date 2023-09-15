@@ -65,6 +65,7 @@ class MockVideoEncoder : public VideoEncoder {
               OnLossNotification,
               (const LossNotification& loss_notification),
               (override));
+  MOCK_METHOD(void, OnReceivedRPSI, (uint32_t pic_order_cnt), (override));
   MOCK_METHOD(EncoderInfo, GetEncoderInfo, (), (const, override));
 };
 

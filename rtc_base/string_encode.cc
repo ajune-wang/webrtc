@@ -26,26 +26,6 @@ namespace rtc {
 namespace {
 const char HEX[] = "0123456789abcdef";
 
-// Convert an unsigned value from 0 to 15 to the hex character equivalent...
-char hex_encode(unsigned char val) {
-  RTC_DCHECK_LT(val, 16);
-  return (val < 16) ? HEX[val] : '!';
-}
-
-// ...and vice-versa.
-bool hex_decode(char ch, unsigned char* val) {
-  if ((ch >= '0') && (ch <= '9')) {
-    *val = ch - '0';
-  } else if ((ch >= 'A') && (ch <= 'F')) {
-    *val = (ch - 'A') + 10;
-  } else if ((ch >= 'a') && (ch <= 'f')) {
-    *val = (ch - 'a') + 10;
-  } else {
-    return false;
-  }
-  return true;
-}
-
 size_t hex_encode_output_length(size_t srclen, char delimiter) {
   return delimiter && srclen > 0 ? (srclen * 3 - 1) : (srclen * 2);
 }
@@ -58,13 +38,12 @@ void hex_encode_with_delimiter(char* buffer,
   RTC_DCHECK(buffer);
 
   // Init and check bounds.
-  const unsigned char* bsource =
-      reinterpret_cast<const unsigned char*>(source.data());
+  const uint8_t* bsource = reinterpret_cast<const uint8_t*>(source.data());
   size_t srcpos = 0, bufpos = 0;
 
   size_t srclen = source.length();
   while (srcpos < srclen) {
-    unsigned char ch = bsource[srcpos++];
+    uint8_t ch = bsource[srcpos++];
     buffer[bufpos] = hex_encode((ch >> 4) & 0xF);
     buffer[bufpos + 1] = hex_encode((ch)&0xF);
     bufpos += 2;
@@ -78,6 +57,26 @@ void hex_encode_with_delimiter(char* buffer,
 }
 
 }  // namespace
+
+// Convert an unsigned value from 0 to 15 to the hex character equivalent.
+char hex_encode(uint8_t val) {
+  RTC_DCHECK_LT(val, 16);
+  return (val < 16) ? HEX[val] : '!';
+}
+
+// Convert a hex character to an unsigned value from 0 to 15.
+bool hex_decode(char ch, uint8_t& val) {
+  if ((ch >= '0') && (ch <= '9')) {
+    val = ch - '0';
+  } else if ((ch >= 'A') && (ch <= 'F')) {
+    val = (ch - 'A') + 10;
+  } else if ((ch >= 'a') && (ch <= 'f')) {
+    val = (ch - 'a') + 10;
+  } else {
+    return false;
+  }
+  return true;
+}
 
 std::string hex_encode(absl::string_view str) {
   return hex_encode_with_delimiter(str, 0);
@@ -97,7 +96,7 @@ size_t hex_decode_with_delimiter(ArrayView<char> cbuffer,
     return 0;
 
   // Init and bounds check.
-  unsigned char* bbuffer = reinterpret_cast<unsigned char*>(cbuffer.data());
+  uint8_t* bbuffer = reinterpret_cast<uint8_t*>(cbuffer.data());
   size_t srcpos = 0, bufpos = 0;
   size_t srclen = source.length();
 
@@ -111,9 +110,8 @@ size_t hex_decode_with_delimiter(ArrayView<char> cbuffer,
       return 0;
     }
 
-    unsigned char h1, h2;
-    if (!hex_decode(source[srcpos], &h1) ||
-        !hex_decode(source[srcpos + 1], &h2))
+    uint8_t h1, h2;
+    if (!hex_decode(source[srcpos], h1) || !hex_decode(source[srcpos + 1], h2))
       return 0;
 
     bbuffer[bufpos++] = (h1 << 4) | h2;

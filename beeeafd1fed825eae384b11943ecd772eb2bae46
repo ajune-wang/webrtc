@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf3ed7d_2f5e2ffc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-15T14:51:11Z",
+      "side": 1,
+      "message": "as I understand it,\nif you inject TransformedFrame that didn\u0027t originated from the same sender\n(i.e. it is not really a \u0027transform\u0027 but an externally injected frame)\nthen you want to disable congestion controller.\n\nwon\u0027t that disable too much? Would that also disable pacing?\n\nSure if frames are injected externally, then bitrate allocator can\u0027t control bitrate of that particular stream. \nbut pacing still makes sense, you still do not want to send out packets too fast.\n\nI\u0027m not sure per-frame flag is right solution for this scenario,\nspecially since there is no way to turn if off.\nDoes caller of the SendVideo knows in advance these frames are injected rather transformed? I suspect it does. May be then it should configures Transformer in advance, i.e. have a separate setter or construction config parameter that tells WebRTC to treat this particular video stream differently.",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e5669a6_49600c68",

@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8f05aa36_2174f674",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-15T10:52:51Z",
+      "side": 1,
+      "message": "CL here: https://chromium-review.googlesource.com/c/chromium/src/+/4860122\nWe\u0027ll see what the new rules are but can submit without the chromium CL landing.",
+      "parentUuid": "d004ae9e_f4f80d51",
+      "revId": "4713c97ed021c3fb17d80a52a2bb447962940316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d09dfd46_9fe56d0a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

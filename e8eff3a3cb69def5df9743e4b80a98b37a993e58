@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f7d8e1_9f5d9a68",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-15T12:28:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "869c9316_09795dba",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "e8eff3a3cb69def5df9743e4b80a98b37a993e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90e0ee34_43be89f0",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-15T08:20:31Z",
       "side": 1,
       "message": "put under RTC_ENABLE_H265",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 45
+      },
+      "revId": "e8eff3a3cb69def5df9743e4b80a98b37a993e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b11d9b21_21000469",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-15T12:28:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e0ee34_43be89f0",
       "range": {
         "startLine": 107,
         "startChar": 2,

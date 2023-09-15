@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e1ddcf_aa7b0b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-15T07:30:38Z",
+      "side": 1,
+      "message": "Created for CQ dry run.",
+      "revId": "9792709eb642d106ff6ef8bab3129612bb2fa432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

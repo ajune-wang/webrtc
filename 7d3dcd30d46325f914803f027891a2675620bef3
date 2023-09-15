@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53b4a6ef_4328caab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-15T09:00:14Z",
+      "side": 1,
+      "message": "More nagging at use of conversion functions. I\u0027d prefer for the nibble-at-a-time hex functions to remain hidden - exposing them tempts people into writing bad code.",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f4b751f_cbfe90bd",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-15T09:00:14Z",
+      "side": 1,
+      "message": "This (writing 4 bits at a time) is a silly way of writing two hex bytes.\nUse hex_encode(rtc::ArrayView\u003cuint8_t\u003e(layer_id)) to get the string, and write the 2-character string.\n(yes, there is no hex_encode that takes rtc::ArrayView\u003cuint8_t\u003e as a parameter. You can fix that.)\n\nBenefit: More maintainable code. This code is executed relatively rarely.",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04999f8a_8d98b5f5",
+        "filename": "rtc_base/string_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-15T09:00:14Z",
+      "side": 1,
+      "message": "This comment needs to be in the .h file not the .cc file - the .h file is the documentation of what the function does.",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b75ca82b_1148f933",
+        "filename": "rtc_base/string_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-15T09:00:14Z",
+      "side": 1,
+      "message": "This comment too.",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

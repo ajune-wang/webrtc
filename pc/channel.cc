@@ -1045,17 +1045,28 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
         continue;
       }
 
-      const VideoCodec* recv_codec =
-          FindMatchingCodec(recv_params.codecs, send_codec);
-      if (recv_codec == nullptr) {
+      std::vector<const VideoCodec*> recv_codecs =
+          FindAllMatchingCodecs(recv_params.codecs, send_codec);
+      if (recv_codecs.empty()) {
         continue;
       }
 
-      if (!recv_codec->packetization.has_value() &&
-          send_codec.packetization.has_value()) {
+      bool may_ignore_packetization = false;
+      bool has_matching_packetization = false;
+      for (const VideoCodec* recv_codec : recv_codecs) {
+        if (!recv_codec->packetization.has_value() &&
+            send_codec.packetization.has_value()) {
+          may_ignore_packetization = true;
+        } else if (recv_codec->packetization == send_codec.packetization) {
+          has_matching_packetization = true;
+          break;
+        }
+      }
+
+      if (may_ignore_packetization) {
         send_codec.packetization = absl::nullopt;
         needs_send_params_update = true;
-      } else if (recv_codec->packetization != send_codec.packetization) {
+      } else if (!has_matching_packetization) {
         error_desc = StringFormat(
             "Failed to set local answer due to incompatible codec "
             "packetization for pt='%d' specified in m-section with mid='%s'.",
@@ -1063,7 +1074,7 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
         return false;
       }
 
-      if (recv_codec->packetization == send_codec.packetization) {
+      if (has_matching_packetization) {
         matched_codecs.insert(&send_codec);
       }
     }
@@ -1145,17 +1156,28 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
         continue;
       }
 
-      const VideoCodec* send_codec =
-          FindMatchingCodec(send_params.codecs, recv_codec);
-      if (send_codec == nullptr) {
+      std::vector<const VideoCodec*> send_codecs =
+          FindAllMatchingCodecs(send_params.codecs, recv_codec);
+      if (send_codecs.empty()) {
         continue;
       }
 
-      if (!send_codec->packetization.has_value() &&
-          recv_codec.packetization.has_value()) {
+      bool may_ignore_packetization = false;
+      bool has_matching_packetization = false;
+      for (const VideoCodec* send_codec : send_codecs) {
+        if (!send_codec->packetization.has_value() &&
+            recv_codec.packetization.has_value()) {
+          may_ignore_packetization = true;
+        } else if (send_codec->packetization == recv_codec.packetization) {
+          has_matching_packetization = true;
+          break;
+        }
+      }
+
+      if (may_ignore_packetization) {
         recv_codec.packetization = absl::nullopt;
         needs_recv_params_update = true;
-      } else if (send_codec->packetization != recv_codec.packetization) {
+      } else if (!has_matching_packetization) {
         error_desc = StringFormat(
             "Failed to set remote answer due to incompatible codec "
             "packetization for pt='%d' specified in m-section with mid='%s'.",
@@ -1163,7 +1185,7 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
         return false;
       }
 
-      if (send_codec->packetization == recv_codec.packetization) {
+      if (has_matching_packetization) {
         matched_codecs.insert(&recv_codec);
       }
     }

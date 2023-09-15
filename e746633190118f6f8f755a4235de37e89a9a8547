@@ -51,6 +51,24 @@
       "parentUuid": "e1fd701c_89a6ebe2",
       "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3bd59a2_6ab14085",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-15T05:59:03Z",
+      "side": 1,
+      "message": "None of the APIs in string_encode.h meets my requirement. So I update the API you think ugly.",
+      "parentUuid": "5baa4317_8b12ec31",
+      "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

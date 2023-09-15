@@ -255,6 +255,9 @@ absl::optional<uint8_t> VideoDecoderWrapper::ParseQP(
       qp = h264_bitstream_parser_.GetLastSliceQp();
       break;
     }
+    case kVideoCodecH265:
+      // TODO(bugs.webrtc.org/13485)
+      break;
     default:
       break;  // Default is to not provide QP.
   }

@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3b3748_00ea3045",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-15T09:32:39Z",
+      "side": 1,
+      "message": "not sure it is helpful to bring history of RPSI in the description.\nInstead it would be helpful to mention this is RPSI for H265 specifically.",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "53b4a6ef_4328caab",
@@ -18,6 +41,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "711c5eb9_76761ad3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-15T09:32:39Z",
+      "side": 1,
+      "message": "Looking at\nhttps://github.com/aboba/hevc-webrtc/issues/13\nit is unclear to me if codec-specific mechanic is a way forward for webrtc, or if some other approach should be preferred.\n\nWould prefer that thread to come to a conclusion before diving into code details.\n\n[e.g. may be general code should use more generic concepts, RtcpInfraFrameObserver::OnReceivedRPSI looks too codec specific,\nbut RPSI might still be a way to pass that information explicitly for H265, for better interop with other HEVC RTP clients]",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f4b751f_cbfe90bd",
@@ -31,6 +71,29 @@
       "writtenOn": "2023-09-15T09:00:14Z",
       "side": 1,
       "message": "This (writing 4 bits at a time) is a silly way of writing two hex bytes.\nUse hex_encode(rtc::ArrayView\u003cuint8_t\u003e(layer_id)) to get the string, and write the 2-character string.\n(yes, there is no hex_encode that takes rtc::ArrayView\u003cuint8_t\u003e as a parameter. You can fix that.)\n\nBenefit: More maintainable code. This code is executed relatively rarely.",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86518c45_2f266c8d",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-15T09:32:39Z",
+      "side": 1,
+      "message": "RFC4585 describe RPSI in general\n\nin particular there is not layer_id or picture_order_cnt generic properties.\nI guess this one is tailored for the H265, so would be helpful to link RFC7798 upfront (not just inside implementation)\n\nMay be also rename this class to express it is specific for H265",
+      "range": {
+        "startLine": 20,
+        "startChar": 50,
+        "endLine": 20,
+        "endChar": 58
+      },
       "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

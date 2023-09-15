@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "869c9316_09795dba",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-15T08:20:31Z",
+      "side": 1,
+      "message": "This should be guarded by RTC_ENABLE_H265 macro. The macro can be defined like this: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/BUILD.gn;l\u003d301",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "e8eff3a3cb69def5df9743e4b80a98b37a993e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90e0ee34_43be89f0",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-15T08:20:31Z",
+      "side": 1,
+      "message": "put under RTC_ENABLE_H265",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 45
+      },
+      "revId": "e8eff3a3cb69def5df9743e4b80a98b37a993e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

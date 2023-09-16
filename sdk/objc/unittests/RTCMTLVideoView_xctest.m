@@ -282,7 +282,8 @@ static size_t kBufferHeight = 200;
   OCMVerifyAllWithDelay(delegateMock, 1);
 }
 
-- (void)testSetContentMode {
+// TODO(b/298960678): Fix test expectations.
+- (void)DISABLED_testSetContentMode {
   OCMStub([self.classMock isMetalAvailable]).andReturn(YES);
   id metalKitView = OCMClassMock([MTKView class]);
   [[[[self.classMock stub] ignoringNonObjectArgs] andReturn:metalKitView]

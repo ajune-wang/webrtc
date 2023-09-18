@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2aff3cc5_e05382ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-18T04:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee3b3748_00ea3045",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "53b4a6ef_4328caab",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -77,6 +101,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3113a4d0_5d132b1c",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-18T04:16:22Z",
+      "side": 1,
+      "message": "It\u0027s not writing 4-bits per time. It is actually writing 1-byte at a time. layer_id is 8-bits and will be split into 2 4-bits, each 4-bits will be hex_encode() into a 8-bits character, and written into the packet separately.\n\nIf I modify the rtc::hex_encode to accept ArrayView as input and return a string, the code looks much worse readable, some like below:\n\n```\n // nuh_layer_id\n  uint8_t layer_id[] \u003d {layer_id_ \u0026 0b0011\u00271111};\n  rtc::ArrayView\u003cuint8_t\u003e layer_view(layer_id);\n  std::string layer_id_str \u003d rtc::hex_encode(layer_view);\n  if (layer_id_str.size() \u003d\u003d 2) {\n   // Use a for loop to write each character in the string,\n   // as ByteWriter::WriteBigEndian() does not accept array\n   // of uint8_t or unsigned char as input.\n   ...\n  }\n```",
+      "parentUuid": "8f4b751f_cbfe90bd",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe83416_82b29b9e",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-18T04:16:22Z",
+      "side": 1,
+      "message": "The issue here is not about trying to",
+      "parentUuid": "8f4b751f_cbfe90bd",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86518c45_2f266c8d",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.h",
         "patchSetId": 3
@@ -88,6 +148,30 @@
       "writtenOn": "2023-09-15T09:32:39Z",
       "side": 1,
       "message": "RFC4585 describe RPSI in general\n\nin particular there is not layer_id or picture_order_cnt generic properties.\nI guess this one is tailored for the H265, so would be helpful to link RFC7798 upfront (not just inside implementation)\n\nMay be also rename this class to express it is specific for H265",
+      "range": {
+        "startLine": 20,
+        "startChar": 50,
+        "endLine": 20,
+        "endChar": 58
+      },
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d93d12_14aef8e9",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-18T04:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86518c45_2f266c8d",
       "range": {
         "startLine": 20,
         "startChar": 50,
@@ -115,6 +199,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f06e7694_8497bb84",
+        "filename": "rtc_base/string_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-18T04:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04999f8a_8d98b5f5",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b75ca82b_1148f933",
@@ -128,6 +230,24 @@
       "writtenOn": "2023-09-15T09:00:14Z",
       "side": 1,
       "message": "This comment too.",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "653311f5_4cbfba3e",
+        "filename": "rtc_base/string_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-18T04:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b75ca82b_1148f933",
       "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

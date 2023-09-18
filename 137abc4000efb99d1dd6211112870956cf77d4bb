@@ -16,6 +16,23 @@
       "message": "It seems h264_packet_buffer is not used in anywhere in WebRTC, so remove it to avoid misunderstanding of code.",
       "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f85c3c0_0c64078d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-09-18T08:45:31Z",
+      "side": 1,
+      "message": "These classes exist so that we can detangle H264 specific code from all other codecs. It has not been a high prio for us to but we are (very) slowly working on it.",
+      "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

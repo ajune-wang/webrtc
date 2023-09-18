@@ -51,6 +51,24 @@
       "parentUuid": "2f85c3c0_0c64078d",
       "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3dd675_b3b2b81e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-09-18T08:50:43Z",
+      "side": 1,
+      "message": "Can H26X specific code coexist in a clean manner?",
+      "parentUuid": "61cc4f75_e6ef555c",
+      "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

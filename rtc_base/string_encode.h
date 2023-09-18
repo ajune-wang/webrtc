@@ -29,6 +29,12 @@ namespace rtc {
 // String Encoding Utilities
 //////////////////////////////////////////////////////////////////////
 
+// Convert an unsigned value from 0 to 15 to the hex character equivalent.
+char hex_encode(uint8_t val);
+
+// Convert a hex character to an unsigned value from 0 to 15.
+bool hex_decode(char ch, uint8_t& val);
+
 std::string hex_encode(absl::string_view str);
 std::string hex_encode_with_delimiter(absl::string_view source, char delimiter);
 

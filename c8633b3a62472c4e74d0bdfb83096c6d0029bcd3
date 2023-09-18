@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c353e0_09a8a5d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T06:36:23Z",
+      "side": 1,
+      "message": "No, you don\u0027t have to use ByteWriter to write to an uint8_t array.",
+      "revId": "c8633b3a62472c4e74d0bdfb83096c6d0029bcd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -137,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f87251ff_8c07e16f",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T06:36:23Z",
+      "side": 1,
+      "message": "Even if you write one byte at a time, this can be much more readable.\n\nstd::string layer_id_str \u003d rtc::hex_encode(layer_view);\nRTC_CHECK(layer_id_str \u003d\u003d 2);\npacket[index++] \u003d layer_id_str[1]; // Cast as appropriate\npacket[index++] \u003d layer_id_str[0];\n\npacket is an uint8_t*, there\u0027s no requirement to use ByteWriter to write to it.",
+      "parentUuid": "cfe83416_82b29b9e",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86518c45_2f266c8d",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.h",
         "patchSetId": 3

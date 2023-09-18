@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f4862e7_85b61dba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T08:43:16Z",
+      "side": 1,
+      "message": "Improves the situation...",
+      "revId": "346bcea856f69a4db0f317381d8322566b3f8de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "069a5bfc_780761ca",
@@ -31,6 +48,41 @@
       "writtenOn": "2023-09-18T08:27:50Z",
       "side": 1,
       "message": "I can\u0027t figure out a unit test for the offer variant. For the answer variant the trick to run into the CHECK is reusing the mid in the same slot but since libwebrtc never reused mids I can\u0027t figure out how to trigger this. Maybe seeing the error in production without crashing will help.",
+      "revId": "346bcea856f69a4db0f317381d8322566b3f8de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6d72986_531bc761",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2344,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T08:43:16Z",
+      "side": 1,
+      "message": "Hope so.",
+      "parentUuid": "069a5bfc_780761ca",
+      "revId": "346bcea856f69a4db0f317381d8322566b3f8de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662d56a6_02ecdbc7",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T08:43:16Z",
+      "side": 1,
+      "message": "I think the suite should be named SdpOfferAnswerShuffleMediaTypes - the \"AudioFirst\" name confused me.",
       "revId": "346bcea856f69a4db0f317381d8322566b3f8de0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

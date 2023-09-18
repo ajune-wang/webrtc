@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6bcd4e9_686709d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-18T08:35:10Z",
+      "side": 1,
+      "message": "It seems h264_packet_buffer is not used in anywhere in WebRTC, so remove it to avoid misunderstanding of code.",
+      "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

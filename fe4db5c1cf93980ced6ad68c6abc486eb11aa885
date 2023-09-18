@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "362ebcd6_5717f4e6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-09-18T06:35:23Z",
+      "side": 1,
+      "message": "My gut feeling is that there\u0027s a lot of code duplication in SetRemoteContent_w and SetLocalContent_w. Should we use a shared helper function, or is it different enough to keep it like this?",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1159,
+        "endChar": 50
+      },
+      "revId": "fe4db5c1cf93980ced6ad68c6abc486eb11aa885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

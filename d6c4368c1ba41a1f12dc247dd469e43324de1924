@@ -103,6 +103,24 @@
       "parentUuid": "b5e9c4b3_599055ee",
       "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e4b2c7_6511cab5",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T12:36:51Z",
+      "side": 1,
+      "message": "Acknowledged.\n\nor we can wait until we get an RtpMediaContentDescription class to move them to, and the compiler will do the work for us.",
+      "parentUuid": "57e0dd57_20e35f21",
+      "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

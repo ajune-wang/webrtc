@@ -124,33 +124,6 @@ rtc_library("packet_buffer") {
   ]
 }
 
-rtc_library("h264_packet_buffer") {
-  sources = [
-    "h264_packet_buffer.cc",
-    "h264_packet_buffer.h",
-  ]
-  deps = [
-    ":codec_globals_headers",
-    ":packet_buffer",
-    "../../api:array_view",
-    "../../api:rtp_packet_info",
-    "../../api/units:timestamp",
-    "../../api/video:encoded_image",
-    "../../api/video:video_frame_type",
-    "../../common_video",
-    "../../rtc_base:checks",
-    "../../rtc_base:copy_on_write_buffer",
-    "../../rtc_base:logging",
-    "../../rtc_base:rtc_numerics",
-    "../rtp_rtcp:rtp_rtcp_format",
-    "../rtp_rtcp:rtp_video_header",
-  ]
-  absl_deps = [
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/types:optional",
-  ]
-}
-
 rtc_library("frame_helpers") {
   sources = [
     "frame_helpers.cc",
@@ -1200,7 +1173,6 @@ if (rtc_include_tests) {
       "frame_dependencies_calculator_unittest.cc",
       "frame_helpers_unittest.cc",
       "generic_decoder_unittest.cc",
-      "h264_packet_buffer_unittest.cc",
       "h264_sprop_parameter_sets_unittest.cc",
       "h264_sps_pps_tracker_unittest.cc",
       "histogram_unittest.cc",
@@ -1237,7 +1209,6 @@ if (rtc_include_tests) {
       ":encoded_frame",
       ":frame_dependencies_calculator",
       ":frame_helpers",
-      ":h264_packet_buffer",
       ":nack_requester",
       ":packet_buffer",
       ":simulcast_test_fixture_impl",

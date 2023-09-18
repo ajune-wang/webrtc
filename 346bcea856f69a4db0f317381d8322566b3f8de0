@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aafe758_2e651852",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-18T08:27:50Z",
+      "side": 1,
+      "message": "Is it just me who is sad the whole createOffer/createAnswer path does not return RTCError?",
+      "revId": "346bcea856f69a4db0f317381d8322566b3f8de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "069a5bfc_780761ca",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2344,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-18T08:27:50Z",
+      "side": 1,
+      "message": "I can\u0027t figure out a unit test for the offer variant. For the answer variant the trick to run into the CHECK is reusing the mid in the same slot but since libwebrtc never reused mids I can\u0027t figure out how to trigger this. Maybe seeing the error in production without crashing will help.",
+      "revId": "346bcea856f69a4db0f317381d8322566b3f8de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

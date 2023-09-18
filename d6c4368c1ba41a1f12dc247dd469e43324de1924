@@ -16,6 +16,57 @@
       "message": "I bet hta will have an opinion :)",
       "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b30e3463_b89ed032",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T11:39:33Z",
+      "side": 1,
+      "message": "So good to see all those casts go :-)\nPlease add the TODOs for getting all that RTP stuff isolated...",
+      "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d74f3f8_de96cc57",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T11:39:33Z",
+      "side": 1,
+      "message": "Add a TODO(bug) here to isolate all the RTP stuff to a class that SctpDataContentDescription doesn\u0027t have to inherit from.",
+      "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e9c4b3_599055ee",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-18T11:39:33Z",
+      "side": 1,
+      "message": "Can you add an implementation of codecs() here that throws?\nHasCodecs can return unconditional false.",
+      "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

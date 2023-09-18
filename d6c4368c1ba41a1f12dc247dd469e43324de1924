@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd87623_04b52ca8",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-18T12:27:04Z",
+      "side": 1,
+      "message": "Done, piggybacking on 15214 for now. Also made a lot more stuff private!",
+      "parentUuid": "9d74f3f8_de96cc57",
+      "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5e9c4b3_599055ee",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-09-18T11:39:33Z",
       "side": 1,
       "message": "Can you add an implementation of codecs() here that throws?\nHasCodecs can return unconditional false.",
+      "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e0dd57_20e35f21",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-18T12:27:04Z",
+      "side": 1,
+      "message": "If we do that we should do it also for *a lot* of the set_direction, set_rtcp_mux.\nWe can do that pretty soon once MediaContentDescriptionImpl is gone hopefully.",
+      "parentUuid": "b5e9c4b3_599055ee",
       "revId": "d6c4368c1ba41a1f12dc247dd469e43324de1924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

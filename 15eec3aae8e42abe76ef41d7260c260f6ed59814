@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd5da19_4707f793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-18T07:39:59Z",
+      "side": 1,
+      "message": "sergey@, the mirror CL has passed the run, please help to trigger the CQ, thanks~",
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c4bb7d_40861d9c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-19T13:58:12Z",
+      "side": 1,
+      "message": "I am a bit confused about how or if the upper link capacity estimate is actually used for anything? \n\nSo if   upper_link_capacity_ \u003c current_estimate_.loss_limited_bandwidth it is ignored here.\n\nif upper_link_capacity_ \u003e current_estimate_.loss_limited_bandwidth it is also ignored in GetLossBasedResult.  \n\ncached_instant_upper_bound_ is used for GetInstantUpperBound()\n\nWhich is used for GetLossBasedResult()\n\n std::min({current_estimate_.loss_limited_bandwidth,\n                 GetInstantUpperBound(), delay_based_estimate_});",
+      "revId": "83e8fe49da8c077137fc72a5c00f100cfa6c9270",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ad72e3_b45afe7f",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-19T13:58:12Z",
+      "side": 1,
+      "message": "also verify that the loss based estimator is in state kIncreasing ?",
+      "range": {
+        "startLine": 1698,
+        "startChar": 54,
+        "endLine": 1698,
+        "endChar": 73
+      },
+      "revId": "83e8fe49da8c077137fc72a5c00f100cfa6c9270",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

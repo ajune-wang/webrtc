@@ -67,6 +67,24 @@
       "message": "Nit: You wouldn\u0027t have to use [[fallthrough]] if you placed the #ifdef before the \"case kVideoCodecH265\" line.\n(here and above)",
       "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cc204c6_d9017bae",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-09-19T08:58:32Z",
+      "side": 1,
+      "message": "We prefer to list kVideoCodecH265 case as other codecs (normally defined in api/video/video_codec_type.h), but control the implementation through micro RTC_ENABLE_H265.",
+      "parentUuid": "47464d2d_095be2ce",
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

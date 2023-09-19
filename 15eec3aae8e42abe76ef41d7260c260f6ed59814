@@ -85,6 +85,24 @@
       "parentUuid": "47464d2d_095be2ce",
       "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59a29e6_814a9ac1",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-19T09:04:04Z",
+      "side": 1,
+      "message": "The switch statement has a default, which you are falling through to, so moving the #ifdef will cause no change in behavior, and makes the carve-out easier to read.\nBut not a hill to die on :-)",
+      "parentUuid": "0cc204c6_d9017bae",
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -80,7 +80,10 @@ Timestamp MinReceiveTime(const EncodedFrame& frame) {
 
 Timestamp ReceiveTime(const EncodedFrame& frame) {
   absl::optional<Timestamp> ts = frame.ReceivedTimestamp();
-  RTC_DCHECK(ts.has_value()) << "Received frame must have a timestamp set!";
+  if (!ts.has_value()) {
+    RTC_LOG(LS_WARNING) << "Invalid timestamp";
+    return Timestamp::Millis(0);
+  }
   return *ts;
 }
 

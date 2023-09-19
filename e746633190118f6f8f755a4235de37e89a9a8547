@@ -69,6 +69,24 @@
       "parentUuid": "5baa4317_8b12ec31",
       "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e2bcf52_4255c291",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-19T04:56:31Z",
+      "side": 1,
+      "message": "Updated to not introducing new APIs.",
+      "parentUuid": "c3bd59a2_6ab14085",
+      "revId": "e746633190118f6f8f755a4235de37e89a9a8547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

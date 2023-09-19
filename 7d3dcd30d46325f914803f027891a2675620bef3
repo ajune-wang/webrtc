@@ -82,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccb33434_302ff383",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-19T04:56:31Z",
+      "side": 1,
+      "message": "Acked.",
+      "parentUuid": "53b4a6ef_4328caab",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f4b751f_cbfe90bd",
@@ -149,6 +167,24 @@
       "side": 1,
       "message": "Even if you write one byte at a time, this can be much more readable.\n\nstd::string layer_id_str \u003d rtc::hex_encode(layer_view);\nRTC_CHECK(layer_id_str \u003d\u003d 2);\npacket[index++] \u003d layer_id_str[1]; // Cast as appropriate\npacket[index++] \u003d layer_id_str[0];\n\npacket is an uint8_t*, there\u0027s no requirement to use ByteWriter to write to it.",
       "parentUuid": "cfe83416_82b29b9e",
+      "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e676eb_d5286a1a",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/rpsi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-19T04:56:31Z",
+      "side": 1,
+      "message": "Thanks hta@ ! I updated the code to rely on existing base16 encoding/decoding API.",
+      "parentUuid": "f87251ff_8c07e16f",
       "revId": "7d3dcd30d46325f914803f027891a2675620bef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

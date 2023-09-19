@@ -116,6 +116,7 @@ class LossBasedBweV2 {
     TimeDelta probe_expiration = TimeDelta::Zero();
     bool bound_by_upper_link_capacity_when_loss_limited = false;
     bool not_use_acked_rate_in_alr = false;
+    bool bound_by_upper_link_when_increasing = false;
   };
 
   struct Derivatives {

@@ -1658,6 +1658,46 @@ TEST_P(LossBasedBweV2Test, BackOffToAckedRateIfNotInAlr) {
       acked_rate);
 }
 
+TEST_P(LossBasedBweV2Test, BoundByUpperLinkWhenIncreasing) {
+  ExplicitKeyValueConfig key_value_config(
+      "WebRTC-Bwe-LossBasedBweV2/"
+      "Enabled:true,CandidateFactors:1.2|1|0.5,AckedRateCandidate:true,"
+      "ObservationWindowSize:2,ObservationDurationLowerBound:200ms,"
+      "InstantUpperBoundBwBalance:10000kbps,"
+      "DelayBasedCandidate:true,MaxIncreaseFactor:1000,"
+      "BwRampupUpperBoundFactor:2.0,BoundByUpperLinkWhenIncreasing:"
+      "true/");
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  DataRate delay_based_estimate = DataRate::KilobitsPerSec(5000);
+  DataRate acked_rate = DataRate::KilobitsPerSec(300);
+  loss_based_bandwidth_estimator.SetBandwidthEstimate(
+      DataRate::KilobitsPerSec(600));
+  loss_based_bandwidth_estimator.SetAcknowledgedBitrate(acked_rate);
+
+  // Create some loss to create the loss limited scenario.
+  std::vector<PacketResult> enough_feedback_1 =
+      CreatePacketResultsWith100pLossRate(
+          /*first_packet_timestamp=*/Timestamp::Zero());
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      enough_feedback_1, delay_based_estimate, BandwidthUsage::kBwNormal,
+      /*probe_estimate=*/absl::nullopt,
+      /*upper_link_capacity=*/DataRate::PlusInfinity(), /*in_alr=*/false);
+
+  // Set upper link capacity low and make sure that we do not bounded by that.
+  DataRate upper_link_capacity = DataRate::KilobitsPerSec(10);
+  std::vector<PacketResult> enough_feedback_2 =
+      CreatePacketResultsWithReceivedPackets(
+          /*first_packet_timestamp=*/Timestamp::Zero() +
+          kObservationDurationLowerBound);
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      enough_feedback_2, delay_based_estimate, BandwidthUsage::kBwNormal,
+      /*probe_estimate=*/absl::nullopt, upper_link_capacity, /*in_alr=*/false);
+
+  LossBasedBweV2::Result result_after_recovery =
+      loss_based_bandwidth_estimator.GetLossBasedResult();
+  EXPECT_GT(result_after_recovery.bandwidth_estimate, upper_link_capacity);
+}
+
 INSTANTIATE_TEST_SUITE_P(LossBasedBweV2Tests,
                          LossBasedBweV2Test,
                          ::testing::Bool());

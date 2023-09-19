@@ -69,6 +69,24 @@
       "parentUuid": "61cc4f75_e6ef555c",
       "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b36687a5_6c4e3321",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-19T01:09:15Z",
+      "side": 1,
+      "message": "We cannot avoid switches of codec in most of API if we merge, as FuA/StapA and NALU types are enumerated with different values for H.264 and H.265, and we have extra VPS besides SPS and PPS for H.265.\nBasic logic should be similar for both and worth a merge of impl.",
+      "parentUuid": "3f3dd675_b3b2b81e",
+      "revId": "137abc4000efb99d1dd6211112870956cf77d4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

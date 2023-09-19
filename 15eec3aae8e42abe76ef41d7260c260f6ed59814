@@ -54,6 +54,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c66b4e6_f206f2a0",
+        "filename": "sdk/android/src/jni/video_decoder_wrapper.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-19T12:19:50Z",
+      "side": 1,
+      "message": "```suggestion\n#ifdef RTC_ENABLE_H265\n    case kVideoCodecH265:\n      h265_bitstream_parser_.ParseBitstream(buffer);\n      qp \u003d h265_bitstream_parser_.GetLastSliceQp().value_or(-1);\n      success \u003d (qp \u003e\u003d 0);\n      break;\n#endif\n```",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 6
+      },
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47464d2d_095be2ce",
         "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
         "patchSetId": 10
@@ -101,6 +124,24 @@
       "side": 1,
       "message": "The switch statement has a default, which you are falling through to, so moving the #ifdef will cause no change in behavior, and makes the carve-out easier to read.\nBut not a hill to die on :-)",
       "parentUuid": "0cc204c6_d9017bae",
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70f4f61d_a8a27fbb",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-19T12:19:50Z",
+      "side": 1,
+      "message": "+1 for Harald suggestion. That will make things cleaner.\n\nI think I suggested the current implementation. But I overlooked that we have default here.",
+      "parentUuid": "f59a29e6_814a9ac1",
       "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

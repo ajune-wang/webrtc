@@ -33,6 +33,40 @@
       "message": "Erik@, please help to review and submit this CL, thanks~",
       "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a414ea45_265659ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-19T06:50:57Z",
+      "side": 1,
+      "message": "Re-approving, but suggesting a small simplification.",
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47464d2d_095be2ce",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-19T06:50:57Z",
+      "side": 1,
+      "message": "Nit: You wouldn\u0027t have to use [[fallthrough]] if you placed the #ifdef before the \"case kVideoCodecH265\" line.\n(here and above)",
+      "revId": "15eec3aae8e42abe76ef41d7260c260f6ed59814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

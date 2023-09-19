@@ -420,6 +420,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
       "BoundByUpperLinkCapacityWhenLossLimited", true);
   FieldTrialParameter<bool> not_use_acked_rate_in_alr("NotUseAckedRateInAlr",
                                                       false);
+  FieldTrialParameter<bool> bound_by_upper_link_when_increasing(
+      "BoundByUpperLinkWhenIncreasing", false);
   if (key_value_config) {
     ParseFieldTrial({&enabled,
                      &bandwidth_rampup_upper_bound_factor,
@@ -458,7 +460,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                      &bandwidth_cap_at_high_loss_rate,
                      &slope_of_bwe_high_loss_func,
                      &bound_by_upper_link_capacity_when_loss_limited,
-                     &not_use_acked_rate_in_alr},
+                     &not_use_acked_rate_in_alr,
+                     &bound_by_upper_link_when_increasing},
                     key_value_config->Lookup("WebRTC-Bwe-LossBasedBweV2"));
   }
 
@@ -523,6 +526,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   config->bound_by_upper_link_capacity_when_loss_limited =
       bound_by_upper_link_capacity_when_loss_limited.Get();
   config->not_use_acked_rate_in_alr = not_use_acked_rate_in_alr.Get();
+  config->bound_by_upper_link_when_increasing =
+      bound_by_upper_link_when_increasing.Get();
 
   return config;
 }
@@ -968,7 +973,12 @@ void LossBasedBweV2::CalculateInstantUpperBound() {
   if (IsBandwidthLimitedDueToLoss()) {
     if (IsValid(upper_link_capacity_) &&
         config_->bound_by_upper_link_capacity_when_loss_limited) {
-      instant_limit = std::min(instant_limit, upper_link_capacity_);
+      auto max_capacity =
+          config_->bound_by_upper_link_when_increasing
+              ? std::max(current_estimate_.loss_limited_bandwidth,
+                         upper_link_capacity_)
+              : upper_link_capacity_;
+      instant_limit = std::min(instant_limit, max_capacity);
     }
   }
   cached_instant_upper_bound_ = instant_limit;

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aac4dd77_b770e5bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2023-09-19T16:46:23Z",
+      "side": 1,
+      "message": "hi Jianlin,\n\ncould you also please rephrase the commit message so that it is\na bit easier to understand ?\n\nThanks,",
+      "revId": "8c709d939e4a1ef044e2789a86a026357f2c4f7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b1fd06f_82613874",

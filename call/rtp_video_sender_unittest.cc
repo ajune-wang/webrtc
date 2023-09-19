@@ -58,6 +58,7 @@ const int kDependencyDescriptorExtensionId = 8;
 class MockRtcpIntraFrameObserver : public RtcpIntraFrameObserver {
  public:
   MOCK_METHOD(void, OnReceivedIntraFrameRequest, (uint32_t), (override));
+  MOCK_METHOD(void, OnReceivedRPSI, (uint32_t, uint32_t), (override));
 };
 
 RtpSenderObservers CreateObservers(

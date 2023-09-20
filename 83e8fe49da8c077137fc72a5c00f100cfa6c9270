@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37d97146_57ddded8",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-20T13:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96c4bb7d_40861d9c",
+      "revId": "83e8fe49da8c077137fc72a5c00f100cfa6c9270",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09ad72e3_b45afe7f",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-19T13:58:12Z",
       "side": 1,
       "message": "also verify that the loss based estimator is in state kIncreasing ?",
+      "range": {
+        "startLine": 1698,
+        "startChar": 54,
+        "endLine": 1698,
+        "endChar": 73
+      },
+      "revId": "83e8fe49da8c077137fc72a5c00f100cfa6c9270",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "085620c3_7b39a036",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-20T13:32:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "09ad72e3_b45afe7f",
       "range": {
         "startLine": 1698,
         "startChar": 54,

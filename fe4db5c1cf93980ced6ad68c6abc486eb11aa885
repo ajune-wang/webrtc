@@ -46,6 +46,30 @@
       },
       "revId": "fe4db5c1cf93980ced6ad68c6abc486eb11aa885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7400812b_e04bbe6f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-09-20T08:52:16Z",
+      "side": 1,
+      "message": "Yeah, you may be right that it may actually just cause more confusion...\n\nCould you perhaps at least add a comment on lines 1037 and 1148 describing what it does? I had to read it _very_ carefully to figure that out.",
+      "parentUuid": "bca03474_6b16499a",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1159,
+        "endChar": 50
+      },
+      "revId": "fe4db5c1cf93980ced6ad68c6abc486eb11aa885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

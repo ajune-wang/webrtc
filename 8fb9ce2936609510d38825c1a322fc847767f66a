@@ -16,6 +16,23 @@
       "message": "Ilya, can you take a look or find someone?",
       "revId": "8fb9ce2936609510d38825c1a322fc847767f66a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e920471_f917ced8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-09-20T08:35:24Z",
+      "side": 1,
+      "message": "How can this happen? Do you observe some crashes somewhere?",
+      "revId": "8fb9ce2936609510d38825c1a322fc847767f66a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

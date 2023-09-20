@@ -22,6 +22,30 @@
       },
       "revId": "fe4db5c1cf93980ced6ad68c6abc486eb11aa885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bca03474_6b16499a",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-20T08:36:53Z",
+      "side": 1,
+      "message": "Agreed, but I can\u0027t figure out how a helper would make things clearer. Now the variables are expressed in terms of send/recv which I think makes the code easier to reason about. With a generic helper they would probably be referred to as just local/remote instead.\n\nAlso, in the long run I don\u0027t think we need this behavior at all. But I decided to keep it for now while fixing the bug instead of opening that can of worms.",
+      "parentUuid": "362ebcd6_5717f4e6",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1159,
+        "endChar": 50
+      },
+      "revId": "fe4db5c1cf93980ced6ad68c6abc486eb11aa885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

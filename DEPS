@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b3921f49900a129bed6b28446a9702c77d06fd7a',
+  'chromium_revision': '0fa3ce9afacdf60a6d24383255bc0f90ba78d71d',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,9 +50,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@fa650044e24ff1a8ceb128e50499df2a725bc254',
+    'https://chromium.googlesource.com/chromium/src/base@6d762eb50fe370e48eba5056735e6bf109cdaeb6',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9557d1f6c4ee026a7250cef89724f5a238473d23',
+    'https://chromium.googlesource.com/chromium/src/build@f474ec05a23b0f5bcc3c48ad48cebc0111745df4',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@fc0b88d4a011c9790fd6cc423101684fdbbbe710',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -65,9 +65,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d7c3af8bd054554aee354dabf2a45d504e6bcc39',
+    'https://chromium.googlesource.com/chromium/src/testing@6b95b20c49c5fc1f86f86b3a40edcc036c22e6cb',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@bd281380f3095e98a76a864493c87cce7b9b11ad',
+    'https://chromium.googlesource.com/chromium/src/third_party@30b05001e89e1eb2541b16c2a540da6fb10e6171',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -178,7 +178,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8988364bcddd9b194b0bf931c10bc125987330ed',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@c9ccea1a729cb6952cabdb42c192b87a9a08ba3a',
+    'https://chromium.googlesource.com/catapult.git@7eff3d6a1f84d397dfc329c74e102f4d56c4cfe0',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -191,7 +191,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@50b27a5308a405646b627691b48c55e007eb5418',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@ed9a0819a4f244ad2e33ea983b7615bd7f9fb108',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@0ba37733400593b162e5ae9ff26b384cff49c250',
   'src/third_party/flatbuffers/src':
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@46859d25b31273977f09644ce52fd1f4a629b948',
+    'https://chromium.googlesource.com/chromium/src/tools@6b9eab8f62a785bb8ee29e3f7198ad069f5201d1',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -405,7 +405,7 @@ deps = {
     'packages': [
       {
         'package': 'chromium/third_party/android_toolchain/android_toolchain',
-        'version': '3vHltFqfgIw8wZ38ggGM9c7Eyw_AHZnwCgFIVtc9gngC',
+        'version': 'vD5FPvy1sIu7nXcWvm7PTF4yfBbjkyJJC-AgjYEdaYQC',
       },
     ],
     'condition': 'checkout_android',
@@ -416,7 +416,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'tp63GXhagjuqaueX7s18Dpuf8fE1dvEDPtr1mfnlR1IC',
+          'version': 'eojDCBbK65QY6z1Vi2KdqzCfuTY_O7E-a9nh6Iiy3YUC',
       },
     ],
     'condition': 'checkout_android',
@@ -521,7 +521,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/turbine',
-              'version': 'laSnfZnTgkmZynERrjAlU3yeqB5rN446BctGmKQsZ64C',
+              'version': 'NR31kJWll1NZz_scMvMPtPH_P3wOQ5aKBJ-n8XQ7QrYC',
           },
       ],
       'condition': 'checkout_android',

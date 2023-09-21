@@ -499,7 +499,7 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
     // receiver limit here.
     if (receiver_limit_.IsFinite())
       new_bitrate = std::max(receiver_limit_, new_bitrate);
-    if (delay_based_limit_.IsFinite())
+    if (delay_based_limit_.IsFinite() && !UseLossBasedBweV2InStartPhase())
       new_bitrate = std::max(delay_based_limit_, new_bitrate);
     if (LossBasedBandwidthEstimatorV1Enabled()) {
       loss_based_bandwidth_estimator_v1_.Initialize(new_bitrate);
@@ -695,6 +695,10 @@ bool SendSideBandwidthEstimation::LossBasedBandwidthEstimatorV1ReadyForUse()
 
 bool SendSideBandwidthEstimation::LossBasedBandwidthEstimatorV2Enabled() const {
   return loss_based_bandwidth_estimator_v2_.IsEnabled();
+}
+
+bool SendSideBandwidthEstimation::UseLossBasedBweV2InStartPhase() const {
+  return loss_based_bandwidth_estimator_v2_.UseInStartPhase();
 }
 
 bool SendSideBandwidthEstimation::LossBasedBandwidthEstimatorV2ReadyForUse()

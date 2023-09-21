@@ -164,6 +164,7 @@ class SendSideBandwidthEstimation {
 
   bool LossBasedBandwidthEstimatorV1Enabled() const;
   bool LossBasedBandwidthEstimatorV2Enabled() const;
+  bool UseLossBasedBweV2InStartPhase() const;
 
   bool LossBasedBandwidthEstimatorV1ReadyForUse() const;
   bool LossBasedBandwidthEstimatorV2ReadyForUse() const;

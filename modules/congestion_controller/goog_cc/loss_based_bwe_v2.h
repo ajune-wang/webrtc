@@ -57,6 +57,9 @@ class LossBasedBweV2 {
   // initialized with a BWE and then has received enough `PacketResult`s.
   bool IsReady() const;
 
+  // Returns true if loss based BWE should be used in the start phase.
+  bool UseInStartPhase() const;
+
   // Returns `DataRate::PlusInfinity` if no BWE can be calculated.
   Result GetLossBasedResult() const;
 
@@ -114,8 +117,8 @@ class LossBasedBweV2 {
     double slope_of_bwe_high_loss_func = 1000.0;
     bool probe_integration_enabled = false;
     TimeDelta probe_expiration = TimeDelta::Zero();
-    bool bound_by_upper_link_capacity_when_loss_limited = false;
     bool not_use_acked_rate_in_alr = false;
+    bool use_in_start_phase = false;
   };
 
   struct Derivatives {

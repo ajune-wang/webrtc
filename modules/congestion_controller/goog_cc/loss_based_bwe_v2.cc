@@ -2,7 +2,7 @@
  *  Copyright 2021 The WebRTC project authors. All rights reserved.
  *
  *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
+ f*  that can be found in the LICENSE file in the root of the source
  *  tree. An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
@@ -134,6 +134,10 @@ bool LossBasedBweV2::IsEnabled() const {
 bool LossBasedBweV2::IsReady() const {
   return IsEnabled() && IsValid(current_estimate_.loss_limited_bandwidth) &&
          num_observations_ > 0;
+}
+
+bool LossBasedBweV2::UseInStartPhase() const {
+  return IsEnabled() && config_->use_in_start_phase;
 }
 
 LossBasedBweV2::Result LossBasedBweV2::GetLossBasedResult() const {
@@ -418,6 +422,7 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                                                   TimeDelta::Seconds(10));
   FieldTrialParameter<bool> not_use_acked_rate_in_alr("NotUseAckedRateInAlr",
                                                       false);
+  FieldTrialParameter<bool> use_in_start_phase("UseInStartPhase", false);
   if (key_value_config) {
     ParseFieldTrial({&enabled,
                      &bandwidth_rampup_upper_bound_factor,
@@ -455,7 +460,8 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                      &high_loss_rate_threshold,
                      &bandwidth_cap_at_high_loss_rate,
                      &slope_of_bwe_high_loss_func,
-                     &not_use_acked_rate_in_alr},
+                     &not_use_acked_rate_in_alr,
+                     &use_in_start_phase},
                     key_value_config->Lookup("WebRTC-Bwe-LossBasedBweV2"));
   }
 
@@ -518,6 +524,7 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   config->probe_integration_enabled = probe_integration_enabled.Get();
   config->probe_expiration = probe_expiration.Get();
   config->not_use_acked_rate_in_alr = not_use_acked_rate_in_alr.Get();
+  config->use_in_start_phase = use_in_start_phase.Get();
 
   return config;
 }

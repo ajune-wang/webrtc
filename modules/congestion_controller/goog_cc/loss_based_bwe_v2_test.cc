@@ -1532,6 +1532,14 @@ TEST_P(LossBasedBweV2Test, BackOffToAckedRateIfNotInAlr) {
       acked_rate);
 }
 
+TEST_P(LossBasedBweV2Test, UseInStartPhase) {
+  ExplicitKeyValueConfig key_value_config(
+      "WebRTC-Bwe-LossBasedBweV2/"
+      "Enabled:true,UseInStartPhase:true/");
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  EXPECT_TRUE(loss_based_bandwidth_estimator.UseInStartPhase());
+}
+
 INSTANTIATE_TEST_SUITE_P(LossBasedBweV2Tests,
                          LossBasedBweV2Test,
                          ::testing::Bool());

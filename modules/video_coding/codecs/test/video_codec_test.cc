@@ -127,7 +127,7 @@ class TestRawVideoSource : public VideoCodecTester::RawVideoSource {
         frame_settings_(frame_settings),
         num_frames_(num_frames),
         frame_num_(0),
-        // Start with non-zero timestamp to force using frame RTP timestamps in
+        // Start with non-zero timestamp to force usage of RTP timestamps in
         // IvfFrameWriter.
         timestamp_rtp_(90000) {
     // Ensure settings for the first frame are provided.
@@ -147,18 +147,15 @@ class TestRawVideoSource : public VideoCodecTester::RawVideoSource {
       return absl::nullopt;  // End of stream.
     }
 
-    const EncodingSettings& encoding_settings =
-        std::prev(frame_settings_.upper_bound(frame_num_))->second;
-
-    Resolution resolution =
-        encoding_settings.layer_settings.begin()->second.resolution;
-    Frequency framerate =
-        encoding_settings.layer_settings.begin()->second.framerate;
+    const EncodingSettings::LayerSettings& encoding_settings =
+        std::prev(frame_settings_.upper_bound(frame_num_))
+            ->second.layer_settings.begin()
+            ->second;
 
     int pulled_frame;
     auto buffer = frame_reader_->PullFrame(
-        &pulled_frame, resolution,
-        {.num = static_cast<int>(framerate.millihertz()),
+        &pulled_frame, encoding_settings.resolution,
+        {.num = static_cast<int>(encoding_settings.framerate.millihertz()),
          .den = static_cast<int>(video_info_.framerate.millihertz())});
     RTC_CHECK(buffer) << "Cannot pull frame " << frame_num_;
 
@@ -169,7 +166,7 @@ class TestRawVideoSource : public VideoCodecTester::RawVideoSource {
                      .build();
 
     pulled_frames_[timestamp_rtp_] = pulled_frame;
-    timestamp_rtp_ += k90kHz / framerate;
+    timestamp_rtp_ += k90kHz / encoding_settings.framerate;
     ++frame_num_;
 
     return frame;
@@ -333,11 +330,13 @@ class TestEncoder : public VideoCodecTester::Encoder,
 class TestDecoder : public VideoCodecTester::Decoder,
                     public DecodedImageCallback {
  public:
-  TestDecoder(std::unique_ptr<VideoDecoder> decoder,
+  TestDecoder(std::map<int, std::unique_ptr<VideoDecoder>> decoders,
               const std::string codec_type)
-      : decoder_(std::move(decoder)), codec_type_(codec_type) {
-    decoder_->RegisterDecodeCompleteCallback(this);
-  }
+      : decoders_(std::move(decoders)), codec_type_(codec_type) {
+        for (auto& decoder : decoders_) {
+          decoder.second->RegisterDecodeCompleteCallback(this);
+        }
+      }
 
   void Initialize() override {
     VideoDecoder::Settings ds;
@@ -345,8 +344,10 @@ class TestDecoder : public VideoCodecTester::Decoder,
     ds.set_number_of_cores(1);
     ds.set_max_render_resolution({1280, 720});
 
-    bool result = decoder_->Configure(ds);
-    ASSERT_TRUE(result);
+    for (auto& decoder : decoders_) {
+      bool result = decoder.second->Configure(ds);
+      ASSERT_TRUE(result);
+    }
   }
 
   void Decode(const EncodedImage& frame, DecodeCallback callback) override {
@@ -355,17 +356,20 @@ class TestDecoder : public VideoCodecTester::Decoder,
       callbacks_[frame.Timestamp()] = std::move(callback);
     }
 
-    decoder_->Decode(frame, /*render_time_ms=*/0);
+    int sidx = frame.SimulcastIndex().value_or(frame.SpatialIndex().value_or(0));
+    decoders_[sidx]->Decode(frame, /*render_time_ms=*/0);
   }
 
   void Flush() override {
-    // TODO(webrtc:14852): For codecs which buffer frames we need a to
-    // flush them to get last frames. Add such functionality to VideoDecoder
-    // API. On Android it will map directly to `MediaCodec.flush()`.
-    decoder_->Release();
+    // TODO(webrtc:14852): For codecs which buffer frames we need to flush
+    // them to get last frames. Add such functionality to VideoDecoder API.
+    // On Android it will map directly to `MediaCodec.flush()`.
+    for (auto& decoder : decoders_) {
+      decoder.second->Release();
+    }
   }
 
-  VideoDecoder* decoder() { return decoder_.get(); }
+  VideoDecoder* decoder() { return decoders_[0].get(); }
 
  protected:
   int Decoded(VideoFrame& decoded_frame) override {
@@ -378,7 +382,7 @@ class TestDecoder : public VideoCodecTester::Decoder,
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
-  std::unique_ptr<VideoDecoder> decoder_;
+  std::map<int, std::unique_ptr<VideoDecoder>> decoders_;
   const std::string codec_type_;
   std::map<uint32_t, DecodeCallback> callbacks_ RTC_GUARDED_BY(mutex_);
   Mutex mutex_;
@@ -414,7 +418,10 @@ std::unique_ptr<TestEncoder> CreateEncoder(
                                        frame_settings);
 }
 
-std::unique_ptr<TestDecoder> CreateDecoder(std::string type, std::string impl) {
+std::unique_ptr<TestDecoder> CreateDecoder(
+    std::string type,
+    std::string impl,
+    const std::map<int, EncodingSettings>& frame_settings) {
   std::unique_ptr<VideoDecoderFactory> factory;
   if (impl == "builtin") {
     factory = std::make_unique<InternalDecoderFactory>();
@@ -424,12 +431,20 @@ std::unique_ptr<TestDecoder> CreateDecoder(std::string type, std::string impl) {
     factory = CreateAndroidDecoderFactory();
 #endif
   }
-  std::unique_ptr<VideoDecoder> decoder =
-      factory->CreateVideoDecoder(SdpVideoFormat(type));
-  if (decoder == nullptr) {
-    return nullptr;
+
+  int num_spatial_layers =
+        ScalabilityModeToNumSpatialLayers(frame_settings.begin()->second.scalability_mode);
+  
+  std::map<int, std::unique_ptr<VideoDecoder>> decoders;
+  for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
+    std::unique_ptr<VideoDecoder> decoder =
+        factory->CreateVideoDecoder(SdpVideoFormat(type));
+    if (decoder == nullptr) {
+      return nullptr;
+    }
+    decoders[sidx] = std::move(decoder);
   }
-  return std::make_unique<TestDecoder>(std::move(decoder), type);
+  return std::make_unique<TestDecoder>(std::move(decoders), type);
 }
 
 void SetTargetRates(const std::map<int, EncodingSettings>& frame_settings,
@@ -480,7 +495,8 @@ std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
     return nullptr;
   }
 
-  std::unique_ptr<TestDecoder> decoder = CreateDecoder(codec_type, codec_impl);
+  std::unique_ptr<TestDecoder> decoder =
+      CreateDecoder(codec_type, codec_impl, frame_settings);
   if (decoder == nullptr) {
     // If platform decoder is not available try built-in one.
     if (codec_impl == "builtin") {
@@ -524,6 +540,42 @@ std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
   return tester->RunEncodeDecodeTest(video_source.get(), encoder.get(),
                                      decoder.get(), encoder_settings,
                                      decoder_settings);
+}
+
+std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest2(
+  std::string codec_type,
+  std::string codec_impl,
+  const VideoInfo& video_info,
+  const std::map<int, EncodingSettings>& frame_settings,
+  int num_frames)
+  // Per-frame encoding settings.
+  std::map<int, VideoCodecTester::EncodingSettings> encoding_settings;
+  // Needed to fill in codec-specific settings.
+  encoding_settings[0].sdp_video_format = SdpVideoFormat(kVideoCodecAv1);
+  encoding_settings[0].scalability_mode = ScalabilityMode::kL2T3_KEY;
+  encoding_settings[0].layer_settings[0].resolution = 1280x720;
+  encoding_settings[0].layer_settings[0].framerate = 30;
+  encoding_settings[0].layer_settings[0].bitrate = 1024;
+  encoding_settings[0].layer_settings[1].resolution = 640x360;
+  encoding_settings[0].layer_settings[1].framerate = 30;
+  encoding_settings[0].layer_settings[1].bitrate = 1024;
+  
+  VideoCodecTester::VideoSourceSettings video_source;
+  VideoCodecTester::EncoderSettings encoder_settings;
+  VideoCodecTester::DecoderSettings decoder_settings;
+  
+  // Simulcast stream to encoder.
+  std::map<int, std::unique_ptr<VideoEncoder>> encoder =
+    CreateEncoder(codec_type, codec_impl, frame_settings);
+  
+  // Simulcast stream / spatial layer to decoder. Provide decoders for layers
+  // you want to be decoded.
+  std::map<int, std::unique_ptr<VideoDecoder>> decoder =
+      CreateDecoder(codec_type, codec_impl, frame_settings);
+
+  std::unique_ptr<VideoCodecTester> tester = CreateVideoCodecTester();
+  return tester.RunEncodeDecodeTest(video_source, encoder, decoder,
+      encoder_settings, decoder_settings, frame_settings);
 }
 
 std::unique_ptr<VideoCodecStats> RunEncodeTest(

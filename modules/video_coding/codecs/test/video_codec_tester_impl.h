@@ -23,20 +23,22 @@ class VideoCodecTesterImpl : public VideoCodecTester {
  public:
   std::unique_ptr<VideoCodecStats> RunDecodeTest(
       CodedVideoSource* video_source,
-      Decoder* decoder,
-      const DecoderSettings& decoder_settings) override;
+    std::map<int, VideoDecoder*> decoders,
+    const DecoderSettings& decoder_settings) override;
 
   std::unique_ptr<VideoCodecStats> RunEncodeTest(
       RawVideoSource* video_source,
-      Encoder* encoder,
-      const EncoderSettings& encoder_settings) override;
+      std::map<int, VideoEncoder*> encoders,
+      const EncoderSettings& encoder_settings,
+      const std::map<int, EncodingSettings>& frame_settings) override;
 
   std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
-      RawVideoSource* video_source,
-      Encoder* encoder,
-      Decoder* decoder,
-      const EncoderSettings& encoder_settings,
-      const DecoderSettings& decoder_settings) override;
+    RawVideoSource* video_source,
+    std::map<int, VideoEncoder*> encoders,
+    std::map<int, VideoDecoder*> decoders,
+    const EncoderSettings& encoder_settings,
+    const DecoderSettings& decoder_settings,
+    const std::map<int, EncodingSettings>& frame_settings) override;
 };
 
 }  // namespace test

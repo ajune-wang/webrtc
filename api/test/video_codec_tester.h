@@ -20,6 +20,10 @@
 #include "api/video/encoded_image.h"
 #include "api/video/resolution.h"
 #include "api/video/video_frame.h"
+#include "api/video_codecs/video_encoder_factory.h"
+#include "api/video_codecs/video_decoder_factory.h"
+#include "api/video_codecs/scalability_mode.h"
+#include "api/video_codecs/sdp_video_format.h"
 
 namespace webrtc {
 namespace test {
@@ -46,6 +50,7 @@ class VideoCodecTester {
   };
 
   struct DecoderSettings {
+    // TODO: Remove? Decide pacing mode in the tester.
     PacingSettings pacing;
     absl::optional<std::string> decoder_input_base_path;
     absl::optional<std::string> decoder_output_base_path;
@@ -55,6 +60,27 @@ class VideoCodecTester {
     PacingSettings pacing;
     absl::optional<std::string> encoder_input_base_path;
     absl::optional<std::string> encoder_output_base_path;
+  };
+
+  struct EncodingSettings {
+    SdpVideoFormat sdp_video_format;
+    ScalabilityMode scalability_mode;
+
+    struct LayerId {
+      int spatial_idx;
+      int temporal_idx;
+      bool operator==(const LayerId& o) const {
+        return spatial_idx == o.spatial_idx && temporal_idx == o.temporal_idx;
+      }
+    };
+
+    struct LayerSettings {
+      Resolution resolution;
+      Frequency framerate;
+      DataRate bitrate;
+    };
+
+    std::map<LayerId, LayerSettings> layer_settings;
   };
 
   virtual ~VideoCodecTester() = default;
@@ -85,42 +111,12 @@ class VideoCodecTester {
     virtual absl::optional<EncodedImage> PullFrame() = 0;
   };
 
-  // Interface for a video encoder.
-  class Encoder {
-   public:
-    using EncodeCallback =
-        absl::AnyInvocable<void(const EncodedImage& encoded_frame)>;
-
-    virtual ~Encoder() = default;
-
-    virtual void Initialize() = 0;
-
-    virtual void Encode(const VideoFrame& frame, EncodeCallback callback) = 0;
-
-    virtual void Flush() = 0;
-  };
-
-  // Interface for a video decoder.
-  class Decoder {
-   public:
-    using DecodeCallback =
-        absl::AnyInvocable<void(const VideoFrame& decoded_frame)>;
-
-    virtual ~Decoder() = default;
-
-    virtual void Initialize() = 0;
-
-    virtual void Decode(const EncodedImage& frame, DecodeCallback callback) = 0;
-
-    virtual void Flush() = 0;
-  };
-
   // Pulls coded video frames from `video_source` and passes them to `decoder`.
   // Returns `VideoCodecTestStats` object that contains collected per-frame
   // metrics.
   virtual std::unique_ptr<VideoCodecStats> RunDecodeTest(
       CodedVideoSource* video_source,
-      Decoder* decoder,
+      std::map<int, VideoDecoder*> decoders,
       const DecoderSettings& decoder_settings) = 0;
 
   // Pulls raw video frames from `video_source` and passes them to `encoder`.
@@ -128,18 +124,20 @@ class VideoCodecTester {
   // metrics.
   virtual std::unique_ptr<VideoCodecStats> RunEncodeTest(
       RawVideoSource* video_source,
-      Encoder* encoder,
-      const EncoderSettings& encoder_settings) = 0;
+      std::map<int, VideoEncoder*> encoders,
+      const EncoderSettings& encoder_settings,
+      const std::map<int, EncodingSettings>& frame_settings) = 0;
 
   // Pulls raw video frames from `video_source`, passes them to `encoder` and
   // then passes encoded frames to `decoder`. Returns `VideoCodecTestStats`
   // object that contains collected per-frame metrics.
   virtual std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
-      RawVideoSource* video_source,
-      Encoder* encoder,
-      Decoder* decoder,
-      const EncoderSettings& encoder_settings,
-      const DecoderSettings& decoder_settings) = 0;
+    RawVideoSource* video_source,
+    std::map<int, VideoEncoder*> encoders,
+    std::map<int, VideoDecoder*> decoders,
+    const EncoderSettings& encoder_settings,
+    const DecoderSettings& decoder_settings,
+    const std::map<int, EncodingSettings>& frame_settings) = 0;
 };
 
 }  // namespace test

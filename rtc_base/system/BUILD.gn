@@ -69,6 +69,10 @@ rtc_source_set("rtc_export") {
   ]
 }
 
+rtc_source_set("rtc_deprecated") {
+  sources = [ "rtc_deprecated.h" ]
+}
+
 rtc_source_set("no_unique_address") {
   sources = [ "no_unique_address.h" ]
 }

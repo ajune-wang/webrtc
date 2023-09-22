@@ -52,6 +52,7 @@ specific_include_rules = {
     "+rtc_base/checks.h",
     "+rtc_base/system/rtc_export.h",
     "+rtc_base/system/rtc_export_template.h",
+    "+rtc_base/system/rtc_deprecated.h",
     "+rtc_base/units/unit_base.h",
   ],
 

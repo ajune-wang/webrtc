@@ -57,11 +57,13 @@ class LossBasedBweV2 {
   // initialized with a BWE and then has received enough `PacketResult`s.
   bool IsReady() const;
 
+  // Returns true if loss based BWE is ready to be used in the start phase.
+  bool ReadyToUseInStartPhase() const;
+
   // Returns `DataRate::PlusInfinity` if no BWE can be calculated.
   Result GetLossBasedResult() const;
 
   void SetAcknowledgedBitrate(DataRate acknowledged_bitrate);
-  void SetBandwidthEstimate(DataRate bandwidth_estimate);
   void SetMinMaxBitrate(DataRate min_bitrate, DataRate max_bitrate);
   void UpdateBandwidthEstimate(
       rtc::ArrayView<const PacketResult> packet_results,
@@ -70,6 +72,9 @@ class LossBasedBweV2 {
       absl::optional<DataRate> probe_bitrate,
       DataRate upper_link_capacity,
       bool in_alr);
+
+  // For unit testing only.
+  void SetBandwidthEstimate(DataRate bandwidth_estimate);
 
  private:
   struct ChannelParameters {
@@ -115,6 +120,7 @@ class LossBasedBweV2 {
     bool probe_integration_enabled = false;
     TimeDelta probe_expiration = TimeDelta::Zero();
     bool not_use_acked_rate_in_alr = false;
+    bool use_in_start_phase = false;
   };
 
   struct Derivatives {

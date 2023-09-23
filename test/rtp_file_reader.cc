@@ -180,7 +180,7 @@ class RtpDumpReader : public RtpFileReaderImpl {
     if (fread(rtp_data, 1, len, file_) != len) {
       return false;
     }
-
+    RTC_LOG(LS_ERROR) << "read " << len << plen;
     packet->length = len;
     packet->original_length = plen;
     packet->time_ms = offset;

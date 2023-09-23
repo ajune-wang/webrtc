@@ -789,6 +789,9 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
     int64_t unwrapped_rtp_seq_num =
         rtp_seq_num_unwrapper_.Unwrap(packet->seq_num);
     RTC_DCHECK_GT(packet_infos_.count(unwrapped_rtp_seq_num), 0);
+    if (packet_infos_.find(unwrapped_rtp_seq_num) == packet_infos_.end()) {
+      continue;
+    }
     RtpPacketInfo& packet_info = packet_infos_[unwrapped_rtp_seq_num];
     if (packet->is_first_packet_in_frame()) {
       first_packet = packet.get();

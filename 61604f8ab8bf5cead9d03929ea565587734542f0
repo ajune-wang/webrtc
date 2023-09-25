@@ -39,6 +39,30 @@
       },
       "revId": "61604f8ab8bf5cead9d03929ea565587734542f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15728d89_1f952ca7",
+        "filename": "modules/video_coding/utility/ivf_file_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-09-25T10:20:35Z",
+      "side": 1,
+      "message": "Added to the CL description",
+      "parentUuid": "75592c4e_998e64a7",
+      "range": {
+        "startLine": 66,
+        "startChar": 10,
+        "endLine": 66,
+        "endChar": 74
+      },
+      "revId": "61604f8ab8bf5cead9d03929ea565587734542f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

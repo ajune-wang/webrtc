@@ -16,6 +16,29 @@
       "message": "Thanks - I updated the Candidate class to incorporate this too for setting the type. It\u0027s not strictly necessary now but guards against potential downstream regressions. It would be nice to change this property to be an enum but the global strings are being referenced by code outside of webrtc right now.",
       "revId": "1f656740386cfdcfbed7b015a408ef343cac4b3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94797c54_41a61755",
+        "filename": "api/candidate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-25T09:53:48Z",
+      "side": 1,
+      "message": "here (and in the constructor) this attribute is misleading: `type` is assigned to a string, and thus doesn\u0027t need to outlive this function call.",
+      "range": {
+        "startLine": 105,
+        "startChar": 39,
+        "endLine": 105,
+        "endChar": 68
+      },
+      "revId": "1f656740386cfdcfbed7b015a408ef343cac4b3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

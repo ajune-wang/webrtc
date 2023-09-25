@@ -16,6 +16,24 @@
       "message": "Seems this presubmit check is failing, probably it should be updated to match the yapf config file.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/PRESUBMIT.py;l\u003d923-941?q\u003dCheckChangeOnCommit%20f:webrtc",
       "revId": "d1440619135300d4a019f885ceead3565a6d6705",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "951d1b50_dd201be1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-09-25T08:25:33Z",
+      "side": 1,
+      "message": "I think the indent-string should be changed here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pylintrc;l\u003d102?q\u003dpylintrc%20f:webrtc",
+      "parentUuid": "0975cc1d_9752d954",
+      "revId": "d1440619135300d4a019f885ceead3565a6d6705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

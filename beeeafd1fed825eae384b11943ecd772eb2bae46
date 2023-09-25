@@ -70,6 +70,74 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be61d0d1_818e2e9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-25T12:19:00Z",
+      "side": 1,
+      "message": "Add a test that exercises the \"externally encoded\" code path.",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edd5dc65_ecae5b19",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-25T12:19:00Z",
+      "side": 1,
+      "message": "This if isn\u0027t dependent on anything that varies in the loop. You can test for it before the loop starts.\n(seems that you still have to loop in order to set min bitrate and max padding rate, though - what should those be when encoder is external?)",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02389cc9_79b59728",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-25T12:19:00Z",
+      "side": 1,
+      "message": "No test?",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab79176_4f2cfd2d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-25T12:19:00Z",
+      "side": 1,
+      "message": "And once you test for it on top, you can set it there.",
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e5669a6_49600c68",
@@ -142,6 +210,30 @@
       "side": 1,
       "message": "Yeah, indeed. We had a small design debate over how to do this on the Receiver side too, but didn\u0027t find a better small solution.\nAny ideas for a better identity token? I\u0027d definitely like something that wasn\u0027t a raw pointer which risks getting accidentally dereferenced.",
       "parentUuid": "5e58e7b1_45873a0e",
+      "range": {
+        "startLine": 124,
+        "startChar": 35,
+        "endLine": 125,
+        "endChar": 72
+      },
+      "revId": "beeeafd1fed825eae384b11943ecd772eb2bae46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a06b7a1e_f089dd4c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-25T12:19:00Z",
+      "side": 1,
+      "message": "you can always have a static senders_created_ and assign unique numbers to a sender_id_ field starting from 1. Not very expensive.",
+      "parentUuid": "e83841a4_c5469ba1",
       "range": {
         "startLine": 124,
         "startChar": 35,

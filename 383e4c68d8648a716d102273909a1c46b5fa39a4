@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b15afdb2_09838675",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-25T14:54:30Z",
+      "side": 1,
+      "message": "Prefer to not use auto. Let the reader know what type it is. \nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\nAlso, do you need a copy ? const ref?",
+      "range": {
+        "startLine": 1323,
+        "startChar": 4,
+        "endLine": 1323,
+        "endChar": 8
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237b5af5_fbbfb23c",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-25T14:54:30Z",
+      "side": 1,
+      "message": "Where does this for loop end? Why do line 1338 for every sequence number?\n\nWhy do we need it at all ? \nGetPacketStatusCount() - GetReceivedPackets().size  should give you the loss_cnt?",
+      "range": {
+        "startLine": 1327,
+        "startChar": 7,
+        "endLine": 1327,
+        "endChar": 8
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56e42c8_69fc8466",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-25T14:54:30Z",
+      "side": 1,
+      "message": "Should this be a separate graph or just include in the loss graph as a time serie?",
+      "range": {
+        "startLine": 1392,
+        "startChar": 13,
+        "endLine": 1392,
+        "endChar": 36
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

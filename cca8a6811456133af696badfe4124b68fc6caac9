@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e7ed11_74a9add8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-25T09:04:36Z",
+      "side": 1,
+      "message": "I think we can remove the last_packet_receive_time_ member.",
+      "revId": "cca8a6811456133af696badfe4124b68fc6caac9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

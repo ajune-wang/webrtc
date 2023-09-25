@@ -34,6 +34,24 @@
       "parentUuid": "0975cc1d_9752d954",
       "revId": "d1440619135300d4a019f885ceead3565a6d6705",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b598bc3_e963f896",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-25T08:27:54Z",
+      "side": 1,
+      "message": "Yeah, thanks for digging it up. I think we\u0027ll also need to change `max-line-length` and some regex for valid function names. I\u0027ll look into that later today and send you a CL.",
+      "parentUuid": "951d1b50_dd201be1",
+      "revId": "d1440619135300d4a019f885ceead3565a6d6705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

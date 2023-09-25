@@ -406,6 +406,32 @@ RtpPacketReceived RtpPacketForBWEFromHeader(const RTPHeader& header) {
   return rtp_packet;
 }
 
+struct PacketResultsSummary {
+  int num_packets = 0;
+  int num_lost_packets = 0;
+  DataSize total_size = DataSize::Zero();
+  Timestamp last_send_time = Timestamp::MinusInfinity();
+};
+
+// Returns a `PacketResultsSummary` where `first_send_time` is `PlusInfinity,
+// and `last_send_time` is `MinusInfinity`, if `packet_results` is empty.
+PacketResultsSummary GetPacketResultsSummary(
+    rtc::ArrayView<const PacketResult> packet_results) {
+  PacketResultsSummary packet_results_summary;
+
+  packet_results_summary.num_packets = packet_results.size();
+  for (const PacketResult& packet : packet_results) {
+    packet_results_summary.total_size += packet.sent_packet.size;
+    if (!packet.IsReceived()) {
+      packet_results_summary.num_lost_packets++;
+    }
+    packet_results_summary.last_send_time = std::max(
+        packet_results_summary.last_send_time, packet.sent_packet.send_time);
+  }
+
+  return packet_results_summary;
+}
+
 }  // namespace
 
 EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log,
@@ -1296,6 +1322,176 @@ void EventLogAnalyzer::CreateGoogCcSimulationGraph(Plot* plot) {
                  "Time (s)", kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 10, "Bitrate (kbps)", kBottomMargin, kTopMargin);
   plot->SetTitle("Simulated BWE behavior");
+}
+
+void EventLogAnalyzer::CreateTWCCLossRateGraph(Plot* plot) {
+  using RtpPacketType = LoggedRtpPacketOutgoing;
+  using TransportFeedbackType = LoggedRtcpPacketTransportFeedback;
+
+  std::multimap<int64_t, const RtpPacketType*> outgoing_rtp;
+  for (const auto& stream : parsed_log_.outgoing_rtp_packets_by_ssrc()) {
+    for (const RtpPacketType& rtp_packet : stream.outgoing_packets)
+      outgoing_rtp.insert(
+          std::make_pair(rtp_packet.rtp.log_time_us(), &rtp_packet));
+  }
+
+  const std::vector<TransportFeedbackType>& incoming_rtcp =
+      parsed_log_.transport_feedbacks(kIncomingPacket);
+
+  SimulatedClock clock(0);
+  BitrateObserver observer;
+  RtcEventLogNull null_event_log;
+  TransportFeedbackAdapter transport_feedback;
+  auto factory = GoogCcNetworkControllerFactory();
+  TimeDelta process_interval = factory.GetProcessInterval();
+  static const uint32_t kDefaultStartBitrateBps = 300000;
+  // Use loss based bwe 2 observation duration and observation window size.
+  static const TimeDelta kObservationDuration = TimeDelta::Millis(250);
+  static const uint32_t kObservationWindowSize = 20;
+  std::deque<PacketResultsSummary> observations;
+
+  NetworkControllerConfig cc_config;
+  cc_config.constraints.at_time = Timestamp::Micros(clock.TimeInMicroseconds());
+  cc_config.constraints.starting_rate =
+      DataRate::BitsPerSec(kDefaultStartBitrateBps);
+  cc_config.event_log = &null_event_log;
+  auto goog_cc = factory.Create(cc_config);
+
+  TimeSeries loss_rate_series("Loss rate (from packet feedback)",
+                              LineStyle::kLine, PointStyle::kHighlight);
+  TimeSeries average_loss_rate_series("Average loss rate last 5s",
+                                      LineStyle::kLine, PointStyle::kHighlight);
+  auto rtp_iterator = outgoing_rtp.begin();
+  auto rtcp_iterator = incoming_rtcp.begin();
+
+  auto NextRtpTime = [&]() {
+    if (rtp_iterator != outgoing_rtp.end())
+      return static_cast<int64_t>(rtp_iterator->first);
+    return std::numeric_limits<int64_t>::max();
+  };
+
+  auto NextRtcpTime = [&]() {
+    if (rtcp_iterator != incoming_rtcp.end())
+      return static_cast<int64_t>(rtcp_iterator->log_time_us());
+    return std::numeric_limits<int64_t>::max();
+  };
+  int64_t next_process_time_us_ = std::min({NextRtpTime(), NextRtcpTime()});
+
+  auto NextProcessTime = [&]() {
+    if (rtcp_iterator != incoming_rtcp.end() ||
+        rtp_iterator != outgoing_rtp.end()) {
+      return next_process_time_us_;
+    }
+    return std::numeric_limits<int64_t>::max();
+  };
+  int64_t time_us =
+      std::min({NextRtpTime(), NextRtcpTime(), NextProcessTime()});
+  PacketResultsSummary window_summary;
+  Timestamp last_observation_send_time =
+      Timestamp::Micros(clock.TimeInMicroseconds());
+  while (time_us != std::numeric_limits<int64_t>::max()) {
+    clock.AdvanceTimeMicroseconds(time_us - clock.TimeInMicroseconds());
+    if (clock.TimeInMicroseconds() >= NextRtpTime()) {
+      RTC_DCHECK_EQ(clock.TimeInMicroseconds(), NextRtpTime());
+      const RtpPacketType& rtp_packet = *rtp_iterator->second;
+      if (rtp_packet.rtp.header.extension.hasTransportSequenceNumber) {
+        RtpPacketSendInfo packet_info;
+        packet_info.media_ssrc = rtp_packet.rtp.header.ssrc;
+        packet_info.transport_sequence_number =
+            rtp_packet.rtp.header.extension.transportSequenceNumber;
+        packet_info.rtp_sequence_number = rtp_packet.rtp.header.sequenceNumber;
+        packet_info.length = rtp_packet.rtp.total_length;
+        transport_feedback.AddPacket(
+            packet_info,
+            0u,  // Per packet overhead bytes.
+            Timestamp::Micros(rtp_packet.rtp.log_time_us()));
+      }
+      rtc::SentPacket sent_packet;
+      sent_packet.send_time_ms = rtp_packet.rtp.log_time_ms();
+      sent_packet.info.included_in_allocation = true;
+      sent_packet.info.packet_size_bytes = rtp_packet.rtp.total_length;
+      if (rtp_packet.rtp.header.extension.hasTransportSequenceNumber) {
+        sent_packet.packet_id =
+            rtp_packet.rtp.header.extension.transportSequenceNumber;
+        sent_packet.info.included_in_feedback = true;
+      }
+      auto sent_msg = transport_feedback.ProcessSentPacket(sent_packet);
+      if (sent_msg) observer.Update(goog_cc->OnSentPacket(*sent_msg));
+      ++rtp_iterator;
+    }
+    if (clock.TimeInMicroseconds() >= NextRtcpTime()) {
+      RTC_DCHECK_EQ(clock.TimeInMicroseconds(), NextRtcpTime());
+
+      auto feedback_msg = transport_feedback.ProcessTransportFeedback(
+          rtcp_iterator->transport_feedback,
+          Timestamp::Millis(clock.TimeInMilliseconds()));
+      if (feedback_msg) {
+        observer.Update(goog_cc->OnTransportPacketsFeedback(*feedback_msg));
+        std::vector<PacketResult> feedback =
+            feedback_msg->SortedByReceiveTime();
+        if (!feedback.empty()) {
+          float x = config_.GetCallTimeSec(clock.CurrentTime());
+          PacketResultsSummary packet_results_summary =
+              GetPacketResultsSummary(feedback_msg->PacketsWithFeedback());
+          window_summary.num_packets += packet_results_summary.num_packets;
+          window_summary.num_lost_packets +=
+              packet_results_summary.num_lost_packets;
+          window_summary.total_size += packet_results_summary.total_size;
+
+          // Calculating the observation interval based on the send time so it
+          // aligns with loss calculation in loss based bwe v2.
+          const Timestamp last_send_time =
+              packet_results_summary.last_send_time;
+          const TimeDelta observation_duration =
+              last_send_time - last_observation_send_time;
+          if (observation_duration > kObservationDuration) {
+            if (window_summary.num_packets > 0) {
+              float loss_rate = window_summary.num_lost_packets * 100.0 /
+                                window_summary.num_packets;
+              loss_rate_series.points.emplace_back(x, loss_rate);
+            }
+            last_observation_send_time = last_send_time;
+            observations.push_back(window_summary);
+            if (observations.size() > kObservationWindowSize) {
+              observations.pop_front();
+            }
+
+            int total_packets = 0;
+            int total_loss = 0;
+            for (const auto& observation : observations) {
+              total_loss += observation.num_lost_packets;
+              total_packets += observation.num_packets;
+            }
+            if (total_packets > 0) {
+              float average_loss_rate = total_loss * 100.0 / total_packets;
+              average_loss_rate_series.points.emplace_back(x,
+                                                           average_loss_rate);
+            } else {
+              average_loss_rate_series.points.emplace_back(x, 0);
+            }
+            window_summary = PacketResultsSummary();
+          }
+        }
+      }
+      ++rtcp_iterator;
+    }
+    if (clock.TimeInMicroseconds() >= NextProcessTime()) {
+      RTC_DCHECK_EQ(clock.TimeInMicroseconds(), NextProcessTime());
+      ProcessInterval msg;
+      msg.at_time = Timestamp::Micros(clock.TimeInMicroseconds());
+      observer.Update(goog_cc->OnProcessInterval(msg));
+      next_process_time_us_ += process_interval.us();
+    }
+    time_us = std::min({NextRtpTime(), NextRtcpTime(), NextProcessTime()});
+  }
+  // Add the data set to the plot.
+  plot->AppendTimeSeriesIfNotEmpty(std::move(loss_rate_series));
+  plot->AppendTimeSeriesIfNotEmpty(std::move(average_loss_rate_series));
+
+  plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
+                 "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetSuggestedYAxis(0, 100, "Loss rate", kBottomMargin, kTopMargin);
+  plot->SetTitle("Loss rate (from packet feedback)");
 }
 
 void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {

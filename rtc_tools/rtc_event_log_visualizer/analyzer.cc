@@ -406,6 +406,12 @@ RtpPacketReceived RtpPacketForBWEFromHeader(const RTPHeader& header) {
   return rtp_packet;
 }
 
+struct PacketResultsSummary {
+  size_t num_packets = 0;
+  size_t num_lost_packets = 0;
+  Timestamp base_time = Timestamp::MinusInfinity();
+};
+
 }  // namespace
 
 EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log,
@@ -1296,6 +1302,95 @@ void EventLogAnalyzer::CreateGoogCcSimulationGraph(Plot* plot) {
                  "Time (s)", kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 10, "Bitrate (kbps)", kBottomMargin, kTopMargin);
   plot->SetTitle("Simulated BWE behavior");
+}
+
+void EventLogAnalyzer::CreateTWCCLossRateGraph(Plot* plot) {
+  TimeSeries loss_rate_series("Loss rate (from packet feedback)",
+                              LineStyle::kLine, PointStyle::kHighlight);
+  TimeSeries average_loss_rate_series("Average loss rate last 5s",
+                                      LineStyle::kLine, PointStyle::kHighlight);
+
+  PacketResultsSummary window_summary;
+  Timestamp last_observation_receive_time = Timestamp::Zero();
+
+  // Use loss based bwe 2 observation duration and observation window size.
+  static const TimeDelta kObservationDuration = TimeDelta::Millis(250);
+  static const uint32_t kObservationWindowSize = 20;
+  std::deque<PacketResultsSummary> observations;
+
+  for (auto& feedback : parsed_log_.transport_feedbacks(kIncomingPacket)) {
+    auto transport_feedback = feedback.transport_feedback;
+    auto received_packets = transport_feedback.GetReceivedPackets();
+    auto received_it = received_packets.begin();
+    int loss_cnt = 0;
+    for (uint16_t seq_num = transport_feedback.GetBaseSequence();
+         seq_num != transport_feedback.GetBaseSequence() +
+                        transport_feedback.GetPacketStatusCount();
+         ++seq_num) {
+      if (received_it != received_packets.end() &&
+          received_it->sequence_number() == seq_num) {
+        ++received_it;
+      } else {
+        loss_cnt++;
+      }
+
+      auto loss_rate = static_cast<float>(
+          loss_cnt * 100.0 / transport_feedback.GetPacketStatusCount());
+      loss_rate_series.points.emplace_back(
+          config_.GetCallTimeSec(feedback.timestamp), loss_rate);
+
+      // Compute loss rate in a window of kObservationWindowSize.
+      PacketResultsSummary packet_results_summary = {
+          .num_packets = transport_feedback.GetPacketStatusCount(),
+          .num_lost_packets = static_cast<size_t>(loss_cnt),
+          .base_time = feedback.log_time(),
+      };
+
+      if (window_summary.num_packets == 0) {
+        window_summary.base_time = packet_results_summary.base_time;
+      }
+      window_summary.num_packets += transport_feedback.GetPacketStatusCount();
+      window_summary.num_lost_packets += loss_cnt;
+
+      const Timestamp last_received_time = feedback.log_time();
+      const TimeDelta observation_duration =
+          window_summary.base_time == Timestamp::Zero()
+              ? TimeDelta::Zero()
+              : last_received_time - window_summary.base_time;
+      if (observation_duration > kObservationDuration) {
+        last_observation_receive_time = last_received_time;
+        observations.push_back(window_summary);
+        if (observations.size() > kObservationWindowSize) {
+          observations.pop_front();
+        }
+
+        // Compute average loss rate in a number of windows.
+        int total_packets = 0;
+        int total_loss = 0;
+        for (const auto& observation : observations) {
+          total_loss += observation.num_lost_packets;
+          total_packets += observation.num_packets;
+        }
+        if (total_packets > 0) {
+          float average_loss_rate = total_loss * 100.0 / total_packets;
+          average_loss_rate_series.points.emplace_back(
+              config_.GetCallTimeSec(feedback.timestamp), average_loss_rate);
+        } else {
+          average_loss_rate_series.points.emplace_back(
+              config_.GetCallTimeSec(feedback.timestamp), 0);
+        }
+        window_summary = PacketResultsSummary();
+      }
+    }
+  }
+  // Add the data set to the plot.
+  plot->AppendTimeSeriesIfNotEmpty(std::move(loss_rate_series));
+  plot->AppendTimeSeriesIfNotEmpty(std::move(average_loss_rate_series));
+
+  plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
+                 "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetSuggestedYAxis(0, 100, "Loss rate", kBottomMargin, kTopMargin);
+  plot->SetTitle("Loss rate (from packet feedback)");
 }
 
 void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {

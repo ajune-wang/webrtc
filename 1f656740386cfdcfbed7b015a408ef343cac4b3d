@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a429c64_400f6710",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-09-25T07:55:33Z",
+      "side": 1,
+      "message": "Thanks - I updated the Candidate class to incorporate this too for setting the type. It\u0027s not strictly necessary now but guards against potential downstream regressions. It would be nice to change this property to be an enum but the global strings are being referenced by code outside of webrtc right now.",
+      "revId": "1f656740386cfdcfbed7b015a408ef343cac4b3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

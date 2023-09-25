@@ -22,6 +22,30 @@
       },
       "revId": "b0136ac5723878b32798abb802e649d9d0f8ac60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a18bc7_50e65104",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-25T21:28:17Z",
+      "side": 1,
+      "message": "I do not have first_send_time, right?",
+      "parentUuid": "b121a9d5_fa130dcc",
+      "range": {
+        "startLine": 416,
+        "startChar": 43,
+        "endLine": 416,
+        "endChar": 58
+      },
+      "revId": "b0136ac5723878b32798abb802e649d9d0f8ac60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

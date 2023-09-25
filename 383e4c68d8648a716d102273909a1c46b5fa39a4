@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "602a03aa_6f3e58ce",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-25T21:28:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b15afdb2_09838675",
+      "range": {
+        "startLine": 1323,
+        "startChar": 4,
+        "endLine": 1323,
+        "endChar": 8
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "237b5af5_fbbfb23c",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15a5923c_dde97cce",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-25T21:28:17Z",
+      "side": 1,
+      "message": "\u003e Where does this for loop end? \n\nMy bad, thanks for seeing this. \n\n\u003e GetPacketStatusCount() - GetReceivedPackets().size should give you the loss_cnt?\n\nYes, in 99.9%. Is there 0.1% for the case that a received packet has seq which is not in range [GetBaseSequence, GetBaseSequence + GetPacketStatusCount] ?",
+      "parentUuid": "237b5af5_fbbfb23c",
+      "range": {
+        "startLine": 1327,
+        "startChar": 7,
+        "endLine": 1327,
+        "endChar": 8
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a56e42c8_69fc8466",
         "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
         "patchSetId": 7
@@ -60,6 +108,30 @@
       "writtenOn": "2023-09-25T14:54:30Z",
       "side": 1,
       "message": "Should this be a separate graph or just include in the loss graph as a time serie?",
+      "range": {
+        "startLine": 1392,
+        "startChar": 13,
+        "endLine": 1392,
+        "endChar": 36
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fba793_6d729d66",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-25T21:28:17Z",
+      "side": 1,
+      "message": "Done, thanks. It will look like https://screenshot.googleplex.com/5Ain9MqokTcm8hs",
+      "parentUuid": "a56e42c8_69fc8466",
       "range": {
         "startLine": 1392,
         "startChar": 13,

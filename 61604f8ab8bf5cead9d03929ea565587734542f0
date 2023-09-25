@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbda37d7_a992b9c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-09-25T10:12:15Z",
+      "side": 1,
+      "message": "Why is it needed? Why can\u0027t",
+      "revId": "61604f8ab8bf5cead9d03929ea565587734542f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75592c4e_998e64a7",
+        "filename": "modules/video_coding/utility/ivf_file_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-09-25T10:12:15Z",
+      "side": 1,
+      "message": "Is there some reason `Wrap(FileWrapper::OpenWriteOnly(filename), byte_limit)` can\u0027t be used instead? Why is this function needed?",
+      "range": {
+        "startLine": 66,
+        "startChar": 10,
+        "endLine": 66,
+        "endChar": 74
+      },
+      "revId": "61604f8ab8bf5cead9d03929ea565587734542f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

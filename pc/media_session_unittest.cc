@@ -2526,7 +2526,7 @@ static void CheckSimulcastInSessionDescription(
   const StreamParamsVec& streams = cd->streams();
   ASSERT_THAT(streams, SizeIs(1));
   const StreamParams& stream = streams[0];
-  ASSERT_THAT(stream.ssrcs, IsEmpty());
+  ASSERT_THAT(stream.ssrcs, SizeIs(stream.rids().size()));
   EXPECT_TRUE(stream.has_rids());
   const std::vector<RidDescription> rids = stream.rids();
 
@@ -2584,7 +2584,7 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestOfferWithRidsNoSimulcast) {
   const StreamParamsVec& streams = cd->streams();
   ASSERT_THAT(streams, SizeIs(1));
   const StreamParams& stream = streams[0];
-  ASSERT_THAT(stream.ssrcs, IsEmpty());
+  ASSERT_THAT(stream.ssrcs, SizeIs(1));
   EXPECT_FALSE(stream.has_rids());
   EXPECT_FALSE(cd->HasSimulcast());
 }
@@ -2660,7 +2660,7 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestAnswerWithRidsNoSimulcast) {
   const StreamParamsVec& streams = cd->streams();
   ASSERT_THAT(streams, SizeIs(1));
   const StreamParams& stream = streams[0];
-  ASSERT_THAT(stream.ssrcs, IsEmpty());
+  ASSERT_THAT(stream.ssrcs, SizeIs(1));
   EXPECT_FALSE(stream.has_rids());
   EXPECT_FALSE(cd->HasSimulcast());
 }

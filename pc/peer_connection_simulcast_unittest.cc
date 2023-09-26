@@ -327,8 +327,9 @@ TEST_F(PeerConnectionSimulcastTests, SimulcastAppearsInSessionDescription) {
   auto streams = mcd->streams();
   ASSERT_EQ(1u, streams.size());
   auto stream = streams[0];
-  EXPECT_FALSE(stream.has_ssrcs());
+  EXPECT_TRUE(stream.has_ssrcs());
   EXPECT_TRUE(stream.has_rids());
+  EXPECT_EQ(stream.ssrcs.size(), stream.rids().size());
   std::vector<std::string> result_rids;
   absl::c_transform(stream.rids(), std::back_inserter(result_rids),
                     [](const RidDescription& rid) { return rid.rid; });

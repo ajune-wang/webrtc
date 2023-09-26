@@ -92,6 +92,10 @@ struct NetEqLifetimeStatistics {
   int32_t total_interruption_duration_ms = 0;
   // Total number of comfort noise samples generated during DTX.
   uint64_t generated_noise_samples = 0;
+  // Current speech expand rate in Q14.
+  uint16_t current_speech_expand_rate_q14 = 0;
+  // Current accelerate rate in Q14.
+  uint16_t current_accelerate_rate_q14 = 0;
 };
 
 // Metrics that describe the operations performed in NetEq, and the internal

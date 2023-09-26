@@ -174,6 +174,8 @@ TEST_F(AudioChannelTest, TestIngressStatistics) {
   EXPECT_GT(ingress_stats->neteq_stats.jitter_buffer_target_delay_ms, 0ULL);
   EXPECT_EQ(ingress_stats->neteq_stats.interruption_count, 0);
   EXPECT_EQ(ingress_stats->neteq_stats.total_interruption_duration_ms, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.current_speech_expand_rate_q14, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.current_accelerate_rate_q14, 0);
   EXPECT_DOUBLE_EQ(ingress_stats->total_duration, 0.02);
 
   // Now without any RTP pending in jitter buffer pull more.
@@ -197,6 +199,8 @@ TEST_F(AudioChannelTest, TestIngressStatistics) {
   EXPECT_GT(ingress_stats->neteq_stats.jitter_buffer_target_delay_ms, 0ULL);
   EXPECT_EQ(ingress_stats->neteq_stats.interruption_count, 0);
   EXPECT_EQ(ingress_stats->neteq_stats.total_interruption_duration_ms, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.current_speech_expand_rate_q14, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.current_accelerate_rate_q14, 0);
   EXPECT_DOUBLE_EQ(ingress_stats->total_duration, 0.04);
 
   // Pull the last RTP packet.
@@ -216,6 +220,8 @@ TEST_F(AudioChannelTest, TestIngressStatistics) {
   EXPECT_GT(ingress_stats->neteq_stats.jitter_buffer_target_delay_ms, 0ULL);
   EXPECT_EQ(ingress_stats->neteq_stats.interruption_count, 0);
   EXPECT_EQ(ingress_stats->neteq_stats.total_interruption_duration_ms, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.current_speech_expand_rate_q14, 0);
+  EXPECT_EQ(ingress_stats->neteq_stats.current_accelerate_rate_q14, 0);
   EXPECT_DOUBLE_EQ(ingress_stats->total_duration, 0.06);
 }
 

@@ -137,6 +137,8 @@ class RtpTransport : public RtpTransportInternal {
 
   // Used for identifying the MID for RtpDemuxer.
   RtpHeaderExtensionMap header_extension_map_;
+  // Guard against recursive "ready to send" signals
+  bool processing_ready_to_send_ = false;
 };
 
 }  // namespace webrtc

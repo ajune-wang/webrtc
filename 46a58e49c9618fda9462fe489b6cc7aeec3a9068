@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02e1bbb0_2e81e044",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-26T12:05:02Z",
+      "side": 1,
+      "message": "PacketLossSummary?",
+      "range": {
+        "startLine": 409,
+        "startChar": 7,
+        "endLine": 409,
+        "endChar": 27
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a1abdba_e3a2735d",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-09-26T12:05:02Z",
+      "side": 1,
+      "message": "Send loss rate ? We can calculate the same thing for received packets.",
+      "range": {
+        "startLine": 1405,
+        "startChar": 18,
+        "endLine": 1405,
+        "endChar": 22
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1588,7 +1588,9 @@ MediaSessionDescriptionFactory::MediaSessionDescriptionFactory(
     const TransportDescriptionFactory* transport_desc_factory,
     rtc::UniqueRandomIdGenerator* ssrc_generator)
     : ssrc_generator_(ssrc_generator),
-      transport_desc_factory_(transport_desc_factory) {}
+      transport_desc_factory_(transport_desc_factory) {
+  RTC_DCHECK(transport_desc_factory_);
+}
 
 MediaSessionDescriptionFactory::MediaSessionDescriptionFactory(
     cricket::MediaEngineInterface* media_engine,
@@ -2251,10 +2253,6 @@ RTCError MediaSessionDescriptionFactory::AddTransportOffer(
     const SessionDescription* current_desc,
     SessionDescription* offer_desc,
     IceCredentialsIterator* ice_credentials) const {
-  if (!transport_desc_factory_) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
-                         "Missing transport description factory");
-  }
   const TransportDescription* current_tdesc =
       GetTransportDescription(content_name, current_desc);
   std::unique_ptr<TransportDescription> new_tdesc(
@@ -2276,9 +2274,6 @@ MediaSessionDescriptionFactory::CreateTransportAnswer(
     const SessionDescription* current_desc,
     bool require_transport_attributes,
     IceCredentialsIterator* ice_credentials) const {
-  if (!transport_desc_factory_) {
-    return nullptr;
-  }
   const TransportDescription* offer_tdesc =
       GetTransportDescription(content_name, offer_desc);
   const TransportDescription* current_tdesc =

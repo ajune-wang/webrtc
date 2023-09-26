@@ -20,6 +20,10 @@
 #include "api/video/encoded_image.h"
 #include "api/video/resolution.h"
 #include "api/video/video_frame.h"
+#include "api/video_codecs/scalability_mode.h"
+#include "api/video_codecs/sdp_video_format.h"
+#include "api/video_codecs/video_decoder_factory.h"
+#include "api/video_codecs/video_encoder_factory.h"
 
 namespace webrtc {
 namespace test {
@@ -29,33 +33,51 @@ namespace test {
 // and encode-decode tests.
 class VideoCodecTester {
  public:
-  // Pacing settings for codec input.
-  struct PacingSettings {
-    enum PacingMode {
-      // Pacing is not used. Frames are sent to codec back-to-back.
-      kNoPacing,
-      // Pace with the rate equal to the target video frame rate. Pacing time is
-      // derived from RTP timestamp.
-      kRealTime,
-      // Pace with the explicitly provided rate.
-      kConstantRate,
-    };
-    PacingMode mode = PacingMode::kNoPacing;
-    // Pacing rate for `kConstantRate` mode.
-    Frequency constant_rate = Frequency::Zero();
+  struct VideoSourceSettings {
+    std::string name;
+    Resolution resolution;
+    Frequency framerate;
   };
 
   struct DecoderSettings {
-    PacingSettings pacing;
     absl::optional<std::string> decoder_input_base_path;
     absl::optional<std::string> decoder_output_base_path;
   };
 
   struct EncoderSettings {
-    PacingSettings pacing;
     absl::optional<std::string> encoder_input_base_path;
     absl::optional<std::string> encoder_output_base_path;
   };
+
+  struct EncodingSettings {
+    SdpVideoFormat sdp_video_format;
+    ScalabilityMode scalability_mode;
+
+    struct LayerId {
+      int spatial_idx;
+      int temporal_idx;
+      bool operator==(const LayerId& o) const {
+        return spatial_idx == o.spatial_idx && temporal_idx == o.temporal_idx;
+      }
+      bool operator<(const LayerId& o) const {
+        if (spatial_idx < o.spatial_idx)
+          return true;
+        if (spatial_idx == o.spatial_idx && temporal_idx < o.temporal_idx)
+          return true;
+        return false;
+      }
+    };
+
+    struct LayerSettings {
+      Resolution resolution;
+      Frequency framerate;
+      DataRate bitrate;
+    };
+
+    std::map<LayerId, LayerSettings> layer_settings;
+  };
+
+  using FrameSettings = std::map<uint32_t, EncodingSettings>;
 
   virtual ~VideoCodecTester() = default;
 
@@ -85,61 +107,34 @@ class VideoCodecTester {
     virtual absl::optional<EncodedImage> PullFrame() = 0;
   };
 
-  // Interface for a video encoder.
-  class Encoder {
-   public:
-    using EncodeCallback =
-        absl::AnyInvocable<void(const EncodedImage& encoded_frame)>;
-
-    virtual ~Encoder() = default;
-
-    virtual void Initialize() = 0;
-
-    virtual void Encode(const VideoFrame& frame, EncodeCallback callback) = 0;
-
-    virtual void Flush() = 0;
-  };
-
-  // Interface for a video decoder.
-  class Decoder {
-   public:
-    using DecodeCallback =
-        absl::AnyInvocable<void(const VideoFrame& decoded_frame)>;
-
-    virtual ~Decoder() = default;
-
-    virtual void Initialize() = 0;
-
-    virtual void Decode(const EncodedImage& frame, DecodeCallback callback) = 0;
-
-    virtual void Flush() = 0;
-  };
-
   // Pulls coded video frames from `video_source` and passes them to `decoder`.
   // Returns `VideoCodecTestStats` object that contains collected per-frame
   // metrics.
   virtual std::unique_ptr<VideoCodecStats> RunDecodeTest(
       CodedVideoSource* video_source,
-      Decoder* decoder,
-      const DecoderSettings& decoder_settings) = 0;
+      VideoDecoderFactory* decoder_factory,
+      const DecoderSettings& decoder_settings,
+      const FrameSettings& frame_settings) = 0;
 
   // Pulls raw video frames from `video_source` and passes them to `encoder`.
   // Returns `VideoCodecTestStats` object that contains collected per-frame
   // metrics.
   virtual std::unique_ptr<VideoCodecStats> RunEncodeTest(
-      RawVideoSource* video_source,
-      Encoder* encoder,
-      const EncoderSettings& encoder_settings) = 0;
+      const VideoSourceSettings& source_settings,
+      VideoEncoderFactory* encoder_factory,
+      const EncoderSettings& encoder_settings,
+      const FrameSettings& frame_settings) = 0;
 
   // Pulls raw video frames from `video_source`, passes them to `encoder` and
   // then passes encoded frames to `decoder`. Returns `VideoCodecTestStats`
   // object that contains collected per-frame metrics.
   virtual std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
-      RawVideoSource* video_source,
-      Encoder* encoder,
-      Decoder* decoder,
+      const VideoSourceSettings& source_settings,
+      VideoEncoderFactory* encoder_factory,
+      VideoDecoderFactory* decoder_factory,
       const EncoderSettings& encoder_settings,
-      const DecoderSettings& decoder_settings) = 0;
+      const DecoderSettings& decoder_settings,
+      const FrameSettings& frame_settings) = 0;
 };
 
 }  // namespace test

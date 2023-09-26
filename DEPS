@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ae93f006ea6b48a2caf902c61a9bfdbf13720505',
+  'chromium_revision': '246d7552d4d34ca58b811cb0c23f797f61312e06',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -52,22 +52,22 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@7d979505e80bb8892dfd080c9e6d522faeacf56f',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@2dca8e553d967813aaaa759449798eeb131bc937',
+    'https://chromium.googlesource.com/chromium/src/build@5f393261bce592fdc3678e73fc842c889a6a3163',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@d21375885b2ea8119c044e8a2106d7df456f4300',
+    'https://chromium.googlesource.com/chromium/src/buildtools@9d9c064e40339e660d4cfe0fcd93b704a4eea9a0',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@45c7179359c3fbfbea06d05eedec6b69251dcc1b',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e762a8974d06e20f6d6e4333f15ba94a8907ed1a',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@51cfed64008c0c0f31804b504d3f8e110a256f2e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@02772896c1c25a77af4df075105b1599551a7796',
+    'https://chromium.googlesource.com/chromium/src/third_party@0efd5d3d5f2131cb82075275f99245d541469757',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -178,7 +178,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8988364bcddd9b194b0bf931c10bc125987330ed',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@7c462e0d55cd87448af2c1ba66ce223e5294fe0c',
+    'https://chromium.googlesource.com/catapult.git@0a5cbdd2203b8766328beb3f715db830cac8cbd0',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -205,7 +205,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@49781ab72b2dfd0f78172023921d08d08f323ade',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@e0e5b838e508aa4043c0e27d8403ab7be2a46153',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@db700b5670d9475cc8ed4880cc9447b232c5e432',
   'src/third_party/google_benchmark/src': {
@@ -295,7 +295,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@c478eb8ffb74aa961c2320efb2c901a5d1d69cba',
+    'https://android.googlesource.com/platform/external/perfetto.git@f92196dfb6d701a3e0f7b9ea4042b193c4487e15',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@6da1bd01d64d3d246b633bf25c766dfe751345b7',
   'src/third_party/libyuv':
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@da07715f8457753d021e17af68d666bd7ec86bc3',
+    'https://chromium.googlesource.com/chromium/src/tools@be4cde25718e73d67c5561fc4a920d7f191cc534',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

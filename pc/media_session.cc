@@ -344,26 +344,11 @@ static StreamParamsVec GetCurrentStreamParams(
 static StreamParams CreateStreamParamsForNewSenderWithSsrcs(
     const SenderOptions& sender,
     const std::string& rtcp_cname,
-    bool include_rtx_streams,
-    bool include_flexfec_stream,
     UniqueRandomIdGenerator* ssrc_generator,
-    const webrtc::FieldTrialsView& field_trials) {
+    bool include_rtx_streams,
+    bool include_flexfec_stream) {
   StreamParams result;
   result.id = sender.track_id;
-
-  // TODO(brandtr): Update when we support multistream protection.
-  if (include_flexfec_stream && sender.num_sim_layers > 1) {
-    include_flexfec_stream = false;
-    RTC_LOG(LS_WARNING)
-        << "Our FlexFEC implementation only supports protecting "
-           "a single media streams. This session has multiple "
-           "media streams however, so no FlexFEC SSRC will be generated.";
-  }
-  if (include_flexfec_stream && !field_trials.IsEnabled("WebRTC-FlexFEC-03")) {
-    include_flexfec_stream = false;
-    RTC_LOG(LS_WARNING)
-        << "WebRTC-FlexFEC trial is not enabled, not sending FlexFEC";
-  }
 
   result.GenerateSsrcs(sender.num_sim_layers, include_rtx_streams,
                        include_flexfec_stream, ssrc_generator);
@@ -387,7 +372,10 @@ static bool ValidateSimulcastLayers(
 
 static StreamParams CreateStreamParamsForNewSenderWithRids(
     const SenderOptions& sender,
-    const std::string& rtcp_cname) {
+    const std::string& rtcp_cname,
+    UniqueRandomIdGenerator* ssrc_generator,
+    bool include_rtx_streams,
+    bool include_flexfec_stream) {
   RTC_DCHECK(!sender.rids.empty());
   RTC_DCHECK_EQ(sender.num_sim_layers, 0)
       << "RIDs are the compliant way to indicate simulcast.";
@@ -401,6 +389,8 @@ static StreamParams CreateStreamParamsForNewSenderWithRids(
   if (sender.rids.size() > 1) {
     result.set_rids(sender.rids);
   }
+  result.GenerateSsrcs(sender.rids.size(), include_rtx_streams,
+                       include_flexfec_stream, ssrc_generator);
 
   return result;
 }
@@ -456,21 +446,38 @@ static bool AddStreamParams(const std::vector<SenderOptions>& sender_options,
 
   const bool include_flexfec_stream =
       ContainsFlexfecCodec(content_description->codecs());
+  const bool flexfec_enabled = field_trials.IsEnabled("WebRTC-FlexFEC-03");
+  if (include_flexfec_stream && !flexfec_enabled) {
+    RTC_LOG(LS_WARNING)
+        << "WebRTC-FlexFEC trial is not enabled, not sending FlexFEC";
+  }
 
   for (const SenderOptions& sender : sender_options) {
     StreamParams* param = GetStreamByIds(*current_streams, sender.track_id);
     if (!param) {
       // This is a new sender.
+      const bool multistream =
+          sender.num_sim_layers > 1 || !sender.rids.empty();
+      // TODO(bugs.webrtc.org/15002): Update when we support multistream
+      // protection.
+      if (include_flexfec_stream && multistream) {
+        RTC_LOG(LS_WARNING)
+            << "Our FlexFEC implementation only supports protecting "
+               "a single media streams. This session has multiple "
+               "media streams however, so no FlexFEC SSRC will be generated.";
+      }
       StreamParams stream_param =
           sender.rids.empty()
               ?
               // Signal SSRCs and legacy simulcast (if requested).
               CreateStreamParamsForNewSenderWithSsrcs(
-                  sender, rtcp_cname, include_rtx_streams,
-                  include_flexfec_stream, ssrc_generator, field_trials)
+                  sender, rtcp_cname, ssrc_generator, include_rtx_streams,
+                  include_flexfec_stream && flexfec_enabled && !multistream)
               :
               // Signal RIDs and spec-compliant simulcast (if requested).
-              CreateStreamParamsForNewSenderWithRids(sender, rtcp_cname);
+              CreateStreamParamsForNewSenderWithRids(
+                  sender, rtcp_cname, ssrc_generator, include_rtx_streams,
+                  include_flexfec_stream && flexfec_enabled && !multistream);
 
       content_description->AddStream(stream_param);
 

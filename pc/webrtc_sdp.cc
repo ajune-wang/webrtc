@@ -1710,6 +1710,11 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
       if (ssrc_group.ssrcs.empty()) {
         continue;
       }
+      if (!track.rids().empty() &&
+          ssrc_group.semantics == cricket::kSimSsrcGroupSemantics) {
+        // Do not include legacy SIM ssrc-group when using RIDs.
+        continue;
+      }
       InitAttrLine(kAttributeSsrcGroup, &os);
       os << kSdpDelimiterColon << ssrc_group.semantics;
       for (uint32_t ssrc : ssrc_group.ssrcs) {

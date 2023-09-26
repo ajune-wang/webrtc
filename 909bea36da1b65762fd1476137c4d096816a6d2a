@@ -16,6 +16,23 @@
       "message": "follow-up from https://webrtc-review.googlesource.com/c/src/+/320720/comment/3de6175a_d5b2607c/ and I even found some stuff to burn!",
       "revId": "909bea36da1b65762fd1476137c4d096816a6d2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce5af692_6c42ad6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-26T10:51:06Z",
+      "side": 1,
+      "message": "I take it the templates here are next on the nuke-list....",
+      "revId": "909bea36da1b65762fd1476137c4d096816a6d2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

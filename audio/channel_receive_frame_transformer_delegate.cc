@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "rtc_base/buffer.h"
+#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 namespace {
@@ -49,7 +50,7 @@ class TransformableIncomingAudioFrame
     return header_.sequenceNumber;
   }
 
-  absl::optional<uint64_t> AbsoluteCaptureTimestamp() const override {
+  absl::optional<Timestamp> AbsoluteCaptureTimestamp() const override {
     // This could be extracted from received header extensions + extrapolation,
     // if required in future, eg for being able to re-send received frames.
     return absl::nullopt;
@@ -121,10 +122,10 @@ void ChannelReceiveFrameTransformerDelegate::ReceiveFrame(
     header.payloadType = transformed_frame->GetPayloadType();
     header.timestamp = transformed_frame->GetTimestamp();
     header.ssrc = transformed_frame->GetSsrc();
-    if (transformed_frame->AbsoluteCaptureTimestamp().has_value()) {
+    if (transformed_frame->AbsoluteCaptureTimestamp()) {
       header.extension.absolute_capture_time = AbsoluteCaptureTime();
       header.extension.absolute_capture_time->absolute_capture_timestamp =
-          transformed_frame->AbsoluteCaptureTimestamp().value();
+          Int64MsToUQ32x32(transformed_frame->AbsoluteCaptureTimestamp()->ms());
     }
   } else {
     auto* transformed_frame =

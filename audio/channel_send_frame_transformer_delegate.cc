@@ -54,13 +54,13 @@ class TransformableOutgoingAudioFrame
       uint32_t rtp_timestamp_with_offset,
       const uint8_t* payload_data,
       size_t payload_size,
-      absl::optional<uint64_t> absolute_capture_timestamp_ms,
+      absl::optional<Timestamp> absolute_capture_timestamp,
       uint32_t ssrc)
       : frame_type_(frame_type),
         payload_type_(payload_type),
         rtp_timestamp_with_offset_(rtp_timestamp_with_offset),
         payload_(payload_data, payload_size),
-        absolute_capture_timestamp_ms_(absolute_capture_timestamp_ms),
+        absolute_capture_timestamp_(absolute_capture_timestamp),
         ssrc_(ssrc) {}
   ~TransformableOutgoingAudioFrame() override = default;
   rtc::ArrayView<const uint8_t> GetData() const override { return payload_; }
@@ -89,8 +89,8 @@ class TransformableOutgoingAudioFrame
     rtp_timestamp_with_offset_ = rtp_timestamp_with_offset;
   }
 
-  absl::optional<uint64_t> AbsoluteCaptureTimestamp() const override {
-    return absolute_capture_timestamp_ms_;
+  absl::optional<Timestamp> AbsoluteCaptureTimestamp() const override {
+    return absolute_capture_timestamp_;
   }
 
  private:
@@ -98,7 +98,7 @@ class TransformableOutgoingAudioFrame
   uint8_t payload_type_;
   uint32_t rtp_timestamp_with_offset_;
   rtc::Buffer payload_;
-  absl::optional<uint64_t> absolute_capture_timestamp_ms_;
+  absl::optional<Timestamp> absolute_capture_timestamp_;
   uint32_t ssrc_;
 };
 }  // namespace
@@ -130,12 +130,12 @@ void ChannelSendFrameTransformerDelegate::Transform(
     uint32_t rtp_timestamp,
     const uint8_t* payload_data,
     size_t payload_size,
-    int64_t absolute_capture_timestamp_ms,
+    Timestamp absolute_capture_timestamp,
     uint32_t ssrc) {
   frame_transformer_->Transform(
       std::make_unique<TransformableOutgoingAudioFrame>(
           frame_type, payload_type, rtp_timestamp, payload_data, payload_size,
-          absolute_capture_timestamp_ms, ssrc));
+          absolute_capture_timestamp, ssrc));
 }
 
 void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
@@ -162,9 +162,7 @@ void ChannelSendFrameTransformerDelegate::SendFrame(
       InterfaceFrameTypeToInternalFrameType(transformed_frame->Type()),
       transformed_frame->GetPayloadType(), transformed_frame->GetTimestamp(),
       transformed_frame->GetData(),
-      transformed_frame->AbsoluteCaptureTimestamp()
-          ? *transformed_frame->AbsoluteCaptureTimestamp()
-          : 0);
+      transformed_frame->AbsoluteCaptureTimestamp());
 }
 
 std::unique_ptr<TransformableAudioFrameInterface> CloneSenderAudioFrame(

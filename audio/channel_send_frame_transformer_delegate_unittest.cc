@@ -39,14 +39,14 @@ class MockChannelSend {
                uint8_t payloadType,
                uint32_t rtp_timestamp,
                rtc::ArrayView<const uint8_t> payload,
-               int64_t absolute_capture_timestamp_ms));
+               absl::optional<Timestamp> absolute_capture_timestamp));
 
   ChannelSendFrameTransformerDelegate::SendFrameCallback callback() {
     return [this](AudioFrameType frameType, uint8_t payloadType,
                   uint32_t rtp_timestamp, rtc::ArrayView<const uint8_t> payload,
-                  int64_t absolute_capture_timestamp_ms) {
+                  absl::optional<Timestamp> absolute_capture_timestamp) {
       return SendFrame(frameType, payloadType, rtp_timestamp, payload,
-                       absolute_capture_timestamp_ms);
+                       absolute_capture_timestamp);
     };
   }
 };
@@ -114,8 +114,8 @@ TEST(ChannelSendFrameTransformerDelegateTest,
           [&callback](std::unique_ptr<TransformableFrameInterface> frame) {
             callback->OnTransformedFrame(std::move(frame));
           });
-  delegate->Transform(AudioFrameType::kEmptyFrame, 0, 0, data, sizeof(data), 0,
-                      0);
+  delegate->Transform(AudioFrameType::kEmptyFrame, 0, 0, data, sizeof(data),
+                      Timestamp::Millis(0), 0);
   channel_queue.WaitForPreviouslyPostedTasks();
 }
 
@@ -144,8 +144,8 @@ TEST(ChannelSendFrameTransformerDelegateTest,
           [&callback](std::unique_ptr<TransformableFrameInterface> frame) {
             callback->OnTransformedFrame(CreateMockReceiverFrame());
           });
-  delegate->Transform(AudioFrameType::kEmptyFrame, 0, 0, data, sizeof(data), 0,
-                      0);
+  delegate->Transform(AudioFrameType::kEmptyFrame, 0, 0, data, sizeof(data),
+                      Timestamp::Millis(0), 0);
   channel_queue.WaitForPreviouslyPostedTasks();
 }
 

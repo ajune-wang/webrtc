@@ -29,12 +29,12 @@ namespace webrtc {
 // thread-safe access to the ChannelSend callback.
 class ChannelSendFrameTransformerDelegate : public TransformedFrameCallback {
  public:
-  using SendFrameCallback =
-      std::function<int32_t(AudioFrameType frameType,
-                            uint8_t payloadType,
-                            uint32_t rtp_timestamp_with_offset,
-                            rtc::ArrayView<const uint8_t> payload,
-                            int64_t absolute_capture_timestamp_ms)>;
+  using SendFrameCallback = std::function<int32_t(
+      AudioFrameType frameType,
+      uint8_t payloadType,
+      uint32_t rtp_timestamp_with_offset,
+      rtc::ArrayView<const uint8_t> payload,
+      absl::optional<Timestamp> absolute_capture_timestamp)>;
   ChannelSendFrameTransformerDelegate(
       SendFrameCallback send_frame_callback,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
@@ -56,7 +56,7 @@ class ChannelSendFrameTransformerDelegate : public TransformedFrameCallback {
                  uint32_t rtp_timestamp,
                  const uint8_t* payload_data,
                  size_t payload_size,
-                 int64_t absolute_capture_timestamp_ms,
+                 Timestamp absolute_capture_timestamp,
                  uint32_t ssrc);
 
   // Implements TransformedFrameCallback. Can be called on any thread.

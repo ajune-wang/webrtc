@@ -23,7 +23,7 @@ class MockTransformableAudioFrame : public TransformableAudioFrameInterface {
               GetContributingSources,
               (),
               (const, override));
-  MOCK_METHOD(absl::optional<uint64_t>,
+  MOCK_METHOD(absl::optional<Timestamp>,
               AbsoluteCaptureTimestamp,
               (),
               (const, override));

@@ -286,7 +286,17 @@ void RtpTransport::MaybeSignalReadyToSend() {
       rtp_ready_to_send_ && (rtcp_ready_to_send_ || rtcp_mux_enabled_);
   if (ready_to_send != ready_to_send_) {
     ready_to_send_ = ready_to_send;
+    if (processing_ready_to_send_) {
+      RTC_LOG(LS_INFO) << "Recursive firing of ReadyToSend discovered";
+      // Delay ReadyToSend processing until current operation is finished.
+      // Note that this may not cause a signal, since ready_to_send may
+      // have a new value by the time this executes.
+      rtc::Thread::Current()->PostTask([this] { MaybeSignalReadyToSend(); });
+      return;
+    }
+    processing_ready_to_send_ = true;
     SendReadyToSend(ready_to_send);
+    processing_ready_to_send_ = false;
   }
 }
 

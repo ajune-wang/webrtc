@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6850855_4b5ad65e",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-26T10:35:30Z",
+      "side": 0,
+      "message": "This was a thing with RTP data channels, away with it!",
+      "revId": "bfc2a3553d56c0ce53f654f59c311a7cd4ad86f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

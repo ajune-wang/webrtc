@@ -26,6 +26,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7f558fa_625ec5fc",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "Should there be a single plot that show both loss based on TWCC and loss based on RR/SR? Or is it better to keep separate?\n\nAlso, something like CreateOutgoingTWCCLossRateGraph since we could compute something similar for incoming packets.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 23,
+        "endLine": 1307,
+        "endChar": 46
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0398c8cb_5c13810a",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "constexpr?\nSame below",
+      "range": {
+        "startLine": 1318,
+        "startChar": 2,
+        "endLine": 1318,
+        "endChar": 14
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1239231_ad679584",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "I don\u0027t think we should move data in time. If it\u0027s important to represent each missing packet with a separate point, I\u0027d rather move the y coordinate, e.g. 100, 101, 102 etc",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 47
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08ad3cc5_dda05bfc",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "I think you could do this without a separate list of observation windows and if-else branches. Something like\n```\nsize_t begin_window\u003d0\nfor (size_t end_window \u003d 0; end_window \u003c feedbacks.size(); ++end_window) {\n  total_packets +\u003d feedbacks[end_window].GetPacketStatusCount();\n  lost_packets +\u003d (feedbacks[end_window].GetPacketStatusCount() - \n                  feedbacks[end_window].GetReceivedPackets.size());\n  while (begin_window\u003cend_window \u0026\u0026 \n         feedbacks[begin_window].log_time() + kWindowDuration \u003c \n         feedbacks[end_window] ) {\n    total_packets -\u003d feedbacks[begin_window].GetPacketStatusCount();\n    lost_packets -\u003d (feedbacks[begin_window].GetPacketStatusCount() - \n                    feedbacks[begin_window].GetReceivedPackets.size());\n    ++begin_window;\n  }\n  series.points.emplace_back(feedbacks[end_window].log_time(), \n                             lost_packets/total_packets);\n}\n```",
+      "range": {
+        "startLine": 1360,
+        "startChar": 0,
+        "endLine": 1395,
+        "endChar": 5
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49969f72_043e938d",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "Maybe \"Loss rate (percent)\"?",
+      "range": {
+        "startLine": 1404,
+        "startChar": 40,
+        "endLine": 1404,
+        "endChar": 44
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a1abdba_e3a2735d",
         "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
         "patchSetId": 10
@@ -42,6 +157,75 @@
         "startChar": 18,
         "endLine": 1405,
         "endChar": 22
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5207791f_8dac311a",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "Replace packet by \"per packet\" or \"TWCC\"?",
+      "range": {
+        "startLine": 1405,
+        "startChar": 34,
+        "endLine": 1405,
+        "endChar": 40
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e126e9_37223655",
+        "filename": "rtc_tools/rtc_event_log_visualizer/main.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "Maybe add \"outgoing_twcc_loss\" here?",
+      "range": {
+        "startLine": 230,
+        "startChar": 32,
+        "endLine": 230,
+        "endChar": 33
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a55439_9465dc5b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/main.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-26T14:03:46Z",
+      "side": 1,
+      "message": "\"outgoing_twcc_loss\"",
+      "range": {
+        "startLine": 381,
+        "startChar": 7,
+        "endLine": 381,
+        "endChar": 16
       },
       "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

@@ -661,16 +661,6 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
       continue;
     }
 
-    RTC_DCHECK(new_stream.has_ssrcs() || new_stream.has_rids());
-    if (new_stream.has_ssrcs() && new_stream.has_rids()) {
-      error_desc = StringFormat(
-          "Failed to add send stream: %u into m-section with mid='%s'. Stream "
-          "has both SSRCs and RIDs.",
-          new_stream.first_ssrc(), mid().c_str());
-      ret = false;
-      continue;
-    }
-
     // At this point we use the legacy simulcast group in StreamParams to
     // indicate that we want multiple layers to the media channel.
     if (!new_stream.has_ssrcs()) {

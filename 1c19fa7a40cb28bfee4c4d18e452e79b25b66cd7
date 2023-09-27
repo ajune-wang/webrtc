@@ -16,6 +16,75 @@
       "message": "PTAL",
       "revId": "1c19fa7a40cb28bfee4c4d18e452e79b25b66cd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5598440_eee2a42d",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-27T15:49:39Z",
+      "side": 1,
+      "message": "I think there might be a problem with wrap around here.For example, what if last_acked \u003d\u003d 2\u003c\u003c16-1 and GetBaseSequence() \u003d\u003d 1.",
+      "range": {
+        "startLine": 1329,
+        "startChar": 0,
+        "endLine": 1329,
+        "endChar": 39
+      },
+      "revId": "1c19fa7a40cb28bfee4c4d18e452e79b25b66cd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a82be62_ba6c3075",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-27T15:49:39Z",
+      "side": 1,
+      "message": "nit: Except for the wrap around, I think you could omit the shifted_value variable and just use `100 + seq_num - last_acked`",
+      "range": {
+        "startLine": 1332,
+        "startChar": 54,
+        "endLine": 1332,
+        "endChar": 73
+      },
+      "revId": "1c19fa7a40cb28bfee4c4d18e452e79b25b66cd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8abe9f90_a5bfe30b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-27T15:49:39Z",
+      "side": 1,
+      "message": "This also looks problematic. GetBaseSequence() is a unit16_t, and GetPacketStatusCount() is a size_t, so it will be summed as a size_t and then cast to the type of last_acked which is int. So last_acked could become larger than 2\u003c\u003c16.\n\nI think it might be easier apply a SeqNumUnwrapper prior to any arithmetic or comparisons of sequence numbers.",
+      "range": {
+        "startLine": 1335,
+        "startChar": 0,
+        "endLine": 1336,
+        "endChar": 59
+      },
+      "revId": "1c19fa7a40cb28bfee4c4d18e452e79b25b66cd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

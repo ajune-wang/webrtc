@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b94de5c_1b759ceb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-27T16:15:07Z",
+      "side": 1,
+      "message": "Follow up of the https://webrtc-review.googlesource.com/c/src/+/320601\n\nWith all chromium usage updated can deprecated these names now.",
+      "revId": "41bc74ed33f296e8c74d3a0cbcc801cf718a2326",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

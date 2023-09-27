@@ -377,6 +377,9 @@ int main(int argc, char* argv[]) {
   plots.RegisterPlot("simulated_goog_cc", [&](Plot* plot) {
     analyzer.CreateGoogCcSimulationGraph(plot);
   });
+  plots.RegisterPlot("outgoing_twcc_loss", [&](Plot* plot) {
+    analyzer.CreateOutgoingTWCCLossRateGraph(plot);
+  });
   plots.RegisterPlot("network_delay_feedback", [&](Plot* plot) {
     analyzer.CreateNetworkDelayFeedbackGraph(plot);
   });

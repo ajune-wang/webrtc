@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65752bb3_a9f6552a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-09-27T07:08:36Z",
+      "side": 1,
+      "message": "danilchap@ After discussion in AVTCore Sept meeting, it is agreed that RPSI will be kept for HEVC. So request resuming reviewing of this CL now.\nhta@ is also there in the meeting.",
+      "revId": "bcf18d047d632b2337420e7a13be6546fb33169f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

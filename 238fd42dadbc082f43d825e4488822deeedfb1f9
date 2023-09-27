@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a270a6a_945752c4",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2023-09-27T13:28:33Z",
+      "side": 1,
+      "message": "Excellent comment.  Thank you!",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 48,
+        "endChar": 72
+      },
+      "revId": "238fd42dadbc082f43d825e4488822deeedfb1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ac51576_fcfd3564",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2023-09-27T13:28:33Z",
+      "side": 1,
+      "message": "Editorial suggestion: unnecessary -\u003e unnecessarily",
+      "revId": "238fd42dadbc082f43d825e4488822deeedfb1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

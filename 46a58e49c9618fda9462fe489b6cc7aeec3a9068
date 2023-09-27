@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f73188_c395919e",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02e1bbb0_2e81e044",
+      "range": {
+        "startLine": 409,
+        "startChar": 7,
+        "endLine": 409,
+        "endChar": 27
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7f558fa_625ec5fc",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-26T14:03:46Z",
       "side": 1,
       "message": "Should there be a single plot that show both loss based on TWCC and loss based on RR/SR? Or is it better to keep separate?\n\nAlso, something like CreateOutgoingTWCCLossRateGraph since we could compute something similar for incoming packets.",
+      "range": {
+        "startLine": 1307,
+        "startChar": 23,
+        "endLine": 1307,
+        "endChar": 46
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f66464c8_e223d497",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f558fa_625ec5fc",
       "range": {
         "startLine": 1307,
         "startChar": 23,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9419d1b_3cf7ea6b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0398c8cb_5c13810a",
+      "range": {
+        "startLine": 1318,
+        "startChar": 2,
+        "endLine": 1318,
+        "endChar": 14
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1239231_ad679584",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-09-26T14:03:46Z",
       "side": 1,
       "message": "I don\u0027t think we should move data in time. If it\u0027s important to represent each missing packet with a separate point, I\u0027d rather move the y coordinate, e.g. 100, 101, 102 etc",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 47
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d643ae_d6ccea0f",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1239231_ad679584",
       "range": {
         "startLine": 1325,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea00450_94f67c05",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Acknowledged.\n\nYour suggest does exactly what the average loss last kWindowDuration. Mine did slightly differently, I wanted to group it in to a window of at least 250ms, and then get the average over 20 windows, so it would be similar to the input of loss based bwe so it better for debuging. So the loss average can be computed from last 10s in the worst case (and mostly from last 5s).",
+      "parentUuid": "08ad3cc5_dda05bfc",
+      "range": {
+        "startLine": 1360,
+        "startChar": 0,
+        "endLine": 1395,
+        "endChar": 5
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49969f72_043e938d",
@@ -129,6 +249,30 @@
       "writtenOn": "2023-09-26T14:03:46Z",
       "side": 1,
       "message": "Maybe \"Loss rate (percent)\"?",
+      "range": {
+        "startLine": 1404,
+        "startChar": 40,
+        "endLine": 1404,
+        "endChar": 44
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f60f0c67_b8663e0d",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49969f72_043e938d",
       "range": {
         "startLine": 1404,
         "startChar": 40,
@@ -185,6 +329,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc7c139_1b8f55cc",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5207791f_8dac311a",
+      "range": {
+        "startLine": 1405,
+        "startChar": 34,
+        "endLine": 1405,
+        "endChar": 40
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b2dcb58_ca5977a7",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a1abdba_e3a2735d",
+      "range": {
+        "startLine": 1405,
+        "startChar": 18,
+        "endLine": 1405,
+        "endChar": 22
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61e126e9_37223655",
@@ -208,6 +400,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84c3197_b6d1bc5b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/main.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e126e9_37223655",
+      "range": {
+        "startLine": 230,
+        "startChar": 32,
+        "endLine": 230,
+        "endChar": 33
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84a55439_9465dc5b",
@@ -221,6 +437,30 @@
       "writtenOn": "2023-09-26T14:03:46Z",
       "side": 1,
       "message": "\"outgoing_twcc_loss\"",
+      "range": {
+        "startLine": 381,
+        "startChar": 7,
+        "endLine": 381,
+        "endChar": 16
+      },
+      "revId": "46a58e49c9618fda9462fe489b6cc7aeec3a9068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dfa8e5d_0f303279",
+        "filename": "rtc_tools/rtc_event_log_visualizer/main.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84a55439_9465dc5b",
       "range": {
         "startLine": 381,
         "startChar": 7,

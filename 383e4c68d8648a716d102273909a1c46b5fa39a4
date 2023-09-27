@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0370d5a5_f044266c",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-09-27T14:46:58Z",
+      "side": 1,
+      "message": "I updated the code and did as you suggested. Thanks.",
+      "parentUuid": "f37fa737_1bc88981",
+      "range": {
+        "startLine": 1327,
+        "startChar": 7,
+        "endLine": 1327,
+        "endChar": 8
+      },
+      "revId": "383e4c68d8648a716d102273909a1c46b5fa39a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a56e42c8_69fc8466",

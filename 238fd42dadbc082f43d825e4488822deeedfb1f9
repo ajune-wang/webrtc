@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e563c89_0683cb50",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-27T15:07:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2a270a6a_945752c4",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 48,
+        "endChar": 72
+      },
+      "revId": "238fd42dadbc082f43d825e4488822deeedfb1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ac51576_fcfd3564",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-09-27T13:28:33Z",
       "side": 1,
       "message": "Editorial suggestion: unnecessary -\u003e unnecessarily",
+      "revId": "238fd42dadbc082f43d825e4488822deeedfb1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f13d40e_b9bf7e99",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-09-27T15:07:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ac51576_fcfd3564",
       "revId": "238fd42dadbc082f43d825e4488822deeedfb1f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

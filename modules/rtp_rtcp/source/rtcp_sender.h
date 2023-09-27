@@ -168,6 +168,9 @@ class RTCPSender final {
   void SetMaxRtpPacketSize(size_t max_packet_size)
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 
+  void SetLastLTRPictureOrderCnt(uint32_t pic_order_cnt)
+      RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
+
   void SetTmmbn(std::vector<rtcp::TmmbItem> bounding_set)
       RTC_LOCKS_EXCLUDED(mutex_rtcp_sender_);
 
@@ -229,6 +232,8 @@ class RTCPSender final {
   void BuildFIR(const RtcpContext& context, PacketSender& sender)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_rtcp_sender_);
   void BuildNACK(const RtcpContext& context, PacketSender& sender)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_rtcp_sender_);
+  void BuildRPSI(const RtcpContext& contex, PacketSender& sender)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_rtcp_sender_);
 
   // `duration` being TimeDelta::Zero() means schedule immediately.
@@ -303,6 +308,8 @@ class RTCPSender final {
 
   std::map<int8_t, int> rtp_clock_rates_khz_ RTC_GUARDED_BY(mutex_rtcp_sender_);
   int8_t last_payload_type_ RTC_GUARDED_BY(mutex_rtcp_sender_);
+
+  uint32_t last_ltr_pic_order_cnt_ RTC_GUARDED_BY(mutex_rtcp_sender_);
 
   absl::optional<VideoBitrateAllocation> CheckAndUpdateLayerStructure(
       const VideoBitrateAllocation& bitrate) const

@@ -38,6 +38,7 @@ class MockVideoStreamEncoder : public VideoStreamEncoderInterface {
               SendKeyFrame,
               (const std::vector<VideoFrameType>&),
               (override));
+  MOCK_METHOD(void, OnReceivedRPSI, (uint32_t pic_order_cnt), (override));
   MOCK_METHOD(void,
               OnLossNotification,
               (const VideoEncoder::LossNotification&),

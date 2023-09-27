@@ -106,7 +106,8 @@ enum RTCPPacketType : uint32_t {
   kRtcpXrReceiverReferenceTime = 0x40000,
   kRtcpXrDlrrReportBlock = 0x80000,
   kRtcpTransportFeedback = 0x100000,
-  kRtcpXrTargetBitrate = 0x200000
+  kRtcpXrTargetBitrate = 0x200000,
+  kRtcpRpsi = 0x400000
 };
 
 enum class KeyFrameReqMethod : uint8_t {
@@ -138,6 +139,8 @@ class RtcpIntraFrameObserver {
   virtual ~RtcpIntraFrameObserver() {}
 
   virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
+
+  virtual void OnReceivedRPSI(uint32_t ssrc, uint32_t pic_order_cnt) = 0;
 };
 
 // Observer for incoming LossNotification RTCP messages.

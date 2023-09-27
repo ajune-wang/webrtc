@@ -39,7 +39,7 @@ class RtpPacketReceived : public RtpPacket {
 
   ~RtpPacketReceived();
 
-  // TODO(bugs.webrtc.org/15054): Remove this function when all code is updated
+  // TODO: bugs.webrtc.org/15054 - Remove this function when all code is updated
   // to use RtpPacket directly.
   void GetHeader(RTPHeader* header) const;
 

@@ -38,9 +38,24 @@ constexpr float kDefaultMinBitratebps = 30000;
 std::vector<VideoEncoder::ResolutionBitrateLimits>
 EncoderInfoSettings::GetDefaultSinglecastBitrateLimits(
     VideoCodecType codec_type) {
-  // Specific limits for VP9. Determining specific limits for AV1 via
-  // field trial experiment is a work in progress. Other codecs use VP8 limits.
+  if (codec_type == kVideoCodecAV1) {
+    // Max limits are higher than the max limits in AV1 SVC. That's because in
+    // singlecast we normally have just one receiver, BWE is known end-to-end
+    // and the encode target bitrate is expected to guarantee delivery of video.
+    // The min bitrate limits, which are used in SVC/simulcast to de-/activate
+    // spatial layers, are not used in singlecast and are set to zero. Send
+    // resolution in signelcast is regulated purely by QP-based quality scaler.
+    return {{320 * 180, 0, 0, 256000},
+            {480 * 270, 176000, 0, 384000},
+            {640 * 360, 256000, 0, 512000},
+            {960 * 540, 384000, 0, 1024000},
+            {1280 * 720, 576000, 0, 1536000}};
+  }
+
   if (codec_type == kVideoCodecVP9) {
+    // VP9 singlecast bitrate limits are derived ~directly from SVC bitrate
+    // limits. The current max limits are unnecessary too strict for singlecast,
+    // where BWE is known end-to-end, especially for low resolutions.
     return {{320 * 180, 0, 30000, 150000},
             {480 * 270, 120000, 30000, 300000},
             {640 * 360, 190000, 30000, 420000},
@@ -48,6 +63,7 @@ EncoderInfoSettings::GetDefaultSinglecastBitrateLimits(
             {1280 * 720, 480000, 30000, 1500000}};
   }
 
+  // VP8 and other codecs.
   return {{320 * 180, 0, 30000, 300000},
           {480 * 270, 200000, 30000, 500000},
           {640 * 360, 300000, 30000, 800000},

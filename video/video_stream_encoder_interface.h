@@ -104,6 +104,11 @@ class VideoStreamEncoderInterface {
   // rids/layers.
   virtual void SendKeyFrame(const std::vector<VideoFrameType>& layers = {}) = 0;
 
+  // Inform the encoder that an reference picture indication report is received,
+  // and the encoder should reference the picture as indicated by
+  // |pic_order_cnt| when encoding next frame.
+  virtual void OnReceivedRPSI(uint32_t pic_order_cnt) = 0;
+
   // Inform the encoder that a loss has occurred.
   virtual void OnLossNotification(
       const VideoEncoder::LossNotification& loss_notification) = 0;

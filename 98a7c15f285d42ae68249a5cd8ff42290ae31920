@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c043e6e0_80fe4027",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-09-28T10:17:43Z",
+      "side": 1,
+      "message": "The change compared to last time is that we are detaching the base here, and in releaseSurface.",
+      "range": {
+        "startLine": 277,
+        "startChar": 10,
+        "endLine": 277,
+        "endChar": 34
+      },
+      "revId": "98a7c15f285d42ae68249a5cd8ff42290ae31920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

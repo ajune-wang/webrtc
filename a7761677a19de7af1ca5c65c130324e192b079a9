@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1674392c_ba112264",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-28T08:04:04Z",
+      "side": 1,
+      "message": "emil: PTAL at https://webrtc-review.googlesource.com/c/src/+/318640/10..11 - did I do that right?",
+      "revId": "a7761677a19de7af1ca5c65c130324e192b079a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

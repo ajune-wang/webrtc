@@ -16,6 +16,24 @@
       "message": "Can we get any details on what / how it broke things?",
       "revId": "c2bbe4b952f6130a84fc8cd7b6bed4f0beb05770",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e527b359_60fe5879",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9774
+      },
+      "writtenOn": "2023-09-28T15:29:56Z",
+      "side": 1,
+      "message": "The NoGcm function was used by downstream projects.\n\nRestore it and you are (likely) OK.",
+      "tag": "mailMessageId\u003d\u003cCAOqqYVFQbPawa4CGybdeFS_nxT39gs-OA1\u003dYDV7N78s09bkXcQ@mail.gmail.com\u003e",
+      "revId": "c2bbe4b952f6130a84fc8cd7b6bed4f0beb05770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

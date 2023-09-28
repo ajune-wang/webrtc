@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "292bd406_f181d357",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-28T12:44:12Z",
+      "side": 1,
+      "message": "hbos, you are missing out on all the detemplating fun we have ;-)",
+      "revId": "7dabbf4cf4d7971e1f53ab0c62b4dc1e5ba78258",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

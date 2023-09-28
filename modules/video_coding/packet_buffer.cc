@@ -77,6 +77,13 @@ PacketBuffer::InsertResult PacketBuffer::InsertPacket(
       return result;
     }
 
+    if (ForwardDiff<uint16_t>(first_seq_num_, seq_num) > buffer_.size()) {
+      // Large negative jump in rtp sequence number: clear the buffer and treat
+      // latest packet as the new first packet.
+      Clear();
+      first_packet_received_ = true;
+    }
+
     first_seq_num_ = seq_num;
   }
 

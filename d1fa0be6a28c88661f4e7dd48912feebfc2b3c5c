@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93560c6c_67517f02",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-28T14:07:35Z",
+      "side": 1,
+      "message": "has the end date as \"Next Action\" field set to the end date?\n\nIt is a bit more visible in the bug than in the python and machine readable which it isn\u0027t in the text. Might be overkill, we will survive without it.",
+      "revId": "d1fa0be6a28c88661f4e7dd48912feebfc2b3c5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

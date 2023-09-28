@@ -139,6 +139,24 @@
       "parentUuid": "3187ce92_4c588bd9",
       "revId": "8fb9ce2936609510d38825c1a322fc847767f66a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f0aba4_6309f93b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-09-28T14:45:39Z",
+      "side": 1,
+      "message": "I think this patch fixes a symptom, not the cause of the issue.\nI\u0027ll look into it (Thank you for the reproduction test case!)\n\nIt is not as simple as handling negative timestamp, and it seems it is not even about inconsistency between rtp sequence number unwrapping.",
+      "parentUuid": "dab444ce_183ccda4",
+      "revId": "8fb9ce2936609510d38825c1a322fc847767f66a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -204,7 +204,7 @@ bool AllowDenoising() {
   // Do not enable the denoiser on ARM since optimization is pending.
   // Denoiser is on by default on other platforms.
 #if !defined(WEBRTC_ARCH_ARM) && !defined(WEBRTC_ARCH_ARM64) && \
-    !defined(ANDROID)
+    !defined(WEBRTC_ANDROID)
   return true;
 #else
   return false;
@@ -766,9 +766,9 @@ int LibvpxVp9Encoder::NumberOfThreads(int width,
   } else if (width * height >= 640 * 360 && number_of_cores > 2) {
     return 2;
   } else {
-// Use 2 threads for low res on ARM.
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
-    defined(WEBRTC_ANDROID)
+// Use 2 threads for low res on mobile ARM.
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
     if (width * height >= 320 * 180 && number_of_cores > 2) {
       return 2;
     }
@@ -884,6 +884,9 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
     libvpx_->codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, &svc_params_);
   }
   if (!is_svc_ || !performance_flags_.use_per_layer_speed) {
+    RTC_LOG(LS_INFO)
+        << "cpuused "
+        << performance_flags_by_spatial_index_.rbegin()->base_layer_speed;
     libvpx_->codec_control(
         encoder_, VP8E_SET_CPUUSED,
         performance_flags_by_spatial_index_.rbegin()->base_layer_speed);
@@ -1140,6 +1143,7 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
               std::prev(performance_flags_.settings_by_resolution.lower_bound(
                             width * height))
                   ->second.base_layer_speed;
+          RTC_LOG(LS_INFO) << "cpuused " << speed;
           libvpx_->codec_control(encoder_, VP8E_SET_CPUUSED, speed);
           break;
         }
@@ -1998,7 +2002,8 @@ LibvpxVp9Encoder::PerformanceFlags
 LibvpxVp9Encoder::GetDefaultPerformanceFlags() {
   PerformanceFlags flags;
   flags.use_per_layer_speed = true;
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || defined(ANDROID)
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
   // Speed 8 on all layers for all resolutions.
   flags.settings_by_resolution[0] = {.base_layer_speed = 8,
                                      .high_layer_speed = 8,

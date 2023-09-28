@@ -272,8 +272,9 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   inited_ = true;
 
   // Set control parameters
-  SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_CPUUSED,
-                                    GetCpuSpeed(cfg_.g_w, cfg_.g_h));
+  int cpuused = GetCpuSpeed(cfg_.g_w, cfg_.g_h);
+  RTC_LOG(LS_INFO) << "cpuused " << cpuused;
+  SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_CPUUSED, cpuused);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_CDEF, 1);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_TPL_MODEL, 0);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_DELTAQ_MODE, 0);
@@ -413,8 +414,8 @@ int LibaomAv1Encoder::NumberOfThreads(int width,
     return 2;
   } else {
 // Use 2 threads for low res on ARM.
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
-    defined(WEBRTC_ANDROID)
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
     if (width * height >= 320 * 180 && number_of_cores > 2) {
       return 2;
     }

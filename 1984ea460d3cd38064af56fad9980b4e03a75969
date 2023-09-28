@@ -50,6 +50,24 @@
       "message": "So this doesn\u0027t work because we\u0027re trying to add the media section (that got detached from the description because the section was rejected) with mid 0 to a description that already contains mid 0?\n\nThis seems to indicate that when a section is rejected, the binding of the transceiver to the MID should also be dissolved, so that a new non-conflicting MID will be generated when trying to attach the transceiver to a new place in the SDP.\n\nBut this CL makes life better, so approving.",
       "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "583d1424_7eeb445e",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-28T12:49:16Z",
+      "side": 1,
+      "message": "Correct, the existing mid should cease to exist when the m-line gets rejected which it apparently does not. This seems to be the expectation from the one branch of the DCHECK: current_content-\u003ename !\u003d media_description_options.mid\n\nI think it is more pragmatic to forbid mid reuse and consider mid a counter. See question forwarded to avtcore.\n\nBut hey, we don\u0027t crash anymore but return a \"stop trying to do this\"",
+      "parentUuid": "f7fbbda9_7caf37b9",
+      "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

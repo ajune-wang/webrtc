@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a22db5_7ba63ab4",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1693,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-28T08:15:12Z",
+      "side": 0,
+      "message": "i\u0027m a bit torn on this one. Removing the DCHECK is required to hit the lines below.\n\nI would like to move the individual Add\u003cmediatype\u003eContentFor\u003csdptype\u003e checks up here but then this DCHECK only exists for CreateOfferOrError and the CreateAnswerOrError one looks different, yet the individual errors are quite symmetric. And I don\u0027t fully understand why codec preferences avoid that path...",
+      "revId": "f97058e9edffe109ecf1cec94173916691f42809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

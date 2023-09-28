@@ -884,6 +884,9 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
     libvpx_->codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, &svc_params_);
   }
   if (!is_svc_ || !performance_flags_.use_per_layer_speed) {
+    RTC_LOG(LS_INFO)
+        << "cpuused "
+        << performance_flags_by_spatial_index_.rbegin()->base_layer_speed;
     libvpx_->codec_control(
         encoder_, VP8E_SET_CPUUSED,
         performance_flags_by_spatial_index_.rbegin()->base_layer_speed);
@@ -2000,7 +2003,7 @@ LibvpxVp9Encoder::GetDefaultPerformanceFlags() {
   flags.use_per_layer_speed = true;
 #if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || defined(ANDROID)
   // Speed 8 on all layers for all resolutions.
-  flags.settings_by_resolution[0] = {.base_layer_speed = 8,
+  flags.settings_by_resolution[0] = {.base_layer_speed = 7,
                                      .high_layer_speed = 8,
                                      .deblock_mode = 0,
                                      .allow_denoising = true};

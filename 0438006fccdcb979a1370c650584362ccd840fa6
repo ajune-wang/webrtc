@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb60b0f2_d2091783",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5534
+      },
+      "writtenOn": "2023-09-28T17:08:51Z",
+      "side": 1,
+      "message": "yes the kDenoiserOnAdaptive mode should be fine to use for arm-based macs.",
+      "parentUuid": "1cfb404f_0d6e1226",
+      "range": {
+        "startLine": 805,
+        "startChar": 33,
+        "endLine": 805,
+        "endChar": 52
+      },
+      "revId": "0438006fccdcb979a1370c650584362ccd840fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df2535fe_13185015",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "That\u0027s not correct any more. We do have Neon optimization for denoiser in vp9/encoder/arm/neon/vp9_denoiser_neon.c",
       "parentUuid": "df2535fe_13185015",
+      "range": {
+        "startLine": 204,
+        "startChar": 35,
+        "endLine": 204,
+        "endChar": 68
+      },
+      "revId": "0438006fccdcb979a1370c650584362ccd840fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43757e44_6a610d16",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5534
+      },
+      "writtenOn": "2023-09-28T17:08:51Z",
+      "side": 1,
+      "message": "yeah the vp9-denoiser neon optimization was done a while ago, so we can allow it now.",
+      "parentUuid": "5459f643_8f70ec5c",
       "range": {
         "startLine": 204,
         "startChar": 35,

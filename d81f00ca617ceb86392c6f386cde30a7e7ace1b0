@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2ccbcd_56f5694c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-28T12:51:13Z",
+      "side": 1,
+      "message": "Danil, could you PTAL instead since Philip is OOO?",
+      "revId": "d81f00ca617ceb86392c6f386cde30a7e7ace1b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

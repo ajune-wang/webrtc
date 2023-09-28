@@ -1690,9 +1690,6 @@ MediaSessionDescriptionFactory::CreateOfferOrError(
         msection_index < current_description->contents().size()) {
       current_content = &current_description->contents()[msection_index];
       // Media type must match unless this media section is being recycled.
-      RTC_DCHECK(current_content->name != media_description_options.mid ||
-                 IsMediaContentOfType(current_content,
-                                      media_description_options.type));
     }
     RTCError error;
     switch (media_description_options.type) {

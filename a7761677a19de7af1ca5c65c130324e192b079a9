@@ -34,6 +34,24 @@
       "parentUuid": "1674392c_ba112264",
       "revId": "a7761677a19de7af1ca5c65c130324e192b079a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a3b08b6_14ba198c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-09-28T08:09:08Z",
+      "side": 1,
+      "message": "Yeah, thanks for adopting this immediately :) I\u0027m still planning to add some tooling to warn for unregistered and soon-to-expire trials.",
+      "parentUuid": "d30811c4_3844403a",
+      "revId": "a7761677a19de7af1ca5c65c130324e192b079a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

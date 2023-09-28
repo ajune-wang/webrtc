@@ -16,6 +16,40 @@
       "message": "I stumbled upon the test!",
       "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa4fe478_43975dd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-28T11:42:23Z",
+      "side": 1,
+      "message": "Tests are nice for understanding what\u0027s going on....",
+      "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7fbbda9_7caf37b9",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-28T11:42:23Z",
+      "side": 1,
+      "message": "So this doesn\u0027t work because we\u0027re trying to add the media section (that got detached from the description because the section was rejected) with mid 0 to a description that already contains mid 0?\n\nThis seems to indicate that when a section is rejected, the binding of the transceiver to the MID should also be dissolved, so that a new non-conflicting MID will be generated when trying to attach the transceiver to a new place in the SDP.\n\nBut this CL makes life better, so approving.",
+      "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

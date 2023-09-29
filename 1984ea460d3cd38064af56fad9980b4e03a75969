@@ -68,6 +68,24 @@
       "parentUuid": "f7fbbda9_7caf37b9",
       "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1743a27_b7a239b1",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-29T06:25:43Z",
+      "side": 1,
+      "message": "Makes sense. \"Stop doing this\" prevents corruption when the other side does it, and we can at our leisure ensure that our side never does it. This fix is good, even though the test looks kind of weird.",
+      "parentUuid": "583d1424_7eeb445e",
+      "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

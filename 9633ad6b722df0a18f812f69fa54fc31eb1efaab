@@ -16,6 +16,23 @@
       "message": "PS1 is the reland, PS2 brings back NoGcm. Can you PTAL?\n\nShould we add a deprecation notice to NoGcm?",
       "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f286aaf_2dbce2d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-29T08:34:21Z",
+      "side": 1,
+      "message": "Looks good.\n\nNo, I think NoGcm should stay around. It is perfectly legitimate to not want to use GCM (GCM transforms result in slightly larger packets than some of the non-GCM transforms).",
+      "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

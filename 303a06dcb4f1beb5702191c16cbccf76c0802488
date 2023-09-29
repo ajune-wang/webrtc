@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2c509bb_c14f3054",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-29T08:36:01Z",
+      "side": 1,
+      "message": "cpplint: Add #include \u003cdeque\u003e for deque\u003c\u003e",
+      "range": {
+        "startLine": 1320,
+        "startChar": 0,
+        "endLine": 1320,
+        "endChar": 45
+      },
+      "revId": "303a06dcb4f1beb5702191c16cbccf76c0802488",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16786f62_fa92557e",
         "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
         "patchSetId": 14

@@ -33,6 +33,24 @@
       "message": "Looks good.\n\nNo, I think NoGcm should stay around. It is perfectly legitimate to not want to use GCM (GCM transforms result in slightly larger packets than some of the non-GCM transforms).",
       "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5708278_f209d596",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-29T09:17:16Z",
+      "side": 1,
+      "message": "But NoGcm is just setting enable_gcm_crypto_suites to false which doesn\u0027t seem useful compared to what Chromium does here (to explicitly enable)?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_peer_connection_handler.cc;l\u003d1081;drc\u003dba15ffd71335c75897f4bd8501b3c8ed00a284da;bpv\u003d1;bpt\u003d1",
+      "parentUuid": "4f286aaf_2dbce2d6",
+      "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -69,6 +69,24 @@
       "parentUuid": "d5708278_f209d596",
       "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1fa081c_409d7a25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-09-29T10:13:38Z",
+      "side": 1,
+      "message": "Yes but why do those insist on having a helper instead of writing two lines? ;-)\n\n(also note that GCM won\u0027t be negotiated by default due to the order of cipher preferences; that is still a change we don\u0027t want to make)\n\nEither way, ship it!",
+      "parentUuid": "d5708278_f209d596",
+      "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

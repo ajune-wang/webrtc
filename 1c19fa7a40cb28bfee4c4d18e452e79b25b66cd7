@@ -157,6 +157,30 @@
       },
       "revId": "1c19fa7a40cb28bfee4c4d18e452e79b25b66cd7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d845cd2c_0ea71b09",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-09-29T08:31:13Z",
+      "side": 1,
+      "message": "Unfortunately, I don\u0027t think this solves the problem since GetBaseSequence() is still 16 bits. For example, suppose GetPacketStatusCount() is 10 for all RTCP and we get a packet with GetBaseSequence() \u003d 2^16-5, then we miss a feedback that would have had GetBaseSequence() \u003d 5 and then we receive a feedback packet with GetBaseSequence() \u003d 15. The current code would set last_acked to (2^16-5)+10 \u003d 2^16+5. When we get the GetBaseSequence()\u003d15 packet, we\u0027d compare 2^16+5 to 15 and conclude that we didn\u0027t miss any feedback packets.\n\nI think the robust solution is to use SeqNumUnwrapper. (And I think this holds in general; *all* code that uses sequence numbers or timestamps should unwrap them first. The wrapped versions should be viewed only as a compression technique for the network.)",
+      "parentUuid": "c34ed2ab_2b594b65",
+      "range": {
+        "startLine": 1335,
+        "startChar": 0,
+        "endLine": 1336,
+        "endChar": 59
+      },
+      "revId": "1c19fa7a40cb28bfee4c4d18e452e79b25b66cd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

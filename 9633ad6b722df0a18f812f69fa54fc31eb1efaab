@@ -51,6 +51,24 @@
       "parentUuid": "4f286aaf_2dbce2d6",
       "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "819fd9bc_d10a01b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-09-29T09:57:02Z",
+      "side": 1,
+      "message": "Now you have changed the default to true, but there are applications that want it to be false. NoGcm allows them to set it to false in a way that doesn\u0027t require knowing whether the default is false or true.\n\nChromium is very far from being the only customer of WebRTC.",
+      "parentUuid": "d5708278_f209d596",
+      "revId": "9633ad6b722df0a18f812f69fa54fc31eb1efaab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

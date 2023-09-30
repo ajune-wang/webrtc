@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7be4bb39589c32597212d4317ff0bc468b26f3e3',
+  'chromium_revision': 'd81398788941e4ec880ad3e8fa76b2e36d21915b',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,7 +50,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@db158725faae59149b1c78bdcf99ebc1651ccad4',
+    'https://chromium.googlesource.com/chromium/src/base@4bd1370aa7e91d841a563fda9daca6db4379881f',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@84c053332cd37c52ce67b327b59ef18ea855bbfb',
   'src/buildtools':
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@cb8060928e9cfe376b00f29d7fc2508045b871a3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@8326446e628c42fc44d3b185b1ddc69898b12624',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@9f6812c5d91e94f5d58bc3351f27b2fa8600bda6',
+    'https://chromium.googlesource.com/chromium/src/testing@6477146f23257a4daf7daec1a8366e5c079bcdeb',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0fa2ea7cfa09bc41307ce79258b681e99c715df7',
+    'https://chromium.googlesource.com/chromium/src/third_party@bdaaa5cd5578da0deb334162761c0dd2b7517dd5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2a019f09175dd101d3a2edbb1e100acba2e23eee',
+    'https://chromium.googlesource.com/chromium/src/tools@5f85d30052815e30b474758309de4b9689c65118',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -532,11 +532,11 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:3e49653ac027a003d9ef6cf89068acbf28f5bd9e',
+          'version': 'git_revision:589d8654cfa7808816a6ecb4284ed2fd72c2f6d5',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:3e49653ac027a003d9ef6cf89068acbf28f5bd9e',
+          'version': 'git_revision:589d8654cfa7808816a6ecb4284ed2fd72c2f6d5',
         },
       ],
       'dep_type': 'cipd',

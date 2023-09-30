@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a53f87ab6b5ef95bc3c1caf10e1633eb4b606cf0',
+  'chromium_revision': '37de330e72e39adb2e7daa44c7be9ba30bc9bca0',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -52,7 +52,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@db158725faae59149b1c78bdcf99ebc1651ccad4',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@6750f0014b00c9701fcaceff1e15f06acc78e550',
+    'https://chromium.googlesource.com/chromium/src/build@0fc799d982b106eee3154a6a34c7da22de5ee835',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@ece39eb658cb3e839b5b63d5e311d72252047969',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@5489d4c4ac6efe16f7f2ccbab876af0541613a1d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@c299f5c50515923105e203ec1438829b52b9fc11',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a8b80d4a561c37b0588c2f1e840c3fdd9e32cf4a',
+    'https://chromium.googlesource.com/chromium/src/testing@9d83c691197ae2b6422c4790c354552e8f931691',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@35122c352268cf7961856111cad11673cb74b0b1',
+    'https://chromium.googlesource.com/chromium/src/third_party@4d08d63672d6772946abce9a0903fba62aa73d6e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/libc++abi/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@e8e4eb8f1c413ea4365256b2b83a6093c95d2d86',
   'src/third_party/libunwind/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@724cd40fb60a8ccd1f59ad9463a34bbfbc109b52',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@43e5a34c5b7066a7ee15c74f09dc37b4b9b5630e',
 
   'src/third_party/ninja': {
     'packages': [
@@ -295,7 +295,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@5773ad947c4f24adfea80579dcbac145cd03c831',
+    'https://android.googlesource.com/platform/external/perfetto.git@f95244890e05c2d6fae40a293035ce479db6fc3c',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@38a707faef72eeff89d669c553e7bfe9e08dba8f',
   'src/third_party/libyuv':
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@cdb767e3dbac7455456849a659c5ac2b5949d0f4',
+    'https://chromium.googlesource.com/chromium/src/tools@c32235dbb9fc2c1f608c5338d2ffbbc166650932',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

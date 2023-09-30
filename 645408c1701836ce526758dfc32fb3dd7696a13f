@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff8ab17_c8c03d7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-09-30T19:36:38Z",
+      "side": 1,
+      "message": "Think the device_status doesn\u0027t hurt.\nCurrent problem is that the device gets disconnected so the tests won\u0027t run even if the machine would be picked up.",
+      "revId": "645408c1701836ce526758dfc32fb3dd7696a13f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '45a884046b4640b0992e537bf9d5dc454210b1ab',
+  'chromium_revision': 'abf3d0a12a524d6563090d20db7d0f8a065ce7f9',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@350297b9b4d2af673cde6947c18feddf80c4a8a1',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@3709ee0e63e7c004ab6dee4e8c4a846c67946988',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@074ff55a07fb690e769eda906375f8e7cb6b39b8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@6b9e7118bf887abf87fe2f557b60d5a695cba1e3',
+    'https://chromium.googlesource.com/chromium/src/third_party@f480940bdb33bc69fb5ed228a03b6b6bb7702a51',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -281,7 +281,7 @@ deps = {
   },
   # Used for building libFuzzers (only supports Linux).
   'src/third_party/libFuzzer/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/compiler-rt/lib/fuzzer.git@26cc39e59b2bf5cbc20486296248a842c536878d',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/compiler-rt/lib/fuzzer.git@758bd21f103a501b362b1ca46fa8fcb692eaa303',
   'src/third_party/libjpeg_turbo':
     'https://chromium.googlesource.com/chromium/deps/libjpeg_turbo.git@30bdb85e302ecfc52593636b2f44af438e05e784',
   'src/third_party/libsrtp':
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@33a950a48cf447a6b1c0262e9955446e6d129d34',
+    'https://chromium.googlesource.com/chromium/src/tools@ad6df19c0d2c11d2687c9dd0eb4d7f0772f72b19',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

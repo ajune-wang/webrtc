@@ -182,16 +182,16 @@ TEST(PCGenericDescriptorTest,
 }
 
 // VP9 2nd profile isn't supported on android arm and arm 64.
-#if (defined(WEBRTC_ANDROID) &&                                   \
-     (defined(WEBRTC_ARCH_ARM64) || defined(WEBRTC_ARCH_ARM))) || \
-    (defined(WEBRTC_IOS) && defined(WEBRTC_ARCH_ARM64))
+if defined (WEBRTC_ARCH_ARM64)
+  || defined(WEBRTC_ARCH_ARM)
 #define MAYBE_Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2 \
   DISABLED_Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2
 #else
 #define MAYBE_Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2 \
   Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2
 #endif
-TEST(PCFullStackTest, MAYBE_Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2) {
+          TEST(PCFullStackTest,
+               MAYBE_Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   auto fixture = CreateTestFixture(
@@ -217,7 +217,7 @@ TEST(PCFullStackTest, MAYBE_Pc_Generator_Net_Delay_0_0_Plr_0_VP9Profile2) {
                  VP9ProfileToString(VP9Profile::kProfile2)}})});
       });
   fixture->Run(RunParams(TimeDelta::Seconds(kTestDurationSec)));
-}
+  }
 
 /*
 // TODO(bugs.webrtc.org/10639) migrate commented out test, when required

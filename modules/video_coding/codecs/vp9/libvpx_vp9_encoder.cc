@@ -201,13 +201,13 @@ vpx_svc_ref_frame_config_t Vp9References(
 }
 
 bool AllowDenoising() {
-  // Do not enable the denoiser on ARM since optimization is pending.
-  // Denoiser is on by default on other platforms.
-#if !defined(WEBRTC_ARCH_ARM) && !defined(WEBRTC_ARCH_ARM64) && \
-    !defined(ANDROID)
-  return true;
-#else
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
+  // Keep the denoiser disabled on mobile ARM devices. It increases encode time
+  // by up to 16%.
   return false;
+#else
+  return true;
 #endif
 }
 
@@ -766,9 +766,9 @@ int LibvpxVp9Encoder::NumberOfThreads(int width,
   } else if (width * height >= 640 * 360 && number_of_cores > 2) {
     return 2;
   } else {
-// Use 2 threads for low res on ARM.
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
-    defined(WEBRTC_ANDROID)
+// Use 2 threads for low res on mobile ARM.
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
     if (width * height >= 320 * 180 && number_of_cores > 2) {
       return 2;
     }
@@ -1998,7 +1998,8 @@ LibvpxVp9Encoder::PerformanceFlags
 LibvpxVp9Encoder::GetDefaultPerformanceFlags() {
   PerformanceFlags flags;
   flags.use_per_layer_speed = true;
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || defined(ANDROID)
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
   // Speed 8 on all layers for all resolutions.
   flags.settings_by_resolution[0] = {.base_layer_speed = 8,
                                      .high_layer_speed = 8,

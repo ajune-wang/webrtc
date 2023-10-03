@@ -143,6 +143,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "064e6614_ea9ee114",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-10-03T11:00:32Z",
+      "side": 1,
+      "message": "Ran a quick test with denoiser. out/release/video_codec_perf_tests --gtest_filter\u003d*SpatialQuality*VP9builtin*720p*1024kbps\n\nOn Mac M1 the increase is ~10%:\n\nencode_time_ms: [5.60, 5.50, 5.45] -\u003e [6.06, 6.12, 6.03]\npsnr_y_db: 39.51 -\u003e 39.23\npsnr_u_db: 44.81 -\u003e 45.05\npsnr_v_db: 45.95 -\u003e 46.19\n\nOn Pixel 7 the increase is ~16%:\n\nencode_time_ms: [10.47, 10.31, 10.35] -\u003e [12.04, 12.08, 12.02]\npsnr_y_db: 39.25 -\u003e 39.01\npsnr_u_db: 44.65 -\u003e 44.91\npsnr_v_db: 45.80 -\u003e 46.06\n\nIt should be Ok to enable the denoiser on ARM-based Macs (absolute encode time is quite low). But on Android the increase looks more critical. Let\u0027s keep it disabled on Android/iOS.",
+      "parentUuid": "43757e44_6a610d16",
+      "range": {
+        "startLine": 204,
+        "startChar": 35,
+        "endLine": 204,
+        "endChar": 68
+      },
+      "revId": "0438006fccdcb979a1370c650584362ccd840fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6361eaaf_3e79d435",

@@ -827,6 +827,9 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, TracksDoNotEndWhenSsrcChanges) {
     auto& mutable_streams = contents[i].media_description()->mutable_streams();
     ASSERT_EQ(mutable_streams.size(), 1u);
     mutable_streams[0].ssrcs[0] = kFirstMungedSsrc + static_cast<uint32_t>(i);
+    for (auto& group : mutable_streams[0].ssrc_groups) {
+      group.ssrcs[0] = mutable_streams[0].ssrcs[0];
+    }
   }
   ASSERT_TRUE(
       callee->SetLocalDescription(CloneSessionDescription(answer.get())));

@@ -743,18 +743,24 @@ TEST_P(PeerConnectionBundleTest, ApplyDescriptionWithSameSsrcsBundledFails) {
       caller->SetLocalDescription(CloneSessionDescription(offer.get())));
   // Modify the remote SDP to make two m= sections have the same SSRC.
   ASSERT_GE(offer->description()->contents().size(), 2U);
-  offer->description()
-      ->contents()[0]
-      .media_description()
-      ->mutable_streams()[0]
-      .ssrcs[0] = 1111222;
-  offer->description()
-      ->contents()[1]
-      .media_description()
-      ->mutable_streams()[0]
-      .ssrcs[0] = 1111222;
-  EXPECT_TRUE(callee->SetRemoteDescription(std::move(offer)));
+  auto& first_stream = offer->description()
+                           ->contents()[0]
+                           .media_description()
+                           ->mutable_streams()[0];
+  first_stream.ssrcs[0] = 1111222;
+  for (auto& group : first_stream.ssrc_groups) {
+    group.ssrcs[0] = 1111222;
+  }
+  auto& second_stream = offer->description()
+                            ->contents()[1]
+                            .media_description()
+                            ->mutable_streams()[0];
+  second_stream.ssrcs[0] = 1111222;
+  for (auto& group : second_stream.ssrc_groups) {
+    group.ssrcs[0] = 1111222;
+  }
 
+  EXPECT_TRUE(callee->SetRemoteDescription(std::move(offer)));
   // When BUNDLE is enabled, applying the description is expected to fail
   // because the demuxing criteria can not be satisfied.
   auto answer = callee->CreateAnswer(options);
@@ -774,16 +780,22 @@ TEST_P(PeerConnectionBundleTest,
       caller->SetLocalDescription(CloneSessionDescription(offer.get())));
   // Modify the remote SDP to make two m= sections have the same SSRC.
   ASSERT_GE(offer->description()->contents().size(), 2U);
-  offer->description()
-      ->contents()[0]
-      .media_description()
-      ->mutable_streams()[0]
-      .ssrcs[0] = 1111222;
-  offer->description()
-      ->contents()[1]
-      .media_description()
-      ->mutable_streams()[0]
-      .ssrcs[0] = 1111222;
+  auto& first_stream = offer->description()
+                           ->contents()[0]
+                           .media_description()
+                           ->mutable_streams()[0];
+  first_stream.ssrcs[0] = 1111222;
+  for (auto& group : first_stream.ssrc_groups) {
+    group.ssrcs[0] = 1111222;
+  }
+  auto& second_stream = offer->description()
+                            ->contents()[1]
+                            .media_description()
+                            ->mutable_streams()[0];
+  second_stream.ssrcs[0] = 1111222;
+  for (auto& group : second_stream.ssrc_groups) {
+    group.ssrcs[0] = 1111222;
+  }
   EXPECT_TRUE(callee->SetRemoteDescription(std::move(offer)));
 
   // Without BUNDLE, demuxing is done per-transport.

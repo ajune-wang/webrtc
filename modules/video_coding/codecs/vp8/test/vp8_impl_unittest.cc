@@ -886,8 +886,8 @@ TEST_P(TestVp8ImplWithMaxFrameDropTrial, EnforcesMaxFrameDropInterval) {
   // Allocate a very constained amount of bitrate to increase risk of frame
   // drops.
   VideoBitrateAllocation bitrate_allocation;
-  bitrate_allocation.SetBitrate(0, 0, 80'000);
-  bitrate_allocation.SetBitrate(0, 1, 100'000);
+  bitrate_allocation.SetBitrate(0, 0, 50'000);
+  bitrate_allocation.SetBitrate(0, 1, 50'000);
   encoder_->SetRates(
       VideoEncoder::RateControlParameters(bitrate_allocation, 5.0));
 

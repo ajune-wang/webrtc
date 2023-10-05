@@ -16,6 +16,23 @@
       "message": "Jeremy PTAL, I had to patch the roll and fix one import.",
       "revId": "3752fffb14c767646f32e61cb15ec87757367aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ded0494f_f025ae08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-05T08:47:08Z",
+      "side": 1,
+      "message": "I need a special LGTM for build_override (I am the only owner, I will file a CL to fix that).",
+      "revId": "3752fffb14c767646f32e61cb15ec87757367aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

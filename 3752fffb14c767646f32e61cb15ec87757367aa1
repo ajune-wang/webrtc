@@ -51,6 +51,24 @@
       "parentUuid": "ded0494f_f025ae08",
       "revId": "3752fffb14c767646f32e61cb15ec87757367aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6d8620_cb22f37b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-05T08:58:28Z",
+      "side": 1,
+      "message": "No, I think I was confused by the UI (you used the wrong account and your LGTM didn\u0027t count).",
+      "parentUuid": "182ad9a3_28c37765",
+      "revId": "3752fffb14c767646f32e61cb15ec87757367aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

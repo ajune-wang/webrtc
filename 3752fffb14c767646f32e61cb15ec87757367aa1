@@ -33,6 +33,24 @@
       "message": "I need a special LGTM for build_override (I am the only owner, I will file a CL to fix that).",
       "revId": "3752fffb14c767646f32e61cb15ec87757367aa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "182ad9a3_28c37765",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-10-05T08:53:50Z",
+      "side": 1,
+      "message": "Since you\u0027re an owner, why would you need a LGTM from another owner ?",
+      "parentUuid": "ded0494f_f025ae08",
+      "revId": "3752fffb14c767646f32e61cb15ec87757367aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

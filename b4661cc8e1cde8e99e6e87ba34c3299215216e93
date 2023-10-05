@@ -16,6 +16,46 @@
       "message": "@sprang@webrtc.org, Could you please take a look?",
       "revId": "b4661cc8e1cde8e99e6e87ba34c3299215216e93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3036e08_dccb4b45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-10-05T17:01:54Z",
+      "side": 1,
+      "message": "lgtm % nit",
+      "revId": "b4661cc8e1cde8e99e6e87ba34c3299215216e93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a12bb6a1_4789fe21",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-10-05T17:01:54Z",
+      "side": 1,
+      "message": "nit: since this is repeated in so many placed might be an idea to #define a helper `IsMobileArm()` or something like that",
+      "range": {
+        "startLine": 695,
+        "startChar": 4,
+        "endLine": 696,
+        "endChar": 52
+      },
+      "revId": "b4661cc8e1cde8e99e6e87ba34c3299215216e93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

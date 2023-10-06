@@ -50,6 +50,24 @@
       "message": "I guess these are the only groups we\u0027re interested in right now, but couldn\u0027t this check apply to all groups? Suppose we start using a different type of SSRC group in the future and we don\u0027t think to update this condition.",
       "revId": "84a1cd3c20ab7438f4341dfe70b90dabe106a432",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fce23f4_0b084e70",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-10-06T06:49:33Z",
+      "side": 1,
+      "message": "It is not clear to me whether https://www.rfc-editor.org/rfc/rfc5576#section-4.2 allows for a ssrc-group to violate what is checked here so restricting to the groups we understand seems like a good idea.\n\nWe should have a central place to define both \"is this a semantic we understand\" and \"iterate over all ssrc-groups we understand\" ideally.",
+      "parentUuid": "7f66d682_09ce4d52",
+      "revId": "84a1cd3c20ab7438f4341dfe70b90dabe106a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

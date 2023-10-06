@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25543ef4_309e23a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-10-06T21:08:28Z",
+      "side": 1,
+      "message": "Just realized that last time I triggered the commit queue instead of LGTMing, oops",
+      "revId": "84a1cd3c20ab7438f4341dfe70b90dabe106a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f66d682_09ce4d52",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "It is not clear to me whether https://www.rfc-editor.org/rfc/rfc5576#section-4.2 allows for a ssrc-group to violate what is checked here so restricting to the groups we understand seems like a good idea.\n\nWe should have a central place to define both \"is this a semantic we understand\" and \"iterate over all ssrc-groups we understand\" ideally.",
       "parentUuid": "7f66d682_09ce4d52",
+      "revId": "84a1cd3c20ab7438f4341dfe70b90dabe106a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7109d6e_bafac4c6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2023-10-06T21:08:28Z",
+      "side": 1,
+      "message": "This seems pretty clear: \"Every \u003cssrc-id\u003e listed in an \"ssrc-group\" attribute MUST be defined by a corresponding \"ssrc:\" line in the same media description.\"\n\nBut I\u0027m fine playing it safe, generally the policy is to ignore things we don\u0027t recognize",
+      "parentUuid": "3fce23f4_0b084e70",
       "revId": "84a1cd3c20ab7438f4341dfe70b90dabe106a432",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

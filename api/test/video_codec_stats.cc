@@ -16,81 +16,85 @@ namespace test {
 void VideoCodecStats::Stream::LogMetrics(
     MetricsLogger* logger,
     std::string test_case_name,
+    std::string metric_prefix,
     std::map<std::string, std::string> metadata) const {
-  logger->LogMetric("width", test_case_name, width, Unit::kCount,
-                    webrtc::test::ImprovementDirection::kBiggerIsBetter,
-                    metadata);
+  logger->LogMetric(
+      metric_prefix + "width", test_case_name, width, Unit::kCount,
+      webrtc::test::ImprovementDirection::kBiggerIsBetter, metadata);
 
-  logger->LogMetric("height", test_case_name, height, Unit::kCount,
-                    webrtc::test::ImprovementDirection::kBiggerIsBetter,
+  logger->LogMetric(
+      metric_prefix + "height", test_case_name, height, Unit::kCount,
+      webrtc::test::ImprovementDirection::kBiggerIsBetter, metadata);
+
+  logger->LogMetric(metric_prefix + "frame_size_bytes", test_case_name,
+                    frame_size_bytes, Unit::kBytes,
+                    webrtc::test::ImprovementDirection::kNeitherIsBetter,
                     metadata);
 
   logger->LogMetric(
-      "frame_size_bytes", test_case_name, frame_size_bytes, Unit::kBytes,
-      webrtc::test::ImprovementDirection::kNeitherIsBetter, metadata);
+      metric_prefix + "keyframe", test_case_name, keyframe, Unit::kCount,
+      webrtc::test::ImprovementDirection::kSmallerIsBetter, metadata);
 
-  logger->LogMetric("keyframe", test_case_name, keyframe, Unit::kCount,
+  logger->LogMetric(metric_prefix + "qp", test_case_name, qp, Unit::kUnitless,
                     webrtc::test::ImprovementDirection::kSmallerIsBetter,
                     metadata);
 
-  logger->LogMetric("qp", test_case_name, qp, Unit::kUnitless,
+  logger->LogMetric(metric_prefix + "encode_time_ms", test_case_name,
+                    encode_time_ms, Unit::kMilliseconds,
                     webrtc::test::ImprovementDirection::kSmallerIsBetter,
                     metadata);
 
-  logger->LogMetric(
-      "encode_time_ms", test_case_name, encode_time_ms, Unit::kMilliseconds,
-      webrtc::test::ImprovementDirection::kSmallerIsBetter, metadata);
+  logger->LogMetric(metric_prefix + "decode_time_ms", test_case_name,
+                    decode_time_ms, Unit::kMilliseconds,
+                    webrtc::test::ImprovementDirection::kSmallerIsBetter,
+                    metadata);
 
-  logger->LogMetric(
-      "decode_time_ms", test_case_name, decode_time_ms, Unit::kMilliseconds,
-      webrtc::test::ImprovementDirection::kSmallerIsBetter, metadata);
-
-  logger->LogMetric("target_bitrate_kbps", test_case_name, target_bitrate_kbps,
-                    Unit::kKilobitsPerSecond,
+  logger->LogMetric(metric_prefix + "target_bitrate_kbps", test_case_name,
+                    target_bitrate_kbps, Unit::kKilobitsPerSecond,
                     webrtc::test::ImprovementDirection::kBiggerIsBetter,
                     metadata);
 
-  logger->LogMetric("target_framerate_fps", test_case_name,
+  logger->LogMetric(metric_prefix + "target_framerate_fps", test_case_name,
                     target_framerate_fps, Unit::kHertz,
                     webrtc::test::ImprovementDirection::kBiggerIsBetter,
                     metadata);
 
-  logger->LogMetric("encoded_bitrate_kbps", test_case_name,
+  logger->LogMetric(metric_prefix + "encoded_bitrate_kbps", test_case_name,
                     encoded_bitrate_kbps, Unit::kKilobitsPerSecond,
                     webrtc::test::ImprovementDirection::kBiggerIsBetter,
                     metadata);
 
-  logger->LogMetric("encoded_framerate_fps", test_case_name,
+  logger->LogMetric(metric_prefix + "encoded_framerate_fps", test_case_name,
                     encoded_framerate_fps, Unit::kHertz,
                     webrtc::test::ImprovementDirection::kBiggerIsBetter,
                     metadata);
 
-  logger->LogMetric("bitrate_mismatch_pct", test_case_name,
+  logger->LogMetric(metric_prefix + "bitrate_mismatch_pct", test_case_name,
                     bitrate_mismatch_pct, Unit::kPercent,
                     webrtc::test::ImprovementDirection::kSmallerIsBetter,
                     metadata);
 
-  logger->LogMetric("framerate_mismatch_pct", test_case_name,
+  logger->LogMetric(metric_prefix + "framerate_mismatch_pct", test_case_name,
                     framerate_mismatch_pct, Unit::kPercent,
                     webrtc::test::ImprovementDirection::kSmallerIsBetter,
                     metadata);
 
-  logger->LogMetric("transmission_time_ms", test_case_name,
+  logger->LogMetric(metric_prefix + "transmission_time_ms", test_case_name,
                     transmission_time_ms, Unit::kMilliseconds,
                     webrtc::test::ImprovementDirection::kSmallerIsBetter,
                     metadata);
 
-  logger->LogMetric("psnr_y_db", test_case_name, psnr.y, Unit::kUnitless,
-                    webrtc::test::ImprovementDirection::kBiggerIsBetter,
-                    metadata);
+  logger->LogMetric(
+      metric_prefix + "psnr_y_db", test_case_name, psnr.y, Unit::kUnitless,
+      webrtc::test::ImprovementDirection::kBiggerIsBetter, metadata);
 
-  logger->LogMetric("psnr_u_db", test_case_name, psnr.u, Unit::kUnitless,
-                    webrtc::test::ImprovementDirection::kBiggerIsBetter,
-                    metadata);
+  logger->LogMetric(
+      metric_prefix + "psnr_u_db", test_case_name, psnr.u, Unit::kUnitless,
+      webrtc::test::ImprovementDirection::kBiggerIsBetter, metadata);
 
-  logger->LogMetric("psnr_v_db", test_case_name, psnr.v, Unit::kUnitless,
-                    webrtc::test::ImprovementDirection::kBiggerIsBetter,
-                    metadata);
+  logger->LogMetric(
+      metric_prefix + "psnr_v_db", test_case_name, psnr.v, Unit::kUnitless,
+      webrtc::test::ImprovementDirection::kBiggerIsBetter, metadata);
 }
 
 }  // namespace test

@@ -12,6 +12,7 @@
 #define API_TEST_VIDEO_CODEC_STATS_H_
 
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,7 @@
 #include "api/numerics/samples_stats_counter.h"
 #include "api/test/metrics/metric.h"
 #include "api/test/metrics/metrics_logger.h"
+#include "api/test/video_codec_tester.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
@@ -44,12 +46,14 @@ class VideoCodecStats {
     int spatial_idx = 0;
     int temporal_idx = 0;
 
+    std::set<int> target_spatial_idxs;
+    std::set<int> target_temporal_idxs;
+
     int width = 0;
     int height = 0;
     DataSize frame_size = DataSize::Zero();
     bool keyframe = false;
     absl::optional<int> qp;
-    absl::optional<int> base_spatial_idx;
 
     Timestamp encode_start = Timestamp::Zero();
     TimeDelta encode_time = TimeDelta::Zero();
@@ -68,6 +72,8 @@ class VideoCodecStats {
 
     bool encoded = false;
     bool decoded = false;
+
+    absl::optional<VideoCodecTester::EncodingSettings> encoding_settings;
   };
 
   struct Stream {
@@ -100,18 +106,20 @@ class VideoCodecStats {
     // Logs `Stream` metrics to provided `MetricsLogger`.
     void LogMetrics(MetricsLogger* logger,
                     std::string test_case_name,
+                    std::string metric_prefix,
                     std::map<std::string, std::string> metadata = {}) const;
   };
 
   virtual ~VideoCodecStats() = default;
 
   // Returns frames from interval, spatial and temporal layer specified by given
-  // `filter`.
+  // `Filter`.
   virtual std::vector<Frame> Slice(
       absl::optional<Filter> filter = absl::nullopt) const = 0;
 
-  // Returns video statistics aggregated for given `frames`.
-  virtual Stream Aggregate(const std::vector<Frame>& frames) const = 0;
+  // Returns video statistics aggregated for given slice.
+  virtual Stream Aggregate(
+      absl::optional<Filter> filter = absl::nullopt) const = 0;
 };
 
 }  // namespace test

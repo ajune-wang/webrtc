@@ -14,16 +14,26 @@
 
 #include "api/numerics/samples_stats_counter.h"
 #include "api/test/metrics/metrics_logger.h"
+#include "api/test/video_codec_tester.h"
+#include "api/video_codecs/scalability_mode.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
 namespace test {
 namespace {
+using Filter = VideoCodecStats::Filter;
 using Frame = VideoCodecStats::Frame;
 using Stream = VideoCodecStats::Stream;
 
 constexpr Frequency k90kHz = Frequency::Hertz(90000);
+
+const std::set<ScalabilityMode> kFullSvcScalabilityModes{
+    ScalabilityMode::kL2T1,  ScalabilityMode::kL2T1h, ScalabilityMode::kL2T2,
+    ScalabilityMode::kL2T2h, ScalabilityMode::kL2T3,  ScalabilityMode::kL2T3h,
+    ScalabilityMode::kL3T1,  ScalabilityMode::kL3T1h, ScalabilityMode::kL3T2,
+    ScalabilityMode::kL3T2h, ScalabilityMode::kL3T3,  ScalabilityMode::kL3T3h};
 
 class LeakyBucket {
  public:
@@ -57,8 +67,57 @@ class LeakyBucket {
   double level_bits_;
 };
 
+DataRate GetTargetBitrate(
+    const VideoCodecTester::EncodingSettings& encoding_settings,
+    absl::optional<int> spatial_idx,
+    absl::optional<int> temporal_idx) {
+  int max_spatial_idx = spatial_idx.value_or(
+      ScalabilityModeToNumSpatialLayers(encoding_settings.scalability_mode) -
+      1);
+
+  int max_temporal_idx = temporal_idx.value_or(
+      ScalabilityModeToNumTemporalLayers(encoding_settings.scalability_mode) -
+      1);
+
+  bool is_full_svc =
+      kFullSvcScalabilityModes.find(encoding_settings.scalability_mode) !=
+      kFullSvcScalabilityModes.end();
+
+  DataRate bitrate = DataRate::Zero();
+
+  for (int sidx = 0; sidx <= max_spatial_idx; ++sidx) {
+    if (!is_full_svc && sidx < spatial_idx.has_value()) {
+      // Skip lower spatial layers in KSVC/simulcast modes.
+      continue;
+    }
+
+    for (int tidx = 0; tidx <= max_temporal_idx; ++tidx) {
+      auto layer_settings = encoding_settings.layer_settings.find(
+          {.spatial_idx = sidx, .temporal_idx = tidx});
+      RTC_CHECK(layer_settings != encoding_settings.layer_settings.end());
+      bitrate += layer_settings->second.bitrate;
+    }
+  }
+
+  return bitrate;
+}
+
+Frequency GetTargetFramerate(
+    const VideoCodecTester::EncodingSettings& encoding_settings,
+    absl::optional<int> temporal_idx) {
+  if (temporal_idx) {
+    auto layer_settings = encoding_settings.layer_settings.find(
+        {.spatial_idx = 0, .temporal_idx = *temporal_idx});
+    RTC_CHECK(layer_settings != encoding_settings.layer_settings.end());
+    return layer_settings->second.framerate;
+  }
+
+  return encoding_settings.layer_settings.rbegin()->second.framerate;
+}
+
 // Merges spatial layer frames into superframes.
-std::vector<Frame> Merge(const std::vector<Frame>& frames) {
+std::vector<Frame> Merge(const std::vector<Frame>& frames,
+                         absl::optional<Filter> filter) {
   std::vector<Frame> superframes;
   // Map from frame timestamp to index in `superframes` vector.
   std::map<uint32_t, int> index;
@@ -67,6 +126,22 @@ std::vector<Frame> Merge(const std::vector<Frame>& frames) {
     if (index.find(f.timestamp_rtp) == index.end()) {
       index[f.timestamp_rtp] = static_cast<int>(superframes.size());
       superframes.push_back(f);
+
+      if (f.encoding_settings) {
+        Frame& sf = superframes.back();
+
+        absl::optional<int> spatial_idx =
+            filter.has_value() ? filter->spatial_idx : absl::nullopt;
+        absl::optional<int> temporal_idx =
+            filter.has_value() ? filter->temporal_idx : absl::nullopt;
+
+        sf.target_bitrate =
+            GetTargetBitrate(*sf.encoding_settings, spatial_idx, temporal_idx);
+
+        sf.target_framerate =
+            GetTargetFramerate(*sf.encoding_settings, temporal_idx);
+      }
+
       continue;
     }
 
@@ -144,12 +219,16 @@ std::vector<Frame> VideoCodecStatsImpl::Slice(
       if (filter->last_frame.has_value() && f.frame_num > *filter->last_frame) {
         continue;
       }
+
       if (filter->spatial_idx.has_value() &&
-          f.spatial_idx != *filter->spatial_idx) {
+          std::find(f.target_spatial_idxs.begin(), f.target_spatial_idxs.end(),
+                    *filter->spatial_idx) == f.target_spatial_idxs.end()) {
         continue;
       }
+
       if (filter->temporal_idx.has_value() &&
-          f.temporal_idx > *filter->temporal_idx) {
+          std::find(f.target_spatial_idxs.begin(), f.target_spatial_idxs.end(),
+                    *filter->temporal_idx) == f.target_spatial_idxs.end()) {
         continue;
       }
     }
@@ -158,11 +237,12 @@ std::vector<Frame> VideoCodecStatsImpl::Slice(
   return frames;
 }
 
-Stream VideoCodecStatsImpl::Aggregate(const std::vector<Frame>& frames) const {
-  std::vector<Frame> superframes = Merge(frames);
+Stream VideoCodecStatsImpl::Aggregate(absl::optional<Filter> filter) const {
+  std::vector<Frame> frames = Slice(filter);
+  std::vector<Frame> superframes = Merge(frames, filter);
   RTC_CHECK(!superframes.empty());
 
-  LeakyBucket leacky_bucket;
+  LeakyBucket leaky_bucket;
   Stream stream;
   for (size_t i = 0; i < superframes.size(); ++i) {
     Frame& f = superframes[i];
@@ -202,7 +282,7 @@ Stream VideoCodecStatsImpl::Aggregate(const std::vector<Frame>& frames) const {
       stream.target_bitrate_kbps.AddSample(
           StatsSample(f.target_bitrate->bps() / 1000.0, time));
 
-      int buffer_level_bits = leacky_bucket.Update(f);
+      int buffer_level_bits = leaky_bucket.Update(f);
       stream.transmission_time_ms.AddSample(
           StatsSample(buffer_level_bits * rtc::kNumMillisecsPerSec /
                           f.target_bitrate->bps(),

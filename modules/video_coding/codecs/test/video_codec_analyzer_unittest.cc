@@ -52,7 +52,7 @@ VideoFrame CreateVideoFrame(uint32_t timestamp_rtp,
 
 EncodedImage CreateEncodedImage(uint32_t timestamp_rtp, int spatial_idx = 0) {
   EncodedImage encoded_image;
-  encoded_image.SetTimestamp(timestamp_rtp);
+  encoded_image.SetRtpTimestamp(timestamp_rtp);
   encoded_image.SetSpatialIndex(spatial_idx);
   return encoded_image;
 }
@@ -60,7 +60,7 @@ EncodedImage CreateEncodedImage(uint32_t timestamp_rtp, int spatial_idx = 0) {
 
 TEST(VideoCodecAnalyzerTest, StartEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp), absl::nullopt);
 
   auto fs = analyzer.GetStats()->Slice();
   EXPECT_EQ(1u, fs.size());
@@ -69,10 +69,10 @@ TEST(VideoCodecAnalyzerTest, StartEncode) {
 
 TEST(VideoCodecAnalyzerTest, FinishEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp), absl::nullopt);
 
   EncodedImage encoded_frame = CreateEncodedImage(kTimestamp, kSpatialIdx);
-  analyzer.FinishEncode(encoded_frame);
+  analyzer.FinishEncode(encoded_frame, /*codec_specific_info=*/absl::nullopt);
 
   auto fs = analyzer.GetStats()->Slice();
   EXPECT_EQ(2u, fs.size());

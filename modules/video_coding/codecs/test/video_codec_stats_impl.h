@@ -24,16 +24,17 @@ namespace test {
 // Implementation of `VideoCodecStats`. This class is not thread-safe.
 class VideoCodecStatsImpl : public VideoCodecStats {
  public:
-  std::vector<Frame> Slice(
-      absl::optional<Filter> filter = absl::nullopt) const override;
-
-  Stream Aggregate(const std::vector<Frame>& frames) const override;
-
   void AddFrame(const Frame& frame);
 
   // Returns raw pointers to previously added frame. If frame does not exist,
   // returns `nullptr`.
   Frame* GetFrame(uint32_t timestamp_rtp, int spatial_idx);
+
+  std::vector<Frame> Slice(
+      absl::optional<Filter> filter = absl::nullopt) const override;
+
+  Stream Aggregate(
+      absl::optional<Filter> filter = absl::nullopt) const override;
 
  private:
   struct FrameId {

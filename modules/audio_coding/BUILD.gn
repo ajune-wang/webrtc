@@ -1124,8 +1124,10 @@ if (rtc_include_tests) {
       "../../system_wrappers",
       "../../system_wrappers:field_trial",
       "../../test:fileutils",
+      "../../test:test_flags",
       "../../test:test_support",
     ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
   }
 
   rtc_library("acm_receive_test") {

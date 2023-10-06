@@ -41,6 +41,10 @@
 #include "third_party/libaom/source/libaom/aom/aom_encoder.h"
 #include "third_party/libaom/source/libaom/aom/aomcx.h"
 
+#define MOBILE_ARM                                            \
+  (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+      (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
+
 #define SET_ENCODER_PARAM_OR_RETURN_ERROR(param_id, param_value) \
   do {                                                           \
     if (!SetEncoderControlParameters(param_id, param_value)) {   \
@@ -413,8 +417,7 @@ int LibaomAv1Encoder::NumberOfThreads(int width,
     return 2;
   } else {
 // Use 2 threads for low res on ARM.
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
-    defined(WEBRTC_ANDROID)
+#if MOBILE_ARM
     if (width * height >= 320 * 180 && number_of_cores > 2) {
       return 2;
     }

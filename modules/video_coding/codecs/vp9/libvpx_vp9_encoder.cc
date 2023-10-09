@@ -331,7 +331,8 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
   config_->rc_target_bitrate = bitrate_allocation.get_sum_kbps();
 
-  if (ExplicitlyConfiguredSpatialLayers()) {
+  // if (ExplicitlyConfiguredSpatialLayers())
+  {
     for (size_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
       const bool was_layer_active = (config_->ss_target_bitrate[sl_idx] > 0);
       config_->ss_target_bitrate[sl_idx] =
@@ -350,7 +351,9 @@ bool LibvpxVp9Encoder::SetSvcRates(
       framerate_controller_[sl_idx].SetTargetRate(
           codec_.spatialLayers[sl_idx].maxFramerate);
     }
-  } else {
+  }
+  // TODO: is this branch needed? only for testing? get rid of it?
+  /*else {
     float rate_ratio[VPX_MAX_LAYERS] = {0};
     float total = 0;
     for (int i = 0; i < num_spatial_layers_; ++i) {
@@ -391,7 +394,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
       framerate_controller_[i].SetTargetRate(codec_.maxFramerate);
     }
-  }
+  }*/
 
   num_active_spatial_layers_ = 0;
   first_active_layer_ = 0;
@@ -1733,7 +1736,7 @@ void LibvpxVp9Encoder::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
   UpdateReferenceBuffers(*pkt, pics_since_key_);
 
   TRACE_COUNTER1("webrtc", "EncodedFrameSize", encoded_image_.size());
-  encoded_image_.SetTimestamp(input_image_->timestamp());
+  encoded_image_.SetRtpTimestamp(input_image_->timestamp());
   encoded_image_.SetCaptureTimeIdentifier(
       input_image_->capture_time_identifier());
   encoded_image_.SetColorSpace(input_image_->color_space());
@@ -1768,7 +1771,7 @@ void LibvpxVp9Encoder::DeliverBufferedFrame(bool end_of_picture) {
     if (codec_.mode == VideoCodecMode::kScreensharing) {
       const uint8_t spatial_idx = encoded_image_.SpatialIndex().value_or(0);
       const uint32_t frame_timestamp_ms =
-          1000 * encoded_image_.Timestamp() / kVideoPayloadTypeFrequency;
+          1000 * encoded_image_.RtpTimestamp() / kVideoPayloadTypeFrequency;
       framerate_controller_[spatial_idx].AddFrame(frame_timestamp_ms);
 
       const size_t steady_state_size = SteadyStateSize(

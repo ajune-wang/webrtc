@@ -13,9 +13,11 @@
 #include <memory>
 
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/test/video_codec_tester.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_frame.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/time_utils.h"
@@ -61,23 +63,35 @@ VideoCodecAnalyzer::VideoCodecAnalyzer(
   sequence_checker_.Detach();
 }
 
-void VideoCodecAnalyzer::StartEncode(const VideoFrame& input_frame) {
+void VideoCodecAnalyzer::StartEncode(
+    const VideoFrame& input_frame,
+    absl::optional<VideoCodecTester::EncodingSettings> encoding_settings) {
   int64_t encode_start_us = rtc::TimeMicros();
-  task_queue_.PostTask(
-      [this, timestamp_rtp = input_frame.timestamp(), encode_start_us]() {
-        RTC_DCHECK_RUN_ON(&sequence_checker_);
+  task_queue_.PostTask([this, timestamp_rtp = input_frame.timestamp(),
+                        encoding_settings, encode_start_us]() {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
 
-        RTC_CHECK(frame_num_.find(timestamp_rtp) == frame_num_.end());
-        frame_num_[timestamp_rtp] = num_frames_++;
+    RTC_CHECK(frame_num_.find(timestamp_rtp) == frame_num_.end());
+    frame_num_[timestamp_rtp] = num_frames_++;
 
-        stats_.AddFrame({.frame_num = frame_num_[timestamp_rtp],
-                         .timestamp_rtp = timestamp_rtp,
-                         .encode_start = Timestamp::Micros(encode_start_us)});
-      });
+    stats_.AddFrame({.frame_num = frame_num_[timestamp_rtp],
+                     .timestamp_rtp = timestamp_rtp,
+                     .encode_start = Timestamp::Micros(encode_start_us),
+                     .encoding_settings = encoding_settings});
+  });
 }
 
-void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
+void VideoCodecAnalyzer::FinishEncode(
+    const EncodedImage& frame,
+    absl::optional<CodecSpecificInfo> codec_specific_info) {
   int64_t encode_finished_us = rtc::TimeMicros();
+
+  absl::optional<ScalabilityMode> scalability_mode;
+  absl::optional<GenericFrameInfo> generic_frame_info;
+  if (codec_specific_info) {
+    scalability_mode = codec_specific_info->scalability_mode;
+    generic_frame_info = codec_specific_info->generic_frame_info;
+  }
 
   task_queue_.PostTask([this, timestamp_rtp = frame.Timestamp(),
                         spatial_idx = frame.SpatialIndex().value_or(0),
@@ -86,6 +100,7 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
                         height = frame._encodedHeight,
                         frame_type = frame._frameType,
                         frame_size_bytes = frame.size(), qp = frame.qp_,
+                        scalability_mode, generic_frame_info,
                         encode_finished_us]() {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
 
@@ -96,7 +111,8 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
       stats_.AddFrame({.frame_num = base_frame->frame_num,
                        .timestamp_rtp = timestamp_rtp,
                        .spatial_idx = spatial_idx,
-                       .encode_start = base_frame->encode_start});
+                       .encode_start = base_frame->encode_start,
+                       .encoding_settings = base_frame->encoding_settings});
     }
 
     VideoCodecStats::Frame* fs = stats_.GetFrame(timestamp_rtp, spatial_idx);
@@ -109,6 +125,24 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
     fs->keyframe = frame_type == VideoFrameType::kVideoFrameKey;
     fs->encode_time = Timestamp::Micros(encode_finished_us) - fs->encode_start;
     fs->encoded = true;
+
+    if (scalability_mode && generic_frame_info) {
+      int num_spatial_layers =
+          ScalabilityModeToNumSpatialLayers(*scalability_mode);
+      int num_temporal_layers =
+          ScalabilityModeToNumTemporalLayers(*scalability_mode);
+      for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
+        for (int tidx = 0; tidx < num_temporal_layers; ++tidx) {
+          if (generic_frame_info
+                  ->decode_target_indications[sidx * num_temporal_layers +
+                                              tidx] !=
+              DecodeTargetIndication::kNotPresent) {
+            fs->target_spatial_idxs.insert(sidx);
+            fs->target_temporal_idxs.insert(tidx);
+          }
+        }
+      }
+    }
   });
 }
 

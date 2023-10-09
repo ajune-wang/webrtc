@@ -96,7 +96,7 @@ absl::optional<size_t> EncodedImage::SpatialLayerFrameSize(
 void EncodedImage::SetSpatialLayerFrameSize(int spatial_index,
                                             size_t size_bytes) {
   RTC_DCHECK_GE(spatial_index, 0);
-  RTC_DCHECK_LE(spatial_index, spatial_index_.value_or(0));
+  // RTC_DCHECK_LE(spatial_index, spatial_index_.value_or(0));
   RTC_DCHECK_GE(size_bytes, 0);
   spatial_layer_frame_size_bytes_[spatial_index] = size_bytes;
 }

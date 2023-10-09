@@ -16,6 +16,23 @@
       "message": "danilchap@ / ssilkin@ could you PTAL first?",
       "revId": "0823b3b201828a6fda8b02fa12cfe888982253f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bb710af_0003120d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-09T11:22:59Z",
+      "side": 1,
+      "message": "From the discussion here (https://github.com/aboba/hevc-webrtc/issues/13), I don\u0027t think we are interested in adding RPSI to WebRTC, we should be looking at implementing a codec agnostic LTR mechanism.",
+      "revId": "0823b3b201828a6fda8b02fa12cfe888982253f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

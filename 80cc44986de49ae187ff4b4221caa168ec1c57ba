@@ -33,6 +33,23 @@
       "message": "Please add a unittest, other than that LGTM.",
       "revId": "80cc44986de49ae187ff4b4221caa168ec1c57ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb750469_97827340",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-09T11:59:33Z",
+      "side": 1,
+      "message": "I wrote up a recommendation for how to write such functions here:\n\nhttps://chromium.googlesource.com/external/webrtc/+/master/g3doc/implementation_basics.md\n\nI picked the name \"AsString\" becaue we\u0027ve got half a dozen incompatible calling conventions in the codebase for \"ToString\".",
+      "revId": "80cc44986de49ae187ff4b4221caa168ec1c57ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,24 @@
       "message": "From the discussion here (https://github.com/aboba/hevc-webrtc/issues/13), I don\u0027t think we are interested in adding RPSI to WebRTC, we should be looking at implementing a codec agnostic LTR mechanism.",
       "revId": "0823b3b201828a6fda8b02fa12cfe888982253f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47987223_376f7d47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-10-09T13:11:04Z",
+      "side": 1,
+      "message": "I\u0027m not sure how we can use current LNTF feedback to explicitly signal switching to certain LTRP as reference. Besides using LNTF makes interop with non-libWebRTC-based endpoints difficult - after all LNTF is not defined as supported in RFC 7798.\n\nSince WebRTC team don\u0027t have plan adding RPSI back, I\u0027ll drop this CL unless LNTF is added to RFC 7798 or its amendment as a mechanism of explicit reference picture indication(instead of letting sending side guess whether it should respond with IDR or referencing LTRP).",
+      "parentUuid": "7bb710af_0003120d",
+      "revId": "0823b3b201828a6fda8b02fa12cfe888982253f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

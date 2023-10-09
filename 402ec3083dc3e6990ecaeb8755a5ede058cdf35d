@@ -51,6 +51,24 @@
       "parentUuid": "7344ee65_816cd5fc",
       "revId": "402ec3083dc3e6990ecaeb8755a5ede058cdf35d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36496d18_8fb506ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-10-09T14:14:11Z",
+      "side": 1,
+      "message": "IIUC CQ will start to run real perf tests if you don\u0027t add the flag in the .pyl file.\nMaybe I missed something.",
+      "parentUuid": "1e21b2bf_3dbffacb",
+      "revId": "402ec3083dc3e6990ecaeb8755a5ede058cdf35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

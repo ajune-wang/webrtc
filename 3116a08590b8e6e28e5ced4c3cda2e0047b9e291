@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f05296b8_c3ddce36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-09T13:04:58Z",
+      "side": 1,
+      "message": "replacing relying on global field trial with relying on global [absl, test only] flag. \nWould you think it is a step forward or backward?",
+      "revId": "3116a08590b8e6e28e5ced4c3cda2e0047b9e291",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

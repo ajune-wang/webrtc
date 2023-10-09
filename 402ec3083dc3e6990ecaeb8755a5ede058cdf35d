@@ -16,6 +16,23 @@
       "message": "LGTM!\n\nWebRTC code cannot depend on flags but this field trial was only used in test code or test binaries.\n\nJeremy, FYI.",
       "revId": "402ec3083dc3e6990ecaeb8755a5ede058cdf35d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7344ee65_816cd5fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-10-09T13:40:56Z",
+      "side": 1,
+      "message": "So the added flag should be set here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/mixins_webrtc.pyl;l\u003d161\n\nThen call generate_buildbot_json.py to generate the json files.\nIf you run linux_rel you should see that it runs the command with the added flag.",
+      "revId": "402ec3083dc3e6990ecaeb8755a5ede058cdf35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

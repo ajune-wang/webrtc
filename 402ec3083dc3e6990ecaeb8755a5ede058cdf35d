@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ccb2e02_972d0368",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-09T13:32:15Z",
+      "side": 1,
+      "message": "LGTM!\n\nWebRTC code cannot depend on flags but this field trial was only used in test code or test binaries.\n\nJeremy, FYI.",
+      "revId": "402ec3083dc3e6990ecaeb8755a5ede058cdf35d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

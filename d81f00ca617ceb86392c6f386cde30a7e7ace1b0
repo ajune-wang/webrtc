@@ -16,6 +16,23 @@
       "message": "Danil, could you PTAL instead since Philip is OOO?",
       "revId": "d81f00ca617ceb86392c6f386cde30a7e7ace1b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af8f4910_83701855",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-09T11:27:47Z",
+      "side": 1,
+      "message": "Sorry, this issue seems to be fixed, so this CL should not be needed.",
+      "revId": "d81f00ca617ceb86392c6f386cde30a7e7ace1b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

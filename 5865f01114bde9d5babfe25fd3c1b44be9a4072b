@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8732d18d_86d22ef8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2023-10-10T06:41:23Z",
+      "side": 1,
+      "message": "Thanks for the comments. PTAL!",
+      "revId": "5865f01114bde9d5babfe25fd3c1b44be9a4072b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9abf86ab_412be7e4",
+        "filename": "api/video/test/color_space_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2023-10-10T06:41:23Z",
+      "side": 1,
+      "message": "Only add one specific color space for testing is enough since the code logic are same.",
+      "revId": "5865f01114bde9d5babfe25fd3c1b44be9a4072b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

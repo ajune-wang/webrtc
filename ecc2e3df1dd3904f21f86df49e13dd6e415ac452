@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03f011f1_f27882ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-10T08:56:08Z",
+      "side": 1,
+      "message": "it doesn\u0027t - same flag is present in test_flag source set. because there is now dependency from loopback binaries on test_flag target, I need to remove duplicated declaration to fix linking. loopback binaries still read and use the force field trials flag.",
+      "parentUuid": "376844fd_a4ea8c41",
+      "revId": "ecc2e3df1dd3904f21f86df49e13dd6e415ac452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f8c2630_894a4e63",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-10T04:38:52Z",
       "side": 1,
       "message": "Drive-by: can we remove the visibility line on this target?\nI don\u0027t think we presently refer to it outside of webrtc, and we should probably keep it that way. (WebRTC default is \"visible to all of webrtc\")",
+      "revId": "ecc2e3df1dd3904f21f86df49e13dd6e415ac452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2689c34a_e9031b6a",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-10T08:56:08Z",
+      "side": 1,
+      "message": "There is a usage of this target outside webrtc.",
+      "parentUuid": "7f8c2630_894a4e63",
       "revId": "ecc2e3df1dd3904f21f86df49e13dd6e415ac452",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

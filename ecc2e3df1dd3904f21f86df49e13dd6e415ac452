@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "376844fd_a4ea8c41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-10T04:38:52Z",
+      "side": 1,
+      "message": "Should the description also say that it removes the ability to set field trials from loopback binaries?",
+      "revId": "ecc2e3df1dd3904f21f86df49e13dd6e415ac452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8c2630_894a4e63",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-10T04:38:52Z",
+      "side": 1,
+      "message": "Drive-by: can we remove the visibility line on this target?\nI don\u0027t think we presently refer to it outside of webrtc, and we should probably keep it that way. (WebRTC default is \"visible to all of webrtc\")",
+      "revId": "ecc2e3df1dd3904f21f86df49e13dd6e415ac452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

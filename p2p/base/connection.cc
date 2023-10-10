@@ -270,6 +270,7 @@ int Connection::generation() const {
 }
 
 uint64_t Connection::priority() const {
+  RTC_DCHECK(port_) << "port_ null in priority()";
   if (!port_)
     return 0;
 
@@ -813,6 +814,7 @@ void Connection::Destroy() {
 
 bool Connection::Shutdown() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(port_) << this << ": Calling Shutdown() twice?";
   if (!port_)
     return false;  // already shut down.
 
@@ -846,6 +848,7 @@ void Connection::FailAndPrune() {
   // will be nulled.
   // In such a case, there's a chance that the Port object gets
   // deleted before the Connection object ends up being deleted.
+  RTC_DCHECK(port_) << "Calling FailAndPrune() twice?";
   if (!port_)
     return;
 
@@ -882,6 +885,7 @@ void Connection::set_selected(bool selected) {
 
 void Connection::UpdateState(int64_t now) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(port_) << "port_ null in UpdateState";
   if (!port_)
     return;
 
@@ -958,6 +962,7 @@ int64_t Connection::last_ping_sent() const {
 void Connection::Ping(int64_t now,
                       std::unique_ptr<StunByteStringAttribute> delta) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(port_) << "port_ null in Ping";
   if (!port_)
     return;
 
@@ -1256,6 +1261,7 @@ uint32_t Connection::ComputeNetworkCost() const {
 
 std::string Connection::ToString() const {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(port_) << "port_ null in ToString";
   constexpr absl::string_view CONNECT_STATE_ABBREV[2] = {
       "-",  // not connected (false)
       "C",  // connected (true)
@@ -1457,6 +1463,7 @@ void Connection::OnConnectionRequestResponse(StunRequest* request,
 
 void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
                                                   StunMessage* response) {
+  RTC_DCHECK(port_) << "port_ null in OnConnectionRequestErrorResponse";
   if (!port_)
     return;
 
@@ -1610,6 +1617,7 @@ ConnectionInfo Connection::stats() {
 
 void Connection::MaybeUpdateLocalCandidate(StunRequest* request,
                                            StunMessage* response) {
+  RTC_DCHECK(port_) << "port_ null in MaybeUpdateLocalCandidate";
   if (!port_)
     return;
 
@@ -1754,6 +1762,7 @@ ProxyConnection::ProxyConnection(rtc::WeakPtr<Port> port,
 int ProxyConnection::Send(const void* data,
                           size_t size,
                           const rtc::PacketOptions& options) {
+  RTC_DCHECK(port_) << "port_ null in Send";
   if (!port_)
     return SOCKET_ERROR;
 

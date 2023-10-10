@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ffad00_0830303e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-10-10T18:57:27Z",
+      "side": 1,
+      "message": "FYI: internal tests fail due to \"internal error\", not due to this patch.\nhowever, the internal tests has not actually run due to the internal error 😞",
+      "revId": "5f37d1074217aa52452e765c4ecfdbe26d4ccbf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

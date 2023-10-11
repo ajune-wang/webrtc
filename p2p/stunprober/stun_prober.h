@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "api/async_dns_resolver.h"
 #include "api/sequence_checker.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "rtc_base/byte_buffer.h"
@@ -166,7 +167,7 @@ class RTC_EXPORT StunProber : public sigslot::has_slots<> {
   };
 
   bool ResolveServerName(const rtc::SocketAddress& addr);
-  void OnServerResolved(rtc::AsyncResolverInterface* resolver);
+  void OnServerResolved(const webrtc::AsyncDnsResolverResult& resolver);
 
   void OnSocketReady(rtc::AsyncPacketSocket* socket,
                      const rtc::SocketAddress& addr);

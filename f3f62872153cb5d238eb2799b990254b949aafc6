@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "434240d1_f69c20ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-11T11:25:05Z",
+      "side": 1,
+      "message": "No, I don\u0027t think it crashes.",
+      "revId": "f3f62872153cb5d238eb2799b990254b949aafc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84348a77_2d905125",
@@ -14,6 +31,24 @@
       "writtenOn": "2023-10-11T11:19:05Z",
       "side": 1,
       "message": "Could (or even, shouldn\u0027t) this crash?\n\nTechnically `resolver` has been moved before dereferencing it via `resolver-\u003e`",
+      "revId": "f3f62872153cb5d238eb2799b990254b949aafc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4af161_87028c8a",
+        "filename": "p2p/stunprober/stun_prober.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-11T11:25:05Z",
+      "side": 1,
+      "message": "I think the resolver in the capture is considered to be in inner scope for the resolver in the function. The resolver in the function is not captured.\n\nI\u0027ve seen this pattern (x \u003d std::move(x)) multiple times in captures; the implied scoping of the two sides of the assignment (LHS is evaluated in capture, RHS is evaluated in containing scope) made my head spin at first, but now I\u0027m used to seeing it.",
+      "parentUuid": "84348a77_2d905125",
       "revId": "f3f62872153cb5d238eb2799b990254b949aafc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

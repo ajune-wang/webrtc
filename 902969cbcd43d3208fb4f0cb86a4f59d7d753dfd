@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a163cd_da3648c7",
+        "filename": "modules/desktop_capture/shared_memory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-10-11T09:52:07Z",
+      "side": 1,
+      "message": "This is a little roundabout. You shouldn\u0027t reuse SharedMemory::Handle here. It\u0027s just a coincidence that the same handle can be used to pass SharedMemory and Textures around. it happens to be the same HANDLE on windows, but that\u0027s not the case generaly.\n\n\nInstead define TextureHandle::Handle the same way SharedMemory::Handle is defined.",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 22
+      },
+      "revId": "902969cbcd43d3208fb4f0cb86a4f59d7d753dfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db9562cd_8eb3d49f",
+        "filename": "modules/desktop_capture/win/desktop_frame_texture.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-10-11T09:52:07Z",
+      "side": 1,
+      "message": "This class doesn\u0027t check for device removal. It can happen for external reasons without any fault of your code and must be processed. If the device was removed, you\u0027ll have to recreate it.\n\nAlso, if the same device is used in different threads you\u0027ll have to pass around IMFDXGIDeviceManager, not the D3dDevice.",
+      "range": {
+        "startLine": 73,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 22
+      },
+      "revId": "902969cbcd43d3208fb4f0cb86a4f59d7d753dfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

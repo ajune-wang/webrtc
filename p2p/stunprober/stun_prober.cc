@@ -329,13 +329,15 @@ bool StunProber::Start(StunProber::Observer* observer) {
 }
 
 bool StunProber::ResolveServerName(const rtc::SocketAddress& addr) {
-  rtc::AsyncResolverInterface* resolver =
-      socket_factory_->CreateAsyncResolver();
+  std::unique_ptr<webrtc::AsyncDnsResolverInterface> resolver =
+      socket_factory_->CreateAsyncDnsResolver();
   if (!resolver) {
     return false;
   }
-  resolver->SignalDone.connect(this, &StunProber::OnServerResolved);
-  resolver->Start(addr);
+  resolver->Start(addr, [this, resolver = std::move(resolver)] {
+    OnServerResolved(resolver->result());
+    // Resolver is destroyed on callback exit.
+  });
   return true;
 }
 
@@ -347,20 +349,16 @@ void StunProber::OnSocketReady(rtc::AsyncPacketSocket* socket,
   }
 }
 
-void StunProber::OnServerResolved(rtc::AsyncResolverInterface* resolver) {
+void StunProber::OnServerResolved(
+    const webrtc::AsyncDnsResolverResult& result) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-
-  if (resolver->GetError() == 0) {
-    rtc::SocketAddress addr(resolver->address().ipaddr(),
-                            resolver->address().port());
+  if (result.GetError() == 0) {
+    rtc::SocketAddress received_address;
+    result.GetResolvedAddress(AF_INET, &received_address);
+    rtc::SocketAddress addr(received_address.ipaddr(), received_address.port());
     all_servers_addrs_.push_back(addr);
   }
-
-  // Deletion of AsyncResolverInterface can't be done in OnResolveResult which
-  // handles SignalDone.
-  thread_->PostTask([resolver] { resolver->Destroy(false); });
   servers_.pop_back();
-
   if (servers_.size()) {
     if (!ResolveServerName(servers_.back())) {
       ReportOnPrepared(RESOLVE_FAILED);

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10128538_4a411c1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-12T06:25:12Z",
+      "side": 1,
+      "message": "Adding a test uncovered a bug, and the bots caught a *different* problem with the ownership model (in the case of a slow lookup, the caller may go away before the lookup resolves, meaning that the callback is never called). Changed to a safer model.\n\nAll this made time enough for the last Chrome usage to go away, so we can then deprecate *all* the things.",
+      "revId": "1f6739bd7f3f744af531716fe1ec573c2e592ba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

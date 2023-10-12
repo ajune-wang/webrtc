@@ -51,6 +51,24 @@
       "parentUuid": "84348a77_2d905125",
       "revId": "f3f62872153cb5d238eb2799b990254b949aafc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4cb527f_bc3fea00",
+        "filename": "p2p/stunprober/stun_prober.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-12T06:25:12Z",
+      "side": 1,
+      "message": "Aha, now I see what you mean - the leftmost resolver. I think this deserves a test.\n\nTest didn\u0027t uncover an issue here (!), but this was problematic for other reasons.",
+      "parentUuid": "ab4af161_87028c8a",
+      "revId": "f3f62872153cb5d238eb2799b990254b949aafc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

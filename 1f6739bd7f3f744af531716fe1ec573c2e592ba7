@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6566cf8f_416dfa09",
+        "filename": "p2p/stunprober/stun_prober.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-12T12:05:00Z",
+      "side": 1,
+      "message": "There\u0027s a guarantee the other way around - if error !\u003d 0, GetResolvedAddress will return false. But I don\u0027t think we have any guard against empty RRsets.\nRewriting to only check on GetResolvedAddress.\n\n(TODO not-for-this-cl: Add a FakeAsyncDnsResolver that will return a known\nset of answers for a given set of names. Or a mock.)",
+      "parentUuid": "db6cf20d_185b4a1b",
+      "revId": "1f6739bd7f3f744af531716fe1ec573c2e592ba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c337ab5_bd7e7107",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-10-12T11:27:41Z",
       "side": 1,
       "message": "static constexpr?",
+      "revId": "1f6739bd7f3f744af531716fe1ec573c2e592ba7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b35c7e0_6988811c",
+        "filename": "p2p/stunprober/stun_prober_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-12T12:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c337ab5_bd7e7107",
       "revId": "1f6739bd7f3f744af531716fe1ec573c2e592ba7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -10,7 +10,6 @@
 
 #include "modules/video_coding/frame_dependencies_calculator.h"
 
-#include "common_video/generic_frame_descriptor/generic_frame_info.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

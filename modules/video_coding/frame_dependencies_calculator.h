@@ -18,7 +18,7 @@
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "common_video/generic_frame_descriptor/generic_frame_info.h"
+#include "api/transport/rtp/generic_frame_info.h"
 
 namespace webrtc {
 

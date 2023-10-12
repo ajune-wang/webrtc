@@ -13,7 +13,6 @@
 
 #include "api/array_view.h"
 #include "api/transport/rtp/dependency_descriptor.h"
-#include "common_video/generic_frame_descriptor/generic_frame_info.h"
 #include "modules/video_coding/svc/scalability_structure_test_helpers.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

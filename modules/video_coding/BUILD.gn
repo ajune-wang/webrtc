@@ -59,7 +59,7 @@ rtc_library("frame_dependencies_calculator") {
 
   deps = [
     "../../api:array_view",
-    "../../common_video/generic_frame_descriptor",
+    "../../api/transport/rtp:generic_frame_descriptor",
     "../../rtc_base:checks",
     "../../rtc_base:logging",
   ]
@@ -291,12 +291,12 @@ rtc_library("video_codec_interface") {
   ]
   deps = [
     ":codec_globals_headers",
+    "../../api/transport/rtp:generic_frame_descriptor",
     "../../api/video:video_frame",
     "../../api/video:video_rtp_headers",
     "../../api/video_codecs:scalability_mode",
     "../../api/video_codecs:video_codecs_api",
     "../../common_video",
-    "../../common_video/generic_frame_descriptor",
     "../../rtc_base/system:rtc_export",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
@@ -1276,6 +1276,7 @@ if (rtc_include_tests) {
       "../../api/task_queue",
       "../../api/task_queue:default_task_queue_factory",
       "../../api/test/video:function_video_factory",
+      "../../api/transport/rtp:generic_frame_descriptor",
       "../../api/units:data_size",
       "../../api/units:frequency",
       "../../api/units:time_delta",
@@ -1294,7 +1295,6 @@ if (rtc_include_tests) {
       "../../api/video_codecs:video_codecs_api",
       "../../api/video_codecs:vp8_temporal_layers_factory",
       "../../common_video",
-      "../../common_video/generic_frame_descriptor",
       "../../common_video/test:utilities",
       "../../media:media_constants",
       "../../media:rtc_media_base",

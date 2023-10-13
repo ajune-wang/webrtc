@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e4efb40_8a5068c0",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-10-13T09:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7da9cc1_e450f511",
+      "range": {
+        "startLine": 1322,
+        "startChar": 2,
+        "endLine": 1322,
+        "endChar": 8
+      },
+      "revId": "5b891c79dff82b39fd6cf5822c393c26eba76a9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6e1aa53_c16d8fc5",
@@ -71,6 +95,24 @@
       "writtenOn": "2023-09-29T15:48:38Z",
       "side": 1,
       "message": "Iirc, Unwrap doesn\u0027t unwrap the first number to 1, so we\u0027d get a bunch of \"missing feedback\" before the first TWCC feedback message.\nI think we should initialize last_acked to the first unwrapped sequence number:\n```\nif (!parsed_log_.transport_feedbacks(kIncomingPacket).empty()) {\n  last_acked \u003d unwrapper.Unwrap(parsed_log_.transport_feedbacks(kIncomingPacket) \n                                [0].GetBaseSequence())\n}\n```\nto avoid this.",
+      "revId": "5b891c79dff82b39fd6cf5822c393c26eba76a9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9b9808c_0e0952c3",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-10-13T09:30:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6e1aa53_c16d8fc5",
       "revId": "5b891c79dff82b39fd6cf5822c393c26eba76a9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

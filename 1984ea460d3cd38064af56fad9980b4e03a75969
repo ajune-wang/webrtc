@@ -104,6 +104,24 @@
       "parentUuid": "f1743a27_b7a239b1",
       "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "549976e4_c83795e1",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-10-13T10:14:26Z",
+      "side": 1,
+      "message": "To clarify, throwing errors instead of CHECK-crashing already happened in an earlier CL but was missing a unit test for this particular case.\n\nhttps://jsfiddle.net/fippo/vtm89gzb/13/ shows that the mid does not cease to exist, it reappears. I\u0027ll try how much goes south when one unsets it next.",
+      "parentUuid": "f1743a27_b7a239b1",
+      "revId": "1984ea460d3cd38064af56fad9980b4e03a75969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

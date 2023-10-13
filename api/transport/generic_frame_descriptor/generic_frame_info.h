@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_VIDEO_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
-#define COMMON_VIDEO_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
+#ifndef API_TRANSPORT_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
+#define API_TRANSPORT_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
 
 #include <bitset>
 #include <initializer_list>
@@ -19,6 +19,7 @@
 #include "absl/strings/string_view.h"
 #include "api/transport/rtp/dependency_descriptor.h"
 #include "api/video/video_codec_constants.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 
@@ -32,7 +33,7 @@ struct CodecBufferUsage {
   bool updated = false;
 };
 
-struct GenericFrameInfo : public FrameDependencyTemplate {
+struct RTC_EXPORT GenericFrameInfo : public FrameDependencyTemplate {
   class Builder;
 
   GenericFrameInfo();
@@ -60,4 +61,4 @@ class GenericFrameInfo::Builder {
 
 }  // namespace webrtc
 
-#endif  // COMMON_VIDEO_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
+#endif  // API_TRANSPORT_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_

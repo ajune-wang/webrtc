@@ -667,7 +667,6 @@ if (rtc_include_tests) {
       "../../call:rtp_receiver",
       "../../call:video_stream_api",
       "../../common_video",
-      "../../common_video/generic_frame_descriptor",
       "../../common_video/test:utilities",
       "../../logging:mocks",
       "../../rtc_base:bit_buffer",

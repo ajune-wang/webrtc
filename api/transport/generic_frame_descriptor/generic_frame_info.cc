@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "common_video/generic_frame_descriptor/generic_frame_info.h"
+#include "api/transport/generic_frame_descriptor/generic_frame_info.h"
 
 #include <utility>
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18cb5008_d608c3f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2023-10-13T21:19:30Z",
+      "side": 1,
+      "message": "Have we made a conscious Product decision to make this change? Which PM signed off?\n\nIs it not better for user privacy to have the yellow border on platforms where it\u0027s supported?\n\nIs it really desirable to allow the experience in Chrome and video-conferencing tools running on Chrome to drift away from what users have learned to expect on native apps? Or do leading native apps avoid the yellow border as well?",
+      "revId": "66b72755616b44d229556c986e74a7c6451375c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

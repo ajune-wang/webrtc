@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4894a4_76fe21ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2023-10-13T11:48:36Z",
+      "side": 1,
+      "message": "LGTM.\n\nLooks like some dep removal hit internal layering checks.",
+      "revId": "3de09b01d014423cbe6ed3b01322abdc9e25c2ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

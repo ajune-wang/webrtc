@@ -15,9 +15,9 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/transport/generic_frame_descriptor/generic_frame_info.h"
 #include "api/transport/rtp/dependency_descriptor.h"
 #include "api/video/video_bitrate_allocation.h"
-#include "common_video/generic_frame_descriptor/generic_frame_info.h"
 #include "modules/video_coding/chain_diff_calculator.h"
 #include "modules/video_coding/frame_dependencies_calculator.h"
 #include "modules/video_coding/svc/scalable_video_controller.h"

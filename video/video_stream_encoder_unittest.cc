@@ -16,7 +16,6 @@
 #include <tuple>
 #include <utility>
 
-#include "absl/memory/memory.h"
 #include "api/field_trials_view.h"
 #include "api/rtp_parameters.h"
 #include "api/task_queue/default_task_queue_factory.h"

@@ -75,6 +75,8 @@ class MockVideoDecoder : public VideoDecoder {
               (override));
   MOCK_METHOD(int32_t, Release, (), (override));
 
+  MOCK_METHOD(DecoderInfo, GetDecoderInfo, (), (const, override));
+
   // Special utility method that allows a test to monitor/verify when
   // destruction of the decoder instance occurs.
   MOCK_METHOD(void, Destruct, (), ());

@@ -62,6 +62,7 @@ void TestPack::RegisterReceiverACM(acm2::AcmReceiver* acm_receiver) {
 
 int32_t TestPack::SendData(AudioFrameType frame_type,
                            uint8_t payload_type,
+                           AudioEncoder::CodecType codec_type,
                            uint32_t timestamp,
                            const uint8_t* payload_data,
                            size_t payload_size,

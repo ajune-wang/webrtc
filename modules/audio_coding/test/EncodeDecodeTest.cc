@@ -38,6 +38,7 @@ TestPacketization::~TestPacketization() {}
 
 int32_t TestPacketization::SendData(const AudioFrameType /* frameType */,
                                     const uint8_t payloadType,
+                                    AudioEncoder::CodecType codecType,
                                     const uint32_t timeStamp,
                                     const uint8_t* payloadData,
                                     const size_t payloadSize,

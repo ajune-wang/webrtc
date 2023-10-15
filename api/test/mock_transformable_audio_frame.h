@@ -11,6 +11,8 @@
 #ifndef API_TEST_MOCK_TRANSFORMABLE_AUDIO_FRAME_H_
 #define API_TEST_MOCK_TRANSFORMABLE_AUDIO_FRAME_H_
 
+#include <string>
+
 #include "api/frame_transformer_interface.h"
 #include "test/gmock.h"
 
@@ -36,6 +38,7 @@ class MockTransformableAudioFrame : public TransformableAudioFrameInterface {
               GetDirection,
               (),
               (const, override));
+  MOCK_METHOD(std::string, GetMimeType, (), (const, override));
   MOCK_METHOD(absl::optional<uint64_t>,
               AbsoluteCaptureTimestamp,
               (),
@@ -44,7 +47,10 @@ class MockTransformableAudioFrame : public TransformableAudioFrameInterface {
               Type,
               (),
               (const, override));
+  MOCK_METHOD(AudioEncoder::CodecType, GetCodecType, (), (const, override));
 };
+
+static_assert(!std::is_abstract_v<MockTransformableAudioFrame>, "");
 
 }  // namespace webrtc
 

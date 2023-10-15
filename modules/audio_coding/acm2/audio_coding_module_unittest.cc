@@ -107,6 +107,7 @@ class PacketizationCallbackStubOldApi : public AudioPacketizationCallback {
 
   int32_t SendData(AudioFrameType frame_type,
                    uint8_t payload_type,
+                   AudioEncoder::CodecType codec_type,
                    uint32_t timestamp,
                    const uint8_t* payload_data,
                    size_t payload_len_bytes,

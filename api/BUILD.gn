@@ -365,6 +365,7 @@ rtc_source_set("frame_transformer_interface") {
     ":make_ref_counted",
     ":scoped_refptr",
     "../rtc_base:refcount",
+    "audio_codecs:audio_codecs_api",
     "video:encoded_frame",
     "video:video_frame_metadata",
   ]

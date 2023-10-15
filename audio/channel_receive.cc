@@ -722,6 +722,7 @@ void ChannelReceive::ReceivePacket(const uint8_t* packet,
   if (frame_transformer_delegate_) {
     // Asynchronously transform the received payload. After the payload is
     // transformed, the delegate will call OnReceivedPayloadData to handle it.
+    // ADD CODEC TYPE HERE
     frame_transformer_delegate_->Transform(payload_data, header, remote_ssrc_);
   } else {
     OnReceivedPayloadData(payload_data, header);

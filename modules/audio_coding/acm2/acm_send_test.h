@@ -55,6 +55,7 @@ class AcmSendTestOldApi : public AudioPacketizationCallback,
   // Inherited from AudioPacketizationCallback.
   int32_t SendData(AudioFrameType frame_type,
                    uint8_t payload_type,
+                   AudioEncoder::CodecType codecType,
                    uint32_t timestamp,
                    const uint8_t* payload_data,
                    size_t payload_len_bytes,

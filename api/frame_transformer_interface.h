@@ -12,8 +12,10 @@
 #define API_FRAME_TRANSFORMER_INTERFACE_H_
 
 #include <memory>
+#include <string>
 #include <vector>
 
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/scoped_refptr.h"
 #include "api/video/encoded_frame.h"
 #include "api/video/video_frame_metadata.h"
@@ -53,6 +55,11 @@ class TransformableFrameInterface {
   // sender frames to allow received frames to be directly re-transmitted on
   // other PeerConnectionss.
   virtual Direction GetDirection() const { return Direction::kUnknown; }
+  virtual std::string GetMimeType() const {
+    // TODO(bugs.webrtc.org/14709): Change this to pure virtual after Chromium
+    // roll.
+    return "unknown/unknown";
+  }
 };
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {
@@ -85,6 +92,8 @@ class TransformableAudioFrameInterface : public TransformableFrameInterface {
   // TODO(crbug.com/1456628): Change this to pure virtual after it
   // is implemented everywhere.
   virtual FrameType Type() const { return FrameType::kEmptyFrame; }
+
+  virtual AudioEncoder::CodecType GetCodecType() const = 0;
 };
 
 // Objects implement this interface to be notified with the transformed frame.

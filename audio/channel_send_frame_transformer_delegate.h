@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/frame_transformer_interface.h"
 #include "api/sequence_checker.h"
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
@@ -53,6 +54,7 @@ class ChannelSendFrameTransformerDelegate : public TransformedFrameCallback {
   // transform the frame asynchronously.
   void Transform(AudioFrameType frame_type,
                  uint8_t payload_type,
+                 AudioEncoder::CodecType codec_type,
                  uint32_t rtp_timestamp,
                  const uint8_t* payload_data,
                  size_t payload_size,

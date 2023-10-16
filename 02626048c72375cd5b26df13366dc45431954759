@@ -16,6 +16,24 @@
       "message": "Thanks for the comments Danil Chapovalov\nI addressed the ones you called out\n\nI am wondering whether I should make the other ones in `Parse` into CHECKs as well since if they fail, then running any validations on whatever is returned is kind of futile\n\nI kept them as-is for now, since (unlike the ones you pointed out) this won\u0027t cause UB or something like that, but happy to change if you think that would be better",
       "revId": "02626048c72375cd5b26df13366dc45431954759",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96e43bbc_fe377772",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-16T08:08:18Z",
+      "side": 1,
+      "message": "I do not have strong opinion either way.\n[CHECK terminate the full tests and helps to detect these violation a bit faster/communicated there are issue with the test itself.\nEXPECT allows to run other tests after failure, and provides more complete picture of the failures]",
+      "parentUuid": "d5308b18_d0209877",
+      "revId": "02626048c72375cd5b26df13366dc45431954759",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

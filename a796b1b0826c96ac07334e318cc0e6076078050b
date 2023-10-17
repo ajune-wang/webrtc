@@ -39,6 +39,30 @@
       },
       "revId": "a796b1b0826c96ac07334e318cc0e6076078050b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a819bfd2_b49ef286",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 6039
+      },
+      "writtenOn": "2023-10-17T19:53:11Z",
+      "side": 1,
+      "message": "I did not even look at the details to be honest since I found that line 254 contained capture_source_-\u003eIsCapturable() but I might have missed that it is not called every frame.\n\nWill see if I can simplify this tomorrow. If I can\u0027t find any simple solution I plan to use your OK and check in to keep the experiment going. And add a TODO to myself and follow of later. Sound OK?",
+      "parentUuid": "922c27ef_d328a11f",
+      "range": {
+        "startLine": 326,
+        "startChar": 58,
+        "endLine": 326,
+        "endChar": 70
+      },
+      "revId": "a796b1b0826c96ac07334e318cc0e6076078050b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

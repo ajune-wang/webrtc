@@ -16,6 +16,23 @@
       "message": "In general I believe it would be better to keep RTC_CHECK_NOTREACHED and to change VideoFrameTypeToString to a non-inline instead. But, LGTM, given that VideoFrameTypeToString is only used for logging and testing purposes:\nhttps://source.chromium.org/search?q\u003dVideoFrameTypeToString\u0026ss\u003dchromium",
       "revId": "70785369330d23dce088f46ff466572deb261b00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57eafac4_c7d0939f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-17T12:18:22Z",
+      "side": 1,
+      "message": "Spontaneously feels like a change we shouldn\u0027t make. Someone might think an RTC_CHECK_NOTREACHED is missing and might add it again, without any bot complaining ofc.\n\nCan RTC_CHECK_NOTREACHED be made constexpr compatible with gcc instead?",
+      "revId": "70785369330d23dce088f46ff466572deb261b00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

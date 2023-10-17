@@ -50,6 +50,24 @@
       "message": "What are you building when you see this build error?",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da450936_e9d2c46a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-10-17T12:39:59Z",
+      "side": 1,
+      "message": "Firefox: https://treeherder.mozilla.org/jobs?repo\u003dtry\u0026selectedTaskRun\u003dIE0szwDUQgy7wBFgoUIpHg.0\u0026revision\u003d6042e88937fd155cebec3bfd1155c9ad3f8011da\n\nWe seem to be doing a blanket-include by folder, which is probably why it shows up:\nhttps://searchfox.org/mozilla-central/rev/0ba4632ee85679a1ccaf652df79c971fa7e9b9f7/mobile/android/geckoview/build.gradle#109",
+      "parentUuid": "58aa2c46_caf485f3",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

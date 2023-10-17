@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2567cae_7fef4b42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-17T11:03:47Z",
+      "side": 1,
+      "message": "Does Pacer rely on rate not beeing too large?",
+      "revId": "cc0e3810df32a622665f5f76a426f30c37ac1b32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -113,6 +113,10 @@ class LossBasedBweV2 {
     bool not_use_acked_rate_in_alr = false;
     bool use_in_start_phase = false;
     int min_num_observations = 0;
+<<<<<<< PATCH SET (93ae41 Use acked bitrate as lower bound of loss based bwe.)
+    double lower_bound_by_acked_rate_factor = 0.0;
+=======
+>>>>>>> BASE      (6afbbd Clean up loss_based_bwe_v2_unittest and add flag MinNumObser)
   };
 
   struct Derivatives {
@@ -154,6 +158,8 @@ class LossBasedBweV2 {
   DataRate GetSendingRate(DataRate instantaneous_sending_rate) const;
   DataRate GetInstantUpperBound() const;
   void CalculateInstantUpperBound();
+  DataRate GetInstantLowerBound() const;
+  void CalculateInstantLowerBound();
 
   void CalculateTemporalWeights();
   void NewtonsMethodUpdate(ChannelParameters& channel_parameters) const;
@@ -173,6 +179,7 @@ class LossBasedBweV2 {
   Timestamp last_send_time_most_recent_observation_ = Timestamp::PlusInfinity();
   Timestamp last_time_estimate_reduced_ = Timestamp::MinusInfinity();
   absl::optional<DataRate> cached_instant_upper_bound_;
+  absl::optional<DataRate> cached_instant_lower_bound_;
   std::vector<double> instant_upper_bound_temporal_weights_;
   std::vector<double> temporal_weights_;
   Timestamp recovering_after_loss_timestamp_ = Timestamp::MinusInfinity();

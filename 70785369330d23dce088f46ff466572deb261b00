@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3a60b63_fba8b59e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-10-17T11:26:09Z",
+      "side": 1,
+      "message": "In general I believe it would be better to keep RTC_CHECK_NOTREACHED and to change VideoFrameTypeToString to a non-inline instead. But, LGTM, given that VideoFrameTypeToString is only used for logging and testing purposes:\nhttps://source.chromium.org/search?q\u003dVideoFrameTypeToString\u0026ss\u003dchromium",
+      "revId": "70785369330d23dce088f46ff466572deb261b00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

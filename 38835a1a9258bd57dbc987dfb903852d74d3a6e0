@@ -68,6 +68,24 @@
       "parentUuid": "58aa2c46_caf485f3",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1f7059c_ce491075",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-10-17T12:44:52Z",
+      "side": 1,
+      "message": "But the change you refer to is rather old. And we have no build errors in WebRTC. Why is this change needed now?",
+      "parentUuid": "da450936_e9d2c46a",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

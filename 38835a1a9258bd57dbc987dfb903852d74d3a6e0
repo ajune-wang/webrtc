@@ -140,6 +140,24 @@
       "parentUuid": "0b118589_3d615791",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb2873b9_44cadf5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-10-17T13:26:07Z",
+      "side": 1,
+      "message": "Though is LegacyAudioDeviceModule.java used anywhere or referenced in any of the BUILD.gn files? If not, maybe it should still be removed? What build rule caused this file to be built/included?",
+      "parentUuid": "46d52408_169da8e8",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

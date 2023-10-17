@@ -194,6 +194,23 @@
       "parentUuid": "c9e078a0_5836c16f",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "636480ce_131a57e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-10-17T13:42:39Z",
+      "side": 1,
+      "message": "CC: sakal@ who was the last person who changed this file.",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

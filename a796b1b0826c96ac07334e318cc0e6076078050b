@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d6783d9_11e919bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-10-17T16:33:43Z",
+      "side": 1,
+      "message": "LGTM but consider a new method to simplify the call.",
+      "revId": "a796b1b0826c96ac07334e318cc0e6076078050b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922c27ef_d328a11f",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-10-17T16:33:43Z",
+      "side": 1,
+      "message": "This creates a CaptureItem each time if the Window/Monitor is visible; do we want to maybe make a new method to expose just the first part of that? (e.g. ShouldBeCapturable or something like that?) And then if it\u0027s not actually capturable due to CreateItem failing then that can be an error?",
+      "range": {
+        "startLine": 326,
+        "startChar": 58,
+        "endLine": 326,
+        "endChar": 70
+      },
+      "revId": "a796b1b0826c96ac07334e318cc0e6076078050b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

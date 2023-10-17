@@ -120,6 +120,7 @@ class LossBasedBweV2 {
     TimeDelta probe_expiration = TimeDelta::Zero();
     bool not_use_acked_rate_in_alr = false;
     bool use_in_start_phase = false;
+    int min_num_observations = 0;
   };
 
   struct Derivatives {

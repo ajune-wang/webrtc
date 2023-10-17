@@ -30,7 +30,7 @@ namespace {
 
 using ::webrtc::test::ExplicitKeyValueConfig;
 
-constexpr TimeDelta kObservationDurationLowerBound = TimeDelta::Millis(200);
+constexpr TimeDelta kObservationDurationLowerBound = TimeDelta::Millis(250);
 constexpr TimeDelta kDelayedIncreaseWindow = TimeDelta::Millis(300);
 constexpr double kMaxIncreaseFactor = 1.5;
 
@@ -64,7 +64,6 @@ class LossBasedBweV2Test : public ::testing::TestWithParam<bool> {
 
     config_string
         << ",CandidateFactors:1.1|1.0|0.95,HigherBwBiasFactor:0.01,"
-           "DelayBasedCandidate:true,"
            "InherentLossLowerBound:0.001,InherentLossUpperBoundBwBalance:"
            "14kbps,"
            "InherentLossUpperBoundOffset:0.9,InitialInherentLossEstimate:0.01,"
@@ -175,13 +174,13 @@ TEST_P(LossBasedBweV2Test, DisabledWhenGivenNonValidConfigurationValues) {
 
 TEST_P(LossBasedBweV2Test, DisabledWhenGivenNonPositiveCandidateFactor) {
   ExplicitKeyValueConfig key_value_config_negative_candidate_factor(
-      "WebRTC-Bwe-LossBasedBweV2/Enabled:true,CandidateFactors:-1.3|1.1/");
+      "WebRTC-Bwe-LossBasedBweV2/CandidateFactors:-1.3|1.1/");
   LossBasedBweV2 loss_based_bandwidth_estimator_1(
       &key_value_config_negative_candidate_factor);
   EXPECT_FALSE(loss_based_bandwidth_estimator_1.IsEnabled());
 
   ExplicitKeyValueConfig key_value_config_zero_candidate_factor(
-      "WebRTC-Bwe-LossBasedBweV2/Enabled:true,CandidateFactors:0.0|1.1/");
+      "WebRTC-Bwe-LossBasedBweV2/CandidateFactors:0.0|1.1/");
   LossBasedBweV2 loss_based_bandwidth_estimator_2(
       &key_value_config_zero_candidate_factor);
   EXPECT_FALSE(loss_based_bandwidth_estimator_2.IsEnabled());
@@ -191,7 +190,7 @@ TEST_P(LossBasedBweV2Test,
        DisabledWhenGivenConfigurationThatDoesNotAllowGeneratingCandidates) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.0,AckedRateCandidate:false,"
+      "CandidateFactors:1.0,AckedRateCandidate:false,"
       "DelayBasedCandidate:false/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   EXPECT_FALSE(loss_based_bandwidth_estimator.IsEnabled());
@@ -743,11 +742,11 @@ TEST_P(LossBasedBweV2Test,
        IncreaseByMaxIncreaseFactorAfterLossBasedBweBacksOff) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.2|1|0.5,AckedRateCandidate:true,"
-      "ObservationWindowSize:2,ObservationDurationLowerBound:200ms,"
+      "CandidateFactors:1.2|1|0.5,"
+      "ObservationWindowSize:2,"
       "InstantUpperBoundBwBalance:10000kbps,"
-      "DelayBasedCandidate:true,MaxIncreaseFactor:1.5,BwRampupUpperBoundFactor:"
-      "2.0,NotIncreaseIfInherentLossLessThanAverageLoss:false/");
+      "MaxIncreaseFactor:1.5,NotIncreaseIfInherentLossLessThanAverageLoss:"
+      "false/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   DataRate delay_based_estimate = DataRate::KilobitsPerSec(5000);
   DataRate acked_rate = DataRate::KilobitsPerSec(300);
@@ -788,12 +787,11 @@ TEST_P(LossBasedBweV2Test,
        LossBasedStateIsDelayBasedEstimateAfterNetworkRecovering) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:100|1|0.5,AckedRateCandidate:true,"
-      "ObservationWindowSize:2,ObservationDurationLowerBound:200ms,"
+      "CandidateFactors:100|1|0.5,"
+      "ObservationWindowSize:2,"
       "InstantUpperBoundBwBalance:10000kbps,"
-      "DelayBasedCandidate:true,MaxIncreaseFactor:100,"
-      "BwRampupUpperBoundFactor:"
-      "2.0,NotIncreaseIfInherentLossLessThanAverageLoss:false/");
+      "MaxIncreaseFactor:100,"
+      "NotIncreaseIfInherentLossLessThanAverageLoss:false/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   DataRate delay_based_estimate = DataRate::KilobitsPerSec(600);
   DataRate acked_rate = DataRate::KilobitsPerSec(300);
@@ -845,12 +843,10 @@ TEST_P(LossBasedBweV2Test,
        LossBasedStateIsNotDelayBasedEstimateIfDelayBasedEsimtateInfinite) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:100|1|0.5,AckedRateCandidate:true,"
-      "ObservationWindowSize:2,ObservationDurationLowerBound:200ms,"
+      "CandidateFactors:100|1|0.5,"
+      "ObservationWindowSize:2,"
       "InstantUpperBoundBwBalance:10000kbps,"
-      "DelayBasedCandidate:true,MaxIncreaseFactor:100,"
-      "BwRampupUpperBoundFactor:"
-      "2.0/");
+      "MaxIncreaseFactor:100/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   DataRate delay_based_estimate = DataRate::PlusInfinity();
   DataRate acked_rate = DataRate::KilobitsPerSec(300);
@@ -890,9 +886,9 @@ TEST_P(LossBasedBweV2Test,
        IncreaseByFactorOfAckedBitrateAfterLossBasedBweBacksOff) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,LossThresholdOfHighBandwidthPreference:0.99,"
+      "LossThresholdOfHighBandwidthPreference:0.99,"
       "BwRampupUpperBoundFactor:1.2,"
-      "InherentLossUpperBoundOffset:0.9,ObservationDurationLowerBound:200ms/");
+      "InherentLossUpperBoundOffset:0.9/");
   std::vector<PacketResult> enough_feedback_1 =
       CreatePacketResultsWith100pLossRate(
           /*first_packet_timestamp=*/Timestamp::Zero());
@@ -1035,13 +1031,9 @@ TEST_P(LossBasedBweV2Test, KeepIncreasingEstimateAfterDelayedIncreaseWindow) {
 TEST_P(LossBasedBweV2Test, NotIncreaseIfInherentLossLessThanAverageLoss) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.2,AckedRateCandidate:false,"
-      "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,"
+      "CandidateFactors:1.2,ObservationWindowSize:2,"
       "NotIncreaseIfInherentLossLessThanAverageLoss:true/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
-  DataRate delay_based_estimate = DataRate::KilobitsPerSec(5000);
 
   loss_based_bandwidth_estimator.SetBandwidthEstimate(
       DataRate::KilobitsPerSec(600));
@@ -1050,7 +1042,8 @@ TEST_P(LossBasedBweV2Test, NotIncreaseIfInherentLossLessThanAverageLoss) {
       CreatePacketResultsWith10pLossRate(
           /*first_packet_timestamp=*/Timestamp::Zero());
   loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
-      enough_feedback_10p_loss_1, delay_based_estimate,
+      enough_feedback_10p_loss_1,
+      /*delay_based_estimate=*/DataRate::PlusInfinity(),
       BandwidthUsage::kBwNormal, /*probe_estimate=*/absl::nullopt,
       /*in_alr=*/false);
 
@@ -1059,7 +1052,8 @@ TEST_P(LossBasedBweV2Test, NotIncreaseIfInherentLossLessThanAverageLoss) {
           /*first_packet_timestamp=*/Timestamp::Zero() +
           kObservationDurationLowerBound);
   loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
-      enough_feedback_10p_loss_2, delay_based_estimate,
+      enough_feedback_10p_loss_2,
+      /*delay_based_estimate=*/DataRate::PlusInfinity(),
       BandwidthUsage::kBwNormal, /*probe_estimate=*/absl::nullopt,
       /*in_alr=*/false);
 
@@ -1073,12 +1067,9 @@ TEST_P(LossBasedBweV2Test,
        SelectHighBandwidthCandidateIfLossRateIsLessThanThreshold) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.2|0.8,AckedRateCandidate:false,"
       "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,HigherBwBiasFactor:1000,"
-      "HigherLogBwBiasFactor:1000,LossThresholdOfHighBandwidthPreference:0."
-      "20,NotIncreaseIfInherentLossLessThanAverageLoss:false/");
+      "LossThresholdOfHighBandwidthPreference:0.20,"
+      "NotIncreaseIfInherentLossLessThanAverageLoss:false/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   DataRate delay_based_estimate = DataRate::KilobitsPerSec(5000);
 
@@ -1113,12 +1104,8 @@ TEST_P(LossBasedBweV2Test,
        SelectLowBandwidthCandidateIfLossRateIsIsHigherThanThreshold) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.2|0.8,AckedRateCandidate:false,"
       "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,HigherBwBiasFactor:1000,"
-      "HigherLogBwBiasFactor:1000,LossThresholdOfHighBandwidthPreference:0."
-      "05/");
+      "LossThresholdOfHighBandwidthPreference:0.05/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   DataRate delay_based_estimate = DataRate::KilobitsPerSec(5000);
 
@@ -1263,12 +1250,8 @@ TEST_P(LossBasedBweV2Test,
        StricterBoundUsingHighLossRateThresholdAt10pLossRate) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.0,AckedRateCandidate:false,"
       "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,HigherBwBiasFactor:1000,"
-      "HigherLogBwBiasFactor:1000,LossThresholdOfHighBandwidthPreference:0."
-      "05,HighLossRateThreshold:0.09/");
+      "HighLossRateThreshold:0.09/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   loss_based_bandwidth_estimator.SetMinMaxBitrate(
       /*min_bitrate=*/DataRate::KilobitsPerSec(10),
@@ -1305,12 +1288,8 @@ TEST_P(LossBasedBweV2Test,
        StricterBoundUsingHighLossRateThresholdAt50pLossRate) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.0,AckedRateCandidate:false,"
       "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,HigherBwBiasFactor:1000,"
-      "HigherLogBwBiasFactor:1000,LossThresholdOfHighBandwidthPreference:0."
-      "05,HighLossRateThreshold:0.3/");
+      "HighLossRateThreshold:0.3/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   loss_based_bandwidth_estimator.SetMinMaxBitrate(
       /*min_bitrate=*/DataRate::KilobitsPerSec(10),
@@ -1347,12 +1326,8 @@ TEST_P(LossBasedBweV2Test,
        StricterBoundUsingHighLossRateThresholdAt100pLossRate) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.0,AckedRateCandidate:false,"
       "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,HigherBwBiasFactor:1000,"
-      "HigherLogBwBiasFactor:1000,LossThresholdOfHighBandwidthPreference:0."
-      "05,HighLossRateThreshold:0.3/");
+      "HighLossRateThreshold:0.3/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   loss_based_bandwidth_estimator.SetMinMaxBitrate(
       /*min_bitrate=*/DataRate::KilobitsPerSec(10),
@@ -1388,12 +1363,8 @@ TEST_P(LossBasedBweV2Test,
 TEST_P(LossBasedBweV2Test, EstimateRecoversAfterHighLoss) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.1|1.0|0.9,AckedRateCandidate:false,"
       "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms,HigherBwBiasFactor:1000,"
-      "HigherLogBwBiasFactor:1000,LossThresholdOfHighBandwidthPreference:0."
-      "05,HighLossRateThreshold:0.3/");
+      "HighLossRateThreshold:0.3/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   loss_based_bandwidth_estimator.SetMinMaxBitrate(
       /*min_bitrate=*/DataRate::KilobitsPerSec(10),
@@ -1467,10 +1438,8 @@ TEST_P(LossBasedBweV2Test, EstimateIsNotHigherThanMaxBitrate) {
 TEST_P(LossBasedBweV2Test, NotBackOffToAckedRateInAlr) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.1|1.0|0.9,AckedRateCandidate:true,"
-      "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms/");
+      "InstantUpperBoundBwBalance:100kbps,"
+      "ObservationWindowSize:2/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   loss_based_bandwidth_estimator.SetMinMaxBitrate(
       /*min_bitrate=*/DataRate::KilobitsPerSec(10),
@@ -1502,10 +1471,8 @@ TEST_P(LossBasedBweV2Test, NotBackOffToAckedRateInAlr) {
 TEST_P(LossBasedBweV2Test, BackOffToAckedRateIfNotInAlr) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,CandidateFactors:1.1|1.0|0.9,AckedRateCandidate:true,"
-      "ObservationWindowSize:2,"
-      "DelayBasedCandidate:true,InstantUpperBoundBwBalance:100kbps,"
-      "ObservationDurationLowerBound:200ms/");
+      "InstantUpperBoundBwBalance:100kbps,"
+      "ObservationWindowSize:2/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   loss_based_bandwidth_estimator.SetMinMaxBitrate(
       /*min_bitrate=*/DataRate::KilobitsPerSec(10),
@@ -1533,7 +1500,7 @@ TEST_P(LossBasedBweV2Test, BackOffToAckedRateIfNotInAlr) {
 TEST_P(LossBasedBweV2Test, NotReadyToUseInStartPhase) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,UseInStartPhase:true/");
+      "UseInStartPhase:true/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   // Make sure that the estimator is not ready to use in start phase because of
   // lacking TWCC feedback.
@@ -1544,7 +1511,7 @@ TEST_P(LossBasedBweV2Test,
        ReadyToUseInStartPhase) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
-      "Enabled:true,ObservationDurationLowerBound:200ms,UseInStartPhase:true/");
+      "UseInStartPhase:true/");
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
   std::vector<PacketResult> enough_feedback =
       CreatePacketResultsWithReceivedPackets(

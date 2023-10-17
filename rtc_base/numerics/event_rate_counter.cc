@@ -9,6 +9,8 @@
  */
 #include "rtc_base/numerics/event_rate_counter.h"
 
+#include <math.h>
+
 #include <algorithm>
 
 namespace webrtc {

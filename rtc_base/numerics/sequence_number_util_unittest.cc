@@ -10,9 +10,12 @@
 
 #include "rtc_base/numerics/sequence_number_util.h"
 
+#include <stdint.h>
+
 #include <cstdint>
 #include <iterator>
 #include <set>
+#include <string>
 
 #include "test/gtest.h"
 

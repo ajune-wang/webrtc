@@ -16,6 +16,7 @@
 #include <climits>
 #include <cstdint>
 #include <random>
+#include <string>
 
 #include "absl/algorithm/container.h"
 #include "test/gtest.h"

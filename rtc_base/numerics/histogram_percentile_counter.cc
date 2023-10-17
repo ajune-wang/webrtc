@@ -12,6 +12,9 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
 
 #include "rtc_base/checks.h"
 

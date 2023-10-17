@@ -10,6 +10,8 @@
 
 #include "rtc_base/numerics/moving_max_counter.h"
 
+#include <string>
+
 #include "test/gtest.h"
 
 TEST(MovingMaxCounter, ReportsMaximumInTheWindow) {

@@ -10,6 +10,7 @@
 
 #include "rtc_base/numerics/sample_counter.h"
 
+#include <cstdint>
 #include <limits>
 
 #include "rtc_base/checks.h"

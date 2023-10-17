@@ -10,6 +10,8 @@
 
 #include "rtc_base/numerics/divide_round.h"
 
+#include <stdint.h>
+
 #include <limits>
 
 #include "test/gtest.h"

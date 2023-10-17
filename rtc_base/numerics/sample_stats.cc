@@ -9,6 +9,12 @@
  */
 #include "rtc_base/numerics/sample_stats.h"
 
+#include <math.h>
+
+#include <vector>
+
+#include "rtc_base/checks.h"
+
 namespace webrtc {
 
 double SampleStats<double>::Max() {

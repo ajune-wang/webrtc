@@ -11,11 +11,12 @@
 #ifndef RTC_BASE_NUMERICS_SEQUENCE_NUMBER_UNWRAPPER_H_
 #define RTC_BASE_NUMERICS_SEQUENCE_NUMBER_UNWRAPPER_H_
 
-#include <stdint.h>
-
+#include <cstdint>
 #include <limits>
+#include <type_traits>
 
 #include "absl/types/optional.h"
+#include "rtc_base/numerics/mod_ops.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 
 namespace webrtc {

@@ -10,6 +10,8 @@
 
 #include "rtc_base/numerics/moving_average.h"
 
+#include <string>
+
 #include "test/gtest.h"
 
 namespace test {

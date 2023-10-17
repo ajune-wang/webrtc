@@ -11,8 +11,7 @@
 #ifndef RTC_BASE_NUMERICS_MOVING_MAX_COUNTER_H_
 #define RTC_BASE_NUMERICS_MOVING_MAX_COUNTER_H_
 
-#include <stdint.h>
-
+#include <cstdint>
 #include <deque>
 #include <limits>
 #include <utility>

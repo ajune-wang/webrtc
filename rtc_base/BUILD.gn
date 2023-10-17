@@ -836,6 +836,7 @@ rtc_library("rtc_stats_counters") {
     "numerics/sample_stats.h",
   ]
   deps = [
+    ":checks",
     "../api/numerics",
     "../api/units:data_rate",
     "../api/units:time_delta",

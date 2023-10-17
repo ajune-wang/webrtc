@@ -11,9 +11,10 @@
 #ifndef API_NUMERICS_RUNNING_STATISTICS_H_
 #define API_NUMERICS_RUNNING_STATISTICS_H_
 
+#include <stdint.h>
+
 #include <algorithm>
 #include <cmath>
-#include <limits>
 
 #include "absl/types/optional.h"
 #include "rtc_base/checks.h"

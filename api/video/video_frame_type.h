@@ -34,7 +34,6 @@ inline constexpr absl::string_view VideoFrameTypeToString(
     case VideoFrameType::kVideoFrameDelta:
       return "delta";
   }
-  RTC_CHECK_NOTREACHED();
   return "";
 }
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56ac0e41_8486691c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-17T15:20:15Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing. Can you choose the acked bitrate in this test and the one above such that you can use EXPECT_LT rather than LE",
+      "range": {
+        "startLine": 1295,
+        "startChar": 2,
+        "endLine": 1295,
+        "endChar": 11
+      },
+      "revId": "bb121187910bcbab1ec64937718f8792968320b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

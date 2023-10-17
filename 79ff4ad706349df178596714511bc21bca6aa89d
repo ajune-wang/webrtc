@@ -69,6 +69,24 @@
       "parentUuid": "c2990f09_f2ed511f",
       "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0beb42a9_f9975e85",
+        "filename": "pylintrc_old_style",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2023-10-17T13:29:13Z",
+      "side": 1,
+      "message": "Agree with Jeremy here.",
+      "parentUuid": "65eeac73_41d4531d",
+      "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

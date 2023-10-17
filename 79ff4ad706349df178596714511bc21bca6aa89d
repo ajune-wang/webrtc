@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a3364f_1d1a8cff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-17T13:22:36Z",
+      "side": 1,
+      "message": "Only one file in the exception list so far, that\u0027s good...",
+      "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2990f09_f2ed511f",
+        "filename": "pylintrc_old_style",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-17T13:22:36Z",
+      "side": 1,
+      "message": "Should this be ORed with the snake_case convention, so that we allow gradual migration of function names?\n\nI think writing it as \n\nfunction-rgx\u003d([A-Z_]?[a-zA-Z0-9_]{2,60}|main)$\n\nshould allow both (and also allow some illegal combinations, unfortunately)",
+      "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

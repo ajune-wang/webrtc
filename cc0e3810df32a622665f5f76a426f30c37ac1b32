@@ -16,6 +16,24 @@
       "message": "Does Pacer rely on rate not beeing too large?",
       "revId": "cc0e3810df32a622665f5f76a426f30c37ac1b32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7c68fe6_f6bedd2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-10-17T11:20:57Z",
+      "side": 1,
+      "message": "I think this was added as diagnostic when we were searching for a bug where insane bitrate spikes were observed. Iirc the root cause was outside webrtc. \nSo might not even be warranted to have this log anymore. But I also like having some logging for suspicious outlier behavior just in case 😊",
+      "parentUuid": "b2567cae_7fef4b42",
+      "revId": "cc0e3810df32a622665f5f76a426f30c37ac1b32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

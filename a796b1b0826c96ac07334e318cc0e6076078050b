@@ -63,6 +63,30 @@
       },
       "revId": "a796b1b0826c96ac07334e318cc0e6076078050b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b18062_8116f8cc",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-10-17T20:49:13Z",
+      "side": 1,
+      "message": "Yeah it looks like Win 11 fallback is the only one to do that; so I\u0027m a little worried about allocating/deallocating a com object every time.\n\nThat sounds fine.",
+      "parentUuid": "a819bfd2_b49ef286",
+      "range": {
+        "startLine": 326,
+        "startChar": 58,
+        "endLine": 326,
+        "endChar": 70
+      },
+      "revId": "a796b1b0826c96ac07334e318cc0e6076078050b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "365b16a5_487a33bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-10-17T13:28:27Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "24a3364f_1d1a8cff",
+      "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2990f09_f2ed511f",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-17T13:22:36Z",
       "side": 1,
       "message": "Should this be ORed with the snake_case convention, so that we allow gradual migration of function names?\n\nI think writing it as \n\nfunction-rgx\u003d([A-Z_]?[a-zA-Z0-9_]{2,60}|main)$\n\nshould allow both (and also allow some illegal combinations, unfortunately)",
+      "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65eeac73_41d4531d",
+        "filename": "pylintrc_old_style",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-10-17T13:28:27Z",
+      "side": 1,
+      "message": "Not sure gradual migration is a good idea.\nActually I\u0027m not sure we want to migrate at all, it feels like much work for not much gain.",
+      "parentUuid": "c2990f09_f2ed511f",
       "revId": "79ff4ad706349df178596714511bc21bca6aa89d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

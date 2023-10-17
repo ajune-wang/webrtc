@@ -86,6 +86,24 @@
       "parentUuid": "da450936_e9d2c46a",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b118589_3d615791",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-10-17T13:07:13Z",
+      "side": 1,
+      "message": "I guess you don\u0027t build it? ¯\\\\_(ツ)_/¯\n\nhttps://webrtc.googlesource.com/src/+/6fc700ec3d1f86d06e203011aa8f375f32b39d9e landed on June 30. M116 branched on June 20, so it is in M117: https://chromiumdash.appspot.com/schedule\n\nI am going through the update of Firefox to M117 now.",
+      "parentUuid": "f1f7059c_ce491075",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

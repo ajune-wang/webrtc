@@ -158,6 +158,24 @@
       "parentUuid": "46d52408_169da8e8",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e078a0_5836c16f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-10-17T13:32:48Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s not all moot. LegacyAudioDeviceModule.java refers to these files in the org.webrtc.voiceengine package, which doesn\u0027t exist. Trying to use the equivalent files in the sdk results in other errors about calling a non-static method from a static context.\n\nWe don\u0027t use gn natively for building, and for these java files I believe we just include all java files under a dir: https://searchfox.org/mozilla-central/rev/0ba4632ee85679a1ccaf652df79c971fa7e9b9f7/mobile/android/geckoview/build.gradle#109\n\nThis does seem like the right fix. Sorry for the confusion.",
+      "parentUuid": "fb2873b9_44cadf5d",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

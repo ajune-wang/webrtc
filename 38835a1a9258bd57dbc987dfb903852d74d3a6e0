@@ -211,6 +211,24 @@
       "message": "CC: sakal@ who was the last person who changed this file.",
       "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2771f43f_432d15c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-10-17T13:53:33Z",
+      "side": 1,
+      "message": "I can\u0027t find any references to this file, so deleting it should be fine as far as I can tell.",
+      "parentUuid": "036ac289_5c0593cc",
+      "revId": "38835a1a9258bd57dbc987dfb903852d74d3a6e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

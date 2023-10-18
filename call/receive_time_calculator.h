@@ -17,6 +17,7 @@
 #include "api/field_trials_view.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 
 namespace webrtc {
 

@@ -29,6 +29,7 @@
 #include "modules/congestion_controller/goog_cc/loss_based_bandwidth_estimation.h"
 #include "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h"
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 
 namespace webrtc {
 

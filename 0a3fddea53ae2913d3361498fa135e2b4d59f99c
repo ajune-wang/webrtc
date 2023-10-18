@@ -39,6 +39,30 @@
       },
       "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a69c49c_5e909144",
+        "filename": "modules/desktop_capture/win/wgc_capture_source.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6039
+      },
+      "writtenOn": "2023-10-18T19:07:45Z",
+      "side": 1,
+      "message": "Can you elaborate some on what you would like to add or change. \"some version of this\" is not 100% clear to me? More explicit name?",
+      "parentUuid": "40d16f45_936709e1",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 69
+      },
+      "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

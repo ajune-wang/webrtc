@@ -17,6 +17,7 @@
 
 #include "absl/strings/string_view.h"
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/string_encode.h"
 
 // List support for field trial strings. FieldTrialList and FieldTrialStructList

@@ -35,6 +35,7 @@
 #include "modules/pacing/rtp_packet_pacer.h"
 #include "modules/pacing/task_queue_paced_sender.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/network_route.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/task_queue.h"

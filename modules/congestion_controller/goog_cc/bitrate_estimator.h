@@ -19,6 +19,7 @@
 #include "api/units/data_size.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 
 namespace webrtc {
 

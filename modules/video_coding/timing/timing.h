@@ -21,6 +21,7 @@
 #include "modules/video_coding/timing/decode_time_percentile_filter.h"
 #include "modules/video_coding/timing/timestamp_extrapolator.h"
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"

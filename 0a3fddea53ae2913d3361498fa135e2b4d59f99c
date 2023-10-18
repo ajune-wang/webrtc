@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "392e366c_02edfdbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-10-18T16:23:34Z",
+      "side": 1,
+      "message": "LGTM: Consider a followup-CL for a header-level comment.",
+      "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d16f45_936709e1",
+        "filename": "modules/desktop_capture/win/wgc_capture_source.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-10-18T16:23:34Z",
+      "side": 1,
+      "message": "NIT: We should have some version of this (e.g. that it\u0027s a lightweight version of IsCapturable and my diverge from IsCapturable.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 69
+      },
+      "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

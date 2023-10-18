@@ -63,6 +63,30 @@
       },
       "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd4799ed_09419084",
+        "filename": "modules/desktop_capture/win/wgc_capture_source.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2023-10-18T19:39:04Z",
+      "side": 1,
+      "message": "Oh, I just mean that in the generic non-window header we probably shouldn\u0027t go into details about the windows being minimized; though I guess that base class is responsible for allocating/deallocating the object so that could be worth calling out then (and was the other part that I\u0027d originally thought may not be worth it).\n\nSorry, I definitely left that comment half-finished. We should make this as a comment on the function in the header of the base class.\n\nSo in that header maybe something like:\n```\n// Lightweight version of `IsCapturable` which avoids allocating/deallocating\n// COM objects for each call. As such may return a different value than \n// `IsCapturable`.",
+      "parentUuid": "9a69c49c_5e909144",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 69
+      },
+      "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

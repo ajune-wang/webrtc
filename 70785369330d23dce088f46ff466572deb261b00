@@ -50,6 +50,23 @@
       "message": "Mirko, what is your take on this CL?",
       "revId": "70785369330d23dce088f46ff466572deb261b00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "424499bd_e2221171",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8178
+      },
+      "writtenOn": "2023-10-18T09:43:25Z",
+      "side": 1,
+      "message": "After further inspection it turns out this happens only with gcc-8, our oldest supported gcc version. gcc-9 is fine. I\u0027ll solve this on our end instead. Sorry for the noise.",
+      "revId": "70785369330d23dce088f46ff466572deb261b00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

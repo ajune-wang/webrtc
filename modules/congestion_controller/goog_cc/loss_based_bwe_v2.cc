@@ -292,7 +292,7 @@ void LossBasedBweV2::UpdateBandwidthEstimate(
   }
 
   current_best_estimate_ = best_candidate;
-  UpdateResult();
+  UpdateResult(in_alr);
 
   if (IsInLossLimitedState() &&
       (recovering_after_loss_timestamp_.IsInfinite() ||
@@ -306,7 +306,7 @@ void LossBasedBweV2::UpdateBandwidthEstimate(
   }
 }
 
-void LossBasedBweV2::UpdateResult() {
+void LossBasedBweV2::UpdateResult(bool in_alr) {
   DataRate bounded_bandwidth_estimate = DataRate::PlusInfinity();
   if (IsValid(delay_based_estimate_)) {
     bounded_bandwidth_estimate =
@@ -319,12 +319,19 @@ void LossBasedBweV2::UpdateResult() {
                  std::min(current_best_estimate_.loss_limited_bandwidth,
                           GetInstantUpperBound()));
   }
+  if (in_alr && config_->store_bounded_estimate_as_current_best_in_alr &&
+      bounded_bandwidth_estimate !=
+          current_best_estimate_.loss_limited_bandwidth) {
+    current_best_estimate_.loss_limited_bandwidth = bounded_bandwidth_estimate;
+  }
 
   if (IsEstimateIncreasingWhenLossLimited(
           /*old_estimate=*/loss_based_result_.bandwidth_estimate,
           /*new_estimate=*/bounded_bandwidth_estimate) &&
       bounded_bandwidth_estimate < delay_based_estimate_) {
-    loss_based_result_.state = LossBasedState::kIncreasing;
+    loss_based_result_.state = config_->use_padding_for_increase
+                                   ? LossBasedState::kIncreaseUsingPadding
+                                   : LossBasedState::kIncreasing;
   } else if (bounded_bandwidth_estimate < delay_based_estimate_) {
     loss_based_result_.state = LossBasedState::kDecreasing;
   } else if (bounded_bandwidth_estimate >= delay_based_estimate_) {
@@ -409,6 +416,10 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   FieldTrialParameter<int> min_num_observations("MinNumObservations", 3);
   FieldTrialParameter<double> lower_bound_by_acked_rate_factor(
       "LowerBoundByAckedRateFactor", 0.0);
+  FieldTrialParameter<bool> use_padding_for_increase("UsePadding", false);
+  FieldTrialParameter<bool> store_bounded_estimate_as_current_best_in_alr(
+      "StoreBoundedInAlr", false);
+
   if (key_value_config) {
     ParseFieldTrial({&enabled,
                      &bandwidth_rampup_upper_bound_factor,
@@ -444,7 +455,9 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                      &not_use_acked_rate_in_alr,
                      &use_in_start_phase,
                      &min_num_observations,
-                     &lower_bound_by_acked_rate_factor},
+                     &lower_bound_by_acked_rate_factor,
+                     &use_padding_for_increase,
+                     &store_bounded_estimate_as_current_best_in_alr},
                     key_value_config->Lookup("WebRTC-Bwe-LossBasedBweV2"));
   }
 
@@ -504,6 +517,9 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   config->min_num_observations = min_num_observations.Get();
   config->lower_bound_by_acked_rate_factor =
       lower_bound_by_acked_rate_factor.Get();
+  config->use_padding_for_increase = use_padding_for_increase.Get();
+  config->store_bounded_estimate_as_current_best_in_alr =
+      store_bounded_estimate_as_current_best_in_alr.Get();
 
   return config;
 }

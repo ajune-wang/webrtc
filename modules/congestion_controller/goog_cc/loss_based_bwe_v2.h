@@ -117,6 +117,8 @@ class LossBasedBweV2 {
     bool use_in_start_phase = false;
     int min_num_observations = 0;
     double lower_bound_by_acked_rate_factor = 0.0;
+    bool use_padding_for_increase = false;
+    bool store_bounded_estimate_as_current_best_in_alr = false;
   };
 
   struct Derivatives {
@@ -166,7 +168,7 @@ class LossBasedBweV2 {
 
   // Returns false if no observation was created.
   bool PushBackObservation(rtc::ArrayView<const PacketResult> packet_results);
-  void UpdateResult();
+  void UpdateResult(bool in_alr);
   bool IsEstimateIncreasingWhenLossLimited(DataRate old_estimate,
                                            DataRate new_estimate);
   bool IsInLossLimitedState() const;

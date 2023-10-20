@@ -18,6 +18,7 @@
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/explicit_key_value_config.h"
 #include "test/gtest.h"
@@ -1366,6 +1367,30 @@ TEST_F(LossBasedBweV2Test, HasIncreaseStateBecauseOfLowerBound) {
       DataRate::KilobitsPerSec(200) * 10);
   EXPECT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
             LossBasedState::kIncreasing);
+}
+
+TEST_F(LossBasedBweV2Test, IncreaseUsingPaddingStateIfFieldTrial) {
+  ExplicitKeyValueConfig key_value_config(
+      ShortObservationConfig("UsePadding:true"));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  loss_based_bandwidth_estimator.SetBandwidthEstimate(
+      DataRate::KilobitsPerSec(2500));
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      CreatePacketResultsWith50pLossRate(
+          /*first_packet_timestamp=*/Timestamp::Zero()),
+      /*delay_based_estimate=*/DataRate::PlusInfinity(),
+      /*in_alr=*/false);
+  ASSERT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
+            LossBasedState::kDecreasing);
+
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      CreatePacketResultsWithReceivedPackets(
+          /*first_packet_timestamp=*/Timestamp::Zero() +
+          kObservationDurationLowerBound),
+      /*delay_based_estimate=*/DataRate::PlusInfinity(),
+      /*in_alr=*/false);
+  EXPECT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
+            LossBasedState::kIncreaseUsingPadding);
 }
 
 }  // namespace

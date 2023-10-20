@@ -312,6 +312,8 @@ class ChannelReceive : public ChannelReceiveInterface,
   mutable Mutex rtcp_counter_mutex_;
   RtcpPacketTypeCounter rtcp_packet_type_counter_
       RTC_GUARDED_BY(rtcp_counter_mutex_);
+
+  std::map<int, SdpAudioFormat> payload_type_map_;
 };
 
 void ChannelReceive::OnReceivedPayloadData(
@@ -636,6 +638,7 @@ void ChannelReceive::SetReceiveCodecs(
     RTC_DCHECK_GE(kv.second.clockrate_hz, 1000);
     payload_type_frequencies_[kv.first] = kv.second.clockrate_hz;
   }
+  payload_type_map_ = codecs;
   acm_receiver_.SetCodecs(codecs);
 }
 
@@ -722,7 +725,12 @@ void ChannelReceive::ReceivePacket(const uint8_t* packet,
   if (frame_transformer_delegate_) {
     // Asynchronously transform the received payload. After the payload is
     // transformed, the delegate will call OnReceivedPayloadData to handle it.
-    frame_transformer_delegate_->Transform(payload_data, header, remote_ssrc_);
+    auto it = payload_type_map_.find(header.payloadType);
+    const std::string mime_type =
+        MediaTypeToString(cricket::MEDIA_TYPE_AUDIO) + "/" +
+        (it != payload_type_map_.end() ? it->second.name : "x-unknown");
+    frame_transformer_delegate_->Transform(payload_data, header, remote_ssrc_,
+                                           mime_type);
   } else {
     OnReceivedPayloadData(payload_data, header);
   }

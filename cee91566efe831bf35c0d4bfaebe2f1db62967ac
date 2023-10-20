@@ -33,6 +33,40 @@
       "message": "change 3/3",
       "revId": "cee91566efe831bf35c0d4bfaebe2f1db62967ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ae09f3_00170af2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-20T22:09:01Z",
+      "side": 1,
+      "message": "last time I thought about it it looked like a good idea. this change is a good example how that avoids unnecessary invoke on another TQ.\n\nI\u0027m slightly worried that helpers have many factories now with similar functionality. may be some of them can be merged. may be default parameter would be cleaner. Will take a better look on Monday.",
+      "revId": "cee91566efe831bf35c0d4bfaebe2f1db62967ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fbaedf0_59dabb49",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-20T22:09:01Z",
+      "side": 1,
+      "message": "call_ !\u003d nullptr\nI think easier to read\nalso usually helpful to remind the meaning of a Boolean parameter: `/*alive\u003d*/call_ !\u003d nullptr`",
+      "revId": "cee91566efe831bf35c0d4bfaebe2f1db62967ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

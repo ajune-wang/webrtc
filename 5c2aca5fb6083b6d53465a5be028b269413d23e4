@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa347914_ac0a244d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-20T09:27:56Z",
+      "side": 1,
+      "message": "Ptal. Will do a separate cl for adding a candidate with the instant upper bound in alr.",
+      "revId": "5c2aca5fb6083b6d53465a5be028b269413d23e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

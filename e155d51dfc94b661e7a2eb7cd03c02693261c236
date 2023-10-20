@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "458642cc_69a1136c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-20T09:27:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "40bbdd81_9446b75d",
+      "range": {
+        "startLine": 325,
+        "startChar": 4,
+        "endLine": 325,
+        "endChar": 79
+      },
+      "revId": "e155d51dfc94b661e7a2eb7cd03c02693261c236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcbe1939_a6f782ba",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-10-20T08:14:26Z",
       "side": 1,
       "message": "You need to replace the state here too: state \u003d\u003d kIncreasing or state \u003d\u003d kIncreaseUsingPadding.",
+      "range": {
+        "startLine": 347,
+        "startChar": 39,
+        "endLine": 347,
+        "endChar": 66
+      },
+      "revId": "e155d51dfc94b661e7a2eb7cd03c02693261c236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "841a2fe6_4f234ad3",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-20T09:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcbe1939_a6f782ba",
       "range": {
         "startLine": 347,
         "startChar": 39,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f38450_9b3de852",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-20T09:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46d6f72e_fbff15d8",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "e155d51dfc94b661e7a2eb7cd03c02693261c236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d512385_45ae3bcb",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-10-20T08:14:26Z",
       "side": 1,
       "message": "Why dont you move it into the for loop?",
+      "range": {
+        "startLine": 1414,
+        "startChar": 2,
+        "endLine": 1414,
+        "endChar": 25
+      },
+      "revId": "e155d51dfc94b661e7a2eb7cd03c02693261c236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da68692d_8ce919f8",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-20T09:27:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1d512385_45ae3bcb",
       "range": {
         "startLine": 1414,
         "startChar": 2,

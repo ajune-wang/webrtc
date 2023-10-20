@@ -48,6 +48,8 @@ class RTC_LOCKABLE SequenceChecker
 
   explicit SequenceChecker(InitialState initial_state = kAttached)
       : Impl(initial_state) {}
+  explicit SequenceChecker(TaskQueueBase* attached_queue)
+      : Impl(attached_queue) {}
 
   // Returns true if sequence checker is attached to the current sequence.
   bool IsCurrent() const { return Impl::IsCurrent(); }

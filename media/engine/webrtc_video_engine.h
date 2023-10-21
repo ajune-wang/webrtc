@@ -252,8 +252,6 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
     ADAPTREASON_BANDWIDTH = 2,
   };
 
-  static constexpr int kDefaultQpMax = 56;
-
   // Implements webrtc::EncoderSwitchRequestCallback.
   void RequestEncoderFallback() override;
   void RequestEncoderSwitch(const webrtc::SdpVideoFormat& format,

@@ -29,6 +29,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "api/video_codecs/video_encoder_software_fallback_wrapper.h"
+#include "media/base/media_constants.h"
 #include "media/base/video_common.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
@@ -39,7 +40,6 @@
 namespace {
 
 const unsigned int kDefaultMinQp = 2;
-const unsigned int kDefaultMaxQp = 56;
 // Max qp for lowest spatial resolution when doing simulcast.
 const unsigned int kLowestResMaxQp = 45;
 
@@ -329,7 +329,7 @@ int SimulcastEncoderAdapter::InitEncode(
 
   // TODO(ronghuawu): Remove once this is handled in LibvpxVp8Encoder.
   if (codec_.qpMax < kDefaultMinQp) {
-    codec_.qpMax = kDefaultMaxQp;
+    codec_.qpMax = cricket::kDefaultVideoMaxQp;
   }
 
   bool is_legacy_singlecast = codec_.numberOfSimulcastStreams == 0;

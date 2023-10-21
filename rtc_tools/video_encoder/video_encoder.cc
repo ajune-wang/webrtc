@@ -16,6 +16,7 @@
 #include "api/test/frame_generator_interface.h"
 #include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
+#include "media/base/media_constants.h"
 #include "modules/video_coding/codecs/av1/av1_svc_config.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
@@ -71,9 +72,6 @@ ABSL_FLAG(bool, verbose, false, "Verbose logs to stderr");
 
 namespace webrtc {
 namespace {
-
-// See `WebRtcVideoSendChannel::kDefaultQpMax`.
-constexpr unsigned int kDefaultQpMax = 56;
 
 [[maybe_unused]] const char* InterLayerPredModeToString(
     const InterLayerPredMode& inter_layer_pred_mode) {
@@ -257,7 +255,7 @@ class TestVideoEncoderFactoryWrapper final {
 
     video_codec.active = true;
 
-    video_codec.qpMax = kDefaultQpMax;
+    video_codec.qpMax = cricket::kDefaultVideoMaxQp;
 
     // Simulcast is not implemented at this moment.
     video_codec.numberOfSimulcastStreams = 0;

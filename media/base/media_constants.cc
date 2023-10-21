@@ -127,6 +127,7 @@ const char kH265FmtpTxMode[] = "tx-mode";
 const char kVP9ProfileId[] = "profile-id";
 
 const int kDefaultVideoMaxFramerate = 60;
+const int kDefaultVideoMaxQp = 56;
 
 const size_t kConferenceMaxNumSpatialLayers = 3;
 const size_t kConferenceMaxNumTemporalLayers = 3;

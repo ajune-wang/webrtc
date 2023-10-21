@@ -1054,7 +1054,10 @@ if (rtc_include_tests) {
   rtc_library("video_codec_tester_api") {
     visibility = [ "*" ]
     testonly = true
-    sources = [ "test/video_codec_tester.h" ]
+    sources = [
+      "test/video_codec_tester.cc",
+      "test/video_codec_tester.h",
+    ]
     deps = [
       ":video_codec_stats_api",
       "../modules/video_coding/svc:scalability_mode_util",

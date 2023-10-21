@@ -205,6 +205,14 @@ std::vector<SpatialLayer> GetVp9SvcConfig(VideoCodec& codec) {
 
   spatial_layers[0].minBitrate = kMinVp9SvcBitrateKbps;
 
+  // Use codec bitrate limits if spatial layering is not requested.
+  if (codec.numberOfSimulcastStreams <= 1 &&
+      ScalabilityModeToNumSpatialLayers(*scalability_mode) == 1) {
+    spatial_layers.back().minBitrate = codec.minBitrate;
+    spatial_layers.back().targetBitrate = codec.maxBitrate;
+    spatial_layers.back().maxBitrate = codec.maxBitrate;
+  }
+
   return spatial_layers;
 }
 

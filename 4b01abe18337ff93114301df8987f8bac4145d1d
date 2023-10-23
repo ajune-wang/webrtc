@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fadff9d_6c17c7c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-23T08:33:20Z",
+      "side": 1,
+      "message": "LGTM % comments",
+      "revId": "4b01abe18337ff93114301df8987f8bac4145d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "370181e3_aa60b608",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-23T08:33:20Z",
+      "side": 1,
+      "message": "Unintended change?",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 37
+      },
+      "revId": "4b01abe18337ff93114301df8987f8bac4145d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3830b8d9_e5f0e050",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-23T08:33:20Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 124,
+        "startChar": 6,
+        "endLine": 124,
+        "endChar": 36
+      },
+      "revId": "4b01abe18337ff93114301df8987f8bac4145d1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

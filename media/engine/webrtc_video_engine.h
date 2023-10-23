@@ -252,6 +252,8 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
     ADAPTREASON_BANDWIDTH = 2,
   };
 
+  // TODO(webrtc:14852): Update downstream projects to use
+  // cricket::kDefaultVideoMaxQp and remove.
   static constexpr int kDefaultQpMax = 56;
 
   // Implements webrtc::EncoderSwitchRequestCallback.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24a2d5c_8825fd73",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-10-23T11:11:59Z",
+      "side": 0,
+      "message": "This code is dated back to 2014. Prod default qpMax is 56/51 now. A value \u003c2 can be configured via \"x-google-max-quantization\" parameter. In that case it is app responsibility to set sane value.",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 3
+      },
+      "revId": "683db76c0f6c6dc83b31bc1e6a285722d0c8c6a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

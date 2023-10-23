@@ -2236,7 +2236,14 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   // Ensure frame dropping is always enabled.
   encoder_config.frame_drop_enabled = true;
 
-  int max_qp = kDefaultQpMax;
+  int max_qp;
+  if (encoder_config.codec_type == webrtc::kVideoCodecH264 ||
+      encoder_config.codec_type == webrtc::kVideoCodecH265) {
+    max_qp = kDefaultVideoMaxQpH26x;
+  } else {
+    max_qp = kDefaultVideoMaxQpVpx;
+  }
+
   codec.GetParam(kCodecParamMaxQuantization, &max_qp);
   encoder_config.max_qp = max_qp;
 

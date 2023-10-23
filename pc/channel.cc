@@ -848,6 +848,7 @@ void VoiceChannel::InitCallback() {
   RTC_DCHECK_RUN_ON(worker_thread());
   // TODO(bugs.webrtc.org/13931): Remove when values are set
   // in a more sensible fashion
+  /*
   send_channel()->SetSendCodecChangedCallback([this]() {
     RTC_DCHECK_RUN_ON(worker_thread());
     // Adjust receive streams based on send codec.
@@ -856,6 +857,7 @@ void VoiceChannel::InitCallback() {
     receive_channel()->SetReceiveNonSenderRttEnabled(
         send_channel()->SenderNonSenderRttEnabled());
   });
+  */
 }
 void VoiceChannel::UpdateMediaSendRecvState_w() {
   // Render incoming data if we're the active call, and we have the local

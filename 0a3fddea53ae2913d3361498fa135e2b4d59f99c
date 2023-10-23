@@ -87,6 +87,30 @@
       },
       "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7869e8b5_7fc17f26",
+        "filename": "modules/desktop_capture/win/wgc_capture_source.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-10-23T07:52:12Z",
+      "side": 1,
+      "message": "Fixed in https://webrtc-review.googlesource.com/c/src/+/324305",
+      "parentUuid": "bd4799ed_09419084",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 69
+      },
+      "revId": "0a3fddea53ae2913d3361498fa135e2b4d59f99c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

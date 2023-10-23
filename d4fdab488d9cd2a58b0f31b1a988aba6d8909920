@@ -16,6 +16,24 @@
       "message": "Hi Danil - here\u0027s change 1/3 which ends up removing one BlockingCall(). However since the first two steps affect widely used classes I figured I\u0027d land those two changes separately from the eventual change that removes the blocking call.",
       "revId": "d4fdab488d9cd2a58b0f31b1a988aba6d8909920",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfab0f8e_c328b14d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T08:45:32Z",
+      "side": 1,
+      "message": "Thank you! I welcome small changes.\nhttps://google.github.io/eng-practices/review/developer/small-cls.html",
+      "parentUuid": "43b42e2c_108309df",
+      "revId": "d4fdab488d9cd2a58b0f31b1a988aba6d8909920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3682d20e_092965b8",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T08:45:32Z",
+      "side": 1,
+      "message": "May be add a TODO to remove some duplication in the api:\n\nSequenceChecker(kAttached) now has [almost] the same behavior as SequenceChecker(TaskQueueBase::Current());\nand\nSequencChecker(kDetached) has the same behavior as SequenceChecker(nullptr);\n\nso having 2 constructors\nSequenceChecker() (with documentation comment it attaches to current TQ by default)\nSequenceChecker(TQ* ) \nmight be simpler.\n\nIn theory it would be even simpler to have one constructor\nSequenceChecker(TQ* tq \u003d TaskQueueBase::Current()) \nbut then the current TQ accessor would be called in release mode too, making SequenceCheck non-free.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 31
+      },
+      "revId": "6b5d60deaa63dff9c635ed0f9cb7ac12669591f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

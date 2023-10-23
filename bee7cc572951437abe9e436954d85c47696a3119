@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1da393_8c8f9b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-23T12:21:47Z",
+      "side": 1,
+      "message": "Follow-up to the previous CL. This one will be landable after some downstream changes land, but ready for review.",
+      "revId": "bee7cc572951437abe9e436954d85c47696a3119",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

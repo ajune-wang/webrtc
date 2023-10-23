@@ -21,6 +21,15 @@ rtc::scoped_refptr<PendingTaskSafetyFlag> PendingTaskSafetyFlag::CreateInternal(
 }
 
 // static
+rtc::scoped_refptr<PendingTaskSafetyFlag> PendingTaskSafetyFlag::CreateInternal(
+    bool alive,
+    TaskQueueBase* attached_queue) {
+  // Explicit new, to access private constructor.
+  return rtc::scoped_refptr<PendingTaskSafetyFlag>(
+      new PendingTaskSafetyFlag(alive, attached_queue));
+}
+
+// static
 rtc::scoped_refptr<PendingTaskSafetyFlag> PendingTaskSafetyFlag::Create() {
   return CreateInternal(true);
 }
@@ -30,6 +39,15 @@ PendingTaskSafetyFlag::CreateDetached() {
   rtc::scoped_refptr<PendingTaskSafetyFlag> safety_flag = CreateInternal(true);
   safety_flag->main_sequence_.Detach();
   return safety_flag;
+}
+
+// Creates a flag, but with its SequenceChecker explicitly initialized for
+// a given task queue and the `alive()` flag specified.
+rtc::scoped_refptr<PendingTaskSafetyFlag>
+PendingTaskSafetyFlag::CreateAttachedToTaskQueue(
+    bool alive,
+    TaskQueueBase* attached_queue) {
+  return CreateInternal(alive, attached_queue);
 }
 
 rtc::scoped_refptr<PendingTaskSafetyFlag>

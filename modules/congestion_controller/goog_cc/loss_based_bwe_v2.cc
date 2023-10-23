@@ -37,6 +37,10 @@ namespace {
 
 constexpr TimeDelta kInitHoldDuration = TimeDelta::Millis(300);
 constexpr TimeDelta kPaddingDuration = TimeDelta::Millis(1000);
+<<<<<<< PATCH SET (87322f Add max hold duration as 1 minute to make sure loss based BW)
+constexpr TimeDelta kMaxHoldDuration = TimeDelta::Seconds(60);
+=======
+>>>>>>> BASE      (36d5d5 Add 1s as padding duration limit in loss based BWE.)
 
 bool IsValid(DataRate datarate) {
   return datarate.IsFinite();
@@ -358,7 +362,7 @@ void LossBasedBweV2::UpdateResult() {
                        << ", duration: " << hold_duration_.seconds();
       last_hold_timestamp_ =
           last_send_time_most_recent_observation_ + hold_duration_;
-      hold_duration_ = hold_duration_ * config_->hold_duration_factor;
+      hold_duration_ = std::min(kMaxHoldDuration, hold_duration_ * config_->hold_duration_factor);
     }
     loss_based_result_.state = LossBasedState::kDecreasing;
   } else {

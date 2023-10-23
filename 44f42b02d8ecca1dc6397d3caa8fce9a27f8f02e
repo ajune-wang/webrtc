@@ -56,6 +56,30 @@
       },
       "revId": "44f42b02d8ecca1dc6397d3caa8fce9a27f8f02e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db490a9_2cfb15a5",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-10-23T15:14:37Z",
+      "side": 1,
+      "message": "Yes, switch would be better. If someone adds a new codec they will have to update this place.",
+      "parentUuid": "714a9910_2b2700f2",
+      "range": {
+        "startLine": 2240,
+        "startChar": 2,
+        "endLine": 2240,
+        "endChar": 4
+      },
+      "revId": "44f42b02d8ecca1dc6397d3caa8fce9a27f8f02e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

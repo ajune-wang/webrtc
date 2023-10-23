@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef924b84_66bd7ac1",
+        "filename": "api/task_queue/pending_task_safety_flag.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T09:21:43Z",
+      "side": 1,
+      "message": "why have this extra function?\nFactory function has access to the private constructor, so can use the implementation directly",
+      "range": {
+        "startLine": 24,
+        "startChar": 65,
+        "endLine": 24,
+        "endChar": 79
+      },
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4673899c_b245c0c7",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T09:21:43Z",
+      "side": 1,
+      "message": "May be change implementation of this function to be inlined using the new factory. With intent to deprecated and use more detailed factory function directly.\n\nCreateDetached() {\nreturn CreateAttachedToTaskQueue(/*attached_queue\u003d*/nullptr, /*alive\u003d*/true); }\n\nCreateDetachedInactive() {\nreturn CreateAttachedToTaskQueue(/*attached_queue\u003d*/nullptr, /*alive\u003d*/false); }\n\n\nLess functions in api - easier to find the right one.",
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4173cbc9_5327862a",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T09:21:43Z",
+      "side": 1,
+      "message": "This look like most universal factory - it can replace all other factories.\nMay be call it just \u0027Create\u0027",
+      "range": {
+        "startLine": 73,
+        "startChar": 51,
+        "endLine": 73,
+        "endChar": 76
+      },
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbea4997_981af983",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T09:21:43Z",
+      "side": 1,
+      "message": "I think longer term it would be cleaner to leave 2 or factories:\n\n// Create Attached to current task queue\nCreate(bool alive);\n// Create detached or attached to specified task queue.\nCreate(bool alive, TaskQueue* attacked_queue);\n\nAlternative 1-function iterface that merge them both is\nCreate(bool alive \u003d true, TaskQueue* attached_queue \u003d TaskQueueBase::Current()));\n\nFrom that point of view it feels like the order of the parameters better be reverse.",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

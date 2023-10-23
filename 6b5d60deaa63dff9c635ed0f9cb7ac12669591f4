@@ -22,6 +22,29 @@
       },
       "revId": "6b5d60deaa63dff9c635ed0f9cb7ac12669591f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9acb093_2ecab2be",
+        "filename": "rtc_base/synchronization/sequence_checker_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-23T08:49:00Z",
+      "side": 1,
+      "message": "I wonder if in long term calls to `Detach` should also be cleaned up in favor of explicitly specifying attached TQ in the constructor.\nThough... that is likely a different effort.",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 13
+      },
+      "revId": "6b5d60deaa63dff9c635ed0f9cb7ac12669591f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

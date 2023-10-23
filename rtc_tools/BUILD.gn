@@ -430,7 +430,12 @@ if (!build_with_chromium) {
         "rtc_event_log_visualizer/analyzer_bindings.cc",
         "rtc_event_log_visualizer/analyzer_bindings.h",
       ]
-      deps = [ ":event_log_visualizer_utils" ]
+      deps = [
+        ":event_log_visualizer_utils",
+        "../logging:rtc_event_log_parser",
+        "../rtc_base:protobuf_utils",
+      ]
+      absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
     }
   }
 

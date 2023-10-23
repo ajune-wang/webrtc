@@ -13,7 +13,7 @@
 
 #include <cstddef>
 
-void analyze_rtc_event_log(const char* log,
+void analyze_rtc_event_log(const char* log_contents,
                            size_t log_size,
                            const char* selection,
                            size_t selection_size,

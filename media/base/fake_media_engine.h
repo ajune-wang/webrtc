@@ -574,8 +574,6 @@ class FakeVoiceMediaSendChannel
   void SetReceiveNackEnabled(bool enabled) {}
   void SetReceiveNonSenderRttEnabled(bool enabled) {}
   bool SendCodecHasNack() const override { return false; }
-  void SetSendCodecChangedCallback(
-      absl::AnyInvocable<void()> callback) override {}
   absl::optional<Codec> GetSendCodec() const override;
 
   bool GetStats(VoiceMediaSendInfo* stats) override;
@@ -736,8 +734,6 @@ class FakeVideoMediaSendChannel
   webrtc::RtcpMode SendCodecRtcpMode() const override {
     return webrtc::RtcpMode::kCompound;
   }
-  void SetSendCodecChangedCallback(
-      absl::AnyInvocable<void()> callback) override {}
   void SetSsrcListChangedCallback(
       absl::AnyInvocable<void(const std::set<uint32_t>&)> callback) override {}
 

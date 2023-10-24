@@ -2706,12 +2706,6 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
              receive_channel_.get()](const std::set<uint32_t>& choices) {
           receive_channel->ChooseReceiverReportSsrc(choices);
         });
-    send_channel_->SetSendCodecChangedCallback([this]() {
-      receive_channel_->SetReceiverFeedbackParameters(
-          send_channel_->SendCodecHasLntf(), send_channel_->SendCodecHasNack(),
-          send_channel_->SendCodecRtcpMode(),
-          send_channel_->SendCodecRtxTime());
-    });
     send_channel_->OnReadyToSend(true);
     receive_channel_->SetReceive(true);
     last_ssrc_ = 123;

@@ -248,14 +248,6 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
              receive_channel_.get()](const std::set<uint32_t>& choices) {
           receive_channel->ChooseReceiverReportSsrc(choices);
         });
-    send_channel_->SetSendCodecChangedCallback(
-        [receive_channel = receive_channel_.get(),
-         send_channel = send_channel_.get()]() {
-          receive_channel->SetReceiveNackEnabled(
-              send_channel->SendCodecHasNack());
-          receive_channel->SetReceiveNonSenderRttEnabled(
-              send_channel->SenderNonSenderRttEnabled());
-        });
     return true;
   }
 

@@ -1269,11 +1269,6 @@ bool WebRtcVideoSendChannel::ApplyChangedParams(
   for (auto& kv : send_streams_) {
     kv.second->SetSenderParameters(changed_params);
   }
-  if (changed_params.send_codec || changed_params.rtcp_mode) {
-    if (send_codec_changed_callback_) {
-      send_codec_changed_callback_();
-    }
-  }
   return true;
 }
 

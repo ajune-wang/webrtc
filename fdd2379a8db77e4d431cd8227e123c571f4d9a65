@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9281fce2_0bb4ab10",
+        "filename": "sdk/android/api/org/webrtc/RenderSynchronizer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-24T13:58:03Z",
+      "side": 1,
+      "message": "Done. The lock is now only protecting the logic that decides when to start/stop listening to Choreographer. In terms of variables this strictly only means `isListening`",
+      "parentUuid": "3258b751_337e81b0",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "fdd2379a8db77e4d431cd8227e123c571f4d9a65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9bb3181_d82b47d8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-24T13:00:04Z",
       "side": 1,
       "message": "Instead of making a copy for each open/close of the render window, would it be appropriate to use a `CopyOnWriteArrayList`. This variable should match the case of “traversal operations vastly outnumber mutations”, no? And you could probably skip having a lock as well.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 5
+      },
+      "revId": "fdd2379a8db77e4d431cd8227e123c571f4d9a65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8725353a_a32d9e39",
+        "filename": "sdk/android/api/org/webrtc/RenderSynchronizer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-24T13:58:03Z",
+      "side": 1,
+      "message": "Thank you, this was exactly what I was looking for! Keeping the lock to guard the logic that decides when to start/stop listening to Choreographer.",
+      "parentUuid": "d9bb3181_d82b47d8",
       "range": {
         "startLine": 112,
         "startChar": 0,

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b589f278_d6b9a658",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-10-24T08:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6cad887_d0316423",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "36d5d5073371412645bea23a5e3f0fdc076cb300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb4c2add_e52b1e5c",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16061a3a_039f7599",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-10-24T08:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb4c2add_e52b1e5c",
+      "range": {
+        "startLine": 342,
+        "startChar": 8,
+        "endLine": 342,
+        "endChar": 34
+      },
+      "revId": "36d5d5073371412645bea23a5e3f0fdc076cb300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e4a7e98_fd9b0462",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-10-24T06:23:11Z",
       "side": 1,
       "message": "Suggest CanKeepIncreasingState since   \nloss_based_result_.state !\u003d LossBasedState::kIncreaseUsingPadding)\n    return true;",
+      "range": {
+        "startLine": 1087,
+        "startChar": 21,
+        "endLine": 1087,
+        "endChar": 46
+      },
+      "revId": "36d5d5073371412645bea23a5e3f0fdc076cb300",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da133d82_789fa753",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-10-24T08:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e4a7e98_fd9b0462",
       "range": {
         "startLine": 1087,
         "startChar": 21,

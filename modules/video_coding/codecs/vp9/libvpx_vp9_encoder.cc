@@ -1108,6 +1108,7 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
               ? performance_flags_by_spatial_index_[sl_idx].base_layer_speed
               : performance_flags_by_spatial_index_[sl_idx].high_layer_speed;
       if (svc_params_.speed_per_layer[sl_idx] != target_speed) {
+        // RTC_LOG(LS_INFO) << "cpuused " << target_speed;
         svc_params_.speed_per_layer[sl_idx] = target_speed;
         speed_updated = true;
       }

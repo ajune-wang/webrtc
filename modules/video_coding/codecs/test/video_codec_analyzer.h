@@ -21,6 +21,7 @@
 #include "api/video/resolution.h"
 #include "api/video/video_frame.h"
 #include "modules/video_coding/codecs/test/video_codec_stats_impl.h"
+#include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue_for_test.h"
 
@@ -43,9 +44,12 @@ class VideoCodecAnalyzer {
   explicit VideoCodecAnalyzer(
       ReferenceVideoSource* reference_video_source = nullptr);
 
-  void StartEncode(const VideoFrame& frame);
+  void StartEncode(
+      const VideoFrame& frame,
+      absl::optional<VideoCodecTester::EncodingSettings> encoding_settings);
 
-  void FinishEncode(const EncodedImage& frame);
+  void FinishEncode(const EncodedImage& frame,
+                    absl::optional<CodecSpecificInfo> codec_specific_info);
 
   void StartDecode(const EncodedImage& frame);
 

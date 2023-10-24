@@ -118,8 +118,8 @@ class LossBasedBweV2 {
     bool use_in_start_phase = false;
     int min_num_observations = 0;
     double lower_bound_by_acked_rate_factor = 0.0;
-    bool use_padding_for_increase = false;
     double hold_duration_factor = 0.0;
+    TimeDelta padding_duration = TimeDelta::Zero();
   };
 
   struct Derivatives {
@@ -141,6 +141,11 @@ class LossBasedBweV2 {
     int num_packets = 0;
     int num_lost_packets = 0;
     DataSize size = DataSize::Zero();
+  };
+
+  struct PaddingInfo {
+    DataRate padding_rate = DataRate::MinusInfinity();
+    Timestamp padding_timestamp = Timestamp::MinusInfinity();
   };
 
   static absl::optional<Config> CreateConfig(
@@ -173,6 +178,7 @@ class LossBasedBweV2 {
   bool IsEstimateIncreasingWhenLossLimited(DataRate old_estimate,
                                            DataRate new_estimate);
   bool IsInLossLimitedState() const;
+  bool CanKeepIncreasingState(DataRate estimate) const;
 
   absl::optional<DataRate> acknowledged_bitrate_;
   absl::optional<Config> config_;
@@ -194,6 +200,7 @@ class LossBasedBweV2 {
   LossBasedBweV2::Result loss_based_result_ = LossBasedBweV2::Result();
   Timestamp last_hold_timestamp_ = Timestamp::MinusInfinity();
   TimeDelta hold_duration_ = TimeDelta::Zero();
+  PaddingInfo last_padding_info_ = PaddingInfo();
 };
 
 }  // namespace webrtc

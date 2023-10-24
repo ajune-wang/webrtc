@@ -1004,8 +1004,9 @@ void VideoReceiveStream2::UpdatePlayoutDelays() const {
     timing_->set_min_playout_delay(*minimum_delay);
     if (frame_minimum_playout_delay_ == TimeDelta::Zero() &&
         frame_maximum_playout_delay_ > TimeDelta::Zero()) {
-      // TODO(kron): Estimate frame rate from video stream.
-      constexpr Frequency kFrameRate = Frequency::Hertz(60);
+      VideoReceiveStream2::Stats stats = stats_proxy_.GetStats();
+      int decode_frame_rate = stats.decode_frame_rate;
+      constexpr Frequency kFrameRate = Frequency::Hertz(decode_frame_rate);
       // Convert playout delay in ms to number of frames.
       int max_composition_delay_in_frames =
           std::lrint(*frame_maximum_playout_delay_ * kFrameRate);

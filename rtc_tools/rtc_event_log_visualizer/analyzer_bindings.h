@@ -13,11 +13,11 @@
 
 #include <cstddef>
 
-void analyze_rtc_event_log(const char* log,
+void analyze_rtc_event_log(const char* log_contents,
                            size_t log_size,
                            const char* selection,
                            size_t selection_size,
                            char* output,
-                           size_t* output_size);
+                           int* output_size);
 
 #endif  // RTC_TOOLS_RTC_EVENT_LOG_VISUALIZER_ANALYZER_BINDINGS_H_

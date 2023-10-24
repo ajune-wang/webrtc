@@ -1,0 +1,60 @@
+/*
+ *  Copyright (c) 2023 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.h"
+
+#include <string>
+#include <vector>
+
+#include "rtc_base/system/file_wrapper.h"
+#include "rtc_tools/rtc_event_log_visualizer/proto/chart.pb.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
+#include "test/testsupport/file_utils.h"
+
+TEST(RtcEventLogAnalyzerBindingsTest, ProducesCharts) {
+  constexpr int kInputBufferSize = 1'000'000;
+  constexpr int kOutputBufferSize = 1'000'000;
+  char input[kInputBufferSize];
+  char output[kOutputBufferSize];
+
+  // Read an RTC event log to a char buffer.
+  std::string file_name = webrtc::test::ResourcePath(
+      "rtc_event_log/rtc_event_log_500kbps", "binarypb");
+  webrtc::FileWrapper file = webrtc::FileWrapper::OpenReadOnly(file_name);
+  ASSERT_TRUE(file.is_open());
+  int64_t file_size = file.FileSize();
+  ASSERT_LE(file_size, kInputBufferSize);
+  ASSERT_GT(file_size, 0);
+  size_t input_size = file.Read(input, static_cast<size_t>(file_size));
+  ASSERT_EQ(static_cast<size_t>(file_size), input_size);
+
+  // Call analyzer.
+  int output_size = kOutputBufferSize;
+  char* selection = nullptr;
+  size_t selection_size = 0;
+  analyze_rtc_event_log(input, input_size, selection, selection_size, output,
+                        &output_size);
+  ASSERT_GT(output_size, 0);
+
+  // Parse output as charts.
+  webrtc::analytics::ChartCollection collection;
+  bool success = collection.ParseFromArray(output, output_size);
+  ASSERT_TRUE(success);
+  EXPECT_EQ(collection.charts().size(), 2);
+  std::vector<std::string> chart_titles;
+  for (const auto& chart : collection.charts()) {
+    chart_titles.push_back(chart.title());
+  }
+  EXPECT_THAT(chart_titles,
+              ::testing::UnorderedElementsAre(
+                  "Outgoing RTP bitrate",
+                  "Outgoing network delay (based on per-packet feedback)"));
+}

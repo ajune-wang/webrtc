@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbff1fc0_32ca3816",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-24T14:38:06Z",
+      "side": 1,
+      "message": "The following are missing:\n\n```\n#include \"absl/strings/string_view.h\"\n#include \"api/units/time_delta.h\"\n#include \"logging/rtc_event_log/rtc_event_log_parser.h\"\n#include \"rtc_tools/rtc_event_log_visualizer/analyzer.h\"\n#include \"rtc_tools/rtc_event_log_visualizer/analyzer_common.h\"\n#include \"rtc_tools/rtc_event_log_visualizer/plot_base.h\"\n```",
+      "revId": "52d69e8bc54115d0f1f25621a038ff121cdc712f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6552d422_b164109b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-24T14:38:06Z",
+      "side": 1,
+      "message": "I think it is better to use `uint32_t`. Since these are bindings it make sense to be sure about the number of bits.\n\nUnsigned to avoid bugs on negative values (for errors we need to add a change API).",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "52d69e8bc54115d0f1f25621a038ff121cdc712f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

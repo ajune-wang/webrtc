@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "441d4056_b879ceff",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-10-24T15:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbff1fc0_32ca3816",
+      "revId": "52d69e8bc54115d0f1f25621a038ff121cdc712f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ad63060_b0b896a1",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ffe857_2c11e2be",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-10-24T15:39:41Z",
+      "side": 1,
+      "message": "Done, but probably not needed",
+      "parentUuid": "3ad63060_b0b896a1",
+      "revId": "52d69e8bc54115d0f1f25621a038ff121cdc712f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6552d422_b164109b",
@@ -48,6 +84,30 @@
       "writtenOn": "2023-10-24T14:38:06Z",
       "side": 1,
       "message": "I think it is better to use `uint32_t`. Since these are bindings it make sense to be sure about the number of bits.\n\nUnsigned to avoid bugs on negative values (for errors we need to add a change API).",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "52d69e8bc54115d0f1f25621a038ff121cdc712f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fef71a4_9c826305",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2023-10-24T15:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6552d422_b164109b",
       "range": {
         "startLine": 21,
         "startChar": 27,

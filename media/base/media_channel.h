@@ -253,9 +253,6 @@ class MediaSendChannelInterface {
   // Called whenever the list of sending SSRCs changes.
   virtual void SetSsrcListChangedCallback(
       absl::AnyInvocable<void(const std::set<uint32_t>&)> callback) = 0;
-  // TODO(bugs.webrtc.org/13931): Remove when configuration is more sensible
-  virtual void SetSendCodecChangedCallback(
-      absl::AnyInvocable<void()> callback) = 0;
 };
 
 class MediaReceiveChannelInterface {

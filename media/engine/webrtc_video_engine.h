@@ -225,11 +225,6 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
                           webrtc::VideoEncoderFactory::EncoderSelectorInterface*
                               encoder_selector) override;
 
-  void SetSendCodecChangedCallback(
-      absl::AnyInvocable<void()> callback) override {
-    send_codec_changed_callback_ = std::move(callback);
-  }
-
   void SetSsrcListChangedCallback(
       absl::AnyInvocable<void(const std::set<uint32_t>&)> callback) override {
     ssrc_list_changed_callback_ = std::move(callback);
@@ -554,9 +549,6 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
   // codec.
   webrtc::VideoReceiveStreamInterface::Config::Rtp rtp_config_;
 
-  // Callback invoked whenever the send codec changes.
-  // TODO(bugs.webrtc.org/13931): Remove again when coupling isn't needed.
-  absl::AnyInvocable<void()> send_codec_changed_callback_;
   // Callback invoked whenever the list of SSRCs changes.
   absl::AnyInvocable<void(const std::set<uint32_t>&)>
       ssrc_list_changed_callback_;

@@ -1476,11 +1476,6 @@ bool WebRtcVoiceSendChannel::SetSendCodecs(
   call_->GetTransportControllerSend()->SetSdpBitrateParameters(bitrate_config);
 
   send_codecs_ = codecs;
-
-  if (send_codec_changed_callback_) {
-    send_codec_changed_callback_();
-  }
-
   return true;
 }
 

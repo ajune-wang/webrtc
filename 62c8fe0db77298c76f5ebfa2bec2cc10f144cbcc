@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ec2fab_10d7f15e",
+        "filename": "api/task_queue/pending_task_safety_flag.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-24T21:45:56Z",
+      "side": 1,
+      "message": "Removed. I guess it was a leftover when I was thinking about having a more universal, internal, create function. Not necessary now though.",
+      "parentUuid": "ef924b84_66bd7ac1",
+      "range": {
+        "startLine": 24,
+        "startChar": 65,
+        "endLine": 24,
+        "endChar": 79
+      },
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4673899c_b245c0c7",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-10-23T09:21:43Z",
       "side": 1,
       "message": "May be change implementation of this function to be inlined using the new factory. With intent to deprecated and use more detailed factory function directly.\n\nCreateDetached() {\nreturn CreateAttachedToTaskQueue(/*attached_queue\u003d*/nullptr, /*alive\u003d*/true); }\n\nCreateDetachedInactive() {\nreturn CreateAttachedToTaskQueue(/*attached_queue\u003d*/nullptr, /*alive\u003d*/false); }\n\n\nLess functions in api - easier to find the right one.",
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34aab65_34e31577",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-24T21:45:56Z",
+      "side": 1,
+      "message": "Fewer functions would be better but it feels a bit strange to call CreateAttachedXyz() from CreateDetached(). hmm\nWdyt if I were to add a DCHECK to CreateAttachedToTaskQueue() that the queue can never be null?",
+      "parentUuid": "4673899c_b245c0c7",
       "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -66,6 +108,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f982999d_b8f4d4e2",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-24T21:45:56Z",
+      "side": 1,
+      "message": "As is, since it accepts a TQ, it mustn\u0027t initialize the thread related members, which is what the current default does (using values for the current thread).\nBut having a single main factory would be good.",
+      "parentUuid": "4173cbc9_5327862a",
+      "range": {
+        "startLine": 73,
+        "startChar": 51,
+        "endLine": 73,
+        "endChar": 76
+      },
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbea4997_981af983",
         "filename": "api/task_queue/pending_task_safety_flag.h",
         "patchSetId": 2
@@ -77,6 +143,30 @@
       "writtenOn": "2023-10-23T09:21:43Z",
       "side": 1,
       "message": "I think longer term it would be cleaner to leave 2 or factories:\n\n// Create Attached to current task queue\nCreate(bool alive);\n// Create detached or attached to specified task queue.\nCreate(bool alive, TaskQueue* attacked_queue);\n\nAlternative 1-function iterface that merge them both is\nCreate(bool alive \u003d true, TaskQueue* attached_queue \u003d TaskQueueBase::Current()));\n\nFrom that point of view it feels like the order of the parameters better be reverse.",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3ee611_591f41e2",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-24T21:45:56Z",
+      "side": 1,
+      "message": "Reversed the order of the parameters.",
+      "parentUuid": "dbea4997_981af983",
       "range": {
         "startLine": 74,
         "startChar": 6,

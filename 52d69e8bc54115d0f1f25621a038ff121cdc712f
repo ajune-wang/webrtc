@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ad63060_b0b896a1",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-24T14:39:23Z",
+      "side": 1,
+      "message": "Does it help on Android if you #include rtc_base/protobuf_utils.h and depend on it?",
+      "revId": "52d69e8bc54115d0f1f25621a038ff121cdc712f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6552d422_b164109b",
         "filename": "rtc_tools/rtc_event_log_visualizer/analyzer_bindings.h",
         "patchSetId": 3

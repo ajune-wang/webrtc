@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a8c028_ec9b145b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-25T20:02:38Z",
+      "side": 1,
+      "message": "Do you mind an early review of the idea?\n\nIdea is to couple CallFactory and MediaEngine into single MediaEngineFactory.\nKeep CallFactory idea of hiding dependencies that affect binary size behind an interface that only WebRTC can implement and use.\n\nCustom dependencies that MediaEngine needs can be injected through PeerConnectionFactory dependencies [android binary size is unaffected by such change]\n\nThis way user of the webrtc also no longer need to manually ensure MediaEngine and PeerConnectionFactory use the same task queue factory and same field trials.",
+      "revId": "205774dba4513b2792c81ecc0b23254ac8030af1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

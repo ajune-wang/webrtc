@@ -46,6 +46,30 @@
       },
       "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a92edf35_f7059275",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-25T13:13:02Z",
+      "side": 1,
+      "message": "I think that was to avoid to add allow_poison everywhere but instead force only the top targets (e.g. public and API) to declare this and then let assert_no_deps do the rest.",
+      "parentUuid": "be54c2ab_291ce5d5",
+      "range": {
+        "startLine": 1338,
+        "startChar": 0,
+        "endLine": 1339,
+        "endChar": 34
+      },
+      "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

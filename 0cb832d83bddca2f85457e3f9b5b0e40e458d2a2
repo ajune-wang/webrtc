@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ff7574f_058987a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-10-25T13:14:08Z",
+      "side": 1,
+      "message": "This is ready for review now, and should pass bots once https://chromium-review.googlesource.com/c/chromium/src/+/4973260 lands. PTAL!",
+      "revId": "0cb832d83bddca2f85457e3f9b5b0e40e458d2a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

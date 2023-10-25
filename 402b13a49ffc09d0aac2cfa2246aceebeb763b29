@@ -70,6 +70,30 @@
       },
       "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2493d008_eb017262",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-10-25T13:14:08Z",
+      "side": 1,
+      "message": "For what it\u0027s worth, if I remove the `allow_poison` attrib on `api/audio:aec3_config_json` then the build fails as expected. So the poison scheme seems to be working in general.",
+      "parentUuid": "be54c2ab_291ce5d5",
+      "range": {
+        "startLine": 1338,
+        "startChar": 0,
+        "endLine": 1339,
+        "endChar": 34
+      },
+      "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

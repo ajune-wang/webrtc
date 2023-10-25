@@ -22,6 +22,30 @@
       },
       "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be54c2ab_291ce5d5",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-10-25T13:11:00Z",
+      "side": 1,
+      "message": "Hmm..\n\nI suspect it is because of https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d840;drc\u003d47faf322872f2ae9535470eb8fb3ce8bb59dad4a but I don\u0027t fully remember the reasoning behind it.\n\nI need to look at the code a bit more.",
+      "parentUuid": "d95fb294_d25203cd",
+      "range": {
+        "startLine": 1338,
+        "startChar": 0,
+        "endLine": 1339,
+        "endChar": 34
+      },
+      "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

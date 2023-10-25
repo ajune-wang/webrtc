@@ -16,6 +16,24 @@
       "message": "@danilchap@webrtc.org n00b question, since this is my first time submitting a CL - what are the next steps for getting this committed? Is this something I can do on my own? (I think I need someone\u0027s help to do it because I don\u0027t have the permissions to submit to CQ, but not sure)",
       "revId": "7f94f26e58c0c76f06d37872851abc4c0f1c1ec8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b736c8c_05ae7103",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-25T08:58:18Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t realize you do not have permission to submit it.\nI\u0027ll do it then.",
+      "parentUuid": "8a03b38d_9bcc784b",
+      "revId": "7f94f26e58c0c76f06d37872851abc4c0f1c1ec8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

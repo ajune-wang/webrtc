@@ -103,6 +103,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "296c4679_3abac68f",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-25T20:34:38Z",
+      "side": 1,
+      "message": "I agree that having many factory functions can just make things more confusing. I\u0027ll look into ways  of having fewer factories as a follow-up.\n\nAdopted absl::Nonnull and added a DCHECK for a valid task queue being supplied to CreateAttachedToTaskQueue. I\u0027ll tackle improved naming (e.g. rename to `Create`) as part of simplifying the factory situation. I think we might want to apply Nonnull in the SequenceChecker as well and remove the `attached_(attached_queue !\u003d nullptr)` behavior there.",
+      "parentUuid": "7a54431b_958421c5",
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4173cbc9_5327862a",
         "filename": "api/task_queue/pending_task_safety_flag.h",
         "patchSetId": 2

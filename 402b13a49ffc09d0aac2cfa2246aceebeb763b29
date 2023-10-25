@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d95fb294_d25203cd",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-10-25T12:55:17Z",
+      "side": 1,
+      "message": "Why did this not need `allow_poison \u003d [ \"rtc_json\" ]`?",
+      "range": {
+        "startLine": 1338,
+        "startChar": 0,
+        "endLine": 1339,
+        "endChar": 34
+      },
+      "revId": "402b13a49ffc09d0aac2cfa2246aceebeb763b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

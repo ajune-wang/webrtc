@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49507ec6_b7f1a518",
+        "filename": "sdk/android/api/org/webrtc/RenderSynchronizer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 15039
+      },
+      "writtenOn": "2023-10-25T05:58:35Z",
+      "side": 1,
+      "message": "Nit: Maybe remove nanos from all times? Makes this logic easier to read.",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 87,
+        "endChar": 27
+      },
+      "revId": "ec29a1051e76bc30565ddae0f5e36fc843583c9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

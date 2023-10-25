@@ -220,9 +220,15 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
   pcf_deps.signaling_thread = signaling_thread;
   pcf_deps.worker_thread = worker_thread;
   pcf_deps.network_thread = network_thread;
-  pcf_deps.media_engine = std::move(media_engine);
 
+// TODO(bugs.webrtc.org/15574): Propagate media engine dependencies instead of
+// of the media engine itself.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  pcf_deps.media_engine = std::move(media_engine);
   pcf_deps.call_factory = std::move(pcf_dependencies->call_factory);
+#pragma clang diagnostic pop
+
   pcf_deps.event_log_factory = std::move(pcf_dependencies->event_log_factory);
   pcf_deps.task_queue_factory = std::move(pcf_dependencies->task_queue_factory);
 

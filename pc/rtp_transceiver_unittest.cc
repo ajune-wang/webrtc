@@ -60,7 +60,8 @@ class RtpTransceiverTest : public testing::Test {
     d.network_thread = rtc::Thread::Current();
     d.worker_thread = rtc::Thread::Current();
     d.signaling_thread = rtc::Thread::Current();
-    d.media_engine = std::make_unique<cricket::FakeMediaEngine>();
+    d.media_engine_factory =
+        std::make_unique<cricket::FakeMediaEngineFactory>();
     return d;
   }
 

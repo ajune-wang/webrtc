@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include "api/media_engine/media_engine_factory.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/task_queue/default_task_queue_factory.h"
@@ -154,19 +155,15 @@ void AndroidCallClient::CreatePeerConnectionFactory() {
   pcf_deps.worker_thread = worker_thread_.get();
   pcf_deps.signaling_thread = signaling_thread_.get();
   pcf_deps.task_queue_factory = webrtc::CreateDefaultTaskQueueFactory();
-  pcf_deps.call_factory = webrtc::CreateCallFactory();
+  pcf_deps.media_engine_factory = webrtc::CreateMediaEngineFactory();
   pcf_deps.event_log_factory = std::make_unique<webrtc::RtcEventLogFactory>(
       pcf_deps.task_queue_factory.get());
 
-  cricket::MediaEngineDependencies media_deps;
-  media_deps.task_queue_factory = pcf_deps.task_queue_factory.get();
-  media_deps.video_encoder_factory =
+  pcf_deps.video_encoder_factory =
       std::make_unique<webrtc::InternalEncoderFactory>();
-  media_deps.video_decoder_factory =
+  pcf_deps.video_decoder_factory =
       std::make_unique<webrtc::InternalDecoderFactory>();
-  webrtc::SetMediaEngineDefaults(&media_deps);
-  pcf_deps.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
-  RTC_LOG(LS_INFO) << "Media engine created: " << pcf_deps.media_engine.get();
+  webrtc::SetMediaEngineDefaults(pcf_deps);
 
   pcf_ = CreateModularPeerConnectionFactory(std::move(pcf_deps));
   RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << pcf_.get();

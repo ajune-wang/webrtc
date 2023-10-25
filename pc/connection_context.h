@@ -95,6 +95,7 @@ class ConnectionContext final
     RTC_DCHECK_RUN_ON(worker_thread());
     return call_factory_.get();
   }
+
   rtc::UniqueRandomIdGenerator* ssrc_generator() { return &ssrc_generator_; }
   // Note: There is lots of code that wants to know whether or not we
   // use RTX, but so far, no code has been found that sets it to false.
@@ -112,6 +113,11 @@ class ConnectionContext final
   ~ConnectionContext();
 
  private:
+  static std::unique_ptr<cricket::MediaEngineInterface> MaybeCreateMadiaEngine(
+      PeerConnectionFactoryDependencies& deps);
+  static std::unique_ptr<CallFactoryInterface> ExtractCallFactory(
+      PeerConnectionFactoryDependencies& deps);
+
   // The following three variables are used to communicate between the
   // constructor and the destructor, and are never exposed externally.
   bool wraps_current_thread_;
@@ -122,12 +128,12 @@ class ConnectionContext final
   AlwaysValidPointer<rtc::Thread> const worker_thread_;
   rtc::Thread* const signaling_thread_;
 
-  // Accessed both on signaling thread and worker thread.
-  std::unique_ptr<FieldTrialsView> const trials_;
-
   // This object is const over the lifetime of the ConnectionContext, and is
   // only altered in the destructor.
   std::unique_ptr<cricket::MediaEngineInterface> media_engine_;
+
+  // Accessed both on signaling thread and worker thread.
+  std::unique_ptr<FieldTrialsView> const trials_;
 
   // This object should be used to generate any SSRC that is not explicitly
   // specified by the user (or by the remote party).
@@ -138,7 +144,7 @@ class ConnectionContext final
       RTC_GUARDED_BY(signaling_thread_);
   std::unique_ptr<rtc::NetworkManager> default_network_manager_
       RTC_GUARDED_BY(signaling_thread_);
-  std::unique_ptr<webrtc::CallFactoryInterface> const call_factory_
+  std::unique_ptr<CallFactoryInterface> const call_factory_
       RTC_GUARDED_BY(worker_thread());
 
   std::unique_ptr<rtc::PacketSocketFactory> default_socket_factory_

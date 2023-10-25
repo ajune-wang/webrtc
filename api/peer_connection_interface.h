@@ -95,6 +95,7 @@
 #include "api/ice_transport_interface.h"
 #include "api/jsep.h"
 #include "api/legacy_stats_types.h"
+#include "api/media_engine/media_engine_factory_interface.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/metronome/metronome.h"
@@ -120,6 +121,7 @@
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "api/turn_customizer.h"
 #include "api/video/video_bitrate_allocator_factory.h"
+#include "api/video_codecs/video_decoder_factory.h"
 #include "call/rtp_transport_controller_send_factory_interface.h"
 #include "media/base/media_config.h"
 #include "media/base/media_engine.h"
@@ -1431,10 +1433,9 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   // called without a `port_allocator`.
   std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory;
   std::unique_ptr<TaskQueueFactory> task_queue_factory;
-  std::unique_ptr<cricket::MediaEngineInterface> media_engine;
-  std::unique_ptr<CallFactoryInterface> call_factory;
+  [[deprecated]] std::unique_ptr<cricket::MediaEngineInterface> media_engine;
+  [[deprecated]] std::unique_ptr<CallFactoryInterface> call_factory;
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory;
-  std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
   std::unique_ptr<NetworkStatePredictorFactoryInterface>
       network_state_predictor_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
@@ -1445,12 +1446,26 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   // The `network_monitor_factory` will only be used if CreatePeerConnection is
   // called without a `port_allocator`, and the above `network_manager' is null.
   std::unique_ptr<rtc::NetworkMonitorFactory> network_monitor_factory;
-  std::unique_ptr<NetEqFactory> neteq_factory;
   std::unique_ptr<SctpTransportFactoryInterface> sctp_factory;
   std::unique_ptr<FieldTrialsView> trials;
+  std::unique_ptr<Metronome> metronome;
+
+  // Media engine dependencies are unused when `media_engine_factory == nullptr`
+  std::unique_ptr<MediaEngineFactoryInterface> media_engine_factory;
+  rtc::scoped_refptr<AudioDeviceModule> adm;
+  rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory;
+  rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory;
+  rtc::scoped_refptr<AudioMixer> audio_mixer;
+  rtc::scoped_refptr<AudioProcessing> audio_processing;
+  std::unique_ptr<AudioFrameProcessor> audio_frame_processor;
+  // TODO(bugs.webrtc.org/15111): Remove the raw AudioFrameProcessor pointer.
+  webrtc::AudioFrameProcessor* raw_audio_frame_processor = nullptr;
+  std::unique_ptr<NetEqFactory> neteq_factory;
+  std::unique_ptr<VideoEncoderFactory> video_encoder_factory;
+  std::unique_ptr<VideoDecoderFactory> video_decoder_factory;
+  std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
   std::unique_ptr<RtpTransportControllerSendFactoryInterface>
       transport_controller_send_factory;
-  std::unique_ptr<Metronome> metronome;
 };
 
 // PeerConnectionFactoryInterface is the factory interface used for creating

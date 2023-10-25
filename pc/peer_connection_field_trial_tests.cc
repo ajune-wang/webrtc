@@ -16,6 +16,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/create_peerconnection_factory.h"
+#include "api/media_engine/media_engine_factory.h"
 #include "api/peer_connection_interface.h"
 #include "api/stats/rtcstats_objects.h"
 #include "api/task_queue/default_task_queue_factory.h"
@@ -81,13 +82,9 @@ class PeerConnectionFieldTrialTest : public ::testing::Test {
     pcf_deps.signaling_thread = rtc::Thread::Current();
     pcf_deps.trials = std::move(field_trials);
     pcf_deps.task_queue_factory = CreateDefaultTaskQueueFactory();
-    pcf_deps.call_factory = webrtc::CreateCallFactory();
-    cricket::MediaEngineDependencies media_deps;
-    media_deps.task_queue_factory = pcf_deps.task_queue_factory.get();
-    media_deps.adm = FakeAudioCaptureModule::Create();
-    media_deps.trials = pcf_deps.trials.get();
-    webrtc::SetMediaEngineDefaults(&media_deps);
-    pcf_deps.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
+    pcf_deps.media_engine_factory = webrtc::CreateMediaEngineFactory();
+    pcf_deps.adm = FakeAudioCaptureModule::Create();
+    webrtc::SetMediaEngineDefaults(pcf_deps);
     pc_factory_ = CreateModularPeerConnectionFactory(std::move(pcf_deps));
 
     // Allow ADAPTER_TYPE_LOOPBACK to create PeerConnections with loopback in

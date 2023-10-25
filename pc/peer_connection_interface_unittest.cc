@@ -26,6 +26,7 @@
 #include "api/create_peerconnection_factory.h"
 #include "api/data_channel_interface.h"
 #include "api/jsep.h"
+#include "api/media_engine/media_engine_factory.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/rtc_error.h"
@@ -641,16 +642,11 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
     dependencies.signaling_thread = rtc::Thread::Current();
     dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
     dependencies.trials = std::make_unique<FieldTrialBasedConfig>();
-    cricket::MediaEngineDependencies media_deps;
-    media_deps.task_queue_factory = dependencies.task_queue_factory.get();
     // Use fake audio device module since we're only testing the interface
     // level, and using a real one could make tests flaky when run in parallel.
-    media_deps.adm = FakeAudioCaptureModule::Create();
-    SetMediaEngineDefaults(&media_deps);
-    media_deps.trials = dependencies.trials.get();
-    dependencies.media_engine =
-        cricket::CreateMediaEngine(std::move(media_deps));
-    dependencies.call_factory = webrtc::CreateCallFactory();
+    dependencies.adm = FakeAudioCaptureModule::Create();
+    SetMediaEngineDefaults(dependencies);
+    dependencies.media_engine_factory = CreateMediaEngineFactory();
     dependencies.event_log_factory = std::make_unique<RtcEventLogFactory>(
         dependencies.task_queue_factory.get());
 

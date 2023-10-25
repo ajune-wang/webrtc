@@ -16,6 +16,24 @@
       "message": "Hi, PTAL! As discussed offline, making the JSON code testonly again.",
       "revId": "0a6d40c70b043dd7853e4c6de6b3ac422525c15e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d016d4_82cbd5be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2023-10-25T12:59:28Z",
+      "side": 1,
+      "message": "Hm, I have to resolve some missed dependencies. Taking it off review for now.",
+      "parentUuid": "57f25b22_89488246",
+      "revId": "0a6d40c70b043dd7853e4c6de6b3ac422525c15e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

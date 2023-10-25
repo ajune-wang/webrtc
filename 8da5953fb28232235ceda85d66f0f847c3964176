@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebb8bf65_140229f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-25T20:59:14Z",
+      "side": 1,
+      "message": "Oops, git cl upload failed to upload the latest changes with absl changes. I\u0027ll include those with the follow up CL.",
+      "revId": "8da5953fb28232235ceda85d66f0f847c3964176",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

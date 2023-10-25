@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d87a4d0_efbafb15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "Looking forward to it! Some nits.\n\nGood luck with converting the downstream things!",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12b42857_f535a17d",
@@ -54,6 +71,47 @@
         "endLine": 456,
         "endChar": 12
       },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb28c1f1_8814ee65",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "Agree with CHECK.",
+      "parentUuid": "12b42857_f535a17d",
+      "range": {
+        "startLine": 456,
+        "startChar": 2,
+        "endLine": 456,
+        "endChar": 12
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36438a70_b9f74405",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "Nit: Deregister is one word, not two, so should only have one uppercase letter.\nDo you ever need to deregister?",
       "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -106,6 +164,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df20be89_60e521da",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "It\u0027s easier to read if you just pass [this](args){OnReadPacket(args)} (details to taste).\n\nCould even inline OnReadPacket into the lambda - one less function.",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7092a6b3_e16e0cd7",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2229,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "This looks like a change in behavior. Why?",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26bc80da_59085b3e",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 1
@@ -123,6 +215,64 @@
         "endLine": 2241,
         "endChar": 14
       },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50fcf16a_30d4f0fe",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "I think it can happen if packet delivery and connection removal are racing (Connection is a self-owning object with a Destroy method - probably also something we should revisit.)",
+      "parentUuid": "26bc80da_59085b3e",
+      "range": {
+        "startLine": 2241,
+        "startChar": 7,
+        "endLine": 2241,
+        "endChar": 14
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c5697b_7417f455",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "Nice to have a class comment here.",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14126990_937ef546",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T14:02:38Z",
+      "side": 1,
+      "message": "Document that the caller must keep the buffer alive until the packet dies.",
       "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

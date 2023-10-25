@@ -22,6 +22,30 @@
       },
       "revId": "ec29a1051e76bc30565ddae0f5e36fc843583c9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb53cdc_c52bd54e",
+        "filename": "sdk/android/api/org/webrtc/RenderSynchronizer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-25T07:18:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49507ec6_b7f1a518",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 87,
+        "endChar": 27
+      },
+      "revId": "ec29a1051e76bc30565ddae0f5e36fc843583c9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d8e68ce_019d1bdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-25T09:12:29Z",
+      "side": 1,
+      "message": "can be attached to bugs.webrtc.org/15099\n(I didn\u0027t found issue that tracks reducing number of BlockingCalls)",
+      "revId": "99598066eb0941084a35bfb27ab3431fd86d21ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

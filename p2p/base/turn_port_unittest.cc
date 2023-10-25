@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/functional/bind_front.h"
 #include "absl/types/optional.h"
 #include "api/units/time_delta.h"
 #include "p2p/base/basic_packet_socket_factory.h"
@@ -216,18 +217,14 @@ class TurnPortTest : public ::testing::Test,
                             bool /*port_muxed*/) {
     turn_unknown_address_ = true;
   }
-  void OnTurnReadPacket(Connection* conn,
-                        const char* data,
-                        size_t size,
-                        int64_t packet_time_us) {
-    turn_packets_.push_back(rtc::Buffer(data, size));
+  void OnTurnReadPacket(Connection* conn, const rtc::ReceivedPacket& packet) {
+    turn_packets_.push_back(
+        rtc::Buffer(packet.payload().data(), packet.payload().size()));
   }
   void OnUdpPortComplete(Port* port) { udp_ready_ = true; }
-  void OnUdpReadPacket(Connection* conn,
-                       const char* data,
-                       size_t size,
-                       int64_t packet_time_us) {
-    udp_packets_.push_back(rtc::Buffer(data, size));
+  void OnUdpReadPacket(Connection* conn, const rtc::ReceivedPacket& packet) {
+    udp_packets_.push_back(
+        rtc::Buffer(packet.payload().data(), packet.payload().size()));
   }
   void OnSocketReadPacket(rtc::AsyncPacketSocket* socket,
                           const char* data,
@@ -247,6 +244,10 @@ class TurnPortTest : public ::testing::Test,
     turn_refresh_success_ = (code == 0);
   }
   void OnTurnPortClosed() override { turn_port_closed_ = true; }
+
+  void OnConnectionSignalDestroyed(Connection* connection) {
+    connection->DeRegisterReceivedPacketCallback();
+  }
 
   rtc::Socket* CreateServerSocket(const SocketAddress addr) {
     rtc::Socket* socket = ss_->CreateSocket(AF_INET, SOCK_STREAM);
@@ -727,10 +728,14 @@ class TurnPortTest : public ::testing::Test,
                                                     Port::ORIGIN_MESSAGE);
     ASSERT_TRUE(conn1 != NULL);
     ASSERT_TRUE(conn2 != NULL);
-    conn1->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
-                                    &TurnPortTest::OnTurnReadPacket);
-    conn2->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
-                                    &TurnPortTest::OnUdpReadPacket);
+    conn1->RegisterReceivedPacketCallback(
+        absl::bind_front(&TurnPortTest::OnTurnReadPacket, this));
+    conn1->SignalDestroyed.connect(this,
+                                   &TurnPortTest::OnConnectionSignalDestroyed);
+    conn2->RegisterReceivedPacketCallback(
+        absl::bind_front(&TurnPortTest::OnUdpReadPacket, this));
+    conn2->SignalDestroyed.connect(this,
+                                   &TurnPortTest::OnConnectionSignalDestroyed);
     conn1->Ping(0);
     EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn1->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
@@ -780,10 +785,15 @@ class TurnPortTest : public ::testing::Test,
                                                     Port::ORIGIN_MESSAGE);
     ASSERT_TRUE(conn1 != NULL);
     ASSERT_TRUE(conn2 != NULL);
-    conn1->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
-                                    &TurnPortTest::OnTurnReadPacket);
-    conn2->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
-                                    &TurnPortTest::OnUdpReadPacket);
+    conn1->RegisterReceivedPacketCallback(
+        absl::bind_front(&TurnPortTest::OnTurnReadPacket, this));
+    conn1->SignalDestroyed.connect(this,
+                                   &TurnPortTest::OnConnectionSignalDestroyed);
+    conn2->RegisterReceivedPacketCallback(
+        absl::bind_front(&TurnPortTest::OnUdpReadPacket, this));
+    conn2->SignalDestroyed.connect(this,
+                                   &TurnPortTest::OnConnectionSignalDestroyed);
+
     conn1->Ping(0);
     EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn1->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
@@ -1507,10 +1517,12 @@ TEST_F(TurnPortTest, TestChannelBindGetErrorResponse) {
                              kSimulatedRtt, fake_clock_);
   // Verify that packets are allowed to be sent after a bind request error.
   // They'll just use a send indication instead.
-  conn2->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
-                                  &TurnPortTest::OnUdpReadPacket);
+
+  conn2->RegisterReceivedPacketCallback(
+      absl::bind_front(&TurnPortTest::OnUdpReadPacket, this));
   conn1->Send(data.data(), data.length(), options);
   EXPECT_TRUE_SIMULATED_WAIT(!udp_packets_.empty(), kSimulatedRtt, fake_clock_);
+  conn2->DeRegisterReceivedPacketCallback();
 }
 
 // Do a TURN allocation, establish a UDP connection, and send some data.

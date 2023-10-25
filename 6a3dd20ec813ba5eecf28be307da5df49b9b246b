@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a306a258_4ca7062c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T21:34:09Z",
+      "side": 1,
+      "message": "This CL *looks* as if it tries to make exporting the Call interface obsolete, and only expose the MediaEngine interface. Is that its intention?\n\nPlease compile with internal_tests and internal_compile_lite bots to see how much work is required to make internal compile with this change.",
+      "revId": "6a3dd20ec813ba5eecf28be307da5df49b9b246b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42786e41_61d1ffa1",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-25T21:34:09Z",
+      "side": 1,
+      "message": "These are internal functions, so names don\u0027t matter so much as if they are in the interface, but what about CreateMediaEngineIfFactoryExists?",
+      "revId": "6a3dd20ec813ba5eecf28be307da5df49b9b246b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

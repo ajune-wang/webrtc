@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c689351_d9d6e152",
+        "filename": "sdk/android/api/org/webrtc/RenderSynchronizer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-25T07:47:44Z",
+      "side": 1,
+      "message": "Done. Added *Nanos suffix back in.",
+      "parentUuid": "6e42adea_e4b224d2",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "915f7dd72d28d026e74d6458c248c9cb234e323d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83fd040d_dac955e8",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-25T07:30:38Z",
       "side": 1,
       "message": "Add test for this logic?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "915f7dd72d28d026e74d6458c248c9cb234e323d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c660142_70b8ca81",
+        "filename": "sdk/android/api/org/webrtc/RenderSynchronizer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-25T07:47:44Z",
+      "side": 1,
+      "message": "Good call. I have verified it manually and filed a blocking bug to add a test before this code is used b/307672498.\nIf it sounds ok to you it would be good to get this class submitted now since that unblocks a bunch of other CLs that depend on it, and I can work on the test in parallel with those reviews?",
+      "parentUuid": "83fd040d_dac955e8",
       "range": {
         "startLine": 94,
         "startChar": 0,

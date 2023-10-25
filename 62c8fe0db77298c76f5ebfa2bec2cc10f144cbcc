@@ -83,6 +83,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a54431b_958421c5",
+        "filename": "api/task_queue/pending_task_safety_flag.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-25T09:09:55Z",
+      "side": 1,
+      "message": "I see 3 solutions I find acceptable:\n- Add DCHECK `attached_queue` is not null\n- Rename \u0027CreateAttachedToTaskQueue\u0027 to just \u0027Create\u0027\n- Document `attached_queue` is not null using absl::Nonnull annotation:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/abseil-cpp/absl/base/nullability.h;l\u003d78-80;drc\u003df6a93f4a72608fca6673d6a38081bc3fed843e33\n(though it is more generic question if webrtc should start using these machine-readable documentation. Personally I like it)\n\nIt might ok to leave as is, but I find too many factory functions that can be just different parameter values to be polluting.",
+      "parentUuid": "b34aab65_34e31577",
+      "revId": "62c8fe0db77298c76f5ebfa2bec2cc10f144cbcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4173cbc9_5327862a",

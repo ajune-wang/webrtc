@@ -16,6 +16,115 @@
       "message": "Please?",
       "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a376f2e7_398a4e75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-10-25T13:07:21Z",
+      "side": 1,
+      "message": "LGTM, but with nits/questions/suggestions",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b42857_f535a17d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-10-25T13:07:21Z",
+      "side": 1,
+      "message": "RTC_CHECK instead of DCHECK ??\nwdyt ?",
+      "range": {
+        "startLine": 456,
+        "startChar": 2,
+        "endLine": 456,
+        "endChar": 12
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d3e0d2_00b97d43",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-10-25T13:07:21Z",
+      "side": 1,
+      "message": "maybe only Signal unless the callback is set ?\nWDYT ?",
+      "range": {
+        "startLine": 480,
+        "startChar": 23,
+        "endLine": 480,
+        "endChar": 45
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca31456_98d9cf62",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-10-25T13:07:21Z",
+      "side": 1,
+      "message": "add comment that there can now only be 1 such callback,\nand RTC_CHECK(false) if there already is a callback ?",
+      "range": {
+        "startLine": 154,
+        "startChar": 7,
+        "endLine": 154,
+        "endChar": 37
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26bc80da_59085b3e",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-10-25T13:07:21Z",
+      "side": 1,
+      "message": "RTC_DCHECK(false)\n\nI don\u0027t see how this can happen ?? (but might be wrong :)",
+      "range": {
+        "startLine": 2241,
+        "startChar": 7,
+        "endLine": 2241,
+        "endChar": 14
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

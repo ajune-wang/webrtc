@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbd1c249_169a0ea2",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:57:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "897a10d9_f9757870",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "118f63e9_19ebdbf8",
@@ -71,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "289ea1bd_390570bb",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:57:13Z",
+      "side": 1,
+      "message": "No, this is a different sigslot in the looong chain of sigslots. This cl removes the read sigslot in connection.h\nShould eventually also be replaced but need to start somewhere.",
+      "parentUuid": "118f63e9_19ebdbf8",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dc73d2a_6f0cf123",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 3
@@ -82,6 +118,24 @@
       "writtenOn": "2023-10-26T11:33:18Z",
       "side": 1,
       "message": "This could be written better as early return:\nif (connection !\u003d selected_connection_ \u0026\u0026 !FindConnection(Connection) {\n   RTC_DCHECK_NOTREACHED();\n   return;\n}",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b4d1eb_0df7ca81",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:57:13Z",
+      "side": 1,
+      "message": "true Done",
+      "parentUuid": "4dc73d2a_6f0cf123",
       "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

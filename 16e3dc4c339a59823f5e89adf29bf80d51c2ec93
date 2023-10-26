@@ -16,6 +16,23 @@
       "message": "Ptal",
       "revId": "16e3dc4c339a59823f5e89adf29bf80d51c2ec93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b98e9a_2c6f030b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-26T12:02:49Z",
+      "side": 1,
+      "message": "Yes, all those classes with sigslots that have the same name tend to confuse me!\n\nGo for it.",
+      "revId": "16e3dc4c339a59823f5e89adf29bf80d51c2ec93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

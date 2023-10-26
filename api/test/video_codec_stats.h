@@ -12,6 +12,7 @@
 #define API_TEST_VIDEO_CODEC_STATS_H_
 
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,7 @@
 #include "api/numerics/samples_stats_counter.h"
 #include "api/test/metrics/metric.h"
 #include "api/test/metrics/metrics_logger.h"
+#include "api/test/video_codec_test_common.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
@@ -29,12 +31,13 @@ namespace test {
 // Interface for encoded and/or decoded video frame and stream statistics.
 class VideoCodecStats {
  public:
+  using LayerId = EncodingSettings::LayerId;
+
   // Filter for slicing frames.
   struct Filter {
     absl::optional<int> first_frame;
     absl::optional<int> last_frame;
-    absl::optional<int> spatial_idx;
-    absl::optional<int> temporal_idx;
+    absl::optional<LayerId> layer_id;
   };
 
   struct Frame {
@@ -49,7 +52,6 @@ class VideoCodecStats {
     DataSize frame_size = DataSize::Zero();
     bool keyframe = false;
     absl::optional<int> qp;
-    absl::optional<int> base_spatial_idx;
 
     Timestamp encode_start = Timestamp::Zero();
     TimeDelta encode_time = TimeDelta::Zero();
@@ -68,6 +70,8 @@ class VideoCodecStats {
 
     bool encoded = false;
     bool decoded = false;
+
+    absl::optional<EncodingSettings> encoding_settings;
   };
 
   struct Stream {
@@ -105,13 +109,13 @@ class VideoCodecStats {
 
   virtual ~VideoCodecStats() = default;
 
-  // Returns frames from interval, spatial and temporal layer specified by given
-  // `filter`.
-  virtual std::vector<Frame> Slice(
-      absl::optional<Filter> filter = absl::nullopt) const = 0;
+  // Returns frames for the slice specified by `filter`. If `merge` is true,
+  // also merge frames belonging to the same temporal unit into one superframe.
+  virtual std::vector<Frame> Slice(Filter filter = Filter{},
+                                   bool merge = false) const = 0;
 
-  // Returns video statistics aggregated for given `frames`.
-  virtual Stream Aggregate(const std::vector<Frame>& frames) const = 0;
+  // Returns video statistics aggregated for the slice specified by `filter`.
+  virtual Stream Aggregate(Filter filter = Filter{}) const = 0;
 };
 
 }  // namespace test

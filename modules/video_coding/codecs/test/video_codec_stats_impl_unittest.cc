@@ -21,6 +21,7 @@ namespace test {
 
 namespace {
 using ::testing::Return;
+using ::testing::SizeIs;
 using ::testing::Values;
 using Filter = VideoCodecStats::Filter;
 using Frame = VideoCodecStatsImpl::Frame;
@@ -91,54 +92,71 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple(Filter{}, std::vector<int>{0, 1, 2, 3}),
         std::make_tuple(Filter{.first_frame = 1}, std::vector<int>{2, 3}),
         std::make_tuple(Filter{.last_frame = 0}, std::vector<int>{0, 1}),
-        std::make_tuple(Filter{.spatial_idx = 0}, std::vector<int>{0, 2}),
-        std::make_tuple(Filter{.temporal_idx = 1},
-                        std::vector<int>{0, 1, 2, 3})));
+        std::make_tuple(Filter{.layer_id = {{.spatial_idx = 0,
+                                             .temporal_idx = 1}}},
+                        std::vector<int>{0, 2}),
+        std::make_tuple(Filter{.layer_id = {{.spatial_idx = 1,
+                                             .temporal_idx = 0}}},
+                        std::vector<int>{1})));
 
 TEST(VideoCodecStatsImpl, AggregateBitrate) {
-  std::vector<VideoCodecStats::Frame> frames = {
-      {.frame_num = 0,
-       .timestamp_rtp = 0,
-       .frame_size = DataSize::Bytes(1000),
-       .target_bitrate = DataRate::BytesPerSec(1000)},
-      {.frame_num = 1,
-       .timestamp_rtp = 90000,
-       .frame_size = DataSize::Bytes(2000),
-       .target_bitrate = DataRate::BytesPerSec(1000)}};
+  EncodingSettings encoding_settings{
+      .sdp_video_format = SdpVideoFormat("VP8"),
+      .scalability_mode = ScalabilityMode::kL1T1,
+      .layers_settings = {{{.spatial_idx = 0, .temporal_idx = 0},
+                           {.framerate = Frequency::Hertz(1),
+                            .bitrate = DataRate::BytesPerSec(1000)}}}};
+  VideoCodecStatsImpl stats;
+  stats.AddFrame({.frame_num = 0,
+                  .timestamp_rtp = 0,
+                  .frame_size = DataSize::Bytes(1000),
+                  .encoding_settings = encoding_settings});
+  stats.AddFrame({.frame_num = 1,
+                  .timestamp_rtp = 90000,
+                  .frame_size = DataSize::Bytes(2000),
+                  .encoding_settings = encoding_settings});
 
-  Stream stream = VideoCodecStatsImpl().Aggregate(frames);
+  Stream stream = stats.Aggregate();
   EXPECT_EQ(stream.encoded_bitrate_kbps.GetAverage(), 12.0);
   EXPECT_EQ(stream.bitrate_mismatch_pct.GetAverage(), 50.0);
 }
 
 TEST(VideoCodecStatsImpl, AggregateFramerate) {
-  std::vector<VideoCodecStats::Frame> frames = {
-      {.frame_num = 0,
-       .timestamp_rtp = 0,
-       .frame_size = DataSize::Bytes(1),
-       .target_framerate = Frequency::Hertz(1)},
-      {.frame_num = 1,
-       .timestamp_rtp = 90000,
-       .frame_size = DataSize::Zero(),
-       .target_framerate = Frequency::Hertz(1)}};
+  EncodingSettings encoding_settings{
+      .sdp_video_format = SdpVideoFormat("VP8"),
+      .scalability_mode = ScalabilityMode::kL1T1,
+      .layers_settings = {{{.spatial_idx = 0, .temporal_idx = 0},
+                           {.framerate = Frequency::Hertz(1),
+                            .bitrate = DataRate::BytesPerSec(1)}}}};
 
-  Stream stream = VideoCodecStatsImpl().Aggregate(frames);
+  VideoCodecStatsImpl stats;
+  stats.AddFrame({.frame_num = 0,
+                  .timestamp_rtp = 0,
+                  .frame_size = DataSize::Bytes(1),
+                  .target_framerate = Frequency::Hertz(1)});
+  // Dropped frame (frame_size=0).
+  stats.AddFrame({.frame_num = 1,
+                  .timestamp_rtp = 90000,
+                  .frame_size = DataSize::Zero(),
+                  .target_framerate = Frequency::Hertz(1)});
+
+  Stream stream = stats.Aggregate();
   EXPECT_EQ(stream.encoded_framerate_fps.GetAverage(), 0.5);
   EXPECT_EQ(stream.framerate_mismatch_pct.GetAverage(), -50.0);
 }
 
 TEST(VideoCodecStatsImpl, AggregateTransmissionTime) {
-  std::vector<VideoCodecStats::Frame> frames = {
-      {.frame_num = 0,
-       .timestamp_rtp = 0,
-       .frame_size = DataSize::Bytes(2),
-       .target_bitrate = DataRate::BytesPerSec(1)},
-      {.frame_num = 1,
-       .timestamp_rtp = 90000,
-       .frame_size = DataSize::Bytes(3),
-       .target_bitrate = DataRate::BytesPerSec(1)}};
+  VideoCodecStatsImpl stats;
+  stats.AddFrame({.frame_num = 0,
+                  .timestamp_rtp = 0,
+                  .frame_size = DataSize::Bytes(2),
+                  .target_bitrate = DataRate::BytesPerSec(1)});
+  stats.AddFrame({.frame_num = 1,
+                  .timestamp_rtp = 90000,
+                  .frame_size = DataSize::Bytes(3),
+                  .target_bitrate = DataRate::BytesPerSec(1)});
 
-  Stream stream = VideoCodecStatsImpl().Aggregate(frames);
+  Stream stream = stats.Aggregate();
   ASSERT_EQ(stream.transmission_time_ms.NumSamples(), 2);
   ASSERT_EQ(stream.transmission_time_ms.GetSamples()[0], 2000);
   ASSERT_EQ(stream.transmission_time_ms.GetSamples()[1], 4000);

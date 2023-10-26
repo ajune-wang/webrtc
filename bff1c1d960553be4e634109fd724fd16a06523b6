@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f8362e_02e51ea5",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-26T07:54:37Z",
+      "side": 1,
+      "message": "Yes, this code is exercised as is by EglRendererTest which passes. The test\u0027s EglThread does not have a synchronizer, which is the default behavior here as well without the experiment flag enabled.\nI will look into if it\u0027s possible to perhaps parameterizing EglRendererTest to also run with an underlying RenderSynchronizer later today. Added a note to b/307672498.",
+      "parentUuid": "40841406_796002a3",
+      "range": {
+        "startLine": 565,
+        "startChar": 15,
+        "endLine": 565,
+        "endChar": 40
+      },
+      "revId": "bff1c1d960553be4e634109fd724fd16a06523b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "956e6cd8_a45391ba",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "956e6cd8_a45391ba",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 57
+      },
+      "revId": "bff1c1d960553be4e634109fd724fd16a06523b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7593f80_ad5cbf34",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2023-10-26T07:54:37Z",
+      "side": 1,
+      "message": "Done, thanks!",
+      "parentUuid": "67181070_a2700c5e",
       "range": {
         "startLine": 187,
         "startChar": 0,

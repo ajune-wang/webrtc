@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a2c536_4323982f",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T06:31:00Z",
+      "side": 1,
+      "message": "Avoid abbreviation. \nToKiloBytes ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 11
+      },
+      "revId": "a21ce34e6fc9b84d9c533dfe3bf71d89f4cb08a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

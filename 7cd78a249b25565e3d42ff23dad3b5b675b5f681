@@ -16,6 +16,74 @@
       "message": "PTAL",
       "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f6d5995_c200b34f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-26T11:33:18Z",
+      "side": 1,
+      "message": "I think we\u0027re OK, but let\u0027s be even a little more careful.",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "897a10d9_f9757870",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-26T11:33:18Z",
+      "side": 1,
+      "message": "Can you add an RTC_DCHECK(SignalReadPacket.empty()) so that we can detect any case where something connects to the signal and also sets the callback?",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "118f63e9_19ebdbf8",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-26T11:33:18Z",
+      "side": 1,
+      "message": "Here you don\u0027t call the callback :-(",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc73d2a_6f0cf123",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-26T11:33:18Z",
+      "side": 1,
+      "message": "This could be written better as early return:\nif (connection !\u003d selected_connection_ \u0026\u0026 !FindConnection(Connection) {\n   RTC_DCHECK_NOTREACHED();\n   return;\n}",
+      "revId": "7cd78a249b25565e3d42ff23dad3b5b675b5f681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

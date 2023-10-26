@@ -33,6 +33,7 @@
 #include "media/engine/webrtc_media_engine.h"
 #include "modules/audio_device/include/test_audio_device.h"
 #include "p2p/client/basic_port_allocator.h"
+#include "pc/peer_connection_factory_dependencies_accessor.h"
 #include "test/create_frame_generator_capturer.h"
 #include "test/fake_decoder.h"
 #include "test/fake_vp8_encoder.h"
@@ -246,8 +247,9 @@ PeerScenarioClient::PeerScenarioClient(
   pcf_deps.network_thread = manager->network_thread();
   pcf_deps.signaling_thread = signaling_thread_;
   pcf_deps.worker_thread = worker_thread_.get();
-  pcf_deps.call_factory =
-      CreateTimeControllerBasedCallFactory(net->time_controller());
+  pcf_deps.call_factory = CreateCallFactory();
+  PeerConnectionFactoryDependenciesAccessor(pcf_deps).Set(
+      net->time_controller()->GetClock());
   pcf_deps.task_queue_factory =
       net->time_controller()->CreateTaskQueueFactory();
   pcf_deps.event_log_factory =

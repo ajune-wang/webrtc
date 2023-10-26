@@ -62,17 +62,6 @@ PeerConfigurer* PeerConfigurer::SetName(absl::string_view name) {
   return this;
 }
 
-PeerConfigurer* PeerConfigurer::SetTaskQueueFactory(
-    std::unique_ptr<TaskQueueFactory> task_queue_factory) {
-  components_->pcf_dependencies->task_queue_factory =
-      std::move(task_queue_factory);
-  return this;
-}
-PeerConfigurer* PeerConfigurer::SetCallFactory(
-    std::unique_ptr<CallFactoryInterface> call_factory) {
-  components_->pcf_dependencies->call_factory = std::move(call_factory);
-  return this;
-}
 PeerConfigurer* PeerConfigurer::SetEventLogFactory(
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory) {
   components_->pcf_dependencies->event_log_factory =

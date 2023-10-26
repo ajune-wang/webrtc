@@ -142,6 +142,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       const PeerConnectionInterface::RTCConfiguration& configuration);
 
   rtc::scoped_refptr<ConnectionContext> context_;
+  Clock* const clock_;
   PeerConnectionFactoryInterface::Options options_
       RTC_GUARDED_BY(signaling_thread());
   std::unique_ptr<TaskQueueFactory> task_queue_factory_;

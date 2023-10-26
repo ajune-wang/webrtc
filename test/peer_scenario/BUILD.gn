@@ -57,6 +57,7 @@ if (rtc_include_tests) {
       "../../pc:channel",
       "../../pc:jsep_transport_controller",
       "../../pc:pc_test_utils",
+      "../../pc:peer_connection_factory_dependencies_accessor",
       "../../pc:rtp_transport_internal",
       "../../pc:session_description",
       "../../rtc_base:null_socket_server",

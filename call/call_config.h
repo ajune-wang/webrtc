@@ -22,6 +22,7 @@
 #include "call/audio_state.h"
 #include "call/rtp_transport_config.h"
 #include "call/rtp_transport_controller_send_factory_interface.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
@@ -71,6 +72,8 @@ struct CallConfig {
   // Key-value mapping of internal configurations to apply,
   // e.g. field trials.
   const FieldTrialsView* trials = nullptr;
+
+  Clock* clock = Clock::GetRealTimeClock();
 
   TaskQueueBase* const network_task_queue_ = nullptr;
   // RtpTransportControllerSend to use for this call.

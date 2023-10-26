@@ -1451,6 +1451,14 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   std::unique_ptr<RtpTransportControllerSendFactoryInterface>
       transport_controller_send_factory;
   std::unique_ptr<Metronome> metronome;
+
+ private:
+  // Allow webrtc classes to access dependencies below, but do not make them
+  // publically available. Each dependency should be linked to a bug.
+  friend class PeerConnectionFactoryDependenciesAccessor;
+  // TODO(bugs.webrtc.org/13768): Expose ability to inject clock when this
+  // clock is spread to all classes PeerConnectionFactory owns and creates.
+  Clock* clock = Clock::GetRealTimeClock();
 };
 
 // PeerConnectionFactoryInterface is the factory interface used for creating

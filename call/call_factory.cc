@@ -92,12 +92,7 @@ std::unique_ptr<Call> CallFactory::CreateCall(const CallConfig& config) {
       receive_degradation_configs =
           GetNetworkConfigs(*config.trials, /*send=*/false);
 
-  RtpTransportConfig transportConfig = config.ExtractTransportConfig();
-
-  std::unique_ptr<Call> call =
-      Call::Create(config, Clock::GetRealTimeClock(),
-                   config.rtp_transport_controller_send_factory->Create(
-                       transportConfig, Clock::GetRealTimeClock()));
+  std::unique_ptr<Call> call = Call::Create(config);
 
   if (!send_degradation_configs.empty() ||
       !receive_degradation_configs.empty()) {

@@ -183,10 +183,8 @@ class Call final : public webrtc::Call,
                    public TargetTransferRateObserver,
                    public BitrateAllocator::LimitObserver {
  public:
-  Call(Clock* clock,
-       const CallConfig& config,
-       std::unique_ptr<RtpTransportControllerSendInterface> transport_send,
-       TaskQueueFactory* task_queue_factory);
+  Call(const CallConfig& config,
+       std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
   ~Call() override;
 
   Call(const Call&) = delete;
@@ -474,21 +472,9 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
 }
 
 std::unique_ptr<Call> Call::Create(const CallConfig& config) {
-  Clock* clock = Clock::GetRealTimeClock();
-  return Create(config, clock,
-                RtpTransportControllerSendFactory().Create(
-                    config.ExtractTransportConfig(), clock));
-}
-
-std::unique_ptr<Call> Call::Create(
-    const CallConfig& config,
-    Clock* clock,
-    std::unique_ptr<RtpTransportControllerSendInterface>
-        transportControllerSend) {
-  RTC_DCHECK(config.task_queue_factory);
-  return std::make_unique<internal::Call>(clock, config,
-                                          std::move(transportControllerSend),
-                                          config.task_queue_factory);
+  return std::make_unique<internal::Call>(
+      config, config.rtp_transport_controller_send_factory->Create(
+                  config.ExtractTransportConfig(), config.clock));
 }
 
 // This method here to avoid subclasses has to implement this method.
@@ -654,12 +640,10 @@ void Call::SendStats::SetMinAllocatableRate(BitrateAllocationLimits limits) {
   min_allocated_send_bitrate_bps_ = limits.min_allocatable_rate.bps();
 }
 
-Call::Call(Clock* clock,
-           const CallConfig& config,
-           std::unique_ptr<RtpTransportControllerSendInterface> transport_send,
-           TaskQueueFactory* task_queue_factory)
-    : clock_(clock),
-      task_queue_factory_(task_queue_factory),
+Call::Call(const CallConfig& config,
+           std::unique_ptr<RtpTransportControllerSendInterface> transport_send)
+    : clock_(config.clock),
+      task_queue_factory_(config.task_queue_factory),
       worker_thread_(GetCurrentTaskQueueOrThread()),
       // If `network_task_queue_` was set to nullptr, network related calls
       // must be made on `worker_thread_` (i.e. they're one and the same).
@@ -681,7 +665,7 @@ Call::Call(Clock* clock,
       event_log_(config.event_log),
       receive_stats_(clock_),
       send_stats_(clock_),
-      receive_side_cc_(clock,
+      receive_side_cc_(clock_,
                        absl::bind_front(&PacketRouter::SendCombinedRtcpPacket,
                                         transport_send->packet_router()),
                        absl::bind_front(&PacketRouter::SendRemb,

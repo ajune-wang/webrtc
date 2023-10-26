@@ -59,13 +59,9 @@ class PeerConfigurer {
   // unique.
   PeerConfigurer* SetName(absl::string_view name);
 
-  // The parameters of the following 9 methods will be passed to the
+  // The parameters of the following 7 methods will be passed to the
   // PeerConnectionFactoryInterface implementation that will be created for
   // this peer.
-  PeerConfigurer* SetTaskQueueFactory(
-      std::unique_ptr<TaskQueueFactory> task_queue_factory);
-  PeerConfigurer* SetCallFactory(
-      std::unique_ptr<CallFactoryInterface> call_factory);
   PeerConfigurer* SetEventLogFactory(
       std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
   PeerConfigurer* SetFecControllerFactory(

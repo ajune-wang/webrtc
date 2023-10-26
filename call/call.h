@@ -57,11 +57,6 @@ class Call {
   };
 
   static std::unique_ptr<Call> Create(const CallConfig& config);
-  static std::unique_ptr<Call> Create(
-      const CallConfig& config,
-      Clock* clock,
-      std::unique_ptr<RtpTransportControllerSendInterface>
-          transportControllerSend);
 
   virtual AudioSendStream* CreateAudioSendStream(
       const AudioSendStream::Config& config) = 0;

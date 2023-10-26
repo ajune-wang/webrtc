@@ -12,9 +12,6 @@
 
 #include <memory>
 
-#include "call/call.h"
-#include "call/rtp_transport_config.h"
-#include "call/rtp_transport_controller_send_factory_interface.h"
 #include "test/time_controller/external_time_controller.h"
 #include "test/time_controller/simulated_time_controller.h"
 
@@ -28,26 +25,6 @@ std::unique_ptr<TimeController> CreateTimeController(
 std::unique_ptr<TimeController> CreateSimulatedTimeController() {
   return std::make_unique<GlobalSimulatedTimeController>(
       Timestamp::Seconds(10000));
-}
-
-std::unique_ptr<CallFactoryInterface> CreateTimeControllerBasedCallFactory(
-    TimeController* time_controller) {
-  class TimeControllerBasedCallFactory : public CallFactoryInterface {
-   public:
-    explicit TimeControllerBasedCallFactory(TimeController* time_controller)
-        : time_controller_(time_controller) {}
-    std::unique_ptr<Call> CreateCall(const CallConfig& config) override {
-      RtpTransportConfig transportConfig = config.ExtractTransportConfig();
-
-      return Call::Create(config, time_controller_->GetClock(),
-                          config.rtp_transport_controller_send_factory->Create(
-                              transportConfig, time_controller_->GetClock()));
-    }
-
-   private:
-    TimeController* time_controller_;
-  };
-  return std::make_unique<TimeControllerBasedCallFactory>(time_controller);
 }
 
 }  // namespace webrtc

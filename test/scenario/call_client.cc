@@ -77,10 +77,10 @@ std::unique_ptr<Call> CreateCall(
   call_config.audio_state = audio_state;
   call_config.pacer_burst_interval = config.pacer_burst_interval;
   call_config.trials = config.field_trials;
-  Clock* clock = time_controller->GetClock();
-  return Call::Create(call_config, clock,
-                      RtpTransportControllerSendFactory().Create(
-                          call_config.ExtractTransportConfig(), clock));
+  call_config.clock = time_controller->GetClock();
+  RtpTransportControllerSendFactory rtp_transport_factory;
+  call_config.rtp_transport_controller_send_factory = &rtp_transport_factory;
+  return Call::Create(call_config);
 }
 
 std::unique_ptr<RtcEventLog> CreateEventLog(

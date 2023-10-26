@@ -25,6 +25,7 @@
 #include "media/engine/webrtc_media_engine_defaults.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "p2p/client/basic_port_allocator.h"
+#include "pc/peer_connection_factory_dependencies_accessor.h"
 #include "rtc_base/thread.h"
 #include "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h"
 #include "test/pc/e2e/echo/echo_emulation.h"
@@ -50,18 +51,10 @@ void SetMandatoryEntities(InjectableComponents* components,
   RTC_DCHECK(components->pc_dependencies);
 
   // Setup required peer connection factory dependencies.
-  if (components->pcf_dependencies->task_queue_factory == nullptr) {
-    components->pcf_dependencies->task_queue_factory =
-        time_controller.CreateTaskQueueFactory();
-  }
-  if (components->pcf_dependencies->call_factory == nullptr) {
-    components->pcf_dependencies->call_factory =
-        CreateTimeControllerBasedCallFactory(&time_controller);
-  }
   if (components->pcf_dependencies->event_log_factory == nullptr) {
     components->pcf_dependencies->event_log_factory =
         std::make_unique<RtcEventLogFactory>(
-            components->pcf_dependencies->task_queue_factory.get());
+            time_controller.GetTaskQueueFactory());
   }
   if (!components->pcf_dependencies->trials) {
     components->pcf_dependencies->trials =
@@ -155,10 +148,11 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule(
 }
 
 std::unique_ptr<cricket::MediaEngineInterface> CreateMediaEngine(
+    TaskQueueFactory* task_queue_factory,
     PeerConnectionFactoryComponents* pcf_dependencies,
     rtc::scoped_refptr<AudioDeviceModule> audio_device_module) {
   cricket::MediaEngineDependencies media_deps;
-  media_deps.task_queue_factory = pcf_dependencies->task_queue_factory.get();
+  media_deps.task_queue_factory = task_queue_factory;
   media_deps.adm = audio_device_module;
   media_deps.audio_processing = pcf_dependencies->audio_processing;
   media_deps.audio_mixer = pcf_dependencies->audio_mixer;
@@ -222,9 +216,8 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
   pcf_deps.network_thread = network_thread;
   pcf_deps.media_engine = std::move(media_engine);
 
-  pcf_deps.call_factory = std::move(pcf_dependencies->call_factory);
+  pcf_deps.call_factory = CreateCallFactory();
   pcf_deps.event_log_factory = std::move(pcf_dependencies->event_log_factory);
-  pcf_deps.task_queue_factory = std::move(pcf_dependencies->task_queue_factory);
 
   if (pcf_dependencies->fec_controller_factory != nullptr) {
     pcf_deps.fec_controller_factory =
@@ -318,9 +311,9 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
         *params->aec_dump_path, -1, task_queue_);
   }
   rtc::scoped_refptr<AudioDeviceModule> audio_device_module =
-      CreateAudioDeviceModule(
-          params->audio_config, remote_audio_config, echo_emulation_config,
-          components->pcf_dependencies->task_queue_factory.get());
+      CreateAudioDeviceModule(params->audio_config, remote_audio_config,
+                              echo_emulation_config,
+                              time_controller_.GetTaskQueueFactory());
   WrapVideoEncoderFactory(
       params->name.value(), params->video_encoder_bitrate_multiplier,
       CalculateRequiredSpatialIndexPerStream(
@@ -330,7 +323,8 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
                           components->pcf_dependencies.get(),
                           video_analyzer_helper_);
   std::unique_ptr<cricket::MediaEngineInterface> media_engine =
-      CreateMediaEngine(components->pcf_dependencies.get(),
+      CreateMediaEngine(time_controller_.GetTaskQueueFactory(),
+                        components->pcf_dependencies.get(),
                         audio_device_module);
 
   std::unique_ptr<rtc::Thread> owned_worker_thread =
@@ -348,6 +342,9 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
   PeerConnectionFactoryDependencies pcf_deps = CreatePCFDependencies(
       std::move(components->pcf_dependencies), std::move(media_engine),
       signaling_thread_, components->worker_thread, components->network_thread);
+  pcf_deps.task_queue_factory = time_controller_.CreateTaskQueueFactory();
+  PeerConnectionFactoryDependenciesAccessor(pcf_deps).Set(
+      time_controller_.GetClock());
   rtc::scoped_refptr<PeerConnectionFactoryInterface> peer_connection_factory =
       CreateModularPeerConnectionFactory(std::move(pcf_deps));
 

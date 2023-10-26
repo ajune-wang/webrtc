@@ -38,6 +38,7 @@
 #include "pc/media_stream_proxy.h"
 #include "pc/media_stream_track_proxy.h"
 #include "pc/peer_connection.h"
+#include "pc/peer_connection_factory_dependencies_accessor.h"
 #include "pc/peer_connection_factory_proxy.h"
 #include "pc/peer_connection_proxy.h"
 #include "pc/rtp_parameters_conversion.h"
@@ -89,6 +90,8 @@ PeerConnectionFactory::PeerConnectionFactory(
     rtc::scoped_refptr<ConnectionContext> context,
     PeerConnectionFactoryDependencies* dependencies)
     : context_(context),
+      clock_(
+          PeerConnectionFactoryDependenciesAccessor(*dependencies).GetClock()),
       task_queue_factory_(std::move(dependencies->task_queue_factory)),
       event_log_factory_(std::move(dependencies->event_log_factory)),
       fec_controller_factory_(std::move(dependencies->fec_controller_factory)),
@@ -325,6 +328,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
 
   call_config.fec_controller_factory = fec_controller_factory_.get();
   call_config.task_queue_factory = task_queue_factory_.get();
+  call_config.clock = clock_;
   call_config.network_state_predictor_factory =
       network_state_predictor_factory_.get();
   call_config.neteq_factory = neteq_factory_.get();

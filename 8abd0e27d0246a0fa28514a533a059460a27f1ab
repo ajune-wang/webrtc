@@ -99,6 +99,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed7a7f8_1d7392c9",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb28c1f1_8814ee65",
+      "range": {
+        "startLine": 456,
+        "startChar": 2,
+        "endLine": 456,
+        "endChar": 12
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36438a70_b9f74405",
@@ -116,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a33d5059_1fd04de5",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "yes, if transport is deleted before connection.",
+      "parentUuid": "36438a70_b9f74405",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5d3e0d2_00b97d43",
@@ -129,6 +171,30 @@
       "writtenOn": "2023-10-25T13:07:21Z",
       "side": 1,
       "message": "maybe only Signal unless the callback is set ?\nWDYT ?",
+      "range": {
+        "startLine": 480,
+        "startChar": 23,
+        "endLine": 480,
+        "endChar": 45
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c0e971f_07b8f853",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5d3e0d2_00b97d43",
       "range": {
         "startLine": 480,
         "startChar": 23,
@@ -179,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd270e1c_a8800fda",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "Prefer not to inline because its rather long. But can use lambda.",
+      "parentUuid": "df20be89_60e521da",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7092a6b3_e16e0cd7",
@@ -192,6 +276,24 @@
       "writtenOn": "2023-10-25T14:02:38Z",
       "side": 1,
       "message": "This looks like a change in behavior. Why?",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b0ae50_6cd0de85",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2229,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "It should not change behaviour (except for the new DCHECK). Just removing code duplication.",
+      "parentUuid": "7092a6b3_e16e0cd7",
       "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -245,6 +347,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65479724_a233f8f1",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "It all happens on the network thread. \nAnd registers to the sigslot in P2PTransportChannel::AddConnection and deregister in RemoveConnection. \nSo why not try with a dcheck and see if there is a race.",
+      "parentUuid": "26bc80da_59085b3e",
+      "range": {
+        "startLine": 2241,
+        "startChar": 7,
+        "endLine": 2241,
+        "endChar": 14
+      },
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86c5697b_7417f455",
         "filename": "rtc_base/network/received_packet.h",
         "patchSetId": 1
@@ -256,6 +382,24 @@
       "writtenOn": "2023-10-25T14:02:38Z",
       "side": 1,
       "message": "Nice to have a class comment here.",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "706d9c8d_b8c088ad",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86c5697b_7417f455",
       "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -273,6 +417,24 @@
       "writtenOn": "2023-10-25T14:02:38Z",
       "side": 1,
       "message": "Document that the caller must keep the buffer alive until the packet dies.",
+      "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6be01e4_b9525aa5",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-26T11:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14126990_937ef546",
       "revId": "8abd0e27d0246a0fa28514a533a059460a27f1ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

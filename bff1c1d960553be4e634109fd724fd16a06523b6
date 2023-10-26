@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956e6cd8_a45391ba",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 15039
+      },
+      "writtenOn": "2023-10-26T06:46:04Z",
+      "side": 1,
+      "message": "While it\u0027s clear based on context (from other cls and design), public APIs should generally be documented.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 57
+      },
+      "revId": "bff1c1d960553be4e634109fd724fd16a06523b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1022,6 +1022,30 @@ if (rtc_include_tests) {
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
   }
 
+  rtc_source_set("video_codec_test_common") {
+    testonly = true
+    sources = [
+      "test/video_codec_test_common.cc",
+      "test/video_codec_test_common.h",
+    ]
+
+    deps = [
+      "../api/units:data_rate",
+      "../api/units:frequency",
+      "../api/video:builtin_video_bitrate_allocator_factory",
+      "../api/video:resolution",
+      "../api/video_codecs:scalability_mode",
+      "../api/video_codecs:video_codecs_api",
+      "../modules/video_coding:webrtc_vp9_helpers",
+      "../modules/video_coding/codecs/av1:av1_svc_config",
+      "../modules/video_coding/svc:scalability_mode_util",
+      "../rtc_base:checks",
+      "../rtc_base:logging",
+    ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  }
+
   rtc_library("video_codec_stats_api") {
     visibility = [ "*" ]
     testonly = true
@@ -1030,6 +1054,7 @@ if (rtc_include_tests) {
       "test/video_codec_stats.h",
     ]
     deps = [
+      ":video_codec_test_common",
       "../api/numerics:numerics",
       "../api/units:data_rate",
       "../api/units:data_size",
@@ -1057,15 +1082,13 @@ if (rtc_include_tests) {
     sources = [ "test/video_codec_tester.h" ]
     deps = [
       ":video_codec_stats_api",
-      "../modules/video_coding/svc:scalability_mode_util",
+      ":video_codec_test_common",
+      "../api/units:frequency",
+      "../api/video_codecs:video_codecs_api",
       "video:encoded_image",
       "video:resolution",
-      "video:video_frame",
     ]
-    absl_deps = [
-      "//third_party/abseil-cpp/absl/functional:any_invocable",
-      "//third_party/abseil-cpp/absl/types:optional",
-    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
   }
 
   rtc_library("create_videocodec_test_fixture_api") {

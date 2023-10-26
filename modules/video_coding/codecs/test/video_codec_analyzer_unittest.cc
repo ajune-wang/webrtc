@@ -20,9 +20,13 @@ namespace webrtc {
 namespace test {
 
 namespace {
+using ::testing::ElementsAre;
 using ::testing::Return;
+using ::testing::SizeIs;
 using ::testing::Values;
 using Psnr = VideoCodecStats::Frame::Psnr;
+using Filter = VideoCodecStats::Filter;
+using Stream = VideoCodecStats::Stream;
 
 const uint32_t kTimestamp = 3000;
 const int kSpatialIdx = 2;
@@ -60,7 +64,8 @@ EncodedImage CreateEncodedImage(uint32_t timestamp_rtp, int spatial_idx = 0) {
 
 TEST(VideoCodecAnalyzerTest, StartEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp),
+                       /*encoding_settings=*/absl::nullopt);
 
   auto fs = analyzer.GetStats()->Slice();
   EXPECT_EQ(1u, fs.size());
@@ -69,7 +74,8 @@ TEST(VideoCodecAnalyzerTest, StartEncode) {
 
 TEST(VideoCodecAnalyzerTest, FinishEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp),
+                       /*encoding_settings=*/absl::nullopt);
 
   EncodedImage encoded_frame = CreateEncodedImage(kTimestamp, kSpatialIdx);
   analyzer.FinishEncode(encoded_frame);

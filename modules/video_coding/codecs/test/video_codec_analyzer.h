@@ -43,7 +43,8 @@ class VideoCodecAnalyzer {
   explicit VideoCodecAnalyzer(
       ReferenceVideoSource* reference_video_source = nullptr);
 
-  void StartEncode(const VideoFrame& frame);
+  void StartEncode(const VideoFrame& frame,
+                   absl::optional<EncodingSettings> encoding_settings);
 
   void FinishEncode(const EncodedImage& frame);
 

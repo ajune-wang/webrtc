@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2871eca_aded52b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-26T14:58:59Z",
+      "side": 1,
+      "message": "Would like to reduce number of places where call_factory is provided, so that it can be coupled with media_engine.\nRemoved api looks unused.\n\nThis is a shard of the draft https://webrtc-review.googlesource.com/c/src/+/325181\nwhich in turn is a step to the vision of the \nhttps://webrtc-review.googlesource.com/c/src/+/325064",
+      "revId": "3403d49e5322409510f575db93ac64e8c8b42a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

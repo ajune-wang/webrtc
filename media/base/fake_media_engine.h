@@ -24,7 +24,9 @@
 #include "absl/algorithm/container.h"
 #include "absl/functional/any_invocable.h"
 #include "api/call/audio_sink.h"
+#include "api/media_engine/media_engine_factory_interface.h"
 #include "api/media_types.h"
+#include "call/call_factory.h"
 #include "media/base/audio_source.h"
 #include "media/base/media_channel.h"
 #include "media/base/media_channel_impl.h"
@@ -869,6 +871,23 @@ class FakeMediaEngine : public CompositeMediaEngine {
  private:
   FakeVoiceEngine* const voice_;
   FakeVideoEngine* const video_;
+};
+
+class FakeMediaEngineFactory : public webrtc::MediaEngineFactoryInterface {
+ public:
+  FakeMediaEngineFactory() = default;
+  ~FakeMediaEngineFactory() override = default;
+
+ private:
+  std::unique_ptr<webrtc::Call> CreateCall(
+      const webrtc::CallConfig& config) override {
+    return webrtc::CallFactory().CreateCall(config);
+  }
+
+  std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
+      webrtc::PeerConnectionFactoryDependencies& deps) override {
+    return std::make_unique<FakeMediaEngine>();
+  }
 };
 
 }  // namespace cricket

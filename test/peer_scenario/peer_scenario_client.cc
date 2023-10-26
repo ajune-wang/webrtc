@@ -246,8 +246,6 @@ PeerScenarioClient::PeerScenarioClient(
   pcf_deps.network_thread = manager->network_thread();
   pcf_deps.signaling_thread = signaling_thread_;
   pcf_deps.worker_thread = worker_thread_.get();
-  pcf_deps.call_factory =
-      CreateTimeControllerBasedCallFactory(net->time_controller());
   pcf_deps.task_queue_factory =
       net->time_controller()->CreateTaskQueueFactory();
   pcf_deps.event_log_factory =
@@ -285,7 +283,14 @@ PeerScenarioClient::PeerScenarioClient(
   media_deps.audio_decoder_factory = CreateBuiltinAudioDecoderFactory();
   media_deps.trials = pcf_deps.trials.get();
 
+// TODO(bugs.webrtc.org/15574): Find a better way to inject clock, then custom
+// callfactory won't be needed.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  pcf_deps.call_factory =
+      CreateTimeControllerBasedCallFactory(net->time_controller());
   pcf_deps.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
+#pragma clang diagnostic pop
   pcf_deps.fec_controller_factory = nullptr;
   pcf_deps.network_controller_factory = nullptr;
   pcf_deps.network_state_predictor_factory = nullptr;

@@ -235,7 +235,8 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     dependencies.network_thread = rtc::Thread::Current();
     dependencies.worker_thread = rtc::Thread::Current();
     dependencies.signaling_thread = rtc::Thread::Current();
-    dependencies.media_engine = std::make_unique<cricket::FakeMediaEngine>();
+    dependencies.media_engine_factory =
+        std::make_unique<cricket::FakeMediaEngineFactory>();
     return dependencies;
   }
 

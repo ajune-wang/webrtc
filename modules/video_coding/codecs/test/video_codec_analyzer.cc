@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/test/video_codec_tester.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_frame.h"
@@ -25,6 +26,7 @@ namespace webrtc {
 namespace test {
 
 namespace {
+using EncodingSettings = VideoCodecTester::EncodingSettings;
 using Psnr = VideoCodecStats::Frame::Psnr;
 
 Psnr CalcPsnr(const I420BufferInterface& ref_buffer,
@@ -61,23 +63,41 @@ VideoCodecAnalyzer::VideoCodecAnalyzer(
   sequence_checker_.Detach();
 }
 
-void VideoCodecAnalyzer::StartEncode(const VideoFrame& input_frame) {
+void VideoCodecAnalyzer::StartEncode(
+    const VideoFrame& input_frame,
+    absl::optional<EncodingSettings> encoding_settings) {
   int64_t encode_start_us = rtc::TimeMicros();
-  task_queue_.PostTask(
-      [this, timestamp_rtp = input_frame.timestamp(), encode_start_us]() {
-        RTC_DCHECK_RUN_ON(&sequence_checker_);
+  task_queue_.PostTask([this, timestamp_rtp = input_frame.timestamp(),
+                        encoding_settings, encode_start_us]() {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
 
-        RTC_CHECK(frame_num_.find(timestamp_rtp) == frame_num_.end());
-        frame_num_[timestamp_rtp] = num_frames_++;
+    RTC_CHECK(frame_num_.find(timestamp_rtp) == frame_num_.end());
+    frame_num_[timestamp_rtp] = num_frames_++;
 
-        stats_.AddFrame({.frame_num = frame_num_[timestamp_rtp],
-                         .timestamp_rtp = timestamp_rtp,
-                         .encode_start = Timestamp::Micros(encode_start_us)});
-      });
+    VideoCodecStats::Frame fs{
+        .frame_num = frame_num_[timestamp_rtp],
+        .timestamp_rtp = timestamp_rtp,
+        .encode_start = Timestamp::Micros(encode_start_us),
+        .encoding_settings = encoding_settings};
+
+    if (encoding_settings) {
+      fs.target_bitrate = encoding_settings->GetTargetBitrate();
+      fs.target_framerate = encoding_settings->GetTargetFramerate();
+    }
+
+    stats_.AddFrame(fs);
+  });
 }
 
-void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
+void VideoCodecAnalyzer::FinishEncode(
+    const EncodedImage& frame,
+    absl::optional<CodecSpecificInfo> codec_specific_info) {
   int64_t encode_finished_us = rtc::TimeMicros();
+
+  absl::optional<GenericFrameInfo> generic_frame_info;
+  if (codec_specific_info) {
+    generic_frame_info = codec_specific_info->generic_frame_info;
+  }
 
   task_queue_.PostTask([this, timestamp_rtp = frame.RtpTimestamp(),
                         spatial_idx = frame.SpatialIndex().value_or(0),
@@ -86,7 +106,7 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
                         height = frame._encodedHeight,
                         frame_type = frame._frameType,
                         frame_size_bytes = frame.size(), qp = frame.qp_,
-                        encode_finished_us]() {
+                        generic_frame_info, encode_finished_us]() {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
 
     if (spatial_idx > 0) {
@@ -96,7 +116,10 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
       stats_.AddFrame({.frame_num = base_frame->frame_num,
                        .timestamp_rtp = timestamp_rtp,
                        .spatial_idx = spatial_idx,
-                       .encode_start = base_frame->encode_start});
+                       .encode_start = base_frame->encode_start,
+                       .target_bitrate = base_frame->target_bitrate,
+                       .target_framerate = base_frame->target_framerate,
+                       .encoding_settings = base_frame->encoding_settings});
     }
 
     VideoCodecStats::Frame* fs = stats_.GetFrame(timestamp_rtp, spatial_idx);
@@ -105,10 +128,16 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
     fs->width = width;
     fs->height = height;
     fs->frame_size = DataSize::Bytes(frame_size_bytes);
-    fs->qp = qp;
     fs->keyframe = frame_type == VideoFrameType::kVideoFrameKey;
+    fs->qp = qp;
     fs->encode_time = Timestamp::Micros(encode_finished_us) - fs->encode_start;
     fs->encoded = true;
+
+    if (generic_frame_info) {
+      std::copy(generic_frame_info->decode_target_indications.begin(),
+                generic_frame_info->decode_target_indications.end(),
+                std::back_inserter(fs->decode_target_indications));
+    }
   });
 }
 

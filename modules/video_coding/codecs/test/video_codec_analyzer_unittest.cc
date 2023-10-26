@@ -20,9 +20,13 @@ namespace webrtc {
 namespace test {
 
 namespace {
+using ::testing::ElementsAre;
 using ::testing::Return;
+using ::testing::SizeIs;
 using ::testing::Values;
 using Psnr = VideoCodecStats::Frame::Psnr;
+using Filter = VideoCodecStats::Filter;
+using Stream = VideoCodecStats::Stream;
 
 const uint32_t kTimestamp = 3000;
 const int kSpatialIdx = 2;
@@ -60,7 +64,8 @@ EncodedImage CreateEncodedImage(uint32_t timestamp_rtp, int spatial_idx = 0) {
 
 TEST(VideoCodecAnalyzerTest, StartEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp),
+                       /*encoding_settings=*/absl::nullopt);
 
   auto fs = analyzer.GetStats()->Slice();
   EXPECT_EQ(1u, fs.size());
@@ -69,14 +74,37 @@ TEST(VideoCodecAnalyzerTest, StartEncode) {
 
 TEST(VideoCodecAnalyzerTest, FinishEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp),
+                       /*encoding_settings=*/absl::nullopt);
 
   EncodedImage encoded_frame = CreateEncodedImage(kTimestamp, kSpatialIdx);
-  analyzer.FinishEncode(encoded_frame);
+  analyzer.FinishEncode(encoded_frame, /*codec_specific_info=*/absl::nullopt);
 
   auto fs = analyzer.GetStats()->Slice();
   EXPECT_EQ(2u, fs.size());
   EXPECT_EQ(kSpatialIdx, fs[1].spatial_idx);
+}
+
+TEST(VideoCodecAnalyzerTest, FinishEncodeWithCodecSpecificInfo) {
+  VideoCodecAnalyzer analyzer;
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp),
+                       /*encoding_settings=*/absl::nullopt);
+
+  EncodedImage encoded_frame =
+      CreateEncodedImage(kTimestamp, /*spatial_idx=*/0);
+  GenericFrameInfo generic_frame_info;
+  generic_frame_info.Dtis("-DSR");
+  CodecSpecificInfo codec_specific_info;
+  codec_specific_info.generic_frame_info = generic_frame_info;
+  analyzer.FinishEncode(encoded_frame, codec_specific_info);
+
+  auto fs = analyzer.GetStats()->Slice();
+  ASSERT_THAT(fs, SizeIs(1));
+  EXPECT_THAT(fs[0].decode_target_indications,
+              ElementsAre(DecodeTargetIndication::kNotPresent,
+                          DecodeTargetIndication::kDiscardable,
+                          DecodeTargetIndication::kSwitch,
+                          DecodeTargetIndication::kRequired));
 }
 
 TEST(VideoCodecAnalyzerTest, StartDecode) {

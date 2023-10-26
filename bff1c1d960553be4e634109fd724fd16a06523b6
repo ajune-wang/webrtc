@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40841406_796002a3",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-10-26T07:32:17Z",
+      "side": 1,
+      "message": "Is this testable? https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/instrumentationtests/src/org/webrtc/EglRendererTest.java",
+      "range": {
+        "startLine": 565,
+        "startChar": 15,
+        "endLine": 565,
+        "endChar": 40
+      },
+      "revId": "bff1c1d960553be4e634109fd724fd16a06523b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "956e6cd8_a45391ba",
         "filename": "sdk/android/api/org/webrtc/EglThread.java",
         "patchSetId": 3
@@ -14,6 +37,30 @@
       "writtenOn": "2023-10-26T06:46:04Z",
       "side": 1,
       "message": "While it\u0027s clear based on context (from other cls and design), public APIs should generally be documented.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 57
+      },
+      "revId": "bff1c1d960553be4e634109fd724fd16a06523b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67181070_a2700c5e",
+        "filename": "sdk/android/api/org/webrtc/EglThread.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-10-26T07:32:17Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "956e6cd8_a45391ba",
       "range": {
         "startLine": 187,
         "startChar": 0,

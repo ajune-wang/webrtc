@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0177f51c_9f9fe52f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-26T11:02:27Z",
+      "side": 1,
+      "message": "Yes intent is to merge CallFactoryInterface into MediaEngineFactoryInterface,\nin particular CreateCall function would be private inside MediaEngineFactoryInterface and available only to ConnectionContext, or PeerConnectionFactory [the one that actually would need to call it]\n\nThis step is backward compatible as long as code is allowed to use [[deprecated]] members.\ncode searching for cricket::CreateMediaEngine and webrtc::CreateCallFactory\ngives better overview of all places that needs updating. Majority of them is inside webrtc. All non-trivial ones are inside webrtc.\n(All calls I found  utside webrtc to cricket::CreateMediaEngine are next to CreatePeerConnectionModularFactory and looks straightforward to update)",
+      "parentUuid": "a306a258_4ca7062c",
+      "revId": "6a3dd20ec813ba5eecf28be307da5df49b9b246b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42786e41_61d1ffa1",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-25T21:34:09Z",
       "side": 1,
       "message": "These are internal functions, so names don\u0027t matter so much as if they are in the interface, but what about CreateMediaEngineIfFactoryExists?",
+      "revId": "6a3dd20ec813ba5eecf28be307da5df49b9b246b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c857361_b2541b4b",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-26T11:02:27Z",
+      "side": 1,
+      "message": "I haven\u0027t put much thoughts into names yet.\nThis particular function can have no name at all, it probably will be inlined once media_engine would be removed:\n```\n// replaces call_factory_, saved to create Calls later\nmedia_engine_factory_(std::move(deps.media_engine_factory)), \nmedia_engine_(media_engine_factory_ \u003d\u003d nullptr ? nullptr : \n              media_engine_factory_-\u003eCreateMediaEngine(deps)),\n```\n\n\nBesides there are alternatives ways to implement the same with less code changes.\ne.g. reuse CreateCallFactory to create MediaEngine [then only media_engine field would get deprecated], but that makes it a bit harder to distinguish updated calls, and calls that still need updating.\n\nor reverse - keep media_engine, but actually change its implementation to be factory instead of actual engine. \nIn particular keep media engine specific dependencies in a separate struct.\nThen only would need to remove call_factory and and remove task_queue_factory and field_trials from media specific dependencies.",
+      "parentUuid": "42786e41_61d1ffa1",
       "revId": "6a3dd20ec813ba5eecf28be307da5df49b9b246b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

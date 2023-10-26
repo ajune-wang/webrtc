@@ -15,17 +15,25 @@
 #include <utility>
 #include <vector>
 
+#include "api/test/mock_video_decoder.h"
+#include "api/test/mock_video_decoder_factory.h"
+#include "api/test/mock_video_encoder.h"
+#include "api/test/mock_video_encoder_factory.h"
+#include "api/test/video_codec_stats.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
+#include "media/engine/fake_video_codec_factory.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/time_utils.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/testsupport/file_utils.h"
+#include "test/testsupport/frame_writer.h"
 
 namespace webrtc {
 namespace test {
@@ -34,17 +42,22 @@ namespace {
 using ::testing::_;
 using ::testing::Invoke;
 using ::testing::InvokeWithoutArgs;
+using ::testing::NiceMock;
 using ::testing::Return;
 
-using Decoder = VideoCodecTester::Decoder;
-using Encoder = VideoCodecTester::Encoder;
+using VideoSourceSettings = VideoCodecTester::VideoSourceSettings;
 using CodedVideoSource = VideoCodecTester::CodedVideoSource;
-using RawVideoSource = VideoCodecTester::RawVideoSource;
+using EncodingSettings = VideoCodecTester::EncodingSettings;
+using LayerSettings = EncodingSettings::LayerSettings;
+using LayerId = EncodingSettings::LayerId;
+using FramesSettings = VideoCodecTester::FramesSettings;
 using DecoderSettings = VideoCodecTester::DecoderSettings;
 using EncoderSettings = VideoCodecTester::EncoderSettings;
 using PacingSettings = VideoCodecTester::PacingSettings;
 using PacingMode = PacingSettings::PacingMode;
 
+constexpr int kSourceWidth = 2;
+constexpr int kSourceHeight = 2;
 constexpr Frequency k90kHz = Frequency::Hertz(90000);
 
 struct PacingTestParams {
@@ -54,44 +67,11 @@ struct PacingTestParams {
   std::vector<int> expected_delta_ms;
 };
 
-VideoFrame CreateVideoFrame(uint32_t timestamp_rtp) {
-  rtc::scoped_refptr<I420Buffer> buffer(I420Buffer::Create(2, 2));
-  return VideoFrame::Builder()
-      .set_video_frame_buffer(buffer)
-      .set_timestamp_rtp(timestamp_rtp)
-      .build();
-}
-
 EncodedImage CreateEncodedImage(uint32_t timestamp_rtp) {
   EncodedImage encoded_image;
   encoded_image.SetRtpTimestamp(timestamp_rtp);
   return encoded_image;
 }
-
-class MockRawVideoSource : public RawVideoSource {
- public:
-  MockRawVideoSource(int num_frames, Frequency framerate)
-      : num_frames_(num_frames), frame_num_(0), framerate_(framerate) {}
-
-  absl::optional<VideoFrame> PullFrame() override {
-    if (frame_num_ >= num_frames_) {
-      return absl::nullopt;
-    }
-    uint32_t timestamp_rtp = frame_num_ * k90kHz / framerate_;
-    ++frame_num_;
-    return CreateVideoFrame(timestamp_rtp);
-  }
-
-  MOCK_METHOD(VideoFrame,
-              GetFrame,
-              (uint32_t timestamp_rtp, Resolution),
-              (override));
-
- private:
-  int num_frames_;
-  int frame_num_;
-  Frequency framerate_;
-};
 
 class MockCodedVideoSource : public CodedVideoSource {
  public:
@@ -113,26 +93,6 @@ class MockCodedVideoSource : public CodedVideoSource {
   Frequency framerate_;
 };
 
-class MockDecoder : public Decoder {
- public:
-  MOCK_METHOD(void, Initialize, (), (override));
-  MOCK_METHOD(void,
-              Decode,
-              (const EncodedImage& frame, DecodeCallback callback),
-              (override));
-  MOCK_METHOD(void, Flush, (), (override));
-};
-
-class MockEncoder : public Encoder {
- public:
-  MOCK_METHOD(void, Initialize, (), (override));
-  MOCK_METHOD(void,
-              Encode,
-              (const VideoFrame& frame, EncodeCallback callback),
-              (override));
-  MOCK_METHOD(void, Flush, (), (override));
-};
-
 }  // namespace
 
 class VideoCodecTesterImplPacingTest
@@ -140,20 +100,45 @@ class VideoCodecTesterImplPacingTest
  public:
   VideoCodecTesterImplPacingTest() : test_params_(GetParam()) {}
 
+  void SetUp() override {
+    source_yuv_file_path_ = webrtc::test::TempFilename(
+        webrtc::test::OutputPath(), "video_codec_tester_impl_unittest");
+    FILE* file = fopen(source_yuv_file_path_.c_str(), "wb");
+    for (int i = 0; i < 3 * kSourceWidth * kSourceHeight / 2; ++i) {
+      fwrite("x", 1, 1, file);
+    }
+    fclose(file);
+  }
+
  protected:
   PacingTestParams test_params_;
+  std::string source_yuv_file_path_;
 };
 
 TEST_P(VideoCodecTesterImplPacingTest, PaceEncode) {
-  MockRawVideoSource video_source(test_params_.num_frames,
-                                  test_params_.framerate);
-  MockEncoder encoder;
+  VideoSourceSettings video_source{
+      .file_path = source_yuv_file_path_,
+      .resolution = {.width = kSourceWidth, .height = kSourceHeight},
+      .framerate = test_params_.framerate};
+
+  NiceMock<MockVideoEncoderFactory> encoder_factory;
+  ON_CALL(encoder_factory, CreateVideoEncoder(_))
+      .WillByDefault([](const SdpVideoFormat&) {
+        return std::make_unique<NiceMock<MockVideoEncoder>>();
+      });
+
+  FramesSettings frames_settings = VideoCodecTester::CreateFramesSettings(
+      "VP8", "L1T1", kSourceWidth, kSourceHeight, /*layer_bitrates_kbps=*/{128},
+      test_params_.framerate.hertz<double>(), test_params_.num_frames);
+
   EncoderSettings encoder_settings;
-  encoder_settings.pacing = test_params_.pacing_settings;
+  encoder_settings.pacing_settings = test_params_.pacing_settings;
 
   VideoCodecTesterImpl tester;
-  auto fs =
-      tester.RunEncodeTest(&video_source, &encoder, encoder_settings)->Slice();
+  auto fs = tester
+                .RunEncodeTest(video_source, &encoder_factory, encoder_settings,
+                               frames_settings)
+                ->Slice();
   ASSERT_EQ(static_cast<int>(fs.size()), test_params_.num_frames);
 
   for (size_t i = 1; i < fs.size(); ++i) {
@@ -165,13 +150,25 @@ TEST_P(VideoCodecTesterImplPacingTest, PaceEncode) {
 TEST_P(VideoCodecTesterImplPacingTest, PaceDecode) {
   MockCodedVideoSource video_source(test_params_.num_frames,
                                     test_params_.framerate);
-  MockDecoder decoder;
+
+  NiceMock<MockVideoDecoderFactory> decoder_factory;
+  ON_CALL(decoder_factory, CreateVideoDecoder(_))
+      .WillByDefault([](const SdpVideoFormat&) {
+        return std::make_unique<NiceMock<MockVideoDecoder>>();
+      });
+
+  FramesSettings frames_settings = VideoCodecTester::CreateFramesSettings(
+      "VP8", "L1T1", kSourceWidth, kSourceHeight, /*layer_bitrates_kbps=*/{128},
+      test_params_.framerate.hertz<double>(), test_params_.num_frames);
+
   DecoderSettings decoder_settings;
-  decoder_settings.pacing = test_params_.pacing_settings;
+  decoder_settings.pacing_settings = test_params_.pacing_settings;
 
   VideoCodecTesterImpl tester;
-  auto fs =
-      tester.RunDecodeTest(&video_source, &decoder, decoder_settings)->Slice();
+  auto fs = tester
+                .RunDecodeTest(&video_source, &decoder_factory,
+                               decoder_settings, frames_settings)
+                ->Slice();
   ASSERT_EQ(static_cast<int>(fs.size()), test_params_.num_frames);
 
   for (size_t i = 1; i < fs.size(); ++i) {

@@ -14,12 +14,16 @@
 
 #include "api/numerics/samples_stats_counter.h"
 #include "api/test/metrics/metrics_logger.h"
+#include "api/test/video_codec_tester.h"
+#include "api/video_codecs/scalability_mode.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
 namespace test {
 namespace {
+using Filter = VideoCodecStats::Filter;
 using Frame = VideoCodecStats::Frame;
 using Stream = VideoCodecStats::Stream;
 
@@ -58,7 +62,9 @@ class LeakyBucket {
 };
 
 // Merges spatial layer frames into superframes.
-std::vector<Frame> Merge(const std::vector<Frame>& frames) {
+std::vector<Frame> Merge(
+    const std::vector<Frame>& frames,
+    absl::optional<VideoCodecStats::LayerId> target_layer_id) {
   std::vector<Frame> superframes;
   // Map from frame timestamp to index in `superframes` vector.
   std::map<uint32_t, int> index;
@@ -94,6 +100,15 @@ std::vector<Frame> Merge(const std::vector<Frame>& frames) {
 
     sf.encoded |= f.encoded;
     sf.decoded |= f.decoded;
+  }
+
+  for (auto& sf : superframes) {
+    if (sf.encoding_settings) {
+      sf.target_bitrate =
+          sf.encoding_settings->GetTargetBitrate(target_layer_id);
+      sf.target_framerate =
+          sf.encoding_settings->GetTargetFramerate(target_layer_id);
+    }
   }
 
   return superframes;
@@ -132,37 +147,64 @@ TimeDelta CalcTotalDuration(const std::vector<Frame>& frames) {
 }
 }  // namespace
 
-std::vector<Frame> VideoCodecStatsImpl::Slice(
-    absl::optional<Filter> filter) const {
+std::vector<Frame> VideoCodecStatsImpl::Slice(Filter filter, bool merge) const {
   std::vector<Frame> frames;
   for (const auto& [frame_id, f] : frames_) {
-    if (filter.has_value()) {
-      if (filter->first_frame.has_value() &&
-          f.frame_num < *filter->first_frame) {
-        continue;
-      }
-      if (filter->last_frame.has_value() && f.frame_num > *filter->last_frame) {
-        continue;
-      }
-      if (filter->spatial_idx.has_value() &&
-          f.spatial_idx != *filter->spatial_idx) {
-        continue;
-      }
-      if (filter->temporal_idx.has_value() &&
-          f.temporal_idx > *filter->temporal_idx) {
-        continue;
+    if (filter.first_frame.has_value() && f.frame_num < *filter.first_frame) {
+      continue;
+    }
+
+    if (filter.last_frame.has_value() && f.frame_num > filter.last_frame) {
+      continue;
+    }
+
+    if (filter.layer_id.has_value()) {
+      if (!f.decode_target_indications.empty() && f.encoding_settings) {
+        int num_spatial_layers = ScalabilityModeToNumSpatialLayers(
+            f.encoding_settings->scalability_mode);
+        int num_temporal_layers = ScalabilityModeToNumTemporalLayers(
+            f.encoding_settings->scalability_mode);
+        RTC_CHECK(f.decode_target_indications.size() ==
+                  static_cast<size_t>(num_spatial_layers * num_temporal_layers))
+            << "Number of decode targets should match number of layers";
+        RTC_CHECK_LT(filter.layer_id->spatial_idx, num_spatial_layers);
+        RTC_CHECK_LT(filter.layer_id->temporal_idx, num_temporal_layers);
+
+        DecodeTargetIndication dti =
+            f.decode_target_indications[filter.layer_id->spatial_idx *
+                                            num_temporal_layers +
+                                        filter.layer_id->temporal_idx];
+        if (dti == DecodeTargetIndication::kNotPresent) {
+          continue;
+        }
+      } else {
+        // No decode target initications. Assume hierarchical dependency for
+        // temporal layers and no spatial inter-layer dependencies (like in
+        // simulcast).
+        if (f.spatial_idx != filter.layer_id->spatial_idx) {
+          continue;
+        }
+        if (f.temporal_idx > filter.layer_id->temporal_idx) {
+          continue;
+        }
       }
     }
+
     frames.push_back(f);
   }
+
+  if (merge) {
+    return Merge(frames, filter.layer_id);
+  }
+
   return frames;
 }
 
-Stream VideoCodecStatsImpl::Aggregate(const std::vector<Frame>& frames) const {
-  std::vector<Frame> superframes = Merge(frames);
+Stream VideoCodecStatsImpl::Aggregate(Filter filter) const {
+  std::vector<Frame> superframes = Slice(filter, /*merge=*/true);
   RTC_CHECK(!superframes.empty());
 
-  LeakyBucket leacky_bucket;
+  LeakyBucket leaky_bucket;
   Stream stream;
   for (size_t i = 0; i < superframes.size(); ++i) {
     Frame& f = superframes[i];
@@ -202,7 +244,7 @@ Stream VideoCodecStatsImpl::Aggregate(const std::vector<Frame>& frames) const {
       stream.target_bitrate_kbps.AddSample(
           StatsSample(f.target_bitrate->bps() / 1000.0, time));
 
-      int buffer_level_bits = leacky_bucket.Update(f);
+      int buffer_level_bits = leaky_bucket.Update(f);
       stream.transmission_time_ms.AddSample(
           StatsSample(buffer_level_bits * rtc::kNumMillisecsPerSec /
                           f.target_bitrate->bps(),

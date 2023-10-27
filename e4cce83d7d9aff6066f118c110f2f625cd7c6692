@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "480dfba1_9031b1cd",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-10-27T13:20:02Z",
+      "side": 1,
+      "message": "RED is codec-specific, the fmtp specifies the primary payload type it refers to, similar to (but more ancient) RTX\u0027s apt. But behold, we only have rtx in getCapabilities(\u0027video\u0027).codecs once and without any apt ;-)\n\nEither way, this CL looks good to me, still missing an example of what SDP breaks though.",
+      "parentUuid": "9b77a962_9eff8048",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d670c57_91559e88",
         "filename": "pc/media_session.cc",
         "patchSetId": 4

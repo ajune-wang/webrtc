@@ -270,8 +270,6 @@ struct SsrcInfo {
 typedef std::vector<SsrcInfo> SsrcInfoVec;
 typedef std::vector<SsrcGroup> SsrcGroupVec;
 
-template <class T>
-static void AddFmtpLine(const T& codec, std::string* message);
 static void BuildMediaDescription(const ContentInfo* content_info,
                                   const TransportInfo* transport_info,
                                   const cricket::MediaType media_type,

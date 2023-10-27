@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c4cdcf_4f1ecaa1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-10-27T14:16:24Z",
+      "side": 1,
+      "message": "Spotted another Codec template, then spotted another typedef!",
+      "revId": "85207eed490138ad69b7ba15131321574726a47f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

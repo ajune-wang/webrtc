@@ -16,6 +16,24 @@
       "message": "and absl::Nullable\n(those two naturally come in pair.\nthird option likely no need to allow and mention)",
       "revId": "0402ecda1064a1026eab3ce7d8166b6b43bae6ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a1dff8_db7c8a74",
+        "filename": "g3doc/abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-27T20:39:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99276fb5_29089982",
+      "revId": "0402ecda1064a1026eab3ce7d8166b6b43bae6ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

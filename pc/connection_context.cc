@@ -75,6 +75,38 @@ std::unique_ptr<SctpTransportFactoryInterface> MaybeCreateSctpFactory(
 
 }  // namespace
 
+std::unique_ptr<cricket::MediaEngineInterface>
+ConnectionContext::CreateMediaEngineIfFactoryExists(
+    PeerConnectionFactoryDependencies& deps) {
+// TODO(bugs.webrtc.org/15574): remove pragma once call_factory and media_engine
+// are removed from PeerConnectionFactoryDependencies
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  if (deps.media_engine != nullptr) {
+    RTC_CHECK(deps.media_engine_factory == nullptr);
+    return std::move(deps.media_engine);
+  }
+#pragma clang diagnostic pop
+  if (deps.media_engine_factory != nullptr) {
+    return deps.media_engine_factory->CreateMediaEngine(deps);
+  }
+  return nullptr;
+}
+
+std::unique_ptr<CallFactoryInterface> ConnectionContext::ExtractCallFactory(
+    PeerConnectionFactoryDependencies& deps) {
+// TODO(bugs.webrtc.org/15574): remove pragma once call_factory and media_engine
+// are removed from PeerConnectionFactoryDependencies
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  if (deps.call_factory != nullptr) {
+    RTC_CHECK(deps.media_engine_factory == nullptr);
+    return std::move(deps.call_factory);
+  }
+#pragma clang diagnostic pop
+  return std::move(deps.media_engine_factory);
+}
+
 // Static
 rtc::scoped_refptr<ConnectionContext> ConnectionContext::Create(
     PeerConnectionFactoryDependencies* dependencies) {
@@ -96,13 +128,13 @@ ConnectionContext::ConnectionContext(
                      }),
       signaling_thread_(MaybeWrapThread(dependencies->signaling_thread,
                                         wraps_current_thread_)),
+      media_engine_(CreateMediaEngineIfFactoryExists(*dependencies)),
       trials_(dependencies->trials ? std::move(dependencies->trials)
                                    : std::make_unique<FieldTrialBasedConfig>()),
-      media_engine_(std::move(dependencies->media_engine)),
       network_monitor_factory_(
           std::move(dependencies->network_monitor_factory)),
       default_network_manager_(std::move(dependencies->network_manager)),
-      call_factory_(std::move(dependencies->call_factory)),
+      call_factory_(ExtractCallFactory(*dependencies)),
       default_socket_factory_(std::move(dependencies->packet_socket_factory)),
       sctp_factory_(
           MaybeCreateSctpFactory(std::move(dependencies->sctp_factory),

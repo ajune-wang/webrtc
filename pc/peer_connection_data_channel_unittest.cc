@@ -23,6 +23,7 @@
 #include "api/sctp_transport_interface.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/create_time_controller.h"
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
@@ -64,8 +65,8 @@ PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies() {
   deps.worker_thread = rtc::Thread::Current();
   deps.signaling_thread = rtc::Thread::Current();
   deps.task_queue_factory = CreateDefaultTaskQueueFactory();
-  deps.media_engine = std::make_unique<cricket::FakeMediaEngine>();
-  deps.call_factory = CreateCallFactory();
+  deps.media_engine_factory = CreateMediaEngineFactoryForTest(
+      {.media_engine = std::make_unique<cricket::FakeMediaEngine>()});
   deps.sctp_factory = std::make_unique<FakeSctpTransportFactory>();
   return deps;
 }

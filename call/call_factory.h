@@ -26,9 +26,9 @@ class CallFactory : public CallFactoryInterface {
   CallFactory();
   ~CallFactory() override = default;
 
- private:
   std::unique_ptr<Call> CreateCall(const CallConfig& config) override;
 
+ private:
   RTC_NO_UNIQUE_ADDRESS SequenceChecker call_thread_;
 };
 

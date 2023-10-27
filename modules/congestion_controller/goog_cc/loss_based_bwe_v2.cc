@@ -1159,4 +1159,28 @@ bool LossBasedBweV2::CanKeepIncreasingState(DataRate estimate) const {
          last_padding_info_.padding_rate < estimate;
 }
 
+void LossBasedBweV2::Reset() {
+  if (!config_->use_in_start_phase) return;
+
+  acknowledged_bitrate_ = absl::nullopt;
+  current_best_estimate_ = ChannelParameters();
+  num_observations_ = 0;
+  observations_.clear();
+  observations_.resize(config_->observation_window_size);
+  partial_observation_ = PartialObservation();
+  last_send_time_most_recent_observation_ = Timestamp::PlusInfinity();
+  last_time_estimate_reduced_ = Timestamp::MinusInfinity();
+  cached_instant_upper_bound_ = absl::nullopt;
+  cached_instant_lower_bound_ = absl::nullopt;
+  recovering_after_loss_timestamp_ = Timestamp::MinusInfinity();
+  bandwidth_limit_in_current_window_ = DataRate::PlusInfinity();
+  min_bitrate_ = DataRate::KilobitsPerSec(1);
+  max_bitrate_ = DataRate::PlusInfinity();
+  delay_based_estimate_ = DataRate::PlusInfinity();
+  loss_based_result_ = LossBasedBweV2::Result();
+  last_hold_timestamp_ = Timestamp::MinusInfinity();
+  hold_duration_ = kInitHoldDuration;
+  last_padding_info_ = PaddingInfo();
+}
+
 }  // namespace webrtc

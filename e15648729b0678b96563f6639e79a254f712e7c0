@@ -16,6 +16,24 @@
       "message": "I\u0027d like to study the Call and MediaEngine classes a little more before approving this one - I\u0027d like to have a plan on what we plan to do with them (merge them, split them differently, keep them both) before merging this CL.\n\nCan you add this as a topic on Monday\u0027s Webrtc-Core meeting?\n(If you have the time to write a few paragraphs in a doc about it, that would be welcome too!)",
       "revId": "e15648729b0678b96563f6639e79a254f712e7c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37421cf4_69618fc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-27T13:13:32Z",
+      "side": 1,
+      "message": "You\u0027ve already added this topic for Webrtc-Core meeting.\nI\u0027ve updated it with few sentences of this proposed solution.\n\nThis changes suggests to merge Call/MediaEngine at the api level as \u0027enable media\u0027, so that then merging/splitting actual classes can be done later as webrtc implementation detail.\n\nBtw, this CL is not for merging, just for the overview of the solution including how it affects prod and test code. For merging I need to split it into smaller manageable chunks. In particular postpone deprecating symbols until chromium is updated.",
+      "parentUuid": "de3cad4d_adabc670",
+      "revId": "e15648729b0678b96563f6639e79a254f712e7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

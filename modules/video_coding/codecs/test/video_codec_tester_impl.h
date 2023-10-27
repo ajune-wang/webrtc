@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_TEST_VIDEO_CODEC_TESTER_IMPL_H_
 #define MODULES_VIDEO_CODING_CODECS_TEST_VIDEO_CODEC_TESTER_IMPL_H_
 
+#include <map>
 #include <memory>
 
 #include "api/test/video_codec_tester.h"
@@ -23,20 +24,23 @@ class VideoCodecTesterImpl : public VideoCodecTester {
  public:
   std::unique_ptr<VideoCodecStats> RunDecodeTest(
       CodedVideoSource* video_source,
-      Decoder* decoder,
-      const DecoderSettings& decoder_settings) override;
+      VideoDecoderFactory* decoder_factory,
+      const DecoderSettings& decoder_settings,
+      const SdpVideoFormat& sdp_video_format) override;
 
   std::unique_ptr<VideoCodecStats> RunEncodeTest(
-      RawVideoSource* video_source,
-      Encoder* encoder,
-      const EncoderSettings& encoder_settings) override;
+      const VideoSourceSettings& source_settings,
+      VideoEncoderFactory* encoder_factory,
+      const EncoderSettings& encoder_settings,
+      const std::map<uint32_t, EncodingSettings>& encoding_settings) override;
 
   std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
-      RawVideoSource* video_source,
-      Encoder* encoder,
-      Decoder* decoder,
+      const VideoSourceSettings& source_settings,
+      VideoEncoderFactory* encoder_factory,
+      VideoDecoderFactory* decoder_factory,
       const EncoderSettings& encoder_settings,
-      const DecoderSettings& decoder_settings) override;
+      const DecoderSettings& decoder_settings,
+      const std::map<uint32_t, EncodingSettings>& encoding_settings) override;
 };
 
 }  // namespace test

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf0a474_c35f81cf",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-10-27T12:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cdde05f_6f5d8efe",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e61fa3ff_f7b404c6",
@@ -70,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e300685_4176dfa0",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-10-27T12:27:17Z",
+      "side": 1,
+      "message": "I cannot confirm that it is a bug compared to the spec. It is logical in the sense that if RED is first in the list then that signals that RED packets with an encoding of a following codec in the list will be sent and can be received. If the agent only wants to signal that it can receive RED with an encoding of another negotiated codec, but not send RED, then it would be after the codecs of its possible encodings in the list. This change enables that latter case, which the code handled erroneously before the change.",
+      "parentUuid": "786f54ac_289069c5",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d670c57_91559e88",
@@ -83,6 +119,24 @@
       "writtenOn": "2023-10-27T08:59:33Z",
       "side": 1,
       "message": "Is my understanding correct that this part of the code does this?\n```\n// If RED is the redundant codec of `found_codec_with_correct_pt`, make sure\n// RED is listed next to `found_codec_with_correct_pt` in the resulting list.\n```\n\nHowever even if we commented out this line, RED would still be added to the result, it\u0027s just that it would be added in a different order?",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07fdec0_e097720d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-10-27T12:27:17Z",
+      "side": 1,
+      "message": "This code used to find RED and add it after the primary codec of red. But only if RED hadn\u0027t been added already. The problem was just that RED if RED was not already added, was added a second time as a regular codec above (duplication). Examples:\n[RED, Opus] or [Opus, RED, RED]. And as you say, the codec order must be kept for WebRTC to send RED packets with the specified encoding.\n\nThe purpose of \"want_red\" is not entirely clear to me. There is unfortunately no existing unit test that explains it. There is no existing unit test for this code whatsoever. So I don\u0027t dare to rewrite the code completely.",
+      "parentUuid": "0d670c57_91559e88",
       "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

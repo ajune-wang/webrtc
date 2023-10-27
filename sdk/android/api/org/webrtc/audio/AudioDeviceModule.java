@@ -43,4 +43,12 @@ public interface AudioDeviceModule {
   default boolean setNoiseSuppressorEnabled(boolean enabled) {
     return false;
   }
+
+  /**
+   * Sets the preferred field dimension for the built-in microphone. Returns
+   * true if setting was successful, otherwise false is returned.
+   */
+  default boolean setPreferredMicrophoneFieldDimension(float dimension) {
+    return false;
+  }
 }

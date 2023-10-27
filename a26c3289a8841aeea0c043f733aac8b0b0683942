@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17ba68b0_7d92c590",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-27T09:59:47Z",
+      "side": 1,
+      "message": "Can we write this test in  a more direct way?\n\nie- what is the time when you enter allow increasing state ( kObservationDurationLowerBound * feedback_id) ?  What is the time when you enter decreasing state ( kObservationDurationLowerBound * feedback_id) ? Put expectation on that time difference. \nI should not have to know that its 4*kObservationDurationLowerBound.\nIncrease i until it happens (but with an upper limit maybe)",
+      "range": {
+        "startLine": 1532,
+        "startChar": 26,
+        "endLine": 1532,
+        "endChar": 27
+      },
+      "revId": "a26c3289a8841aeea0c043f733aac8b0b0683942",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

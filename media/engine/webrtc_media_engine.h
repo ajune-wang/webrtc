@@ -63,8 +63,8 @@ struct MediaEngineDependencies {
 // CreateMediaEngine may be called on any thread, though the engine is
 // only expected to be used on one thread, internally called the "worker
 // thread". This is the thread Init must be called on.
-RTC_EXPORT std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
-    MediaEngineDependencies dependencies);
+[[deprecated]] RTC_EXPORT std::unique_ptr<MediaEngineInterface>
+CreateMediaEngine(MediaEngineDependencies dependencies);
 
 // Verify that extension IDs are within 1-byte extension range and are not
 // overlapping, and that they form a legal change from previously registerd

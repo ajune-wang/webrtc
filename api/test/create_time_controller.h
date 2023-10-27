@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "api/call/call_factory_interface.h"
+#include "api/media_engine/media_engine_factory_interface.h"
 #include "api/test/time_controller.h"
 
 namespace webrtc {
@@ -28,6 +29,15 @@ std::unique_ptr<TimeController> CreateSimulatedTimeController();
 // a time controller.
 std::unique_ptr<CallFactoryInterface> CreateTimeControllerBasedCallFactory(
     TimeController* time_controller);
+
+// Parameters that modifies MediaEngineFactory for test purposes.
+struct MediaEngineFactoryParamsForTest {
+  TimeController* time_controller = nullptr;
+  std::unique_ptr<cricket::MediaEngineInterface> media_engine;
+};
+
+std::unique_ptr<MediaEngineFactoryInterface> CreateMediaEngineFactoryForTest(
+    MediaEngineFactoryParamsForTest params = {});
 
 }  // namespace webrtc
 

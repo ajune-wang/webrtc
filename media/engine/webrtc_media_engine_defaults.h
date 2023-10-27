@@ -11,13 +11,16 @@
 #ifndef MEDIA_ENGINE_WEBRTC_MEDIA_ENGINE_DEFAULTS_H_
 #define MEDIA_ENGINE_WEBRTC_MEDIA_ENGINE_DEFAULTS_H_
 
+#include "api/peer_connection_interface.h"
 #include "media/engine/webrtc_media_engine.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 
 // Sets required but null dependencies with default factories.
-RTC_EXPORT void SetMediaEngineDefaults(cricket::MediaEngineDependencies* deps);
+[[deprecated]] RTC_EXPORT void SetMediaEngineDefaults(
+    cricket::MediaEngineDependencies* deps);
+RTC_EXPORT void SetMediaEngineDefaults(PeerConnectionFactoryDependencies& deps);
 
 }  // namespace webrtc
 

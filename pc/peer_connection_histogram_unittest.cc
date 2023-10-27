@@ -24,6 +24,7 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/create_time_controller.h"
 #include "api/test/mock_async_dns_resolver.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
@@ -84,9 +85,8 @@ class PeerConnectionFactoryForUsageHistogramTest
           dependencies.worker_thread = rtc::Thread::Current();
           dependencies.signaling_thread = rtc::Thread::Current();
           dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
-          dependencies.media_engine =
-              std::make_unique<cricket::FakeMediaEngine>();
-          dependencies.call_factory = CreateCallFactory();
+          dependencies.media_factory = CreateMediaFactoryForTest(
+              {.media_engine = std::make_unique<cricket::FakeMediaEngine>()});
           return dependencies;
         }()) {}
 };

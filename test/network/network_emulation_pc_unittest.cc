@@ -12,6 +12,7 @@
 #include <memory>
 
 #include "api/call/call_factory_interface.h"
+#include "api/media_factory/create_media_factory.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/scoped_refptr.h"
@@ -57,23 +58,19 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* network_thread) {
   PeerConnectionFactoryDependencies pcf_deps;
   pcf_deps.task_queue_factory = CreateDefaultTaskQueueFactory();
-  pcf_deps.call_factory = CreateCallFactory();
+  pcf_deps.media_factory = CreateMediaFactory();
   pcf_deps.event_log_factory =
       std::make_unique<RtcEventLogFactory>(pcf_deps.task_queue_factory.get());
   pcf_deps.network_thread = network_thread;
   pcf_deps.signaling_thread = signaling_thread;
   pcf_deps.trials = std::make_unique<FieldTrialBasedConfig>();
-  cricket::MediaEngineDependencies media_deps;
-  media_deps.task_queue_factory = pcf_deps.task_queue_factory.get();
-  media_deps.adm = TestAudioDeviceModule::Create(
-      media_deps.task_queue_factory,
+  pcf_deps.adm = TestAudioDeviceModule::Create(
+      pcf_deps.task_queue_factory.get(),
       TestAudioDeviceModule::CreatePulsedNoiseCapturer(kMaxAptitude,
                                                        kSamplingFrequency),
       TestAudioDeviceModule::CreateDiscardRenderer(kSamplingFrequency),
       /*speed=*/1.f);
-  media_deps.trials = pcf_deps.trials.get();
-  SetMediaEngineDefaults(&media_deps);
-  pcf_deps.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
+  SetMediaEngineDefaults(pcf_deps);
   return CreateModularPeerConnectionFactory(std::move(pcf_deps));
 }
 

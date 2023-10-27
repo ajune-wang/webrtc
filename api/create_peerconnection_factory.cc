@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "api/call/call_factory_interface.h"
+#include "api/media_factory/create_media_factory.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/scoped_refptr.h"
@@ -51,7 +52,7 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   dependencies.signaling_thread = signaling_thread;
   dependencies.task_queue_factory =
       CreateDefaultTaskQueueFactory(field_trials.get());
-  dependencies.call_factory = CreateCallFactory();
+  dependencies.media_factory = CreateMediaFactory();
   dependencies.event_log_factory = std::make_unique<RtcEventLogFactory>(
       dependencies.task_queue_factory.get());
   dependencies.trials = std::move(field_trials);
@@ -60,28 +61,23 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     // TODO(bugs.webrtc.org/13145): Add an rtc::SocketFactory* argument.
     dependencies.socket_factory = network_thread->socketserver();
   }
-  cricket::MediaEngineDependencies media_dependencies;
-  media_dependencies.task_queue_factory = dependencies.task_queue_factory.get();
-  media_dependencies.adm = std::move(default_adm);
-  media_dependencies.audio_encoder_factory = std::move(audio_encoder_factory);
-  media_dependencies.audio_decoder_factory = std::move(audio_decoder_factory);
+  dependencies.adm = std::move(default_adm);
+  dependencies.audio_encoder_factory = std::move(audio_encoder_factory);
+  dependencies.audio_decoder_factory = std::move(audio_decoder_factory);
   if (audio_frame_processor) {
-    media_dependencies.audio_frame_processor = audio_frame_processor;
+    dependencies.deprecated_audio_frame_processor = audio_frame_processor;
   } else if (owned_audio_frame_processor) {
-    media_dependencies.owned_audio_frame_processor =
-        std::move(owned_audio_frame_processor);
+    dependencies.audio_frame_processor = std::move(owned_audio_frame_processor);
   }
   if (audio_processing) {
-    media_dependencies.audio_processing = std::move(audio_processing);
+    dependencies.audio_processing = std::move(audio_processing);
   } else {
-    media_dependencies.audio_processing = AudioProcessingBuilder().Create();
+    dependencies.audio_processing = AudioProcessingBuilder().Create();
   }
-  media_dependencies.audio_mixer = std::move(audio_mixer);
-  media_dependencies.video_encoder_factory = std::move(video_encoder_factory);
-  media_dependencies.video_decoder_factory = std::move(video_decoder_factory);
-  media_dependencies.trials = dependencies.trials.get();
-  dependencies.media_engine =
-      cricket::CreateMediaEngine(std::move(media_dependencies));
+  dependencies.audio_mixer = std::move(audio_mixer);
+  dependencies.video_encoder_factory = std::move(video_encoder_factory);
+  dependencies.video_decoder_factory = std::move(video_decoder_factory);
+  dependencies.media_factory = CreateMediaFactory();
 
   return CreateModularPeerConnectionFactory(std::move(dependencies));
 }

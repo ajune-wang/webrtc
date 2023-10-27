@@ -38,6 +38,7 @@
 #include "api/field_trials_view.h"
 #include "api/ice_transport_interface.h"
 #include "api/jsep.h"
+#include "api/media_factory/create_media_factory.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/peer_connection_interface.h"
@@ -782,32 +783,26 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     pc_factory_dependencies.trials = std::make_unique<FieldTrialBasedConfig>();
     pc_factory_dependencies.metronome =
         std::make_unique<TaskQueueMetronome>(TimeDelta::Millis(8));
-    cricket::MediaEngineDependencies media_deps;
-    media_deps.task_queue_factory =
-        pc_factory_dependencies.task_queue_factory.get();
-    media_deps.adm = fake_audio_capture_module_;
-    webrtc::SetMediaEngineDefaults(&media_deps);
+    pc_factory_dependencies.adm = fake_audio_capture_module_;
+    webrtc::SetMediaEngineDefaults(pc_factory_dependencies);
 
     if (reset_encoder_factory) {
-      media_deps.video_encoder_factory.reset();
+      pc_factory_dependencies.video_encoder_factory.reset();
     }
     if (reset_decoder_factory) {
-      media_deps.video_decoder_factory.reset();
+      pc_factory_dependencies.video_decoder_factory.reset();
     }
 
-    if (!media_deps.audio_processing) {
+    if (!pc_factory_dependencies.audio_processing) {
       // If the standard Creation method for APM returns a null pointer, instead
       // use the builder for testing to create an APM object.
-      media_deps.audio_processing = AudioProcessingBuilderForTesting().Create();
+      pc_factory_dependencies.audio_processing =
+          AudioProcessingBuilderForTesting().Create();
     }
-
-    media_deps.trials = pc_factory_dependencies.trials.get();
 
     if (create_media_engine) {
-      pc_factory_dependencies.media_engine =
-          cricket::CreateMediaEngine(std::move(media_deps));
+      pc_factory_dependencies.media_factory = CreateMediaFactory();
     }
-    pc_factory_dependencies.call_factory = webrtc::CreateCallFactory();
     if (event_log_factory) {
       event_log_factory_ = event_log_factory.get();
       pc_factory_dependencies.event_log_factory = std::move(event_log_factory);

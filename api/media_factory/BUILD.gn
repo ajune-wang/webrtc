@@ -1,0 +1,33 @@
+# Copyright (c) 2023 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../webrtc.gni")
+if (is_android) {
+  import("//build/config/android/config.gni")
+  import("//build/config/android/rules.gni")
+}
+
+rtc_source_set("create_media_factory") {
+  visibility = [ "*" ]
+  sources = [
+    "create_media_factory.cc",
+    "create_media_factory.h",
+  ]
+  deps = [
+    ":media_factory",
+    "..:libjingle_peerconnection_api",
+    "../../call",
+    "../../media:rtc_audio_video",
+  ]
+}
+
+rtc_source_set("media_factory") {
+  visibility = [ "*" ]
+  sources = [ "media_factory.h" ]
+  deps = [ "..:callfactory_api" ]
+}

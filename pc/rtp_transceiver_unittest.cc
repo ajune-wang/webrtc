@@ -19,6 +19,7 @@
 #include "absl/types/optional.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtp_parameters.h"
+#include "api/test/create_time_controller.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
 #include "pc/test/mock_channel_interface.h"
@@ -60,7 +61,8 @@ class RtpTransceiverTest : public testing::Test {
     d.network_thread = rtc::Thread::Current();
     d.worker_thread = rtc::Thread::Current();
     d.signaling_thread = rtc::Thread::Current();
-    d.media_engine = std::make_unique<cricket::FakeMediaEngine>();
+    d.media_factory = CreateMediaFactoryForTest(
+        {.media_engine = std::make_unique<cricket::FakeMediaEngine>()});
     return d;
   }
 

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a6e2bbf_47d3f8bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-10-27T08:59:33Z",
+      "side": 1,
+      "message": "LGTM % \"can we add comments?\"\n\nAlso CC Harald for questions, because the existing behavior of our code base is surprising to me, but that is a separate issue from duplicate REDs that this CL fixes",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cdde05f_6f5d8efe",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-10-27T08:59:33Z",
+      "side": 1,
+      "message": "Can you add a comment here? Suggestion\n```\n// Add this codec to the results.\n// If the codec is RED, only add it if it hasn\u0027t already been added.\n```",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61fa3ff_f7b404c6",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-10-27T08:59:33Z",
+      "side": 1,
+      "message": "\u003e audio/red for opus gets enabled by having RED before the primary codec\n\nCan you confirm that this part is probably a bug compared to the spec, but not one we are currently interested in fixing?\n\n+CC hta: Should order between RED and codec matter? My understanding is that it shouldn\u0027t, but sounds like our code cares about order even for RED.",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d670c57_91559e88",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-10-27T08:59:33Z",
+      "side": 1,
+      "message": "Is my understanding correct that this part of the code does this?\n```\n// If RED is the redundant codec of `found_codec_with_correct_pt`, make sure\n// RED is listed next to `found_codec_with_correct_pt` in the resulting list.\n```\n\nHowever even if we commented out this line, RED would still be added to the result, it\u0027s just that it would be added in a different order?",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b22cda_4354ff3d",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-10-27T08:59:33Z",
+      "side": 1,
+      "message": "As per my other comment, my understanding is that whether we do Opus,RED or RED,Opus the result should be the same: RED is enabled. I could be wrong, though",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

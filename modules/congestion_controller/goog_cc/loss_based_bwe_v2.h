@@ -71,6 +71,7 @@ class LossBasedBweV2 {
       rtc::ArrayView<const PacketResult> packet_results,
       DataRate delay_based_estimate,
       bool in_alr);
+  void Reset();
 
   // For unit testing only.
   void SetBandwidthEstimate(DataRate bandwidth_estimate);

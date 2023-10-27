@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de3cad4d_adabc670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-27T12:55:31Z",
+      "side": 1,
+      "message": "I\u0027d like to study the Call and MediaEngine classes a little more before approving this one - I\u0027d like to have a plan on what we plan to do with them (merge them, split them differently, keep them both) before merging this CL.\n\nCan you add this as a topic on Monday\u0027s Webrtc-Core meeting?\n(If you have the time to write a few paragraphs in a doc about it, that would be welcome too!)",
+      "revId": "e15648729b0678b96563f6639e79a254f712e7c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -142,6 +142,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1832acc1_9911f2cc",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2023-10-27T13:48:21Z",
+      "side": 1,
+      "message": "As Philipp says, what links RED to the encoding is \"a\u003dFMTP:12 15/15\" if RED has payload type 12 and the encoding payload type 15. On top of that, RED should be listed with the same sample rate and number of channels as the encoding codec. RED and the encoding codec does not have to be listed right after each other, it just matters which one is before the other when it comes to what is to be sent. And again, the use case for having RED after the encoding codec is when you want to say that you can receive RED but you don\u0027t want to send it.\n\n@phancke@microsoft.com you are right that one can argue that the SDP with duplicate identical RED codec lines should work. But in this case WebRTC is used with SDP code that asserts because of the duplicate identical RED codec lines. I simply think that it is better to make sure that the SDP doesn\u0027t have the duplication than to remove the assert and potentially have to change other code that also has problems with this. Hope that makes sense and thanks for the thoughts and input on this. It\u0027s good if we all agree that this relatively small change is useful because it makes sure that the SDP produced by WebRTC is sane in this case.",
+      "parentUuid": "480dfba1_9031b1cd",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d670c57_91559e88",

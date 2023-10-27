@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b77a962_9eff8048",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-10-27T13:05:59Z",
+      "side": 1,
+      "message": "But if the logic is \"Use RED for the subsequent codec in the list\", wouldn\u0027t the logical thing be to allow RED to appear multiple times in the list? Once per codec you wanted to use RED for? I doubt this is what we want to do, but it is where the logic leads me. Otherwise we\u0027re saying \"you must only do RED if this exact codec gets chosen\". But it gets weirded. If you offer RED, CodecA, CodecB you\u0027re saying \"CodecA is RED, CodecB isn\u0027t\". But if the answer doesn\u0027t support CodecA and removes it from the list, you\u0027re left with RED, CodecB. Now this means \"CodecB is RED\", which triggers something the offer side never said to support in the first place.\n\nEither way we should land this, because doing setCodecPreferences() with one RED should never produce multiple REDs. But I don\u0027t think \"what SHOULD we do?\" is known yet.",
+      "parentUuid": "0e300685_4176dfa0",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d670c57_91559e88",
         "filename": "pc/media_session.cc",
         "patchSetId": 4

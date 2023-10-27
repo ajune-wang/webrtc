@@ -29,6 +29,7 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/create_time_controller.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
 #include "p2p/base/fake_port_allocator.h"
@@ -90,8 +91,8 @@ class PeerConnectionHeaderExtensionTest
     factory_dependencies.worker_thread = rtc::Thread::Current();
     factory_dependencies.signaling_thread = rtc::Thread::Current();
     factory_dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
-    factory_dependencies.media_engine = std::move(media_engine);
-    factory_dependencies.call_factory = CreateCallFactory();
+    factory_dependencies.media_engine_factory = CreateMediaEngineFactoryForTest(
+        {.media_engine = std::move(media_engine)});
     factory_dependencies.event_log_factory =
         std::make_unique<RtcEventLogFactory>(
             factory_dependencies.task_queue_factory.get());

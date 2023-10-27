@@ -324,7 +324,12 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensionsRemoveRedundantBwe3) {
 
 TEST(WebRtcMediaEngineTest, Create) {
   MediaEngineDependencies deps;
+// TODO(bugs.webrtc.org/15574): Review if this test still helpful, or should
+// be removed or tested via PeerConnectionFactory
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
   webrtc::SetMediaEngineDefaults(&deps);
+#pragma clang diagnostic pop
   webrtc::test::ScopedKeyValueConfig trials;
   deps.trials = &trials;
 

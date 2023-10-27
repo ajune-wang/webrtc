@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "786f54ac_289069c5",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-10-27T09:05:37Z",
+      "side": 1,
+      "message": "If that rule did not exist, RED would be enabled by default for p2p connections which is not a good idea to do unconditionally. See https://webrtc-review.googlesource.com/c/src/+/178742",
+      "parentUuid": "e61fa3ff_f7b404c6",
+      "revId": "e4cce83d7d9aff6066f118c110f2f625cd7c6692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d670c57_91559e88",
         "filename": "pc/media_session.cc",
         "patchSetId": 4

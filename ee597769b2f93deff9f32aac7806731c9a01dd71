@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c8c96a_edd4947a",
+        "filename": "sdk/android/api/org/webrtc/audio/AudioDeviceModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-10-27T14:24:13Z",
+      "side": 1,
+      "message": "Could you explain more what is this supposed to do?\n\nAnd possibly add an implementation in the existing implementations of this interface if that makes sense?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "ee597769b2f93deff9f32aac7806731c9a01dd71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

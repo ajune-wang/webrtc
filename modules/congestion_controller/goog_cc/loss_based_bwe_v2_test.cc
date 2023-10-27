@@ -1711,5 +1711,35 @@ TEST_F(LossBasedBweV2Test, UseByteLossRate) {
       DataRate::KilobitsPerSec(150));
 }
 
+TEST_F(LossBasedBweV2Test, Reset) {
+  ExplicitKeyValueConfig key_value_config(
+      ShortObservationConfig("UseInStartPhase:true"));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+  loss_based_bandwidth_estimator.SetBandwidthEstimate(
+      DataRate::KilobitsPerSec(2500));
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      CreatePacketResultsWith100pLossRate(
+          /*first_packet_timestamp=*/Timestamp::Zero()),
+      /*delay_based_estimate=*/DataRate::PlusInfinity(),
+      /*in_alr=*/false);
+  ASSERT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
+            LossBasedState::kDecreasing);
+
+  loss_based_bandwidth_estimator.Reset();
+  for (int i = 1; i < 5; ++i) {
+    loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+        CreatePacketResultsWithReceivedPackets(
+            /*first_packet_timestamp=*/Timestamp::Zero() +
+            kObservationDurationLowerBound * i),
+        /*delay_based_estimate=*/DataRate::KilobitsPerSec(2500),
+        /*in_alr=*/false);
+    EXPECT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
+              LossBasedState::kDelayBasedEstimate);
+    EXPECT_EQ(
+        loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate,
+        DataRate::KilobitsPerSec(2500));
+  }
+}
+
 }  // namespace
 }  // namespace webrtc

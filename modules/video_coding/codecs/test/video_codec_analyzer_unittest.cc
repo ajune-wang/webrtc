@@ -20,12 +20,23 @@ namespace webrtc {
 namespace test {
 
 namespace {
+using ::testing::ElementsAre;
 using ::testing::Return;
+using ::testing::SizeIs;
 using ::testing::Values;
 using Psnr = VideoCodecStats::Frame::Psnr;
+using Filter = VideoCodecStats::Filter;
+using Stream = VideoCodecStats::Stream;
 
 const uint32_t kTimestamp = 3000;
 const int kSpatialIdx = 2;
+const EncodingSettings kEncodingSettings{
+    .sdp_video_format = SdpVideoFormat("VP8"),
+    .scalability_mode = ScalabilityMode::kL1T1,
+    .layers_settings = {{{.spatial_idx = 0, .temporal_idx = 0},
+                         {.resolution{.width = 320, .height = 180},
+                          .framerate = Frequency::Hertz(30),
+                          .bitrate = DataRate::BitsPerSec(128)}}}};
 
 class MockReferenceVideoSource
     : public VideoCodecAnalyzer::ReferenceVideoSource {
@@ -60,7 +71,7 @@ EncodedImage CreateEncodedImage(uint32_t timestamp_rtp, int spatial_idx = 0) {
 
 TEST(VideoCodecAnalyzerTest, StartEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp), kEncodingSettings);
 
   auto fs = analyzer.GetStats()->Slice();
   EXPECT_EQ(1u, fs.size());
@@ -69,7 +80,7 @@ TEST(VideoCodecAnalyzerTest, StartEncode) {
 
 TEST(VideoCodecAnalyzerTest, FinishEncode) {
   VideoCodecAnalyzer analyzer;
-  analyzer.StartEncode(CreateVideoFrame(kTimestamp));
+  analyzer.StartEncode(CreateVideoFrame(kTimestamp), kEncodingSettings);
 
   EncodedImage encoded_frame = CreateEncodedImage(kTimestamp, kSpatialIdx);
   analyzer.FinishEncode(encoded_frame);

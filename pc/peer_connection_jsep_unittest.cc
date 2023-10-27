@@ -23,6 +23,7 @@
 #include "api/call/call_factory_interface.h"
 #include "api/field_trials_view.h"
 #include "api/jsep.h"
+#include "api/media_factory/create_media_factory.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/peer_connection_interface.h"
@@ -84,13 +85,9 @@ PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies() {
   dependencies.signaling_thread = rtc::Thread::Current();
   dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
   dependencies.trials = std::make_unique<FieldTrialBasedConfig>();
-  cricket::MediaEngineDependencies media_deps;
-  media_deps.task_queue_factory = dependencies.task_queue_factory.get();
-  media_deps.adm = FakeAudioCaptureModule::Create();
-  media_deps.trials = dependencies.trials.get();
-  SetMediaEngineDefaults(&media_deps);
-  dependencies.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
-  dependencies.call_factory = CreateCallFactory();
+  dependencies.adm = FakeAudioCaptureModule::Create();
+  SetMediaEngineDefaults(dependencies);
+  dependencies.media_factory = CreateMediaFactory();
   dependencies.sctp_factory = std::make_unique<FakeSctpTransportFactory>();
   return dependencies;
 }

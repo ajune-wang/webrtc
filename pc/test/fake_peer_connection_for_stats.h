@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/test/create_time_controller.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_channel.h"
 #include "pc/channel.h"
@@ -235,7 +236,8 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     dependencies.network_thread = rtc::Thread::Current();
     dependencies.worker_thread = rtc::Thread::Current();
     dependencies.signaling_thread = rtc::Thread::Current();
-    dependencies.media_engine = std::make_unique<cricket::FakeMediaEngine>();
+    dependencies.media_factory = CreateMediaFactoryForTest(
+        {.media_engine = std::make_unique<cricket::FakeMediaEngine>()});
     return dependencies;
   }
 

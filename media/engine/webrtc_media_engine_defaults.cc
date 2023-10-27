@@ -40,4 +40,26 @@ void SetMediaEngineDefaults(cricket::MediaEngineDependencies* deps) {
     deps->video_decoder_factory = CreateBuiltinVideoDecoderFactory();
 }
 
+void SetMediaEngineDefaults(PeerConnectionFactoryDependencies& deps) {
+  if (deps.task_queue_factory == nullptr) {
+    deps.task_queue_factory = CreateDefaultTaskQueueFactory();
+  }
+  if (deps.audio_encoder_factory == nullptr) {
+    deps.audio_encoder_factory = CreateBuiltinAudioEncoderFactory();
+  }
+  if (deps.audio_decoder_factory == nullptr) {
+    deps.audio_decoder_factory = CreateBuiltinAudioDecoderFactory();
+  }
+  if (deps.audio_processing == nullptr) {
+    deps.audio_processing = AudioProcessingBuilder().Create();
+  }
+
+  if (deps.video_encoder_factory == nullptr) {
+    deps.video_encoder_factory = CreateBuiltinVideoEncoderFactory();
+  }
+  if (deps.video_decoder_factory == nullptr) {
+    deps.video_decoder_factory = CreateBuiltinVideoDecoderFactory();
+  }
+}
+
 }  // namespace webrtc

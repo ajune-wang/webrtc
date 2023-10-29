@@ -14,7 +14,6 @@
 
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/video/i420_buffer.h"
-#include "api/video/video_codec_constants.h"
 #include "api/video/video_frame.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
@@ -61,19 +60,25 @@ VideoCodecAnalyzer::VideoCodecAnalyzer(
   sequence_checker_.Detach();
 }
 
-void VideoCodecAnalyzer::StartEncode(const VideoFrame& input_frame) {
+void VideoCodecAnalyzer::StartEncode(
+    const VideoFrame& input_frame,
+    const EncodingSettings& encoding_settings) {
   int64_t encode_start_us = rtc::TimeMicros();
-  task_queue_.PostTask(
-      [this, timestamp_rtp = input_frame.timestamp(), encode_start_us]() {
-        RTC_DCHECK_RUN_ON(&sequence_checker_);
+  task_queue_.PostTask([this, timestamp_rtp = input_frame.timestamp(),
+                        encoding_settings, encode_start_us]() {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
 
-        RTC_CHECK(frame_num_.find(timestamp_rtp) == frame_num_.end());
-        frame_num_[timestamp_rtp] = num_frames_++;
+    RTC_CHECK(frame_num_.find(timestamp_rtp) == frame_num_.end());
+    frame_num_[timestamp_rtp] = num_frames_++;
 
-        stats_.AddFrame({.frame_num = frame_num_[timestamp_rtp],
-                         .timestamp_rtp = timestamp_rtp,
-                         .encode_start = Timestamp::Micros(encode_start_us)});
-      });
+    VideoCodecStats::Frame fs;
+    fs.frame_num = frame_num_[timestamp_rtp], fs.timestamp_rtp = timestamp_rtp,
+    fs.encode_start = Timestamp::Micros(encode_start_us),
+    fs.encoding_settings = encoding_settings;
+    fs.target_bitrate = encoding_settings.GetTargetBitrate();
+    fs.target_framerate = encoding_settings.GetTargetFramerate();
+    stats_.AddFrame(fs);
+  });
 }
 
 void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
@@ -96,7 +101,10 @@ void VideoCodecAnalyzer::FinishEncode(const EncodedImage& frame) {
       stats_.AddFrame({.frame_num = base_frame->frame_num,
                        .timestamp_rtp = timestamp_rtp,
                        .spatial_idx = spatial_idx,
-                       .encode_start = base_frame->encode_start});
+                       .encode_start = base_frame->encode_start,
+                       .target_bitrate = base_frame->target_bitrate,
+                       .target_framerate = base_frame->target_framerate,
+                       .encoding_settings = base_frame->encoding_settings});
     }
 
     VideoCodecStats::Frame* fs = stats_.GetFrame(timestamp_rtp, spatial_idx);

@@ -804,9 +804,12 @@ TEST_F(LossBasedBweV2Test,
           feedback_count++ * kObservationDurationLowerBound),
       delay_based_estimate,
       /*in_alr=*/false);
+
+  // Estimate increases by 1kbps to ensure the state to be kIncreasing.
   EXPECT_EQ(
       loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate,
-      result.bandwidth_estimate);
+      result.bandwidth_estimate + DataRate::KilobitsPerSec(1));
+  EXPECT_EQ(result.state, LossBasedState::kIncreasing);
 }
 
 // After loss based bwe backs off, the estimate is bounded during the delayed

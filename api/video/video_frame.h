@@ -177,6 +177,13 @@ class RTC_EXPORT VideoFrame {
     capture_time_identifier_ = capture_time_identifier;
   }
 
+  const absl::optional<Timestamp>& reference_time() const {
+    return reference_time_;
+  }
+  void set_reference_time(const absl::optional<Timestamp>& reference_time) {
+    reference_time_ = reference_time;
+  }
+
   // Set frame timestamp (90kHz).
   void set_timestamp(uint32_t timestamp) { timestamp_rtp_ = timestamp; }
 
@@ -274,6 +281,7 @@ class RTC_EXPORT VideoFrame {
              const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
              int64_t timestamp_us,
              const absl::optional<Timestamp>& capture_time_identifier,
+             const absl::optional<Timestamp>& reference_time,
              uint32_t timestamp_rtp,
              int64_t ntp_time_ms,
              VideoRotation rotation,
@@ -289,6 +297,11 @@ class RTC_EXPORT VideoFrame {
   int64_t ntp_time_ms_;
   int64_t timestamp_us_;
   absl::optional<Timestamp> capture_time_identifier_;
+  // Containts a monotonically increasing clock time and represents the time
+  // when the frame was captured. Not all platforms provide the "true" sample
+  // capture time in |reference_time| but might instead use a somewhat delayed
+  // (by the time it took to capture the frame) version of it.
+  absl::optional<Timestamp> reference_time_;
   VideoRotation rotation_;
   absl::optional<ColorSpace> color_space_;
   // Contains parameters that affect have the frame should be rendered.

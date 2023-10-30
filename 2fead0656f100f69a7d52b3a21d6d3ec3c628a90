@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98226ef7_747964d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-30T09:39:14Z",
+      "side": 1,
+      "message": "Sorry, seems like I forgot to send this.  \n\nThe drawback with this type of reset functions is obviously you will have to remember to add all members to it. An alternative is to recreate the loss based estimator from scratch in send_side_bandwidth_estimation.",
+      "revId": "2fead0656f100f69a7d52b3a21d6d3ec3c628a90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

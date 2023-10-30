@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3fff3fc_9d2b4f62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-10-30T12:24:05Z",
+      "side": 1,
+      "message": "Any hidden reason / hidden blocker this cleanup is paused?",
+      "revId": "460d9b34cf944a8393a389990da1c516d170dc11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

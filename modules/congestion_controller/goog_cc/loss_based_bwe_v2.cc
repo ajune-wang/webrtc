@@ -331,8 +331,9 @@ void LossBasedBweV2::UpdateResult() {
       bounded_bandwidth_estimate < delay_based_estimate_) {
     // BWE is not allowed to increase during the HOLD duration. The purpose of
     // HOLD is to not immediately ramp up BWE to a rate that may cause loss.
-    loss_based_result_.bandwidth_estimate = std::min(
-        loss_based_result_.bandwidth_estimate, bounded_bandwidth_estimate);
+    loss_based_result_.bandwidth_estimate = std::max(
+        GetInstantLowerBound(), std::min(loss_based_result_.bandwidth_estimate,
+                                         bounded_bandwidth_estimate));
     return;
   }
 
@@ -359,7 +360,7 @@ void LossBasedBweV2::UpdateResult() {
       RTC_LOG(LS_INFO) << this << " "
                        << "Switch to HOLD. Bounded BWE: "
                        << bounded_bandwidth_estimate.kbps()
-                       << ", duration: " << hold_duration_.seconds();
+                       << ", duration: " << hold_duration_.ms();
       last_hold_timestamp_ =
           last_send_time_most_recent_observation_ + hold_duration_;
       hold_duration_ = std::min(kMaxHoldDuration,

@@ -16,6 +16,24 @@
       "message": "nit: we can skip the exclamation mark (since the note is quite reasonable)",
       "revId": "28ed51f3dca32bc3e1a1077e69146fdaf1efa086",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d366f3c4_8490dd5d",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-10-30T12:45:40Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "efa49090_6612983d",
+      "revId": "28ed51f3dca32bc3e1a1077e69146fdaf1efa086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

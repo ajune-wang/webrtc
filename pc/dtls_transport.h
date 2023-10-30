@@ -46,11 +46,13 @@ class DtlsTransport : public DtlsTransportInterface {
   void Clear();
 
   cricket::DtlsTransportInternal* internal() {
+    RTC_DCHECK_RUN_ON(owner_thread_);
     MutexLock lock(&lock_);
     return internal_dtls_transport_.get();
   }
 
   const cricket::DtlsTransportInternal* internal() const {
+    RTC_DCHECK_RUN_ON(owner_thread_);
     MutexLock lock(&lock_);
     return internal_dtls_transport_.get();
   }

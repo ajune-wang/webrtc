@@ -41,6 +41,11 @@ DtlsTransport::DtlsTransport(
 }
 
 DtlsTransport::~DtlsTransport() {
+  // TODO(tommi): Due to a reference being held by the RtpSenderBase
+  // implementation, the last reference to the `DtlsTransport` instance can
+  // be released on the signaling thread.
+  // RTC_DCHECK_RUN_ON(owner_thread_);
+
   // We depend on the signaling thread to call Clear() before dropping
   // its last reference to this object.
   RTC_DCHECK(owner_thread_->IsCurrent() || !internal_dtls_transport_);

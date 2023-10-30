@@ -46,6 +46,30 @@
       },
       "revId": "ee597769b2f93deff9f32aac7806731c9a01dd71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8aeef73_f4968381",
+        "filename": "sdk/android/api/org/webrtc/audio/AudioDeviceModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2023-10-30T07:42:02Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "f4b47026_a6003388",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "ee597769b2f93deff9f32aac7806731c9a01dd71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,24 @@
       "message": "The only effect of this change is that if we try to add a BlockingCall inside a BaseChannel-derived class, the compiler will tell us there is no such thing, right?\n\nI approve!",
       "revId": "c2ea9601e33d1a9a95ef947f96ac72ce50d0b93e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d34c6b0_7a791475",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-30T12:38:22Z",
+      "side": 1,
+      "message": "Yes - it closes the door on adding calls to BlockingCall() for the signaling and worker thread variables/getters.",
+      "parentUuid": "54189030_45db1a41",
+      "revId": "c2ea9601e33d1a9a95ef947f96ac72ce50d0b93e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

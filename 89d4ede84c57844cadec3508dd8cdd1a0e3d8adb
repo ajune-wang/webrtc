@@ -22,6 +22,30 @@
       },
       "revId": "89d4ede84c57844cadec3508dd8cdd1a0e3d8adb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a9e9c2_4943b4fc",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-10-31T09:52:28Z",
+      "side": 1,
+      "message": "If we are in HOLD for 1 min, then the current version will have the estimate to be min of acked bitrates in that 1min, thus we have 2 problems: 1) the estimate becomes very low, and 2) the estimate sometimes is lower than acked rate.\n\nEven if we take max(acked rate, current estimate), we are not going to increase the bitrate as we just make the estimate to be the acked rate, and the acked rate is not going to have any big jump (because the estimate doesnt change much).",
+      "parentUuid": "4314379a_58712cff",
+      "range": {
+        "startLine": 334,
+        "startChar": 23,
+        "endLine": 334,
+        "endChar": 41
+      },
+      "revId": "89d4ede84c57844cadec3508dd8cdd1a0e3d8adb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

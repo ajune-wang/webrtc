@@ -16,6 +16,24 @@
       "message": "There are two CLs that are exactly the same, should one of them land or are they stale?\n\nhttps://webrtc-review.googlesource.com/c/src/+/324781\nhttps://webrtc-review.googlesource.com/c/src/+/324860",
       "revId": "79847fa5c3f29f7019b249f10d2c9487efe66df8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad78df8_796b86ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-31T11:15:52Z",
+      "side": 1,
+      "message": "ehm... I had no idea. I\u0027ll close those.\nWhen trying to use the Gerrit \"Reland\" feature, the UI would just hang and never show those CLs. So I ended up using the good ol\u0027 \"revert\" to reland.",
+      "parentUuid": "e908131c_3ab1d2a5",
+      "revId": "79847fa5c3f29f7019b249f10d2c9487efe66df8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

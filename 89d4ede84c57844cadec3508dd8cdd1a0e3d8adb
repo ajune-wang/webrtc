@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4314379a_58712cff",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-31T09:32:36Z",
+      "side": 1,
+      "message": "This feels very weird and backwards. \nWhy do you want to do that? \n\nloss_based_result_.bandwidth_estimate is the previouse result. \nbounded_bandwidth_estimate \u003d  std::max(GetInstantLowerBound(),\n                 std::min(current_best_estimate_.loss_limited_bandwidth,\n                          GetInstantUpperBound()));\n\nSo it looks like you want to increase BWE in hold state which seems to defeat the purpose?",
+      "range": {
+        "startLine": 334,
+        "startChar": 23,
+        "endLine": 334,
+        "endChar": 41
+      },
+      "revId": "89d4ede84c57844cadec3508dd8cdd1a0e3d8adb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

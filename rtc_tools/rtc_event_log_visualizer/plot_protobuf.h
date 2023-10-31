@@ -12,10 +12,8 @@
 
 #include "absl/base/attributes.h"
 #include "rtc_base/ignore_wundef.h"
-RTC_PUSH_IGNORING_WUNDEF()
-#include "rtc_tools/rtc_event_log_visualizer/proto/chart.pb.h"
-RTC_POP_IGNORING_WUNDEF()
 #include "rtc_tools/rtc_event_log_visualizer/plot_base.h"
+#include "rtc_tools/rtc_event_log_visualizer/proto/chart.pb.h"
 
 namespace webrtc {
 

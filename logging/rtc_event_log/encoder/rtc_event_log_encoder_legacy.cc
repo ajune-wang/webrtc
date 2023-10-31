@@ -57,13 +57,12 @@
 #include "rtc_base/logging.h"
 
 // *.pb.h files are generated at build-time by the protobuf compiler.
-RTC_PUSH_IGNORING_WUNDEF()
+
 #ifdef WEBRTC_ANDROID_PLATFORM_BUILD
 #include "external/webrtc/webrtc/logging/rtc_event_log/rtc_event_log.pb.h"
 #else
 #include "logging/rtc_event_log/rtc_event_log.pb.h"
 #endif
-RTC_POP_IGNORING_WUNDEF()
 
 namespace webrtc {
 

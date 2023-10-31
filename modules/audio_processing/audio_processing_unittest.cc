@@ -30,6 +30,7 @@
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/audio_processing_impl.h"
+#include "modules/audio_processing/debug.pb.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
 #include "modules/audio_processing/test/audio_processing_builder_for_testing.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
@@ -50,15 +51,11 @@
 #include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
-
-RTC_PUSH_IGNORING_WUNDEF()
-#include "modules/audio_processing/debug.pb.h"
 #ifdef WEBRTC_ANDROID_PLATFORM_BUILD
 #include "external/webrtc/webrtc/modules/audio_processing/test/unittest.pb.h"
 #else
 #include "modules/audio_processing/test/unittest.pb.h"
 #endif
-RTC_POP_IGNORING_WUNDEF()
 
 ABSL_FLAG(bool,
           write_apm_ref_data,

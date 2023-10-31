@@ -15,12 +15,9 @@
 
 #include "absl/strings/string_view.h"
 #include "common_audio/channel_buffer.h"
+#include "modules/audio_processing/debug.pb.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/ignore_wundef.h"
-
-RTC_PUSH_IGNORING_WUNDEF()
-#include "modules/audio_processing/debug.pb.h"
-RTC_POP_IGNORING_WUNDEF()
 
 namespace webrtc {
 namespace test {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0b73ec_37f3385e",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-10-31T09:37:55Z",
+      "side": 1,
+      "message": "Seems a bit hacky by ok. It cant be less current_best_estimate_.loss_limited_bandwidth because of line 294 so maybe more readable to check for equal.",
+      "range": {
+        "startLine": 301,
+        "startChar": 37,
+        "endLine": 301,
+        "endChar": 59
+      },
+      "revId": "310eecb5d37f4a148d52761d878d49972ee24978",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

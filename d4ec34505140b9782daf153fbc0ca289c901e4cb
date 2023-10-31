@@ -16,6 +16,23 @@
       "message": "WDYT?",
       "revId": "d4ec34505140b9782daf153fbc0ca289c901e4cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c9ea0e9_2b9c1463",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-10-31T12:41:59Z",
+      "side": 1,
+      "message": "lgtm. The next step, making interfaces inherit from the webrtc:: interface, will likely take some time to bake",
+      "revId": "d4ec34505140b9782daf153fbc0ca289c901e4cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

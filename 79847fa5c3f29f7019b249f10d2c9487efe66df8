@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e908131c_3ab1d2a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2023-10-31T10:30:05Z",
+      "side": 1,
+      "message": "There are two CLs that are exactly the same, should one of them land or are they stale?\n\nhttps://webrtc-review.googlesource.com/c/src/+/324781\nhttps://webrtc-review.googlesource.com/c/src/+/324860",
+      "revId": "79847fa5c3f29f7019b249f10d2c9487efe66df8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

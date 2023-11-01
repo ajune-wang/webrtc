@@ -634,7 +634,8 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
   void RequestRecvKeyFrame(uint32_t ssrc) override;
   void SetDepacketizerToDecoderFrameTransformer(
       uint32_t ssrc,
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align_transforms)
       override;
   std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const override;
 
@@ -742,7 +743,7 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
 
     void SetDepacketizerToDecoderFrameTransformer(
         rtc::scoped_refptr<webrtc::FrameTransformerInterface>
-            frame_transformer);
+            frame_transformer, bool align_transforms);
 
     void SetLocalSsrc(uint32_t local_ssrc);
     void UpdateRtxSsrc(uint32_t ssrc);

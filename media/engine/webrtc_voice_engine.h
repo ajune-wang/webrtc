@@ -426,7 +426,8 @@ class WebRtcVoiceReceiveChannel final
 
   void SetDepacketizerToDecoderFrameTransformer(
       uint32_t ssrc,
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align_transforms)
       override;
 
   void SetReceiveNackEnabled(bool enabled) override;

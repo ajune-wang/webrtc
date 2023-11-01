@@ -33,6 +33,176 @@
       "message": "RTP depacketizer for H265 is ready, please help review",
       "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42954126_c0a4e6b4",
+        "filename": "common_video/h265/h265_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "Simply say, \"Aggregation packets, See RFC 7798, section 4.4.2\". Same for Fu/Paci.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66f71457_1c28ee00",
+        "filename": "modules/rtp_rtcp/source/create_video_rtp_depacketizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "unfortunately, the uplink RtpVideoStreamReceiver that invokes this does not check the return before putting it to the payload_type_map_. As a result, you should either handle it there, or you return a generic depacketizer.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7714358_e542d614",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "H.265 NAL header. Same for every comment below.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dcb17e3_c38f75ea",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "It should be named kH265APLengthFieldSizeInBytes.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b815723a_e126e695",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "Maybe remove H265 prefix for all the enums as the enum class is already H265xxx. And document this.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956d3168_e0f88324",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "I wonder if start code should be {0, 0, 1} for NALUs that\u0027s not the first NALU of an AU containing VCL NALUs. That\u0027s what I typically see, though I guess most decoders should be able to handle 4 byte start code as well. That said, saving 1 byte is always something good.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdb3e378_38c23c71",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "I guess you mean to say AP header size here on the right. could you use that instead of sizeof(uint16_t).",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab40c384_f69de54c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "your SPS parser does not take VPS-\u003evui_parameters.def_disp_win_xx_offset into account when calculating the size.\nPlease place a TODO here and with follow up CL take VPS/SPS together for the size calculation.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b267ea42_ab89d54c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "Maybe fall through instead of break, and set frame type at line 172.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5ad7ac_39a834d3",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-11-01T08:40:17Z",
+      "side": 1,
+      "message": "why BLA is handled differently? It\u0027s still an i-frame? and there should be kBlaNlp?",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

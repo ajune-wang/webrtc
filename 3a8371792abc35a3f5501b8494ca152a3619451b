@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "591d0939_3843b9e5",
+        "filename": "api/enable_media_with_defaults.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-01T10:12:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c3be89f_d9635736",
+      "revId": "3a8371792abc35a3f5501b8494ca152a3619451b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ac22153f_f798e313",
         "filename": "media/engine/webrtc_media_engine_defaults.h",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2023-10-31T22:21:11Z",
       "side": 1,
       "message": "Nice way to sidestep the need to RTC_EXPORT the old deprecated name...",
+      "revId": "3a8371792abc35a3f5501b8494ca152a3619451b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "403aa54b_5ff2bfa3",
+        "filename": "media/engine/webrtc_media_engine_defaults.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-01T10:12:57Z",
+      "side": 1,
+      "message": "https://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#deprecation\n(those that example doesn\u0027t mention RTC_EXPORT and uses different function name notation)",
+      "parentUuid": "ac22153f_f798e313",
       "revId": "3a8371792abc35a3f5501b8494ca152a3619451b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

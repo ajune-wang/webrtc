@@ -14,7 +14,9 @@
 #include <memory>
 
 #include "api/frame_transformer_interface.h"
+#include "api/metronome/metronome.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "modules/rtp_rtcp/source/frame_object.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/thread.h"
@@ -42,7 +44,8 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
       Clock* clock,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
       rtc::Thread* network_thread,
-      uint32_t ssrc);
+      uint32_t ssrc,
+      Metronome* metronome);
 
   void Init();
   void Reset();
@@ -63,6 +66,8 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
   ~RtpVideoStreamReceiverFrameTransformerDelegate() override = default;
 
  private:
+  void InvokeQueuedTransforms();
+
   RTC_NO_UNIQUE_ADDRESS SequenceChecker network_sequence_checker_;
   RtpVideoFrameReceiver* receiver_ RTC_GUARDED_BY(network_sequence_checker_);
   rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_
@@ -70,6 +75,10 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
   rtc::Thread* const network_thread_;
   const uint32_t ssrc_;
   Clock* const clock_;
+  Metronome* metronome_;
+  bool tick_scheduled_ = false;
+  std::vector<std::unique_ptr<RtpFrameObject>> queued_frames_;
+  ScopedTaskSafetyDetached safety_;
 };
 
 }  // namespace webrtc

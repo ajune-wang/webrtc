@@ -187,7 +187,8 @@ VideoReceiveStream2::VideoReceiveStream2(
     std::unique_ptr<VCMTiming> timing,
     NackPeriodicProcessor* nack_periodic_processor,
     DecodeSynchronizer* decode_sync,
-    RtcEventLog* event_log)
+    RtcEventLog* event_log,
+    Metronome* metronome)
     : task_queue_factory_(task_queue_factory),
       transport_adapter_(config.rtcp_send_transport),
       config_(std::move(config)),
@@ -214,7 +215,8 @@ VideoReceiveStream2::VideoReceiveStream2(
                                  std::move(config_.frame_decryptor),
                                  std::move(config_.frame_transformer),
                                  call->trials(),
-                                 event_log),
+                                 event_log,
+                                 metronome),
       rtp_stream_sync_(call->worker_thread(), this),
       max_wait_for_keyframe_(DetermineMaxWaitForFrame(
           TimeDelta::Millis(config_.rtp.nack.rtp_history_ms),

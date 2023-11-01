@@ -97,7 +97,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
       const FieldTrialsView& field_trials,
-      RtcEventLog* event_log);
+      RtcEventLog* event_log,
+      Metronome* metronome);
   ~RtpVideoStreamReceiver2() override;
 
   void AddReceiveCodec(uint8_t payload_type,
@@ -433,6 +434,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   Timestamp next_keyframe_request_for_missing_video_structure_ =
       Timestamp::MinusInfinity();
+
+  Metronome* metronome_;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28e02d94_145997de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-01T10:31:30Z",
+      "side": 1,
+      "message": "I started out by trying to deprecate the rtc:: names, but that turned out to be too ambitious for one CL. Have to attack the remaining names around refcounted pointers one at a time - modifying the templating is complex.\n\nThis one should be a no-op.",
+      "revId": "1b9a73c2bd7f9aac2d7e68f7188b46e77fa7863c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

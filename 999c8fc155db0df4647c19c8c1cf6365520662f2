@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37bc278d_1e952b33",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2023-11-01T16:28:47Z",
+      "side": 1,
+      "message": "Thanks for taking a look at this.\n\nAre you using this code path with min playout delay \u003d 0, max playout delay\u003e0 by default or is this for experimentation?\n\nTwo comments I have,\n* How does the decode frame rate behave when there are network issues?\n* I think that it\u0027s nice to reuse the existing stats, but it looks rather expensive to call GetStats() here since it involves copying all stats. This function is typically called once per second otherwise, but here it seems as if it may be called at 120Hz? I wonder if it\u0027s worth looking into a cheaper way of getting only the decode frame rate? The good thing is that it is only called when this specific use of playout delay parameters are used.",
+      "range": {
+        "startLine": 1007,
+        "startChar": 6,
+        "endLine": 1007,
+        "endChar": 65
+      },
+      "revId": "999c8fc155db0df4647c19c8c1cf6365520662f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

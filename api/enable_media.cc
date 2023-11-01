@@ -69,6 +69,12 @@ class MediaFactoryImpl : public MediaFactory {
 }  // namespace
 
 void EnableMedia(PeerConnectionFactoryDependencies& deps) {
+  if (deps.media_factory != nullptr) {
+    // Do not change `media_factory` when it is already set.
+    // Creating a new one can be harmful when a different (e.g. test-only)
+    // implementation is used.
+    return;
+  }
   deps.media_factory = std::make_unique<MediaFactoryImpl>();
 }
 

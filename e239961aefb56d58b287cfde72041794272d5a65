@@ -16,6 +16,29 @@
       "message": "Artöm, can you please review this as test/ and api/test owner.\nno functional changes is expected, just api migration.",
       "revId": "e239961aefb56d58b287cfde72041794272d5a65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50419519_274ca3fb",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2023-11-01T13:04:13Z",
+      "side": 1,
+      "message": "Why do we need to call both?",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 59
+      },
+      "revId": "e239961aefb56d58b287cfde72041794272d5a65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

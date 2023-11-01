@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb28620_e1e0a3f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-01T12:46:25Z",
+      "side": 1,
+      "message": "Artöm, can you please review this as test/ and api/test owner.\nno functional changes is expected, just api migration.",
+      "revId": "e239961aefb56d58b287cfde72041794272d5a65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

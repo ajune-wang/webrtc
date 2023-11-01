@@ -16,6 +16,23 @@
       "message": "Any hidden reason / hidden blocker this cleanup is paused?",
       "revId": "460d9b34cf944a8393a389990da1c516d170dc11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65a19498_f1fc2a26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-01T14:07:24Z",
+      "side": 1,
+      "message": "+Harald for approval",
+      "revId": "460d9b34cf944a8393a389990da1c516d170dc11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

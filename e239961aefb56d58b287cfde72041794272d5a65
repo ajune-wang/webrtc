@@ -39,6 +39,30 @@
       },
       "revId": "e239961aefb56d58b287cfde72041794272d5a65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64605a07_ce189fed",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-01T13:21:31Z",
+      "side": 1,
+      "message": "though either of this function `EnableMedia`, it is their extras \u0027With\u0027 that are different and both relied on.\n\n1st one ensure media dependencies are set. (replaces SetMediaEngineDefaults)\n2nd one injects TimeController. (replaces CreateTimeControllerBasedCallFactory)\n\nI\u0027ve added comments.\n\nAlternative design could be to exclude \u0027enable media\u0027 from \u0027EnableMediaWithTimeController\u0027, but I think that would be more confusing api - then the function would have pre-requisite media is already enabled.\n\nYet another alternative is to include \u0027set defaults\u0027 into \u0027EnableMediaWithTimeController\u0027 - that function is test only, so don\u0027t need to worry about binary size.\n\nWould you prefer latter, or comments are good enough?",
+      "parentUuid": "50419519_274ca3fb",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 59
+      },
+      "revId": "e239961aefb56d58b287cfde72041794272d5a65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

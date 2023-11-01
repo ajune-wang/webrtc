@@ -55,8 +55,12 @@ enum NaluType : uint8_t {
   kAud = 35,
   kPrefixSei = 39,
   kSuffixSei = 40,
+  // Aggregation packets, defined in 4.4.2 of RTP HEVC spec RFC 7798
   kAp = 48,
-  kFu = 49
+  // Fragmentation units, defined in 4.4.3 of RTP HEVC spec RFC 7798
+  kFu = 49,
+  // PACI packets, defined in 4.4.4 of RTP HEVC spec RFC 7798
+  kPaci = 50
 };
 
 // Slice type definition. See table 7-7 of the H265 spec

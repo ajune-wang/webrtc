@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f575fad_775ae9a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-02T14:23:25Z",
+      "side": 1,
+      "message": "Bots are possibly happy now, but the votes got outdated.",
+      "revId": "e18a6193b89a84636829457e3cf9fbe8a44b3f71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

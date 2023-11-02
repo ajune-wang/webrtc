@@ -20,7 +20,6 @@
 #include "media/base/codec.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
-#include "rtc_base/gunit.h"
 
 id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)> CreateDecoderFactoryReturning(int return_code) {
   id decoderMock = OCMProtocolMock(@protocol(RTC_OBJC_TYPE(RTCVideoDecoder)));
@@ -65,14 +64,14 @@ std::unique_ptr<webrtc::VideoDecoder> GetObjCDecoder(
   std::unique_ptr<webrtc::VideoDecoder> decoder = GetObjCDecoder(CreateOKDecoderFactory());
 
   webrtc::VideoDecoder::Settings settings;
-  EXPECT_TRUE(decoder->Configure(settings));
+  XCTAssertTrue(decoder->Configure(settings));
 }
 
 - (void)testConfigureReturnsFalseOnFail {
   std::unique_ptr<webrtc::VideoDecoder> decoder = GetObjCDecoder(CreateErrorDecoderFactory());
 
   webrtc::VideoDecoder::Settings settings;
-  EXPECT_FALSE(decoder->Configure(settings));
+  XCTAssertFalse(decoder->Configure(settings));
 }
 
 - (void)testDecodeReturnsOKOnSuccess {
@@ -81,7 +80,7 @@ std::unique_ptr<webrtc::VideoDecoder> GetObjCDecoder(
   webrtc::EncodedImage encoded_image;
   encoded_image.SetEncodedData(webrtc::EncodedImageBuffer::Create());
 
-  EXPECT_EQ(decoder->Decode(encoded_image, false, 0), WEBRTC_VIDEO_CODEC_OK);
+  XCTAssertEqual(decoder->Decode(encoded_image, false, 0), WEBRTC_VIDEO_CODEC_OK);
 }
 
 - (void)testDecodeReturnsErrorOnFail {
@@ -90,18 +89,18 @@ std::unique_ptr<webrtc::VideoDecoder> GetObjCDecoder(
   webrtc::EncodedImage encoded_image;
   encoded_image.SetEncodedData(webrtc::EncodedImageBuffer::Create());
 
-  EXPECT_EQ(decoder->Decode(encoded_image, false, 0), WEBRTC_VIDEO_CODEC_ERROR);
+  XCTAssertEqual(decoder->Decode(encoded_image, false, 0), WEBRTC_VIDEO_CODEC_ERROR);
 }
 
 - (void)testReleaseDecodeReturnsOKOnSuccess {
   std::unique_ptr<webrtc::VideoDecoder> decoder = GetObjCDecoder(CreateOKDecoderFactory());
 
-  EXPECT_EQ(decoder->Release(), WEBRTC_VIDEO_CODEC_OK);
+  XCTAssertEqual(decoder->Release(), WEBRTC_VIDEO_CODEC_OK);
 }
 
 - (void)testReleaseDecodeReturnsErrorOnFail {
   std::unique_ptr<webrtc::VideoDecoder> decoder = GetObjCDecoder(CreateErrorDecoderFactory());
 
-  EXPECT_EQ(decoder->Release(), WEBRTC_VIDEO_CODEC_ERROR);
+  XCTAssertEqual(decoder->Release(), WEBRTC_VIDEO_CODEC_ERROR);
 }
 @end

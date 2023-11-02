@@ -173,8 +173,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
     factory_dependencies.worker_thread = rtc::Thread::Current();
     factory_dependencies.signaling_thread = rtc::Thread::Current();
     factory_dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
-    factory_dependencies.media_engine = std::move(media_engine);
-    factory_dependencies.call_factory = CreateCallFactory();
+    EnableFakeMedia(factory_dependencies, std::move(media_engine));
     factory_dependencies.event_log_factory =
         std::make_unique<RtcEventLogFactory>(
             factory_dependencies.task_queue_factory.get());

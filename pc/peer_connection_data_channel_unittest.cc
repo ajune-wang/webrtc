@@ -64,8 +64,7 @@ PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies() {
   deps.worker_thread = rtc::Thread::Current();
   deps.signaling_thread = rtc::Thread::Current();
   deps.task_queue_factory = CreateDefaultTaskQueueFactory();
-  deps.media_engine = std::make_unique<cricket::FakeMediaEngine>();
-  deps.call_factory = CreateCallFactory();
+  cricket::EnableFakeMedia(deps);
   deps.sctp_factory = std::make_unique<FakeSctpTransportFactory>();
   return deps;
 }

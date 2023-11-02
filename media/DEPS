@@ -31,6 +31,9 @@ specific_include_rules = {
   ".*webrtc_video_engine_unittest\.cc": [
     "+video/config",
   ],
+  ".*fake_media_engine\.cc": [
+    "+pc/media_factory.h",
+  ],
   ".*fake_webrtc_call\.cc": [
     "+video/config",
   ],

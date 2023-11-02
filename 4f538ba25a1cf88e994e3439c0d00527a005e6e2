@@ -16,6 +16,23 @@
       "message": "Please take a look 😊",
       "revId": "4f538ba25a1cf88e994e3439c0d00527a005e6e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db2f4a6_a4e2d7c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-11-02T08:27:17Z",
+      "side": 1,
+      "message": "LGTM in general.\n\nSince we are here. I see in the test logs:\n\n```\n[12:44:36:INFO] Test Case \u0027-[RTCAudioSessionTest testAudioSessionActivation]\u0027 started.\n[12:44:36:INFO] ../../sdk/objc/unittests/RTCAudioSession_xctest.mm:208: Failure\n[12:44:36:INFO] Expected equality of these values:\n[12:44:36:INFO]   0\n[12:44:36:INFO]   audioSession.activationCount\n[12:44:36:INFO]     Which is: 1\n[12:44:36:INFO] (RTCLogging.mm:33): (RTCAudioSession.mm:834 -[RTCAudioSession audioSessionDidActivate:]): Audio session was externally activated.\n[12:44:36:INFO] (RTCLogging.mm:33): (RTCAudioSession.mm:660 -[RTCAudioSession incrementActivationCount]): Incrementing activation count.\n[12:44:36:INFO] ../../sdk/objc/unittests/RTCAudioSession_xctest.mm:210: Failure\n[12:44:36:INFO] Expected equality of these values:\n[12:44:36:INFO]   1\n[12:44:36:INFO]   audioSession.activationCount\n[12:44:36:INFO]     Which is: 2\n[12:44:36:INFO] (RTCLogging.mm:33): (RTCAudioSession.mm:853 -[RTCAudioSession audioSessionDidDeactivate:]): Audio session was externally deactivated.\n[12:44:36:INFO] (RTCLogging.mm:33): (RTCAudioSession.mm:665 -[RTCAudioSession decrementActivationCount]): Decrementing activation count.\n[12:44:36:INFO] ../../sdk/objc/unittests/RTCAudioSession_xctest.mm:212: Failure\n[12:44:36:INFO] Expected equality of these values:\n[12:44:36:INFO]   0\n[12:44:36:INFO]   audioSession.activationCount\n[12:44:36:INFO]     Which is: 1\n[12:44:36:INFO] Test Case \u0027-[RTCAudioSessionTest testAudioSessionActivation]\u0027 passed (0.005 seconds).\n```\n\nBut the test passes. This log is misleading. Do you know what is happening there?",
+      "revId": "4f538ba25a1cf88e994e3439c0d00527a005e6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

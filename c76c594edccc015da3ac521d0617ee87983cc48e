@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4179a1c2_cfd68964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-02T22:41:05Z",
+      "side": 1,
+      "message": "Guess this can wait until it compiles.",
+      "revId": "c76c594edccc015da3ac521d0617ee87983cc48e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e889cfa7_069cd832",
+        "filename": "pc/test/enable_fake_media.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-02T22:41:05Z",
+      "side": 1,
+      "message": "A file comment might be appropriate here, so that people know when to use it.",
+      "revId": "c76c594edccc015da3ac521d0617ee87983cc48e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "185d75e8_1ebd6433",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-02T11:53:53Z",
+      "side": 1,
+      "message": "api refactoring, should be no functional changes.",
+      "revId": "ec6cfa7bf3700cca76d9698377e8f822743a2b46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

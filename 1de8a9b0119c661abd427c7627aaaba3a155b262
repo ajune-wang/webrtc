@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "955269bc_239ade69",
+        "filename": "common_video/h265/h265_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42954126_c0a4e6b4",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66f71457_1c28ee00",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-11-01T08:40:17Z",
       "side": 1,
       "message": "unfortunately, the uplink RtpVideoStreamReceiver that invokes this does not check the return before putting it to the payload_type_map_. As a result, you should either handle it there, or you return a generic depacketizer.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ac6cb0_01b5a769",
+        "filename": "modules/rtp_rtcp/source/create_video_rtp_depacketizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66f71457_1c28ee00",
       "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cddb92fd_78ff4fb4",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7714358_e542d614",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dcb17e3_c38f75ea",
@@ -99,6 +153,24 @@
       "writtenOn": "2023-11-01T08:40:17Z",
       "side": 1,
       "message": "It should be named kH265APLengthFieldSizeInBytes.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec49e4bf_0637012c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dcb17e3_c38f75ea",
       "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +192,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "542cb964_112e7b67",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b815723a_e126e695",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "956d3168_e0f88324",
@@ -133,6 +223,24 @@
       "writtenOn": "2023-11-01T08:40:17Z",
       "side": 1,
       "message": "I wonder if start code should be {0, 0, 1} for NALUs that\u0027s not the first NALU of an AU containing VCL NALUs. That\u0027s what I typically see, though I guess most decoders should be able to handle 4 byte start code as well. That said, saving 1 byte is always something good.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f29b57_8d1cbd41",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Decoder will strip the start code off before decoding, to avoid parsing packets and inserting start code later in the packet buffer, we simply insert a 4-bytes start code here.",
+      "parentUuid": "956d3168_e0f88324",
       "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +262,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfee9a7b_b1d575a8",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb3e378_38c23c71",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab40c384_f69de54c",
@@ -167,6 +293,24 @@
       "writtenOn": "2023-11-01T08:40:17Z",
       "side": 1,
       "message": "your SPS parser does not take VPS-\u003evui_parameters.def_disp_win_xx_offset into account when calculating the size.\nPlease place a TODO here and with follow up CL take VPS/SPS together for the size calculation.",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c98f77e_78dd7371",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab40c384_f69de54c",
       "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -188,6 +332,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97651cdb_7702b043",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b267ea42_ab89d54c",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b5ad7ac_39a834d3",
@@ -201,6 +363,24 @@
       "writtenOn": "2023-11-01T08:40:17Z",
       "side": 1,
       "message": "why BLA is handled differently? It\u0027s still an i-frame? and there should be kBlaNlp?",
+      "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86ba9a1_adbad4cf",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-02T03:12:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b5ad7ac_39a834d3",
       "revId": "1de8a9b0119c661abd427c7627aaaba3a155b262",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

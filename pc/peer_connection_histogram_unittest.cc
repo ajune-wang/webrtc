@@ -16,7 +16,6 @@
 
 #include "absl/types/optional.h"
 #include "api/async_resolver_factory.h"
-#include "api/call/call_factory_interface.h"
 #include "api/jsep.h"
 #include "api/jsep_session_description.h"
 #include "api/peer_connection_interface.h"
@@ -84,9 +83,7 @@ class PeerConnectionFactoryForUsageHistogramTest
           dependencies.worker_thread = rtc::Thread::Current();
           dependencies.signaling_thread = rtc::Thread::Current();
           dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
-          dependencies.media_engine =
-              std::make_unique<cricket::FakeMediaEngine>();
-          dependencies.call_factory = CreateCallFactory();
+          cricket::EnableFakeMedia(dependencies);
           return dependencies;
         }()) {}
 };

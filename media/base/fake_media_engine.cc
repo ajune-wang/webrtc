@@ -14,13 +14,22 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/base/nullability.h"
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
+#include "api/peer_connection_interface.h"
+#include "call/call.h"
+#include "call/call_config.h"
 #include "media/base/media_channel.h"
+#include "pc/media_factory.h"
 #include "rtc_base/checks.h"
 
 namespace cricket {
-using webrtc::TaskQueueBase;
+using ::webrtc::Call;
+using ::webrtc::CallConfig;
+using ::webrtc::MediaFactory;
+using ::webrtc::PeerConnectionFactoryDependencies;
+using ::webrtc::TaskQueueBase;
 
 FakeVoiceMediaReceiveChannel::DtmfInfo::DtmfInfo(uint32_t ssrc,
                                                  int event_code,
@@ -700,6 +709,32 @@ void FakeMediaEngine::SetVideoCodecs(const std::vector<VideoCodec>& codecs) {
 void FakeMediaEngine::set_fail_create_channel(bool fail) {
   voice_->fail_create_channel_ = fail;
   video_->fail_create_channel_ = fail;
+}
+
+void EnableFakeMedia(PeerConnectionFactoryDependencies& deps,
+                     absl::Nonnull<std::unique_ptr<FakeMediaEngine>> fake) {
+  class FakeMediaFactory : public MediaFactory {
+   public:
+    explicit FakeMediaFactory(
+        absl::Nonnull<std::unique_ptr<FakeMediaEngine>> fake)
+        : fake_(std::move(fake)) {}
+
+    std::unique_ptr<Call> CreateCall(const CallConfig& config) override {
+      return Call::Create(config);
+    }
+
+    std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
+        PeerConnectionFactoryDependencies& /*dependencies*/) {
+      RTC_CHECK(fake_ != nullptr)
+          << "CreateMediaEngine can be called at most once.";
+      return std::move(fake_);
+    }
+
+   private:
+    absl::Nullable<std::unique_ptr<FakeMediaEngine>> fake_;
+  };
+
+  deps.media_factory = std::make_unique<FakeMediaFactory>(std::move(fake));
 }
 
 }  // namespace cricket

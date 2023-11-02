@@ -22,9 +22,11 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/base/nullability.h"
 #include "absl/functional/any_invocable.h"
 #include "api/call/audio_sink.h"
 #include "api/media_types.h"
+#include "api/peer_connection_interface.h"
 #include "media/base/audio_source.h"
 #include "media/base/media_channel.h"
 #include "media/base/media_channel_impl.h"
@@ -870,6 +872,12 @@ class FakeMediaEngine : public CompositeMediaEngine {
   FakeVoiceEngine* const voice_;
   FakeVideoEngine* const video_;
 };
+
+void EnableFakeMedia(webrtc::PeerConnectionFactoryDependencies& deps,
+                     absl::Nonnull<std::unique_ptr<FakeMediaEngine>> fake);
+inline void EnableFakeMedia(webrtc::PeerConnectionFactoryDependencies& deps) {
+  EnableFakeMedia(deps, std::make_unique<FakeMediaEngine>());
+}
 
 }  // namespace cricket
 

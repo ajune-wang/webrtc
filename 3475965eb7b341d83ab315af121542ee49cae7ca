@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d91ac8_4cd2e05e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-02T09:54:12Z",
+      "side": 1,
+      "message": "f\u0027up to https://webrtc-review.googlesource.com/c/src/+/325180, no plan-b on these premises!",
+      "revId": "3475965eb7b341d83ab315af121542ee49cae7ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

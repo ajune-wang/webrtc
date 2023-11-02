@@ -2532,7 +2532,6 @@ if (rtc_include_tests && !build_with_chromium) {
       ":libjingle_peerconnection",
       ":pc_test_utils",
       ":rtc_pc",
-      "../api:callfactory_api",
       "../api:rtc_event_log_output_file",
       "../api:rtc_stats_api",
       "../api:rtp_parameters",

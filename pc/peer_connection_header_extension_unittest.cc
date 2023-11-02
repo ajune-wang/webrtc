@@ -16,7 +16,6 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
-#include "api/call/call_factory_interface.h"
 #include "api/jsep.h"
 #include "api/media_types.h"
 #include "api/peer_connection_interface.h"
@@ -77,21 +76,18 @@ class PeerConnectionHeaderExtensionTest
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection(
       cricket::MediaType media_type,
       absl::optional<SdpSemantics> semantics) {
-    auto voice = std::make_unique<cricket::FakeVoiceEngine>();
-    auto video = std::make_unique<cricket::FakeVideoEngine>();
+    auto media_engine = std::make_unique<cricket::FakeMediaEngine>();
     if (media_type == cricket::MediaType::MEDIA_TYPE_AUDIO)
-      voice->SetRtpHeaderExtensions(extensions_);
+      media_engine->fake_voice_engine()->SetRtpHeaderExtensions(extensions_);
     else
-      video->SetRtpHeaderExtensions(extensions_);
-    auto media_engine = std::make_unique<cricket::CompositeMediaEngine>(
-        std::move(voice), std::move(video));
+      media_engine->fake_video_engine()->SetRtpHeaderExtensions(extensions_);
     PeerConnectionFactoryDependencies factory_dependencies;
     factory_dependencies.network_thread = rtc::Thread::Current();
     factory_dependencies.worker_thread = rtc::Thread::Current();
     factory_dependencies.signaling_thread = rtc::Thread::Current();
     factory_dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
-    factory_dependencies.media_engine = std::move(media_engine);
-    factory_dependencies.call_factory = CreateCallFactory();
+    EnableFakeMedia(factory_dependencies, std::move(media_engine));
+
     factory_dependencies.event_log_factory =
         std::make_unique<RtcEventLogFactory>(
             factory_dependencies.task_queue_factory.get());

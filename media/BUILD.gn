@@ -708,6 +708,7 @@ if (rtc_include_tests) {
       ":stream_params",
       "../api:call_api",
       "../api:fec_controller_api",
+      "../api:libjingle_peerconnection_api",
       "../api:rtp_parameters",
       "../api:scoped_refptr",
       "../api/task_queue",
@@ -730,6 +731,7 @@ if (rtc_include_tests) {
       "../modules/video_coding:video_coding_utility",
       "../modules/video_coding/svc:scalability_mode_util",
       "../p2p:rtc_p2p",
+      "../pc:media_factory",
       "../rtc_base:buffer",
       "../rtc_base:byte_order",
       "../rtc_base:checks",
@@ -752,6 +754,7 @@ if (rtc_include_tests) {
     ]
     absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",
+      "//third_party/abseil-cpp/absl/base:nullability",
       "//third_party/abseil-cpp/absl/functional:any_invocable",
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",

@@ -11,7 +11,6 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-#include "rtc_base/gunit.h"
 
 #import "api/peerconnection/RTCDataChannelConfiguration+Private.h"
 #import "api/peerconnection/RTCDataChannelConfiguration.h"
@@ -40,12 +39,12 @@
   dataChannelConfig.protocol = protocol;
 
   webrtc::DataChannelInit nativeInit = dataChannelConfig.nativeDataChannelInit;
-  EXPECT_EQ(isOrdered, nativeInit.ordered);
-  EXPECT_EQ(maxPacketLifeTime, nativeInit.maxRetransmitTime);
-  EXPECT_EQ(maxRetransmits, nativeInit.maxRetransmits);
-  EXPECT_EQ(isNegotiated, nativeInit.negotiated);
-  EXPECT_EQ(channelId, nativeInit.id);
-  EXPECT_EQ(protocol.stdString, nativeInit.protocol);
+  XCTAssertEqual(isOrdered, nativeInit.ordered);
+  XCTAssertEqual(maxPacketLifeTime, nativeInit.maxRetransmitTime);
+  XCTAssertEqual(maxRetransmits, nativeInit.maxRetransmits);
+  XCTAssertEqual(isNegotiated, nativeInit.negotiated);
+  XCTAssertEqual(channelId, nativeInit.id);
+  XCTAssertEqual(protocol.stdString, nativeInit.protocol);
 }
 
 @end

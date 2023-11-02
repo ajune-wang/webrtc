@@ -14,8 +14,6 @@
 #include <memory>
 #include <vector>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCConfiguration+Private.h"
 #import "api/peerconnection/RTCConfiguration.h"
 #import "api/peerconnection/RTCCryptoOptions.h"
@@ -75,42 +73,42 @@
         [factory peerConnectionWithConfiguration:config constraints:contraints delegate:nil];
     newConfig = peerConnection.configuration;
 
-    EXPECT_TRUE([peerConnection setBweMinBitrateBps:[NSNumber numberWithInt:100000]
-                                  currentBitrateBps:[NSNumber numberWithInt:5000000]
-                                      maxBitrateBps:[NSNumber numberWithInt:500000000]]);
-    EXPECT_FALSE([peerConnection setBweMinBitrateBps:[NSNumber numberWithInt:2]
-                                   currentBitrateBps:[NSNumber numberWithInt:1]
-                                       maxBitrateBps:nil]);
+    XCTAssertTrue([peerConnection setBweMinBitrateBps:[NSNumber numberWithInt:100000]
+                                    currentBitrateBps:[NSNumber numberWithInt:5000000]
+                                        maxBitrateBps:[NSNumber numberWithInt:500000000]]);
+    XCTAssertFalse([peerConnection setBweMinBitrateBps:[NSNumber numberWithInt:2]
+                                     currentBitrateBps:[NSNumber numberWithInt:1]
+                                         maxBitrateBps:nil]);
   }
 
-  EXPECT_EQ([config.iceServers count], [newConfig.iceServers count]);
+  XCTAssertEqual([config.iceServers count], [newConfig.iceServers count]);
   RTC_OBJC_TYPE(RTCIceServer) *newServer = newConfig.iceServers[0];
   RTC_OBJC_TYPE(RTCIceServer) *origServer = config.iceServers[0];
   std::string origUrl = origServer.urlStrings.firstObject.UTF8String;
   std::string url = newServer.urlStrings.firstObject.UTF8String;
-  EXPECT_EQ(origUrl, url);
+  XCTAssertEqual(origUrl, url);
 
-  EXPECT_EQ(config.iceTransportPolicy, newConfig.iceTransportPolicy);
-  EXPECT_EQ(config.bundlePolicy, newConfig.bundlePolicy);
-  EXPECT_EQ(config.rtcpMuxPolicy, newConfig.rtcpMuxPolicy);
-  EXPECT_EQ(config.tcpCandidatePolicy, newConfig.tcpCandidatePolicy);
-  EXPECT_EQ(config.candidateNetworkPolicy, newConfig.candidateNetworkPolicy);
-  EXPECT_EQ(config.audioJitterBufferMaxPackets, newConfig.audioJitterBufferMaxPackets);
-  EXPECT_EQ(config.audioJitterBufferFastAccelerate, newConfig.audioJitterBufferFastAccelerate);
-  EXPECT_EQ(config.iceConnectionReceivingTimeout, newConfig.iceConnectionReceivingTimeout);
-  EXPECT_EQ(config.iceBackupCandidatePairPingInterval,
-            newConfig.iceBackupCandidatePairPingInterval);
-  EXPECT_EQ(config.continualGatheringPolicy, newConfig.continualGatheringPolicy);
-  EXPECT_EQ(config.shouldPruneTurnPorts, newConfig.shouldPruneTurnPorts);
-  EXPECT_EQ(config.activeResetSrtpParams, newConfig.activeResetSrtpParams);
-  EXPECT_EQ(config.cryptoOptions.srtpEnableGcmCryptoSuites,
-            newConfig.cryptoOptions.srtpEnableGcmCryptoSuites);
-  EXPECT_EQ(config.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher,
-            newConfig.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher);
-  EXPECT_EQ(config.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions,
-            newConfig.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions);
-  EXPECT_EQ(config.cryptoOptions.sframeRequireFrameEncryption,
-            newConfig.cryptoOptions.sframeRequireFrameEncryption);
+  XCTAssertEqual(config.iceTransportPolicy, newConfig.iceTransportPolicy);
+  XCTAssertEqual(config.bundlePolicy, newConfig.bundlePolicy);
+  XCTAssertEqual(config.rtcpMuxPolicy, newConfig.rtcpMuxPolicy);
+  XCTAssertEqual(config.tcpCandidatePolicy, newConfig.tcpCandidatePolicy);
+  XCTAssertEqual(config.candidateNetworkPolicy, newConfig.candidateNetworkPolicy);
+  XCTAssertEqual(config.audioJitterBufferMaxPackets, newConfig.audioJitterBufferMaxPackets);
+  XCTAssertEqual(config.audioJitterBufferFastAccelerate, newConfig.audioJitterBufferFastAccelerate);
+  XCTAssertEqual(config.iceConnectionReceivingTimeout, newConfig.iceConnectionReceivingTimeout);
+  XCTAssertEqual(config.iceBackupCandidatePairPingInterval,
+                 newConfig.iceBackupCandidatePairPingInterval);
+  XCTAssertEqual(config.continualGatheringPolicy, newConfig.continualGatheringPolicy);
+  XCTAssertEqual(config.shouldPruneTurnPorts, newConfig.shouldPruneTurnPorts);
+  XCTAssertEqual(config.activeResetSrtpParams, newConfig.activeResetSrtpParams);
+  XCTAssertEqual(config.cryptoOptions.srtpEnableGcmCryptoSuites,
+                 newConfig.cryptoOptions.srtpEnableGcmCryptoSuites);
+  XCTAssertEqual(config.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher,
+                 newConfig.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher);
+  XCTAssertEqual(config.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions,
+                 newConfig.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions);
+  XCTAssertEqual(config.cryptoOptions.sframeRequireFrameEncryption,
+                 newConfig.cryptoOptions.sframeRequireFrameEncryption);
 }
 
 - (void)testWithDependencies {
@@ -135,7 +133,7 @@
                                     constraints:contraints
                                    dependencies:std::move(pc_dependencies)
                                        delegate:nil];
-    ASSERT_NE(peerConnection, nil);
+    XCTAssertNotEqual(peerConnection, nil);
   }
 }
 
@@ -156,14 +154,14 @@
                                            initWithType:RTCSdpTypeOffer
                                                     sdp:@"invalid"]
                      completionHandler:^(NSError *error) {
-                       ASSERT_NE(error, nil);
+                       XCTAssertNotEqual(error, nil);
                        if (error != nil) {
                          dispatch_semaphore_signal(negotiatedSem);
                        }
                      }];
 
   NSTimeInterval timeout = 5;
-  ASSERT_EQ(
+  XCTAssertEqual(
       0,
       dispatch_semaphore_wait(negotiatedSem,
                               dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC))));
@@ -187,14 +185,14 @@
                                                                         sdpMLineIndex:-1
                                                                                sdpMid:nil]
                 completionHandler:^(NSError *error) {
-                  ASSERT_NE(error, nil);
+                  XCTAssertNotEqual(error, nil);
                   if (error != nil) {
                     dispatch_semaphore_signal(negotiatedSem);
                   }
                 }];
 
   NSTimeInterval timeout = 5;
-  ASSERT_EQ(
+  XCTAssertEqual(
       0,
       dispatch_semaphore_wait(negotiatedSem,
                               dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC))));

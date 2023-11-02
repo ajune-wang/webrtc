@@ -28,7 +28,6 @@ extern "C" {
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
 
-#include "rtc_base/gunit.h"
 #include "rtc_base/system/unused.h"
 
 @interface RTCPeerConnectionFactoryBuilderTests : XCTestCase
@@ -49,7 +48,7 @@ extern "C" {
   RTCPeerConnectionFactoryBuilder* builder = [[RTCPeerConnectionFactoryBuilder alloc] init];
   RTC_OBJC_TYPE(RTCPeerConnectionFactory)* peerConnectionFactory =
       [builder createPeerConnectionFactory];
-  EXPECT_TRUE(peerConnectionFactory != nil);
+  XCTAssertTrue(peerConnectionFactory != nil);
   OCMVerifyAll(factoryMock);
 }
 
@@ -66,7 +65,7 @@ extern "C" {
   RTCPeerConnectionFactoryBuilder* builder = [RTCPeerConnectionFactoryBuilder defaultBuilder];
   RTC_OBJC_TYPE(RTCPeerConnectionFactory)* peerConnectionFactory =
       [builder createPeerConnectionFactory];
-  EXPECT_TRUE(peerConnectionFactory != nil);
+  XCTAssertTrue(peerConnectionFactory != nil);
   OCMVerifyAll(factoryMock);
 }
 @end

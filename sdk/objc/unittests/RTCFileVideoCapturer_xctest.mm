@@ -12,8 +12,6 @@
 
 #import <XCTest/XCTest.h>
 
-#include "rtc_base/gunit.h"
-
 NSString *const kTestFileName = @"foreman.mp4";
 static const int kTestTimeoutMs = 5 * 1000;  // 5secs.
 
@@ -56,33 +54,39 @@ NS_CLASS_AVAILABLE_IOS(10)
 }
 
 - (void)testCaptureWhenFileNotInBundle {
-  __block BOOL errorOccured = NO;
+  dispatch_semaphore_t errorOccurredSem = dispatch_semaphore_create(0);
 
   RTCFileVideoCapturerErrorBlock errorBlock = ^void(NSError *error) {
-    errorOccured = YES;
+    dispatch_semaphore_signal(errorOccurredSem);
   };
 
   [self.capturer startCapturingFromFileNamed:@"not_in_bundle.mov" onError:errorBlock];
-  ASSERT_TRUE_WAIT(errorOccured, kTestTimeoutMs);
+  XCTAssertEqual(
+      dispatch_semaphore_wait(errorOccurredSem,
+                              dispatch_time(DISPATCH_TIME_NOW, kTestTimeoutMs * NSEC_PER_MSEC)),
+      0);
 }
 
 - (void)testSecondStartCaptureCallFails {
-  __block BOOL secondError = NO;
+  dispatch_semaphore_t secondErrorSem = dispatch_semaphore_create(0);
 
   RTCFileVideoCapturerErrorBlock firstErrorBlock = ^void(NSError *error) {
     // This block should never be called.
     NSLog(@"Error: %@", [error userInfo]);
-    ASSERT_TRUE(false);
+    XCTFail();
   };
 
   RTCFileVideoCapturerErrorBlock secondErrorBlock = ^void(NSError *error) {
-    secondError = YES;
+    dispatch_semaphore_signal(secondErrorSem);
   };
 
   [self.capturer startCapturingFromFileNamed:kTestFileName onError:firstErrorBlock];
   [self.capturer startCapturingFromFileNamed:kTestFileName onError:secondErrorBlock];
 
-  ASSERT_TRUE_WAIT(secondError, kTestTimeoutMs);
+  XCTAssertEqual(
+      dispatch_semaphore_wait(secondErrorSem,
+                              dispatch_time(DISPATCH_TIME_NOW, kTestTimeoutMs * NSEC_PER_MSEC)),
+      0);
 }
 
 - (void)testStartStopCapturer {
@@ -90,7 +94,7 @@ NS_CLASS_AVAILABLE_IOS(10)
   if (@available(iOS 10, *)) {
     [self.capturer startCapturingFromFileNamed:kTestFileName onError:nil];
 
-    __block BOOL done = NO;
+    dispatch_semaphore_t doneSem = dispatch_semaphore_create(0);
     __block NSInteger capturedFrames = -1;
     NSInteger capturedFramesAfterStop = -1;
 
@@ -100,13 +104,15 @@ NS_CLASS_AVAILABLE_IOS(10)
     dispatch_after(captureDelay, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       capturedFrames = self.mockDelegate.capturedFramesCount;
       [self.capturer stopCapture];
-      done = YES;
+      dispatch_semaphore_signal(doneSem);
     });
-    WAIT(done, kTestTimeoutMs);
+    XCTAssertEqual(dispatch_semaphore_wait(
+                       doneSem, dispatch_time(DISPATCH_TIME_NOW, kTestTimeoutMs * NSEC_PER_MSEC)),
+                   0);
 
     capturedFramesAfterStop = self.mockDelegate.capturedFramesCount;
-    ASSERT_TRUE(capturedFrames != -1);
-    ASSERT_EQ(capturedFrames, capturedFramesAfterStop);
+    XCTAssertTrue(capturedFrames != -1);
+    XCTAssertEqual(capturedFrames, capturedFramesAfterStop);
   }
 #endif
 }

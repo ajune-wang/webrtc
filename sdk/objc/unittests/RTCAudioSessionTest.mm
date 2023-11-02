@@ -15,7 +15,7 @@
 #include <vector>
 
 #include "rtc_base/event.h"
-#include "rtc_base/gunit.h"
+#include "rtc_base/thread.h"
 
 #import "components/audio/RTCAudioSession+Private.h"
 
@@ -127,14 +127,14 @@
         [[RTCAudioSessionTestDelegate alloc] init];
     [session addDelegate:delegate];
     [delegates addObject:delegate];
-    EXPECT_EQ(i + 1, session.delegates.size());
+    XCTAssertEqual(i + 1, session.delegates.size());
   }
   [delegates enumerateObjectsUsingBlock:^(RTCAudioSessionTestDelegate *obj,
                                           NSUInteger idx,
                                           BOOL *stop) {
     [session removeDelegate:obj];
   }];
-  EXPECT_EQ(0u, session.delegates.size());
+  XCTAssertEqual(0u, session.delegates.size());
 }
 
 - (void)testPushDelegate {
@@ -151,7 +151,7 @@
   RTCAudioSessionTestDelegate *pushedDelegate =
       [[RTCAudioSessionTestDelegate alloc] init];
   [session pushDelegate:pushedDelegate];
-  EXPECT_TRUE(pushedDelegate == session.delegates[0]);
+  XCTAssertTrue(pushedDelegate == session.delegates[0]);
 
   // Test that it stays at the front of the list.
   for (size_t i = 0; i < count; ++i) {
@@ -160,12 +160,12 @@
     [session addDelegate:delegate];
     [delegates addObject:delegate];
   }
-  EXPECT_TRUE(pushedDelegate == session.delegates[0]);
+  XCTAssertTrue(pushedDelegate == session.delegates[0]);
 
   // Test that the next one goes to the front too.
   pushedDelegate = [[RTCAudioSessionTestDelegate alloc] init];
   [session pushDelegate:pushedDelegate];
-  EXPECT_TRUE(pushedDelegate == session.delegates[0]);
+  XCTAssertTrue(pushedDelegate == session.delegates[0]);
 }
 
 // Tests that delegates added to the audio session properly zero out. This is
@@ -178,17 +178,17 @@
     RTCAudioSessionTestDelegate *delegate =
         [[RTCAudioSessionTestDelegate alloc] init];
     [session addDelegate:delegate];
-    EXPECT_EQ(1u, session.delegates.size());
-    EXPECT_TRUE(session.delegates[0]);
+    XCTAssertEqual(1u, session.delegates.size());
+    XCTAssertTrue(session.delegates[0]);
   }
   // The previously created delegate should've de-alloced, leaving a nil ptr.
-  EXPECT_FALSE(session.delegates[0]);
+  XCTAssertFalse(session.delegates[0]);
   RTCAudioSessionTestDelegate *delegate =
       [[RTCAudioSessionTestDelegate alloc] init];
   [session addDelegate:delegate];
   // On adding a new delegate, nil ptrs should've been cleared.
-  EXPECT_EQ(1u, session.delegates.size());
-  EXPECT_TRUE(session.delegates[0]);
+  XCTAssertEqual(1u, session.delegates.size());
+  XCTAssertTrue(session.delegates[0]);
 }
 
 // Tests that we don't crash when removing delegates in dealloc.
@@ -197,19 +197,19 @@
   @autoreleasepool {
     RTCTestRemoveOnDeallocDelegate *delegate =
         [[RTCTestRemoveOnDeallocDelegate alloc] init];
-    EXPECT_TRUE(delegate);
+    XCTAssertTrue(delegate);
   }
   RTC_OBJC_TYPE(RTCAudioSession) *session = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
-  EXPECT_EQ(0u, session.delegates.size());
+  XCTAssertEqual(0u, session.delegates.size());
 }
 
 - (void)testAudioSessionActivation {
   RTC_OBJC_TYPE(RTCAudioSession) *audioSession = [RTC_OBJC_TYPE(RTCAudioSession) sharedInstance];
-  EXPECT_EQ(0, audioSession.activationCount);
+  XCTAssertEqual(0, audioSession.activationCount);
   [audioSession audioSessionDidActivate:[AVAudioSession sharedInstance]];
-  EXPECT_EQ(1, audioSession.activationCount);
+  XCTAssertEqual(1, audioSession.activationCount);
   [audioSession audioSessionDidDeactivate:[AVAudioSession sharedInstance]];
-  EXPECT_EQ(0, audioSession.activationCount);
+  XCTAssertEqual(0, audioSession.activationCount);
 }
 
 // TODO(b/298960678): Fix crash when running the test on simulators.
@@ -236,7 +236,7 @@
   OCMStub([mockAudioSession session]).andReturn(mockAVAudioSession);
 
   RTC_OBJC_TYPE(RTCAudioSession) *audioSession = mockAudioSession;
-  EXPECT_EQ(0, audioSession.activationCount);
+  XCTAssertEqual(0, audioSession.activationCount);
   [audioSession lockForConfiguration];
   // configureWebRTCSession is forced to fail in the above mock interface,
   // so activationCount should remain 0
@@ -245,12 +245,12 @@
                                                             error:([OCMArg anyObjectRef])])
       .andDo(setActiveBlock);
   OCMExpect([mockAudioSession session]).andReturn(mockAVAudioSession);
-  EXPECT_FALSE([audioSession configureWebRTCSession:&error]);
-  EXPECT_EQ(0, audioSession.activationCount);
+  XCTAssertFalse([audioSession configureWebRTCSession:&error]);
+  XCTAssertEqual(0, audioSession.activationCount);
 
   id session = audioSession.session;
-  EXPECT_EQ(session, mockAVAudioSession);
-  EXPECT_EQ(NO, [mockAVAudioSession setActive:YES withOptions:0 error:&error]);
+  XCTAssertEqual(session, mockAVAudioSession);
+  XCTAssertEqual(NO, [mockAVAudioSession setActive:YES withOptions:0 error:&error]);
   [audioSession unlockForConfiguration];
 
   // The -Wunused-value is a workaround for https://bugs.llvm.org/show_bug.cgi?id=45245
@@ -275,8 +275,8 @@
   RTC_OBJC_TYPE(RTCAudioSession) *audioSession = mockAudioSession;
 
   std::unique_ptr<rtc::Thread> thread = rtc::Thread::Create();
-  EXPECT_TRUE(thread);
-  EXPECT_TRUE(thread->Start());
+  XCTAssertTrue(thread);
+  XCTAssertTrue(thread->Start());
 
   rtc::Event waitLock;
   rtc::Event waitCleanup;
@@ -290,9 +290,9 @@
 
   waitLock.Wait(timeout);
   [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:0 error:&error];
-  EXPECT_TRUE(error != nil);
-  EXPECT_EQ(error.domain, kRTCAudioSessionErrorDomain);
-  EXPECT_EQ(error.code, kRTCAudioSessionErrorLockRequired);
+  XCTAssertTrue(error != nil);
+  XCTAssertEqual(error.domain, kRTCAudioSessionErrorDomain);
+  XCTAssertEqual(error.code, kRTCAudioSessionErrorLockRequired);
   waitCleanup.Set();
   thread->Stop();
 
@@ -311,7 +311,7 @@
   float expectedVolume = 0.75;
   mockAVAudioSession.outputVolume = expectedVolume;
 
-  EXPECT_EQ(expectedVolume, delegate.outputVolume);
+  XCTAssertEqual(expectedVolume, delegate.outputVolume);
 }
 
 @end

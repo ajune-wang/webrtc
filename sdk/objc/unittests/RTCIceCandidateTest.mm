@@ -13,8 +13,6 @@
 
 #include <memory>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCIceCandidate+Private.h"
 #import "api/peerconnection/RTCIceCandidate.h"
 #import "helpers/NSString+StdString.h"
@@ -34,12 +32,12 @@
 
   std::unique_ptr<webrtc::IceCandidateInterface> nativeCandidate =
       candidate.nativeCandidate;
-  EXPECT_EQ("audio", nativeCandidate->sdp_mid());
-  EXPECT_EQ(0, nativeCandidate->sdp_mline_index());
+  XCTAssertEqual("audio", nativeCandidate->sdp_mid());
+  XCTAssertEqual(0, nativeCandidate->sdp_mline_index());
 
   std::string sdpString;
   nativeCandidate->ToString(&sdpString);
-  EXPECT_EQ(sdp.stdString, sdpString);
+  XCTAssertEqual(sdp.stdString, sdpString);
 }
 
 - (void)testInitFromNativeCandidate {
@@ -51,11 +49,12 @@
 
   RTC_OBJC_TYPE(RTCIceCandidate) *iceCandidate =
       [[RTC_OBJC_TYPE(RTCIceCandidate) alloc] initWithNativeCandidate:nativeCandidate.get()];
-  EXPECT_NE(nativeCandidate.get(), iceCandidate.nativeCandidate.get());
-  EXPECT_TRUE([@"audio" isEqualToString:iceCandidate.sdpMid]);
-  EXPECT_EQ(0, iceCandidate.sdpMLineIndex);
+  std::unique_ptr<webrtc::IceCandidateInterface> iceCandidateFromObjc(iceCandidate.nativeCandidate);
+  XCTAssertNotEqual(nativeCandidate.get(), iceCandidateFromObjc.get());
+  XCTAssertTrue([@"audio" isEqualToString:iceCandidate.sdpMid]);
+  XCTAssertEqual(0, iceCandidate.sdpMLineIndex);
 
-  EXPECT_EQ(sdp, iceCandidate.sdp.stdString);
+  XCTAssertEqual(sdp, iceCandidate.sdp.stdString);
 }
 
 @end

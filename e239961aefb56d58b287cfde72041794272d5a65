@@ -111,6 +111,30 @@
       },
       "revId": "e239961aefb56d58b287cfde72041794272d5a65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "818513b1_f36c14a9",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-03T11:53:23Z",
+      "side": 1,
+      "message": "With current api I do not see how to inject clock from TimeController without enabling media. Thus this helper includes \u0027EnableMedia\u0027 in its name.\n\nwhen Clock would be injectable into PCFDependencies, then EnableMediaWithTimeController would become\n{ pcf_deps.clock \u003d time_controller-\u003eCreateClock(); EnableMedia(pcf_deps); }\nand then can be deprecated and removed.\n\n\nfor now switching to\n`EnableMediaWithDefaultsAndTimeController` - that might add a bit of unimportant overhead to few tests, but same time should make those tests more robust.",
+      "parentUuid": "a3c6fae9_a9f36d5a",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 224,
+        "endChar": 59
+      },
+      "revId": "e239961aefb56d58b287cfde72041794272d5a65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

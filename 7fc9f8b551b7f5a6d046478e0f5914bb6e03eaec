@@ -33,6 +33,24 @@
       "message": "Should this be an RTC_CHECK instead?\nSetting the media factory and having it ignored because some other code set it would be surprising to the caller.",
       "revId": "7fc9f8b551b7f5a6d046478e0f5914bb6e03eaec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "468c8691_c72a6141",
+        "filename": "api/enable_media.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-03T11:53:23Z",
+      "side": 1,
+      "message": "rewrote comment.\n\nThis function is called \u0027EnableMedia\u0027, not \u0027SetMediaFactory\u0027.\nIf media is already enabled, no need to do anything. So I consider that such behavior to be consistent with the name.\n\nBut also I have a usecase where test helper first optinally calls EnableMediaWithTimeController when there is an injected time controller.\nthen in a different function, just before calling CreateModularPCF it double checks dependencies are set with EnableMedia",
+      "parentUuid": "cc7bca78_17695250",
+      "revId": "7fc9f8b551b7f5a6d046478e0f5914bb6e03eaec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

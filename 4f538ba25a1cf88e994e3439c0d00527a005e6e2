@@ -69,6 +69,24 @@
       "parentUuid": "0856ffee_0dd99968",
       "revId": "4f538ba25a1cf88e994e3439c0d00527a005e6e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7971f785_c1df61ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2023-11-03T00:16:35Z",
+      "side": 1,
+      "message": "The failing test itself is correct when run in isolation, but fails when run in the context of the whole test suite, since tests might run in parallel. I added a comment to the test case to explain the problem in https://webrtc-review.googlesource.com/c/src/+/325941/3.",
+      "parentUuid": "f2725912_0d2a3c9e",
+      "revId": "4f538ba25a1cf88e994e3439c0d00527a005e6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

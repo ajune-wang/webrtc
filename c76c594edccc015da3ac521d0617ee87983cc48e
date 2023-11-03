@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a58869c5_db88c1ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-03T10:35:36Z",
+      "side": 1,
+      "message": "oops, after last iteration forgot to recheck code still compiles.\nand if it is not tested, then it doesn\u0027t work.\nFixed.",
+      "parentUuid": "4179a1c2_cfd68964",
+      "revId": "c76c594edccc015da3ac521d0617ee87983cc48e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e889cfa7_069cd832",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-02T22:41:05Z",
       "side": 1,
       "message": "A file comment might be appropriate here, so that people know when to use it.",
+      "revId": "c76c594edccc015da3ac521d0617ee87983cc48e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "420c168b_cc03373a",
+        "filename": "pc/test/enable_fake_media.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-03T10:35:36Z",
+      "side": 1,
+      "message": "Added some comments\n\nthough, TBH I\u0027m not entirely sure how fake media engine differs to the real one and when it is appropriate to use it. Thus this new helper has limited visibility.\n\nI suspect it might be more robust to mock individual media dependencies and create \u0027real\u0027 media engine, but I\u0027m not familiar enough with these tests and how PeerConnection interacts with media engine to be sure.\n(hided EnableFakeMedia with single parameter implementation to avoid promising it uses FakeMediaEngine. This way it should be easier to change it to inject fake media dependencies with real engine later, if desired)",
+      "parentUuid": "e889cfa7_069cd832",
       "revId": "c76c594edccc015da3ac521d0617ee87983cc48e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

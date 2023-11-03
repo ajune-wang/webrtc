@@ -13,8 +13,6 @@
 
 #include <vector>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCIceServer+Private.h"
 #import "api/peerconnection/RTCIceServer.h"
 #import "helpers/NSString+StdString.h"
@@ -29,10 +27,10 @@
       [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithURLStrings:@[ @"stun:stun1.example.net" ]];
 
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
-  EXPECT_EQ(1u, iceStruct.urls.size());
-  EXPECT_EQ("stun:stun1.example.net", iceStruct.urls.front());
-  EXPECT_EQ("", iceStruct.username);
-  EXPECT_EQ("", iceStruct.password);
+  XCTAssertEqual(1u, iceStruct.urls.size());
+  XCTAssertEqual("stun:stun1.example.net", iceStruct.urls.front());
+  XCTAssertEqual("", iceStruct.username);
+  XCTAssertEqual("", iceStruct.password);
 }
 
 - (void)testTwoURLServer {
@@ -40,11 +38,11 @@
       initWithURLStrings:@[ @"turn1:turn1.example.net", @"turn2:turn2.example.net" ]];
 
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
-  EXPECT_EQ(2u, iceStruct.urls.size());
-  EXPECT_EQ("turn1:turn1.example.net", iceStruct.urls.front());
-  EXPECT_EQ("turn2:turn2.example.net", iceStruct.urls.back());
-  EXPECT_EQ("", iceStruct.username);
-  EXPECT_EQ("", iceStruct.password);
+  XCTAssertEqual(2u, iceStruct.urls.size());
+  XCTAssertEqual("turn1:turn1.example.net", iceStruct.urls.front());
+  XCTAssertEqual("turn2:turn2.example.net", iceStruct.urls.back());
+  XCTAssertEqual("", iceStruct.username);
+  XCTAssertEqual("", iceStruct.password);
 }
 
 - (void)testPasswordCredential {
@@ -53,10 +51,10 @@
                                                      username:@"username"
                                                    credential:@"credential"];
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
-  EXPECT_EQ(1u, iceStruct.urls.size());
-  EXPECT_EQ("turn1:turn1.example.net", iceStruct.urls.front());
-  EXPECT_EQ("username", iceStruct.username);
-  EXPECT_EQ("credential", iceStruct.password);
+  XCTAssertEqual(1u, iceStruct.urls.size());
+  XCTAssertEqual("turn1:turn1.example.net", iceStruct.urls.front());
+  XCTAssertEqual("username", iceStruct.username);
+  XCTAssertEqual("credential", iceStruct.password);
 }
 
 - (void)testHostname {
@@ -67,11 +65,11 @@
                                                 tlsCertPolicy:RTCTlsCertPolicySecure
                                                      hostname:@"hostname"];
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
-  EXPECT_EQ(1u, iceStruct.urls.size());
-  EXPECT_EQ("turn1:turn1.example.net", iceStruct.urls.front());
-  EXPECT_EQ("username", iceStruct.username);
-  EXPECT_EQ("credential", iceStruct.password);
-  EXPECT_EQ("hostname", iceStruct.hostname);
+  XCTAssertEqual(1u, iceStruct.urls.size());
+  XCTAssertEqual("turn1:turn1.example.net", iceStruct.urls.front());
+  XCTAssertEqual("username", iceStruct.username);
+  XCTAssertEqual("credential", iceStruct.password);
+  XCTAssertEqual("hostname", iceStruct.hostname);
 }
 
 - (void)testTlsAlpnProtocols {
@@ -83,12 +81,12 @@
                                                      hostname:@"hostname"
                                              tlsAlpnProtocols:@[ @"proto1", @"proto2" ]];
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
-  EXPECT_EQ(1u, iceStruct.urls.size());
-  EXPECT_EQ("turn1:turn1.example.net", iceStruct.urls.front());
-  EXPECT_EQ("username", iceStruct.username);
-  EXPECT_EQ("credential", iceStruct.password);
-  EXPECT_EQ("hostname", iceStruct.hostname);
-  EXPECT_EQ(2u, iceStruct.tls_alpn_protocols.size());
+  XCTAssertEqual(1u, iceStruct.urls.size());
+  XCTAssertEqual("turn1:turn1.example.net", iceStruct.urls.front());
+  XCTAssertEqual("username", iceStruct.username);
+  XCTAssertEqual("credential", iceStruct.password);
+  XCTAssertEqual("hostname", iceStruct.hostname);
+  XCTAssertEqual(2u, iceStruct.tls_alpn_protocols.size());
 }
 
 - (void)testTlsEllipticCurves {
@@ -101,13 +99,13 @@
                                              tlsAlpnProtocols:@[ @"proto1", @"proto2" ]
                                             tlsEllipticCurves:@[ @"curve1", @"curve2" ]];
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
-  EXPECT_EQ(1u, iceStruct.urls.size());
-  EXPECT_EQ("turn1:turn1.example.net", iceStruct.urls.front());
-  EXPECT_EQ("username", iceStruct.username);
-  EXPECT_EQ("credential", iceStruct.password);
-  EXPECT_EQ("hostname", iceStruct.hostname);
-  EXPECT_EQ(2u, iceStruct.tls_alpn_protocols.size());
-  EXPECT_EQ(2u, iceStruct.tls_elliptic_curves.size());
+  XCTAssertEqual(1u, iceStruct.urls.size());
+  XCTAssertEqual("turn1:turn1.example.net", iceStruct.urls.front());
+  XCTAssertEqual("username", iceStruct.username);
+  XCTAssertEqual("credential", iceStruct.password);
+  XCTAssertEqual("hostname", iceStruct.hostname);
+  XCTAssertEqual(2u, iceStruct.tls_alpn_protocols.size());
+  XCTAssertEqual(2u, iceStruct.tls_elliptic_curves.size());
 }
 
 - (void)testInitFromNativeServer {
@@ -123,14 +121,14 @@
 
   RTC_OBJC_TYPE(RTCIceServer) *iceServer =
       [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithNativeServer:nativeServer];
-  EXPECT_EQ(1u, iceServer.urlStrings.count);
-  EXPECT_EQ("stun:stun.example.net",
-      [NSString stdStringForString:iceServer.urlStrings.firstObject]);
-  EXPECT_EQ("username", [NSString stdStringForString:iceServer.username]);
-  EXPECT_EQ("password", [NSString stdStringForString:iceServer.credential]);
-  EXPECT_EQ("hostname", [NSString stdStringForString:iceServer.hostname]);
-  EXPECT_EQ(2u, iceServer.tlsAlpnProtocols.count);
-  EXPECT_EQ(2u, iceServer.tlsEllipticCurves.count);
+  XCTAssertEqual(1u, iceServer.urlStrings.count);
+  XCTAssertEqual("stun:stun.example.net",
+                 [NSString stdStringForString:iceServer.urlStrings.firstObject]);
+  XCTAssertEqual("username", [NSString stdStringForString:iceServer.username]);
+  XCTAssertEqual("password", [NSString stdStringForString:iceServer.credential]);
+  XCTAssertEqual("hostname", [NSString stdStringForString:iceServer.hostname]);
+  XCTAssertEqual(2u, iceServer.tlsAlpnProtocols.count);
+  XCTAssertEqual(2u, iceServer.tlsEllipticCurves.count);
 }
 
 @end

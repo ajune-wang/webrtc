@@ -11,8 +11,6 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCSessionDescription+Private.h"
 #import "api/peerconnection/RTCSessionDescription.h"
 #import "helpers/NSString+StdString.h"
@@ -33,12 +31,12 @@
   std::unique_ptr<webrtc::SessionDescriptionInterface> nativeDescription =
       description.nativeDescription;
 
-  EXPECT_EQ(RTCSdpTypeAnswer,
-            [RTC_OBJC_TYPE(RTCSessionDescription) typeForStdString:nativeDescription->type()]);
+  XCTAssertEqual(RTCSdpTypeAnswer,
+                 [RTC_OBJC_TYPE(RTCSessionDescription) typeForStdString:nativeDescription->type()]);
 
   std::string sdp;
   nativeDescription->ToString(&sdp);
-  EXPECT_EQ([self sdp].stdString, sdp);
+  XCTAssertEqual([self sdp].stdString, sdp);
 }
 
 - (void)testInitFromNativeSessionDescription {
@@ -51,9 +49,9 @@
 
   RTC_OBJC_TYPE(RTCSessionDescription) *description =
       [[RTC_OBJC_TYPE(RTCSessionDescription) alloc] initWithNativeDescription:nativeDescription];
-  EXPECT_EQ(webrtc::SessionDescriptionInterface::kAnswer,
-            [RTC_OBJC_TYPE(RTCSessionDescription) stdStringForType:description.type]);
-  EXPECT_TRUE([[self sdp] isEqualToString:description.sdp]);
+  XCTAssertTrue(absl::string_view(webrtc::SessionDescriptionInterface::kAnswer) ==
+                [RTC_OBJC_TYPE(RTCSessionDescription) stdStringForType:description.type]);
+  XCTAssertTrue([[self sdp] isEqualToString:description.sdp]);
 }
 
 - (NSString *)sdp {

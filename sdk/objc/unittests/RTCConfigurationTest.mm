@@ -13,8 +13,6 @@
 
 #include <vector>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCConfiguration+Private.h"
 #import "api/peerconnection/RTCConfiguration.h"
 #import "api/peerconnection/RTCIceServer.h"
@@ -57,35 +55,35 @@
 
   std::unique_ptr<webrtc::PeerConnectionInterface::RTCConfiguration>
       nativeConfig([config createNativeConfiguration]);
-  EXPECT_TRUE(nativeConfig.get());
-  EXPECT_EQ(1u, nativeConfig->servers.size());
+  XCTAssertTrue(nativeConfig.get());
+  XCTAssertEqual(1u, nativeConfig->servers.size());
   webrtc::PeerConnectionInterface::IceServer nativeServer =
       nativeConfig->servers.front();
-  EXPECT_EQ(1u, nativeServer.urls.size());
-  EXPECT_EQ("stun:stun1.example.net", nativeServer.urls.front());
+  XCTAssertEqual(1u, nativeServer.urls.size());
+  XCTAssertEqual("stun:stun1.example.net", nativeServer.urls.front());
 
-  EXPECT_EQ(webrtc::PeerConnectionInterface::kRelay, nativeConfig->type);
-  EXPECT_EQ(webrtc::PeerConnectionInterface::kBundlePolicyMaxBundle,
-            nativeConfig->bundle_policy);
-  EXPECT_EQ(webrtc::PeerConnectionInterface::kRtcpMuxPolicyNegotiate,
-            nativeConfig->rtcp_mux_policy);
-  EXPECT_EQ(webrtc::PeerConnectionInterface::kTcpCandidatePolicyDisabled,
-            nativeConfig->tcp_candidate_policy);
-  EXPECT_EQ(webrtc::PeerConnectionInterface::kCandidateNetworkPolicyLowCost,
-            nativeConfig->candidate_network_policy);
-  EXPECT_EQ(maxPackets, nativeConfig->audio_jitter_buffer_max_packets);
-  EXPECT_EQ(true, nativeConfig->audio_jitter_buffer_fast_accelerate);
-  EXPECT_EQ(timeout, nativeConfig->ice_connection_receiving_timeout);
-  EXPECT_EQ(interval, nativeConfig->ice_backup_candidate_pair_ping_interval);
-  EXPECT_EQ(webrtc::PeerConnectionInterface::GATHER_CONTINUALLY,
-            nativeConfig->continual_gathering_policy);
-  EXPECT_EQ(true, nativeConfig->prune_turn_ports);
-  EXPECT_EQ(true, nativeConfig->crypto_options->srtp.enable_gcm_crypto_suites);
-  EXPECT_EQ(true, nativeConfig->crypto_options->srtp.enable_aes128_sha1_32_crypto_cipher);
-  EXPECT_EQ(true, nativeConfig->crypto_options->srtp.enable_encrypted_rtp_header_extensions);
-  EXPECT_EQ(true, nativeConfig->crypto_options->sframe.require_frame_encryption);
-  EXPECT_EQ(2500, nativeConfig->audio_rtcp_report_interval_ms());
-  EXPECT_EQ(3750, nativeConfig->video_rtcp_report_interval_ms());
+  XCTAssertEqual(webrtc::PeerConnectionInterface::kRelay, nativeConfig->type);
+  XCTAssertEqual(webrtc::PeerConnectionInterface::kBundlePolicyMaxBundle,
+                 nativeConfig->bundle_policy);
+  XCTAssertEqual(webrtc::PeerConnectionInterface::kRtcpMuxPolicyNegotiate,
+                 nativeConfig->rtcp_mux_policy);
+  XCTAssertEqual(webrtc::PeerConnectionInterface::kTcpCandidatePolicyDisabled,
+                 nativeConfig->tcp_candidate_policy);
+  XCTAssertEqual(webrtc::PeerConnectionInterface::kCandidateNetworkPolicyLowCost,
+                 nativeConfig->candidate_network_policy);
+  XCTAssertEqual(maxPackets, nativeConfig->audio_jitter_buffer_max_packets);
+  XCTAssertEqual(true, nativeConfig->audio_jitter_buffer_fast_accelerate);
+  XCTAssertEqual(timeout, nativeConfig->ice_connection_receiving_timeout);
+  XCTAssertEqual(interval, nativeConfig->ice_backup_candidate_pair_ping_interval);
+  XCTAssertEqual(webrtc::PeerConnectionInterface::GATHER_CONTINUALLY,
+                 nativeConfig->continual_gathering_policy);
+  XCTAssertEqual(true, nativeConfig->prune_turn_ports);
+  XCTAssertEqual(true, nativeConfig->crypto_options->srtp.enable_gcm_crypto_suites);
+  XCTAssertEqual(true, nativeConfig->crypto_options->srtp.enable_aes128_sha1_32_crypto_cipher);
+  XCTAssertEqual(true, nativeConfig->crypto_options->srtp.enable_encrypted_rtp_header_extensions);
+  XCTAssertEqual(true, nativeConfig->crypto_options->sframe.require_frame_encryption);
+  XCTAssertEqual(2500, nativeConfig->audio_rtcp_report_interval_ms());
+  XCTAssertEqual(3750, nativeConfig->video_rtcp_report_interval_ms());
 }
 
 - (void)testNativeConversionToConfiguration {
@@ -122,41 +120,41 @@
       [config createNativeConfiguration];
   RTC_OBJC_TYPE(RTCConfiguration) *newConfig =
       [[RTC_OBJC_TYPE(RTCConfiguration) alloc] initWithNativeConfiguration:*nativeConfig];
-  EXPECT_EQ([config.iceServers count], newConfig.iceServers.count);
+  XCTAssertEqual([config.iceServers count], newConfig.iceServers.count);
   RTC_OBJC_TYPE(RTCIceServer) *newServer = newConfig.iceServers[0];
   RTC_OBJC_TYPE(RTCIceServer) *origServer = config.iceServers[0];
-  EXPECT_EQ(origServer.urlStrings.count, server.urlStrings.count);
+  XCTAssertEqual(origServer.urlStrings.count, server.urlStrings.count);
   std::string origUrl = origServer.urlStrings.firstObject.UTF8String;
   std::string url = newServer.urlStrings.firstObject.UTF8String;
-  EXPECT_EQ(origUrl, url);
+  XCTAssertEqual(origUrl, url);
 
-  EXPECT_EQ(config.iceTransportPolicy, newConfig.iceTransportPolicy);
-  EXPECT_EQ(config.bundlePolicy, newConfig.bundlePolicy);
-  EXPECT_EQ(config.rtcpMuxPolicy, newConfig.rtcpMuxPolicy);
-  EXPECT_EQ(config.tcpCandidatePolicy, newConfig.tcpCandidatePolicy);
-  EXPECT_EQ(config.candidateNetworkPolicy, newConfig.candidateNetworkPolicy);
-  EXPECT_EQ(config.audioJitterBufferMaxPackets, newConfig.audioJitterBufferMaxPackets);
-  EXPECT_EQ(config.audioJitterBufferFastAccelerate, newConfig.audioJitterBufferFastAccelerate);
-  EXPECT_EQ(config.iceConnectionReceivingTimeout, newConfig.iceConnectionReceivingTimeout);
-  EXPECT_EQ(config.iceBackupCandidatePairPingInterval,
-            newConfig.iceBackupCandidatePairPingInterval);
-  EXPECT_EQ(config.continualGatheringPolicy, newConfig.continualGatheringPolicy);
-  EXPECT_EQ(config.shouldPruneTurnPorts, newConfig.shouldPruneTurnPorts);
-  EXPECT_EQ(config.cryptoOptions.srtpEnableGcmCryptoSuites,
-            newConfig.cryptoOptions.srtpEnableGcmCryptoSuites);
-  EXPECT_EQ(config.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher,
-            newConfig.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher);
-  EXPECT_EQ(config.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions,
-            newConfig.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions);
-  EXPECT_EQ(config.cryptoOptions.sframeRequireFrameEncryption,
-            newConfig.cryptoOptions.sframeRequireFrameEncryption);
-  EXPECT_EQ(config.rtcpAudioReportIntervalMs, newConfig.rtcpAudioReportIntervalMs);
-  EXPECT_EQ(config.rtcpVideoReportIntervalMs, newConfig.rtcpVideoReportIntervalMs);
+  XCTAssertEqual(config.iceTransportPolicy, newConfig.iceTransportPolicy);
+  XCTAssertEqual(config.bundlePolicy, newConfig.bundlePolicy);
+  XCTAssertEqual(config.rtcpMuxPolicy, newConfig.rtcpMuxPolicy);
+  XCTAssertEqual(config.tcpCandidatePolicy, newConfig.tcpCandidatePolicy);
+  XCTAssertEqual(config.candidateNetworkPolicy, newConfig.candidateNetworkPolicy);
+  XCTAssertEqual(config.audioJitterBufferMaxPackets, newConfig.audioJitterBufferMaxPackets);
+  XCTAssertEqual(config.audioJitterBufferFastAccelerate, newConfig.audioJitterBufferFastAccelerate);
+  XCTAssertEqual(config.iceConnectionReceivingTimeout, newConfig.iceConnectionReceivingTimeout);
+  XCTAssertEqual(config.iceBackupCandidatePairPingInterval,
+                 newConfig.iceBackupCandidatePairPingInterval);
+  XCTAssertEqual(config.continualGatheringPolicy, newConfig.continualGatheringPolicy);
+  XCTAssertEqual(config.shouldPruneTurnPorts, newConfig.shouldPruneTurnPorts);
+  XCTAssertEqual(config.cryptoOptions.srtpEnableGcmCryptoSuites,
+                 newConfig.cryptoOptions.srtpEnableGcmCryptoSuites);
+  XCTAssertEqual(config.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher,
+                 newConfig.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher);
+  XCTAssertEqual(config.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions,
+                 newConfig.cryptoOptions.srtpEnableEncryptedRtpHeaderExtensions);
+  XCTAssertEqual(config.cryptoOptions.sframeRequireFrameEncryption,
+                 newConfig.cryptoOptions.sframeRequireFrameEncryption);
+  XCTAssertEqual(config.rtcpAudioReportIntervalMs, newConfig.rtcpAudioReportIntervalMs);
+  XCTAssertEqual(config.rtcpVideoReportIntervalMs, newConfig.rtcpVideoReportIntervalMs);
 }
 
 - (void)testDefaultValues {
   RTC_OBJC_TYPE(RTCConfiguration) *config = [[RTC_OBJC_TYPE(RTCConfiguration) alloc] init];
-  EXPECT_EQ(config.cryptoOptions, nil);
+  XCTAssertEqual(config.cryptoOptions, nil);
 }
 
 @end

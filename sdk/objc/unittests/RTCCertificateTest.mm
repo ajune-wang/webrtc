@@ -13,8 +13,6 @@
 
 #include <vector>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCConfiguration+Private.h"
 #import "api/peerconnection/RTCConfiguration.h"
 #import "api/peerconnection/RTCIceServer.h"
@@ -66,8 +64,8 @@
   std::string retrievedCertificateField = [[retrievedCertificate certificate] UTF8String];
 
   // Check that the original certificate and retrieved certificate match.
-  EXPECT_EQ(originalPrivateKeyField, retrievedPrivateKeyField);
-  EXPECT_EQ(retrievedCertificateField, retrievedCertificateField);
+  XCTAssertEqual(originalPrivateKeyField, retrievedPrivateKeyField);
+  XCTAssertEqual(retrievedCertificateField, retrievedCertificateField);
 }
 
 @end

@@ -13,8 +13,6 @@
 
 #include <memory>
 
-#include "rtc_base/gunit.h"
-
 #import "api/peerconnection/RTCMediaConstraints+Private.h"
 #import "api/peerconnection/RTCMediaConstraints.h"
 #import "helpers/NSString+StdString.h"
@@ -43,15 +41,15 @@
 
 - (void)expectConstraints:(NSDictionary *)constraints
       inNativeConstraints:(webrtc::MediaConstraints::Constraints)nativeConstraints {
-  EXPECT_EQ(constraints.count, nativeConstraints.size());
+  XCTAssertEqual(constraints.count, nativeConstraints.size());
 
   for (NSString *key in constraints) {
     NSString *value = [constraints objectForKey:key];
 
     std::string nativeValue;
     bool found = nativeConstraints.FindFirst(key.stdString, &nativeValue);
-    EXPECT_TRUE(found);
-    EXPECT_EQ(value.stdString, nativeValue);
+    XCTAssertTrue(found);
+    XCTAssertEqual(value.stdString, nativeValue);
   }
 }
 

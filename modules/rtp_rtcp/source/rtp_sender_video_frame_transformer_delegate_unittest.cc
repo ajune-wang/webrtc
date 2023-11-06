@@ -40,7 +40,8 @@ class MockRTPVideoFrameSenderInterface : public RTPVideoFrameSenderInterface {
                size_t encoder_output_size,
                RTPVideoHeader video_header,
                TimeDelta expected_retransmission_time,
-               std::vector<uint32_t> csrcs),
+               std::vector<uint32_t> csrcs,
+               bool externally_encoded),
               (override));
 
   MOCK_METHOD(void,
@@ -137,10 +138,12 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
   ASSERT_TRUE(frame);
 
   rtc::Event event;
-  EXPECT_CALL(test_sender_, SendVideo).WillOnce(WithoutArgs([&] {
-    event.Set();
-    return true;
-  }));
+  EXPECT_CALL(test_sender_, SendVideo(_, _, _, _, _, _, _, _, _,
+                                      /*externally_encoded=*/false))
+      .WillOnce(WithoutArgs([&] {
+        event.Set();
+        return true;
+      }));
 
   callback->OnTransformedFrame(std::move(frame));
 
@@ -252,7 +255,7 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
       SendVideo(payload_type, absl::make_optional(kVideoCodecVP8), timestamp,
                 /*capture_time=*/Timestamp::MinusInfinity(), buffer, _, _,
                 /*expected_retransmission_time=*/TimeDelta::PlusInfinity(),
-                frame_csrcs))
+                frame_csrcs, /*externally_encoded=*/true))
       .WillOnce(WithoutArgs([&] {
         event.Set();
         return true;

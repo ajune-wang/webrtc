@@ -634,8 +634,8 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
   void RequestRecvKeyFrame(uint32_t ssrc) override;
   void SetDepacketizerToDecoderFrameTransformer(
       uint32_t ssrc,
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
-      override;
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align_transforms) override;
   std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const override;
 
   void SetReceiverFeedbackParameters(bool lntf_enabled,
@@ -741,8 +741,8 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
     void GenerateKeyFrame();
 
     void SetDepacketizerToDecoderFrameTransformer(
-        rtc::scoped_refptr<webrtc::FrameTransformerInterface>
-            frame_transformer);
+        rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+        bool align_transforms);
 
     void SetLocalSsrc(uint32_t local_ssrc);
     void UpdateRtxSsrc(uint32_t ssrc);

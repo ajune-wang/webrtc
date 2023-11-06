@@ -308,8 +308,8 @@ class MediaReceiveChannelInterface {
 
   virtual void SetDepacketizerToDecoderFrameTransformer(
       uint32_t ssrc,
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface>
-          frame_transformer) = 0;
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align_transforms) = 0;
 
   // Set base minimum delay of the receive stream with specified ssrc.
   // Base minimum delay sets lower bound on minimum delay value which

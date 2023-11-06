@@ -159,8 +159,8 @@ class RtpReceiveChannelHelper : public Base, public MediaChannelUtil {
 
   void SetDepacketizerToDecoderFrameTransformer(
       uint32_t ssrc,
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
-      override {}
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool) override {}
 
   void SetInterface(MediaChannelNetworkInterface* iface) override {
     network_interface_ = iface;

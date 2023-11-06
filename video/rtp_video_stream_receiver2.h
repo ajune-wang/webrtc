@@ -97,7 +97,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
       const FieldTrialsView& field_trials,
-      RtcEventLog* event_log);
+      RtcEventLog* event_log,
+      Metronome* metronome);
   ~RtpVideoStreamReceiver2() override;
 
   void AddReceiveCodec(uint8_t payload_type,
@@ -173,7 +174,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   // Sets a frame transformer after a stream has started, if no transformer
   // has previously been set. Does not reset the decoder state.
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+      bool align_transforms);
 
   // Called by VideoReceiveStreamInterface when stats are updated.
   void UpdateRtt(int64_t max_rtt_ms);
@@ -433,6 +435,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   Timestamp next_keyframe_request_for_missing_video_structure_ =
       Timestamp::MinusInfinity();
+
+  Metronome* metronome_;
 };
 
 }  // namespace webrtc

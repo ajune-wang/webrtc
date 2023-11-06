@@ -112,7 +112,8 @@ class RTC_EXPORT RtpReceiverInterface : public rtc::RefCountInterface {
   // client code to transform received frames according to their own processing
   // logic.
   virtual void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+      bool align_transforms);
 
  protected:
   ~RtpReceiverInterface() override = default;

@@ -1998,9 +1998,11 @@ class WebRtcVoiceReceiveChannel::WebRtcAudioReceiveStream {
   }
 
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align_transforms) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-    stream_->SetDepacketizerToDecoderFrameTransformer(frame_transformer);
+    stream_->SetDepacketizerToDecoderFrameTransformer(frame_transformer,
+                                                      align_transforms);
   }
 
  private:
@@ -2684,7 +2686,8 @@ std::vector<webrtc::RtpSource> WebRtcVoiceReceiveChannel::GetSources(
 
 void WebRtcVoiceReceiveChannel::SetDepacketizerToDecoderFrameTransformer(
     uint32_t ssrc,
-    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+    bool align_transforms) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   if (ssrc == 0) {
     // If the receiver is unsignaled, save the frame transformer and set it when
@@ -2700,7 +2703,7 @@ void WebRtcVoiceReceiveChannel::SetDepacketizerToDecoderFrameTransformer(
     return;
   }
   matching_stream->second->SetDepacketizerToDecoderFrameTransformer(
-      std::move(frame_transformer));
+      std::move(frame_transformer), align_transforms);
 }
 
 bool WebRtcVoiceReceiveChannel::MaybeDeregisterUnsignaledRecvStream(

@@ -118,8 +118,8 @@ class FakeAudioReceiveStream final
   void Stop() override { started_ = false; }
   bool IsRunning() const override { return started_; }
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
-      override;
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align) override;
   void SetDecoderMap(
       std::map<int, webrtc::SdpAudioFormat> decoder_map) override;
   void SetNackHistory(int history_ms) override;
@@ -269,8 +269,8 @@ class FakeVideoReceiveStream final
                              frame_decryptor) override {}
 
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
-      override {}
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool align) override {}
 
   RecordingState SetAndGetRecordingState(RecordingState state,
                                          bool generate_key_frame) override {

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27434808_1d4bf39a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2023-11-06T12:32:55Z",
+      "side": 1,
+      "message": "some post-submit fyis",
+      "revId": "78f905e5cccf4a6105c0d246a6104a2bf5bb1cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a42b8b72_e972abc4",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2023-11-06T12:32:55Z",
+      "side": 1,
+      "message": "already in webrtc",
+      "revId": "78f905e5cccf4a6105c0d246a6104a2bf5bb1cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "656a8418_0ec40435",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2023-11-06T12:32:55Z",
+      "side": 1,
+      "message": "already in webrtc",
+      "revId": "78f905e5cccf4a6105c0d246a6104a2bf5bb1cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c18b91_3992290e",
+        "filename": "modules/audio_device/include/audio_device.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2023-11-06T12:32:55Z",
+      "side": 1,
+      "message": "already in webrtc",
+      "revId": "78f905e5cccf4a6105c0d246a6104a2bf5bb1cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a0b9b62_55c55794",
+        "filename": "modules/audio_device/include/fake_audio_device.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2023-11-06T12:32:55Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "78f905e5cccf4a6105c0d246a6104a2bf5bb1cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

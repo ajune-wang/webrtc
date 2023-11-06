@@ -118,8 +118,8 @@ class AudioRtpReceiver : public ObserverInterface,
   std::vector<RtpSource> GetSources() const override;
   int AttachmentId() const override { return attachment_id_; }
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
-      override;
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+      bool) override;
 
  private:
   void RestartMediaChannel(absl::optional<uint32_t> ssrc)
@@ -157,6 +157,7 @@ class AudioRtpReceiver : public ObserverInterface,
   JitterBufferDelay delay_ RTC_GUARDED_BY(worker_thread_);
   rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_
       RTC_GUARDED_BY(worker_thread_);
+  bool align_transforms_ RTC_GUARDED_BY(worker_thread_);
   const rtc::scoped_refptr<PendingTaskSafetyFlag> worker_thread_safety_;
 };
 

@@ -170,6 +170,8 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   absl::optional<VbaSendContext> video_bitrate_allocation_context_
       RTC_GUARDED_BY(thread_checker_);
   const absl::optional<float> configured_pacing_factor_;
+
+  bool had_media_from_external_encoder_ RTC_GUARDED_BY(thread_checker_) = false;
 };
 }  // namespace internal
 }  // namespace webrtc

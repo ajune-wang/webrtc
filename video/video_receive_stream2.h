@@ -104,7 +104,8 @@ class VideoReceiveStream2
                       std::unique_ptr<VCMTiming> timing,
                       NackPeriodicProcessor* nack_periodic_processor,
                       DecodeSynchronizer* decode_sync,
-                      RtcEventLog* event_log);
+                      RtcEventLog* event_log,
+                      Metronome* metronome);
   // Destruction happens on the worker thread. Prior to destruction the caller
   // must ensure that a registration with the transport has been cleared. See
   // `RegisterWithTransport` for details.
@@ -168,7 +169,8 @@ class VideoReceiveStream2
   void SetFrameDecryptor(
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) override;
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) override;
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+      bool align_transforms) override;
 
   // Implements rtc::VideoSinkInterface<VideoFrame>.
   void OnFrame(const VideoFrame& video_frame) override;

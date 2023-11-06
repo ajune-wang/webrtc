@@ -16,6 +16,23 @@
       "message": "This bloats the code a bit but will allow reducing AddAudioContentForOffer/AddVideoContentForOffer et al as a next step because now those are almost identical (video does a set_bandwidth to kAutoBandwidth which isn\u0027t even required since kAutoBandwidth is the default value)",
       "revId": "d3089faabb7333f27a7a33b71c94a9dd3f7a33cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "013b4ed0_4b72e700",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-06T10:09:40Z",
+      "side": 1,
+      "message": "kron@: since i\u0027m touching your TODO... soon it will be removed ;-)",
+      "revId": "d3089faabb7333f27a7a33b71c94a9dd3f7a33cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

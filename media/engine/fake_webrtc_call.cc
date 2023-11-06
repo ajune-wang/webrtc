@@ -108,7 +108,8 @@ bool FakeAudioReceiveStream::DeliverRtp(const uint8_t* packet,
 }
 
 void FakeAudioReceiveStream::SetDepacketizerToDecoderFrameTransformer(
-    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+    bool align) {
   config_.frame_transformer = std::move(frame_transformer);
 }
 

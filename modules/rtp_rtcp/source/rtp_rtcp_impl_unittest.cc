@@ -232,7 +232,8 @@ class RtpRtcpImplTest : public ::testing::Test {
     EXPECT_TRUE(module->impl_->OnSendingRtpFrame(0, 0, kPayloadType, true));
     EXPECT_TRUE(sender->SendVideo(
         kPayloadType, VideoCodecType::kVideoCodecVP8, 0, clock_.CurrentTime(),
-        payload, sizeof(payload), rtp_video_header, TimeDelta::Zero(), {}));
+        payload, sizeof(payload), rtp_video_header, TimeDelta::Zero(),
+        /*csrcs=*/{}, /*externally_encoded=*/false));
   }
 
   void IncomingRtcpNack(const RtpRtcpModule* module, uint16_t sequence_number) {

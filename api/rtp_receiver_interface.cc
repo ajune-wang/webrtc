@@ -39,6 +39,7 @@ RtpReceiverInterface::dtls_transport() const {
 }
 
 void RtpReceiverInterface::SetDepacketizerToDecoderFrameTransformer(
-    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {}
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+    bool align_transforms) {}
 
 }  // namespace webrtc

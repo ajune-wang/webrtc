@@ -261,7 +261,8 @@ class VideoReceiveStream2Test : public ::testing::TestWithParam<bool> {
             time_controller_.GetTaskQueueFactory(), &fake_call_,
             kDefaultNumCpuCores, &packet_router_, config_.Copy(), &call_stats_,
             clock_, absl::WrapUnique(timing_), &nack_periodic_processor_,
-            UseMetronome() ? &decode_sync_ : nullptr, nullptr);
+            UseMetronome() ? &decode_sync_ : nullptr, /*event_log=*/nullptr,
+            /*metronome=*/nullptr);
     video_receive_stream_->RegisterWithTransport(
         &rtp_stream_receiver_controller_);
     if (state)

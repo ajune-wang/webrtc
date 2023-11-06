@@ -3726,11 +3726,12 @@ void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::GenerateKeyFrame() {
 
 void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::
     SetDepacketizerToDecoderFrameTransformer(
-        rtc::scoped_refptr<webrtc::FrameTransformerInterface>
-            frame_transformer) {
+        rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+        bool align_transforms) {
   config_.frame_transformer = frame_transformer;
   if (stream_)
-    stream_->SetDepacketizerToDecoderFrameTransformer(frame_transformer);
+    stream_->SetDepacketizerToDecoderFrameTransformer(frame_transformer,
+                                                      align_transforms);
 }
 
 void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::SetLocalSsrc(
@@ -3828,7 +3829,8 @@ void WebRtcVideoReceiveChannel::RequestRecvKeyFrame(uint32_t ssrc) {
 
 void WebRtcVideoReceiveChannel::SetDepacketizerToDecoderFrameTransformer(
     uint32_t ssrc,
-    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer,
+    bool align_transforms) {
   RTC_DCHECK(frame_transformer);
   RTC_DCHECK_RUN_ON(&thread_checker_);
   if (ssrc == 0) {
@@ -3841,7 +3843,7 @@ void WebRtcVideoReceiveChannel::SetDepacketizerToDecoderFrameTransformer(
   auto matching_stream = receive_streams_.find(ssrc);
   if (matching_stream != receive_streams_.end()) {
     matching_stream->second->SetDepacketizerToDecoderFrameTransformer(
-        std::move(frame_transformer));
+        std::move(frame_transformer), align_transforms);
   }
 }
 

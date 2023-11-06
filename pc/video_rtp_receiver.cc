@@ -99,12 +99,14 @@ VideoRtpReceiver::GetFrameDecryptor() const {
 }
 
 void VideoRtpReceiver::SetDepacketizerToDecoderFrameTransformer(
-    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+    bool align_transforms) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   frame_transformer_ = std::move(frame_transformer);
+  align_transforms_ = align_transforms;
   if (media_channel_) {
     media_channel_->SetDepacketizerToDecoderFrameTransformer(
-        signaled_ssrc_.value_or(0), frame_transformer_);
+        signaled_ssrc_.value_or(0), frame_transformer_, align_transforms);
   }
 }
 
@@ -155,7 +157,7 @@ void VideoRtpReceiver::RestartMediaChannel_w(
 
   if (frame_transformer_ && media_channel_) {
     media_channel_->SetDepacketizerToDecoderFrameTransformer(
-        signaled_ssrc_.value_or(0), frame_transformer_);
+        signaled_ssrc_.value_or(0), frame_transformer_, align_transforms_);
   }
 
   if (media_channel_ && signaled_ssrc_) {
@@ -300,7 +302,7 @@ void VideoRtpReceiver::SetMediaChannel_w(
     }
     if (frame_transformer_) {
       media_channel_->SetDepacketizerToDecoderFrameTransformer(
-          signaled_ssrc_.value_or(0), frame_transformer_);
+          signaled_ssrc_.value_or(0), frame_transformer_, align_transforms_);
     }
   }
 

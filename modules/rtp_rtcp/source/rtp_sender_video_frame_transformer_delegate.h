@@ -38,7 +38,8 @@ class RTPVideoFrameSenderInterface {
                          size_t encoder_output_size,
                          RTPVideoHeader video_header,
                          TimeDelta expected_retransmission_time,
-                         std::vector<uint32_t> csrcs) = 0;
+                         std::vector<uint32_t> csrcs,
+                         bool externally_encoded) = 0;
 
   virtual void SetVideoStructureAfterTransformation(
       const FrameDependencyStructure* video_structure) = 0;

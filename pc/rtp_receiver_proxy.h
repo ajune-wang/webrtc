@@ -44,9 +44,10 @@ PROXY_SECONDARY_METHOD1(void,
 // TODO(bugs.webrtc.org/12772): Remove.
 PROXY_SECONDARY_CONSTMETHOD0(rtc::scoped_refptr<FrameDecryptorInterface>,
                              GetFrameDecryptor)
-PROXY_SECONDARY_METHOD1(void,
+PROXY_SECONDARY_METHOD2(void,
                         SetDepacketizerToDecoderFrameTransformer,
-                        rtc::scoped_refptr<FrameTransformerInterface>)
+                        rtc::scoped_refptr<FrameTransformerInterface>,
+                        bool)
 END_PROXY_MAP(RtpReceiver)
 
 }  // namespace webrtc

@@ -459,7 +459,8 @@ bool RTPSenderVideo::SendVideo(int payload_type,
                                size_t encoder_output_size,
                                RTPVideoHeader video_header,
                                TimeDelta expected_retransmission_time,
-                               std::vector<uint32_t> csrcs) {
+                               std::vector<uint32_t> csrcs,
+                               bool externally_encoded) {
   TRACE_EVENT_ASYNC_STEP1(
       "webrtc", "Video", capture_time.ms_or(0), "Send", "type",
       std::string(VideoFrameTypeToString(video_header.frame_type)));
@@ -739,6 +740,10 @@ bool RTPSenderVideo::SendVideo(int payload_type,
     send_allocation_ = SendVideoLayersAllocation::kDontSend;
   }
 
+  if (externally_encoded) {
+    has_sent_externally_encoded_media_ = true;
+  }
+
   TRACE_EVENT_ASYNC_END1("webrtc", "Video", capture_time.ms_or(0), "timestamp",
                          rtp_timestamp);
   return true;
@@ -759,7 +764,8 @@ bool RTPSenderVideo::SendEncodedImage(int payload_type,
   return SendVideo(payload_type, codec_type, rtp_timestamp,
                    encoded_image.CaptureTime(), encoded_image,
                    encoded_image.size(), video_header,
-                   expected_retransmission_time, /*csrcs=*/{});
+                   expected_retransmission_time, /*csrcs=*/{},
+                   /*externally_encoded=*/false);
 }
 
 DataRate RTPSenderVideo::PostEncodeOverhead() const {

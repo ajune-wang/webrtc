@@ -19,6 +19,7 @@
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "api/metronome/metronome.h"
 #include "api/video/video_codec_type.h"
 #include "media/base/media_constants.h"
 #include "modules/pacing/packet_router.h"
@@ -246,7 +247,8 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
     const FieldTrialsView& field_trials,
-    RtcEventLog* event_log)
+    RtcEventLog* event_log,
+    Metronome* metronome)
     : field_trials_(field_trials),
       worker_queue_(current_queue),
       clock_(clock),
@@ -294,7 +296,8 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       reference_finder_(std::make_unique<RtpFrameReferenceFinder>()),
       has_received_frame_(false),
       frames_decryptable_(false),
-      absolute_capture_time_interpolator_(clock) {
+      absolute_capture_time_interpolator_(clock),
+      metronome_(metronome) {
   packet_sequence_checker_.Detach();
   constexpr bool remb_candidate = true;
   if (packet_router_)
@@ -337,7 +340,7 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
     frame_transformer_delegate_ =
         rtc::make_ref_counted<RtpVideoStreamReceiverFrameTransformerDelegate>(
             this, clock_, std::move(frame_transformer), rtc::Thread::Current(),
-            config_.rtp.remote_ssrc);
+            config_.rtp.remote_ssrc, metronome_);
     frame_transformer_delegate_->Init();
   }
 }
@@ -949,12 +952,13 @@ void RtpVideoStreamReceiver2::SetFrameDecryptor(
 }
 
 void RtpVideoStreamReceiver2::SetDepacketizerToDecoderFrameTransformer(
-    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+    bool align_transforms) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   frame_transformer_delegate_ =
       rtc::make_ref_counted<RtpVideoStreamReceiverFrameTransformerDelegate>(
           this, clock_, std::move(frame_transformer), rtc::Thread::Current(),
-          config_.rtp.remote_ssrc);
+          config_.rtp.remote_ssrc, align_transforms ? metronome_ : nullptr);
   frame_transformer_delegate_->Init();
 }
 

@@ -91,6 +91,7 @@ rtc_library("video") {
     "../api:transport_api",
     "../api/crypto:frame_decryptor_interface",
     "../api/crypto:options",
+    "../api/metronome:metronome",
     "../api/task_queue",
     "../api/task_queue:pending_task_safety_flag",
     "../api/transport:field_trial_based_config",

@@ -83,7 +83,8 @@ class VideoRtpReceiver : public RtpReceiverInternal {
       const override;
 
   void SetDepacketizerToDecoderFrameTransformer(
-      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) override;
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
+      bool align_transforms) override;
 
   // RtpReceiverInternal implementation.
   void Stop() override;
@@ -169,6 +170,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
       RTC_GUARDED_BY(&signaling_thread_checker_);
   rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_
       RTC_GUARDED_BY(worker_thread_);
+  bool align_transforms_ RTC_GUARDED_BY(worker_thread_);
   // Stores the minimum jitter buffer delay. Handles caching cases
   // if `SetJitterBufferMinimumDelay` is called before start.
   JitterBufferDelay delay_ RTC_GUARDED_BY(worker_thread_);

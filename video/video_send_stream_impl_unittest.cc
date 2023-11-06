@@ -105,6 +105,8 @@ class MockRtpVideoSender : public RtpVideoSenderInterface {
               (const, override));
 
   MOCK_METHOD(void, SetFecAllowed, (bool fec_allowed), (override));
+
+  MOCK_METHOD(bool, HasSentExternallyEncodedMedia, (), (const, override));
 };
 
 BitrateAllocationUpdate CreateAllocation(int bitrate_bps) {

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69058305_5caea031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-06T12:35:17Z",
+      "side": 1,
+      "message": "Do we know of tooling that can detect and remove superfluous namespacing?\nIf it exists, I suspect that the easiest way to convert from rtc::scoped_refptr to webrtc::scoped_refptr is to do s/rtc::scoped_refptr/webrtc::scopedrefptr/g (all 4000 instances) and then run the tool to remove the extra webrtc::s",
+      "revId": "78f905e5cccf4a6105c0d246a6104a2bf5bb1cd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a42b8b72_e972abc4",

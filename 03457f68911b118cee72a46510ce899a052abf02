@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fb90773_a89f8568",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-11-07T13:17:48Z",
+      "side": 0,
+      "message": "Manually updated.",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 471,
+        "endChar": 0
+      },
+      "revId": "03457f68911b118cee72a46510ce899a052abf02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -69,11 +69,6 @@ std::unique_ptr<Timeout> CallbackDeferrer::CreateTimeout(
   return underlying_.CreateTimeout(precision);
 }
 
-TimeMs CallbackDeferrer::TimeMillis() {
-  // Will not be deferred - call directly.
-  return underlying_.TimeMillis();
-}
-
 uint32_t CallbackDeferrer::GetRandomInt(uint32_t low, uint32_t high) {
   // Will not be deferred - call directly.
   return underlying_.GetRandomInt(low, high);

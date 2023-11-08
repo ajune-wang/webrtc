@@ -33,6 +33,24 @@
       "message": "this one is odd since api/frame_transformer_interface.h already includes string. Compiles locally without but presubmit complained.",
       "revId": "998cf868e7cf832474be1b090bb55a63b970d725",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e8f74d_fc147fb4",
+        "filename": "api/test/mock_transformable_audio_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-08T18:00:34Z",
+      "side": 1,
+      "message": "It\u0027s IWYU in action. Since this file uses std::string, this file should include it.",
+      "parentUuid": "1b09278f_27ca29d3",
+      "revId": "998cf868e7cf832474be1b090bb55a63b970d725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

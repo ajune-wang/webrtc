@@ -23,6 +23,7 @@ using ::testing::_;
 using ::testing::Field;
 using ::testing::MockFunction;
 using ::testing::NiceMock;
+using ::webrtc::Timestamp;
 
 class TaskQueueTimeoutTest : public testing::Test {
  protected:
@@ -31,9 +32,7 @@ class TaskQueueTimeoutTest : public testing::Test {
         task_queue_(time_controller_.GetMainThread()),
         factory_(
             *task_queue_,
-            [this]() {
-              return TimeMs(time_controller_.GetClock()->CurrentTime().ms());
-            },
+            [this]() { return time_controller_.GetClock()->CurrentTime(); },
             on_expired_.AsStdFunction()) {}
 
   void AdvanceTime(DurationMs duration) {
@@ -128,7 +127,7 @@ TEST(TaskQueueTimeoutWithMockTaskQueueTest, CanSetTimeoutPrecisionToLow) {
               false),
           _));
   TaskQueueTimeoutFactory factory(
-      mock_task_queue, []() { return TimeMs(1337); },
+      mock_task_queue, []() { return Timestamp::Millis(1337); },
       [](TimeoutID timeout_id) {});
   std::unique_ptr<Timeout> timeout =
       factory.CreateTimeout(webrtc::TaskQueueBase::DelayPrecision::kLow);
@@ -146,7 +145,7 @@ TEST(TaskQueueTimeoutWithMockTaskQueueTest, CanSetTimeoutPrecisionToHigh) {
               true),
           _));
   TaskQueueTimeoutFactory factory(
-      mock_task_queue, []() { return TimeMs(1337); },
+      mock_task_queue, []() { return Timestamp::Millis(1337); },
       [](TimeoutID timeout_id) {});
   std::unique_ptr<Timeout> timeout =
       factory.CreateTimeout(webrtc::TaskQueueBase::DelayPrecision::kHigh);
@@ -164,7 +163,7 @@ TEST(TaskQueueTimeoutWithMockTaskQueueTest, TimeoutPrecisionIsLowByDefault) {
               false),
           _));
   TaskQueueTimeoutFactory factory(
-      mock_task_queue, []() { return TimeMs(1337); },
+      mock_task_queue, []() { return Timestamp::Millis(1337); },
       [](TimeoutID timeout_id) {});
   std::unique_ptr<Timeout> timeout = factory.CreateTimeout();
   timeout->Start(DurationMs(1), TimeoutID(1));

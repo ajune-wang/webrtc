@@ -15,6 +15,7 @@
 
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/units/timestamp.h"
 #include "net/dcsctp/public/timeout.h"
 
 namespace dcsctp {
@@ -38,7 +39,7 @@ class TaskQueueTimeoutFactory {
   // triggered, and then the client should provided `timeout_id` to
   // `DcSctpSocketInterface::HandleTimeout`.
   TaskQueueTimeoutFactory(webrtc::TaskQueueBase& task_queue,
-                          std::function<TimeMs()> get_time,
+                          std::function<webrtc::Timestamp()> get_time,
                           std::function<void(TimeoutID timeout_id)> on_expired)
       : task_queue_(task_queue),
         get_time_(std::move(get_time)),
@@ -74,17 +75,18 @@ class TaskQueueTimeoutFactory {
     rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> pending_task_safety_flag_;
     // The time when the posted delayed task is set to expire. Will be set to
     // the infinite future if there is no such task running.
-    TimeMs posted_task_expiration_ = TimeMs::InfiniteFuture();
+    webrtc::Timestamp posted_task_expiration_ =
+        webrtc::Timestamp::PlusInfinity();
     // The time when the timeout expires. It will be set to the infinite future
     // if the timeout is not running/not started.
-    TimeMs timeout_expiration_ = TimeMs::InfiniteFuture();
+    webrtc::Timestamp timeout_expiration_ = webrtc::Timestamp::PlusInfinity();
     // The current timeout ID that will be reported when expired.
     TimeoutID timeout_id_ = TimeoutID(0);
   };
 
   RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker thread_checker_;
   webrtc::TaskQueueBase& task_queue_;
-  const std::function<TimeMs()> get_time_;
+  const std::function<webrtc::Timestamp()> get_time_;
   const std::function<void(TimeoutID)> on_expired_;
 };
 }  // namespace dcsctp

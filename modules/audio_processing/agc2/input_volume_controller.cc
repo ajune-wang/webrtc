@@ -414,7 +414,7 @@ void InputVolumeController::AnalyzeInputAudio(int applied_input_volume,
 
   SetAppliedInputVolume(applied_input_volume);
 
-  RTC_DCHECK_EQ(audio_buffer.num_channels(), channel_controllers_.size());
+  RTC_DCHECK_GE(audio_buffer.num_channels(), channel_controllers_.size());
   const float* const* audio = audio_buffer.channels_const();
   size_t samples_per_channel = audio_buffer.num_frames();
   RTC_DCHECK(audio);

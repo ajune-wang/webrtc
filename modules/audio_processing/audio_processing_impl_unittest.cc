@@ -468,6 +468,8 @@ TEST(AudioProcessingImplTest,
      EchoControllerObservesAnalogAgc1EchoPathGainChange) {
   // Tests that the echo controller observes an echo path gain change when the
   // AGC1 analog adaptive submodule changes the analog gain.
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Audio-GainController2/Disabled/");
   auto echo_control_factory = std::make_unique<MockEchoControlFactory>();
   const auto* echo_control_factory_ptr = echo_control_factory.get();
 
@@ -1448,20 +1450,30 @@ TEST(AudioProcessingImplTest, CanDisableTransientSuppressor) {
   EXPECT_FALSE(apm->GetConfig().transient_suppression.enabled);
 }
 
-TEST(AudioProcessingImplTest, CanEnableTs) {
+TEST(AudioProcessingImplTest, MaybeCanEnableTs) {
   constexpr AudioProcessing::Config kOriginal = {
       .transient_suppression = {.enabled = true}};
 
   // Test config application via `AudioProcessing` ctor.
   auto adjusted =
       AudioProcessingBuilder().SetConfig(kOriginal).Create()->GetConfig();
+#if defined(WEBRTC_WIN) || defined(WEBRTC_MAC) || defined(WEBRTC_LINUX) || \
+    defined(CHROMEOS)
+  EXPECT_FALSE(adjusted.transient_suppression.enabled);
+#else
   EXPECT_TRUE(adjusted.transient_suppression.enabled);
+#endif
 
   // Test config application via `AudioProcessing::ApplyConfig()`.
   auto apm = AudioProcessingBuilder().Create();
   apm->ApplyConfig(kOriginal);
   adjusted = apm->GetConfig();
+#if defined(WEBRTC_WIN) || defined(WEBRTC_MAC) || defined(WEBRTC_LINUX) || \
+    defined(CHROMEOS)
+  EXPECT_FALSE(adjusted.transient_suppression.enabled);
+#else
   EXPECT_TRUE(adjusted.transient_suppression.enabled);
+#endif
 }
 
 TEST(AudioProcessingImplTest, CanDisableTsWithAgc2FieldTrialDisabled) {

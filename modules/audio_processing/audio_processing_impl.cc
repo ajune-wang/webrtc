@@ -326,17 +326,30 @@ absl::optional<AudioProcessingImpl::GainController2ExperimentParams>
 AudioProcessingImpl::GetGainController2ExperimentParams() {
   constexpr char kFieldTrialName[] = "WebRTC-Audio-GainController2";
 
-  if (!field_trial::IsEnabled(kFieldTrialName)) {
+#if defined(WEBRTC_WIN) || defined(WEBRTC_MAC) || defined(WEBRTC_LINUX) || \
+    defined(CHROMEOS)
+  if (field_trial::IsDisabled(kFieldTrialName)) {
     return absl::nullopt;
   }
+  const bool kDefaultEnabled = true;
+  const bool kDefaultDisallowTransientSuppressorUsage = true;
+  constexpr InputVolumeController::Config kDefaultInputVolumeControllerConfig{
+      .enable_clipping_predictor = true};
+  constexpr AudioProcessing::Config::GainController2::AdaptiveDigital
+      kDefaultAdaptiveDigitalConfig{.headroom_db = 5,
+                                    .max_gain_db = 50,
+                                    .initial_gain_db = 15,
+                                    .max_gain_change_db_per_second = 6};
+#else
+  return absl::nullopt;
+#endif
 
-  FieldTrialFlag enabled("Enabled", false);
+  FieldTrialFlag enabled("Enabled", kDefaultEnabled);
 
   // Whether the gain control should switch to AGC2. Enabled by default.
   FieldTrialParameter<bool> switch_to_agc2("switch_to_agc2", true);
 
   // AGC2 input volume controller configuration.
-  constexpr InputVolumeController::Config kDefaultInputVolumeControllerConfig;
   FieldTrialConstrained<int> min_input_volume(
       "min_input_volume", kDefaultInputVolumeControllerConfig.min_input_volume,
       0, 255);
@@ -374,8 +387,6 @@ AudioProcessingImpl::GetGainController2ExperimentParams() {
       kDefaultInputVolumeControllerConfig.speech_ratio_threshold, 0, 1);
 
   // AGC2 adaptive digital controller configuration.
-  constexpr AudioProcessing::Config::GainController2::AdaptiveDigital
-      kDefaultAdaptiveDigitalConfig;
   FieldTrialConstrained<double> headroom_db(
       "headroom_db", kDefaultAdaptiveDigitalConfig.headroom_db, 0,
       absl::nullopt);
@@ -396,7 +407,8 @@ AudioProcessingImpl::GetGainController2ExperimentParams() {
 
   // Transient suppressor.
   FieldTrialParameter<bool> disallow_transient_suppressor_usage(
-      "disallow_transient_suppressor_usage", false);
+      "disallow_transient_suppressor_usage",
+      kDefaultDisallowTransientSuppressorUsage);
 
   // Field-trial based override for the input volume controller and adaptive
   // digital configs.

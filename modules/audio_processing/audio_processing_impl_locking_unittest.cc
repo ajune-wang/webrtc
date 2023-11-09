@@ -547,7 +547,14 @@ void StatsProcessor::Process() {
   } else {
     EXPECT_FALSE(apm_config.echo_canceller.enabled);
   }
+
+#if defined(WEBRTC_WIN) || defined(WEBRTC_MAC) || defined(WEBRTC_LINUX) || \
+    defined(CHROMEOS)
+  EXPECT_FALSE(apm_config.gain_controller1.enabled);
+#else
   EXPECT_TRUE(apm_config.gain_controller1.enabled);
+#endif
+  EXPECT_TRUE(apm_config.gain_controller2.enabled);
   EXPECT_TRUE(apm_config.noise_suppression.enabled);
 
   // The below return value is not testable.

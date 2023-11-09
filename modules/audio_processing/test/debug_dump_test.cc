@@ -455,7 +455,14 @@ TEST_F(DebugDumpTest, MAYBE_ToggleAgc) {
   generator.Process(100);
 
   AudioProcessing::Config apm_config = generator.apm()->GetConfig();
+
+#if defined(WEBRTC_WIN) || defined(WEBRTC_MAC) || defined(WEBRTC_LINUX) || \
+    defined(CHROMEOS)
+  apm_config.gain_controller2.enabled = !apm_config.gain_controller2.enabled;
+#else
   apm_config.gain_controller1.enabled = !apm_config.gain_controller1.enabled;
+#endif
+
   generator.apm()->ApplyConfig(apm_config);
 
   generator.Process(100);

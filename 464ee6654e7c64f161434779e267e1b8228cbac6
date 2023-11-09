@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6032a6a_2782da2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-11-09T13:28:20Z",
+      "side": 1,
+      "message": "Philipp, I will be back soon with instructions for the reland. I need a couple of hours to finish one thing first.",
+      "revId": "464ee6654e7c64f161434779e267e1b8228cbac6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

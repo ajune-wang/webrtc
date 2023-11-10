@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4228872_d902bb2a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 0,
+      "message": "Why is this removed? I.e., the CL is about enabling AGC2 by default and this does not seem related to that?",
+      "range": {
+        "startLine": 1584,
+        "startChar": 4,
+        "endLine": 1584,
+        "endChar": 58
+      },
+      "revId": "36ed5603398593cee5cd66b9997f9618720d0fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

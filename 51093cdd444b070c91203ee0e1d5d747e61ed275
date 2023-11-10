@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d5c2a17_fa7fa12a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "51093cdd444b070c91203ee0e1d5d747e61ed275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "238f9d66_ad79d24a",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 1,
+      "message": "Since it is intended for this to be equal (i.e., the number of channels should match), and the plan is for the code to change to allow that, I think it would be good with a TODO describing this",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 2
+      },
+      "revId": "51093cdd444b070c91203ee0e1d5d747e61ed275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338981e9_a190b505",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 1,
+      "message": "What is remaining here? \nIs it Android and iOS?\n\nWould it be possible to also activate this there?\n\nIt would be very good to not maintain this platform-dependency in APM.\n\nAt any rate, since the activation by default is done platform-dependent then it should be mentioned in the CL description (currently it only says that AGC2 is enabled by default).\nAlso, it would be good with a comment that describes how the platform-dependency is set-up/designed.",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 21
+      },
+      "revId": "51093cdd444b070c91203ee0e1d5d747e61ed275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc73dc2_b9ad9686",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 1,
+      "message": "What are the plans for these? Would it instead be possible to put these values as the default in the AGC2 config struct?\n\nA significant problem with doing it is in this way is that none of the tests which only test AGC2 (and that rely on the default AGC2 config values) will test what is used when AGC2 is run as part of AudioProcessingImpl.\nI.e., there will be reduced test coverage since these parameters will only be evaluated at the level of AudioProcessingImpl.",
+      "range": {
+        "startLine": 335,
+        "startChar": 2,
+        "endLine": 342,
+        "endChar": 72
+      },
+      "revId": "51093cdd444b070c91203ee0e1d5d747e61ed275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b4ff37_0b913127",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 1,
+      "message": "Do we really need to maintain the platform-specific testing?\nI.e., what platforms are we not enabling AGC2 for?",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 21
+      },
+      "revId": "51093cdd444b070c91203ee0e1d5d747e61ed275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa86b44a_76b95c24",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2023-11-10T10:25:31Z",
+      "side": 1,
+      "message": "Same comments as elsewhere (also below)\n\nBy not activating AGC2 default everywhere there is a fair amount of complexity built up.\nAlso, the unittests will get a platform-specific behavior which is difficult to debug and error-prone.",
+      "range": {
+        "startLine": 1183,
+        "startChar": 2,
+        "endLine": 1184,
+        "endChar": 21
+      },
+      "revId": "51093cdd444b070c91203ee0e1d5d747e61ed275",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

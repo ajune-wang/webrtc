@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'fd386a7bdd6a3c33268a41d7c4278ea3d46e83cb',
+  'chromium_revision': '6fe79e0f56fb5faef0038d2fbf01d230276a80ab',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@8c37daa70a4a80a17f252e674dc9d8d23a253bc6',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@03432ba7cc5126e8a5d9985f519e1244c4d12b0d',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@e6d48491f6c712def8b8b875533e8d27886b3bee',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d4613bc7553a3db86865241b24773964ec80a181',
+    'https://chromium.googlesource.com/chromium/src/third_party@7f0605af7656502df0e6156e467700b734980386',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -178,7 +178,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8988364bcddd9b194b0bf931c10bc125987330ed',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@2cb6e99795633dee1ea15183629bbc98f335702c',
+    'https://chromium.googlesource.com/catapult.git@f25d23e77a963e88af9199c7c3a0638268e44538',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a5e6ea0c1a6e880742e2a92e9cace7ea3c55665c',
+    'https://chromium.googlesource.com/chromium/src/tools@d03d6be16c01ad822f2307618ed90866f5928cab',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -427,7 +427,7 @@ deps = {
       'packages': [
           {
                'package': 'chromium/third_party/android_build_tools/manifest_merger',
-               'version': 'doEA4zEMMRwIiYmB3veT2pt-7z3UasxhbTo279pDV40C',
+               'version': 'kyXImK5GOP19ROuy-2wf_I_zzcVr2RVsPvB0jhLyrCEC',
           },
       ],
       'condition': 'checkout_android',

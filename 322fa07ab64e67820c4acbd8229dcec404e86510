@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "614b06d4_60dba461",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-11T09:21:17Z",
+      "side": 1,
+      "message": "Seems to have been added in 2018? Presently unused.",
+      "revId": "322fa07ab64e67820c4acbd8229dcec404e86510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

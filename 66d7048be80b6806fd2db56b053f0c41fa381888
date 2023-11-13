@@ -90,6 +90,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede22f6e_bc3fd59f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-11-13T14:48:51Z",
+      "side": 1,
+      "message": "No changes in the test names.",
+      "parentUuid": "315a3315_dfb73b6f",
+      "revId": "66d7048be80b6806fd2db56b053f0c41fa381888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf985785_90aecfa2",
@@ -113,6 +131,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71fc3b4_00f1a07a",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-11-13T14:48:51Z",
+      "side": 1,
+      "message": "changed it back to TestParamsToString in FramerateAdaptationTest and SpatialQualityTests.",
+      "parentUuid": "cf985785_90aecfa2",
+      "range": {
+        "startLine": 292,
+        "startChar": 21,
+        "endLine": 292,
+        "endChar": 39
+      },
+      "revId": "66d7048be80b6806fd2db56b053f0c41fa381888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b183e5ef_9dfcca52",
@@ -126,6 +168,30 @@
       "writtenOn": "2023-11-13T14:21:06Z",
       "side": 1,
       "message": "I think we can get away also with this line removed.",
+      "range": {
+        "startLine": 1382,
+        "startChar": 2,
+        "endLine": 1382,
+        "endChar": 22
+      },
+      "revId": "66d7048be80b6806fd2db56b053f0c41fa381888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "565b2ebf_e0b3e2f3",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-11-13T14:48:51Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "b183e5ef_9dfcca52",
       "range": {
         "startLine": 1382,
         "startChar": 2,

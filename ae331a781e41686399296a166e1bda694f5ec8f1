@@ -16,6 +16,23 @@
       "message": "rebased and updated the commit message for the papertrail.\nAway with it!",
       "revId": "ae331a781e41686399296a166e1bda694f5ec8f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2be15548_d7b67df1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-13T11:37:32Z",
+      "side": 1,
+      "message": "Burn, 1.0, Burn!",
+      "revId": "ae331a781e41686399296a166e1bda694f5ec8f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

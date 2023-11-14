@@ -47,6 +47,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66326d6d_afcc0843",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-11-14T17:11:37Z",
+      "side": 1,
+      "message": "Good catch.",
+      "parentUuid": "907c0056_6b454cc3",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "293cae70_b87f495b",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-11-14T17:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9da76e28_35bf53aa",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a5e713d_010bb00e",
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a165054_9385e540",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-11-14T17:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a5e713d_010bb00e",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 29
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7ab23c2_a50c1e82",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-11-14T16:42:54Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 29
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb63443d_16e3922b",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2023-11-14T17:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7ab23c2_a50c1e82",
       "range": {
         "startLine": 90,
         "startChar": 13,

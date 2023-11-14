@@ -1373,6 +1373,7 @@ rtc_library("async_packet_socket") {
     ":socket",
     ":timeutils",
     "../api:sequence_checker",
+    "network:received_packet",
     "network:sent_packet",
     "system:no_unique_address",
     "system:rtc_export",
@@ -1647,6 +1648,7 @@ rtc_library("testclient") {
     ":rtc_base_tests_utils",
     ":threading",
     ":timeutils",
+    "network:received_packet",
     "synchronization:mutex",
   ]
 }
@@ -1735,6 +1737,7 @@ rtc_library("rtc_base_tests_utils") {
     "../test:scoped_key_value_config",
     "memory:always_valid_pointer",
     "memory:fifo_buffer",
+    "network:received_packet",
     "synchronization:mutex",
     "third_party/sigslot",
   ]
@@ -1971,6 +1974,7 @@ if (rtc_include_tests) {
         "containers:flat_map",
         "containers:unittests",
         "memory:unittests",
+        "network:received_packet",
         "synchronization:mutex",
         "task_utils:repeating_task",
         "third_party/base64",
@@ -2132,6 +2136,7 @@ if (rtc_include_tests) {
         "../test:test_main",
         "../test:test_support",
         "memory:fifo_buffer",
+        "network:received_packet",
         "synchronization:mutex",
         "third_party/sigslot",
       ]

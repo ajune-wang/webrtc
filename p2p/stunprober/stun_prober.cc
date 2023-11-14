@@ -25,6 +25,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/network/received_packet.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 
@@ -45,7 +46,7 @@ void IncrementCounterByAddress(std::map<T, int>* counter_per_ip, const T& ip) {
 
 // A requester tracks the requests and responses from a single socket to many
 // STUN servers
-class StunProber::Requester : public sigslot::has_slots<> {
+class StunProber::Requester {
  public:
   // Each Request maps to a request and response.
   struct Request {
@@ -60,7 +61,7 @@ class StunProber::Requester : public sigslot::has_slots<> {
     rtc::IPAddress server_addr;
 
     int64_t rtt() { return received_time_ms - sent_time_ms; }
-    void ProcessResponse(const char* buf, size_t buf_len);
+    void ProcessResponse(rtc::ArrayView<const uint8_t> payload);
   };
 
   // StunProber provides `server_ips` for Requester to probe. For shared
@@ -69,7 +70,7 @@ class StunProber::Requester : public sigslot::has_slots<> {
   Requester(StunProber* prober,
             rtc::AsyncPacketSocket* socket,
             const std::vector<rtc::SocketAddress>& server_ips);
-  ~Requester() override;
+  virtual ~Requester();
 
   Requester(const Requester&) = delete;
   Requester& operator=(const Requester&) = delete;
@@ -80,10 +81,7 @@ class StunProber::Requester : public sigslot::has_slots<> {
   void SendStunRequest();
 
   void OnStunResponseReceived(rtc::AsyncPacketSocket* socket,
-                              const char* buf,
-                              size_t size,
-                              const rtc::SocketAddress& addr,
-                              const int64_t& packet_time_us);
+                              const rtc::ReceivedPacket& packet);
 
   const std::vector<Request*>& requests() { return requests_; }
 
@@ -121,8 +119,10 @@ StunProber::Requester::Requester(
       response_packet_(new rtc::ByteBufferWriter(nullptr, kMaxUdpBufferSize)),
       server_ips_(server_ips),
       thread_checker_(prober->thread_checker_) {
-  socket_->SignalReadPacket.connect(
-      this, &StunProber::Requester::OnStunResponseReceived);
+  socket_->RegisterReceivedPacketCallback(
+      [&](rtc::AsyncPacketSocket* socket, const rtc::ReceivedPacket& packet) {
+        OnStunResponseReceived(socket, packet);
+      });
 }
 
 StunProber::Requester::~Requester() {
@@ -170,10 +170,10 @@ void StunProber::Requester::SendStunRequest() {
   RTC_DCHECK(static_cast<size_t>(num_request_sent_) <= server_ips_.size());
 }
 
-void StunProber::Requester::Request::ProcessResponse(const char* buf,
-                                                     size_t buf_len) {
+void StunProber::Requester::Request::ProcessResponse(
+    rtc::ArrayView<const uint8_t> payload) {
   int64_t now = rtc::TimeMillis();
-  rtc::ByteBufferReader message(buf, buf_len);
+  rtc::ByteBufferReader message(payload);
   cricket::StunMessage stun_response;
   if (!stun_response.Read(&message)) {
     // Invalid or incomplete STUN packet.
@@ -201,13 +201,10 @@ void StunProber::Requester::Request::ProcessResponse(const char* buf,
 
 void StunProber::Requester::OnStunResponseReceived(
     rtc::AsyncPacketSocket* socket,
-    const char* buf,
-    size_t size,
-    const rtc::SocketAddress& addr,
-    const int64_t& /* packet_time_us */) {
+    const rtc::ReceivedPacket& packet) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(socket_);
-  Request* request = GetRequestByAddress(addr.ipaddr());
+  Request* request = GetRequestByAddress(packet.address().ipaddr());
   if (!request) {
     // Something is wrong, finish the test.
     prober_->ReportOnFinished(GENERIC_FAILURE);
@@ -215,7 +212,7 @@ void StunProber::Requester::OnStunResponseReceived(
   }
 
   num_response_received_++;
-  request->ProcessResponse(buf, size);
+  request->ProcessResponse(packet.payload());
 }
 
 StunProber::Requester::Request* StunProber::Requester::GetRequestByAddress(

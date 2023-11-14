@@ -38,6 +38,19 @@ void AsyncPacketSocket::UnsubscribeCloseEvent(const void* removal_tag) {
   on_close_.RemoveReceivers(removal_tag);
 }
 
+void AsyncPacketSocket::RegisterReceivedPacketCallback(
+    absl::AnyInvocable<void(AsyncPacketSocket*, const rtc::ReceivedPacket&)>
+        received_packet_callback) {
+  RTC_DCHECK_RUN_ON(&network_checker_);
+  RTC_CHECK(!received_packet_callback_);
+  received_packet_callback_ = std::move(received_packet_callback);
+}
+
+void AsyncPacketSocket::DeregisterReceivedPacketCallback() {
+  RTC_DCHECK_RUN_ON(&network_checker_);
+  received_packet_callback_ = nullptr;
+}
+
 void CopySocketInformationToPacketInfo(size_t packet_size_bytes,
                                        const AsyncPacketSocket& socket_from,
                                        bool is_connectionless,

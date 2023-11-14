@@ -16,6 +16,7 @@
 #include "api/sequence_checker.h"
 #include "rtc_base/callback_list.h"
 #include "rtc_base/dscp.h"
+#include "rtc_base/network/received_packet.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/socket.h"
 #include "rtc_base/system/no_unique_address.h"
@@ -115,16 +116,13 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
       std::function<void(AsyncPacketSocket*, int)> callback);
   void UnsubscribeCloseEvent(const void* removal_tag);
 
+  void RegisterReceivedPacketCallback(
+      absl::AnyInvocable<void(AsyncPacketSocket*, const rtc::ReceivedPacket&)>
+          received_packet_callback);
+  void DeregisterReceivedPacketCallback();
+
   // Emitted each time a packet is read. Used only for UDP and
   // connected TCP sockets.
-  sigslot::signal5<AsyncPacketSocket*,
-                   const char*,
-                   size_t,
-                   const SocketAddress&,
-                   // TODO(bugs.webrtc.org/9584): Change to passing the int64_t
-                   // timestamp by value.
-                   const int64_t&>
-      SignalReadPacket;
 
   // Emitted each time a packet is sent.
   sigslot::signal2<AsyncPacketSocket*, const SentPacket&> SignalSentPacket;
@@ -155,12 +153,29 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
     on_close_.Send(this, err);
   }
 
+  void OnPacketReceived(const rtc::ReceivedPacket& packet) {
+    RTC_DCHECK_RUN_ON(&network_checker_);
+    if (received_packet_callback_) {
+      // RTC_DCHECK(SignalReadPacket.is_empty());
+      received_packet_callback_(this, packet);
+    }
+
+    // what about external sockets?  Do we need to internally listen to
+    // SignalReadPacket and trigger OnPacketReceived?
+
+    // if (!SignalReadPacket.is_empty()) {
+    //  SignalReadPacket(this, packet.payload())
+    //}
+  }
+
   RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker network_checker_{
       webrtc::SequenceChecker::kDetached};
 
  private:
   webrtc::CallbackList<AsyncPacketSocket*, int> on_close_
       RTC_GUARDED_BY(&network_checker_);
+  absl::AnyInvocable<void(AsyncPacketSocket*, const rtc::ReceivedPacket&)>
+      received_packet_callback_ RTC_GUARDED_BY(&network_checker_);
 };
 
 // Listen socket, producing an AsyncPacketSocket when a peer connects.

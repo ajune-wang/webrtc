@@ -19,6 +19,10 @@ ByteBufferWriter::ByteBufferWriter() : ByteBufferWriterT() {}
 ByteBufferWriter::ByteBufferWriter(const char* bytes, size_t len)
     : ByteBufferWriterT(bytes, len) {}
 
+ByteBufferReader::ByteBufferReader(rtc::ArrayView<const uint8_t> bytes) {
+  Construct(reinterpret_cast<const char*>(bytes.data()), bytes.size());
+}
+
 ByteBufferReader::ByteBufferReader(const char* bytes, size_t len) {
   Construct(bytes, len);
 }

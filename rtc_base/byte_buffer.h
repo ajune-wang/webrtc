@@ -123,6 +123,7 @@ class ByteBufferWriter : public ByteBufferWriterT<BufferT<char>> {
 class ByteBufferReader {
  public:
   ByteBufferReader(const char* bytes, size_t len);
+  ByteBufferReader(rtc::ArrayView<const uint8_t> bytes);
 
   // Initializes buffer from a zero-terminated string.
   explicit ByteBufferReader(const char* bytes);

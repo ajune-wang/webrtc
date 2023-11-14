@@ -17,6 +17,7 @@
 #include "api/transport/stun.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/network/received_packet.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/time_utils.h"
 
@@ -114,8 +115,8 @@ void AsyncStunTCPSocket::ProcessInput(char* data, size_t* len) {
       return;
     }
 
-    SignalReadPacket(this, data, expected_pkt_len, remote_addr,
-                     rtc::TimeMicros());
+    OnPacketReceived(rtc::ReceivedPacket::CreateFromLegacy(
+        data, expected_pkt_len, rtc::TimeMicros(), remote_addr));
 
     *len -= actual_length;
     if (*len > 0) {

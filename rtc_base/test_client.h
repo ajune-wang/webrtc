@@ -16,6 +16,7 @@
 
 #include "rtc_base/async_udp_socket.h"
 #include "rtc_base/fake_clock.h"
+#include "rtc_base/network/received_packet.h"
 #include "rtc_base/synchronization/mutex.h"
 
 namespace rtc {
@@ -96,12 +97,8 @@ class TestClient : public sigslot::has_slots<> {
   static const int kNoPacketTimeoutMs = 1000;
   // Workaround for the fact that AsyncPacketSocket::GetConnState doesn't exist.
   Socket::ConnState GetState();
-  // Slot for packets read on the socket.
-  void OnPacket(AsyncPacketSocket* socket,
-                const char* buf,
-                size_t len,
-                const SocketAddress& remote_addr,
-                const int64_t& packet_time_us);
+
+  void OnPacket(AsyncPacketSocket* socket, const rtc::ReceivedPacket& packet);
   void OnReadyToSend(AsyncPacketSocket* socket);
   bool CheckTimestamp(int64_t packet_timestamp);
   void AdvanceTime(int ms);

@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "rtc_base/gunit.h"
+#include "rtc_base/network/received_packet.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 
@@ -33,7 +34,10 @@ TestClient::TestClient(std::unique_ptr<AsyncPacketSocket> socket,
     : fake_clock_(fake_clock),
       socket_(std::move(socket)),
       prev_packet_timestamp_(-1) {
-  socket_->SignalReadPacket.connect(this, &TestClient::OnPacket);
+  socket_->RegisterReceivedPacketCallback(
+      [&](rtc::AsyncPacketSocket* socket, const rtc::ReceivedPacket& packet) {
+        OnPacket(socket, packet);
+      });
   socket_->SignalReadyToSend.connect(this, &TestClient::OnReadyToSend);
 }
 
@@ -145,13 +149,12 @@ int TestClient::SetOption(Socket::Option opt, int value) {
 }
 
 void TestClient::OnPacket(AsyncPacketSocket* socket,
-                          const char* buf,
-                          size_t size,
-                          const SocketAddress& remote_addr,
-                          const int64_t& packet_time_us) {
+                          const rtc::ReceivedPacket& packet) {
   webrtc::MutexLock lock(&mutex_);
-  packets_.push_back(
-      std::make_unique<Packet>(remote_addr, buf, size, packet_time_us));
+  packets_.push_back(std::make_unique<Packet>(
+      packet.address(), reinterpret_cast<const char*>(packet.payload().data()),
+      packet.payload().size(),
+      packet.arrival_time() ? packet.arrival_time()->us() : -1));
 }
 
 void TestClient::OnReadyToSend(AsyncPacketSocket* socket) {

@@ -38,6 +38,38 @@ void AsyncPacketSocket::UnsubscribeCloseEvent(const void* removal_tag) {
   on_close_.RemoveReceivers(removal_tag);
 }
 
+void AsyncPacketSocket::RegisterReceivedPacketCallback(
+    absl::AnyInvocable<void(AsyncPacketSocket*, const rtc::ReceivedPacket&)>
+        received_packet_callback) {
+  RTC_DCHECK_RUN_ON(&network_checker_);
+  RTC_CHECK(!received_packet_callback_);
+  SignalReadPacket.connect(this, &AsyncPacketSocket::NotifyPacketReceived);
+  received_packet_callback_ = std::move(received_packet_callback);
+}
+
+void AsyncPacketSocket::DeregisterReceivedPacketCallback() {
+  RTC_DCHECK_RUN_ON(&network_checker_);
+  SignalReadPacket.disconnect(this);
+  received_packet_callback_ = nullptr;
+}
+
+void AsyncPacketSocket::NotifyPacketReceived(
+    const rtc::ReceivedPacket& packet) {
+  RTC_DCHECK_RUN_ON(&network_checker_);
+  if (received_packet_callback_) {
+    // RTC_DCHECK(SignalReadPacket.is_empty());
+    received_packet_callback_(this, packet);
+  } else if (!SignalReadPacket.is_empty()) {
+    // TODO(bugs.webrtc.org:15368): Remove, this code path is only used if
+    // SignalReadyPacket is used for getting notification of received packets
+    // but NotifyPacketReceived is used directly.
+    SignalReadPacket(this,
+                     reinterpret_cast<const char*>(packet.payload().data()),
+                     packet.payload().size(), packet.address(),
+                     packet.arrival_time() ? packet.arrival_time()->us() : -1);
+  }
+}
+
 void CopySocketInformationToPacketInfo(size_t packet_size_bytes,
                                        const AsyncPacketSocket& socket_from,
                                        bool is_connectionless,

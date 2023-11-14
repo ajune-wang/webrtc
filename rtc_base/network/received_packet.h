@@ -15,6 +15,7 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/units/timestamp.h"
+#include "rtc_base/socket_address.h"
 
 namespace rtc {
 
@@ -28,8 +29,10 @@ class ReceivedPacket {
   // this ReceivedPacket.
   ReceivedPacket(
       rtc::ArrayView<const uint8_t> payload,
+      const SocketAddress& address,
       absl::optional<webrtc::Timestamp> arrival_time = absl::nullopt);
 
+  const SocketAddress& address() const { return socket_address_; }
   rtc::ArrayView<const uint8_t> payload() const { return payload_; }
 
   // Timestamp when this packet was received. Not available on all socket
@@ -38,13 +41,16 @@ class ReceivedPacket {
     return arrival_time_;
   }
 
-  static ReceivedPacket CreateFromLegacy(const char* data,
-                                         size_t size,
-                                         int64_t packet_time_us);
+  static ReceivedPacket CreateFromLegacy(
+      const char* data,
+      size_t size,
+      int64_t packet_time_us,
+      rtc::SocketAddress = rtc::SocketAddress());
 
  private:
   rtc::ArrayView<const uint8_t> payload_;
   absl::optional<webrtc::Timestamp> arrival_time_;
+  SocketAddress socket_address_;
 };
 
 }  // namespace rtc

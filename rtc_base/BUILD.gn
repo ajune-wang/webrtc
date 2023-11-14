@@ -1373,6 +1373,7 @@ rtc_library("async_packet_socket") {
     ":socket",
     ":timeutils",
     "../api:sequence_checker",
+    "network:received_packet",
     "network:sent_packet",
     "system:no_unique_address",
     "system:rtc_export",

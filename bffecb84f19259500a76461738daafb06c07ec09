@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da76e28_35bf53aa",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-14T16:42:54Z",
+      "side": 1,
+      "message": "This can be RTC_CHECK, since the violation will cause crashes.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "907c0056_6b454cc3",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-14T16:42:54Z",
+      "side": 1,
+      "message": "Should it be `pipewire_session_` instead of `pipewire_session`?",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5e713d_010bb00e",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-14T16:42:54Z",
+      "side": 1,
+      "message": "ditto. missing _ at the end.",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 29
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ab23c2_a50c1e82",
+        "filename": "modules/video_capture/linux/device_info_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-14T16:42:54Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 29
+      },
+      "revId": "bffecb84f19259500a76461738daafb06c07ec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

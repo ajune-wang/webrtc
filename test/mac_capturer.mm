@@ -74,8 +74,10 @@ MacCapturer::MacCapturer(size_t width,
       [[RTC_OBJC_TYPE(RTCCameraVideoCapturer) alloc] initWithDelegate:adapter];
   capturer_ = (__bridge_retained void *)capturer;
 
-  AVCaptureDevice *device =
-      [[RTC_OBJC_TYPE(RTCCameraVideoCapturer) captureDevices] objectAtIndex:capture_device_index];
+  AVCaptureDevice *device = [[RTC_OBJC_TYPE(RTCCameraVideoCapturer)
+      captureDevicesWithDeviceTypes:[RTC_OBJC_TYPE(RTCCameraVideoCapturer)
+                                        defaultCaptureDeviceTypes]]
+      objectAtIndex:capture_device_index];
   AVCaptureDeviceFormat *format = SelectClosestFormat(device, width, height);
   [capturer startCaptureWithDevice:device format:format fps:target_fps];
 }

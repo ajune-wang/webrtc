@@ -72,8 +72,9 @@ const Float64 kFramerateLimit = 30.0;
 #pragma mark - Private
 
 - (AVCaptureDevice *)findDeviceForPosition:(AVCaptureDevicePosition)position {
-  NSArray<AVCaptureDevice *> *captureDevices =
-      [RTC_OBJC_TYPE(RTCCameraVideoCapturer) captureDevices];
+  NSArray<AVCaptureDevice *> *captureDevices = [RTC_OBJC_TYPE(RTCCameraVideoCapturer)
+      captureDevicesWithDeviceTypes:[RTC_OBJC_TYPE(RTCCameraVideoCapturer)
+                                        defaultCaptureDeviceTypes]];
   for (AVCaptureDevice *device in captureDevices) {
     if (device.position == position) {
       return device;

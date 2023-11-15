@@ -27,7 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSString *> *)availableVideoResolutions {
   NSMutableSet<NSArray<NSNumber *> *> *resolutions =
       [[NSMutableSet<NSArray<NSNumber *> *> alloc] init];
-  for (AVCaptureDevice *device in [RTC_OBJC_TYPE(RTCCameraVideoCapturer) captureDevices]) {
+  for (AVCaptureDevice *device in [RTC_OBJC_TYPE(RTCCameraVideoCapturer)
+           captureDevicesWithDeviceTypes:[RTC_OBJC_TYPE(RTCCameraVideoCapturer)
+                                             defaultCaptureDeviceTypes]]) {
     for (AVCaptureDeviceFormat *format in
          [RTC_OBJC_TYPE(RTCCameraVideoCapturer) supportedFormatsForDevice:device]) {
       CMVideoDimensions resolution =

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '20f669f71cb42afe30cd22c2772be049cfd13f6f',
+  'chromium_revision': 'd67d2cba0897ee870ad6586269729fa368f37da2',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,9 +50,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@cfec6160c19f1a6a78737b33eab9d8deb0b310d2',
+    'https://chromium.googlesource.com/chromium/src/base@0a4a2633936622f169504b14bf74d2ab763ac447',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@631878bb6d0fcf6590649d85461d0a58ff645b40',
+    'https://chromium.googlesource.com/chromium/src/build@cacb5e680e8687925f1565f10af41c6320185a98',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@b20d1ecc58f81e46ae241ae9a41bf624b28f81c6',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@872286ee51efe1af0c38635f87a515031faaf80d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@cb591a1161bc011b68fbe0afedea5138d876c62c',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4de557f40a82d2f52ad080142926b2e25cbebd52',
+    'https://chromium.googlesource.com/chromium/src/testing@311b6d32dc8da26e6572eef634c6357342941f09',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@88a4d221eb7330e48a7f8f2966478bb457dd997a',
+    'https://chromium.googlesource.com/chromium/src/third_party@52179c3f7f5fd676713bdaad5517ee783002e577',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -267,7 +267,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/kotlinc',
-              'version': 'qeRCtEA1uhs8D1wL8wj0UZllCoScbcA6QrEQu9g4NGoC',
+              'version': 'y9zd2-JF5FESwNZEVJnnejmk6J97g7fjlmwxNaMuJAoC',
           },
       ],
       'condition': 'checkout_android',
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@fef31bc7cad7ad439e4845b457e233990512f219',
+    'https://chromium.googlesource.com/chromium/src/tools@fc618c2c8ee7168e91e5186968927796016d2be6',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

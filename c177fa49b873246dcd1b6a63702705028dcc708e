@@ -16,6 +16,57 @@
       "message": "Please?",
       "revId": "c177fa49b873246dcd1b6a63702705028dcc708e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62608a1b_f31aa6cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:29:01Z",
+      "side": 1,
+      "message": "Looks good, just a few comments.",
+      "revId": "c177fa49b873246dcd1b6a63702705028dcc708e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2c2a30_2f5269d5",
+        "filename": "rtc_base/async_packet_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:29:01Z",
+      "side": 1,
+      "message": "Should there be an \"RTC_CHECK_NOTREACHED\" here?\nReceiving a packet before you have set either a signal or a callback seems like a programming bug.\n\nNote: I prefer the \"if (a) { action; return }; if (b) {action; return} style.",
+      "revId": "c177fa49b873246dcd1b6a63702705028dcc708e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d2fa6c_2d8de843",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:29:01Z",
+      "side": 1,
+      "message": "Is it too late to call it source_address()?\nWe might find cases where we need the destination address of the packet too (for devices with multiple interfaces and/or multiple addresses).",
+      "revId": "c177fa49b873246dcd1b6a63702705028dcc708e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

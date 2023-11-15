@@ -24,6 +24,7 @@
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
+class Metronome;
 
 // A sink adapter implementing mutations to the received frame cadence.
 // With the exception of the constructor and the methods overridden in
@@ -84,6 +85,7 @@ class FrameCadenceAdapterInterface
   static std::unique_ptr<FrameCadenceAdapterInterface> Create(
       Clock* clock,
       TaskQueueBase* queue,
+      Metronome* metronome,
       const FieldTrialsView& field_trials);
 
   // Call before using the rest of the API.

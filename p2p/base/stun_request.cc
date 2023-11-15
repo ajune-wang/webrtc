@@ -57,6 +57,10 @@ void StunRequestManager::Send(StunRequest* request) {
 void StunRequestManager::SendDelayed(StunRequest* request, int delay) {
   RTC_DCHECK_RUN_ON(thread_);
   RTC_DCHECK_EQ(this, request->manager());
+  RTC_DCHECK(request->GetPasswordLess() ||
+             request->msg()->integrity() !=
+                 StunMessage::IntegrityStatus::kNotSet)
+      << "Sending request w/o integrity!";
   auto [iter, was_inserted] =
       requests_.emplace(request->id(), absl::WrapUnique(request));
   RTC_DCHECK(was_inserted);
@@ -109,10 +113,15 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   // Complain, and then don't check.
   bool skip_integrity_checking =
       (request->msg()->integrity() == StunMessage::IntegrityStatus::kNotSet);
-  if (skip_integrity_checking) {
+  if (request->GetPasswordLess()) {
+    // This is a STUN_BINDING to from stun_port.cc or
+    // the initial (unauthenticated) TURN_ALLOCATE_REQUEST.
+  } else if (skip_integrity_checking) {
     // This indicates lazy test writing (not adding integrity attribute).
     // Complain, but only in debug mode (while developing).
-    RTC_DLOG(LS_ERROR)
+    RTC_LOG(LS_ERROR)
+        << "CheckResponse called on a passwordless request. Fix test!";
+    RTC_DCHECK(false)
         << "CheckResponse called on a passwordless request. Fix test!";
   } else {
     if (msg->integrity() == StunMessage::IntegrityStatus::kNotSet) {

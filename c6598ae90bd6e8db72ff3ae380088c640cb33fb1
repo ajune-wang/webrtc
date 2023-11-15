@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6d07dc_ef067b93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:36:46Z",
+      "side": 1,
+      "message": "Aha!\n\nSome naming suggestions.",
+      "revId": "c6598ae90bd6e8db72ff3ae380088c640cb33fb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddf3c195_fbc3d772",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:36:46Z",
+      "side": 1,
+      "message": "Nit: \"Passwordless\" is one word, not two.\nBut see later.",
+      "revId": "c6598ae90bd6e8db72ff3ae380088c640cb33fb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16324b51_29c08fba",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:36:46Z",
+      "side": 1,
+      "message": "Update the comment.",
+      "revId": "c6598ae90bd6e8db72ff3ae380088c640cb33fb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cd6e413_f1ecec54",
+        "filename": "p2p/base/stun_request.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:36:46Z",
+      "side": 1,
+      "message": "Can you make this SetAuthenticationRequired and AuthenticationRequired?",
+      "revId": "c6598ae90bd6e8db72ff3ae380088c640cb33fb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddf45ccb_9f10d8a9",
+        "filename": "p2p/base/stun_request.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-15T09:36:46Z",
+      "side": 1,
+      "message": "authentication_required_?",
+      "revId": "c6598ae90bd6e8db72ff3ae380088c640cb33fb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f8746e_89f2fce4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-15T09:40:42Z",
+      "side": 1,
+      "message": "Please update the description before submitting this CL. It\u0027s RTC_CHECKS now.",
+      "range": {
+        "startLine": 7,
+        "startChar": 24,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "5b0603d3c3f5e293f926a051dce23e7441a37754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '6485e84d85634103356fc651485524241c8b1091',
+  'chromium_revision': '497b3e2cf65acebc0bb6df163877ca7379f00e8d',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -67,7 +67,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@32ef639b19b59223a63dfefa88f74571a4a4bdc2',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b6e57d845597a62f11f29ffb7747e55a4be29bcb',
+    'https://chromium.googlesource.com/chromium/src/third_party@b4c4e0867a8773a13ee65e20a0248d2536437f2c',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -191,7 +191,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@1e503bf95028d42578d8d13d72310978919c0a7d',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@86c7f734f55614b17fbe8e82cd613e6a6b7fe533',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@e1ca3f06adec15150a171bc38f550058b4bbb23b',
   'src/third_party/flatbuffers/src':
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0766b4f89576802d58618764ca6c648fff25cffd',
+    'https://chromium.googlesource.com/chromium/src/tools@4f016df110f518d532160e80f2326e162b0bb6ca',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

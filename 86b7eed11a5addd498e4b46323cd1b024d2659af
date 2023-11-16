@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ea0c034_a03b0e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-11-16T13:28:36Z",
+      "side": 1,
+      "message": "Dry run passed. Can this be submitted to the Commit Queue? Thanks!",
+      "revId": "86b7eed11a5addd498e4b46323cd1b024d2659af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

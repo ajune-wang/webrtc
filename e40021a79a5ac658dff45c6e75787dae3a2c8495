@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ed0db8_4508d317",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-16T18:30:19Z",
+      "side": 1,
+      "message": "This is a 1st slice of the large https://webrtc-review.googlesource.com/c/src/+/323003\n\nThis change concentrates on location for the Environment, special OWNERs file, documentation.\n\nHarald, Mirko, are you ok to be co-owners?\n\nThere are no tests because there is no functionality yet, and the new class is currently impossible to create (factory I plan to introduce later)",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

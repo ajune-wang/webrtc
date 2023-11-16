@@ -33,6 +33,24 @@
       "message": "I\u0027m not a domain expert here, but rslgtm\nOne thing - is here a chance there are older clients out there that this will break compatibility with? The units test in webrtc all pass - but there all senders and receivers have been updated in sync 😊",
       "revId": "86b7eed11a5addd498e4b46323cd1b024d2659af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b827f55f_11863204",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-11-16T15:56:19Z",
+      "side": 1,
+      "message": "The Updated RFC is not used at all in WebRTC, There is still some wiring to do to enable it. Once this will be ready, I intend to introduce it as a new protocol which will be published in the SDP, so that the old implementation (draft 03) would still be available.",
+      "parentUuid": "e2b236de_acd8ce4d",
+      "revId": "86b7eed11a5addd498e4b46323cd1b024d2659af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

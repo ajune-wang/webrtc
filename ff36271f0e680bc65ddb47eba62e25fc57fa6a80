@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "11c9389c_a093a1d0",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-11-16T12:00:53Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "eeecb404_b891ab30",
+      "revId": "ff36271f0e680bc65ddb47eba62e25fc57fa6a80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "748ec182_4f9f69d5",
         "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer_unittest.cc",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-16T10:52:17Z",
       "side": 1,
       "message": "Here kBit0 constants means \u0027kbit with value 0\u0027,\nin previous tests kKBit0 means \u00271st kbit\u0027\nCan you make that consistent? (it is hard to notice name difference)\n\ne.g. in this test both long and short masks are used, so 2nd meaning looks more useful, but then kBit0 (value 0) doesn\u0027t look like a helpful constant.\nSo may be update both tests above and here with\nconstexpt uint8_t kKBit \u003d 1 \u003c\u003c 7;\nand omit mentioning the constant where it is 0, write it where bit should be one:\n```\nconstexpr uint8_t kFlexfecPacketMask1[] \u003d {0x29, 0x91};\nconstexpr uint8_t kFlexfecPacketMask2[] \u003d {kKBit | 0x32, 0xA1,  //\n                                           0x02, 0x11, 0x00, 0x21};\nconstexpr uint8_t kFlexfecPacketMask3[] \u003d {kKBit | 0x48, 0x81,              //\n                                           kKBit | 0x02, 0x11, 0x00, 0x21,  //\n                                           0x01,         0x11, 0x11, 0x11,  //\n                                           0x11,         0x11, 0x11, 0x11};\n```",
+      "revId": "ff36271f0e680bc65ddb47eba62e25fc57fa6a80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96bb5f65_6e075f26",
+        "filename": "modules/rtp_rtcp/source/flexfec_header_reader_writer_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 20714
+      },
+      "writtenOn": "2023-11-16T12:00:53Z",
+      "side": 1,
+      "message": "Agreed. Done.",
+      "parentUuid": "748ec182_4f9f69d5",
       "revId": "ff36271f0e680bc65ddb47eba62e25fc57fa6a80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

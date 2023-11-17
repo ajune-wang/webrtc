@@ -16,6 +16,142 @@
       "message": "This is a 1st slice of the large https://webrtc-review.googlesource.com/c/src/+/323003\n\nThis change concentrates on location for the Environment, special OWNERs file, documentation.\n\nHarald, Mirko, are you ok to be co-owners?\n\nThere are no tests because there is no functionality yet, and the new class is currently impossible to create (factory I plan to introduce later)",
       "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75e16a30_c354a23f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Lots of language comments :-) this .h file might be read by many, so it\u0027s important that it\u0027s readable!",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91aa1a19_b3589a69",
+        "filename": "api/environment/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Nit: \"multiple various\" is a repetition. either word is enough by itself.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbde08db_5d80a473",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Nit: \"User that\" -\u003e \"Users who\"",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83dfa239_94438cf0",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Nit: The default environment",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae13f34_4d3a3763",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Nit: Provides an interface",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49fc09f1_e44f1a3a",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Nit: Provides a multitasking synchronization primitive.\nI\u0027m not sure the description is either correct or understandable.\nMight be better to say \"Provides a factory for task queues\" and leave it to the md document to go into details.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9897e8_5473733d",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "Nit: Provides an interface for collecting structured logs.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "310d541c_e3b05d82",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-17T10:35:08Z",
+      "side": 1,
+      "message": "A scoped_refptr\u003crtc::RefCountedBase\u003e is highly unusual. Suggest that add a few more words here about how this is supposed to work. Something like:\n\n\"Defining this as a RefCountedBase object allows the caller to implement the guarantees for object lifetime in multiple ways without changing the constructor signature of this class\".\n\nI assume the idea is that you can copy the pointers around to new Environment variables as long as they all keep a scoped_refptr to the storage object.\nYou may want to define an inner class called Storage that implementations derive from instead of having this pointer be only a RefCountedBase.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

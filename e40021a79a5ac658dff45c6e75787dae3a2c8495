@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eebadecb_9e5997fc",
+        "filename": "api/environment/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-11-17T11:09:30Z",
+      "side": 1,
+      "message": "Nit: tools/primitives (or utilities, even if I am not sure my suggestion helps improving the meaning).",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91aa1a19_b3589a69",
         "filename": "api/environment/OWNERS",
         "patchSetId": 1
@@ -48,6 +71,29 @@
       "writtenOn": "2023-11-17T10:35:08Z",
       "side": 1,
       "message": "Nit: \"multiple various\" is a repetition. either word is enough by itself.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "017f1f80_bf162e21",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-11-17T11:09:30Z",
+      "side": 1,
+      "message": "I am not sure primitives captures the meaning for these (of source \"tools\", like we used in the previous discussions, also lacks clarity).\n\nWDYT about \"utilities\"?\n\nIt would be good to provide a couple of examples in the doc as well.",
+      "range": {
+        "startLine": 11,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 65
+      },
       "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

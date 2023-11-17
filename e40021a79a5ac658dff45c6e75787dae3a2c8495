@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e14f4a_cfbcbf69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Totally agree it is important.\nDo you want me to split this change into smaller chunks, so that each block of documentation can be polished separately?",
+      "parentUuid": "75e16a30_c354a23f",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eebadecb_9e5997fc",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-11-17T11:09:30Z",
       "side": 1,
       "message": "Nit: tools/primitives (or utilities, even if I am not sure my suggestion helps improving the meaning).",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83679216_3af0d901",
+        "filename": "api/environment/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eebadecb_9e5997fc",
       "range": {
         "startLine": 3,
         "startChar": 2,
@@ -75,6 +117,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f1f178_432d16fe",
+        "filename": "api/environment/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Done.\nkept various.\nI feel that \u0027mutliple\u0027 alone is not enough as I want components that needs the environment to be diverse, e.g. do not want to allow utility for \u0027mutliple video classes\u0027.",
+      "parentUuid": "91aa1a19_b3589a69",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "017f1f80_bf162e21",
@@ -88,6 +148,30 @@
       "writtenOn": "2023-11-17T11:09:30Z",
       "side": 1,
       "message": "I am not sure primitives captures the meaning for these (of source \"tools\", like we used in the previous discussions, also lacks clarity).\n\nWDYT about \"utilities\"?\n\nIt would be good to provide a couple of examples in the doc as well.",
+      "range": {
+        "startLine": 11,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f9dc25_aa63f8c7",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "I like \u0027utilities\u0027 more than \u0027primitives\u0027 or \u0027tools\u0027.\n(word \u0027primitive\u0027 I\u0027ve borrowed from the g3doc/implementation_basics.md)\n\nUpdated all the comments to use \u0027utilities\u0027.",
+      "parentUuid": "017f1f80_bf162e21",
       "range": {
         "startLine": 11,
         "startChar": 55,
@@ -115,6 +199,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b6e4dc_be10bf6d",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbde08db_5d80a473",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83dfa239_94438cf0",
@@ -128,6 +230,24 @@
       "writtenOn": "2023-11-17T10:35:08Z",
       "side": 1,
       "message": "Nit: The default environment",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90fa57bf_3b7d5775",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83dfa239_94438cf0",
       "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -149,6 +269,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "103117ea_0be6bc0b",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ae13f34_4d3a3763",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49fc09f1_e44f1a3a",
@@ -162,6 +300,24 @@
       "writtenOn": "2023-11-17T10:35:08Z",
       "side": 1,
       "message": "Nit: Provides a multitasking synchronization primitive.\nI\u0027m not sure the description is either correct or understandable.\nMight be better to say \"Provides a factory for task queues\" and leave it to the md document to go into details.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77de0376_6a8ccd65",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "\"provides a factory for task queues\" feels like comment repeats the code,\nso added a bit of clarification what a task queue is about.\nalso noticed there is better section in g3docs for the task queue. linked there instead.\n\nhere I want to note here that this is about intended primary way multi-threading should be done in WebRTC, and thus there is a strong reason to have it in the environment.",
+      "parentUuid": "49fc09f1_e44f1a3a",
       "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -183,6 +339,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ac457a_b4836ca4",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a9897e8_5473733d",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "310d541c_e3b05d82",
@@ -196,6 +370,24 @@
       "writtenOn": "2023-11-17T10:35:08Z",
       "side": 1,
       "message": "A scoped_refptr\u003crtc::RefCountedBase\u003e is highly unusual. Suggest that add a few more words here about how this is supposed to work. Something like:\n\n\"Defining this as a RefCountedBase object allows the caller to implement the guarantees for object lifetime in multiple ways without changing the constructor signature of this class\".\n\nI assume the idea is that you can copy the pointers around to new Environment variables as long as they all keep a scoped_refptr to the storage object.\nYou may want to define an inner class called Storage that implementations derive from instead of having this pointer be only a RefCountedBase.",
+      "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a663673_b2a11348",
+        "filename": "api/environment/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-17T14:25:04Z",
+      "side": 1,
+      "message": "expanded the comment.\n\nwith std types `scoped_refptr\u003crtc::RefCountedBase\u003e` would be `std::shared_ptr\u003cvoid\u003e` - a pointer you may share, delete when all references are gone, but can\u0027t dereference.\nWebRTC already uses this type e.g. in `RtpPacketToSend::additional_data`\n\nThis member and related constructor are private, implementation detail.\nOnly `Environment` and `EnvironmentFactory` need to know about it.\n\nI do not see what extra `Storage` class would add compared to `RefCountedBase`.\nThe only thing I need from it is to have thread-safe AddRef and Release functions so that it can be stored in scoped_refptr. RefCountedBase provides exactly that.",
+      "parentUuid": "310d541c_e3b05d82",
       "revId": "e40021a79a5ac658dff45c6e75787dae3a2c8495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

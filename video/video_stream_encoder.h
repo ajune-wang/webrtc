@@ -231,7 +231,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
       const EncodedImage& encoded_image,
       const CodecSpecificInfo* codec_specific_info) override;
 
-  void OnDroppedFrame(EncodedImageCallback::DropReason reason) override;
+  void OnDroppedFrame(EncodedImageCallback::DropReason reason) override
+      RTC_RUN_ON(&encoder_queue_);
 
   bool EncoderPaused() const;
   void TraceFrameDropStart();

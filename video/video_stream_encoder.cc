@@ -1538,11 +1538,8 @@ void VideoStreamEncoder::OnFrame(Timestamp post_time,
                         << incoming_frame.ntp_time_ms()
                         << " <= " << last_captured_timestamp_
                         << ") for incoming frame. Dropping.";
-    encoder_queue_.PostTask([this, incoming_frame]() {
-      RTC_DCHECK_RUN_ON(&encoder_queue_);
-      accumulated_update_rect_.Union(incoming_frame.update_rect());
-      accumulated_update_rect_is_valid_ &= incoming_frame.has_update_rect();
-    });
+    accumulated_update_rect_.Union(incoming_frame.update_rect());
+    accumulated_update_rect_is_valid_ &= incoming_frame.has_update_rect();
     return;
   }
 
@@ -2227,6 +2224,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   return result;
 }
 
+// RTC_RUN_ON(&encoder_queue_)
 void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
   switch (reason) {
     case DropReason::kDroppedByMediaOptimizations:
@@ -2239,10 +2237,7 @@ void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
       break;
   }
   sink_->OnDroppedFrame(reason);
-  encoder_queue_.PostTask([this, reason] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    stream_resource_manager_.OnFrameDropped(reason);
-  });
+  stream_resource_manager_.OnFrameDropped(reason);
 }
 
 DataRate VideoStreamEncoder::UpdateTargetBitrate(DataRate target_bitrate,

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4868565f_d527d9b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-19T10:39:37Z",
+      "side": 1,
+      "message": "A few more nits, but this is fine to submit!",
+      "revId": "56d757c6d90a65b9ee414a3151ba9b66ee642b31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26b159dd_748c8d32",
+        "filename": "api/environment/OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-19T10:39:37Z",
+      "side": 1,
+      "message": "nit: existent -\u003e existing",
+      "revId": "56d757c6d90a65b9ee414a3151ba9b66ee642b31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

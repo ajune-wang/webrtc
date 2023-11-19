@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2935b3a0_0948c4aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-11-19T15:04:39Z",
+      "side": 1,
+      "message": "Yes, should be reland. https://webrtc-review.googlesource.com/c/src/+/327781",
+      "parentUuid": "ebd2ee34_ee705487",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "50ca93d5cf112ee1acfc137803f326a44b47f803",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5569ef8_bd236013",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-18T21:59:06Z",
       "side": 1,
       "message": "I\u0027ve also seen:\n\n```\n[926/10596] CXX obj/third_party/webrtc/test/video_codec_tester/video_codec_tester.o\nFAILED: obj/third_party/webrtc/test/video_codec_tester/video_codec_tester.o\n../../buildtools/reclient/rewrapper -cfg\u003d../../buildtools/reclient_cfgs/chromium-browser-clang/rewra...(too long)\n../../third_party/webrtc/test/video_codec_tester.cc:603:10: error: no type named \u0027StringBuilder\u0027 in namespace \u0027rtc\u0027\n603 |     rtc::StringBuilder header;\n|     ~~~~~^\n../../third_party/webrtc/test/video_codec_tester.cc:614:26: error: use of undeclared identifier \u0027row\u0027; did you mean \u0027pow\u0027?\n614 |       rtc::StringBuilder row;\n|                          ^~~\n|                          pow\n```\n\nI suspect caused by a missing #include for the StringBuilder (it looks OK on most of the builders except on iOS, let\u0027s try to ensure #includes are there everywhere it is used).",
+      "range": {
+        "startLine": 11,
+        "startChar": 36,
+        "endLine": 11,
+        "endChar": 84
+      },
+      "revId": "50ca93d5cf112ee1acfc137803f326a44b47f803",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e329fa1_9e39c1c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-11-19T15:04:39Z",
+      "side": 1,
+      "message": "yes, this was due to a missing include (fixed in patch 3).",
+      "parentUuid": "c5569ef8_bd236013",
       "range": {
         "startLine": 11,
         "startChar": 36,

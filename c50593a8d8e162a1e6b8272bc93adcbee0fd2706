@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15959466_2247139e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-11-19T14:10:29Z",
+      "side": 1,
+      "message": "The value here is at least 1/max fps ms old, and the situation might have recovered. I think it would be more correct to understand if we\u0027re very late here compared to when we should be executing, but another problem with that approach is that delated tasks may execute later due to timer slack or other imprecision.",
+      "range": {
+        "startLine": 486,
+        "startChar": 8,
+        "endLine": 486,
+        "endChar": 39
+      },
+      "revId": "c50593a8d8e162a1e6b8272bc93adcbee0fd2706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

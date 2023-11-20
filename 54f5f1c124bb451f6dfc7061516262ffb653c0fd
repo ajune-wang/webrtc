@@ -68,6 +68,24 @@
       "parentUuid": "f401f167_f1ea45a3",
       "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa658de_b7d55a8d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-20T14:39:21Z",
+      "side": 1,
+      "message": "That bit is easy and already done for the offer.\nThe tricky part is the call to ComputeCodecsUnion on line 1657",
+      "parentUuid": "388b378c_76a431f9",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

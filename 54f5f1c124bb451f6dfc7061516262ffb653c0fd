@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fff00403_936ce3a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-20T07:37:04Z",
+      "side": 1,
+      "message": "more refactoring, this starts to get understandable but there are still weird bits so a question first ;-)",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f401f167_f1ea45a3",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-20T07:37:04Z",
+      "side": 1,
+      "message": "This bit differs for GetNegotiatedAudioCodecsForAnswer and the video variant.\n\nI am not sure why this is needed but suspect because we have RTX with its cross-codec dependencies for video.\nThe easiest solution seems to be merging and special-casing with a comment?",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

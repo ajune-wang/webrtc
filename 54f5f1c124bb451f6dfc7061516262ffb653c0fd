@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bdc9e2d_3422e22c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-20T14:08:25Z",
+      "side": 1,
+      "message": "Is it the merge of GetNegotiated*CodecsForAnswer that is the outstanding issue here?",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f401f167_f1ea45a3",
@@ -31,6 +48,24 @@
       "writtenOn": "2023-11-20T07:37:04Z",
       "side": 1,
       "message": "This bit differs for GetNegotiatedAudioCodecsForAnswer and the video variant.\n\nI am not sure why this is needed but suspect because we have RTX with its cross-codec dependencies for video.\nThe easiest solution seems to be merging and special-casing with a comment?",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388b378c_76a431f9",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-20T14:08:25Z",
+      "side": 1,
+      "message": "On inspection, I found the vad_enabled section for audio and the raw_packetization_for_video section for video. Are there other differences?\n\nThat one seems like it should be a switch on MEDIA_TYPE, which should be obvious.",
+      "parentUuid": "f401f167_f1ea45a3",
       "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

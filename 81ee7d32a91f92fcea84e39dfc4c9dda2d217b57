@@ -16,6 +16,57 @@
       "message": "The H265 RTP depacketizer CL is ready, please help review, thanks.",
       "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d12f87b_4ac2994f",
+        "filename": "modules/rtp_rtcp/source/create_video_rtp_depacketizer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-20T10:06:34Z",
+      "side": 1,
+      "message": "Isn\u0027t this introducing the bug that caused Safari to packetize HEVC with startcodes behind flag?",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "901204a7_5ee68193",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-20T10:06:34Z",
+      "side": 1,
+      "message": "nit: \"Aggregated packet\" (also below) as done further below.",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b97b04_d01a85f8",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-20T10:06:34Z",
+      "side": 1,
+      "message": "prefer .empty()",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

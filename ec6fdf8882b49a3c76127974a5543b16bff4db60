@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b7dac9_ad458c50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-21T21:44:17Z",
+      "side": 1,
+      "message": "Looks good. A few questions only, the only significant one is probably why it\u0027s possible to pass nullptr to the setters.",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8b63b14_dfe63bbb",
+        "filename": "api/environment/environment_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-21T21:44:17Z",
+      "side": 1,
+      "message": "Ah, tricky!\n\nWould be clearer if you add \"An EnvironmentFactory created from an Environment will copy the Environment\u0027s storage_ pointer into its leaf_ pointer, ensuring that all existing objects remain alive as long as the Factory or any Environments it creates are alive, and that new objects added to the Factory get pushed into the ownership tree.\"",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2096ed_41cab39c",
+        "filename": "api/environment/environment_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-21T21:44:17Z",
+      "side": 1,
+      "message": "Why is it possible to pass nullptr to the Set operations?\nAs far as I can see, passing nullptr does nothing - doesn\u0027t even clear the field.",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92927297_1cc30d22",
+        "filename": "api/environment/environment_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-21T21:44:17Z",
+      "side": 1,
+      "message": "could you achieve the same thing by enclosing the CreateEnvironment in a {} block with env as a local variable in the block?",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

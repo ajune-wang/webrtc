@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14bf3406_eb133400",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-11-21T00:01:01Z",
+      "side": 1,
+      "message": "Ah, I\u0027m not sure we can assume VideoStreamEncoder::OnDroppedFrame always gets invoked on the encoder queue [1]... fixed.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/frame_encode_metadata_writer.cc;l\u003d132;drc\u003d445f8cfdbb63b29ce44f728f6b5015cf18df5534",
+      "range": {
+        "startLine": 2240,
+        "startChar": 2,
+        "endLine": 2240,
+        "endChar": 26
+      },
+      "revId": "c2bce0f22d33b51eeb7e900cac8e66e6a9843596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

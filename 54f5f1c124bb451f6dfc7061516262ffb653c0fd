@@ -86,6 +86,24 @@
       "parentUuid": "388b378c_76a431f9",
       "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73330ac4_64fa244e",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-21T14:49:13Z",
+      "side": 1,
+      "message": "do you think it will make a difference?\nI see that one is building the \"other_codecs\" list and then merging, and the other is simply adding in the new codecs while iterating. Result SHOULD be the same for normal cases, in which case we should unify the code, probably on the video pattern.",
+      "parentUuid": "faa658de_b7d55a8d",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

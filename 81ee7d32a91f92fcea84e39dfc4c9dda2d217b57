@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1684b5bc_aa430eda",
+        "filename": "modules/rtp_rtcp/source/create_video_rtp_depacketizer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-21T08:02:35Z",
+      "side": 1,
+      "message": "Safari\u0027s HEVC used to packetize (and depacketize) including the startcodes which was the wrong thing (but probably used VideoRtpDepacketizerRaw, not the VideoRtpDepacketizerGeneric).\nReturning nullptr when building without RTC_ENABLE_H265 seems more correct and can be asserted by a CHECK in the places it is used.",
+      "parentUuid": "8df31df5_4ebfe838",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "901204a7_5ee68193",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 4

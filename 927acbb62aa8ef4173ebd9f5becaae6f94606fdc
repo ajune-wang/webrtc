@@ -50,6 +50,24 @@
       "message": "Shouldn\u0027t the GetNegotiatedCodecsForAnswer call be outside of the \"if\"?",
       "revId": "927acbb62aa8ef4173ebd9f5becaae6f94606fdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "994ae685_3c12571d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-22T10:09:53Z",
+      "side": 1,
+      "message": "Done here and in the other place, less code FTW!",
+      "parentUuid": "4c14d4d3_ac03ecdf",
+      "revId": "927acbb62aa8ef4173ebd9f5becaae6f94606fdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

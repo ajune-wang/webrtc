@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f431d0c6_a67a07b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-22T21:40:01Z",
+      "side": 1,
+      "message": "Aha, that makes sense - passing in explicit nullptr wouldn\u0027t work because nullptr doesn\u0027t have a type, but getting the pointer from a variable of type nullptr will compile and be obvious to read.",
+      "parentUuid": "035e8585_675647b3",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8b63b14_dfe63bbb",

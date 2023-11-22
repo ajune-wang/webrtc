@@ -104,6 +104,24 @@
       "parentUuid": "faa658de_b7d55a8d",
       "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d0f96a3_de765329",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-22T09:25:36Z",
+      "side": 1,
+      "message": "IIUC the difference is that video reconciles rtx payload types. So we can do the same for audio and it will be a no-op.",
+      "parentUuid": "73330ac4_64fa244e",
+      "revId": "54f5f1c124bb451f6dfc7061516262ffb653c0fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

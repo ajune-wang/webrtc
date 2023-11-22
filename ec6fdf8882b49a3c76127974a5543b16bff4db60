@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d8613dd6_deb0d0d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-22T15:07:12Z",
+      "side": 1,
+      "message": "oops, Done",
+      "parentUuid": "3fb715eb_5d48ed2a",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d0b7dac9_ad458c50",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-21T21:44:17Z",
       "side": 1,
       "message": "Looks good. A few questions only, the only significant one is probably why it\u0027s possible to pass nullptr to the setters.",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "035e8585_675647b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-22T15:07:12Z",
+      "side": 1,
+      "message": "Some code need to do runtime check if dependencies is provided.\nI find it cleanest to do that check inside `Set` functions.\n\nWith nullptr accepted I can write\n```\nCreateEnvironment(std::move(dependencies.task_queue_factory),\n                  std::move(dependencies.trials)),\n```\nas exampled in \nhttps://webrtc-review.googlesource.com/c/src/+/323003/25/pc/peer_connection_factory.cc\n\nif nullptr is not accepted, then the same expression become.\n```\ndependencies.trials \u003d\u003d nullptr\n? CreateEnvironment(std::move(dependencies.task_queue_factory)\n: CreateEnvironment(std::move(dependencies.task_queue_factory),\n                    std::move(dependencies.trials)),\n```\n                    \nif in the same function both `task_queue_factory` and `trials` could be nullptr,\nexpression would be even less readable - need to capture 4 cases, or wrap into function:\n\n```\n[\u0026] {\n  EnvironmentFactory f;\n  if (dependencies.task_queue_factory !\u003d nullptr) {\n    f.Set(std::move(dependencies.task_queue_factory));\n  }\n  if (dependencies.trials !\u003d nullptr {\n    f.Set(std::move(dependencies.trials));\n  }\n  return f.Create();\n}()\n```",
+      "parentUuid": "d0b7dac9_ad458c50",
       "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7389c333_ce55287f",
+        "filename": "api/environment/environment_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-22T15:07:12Z",
+      "side": 1,
+      "message": "I think that deserve not an implementation comment, but a behavior unit test - lack of that behavior would be unsafe.\nadded test KeepsOwnershipsWhenCreateNewEnvironmentFromExistingOne",
+      "parentUuid": "d8b63b14_dfe63bbb",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b2096ed_41cab39c",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "577f4d3a_19de66da",
+        "filename": "api/environment/environment_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-22T15:07:12Z",
+      "side": 1,
+      "message": "I find that makes api cleaner to use.\nI\u0027ve added more detailed explanation by another example next to the \u0027IgnoresProvidedNullptrUtility\u0027 test that validates that behavior.",
+      "parentUuid": "5b2096ed_41cab39c",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92927297_1cc30d22",
@@ -82,6 +154,24 @@
       "writtenOn": "2023-11-21T21:44:17Z",
       "side": 1,
       "message": "could you achieve the same thing by enclosing the CreateEnvironment in a {} block with env as a local variable in the block?",
+      "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f6f5cd_3aa342d6",
+        "filename": "api/environment/environment_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-22T15:07:12Z",
+      "side": 1,
+      "message": "This test - yes, previous test - not really: in the previous test env1 and env2 are destroyed in the same order as constructed, so controlling their lifetime with extra scope is not trivial.\n\nI prefer controlling lifetime with optional as that makes it more explicit when an object is destroyed.",
+      "parentUuid": "92927297_1cc30d22",
       "revId": "ec6fdf8882b49a3c76127974a5543b16bff4db60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd9508a8_bebe5801",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-11-22T07:20:50Z",
+      "side": 1,
+      "message": "Which version should you use? Please remove the new Copy from this cl if it does not work.",
+      "range": {
+        "startLine": 544,
+        "startChar": 17,
+        "endLine": 544,
+        "endChar": 20
+      },
+      "revId": "ee935133c244bb9d560e8cb2026ab39707de1f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

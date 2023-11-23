@@ -50,7 +50,7 @@ class AdapterMode {
 
   // Called on the worker thread for every frame that enters.
   virtual void OnFrame(Timestamp post_time,
-                       int frames_scheduled_for_processing,
+                       bool queue_overload,
                        const VideoFrame& frame) = 0;
 
   // Returns the currently estimated input framerate.
@@ -71,10 +71,10 @@ class PassthroughAdapterMode : public AdapterMode {
 
   // Adapter overrides.
   void OnFrame(Timestamp post_time,
-               int frames_scheduled_for_processing,
+               bool queue_overload,
                const VideoFrame& frame) override {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
-    callback_->OnFrame(post_time, frames_scheduled_for_processing, frame);
+    callback_->OnFrame(post_time, queue_overload, frame);
   }
 
   absl::optional<uint32_t> GetInputFrameRateFps() override {
@@ -119,7 +119,7 @@ class ZeroHertzAdapterMode : public AdapterMode {
 
   // Adapter overrides.
   void OnFrame(Timestamp post_time,
-               int frames_scheduled_for_processing,
+               bool queue_overload,
                const VideoFrame& frame) override;
   absl::optional<uint32_t> GetInputFrameRateFps() override;
   void UpdateFrameRate() override {}
@@ -355,7 +355,7 @@ void ZeroHertzAdapterMode::UpdateLayerStatus(size_t spatial_index,
 }
 
 void ZeroHertzAdapterMode::OnFrame(Timestamp post_time,
-                                   int frames_scheduled_for_processing,
+                                   bool queue_overload,
                                    const VideoFrame& frame) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   TRACE_EVENT0("webrtc", "ZeroHertzAdapterMode::OnFrame");
@@ -557,10 +557,10 @@ void ZeroHertzAdapterMode::ProcessRepeatedFrameOnDelayedCadence(int frame_id) {
 void ZeroHertzAdapterMode::SendFrameNow(const VideoFrame& frame) const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   TRACE_EVENT0("webrtc", __func__);
-  // TODO(crbug.com/1255737): figure out if frames_scheduled_for_processing
-  // makes sense to compute in this implementation.
+  // TODO(crbug.com/1255737): ensure queue_overload is computed from current
+  // conditions on the encoder queue.
   callback_->OnFrame(/*post_time=*/clock_->CurrentTime(),
-                     /*frames_scheduled_for_processing=*/1, frame);
+                     /*queue_overload=*/false, frame);
 }
 
 TimeDelta ZeroHertzAdapterMode::RepeatDuration(bool idle_repeat) const {
@@ -682,7 +682,7 @@ void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
     const int frames_scheduled_for_processing =
         frames_scheduled_for_processing_.fetch_sub(1,
                                                    std::memory_order_relaxed);
-    OnFrameOnMainQueue(post_time, frames_scheduled_for_processing,
+    OnFrameOnMainQueue(post_time, frames_scheduled_for_processing > 1,
                        std::move(frame));
   }));
 }

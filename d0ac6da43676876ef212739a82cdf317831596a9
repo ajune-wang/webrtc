@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d036c691_8ef0e277",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2023-11-23T12:06:48Z",
+      "side": 1,
+      "message": "Looks great. You could use webrtc:15539 as Bug.",
+      "revId": "d0ac6da43676876ef212739a82cdf317831596a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

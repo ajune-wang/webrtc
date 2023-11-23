@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a2b8299_86282006",
+        "filename": "modules/rtp_rtcp/source/create_video_rtp_depacketizer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-23T08:36:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1684b5bc_aa430eda",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "901204a7_5ee68193",
@@ -88,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2f09d4d_7b64b66b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-23T08:36:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "901204a7_5ee68193",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35b97b04_d01a85f8",
@@ -101,6 +137,24 @@
       "writtenOn": "2023-11-20T10:06:34Z",
       "side": 1,
       "message": "prefer .empty()",
+      "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd406bd5_a9c40021",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-23T08:36:57Z",
+      "side": 1,
+      "message": "There is no empty function defined in rtc::CopyOnWriteBuffer",
+      "parentUuid": "35b97b04_d01a85f8",
       "revId": "81ee7d32a91f92fcea84e39dfc4c9dda2d217b57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

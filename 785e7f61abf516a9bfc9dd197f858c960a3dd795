@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c534ac2d_dfc646b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-23T13:38:38Z",
+      "side": 1,
+      "message": "In particular lack of empty accessor makes harder to follow\n\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability/container-size-empty.html",
+      "revId": "785e7f61abf516a9bfc9dd197f858c960a3dd795",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

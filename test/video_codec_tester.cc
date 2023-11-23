@@ -262,7 +262,8 @@ class TesterIvfWriter {
 
   void Write(const EncodedImage& encoded_frame) {
     task_queue_.PostTask([this, encoded_frame] {
-      int spatial_idx = encoded_frame.SimulcastIndex().value_or(0);
+      int spatial_idx = encoded_frame.SpatialIndex().value_or(
+          encoded_frame.SimulcastIndex().value_or(0));
       if (ivf_file_writers_.find(spatial_idx) == ivf_file_writers_.end()) {
         std::string ivf_path =
             base_path_ + "-s" + std::to_string(spatial_idx) + ".ivf";
@@ -393,6 +394,7 @@ class VideoCodecAnalyzer : public VideoCodecTester::VideoCodecStats {
 
           Frame& frame = frames_.at(timestamp_rtp).at(spatial_idx);
           frame.decode_start = Timestamp::Micros(decode_start_us);
+          frame.decode_frame_size = DataSize::Bytes(frame_size_bytes);
         });
   }
 
@@ -833,10 +835,104 @@ class Decoder : public DecodedImageCallback {
   std::unique_ptr<TesterY4mWriter> y4m_writer_;
 };
 
+class MultiLayerDecoder {
+ public:
+  MultiLayerDecoder(VideoDecoderFactory* decoder_factory,
+                    const DecoderSettings& decoder_settings,
+                    VideoCodecAnalyzer* analyzer)
+      : decoder_factory_(decoder_factory),
+        decoder_settings_(decoder_settings),
+        analyzer_(analyzer) {
+    RTC_CHECK(analyzer_) << "Analyzer must be provided";
+  }
+
+  void Initialize(const SdpVideoFormat& sdp_video_format,
+                  int num_spatial_layers) {
+    for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
+      auto decoder = std::make_unique<Decoder>(decoder_factory_,
+                                               decoder_settings_, analyzer_);
+      decoder->Initialize(sdp_video_format);
+      decoders_.push_back(std::move(decoder));
+    }
+  }
+
+  void Decode(const EncodedImage& encoded_frame,
+              const CodecSpecificInfo* codec_specific_info) {
+    if (last_superframe_ &&
+        encoded_frame.RtpTimestamp() != last_superframe_->RtpTimestamp()) {
+      // New temporal unit.
+      DecodeStoredFrame();
+    }
+
+    ScalabilityMode scalability_mode = *codec_specific_info->scalability_mode;
+    if (last_superframe_ ||
+        (kFullSvcScalabilityModes.count(scalability_mode) ||
+         (kKeySvcScalabilityModes.count(scalability_mode) &&
+          encoded_frame.FrameType() == VideoFrameType::kVideoFrameKey))) {
+      StoreOrAppendFrame(encoded_frame);
+      int sidx = *last_superframe_->SpatialIndex();
+      decoders_.at(sidx)->Decode(*last_superframe_);
+    } else {
+      int sidx = encoded_frame.SpatialIndex().value_or(
+          encoded_frame.SimulcastIndex().value_or(0));
+      decoders_.at(sidx)->Decode(encoded_frame);
+    }
+  }
+
+  void Flush() {
+    if (last_superframe_) {
+      DecodeStoredFrame();
+    }
+    for (auto& decoder : decoders_) {
+      decoder->Flush();
+    }
+  }
+
+ private:
+  void DecodeStoredFrame() {
+    // Pass stored frame to all upper layer decoders.
+    for (size_t sidx = *last_superframe_->SpatialIndex() + 1;
+         sidx < decoders_.size(); ++sidx) {
+      decoders_.at(sidx)->Decode(*last_superframe_);
+    }
+    last_superframe_.reset();
+    last_superframe_data_.release();
+  }
+
+  void StoreOrAppendFrame(const EncodedImage& encoded_frame) {
+    if (!last_superframe_) {
+      last_superframe_ = EncodedImage(encoded_frame);
+      last_superframe_data_ = EncodedImageBuffer::Create(encoded_frame.data(),
+                                                         encoded_frame.size());
+      last_superframe_->SetEncodedData(last_superframe_data_);
+    } else {
+      // Append to base spatial layer frame(s).
+      RTC_CHECK_EQ(*encoded_frame.SpatialIndex(),
+                   *last_superframe_->SpatialIndex() + 1)
+          << "Inter-layer frame drops are not supported.";
+      size_t current_size = last_superframe_data_->size();
+      last_superframe_data_->Realloc(last_superframe_data_->size() +
+                                     encoded_frame.size());
+      memcpy(last_superframe_data_->data() + current_size, encoded_frame.data(),
+             encoded_frame.size());
+      last_superframe_->SetEncodedData(last_superframe_data_);
+      last_superframe_->SetSpatialIndex(encoded_frame.SpatialIndex());
+    }
+  }
+
+  VideoDecoderFactory* decoder_factory_;
+  const DecoderSettings decoder_settings_;
+  std::vector<std::unique_ptr<Decoder>> decoders_;
+  VideoCodecAnalyzer* const analyzer_;
+  absl::optional<EncodedImage> last_superframe_;
+  rtc::scoped_refptr<EncodedImageBuffer> last_superframe_data_;
+};
+
 class Encoder : public EncodedImageCallback {
  public:
   using EncodeCallback =
-      absl::AnyInvocable<void(const EncodedImage& encoded_frame)>;
+      absl::AnyInvocable<void(const EncodedImage& encoded_frame,
+                              const CodecSpecificInfo* codec_specific_info)>;
 
   Encoder(VideoEncoderFactory* encoder_factory,
           const EncoderSettings& encoder_settings,
@@ -917,7 +1013,7 @@ class Encoder : public EncodedImageCallback {
       MutexLock lock(&mutex_);
       auto it = callbacks_.find(encoded_frame.RtpTimestamp());
       RTC_CHECK(it != callbacks_.end());
-      it->second(encoded_frame);
+      it->second(encoded_frame, codec_specific_info);
       callbacks_.erase(callbacks_.begin(), it);
     }
 
@@ -1279,7 +1375,7 @@ VideoCodecTester::RunEncodeTest(
     VideoFrame source_frame = video_source.PullFrame(
         timestamp_rtp, top_layer.resolution, top_layer.framerate);
     encoder.Encode(source_frame, frame_settings,
-                   [](const EncodedImage& encoded_frame) {});
+                   [](const EncodedImage&, const CodecSpecificInfo*) {});
   }
 
   encoder.Flush();
@@ -1295,13 +1391,27 @@ VideoCodecTester::RunEncodeDecodeTest(
     const EncoderSettings& encoder_settings,
     const DecoderSettings& decoder_settings,
     const std::map<uint32_t, EncodingSettings>& encoding_settings) {
+  // Find max number of spatial layers.
+  const EncodingSettings& es =
+      std::max_element(
+          encoding_settings.begin(), encoding_settings.end(),
+          [](const auto& a, const auto& b) {
+            return ScalabilityModeToNumSpatialLayers(
+                       a.second.scalability_mode) <
+                   ScalabilityModeToNumSpatialLayers(b.second.scalability_mode);
+          })
+          ->second;
+  int num_spatial_layers =
+      ScalabilityModeToNumSpatialLayers(es.scalability_mode);
+
   VideoSource video_source(source_settings);
   std::unique_ptr<VideoCodecAnalyzer> analyzer =
       std::make_unique<VideoCodecAnalyzer>(&video_source);
-  Decoder decoder(decoder_factory, decoder_settings, analyzer.get());
   Encoder encoder(encoder_factory, encoder_settings, analyzer.get());
+  MultiLayerDecoder decoder(decoder_factory, decoder_settings, analyzer.get());
   encoder.Initialize(encoding_settings.begin()->second);
-  decoder.Initialize(encoding_settings.begin()->second.sdp_video_format);
+  decoder.Initialize(encoding_settings.begin()->second.sdp_video_format,
+                     num_spatial_layers);
 
   for (const auto& [timestamp_rtp, frame_settings] : encoding_settings) {
     const EncodingSettings::LayerSettings& top_layer =
@@ -1309,8 +1419,9 @@ VideoCodecTester::RunEncodeDecodeTest(
     VideoFrame source_frame = video_source.PullFrame(
         timestamp_rtp, top_layer.resolution, top_layer.framerate);
     encoder.Encode(source_frame, frame_settings,
-                   [&decoder](const EncodedImage& encoded_frame) {
-                     decoder.Decode(encoded_frame);
+                   [&decoder](const EncodedImage& encoded_frame,
+                              const CodecSpecificInfo* codec_specific_info) {
+                     decoder.Decode(encoded_frame, codec_specific_info);
                    });
   }
 

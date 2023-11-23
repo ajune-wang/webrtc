@@ -75,6 +75,8 @@ class VideoCodecTester {
       int width = 0;
       int height = 0;
       DataSize frame_size = DataSize::Zero();
+      // Size of frame as seen by decoder. Only needed for testing purposes.
+      DataSize decode_frame_size = DataSize::Zero();
       bool keyframe = false;
       absl::optional<int> qp;
       Timestamp encode_start = Timestamp::Zero();

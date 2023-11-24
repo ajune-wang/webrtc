@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbe379a2_7757b4be",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-24T10:22:51Z",
+      "side": 1,
+      "message": "This function currently expects int, but you are passing a bool here.",
+      "range": {
+        "startLine": 694,
+        "startChar": 34,
+        "endLine": 694,
+        "endChar": 70
+      },
+      "revId": "84c016a02404dc0540ba3688d688d1ae950938ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c32e0c6_30e10365",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-24T10:22:51Z",
+      "side": 1,
+      "message": "Markus, sorry I\u0027ve missed this and now see the mistake in cs.\n\nDo you mind changing OnFrameOnMainQueue to also receive bool instead of int?",
+      "range": {
+        "startLine": 724,
+        "startChar": 4,
+        "endLine": 724,
+        "endChar": 40
+      },
+      "revId": "84c016a02404dc0540ba3688d688d1ae950938ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e33d51_b94049e0",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2023-11-24T10:22:51Z",
+      "side": 1,
+      "message": "That method takes in bool, you are passing int here.\n\nTwo mistakes cancel each other, so it works, but a bool is passed as int and then as bool again.",
+      "range": {
+        "startLine": 727,
+        "startChar": 44,
+        "endLine": 727,
+        "endChar": 75
+      },
+      "revId": "84c016a02404dc0540ba3688d688d1ae950938ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

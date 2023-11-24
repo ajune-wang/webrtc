@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c4e5672_96d968c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-24T07:24:08Z",
+      "side": 1,
+      "message": "Mostly refactoring but I came up with a question",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "211f7e76_1a64b7f4",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5306,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-24T07:24:08Z",
+      "side": 1,
+      "message": "It is not clear to me why it makes a distinction between audio and video and has separate counters? In particular since we should be rejecting payload type collisions in a bundle group elsewhere.",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

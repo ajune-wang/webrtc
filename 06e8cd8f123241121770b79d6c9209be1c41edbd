@@ -18,6 +18,40 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32a9e905_ae7ac185",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T07:56:36Z",
+      "side": 1,
+      "message": "Seems straightforward, but is there an advantage in using RtpMediaContentDescription rather than just MediaContentDescription?",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9e257a5_b234aa19",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T07:56:36Z",
+      "side": 1,
+      "message": "Moving away from RtpMediaContentDescription is in conflict with bugs.webrtc.org/15214 (move RTP stuff from MediaContentDescription to RtpMediaContentDescription), I think.",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "211f7e76_1a64b7f4",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "533c3c29_a9516b71",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-11-24T17:18:28Z",
+      "side": 1,
+      "message": "Nice to use the same poison here.\n\nI wonder if we should add a comment here to mention that default TQ should not be used directly but only propagated by the Environment. Or is that overkill?",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 46
+      },
+      "revId": "841882920263ec3e63719f2e04616175e534b664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

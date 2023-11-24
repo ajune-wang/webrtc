@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b243ce9_e590d6ad",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T08:53:29Z",
+      "side": 1,
+      "message": "There are places where dealing with a pure \"I don\u0027t know if this is RTP or not\" makes sense (mostly where you\u0027re using the MediaContentDescription to refer to transport parameters, which is probably a mistaken design).\n\n\"protocol\" is probably the accessor that makes sense\nas for moving up to content level .... I\u0027m unsure if that\u0027s less churnful.\n\nif you were to change as_audio and as_video into as_rtp everywhere, rather than deleting it, that would minimize churn....?",
+      "parentUuid": "5073790b_c1097dea",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "211f7e76_1a64b7f4",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 1

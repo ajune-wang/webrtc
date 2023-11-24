@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5073790b_c1097dea",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-24T08:14:05Z",
+      "side": 1,
+      "message": "Yeah but I question that TODO (fixing it would result in a lot of churn) or at least the approach. We currently do a lot of content-\u003emedia_description()-\u003eas_xxx(). The better way to break the inheritance might be to add a shortcut content-\u003ertp_description() and content-\u003esctp_description()",
+      "parentUuid": "f9e257a5_b234aa19",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "211f7e76_1a64b7f4",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 1

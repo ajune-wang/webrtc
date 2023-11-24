@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1520cb04_2d27e6b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T18:41:31Z",
+      "side": 1,
+      "message": "The change makes the second set be ignored rather than a DCHECK.\nSetting twice to the same value seems messy but harmless; ignoring an attempt to change the value seems wrong.",
+      "revId": "e934a632ee5e9ffc0b3faf89b2304dfdf6842c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b3deaa_b86344be",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T18:41:31Z",
+      "side": 1,
+      "message": "This method is not exercised by tests. Fix?",
+      "revId": "e934a632ee5e9ffc0b3faf89b2304dfdf6842c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22947cdd_1af44fba",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T18:41:31Z",
+      "side": 1,
+      "message": "Are we trying to not DCHECK when it is set to the same value twice (an inefficiency)?\nShould there be a DCHECK(frame_transformer \u003d\u003d frame_transformer_delegate_)?\n\nIf it set twice, and the values are different, ignoring the setting the second time seems Just Wrong.",
+      "revId": "e934a632ee5e9ffc0b3faf89b2304dfdf6842c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

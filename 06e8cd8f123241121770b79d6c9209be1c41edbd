@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "785fb559_00cfd102",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-24T09:16:45Z",
+      "side": 1,
+      "message": "oh that design is Jingle\u0027s split of media description and transport description:\n\u003cjingle\u003e\n_\u003ccontent\u003e\n__\u003cdescription media\u003d\"audio\" xmlns\u003d\"...rtp\"/\u003e\n___\u003ctransport/\u003e\n...\n(and unsurprisingly the class hierarchy still reflects the xml)\n\nWhat I want to avoid is the content.media_description()-\u003eas_audio-\u003ecodecs() chain which is often done without explicitly checking for nullptr (I think we are good but might want to add DCHECKs where we return them).\n\nIntroducing a shortcut content.rtp_description() / content.sctp_description() might be a better way to avoid this.\nOTOH we generally iterate over the contents and most of them are RTP which is why I think the SCTP content can do some extra work even if this is at the expense of inheriting all the RTP things.\n\norphis suggested another alternative which sounds nice: the content could have the description as a std::variant.",
+      "parentUuid": "3b243ce9_e590d6ad",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "211f7e76_1a64b7f4",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 1

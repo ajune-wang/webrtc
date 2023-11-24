@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1423b3a4_7dbe9d5b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2023-11-24T09:59:57Z",
+      "side": 1,
+      "message": "We discussed this yesterday and the consensus was that we want to get away from the specialized Audio and Video classes and most usage should be from the MediaContentDescription interface.\n\nAnd we agreed that having a class be possibly one of 3 things (RTP or SCTP or neither) makes things more complicated and forces us to have those as_* methods everywhere.\n\nA long term solution (though the transition might be complicated) would be to have an `rtp()` and `sctp()` accessor that returns content stored in a variant that describes everything that\u0027s needed.\n\nIn order to get there, we need to first get rid of those Audio/Video classes referenced explicitly from the code (they don\u0027t bring anything to the table), one way to get them was with those `as_audio()` and `as_video()` calls.",
+      "parentUuid": "785fb559_00cfd102",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "211f7e76_1a64b7f4",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 1

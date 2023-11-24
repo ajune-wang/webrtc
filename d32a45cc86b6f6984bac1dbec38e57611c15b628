@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf5af15_bbd04830",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-24T13:20:55Z",
+      "side": 1,
+      "message": "I\u0027m adding this dependency before it is used to see/show how \"environment_construction\" poison would spread.\nThis should be the only non-test target that would have this dependency, and thus the only extra source for the new poison.",
+      "revId": "d32a45cc86b6f6984bac1dbec38e57611c15b628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

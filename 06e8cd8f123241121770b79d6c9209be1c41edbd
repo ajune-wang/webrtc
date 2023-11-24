@@ -124,6 +124,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04c66fc7_bc5e9b57",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-24T11:56:10Z",
+      "side": 1,
+      "message": "At least externally making the MediaContentDescription a HasA(RTP) or HasA(SCTP) rather than being an IsA relationship? That may make sense....",
+      "parentUuid": "1423b3a4_7dbe9d5b",
+      "revId": "06e8cd8f123241121770b79d6c9209be1c41edbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "211f7e76_1a64b7f4",

@@ -736,6 +736,8 @@ if (rtc_include_tests) {
         "../api/units:time_delta",
         "../api/video:encoded_image",
         "../api/video:video_frame",
+        "../api/video_codecs:builtin_video_decoder_factory",
+        "../api/video_codecs:builtin_video_encoder_factory",
         "../api/video_codecs:video_codecs_api",
         "../call:video_stream_api",
         "../common_video",
@@ -1388,6 +1390,7 @@ rtc_library("video_codec_tester") {
     "../api/numerics:numerics",
     "../api/test/metrics:metric",
     "../api/test/metrics:metrics_logger",
+    "../api/transport:field_trial_based_config",
     "../api/units:data_rate",
     "../api/units:data_size",
     "../api/units:frequency",
@@ -1415,6 +1418,8 @@ rtc_library("video_codec_tester") {
     "../system_wrappers",
     "../test:fileutils",
     "../test:video_test_support",
+    "../video/config:encoder_config",
+    "../video/config:streams_config",
     "//third_party/libyuv",
   ]
 

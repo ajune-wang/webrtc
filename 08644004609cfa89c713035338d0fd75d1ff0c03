@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e173d82c_0b0cf9bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-11-27T13:47:10Z",
+      "side": 1,
+      "message": "I don\u0027t think what this attempts is what we should do, and the W3C issue has not been resolved yet, so I doubly don\u0027t think we should go ahead with this.\n\nJust because the preference order is receive preference order only does not mean that this only affects receive codecs. You can only send what is negotiated, and you can only respond with what was offered, so what the list contains matters for both sending and receiving.\n\nWe need to support both the send-only and recv-only use cases and what the W3C setCodecPreferences() decides to do could be subtly different from the JSEP setCodecPreferences().",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

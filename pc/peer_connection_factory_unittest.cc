@@ -21,6 +21,7 @@
 #include "api/create_peerconnection_factory.h"
 #include "api/data_channel_interface.h"
 #include "api/enable_media.h"
+#include "api/environment/environment_factory.h"
 #include "api/jsep.h"
 #include "api/media_stream_interface.h"
 #include "api/task_queue/default_task_queue_factory.h"
@@ -285,7 +286,7 @@ CreatePeerConnectionFactoryWithRtxDisabled() {
   EnableMedia(pcf_dependencies);
 
   rtc::scoped_refptr<ConnectionContext> context =
-      ConnectionContext::Create(&pcf_dependencies);
+      ConnectionContext::Create(CreateEnvironment(), &pcf_dependencies);
   context->set_use_rtx(false);
   return rtc::make_ref_counted<PeerConnectionFactory>(context,
                                                       &pcf_dependencies);

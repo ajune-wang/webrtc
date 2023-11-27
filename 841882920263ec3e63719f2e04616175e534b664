@@ -22,6 +22,30 @@
       },
       "revId": "841882920263ec3e63719f2e04616175e534b664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a36a2723_f59372fb",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-27T10:00:44Z",
+      "side": 1,
+      "message": "added a comment to capture that.\nI tried to stress it is just for the use of the TQ internally.\nExternal users shouldn\u0027t worry about it. In particular they would likely inject TQF into PeerConnectionFactoryDependencies, and even when using Environment directly, it might be simpler to use default TQ there implicitly.\n\nI\u0027ve also do not force that Environment is the only way to propagated TaskQueueFactory interface. Sometimes it is ok to propagated just the TQF.",
+      "parentUuid": "533c3c29_a9516b71",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 46
+      },
+      "revId": "841882920263ec3e63719f2e04616175e534b664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

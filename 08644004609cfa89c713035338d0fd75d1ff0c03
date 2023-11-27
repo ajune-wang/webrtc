@@ -16,6 +16,24 @@
       "message": "Not asking for a review yet but please bear with me :-)\n\nPS1 just removed the whole send codecs from setCodecPreferences. This works ok in the browser but the unit tests fail.\nAs PS2 shows they are written to expect a scalabilityMode which is not present on recv codecs (on purpose).\nPS3 is the minimal way to remove setCodecPreferences from the receiver where it does not belong according to JSEP. This fixes most of the tests but makes some other tests fail.\nMostly these tests look fixable, they might need some rewriting in order to set the codec preferences on the receiver.\n\nDoes this look like it is going in the right direction?",
       "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89609cab_24d48418",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-27T12:02:51Z",
+      "side": 1,
+      "message": "PS3 is the minimal way to remove setCodecPreferences from the *sender*",
+      "parentUuid": "4c6a67ac_67f34d2d",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

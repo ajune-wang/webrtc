@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b85d9b_a3b1da03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-27T14:57:55Z",
+      "side": 1,
+      "message": "This attempts to bring us in line with JSEP. I do expect changes to webrtc-pc as a result.\n\n\u003e and you can only respond with what was offered, so what the list contains matters for both sending and receiving\n\nNo, an answer *may* specify additional codecs, see https://www.rfc-editor.org/rfc/rfc8829.html#section-5.3.1\n\"Any currently available media formats that are not present in the current remote description MUST be added after all existing formats\"\n\nI don\u0027t think we do this however.",
+      "parentUuid": "449ea881_5d81e219",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

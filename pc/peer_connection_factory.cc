@@ -247,19 +247,30 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
   dependencies.allocator->SetNetworkIgnoreMask(options().network_ignore_mask);
   dependencies.allocator->SetVpnList(configuration.vpn_list);
 
+  EnvironmentFactory env_factory(context_->env());
+
+  // Field trials active for this PeerConnection is the first of:
+  // a) Specified in the PeerConnectionDependencies
+  // b) Specified in the PeerConnectionFactoryDependencies
+  // c) Created as default by EnvironmentFactory.
+  env_factory.Set(std::move(dependencies.trials));
+
   std::unique_ptr<RtcEventLog> event_log =
       worker_thread()->BlockingCall([this] { return CreateRtcEventLog_w(); });
 
-  const FieldTrialsView* trials =
-      dependencies.trials ? dependencies.trials.get() : &field_trials();
-  std::unique_ptr<Call> call =
-      worker_thread()->BlockingCall([this, &event_log, trials, &configuration] {
-        return CreateCall_w(event_log.get(), *trials, configuration);
-      });
+  // TODO(bugs.webrtc.org/15656): Move ownership of the event_log into the
+  // Environment after ensuring event_log can be destroyed on any thread.
+  env_factory.Set(event_log.get());
 
-  auto result = PeerConnection::Create(context_, options_, std::move(event_log),
-                                       std::move(call), configuration,
-                                       std::move(dependencies));
+  Environment env = env_factory.Create();
+  std::unique_ptr<Call> call = worker_thread()->BlockingCall([this, &env,
+                                                              &configuration] {
+    return CreateCall_w(&env.event_log(), env.field_trials(), configuration);
+  });
+
+  auto result = PeerConnection::Create(context_, env, options_,
+                                       std::move(event_log), std::move(call),
+                                       configuration, std::move(dependencies));
   if (!result.ok()) {
     return result.MoveError();
   }

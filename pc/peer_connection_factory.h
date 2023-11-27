@@ -113,7 +113,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   }
 
   const FieldTrialsView& field_trials() const {
-    return context_->field_trials();
+    return context_->env().field_trials();
   }
 
   cricket::MediaEngineInterface* media_engine() const;
@@ -133,12 +133,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
  private:
   rtc::Thread* network_thread() const { return context_->network_thread(); }
 
-  bool IsTrialEnabled(absl::string_view key) const;
-
   std::unique_ptr<RtcEventLog> CreateRtcEventLog_w();
   std::unique_ptr<Call> CreateCall_w(
-      RtcEventLog* event_log,
-      const FieldTrialsView& field_trials,
+      const Environment& env,
       const PeerConnectionInterface::RTCConfiguration& configuration);
 
   rtc::scoped_refptr<ConnectionContext> context_;

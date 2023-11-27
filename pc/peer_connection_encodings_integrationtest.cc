@@ -80,7 +80,9 @@ struct StringParamToString {
 bool IsReliabilityMechanism(const RtpCodecCapability& codec) {
   return absl::EqualsIgnoreCase(codec.name, cricket::kRtxCodecName) ||
          absl::EqualsIgnoreCase(codec.name, cricket::kRedCodecName) ||
-         absl::EqualsIgnoreCase(codec.name, cricket::kUlpfecCodecName);
+         absl::EqualsIgnoreCase(codec.name, cricket::kUlpfecCodecName) ||
+         absl::EqualsIgnoreCase(codec.name, cricket::kFlexfecCodecName) ||
+         absl::EqualsIgnoreCase(codec.name, cricket::kComfortNoiseCodecName);
 }
 
 std::string GetCurrentCodecMimeType(
@@ -141,12 +143,12 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
     return transceiver_or_error.value();
   }
 
-  bool HasSenderVideoCodecCapability(
+  bool HasReceiverVideoCodecCapability(
       rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper,
       absl::string_view codec_name) {
     std::vector<RtpCodecCapability> codecs =
         pc_wrapper->pc_factory()
-            ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+            ->GetRtpReceiverCapabilities(cricket::MEDIA_TYPE_VIDEO)
             .codecs;
     return std::find_if(codecs.begin(), codecs.end(),
                         [&codec_name](const RtpCodecCapability& codec) {
@@ -159,7 +161,7 @@ class PeerConnectionEncodingsIntegrationTest : public ::testing::Test {
       absl::string_view codec_name) {
     std::vector<RtpCodecCapability> codecs =
         pc_wrapper->pc_factory()
-            ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+            ->GetRtpReceiverCapabilities(cricket::MEDIA_TYPE_VIDEO)
             .codecs;
     codecs.erase(std::remove_if(codecs.begin(), codecs.end(),
                                 [&codec_name](const RtpCodecCapability& codec) {
@@ -1854,7 +1856,7 @@ class PeerConnectionEncodingsIntegrationParameterizedTest
   bool SkipTestDueToAv1Missing(
       rtc::scoped_refptr<PeerConnectionTestWrapper> local_pc_wrapper) {
     if (codec_name_ == "AV1" &&
-        !HasSenderVideoCodecCapability(local_pc_wrapper, "AV1")) {
+        !HasReceiverVideoCodecCapability(local_pc_wrapper, "AV1")) {
       RTC_LOG(LS_WARNING) << "\n***\nAV1 is not available, skipping test.\n***";
       return true;
     }

@@ -40,7 +40,7 @@ class PeerConnectionSVCIntegrationTest
       rtc::scoped_refptr<RtpTransceiverInterface> transceiver,
       absl::string_view codec_name) {
     RtpCapabilities capabilities =
-        caller()->pc_factory()->GetRtpSenderCapabilities(
+        caller()->pc_factory()->GetRtpReceiverCapabilities(
             cricket::MEDIA_TYPE_VIDEO);
     std::vector<RtpCodecCapability> codecs;
     for (const RtpCodecCapability& codec_capability : capabilities.codecs) {
@@ -95,13 +95,14 @@ TEST_F(PeerConnectionSVCIntegrationTest, SetParametersAcceptsL1T3WithVP8) {
   ConnectFakeSignaling();
 
   RtpCapabilities capabilities =
-      caller()->pc_factory()->GetRtpSenderCapabilities(
+      caller()->pc_factory()->GetRtpReceiverCapabilities(
           cricket::MEDIA_TYPE_VIDEO);
   std::vector<RtpCodecCapability> vp8_codec;
   for (const RtpCodecCapability& codec_capability : capabilities.codecs) {
     if (codec_capability.name == cricket::kVp8CodecName)
       vp8_codec.push_back(codec_capability);
   }
+  RTC_LOG(LS_ERROR) << "\n\n\nVP8? " << vp8_codec.size();
 
   RtpTransceiverInit init;
   RtpEncodingParameters encoding_parameters;
@@ -115,6 +116,10 @@ TEST_F(PeerConnectionSVCIntegrationTest, SetParametersAcceptsL1T3WithVP8) {
   RtpParameters parameters = transceiver->sender()->GetParameters();
   ASSERT_EQ(parameters.encodings.size(), 1u);
   parameters.encodings[0].scalability_mode = "L1T3";
+  RTC_LOG(LS_ERROR) << "FIPPO #" << parameters.codecs.size();
+  for (const auto& c : parameters.codecs) {
+    RTC_LOG(LS_ERROR) << "FIPPO C " << c.name;
+  }
   auto result = transceiver->sender()->SetParameters(parameters);
   EXPECT_TRUE(result.ok());
 }
@@ -251,7 +256,7 @@ TEST_F(PeerConnectionSVCIntegrationTest, FallbackToL1Tx) {
   auto caller_transceiver = transceiver_or_error.MoveValue();
 
   RtpCapabilities capabilities =
-      caller()->pc_factory()->GetRtpSenderCapabilities(
+      caller()->pc_factory()->GetRtpReceiverCapabilities(
           cricket::MEDIA_TYPE_VIDEO);
   std::vector<RtpCodecCapability> send_codecs = capabilities.codecs;
   // Only keep VP9 in the caller

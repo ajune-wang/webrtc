@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf23076a_92d850c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2023-11-27T10:45:22Z",
+      "side": 1,
+      "message": "There is first_slice_segment_in_pic_flag in H265 slice header. Can it be used to set is_first_packet_in_frame more reliably?",
+      "revId": "5bc3490b605bb7f4ddde93fd058d80a9971a3fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5819d9a2_4c5789a7",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2023-11-27T10:45:22Z",
+      "side": 1,
+      "message": "If a frame consists of multiple AP/single-NALU packets then is_first_packet_in_frame will be true for all of them? Should it be true only for the first packet?",
+      "range": {
+        "startLine": 102,
+        "startChar": 31,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "5bc3490b605bb7f4ddde93fd058d80a9971a3fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b0bdbd0_7cd46ea3",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2023-11-27T10:45:22Z",
+      "side": 1,
+      "message": "Can a frame have multiple FUs? If yes, only first packet of first FU should have is_first_packet_in_frame\u003dtrue.",
+      "range": {
+        "startLine": 245,
+        "startChar": 31,
+        "endLine": 245,
+        "endChar": 72
+      },
+      "revId": "5bc3490b605bb7f4ddde93fd058d80a9971a3fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

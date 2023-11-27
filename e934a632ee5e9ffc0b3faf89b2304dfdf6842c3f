@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a09fa05_b9d98a9d",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-11-27T09:40:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16b3deaa_b86344be",
+      "revId": "e934a632ee5e9ffc0b3faf89b2304dfdf6842c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22947cdd_1af44fba",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-11-24T18:41:31Z",
       "side": 1,
       "message": "Are we trying to not DCHECK when it is set to the same value twice (an inefficiency)?\nShould there be a DCHECK(frame_transformer \u003d\u003d frame_transformer_delegate_)?\n\nIf it set twice, and the values are different, ignoring the setting the second time seems Just Wrong.",
+      "revId": "e934a632ee5e9ffc0b3faf89b2304dfdf6842c3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f786336_2dd4648e",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-11-27T09:40:05Z",
+      "side": 1,
+      "message": "Yeah, the two should be the same - just set initially and then set again when the Channel is reconfigured. Added the DCHECK that the new transform is the same as the old one, and a TODO to remove the redundant setting.",
+      "parentUuid": "22947cdd_1af44fba",
       "revId": "e934a632ee5e9ffc0b3faf89b2304dfdf6842c3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

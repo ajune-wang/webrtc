@@ -16,6 +16,57 @@
       "message": "next slice of the https://webrtc-review.googlesource.com/c/src/+/323003",
       "revId": "d0766315e61aedfdbb4e2f526611c9097311cee2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54f67f1_02b6c226",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T12:57:06Z",
+      "side": 1,
+      "message": "A little bit unsure about the API shape choices. Convince me.",
+      "revId": "d0766315e61aedfdbb4e2f526611c9097311cee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b522ea8e_d9322f15",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T12:57:06Z",
+      "side": 1,
+      "message": "Please argue the point of why env needs to be its own separate argument rather than a member of dependencies.",
+      "revId": "d0766315e61aedfdbb4e2f526611c9097311cee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3f87314_57e16c37",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T12:57:06Z",
+      "side": 1,
+      "message": "is there any powerful reason why we shouldn\u0027t keep the field_trials() accessor?",
+      "revId": "d0766315e61aedfdbb4e2f526611c9097311cee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

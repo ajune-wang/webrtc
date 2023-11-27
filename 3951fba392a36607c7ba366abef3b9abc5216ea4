@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cd27dbe_529cec00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-27T13:44:22Z",
+      "side": 1,
+      "message": "forward fix of subtle issue triggered by\nhttps://webrtc-review.googlesource.com/c/src/+/328380\n\nThere are header only targets with implementation hidden in different targets.\nnone of the compilation bots notices that libjingle_peerconnection_metrics_default_jni needs to depend on such implementation, even though it doesn\u0027t include any header files from it.",
+      "revId": "3951fba392a36607c7ba366abef3b9abc5216ea4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

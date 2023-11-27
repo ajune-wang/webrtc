@@ -23,6 +23,7 @@
 #include "absl/strings/match.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/environment/environment.h"
 #include "api/jsep_ice_candidate.h"
 #include "api/media_types.h"
 #include "api/rtp_parameters.h"
@@ -537,6 +538,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator!=(
 
 RTCErrorOr<rtc::scoped_refptr<PeerConnection>> PeerConnection::Create(
     rtc::scoped_refptr<ConnectionContext> context,
+    const Environment& env,
     const PeerConnectionFactoryInterface::Options& options,
     std::unique_ptr<RtcEventLog> event_log,
     std::unique_ptr<Call> call,
@@ -605,8 +607,8 @@ RTCErrorOr<rtc::scoped_refptr<PeerConnection>> PeerConnection::Create(
 
   // The PeerConnection constructor consumes some, but not all, dependencies.
   auto pc = rtc::make_ref_counted<PeerConnection>(
-      context, options, is_unified_plan, std::move(event_log), std::move(call),
-      dependencies, dtls_enabled);
+      context, env, options, is_unified_plan, std::move(event_log),
+      std::move(call), dependencies, dtls_enabled);
   RTCError init_error = pc->Initialize(configuration, std::move(dependencies));
   if (!init_error.ok()) {
     RTC_LOG(LS_ERROR) << "PeerConnection initialization failed";
@@ -617,6 +619,7 @@ RTCErrorOr<rtc::scoped_refptr<PeerConnection>> PeerConnection::Create(
 
 PeerConnection::PeerConnection(
     rtc::scoped_refptr<ConnectionContext> context,
+    const Environment& env,
     const PeerConnectionFactoryInterface::Options& options,
     bool is_unified_plan,
     std::unique_ptr<RtcEventLog> event_log,
@@ -624,12 +627,11 @@ PeerConnection::PeerConnection(
     PeerConnectionDependencies& dependencies,
     bool dtls_enabled)
     : context_(context),
-      trials_(std::move(dependencies.trials), &context->field_trials()),
+      env_(env),
       options_(options),
       observer_(dependencies.observer),
       is_unified_plan_(is_unified_plan),
       event_log_(std::move(event_log)),
-      event_log_ptr_(event_log_.get()),
       async_dns_resolver_factory_(
           std::move(dependencies.async_dns_resolver_factory)),
       port_allocator_(std::move(dependencies.allocator)),
@@ -648,7 +650,15 @@ PeerConnection::PeerConnection(
       dtls_enabled_(dtls_enabled),
       data_channel_controller_(this),
       message_handler_(signaling_thread()),
-      weak_factory_(this) {}
+      weak_factory_(this) {
+  // Field trials specific to the peerconnection should be owned by the
+  // `Environment`,
+  RTC_DCHECK(dependencies.trials == nullptr);
+
+  // Until RtcEventLog ownership is moved into Environment, it should be the
+  // same as in the passed environment.
+  RTC_DCHECK(&env_.event_log() == event_log_.get());
+}
 
 PeerConnection::~PeerConnection() {
   TRACE_EVENT0("webrtc", "PeerConnection::~PeerConnection");
@@ -797,7 +807,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
   config.transport_observer = this;
   config.rtcp_handler = InitializeRtcpCallback();
   config.un_demuxable_packet_handler = InitializeUnDemuxablePacketHandler();
-  config.event_log = event_log_ptr_;
+  config.event_log = &env_.event_log();
 #if defined(ENABLE_EXTERNAL_AUTH)
   config.enable_external_auth = true;
 #endif
@@ -816,7 +826,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
         }
       };
 
-  config.field_trials = trials_.get();
+  config.field_trials = &env_.field_trials();
 
   transport_controller_.reset(new JsepTransportController(
       network_thread(), port_allocator_.get(),

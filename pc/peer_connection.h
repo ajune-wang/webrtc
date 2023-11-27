@@ -27,6 +27,7 @@
 #include "api/crypto/crypto_options.h"
 #include "api/data_channel_interface.h"
 #include "api/dtls_transport_interface.h"
+#include "api/environment/environment.h"
 #include "api/field_trials_view.h"
 #include "api/ice_transport_interface.h"
 #include "api/jsep.h"
@@ -111,6 +112,7 @@ class PeerConnection : public PeerConnectionInternal,
   // either use them or release them, whether it succeeds or fails.
   static RTCErrorOr<rtc::scoped_refptr<PeerConnection>> Create(
       rtc::scoped_refptr<ConnectionContext> context,
+      const Environment& env,
       const PeerConnectionFactoryInterface::Options& options,
       std::unique_ptr<RtcEventLog> event_log,
       std::unique_ptr<Call> call,
@@ -428,7 +430,7 @@ class PeerConnection : public PeerConnectionInternal,
   void TeardownDataChannelTransport_n(RTCError error)
       RTC_RUN_ON(network_thread());
 
-  const FieldTrialsView& trials() const override { return *trials_; }
+  const FieldTrialsView& trials() const override { return env_.field_trials(); }
 
   bool ConfiguredForMedia() const;
 
@@ -442,6 +444,7 @@ class PeerConnection : public PeerConnectionInternal,
  protected:
   // Available for rtc::scoped_refptr creation
   PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
+                 const Environment& env,
                  const PeerConnectionFactoryInterface::Options& options,
                  bool is_unified_plan,
                  std::unique_ptr<RtcEventLog> event_log,
@@ -598,12 +601,7 @@ class PeerConnection : public PeerConnectionInternal,
   InitializeUnDemuxablePacketHandler();
 
   const rtc::scoped_refptr<ConnectionContext> context_;
-  // Field trials active for this PeerConnection is the first of:
-  // a) Specified in PeerConnectionDependencies (owned).
-  // b) Accessed via ConnectionContext (e.g PeerConnectionFactoryDependencies>
-  // c) Created as Default (FieldTrialBasedConfig).
-  const AlwaysValidPointer<const FieldTrialsView, FieldTrialBasedConfig>
-      trials_;
+  const Environment env_;
   const PeerConnectionFactoryInterface::Options options_;
   PeerConnectionObserver* observer_ RTC_GUARDED_BY(signaling_thread()) =
       nullptr;
@@ -612,10 +610,6 @@ class PeerConnection : public PeerConnectionInternal,
 
   // The EventLog needs to outlive `call_` (and any other object that uses it).
   std::unique_ptr<RtcEventLog> event_log_ RTC_GUARDED_BY(worker_thread());
-
-  // Points to the same thing as `event_log_`. Since it's const, we may read the
-  // pointer (but not touch the object) from any thread.
-  RtcEventLog* const event_log_ptr_ RTC_PT_GUARDED_BY(worker_thread());
 
   IceConnectionState ice_connection_state_ RTC_GUARDED_BY(signaling_thread()) =
       kIceConnectionNew;

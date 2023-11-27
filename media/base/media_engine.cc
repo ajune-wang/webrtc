@@ -80,7 +80,7 @@ webrtc::RTCError CheckScalabilityModeValues(
   for (size_t i = 0; i < rtp_parameters.encodings.size(); ++i) {
     if (rtp_parameters.encodings[i].codec) {
       bool codecFound = false;
-      for (const cricket::VideoCodec& codec : codec_preferences) {
+      for (const cricket::Codec& codec : codec_preferences) {
         if (codec.MatchesRtpCodec(*rtp_parameters.encodings[i].codec)) {
           codecFound = true;
           send_codec = codec;
@@ -97,8 +97,12 @@ webrtc::RTCError CheckScalabilityModeValues(
     if (rtp_parameters.encodings[i].scalability_mode) {
       if (!send_codec) {
         bool scalabilityModeFound = false;
-        for (const cricket::VideoCodec& codec : codec_preferences) {
+        RTC_LOG(LS_ERROR) << "FIPPO PREFS #" << codec_preferences.size();
+        for (const cricket::Codec& codec : codec_preferences) {
+          RTC_LOG(LS_ERROR) << "FIPPO PREF " << codec.name;
           for (const auto& scalability_mode : codec.scalability_modes) {
+            RTC_LOG(LS_ERROR)
+                << "\tSM: " << ScalabilityModeToString(scalability_mode);
             if (ScalabilityModeToString(scalability_mode) ==
                 *rtp_parameters.encodings[i].scalability_mode) {
               scalabilityModeFound = true;

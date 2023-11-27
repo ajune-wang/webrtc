@@ -223,7 +223,7 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
 
   void SetCodecPreferences(
       std::vector<cricket::Codec> codec_preferences) override {
-    codec_preferences_ = codec_preferences;
+    // codec_preferences_ = codec_preferences;
   }
 
  protected:

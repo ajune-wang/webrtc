@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fcdeec6_d2f1a31c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T09:05:13Z",
+      "side": 1,
+      "message": "According to file content, I think this should be chromium:1381982",
+      "revId": "36f2ae95387d6673c93d3d2b36171e38a779af06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

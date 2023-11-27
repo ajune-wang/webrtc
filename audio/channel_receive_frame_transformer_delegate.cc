@@ -145,4 +145,11 @@ void ChannelReceiveFrameTransformerDelegate::ReceiveFrame(
   // originally from this receiver.
   receive_frame_callback_(frame->GetData(), header);
 }
+
+rtc::scoped_refptr<FrameTransformerInterface>
+ChannelReceiveFrameTransformerDelegate::FrameTransformer() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return frame_transformer_;
+}
+
 }  // namespace webrtc

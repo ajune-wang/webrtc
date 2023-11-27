@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2538607_995e7746",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T14:53:36Z",
+      "side": 1,
+      "message": "Not immediately convinced changes are needed...",
+      "revId": "008d558848890b0327b2cee9c9118486d25c3758",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac3fa48e_e120b934",
@@ -43,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6bc515e1_f8fe1453",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T14:53:36Z",
+      "side": 1,
+      "message": "Can\u0027t - this level of abstraction doesn\u0027t know what thread it\u0027s running on, network_thread_ comes into existence in subclass P2PTransportChannel.",
+      "parentUuid": "ac3fa48e_e120b934",
+      "range": {
+        "startLine": 316,
+        "startChar": 16,
+        "endLine": 316,
+        "endChar": 41
+      },
+      "revId": "008d558848890b0327b2cee9c9118486d25c3758",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc8e8b8c_10e8f4af",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 1
@@ -54,6 +95,30 @@
       "writtenOn": "2023-11-27T14:43:05Z",
       "side": 1,
       "message": "Have you considered replacing of off dts_-\u003eice_transport Signals with one callback interface?",
+      "range": {
+        "startLine": 440,
+        "startChar": 25,
+        "endLine": 440,
+        "endChar": 50
+      },
+      "revId": "008d558848890b0327b2cee9c9118486d25c3758",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21261975_ed195d29",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-27T14:53:36Z",
+      "side": 1,
+      "message": "You mean replacing the ton-of-callbacks with an observer interface? Might be worth doing - except that 5 of those signals are picked up in other places (including 2 that are *only* consumed by remoting). So I\u0027m taking the easy way out and doing them one at a time in this round.",
+      "parentUuid": "dc8e8b8c_10e8f4af",
       "range": {
         "startLine": 440,
         "startChar": 25,

@@ -16,6 +16,52 @@
       "message": "Since you\u0027ve been touching sigslots recently... chipping away at the mountain.",
       "revId": "008d558848890b0327b2cee9c9118486d25c3758",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac3fa48e_e120b934",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-11-27T14:43:05Z",
+      "side": 1,
+      "message": "RTC_DCHECK_RUN_ON(network_thread_);",
+      "range": {
+        "startLine": 316,
+        "startChar": 16,
+        "endLine": 316,
+        "endChar": 41
+      },
+      "revId": "008d558848890b0327b2cee9c9118486d25c3758",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc8e8b8c_10e8f4af",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-11-27T14:43:05Z",
+      "side": 1,
+      "message": "Have you considered replacing of off dts_-\u003eice_transport Signals with one callback interface?",
+      "range": {
+        "startLine": 440,
+        "startChar": 25,
+        "endLine": 440,
+        "endChar": 50
+      },
+      "revId": "008d558848890b0327b2cee9c9118486d25c3758",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

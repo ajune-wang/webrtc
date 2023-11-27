@@ -624,7 +624,7 @@ PeerConnection::PeerConnection(
     PeerConnectionDependencies& dependencies,
     bool dtls_enabled)
     : context_(context),
-      trials_(std::move(dependencies.trials), &context->field_trials()),
+      trials_(std::move(dependencies.trials), &context->env().field_trials()),
       options_(options),
       observer_(dependencies.observer),
       is_unified_plan_(is_unified_plan),

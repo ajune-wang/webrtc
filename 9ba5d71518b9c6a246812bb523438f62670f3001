@@ -33,6 +33,24 @@
       "message": "I wonder if api/environment.h needs to contain advice that create functions that take an environment argument should place it first in the argument list.\nWhen we added field_trials, it was added last. Consistency is nice.",
       "revId": "9ba5d71518b9c6a246812bb523438f62670f3001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78c5d910_255774d8",
+        "filename": "pc/media_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-28T07:34:16Z",
+      "side": 1,
+      "message": "May be, I\u0027m unsure. I plan to revisit docs a bit once Environment is more ready for further propagation (i.e. once pc and call have a copy of it). \n\nI\u0027m worried such advice goes against style guide spirit of the rule \nhttps://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\"do not add new parameters to the end of the function just because they are new\"\ni.e. order shouldn\u0027t be historical\n\nI\u0027m following vague guidance \"put more \u0027constant\u0027 parameters earlier.\"\nmost of the time that make me feel Environment should be the first. however for, PeerConnection most logical place for Environment seems to be the 2nd parameter, after ConnectionContext.",
+      "parentUuid": "866dc8cb_c4ab4834",
+      "revId": "9ba5d71518b9c6a246812bb523438f62670f3001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

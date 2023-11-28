@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a4d561_fd9c6e00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-28T10:44:41Z",
+      "side": 1,
+      "message": "first_slice_segment_in_pic_flag shows it\u0027s the first slice of the frame, but it cannot ensure it\u0027s the first packet in the frame, in some cases, there are other nalus before the first slice in a frame.",
+      "parentUuid": "cf23076a_92d850c5",
+      "revId": "5bc3490b605bb7f4ddde93fd058d80a9971a3fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5819d9a2_4c5789a7",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14dc7a0f_8117e277",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-28T10:44:41Z",
+      "side": 1,
+      "message": "Yes, technically is_first_packet_in_frame should be marked as true only when it\u0027s the first packet, but we don\u0027t store packets in depacketizer, so we cannot tell if it\u0027s the first packet of the frame. And is_first_packet_in_frame will be set to true later in the packet_buffer.cc when a full frame is assembled by \"packet-\u003evideo_header.is_first_packet_in_frame \u003d (i \u003d\u003d start_seq_num);\". So we follow the h264 rtp depacketizer way to set this value for h265 rtp depacketizer",
+      "parentUuid": "5819d9a2_4c5789a7",
+      "range": {
+        "startLine": 102,
+        "startChar": 31,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "5bc3490b605bb7f4ddde93fd058d80a9971a3fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b0bdbd0_7cd46ea3",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 5
@@ -54,6 +96,30 @@
       "writtenOn": "2023-11-27T10:45:22Z",
       "side": 1,
       "message": "Can a frame have multiple FUs? If yes, only first packet of first FU should have is_first_packet_in_frame\u003dtrue.",
+      "range": {
+        "startLine": 245,
+        "startChar": 31,
+        "endLine": 245,
+        "endChar": 72
+      },
+      "revId": "5bc3490b605bb7f4ddde93fd058d80a9971a3fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8668376f_b1a6c56b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-11-28T10:44:41Z",
+      "side": 1,
+      "message": "Yes, a frame can have multiple FUs. And depacketizer is designed as stateless and do not store the received packets. And this flag will be set later in packet_buffer.cc when a full frame is found.",
+      "parentUuid": "4b0bdbd0_7cd46ea3",
       "range": {
         "startLine": 245,
         "startChar": 31,

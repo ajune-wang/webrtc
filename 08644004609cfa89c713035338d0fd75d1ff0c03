@@ -158,6 +158,24 @@
       "message": "So the first five tests that are failing do things with getParameters and .codecs before negotiation. Which seems wrong since .codecs should be empty at that point?\n\nPeerConnectionEncodingsIntegrationTest.VP8_RejectsSvcAndDefaultsToL1T1 calls setParameters before negotiation when it is not clear which codec is going to be negotiated so this does not seem right either.\n\nPeerConnectionMediaTestUnifiedPlan.SetCodecPreferencesAudioMissingSendCodec no longer applies.\n\nThe last three test failures are genuine I think.",
       "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a4c9531_143a14eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-11-28T10:21:23Z",
+      "side": 1,
+      "message": "There are a lot of tests that appear to get/setParameters before negotiating... I\u0027m not sure what this says about backwards compat?\n\nIt seems wrong to me not to be allowed to set scalabilityMode when you setCodecPreferences. Arguably you could have done this in addTransceiver, but I think real world apps create transceivers in one place and get/set parameters in another place, so I\u0027m afraid of compat",
+      "parentUuid": "f93e3ed3_691a7d42",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

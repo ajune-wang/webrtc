@@ -126,6 +126,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26f41d5_3ac18e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-11-28T10:49:03Z",
+      "side": 1,
+      "message": "I don\u0027t think it is weird to take send codecs into account.\n\nEven if you could add codecs after the fact according to RFC, I don\u0027t think we do this in practise, and if the RFC says any additional codecs has to be added LAST in the list, then it makes even less sense to forbid my sendonly codec to be first in the list, if only to allow the other endpoint to know that a) I support it, and b) it shall be first in the list.\n\nThe webrtc-pc guards ensures we can do both sending and receiving, which is a sensible footgun protection, but it breaks down with single direction codecs.",
+      "parentUuid": "0508340b_dc4dbafa",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",
@@ -210,6 +228,24 @@
       "side": 1,
       "message": "Yeah and those tests worry me a bit. At least for web we don\u0027t expose scalability mode in getParameters/setParameters or getCapabilities (but that is because we were forced to move that to MC?)",
       "parentUuid": "1a4c9531_143a14eb",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dda6b296_38d46d72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-11-28T10:49:03Z",
+      "side": 1,
+      "message": "We do both getting and setting of scalabilityMode in get/setParameters.\n\nConsidering codecs are set after the transceiver is created, I think you should be allowed to setParameters with your desired scalability mode before negotiating too.\n\nMC says which scalability modes are supported/smooth/powerEfficient for which codec, so no need for getCapabilities, but the API \"use case\" of scalabilityMode is setParamters.",
+      "parentUuid": "c8f93a51_3147a4e6",
       "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

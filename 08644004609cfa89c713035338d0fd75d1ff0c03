@@ -180,6 +180,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "25684c64_03dd555b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-28T11:36:59Z",
+      "side": 1,
+      "message": "webrtc-pc\u0027s rationale is \"this ensures that we always have something to offer regardless of transceiver direction\". But the semantics of SDP is that we have something we offer to receive. And we can\u0027t offer to receive an empty set via setCodecPreferences because calling it with an empty set resets the preferences.\n\nNow an argument you can make here is that setCodecPreferences on a send-only m-line should not take have an effect but it does: https://jsfiddle.net/fippo/9kcf56oL/\nWhich seems ok since you can change the direction without worrying too much in subsequent negotiations.",
+      "parentUuid": "d08db67c_2c439501",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

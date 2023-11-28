@@ -108,6 +108,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0508340b_dc4dbafa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-28T10:43:03Z",
+      "side": 1,
+      "message": "the algorithm in webrtc-pc takes send codecs into account. Branch with the spec changes here:\nhttps://github.com/w3c/webrtc-pc/compare/main...fippo:webrtc-pc:setcodecpreferences-recvonly?expand\u003d1\n\nNote that we also had the samples do the wrong thing which then got copy-pasted around a lot but was easy to change:\nhttps://github.com/webrtc/samples/pull/1640",
+      "parentUuid": "7c94d10e_4333482f",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "There are a lot of tests that appear to get/setParameters before negotiating... I\u0027m not sure what this says about backwards compat?\n\nIt seems wrong to me not to be allowed to set scalabilityMode when you setCodecPreferences. Arguably you could have done this in addTransceiver, but I think real world apps create transceivers in one place and get/set parameters in another place, so I\u0027m afraid of compat",
       "parentUuid": "f93e3ed3_691a7d42",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f93a51_3147a4e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-28T10:43:03Z",
+      "side": 1,
+      "message": "Yeah and those tests worry me a bit. At least for web we don\u0027t expose scalability mode in getParameters/setParameters or getCapabilities (but that is because we were forced to move that to MC?)",
+      "parentUuid": "1a4c9531_143a14eb",
       "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b8e94ee_3a9d1f66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-28T09:52:33Z",
+      "side": 1,
+      "message": "But webrtc-pc contradicts JSEP: \"[setCodecPreferences] only affects which codecs the implementation indicates that it prefers to receive, via the offer or answer\".\n\nBackward compat seems to be ok, the WPT still pass (but that means they are not enough of them). Where this changes behavior is sendonly/recvonly codecs which are already a problematic area.\n\nI can make a branch with webrtc-pc changes that would go along with this if it helps, it should be pretty straightforward from the code changes.",
+      "parentUuid": "870623d3_3235a0f1",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",
@@ -103,6 +121,23 @@
       "side": 1,
       "message": "PS3 is the minimal way to remove setCodecPreferences from the *sender*",
       "parentUuid": "4c6a67ac_67f34d2d",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f93e3ed3_691a7d42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-28T09:52:33Z",
+      "side": 1,
+      "message": "So the first five tests that are failing do things with getParameters and .codecs before negotiation. Which seems wrong since .codecs should be empty at that point?\n\nPeerConnectionEncodingsIntegrationTest.VP8_RejectsSvcAndDefaultsToL1T1 calls setParameters before negotiation when it is not clear which codec is going to be negotiated so this does not seem right either.\n\nPeerConnectionMediaTestUnifiedPlan.SetCodecPreferencesAudioMissingSendCodec no longer applies.\n\nThe last three test failures are genuine I think.",
       "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

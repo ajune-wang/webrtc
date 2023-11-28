@@ -51,6 +51,24 @@
       "parentUuid": "866dc8cb_c4ab4834",
       "revId": "9ba5d71518b9c6a246812bb523438f62670f3001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9845dea4_c898c72a",
+        "filename": "pc/media_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-28T09:04:50Z",
+      "side": 1,
+      "message": "My gut feeling is that it should go first, too (also for PeerConnection).\nSo I\u0027m thinking that if we both feel the same way, we should offer definite advice on it - in the spirit of \"it\u0027s better to make a decision than not to make a decision\".",
+      "parentUuid": "78c5d910_255774d8",
+      "revId": "9ba5d71518b9c6a246812bb523438f62670f3001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

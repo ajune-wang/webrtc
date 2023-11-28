@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2245c1_ee13f491",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-28T16:34:41Z",
+      "side": 1,
+      "message": "Ilya, do you mind to review this cleanup as a media/ owner",
+      "revId": "ea9874e1c035d8765e81d59862d787c0971d73a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

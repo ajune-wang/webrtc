@@ -144,6 +144,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e31a7d07_653d2b87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-28T11:02:48Z",
+      "side": 1,
+      "message": "I think JSEP is pretty clear once we know that codec preferences are on the m-line:\n\n\"sets the codec preferences of a transceiver, which in turn affect the presence and order of codecs of the associated \"m\u003d\" section on future calls to createOffer and createAnswer. Note that setCodecPreferences does not directly affect which codec the implementation decides to send. It only affects which codecs the implementation indicates that it prefers to receive\"\n\nHaving a sendonly codec in the list for reception makes no sense to me - if the other party chooses to honor your stated preferences and sends using that codec, you will receive media you can\u0027t decode. That\u0027s a footgun.",
+      "parentUuid": "449ea881_5d81e219",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

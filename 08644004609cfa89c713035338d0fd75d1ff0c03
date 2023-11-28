@@ -162,6 +162,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08db67c_2c439501",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-28T11:14:22Z",
+      "side": 1,
+      "message": "But these guards are not necessary. When you use setCodecPreferences you state what you would like to receive which is not influenced by the other side.\nNegotiation is done as offer/answer and the result is the peer sending you things you can decode (they know that from your offer) or a rejected m-line if you have no codecs in common.\nIf you want to send to the peer, you look at the codecs listed in the answer and pick any one them. Which may include the additional codecs you did not want to receive (or do not support). You know whether you support them.\n\nBut the send codecs don\u0027t need to be part of setCodecPreferences.\n\nNow oneway codecs are tricky. Lets say you only do decode for codec X. You would create an offer. But oh, this codec is not in there unless you set the transceiver direction to recvonly! That is the behavior already for codecs like VP9 profile\u003d2.\nThe current spec prevents setCodecPreferences from using that codec \nand that seems wrong.",
+      "parentUuid": "e26f41d5_3ac18e94",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

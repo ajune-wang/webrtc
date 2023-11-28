@@ -570,20 +570,24 @@ class RampUpTest : public test::CallTest {
         rtc_event_log_factory_(task_queue_factory_.get()) {
     std::string dump_name(absl::GetFlag(FLAGS_ramp_dump_name));
     if (!dump_name.empty()) {
-      send_event_log_ = rtc_event_log_factory_.CreateRtcEventLog(
-          RtcEventLog::EncodingType::Legacy);
-      recv_event_log_ = rtc_event_log_factory_.CreateRtcEventLog(
-          RtcEventLog::EncodingType::Legacy);
+      std::unique_ptr<RtcEventLog> send_event_log =
+          rtc_event_log_factory_.CreateRtcEventLog(
+              RtcEventLog::EncodingType::Legacy);
+      std::unique_ptr<RtcEventLog> recv_event_log =
+          rtc_event_log_factory_.CreateRtcEventLog(
+              RtcEventLog::EncodingType::Legacy);
       bool event_log_started =
-          send_event_log_->StartLogging(
+          send_event_log->StartLogging(
               std::make_unique<RtcEventLogOutputFile>(
                   dump_name + ".send.rtc.dat", RtcEventLog::kUnlimitedOutput),
               RtcEventLog::kImmediateOutput) &&
-          recv_event_log_->StartLogging(
+          recv_event_log->StartLogging(
               std::make_unique<RtcEventLogOutputFile>(
                   dump_name + ".recv.rtc.dat", RtcEventLog::kUnlimitedOutput),
               RtcEventLog::kImmediateOutput);
       RTC_DCHECK(event_log_started);
+      SetSendEventLog(std::move(send_event_log));
+      SetRecvEventLog(std::move(recv_event_log));
     }
   }
 

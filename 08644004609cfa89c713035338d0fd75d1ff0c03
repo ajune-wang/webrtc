@@ -90,6 +90,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c94d10e_4333482f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-11-28T10:17:14Z",
+      "side": 1,
+      "message": "If webrtc-pc needs fixing, let\u0027s make webrtc-pc PRs first and land CLs second.\n\nI\u0027m not even sure what the contradiction is, since webrtc-pc just says to update the user agent\u0027s default preferences and everything else happens in SDP land, but if there is stuff to fix, let\u0027s fix webrtc-pc first.",
+      "parentUuid": "0b8e94ee_3a9d1f66",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

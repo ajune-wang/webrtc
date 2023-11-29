@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa58023_2ac2e790",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-29T12:42:47Z",
+      "side": 1,
+      "message": "The two failing WPT need to be removed before landing.\n\nPS4 renames the senders SetCodecPreferences to SetSendCodecs and wires that up again.\nPS5 deals with all the remaining test failures. Comments on that one: \nPeerConnectionEncodingsIntegrationTest.SetParametersRejectsNonPreferredCodecParameterAudio is obsolete, we do have a better test that does the check with negotiation already (SetParametersRejectsNonRemotelyNegotiatedCodecParameterAudio)\n\nSetCodecPreferencesAudioMissingSendCodec is obsolete.\n\nThe good parts of VP8_RejectsSvcAndDefaultsToL1T1 got merged into VP8_FallbackFromSvcResultsInL1T2\n\nPeerConnectionSVCIntegrationTest.SetParametersRejectsL3T3WithVP8 is a tough call.\nI\u0027d say setParameters can not reject upfront because the remote might still offer VP9 as additional codec.\nThe post-negotiation rejection is covered by VP8_FallbackFromSvcResultsInL1T2\n\nWill share draft slides for the WG meeting later.",
+      "revId": "57ec543ff4d161904b4346f35c406f2412d549bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c47edb8_2d948f0d",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-11-29T12:42:47Z",
+      "side": 1,
+      "message": "I tried adding a helper similar to the one we have in cricket::Codec but that led to a circular dependency between media/base (where those codec names are defined)  and api/rtp_parameters which defines RtpCodecCapability...",
+      "revId": "57ec543ff4d161904b4346f35c406f2412d549bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

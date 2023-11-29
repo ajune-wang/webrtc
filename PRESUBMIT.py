@@ -65,6 +65,7 @@ PYLINT_OLD_STYLE = [
 #                         all move-related errors).
 DISABLED_LINT_FILTERS = [
     '-build/c++11',
+    '-readability/todo',
     '-runtime/references',
     '-whitespace/operators',
 ]

@@ -185,6 +185,12 @@ void LossBasedBweV2::SetAcknowledgedBitrate(DataRate acknowledged_bitrate) {
     RTC_LOG(LS_WARNING) << "The acknowledged bitrate must be finite: "
                         << ToString(acknowledged_bitrate);
   }
+
+  if (config_->lower_bound_by_acked_rate_factor > 0.0 &&
+      IsValid(current_best_estimate_.loss_limited_bandwidth) &&
+      current_best_estimate_.loss_limited_bandwidth < GetInstantLowerBound()) {
+    current_best_estimate_.loss_limited_bandwidth = GetInstantLowerBound();
+  }
 }
 
 void LossBasedBweV2::SetBandwidthEstimate(DataRate bandwidth_estimate) {
@@ -385,7 +391,7 @@ void LossBasedBweV2::UpdateResult() {
           .duration =
               std::min(kMaxHoldDuration, last_hold_info_.duration *
                                              config_->hold_duration_factor),
-          .rate = bounded_bandwidth_estimate};
+          .rate = loss_based_result_.bandwidth_estimate};
     }
     last_padding_info_ = PaddingInfo();
     loss_based_result_.state = LossBasedState::kDecreasing;

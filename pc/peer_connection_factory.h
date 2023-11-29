@@ -137,8 +137,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
 
   std::unique_ptr<RtcEventLog> CreateRtcEventLog_w();
   std::unique_ptr<Call> CreateCall_w(
-      RtcEventLog* event_log,
-      const FieldTrialsView& field_trials,
+      const Environment& env,
       const PeerConnectionInterface::RTCConfiguration& configuration);
 
   rtc::scoped_refptr<ConnectionContext> context_;

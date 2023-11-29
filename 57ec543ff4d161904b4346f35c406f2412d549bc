@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbfaa5f_a3f398e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-29T12:52:56Z",
+      "side": 1,
+      "message": "Holding off on +1 until we have the webrtc-pc issue resolved (ir within sight of resolving).",
+      "revId": "57ec543ff4d161904b4346f35c406f2412d549bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c47edb8_2d948f0d",
@@ -31,6 +48,24 @@
       "writtenOn": "2023-11-29T12:42:47Z",
       "side": 1,
       "message": "I tried adding a helper similar to the one we have in cricket::Codec but that led to a circular dependency between media/base (where those codec names are defined)  and api/rtp_parameters which defines RtpCodecCapability...",
+      "revId": "57ec543ff4d161904b4346f35c406f2412d549bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0950436_ac6949d8",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-29T12:52:56Z",
+      "side": 1,
+      "message": "What was the dependency issue?\n\nThose names should live in media:media_constants, which shouldn\u0027t depend on anything. That\u0027s why that target exists (so that we don\u0027t need looping dependencies).",
+      "parentUuid": "3c47edb8_2d948f0d",
       "revId": "57ec543ff4d161904b4346f35c406f2412d549bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

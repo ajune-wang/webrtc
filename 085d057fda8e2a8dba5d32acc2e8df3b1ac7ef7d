@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "425202d6_0609a9bb",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-29T13:57:02Z",
+      "side": 1,
+      "message": "lifetime of the Environment is approximately the same as lifetime of a single PeerConnection\nlifetime of the ConnectionContext is longer, as it is shared across multiple PeerConnections.\n\nso to me it feels ConnectionContext should be before environment both as a member and as a construction parameter.",
+      "revId": "085d057fda8e2a8dba5d32acc2e8df3b1ac7ef7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

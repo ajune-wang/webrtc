@@ -665,11 +665,12 @@ Call::Call(Clock* clock,
       // must be made on `worker_thread_` (i.e. they're one and the same).
       network_thread_(config.network_task_queue_ ? config.network_task_queue_
                                                  : worker_thread_),
-      decode_sync_(config.metronome
-                       ? std::make_unique<DecodeSynchronizer>(clock_,
-                                                              config.metronome,
-                                                              worker_thread_)
-                       : nullptr),
+      decode_sync_(
+          config.decode_metronome
+              ? std::make_unique<DecodeSynchronizer>(clock_,
+                                                     config.decode_metronome,
+                                                     worker_thread_)
+              : nullptr),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       call_stats_(new CallStats(clock_, worker_thread_)),
       bitrate_allocator_(new BitrateAllocator(this)),
@@ -907,8 +908,9 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   VideoSendStream* send_stream = new VideoSendStream(
       clock_, num_cpu_cores_, task_queue_factory_, network_thread_,
       call_stats_->AsRtcpRttStats(), transport_send_.get(),
-      bitrate_allocator_.get(), video_send_delay_stats_.get(), event_log_,
-      std::move(config), std::move(encoder_config), suspended_video_send_ssrcs_,
+      config_.encode_metronome, bitrate_allocator_.get(),
+      video_send_delay_stats_.get(), event_log_, std::move(config),
+      std::move(encoder_config), suspended_video_send_ssrcs_,
       suspended_video_payload_states_, std::move(fec_controller),
       *config_.trials);
 

@@ -1457,7 +1457,11 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   std::unique_ptr<FieldTrialsView> trials;
   std::unique_ptr<RtpTransportControllerSendFactoryInterface>
       transport_controller_send_factory;
-  std::unique_ptr<Metronome> metronome;
+  // Timer tick and VSync tick metronome used by encoding or decoding.
+  std::unique_ptr<Metronome> timer_metronome;
+  std::unique_ptr<Metronome> vsync_metronome;
+  // The encoding tasks would be driven by VSync metronome if this is true.
+  bool encode_metronome;
 
   // Media specific dependencies. Unused when `media_factory == nullptr`.
   rtc::scoped_refptr<AudioDeviceModule> adm;

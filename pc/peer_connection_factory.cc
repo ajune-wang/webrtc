@@ -101,7 +101,11 @@ PeerConnectionFactory::PeerConnectionFactory(
           (dependencies->transport_controller_send_factory)
               ? std::move(dependencies->transport_controller_send_factory)
               : std::make_unique<RtpTransportControllerSendFactory>()),
-      metronome_(std::move(dependencies->metronome)) {}
+      timer_metronome_(std::move(dependencies->timer_metronome)),
+      vsync_metronome_(std::move(dependencies->vsync_metronome)),
+      encode_metronome_(dependencies->encode_metronome) {
+  RTC_CHECK(timer_metronome_ || vsync_metronome_);
+}
 
 PeerConnectionFactory::PeerConnectionFactory(
     PeerConnectionFactoryDependencies dependencies)
@@ -112,7 +116,8 @@ PeerConnectionFactory::~PeerConnectionFactory() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   worker_thread()->BlockingCall([this] {
     RTC_DCHECK_RUN_ON(worker_thread());
-    metronome_ = nullptr;
+    timer_metronome_ = nullptr;
+    vsync_metronome_ = nullptr;
   });
 }
 
@@ -340,7 +345,10 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   call_config.trials = &field_trials;
   call_config.rtp_transport_controller_send_factory =
       transport_controller_send_factory_.get();
-  call_config.metronome = metronome_.get();
+  call_config.decode_metronome =
+      timer_metronome_ ? timer_metronome_.get() : vsync_metronome_.get();
+  call_config.encode_metronome =
+      encode_metronome_ ? vsync_metronome_.get() : nullptr;
   call_config.pacer_burst_interval = configuration.pacer_burst_interval;
   return context_->call_factory()->CreateCall(call_config);
 }

@@ -64,8 +64,9 @@ VideoFrame CreateFrameWithTimestamps(
 std::unique_ptr<FrameCadenceAdapterInterface> CreateAdapter(
     const FieldTrialsView& field_trials,
     Clock* clock) {
-  return FrameCadenceAdapterInterface::Create(clock, TaskQueueBase::Current(),
-                                              field_trials);
+  return FrameCadenceAdapterInterface::Create(
+      clock, TaskQueueBase::Current(), /*metronome=*/nullptr,
+      /*worker_queue=*/nullptr, field_trials);
 }
 
 class MockCallback : public FrameCadenceAdapterInterface::Callback {
@@ -593,7 +594,8 @@ TEST(FrameCadenceAdapterTest, IgnoresDropInducedCallbacksPostDestruction) {
   auto queue = time_controller.GetTaskQueueFactory()->CreateTaskQueue(
       "queue", TaskQueueFactory::Priority::NORMAL);
   auto adapter = FrameCadenceAdapterInterface::Create(
-      time_controller.GetClock(), queue.get(), enabler);
+      time_controller.GetClock(), queue.get(), /*metronome=*/nullptr,
+      /*worker_queue=*/nullptr, enabler);
   queue->PostTask([&adapter, &callback] {
     adapter->Initialize(callback.get());
     adapter->SetZeroHertzModeEnabled(

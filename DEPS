@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd233ddc8627538006adca8681c3fe90cfffeae82',
+  'chromium_revision': '4ee06168f94327a466bb550b812d1793b812626c',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@49ade62d55870f75766038da741e772d422a1da8',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d14c1a80c18bb32fc2b1ffec4bc0295a7eefe5fd',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@41e73624ee0f12e699d939a246f173763046d2c4',
+    'https://chromium.googlesource.com/chromium/src/testing@122f55047bea57587ff6f703b1e8063b781e1c64',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@a64fe704f49c2a3a55cc3fbcca9aaa9ca0f4717c',
+    'https://chromium.googlesource.com/chromium/src/third_party@3fffa7562550e730055261bde05c5f81f888d8c7',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/libc++abi/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@c21fd3819a09fb151561b738ce1e4fdb6dbf3627',
   'src/third_party/libunwind/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@85df028e4c5e8a3eaa38fe75e0d78157bee2d668',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@bbe2764382995e4ec9a8c26c50018afc9520ea4f',
 
   'src/third_party/ninja': {
     'packages': [
@@ -178,7 +178,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@f49c2f1a2023da0cb055874fba050563dfea57db',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@2823d8f8bea1f1324448fcc2423200b9ad7939ed',
+    'https://chromium.googlesource.com/catapult.git@d9aa189385c2a4ec17be2f88291a6cd826ca62fd',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@06f3da020b63216e8b8eee9d680d12e8010bc614',
+    'https://chromium.googlesource.com/chromium/src/tools@78ed2880fbc259714616c0a059b54bed9f5bcdfd',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '0fe97f75e19fed84819d0dd693288e3990042039',
+  'chromium_revision': 'f2243979071aefe84c5f0329c7675bb5f53e4acf',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@a382e58381728cefc4694e90c53332b073d75a7f',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@c47d4e55546f1275e675b6fb51cd14fba8683bf6',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@1092b02b0334357f6d91e7eb6cd52c3402c3a06f',
+    'https://chromium.googlesource.com/chromium/src/testing@788be6db4645b4a47c0cebc814ffc135bcde752e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@5c3dd9132c02d6ff8337b2e78ddb81be5fefb211',
+    'https://chromium.googlesource.com/chromium/src/third_party@d6a928f0feedb1f60bc408229a0bc9559f87abfe',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -291,7 +291,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@3348c1fb173ed5ceeb4f37b9644742c460d50473',
+    'https://android.googlesource.com/platform/external/perfetto.git@198c2c068023308c23fc424a897c503bd05416e4',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@9142314c2cec2be364e6844d1630a056e7b0a3c8',
   'src/third_party/libyuv':
@@ -320,7 +320,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'o6MAAUwWCotub-YLAZV6fewtgr4AUJUrZpDwervcrtMC',
+              'version': '1cleC9ETmNTNjX-TQoPj14Siz7FFAy6HR6x5pbSS00oC',
           },
       ],
       'condition': 'checkout_android',
@@ -344,7 +344,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@6a76b4aa3ab4da7dd9e05eafda9dafc07018c321',
+    'https://chromium.googlesource.com/chromium/src/tools@379dfde40f243b5219296009154e260cbd462f93',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

@@ -304,7 +304,13 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
     return absl::nullopt;
   }
 
+  // Signal Exposed for backwards compatibility.
   sigslot::signal1<IceTransportInternal*> SignalGatheringState;
+  void SetGatheringStateCallback(
+      absl::AnyInvocable<void(IceTransportInternal*)> callback) {
+    RTC_DCHECK(!gathering_state_callback_);
+    gathering_state_callback_ = std::move(callback);
+  }
 
   // Handles sending and receiving of candidates.
   sigslot::signal2<IceTransportInternal*, const Candidate&>
@@ -385,6 +391,8 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   webrtc::CallbackList<IceTransportInternal*, const StunDictionaryWriter&>
       dictionary_writer_synced_callback_list_;
 
+  absl::AnyInvocable<void(IceTransportInternal*)> gathering_state_callback_;
+
   absl::AnyInvocable<void(IceTransportInternal*, const IceCandidateErrorEvent&)>
       candidate_error_callback_;
 
@@ -393,6 +401,14 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
 
   absl::AnyInvocable<void(const cricket::CandidatePairChangeEvent&)>
       candidate_pair_change_callback_;
+
+ private:
+  // TODO(bugs.webrtc.org/11943): remove when removing Signal
+  void SignalGatheringStateFired(IceTransportInternal* transport) {
+    if (gathering_state_callback_) {
+      gathering_state_callback_(transport);
+    }
+  }
 };
 
 }  // namespace cricket

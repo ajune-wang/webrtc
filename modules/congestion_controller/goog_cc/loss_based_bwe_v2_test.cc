@@ -1521,8 +1521,8 @@ TEST_F(LossBasedBweV2Test, IncreaseEstimateAfterHoldDuration) {
   ExplicitKeyValueConfig key_value_config(
       ShortObservationConfig("HoldDurationFactor:10"));
   LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
-  loss_based_bandwidth_estimator.SetBandwidthEstimate(
-      DataRate::KilobitsPerSec(2500));
+  DataRate initial_estimate = DataRate::KilobitsPerSec(300);
+  loss_based_bandwidth_estimator.SetBandwidthEstimate(initial_estimate);
   loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
       CreatePacketResultsWith50pPacketLossRate(
           /*first_packet_timestamp=*/Timestamp::Zero()),
@@ -1530,10 +1530,9 @@ TEST_F(LossBasedBweV2Test, IncreaseEstimateAfterHoldDuration) {
       /*in_alr=*/false);
   ASSERT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
             LossBasedState::kDecreasing);
-  DataRate estimate =
-      loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate;
 
-  // During the hold duration, e.g. first 300ms, the estimate cannot increase.
+  // During the hold duration, e.g. first 300ms, the estimate cannot increase
+  // above the initial estimate.
   loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
       CreatePacketResultsWithReceivedPackets(
           /*first_packet_timestamp=*/Timestamp::Zero() +
@@ -1544,7 +1543,7 @@ TEST_F(LossBasedBweV2Test, IncreaseEstimateAfterHoldDuration) {
             LossBasedState::kDecreasing);
   EXPECT_EQ(
       loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate,
-      estimate);
+      initial_estimate);
 
   // After the hold duration, the estimate can increase.
   loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
@@ -1555,21 +1554,21 @@ TEST_F(LossBasedBweV2Test, IncreaseEstimateAfterHoldDuration) {
       /*in_alr=*/false);
   EXPECT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
             LossBasedState::kIncreasing);
-  EXPECT_GE(
+  EXPECT_GT(
       loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate,
-      estimate);
+      initial_estimate);
 
-  // Get another 50p packet loss.
+  DataRate estimate_before_hold =
+      loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate;
+  // Get another 100% packet loss.
   loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
-      CreatePacketResultsWith50pPacketLossRate(
+      CreatePacketResultsWith100pLossRate(
           /*first_packet_timestamp=*/Timestamp::Zero() +
           kObservationDurationLowerBound * 3),
       /*delay_based_estimate=*/DataRate::PlusInfinity(),
       /*in_alr=*/false);
   EXPECT_EQ(loss_based_bandwidth_estimator.GetLossBasedResult().state,
             LossBasedState::kDecreasing);
-  DataRate estimate_at_hold =
-      loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate;
 
   // In the hold duration, e.g. next 3s, the estimate cannot increase above the
   // hold rate. Get some lost packets to get lower estimate than the HOLD rate.
@@ -1584,7 +1583,7 @@ TEST_F(LossBasedBweV2Test, IncreaseEstimateAfterHoldDuration) {
               LossBasedState::kDecreasing);
     EXPECT_LT(
         loss_based_bandwidth_estimator.GetLossBasedResult().bandwidth_estimate,
-        estimate_at_hold);
+        estimate_before_hold);
   }
 
   int feedback_id = 7;
@@ -1602,13 +1601,13 @@ TEST_F(LossBasedBweV2Test, IncreaseEstimateAfterHoldDuration) {
       // hold.
       EXPECT_LE(loss_based_bandwidth_estimator.GetLossBasedResult()
                     .bandwidth_estimate,
-                estimate_at_hold);
+                estimate_before_hold);
     } else if (loss_based_bandwidth_estimator.GetLossBasedResult().state ==
                LossBasedState::kIncreasing) {
       // After the hold duration, the estimate can increase again.
       EXPECT_GT(loss_based_bandwidth_estimator.GetLossBasedResult()
                     .bandwidth_estimate,
-                estimate_at_hold);
+                estimate_before_hold);
     }
     feedback_id++;
   }

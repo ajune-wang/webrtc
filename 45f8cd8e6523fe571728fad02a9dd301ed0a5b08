@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a05a5f24_cf7476ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-30T08:47:06Z",
+      "side": 1,
+      "message": "This signal is used in Chromoting, so will have to be changed out in 3 steps (offer new API, switch clients, remove old API)",
+      "revId": "45f8cd8e6523fe571728fad02a9dd301ed0a5b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92eca70d_aee38631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-30T08:12:35Z",
+      "side": 1,
+      "message": "Thanks for listening!\n\nMy feel is that apps will create env first (overall program init) and then peerconnectionfactory options (PC creation init). I could easily be wrong, but I\u0027m happier now.",
+      "revId": "c344ded6b9fd5b951e30de91d208251973fc2e5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

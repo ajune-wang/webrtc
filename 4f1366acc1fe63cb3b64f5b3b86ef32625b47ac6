@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ebf55d_f6897843",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-11-30T13:40:59Z",
+      "side": 1,
+      "message": "Done.\n\nThe \"old\" best candidate is updated before before computing new candidates.",
+      "parentUuid": "bbcc85a1_488b5a79",
+      "range": {
+        "startLine": 189,
+        "startChar": 15,
+        "endLine": 189,
+        "endChar": 47
+      },
+      "revId": "4f1366acc1fe63cb3b64f5b3b86ef32625b47ac6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccabf806_16919d1e",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-29T14:47:10Z",
       "side": 1,
       "message": "Add a comment that this is the previous result, before a decrease.",
+      "range": {
+        "startLine": 394,
+        "startChar": 37,
+        "endLine": 394,
+        "endChar": 55
+      },
+      "revId": "4f1366acc1fe63cb3b64f5b3b86ef32625b47ac6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90cefe25_1402d5e3",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-11-30T13:40:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ccabf806_16919d1e",
       "range": {
         "startLine": 394,
         "startChar": 37,

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc678c88_6ea36fc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-11-30T08:44:51Z",
+      "side": 1,
+      "message": "Plan to do more change, and the CL is not ready for reviewing yet.",
+      "revId": "4f1366acc1fe63cb3b64f5b3b86ef32625b47ac6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbcc85a1_488b5a79",

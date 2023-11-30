@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ccb980_bc0e08df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-30T08:06:46Z",
+      "side": 1,
+      "message": "I do not have stronger arguments than I\u0027ve already wrote above,\nAnd I do not think my reasons are strong enough, and order is important enough to spend more time on the discussion.\n\nTo have more stable code in such cases I prefer to follow the owner\u0027s rather than the author\u0027s preference.",
+      "parentUuid": "b017342a_7d9dc227",
+      "revId": "8967901d4072aad2660abf3def3c5870c61599ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d31338b6_0e8bf67d",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc20d01_9c0476db",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-30T08:06:46Z",
+      "side": 1,
+      "message": "I think it is taste. I do not see other kind of reasons (like safety or performance)\nFor the order I\u0027m using \u0027lifetime\u0027, You are using \u0027how fundamental concept\u0027 is.\n\nstyle guide doesn\u0027t dive into such deep details, it just tell to order input parameters before output. These two parameters are both input.\n\nswitched to your preference.",
+      "parentUuid": "d31338b6_0e8bf67d",
+      "revId": "8967901d4072aad2660abf3def3c5870c61599ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68291da3_625d6eb5",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-11-30T07:38:22Z",
       "side": 1,
       "message": "Same comment.",
+      "revId": "8967901d4072aad2660abf3def3c5870c61599ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb6a3ca_ad6d1bc2",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-30T08:06:46Z",
+      "side": 1,
+      "message": "Done, same for the member order, for consistency.",
+      "parentUuid": "68291da3_625d6eb5",
       "revId": "8967901d4072aad2660abf3def3c5870c61599ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

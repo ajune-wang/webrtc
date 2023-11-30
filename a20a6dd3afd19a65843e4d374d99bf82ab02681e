@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e89be2c6_15147e76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-11-30T14:32:07Z",
+      "side": 1,
+      "message": "Do you mind checking this one too?\nsame purpose as the previous one, but smaller and more straightforward.",
+      "revId": "a20a6dd3afd19a65843e4d374d99bf82ab02681e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

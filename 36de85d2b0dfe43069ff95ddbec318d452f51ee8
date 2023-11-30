@@ -16,6 +16,23 @@
       "message": "This is a duplicate of https://webrtc-review.googlesource.com/c/src/+/329380, which is merged.",
       "revId": "36de85d2b0dfe43069ff95ddbec318d452f51ee8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6884baba_bf915fe9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-30T18:55:50Z",
+      "side": 1,
+      "message": "Sorry, wrong. The branches were different.\nI recommend putting [Mxxx] first in cherry-picks to old branches, also for reverts..",
+      "revId": "36de85d2b0dfe43069ff95ddbec318d452f51ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2669b881_c80372b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-30T07:33:20Z",
+      "side": 1,
+      "message": "Strange that the todo check worked before, since we also put links not usernames into TODOs. Perhaps upstream changed, and the justification didn\u0027t change with it?\n\nGo for it. Add a TODO(bug) to re-enable it?",
+      "revId": "478e867a50a897b2ccb40c702dd7878ea99e27db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

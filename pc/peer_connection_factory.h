@@ -155,6 +155,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   const std::unique_ptr<RtpTransportControllerSendFactoryInterface>
       transport_controller_send_factory_;
   std::unique_ptr<Metronome> metronome_ RTC_GUARDED_BY(worker_thread());
+  std::unique_ptr<Metronome> timer_metronome_ RTC_GUARDED_BY(worker_thread());
+  std::unique_ptr<Metronome> vsync_metronome_ RTC_GUARDED_BY(worker_thread());
+  const bool encode_metronome_;
 };
 
 }  // namespace webrtc

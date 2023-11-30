@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffe72955_e95450f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-11-30T18:54:46Z",
+      "side": 1,
+      "message": "This is a duplicate of https://webrtc-review.googlesource.com/c/src/+/329380, which is merged.",
+      "revId": "36de85d2b0dfe43069ff95ddbec318d452f51ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

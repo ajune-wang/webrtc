@@ -247,7 +247,12 @@ void LossBasedBweV2::UpdateBandwidthEstimate(
     loss_based_result_ = {.bandwidth_estimate = delay_based_estimate,
                           .state = LossBasedState::kDelayBasedEstimate};
   }
-
+  // Ensure that acked rate is the lower bound of best estimate.
+  if (config_->lower_bound_by_acked_rate_factor > 0.0 &&
+      IsValid(current_best_estimate_.loss_limited_bandwidth)) {
+    current_best_estimate_.loss_limited_bandwidth = std::max(
+        GetInstantLowerBound(), current_best_estimate_.loss_limited_bandwidth);
+  }
   ChannelParameters best_candidate = current_best_estimate_;
   double objective_max = std::numeric_limits<double>::lowest();
   for (ChannelParameters candidate : GetCandidates(in_alr)) {
@@ -874,12 +879,6 @@ DataRate LossBasedBweV2::GetCandidateBandwidthUpperBound() const {
 std::vector<LossBasedBweV2::ChannelParameters> LossBasedBweV2::GetCandidates(
     bool in_alr) const {
   ChannelParameters best_estimate = current_best_estimate_;
-  // Ensure that acked rate is the lower bound of best estimate.
-  if (config_->lower_bound_by_acked_rate_factor > 0.0 &&
-      IsValid(best_estimate.loss_limited_bandwidth)) {
-    best_estimate.loss_limited_bandwidth =
-        std::max(GetInstantLowerBound(), best_estimate.loss_limited_bandwidth);
-  }
   std::vector<DataRate> bandwidths;
   for (double candidate_factor : config_->candidate_factors) {
     bandwidths.push_back(candidate_factor *
@@ -919,6 +918,10 @@ std::vector<LossBasedBweV2::ChannelParameters> LossBasedBweV2::GetCandidates(
     candidate.loss_limited_bandwidth =
         std::min(bandwidths[i], std::max(best_estimate.loss_limited_bandwidth,
                                          candidate_bandwidth_upper_bound));
+    if (config_->lower_bound_by_acked_rate_factor > 0.0) {
+      candidate.loss_limited_bandwidth =
+          std::max(GetInstantLowerBound(), candidate.loss_limited_bandwidth);
+    }
     candidate.inherent_loss = GetFeasibleInherentLoss(candidate);
     candidates[i] = candidate;
   }

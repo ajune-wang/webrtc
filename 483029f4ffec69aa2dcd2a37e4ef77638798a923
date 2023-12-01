@@ -22,6 +22,30 @@
       },
       "revId": "483029f4ffec69aa2dcd2a37e4ef77638798a923",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01c94d4_24848cf8",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2023-12-01T14:32:23Z",
+      "side": 1,
+      "message": "I still need it because of the line 278 - best candidate is ignored and reuse the previous best candidate.",
+      "parentUuid": "267e1484_8c272345",
+      "range": {
+        "startLine": 251,
+        "startChar": 15,
+        "endLine": 251,
+        "endChar": 47
+      },
+      "revId": "483029f4ffec69aa2dcd2a37e4ef77638798a923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

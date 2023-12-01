@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0680b7a5_79966b60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-01T03:59:24Z",
+      "side": 1,
+      "message": "Hi Markus, Henrik, PTAL.",
+      "revId": "13402db02b521c98bab00e4247b0b20014635979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c307f27_946a5f32",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-01T03:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80c42e7e_b7cffe64",
+      "range": {
+        "startLine": 909,
+        "startChar": 60,
+        "endLine": 909,
+        "endChar": 77
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70e800cd_84862c27",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35929902_30697332",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-01T03:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70e800cd_84862c27",
+      "range": {
+        "startLine": 238,
+        "startChar": 9,
+        "endLine": 238,
+        "endChar": 22
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c4b5f7d_08cfaee6",
@@ -94,6 +142,30 @@
       "writtenOn": "2023-11-24T12:19:33Z",
       "side": 1,
       "message": "Use a deque instead",
+      "range": {
+        "startLine": 310,
+        "startChar": 2,
+        "endLine": 310,
+        "endChar": 12
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a193ec_64a7f10e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-01T03:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c4b5f7d_08cfaee6",
       "range": {
         "startLine": 310,
         "startChar": 2,
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6f47bd9_488d1cb9",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-01T03:59:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure if Subclassing AdapterMode for VSync would have conflict with ZeroHerz Adapter, maybe we want to use them simultaneous?",
+      "parentUuid": "e0273946_eeff9e60",
+      "range": {
+        "startLine": 713,
+        "startChar": 4,
+        "endLine": 713,
+        "endChar": 37
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6697e7b6_5e271a4a",
         "filename": "video/frame_cadence_adapter.h",
         "patchSetId": 2
@@ -140,6 +236,30 @@
       "writtenOn": "2023-11-24T12:19:33Z",
       "side": 1,
       "message": "Include metronome directly instead (different style from chrome).",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef9144fd_0781a601",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-01T03:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6697e7b6_5e271a4a",
       "range": {
         "startLine": 27,
         "startChar": 0,

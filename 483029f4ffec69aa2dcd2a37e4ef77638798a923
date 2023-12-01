@@ -46,6 +46,30 @@
       },
       "revId": "483029f4ffec69aa2dcd2a37e4ef77638798a923",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3f1ffc_177f918b",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2023-12-01T14:37:06Z",
+      "side": 1,
+      "message": "This code is getting messy to read and understand..... \nHow about skipping lower bounding both here and of the candidates and instead lower bound on line 344?",
+      "parentUuid": "e01c94d4_24848cf8",
+      "range": {
+        "startLine": 251,
+        "startChar": 15,
+        "endLine": 251,
+        "endChar": 47
+      },
+      "revId": "483029f4ffec69aa2dcd2a37e4ef77638798a923",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

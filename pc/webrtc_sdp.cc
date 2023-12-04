@@ -151,6 +151,7 @@ static const char kAttributeExtmap[] = "extmap";
 // draft-alvestrand-mmusic-msid-01
 // a=msid-semantic: WMS
 // This is a legacy field supported only for Plan B semantics.
+// It is ignored by the parser.
 static const char kAttributeMsidSemantics[] = "msid-semantic";
 static const char kMediaStreamSemantic[] = "WMS";
 static const char kSsrcAttributeMsid[] = "msid";
@@ -649,12 +650,6 @@ static bool GetSingleTokenValue(absl::string_view message,
   return true;
 }
 
-static bool CaseInsensitiveFind(std::string str1, std::string str2) {
-  absl::c_transform(str1, str1.begin(), ::tolower);
-  absl::c_transform(str2, str2.begin(), ::tolower);
-  return str1.find(str2) != std::string::npos;
-}
-
 template <class T>
 static bool GetValueFromString(absl::string_view line,
                                absl::string_view s,
@@ -924,6 +919,9 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
   InitAttrLine(kAttributeMsidSemantics, &os);
   os << kSdpDelimiterColon << " " << kMediaStreamSemantic;
 
+  // TODO(bugs.webrtc.org/10421): this code only looks at the first audio/video
+  // content. Fixing that might result in much larger SDP and the msid-semantic
+  // line should eventually go away so this is not worth fixing.
   std::set<std::string> media_stream_ids;
   const ContentInfo* audio_content = GetFirstAudioContent(desc);
   if (audio_content)
@@ -2131,7 +2129,7 @@ bool ParseSessionDescription(absl::string_view message,
                              SdpParseError* error) {
   absl::optional<absl::string_view> line;
 
-  desc->set_msid_supported(false);
+  desc->set_msid_signaling(cricket::kMsidSignalingSsrcAttribute);
   desc->set_extmap_allow_mixed(false);
   // RFC 4566
   // v=  (protocol version)
@@ -2268,13 +2266,6 @@ bool ParseSessionDescription(absl::string_view message,
       if (!ParseDtlsSetup(*aline, &(session_td->connection_role), error)) {
         return false;
       }
-    } else if (HasAttribute(*aline, kAttributeMsidSemantics)) {
-      std::string semantics;
-      if (!GetValue(*aline, kAttributeMsidSemantics, &semantics, error)) {
-        return false;
-      }
-      desc->set_msid_supported(
-          CaseInsensitiveFind(semantics, kMediaStreamSemantic));
     } else if (HasAttribute(*aline, kAttributeExtmapAllowMixed)) {
       desc->set_extmap_allow_mixed(true);
     } else if (HasAttribute(*aline, kAttributeExtmap)) {
@@ -2672,7 +2663,7 @@ bool ParseMediaDescription(
     SdpParseError* error) {
   RTC_DCHECK(desc != NULL);
   int mline_index = -1;
-  int msid_signaling = 0;
+  int msid_signaling = cricket::kMsidSignalingNotUsed;
 
   // Zero or more media descriptions
   // RFC 4566
@@ -2724,7 +2715,7 @@ bool ParseMediaDescription(
     std::unique_ptr<MediaContentDescription> content;
     std::string content_name;
     bool bundle_only = false;
-    int section_msid_signaling = 0;
+    int section_msid_signaling = cricket::kMsidSignalingNotUsed;
     absl::string_view media_type = fields[0];
     if ((media_type == kMediaTypeVideo || media_type == kMediaTypeAudio) &&
         !cricket::IsRtpProtocol(protocol)) {

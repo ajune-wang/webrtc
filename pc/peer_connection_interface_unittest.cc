@@ -306,32 +306,6 @@ static const char kSdpStringWithoutStreams[] =
     "a=rtcp-mux\r\n"
     "a=rtpmap:120 VP8/90000\r\n";
 
-// Reference SDP without MediaStreams. Msid is supported.
-static const char kSdpStringWithMsidWithoutStreams[] =
-    "v=0\r\n"
-    "o=- 0 0 IN IP4 127.0.0.1\r\n"
-    "s=-\r\n"
-    "t=0 0\r\n"
-    "a=msid-semantic: WMS\r\n"
-    "m=audio 1 RTP/AVPF 111\r\n"
-    "a=ice-ufrag:e5785931\r\n"
-    "a=ice-pwd:36fb7878390db89481c1d46daa4278d8\r\n"
-    "a=fingerprint:sha-256 58:AB:6E:F5:F1:E4:57:B7:E9:46:F4:86:04:28:F9:A7:ED:"
-    "BD:AB:AE:40:EF:CE:9A:51:2C:2A:B1:9B:8B:78:84\r\n"
-    "a=mid:audio\r\n"
-    "a=sendrecv\r\n"
-    "a=rtcp-mux\r\n"
-    "a=rtpmap:111 OPUS/48000/2\r\n"
-    "m=video 1 RTP/AVPF 120\r\n"
-    "a=ice-ufrag:e5785931\r\n"
-    "a=ice-pwd:36fb7878390db89481c1d46daa4278d8\r\n"
-    "a=fingerprint:sha-256 58:AB:6E:F5:F1:E4:57:B7:E9:46:F4:86:04:28:F9:A7:ED:"
-    "BD:AB:AE:40:EF:CE:9A:51:2C:2A:B1:9B:8B:78:84\r\n"
-    "a=mid:video\r\n"
-    "a=sendrecv\r\n"
-    "a=rtcp-mux\r\n"
-    "a=rtpmap:120 VP8/90000\r\n";
-
 // Reference SDP without MediaStreams and audio only.
 static const char kSdpStringWithoutStreamsAudioOnly[] =
     "v=0\r\n"
@@ -2780,16 +2754,6 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
   EXPECT_EQ(1u, remote_stream->GetVideoTracks().size());
 }
 
-// This tests that a default MediaStream is not created if the remote session
-// description doesn't contain any streams but does support MSID.
-// Don't run under Unified Plan since this behavior is Plan B specific.
-TEST_F(PeerConnectionInterfaceTestPlanB, SdpWithMsidDontCreatesDefaultStream) {
-  RTCConfiguration config;
-  CreatePeerConnection(config);
-  CreateAndSetRemoteOffer(kSdpStringWithMsidWithoutStreams);
-  EXPECT_EQ(0u, observer_.remote_streams()->count());
-}
-
 // This tests that when setting a new description, the old default tracks are
 // not destroyed and recreated.
 // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5250
@@ -2810,21 +2774,6 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
   CreateAndSetRemoteOffer(kSdpStringWithoutStreamsAudioOnly);
   ASSERT_EQ(1u, remote_stream->GetAudioTracks().size());
   EXPECT_FALSE(remote_stream->GetAudioTracks()[0]->enabled());
-}
-
-// This tests that a default MediaStream is not created if a remote session
-// description is updated to not have any MediaStreams.
-// Don't run under Unified Plan since this behavior is Plan B specific.
-TEST_F(PeerConnectionInterfaceTestPlanB, VerifyDefaultStreamIsNotCreated) {
-  RTCConfiguration config;
-  CreatePeerConnection(config);
-  CreateAndSetRemoteOffer(GetSdpStringWithStream1());
-  rtc::scoped_refptr<StreamCollection> reference(CreateStreamCollection(1, 1));
-  EXPECT_TRUE(
-      CompareStreamCollections(observer_.remote_streams(), reference.get()));
-
-  CreateAndSetRemoteOffer(kSdpStringWithoutStreams);
-  EXPECT_EQ(0u, observer_.remote_streams()->count());
 }
 
 // This tests that a default MediaStream is created if a remote SDP comes from

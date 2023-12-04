@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60a8f740_75293dbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-04T18:40:32Z",
+      "side": 1,
+      "message": "How hard can it be? See the patch sets in between ;-)",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

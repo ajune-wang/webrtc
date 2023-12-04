@@ -70,6 +70,24 @@
       "parentUuid": "bedafd2a_41bdf48a",
       "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86cc478c_7f8029f8",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2851,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-04T18:40:32Z",
+      "side": 1,
+      "message": "ah, the intention is different. MsidSignaling is an enum with two values, kMsidSignalingMediaSection and kMsidSignalingSsrcAttribute. It has no \"there is no msid\" value but msid_signaling() returns an integer, not a value of this enum.\n\nWell, now the enum has not two but four members!",
+      "parentUuid": "628282d9_0db0c0cf",
+      "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

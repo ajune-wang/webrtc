@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "979fccbf_a86881da",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2826,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-04T18:40:32Z",
+      "side": 0,
+      "message": "This one was pretty subtle. If the new SDP *also* removed msid-semantic (which is different from keeping it but removing all ssrc lines) then I would expect the default stream to pop up even in plan-b.",
+      "revId": "032805068ca439dc754b6a3efe67f07db7983220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

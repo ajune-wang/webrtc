@@ -33,6 +33,24 @@
       "message": "nit: cast to `const char*`? (since `Data()` will return const)",
       "revId": "130f693230ca7568bdf94982cdaf66fb37f2fbd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83485a9d_e99a84fc",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T19:38:52Z",
+      "side": 1,
+      "message": "That\u0027s strange .. reinterpret_cast isn\u0027t supposed to be able to cast away constness.... done.",
+      "parentUuid": "7c4afdb2_0c7a3201",
+      "revId": "130f693230ca7568bdf94982cdaf66fb37f2fbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

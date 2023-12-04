@@ -185,8 +185,7 @@ class Call final : public webrtc::Call,
  public:
   Call(Clock* clock,
        const CallConfig& config,
-       std::unique_ptr<RtpTransportControllerSendInterface> transport_send,
-       TaskQueueFactory* task_queue_factory);
+       std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
   ~Call() override;
 
   Call(const Call&) = delete;
@@ -474,8 +473,7 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
 }
 
 std::unique_ptr<Call> Call::Create(const CallConfig& config) {
-  Clock* clock =
-      config.env.has_value() ? &config.env->clock() : Clock::GetRealTimeClock();
+  Clock* clock = &config.env.clock();
   return Create(config, clock,
                 RtpTransportControllerSendFactory().Create(
                     config.ExtractTransportConfig(), clock));
@@ -486,10 +484,8 @@ std::unique_ptr<Call> Call::Create(
     Clock* clock,
     std::unique_ptr<RtpTransportControllerSendInterface>
         transportControllerSend) {
-  RTC_DCHECK(config.task_queue_factory);
   return std::make_unique<internal::Call>(clock, config,
-                                          std::move(transportControllerSend),
-                                          config.task_queue_factory);
+                                          std::move(transportControllerSend));
 }
 
 // This method here to avoid subclasses has to implement this method.
@@ -657,10 +653,9 @@ void Call::SendStats::SetMinAllocatableRate(BitrateAllocationLimits limits) {
 
 Call::Call(Clock* clock,
            const CallConfig& config,
-           std::unique_ptr<RtpTransportControllerSendInterface> transport_send,
-           TaskQueueFactory* task_queue_factory)
+           std::unique_ptr<RtpTransportControllerSendInterface> transport_send)
     : clock_(clock),
-      task_queue_factory_(task_queue_factory),
+      task_queue_factory_(&config.env.task_queue_factory()),
       worker_thread_(GetCurrentTaskQueueOrThread()),
       // If `network_task_queue_` was set to nullptr, network related calls
       // must be made on `worker_thread_` (i.e. they're one and the same).
@@ -675,11 +670,11 @@ Call::Call(Clock* clock,
       call_stats_(new CallStats(clock_, worker_thread_)),
       bitrate_allocator_(new BitrateAllocator(this)),
       config_(config),
-      trials_(*config.trials),
+      trials_(config.env.field_trials()),
       audio_network_state_(kNetworkDown),
       video_network_state_(kNetworkDown),
       aggregate_network_up_(false),
-      event_log_(config.event_log),
+      event_log_(&config.env.event_log()),
       receive_stats_(clock_),
       send_stats_(clock_),
       receive_side_cc_(clock,
@@ -688,14 +683,12 @@ Call::Call(Clock* clock,
                        absl::bind_front(&PacketRouter::SendRemb,
                                         transport_send->packet_router()),
                        /*network_state_estimator=*/nullptr),
-      receive_time_calculator_(
-          ReceiveTimeCalculator::CreateFromFieldTrial(*config.trials)),
+      receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial(
+          config.env.field_trials())),
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_of_call_(clock_->CurrentTime()),
       transport_send_ptr_(transport_send.get()),
       transport_send_(std::move(transport_send)) {
-  RTC_DCHECK(config.event_log != nullptr);
-  RTC_DCHECK(config.trials != nullptr);
   RTC_DCHECK(network_thread_);
   RTC_DCHECK(worker_thread_->IsCurrent());
 
@@ -911,7 +904,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
       bitrate_allocator_.get(), video_send_delay_stats_.get(), event_log_,
       std::move(config), std::move(encoder_config), suspended_video_send_ssrcs_,
       suspended_video_payload_states_, std::move(fec_controller),
-      *config_.trials);
+      config_.env.field_trials());
 
   for (uint32_t ssrc : ssrcs) {
     RTC_DCHECK(video_send_ssrcs_.find(ssrc) == video_send_ssrcs_.end());

@@ -37,19 +37,13 @@ struct CallConfig {
   explicit CallConfig(const Environment& env,
                       TaskQueueBase* network_task_queue = nullptr);
 
-  // TODO(bugs.webrtc.org/15656): Deprecate and delete constructor below.
-  explicit CallConfig(RtcEventLog* event_log,
-                      TaskQueueBase* network_task_queue = nullptr);
-
   CallConfig(const CallConfig&);
 
   ~CallConfig();
 
   RtpTransportConfig ExtractTransportConfig() const;
 
-  // TODO(bugs.webrtc.org/15656): Make non-optional when constructor that
-  // doesn't pass Environment is removed.
-  absl::optional<Environment> env;
+  Environment env;
 
   // Bitrate config used until valid bitrate estimates are calculated. Also
   // used to cap total bitrate used. This comes from the remote connection.
@@ -61,15 +55,8 @@ struct CallConfig {
   // Audio Processing Module to be used in this call.
   AudioProcessing* audio_processing = nullptr;
 
-  // RtcEventLog to use for this call. Required.
-  // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
-  RtcEventLog* const event_log = nullptr;
-
   // FecController to use for this call.
   FecControllerFactoryInterface* fec_controller_factory = nullptr;
-
-  // Task Queue Factory to be used in this call. Required.
-  TaskQueueFactory* task_queue_factory = nullptr;
 
   // NetworkStatePredictor to use for this call.
   NetworkStatePredictorFactoryInterface* network_state_predictor_factory =
@@ -80,10 +67,6 @@ struct CallConfig {
 
   // NetEq factory to use for this call.
   NetEqFactory* neteq_factory = nullptr;
-
-  // Key-value mapping of internal configurations to apply,
-  // e.g. field trials.
-  const FieldTrialsView* trials = nullptr;
 
   TaskQueueBase* const network_task_queue_ = nullptr;
   // RtpTransportControllerSend to use for this call.

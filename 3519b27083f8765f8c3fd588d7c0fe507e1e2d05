@@ -16,6 +16,23 @@
       "message": "You asked for it....",
       "revId": "3519b27083f8765f8c3fd588d7c0fe507e1e2d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e1a720_2d8e0120",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T14:41:46Z",
+      "side": 1,
+      "message": "Needs to wait on downstream updates :-(",
+      "revId": "3519b27083f8765f8c3fd588d7c0fe507e1e2d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

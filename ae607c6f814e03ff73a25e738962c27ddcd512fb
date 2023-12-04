@@ -16,6 +16,24 @@
       "message": "nit: should we call it `BufferClassT::value_type` too or is there a reason why `U` is preferred?",
       "revId": "ae607c6f814e03ff73a25e738962c27ddcd512fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b50e7210_d23f4c7f",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T09:47:33Z",
+      "side": 1,
+      "message": "Template arguments generally are single uppercase letters, but this is not a direct argument ... looks as if value_type works.",
+      "parentUuid": "369aa00a_d6c16714",
+      "revId": "ae607c6f814e03ff73a25e738962c27ddcd512fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

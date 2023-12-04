@@ -16,6 +16,24 @@
       "message": "Checking: are bytes / packets that have seen selective ACK still included in the \"unacked\" count? This may be confusing if they are, and the functions that expect \"unacked\" to be a contiguous sequence may be confused if they aren\u0027t.",
       "revId": "45b4d8e85de4ccfcf01aacdea829db05ece933ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a5b389a_1b10f216",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2023-12-04T12:34:54Z",
+      "side": 1,
+      "message": "Chunks that are selectively acked by gap-ack block reports are _not_ included in the \"unacked count\". But they are still included in the OutstandingData queue, as selectively acked chunks are not promises. The client is allowed to say \"oh, but now I\u0027ve forgotten about them\". If we had https://datatracker.ietf.org/doc/html/draft-natarajan-tsvwg-sctp-nrsack-06, the clients wouldn\u0027t be able to change their mind.\n\nIn reality, clients don\u0027t change their mind. But the protocol allows them to, and on high memory pressure, I can understand if implementions would throw away data to be able to receive new ones that move the cumulative ack TSN.",
+      "parentUuid": "dbed18e0_e5f25921",
+      "revId": "45b4d8e85de4ccfcf01aacdea829db05ece933ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

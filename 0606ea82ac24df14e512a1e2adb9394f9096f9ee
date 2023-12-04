@@ -52,6 +52,24 @@
       "parentUuid": "e9571867_eb85a65f",
       "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628282d9_0db0c0cf",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2851,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T13:57:04Z",
+      "side": 1,
+      "message": "That\u0027s not what it was intended to be. But if we didn\u0027t add any tests that verified msid-less SDP against it .... just try deleting it and see what happens.",
+      "parentUuid": "bedafd2a_41bdf48a",
+      "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

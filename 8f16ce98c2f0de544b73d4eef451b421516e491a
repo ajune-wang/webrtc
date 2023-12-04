@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7b1a51_e6493253",
+        "filename": "rtc_base/byte_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-12-04T19:30:09Z",
+      "side": 0,
+      "message": "we should be able to get rid of the `Construct()` method too now since we can just call a main constructor instead.",
+      "revId": "8f16ce98c2f0de544b73d4eef451b421516e491a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "Thanks, overlooked that!",
       "revId": "130f693230ca7568bdf94982cdaf66fb37f2fbd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c4afdb2_0c7a3201",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-12-04T19:00:00Z",
+      "side": 1,
+      "message": "nit: cast to `const char*`? (since `Data()` will return const)",
+      "revId": "130f693230ca7568bdf94982cdaf66fb37f2fbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

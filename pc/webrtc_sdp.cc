@@ -924,6 +924,9 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
   InitAttrLine(kAttributeMsidSemantics, &os);
   os << kSdpDelimiterColon << " " << kMediaStreamSemantic;
 
+  // TODO(bugs.webrtc.org/10421): this code only looks at the first audio/video
+  // content. Fixing that might result in much larger SDP and the msid-semantic
+  // line should eventually go away so this is not worth fixing.
   std::set<std::string> media_stream_ids;
   const ContentInfo* audio_content = GetFirstAudioContent(desc);
   if (audio_content)
@@ -2845,6 +2848,7 @@ bool ParseMediaDescription(
   }
 
   desc->set_msid_signaling(msid_signaling);
+  desc->set_msid_supported(msid_signaling);
 
   size_t end_of_message = message.size();
   if (mline_index == -1 && *pos != end_of_message) {

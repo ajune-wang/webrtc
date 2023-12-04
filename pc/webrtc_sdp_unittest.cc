@@ -1508,7 +1508,7 @@ class WebRtcSdpTest : public ::testing::Test {
     }
 
     // global attributes
-    EXPECT_EQ(desc1.msid_supported(), desc2.msid_supported());
+    EXPECT_EQ(desc1.msid_signaling(), desc2.msid_signaling());
     EXPECT_EQ(desc1.extmap_allow_mixed(), desc2.extmap_allow_mixed());
   }
 

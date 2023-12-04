@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17914c43_ed317702",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-04T11:13:08Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10421#c21 looks ok but does not deal with the theoretical edge case of the first audio/video content being inactive or not having a stream.",
+      "revId": "222246fcdb51ed95e1ed1198923c4d275e07ba55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

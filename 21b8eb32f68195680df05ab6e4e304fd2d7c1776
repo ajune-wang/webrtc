@@ -26,6 +26,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d02665ef_1d11e062",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "Are we creating one metronome per context, to allow experimenting with replacing one of the metronomes without replacing all of them?\n\nOr do we have multiple metronomes because we want to allow listening from different task queues?\n\nMaybe we do both. Sounds good to me.\n\nAgree that the name of the metronome should reflect the context that it is used, such as encode or decode, rather than when it ticks, given that the metronome is currently limited to a single task queue IIUC. So even if all metronomes ticked at the same time we would still need to have multiple metronomes if they are used on multiple task queues?",
+      "parentUuid": "c44b8c14_d9600d65",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0260a4f_1955190f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "nit: Can you add an empty line between this method and the previous ones to make it clear that this is not part of the VideoFrameSink overrides?",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec80b300_90a4e12b",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7
@@ -43,6 +84,98 @@
         "endLine": 301,
         "endChar": 40
       },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "940ad645_b5075d4d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "I don\u0027t think only last frame is sufficient as it would break high fps use cases, so a queue makes sense to me. Do you disagree Markus?\n\nE.g. you might encode at 60 fps even though vsync signal is capped at 30 Hz. Or you might want to encode \u003e 120 fps and have a fairly standard 60 Hz monitor in case the other endpoint has a 120 Hz monitor. But when the ticking does happen, you should encode several frames back to back to clear the queue.\n\nI hope CPU adaptation can handle back-to-back frames, this may make inter-frame delay look like 0 but on average the inter-frame delay should still be the same since we also delay until next tick for more encodes so I think it should work.",
+      "parentUuid": "ec80b300_90a4e12b",
+      "range": {
+        "startLine": 301,
+        "startChar": 28,
+        "endLine": 301,
+        "endChar": 40
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40138be1_5b681ce9",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "nit: Replace pipes: | with backtics: ` in comments (the style guide changed some time ago but new code should use backsticks)",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af2369bf_66859b07",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "Why do we need a callback that just updates an expected next tick, as opposed to encoding everything in the queue on every tick? Whether I have 0, 1 or multiple frames queued up, the tick seems like a good place to encode everything. Or is it more complicated than that?",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55f06343_4e475633",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "If this is needed, can you add some comments to explain this adjustments to `expected_next_tick_`?",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acba91b5_41dc224f",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-04T16:57:33Z",
+      "side": 1,
+      "message": "Can we add unit tests with metronomes to ensure the encodes happen when we expect?\n\nIf the metronome for testing uses PostDelayedTask, this file contains tests using GlobalSimulatedTimeController which is pretty neat for advancing a fake clock and ensuring delayed tasks run on time, so you could advance by more or less than a tick and see if encode happened or not using EXPECT_CALL",
       "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

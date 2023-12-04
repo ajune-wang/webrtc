@@ -225,6 +225,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07de04a3_d6368d4b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-04T12:01:43Z",
+      "side": 1,
+      "message": "It\u0027s not obvious how to combine vsync encoding and 0hz. I think that would become a new design in itself. We\u0027d better use the encode metronome only for video encode for now.",
+      "parentUuid": "d6f47bd9_488d1cb9",
+      "range": {
+        "startLine": 713,
+        "startChar": 4,
+        "endLine": 713,
+        "endChar": 37
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6697e7b6_5e271a4a",
         "filename": "video/frame_cadence_adapter.h",
         "patchSetId": 2

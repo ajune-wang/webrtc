@@ -80,7 +80,7 @@ class ByteBufferWriterT {
     WriteBytes(&last_byte, 1);
   }
   void WriteString(absl::string_view val) {
-    WriteBytes(val.data(), val.size());
+    WriteBytes(reinterpret_cast<const value_type*>(val.data()), val.size());
   }
   void WriteBytes(const value_type* val, size_t len) {
     buffer_.AppendData(val, len);
@@ -117,10 +117,10 @@ class ByteBufferWriterT {
   // base.
 };
 
-class ByteBufferWriter : public ByteBufferWriterT<BufferT<char>> {
+class ByteBufferWriter : public ByteBufferWriterT<BufferT<uint8_t>> {
  public:
   ByteBufferWriter();
-  ByteBufferWriter(const char* bytes, size_t len);
+  ByteBufferWriter(const uint8_t* bytes, size_t len);
 
   ByteBufferWriter(const ByteBufferWriter&) = delete;
   ByteBufferWriter& operator=(const ByteBufferWriter&) = delete;

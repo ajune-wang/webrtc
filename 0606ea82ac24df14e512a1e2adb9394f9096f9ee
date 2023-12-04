@@ -16,6 +16,24 @@
       "message": "I stumbled over this one, wondered if we need both (not many references to msid_supported()) and then another unit test made me stumble again!",
       "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9571867_eb85a65f",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2851,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T11:22:36Z",
+      "side": 1,
+      "message": "when we wrote it, I think msid_supported was \"the remote party supports MSID\", and msid_signaling was \"we want to send msid\". For offers, we set msid_signaling; for answers, msid_signaling would be true if msid_supported was true.\n\nSo setting \"supported\" unconditionally when msid_signaling is true isn\u0027t consistent with what I remember.\nIf we stuck to that .... heaven knows. But I\u0027d be happier if we didn\u0027t add this line.",
+      "parentUuid": "c36773c3_2d90c481",
+      "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

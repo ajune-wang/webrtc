@@ -34,6 +34,24 @@
       "parentUuid": "dbed18e0_e5f25921",
       "revId": "45b4d8e85de4ccfcf01aacdea829db05ece933ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15399534_08b97240",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T14:21:30Z",
+      "side": 1,
+      "message": "Thanks - that answers my question on the other CL too - that unacked count and size(OutstandingData.queue) are not equivalent.",
+      "parentUuid": "3a5b389a_1b10f216",
+      "revId": "45b4d8e85de4ccfcf01aacdea829db05ece933ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

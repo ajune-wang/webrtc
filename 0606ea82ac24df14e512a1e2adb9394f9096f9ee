@@ -34,6 +34,24 @@
       "parentUuid": "c36773c3_2d90c481",
       "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bedafd2a_41bdf48a",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2851,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-04T11:39:24Z",
+      "side": 1,
+      "message": "I wonder if the right thing to do is to remove the few places msid_supported is used. Effectively it is msid_signaling() !\u003d 0",
+      "parentUuid": "e9571867_eb85a65f",
+      "revId": "0606ea82ac24df14e512a1e2adb9394f9096f9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

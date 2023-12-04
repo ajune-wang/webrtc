@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369aa00a_d6c16714",
+        "filename": "rtc_base/byte_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-12-04T07:32:49Z",
+      "side": 1,
+      "message": "nit: should we call it `BufferClassT::value_type` too or is there a reason why `U` is preferred?",
+      "revId": "ae607c6f814e03ff73a25e738962c27ddcd512fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

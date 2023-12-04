@@ -41,6 +41,11 @@ DtlsTransport::DtlsTransport(
 }
 
 DtlsTransport::~DtlsTransport() {
+  // TODO(tommi): Due to a reference being held by the RtpSenderBase
+  // implementation, the last reference to the `DtlsTransport` instance can
+  // be released on the signaling thread.
+  // RTC_DCHECK_RUN_ON(owner_thread_);
+
   // We depend on the signaling thread to call Clear() before dropping
   // its last reference to this object.
   RTC_DCHECK(owner_thread_->IsCurrent() || !internal_dtls_transport_);
@@ -75,11 +80,8 @@ void DtlsTransport::Clear() {
   // The destructor of cricket::DtlsTransportInternal calls back
   // into DtlsTransport, so we can't hold the lock while releasing.
   std::unique_ptr<cricket::DtlsTransportInternal> transport_to_release;
-  {
-    MutexLock lock(&lock_);
-    transport_to_release = std::move(internal_dtls_transport_);
-    ice_transport_->Clear();
-  }
+  transport_to_release = std::move(internal_dtls_transport_);
+  ice_transport_->Clear();
   UpdateInformation();
   if (observer_ && must_send_event) {
     observer_->OnStateChange(Information());
@@ -100,7 +102,6 @@ void DtlsTransport::OnInternalDtlsState(
 
 void DtlsTransport::UpdateInformation() {
   RTC_DCHECK_RUN_ON(owner_thread_);
-  MutexLock lock(&lock_);
   if (internal_dtls_transport_) {
     if (internal_dtls_transport_->dtls_state() ==
         DtlsTransportState::kConnected) {
@@ -125,6 +126,7 @@ void DtlsTransport::UpdateInformation() {
       success &= internal_dtls_transport_->GetSslCipherSuite(&ssl_cipher_suite);
       success &= internal_dtls_transport_->GetSrtpCryptoSuite(&srtp_cipher);
       if (success) {
+        MutexLock lock(&lock_);
         info_ = DtlsTransportInformation(
             internal_dtls_transport_->dtls_state(), role, tls_version,
             ssl_cipher_suite, srtp_cipher,
@@ -132,15 +134,18 @@ void DtlsTransport::UpdateInformation() {
       } else {
         RTC_LOG(LS_ERROR) << "DtlsTransport in connected state has incomplete "
                              "TLS information";
+        MutexLock lock(&lock_);
         info_ = DtlsTransportInformation(
             internal_dtls_transport_->dtls_state(), role, absl::nullopt,
             absl::nullopt, absl::nullopt,
             internal_dtls_transport_->GetRemoteSSLCertChain());
       }
     } else {
+      MutexLock lock(&lock_);
       info_ = DtlsTransportInformation(internal_dtls_transport_->dtls_state());
     }
   } else {
+    MutexLock lock(&lock_);
     info_ = DtlsTransportInformation(DtlsTransportState::kClosed);
   }
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbed18e0_e5f25921",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-04T12:09:25Z",
+      "side": 1,
+      "message": "Checking: are bytes / packets that have seen selective ACK still included in the \"unacked\" count? This may be confusing if they are, and the functions that expect \"unacked\" to be a contiguous sequence may be confused if they aren\u0027t.",
+      "revId": "45b4d8e85de4ccfcf01aacdea829db05ece933ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

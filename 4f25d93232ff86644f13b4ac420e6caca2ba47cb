@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a88b848_2126ee7d",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-05T10:06:17Z",
+      "side": 1,
+      "message": "`metronome` is basically renamed to `decode_metronome` and can be deleted after users have started setting `decode_metronome` instead.",
+      "parentUuid": "1ac424f5_0636e46a",
+      "revId": "4f25d93232ff86644f13b4ac420e6caca2ba47cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6795f5fa_24284cb1",
         "filename": "pc/peer_connection_factory.h",
         "patchSetId": 9

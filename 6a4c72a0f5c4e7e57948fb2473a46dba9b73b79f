@@ -33,6 +33,24 @@
       "message": "I\u0027m quite uncertain if this makes sense at all.\n\nYou can either say that the parameters are an accurate reflection of the text form of the SDP (\"round trip conversion supported\"), or you can say that the parameters are an accurate reflection of the values you should operate on (\"defaults supplied\").\n\nIf going for \"defaults supplied\", would you have to have symmetric strip-out functions when producing a textual description from the internal representation? Would the fact that this doesn\u0027t preserve the text of a remote description that explicitly sets the parameters to their default value matter?\n\nToo many questions.",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a852f10_7c15c850",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-05T11:14:00Z",
+      "side": 1,
+      "message": "pc.remoteDescription.sdp is already an internal representation of the data structures that differs, e.g. if you put a header extension into the session part it will show up in the m-line:\nhttps://jsfiddle.net/fippo/myk05a6s/",
+      "parentUuid": "3839aa1e_411b56b0",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

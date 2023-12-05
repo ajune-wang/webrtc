@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5109f44_969fe2e4",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-05T10:09:22Z",
+      "side": 1,
+      "message": "Agree, currently AFAIU the metronome depends on operation from the worker thread, respectless of inner implementation. And agree with using unique_ptr for each.",
+      "parentUuid": "495cc6ba_bf15e312",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0260a4f_1955190f",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7

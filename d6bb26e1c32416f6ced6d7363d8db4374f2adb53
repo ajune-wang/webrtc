@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47c93ab5_436e61a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-05T09:44:27Z",
+      "side": 1,
+      "message": "Nit: GetConnections should be spelled out in full.",
+      "revId": "d6bb26e1c32416f6ced6d7363d8db4374f2adb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e2845f4_65ba9934",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-05T09:44:27Z",
+      "side": 1,
+      "message": "Jonas has a good point. Discovered a few more.",
+      "revId": "d6bb26e1c32416f6ced6d7363d8db4374f2adb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5bf25bf_8338d7cd",
         "filename": "p2p/base/ice_controller_interface.h",
         "patchSetId": 2
@@ -14,6 +48,23 @@
       "writtenOn": "2023-12-05T09:38:12Z",
       "side": 1,
       "message": "shouldn\u0027t you implement the new GetConnection()\nby calling the old connections() (add adding the ugly casts).\n\ndownstream will not have implemented this method, so this cl/ will break it...",
+      "revId": "d6bb26e1c32416f6ced6d7363d8db4374f2adb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7caa6f26_34d4885a",
+        "filename": "p2p/base/ice_controller_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-05T09:44:27Z",
+      "side": 1,
+      "message": "Stub implementations that replace \u003d0 should have RTC_CHECK_NOTREACHED() in them.",
       "revId": "d6bb26e1c32416f6ced6d7363d8db4374f2adb53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

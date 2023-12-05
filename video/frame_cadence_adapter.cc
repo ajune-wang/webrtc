@@ -225,10 +225,74 @@ class ZeroHertzAdapterMode : public AdapterMode {
   ScopedTaskSafety safety_;
 };
 
+// Implements a frame cadence adapter supporting VSync align encoding.
+class VSyncEncodeAdapterMode : public AdapterMode {
+ public:
+  VSyncEncodeAdapterMode(Clock* clock,
+                         TaskQueueBase* queue,
+                         Metronome* metronome,
+                         TaskQueueBase* worker_queue,
+                         FrameCadenceAdapterInterface::Callback* callback)
+      : clock_(clock),
+        queue_(queue),
+        metronome_(metronome),
+        worker_queue_(worker_queue),
+        callback_(callback) {
+    sequence_checker_.Detach();
+  }
+
+  // Holds input frames coming from the client ready to be encoded.
+  struct InputFrameRef {
+    InputFrameRef(const VideoFrame& video_frame, Timestamp time_when_posted_us)
+        : time_when_posted_us(time_when_posted_us),
+          video_frame(std::move(video_frame)) {}
+    Timestamp time_when_posted_us;
+    const VideoFrame video_frame;
+  };
+
+  // Adapter overrides.
+  void OnFrame(Timestamp post_time,
+               bool queue_overload,
+               const VideoFrame& frame) override;
+
+  absl::optional<uint32_t> GetInputFrameRateFps() override {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    return input_framerate_.Rate(clock_->TimeInMilliseconds());
+  }
+
+  void UpdateFrameRate() override {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    input_framerate_.Update(1, clock_->TimeInMilliseconds());
+  }
+
+  void OnReadyToEncode();
+
+ private:
+  Clock* const clock_;
+  TaskQueueBase* queue_;
+  Metronome* metronome_;
+  TaskQueueBase* worker_queue_;
+  FrameCadenceAdapterInterface::Callback* const callback_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  // Input frame rate statistics for use when not in zero-hertz mode.
+  RateStatistics input_framerate_ RTC_GUARDED_BY(sequence_checker_){
+      FrameCadenceAdapterInterface::kFrameRateAveragingWindowSizeMs, 1000};
+
+  Timestamp expected_next_tick_ = Timestamp::PlusInfinity();
+  // Deque of input frames to be encoded.
+  std::deque<InputFrameRef> input_queue_;
+  uint64_t latency_sum_ = 0;
+  uint64_t frame_sum_ = 0;
+
+  ScopedTaskSafetyDetached safety_;
+};
+
 class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
  public:
   FrameCadenceAdapterImpl(Clock* clock,
                           TaskQueueBase* queue,
+                          Metronome* metronome,
+                          TaskQueueBase* worker_queue,
                           const FieldTrialsView& field_trials);
   ~FrameCadenceAdapterImpl();
 
@@ -275,11 +339,16 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   // The two possible modes we're under.
   absl::optional<PassthroughAdapterMode> passthrough_adapter_;
   absl::optional<ZeroHertzAdapterMode> zero_hertz_adapter_;
+  absl::optional<VSyncEncodeAdapterMode> vsync_encode_adapter_;
   // If set, zero-hertz mode has been enabled.
   absl::optional<ZeroHertzModeParams> zero_hertz_params_;
   std::atomic<bool> zero_hertz_adapter_is_active_{false};
   // Cache for the current adapter mode.
   AdapterMode* current_adapter_mode_ = nullptr;
+
+  // VSync encoding is used when this valid.
+  Metronome* const metronome_;
+  TaskQueueBase* worker_queue_;
 
   // Timestamp for statistics reporting.
   absl::optional<Timestamp> zero_hertz_adapter_created_timestamp_
@@ -595,14 +664,93 @@ void ZeroHertzAdapterMode::MaybeStartRefreshFrameRequester() {
   }
 }
 
+void VSyncEncodeAdapterMode::OnFrame(Timestamp post_time,
+                                     bool queue_overload,
+                                     const VideoFrame& frame) {
+  // We expect `metronome_` and `OnReadyToEncode()` runs on `worker_queue_`.
+  if (!worker_queue_->IsCurrent()) {
+    worker_queue_->PostTask(
+        [this, post_time, frames_scheduled_for_processing, frame] {
+          OnFrame(post_time, frames_scheduled_for_processing, frame);
+        });
+    return;
+  }
+
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  TRACE_EVENT0("webrtc", "VSyncEncodeAdapterMode::OnFrame");
+
+  input_queue_.emplace_back(std::move(frame), post_time);
+
+  // For the first time encoding, encode immediately since the next tick is
+  // unknown.
+  if (expected_next_tick_.IsInfinite()) {
+    metronome_->RequestCallOnNextTick(SafeTask(safety_.flag(), [this] {
+      expected_next_tick_ = clock_->CurrentTime() + metronome_->TickPeriod();
+    }));
+    OnReadyToEncode();
+    return;
+  }
+
+  TimeDelta max_allowed_frame_delay = metronome_->TickPeriod();
+  // Adjust the `expected_next_tick_` with several metronome tick interval if
+  // it's behind current time.
+  if (post_time > expected_next_tick_) {
+    int64_t add_ms = ((post_time - expected_next_tick_).ms() /
+                          (metronome_->TickPeriod().ms()) +
+                      1) *
+                     (metronome_->TickPeriod().ms());
+    expected_next_tick_ += TimeDelta::Millis(add_ms);
+  }
+  bool encode_before_next_tick =
+      post_time < (expected_next_tick_ - max_allowed_frame_delay);
+
+  if (encode_before_next_tick) {
+    OnReadyToEncode();
+  } else {
+    metronome_->RequestCallOnNextTick(SafeTask(safety_.flag(), [this] {
+      expected_next_tick_ = clock_->CurrentTime() + metronome_->TickPeriod();
+      OnReadyToEncode();
+    }));
+  }
+}
+
+void VSyncEncodeAdapterMode::OnReadyToEncode() {
+  if (input_queue_.empty())
+    return;
+
+  TRACE_EVENT0("webrtc", "VSyncEncodeAdapterMode::OnReadyToEncode");
+  // Local time in webrtc time base.
+  Timestamp post_time = clock_->CurrentTime();
+  const InputFrameRef& input = input_queue_.front();
+  latency_sum_ += (post_time - input.time_when_posted_us).ms();
+  frame_sum_++;
+  TRACE_EVENT1("webrtc", "FrameCadenceAdapterImpl::OnReadyToEncode",
+               "VSyncEncodeDelay", latency_sum_ / frame_sum_);
+
+  const VideoFrame frame = std::move(input.video_frame);
+  input_queue_.pop_front();
+
+  queue_->PostTask(SafeTask(safety_.flag(), [this, post_time, frame] {
+    RTC_DCHECK_RUN_ON(queue_);
+    callback_->OnFrame(post_time, /*queue_overload=*/0, frame);
+
+    // Encode the pending frames in the `input_queue_`.
+    OnReadyToEncode();
+  }));
+}
+
 FrameCadenceAdapterImpl::FrameCadenceAdapterImpl(
     Clock* clock,
     TaskQueueBase* queue,
+    Metronome* metronome,
+    TaskQueueBase* worker_queue,
     const FieldTrialsView& field_trials)
     : clock_(clock),
       queue_(queue),
       zero_hertz_screenshare_enabled_(
-          !field_trials.IsDisabled("WebRTC-ZeroHertzScreenshare")) {}
+          !field_trials.IsDisabled("WebRTC-ZeroHertzScreenshare")),
+      metronome_(metronome),
+      worker_queue_(worker_queue) {}
 
 FrameCadenceAdapterImpl::~FrameCadenceAdapterImpl() {
   RTC_DLOG(LS_VERBOSE) << __func__ << " this " << this;
@@ -611,7 +759,13 @@ FrameCadenceAdapterImpl::~FrameCadenceAdapterImpl() {
 void FrameCadenceAdapterImpl::Initialize(Callback* callback) {
   callback_ = callback;
   passthrough_adapter_.emplace(clock_, callback);
-  current_adapter_mode_ = &passthrough_adapter_.value();
+  if (metronome_) {
+    vsync_encode_adapter_.emplace(clock_, queue_, metronome_, worker_queue_,
+                                  callback_);
+    current_adapter_mode_ = &vsync_encode_adapter_.value();
+  } else {
+    current_adapter_mode_ = &passthrough_adapter_.value();
+  }
 }
 
 void FrameCadenceAdapterImpl::SetZeroHertzModeEnabled(
@@ -757,7 +911,11 @@ void FrameCadenceAdapterImpl::MaybeReconfigureAdapters(
       zero_hertz_adapter_is_active_.store(false, std::memory_order_relaxed);
       RTC_LOG(LS_INFO) << "Zero hertz mode disabled.";
     }
-    current_adapter_mode_ = &passthrough_adapter_.value();
+    if (metronome_) {
+      current_adapter_mode_ = &vsync_encode_adapter_.value();
+    } else {
+      current_adapter_mode_ = &passthrough_adapter_.value();
+    }
   }
 }
 
@@ -766,8 +924,11 @@ void FrameCadenceAdapterImpl::MaybeReconfigureAdapters(
 std::unique_ptr<FrameCadenceAdapterInterface>
 FrameCadenceAdapterInterface::Create(Clock* clock,
                                      TaskQueueBase* queue,
+                                     Metronome* metronome,
+                                     TaskQueueBase* worker_queue,
                                      const FieldTrialsView& field_trials) {
-  return std::make_unique<FrameCadenceAdapterImpl>(clock, queue, field_trials);
+  return std::make_unique<FrameCadenceAdapterImpl>(clock, queue, metronome,
+                                                   worker_queue, field_trials);
 }
 
 }  // namespace webrtc

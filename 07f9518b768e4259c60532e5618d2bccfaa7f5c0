@@ -247,6 +247,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "014162d4_20c63310",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "New adapter added, PTAL",
+      "parentUuid": "07de04a3_d6368d4b",
+      "range": {
+        "startLine": 713,
+        "startChar": 4,
+        "endLine": 713,
+        "endChar": 37
+      },
+      "revId": "07f9518b768e4259c60532e5618d2bccfaa7f5c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6697e7b6_5e271a4a",

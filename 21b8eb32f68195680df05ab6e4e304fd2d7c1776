@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ba12a36_ae4b2f04",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "Hmm, the unique_ptr still there if both VSync encode and decode on.",
+      "parentUuid": "a92d07b7_189df082",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0260a4f_1955190f",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7
@@ -133,6 +157,24 @@
       "writtenOn": "2023-12-04T16:57:33Z",
       "side": 1,
       "message": "nit: Can you add an empty line between this method and the previous ones to make it clear that this is not part of the VideoFrameSink overrides?",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88238eb_7b09bb6a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0260a4f_1955190f",
       "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -225,6 +267,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5aaedde_b3151b3a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40138be1_5b681ce9",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af2369bf_66859b07",
@@ -256,6 +316,24 @@
       "side": 1,
       "message": "This happened only for the first frame, because at first time, we don\u0027t know the next tick time, so we cannot decide whether encode before next tick or wait for tick to do encoding. After the first time, the |expected_next_tick_| is always finite.",
       "parentUuid": "af2369bf_66859b07",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c78d965_40f5867a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a6d1ddc_7f0473ec",
       "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -295,6 +373,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "862e9d84_4a25e91a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b0c27aa_bc3c7f21",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acba91b5_41dc224f",
@@ -308,6 +404,24 @@
       "writtenOn": "2023-12-04T16:57:33Z",
       "side": 1,
       "message": "Can we add unit tests with metronomes to ensure the encodes happen when we expect?\n\nIf the metronome for testing uses PostDelayedTask, this file contains tests using GlobalSimulatedTimeController which is pretty neat for advancing a fake clock and ensuring delayed tasks run on time, so you could advance by more or less than a tick and see if encode happened or not using EXPECT_CALL",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa7e3ea_8866dbc7",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T08:25:39Z",
+      "side": 1,
+      "message": "Yes, will add test later.",
+      "parentUuid": "acba91b5_41dc224f",
       "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

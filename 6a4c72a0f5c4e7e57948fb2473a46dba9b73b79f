@@ -69,6 +69,24 @@
       "parentUuid": "3a852f10_7c15c850",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "799f48cc_a5ba096b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-05T12:29:04Z",
+      "side": 1,
+      "message": "I think we have some round trip tests that check that ContentDescription(SDP(ContentDescription)) is content-preserving.\nBut SDP(ContentDescription(SDP)) is, as you note, not content-preserving.",
+      "parentUuid": "a15c4c06_f36f0b55",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

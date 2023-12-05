@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b59d07a6_7cb879c2",
+        "filename": "p2p/base/ice_controller_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2023-12-05T09:53:53Z",
+      "side": 1,
+      "message": "I still think this should have an actual (default) implementation that\ncalls the old implementation...\ne.g\nvirtual rtc::ArrayView\u003cconst Connection* const\u003e GetConnections() const {\n  // TODO: remove default impl. once downstream has been fixed.\n  return connections();\n}",
+      "revId": "85703deeffcd821a3bf46abb8ed3d64918aed4a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

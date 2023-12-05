@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00904502_740544fb",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-05T09:07:38Z",
+      "side": 1,
+      "message": "Please correct me if I\u0027m going down in a rabbit hole, but I\u0027m still not sure what the conclusion here is. How many metronomes we want or what their names should be.\n\n\u003e It\u0027s not about different task queues.\n\nRegardless which tick implementation is used (VSyncTickProvider[1] orTimerBasedTickProvider[2]), the Chromium MetronomeSource reschedules with a sequence checker[3] and this is what ends up being called by the webrtc::Metronome implementation[4]. As far as I can tell, the primary reason for sequence checking is to make handling of callbacks work without locks and to avoid additional post tasking, but under the hood the actual ticking is implemented using posting tasks of some sort and so the single sequence-ness may be an implementation detail.\n\nEither way as far as I can tell, if we are interested in listening to metronome callbacks on different task queues, we either have to have multiple metronome instances (whether or not driven by the same wakeup signal), or we have to update the metronome implementations to not be single-sequenced.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/vsync_tick_provider.cc;l\u003d53;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8\n\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/timer_based_tick_provider.cc;l\u003d20;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8\n\n[3] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/metronome_source.cc;l\u003d76;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8\n\n[4] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/metronome_source.cc;l\u003d39;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8\n\n\u003e Here if we want to use encode_metronome and decode_metronome, then consider both VSync encode and decode are turned on, we want to trigger them with the same metronome source, so can we change the unique_ptr to shared_ptr?\n\nI don\u0027t see any negative consequence in terms of performance of having multiple metronomes, even if they are both \"under the hood\" sources from the same tick. In this case, will the ticking be controlled by an experiment, so the tick source \"may or may not\" be the same for both metronomes?\n\nThat said, it would be less confusing to have a single metronome in the future.",
+      "parentUuid": "8ba12a36_ae4b2f04",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0260a4f_1955190f",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7

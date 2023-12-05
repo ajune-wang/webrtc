@@ -16,6 +16,40 @@
       "message": "PTAL",
       "revId": "4f25d93232ff86644f13b4ac420e6caca2ba47cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac424f5_0636e46a",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-05T09:07:38Z",
+      "side": 1,
+      "message": "Rephrase this as a TODO, i.e.\n\n// TODO(b/304158952): When Chromium has migrated to `timer_metronome` and\n// `vsync_metronome`, delete obsolete `metronome`.\n\nIf this is accurate.",
+      "revId": "4f25d93232ff86644f13b4ac420e6caca2ba47cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6795f5fa_24284cb1",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-05T09:07:38Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "4f25d93232ff86644f13b4ac420e6caca2ba47cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

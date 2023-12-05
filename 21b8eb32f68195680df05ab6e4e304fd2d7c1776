@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a72d8d4_e765e361",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T06:40:57Z",
+      "side": 1,
+      "message": "The |metronome_| is going to deprecated with new added two metronome. The |encode_metronome_| is needed because we don\u0027t know if Vsync encoding is on just with the two metronome information. Here if we want to use encode_metronome and decode_metronome, then consider both VSync encode and decode are turned on, we want to trigger them with the same metronome source, so can we change the unique_ptr to shared_ptr? or let them use two metronome source and keep unique_ptr here?",
+      "parentUuid": "c5d8b971_bc0a4e43",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0260a4f_1955190f",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7
@@ -196,6 +220,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a6d1ddc_7f0473ec",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T06:40:57Z",
+      "side": 1,
+      "message": "This happened only for the first frame, because at first time, we don\u0027t know the next tick time, so we cannot decide whether encode before next tick or wait for tick to do encoding. After the first time, the |expected_next_tick_| is always finite.",
+      "parentUuid": "af2369bf_66859b07",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55f06343_4e475633",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7
@@ -207,6 +249,24 @@
       "writtenOn": "2023-12-04T16:57:33Z",
       "side": 1,
       "message": "If this is needed, can you add some comments to explain this adjustments to `expected_next_tick_`?",
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0c27aa_bc3c7f21",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-05T06:40:57Z",
+      "side": 1,
+      "message": "We adjust the expected next tick if the current time is larger than that tick, this happens when encoding lower fps frames, the next tick is updated with last encoding time plus one metronome interval and maybe smaller than current time, so we manually add several metronome intervals to let that next tick larger than current time. Will added comment later.",
+      "parentUuid": "55f06343_4e475633",
       "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

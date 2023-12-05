@@ -51,6 +51,24 @@
       "parentUuid": "3839aa1e_411b56b0",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a15c4c06_f36f0b55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-05T11:38:21Z",
+      "side": 1,
+      "message": "Even closer to some bits in the diff:\nhttps://jsfiddle.net/fippo/myk05a6s/1/\nThe re-stringification sorts the codecs according to the order in the m-line,\n\nhttps://jsfiddle.net/fippo/myk05a6s/2/\nit drops unknown lines and last but not least reorders fmtp parameters to appear after the associated rtpmap and sorts the key value parameters\nhttps://jsfiddle.net/fippo/myk05a6s/3/",
+      "parentUuid": "3a852f10_7c15c850",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

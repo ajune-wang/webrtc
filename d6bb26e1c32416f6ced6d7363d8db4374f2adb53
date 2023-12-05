@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5bf25bf_8338d7cd",
+        "filename": "p2p/base/ice_controller_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2023-12-05T09:38:12Z",
+      "side": 1,
+      "message": "shouldn\u0027t you implement the new GetConnection()\nby calling the old connections() (add adding the ugly casts).\n\ndownstream will not have implemented this method, so this cl/ will break it...",
+      "revId": "d6bb26e1c32416f6ced6d7363d8db4374f2adb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

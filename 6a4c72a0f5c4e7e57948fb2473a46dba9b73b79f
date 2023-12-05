@@ -16,6 +16,23 @@
       "message": "Notably if you pass a remote description without these parameters, you will get them in pc.remoteDescription.sdp",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3839aa1e_411b56b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-05T11:03:52Z",
+      "side": 1,
+      "message": "I\u0027m quite uncertain if this makes sense at all.\n\nYou can either say that the parameters are an accurate reflection of the text form of the SDP (\"round trip conversion supported\"), or you can say that the parameters are an accurate reflection of the values you should operate on (\"defaults supplied\").\n\nIf going for \"defaults supplied\", would you have to have symmetric strip-out functions when producing a textual description from the internal representation? Would the fact that this doesn\u0027t preserve the text of a remote description that explicitly sets the parameters to their default value matter?\n\nToo many questions.",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

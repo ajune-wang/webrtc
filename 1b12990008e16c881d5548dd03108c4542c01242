@@ -16,6 +16,24 @@
       "message": "This is because of a downstream class that overrides IceControllerInterface::connections(). We can probably reland by adding a reinterpret_cast on the downstream class (which doesn\u0027t care if it\u0027s converting to the same type or a different type).\n\nAdding jonaso@ to the CC list for advice on what to do.",
       "revId": "1b12990008e16c881d5548dd03108c4542c01242",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0eccaca_e3c072a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5316
+      },
+      "writtenOn": "2023-12-05T01:28:08Z",
+      "side": 1,
+      "message": "You need to fix the downstream class. This is not reasonable to revert upstream.",
+      "parentUuid": "b4499b78_4dc5f3e5",
+      "revId": "1b12990008e16c881d5548dd03108c4542c01242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

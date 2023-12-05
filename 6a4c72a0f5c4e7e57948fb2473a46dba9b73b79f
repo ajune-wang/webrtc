@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f57fe3_d6cdba6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-05T09:46:21Z",
+      "side": 1,
+      "message": "Notably if you pass a remote description without these parameters, you will get them in pc.remoteDescription.sdp",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

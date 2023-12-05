@@ -87,6 +87,24 @@
       "parentUuid": "a15c4c06_f36f0b55",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1b8766_1c4ee304",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-05T12:46:50Z",
+      "side": 1,
+      "message": "Yup, that is TestSerialize which does check that\n  SdpDeserialize(SdpSerialize(jdesc)) ~\u003d jdesc\n\nI think the fields backfilled need to be carefully looked at for side-effects (opus stereo with your weird default of 0, I am looking at you!) but for VP9 and H264 this should be ok since we already set those parameters ourselves.",
+      "parentUuid": "799f48cc_a5ba096b",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

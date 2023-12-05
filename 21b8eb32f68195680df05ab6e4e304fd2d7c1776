@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "495cc6ba_bf15e312",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-05T10:02:59Z",
+      "side": 1,
+      "message": "Synced with Markus, the TQs are not an issue but we have to rename them to reflect the use cases.\n\nEncode metronome and decode metronome. They are both unique_ptr\u003c\u003e, whether or not they are driven by the same tick is an internal implementation detail. It\u0027s OK to have two metronomes ticking from the same source.",
+      "parentUuid": "00904502_740544fb",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 31
+      },
+      "revId": "21b8eb32f68195680df05ab6e4e304fd2d7c1776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0260a4f_1955190f",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 7

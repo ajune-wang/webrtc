@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ed8c7fd_aaaaa617",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:37:09Z",
+      "side": 1,
+      "message": "Loads of commentary on the testing, actual new code seems simple and good!",
+      "revId": "1596ee94ff5710505493d53240221890614ccda5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a53a4844_4560c06d",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:37:09Z",
+      "side": 1,
+      "message": "Mock data used by several tests should be at the top of the file, not here between the classes and the functions.",
+      "revId": "1596ee94ff5710505493d53240221890614ccda5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d786c17_db585ee4",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:37:09Z",
+      "side": 1,
+      "message": "\"Get\" implies that you\u0027re getting it from somewhere.\n\"CreateFrame\" would be a better name.",
+      "revId": "1596ee94ff5710505493d53240221890614ccda5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d8da7a_32df4716",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:37:09Z",
+      "side": 1,
+      "message": "If using random data, never have the same value under 2 different names. If you confuse the two, you want the test to fail.\n\nEither use mock_data here, or use {2, 4, 9, 7}.",
+      "revId": "1596ee94ff5710505493d53240221890614ccda5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b37d41e_bc62ad82",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:37:09Z",
+      "side": 1,
+      "message": "ElementsAreArray(data) (or something like that). Never repeat the values if you have a name for them.",
+      "revId": "1596ee94ff5710505493d53240221890614ccda5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f660f37_3647b801",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:37:09Z",
+      "side": 1,
+      "message": "Suggest calling this test \"CloningSenderFramePreservesInformation\".",
+      "revId": "1596ee94ff5710505493d53240221890614ccda5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

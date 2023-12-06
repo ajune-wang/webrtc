@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27f018da_79b5967d",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T17:31:27Z",
+      "side": 1,
+      "message": "It would make sense to me if it said \"If there are off-thread reference owners, and those references are the last ones deleted, we depend on Clear() having been called from the owner_thread before the last reference is deleted\".",
+      "parentUuid": "58e22164_155b13af",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6cdc8a4_4e6ade8c",
         "filename": "pc/dtls_transport.cc",
         "patchSetId": 5

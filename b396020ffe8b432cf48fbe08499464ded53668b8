@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7c898f_0b01cf7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T17:31:27Z",
+      "side": 1,
+      "message": "+1 because the discussion about the comment is not a blocking issue.\nSuggested new language.",
+      "revId": "b396020ffe8b432cf48fbe08499464ded53668b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

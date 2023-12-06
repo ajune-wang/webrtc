@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf3116f_0cec5088",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-12-06T15:00:20Z",
+      "side": 1,
+      "message": "Thanks! PTAL Harald",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9085daa_85f87a12",
@@ -31,6 +48,24 @@
       "writtenOn": "2023-12-06T14:21:53Z",
       "side": 1,
       "message": "nit:does {} work?\nAlso applies to other sites.",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe1d611_12eea175",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-12-06T15:00:20Z",
+      "side": 1,
+      "message": "Ah, did work here, but fails type inference on line 158. Done.",
+      "parentUuid": "b9085daa_85f87a12",
       "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "244adbfc_3f769619",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-12-06T15:00:20Z",
+      "side": 1,
+      "message": "The original GetContributingSources() should be empty here, actually, as there\u0027s currently no way for a WebRTC-encoded audio frame (coming from a call to delegate-\u003eTransform()) to have a non-empty set of CSRCs. Just adding this testcase now as I realised we didn\u0027t have any unittest coverage of CloneSenderAudioFrame().",
+      "parentUuid": "d8514acc_dbb617bf",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03cf5255_65b34236",
@@ -65,6 +118,24 @@
       "writtenOn": "2023-12-06T14:21:53Z",
       "side": 1,
       "message": "ditto",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "266bc9ec_0c19be49",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-12-06T15:00:20Z",
+      "side": 1,
+      "message": "Done. Realised these other calls should have been EXPECTs too and fixed.",
+      "parentUuid": "03cf5255_65b34236",
       "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

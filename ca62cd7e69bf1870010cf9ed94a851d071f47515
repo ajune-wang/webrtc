@@ -16,6 +16,108 @@
       "message": "How hard can it be? See the patch sets in between ;-)",
       "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb9c3b28_6d0bf13e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:46:13Z",
+      "side": 1,
+      "message": "Commentary on the commentary ... this has the potential of being a nice improvement (for readability if nothing else), but I think some more changes are needed.",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d028d7ba_22dd2678",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:46:13Z",
+      "side": 1,
+      "message": "Add \"This requires Unified Plan\".",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0302af8_86af4ebc",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:46:13Z",
+      "side": 1,
+      "message": "Add \"This should only be used with Plan B\".",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05845a9a_3a183a53",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:46:13Z",
+      "side": 1,
+      "message": "Add \"this is a bit flag, and can be combined with 0x01 or 0x02\".",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c42c0a3_99714f63",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:46:13Z",
+      "side": 1,
+      "message": "can we change the argument and return types here to \"MsidSignaling\"?\nSince it\u0027s enum and not enum class, the change should have no effect, but it reads MUCH nicer.",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06889693_9f22df98",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:46:13Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

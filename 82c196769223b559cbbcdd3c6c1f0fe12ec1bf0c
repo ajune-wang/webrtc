@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d75fc15_c1aea866",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:01:58Z",
+      "side": 1,
+      "message": "I don\u0027t think this module is in a consistent state at the moment. Take care.",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e885d47b_496ce247",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:01:58Z",
+      "side": 1,
+      "message": "This comemnt doesn\u0027t make sense to me given that Clear() does RTC_DCHECK_RUN_ON(owner_thread_). I am feeling that something\u0027s been redesigned without updating the comments here.",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6cdc8a4_4e6ade8c",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:01:58Z",
+      "side": 1,
+      "message": "Can you put these comments in the .h file instead of here?",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "793fc216_36de6eb5",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T15:01:58Z",
+      "side": 1,
+      "message": "Since we\u0027re not locking any more, we don\u0027t need this comment.",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

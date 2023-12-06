@@ -105,6 +105,24 @@
       "parentUuid": "799f48cc_a5ba096b",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d73c39_3c98db73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-06T14:54:20Z",
+      "side": 1,
+      "message": "So you\u0027re arguing for option 2 in the initial comment.... I think.\n\nI couldn\u0027t see any code in the CL that would do \"don\u0027t send this parameter if it\u0027s equal to its default\". Does the CL need some?",
+      "parentUuid": "9c1b8766_1c4ee304",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

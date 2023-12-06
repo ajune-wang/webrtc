@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58e22164_155b13af",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-12-06T17:25:45Z",
+      "side": 1,
+      "message": "yeah it was a bit confusing to me too but from what I can tell, there hasn\u0027t been a redesign. `Clear()` is always called from the destructor of `JsepTransport` which always runs on the network thread. That operation (deleting the JsepTransport object) is triggered from the signaling thread and that\u0027s what the second expression in the DCHECK in line 51 checks for (i.e. make sure that Clear() has at least been run if we\u0027re being deleted on some other thread than the network thread).\n\nSo, the comment is still technically valid but I felt like I needed to add the comment above to explain why we don\u0027t have the same DCHECK in the dtor as we have in Clear().",
+      "parentUuid": "e885d47b_496ce247",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6cdc8a4_4e6ade8c",
         "filename": "pc/dtls_transport.cc",
         "patchSetId": 5
@@ -48,6 +66,24 @@
       "writtenOn": "2023-12-06T15:01:58Z",
       "side": 1,
       "message": "Can you put these comments in the .h file instead of here?",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8915a838_de27f545",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-12-06T17:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6cdc8a4_4e6ade8c",
       "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2023-12-06T15:01:58Z",
       "side": 1,
       "message": "Since we\u0027re not locking any more, we don\u0027t need this comment.",
+      "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "415cde04_4783fc0f",
+        "filename": "pc/dtls_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2023-12-06T17:25:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "793fc216_36de6eb5",
       "revId": "82c196769223b559cbbcdd3c6c1f0fe12ec1bf0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

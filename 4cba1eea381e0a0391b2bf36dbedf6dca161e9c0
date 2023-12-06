@@ -16,6 +16,74 @@
       "message": "Comments addressed, please take another look! 😊",
       "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab614bd_26fd157b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-06T15:47:04Z",
+      "side": 1,
+      "message": "Thanks for the quick round, Zhaoliang!",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fc07776_94b9e3e6",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-06T15:47:04Z",
+      "side": 1,
+      "message": "(Deleting it here: https://webrtc-review.googlesource.com/c/src/+/330300)",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baea1bd0_253d6067",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-06T15:47:04Z",
+      "side": 1,
+      "message": "nit: This can be simplified to `\u003d encode_metronome_.get()` (if it is not set than `.get()` returns `nullptr`).",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5006ac65_400a5c5e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-06T15:47:04Z",
+      "side": 1,
+      "message": "Are there any downsides with just encoding everything currently in the queue on each tick?\n\nFor example:\n```\nmetronome_-\u003eRequestCallOnNextTick([this] {\n  while (!input_queue_.empty()) {\n    OnReadyToEncode();\n  }\n});\n```\nAnd get rid of both the timestamp estimate as well as the OnReadyToEncode() posting to call itself.\n\nIf not, why do we need to do the timestamp estimation and extra logic?",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

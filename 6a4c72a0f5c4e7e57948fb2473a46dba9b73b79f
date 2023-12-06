@@ -123,6 +123,24 @@
       "parentUuid": "9c1b8766_1c4ee304",
       "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81a4304_608ffbd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:18:16Z",
+      "side": 1,
+      "message": "Yep, I am arguing for defaults-supplied, following the newer \"MUST be inferred\" language found in AV1 or webrtc-hevc.\n\nWe can\u0027t strip out the defaults until all the old versions of libwebrtc we need to talk to have been updated. We do set those values in this CL explicitly.\nWe do not set the AV1 defaults (profile, level-idx, tier) currently so I plan a separate CL for that.",
+      "parentUuid": "69d73c39_3c98db73",
+      "revId": "6a4c72a0f5c4e7e57948fb2473a46dba9b73b79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

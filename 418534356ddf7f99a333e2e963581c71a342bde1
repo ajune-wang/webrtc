@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9c9994d_3c6d4b39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2023-12-06T14:21:53Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9085daa_85f87a12",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2023-12-06T14:21:53Z",
+      "side": 1,
+      "message": "nit:does {} work?\nAlso applies to other sites.",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8514acc_dbb617bf",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2023-12-06T14:21:53Z",
+      "side": 1,
+      "message": "Add an assert that the original GetContributingSources() is not empty.",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03cf5255_65b34236",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2023-12-06T14:21:53Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "418534356ddf7f99a333e2e963581c71a342bde1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

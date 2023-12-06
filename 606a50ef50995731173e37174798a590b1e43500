@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7c52ffe_76ba5109",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:10:50Z",
+      "side": 1,
+      "message": "The situation was a bit more complicated than the docs described it ;-)",
+      "revId": "606a50ef50995731173e37174798a590b1e43500",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

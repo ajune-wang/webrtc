@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c39557_63791329",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:10:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d028d7ba_22dd2678",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0302af8_86af4ebc",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-12-06T14:46:13Z",
       "side": 1,
       "message": "Add \"This should only be used with Plan B\".",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03bb7213_ad40f0c0",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:10:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0302af8_86af4ebc",
       "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "645c1351_2255f836",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:10:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05845a9a_3a183a53",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c42c0a3_99714f63",
@@ -103,6 +157,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30177062_ac6f38c0",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:10:50Z",
+      "side": 1,
+      "message": "no since we xor the values which makes the compiler throw an error:\ncannot initialize a member subobject of type \u0027MsidSignaling\u0027 with an rvalue of type \u0027int\u0027",
+      "parentUuid": "9c42c0a3_99714f63",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06889693_9f22df98",
@@ -116,6 +188,24 @@
       "writtenOn": "2023-12-06T14:46:13Z",
       "side": 1,
       "message": "And here.",
+      "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f848691_bd8d2ed5",
+        "filename": "pc/session_description.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-06T17:10:50Z",
+      "side": 1,
+      "message": "see above",
+      "parentUuid": "06889693_9f22df98",
       "revId": "ca62cd7e69bf1870010cf9ed94a851d071f47515",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

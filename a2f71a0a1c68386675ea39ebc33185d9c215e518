@@ -34,6 +34,24 @@
       "parentUuid": "9cccdf4c_57505f0f",
       "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da78e19_aa78ddef",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2528,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-07T13:38:41Z",
+      "side": 1,
+      "message": "Then instead of dealing with this logic inside this method, how about having the RTCStatsCollector avoid calling it altogether?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/rtc_stats_collector.cc;l\u003d2165;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8\n\nHere you could maybe just check `if (!voice_receive_stats.empty())`, WDYT?",
+      "parentUuid": "b0f11c0e_907dadb3",
+      "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

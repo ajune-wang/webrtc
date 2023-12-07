@@ -70,6 +70,24 @@
       "parentUuid": "7da78e19_aa78ddef",
       "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80873017_21e312c6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2528,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-07T14:18:16Z",
+      "side": 1,
+      "message": "yup, it started crashing without the reset to nullopt. Don\u0027t hold on to those I suppose ;-)",
+      "parentUuid": "de112614_ade49641",
+      "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

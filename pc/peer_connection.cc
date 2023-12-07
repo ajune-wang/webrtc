@@ -2522,7 +2522,12 @@ Call::Stats PeerConnection::GetCallStats() {
 
 absl::optional<AudioDeviceModule::Stats> PeerConnection::GetAudioDeviceStats() {
   if (context_->media_engine()) {
-    return context_->media_engine()->voice().GetAudioDeviceStats();
+    // Do not return audio stats unless there is a transceiver in unified plan.
+    // Type and direction of the transceiver are not taken into account.
+    if (!is_unified_plan_ ||
+        !rtp_manager()->transceivers()->UnsafeList().empty()) {
+      return context_->media_engine()->voice().GetAudioDeviceStats();
+    }
   }
   return absl::nullopt;
 }

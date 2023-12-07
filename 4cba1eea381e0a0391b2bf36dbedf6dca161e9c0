@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ea47c41_5a783a4c",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-07T02:06:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baea1bd0_253d6067",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5006ac65_400a5c5e",
@@ -82,6 +100,24 @@
       "writtenOn": "2023-12-06T15:47:04Z",
       "side": 1,
       "message": "Are there any downsides with just encoding everything currently in the queue on each tick?\n\nFor example:\n```\nmetronome_-\u003eRequestCallOnNextTick([this] {\n  while (!input_queue_.empty()) {\n    OnReadyToEncode();\n  }\n});\n```\nAnd get rid of both the timestamp estimate as well as the OnReadyToEncode() posting to call itself.\n\nIf not, why do we need to do the timestamp estimation and extra logic?",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3db26b13_e5a7059c",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-07T02:06:45Z",
+      "side": 1,
+      "message": "We want to limit the maximum delay that VSync alignment brings. In some case, the metronome OnBeginFrame can be throttled as described in the DD, IIRC, the metronome can also be throttled to 15fps, the delay will be very large if we simply post the encode task to next tick.\nPer the experiment result, the average delay here is 12~15ms when we set 33ms maxmium delay.",
+      "parentUuid": "5006ac65_400a5c5e",
       "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

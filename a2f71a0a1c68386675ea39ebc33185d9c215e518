@@ -16,6 +16,24 @@
       "message": "Can we one-up this and check if there are any transceivers in the list of type kAudio? No need to return audio stats if all transceivers are video",
       "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f11c0e_907dadb3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2528,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-07T13:33:37Z",
+      "side": 1,
+      "message": "We are on the wrong thread to do so (this gets called from the worker thread by the stats collector), if we weren\u0027t one could just call GetReceiversInternal().\n\nBoth cases \"audio, but sendonly\" as well as \"video, without receiving audio\" seem rare enough that this still improves things considerably",
+      "parentUuid": "9cccdf4c_57505f0f",
+      "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

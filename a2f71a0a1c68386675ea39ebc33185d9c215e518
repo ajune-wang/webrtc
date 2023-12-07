@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cccdf4c_57505f0f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2528,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-07T13:00:36Z",
+      "side": 1,
+      "message": "Can we one-up this and check if there are any transceivers in the list of type kAudio? No need to return audio stats if all transceivers are video",
+      "revId": "a2f71a0a1c68386675ea39ebc33185d9c215e518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

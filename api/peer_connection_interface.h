@@ -1447,6 +1447,10 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   // TODO(https://crbug.com/webrtc/15704): When callers have migrated to
   // `decode_metronome`, delete this.
   std::unique_ptr<Metronome> metronome;
+  // Metronome used for encoding, must be called on the worker thread.
+  // TODO(b/304158952): Consider merging into a single metronome for all codec
+  // usage.
+  std::unique_ptr<Metronome> encode_metronome;
 
   // Media specific dependencies. Unused when `media_factory == nullptr`.
   rtc::scoped_refptr<AudioDeviceModule> adm;

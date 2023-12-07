@@ -16,6 +16,23 @@
       "message": "The situation was a bit more complicated than the docs described it ;-)",
       "revId": "606a50ef50995731173e37174798a590b1e43500",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dcbebfe_18d72245",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-07T21:22:31Z",
+      "side": 1,
+      "message": "I\u0027ll OK this, but I\u0027m threatening to make a CL that makes those functions do enums.... if I remember when I have the time ...",
+      "revId": "606a50ef50995731173e37174798a590b1e43500",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

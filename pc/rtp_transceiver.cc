@@ -51,9 +51,7 @@ RTCError VerifyCodecPreferences(
   // transceiver.direction.
 
   if (!absl::c_any_of(codecs, [&recv_codecs](const RtpCodecCapability& codec) {
-        return codec.name != cricket::kRtxCodecName &&
-               codec.name != cricket::kRedCodecName &&
-               codec.name != cricket::kFlexfecCodecName &&
+        return codec.IsMediaCodec() &&
                absl::c_any_of(recv_codecs,
                               [&codec](const cricket::Codec& recv_codec) {
                                 return recv_codec.MatchesRtpCodec(codec);
@@ -65,9 +63,7 @@ RTCError VerifyCodecPreferences(
   }
 
   if (!absl::c_any_of(codecs, [&send_codecs](const RtpCodecCapability& codec) {
-        return codec.name != cricket::kRtxCodecName &&
-               codec.name != cricket::kRedCodecName &&
-               codec.name != cricket::kFlexfecCodecName &&
+        return codec.IsMediaCodec() &&
                absl::c_any_of(send_codecs,
                               [&codec](const cricket::Codec& send_codec) {
                                 return send_codec.MatchesRtpCodec(codec);

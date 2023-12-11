@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d160d4_3da18ab2",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-12-11T09:36:35Z",
+      "side": 1,
+      "message": "this one can also be removed",
+      "range": {
+        "startLine": 575,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 72
+      },
+      "revId": "5937006c1533c0dae3403fb57daf46db62a05e9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

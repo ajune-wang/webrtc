@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2186d915_c7f9abe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-11T13:47:58Z",
+      "side": 1,
+      "message": "OK. It\u0027s all behind a flag so far, so let\u0027s try it this way.",
+      "revId": "e5a484ebfc009352887994ee1579e03869dbb0f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

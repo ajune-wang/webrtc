@@ -58,7 +58,7 @@ struct AddrCmp {
 const int NAT_SERVER_UDP_PORT = 4237;
 const int NAT_SERVER_TCP_PORT = 4238;
 
-class NATServer : public sigslot::has_slots<> {
+class NATServer {
  public:
   NATServer(NATType type,
             SocketFactory* internal,
@@ -66,7 +66,7 @@ class NATServer : public sigslot::has_slots<> {
             const SocketAddress& internal_tcp_addr,
             SocketFactory* external,
             const SocketAddress& external_ip);
-  ~NATServer() override;
+  virtual ~NATServer();
 
   NATServer(const NATServer&) = delete;
   NATServer& operator=(const NATServer&) = delete;
@@ -81,15 +81,9 @@ class NATServer : public sigslot::has_slots<> {
 
   // Packets received on one of the networks.
   void OnInternalUDPPacket(AsyncPacketSocket* socket,
-                           const char* buf,
-                           size_t size,
-                           const SocketAddress& addr,
-                           const int64_t& packet_time_us);
+                           const rtc::ReceivedPacket& packet);
   void OnExternalUDPPacket(AsyncPacketSocket* socket,
-                           const char* buf,
-                           size_t size,
-                           const SocketAddress& remote_addr,
-                           const int64_t& packet_time_us);
+                           const rtc::ReceivedPacket& packet);
 
  private:
   typedef std::set<SocketAddress, AddrCmp> AddressSet;

@@ -50,6 +50,23 @@
       "message": "More SDP stuff ;-)",
       "revId": "606a50ef50995731173e37174798a590b1e43500",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05458793_0f29700f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-11T15:47:17Z",
+      "side": 1,
+      "message": "the failure is interesting... I can reproduce with https://jsfiddle.net/fippo/usvf4aLq/\nWhat makes it interesting is that with this patch the code shows up as SDP munging  in webrtc-internals between createAnswer (which generates a msid-semantics with no stream) and a call to SLD with \"msid-semantic: WMS default\"",
+      "revId": "606a50ef50995731173e37174798a590b1e43500",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

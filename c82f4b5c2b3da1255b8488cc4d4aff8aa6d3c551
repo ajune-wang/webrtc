@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde9e0ed_20988725",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-11T07:49:18Z",
+      "side": 1,
+      "message": "Nit: parsers -\u003e parses",
+      "revId": "c82f4b5c2b3da1255b8488cc4d4aff8aa6d3c551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9e06d2d_9cf69a25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-11T07:49:18Z",
+      "side": 1,
+      "message": "Some questions...",
+      "revId": "c82f4b5c2b3da1255b8488cc4d4aff8aa6d3c551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687542e6_38b8f364",
+        "filename": "modules/video_coding/utility/qp_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-11T07:49:18Z",
+      "side": 1,
+      "message": "Is this a full parse?\nWill this mean that we do the parse twice, or is the parse result cached somewhere?\nIn what part of the pipeline is this parse done?\n\n(Given the trouble we have had with depacketizer making expectations on frame format when E2EE is applied, I\u0027d like to make sure we don\u0027t do heavy-duty parsing in the depacketizer stage)",
+      "revId": "c82f4b5c2b3da1255b8488cc4d4aff8aa6d3c551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

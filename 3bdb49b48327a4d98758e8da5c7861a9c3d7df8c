@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaad15eb_4c226fee",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2023-12-11T07:59:22Z",
+      "side": 0,
+      "message": "This is actually removing video_capture_tests on CQ for Linux as well.\nIf it can run on Linux VMs, then video_capture_tests could be moved to desktop_tests_linux_specific.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 8
+      },
+      "revId": "3bdb49b48327a4d98758e8da5c7861a9c3d7df8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

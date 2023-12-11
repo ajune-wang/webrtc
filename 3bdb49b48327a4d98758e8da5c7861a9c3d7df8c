@@ -22,6 +22,30 @@
       },
       "revId": "3bdb49b48327a4d98758e8da5c7861a9c3d7df8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c287299_c607cab3",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2023-12-11T09:23:21Z",
+      "side": 0,
+      "message": "Removed all of it.",
+      "parentUuid": "eaad15eb_4c226fee",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 8
+      },
+      "revId": "3bdb49b48327a4d98758e8da5c7861a9c3d7df8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

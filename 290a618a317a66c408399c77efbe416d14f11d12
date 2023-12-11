@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f851f427_6b87f635",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-11T08:53:48Z",
+      "side": 1,
+      "message": "Makes sense to me! Technically this would make playout disappear if transceivers are later stopped and negotiated away and then make them re-appear if you re-add the transceiver, but that seems like a smaller edge case than where we are at today of returning it even if we only have data channels or only video transcievers, so I\u0027m happy to land this\n\nCC Fredrik FYI",
+      "revId": "290a618a317a66c408399c77efbe416d14f11d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

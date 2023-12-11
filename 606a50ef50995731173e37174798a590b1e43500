@@ -67,6 +67,24 @@
       "message": "the failure is interesting... I can reproduce with https://jsfiddle.net/fippo/usvf4aLq/\nWhat makes it interesting is that with this patch the code shows up as SDP munging  in webrtc-internals between createAnswer (which generates a msid-semantics with no stream) and a call to SLD with \"msid-semantic: WMS default\"",
       "revId": "606a50ef50995731173e37174798a590b1e43500",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28533818_ea440c00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-11T19:05:23Z",
+      "side": 1,
+      "message": "Narrowing it down a bit:\n  https://jsfiddle.net/fippo/usvf4aLq/2\nSo the result of createAnswer from the second peerconnection has\n  a\u003dmsid-semantics: WMS\\r\\n\nwith no streams. After SRD this gets expanded to\n  a\u003dmsid-semantics: WMS default\nwhich seems weird.\nBut the bigger difference is that the subsequent answer now lacks msid lines!\nThis fiddle is more condensed:\n  https://jsfiddle.net/fippo/kwd69pz5/1/\nWe don\u0027t have a c++ test to catch this and the WPT only caught it by chance.\nThe solution is simple, see the PS8..9 which fixes this and adds a test.\n\nI do wonder what the correct thing for the plan-b backward compat code on line 1728 of webrtc_sdp.cc is... if only a\u003dmsid-semantic is set in the offer what should our answer contain?\n\nThe WPT does something fishy though, it uses otherPc.remoteDescription to call SLD...",
+      "parentUuid": "05458793_0f29700f",
+      "revId": "606a50ef50995731173e37174798a590b1e43500",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

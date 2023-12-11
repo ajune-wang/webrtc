@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5471e0be_f80a91cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-11T10:58:26Z",
+      "side": 1,
+      "message": "Split from https://webrtc-review.googlesource.com/c/src/+/328780",
+      "revId": "243f9b600968c3cc7a40295cbfd89cf14c2c2b7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

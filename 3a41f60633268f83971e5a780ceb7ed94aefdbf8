@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eecfd6b_425ac536",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-11T21:42:00Z",
+      "side": 1,
+      "message": "It\u0027s a mystery to me when the compiler decides to throw an error from compiling an unused function and when it does not.",
+      "revId": "3a41f60633268f83971e5a780ceb7ed94aefdbf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -250,10 +250,6 @@
       'desktop_tests',
       'desktop_tests_try_server_specific',
     ],
-    'desktop_tests_with_video_capture': [
-      'desktop_tests',
-      'video_capture_tests',
-    ],
     'linux_desktop_tests_tryserver': [
       'desktop_tests',
       'desktop_tests_linux_specific',

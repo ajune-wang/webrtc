@@ -6230,24 +6230,6 @@
         "merge": {
           "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
         },
-        "name": "video_capture_tests",
-        "resultdb": {
-          "result_format": "json"
-        },
-        "swarming": {
-          "dimensions": {
-            "cpu": "x86-64",
-            "os": "Mac-12",
-            "pool": "WebRTC-baremetal"
-          }
-        },
-        "test": "video_capture_tests",
-        "test_id_prefix": "ninja://modules/video_capture:video_capture_tests/"
-      },
-      {
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
         "name": "video_engine_tests",
         "resultdb": {
           "result_format": "json"
@@ -7933,24 +7915,6 @@
         },
         "test": "tools_unittests",
         "test_id_prefix": "ninja://rtc_tools:tools_unittests/"
-      },
-      {
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "video_capture_tests",
-        "resultdb": {
-          "result_format": "json"
-        },
-        "swarming": {
-          "dimensions": {
-            "cpu": "x86-64",
-            "os": "Windows-10-19045",
-            "pool": "WebRTC-baremetal"
-          }
-        },
-        "test": "video_capture_tests",
-        "test_id_prefix": "ninja://modules/video_capture:video_capture_tests/"
       },
       {
         "merge": {

@@ -6005,25 +6005,6 @@
         "test_id_prefix": "ninja://rtc_tools:tools_unittests/"
       },
       {
-        "isolate_profile_data": true,
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "video_capture_tests",
-        "resultdb": {
-          "result_format": "json"
-        },
-        "swarming": {
-          "dimensions": {
-            "cpu": "x86-64",
-            "os": "Ubuntu-18.04",
-            "pool": "WebRTC-baremetal-try"
-          }
-        },
-        "test": "video_capture_tests",
-        "test_id_prefix": "ninja://modules/video_capture:video_capture_tests/"
-      },
-      {
         "args": [
           "--webrtc_quick_perf_test",
           "--nologs",
@@ -7479,24 +7460,6 @@
         },
         "test": "tools_unittests",
         "test_id_prefix": "ninja://rtc_tools:tools_unittests/"
-      },
-      {
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "video_capture_tests",
-        "resultdb": {
-          "result_format": "json"
-        },
-        "swarming": {
-          "dimensions": {
-            "cpu": "x86-64",
-            "os": "Ubuntu-18.04",
-            "pool": "WebRTC-baremetal-try"
-          }
-        },
-        "test": "video_capture_tests",
-        "test_id_prefix": "ninja://modules/video_capture:video_capture_tests/"
       },
       {
         "args": [
@@ -10616,24 +10579,6 @@
         "test_id_prefix": "ninja://rtc_tools:tools_unittests/"
       },
       {
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "video_capture_tests",
-        "resultdb": {
-          "result_format": "json"
-        },
-        "swarming": {
-          "dimensions": {
-            "cpu": "x86-64",
-            "os": "Mac-12",
-            "pool": "WebRTC-baremetal-try"
-          }
-        },
-        "test": "video_capture_tests",
-        "test_id_prefix": "ninja://modules/video_capture:video_capture_tests/"
-      },
-      {
         "args": [
           "--webrtc_quick_perf_test",
           "--nologs",
@@ -12680,24 +12625,6 @@
         },
         "test": "tools_unittests",
         "test_id_prefix": "ninja://rtc_tools:tools_unittests/"
-      },
-      {
-        "merge": {
-          "script": "//testing/merge_scripts/standard_isolated_script_merge.py"
-        },
-        "name": "video_capture_tests",
-        "resultdb": {
-          "result_format": "json"
-        },
-        "swarming": {
-          "dimensions": {
-            "cpu": "x86-64",
-            "os": "Windows-10-19045",
-            "pool": "WebRTC-baremetal-try"
-          }
-        },
-        "test": "video_capture_tests",
-        "test_id_prefix": "ninja://modules/video_capture:video_capture_tests/"
       },
       {
         "args": [

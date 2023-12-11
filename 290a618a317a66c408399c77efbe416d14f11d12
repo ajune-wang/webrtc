@@ -51,6 +51,24 @@
       "message": "since I need a second set of g-eyes on it anyway ;-)",
       "revId": "290a618a317a66c408399c77efbe416d14f11d12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d760f71_e3c50ca3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-11T11:48:20Z",
+      "side": 1,
+      "message": "I agree I don\u0027t think there would be breakage, but it would be weird, since once it is revived it would be revived with the old data still accumulating. So it\u0027s a bug to delete and revive without reset but I consider this a separate issue overall due to its edge-case-ness",
+      "parentUuid": "75a8f16a_d76e41e9",
+      "revId": "290a618a317a66c408399c77efbe416d14f11d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

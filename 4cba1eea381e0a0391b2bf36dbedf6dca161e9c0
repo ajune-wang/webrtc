@@ -124,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1409eec_6aa3a36d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-11T13:07:21Z",
+      "side": 1,
+      "message": "Would checking the tick period achieve similar results without needing to estimate, which might be simpler and less error prone?\n\n```\nif (metronome_-\u003eTickPeriod() \u003c\u003d kMaxAllowedDelay) {\n  // The metronome is ticking frequently enough that it is worth the extra delay.\n  metronome_-\u003eRequestCallOnNextTick([this] {\n    EncodeAllEnqueuedFrames();\n  });\n} else {\n  // The metronome is ticking too infrequently, encode immediately.\n  EncodeAllEnqueuedFrames();\n}\n```\n\nAlso in what scenarios does the vsync timer happen too infrequently? Does it happen when the tab is not visible?",
+      "parentUuid": "3db26b13_e5a7059c",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7632a393_93782b71",
         "filename": "video/frame_cadence_adapter_unittest.cc",
         "patchSetId": 12

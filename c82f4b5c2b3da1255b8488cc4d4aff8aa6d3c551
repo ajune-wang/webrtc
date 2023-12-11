@@ -50,6 +50,24 @@
       "message": "Is this a full parse?\nWill this mean that we do the parse twice, or is the parse result cached somewhere?\nIn what part of the pipeline is this parse done?\n\n(Given the trouble we have had with depacketizer making expectations on frame format when E2EE is applied, I\u0027d like to make sure we don\u0027t do heavy-duty parsing in the depacketizer stage)",
       "revId": "c82f4b5c2b3da1255b8488cc4d4aff8aa6d3c551",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278c9d5b_2cf051eb",
+        "filename": "modules/video_coding/utility/qp_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2023-12-11T08:16:32Z",
+      "side": 1,
+      "message": "The parser stops when it gets enough information for deducing slice QP \u0026 size, so it\u0027s not a full-parsing.\n\nIt\u0027s only called here: [1]\n\nIdeally after Chromium hevc HW encoder switches to per-frame-QP, rtc_video_encoder will report Qp from HW encoder as trusted(valid); then video_stream_encoder will decide if it trust QP from encoder, or rely on logic here for parsing Qp, basing on the HW encoder Qp validity.\n\n[1]https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d2093?q\u003dvideo_stream_encoder.cc",
+      "parentUuid": "687542e6_38b8f364",
+      "revId": "c82f4b5c2b3da1255b8488cc4d4aff8aa6d3c551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

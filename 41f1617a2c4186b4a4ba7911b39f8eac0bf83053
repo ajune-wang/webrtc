@@ -50,6 +50,24 @@
       "message": "since we don\u0027t support any direction but sendrecv and stopped, but might in the future, the better test would be for ext.direction!\u003d kStopped.",
       "revId": "41f1617a2c4186b4a4ba7911b39f8eac0bf83053",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "647567e1_414122fc",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-12T14:06:25Z",
+      "side": 1,
+      "message": "Done. Now the big question is whether we will first implement directions or remove GFD ;-)",
+      "parentUuid": "d3f34fec_1f932966",
+      "revId": "41f1617a2c4186b4a4ba7911b39f8eac0bf83053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

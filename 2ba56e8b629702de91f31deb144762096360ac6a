@@ -16,6 +16,91 @@
       "message": "Thanks Henrik, ptal.",
       "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "442ce9d3_525d67b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-12T09:43:06Z",
+      "side": 1,
+      "message": "I am overall happy with the CL now, thank you!\n\nBut lets make it compile and I have a couple of testing comments before I can LGTM it",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25ed698f_a32f8bce",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-12T09:43:06Z",
+      "side": 1,
+      "message": "nit: instead of \"interval is less\" say \"tick period is less\"",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45ee7f0_5c37ee11",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-12T09:43:06Z",
+      "side": 1,
+      "message": "The bots are getting compile errors here:\n```\n../../video/frame_cadence_adapter.cc:722:23: error: constexpr variable \u0027kMaxAllowedDelay\u0027 must be initialized by a constant expression\n722 |   constexpr TimeDelta kMaxAllowedDelay \u003d TimeDelta::Millis(33.34);\n|                       ^                  ~~~~~~~~~~~~~~~~~~~~~~~~\n```\n\nDoes it need to be static constexpr maybe?",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8532841_b7b48eb3",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-12T09:43:06Z",
+      "side": 1,
+      "message": "I propose we either add a SetTickPeriod() to the fake metronome (which would have to cancel any pending delayed task in order to re-schedule the new tick period) so that this test can also make sure that we encode immediately when the tick period changes.\n\nOr if we want to keep it simple, just add a separate test where the metronome\u0027s tick period is above kMaxAllowedDelay and simply verify that the encodes are not aligned with the ticks.",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf69eeb_ce274bae",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-12T09:43:06Z",
+      "side": 1,
+      "message": "Here and elsewhere: I suspect these comments about infinite ticks are old comments documenting an old patch set about estimating ticks, but they don\u0027t make sense anymore.\n\nThe tick is 33 ms (kTickPeriod). The comment could say that because the metronome is not infrequent then they are aligned with the tick period.",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,40 @@
       "message": "PS1 is the plain reland, PS2 the backward compat hack.\n\nLet me guess, said \"downstream project\" can not update to get rid of the field trial and use the API to explicitly state its default?\nAlso note that the semantics for header extensions are similar to the ones for codec, sender can send if receivers supports it so the server is free to announce it.",
       "revId": "41f1617a2c4186b4a4ba7911b39f8eac0bf83053",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbabc6e_8d44705f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-12T11:49:16Z",
+      "side": 1,
+      "message": "Suggesting tweak.",
+      "revId": "41f1617a2c4186b4a4ba7911b39f8eac0bf83053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f34fec_1f932966",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-12T11:49:16Z",
+      "side": 1,
+      "message": "since we don\u0027t support any direction but sendrecv and stopped, but might in the future, the better test would be for ext.direction!\u003d kStopped.",
+      "revId": "41f1617a2c4186b4a4ba7911b39f8eac0bf83053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

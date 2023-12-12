@@ -103,6 +103,24 @@
       "parentUuid": "28533818_ea440c00",
       "revId": "606a50ef50995731173e37174798a590b1e43500",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e52995_d18e095b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-12T14:06:56Z",
+      "side": 1,
+      "message": "I introduced a subtle bug that we did not have tests for. And it was subtle enough that the attempt to fix that did change behavior too which means we still don\u0027t have enough tests (and the ones we had did not catch this because they don\u0027t look at the SDP). For plan-b backward compat behavior...\n\nThe answer from the fiddle contains\n* a\u003dmsid:\n* a\u003dssrc:... msid:\n\nWe do in general omit the latter in answers if we detect a a\u003dmsid: in the offer.\nBut since the offer has no track in the fiddle case there is no a\u003dmsid: line. So we include both in the answer.\nThat code is at the bottom of media_session\u0027s CreateAnswerOrError (and should probably be reordered to be unified-plan-first?)",
+      "parentUuid": "b8012be0_c591c8e6",
+      "revId": "606a50ef50995731173e37174798a590b1e43500",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

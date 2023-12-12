@@ -422,7 +422,8 @@ NATSocketServer::Translator::Translator(NATSocketServer* server,
   internal_server_ = std::make_unique<VirtualSocketServer>();
   internal_server_->SetMessageQueue(server_->queue());
   nat_server_ = std::make_unique<NATServer>(
-      type, internal_server_.get(), int_ip, int_ip, ext_factory, ext_ip);
+      type, *server->queue(), internal_server_.get(), int_ip, int_ip,
+      *server->queue(), ext_factory, ext_ip);
 }
 
 NATSocketServer::Translator::~Translator() {

@@ -142,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a539c644_6c7e962a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-12T09:04:46Z",
+      "side": 1,
+      "message": "Thanks, this is much simpler 😎, and the OnBeginFrame would be throttled to 15fps if more than 1 videos are running at 15fps on the tab.",
+      "parentUuid": "c1409eec_6aa3a36d",
+      "revId": "4cba1eea381e0a0391b2bf36dbedf6dca161e9c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7632a393_93782b71",
         "filename": "video/frame_cadence_adapter_unittest.cc",
         "patchSetId": 12

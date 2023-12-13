@@ -16,6 +16,24 @@
       "message": "So now you\u0027re restoring the a\u003dmsid-semantic: WMS in most cases?\nseems like the conservative option. Go for it.",
       "revId": "2f8690545c430b5f919d5a451b583d38eff4389c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb235443_47ad6e69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-13T15:43:03Z",
+      "side": 1,
+      "message": "in all cases it was sent previously. Which are too many but changing that is now possible, e.g. we can not respond with msid-semantic unless the offer had it. Whether that is useful given that the attribute is deprecated and should go away... ;-)",
+      "parentUuid": "7d929779_724fcc8f",
+      "revId": "2f8690545c430b5f919d5a451b583d38eff4389c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

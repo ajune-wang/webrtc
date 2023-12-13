@@ -23,7 +23,7 @@ void CallbackDeferrer::TriggerDeferred() {
   // callback, and that might result in adding new callbacks to this instance,
   // and the vector can't be modified while iterated on.
   RTC_DCHECK(prepared_);
-  std::vector<std::pair<Callback, CallbackData>> deferred;
+  std::deque<std::pair<Callback, CallbackData>> deferred;
   deferred.swap(deferred_);
   prepared_ = false;
 

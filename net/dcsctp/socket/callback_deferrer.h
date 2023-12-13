@@ -11,6 +11,7 @@
 #define NET_DCSCTP_SOCKET_CALLBACK_DEFERRER_H_
 
 #include <cstdint>
+#include <deque>
 #include <functional>
 #include <memory>
 #include <string>
@@ -109,7 +110,7 @@ class CallbackDeferrer : public DcSctpSocketCallbacks {
 
   DcSctpSocketCallbacks& underlying_;
   bool prepared_ = false;
-  std::vector<std::pair<Callback, CallbackData>> deferred_;
+  std::deque<std::pair<Callback, CallbackData>> deferred_;
 };
 }  // namespace dcsctp
 

@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff25ef88_af920336",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-12-13T16:53:31Z",
+      "side": 1,
+      "message": "Harald, extra child namespaces is against best practices:\nhttps://abseil.io/tips/130\n\"When introducing a new namespace, ... introduce it as a top-level.\"\n\nI\u0027m not sure these constants would be widely used to move them into header, and they won\u0027t ever change, so personally I think it is ok to redeclare them. though still would help to use consistance naming/values across different files.",
+      "parentUuid": "83e69b7a_d31d120b",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b48d7d27_fd35df1d",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 7

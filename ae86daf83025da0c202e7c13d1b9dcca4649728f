@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40cbae70_ddf442bc",
+        "filename": "rtc_tools/network_tester/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2023-12-13T07:47:16Z",
+      "side": 0,
+      "message": "Nice! :)",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "ae86daf83025da0c202e7c13d1b9dcca4649728f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

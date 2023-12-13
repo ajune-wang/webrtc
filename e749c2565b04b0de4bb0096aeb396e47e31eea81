@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b07a2b3_02114683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T15:23:36Z",
+      "side": 1,
+      "message": "Why do you insert start codes?",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a44655c9_bf200f0a",
@@ -14,6 +31,74 @@
       "writtenOn": "2023-12-12T06:59:03Z",
       "side": 1,
       "message": "Eric@, Philip@, please take a look. Thanks~",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8498c218_27759f36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T15:23:36Z",
+      "side": 1,
+      "message": "Not happy with parsers duplicating the protocol-defining constants in multiple files. Especially when the usage is inconsistent.",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83e69b7a_d31d120b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T15:23:36Z",
+      "side": 1,
+      "message": "Please don\u0027t use the same names for different things in different files.\nYou have kFuHeaderSize in rtp_packetizer_h265_unittest.cc defined as 3.\n\nLikely all these constants should be in their own namespace (webrtc::h265?) and in a separate .h file.",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48d7d27_fd35df1d",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T15:23:36Z",
+      "side": 1,
+      "message": "FBit also occurs in media_engine/testing/rtp_packet.cc",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa19c83_b9888eb5",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T15:23:36Z",
+      "side": 1,
+      "message": "You\u0027re obviously building these strings out of multiple segments, each expected to be identical to something, with some stuff being changed.\nThe code should reflect that; these strings that have to match are hard to read and hard to maintain.\n\nie uint8_t[] sps \u003d [....]\nuint8_t[] pps \u003d [...]\n\nBufferWriter payload \u003d stuff;\npayload.append(sps);\npayload.append(pps)\nrtc::CopyOnWriteBuffer rtp_payload(payload)\n\nException: If the strings are copied from some authoritative source - but in that case, they need to state where they come from.",
       "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

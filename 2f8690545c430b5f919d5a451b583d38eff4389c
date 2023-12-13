@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d929779_724fcc8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T15:28:51Z",
+      "side": 1,
+      "message": "So now you\u0027re restoring the a\u003dmsid-semantic: WMS in most cases?\nseems like the conservative option. Go for it.",
+      "revId": "2f8690545c430b5f919d5a451b583d38eff4389c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

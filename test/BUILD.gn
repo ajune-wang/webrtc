@@ -1392,6 +1392,7 @@ rtc_library("video_codec_tester") {
     "../api/numerics:numerics",
     "../api/test/metrics:metric",
     "../api/test/metrics:metrics_logger",
+    "../api/transport:field_trial_based_config",
     "../api/units:data_rate",
     "../api/units:data_size",
     "../api/units:frequency",
@@ -1417,8 +1418,10 @@ rtc_library("video_codec_tester") {
     "../rtc_base:timeutils",
     "../rtc_base/synchronization:mutex",
     "../system_wrappers",
+    "../test:field_trial",
     "../test:fileutils",
     "../test:video_test_support",
+    "../video/config:streams_config",
     "//third_party/libyuv",
   ]
 

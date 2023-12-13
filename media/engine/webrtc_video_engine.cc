@@ -154,7 +154,7 @@ bool IsCodecValidForLowerRange(const VideoCodec& codec) {
   } else if (absl::EqualsIgnoreCase(codec.name, kVp9CodecName)) {
     std::string profile_id;
 
-    if (codec.GetParam(kVP9ProfileId, &profile_id)) {
+    if (codec.GetParam(kVp9ProfileId, &profile_id)) {
       if (profile_id.compare("1") == 0 || profile_id.compare("3") == 0) {
         return true;
       }

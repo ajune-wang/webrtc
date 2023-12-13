@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bffb67e_00bdba5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-13T07:25:48Z",
+      "side": 1,
+      "message": "Looks good.\n\nIt\u0027s kind of surprising to see the test NAT need two threads and two socketservers - in any reasonable scenario, having the same thread and socket server should be no burden, as long as the ports are carefully distinct. But changing that is not the job of this CL.",
+      "revId": "b00633e58d823d46dc370a078b6ac80da86af886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

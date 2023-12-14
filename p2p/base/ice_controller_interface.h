@@ -107,12 +107,6 @@ class IceControllerInterface {
     RTC_CHECK_NOTREACHED();
     return {};
   }
-  // TODO(bugs.webrtc.org/15702): Remove this after downstream is cleaned up.
-  virtual rtc::ArrayView<const Connection*> connections() const {
-    // Stub implementation to simplify downstream removal.
-    RTC_CHECK_NOTREACHED();
-    return {};
-  }
 
   // Is there a pingable connection ?
   // This function is used to boot-strap pinging, after this returns true

@@ -39,10 +39,6 @@ class MockIceController : public cricket::IceControllerInterface {
               GetConnections,
               (),
               (const, override));
-  MOCK_METHOD(rtc::ArrayView<const cricket::Connection*>,
-              connections,
-              (),
-              (const, override));
   MOCK_METHOD(bool, HasPingableConnection, (), (const, override));
   MOCK_METHOD(cricket::IceControllerInterface::PingResult,
               SelectConnectionToPing,

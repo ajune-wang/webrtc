@@ -35,11 +35,6 @@ class BasicIceController : public IceControllerInterface {
   rtc::ArrayView<const Connection* const> GetConnections() const override {
     return connections_;
   }
-  rtc::ArrayView<const Connection*> connections() const override {
-    return rtc::ArrayView<const Connection*>(
-        const_cast<const Connection**>(connections_.data()),
-        connections_.size());
-  }
 
   bool HasPingableConnection() const override;
 

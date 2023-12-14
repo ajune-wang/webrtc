@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc382a0_487ce6a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2023-12-14T15:27:50Z",
+      "side": 1,
+      "message": "Hi Per and Sam, can you please take a look?",
+      "revId": "0bc91746cfff473ee1cbdf1223207318a44f50e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

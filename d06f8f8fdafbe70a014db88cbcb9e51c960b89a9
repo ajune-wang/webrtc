@@ -16,6 +16,24 @@
       "message": "I think it would be good to exit early and skip doing the swap if there are no elements in deferred_. Note that you would need to set prepared_ to false even if you exit early.",
       "revId": "d06f8f8fdafbe70a014db88cbcb9e51c960b89a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a106899b_968d10f0",
+        "filename": "net/dcsctp/socket/callback_deferrer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 22664
+      },
+      "writtenOn": "2023-12-14T19:14:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11a114d8_be018e32",
+      "revId": "d06f8f8fdafbe70a014db88cbcb9e51c960b89a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

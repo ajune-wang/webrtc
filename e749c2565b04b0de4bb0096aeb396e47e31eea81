@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a8c0731_300b820e",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-14T11:40:49Z",
+      "side": 1,
+      "message": "A .h file included in two places (packetizer and depacketizer) would satisfy my concern. The problem of having generic names pollute the top level namespace (the names are the same between H.264 and H.265, but the values are different) is a generic C++ problem.",
+      "parentUuid": "ff25ef88_af920336",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b48d7d27_fd35df1d",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 7

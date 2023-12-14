@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85389ba8_e0cc90d4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38ee1fb8_7f427125",
+      "range": {
+        "startLine": 254,
+        "startChar": 9,
+        "endLine": 254,
+        "endChar": 22
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "043e2b3b_303693cb",
@@ -88,6 +112,30 @@
       "writtenOn": "2023-12-12T10:08:20Z",
       "side": 1,
       "message": "TaskQueueBase* const?",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 283,
+        "endChar": 17
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ae58a1_5a7856ed",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "043e2b3b_303693cb",
       "range": {
         "startLine": 283,
         "startChar": 2,
@@ -121,6 +169,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b3c76c_33c97ab6",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "024a611f_eeaa0db3",
+      "range": {
+        "startLine": 292,
+        "startChar": 2,
+        "endLine": 292,
+        "endChar": 12
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dab09e6_dd6bb696",
@@ -144,6 +216,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "560f34b0_c6c753c7",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dab09e6_dd6bb696",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 294,
+        "endChar": 26
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1238b030_35387709",
@@ -157,6 +253,30 @@
       "writtenOn": "2023-12-12T10:08:20Z",
       "side": 1,
       "message": "TaskQueueBase* const?",
+      "range": {
+        "startLine": 362,
+        "startChar": 2,
+        "endLine": 362,
+        "endChar": 16
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dd4f3f3_57c0aa24",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1238b030_35387709",
       "range": {
         "startLine": 362,
         "startChar": 2,
@@ -192,6 +312,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1027a770_3581b678",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "thanks for pointing it out, added the weak ptr checking. And seems we need to invalidate the weak ptr on the same queue we use it, so here add a ReleaseResourcesOnWorkerQueue() and call on VideoStreamEncoder::Stop from worker queue, do you have any idea?",
+      "parentUuid": "2d6f503c_267db06a",
+      "range": {
+        "startLine": 709,
+        "startChar": 6,
+        "endLine": 709,
+        "endChar": 13
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "25ed698f_a32f8bce",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 15
@@ -203,6 +347,24 @@
       "writtenOn": "2023-12-12T09:43:06Z",
       "side": 1,
       "message": "nit: instead of \"interval is less\" say \"tick period is less\"",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b35c8bad_49968e29",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25ed698f_a32f8bce",
       "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -224,6 +386,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8176d695_6def9d0f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "thanks, static is needed, and seems the value must be an integer.",
+      "parentUuid": "a45ee7f0_5c37ee11",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47acd4aa_1c9f8a39",
@@ -237,6 +417,30 @@
       "writtenOn": "2023-12-12T10:08:20Z",
       "side": 1,
       "message": "Here also, what is the guarantee that this object exists when EncodeAllEnqueuedFrames gets to run?",
+      "range": {
+        "startLine": 726,
+        "startChar": 47,
+        "endLine": 726,
+        "endChar": 70
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c592bf53_13d9c1ee",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "added the weak ptr for checking.",
+      "parentUuid": "47acd4aa_1c9f8a39",
       "range": {
         "startLine": 726,
         "startChar": 47,
@@ -272,6 +476,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14e53849_496b686f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Consider the queue more than 1 frames, if we set false for the first frame, and true for other frames, I think all other frames would be dropped by VSE, Im not sure do we want to drop many frames for high fps case? Please correct me if I’ve misunderstood, :)",
+      "parentUuid": "9a2cabde_940bb4a0",
+      "range": {
+        "startLine": 750,
+        "startChar": 36,
+        "endLine": 750,
+        "endChar": 56
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8532841_b7b48eb3",
         "filename": "video/frame_cadence_adapter_unittest.cc",
         "patchSetId": 15
@@ -283,6 +511,24 @@
       "writtenOn": "2023-12-12T09:43:06Z",
       "side": 1,
       "message": "I propose we either add a SetTickPeriod() to the fake metronome (which would have to cancel any pending delayed task in order to re-schedule the new tick period) so that this test can also make sure that we encode immediately when the tick period changes.\n\nOr if we want to keep it simple, just add a separate test where the metronome\u0027s tick period is above kMaxAllowedDelay and simply verify that the encodes are not aligned with the ticks.",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c5f7fb6_71fa860c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8532841_b7b48eb3",
       "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -300,6 +546,24 @@
       "writtenOn": "2023-12-12T09:43:06Z",
       "side": 1,
       "message": "Here and elsewhere: I suspect these comments about infinite ticks are old comments documenting an old patch set about estimating ticks, but they don\u0027t make sense anymore.\n\nThe tick is 33 ms (kTickPeriod). The comment could say that because the metronome is not infrequent then they are aligned with the tick period.",
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18802e1_63724683",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-14T09:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcf69eeb_ce274bae",
       "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

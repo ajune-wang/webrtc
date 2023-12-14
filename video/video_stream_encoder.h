@@ -295,8 +295,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   CadenceCallback cadence_callback_{*this};
   // Frame cadence encoder adapter. Frames enter this adapter first, and it then
   // forwards them to our OnFrame method.
-  std::unique_ptr<FrameCadenceAdapterInterface> frame_cadence_adapter_
-      RTC_GUARDED_BY(&encoder_queue_) RTC_PT_GUARDED_BY(&encoder_queue_);
+  std::unique_ptr<FrameCadenceAdapterInterface> frame_cadence_adapter_;
 
   VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoEncoder> encoder_ RTC_GUARDED_BY(&encoder_queue_)

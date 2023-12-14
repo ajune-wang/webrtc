@@ -748,6 +748,10 @@ void VideoStreamEncoder::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   video_source_sink_controller_.SetSource(nullptr);
 
+  // Some resources on `frame_cadence_adapter_` must be released on
+  // `worker_queue_`.
+  frame_cadence_adapter_->ReleaseResourceOnWorkerQueue();
+
   rtc::Event shutdown_event;
   absl::Cleanup shutdown = [&shutdown_event] { shutdown_event.Set(); };
   encoder_queue_.PostTask([this, shutdown = std::move(shutdown)] {

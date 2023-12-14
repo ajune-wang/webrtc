@@ -109,7 +109,9 @@ class CallbackDeferrer : public DcSctpSocketCallbacks {
 
   DcSctpSocketCallbacks& underlying_;
   bool prepared_ = false;
+  // Use two vectors so most of the time there is no allocation.
   std::vector<std::pair<Callback, CallbackData>> deferred_;
+  std::vector<std::pair<Callback, CallbackData>> processing_;
 };
 }  // namespace dcsctp
 

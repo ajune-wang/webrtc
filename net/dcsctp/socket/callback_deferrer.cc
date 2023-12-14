@@ -23,13 +23,14 @@ void CallbackDeferrer::TriggerDeferred() {
   // callback, and that might result in adding new callbacks to this instance,
   // and the vector can't be modified while iterated on.
   RTC_DCHECK(prepared_);
-  std::vector<std::pair<Callback, CallbackData>> deferred;
-  deferred.swap(deferred_);
+  RTC_DCHECK(processing_.empty());
+  processing_.swap(deferred_);
   prepared_ = false;
 
-  for (auto& [cb, data] : deferred) {
+  for (auto& [cb, data] : processing_) {
     cb(std::move(data), underlying_);
   }
+  processing_.clear();
 }
 
 SendPacketStatus CallbackDeferrer::SendPacketWithStatus(

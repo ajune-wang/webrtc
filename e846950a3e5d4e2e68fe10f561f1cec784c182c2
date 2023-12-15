@@ -16,6 +16,201 @@
       "message": "Thanks Henrik and Markus, ptal",
       "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96dc991b_f4ff0d4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Hi, we provided what we believe is a better thread safety idea in https://webrtc-review.googlesource.com/c/src/+/327460/comment/2d6f503c_267db06a/!",
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "896a7879_80ea632c",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Remove this - the FCA should be able to delete itself.",
+      "range": {
+        "startLine": 275,
+        "startChar": 1,
+        "endLine": 279,
+        "endChar": 0
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364c5df7_ad26d34d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Note: after the changes I recommended below, in essence this safety_ changes to protects on the worker thread, not the encode sequence. Can you add a comment explaining this?",
+      "range": {
+        "startLine": 311,
+        "startChar": 27,
+        "endLine": 311,
+        "endChar": 34
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb63d6c4_17cadd89",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 64
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45e8833_a7e67eee",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Nit: three now",
+      "range": {
+        "startLine": 368,
+        "startChar": 9,
+        "endLine": 368,
+        "endChar": 12
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e29218_18913dbf",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Switch to std::unique_ptr. Comment that it\u0027s destroyed on the worker sequence.",
+      "range": {
+        "startLine": 371,
+        "startChar": 2,
+        "endLine": 371,
+        "endChar": 16
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4be903b_42695a57",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "With the suggestion above, VSyncEncodeAdapterMode::safety_ changed to protect against execution on the worker thread and inside the lambda we need encode sequence safety. Use a ctor-supplied flag containing FrameCadenceAdapterImpl::safety_.flag() instead.",
+      "range": {
+        "startLine": 773,
+        "startChar": 30,
+        "endLine": 773,
+        "endChar": 44
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37760b49_5ba1fab3",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "std::move the vsync adapter unique_ptr into an absl::Cleanup that you PostTask by move into the worker_queue_.",
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c91ebbf_a3b9ad0d",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-15T17:58:47Z",
+      "side": 1,
+      "message": "Nit: EncodeFramesAreAlignedWithMetronomeTick?",
+      "range": {
+        "startLine": 615,
+        "startChar": 30,
+        "endLine": 615,
+        "endChar": 74
+      },
+      "revId": "e846950a3e5d4e2e68fe10f561f1cec784c182c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

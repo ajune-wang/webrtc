@@ -16,6 +16,23 @@
       "message": "If the bots say it\u0027s OK, let\u0027s do it.",
       "revId": "f837c5832ffa00e53e6843a125b05db0154de671",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ea77742_17f1e18d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2023-12-15T18:29:16Z",
+      "side": 1,
+      "message": "the internal users has not yet been updated!",
+      "revId": "f837c5832ffa00e53e6843a125b05db0154de671",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

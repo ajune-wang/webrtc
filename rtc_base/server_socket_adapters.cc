@@ -75,7 +75,7 @@ void AsyncSocksProxyServerSocket::ProcessInput(char* data, size_t* len) {
 
   // Consume parsed data
   *len = response.Length();
-  memmove(data, response.Data(), *len);
+  memmove(data, response.DataView().data(), *len);
 }
 
 void AsyncSocksProxyServerSocket::DirectSend(const ByteBufferWriter& buf) {

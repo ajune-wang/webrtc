@@ -408,14 +408,6 @@ class P2PTransportChannelTestBase : public ::testing::Test,
       allocator_->set_allow_tcp_listen(allow_tcp_listen);
     }
 
-    void OnIceRegathering(PortAllocatorSession*, IceRegatheringReason reason) {
-      ++ice_regathering_counter_[reason];
-    }
-
-    int GetIceRegatheringCountForReason(IceRegatheringReason reason) {
-      return ice_regathering_counter_[reason];
-    }
-
     rtc::FakeNetworkManager network_manager_;
     std::unique_ptr<BasicPortAllocator> allocator_;
     webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory_ =
@@ -428,7 +420,6 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     bool save_candidates_;
     std::vector<CandidateData> saved_candidates_;
     bool ready_to_send_ = false;
-    std::map<IceRegatheringReason, int> ice_regathering_counter_;
   };
 
   ChannelData* GetChannelData(rtc::PacketTransportInternal* transport) {
@@ -460,10 +451,6 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     ep2_.cd1_.ch_->SetIceConfig(ep2_config);
     ep1_.cd1_.ch_->MaybeStartGathering();
     ep2_.cd1_.ch_->MaybeStartGathering();
-    ep1_.cd1_.ch_->allocator_session()->SignalIceRegathering.connect(
-        &ep1_, &Endpoint::OnIceRegathering);
-    ep2_.cd1_.ch_->allocator_session()->SignalIceRegathering.connect(
-        &ep2_, &Endpoint::OnIceRegathering);
   }
 
   void CreateChannels() {
@@ -1560,75 +1547,6 @@ TEST_F(P2PTransportChannelTest, TestUMAIceRestartWhileConnecting) {
   EXPECT_METRIC_EQ(2, webrtc::metrics::NumEvents(
                           "WebRTC.PeerConnection.IceRestartState",
                           static_cast<int>(IceRestartState::CONNECTING)));
-
-  DestroyChannels();
-}
-
-// Tests that a UMA on ICE regathering is recorded when there is a network
-// change if and only if continual gathering is enabled.
-TEST_F(P2PTransportChannelTest,
-       TestIceRegatheringReasonContinualGatheringByNetworkChange) {
-  rtc::ScopedFakeClock clock;
-  ConfigureEndpoints(OPEN, OPEN, kOnlyLocalPorts, kOnlyLocalPorts);
-
-  // ep1 gathers continually but ep2 does not.
-  IceConfig continual_gathering_config =
-      CreateIceConfig(1000, GATHER_CONTINUALLY);
-  IceConfig default_config;
-  CreateChannels(continual_gathering_config, default_config);
-
-  EXPECT_TRUE_SIMULATED_WAIT(CheckConnected(ep1_ch1(), ep2_ch1()),
-                             kDefaultTimeout, clock);
-
-  // Adding address in ep1 will trigger continual gathering.
-  AddAddress(0, kAlternateAddrs[0]);
-  EXPECT_EQ_SIMULATED_WAIT(1,
-                           GetEndpoint(0)->GetIceRegatheringCountForReason(
-                               IceRegatheringReason::NETWORK_CHANGE),
-                           kDefaultTimeout, clock);
-
-  ep2_ch1()->SetIceParameters(kIceParams[3]);
-  ep2_ch1()->SetRemoteIceParameters(kIceParams[2]);
-  ep2_ch1()->MaybeStartGathering();
-
-  AddAddress(1, kAlternateAddrs[1]);
-  SIMULATED_WAIT(false, kDefaultTimeout, clock);
-  // ep2 has not enabled continual gathering.
-  EXPECT_EQ(0, GetEndpoint(1)->GetIceRegatheringCountForReason(
-                   IceRegatheringReason::NETWORK_CHANGE));
-
-  DestroyChannels();
-}
-
-// Tests that a UMA on ICE regathering is recorded when there is a network
-// failure if and only if continual gathering is enabled.
-TEST_F(P2PTransportChannelTest,
-       TestIceRegatheringReasonContinualGatheringByNetworkFailure) {
-  rtc::ScopedFakeClock clock;
-  ConfigureEndpoints(OPEN, OPEN, kOnlyLocalPorts, kOnlyLocalPorts);
-
-  // ep1 gathers continually but ep2 does not.
-  IceConfig config1 = CreateIceConfig(1000, GATHER_CONTINUALLY);
-  config1.regather_on_failed_networks_interval = 2000;
-  IceConfig config2;
-  config2.regather_on_failed_networks_interval = 2000;
-  CreateChannels(config1, config2);
-
-  EXPECT_TRUE_SIMULATED_WAIT(CheckConnected(ep1_ch1(), ep2_ch1()),
-                             kDefaultTimeout, clock);
-
-  fw()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, kPublicAddrs[0]);
-  // Timeout value such that all connections are deleted.
-  const int kNetworkFailureTimeout = 35000;
-  SIMULATED_WAIT(false, kNetworkFailureTimeout, clock);
-  EXPECT_LE(1, GetEndpoint(0)->GetIceRegatheringCountForReason(
-                   IceRegatheringReason::NETWORK_FAILURE));
-  EXPECT_METRIC_LE(
-      1, webrtc::metrics::NumEvents(
-             "WebRTC.PeerConnection.IceRegatheringReason",
-             static_cast<int>(IceRegatheringReason::NETWORK_FAILURE)));
-  EXPECT_EQ(0, GetEndpoint(1)->GetIceRegatheringCountForReason(
-                   IceRegatheringReason::NETWORK_FAILURE));
 
   DestroyChannels();
 }

@@ -118,6 +118,52 @@
       "message": "Nice!",
       "revId": "282c53183957efa391633576d317052dc6aea8cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b16402d_177fe94f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-18T13:21:05Z",
+      "side": 1,
+      "message": "Can this be removed? I think it might be covered by scoped task safety destruction.",
+      "range": {
+        "startLine": 802,
+        "startChar": 4,
+        "endLine": 802,
+        "endChar": 37
+      },
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "133975d7_f5d5aacf",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-18T13:21:05Z",
+      "side": 1,
+      "message": "Nit: I\u0027d wrap it into a ConfigureCurrentAdapterWithoutZeroHertz private method, and call here and in MaybeReconfigureAdapters.",
+      "range": {
+        "startLine": 812,
+        "startChar": 1,
+        "endLine": 815,
+        "endChar": 3
+      },
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -69,6 +69,30 @@
       },
       "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "719248dd_d6e392f1",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-12-18T15:03:10Z",
+      "side": 1,
+      "message": "Sure, but my point is that DD/GFD should be mutually exclusive, but VLA can be enabled when there\u0027s scalability since it\u0027s orthogonal to DD/GFD.\n\n```c++\nif (uses_simulcast || uses_svc) {\n  bool uses_gfd \u003d [...]\n  for (RtpHeaderExtensionCapability\u0026 ext : header_extensions_to_negotiate_) {\n    if (ext.uri \u003d\u003d RtpExtension::kVideoLayersAllocationUri) {\n      ext.direction \u003d RtpTransceiverDirection::kSendRecv;\n    } else if (!uses_gfd \u0026\u0026\n               ext.uri \u003d\u003d RtpExtension::kDependencyDescriptorUri) {\n      ext.direction \u003d RtpTransceiverDirection::kSendRecv;\n    }\n  }\n}\n```\n\nHowever, AFAIK this \"legacy app\" doesn\u0027t use VLA either so this CL as it is now wouldn\u0027t cause any issues.",
+      "parentUuid": "eff3e781_5463de19",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 62
+      },
+      "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

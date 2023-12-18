@@ -105,6 +105,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5355fb33_b035074f",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-18T13:22:37Z",
+      "side": 1,
+      "message": "Can you just trace each value instead? The average can be attained via SQL queries in perfetto.",
+      "range": {
+        "startLine": 760,
+        "startChar": 4,
+        "endLine": 760,
+        "endChar": 16
+      },
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df1518b2_29586b24",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 17

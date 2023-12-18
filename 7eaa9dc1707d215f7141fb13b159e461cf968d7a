@@ -16,6 +16,24 @@
       "message": "We ended up with some complicated woes because this instantiates a TaskQueueWin which IIUC is not used in Chromium which overrides the task queue in its PeerConnectionDepdencyFactory. But that override isn\u0027t done by the EnvironmentFactory?",
       "revId": "7eaa9dc1707d215f7141fb13b159e461cf968d7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c18f6cf_9f7316c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-12-18T15:31:46Z",
+      "side": 1,
+      "message": "This should link in default task queue factory (i.e. TaskQueueWin on windows) but shouldn\u0027t instantiate it as long as webrtc::PeerConnectionFactoryDependencies::task_queue_factory is set.\n\nOr do you refer to some test?\n\nIf linking TaskQueueWin in chromium is a problem, then it might be possible to overwrite chromium version of CreateDefaultTaskQueueFactory to create chromium\u0027s version.",
+      "parentUuid": "53b23aae_1e5ace66",
+      "revId": "7eaa9dc1707d215f7141fb13b159e461cf968d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

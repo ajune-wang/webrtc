@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf887f6c_49fe2d93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22719
+      },
+      "writtenOn": "2023-12-18T13:46:38Z",
+      "side": 1,
+      "message": "Hi Henrik, \nI randomly selected one of the code owners to review my change.\nFeel free to reassign.",
+      "revId": "4191bbd8054c4d7535c6d0d507e4f226b7efce42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

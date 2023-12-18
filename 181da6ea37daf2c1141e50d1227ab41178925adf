@@ -45,6 +45,30 @@
       },
       "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff3e781_5463de19",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-18T14:38:59Z",
+      "side": 1,
+      "message": "The problem is a certain \"legacy app\" that enables GFD via field trial and then fails because DD is negotiated. That app will get the old default behavior this way.",
+      "parentUuid": "3805e10b_b9e8d742",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 62
+      },
+      "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

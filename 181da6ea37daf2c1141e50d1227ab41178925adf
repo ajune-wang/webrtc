@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fc4fc9_0966bd6a",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-12-18T13:34:39Z",
+      "side": 1,
+      "message": "nit:\nabsl::c_any_of\n\nis a bit nicer when you only check for presence.",
+      "range": {
+        "startLine": 193,
+        "startChar": 14,
+        "endLine": 193,
+        "endChar": 23
+      },
+      "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

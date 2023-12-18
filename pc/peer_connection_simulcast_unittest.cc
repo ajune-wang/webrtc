@@ -35,7 +35,6 @@
 #include "api/rtp_transceiver_direction.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
-#include "api/uma_metrics.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 #include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
@@ -65,7 +64,6 @@
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/unique_id_generator.h"
-#include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -101,21 +99,6 @@ std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
 }
 
 }  // namespace cricket
-
-namespace {
-
-#if RTC_METRICS_ENABLED
-std::vector<SimulcastLayer> CreateLayers(int num_layers, bool active) {
-  rtc::UniqueStringGenerator rid_generator;
-  std::vector<std::string> rids;
-  for (int i = 0; i < num_layers; ++i) {
-    rids.push_back(rid_generator.GenerateString());
-  }
-  return webrtc::CreateLayers(rids, active);
-}
-#endif
-
-}  // namespace
 
 namespace webrtc {
 
@@ -213,16 +196,6 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
  private:
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
 };
-
-#if RTC_METRICS_ENABLED
-// This class is used to test the metrics emitted for simulcast.
-class PeerConnectionSimulcastMetricsTests
-    : public PeerConnectionSimulcastTests,
-      public ::testing::WithParamInterface<int> {
- protected:
-  PeerConnectionSimulcastMetricsTests() { metrics::Reset(); }
-};
-#endif
 
 // Validates that RIDs are supported arguments when adding a transceiver.
 TEST_F(PeerConnectionSimulcastTests, CanCreateTransceiverWithRid) {
@@ -603,27 +576,4 @@ TEST_F(PeerConnectionSimulcastTests, SimulcastSldModificationRejected) {
   EXPECT_TRUE(modified_offer);
   EXPECT_TRUE(local->SetLocalDescription(std::move(modified_offer)));
 }
-
-#if RTC_METRICS_ENABLED
-
-const int kMaxLayersInMetricsTest = 8;
-
-// Checks that the number of send encodings is logged in a metric.
-TEST_P(PeerConnectionSimulcastMetricsTests, NumberOfSendEncodingsIsLogged) {
-  auto local = CreatePeerConnectionWrapper();
-  auto num_layers = GetParam();
-  auto layers = ::CreateLayers(num_layers, true);
-  AddTransceiver(local.get(), layers);
-  EXPECT_EQ(1, metrics::NumSamples(
-                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings"));
-  EXPECT_EQ(1, metrics::NumEvents(
-                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings",
-                   num_layers));
-}
-
-INSTANTIATE_TEST_SUITE_P(NumberOfSendEncodings,
-                         PeerConnectionSimulcastMetricsTests,
-                         ::testing::Range(0, kMaxLayersInMetricsTest));
-#endif
-
 }  // namespace webrtc

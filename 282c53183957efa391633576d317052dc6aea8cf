@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "605e73d0_7c8e8793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:02:15Z",
+      "side": 1,
+      "message": "I like the changes, I think this is very close to a +1 from me provided that we do the queue overload work in a follow-up CL instead. What do you think?\n\nOther than that I just have nits on variable names and declaration order",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d08009_09b13221",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:02:15Z",
+      "side": 1,
+      "message": "nit: Can we rename `sequence_checker_` to `queue_sequence_checker_` to reflect which sequence it is checking for, and place it after `queue_` since they are related?",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4901b6a1_6ecb33ed",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:02:15Z",
+      "side": 1,
+      "message": "nit: Can we place this right after `queue_` and `queue_sequence_checker_` since all of these are somewhat related?",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e10bebf_875a3080",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:02:15Z",
+      "side": 1,
+      "message": "nit: Can we rename this `worker_safety_` to reflect it is used on the worker queue and move it to the line after `worker_queue_` since they are related?",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df1518b2_29586b24",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:02:15Z",
+      "side": 1,
+      "message": "If I miss the tick with a microsecond, then it is expected that the encode call happens approximately tick_period from the posting time, so I think this queue overload is a little too \"aggressive\". I would be more concerned with buildup if we are an additional tick behind, but it\u0027s not clear to me what the right logic should be here.\n\nPROPOSAL: Land this CL without queue overload support (always `false`) so that we can make a more focused effort on this in a follow-up CL?",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d05ae48_23b5dc21",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:02:15Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

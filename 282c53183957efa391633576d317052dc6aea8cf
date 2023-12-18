@@ -143,6 +143,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a80ce960_38fd3808",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-18T13:46:45Z",
+      "side": 1,
+      "message": "(My gut feeling is 2 * tick_period is a reasonable amount of time)",
+      "parentUuid": "df1518b2_29586b24",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1d05ae48_23b5dc21",

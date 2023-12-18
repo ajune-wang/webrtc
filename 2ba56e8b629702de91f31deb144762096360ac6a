@@ -358,6 +358,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d5ba5a_e720f562",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-18T09:25:33Z",
+      "side": 1,
+      "message": "This is a really good way, thanks!!",
+      "parentUuid": "59a239d4_95974be6",
+      "range": {
+        "startLine": 709,
+        "startChar": 6,
+        "endLine": 709,
+        "endChar": 13
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25ed698f_a32f8bce",
@@ -499,6 +523,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a35f5a8a_f799ceaf",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-18T09:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44932586_445cb0e7",
+      "range": {
+        "startLine": 726,
+        "startChar": 47,
+        "endLine": 726,
+        "endChar": 70
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a2cabde_940bb4a0",
@@ -560,6 +608,30 @@
       "side": 1,
       "message": "The code needs to drop sufficiently many to not start building unbounded delay. Maybe an idea is to watch that the delay since the last `callback_` invocation doesn\u0027t start to increase?",
       "parentUuid": "14e53849_496b686f",
+      "range": {
+        "startLine": 750,
+        "startChar": 36,
+        "endLine": 750,
+        "endChar": 56
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8606bfa_95aed477",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-18T09:25:33Z",
+      "side": 1,
+      "message": "I modified the queue_overload to true witch checking the metronome tick time, what do you think?",
+      "parentUuid": "54fffc3d_6301298e",
       "range": {
         "startLine": 750,
         "startChar": 36,

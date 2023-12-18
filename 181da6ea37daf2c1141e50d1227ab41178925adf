@@ -22,6 +22,29 @@
       },
       "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3805e10b_b9e8d742",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2023-12-18T14:35:27Z",
+      "side": 1,
+      "message": "I don\u0027t think it makes sense to gate VLA on GFD. You could negotiate VLA if there\u0027s some kind of scalability, regardless of DD/GFD.",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 62
+      },
+      "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

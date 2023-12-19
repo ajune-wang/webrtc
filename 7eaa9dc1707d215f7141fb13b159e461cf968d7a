@@ -34,6 +34,24 @@
       "parentUuid": "53b23aae_1e5ace66",
       "revId": "7eaa9dc1707d215f7141fb13b159e461cf968d7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef47aab_c0920f2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2023-12-19T06:37:48Z",
+      "side": 1,
+      "message": "What we ended up doing to avoid the timeKillEvent symbol was to remove the TaskQueueWin from the BUILD.gn file which removes the symbol from the resulting library (on Windows that means a DLL).\n\nI wonder if it that whole block should be guarded with !build_with_chromium",
+      "parentUuid": "4c18f6cf_9f7316c7",
+      "revId": "7eaa9dc1707d215f7141fb13b159e461cf968d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

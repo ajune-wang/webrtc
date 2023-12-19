@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bcc2a61f_311eca62",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-12-19T15:30:03Z",
+      "side": 1,
+      "message": "Switched to ScopedKeyValueConfig",
+      "parentUuid": "cdd4f2a2_f7b25279",
+      "range": {
+        "startLine": 1108,
+        "startChar": 2,
+        "endLine": 1111,
+        "endChar": 45
+      },
+      "revId": "6b16a317ecb2050f7863ea2269d102c222da35fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0be141b5_f17b8b14",
         "filename": "test/video_codec_tester.cc",
         "patchSetId": 3

@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2d8f345_2532bfaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-19T23:53:34Z",
+      "side": 1,
+      "message": "What you probably need to know is that the FCA is primarily operated \u0026 destroyed on the encode sequence, and the metronome needs be operated solely from the worker thread. In one of the earlier patchsets we figured it was simpler to bind the lifetime of VSyncEncodeAdapterMode to the worker thread than keeping it on the encoding sequence.",
+      "parentUuid": "d6465212_5292554d",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdfe293d_a4714bb6",
@@ -139,6 +157,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfebcef4_9736b957",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-19T23:53:34Z",
+      "side": 1,
+      "message": "Either passthrough or vsync modes exist after Initialize. On zero-hertz activation, the zero-hertz mode adapter is created. It\u0027s destroyed again if zero-hertz is deactivated later.",
+      "parentUuid": "38fcd8af_2a98c839",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da0fadf5_fb7a8562",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 18
@@ -167,6 +203,29 @@
       "writtenOn": "2023-12-19T21:56:01Z",
       "side": 1,
       "message": "What thread should guard the metronome?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cb27fbe_d67245f1",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-19T23:53:34Z",
+      "side": 1,
+      "message": "Oh, missed this: the passthrough adapter doesn\u0027t need to be created under vsyncencoding. Best if you pull up the creation code of the vsync adapter from ConfigureCurrentAdapterWithoutZeroHertz to this method.",
+      "range": {
+        "startLine": 799,
+        "startChar": 2,
+        "endLine": 799,
+        "endChar": 22
+      },
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -207,6 +266,24 @@
       "writtenOn": "2023-12-19T21:56:01Z",
       "side": 1,
       "message": "On what circumstance is the FrameCadenceAdapter created on a different thread than the worker queue?\nOn what circumstance is it destroyed on a different thread than the worker queue?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9419fe5f_397c7c68",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-19T23:53:34Z",
+      "side": 1,
+      "message": "A. [Never](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d711;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8;bpv\u003d1;bpt\u003d1).\nB. Always the encode sequence.",
+      "parentUuid": "0b11ece4_da4dad64",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

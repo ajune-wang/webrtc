@@ -35,6 +35,142 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6465212_5292554d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem ready for submission to me.\n\nI grew more confused as to the threading model the more I looked at it. That\u0027s not a good thing.",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdfe293d_a4714bb6",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "Nit: align -\u003e aligned",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0887914_16c170a1",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "New code not exercised by tests?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "844fc13f_b54c3755",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "What thread guards the vsync_encode_adapter_?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99c9676e_7d9fe314",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "Nit: needs happen -\u003e needs to happen",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38fcd8af_2a98c839",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "This seems to be an odd design. Having three members, two optional and one being a pointer, of which only one can be valid at any given time (can they all be missing? Not clear!)\n\nWould be more natural to have a single std::unique_ptr pointing to the current adapter mode object, and deal with the thread requirement by other means.\n\nBut that redesign may be beyond the scope of this CL.",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da0fadf5_fb7a8562",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "This is confusing. The comment says that it\u0027s the parameters that say which adapter mode has been set, while there\u0027s a pointer that points to the current adapter mode. Are they set at the same time, or at different times?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "857074d3_7bd094b5",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "What thread should guard the metronome?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "454e7a2b_753202ac",
@@ -54,6 +190,23 @@
         "endLine": 939,
         "endChar": 80
       },
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b11ece4_da4dad64",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-19T21:56:01Z",
+      "side": 1,
+      "message": "On what circumstance is the FrameCadenceAdapter created on a different thread than the worker queue?\nOn what circumstance is it destroyed on a different thread than the worker queue?",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

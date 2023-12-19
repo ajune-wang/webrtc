@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a320bc_55ea9e0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Thanks Henrik and Markus!! Please take another look.\n\nHi Harald, could you help to review this CL? thanks!",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

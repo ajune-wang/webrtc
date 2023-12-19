@@ -642,6 +642,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7f6afc5_695ef6a7",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f8606bfa_95aed477",
+      "range": {
+        "startLine": 750,
+        "startChar": 36,
+        "endLine": 750,
+        "endChar": 56
+      },
+      "revId": "2ba56e8b629702de91f31deb144762096360ac6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8532841_b7b48eb3",

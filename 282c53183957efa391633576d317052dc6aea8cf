@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e10baaf_e69f6ed9",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16d08009_09b13221",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4901b6a1_6ecb33ed",
@@ -82,6 +100,24 @@
       "writtenOn": "2023-12-18T13:02:15Z",
       "side": 1,
       "message": "nit: Can we place this right after `queue_` and `queue_sequence_checker_` since all of these are somewhat related?",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d8135ab_ced3170e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4901b6a1_6ecb33ed",
       "revId": "282c53183957efa391633576d317052dc6aea8cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +139,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddaf3970_3cbf6a45",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e10bebf_875a3080",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5355fb33_b035074f",
@@ -116,6 +170,30 @@
       "writtenOn": "2023-12-18T13:22:37Z",
       "side": 1,
       "message": "Can you just trace each value instead? The average can be attained via SQL queries in perfetto.",
+      "range": {
+        "startLine": 760,
+        "startChar": 4,
+        "endLine": 760,
+        "endChar": 16
+      },
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dc2d0ef_8685ba10",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5355fb33_b035074f",
       "range": {
         "startLine": 760,
         "startChar": 4,
@@ -163,6 +241,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "01a28aee_705531f1",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Sounds good to me, thanks Henrik.",
+      "parentUuid": "a80ce960_38fd3808",
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1d05ae48_23b5dc21",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 17
@@ -201,6 +297,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9ca663b_02e917e8",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b16402d_177fe94f",
+      "range": {
+        "startLine": 802,
+        "startChar": 4,
+        "endLine": 802,
+        "endChar": 37
+      },
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "133975d7_f5d5aacf",
@@ -214,6 +334,30 @@
       "writtenOn": "2023-12-18T13:21:05Z",
       "side": 1,
       "message": "Nit: I\u0027d wrap it into a ConfigureCurrentAdapterWithoutZeroHertz private method, and call here and in MaybeReconfigureAdapters.",
+      "range": {
+        "startLine": 812,
+        "startChar": 1,
+        "endLine": 815,
+        "endChar": 3
+      },
+      "revId": "282c53183957efa391633576d317052dc6aea8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28102e68_864d0222",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-19T04:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133975d7_f5d5aacf",
       "range": {
         "startLine": 812,
         "startChar": 1,

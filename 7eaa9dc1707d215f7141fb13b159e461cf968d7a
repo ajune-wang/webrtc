@@ -52,6 +52,24 @@
       "parentUuid": "4c18f6cf_9f7316c7",
       "revId": "7eaa9dc1707d215f7141fb13b159e461cf968d7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea22fdb7_055a42b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2023-12-19T12:00:02Z",
+      "side": 1,
+      "message": "so the issue is that TaskQueueWin is linked into chromium.\nThe simplest solution might be to link TaskQueueStdLib as default task queue when build_with_chromium, that should have less controversial dependencies.\n\nThe better solution might be to do some chromium\u003c-\u003ewebrtc dance and use chromium specific task queue as the default one when build_with_chromium (i.e. webrtc::CreateDefaultTaskQueueFactory() would return ::CreateWebRtcTaskQueueFactory from chromium/third_party/webrtc_overrides/task_queue_factory.h )\n\nThe third solution might be to crash when webrtc::CreateDefaultTaskQueueFactory()  is called from chromium, forcing all chromium code (including tests) to specify task queue factory explicitly.",
+      "parentUuid": "0ef47aab_c0920f2b",
+      "revId": "7eaa9dc1707d215f7141fb13b159e461cf968d7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

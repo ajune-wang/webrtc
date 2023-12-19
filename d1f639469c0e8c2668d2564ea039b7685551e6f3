@@ -16,6 +16,46 @@
       "message": "Thanks Henrik and Markus!! Please take another look.\n\nHi Harald, could you help to review this CL? thanks!",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9956d14b_1f99f76c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-19T12:21:40Z",
+      "side": 1,
+      "message": "I think this looks okay now, thanks Zhaoliang.",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454e7a2b_753202ac",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2023-12-19T12:21:40Z",
+      "side": 1,
+      "message": "Nit: I\u0027d move this piece to ::Initialize if it only happens from there.",
+      "range": {
+        "startLine": 938,
+        "startChar": 3,
+        "endLine": 939,
+        "endChar": 80
+      },
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

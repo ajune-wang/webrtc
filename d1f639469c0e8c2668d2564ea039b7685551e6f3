@@ -70,6 +70,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a476726_d9302658",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-20T14:05:37Z",
+      "side": 1,
+      "message": "I only have nits. Redesign of existing patterns is out of scope of this CL. +1",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdfe293d_a4714bb6",
@@ -100,6 +117,24 @@
       "writtenOn": "2023-12-19T21:56:01Z",
       "side": 1,
       "message": "New code not exercised by tests?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba50ebc_2ea0b3dc",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-20T14:05:37Z",
+      "side": 1,
+      "message": "I wonder if a future refactoring CL could avoid us having to implement this in multiple AdapterMode, but I feel such redesign is out of scope of this CL",
+      "parentUuid": "a0887914_16c170a1",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -175,6 +210,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9e09c02_a1911835",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-20T14:05:37Z",
+      "side": 1,
+      "message": "I think redesign is out of scope for this CL which I think fits nicely with patterns already established in this file, but if we can clarify this with a comment that would be good.",
+      "parentUuid": "dfebcef4_9736b957",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da0fadf5_fb7a8562",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 18
@@ -203,6 +256,24 @@
       "writtenOn": "2023-12-19T21:56:01Z",
       "side": 1,
       "message": "What thread should guard the metronome?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d827a96_e17941f2",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-20T14:05:37Z",
+      "side": 1,
+      "message": "The metronome object outlives the peer connection (owned by pc factory) so we don\u0027t need to worry about UAF and the ptr is const. Calling its methods is worker thread only though.",
+      "parentUuid": "857074d3_7bd094b5",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -249,6 +320,40 @@
         "endLine": 939,
         "endChar": 80
       },
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac3f9a9a_b778a37c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-20T14:05:37Z",
+      "side": 1,
+      "message": "nit: The test might be more readable if we advance by 3 milliseconds here for a total of 30+3 \u003d 33 ms since start of test, since the tick period is 33 ms. (Unless the simulated time requires MORE than 33 ms to have passed, but I think it should tick ON the exact millisecond?)\n\nIf you really want to test the timing, you can go to 32 ms, expect no frames, and then go 1 ms more, and expect frame.",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e59320b9_3f002a75",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2023-12-20T14:05:37Z",
+      "side": 1,
+      "message": "nit: Again, why 36 and not 33 ms?",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

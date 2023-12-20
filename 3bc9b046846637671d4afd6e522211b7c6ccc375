@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a9b963_4fd9a194",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-20T07:41:28Z",
+      "side": 1,
+      "message": "After trying in multiple ways to get the bot to process the CL, the conclusion is that the bot is flaky.",
+      "revId": "3bc9b046846637671d4afd6e522211b7c6ccc375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

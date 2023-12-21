@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65e93329_6a491703",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22735
+      },
+      "writtenOn": "2023-12-21T13:27:47Z",
+      "side": 1,
+      "message": "+perkj: Can you also please review this one? Thanks!\n\nAFAICS, IceRegatheringReason [1] is primarily used for this deprecated metric, but OTOH some tests such as [2] [3] appear to use this reason to check some internal behaviors by observing this reason. So, I tentatively leave these codebases ([1][4][5]) for emitting this reason.\nPlease let me know if you believe it would be ok to clean up as well, then I’m happy to work on it.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/port_allocator.h;l\u003d95;drc\u003daea49c953c644ebd5fe8a75dee884b9c821c5257  \n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/regathering_controller_unittest.cc;l\u003d128;drc\u003d0793ee7552c544ab4864fa1f75fc8a76e144f1e8\n[3] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/p2p_transport_channel_unittest.cc;l\u003d1597;drc\u003df0ddae8c22e7d2e00857cdccd2162e11fd9db72f \n[4] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/client/basic_port_allocator.cc;l\u003d497;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8\n[5] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/client/basic_port_allocator.cc;l\u003d917;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8",
+      "revId": "ee58d0be6143bb2d02294214cedc76d08ba8cb67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

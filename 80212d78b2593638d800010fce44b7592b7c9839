@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6def9a68_f035c307",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2023-12-21T15:18:59Z",
+      "side": 1,
+      "message": "Prepping Cherrypick to 121, pending approval on the attached bug.",
+      "revId": "80212d78b2593638d800010fce44b7592b7c9839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

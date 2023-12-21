@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff6f66d2_6c3b4f2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2023-12-21T13:23:10Z",
+      "side": 1,
+      "message": "I\u0027m assuming that this does explicitly what c++ \u003e 11 does implicitly.\nIf all tests pass, go for it.\n\n(We do have a safe cast library that will barf on things like numbers too large to be converted to float. But I don\u0027t remember where it is or what it\u0027s called.)",
+      "revId": "613440246057407bfd25040fa12e8887524ffc88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

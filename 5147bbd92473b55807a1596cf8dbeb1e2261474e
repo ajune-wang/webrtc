@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2d1433_ad0bc5fa",
+        "filename": "test/video_codec_tester_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-12-21T14:04:35Z",
+      "side": 1,
+      "message": "nit: these are the _values_ the y, u and v buffers are filled with, right? Maybe update the name or add a comment to that effect somewhere.",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "5147bbd92473b55807a1596cf8dbeb1e2261474e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7251074f_7d309415",
+        "filename": "test/video_codec_tester_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2023-12-21T14:04:35Z",
+      "side": 1,
+      "message": "nit: These are intentionally different from what is generated in `CreateYuvFile()`? Please comment why.",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 49
+      },
+      "revId": "5147bbd92473b55807a1596cf8dbeb1e2261474e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -104,6 +104,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e541233_0ca7926c",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdfe293d_a4714bb6",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0887914_16c170a1",
@@ -158,6 +176,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37c8e194_b1bf4009",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "The vsync_encode_adapter_ would be called from both worker queue and encode queue, but all metronome related memembers are guarded by worker sequence, and others are all guarded by encode queue, so I think it\u0027s safe and vsync_encode_adapter_ is destroyed on worker queue by post task from encode queue on the FCAI::dtor.",
+      "parentUuid": "844fc13f_b54c3755",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99c9676e_7d9fe314",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 18
@@ -169,6 +205,24 @@
       "writtenOn": "2023-12-19T21:56:01Z",
       "side": 1,
       "message": "Nit: needs happen -\u003e needs to happen",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ace524a9_d017ad68",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99c9676e_7d9fe314",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -245,6 +299,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6356c6dd_602762ed",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "VSync adapter would be set to `current_adapter_mode_` if `metronome_` is valid otherwise passthrough adapter would be set, this happens on FCA::Initialize. And if zero-hertz is enabled, then `zero_hertz_adapter_` would be set to `current_adapter_mode_` at `MaybeReconfigureAdapters`.",
+      "parentUuid": "da0fadf5_fb7a8562",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "857074d3_7bd094b5",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 18
@@ -301,6 +373,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dccd0a6d_1ea57958",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cb27fbe_d67245f1",
+      "range": {
+        "startLine": 799,
+        "startChar": 2,
+        "endLine": 799,
+        "endChar": 22
+      },
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "454e7a2b_753202ac",
@@ -314,6 +410,30 @@
       "writtenOn": "2023-12-19T12:21:40Z",
       "side": 1,
       "message": "Nit: I\u0027d move this piece to ::Initialize if it only happens from there.",
+      "range": {
+        "startLine": 938,
+        "startChar": 3,
+        "endLine": 939,
+        "endChar": 80
+      },
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f5957e_1d0a7f80",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "454e7a2b_753202ac",
       "range": {
         "startLine": 938,
         "startChar": 3,
@@ -341,6 +461,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0e3acd0_8e5a7bc8",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac3f9a9a_b778a37c",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e59320b9_3f002a75",
@@ -354,6 +492,24 @@
       "writtenOn": "2023-12-20T14:05:37Z",
       "side": 1,
       "message": "nit: Again, why 36 and not 33 ms?",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa2114d1_4a7170bc",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2023-12-21T02:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e59320b9_3f002a75",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00224f58_e5255c16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22735
+      },
+      "writtenOn": "2023-12-21T09:02:14Z",
+      "side": 1,
+      "message": "@perkj@webrtc.org friendly ping :bow:",
+      "revId": "c71a9cd090ed72f373e681106fb0994fac913cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

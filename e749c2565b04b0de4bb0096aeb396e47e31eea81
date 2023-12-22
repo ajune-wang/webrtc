@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ed7b888_b5473383",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "We will not add vps/sps/pps tracking/insertion of parameter sets for h265 in receiver side and rely on decoder to request IDR on illegal/missing parameter sets in the stream. So we insert start code before each nalu here so that we don\u0027t need to do this later in packet buffer.",
+      "parentUuid": "1b07a2b3_02114683",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a44655c9_bf200f0a",
@@ -65,6 +83,30 @@
       "writtenOn": "2023-12-14T12:24:41Z",
       "side": 1,
       "message": "just \"bytes\": InBytes -\u003e Bytes",
+      "range": {
+        "startLine": 37,
+        "startChar": 35,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "472e059a_2abf9822",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50bbac57_3e5ef000",
       "range": {
         "startLine": 37,
         "startChar": 35,
@@ -128,6 +170,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e904ee2_6223f719",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a8c0731_300b820e",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b48d7d27_fd35df1d",
@@ -141,6 +201,24 @@
       "writtenOn": "2023-12-13T15:23:36Z",
       "side": 1,
       "message": "FBit also occurs in media_engine/testing/rtp_packet.cc",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89283e18_08555add",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "Did not find media_engine folder in webrtc source code",
+      "parentUuid": "b48d7d27_fd35df1d",
       "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -168,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bb42e43_9befd599",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8efcadf3_21c320a9",
+      "range": {
+        "startLine": 87,
+        "startChar": 54,
+        "endLine": 87,
+        "endChar": 59
+      },
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaa19c83_b9888eb5",
@@ -181,6 +283,24 @@
       "writtenOn": "2023-12-13T15:23:36Z",
       "side": 1,
       "message": "You\u0027re obviously building these strings out of multiple segments, each expected to be identical to something, with some stuff being changed.\nThe code should reflect that; these strings that have to match are hard to read and hard to maintain.\n\nie uint8_t[] sps \u003d [....]\nuint8_t[] pps \u003d [...]\n\nBufferWriter payload \u003d stuff;\npayload.append(sps);\npayload.append(pps)\nrtc::CopyOnWriteBuffer rtp_payload(payload)\n\nException: If the strings are copied from some authoritative source - but in that case, they need to state where they come from.",
+      "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97d3b044_8ad2ac7d",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa19c83_b9888eb5",
       "revId": "e749c2565b04b0de4bb0096aeb396e47e31eea81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

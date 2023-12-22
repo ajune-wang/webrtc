@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b641472_74d7e6fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2023-12-22T06:46:15Z",
+      "side": 1,
+      "message": "Add constants definition in a common file for packetizer and depacketizer and update the unit test case array definition. Please help review.",
+      "revId": "a8ad4f6542cb71a0e81b15f387c871001e8104b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

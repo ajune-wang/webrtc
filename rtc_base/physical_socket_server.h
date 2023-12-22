@@ -219,7 +219,8 @@ class PhysicalSocket : public Socket, public sigslot::has_slots<> {
   int DoReadFromSocket(void* buffer,
                        size_t length,
                        SocketAddress* out_addr,
-                       int64_t* timestamp);
+                       int64_t* timestamp,
+                       absl::optional<bool>* ect_ce);
 
   void OnResolveResult(const webrtc::AsyncDnsResolverResult& resolver);
 
@@ -241,6 +242,10 @@ class PhysicalSocket : public Socket, public sigslot::has_slots<> {
   int error_ RTC_GUARDED_BY(mutex_);
   ConnState state_;
   std::unique_ptr<webrtc::AsyncDnsResolverInterface> resolver_;
+#if defined(WEBRTC_POSIX)
+  uint8_t dscp_ = 0;  // 6bit.
+  uint8_t ecn_ = 0;   // 2bits.
+#endif
 
 #if !defined(NDEBUG)
   std::string dbg_addr_;

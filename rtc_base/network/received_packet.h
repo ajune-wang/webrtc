@@ -28,14 +28,20 @@ class RTC_EXPORT ReceivedPacket {
  public:
   // Caller must keep memory pointed to by payload and address valid for the
   // lifetime of this ReceivedPacket.
-  ReceivedPacket(
-      rtc::ArrayView<const uint8_t> payload,
-      const SocketAddress& source_address,
-      absl::optional<webrtc::Timestamp> arrival_time = absl::nullopt);
+  ReceivedPacket(rtc::ArrayView<const uint8_t> payload,
+                 const SocketAddress& source_address,
+                 absl::optional<webrtc::Timestamp> arrival_time = absl::nullopt,
+                 absl::optional<bool> ect_ce = absl::nullopt);
 
   // Address/port of the packet sender.
   const SocketAddress& source_address() const { return source_address_; }
   rtc::ArrayView<const uint8_t> payload() const { return payload_; }
+
+  // L4S ECT marking. https://www.rfc-editor.org/rfc/rfc9331.html
+  // If not set, L4S is not used or not supported by the network.
+  // if set and false: ECN bits are ECT(1)
+  // If set and true: ECN bits are CE
+  absl::optional<bool> ect_ce() const { return ect_ce_; }
 
   // Timestamp when this packet was received. Not available on all socket
   // implementations.
@@ -62,6 +68,7 @@ class RTC_EXPORT ReceivedPacket {
   rtc::ArrayView<const uint8_t> payload_;
   absl::optional<webrtc::Timestamp> arrival_time_;
   const SocketAddress& source_address_;
+  absl::optional<bool> ect_ce_;
 };
 
 }  // namespace rtc

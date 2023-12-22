@@ -315,6 +315,11 @@ int PhysicalSocket::GetOption(Option opt, int* value) {
     // unshift DSCP value to get six most significant bits of IP DiffServ field
     *value >>= 2;
 #endif
+  } else if (opt == OPT_SEND_ECN) {
+#if defined(WEBRTC_POSIX)
+    // Least 2 significant bits.
+    *value = *value & 0x3;
+#endif
   }
   return ret;
 }
@@ -330,9 +335,14 @@ int PhysicalSocket::SetOption(Option opt, int value) {
 #endif
   } else if (opt == OPT_DSCP) {
 #if defined(WEBRTC_POSIX)
-    // shift DSCP value to fit six most significant bits of IP DiffServ field
-    value <<= 2;
+    // IP DiffServ  consists of DSCP 6 most significant, ECN 2 least
+    // significant.
+    dscp_ = value << 2;
+    value = dscp_ + (ecn_ & 0x3);
 #endif
+  } else if (opt == OPT_SEND_ECN) {
+    ecn_ = value;
+    value = dscp_ + ecn_ & 0x3;
   }
 #if defined(WEBRTC_POSIX)
   if (sopt == IPV6_TCLASS) {
@@ -401,8 +411,8 @@ int PhysicalSocket::SendTo(const void* buffer,
 }
 
 int PhysicalSocket::Recv(void* buffer, size_t length, int64_t* timestamp) {
-  int received =
-      DoReadFromSocket(buffer, length, /*out_addr*/ nullptr, timestamp);
+  int received = DoReadFromSocket(buffer, length, /*out_addr*/ nullptr,
+                                  timestamp, nullptr);
   if ((received == 0) && (length != 0)) {
     // Note: on graceful shutdown, recv can return 0.  In this case, we
     // pretend it is blocking, and then signal close, so that simplifying
@@ -435,7 +445,7 @@ int PhysicalSocket::RecvFrom(ReceiveBuffer& buffer) {
   }
   int received =
       DoReadFromSocket(buffer.payload.data(), buffer.payload.capacity(),
-                       &buffer.source_address, &timestamp);
+                       &buffer.source_address, &timestamp, &buffer.ect_ce);
   buffer.payload.SetSize(received > 0 ? received : 0);
   if (received > 0 && timestamp != -1) {
     buffer.arrival_time = webrtc::Timestamp::Micros(timestamp);
@@ -455,7 +465,8 @@ int PhysicalSocket::RecvFrom(ReceiveBuffer& buffer) {
 int PhysicalSocket::DoReadFromSocket(void* buffer,
                                      size_t length,
                                      SocketAddress* out_addr,
-                                     int64_t* timestamp) {
+                                     int64_t* timestamp,
+                                     absl::optional<bool>* ect_ce) {
   sockaddr_storage addr_storage;
   socklen_t addr_len = sizeof(addr_storage);
   sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
@@ -470,8 +481,9 @@ int PhysicalSocket::DoReadFromSocket(void* buffer,
       msg.msg_name = addr;
       msg.msg_namelen = addr_len;
     }
-    char control[CMSG_SPACE(sizeof(struct timeval))] = {};
-    if (timestamp) {
+    char control[CMSG_SPACE(sizeof(struct timeval) + 5 * sizeof(int))] =
+        {};  // What size is needed for IPV6_TCLASS ??? is an int.
+    if (timestamp || ect_ce) {
       *timestamp = -1;
       msg.msg_control = &control;
       msg.msg_controllen = sizeof(control);
@@ -481,17 +493,27 @@ int PhysicalSocket::DoReadFromSocket(void* buffer,
       // An error occured or shut down.
       return received;
     }
-    if (timestamp) {
+    if (timestamp || ect_ce) {
       struct cmsghdr* cmsg;
       for (cmsg = CMSG_FIRSTHDR(&msg); cmsg; cmsg = CMSG_NXTHDR(&msg, cmsg)) {
+        if (ect_ce && cmsg->cmsg_type == IPV6_TCLASS &&
+            cmsg->cmsg_level == IPPROTO_IPV6) {
+          // https:  // www.ietf.org/rfc/rfc3542.txt Section 6.5
+          if (CMSG_DATA(cmsg)[0] == 1) {
+            *ect_ce = false;
+          } else if (CMSG_DATA(cmsg)[0] == 3) {
+            *ect_ce = true;
+          }
+          RTC_LOG(LS_INFO) << "cmsg: ecn"
+                           << static_cast<int>(CMSG_DATA(cmsg)[0]);
+        }
         if (cmsg->cmsg_level != SOL_SOCKET)
           continue;
-        if (cmsg->cmsg_type == SCM_TIMESTAMP) {
+        if (timestamp && cmsg->cmsg_type == SCM_TIMESTAMP) {
           timeval* ts = reinterpret_cast<timeval*>(CMSG_DATA(cmsg));
           *timestamp =
               rtc::kNumMicrosecsPerSec * static_cast<int64_t>(ts->tv_sec) +
               static_cast<int64_t>(ts->tv_usec);
-          break;
         }
       }
     }
@@ -681,6 +703,34 @@ int PhysicalSocket::TranslateOption(Option opt, int* slevel, int* sopt) {
       break;
 #else
       RTC_LOG(LS_WARNING) << "Socket::OPT_DSCP not supported.";
+      return -1;
+#endif
+    case OPT_SEND_ECN:
+#if defined(WEBRTC_POSIX)
+      if (family_ == AF_INET6) {
+        *slevel = IPPROTO_IPV6;
+        *sopt = IPV6_TCLASS;
+      } else {
+        *slevel = IPPROTO_IP;
+        *sopt = IP_TOS;
+      }
+      break;
+#else
+      RTC_LOG(LS_WARNING) << "Socket::OPT_SEND_ESN not supported.";
+      return -1;
+#endif
+    case OPT_RECV_ECN:
+#if defined(WEBRTC_POSIX)
+      if (family_ == AF_INET6) {
+        *slevel = IPPROTO_IPV6;
+        *sopt = IPV6_RECVTCLASS;
+      } else {
+        *slevel = IPPROTO_IP;
+        *sopt = IP_RECVTOS;
+      }
+      break;
+#else
+      RTC_LOG(LS_WARNING) << "Socket::OPT_RECV_ECN not supported.";
       return -1;
 #endif
     case OPT_RTP_SENDTIME_EXTN_ID:

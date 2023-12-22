@@ -484,6 +484,16 @@ TEST_F(PhysicalSocketTest, TestSocketRecvTimestampIPv6ScmExperimentDisabled) {
 }
 #endif
 
+TEST_F(PhysicalSocketTest, TestSocketSendRecvWithEcnIPv4) {
+  MAYBE_SKIP_IPV6;
+  SocketTest::TestSocketSendRecvWithEcnIPV4();
+}
+
+TEST_F(PhysicalSocketTest, TestSocketSendRecvWithEcnIPv6) {
+  MAYBE_SKIP_IPV6;
+  SocketTest::TestSocketSendRecvWithEcnIPV6();
+}
+
 // Verify that if the socket was unable to be bound to a real network interface
 // (not loopback), Bind will return an error.
 TEST_F(PhysicalSocketTest,

@@ -18,10 +18,12 @@ namespace rtc {
 
 ReceivedPacket::ReceivedPacket(rtc::ArrayView<const uint8_t> payload,
                                const SocketAddress& source_address,
-                               absl::optional<webrtc::Timestamp> arrival_time)
+                               absl::optional<webrtc::Timestamp> arrival_time,
+                               absl::optional<bool> ect_ce)
     : payload_(payload),
       arrival_time_(std::move(arrival_time)),
-      source_address_(source_address) {}
+      source_address_(source_address),
+      ect_ce_(ect_ce) {}
 
 // static
 ReceivedPacket ReceivedPacket::CreateFromLegacy(

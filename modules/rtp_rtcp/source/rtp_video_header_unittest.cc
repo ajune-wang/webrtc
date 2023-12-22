@@ -279,24 +279,30 @@ TEST(RTPVideoHeaderTest, RTPVideoHeaderCodecSpecifics_GetAsMetadata) {
     RTPVideoHeaderVP8 vp8_specifics;
     vp8_specifics.InitRTPVideoHeaderVP8();
     vp8_specifics.pictureId = 42;
+    vp8_specifics.temporalIdx = 3;
     video_header.video_type_header = vp8_specifics;
     VideoFrameMetadata metadata = video_header.GetAsMetadata();
     EXPECT_EQ(
         absl::get<RTPVideoHeaderVP8>(metadata.GetRTPVideoHeaderCodecSpecifics())
             .pictureId,
         vp8_specifics.pictureId);
+    EXPECT_EQ(metadata.GetTemporalIndex(), vp8_specifics.temporalIdx);
   }
   {
     video_header.codec = VideoCodecType::kVideoCodecVP9;
     RTPVideoHeaderVP9 vp9_specifics;
     vp9_specifics.InitRTPVideoHeaderVP9();
     vp9_specifics.max_picture_id = 42;
+    vp9_specifics.temporal_idx = 2;
+    vp9_specifics.spatial_idx = 3;
     video_header.video_type_header = vp9_specifics;
     VideoFrameMetadata metadata = video_header.GetAsMetadata();
     EXPECT_EQ(
         absl::get<RTPVideoHeaderVP9>(metadata.GetRTPVideoHeaderCodecSpecifics())
             .max_picture_id,
         vp9_specifics.max_picture_id);
+    EXPECT_EQ(metadata.GetTemporalIndex(), vp9_specifics.temporal_idx);
+    EXPECT_EQ(metadata.GetSpatialIndex(), vp9_specifics.spatial_idx);
   }
   {
     video_header.codec = VideoCodecType::kVideoCodecH264;

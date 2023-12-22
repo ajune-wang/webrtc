@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4928703f_f455458b",
+        "filename": "test/video_codec_tester_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-12-22T09:25:41Z",
+      "side": 1,
+      "message": "Added comment:\n\n// For purposes of testing quality estimation, we need Y, U, V values in\n// source and decoded video to be unique and deterministic. In source video\n// we make them functions of frame number. The test decoder makes them\n// functions of encoded frame size in decoded video.",
+      "parentUuid": "3c2d1433_ad0bc5fa",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "5147bbd92473b55807a1596cf8dbeb1e2261474e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7251074f_7d309415",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-21T14:04:35Z",
       "side": 1,
       "message": "nit: These are intentionally different from what is generated in `CreateYuvFile()`? Please comment why.",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 152,
+        "endChar": 49
+      },
+      "revId": "5147bbd92473b55807a1596cf8dbeb1e2261474e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31110c4b_45ad44ef",
+        "filename": "test/video_codec_tester_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2023-12-22T09:25:41Z",
+      "side": 1,
+      "message": "Addressed this is the comment in CreateYuvFile().",
+      "parentUuid": "7251074f_7d309415",
       "range": {
         "startLine": 150,
         "startChar": 4,

@@ -47,14 +47,22 @@ VideoFrameMetadata RTPVideoHeader::GetAsMetadata() const {
   metadata.SetSimulcastIdx(simulcastIdx);
   metadata.SetCodec(codec);
   switch (codec) {
-    case VideoCodecType::kVideoCodecVP8:
-      metadata.SetRTPVideoHeaderCodecSpecifics(
-          absl::get<RTPVideoHeaderVP8>(video_type_header));
-      break;
-    case VideoCodecType::kVideoCodecVP9:
-      metadata.SetRTPVideoHeaderCodecSpecifics(
-          absl::get<RTPVideoHeaderVP9>(video_type_header));
-      break;
+    case VideoCodecType::kVideoCodecVP8: {
+      auto vp8_header = absl::get<RTPVideoHeaderVP8>(video_type_header);
+      metadata.SetRTPVideoHeaderCodecSpecifics(vp8_header);
+      if (!generic) {
+        metadata.SetTemporalIndex(vp8_header.temporalIdx);
+        // No spatial index for VP8.
+      }
+    } break;
+    case VideoCodecType::kVideoCodecVP9: {
+      auto vp9_header = absl::get<RTPVideoHeaderVP9>(video_type_header);
+      metadata.SetRTPVideoHeaderCodecSpecifics(vp9_header);
+      if (!generic) {
+        metadata.SetTemporalIndex(vp9_header.temporal_idx);
+        metadata.SetSpatialIndex(vp9_header.spatial_idx);
+      }
+    } break;
     case VideoCodecType::kVideoCodecH264:
       metadata.SetRTPVideoHeaderCodecSpecifics(
           absl::get<RTPVideoHeaderH264>(video_type_header));

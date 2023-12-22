@@ -1106,6 +1106,7 @@ rtc_library("socket") {
   ]
   deps = [
     ":buffer",
+    ":checks",
     ":macromagic",
     ":socket_address",
     "../api/units:timestamp",
@@ -1856,6 +1857,7 @@ if (rtc_include_tests) {
         ":threading",
         ":timeutils",
         "../api/units:time_delta",
+        "../api/units:timestamp",
         "../system_wrappers",
         "../test:field_trial",
         "../test:fileutils",

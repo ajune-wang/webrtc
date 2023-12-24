@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '38ef41ecb25b4c030a434bcc498b54f970d5f7eb',
+  'chromium_revision': '6489c9418e7b10b37831d499b02c07c65eccf8d6',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -54,20 +54,20 @@ deps = {
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@2ece0c2ef984598cc159c62801183123d89ab954',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@77e28252460598b6b7991e223326270cb3178abf',
+    'https://chromium.googlesource.com/chromium/src/buildtools@3f47abfeb708ae5e6ead152309d009daaa1ff3eb',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@9254b5ce2124c68ae822d70c2263985450161f26',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@8cede00ba8ab81ba5c57e5bdad18249ac3264230',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@136ab49b5584324bfdf87ddfa3c429efadfabf45',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@045ead3cf40493190e37e9dbb174d091b7c20df6',
+    'https://chromium.googlesource.com/chromium/src/third_party@2f84ef17a023a9e0fb992de489fcbc26e484f8ca',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -115,7 +115,7 @@ deps = {
   'src/third_party/clang-format/script':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format.git@e5337933f2951cacd3aeacd238ce4578163ca0b9',
   'src/third_party/libc++/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@9b0e39e8401125ec0331d6751e88e20eada64876',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@e05dc0f04bd5e73aa5fc595a593a5f4a3e212429',
   'src/third_party/libc++abi/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@8806fb8bb26e20206241ea2dfcee4fd2d4157b83',
   'src/third_party/libunwind/src':

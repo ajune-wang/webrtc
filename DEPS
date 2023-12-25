@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e1c493b5cd26c539628056c78b8d2fd5f309da9e',
+  'chromium_revision': 'a41038a78f01881e45fb34c2e8d45c1fa697e99d',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -52,7 +52,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@9f0c9f43bb0e4328a1e9ccfff55acfa96e5c1c76',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@2ece0c2ef984598cc159c62801183123d89ab954',
+    'https://chromium.googlesource.com/chromium/src/build@85f13aead60d9c4c21e86b5eea0b7fddf8cdef47',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@0d01458c011a9f3cb9c5a1040408bedf4a6715fb',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -65,9 +65,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@136ab49b5584324bfdf87ddfa3c429efadfabf45',
+    'https://chromium.googlesource.com/chromium/src/testing@d7101be6411dc4ac8f031370ac57c64f0e85a636',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@59d8a7aea4ba215eb221906cdc5d23636c2b1ba3',
+    'https://chromium.googlesource.com/chromium/src/third_party@38fe01c63c3adf0dad0e415aaa2d028a570b8bcc',
 
   'src/buildtools/linux64': {
     'packages': [

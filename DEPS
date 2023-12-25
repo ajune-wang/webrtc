@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e1c493b5cd26c539628056c78b8d2fd5f309da9e',
+  'chromium_revision': 'af81c81747ae87e04090b918d92ddab7c30d97cc',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -67,7 +67,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@136ab49b5584324bfdf87ddfa3c429efadfabf45',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@59d8a7aea4ba215eb221906cdc5d23636c2b1ba3',
+    'https://chromium.googlesource.com/chromium/src/third_party@2f4d4efb3b5a452892475833ddfc97012b4c6b67',
 
   'src/buildtools/linux64': {
     'packages': [

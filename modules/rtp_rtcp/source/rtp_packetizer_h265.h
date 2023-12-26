@@ -17,6 +17,7 @@
 
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
+#include "modules/rtp_rtcp/source/rtp_packet_h265_common.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 
 namespace webrtc {

@@ -71,7 +71,7 @@ uint32_t CopyExpGolomb(BitstreamReader& source,
   return tmp;
 }
 
-uint32_t CopyBits(int bits,
+uint32_t CopyBits(size_t bits,
                   BitstreamReader& source,
                   rtc::BitBufferWriter& destination) {
   RTC_DCHECK_GT(bits, 0);
@@ -598,7 +598,7 @@ bool CopyRemainingBits(BitstreamReader& source,
     CopyBits(misaligned_bits, source, destination);
   }
   while (source.RemainingBitCount() > 0) {
-    int count = std::min(32, source.RemainingBitCount());
+    size_t count = std::min(32ull, source.RemainingBitCount());
     CopyBits(count, source, destination);
   }
   // TODO(noahric): The last byte could be all zeroes now, which we should just

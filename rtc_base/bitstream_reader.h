@@ -39,7 +39,7 @@ class BitstreamReader {
 
   // Return number of unread bits in the buffer, or negative number if there
   // was a reading error.
-  int RemainingBitCount() const;
+  size_t RemainingBitCount() const;
 
   // Returns `true` iff all calls to `Read` and `ConsumeBits` were successful.
   bool Ok() const { return RemainingBitCount() >= 0; }
@@ -48,7 +48,7 @@ class BitstreamReader {
   void Invalidate() { remaining_bits_ = -1; }
 
   // Moves current read position forward. `bits` must be non-negative.
-  void ConsumeBits(int bits);
+  void ConsumeBits(size_t bits);
 
   // Reads single bit. Returns 0 or 1.
   ABSL_MUST_USE_RESULT int ReadBit();
@@ -56,7 +56,7 @@ class BitstreamReader {
   // Reads `bits` from the bitstream. `bits` must be in range [0, 64].
   // Returns an unsigned integer in range [0, 2^bits - 1].
   // On failure sets `BitstreamReader` into the failure state and returns 0.
-  ABSL_MUST_USE_RESULT uint64_t ReadBits(int bits);
+  ABSL_MUST_USE_RESULT uint64_t ReadBits(size_t bits);
 
   // Reads unsigned integer of fixed width.
   template <typename T,
@@ -117,7 +117,7 @@ class BitstreamReader {
   const uint8_t* bytes_;
 
   // Number of bits remained to read.
-  int remaining_bits_;
+  size_t remaining_bits_;
 
   // Unused in release mode.
   mutable bool last_read_is_verified_ = true;
@@ -141,7 +141,7 @@ inline void BitstreamReader::set_last_read_is_verified(bool value) const {
 #endif
 }
 
-inline int BitstreamReader::RemainingBitCount() const {
+inline size_t BitstreamReader::RemainingBitCount() const {
   set_last_read_is_verified(true);
   return remaining_bits_;
 }

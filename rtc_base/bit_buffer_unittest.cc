@@ -173,7 +173,7 @@ TEST(BitBufferWriterTest, SymmetricReadWrite) {
   EXPECT_EQ(reader.ReadBits(1), 0x1u);
   EXPECT_EQ(reader.ReadBits(17), 0x1ABCDu);
   // And there should be nothing left.
-  EXPECT_EQ(reader.RemainingBitCount(), 0);
+  EXPECT_EQ(reader.RemainingBitCount(), 0u);
 }
 
 TEST(BitBufferWriterTest, SymmetricBytesMisaligned) {

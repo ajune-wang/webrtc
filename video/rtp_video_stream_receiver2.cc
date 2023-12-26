@@ -539,8 +539,7 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
     const RTPVideoHeader& video) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
 
-  auto packet =
-      std::make_unique<video_coding::PacketBuffer::Packet>(rtp_packet, video);
+  auto packet = std::make_unique<video_coding::Packet>(rtp_packet, video);
 
   int64_t unwrapped_rtp_seq_num =
       rtp_seq_num_unwrapper_.Unwrap(rtp_packet.SequenceNumber());
@@ -774,7 +773,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
     video_coding::PacketBuffer::InsertResult result) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
-  video_coding::PacketBuffer::Packet* first_packet = nullptr;
+  video_coding::Packet* first_packet = nullptr;
   int max_nack_count;
   int64_t min_recv_time;
   int64_t max_recv_time;
@@ -807,7 +806,6 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
     if (packet->is_last_packet_in_frame()) {
       auto depacketizer_it = payload_type_map_.find(first_packet->payload_type);
       RTC_CHECK(depacketizer_it != payload_type_map_.end());
-      RTC_CHECK(depacketizer_it->second);
 
       rtc::scoped_refptr<EncodedImageBuffer> bitstream =
           depacketizer_it->second->AssembleFrame(payloads);
@@ -816,7 +814,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
         continue;
       }
 
-      const video_coding::PacketBuffer::Packet& last_packet = *packet;
+      const video_coding::Packet& last_packet = *packet;
       OnAssembledFrame(std::make_unique<RtpFrameObject>(
           first_packet->seq_num,                             //
           last_packet.seq_num,                               //

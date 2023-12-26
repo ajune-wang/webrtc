@@ -27,7 +27,7 @@ class H264PacketBuffer {
   // The H264PacketBuffer does the same job as the PacketBuffer but for H264
   // only. To make it fit in with surronding code the PacketBuffer input/output
   // classes are used.
-  using Packet = video_coding::PacketBuffer::Packet;
+  using Packet = video_coding::Packet;
   using InsertResult = video_coding::PacketBuffer::InsertResult;
 
   explicit H264PacketBuffer(bool idr_only_keyframes_allowed);

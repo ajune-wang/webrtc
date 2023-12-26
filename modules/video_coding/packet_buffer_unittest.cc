@@ -43,7 +43,7 @@ void IgnoreResult(PacketBuffer::InsertResult /*result*/) {}
 // Validates frame boundaries are valid and returns first sequence_number for
 // each frame.
 std::vector<uint16_t> StartSeqNums(
-    rtc::ArrayView<const std::unique_ptr<PacketBuffer::Packet>> packets) {
+    rtc::ArrayView<const std::unique_ptr<Packet>> packets) {
   std::vector<uint16_t> result;
   bool frame_boundary = true;
   for (const auto& packet : packets) {
@@ -114,7 +114,7 @@ class PacketBufferTest : public ::testing::Test {
                                   IsLast last,    // is last packet of frame
                                   rtc::ArrayView<const uint8_t> data = {},
                                   uint32_t timestamp = 123u) {  // rtp timestamp
-    auto packet = std::make_unique<PacketBuffer::Packet>();
+    auto packet = std::make_unique<Packet>();
     packet->video_header.codec = kVideoCodecGeneric;
     packet->timestamp = timestamp;
     packet->seq_num = seq_num;
@@ -408,7 +408,7 @@ class PacketBufferH264Test : public PacketBufferTest {
       uint32_t width = 0,      // width of frame (SPS/IDR)
       uint32_t height = 0,     // height of frame (SPS/IDR)
       bool generic = false) {  // has generic descriptor
-    auto packet = std::make_unique<PacketBuffer::Packet>();
+    auto packet = std::make_unique<Packet>();
     packet->video_header.codec = kVideoCodecH264;
     auto& h264_header =
         packet->video_header.video_type_header.emplace<RTPVideoHeaderH264>();
@@ -447,7 +447,7 @@ class PacketBufferH264Test : public PacketBufferTest {
       rtc::ArrayView<const uint8_t> data = {},
       uint32_t width = 0,     // width of frame (SPS/IDR)
       uint32_t height = 0) {  // height of frame (SPS/IDR)
-    auto packet = std::make_unique<PacketBuffer::Packet>();
+    auto packet = std::make_unique<Packet>();
     packet->video_header.codec = kVideoCodecH264;
     auto& h264_header =
         packet->video_header.video_type_header.emplace<RTPVideoHeaderH264>();
@@ -521,7 +521,7 @@ TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamBufferPadding) {
   uint16_t seq_num = Rand();
   rtc::CopyOnWriteBuffer data = "some plain old data";
 
-  auto packet = std::make_unique<PacketBuffer::Packet>();
+  auto packet = std::make_unique<Packet>();
   auto& h264_header =
       packet->video_header.video_type_header.emplace<RTPVideoHeaderH264>();
   h264_header.nalus_length = 1;
@@ -624,7 +624,7 @@ TEST_F(PacketBufferTest, ContinuousSeqNumDoubleMarkerBit) {
 }
 
 TEST_F(PacketBufferTest, IncomingCodecChange) {
-  auto packet = std::make_unique<PacketBuffer::Packet>();
+  auto packet = std::make_unique<Packet>();
   packet->video_header.is_first_packet_in_frame = true;
   packet->video_header.is_last_packet_in_frame = true;
   packet->video_header.codec = kVideoCodecVP8;
@@ -635,7 +635,7 @@ TEST_F(PacketBufferTest, IncomingCodecChange) {
   EXPECT_THAT(packet_buffer_.InsertPacket(std::move(packet)).packets,
               SizeIs(1));
 
-  packet = std::make_unique<PacketBuffer::Packet>();
+  packet = std::make_unique<Packet>();
   packet->video_header.is_first_packet_in_frame = true;
   packet->video_header.is_last_packet_in_frame = true;
   packet->video_header.codec = kVideoCodecH264;
@@ -648,7 +648,7 @@ TEST_F(PacketBufferTest, IncomingCodecChange) {
   EXPECT_THAT(packet_buffer_.InsertPacket(std::move(packet)).packets,
               IsEmpty());
 
-  packet = std::make_unique<PacketBuffer::Packet>();
+  packet = std::make_unique<Packet>();
   packet->video_header.is_first_packet_in_frame = true;
   packet->video_header.is_last_packet_in_frame = true;
   packet->video_header.codec = kVideoCodecVP8;
@@ -661,7 +661,7 @@ TEST_F(PacketBufferTest, IncomingCodecChange) {
 }
 
 TEST_F(PacketBufferTest, TooManyNalusInPacket) {
-  auto packet = std::make_unique<PacketBuffer::Packet>();
+  auto packet = std::make_unique<Packet>();
   packet->video_header.codec = kVideoCodecH264;
   packet->timestamp = 1;
   packet->seq_num = 1;
@@ -749,8 +749,8 @@ class PacketBufferH264XIsKeyframeTest : public PacketBufferH264Test {
   explicit PacketBufferH264XIsKeyframeTest(bool sps_pps_idr_is_keyframe)
       : PacketBufferH264Test(sps_pps_idr_is_keyframe) {}
 
-  std::unique_ptr<PacketBuffer::Packet> CreatePacket() {
-    auto packet = std::make_unique<PacketBuffer::Packet>();
+  std::unique_ptr<Packet> CreatePacket() {
+    auto packet = std::make_unique<Packet>();
     packet->video_header.codec = kVideoCodecH264;
     packet->seq_num = kSeqNum;
 

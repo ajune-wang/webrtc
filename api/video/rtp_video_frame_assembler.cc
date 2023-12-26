@@ -123,7 +123,7 @@ RtpVideoFrameAssembler::FrameVector RtpVideoFrameAssembler::Impl::InsertPacket(
 
   parsed_payload->video_header.is_last_packet_in_frame |= rtp_packet.Marker();
 
-  auto packet = std::make_unique<video_coding::PacketBuffer::Packet>(
+  auto packet = std::make_unique<video_coding::Packet>(
       rtp_packet, parsed_payload->video_header);
   packet->video_payload = std::move(parsed_payload->video_payload);
 
@@ -142,7 +142,7 @@ void RtpVideoFrameAssembler::Impl::ClearOldData(uint16_t incoming_seq_num) {
 RtpVideoFrameAssembler::Impl::RtpFrameVector
 RtpVideoFrameAssembler::Impl::AssembleFrames(
     video_coding::PacketBuffer::InsertResult insert_result) {
-  video_coding::PacketBuffer::Packet* first_packet = nullptr;
+  video_coding::Packet* first_packet = nullptr;
   std::vector<rtc::ArrayView<const uint8_t>> payloads;
   RtpFrameVector result;
 
@@ -161,7 +161,7 @@ RtpVideoFrameAssembler::Impl::AssembleFrames(
         continue;
       }
 
-      const video_coding::PacketBuffer::Packet& last_packet = *packet;
+      const video_coding::Packet& last_packet = *packet;
       result.push_back(std::make_unique<RtpFrameObject>(
           first_packet->seq_num,                  //
           last_packet.seq_num,                    //

@@ -98,6 +98,9 @@ rtc_library("nack_requester") {
 
 rtc_library("packet_buffer") {
   sources = [
+    "h26x_packet_buffer.cc",
+    "h26x_packet_buffer.h",
+    "packet.h",
     "packet_buffer.cc",
     "packet_buffer.h",
   ]
@@ -1005,9 +1008,7 @@ if (rtc_include_tests) {
       "../../api/video:resolution",
       "../../api/video_codecs:builtin_video_decoder_factory",
       "../../api/video_codecs:builtin_video_encoder_factory",
-      "../../modules/video_coding/svc:scalability_mode_util",
       "../../rtc_base:logging",
-      "../../rtc_base:stringutils",
       "../../test:fileutils",
       "../../test:test_flags",
       "../../test:test_main",

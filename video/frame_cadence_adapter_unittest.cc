@@ -68,6 +68,10 @@ std::unique_ptr<FrameCadenceAdapterInterface> CreateAdapter(
                                               field_trials);
 }
 
+void ScheduleDelayed(TimeDelta delay, absl::AnyInvocable<void() &&> task) {
+  TaskQueueBase::Current()->PostDelayedTask(std::move(task), delay);
+}
+
 class MockCallback : public FrameCadenceAdapterInterface::Callback {
  public:
   MOCK_METHOD(void, OnFrame, (Timestamp, bool, const VideoFrame&), (override));
@@ -308,6 +312,83 @@ TEST(FrameCadenceAdapterTest, DelayedProcessingUnderHeavyContention) {
   }));
   adapter->OnFrame(CreateFrame());
   time_controller.SkipForwardBy(time_skipped);
+}
+
+TEST(FrameCadenceAdapterTest,
+     ForwardsFramesDelayedAndAdaptsDelayToAccountForTimeSpentOnEncoding) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Zero());
+  auto adapter = CreateAdapter(enabler, time_controller.GetClock());
+  adapter->Initialize(&callback);
+  adapter->SetZeroHertzModeEnabled(
+      FrameCadenceAdapterInterface::ZeroHertzModeParams{});
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 10});
+
+  ScheduleDelayed(TimeDelta::Millis(0),
+                  [&] { adapter->OnFrame(CreateFrame()); });
+  ScheduleDelayed(TimeDelta::Millis(100),
+                  [&] { adapter->OnFrame(CreateFrame()); });
+
+  // First frame takes 10 ms to encode and that should not trigger
+  // `queue_overload`.
+  TimeDelta encode_time = TimeDelta::Millis(10);
+  EXPECT_CALL(callback, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+              Timestamp::Zero() + TimeDelta::Millis(100));
+    time_controller.SkipForwardBy(encode_time);
+  }));
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+
+  // The second frame is not delayed by the encoding time since the 0Hz adapter
+  // reduces the delay to compensate for the encoding; hence reducing it by
+  // 10 ms to keep up.
+  EXPECT_CALL(callback, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+              Timestamp::Zero() + 2 * TimeDelta::Millis(100));
+  }));
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+}
+
+TEST(FrameCadenceAdapterTest,
+     ForwardsFramesDelayedAndSetsQueueOverloadWhenNeeded) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Zero());
+  auto adapter = CreateAdapter(enabler, time_controller.GetClock());
+  adapter->Initialize(&callback);
+  adapter->SetZeroHertzModeEnabled(
+      FrameCadenceAdapterInterface::ZeroHertzModeParams{});
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 10});
+
+  metrics::Reset();
+
+  // First frame takes 50 ms to encode and that should not trigger a queue
+  // overload.
+  TimeDelta encode_time = TimeDelta::Millis(50);
+  EXPECT_CALL(callback, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+              Timestamp::Zero() + TimeDelta::Millis(100));
+    time_controller.SkipForwardBy(encode_time);
+  }));
+  adapter->OnFrame(CreateFrame());
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+  // T = 150
+  EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+            Timestamp::Zero() + TimeDelta::Millis(150));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1)));
+
+  encode_time = TimeDelta::Millis(100 + 10);
+  EXPECT_CALL(callback, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+              Timestamp::Zero() + TimeDelta::Millis(250));
+    time_controller.SkipForwardBy(encode_time);
+  }));
+  adapter->OnFrame(CreateFrame());
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1), Pair(true, 1)));
 }
 
 TEST(FrameCadenceAdapterTest, RepeatsFramesDelayed) {

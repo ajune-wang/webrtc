@@ -20,7 +20,7 @@ namespace webrtc {
 // Class for analyzing the properties subtractor output.
 class SubtractorOutputAnalyzer {
  public:
-  explicit SubtractorOutputAnalyzer(size_t num_capture_channels);
+  SubtractorOutputAnalyzer(size_t num_capture_channels, bool smooth_energies);
   ~SubtractorOutputAnalyzer() = default;
 
   // Analyses the subtractor output.
@@ -37,7 +37,11 @@ class SubtractorOutputAnalyzer {
   void HandleEchoPathChange();
 
  private:
+  const bool smooth_energies_;
   std::vector<bool> filters_converged_;
+  std::vector<float> smoothed_y2_;
+  std::vector<float> smoothed_e2_refined_;
+  std::vector<float> smoothed_e2_coarse_;
 };
 
 }  // namespace webrtc

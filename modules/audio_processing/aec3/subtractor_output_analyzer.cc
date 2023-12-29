@@ -13,11 +13,17 @@
 #include <algorithm>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 
 namespace webrtc {
 
-SubtractorOutputAnalyzer::SubtractorOutputAnalyzer(size_t num_capture_channels)
-    : filters_converged_(num_capture_channels, false) {}
+SubtractorOutputAnalyzer::SubtractorOutputAnalyzer(size_t num_capture_channels,
+                                                   bool smooth_energies)
+    : smooth_energies_(smooth_energies),
+      filters_converged_(num_capture_channels, false),
+      smoothed_y2_(num_capture_channels, 0.0f),
+      smoothed_e2_refined_(num_capture_channels, 0.0f),
+      smoothed_e2_coarse_(num_capture_channels, 0.0f) {}
 
 void SubtractorOutputAnalyzer::Update(
     rtc::ArrayView<const SubtractorOutput> subtractor_output,
@@ -33,6 +39,18 @@ void SubtractorOutputAnalyzer::Update(
   *all_filters_diverged = true;
 
   for (size_t ch = 0; ch < subtractor_output.size(); ++ch) {
+    auto smooth = [](float x, float update) { return x + 0.4f * (update - x); };
+    smoothed_y2_[ch] = smooth_energies_
+                           ? smooth(smoothed_y2_[ch], subtractor_output[ch].y2)
+                           : subtractor_output[ch].y2;
+    smoothed_e2_refined_[ch] =
+        smooth_energies_
+            ? smooth(smoothed_e2_refined_[ch], subtractor_output[ch].e2_refined)
+            : subtractor_output[ch].e2_refined;
+    smoothed_e2_coarse_[ch] =
+        smooth_energies_
+            ? smooth(smoothed_e2_coarse_[ch], subtractor_output[ch].e2_coarse)
+            : subtractor_output[ch].e2_coarse;
     const float y2 = subtractor_output[ch].y2;
     const float e2_refined = subtractor_output[ch].e2_refined;
     const float e2_coarse = subtractor_output[ch].e2_coarse;
@@ -40,9 +58,12 @@ void SubtractorOutputAnalyzer::Update(
     constexpr float kConvergenceThreshold = 50 * 50 * kBlockSize;
     constexpr float kConvergenceThresholdLowLevel = 20 * 20 * kBlockSize;
     bool refined_filter_converged =
-        e2_refined < 0.5f * y2 && y2 > kConvergenceThreshold;
+        smoothed_e2_refined_[ch] < 0.5f * smoothed_y2_[ch] &&
+        smoothed_y2_[ch] > kConvergenceThreshold;
     bool coarse_filter_converged_strict =
-        e2_coarse < 0.05f * y2 && y2 > kConvergenceThreshold;
+        smoothed_e2_coarse_[ch] < 0.05f * smoothed_y2_[ch] &&
+        smoothed_y2_[ch] > kConvergenceThreshold;
+
     bool coarse_filter_converged_relaxed =
         e2_coarse < 0.2f * y2 && y2 > kConvergenceThresholdLowLevel;
     float min_e2 = std::min(e2_refined, e2_coarse);

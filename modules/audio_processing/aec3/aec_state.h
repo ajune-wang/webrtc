@@ -162,6 +162,7 @@ class AecState {
   const bool deactivate_initial_state_reset_at_echo_path_change_;
   const bool full_reset_at_echo_path_change_;
   const bool subtractor_analyzer_reset_at_echo_path_change_;
+  const bool more_restrictive_use_linear_mode_;
 
   // Class for controlling the transition from the intial state, which in turn
   // controls when the filter parameters for the initial state should be used.
@@ -247,14 +248,15 @@ class AecState {
     }
 
     // Resets the state of the analyzer.
-    void Reset();
+    void Reset(bool more_restrictive_use_linear_mode);
 
     // Updates the analysis based on new data.
     void Update(bool active_render,
                 bool transparent_mode,
                 bool saturated_capture,
                 const absl::optional<DelayEstimate>& external_delay,
-                bool any_filter_converged);
+                bool any_filter_converged,
+                bool more_restrictive_use_linear_mode);
 
    private:
     const bool use_linear_filter_;

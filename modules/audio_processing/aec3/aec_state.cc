@@ -40,6 +40,11 @@ bool SubtractorAnalyzerResetAtEchoPathChange() {
       "WebRTC-Aec3AecStateSubtractorAnalyzerResetKillSwitch");
 }
 
+bool MoreRestrictiveUseLinearMode() {
+  return field_trial::IsEnabled(
+      "WebRTC-Aec3AecStateMoreRestrictiveUseLinearMode");
+}
+
 void ComputeAvgRenderReverb(
     const SpectrumBuffer& spectrum_buffer,
     int delay_blocks,
@@ -122,6 +127,7 @@ AecState::AecState(const EchoCanceller3Config& config,
       full_reset_at_echo_path_change_(FullResetAtEchoPathChange()),
       subtractor_analyzer_reset_at_echo_path_change_(
           SubtractorAnalyzerResetAtEchoPathChange()),
+      more_restrictive_use_linear_mode_(MoreRestrictiveUseLinearMode()),
       initial_state_(config_),
       delay_state_(config_, num_capture_channels_),
       transparent_state_(TransparentMode::Create(config_)),
@@ -132,7 +138,8 @@ AecState::AecState(const EchoCanceller3Config& config,
       echo_audibility_(
           config_.echo_audibility.use_stationarity_properties_at_init),
       reverb_model_estimator_(config_, num_capture_channels_),
-      subtractor_output_analyzer_(num_capture_channels_) {}
+      subtractor_output_analyzer_(num_capture_channels_,
+                                  more_restrictive_use_linear_mode_) {}
 
 AecState::~AecState() = default;
 
@@ -151,7 +158,7 @@ void AecState::HandleEchoPathChange(
     }
     erle_estimator_.Reset(true);
     erl_estimator_.Reset();
-    filter_quality_state_.Reset();
+    filter_quality_state_.Reset(more_restrictive_use_linear_mode_);
   };
 
   // TODO(peah): Refine the reset scheme according to the type of gain and
@@ -211,9 +218,9 @@ void AecState::Update(
   bool active_render = false;
   for (int ch = 0; ch < aligned_render_block.NumChannels(); ++ch) {
     const float render_energy =
-        std::inner_product(aligned_render_block.begin(/*block=*/0, ch),
-                           aligned_render_block.end(/*block=*/0, ch),
-                           aligned_render_block.begin(/*block=*/0, ch), 0.f);
+        std::inner_product(aligned_render_block.begin(/*band=*/0, ch),
+                           aligned_render_block.end(/*band=*/0, ch),
+                           aligned_render_block.begin(/*band=*/0, ch), 0.f);
     if (render_energy > (config_.render_levels.active_render_limit *
                          config_.render_levels.active_render_limit) *
                             kFftLengthBy2) {
@@ -273,9 +280,9 @@ void AecState::Update(
   }
 
   // Analyze the quality of the filter.
-  filter_quality_state_.Update(active_render, TransparentModeActive(),
-                               SaturatedCapture(), external_delay,
-                               any_filter_converged);
+  filter_quality_state_.Update(
+      active_render, TransparentModeActive(), SaturatedCapture(),
+      external_delay, any_filter_converged, more_restrictive_use_linear_mode_);
 
   // Update the reverb estimate.
   const bool stationary_block =
@@ -394,11 +401,15 @@ AecState::FilteringQualityAnalyzer::FilteringQualityAnalyzer(
     : use_linear_filter_(config.filter.use_linear_filter),
       usable_linear_filter_estimates_(num_capture_channels, false) {}
 
-void AecState::FilteringQualityAnalyzer::Reset() {
+void AecState::FilteringQualityAnalyzer::Reset(
+    bool more_restrictive_use_linear_mode) {
   std::fill(usable_linear_filter_estimates_.begin(),
             usable_linear_filter_estimates_.end(), false);
   overall_usable_linear_estimates_ = false;
   filter_update_blocks_since_reset_ = 0;
+  if (more_restrictive_use_linear_mode) {
+    convergence_seen_ = false;
+  }
 }
 
 void AecState::FilteringQualityAnalyzer::Update(
@@ -406,7 +417,8 @@ void AecState::FilteringQualityAnalyzer::Update(
     bool transparent_mode,
     bool saturated_capture,
     const absl::optional<DelayEstimate>& external_delay,
-    bool any_filter_converged) {
+    bool any_filter_converged,
+    bool more_restrictive_use_linear_mode) {
   // Update blocks counter.
   const bool filter_update = active_render && !saturated_capture;
   filter_update_blocks_since_reset_ += filter_update ? 1 : 0;
@@ -428,10 +440,16 @@ void AecState::FilteringQualityAnalyzer::Update(
   overall_usable_linear_estimates_ = sufficient_data_to_converge_at_startup &&
                                      sufficient_data_to_converge_at_reset;
 
-  // The linear filter can only be used if an external delay or convergence have
-  // been identified
-  overall_usable_linear_estimates_ =
-      overall_usable_linear_estimates_ && (external_delay || convergence_seen_);
+  if (more_restrictive_use_linear_mode) {
+    // The linear filter can only be used if convergence has been identified
+    overall_usable_linear_estimates_ =
+        overall_usable_linear_estimates_ && convergence_seen_;
+  } else {
+    // The linear filter can only be used if an external delay or convergence
+    // have been identified
+    overall_usable_linear_estimates_ = overall_usable_linear_estimates_ &&
+                                       (external_delay || convergence_seen_);
+  }
 
   // If transparent mode is on, deactivate usign the linear filter.
   overall_usable_linear_estimates_ =

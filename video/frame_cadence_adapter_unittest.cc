@@ -308,6 +308,49 @@ TEST(FrameCadenceAdapterTest, DelayedProcessingUnderHeavyContention) {
   }));
   adapter->OnFrame(CreateFrame());
   time_controller.SkipForwardBy(time_skipped);
+  time_controller.AdvanceTime(TimeDelta::Zero());
+}
+
+TEST(FrameCadenceAdapterTest,
+     ForwardsFramesDelayedAndSetsQueueOverloadWhenNeeded) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Zero());
+  auto adapter = CreateAdapter(enabler, time_controller.GetClock());
+  adapter->Initialize(&callback);
+  adapter->SetZeroHertzModeEnabled(
+      FrameCadenceAdapterInterface::ZeroHertzModeParams{});
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 10});
+
+  metrics::Reset();
+
+  // First frame takes 50 ms to encode and that should not trigger a queue
+  // overload.
+  TimeDelta encode_time = TimeDelta::Millis(50);
+  EXPECT_CALL(callback, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+              Timestamp::Zero() + TimeDelta::Millis(100));
+    time_controller.SkipForwardBy(encode_time);
+  }));
+  adapter->OnFrame(CreateFrame());
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+            Timestamp::Zero() + TimeDelta::Millis(150));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1)));
+
+  encode_time = TimeDelta::Millis(100 + 10);
+  EXPECT_CALL(callback, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+              Timestamp::Zero() + TimeDelta::Millis(250));
+    time_controller.SkipForwardBy(encode_time);
+  }));
+  adapter->OnFrame(CreateFrame());
+  time_controller.AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_EQ(time_controller.GetClock()->CurrentTime(),
+            Timestamp::Zero() + TimeDelta::Millis(360));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1), Pair(true, 1)));
 }
 
 TEST(FrameCadenceAdapterTest, RepeatsFramesDelayed) {

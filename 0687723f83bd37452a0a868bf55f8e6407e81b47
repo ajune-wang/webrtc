@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11063cb6_cf7a0e68",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "This doesn\u0027t take restrictions into account right? If SendFrameNow\u0027s `max_delay` argument was changed to `bool idle_repeat` you could get the interval via RepeatDuration from SendFrameNow instead.",
+      "range": {
+        "startLine": 526,
+        "startChar": 39,
+        "endLine": 526,
+        "endChar": 51
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67bb7e49_eeac849d",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "nit: replace by CurrentTime()",
+      "range": {
+        "startLine": 1132,
+        "startChar": 14,
+        "endLine": 1132,
+        "endChar": 56
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b8e3bd_4656bc98",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "This expectation can be removed since you checked it in ForwardsFramesDelayedAndAvoidsQueueOverloadUnderNormalFramePassing",
+      "range": {
+        "startLine": 1167,
+        "startChar": 4,
+        "endLine": 1167,
+        "endChar": 13
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e603fb46_86004361",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "dito",
+      "range": {
+        "startLine": 1172,
+        "startChar": 2,
+        "endLine": 1172,
+        "endChar": 11
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6421833_dac82ea8",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "dito",
+      "range": {
+        "startLine": 1173,
+        "startChar": 2,
+        "endLine": 1173,
+        "endChar": 13
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da1a54ff_6477d32d",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 1189,
+        "startChar": 7,
+        "endLine": 1189,
+        "endChar": 15
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a912eb5e_4926314c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we be testing the case when the scheduled converged repeat overloads, not the frame before it?",
+      "range": {
+        "startLine": 1207,
+        "startChar": 7,
+        "endLine": 1207,
+        "endChar": 66
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "800bc4e5_a8beef76",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "Could this instead be done in the OnFrame expectation below after SkipForwardBy?",
+      "range": {
+        "startLine": 1211,
+        "startChar": 4,
+        "endLine": 1211,
+        "endChar": 43
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31369668_fa4e5cf1",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "dito",
+      "range": {
+        "startLine": 1223,
+        "startChar": 4,
+        "endLine": 1223,
+        "endChar": 13
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2de6afab_7b5fa49b",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-02T12:42:34Z",
+      "side": 1,
+      "message": "dito",
+      "range": {
+        "startLine": 1228,
+        "startChar": 2,
+        "endLine": 1230,
+        "endChar": 43
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -308,6 +308,7 @@ TEST(FrameCadenceAdapterTest, DelayedProcessingUnderHeavyContention) {
   }));
   adapter->OnFrame(CreateFrame());
   time_controller.SkipForwardBy(time_skipped);
+  time_controller.AdvanceTime(TimeDelta::Zero());
 }
 
 TEST(FrameCadenceAdapterTest, RepeatsFramesDelayed) {
@@ -1074,6 +1075,181 @@ TEST(FrameCadenceAdapterRealTimeTest,
     finalized.Set();
   });
   finalized.Wait(rtc::Event::kForever);
+}
+
+class ZeroHertzQueueOverloadTest : public ::testing::Test {
+ public:
+  static constexpr int kMaxFps = 10;
+  static constexpr TimeDelta kNormalEncodeTime = TimeDelta::Millis(50);
+  static constexpr TimeDelta kTooHighEncodeTime = TimeDelta::Millis(110);
+
+  ZeroHertzQueueOverloadTest() {
+    adapter_->Initialize(&callback_);
+    adapter_->SetZeroHertzModeEnabled(
+        FrameCadenceAdapterInterface::ZeroHertzModeParams{
+            /*num_simulcast_layers=*/1});
+    adapter_->OnConstraintsChanged(
+        VideoTrackSourceConstraints{/*min_fps=*/0, kMaxFps});
+    time_controller_.AdvanceTime(TimeDelta::Zero());
+    metrics::Reset();
+  }
+
+  void ScheduleDelayed(TimeDelta delay, absl::AnyInvocable<void() &&> task) {
+    TaskQueueBase::Current()->PostDelayedTask(std::move(task), delay);
+  }
+
+  void PassFrame() { adapter_->OnFrame(CreateFrame()); }
+
+  void AdvanceTime(TimeDelta duration) {
+    time_controller_.AdvanceTime(duration);
+  }
+
+  void SkipForwardBy(TimeDelta duration) {
+    time_controller_.SkipForwardBy(duration);
+  }
+
+  Timestamp CurrentTime() { return time_controller_.GetClock()->CurrentTime(); }
+
+ protected:
+  ZeroHertzFieldTrialEnabler field_trial_enabler_;
+  MockCallback callback_;
+  GlobalSimulatedTimeController time_controller_{Timestamp::Zero()};
+  std::unique_ptr<FrameCadenceAdapterInterface> adapter_{
+      CreateAdapter(field_trial_enabler_, time_controller_.GetClock())};
+};
+
+TEST_F(ZeroHertzQueueOverloadTest,
+       ForwardsFramesDelayedAndAvoidsQueueOverloadUnderNormalFramePassing) {
+  // o Schedule first frame at 0 ms.
+  // o Send first delayed frame at 100 (1/kMaxFps) ms and schedule a non-
+  //   converged repeat at 200 ms.
+  // o First frame takes 50 ms to encode which is less than the max allowed time
+  //   100 ms, hence queue overload should not be triggered.
+  // o A first WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log false
+  //   at 150 (100 + 50) ms.
+  TimeDelta encode_time = kNormalEncodeTime;
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(time_controller_.GetClock()->CurrentTime(),
+              Timestamp::Zero() + TimeDelta::Millis(100));
+    SkipForwardBy(encode_time);
+  }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(150));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1)));
+
+  // Keep encoding under the max limit of 100 ms should ensure that the pattern
+  // above is repeatead and any scheduled non-converged repeat is canceled
+  // before being sent.
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(250));
+    SkipForwardBy(encode_time);
+  }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(300));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 2)));
+}
+
+TEST_F(ZeroHertzQueueOverloadTest,
+       ForwardsFramesDelayedAndSetsQueueOverloadForUnconvergedRepeat) {
+  // o Schedule first frame at 0 ms.
+  // o Send first delayed frame at 100 (1/kMaxFps) ms and schedule a non-
+  //   converged repeat at 200 ms.
+  // o First frame takes 50 ms to encode which is less than the max allowed time
+  //   100 ms, hence queue overload should not be triggered.
+  // o A first WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log false
+  //   at 150 (100 + 50) ms.
+  TimeDelta encode_time = kNormalEncodeTime;
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    SkipForwardBy(encode_time);
+  }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+
+  // o Second frame is scheduled at 150 ms. Cancels first scheduled repeat.
+  // o Send second delayed frame at 250 ms and schedule a non-converged repeat
+  //   at 350 ms.
+  // o Second frame takes 110 ms to encode which is more than the max allowed
+  //   time 100 ms, hence queue overload should be triggered.
+  // o A second WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log true
+  //   at 360 (150 + 100) ms.
+  // o The frame scheduled for repeat at 350 ms is now instead sent at 360 ms
+  //   and without any extra latency in this test.
+  // o A third WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log false
+  //   at 360 ms.
+  encode_time = kTooHighEncodeTime;
+  EXPECT_CALL(callback_, OnFrame(_, false, _))
+      .WillOnce(InvokeWithoutArgs([&] {
+        // Original frame takes too long to encode. Results in queue overload.
+        EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(250));
+        SkipForwardBy(encode_time);
+      }))
+      .WillOnce(InvokeWithoutArgs([&] {
+        // Non-converged repeat is encoded without any latency.
+        EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(360));
+      }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(360));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 2), Pair(true, 1)));
+}
+
+TEST_F(ZeroHertzQueueOverloadTest,
+       ForwardsFramesDelayedAndSetsQueueOverloadForConvergedRepeat) {
+  adapter_->UpdateLayerStatus(0, /*enabled=*/true);
+
+  ScheduleDelayed(TimeDelta::Millis(200), [&] {
+    adapter_->UpdateLayerQualityConvergence(/*spatial_index=*/0, true);
+  });
+
+  // o Schedule first frame at 0.
+  // o Send first delayed frame at 100 (1/kMaxFps) ms and schedule a non-
+  //   converged repeat at 200 ms.
+  // o First frame takes 50 ms to encode which is less than the max allowed time
+  //   100 ms, hence queue overload should not be triggered.
+  // o A first WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log false
+  //   at 150 (100 + 50) ms.
+  TimeDelta encode_time = kNormalEncodeTime;
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    SkipForwardBy(encode_time);
+  }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+
+  // o Second frame is scheduled at 150 ms. Cancels first scheduled repeat.
+  // o Quality is also reported to be converged at 200 ms.
+  // o Send second delayed frame at 250 ms and schedule a converged repeat
+  //   at 1000 + 250 = 1250 ms.
+  // o Second frame takes 110 ms to encode which is more than the max allowed
+  //   time 100 ms, hence queue overload should be triggered.
+  // o A second WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log true
+  //   at 360 (150 + 100) ms.
+  encode_time = kTooHighEncodeTime;
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    // Original frame takes too long to encode. Results in queue overload.
+    EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(250));
+    SkipForwardBy(encode_time);
+  }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(360));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1), Pair(true, 1)));
+
+  // o The frame scheduled for repeat at 1250 ms is sent without any extra
+  //   latency.
+  // o A third WebRTC.Screenshare.ZeroHz.QueueOverload UMA should log false
+  //   at 1250 ms triggered by the converged repeat.
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(1250));
+  }));
+  AdvanceTime(TimeDelta::Millis(890));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 2), Pair(true, 1)));
 }
 
 }  // namespace

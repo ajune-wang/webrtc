@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b9f86a3_638046da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Done. Still only sets UMA as is. Let\u0027s discuss if more changes are needed.",
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11063cb6_cf7a0e68",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-01-02T12:42:34Z",
       "side": 1,
       "message": "This doesn\u0027t take restrictions into account right? If SendFrameNow\u0027s `max_delay` argument was changed to `bool idle_repeat` you could get the interval via RepeatDuration from SendFrameNow instead.",
+      "range": {
+        "startLine": 526,
+        "startChar": 39,
+        "endLine": 526,
+        "endChar": 51
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "489a8b35_c7296a68",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "We only take restrictions into account when repeating and I do make that distinction in `PRFODC`\n\n```\n// Schedule another repeat before sending the frame off which could take time.\nTimeDelta repeat_delay \u003d ScheduleRepeat(frame_id, HasQualityConverged());\n// Mark `post_time` with 0 to signal that this is a repeated frame.\nSendFrameNow(Timestamp::Zero(), frame, repeat_delay);\n```",
+      "parentUuid": "11063cb6_cf7a0e68",
       "range": {
         "startLine": 526,
         "startChar": 39,
@@ -47,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7903bea_4108378f",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67bb7e49_eeac849d",
+      "range": {
+        "startLine": 1132,
+        "startChar": 14,
+        "endLine": 1132,
+        "endChar": 56
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5b8e3bd_4656bc98",
@@ -60,6 +125,30 @@
       "writtenOn": "2024-01-02T12:42:34Z",
       "side": 1,
       "message": "This expectation can be removed since you checked it in ForwardsFramesDelayedAndAvoidsQueueOverloadUnderNormalFramePassing",
+      "range": {
+        "startLine": 1167,
+        "startChar": 4,
+        "endLine": 1167,
+        "endChar": 13
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd35f59e_53169a5d",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5b8e3bd_4656bc98",
       "range": {
         "startLine": 1167,
         "startChar": 4,
@@ -93,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6194cb3_e56fc6c7",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e603fb46_86004361",
+      "range": {
+        "startLine": 1172,
+        "startChar": 2,
+        "endLine": 1172,
+        "endChar": 11
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6421833_dac82ea8",
@@ -116,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0962e33_8e4aadd5",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6421833_dac82ea8",
+      "range": {
+        "startLine": 1173,
+        "startChar": 2,
+        "endLine": 1173,
+        "endChar": 13
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da1a54ff_6477d32d",
@@ -129,6 +266,30 @@
       "writtenOn": "2024-01-02T12:42:34Z",
       "side": 1,
       "message": "is this needed?",
+      "range": {
+        "startLine": 1189,
+        "startChar": 7,
+        "endLine": 1189,
+        "endChar": 15
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b62c645_1341ad4c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Nope.",
+      "parentUuid": "da1a54ff_6477d32d",
       "range": {
         "startLine": 1189,
         "startChar": 7,
@@ -164,6 +325,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4dd7707_188d0ed7",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "I have not tested any case where the repeated framed overloads. All I\u0027ve done is to test one case where the scheduled repeat takes place at the same time as an overload and one (this case) where it is not since it is delayed by one second. Let\u0027s discuss this in the light of new ideas that we have discussed off-line.",
+      "parentUuid": "a912eb5e_4926314c",
+      "range": {
+        "startLine": 1207,
+        "startChar": 7,
+        "endLine": 1207,
+        "endChar": 66
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "800bc4e5_a8beef76",
         "filename": "video/frame_cadence_adapter_unittest.cc",
         "patchSetId": 7
@@ -175,6 +360,30 @@
       "writtenOn": "2024-01-02T12:42:34Z",
       "side": 1,
       "message": "Could this instead be done in the OnFrame expectation below after SkipForwardBy?",
+      "range": {
+        "startLine": 1211,
+        "startChar": 4,
+        "endLine": 1211,
+        "endChar": 43
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee17966_f3cc40d7",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "I did try that initially but for some reason I then fail to enter the converged state and the test fails with https://paste.googleplex.com/4799971532996608",
+      "parentUuid": "800bc4e5_a8beef76",
       "range": {
         "startLine": 1211,
         "startChar": 4,
@@ -221,6 +430,30 @@
       "writtenOn": "2024-01-02T12:42:34Z",
       "side": 1,
       "message": "dito",
+      "range": {
+        "startLine": 1228,
+        "startChar": 2,
+        "endLine": 1230,
+        "endChar": 43
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ff99d1_94c2abb0",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-02T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2de6afab_7b5fa49b",
       "range": {
         "startLine": 1228,
         "startChar": 2,

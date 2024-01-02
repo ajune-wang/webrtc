@@ -46,7 +46,7 @@ TEST(BitstreamReaderTest, InDebugModeMayCheckRemainingBitsInsteadOfOkStatus) {
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(OS_ANDROID)
   EXPECT_DEATH(reader = absl::nullopt, "");
 #endif
-  EXPECT_GE(reader->RemainingBitCount(), 0);
+  EXPECT_GE(reader->RemainingBitCount(), 0u);
   reader = absl::nullopt;
 }
 
@@ -54,7 +54,7 @@ TEST(BitstreamReaderTest, ConsumeBits) {
   const uint8_t bytes[32] = {};
   BitstreamReader reader(bytes);
 
-  int total_bits = 32 * 8;
+  size_t total_bits = 32 * 8;
   EXPECT_EQ(reader.RemainingBitCount(), total_bits);
   reader.ConsumeBits(3);
   total_bits -= 3;
@@ -72,7 +72,7 @@ TEST(BitstreamReaderTest, ConsumeBits) {
 
   reader.ConsumeBits(32 * 8);
   EXPECT_FALSE(reader.Ok());
-  EXPECT_LT(reader.RemainingBitCount(), 0);
+  EXPECT_LT(reader.RemainingBitCount(), 0u);
 }
 
 TEST(BitstreamReaderTest, ConsumeLotsOfBits) {
@@ -119,9 +119,9 @@ TEST(BitstreamReaderTest, ReadBit) {
 TEST(BitstreamReaderTest, ReadBoolConsumesSingleBit) {
   const uint8_t bytes[] = {0b1010'1010};
   BitstreamReader reader(bytes);
-  ASSERT_EQ(reader.RemainingBitCount(), 8);
+  ASSERT_EQ(reader.RemainingBitCount(), 8u);
   EXPECT_TRUE(reader.Read<bool>());
-  EXPECT_EQ(reader.RemainingBitCount(), 7);
+  EXPECT_EQ(reader.RemainingBitCount(), 7u);
 }
 
 TEST(BitstreamReaderTest, ReadBytesAligned) {
@@ -177,7 +177,7 @@ TEST(BitstreamReaderTest, ReadBytesOffset3) {
   EXPECT_TRUE(reader.Ok());
 
   // 5 bits left unread. Not enough to read a uint8_t.
-  EXPECT_EQ(reader.RemainingBitCount(), 5);
+  EXPECT_EQ(reader.RemainingBitCount(), 5u);
   EXPECT_EQ(reader.Read<uint8_t>(), 0);
   EXPECT_FALSE(reader.Ok());
 }
@@ -246,16 +246,16 @@ TEST(BitstreamReaderTest, CanPeekBitsUsingCopyConstructor) {
   const uint8_t bytes[] = {0x0A, 0xBC};
   BitstreamReader reader(bytes);
   reader.ConsumeBits(4);
-  ASSERT_EQ(reader.RemainingBitCount(), 12);
+  ASSERT_EQ(reader.RemainingBitCount(), 12u);
 
   BitstreamReader peeker = reader;
   EXPECT_EQ(peeker.ReadBits(8), 0xABu);
-  EXPECT_EQ(peeker.RemainingBitCount(), 4);
+  EXPECT_EQ(peeker.RemainingBitCount(), 4u);
 
-  EXPECT_EQ(reader.RemainingBitCount(), 12);
+  EXPECT_EQ(reader.RemainingBitCount(), 12u);
   // Can resume reading from before peeker was created.
   EXPECT_EQ(reader.ReadBits(4), 0xAu);
-  EXPECT_EQ(reader.RemainingBitCount(), 8);
+  EXPECT_EQ(reader.RemainingBitCount(), 8u);
 }
 
 TEST(BitstreamReaderTest,
@@ -263,12 +263,12 @@ TEST(BitstreamReaderTest,
   const uint8_t bytes[2] = {0xf3, 0xa0};
   BitstreamReader reader(bytes);
 
-  ASSERT_EQ(reader.RemainingBitCount(), 16);
+  ASSERT_EQ(reader.RemainingBitCount(), 16u);
   EXPECT_EQ(reader.ReadNonSymmetric(/*num_values=*/1 << 4), 0xfu);
   EXPECT_EQ(reader.ReadNonSymmetric(/*num_values=*/1 << 4), 0x3u);
   EXPECT_EQ(reader.ReadNonSymmetric(/*num_values=*/1 << 4), 0xau);
   EXPECT_EQ(reader.ReadNonSymmetric(/*num_values=*/1 << 4), 0x0u);
-  EXPECT_EQ(reader.RemainingBitCount(), 0);
+  EXPECT_EQ(reader.RemainingBitCount(), 0u);
   EXPECT_TRUE(reader.Ok());
 }
 
@@ -276,9 +276,9 @@ TEST(BitstreamReaderTest, ReadNonSymmetricOnlyValueConsumesZeroBits) {
   const uint8_t bytes[2] = {};
   BitstreamReader reader(bytes);
 
-  ASSERT_EQ(reader.RemainingBitCount(), 16);
+  ASSERT_EQ(reader.RemainingBitCount(), 16u);
   EXPECT_EQ(reader.ReadNonSymmetric(/*num_values=*/1), 0u);
-  EXPECT_EQ(reader.RemainingBitCount(), 16);
+  EXPECT_EQ(reader.RemainingBitCount(), 16u);
 }
 
 std::array<uint8_t, 8> GolombEncoded(uint32_t val) {

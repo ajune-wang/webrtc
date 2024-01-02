@@ -20,9 +20,9 @@
 
 namespace webrtc {
 
-uint64_t BitstreamReader::ReadBits(int bits) {
-  RTC_DCHECK_GE(bits, 0);
-  RTC_DCHECK_LE(bits, 64);
+uint64_t BitstreamReader::ReadBits(size_t bits) {
+  RTC_DCHECK_GE(bits, 0u);
+  RTC_DCHECK_LE(bits, 64u);
   set_last_read_is_verified(false);
 
   if (remaining_bits_ < bits) {
@@ -30,7 +30,7 @@ uint64_t BitstreamReader::ReadBits(int bits) {
     return 0;
   }
 
-  int remaining_bits_in_first_byte = remaining_bits_ % 8;
+  size_t remaining_bits_in_first_byte = remaining_bits_ % 8;
   remaining_bits_ -= bits;
   if (bits < remaining_bits_in_first_byte) {
     // Reading fewer bits than what's left in the current byte, just
@@ -78,8 +78,8 @@ int BitstreamReader::ReadBit() {
   return (*bytes_ >> bit_position) & 0x01;
 }
 
-void BitstreamReader::ConsumeBits(int bits) {
-  RTC_DCHECK_GE(bits, 0);
+void BitstreamReader::ConsumeBits(size_t bits) {
+  RTC_DCHECK_GE(bits, 0u);
   set_last_read_is_verified(false);
   if (remaining_bits_ < bits) {
     Invalidate();
@@ -108,7 +108,7 @@ uint32_t BitstreamReader::ReadNonSymmetric(uint32_t num_values) {
 
 uint32_t BitstreamReader::ReadExponentialGolomb() {
   // Count the number of leading 0.
-  int zero_bit_count = 0;
+  size_t zero_bit_count = 0;
   while (ReadBit() == 0) {
     if (++zero_bit_count >= 32) {
       // Golob value won't fit into 32 bits of the return value. Fail the parse.

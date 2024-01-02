@@ -159,16 +159,15 @@ void StreamStatisticianImpl::UpdateJitter(const RtpPacketReceived& packet,
   int32_t time_diff_samples =
       receive_diff_rtp - (packet.Timestamp() - last_received_timestamp_);
 
-  time_diff_samples = std::abs(time_diff_samples);
-
   ReviseFrequencyAndJitter(packet.payload_type_frequency());
 
   // lib_jingle sometimes deliver crazy jumps in TS for the same stream.
   // If this happens, don't update jitter value. Use 5 secs video frequency
   // as the threshold.
-  if (time_diff_samples < 450000) {
+  if (time_diff_samples < 5 * kVideoPayloadTypeFrequency &&
+      time_diff_samples > -5 * kVideoPayloadTypeFrequency) {
     // Note we calculate in Q4 to avoid using float.
-    int32_t jitter_diff_q4 = (time_diff_samples << 4) - jitter_q4_;
+    int32_t jitter_diff_q4 = (std::abs(time_diff_samples) << 4) - jitter_q4_;
     jitter_q4_ += ((jitter_diff_q4 + 8) >> 4);
   }
 }

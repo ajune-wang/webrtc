@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab1b724c_807af351",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-01-03T08:47:48Z",
+      "side": 1,
+      "message": "We should be able to measure that. I\u0027ll update perf data in https://chromium-review.googlesource.com/c/chromium/src/+/5151788",
+      "parentUuid": "9cfc3030_d2f22233",
+      "revId": "a8feb4e89882a3280486177280c8571e25a08560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a61b798b_066d7552",

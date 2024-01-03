@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "455ffa82_dc352adb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-03T09:54:45Z",
+      "side": 1,
+      "message": "\"how does WebRTC wait for an async condition to be true... oh wait, why does this #define...\"\n\nHappy new year!",
+      "revId": "1dcf06bc63f2556a7f78d86457415f934750203c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

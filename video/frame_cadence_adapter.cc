@@ -189,9 +189,14 @@ class ZeroHertzAdapterMode : public AdapterMode {
   // have arrived.
   void ProcessRepeatedFrameOnDelayedCadence(int frame_id)
       RTC_RUN_ON(sequence_checker_);
-  // Sends a frame, updating the timestamp to the current time.
-  void SendFrameNow(Timestamp post_time, const VideoFrame& frame) const
-      RTC_RUN_ON(sequence_checker_);
+  // Sends a frame, updating the timestamp to the current time. If the time
+  // spent in SendFrameNow is larger than `max_delay`, the next OnFrame callback
+  // will set `queue_overload` parameter as an indication to the client to
+  // possibly drop the frame to avoid delays building up by too slow encodes.
+  // TODO(henrika): update comments...
+  void SendFrameNow(Timestamp post_time,
+                    const VideoFrame& frame,
+                    bool is_repeat) RTC_RUN_ON(sequence_checker_);
   // Returns the repeat duration depending on if it's an idle repeat or not.
   TimeDelta RepeatDuration(bool idle_repeat) const
       RTC_RUN_ON(sequence_checker_);
@@ -230,6 +235,12 @@ class ZeroHertzAdapterMode : public AdapterMode {
   // the max frame rate.
   absl::optional<TimeDelta> restricted_frame_delay_
       RTC_GUARDED_BY(sequence_checker_);
+  // Set to true in OnSendFrame if the time to encode is larger than a specified
+  // max value.
+  // TODO(henrika): update comment....
+  bool queue_overload_ RTC_GUARDED_BY(sequence_checker_){false};
+
+  int queue_overload_count_ RTC_GUARDED_BY(sequence_checker_) = 0;
 
   ScopedTaskSafety safety_;
 };
@@ -393,6 +404,7 @@ void ZeroHertzAdapterMode::OnFrame(Timestamp post_time,
   current_frame_id_++;
   scheduled_repeat_ = absl::nullopt;
   TimeDelta time_spent_since_post = clock_->CurrentTime() - post_time;
+
   queue_->PostDelayedHighPrecisionTask(
       SafeTask(safety_.flag(),
                [this, post_time] {
@@ -515,7 +527,7 @@ void ZeroHertzAdapterMode::ProcessOnDelayedCadence(Timestamp post_time) {
     // arrive.
     ScheduleRepeat(current_frame_id_, HasQualityConverged());
   }
-  SendFrameNow(post_time, front_frame);
+  SendFrameNow(post_time, front_frame, /*is_repeat=*/false);
 }
 
 void ZeroHertzAdapterMode::ScheduleRepeat(int frame_id, bool idle_repeat) {
@@ -544,8 +556,9 @@ void ZeroHertzAdapterMode::ProcessRepeatedFrameOnDelayedCadence(int frame_id) {
   RTC_DCHECK(!queued_frames_.empty());
 
   // Cancel this invocation if new frames turned up.
-  if (frame_id != current_frame_id_)
+  if (frame_id != current_frame_id_) {
     return;
+  }
   RTC_DCHECK(scheduled_repeat_.has_value());
 
   VideoFrame& frame = queued_frames_.front();
@@ -572,24 +585,36 @@ void ZeroHertzAdapterMode::ProcessRepeatedFrameOnDelayedCadence(int frame_id) {
 
   // Schedule another repeat before sending the frame off which could take time.
   ScheduleRepeat(frame_id, HasQualityConverged());
-  // Mark `post_time` with 0 to signal that this is a repeated frame.
-  SendFrameNow(Timestamp::Zero(), frame);
+  SendFrameNow(Timestamp::Zero(), frame, /*is_repeat=*/true);
 }
 
 void ZeroHertzAdapterMode::SendFrameNow(Timestamp post_time,
-                                        const VideoFrame& frame) const {
+                                        const VideoFrame& frame,
+                                        bool is_repeat) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   TRACE_EVENT0("webrtc", __func__);
-  Timestamp now = clock_->CurrentTime();
-  // Exclude repeated frames which are marked with zero as post time.
-  if (post_time != Timestamp::Zero()) {
-    TimeDelta delay = (now - post_time);
+  Timestamp encode_start_time = clock_->CurrentTime();
+  if (!is_repeat) {
+    TimeDelta delay = (encode_start_time - post_time);
     RTC_HISTOGRAM_COUNTS_10000("WebRTC.Screenshare.ZeroHz.DelayMs", delay.ms());
   }
-  // TODO(crbug.com/1255737): ensure queue_overload is computed from current
-  // conditions on the encoder queue.
-  callback_->OnFrame(/*post_time=*/now,
-                     /*queue_overload=*/false, frame);
+
+  if (is_repeat) {
+    queue_overload_ = false;
+    queue_overload_count_ = 0;
+  }
+
+  callback_->OnFrame(/*post_time=*/encode_start_time, queue_overload_, frame);
+
+  if (!queue_overload_) {
+    TimeDelta encode_time = clock_->CurrentTime() - encode_start_time;
+    queue_overload_count_ = encode_time / frame_delay_;
+  } else {
+    queue_overload_count_--;
+  }
+  queue_overload_ = queue_overload_count_ > 0;
+  RTC_HISTOGRAM_BOOLEAN("WebRTC.Screenshare.ZeroHz.QueueOverload",
+                        queue_overload_);
 }
 
 TimeDelta ZeroHertzAdapterMode::RepeatDuration(bool idle_repeat) const {

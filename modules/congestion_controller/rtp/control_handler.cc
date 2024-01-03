@@ -13,26 +13,27 @@
 #include <algorithm>
 #include <vector>
 
+#include "api/field_trials_view.h"
 #include "api/units/data_rate.h"
 #include "modules/pacing/pacing_controller.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
-#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
 
 // By default, pacer emergency stops encoder when buffer reaches a high level.
-bool IsPacerEmergencyStopDisabled() {
-  return field_trial::IsEnabled("WebRTC-DisablePacerEmergencyStop");
+bool IsPacerEmergencyStopDisabled(const FieldTrialsView& field_trials) {
+  return field_trials.IsEnabled("WebRTC-DisablePacerEmergencyStop");
 }
 
 }  // namespace
-CongestionControlHandler::CongestionControlHandler()
-    : disable_pacer_emergency_stop_(IsPacerEmergencyStopDisabled()) {}
 
-CongestionControlHandler::~CongestionControlHandler() {}
+CongestionControlHandler::CongestionControlHandler(
+    const FieldTrialsView& field_trials)
+    : disable_pacer_emergency_stop_(
+          IsPacerEmergencyStopDisabled(field_trials)) {}
 
 void CongestionControlHandler::SetTargetRate(
     TargetTransferRate new_target_rate) {

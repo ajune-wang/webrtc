@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/transport/network_types.h"
 #include "api/units/data_size.h"
@@ -28,11 +29,12 @@ namespace webrtc {
 // destruction unless members are properly ordered.
 class CongestionControlHandler {
  public:
-  CongestionControlHandler();
-  ~CongestionControlHandler();
+  explicit CongestionControlHandler(const FieldTrialsView& field_trials);
 
   CongestionControlHandler(const CongestionControlHandler&) = delete;
   CongestionControlHandler& operator=(const CongestionControlHandler&) = delete;
+
+  ~CongestionControlHandler() = default;
 
   void SetTargetRate(TargetTransferRate new_target_rate);
   void SetNetworkAvailability(bool network_available);

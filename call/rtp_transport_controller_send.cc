@@ -567,7 +567,8 @@ void RtpTransportControllerSend::MaybeCreateControllers() {
 
   if (!network_available_ || !observer_)
     return;
-  control_handler_ = std::make_unique<CongestionControlHandler>();
+  control_handler_ =
+      std::make_unique<CongestionControlHandler>(env_.field_trials());
 
   initial_config_.constraints.at_time =
       Timestamp::Millis(env_.clock().TimeInMilliseconds());

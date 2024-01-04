@@ -157,6 +157,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e258b4_beb8174b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-04T02:43:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0ba50ebc_2ea0b3dc",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "844fc13f_b54c3755",
@@ -188,6 +206,24 @@
       "side": 1,
       "message": "The vsync_encode_adapter_ would be called from both worker queue and encode queue, but all metronome related memembers are guarded by worker sequence, and others are all guarded by encode queue, so I think it\u0027s safe and vsync_encode_adapter_ is destroyed on worker queue by post task from encode queue on the FCAI::dtor.",
       "parentUuid": "844fc13f_b54c3755",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a654c2f3_00eb476a",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-04T02:43:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "37c8e194_b1bf4009",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -280,6 +316,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc41d1a_3924366b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-04T02:43:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d9e09c02_a1911835",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da0fadf5_fb7a8562",
@@ -315,6 +369,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a3b2ef2_8b548b5d",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-04T02:43:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6356c6dd_602762ed",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "857074d3_7bd094b5",
@@ -346,6 +418,24 @@
       "side": 1,
       "message": "The metronome object outlives the peer connection (owned by pc factory) so we don\u0027t need to worry about UAF and the ptr is const. Calling its methods is worker thread only though.",
       "parentUuid": "857074d3_7bd094b5",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f83f82_15e3ff59",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-04T02:43:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d827a96_e17941f2",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -545,6 +635,24 @@
       "side": 1,
       "message": "A. [Never](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d711;drc\u003d8e78783dc1f7007bad46d657c9f332614e240fd8;bpv\u003d1;bpt\u003d1).\nB. Always the encode sequence.",
       "parentUuid": "0b11ece4_da4dad64",
+      "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff1939ca_aba66d05",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-04T02:43:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9419fe5f_397c7c68",
       "revId": "d1f639469c0e8c2668d2564ea039b7685551e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

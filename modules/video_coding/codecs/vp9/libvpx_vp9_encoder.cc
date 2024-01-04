@@ -2003,10 +2003,10 @@ LibvpxVp9Encoder::GetDefaultPerformanceFlags() {
   flags.use_per_layer_speed = true;
 #ifdef MOBILE_ARM
   // Speed 8 on all layers for all resolutions.
-  flags.settings_by_resolution[0] = {.base_layer_speed = 8,
-                                     .high_layer_speed = 8,
+  flags.settings_by_resolution[0] = {.base_layer_speed = 9,
+                                     .high_layer_speed = 9,
                                      .deblock_mode = 0,
-                                     .allow_denoising = true};
+                                     .allow_denoising = false};
 #else
 
   // For smaller resolutions, use lower speed setting for the temporal base

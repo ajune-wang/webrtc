@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3989e085_b8d68d24",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-04T16:29:21Z",
+      "side": 1,
+      "message": "This does not need to be computed if `idle_repeat`.",
+      "range": {
+        "startLine": 634,
+        "startChar": 0,
+        "endLine": 634,
+        "endChar": 42
+      },
+      "revId": "9508416460dbaa4833d280966eefee181c2c82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

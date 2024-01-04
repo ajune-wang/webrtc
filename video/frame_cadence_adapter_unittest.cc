@@ -10,6 +10,7 @@
 
 #include "video/frame_cadence_adapter.h"
 
+#include <algorithm>
 #include <utility>
 #include <vector>
 
@@ -38,9 +39,11 @@ namespace {
 
 using ::testing::_;
 using ::testing::ElementsAre;
+using ::testing::InSequence;
 using ::testing::Invoke;
 using ::testing::InvokeWithoutArgs;
 using ::testing::Mock;
+using ::testing::NiceMock;
 using ::testing::Pair;
 using ::testing::Values;
 
@@ -308,6 +311,7 @@ TEST(FrameCadenceAdapterTest, DelayedProcessingUnderHeavyContention) {
   }));
   adapter->OnFrame(CreateFrame());
   time_controller.SkipForwardBy(time_skipped);
+  time_controller.AdvanceTime(TimeDelta::Zero());
 }
 
 TEST(FrameCadenceAdapterTest, RepeatsFramesDelayed) {
@@ -1074,6 +1078,113 @@ TEST(FrameCadenceAdapterRealTimeTest,
     finalized.Set();
   });
   finalized.Wait(rtc::Event::kForever);
+}
+
+class ZeroHertzQueueOverloadTest : public ::testing::Test {
+ public:
+  static constexpr int kMaxFps = 10;
+
+  ZeroHertzQueueOverloadTest() {
+    adapter_->Initialize(&callback_);
+    adapter_->SetZeroHertzModeEnabled(
+        FrameCadenceAdapterInterface::ZeroHertzModeParams{
+            /*num_simulcast_layers=*/1});
+    adapter_->OnConstraintsChanged(
+        VideoTrackSourceConstraints{/*min_fps=*/0, kMaxFps});
+    time_controller_.AdvanceTime(TimeDelta::Zero());
+    metrics::Reset();
+  }
+
+  void ScheduleDelayed(TimeDelta delay, absl::AnyInvocable<void() &&> task) {
+    TaskQueueBase::Current()->PostDelayedTask(std::move(task), delay);
+  }
+
+  void PassFrame() { adapter_->OnFrame(CreateFrame()); }
+
+  void AdvanceTime(TimeDelta duration) {
+    time_controller_.AdvanceTime(duration);
+  }
+
+  void SkipForwardBy(TimeDelta duration) {
+    time_controller_.SkipForwardBy(duration);
+  }
+
+  Timestamp CurrentTime() { return time_controller_.GetClock()->CurrentTime(); }
+
+ protected:
+  ZeroHertzFieldTrialEnabler field_trial_enabler_;
+  NiceMock<MockCallback> callback_;
+  GlobalSimulatedTimeController time_controller_{Timestamp::Zero()};
+  std::unique_ptr<FrameCadenceAdapterInterface> adapter_{
+      CreateAdapter(field_trial_enabler_, time_controller_.GetClock())};
+};
+
+TEST_F(ZeroHertzQueueOverloadTest, NonIdleRepeatResetsOverloadStateMachine) {
+  // Encoding delays scheduling by 2 times the minimum frame period which
+  // results in a queue overload count of 2 and sets the queue overload flag.
+  // A non-idle repeat cancels the overload mechanism.
+  EXPECT_CALL(callback_, OnFrame(_, false, _))
+      .WillOnce(InvokeWithoutArgs([&] {
+        // First frame is forwared at 100 ms. High encoding cost should lead to
+        // overload for the next two frames.
+        EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(100));
+        SkipForwardBy(TimeDelta::Millis(201));
+      }))
+      .WillOnce(InvokeWithoutArgs([&] {
+        // Non-idle repeat resets the overload mechanism.
+        EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(301));
+      }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 1), Pair(true, 1)));
+
+  // The queue overload state machine should now be reset and not report an
+  // overload even if it was initially set to report during two frames.
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    EXPECT_EQ(CurrentTime(), Timestamp::Zero() + TimeDelta::Millis(401));
+  }));
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+  EXPECT_THAT(metrics::Samples("WebRTC.Screenshare.ZeroHz.QueueOverload"),
+              ElementsAre(Pair(false, 2), Pair(true, 1)));
+}
+
+// Goal: Show that 2 x dT encode time leads to 2 overload drops.
+// - Forward three frames at 10 fps (dT=100 ms)
+// - First frame takes 201 ms to encode => false & overload_count = 2
+// - Pass one frame => true & overload_count = 1
+// - Pass one frame => true & overload_count = 0
+// - From here... false & overload_count = 0
+// How to deal with repeats here?
+// - Set as converged to delay the repeat by 1 second.
+// - UpdateLayerStatus must happen before 0Hz::ProcessOnDelayedCadence (does
+//   not have to happen on the queue).
+
+TEST_F(ZeroHertzQueueOverloadTest, Foo) {
+  ScheduleDelayed(TimeDelta::Zero(), [&] { PassFrame(); });
+  ScheduleDelayed(TimeDelta::Millis(100), [&] { PassFrame(); });
+  ScheduleDelayed(TimeDelta::Millis(200), [&] { PassFrame(); });
+
+  EXPECT_CALL(callback_, OnFrame(_, false, _)).WillOnce(InvokeWithoutArgs([&] {
+    SkipForwardBy(TimeDelta::Millis(201));
+  }));
+  EXPECT_CALL(callback_, OnFrame(_, true, _)).Times(2);
+  AdvanceTime(TimeDelta::Millis(301));
+}
+
+TEST_F(ZeroHertzQueueOverloadTest, Foo1) {
+  adapter_->UpdateLayerStatus(0, /*enabled=*/true);
+  // A delay between 0 and 100 ms works here. 101 ms is too late.
+  // ScheduleDelayed(TimeDelta::Zero(), [&] {
+  //   adapter_->UpdateLayerQualityConvergence(/*spatial_index=*/0, true);
+  // });
+
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
+
+  PassFrame();
+  AdvanceTime(TimeDelta::Millis(100));
 }
 
 }  // namespace

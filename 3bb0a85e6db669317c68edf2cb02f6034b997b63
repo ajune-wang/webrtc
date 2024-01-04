@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2294c589_812585ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-04T15:00:34Z",
+      "side": 1,
+      "message": "low priority,\n\nwhile adjusting the interface, I\u0027ve also converted text comments about nullability into annotations. (They are still just comments, but potentially are tool readable)",
+      "revId": "3bb0a85e6db669317c68edf2cb02f6034b997b63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

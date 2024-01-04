@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "813b48cf_8d872a63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2024-01-04T08:57:41Z",
+      "side": 1,
+      "message": "I\u0027m ready to revert in case it all breaks.",
+      "revId": "97deb48d9a7927be851a887123a70cf7d4ccd267",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

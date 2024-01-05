@@ -418,6 +418,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "815cd8ba_d3d1316f",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-05T13:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee17966_f3cc40d7",
+      "range": {
+        "startLine": 1211,
+        "startChar": 4,
+        "endLine": 1211,
+        "endChar": 43
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31369668_fa4e5cf1",
@@ -431,6 +455,30 @@
       "writtenOn": "2024-01-02T12:42:34Z",
       "side": 1,
       "message": "dito",
+      "range": {
+        "startLine": 1223,
+        "startChar": 4,
+        "endLine": 1223,
+        "endChar": 13
+      },
+      "revId": "0687723f83bd37452a0a868bf55f8e6407e81b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b8bb09b_98256028",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-05T13:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31369668_fa4e5cf1",
       "range": {
         "startLine": 1223,
         "startChar": 4,

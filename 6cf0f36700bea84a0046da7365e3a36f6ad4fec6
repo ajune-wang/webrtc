@@ -16,6 +16,23 @@
       "message": "Hi Björn, can you share which downstream build is broken, is there any issue tracker about this? Thanks in advance!",
       "revId": "6cf0f36700bea84a0046da7365e3a36f6ad4fec6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14937ed1_d3a4feb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-05T08:01:59Z",
+      "side": 1,
+      "message": "The problem is this code:\n\n+    uint32_t vsync_encode_delay \u003d (post_time - input.time_when_posted_us).ms();\n+    TRACE_EVENT1(\"webrtc\", \"FrameCadenceAdapterImpl::EncodeAllEnqueuedFrames\",\n+                 \"VSyncEncodeDelay\",\n\nWe discovered one downstream config that disabled event tracing, so TRACE_EVENT1 expanded to nothing. That meant that we got an \"unused variable\" compile error on vsync_encode_delay.\n\nOne solution is to put the computation of vsync_encode_delay into the macro instead of outside it.",
+      "revId": "6cf0f36700bea84a0046da7365e3a36f6ad4fec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

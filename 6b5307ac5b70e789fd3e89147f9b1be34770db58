@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cec25d66_e7bb07c4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-05T13:46:29Z",
+      "side": 1,
+      "message": "Well. You can decide that. My take was that it felt more clean to add a dedicated parameter than to rely on zero as `post_time` since we often start unittests at zero and then the first frame will be marked as a repeat using the implicit way.",
+      "parentUuid": "38e663a4_655e2509",
+      "range": {
+        "startLine": 602,
+        "startChar": 40,
+        "endLine": 602,
+        "endChar": 54
+      },
+      "revId": "6b5307ac5b70e789fd3e89147f9b1be34770db58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44ed9477_7c35d7ed",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 17
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-05T13:29:42Z",
       "side": 1,
       "message": "should is_repeat be considered as well?",
+      "range": {
+        "startLine": 629,
+        "startChar": 2,
+        "endLine": 629,
+        "endChar": 27
+      },
+      "revId": "6b5307ac5b70e789fd3e89147f9b1be34770db58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a850a304_d6531b49",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-05T13:46:29Z",
+      "side": 1,
+      "message": "Hmm. Must think on that one. Let me come back.",
+      "parentUuid": "44ed9477_7c35d7ed",
       "range": {
         "startLine": 629,
         "startChar": 2,

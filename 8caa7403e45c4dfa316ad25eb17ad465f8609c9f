@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc2af59a_e54fc9f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-05T12:26:06Z",
+      "side": 1,
+      "message": "I still can\u0027t review :-|\nProbably best to remove that file, the Chrome information is obsolete since hbos moved to IDL stats.",
+      "revId": "8caa7403e45c4dfa316ad25eb17ad465f8609c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

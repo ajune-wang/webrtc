@@ -14,6 +14,7 @@
 #include <string>
 #include <tuple>
 
+#include "api/transport/field_trial_based_config.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_v3.h"
@@ -55,28 +56,38 @@ class RtcEventLogEncoderTest
         event_count_(std::get<2>(GetParam())),
         force_repeated_fields_(std::get<3>(GetParam())),
         gen_(seed_ * 880001UL),
-        verifier_(encoding_type_) {
+        verifier_(encoding_type_) {}
+  ~RtcEventLogEncoderTest() override = default;
+
+  std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
+      const FieldTrialsView& field_trials) {
+    std::unique_ptr<RtcEventLogEncoder> encoder;
     switch (encoding_type_) {
       case RtcEventLog::EncodingType::Legacy:
-        encoder_ = std::make_unique<RtcEventLogEncoderLegacy>();
+        encoder = std::make_unique<RtcEventLogEncoderLegacy>();
         break;
       case RtcEventLog::EncodingType::NewFormat:
-        encoder_ = std::make_unique<RtcEventLogEncoderNewFormat>();
+        encoder = std::make_unique<RtcEventLogEncoderNewFormat>(field_trials);
         break;
       case RtcEventLog::EncodingType::ProtoFree:
-        encoder_ = std::make_unique<RtcEventLogEncoderV3>();
+        encoder = std::make_unique<RtcEventLogEncoderV3>();
         break;
     }
-    encoded_ =
-        encoder_->EncodeLogStart(rtc::TimeMillis(), rtc::TimeUTCMillis());
+    encoded_ = encoder->EncodeLogStart(rtc::TimeMillis(), rtc::TimeUTCMillis());
+    return encoder;
   }
-  ~RtcEventLogEncoderTest() override = default;
+
+  std::unique_ptr<RtcEventLogEncoder> CreateEncoder() {
+    return CreateEncoder(FieldTrialBasedConfig());
+  }
 
   // ANA events have some optional fields, so we want to make sure that we get
   // correct behavior both when all of the values are there, as well as when
   // only some.
   void TestRtcEventAudioNetworkAdaptation(
-      const std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>>&);
+      const std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>>&
+          events,
+      RtcEventLogEncoder& encoder);
 
   template <typename EventType>
   std::unique_ptr<EventType> NewRtpPacket(
@@ -89,10 +100,9 @@ class RtcEventLogEncoderTest
       uint32_t ssrc);
 
   template <typename EventType, typename ParsedType>
-  void TestRtpPackets();
+  void TestRtpPackets(RtcEventLogEncoder& encoder);
 
   std::deque<std::unique_ptr<RtcEvent>> history_;
-  std::unique_ptr<RtcEventLogEncoder> encoder_;
   ParsedRtcEventLog parsed_log_;
   const uint64_t seed_;
   Random prng_;
@@ -105,15 +115,15 @@ class RtcEventLogEncoderTest
 };
 
 void RtcEventLogEncoderTest::TestRtcEventAudioNetworkAdaptation(
-    const std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>>&
-        events) {
+    const std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>>& events,
+    RtcEventLogEncoder& encoder) {
   ASSERT_TRUE(history_.empty()) << "Function should be called once per test.";
 
   for (auto& event : events) {
     history_.push_back(event->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder.EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& ana_configs = parsed_log_.audio_network_adaptation_events();
 
@@ -165,7 +175,7 @@ RtcEventLogEncoderTest::GetRtpPacketsBySsrc(const ParsedRtcEventLog* parsed_log,
 }
 
 template <typename EventType, typename ParsedType>
-void RtcEventLogEncoderTest::TestRtpPackets() {
+void RtcEventLogEncoderTest::TestRtpPackets(RtcEventLogEncoder& encoder) {
   // SSRCs will be randomly assigned out of this small pool, significant only
   // in that it also covers such edge cases as SSRC = 0 and SSRC = 0xffffffff.
   // The pool is intentionally small, so as to produce collisions.
@@ -193,7 +203,7 @@ void RtcEventLogEncoderTest::TestRtpPackets() {
   }
 
   // Encode and parse.
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder.EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   // For each SSRC, make sure the RTP packets associated with it to have been
@@ -213,6 +223,7 @@ void RtcEventLogEncoderTest::TestRtpPackets() {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAlrState) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAlrState>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_) ? gen_.NewAlrState()
@@ -220,7 +231,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAlrState) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& alr_state_events = parsed_log_.alr_state_events();
 
@@ -234,6 +245,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRouteChange) {
   if (encoding_type_ == RtcEventLog::EncodingType::Legacy) {
     return;
   }
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventRouteChange>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_) ? gen_.NewRouteChange()
@@ -241,7 +253,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRouteChange) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& route_change_events = parsed_log_.route_change_events();
 
@@ -252,6 +264,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRouteChange) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventRemoteEstimate) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventRemoteEstimate>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -260,7 +273,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRemoteEstimate) {
     history_.push_back(std::make_unique<RtcEventRemoteEstimate>(*events[i]));
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& parsed_events = parsed_log_.remote_estimate_events();
 
@@ -271,6 +284,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRemoteEstimate) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationBitrate) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -285,10 +299,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationBitrate) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationFrameLength) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -302,10 +317,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationFrameLength) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationPacketLoss) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -320,10 +336,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationPacketLoss) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationFec) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -336,10 +353,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationFec) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationDtx) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -352,10 +370,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationDtx) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationChannels) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -368,10 +387,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationChannels) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationAll) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -391,10 +411,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationAll) {
       events[i] = events[0]->Copy();
     }
   }
-  TestRtcEventAudioNetworkAdaptation(events);
+  TestRtcEventAudioNetworkAdaptation(events, *encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioPlayout) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   // SSRCs will be randomly assigned out of this small pool, significant only
   // in that it also covers such edge cases as SSRC = 0 and SSRC = 0xffffffff.
   // The pool is intentionally small, so as to produce collisions.
@@ -414,7 +435,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioPlayout) {
     original_events_by_ssrc[ssrc].push_back(std::move(event));
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& parsed_playout_events_by_ssrc =
@@ -443,6 +464,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioPlayout) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventNetEqSetMinimumDelayDecoded) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   // SSRCs will be randomly assigned out of this small pool, significant only
   // in that it also covers such edge cases as SSRC = 0 and SSRC = 0xffffffff.
   // The pool is intentionally small, so as to produce collisions.
@@ -461,7 +483,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventNetEqSetMinimumDelayDecoded) {
     original_events_by_ssrc[ssrc].push_back(std::move(event));
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& parsed_neteq_set_minimum_delay_events_by_ssrc =
@@ -502,13 +524,14 @@ TEST_P(RtcEventLogEncoderTest, RtcEventNetEqSetMinimumDelayDecoded) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioReceiveStreamConfig) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   uint32_t ssrc = prng_.Rand<uint32_t>();
   RtpHeaderExtensionMap extensions = gen_.NewRtpHeaderExtensionMap();
   std::unique_ptr<RtcEventAudioReceiveStreamConfig> event =
       gen_.NewAudioReceiveStreamConfig(ssrc, extensions);
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& audio_recv_configs = parsed_log_.audio_recv_configs();
 
@@ -518,13 +541,14 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioReceiveStreamConfig) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioSendStreamConfig) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   uint32_t ssrc = prng_.Rand<uint32_t>();
   RtpHeaderExtensionMap extensions = gen_.NewRtpHeaderExtensionMap();
   std::unique_ptr<RtcEventAudioSendStreamConfig> event =
       gen_.NewAudioSendStreamConfig(ssrc, extensions);
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& audio_send_configs = parsed_log_.audio_send_configs();
 
@@ -533,6 +557,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioSendStreamConfig) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateDelayBased) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventBweUpdateDelayBased>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -542,7 +567,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateDelayBased) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& bwe_delay_updates = parsed_log_.bwe_delay_updates();
@@ -554,6 +579,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateDelayBased) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateLossBased) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventBweUpdateLossBased>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -562,7 +588,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateLossBased) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& bwe_loss_updates = parsed_log_.bwe_loss_updates();
@@ -577,6 +603,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericPacketReceived) {
   if (encoding_type_ == RtcEventLog::EncodingType::Legacy) {
     return;
   }
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventGenericPacketReceived>> events(
       event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -586,7 +613,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericPacketReceived) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& packets_received = parsed_log_.generic_packets_received();
@@ -602,6 +629,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericPacketSent) {
   if (encoding_type_ == RtcEventLog::EncodingType::Legacy) {
     return;
   }
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventGenericPacketSent>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -610,7 +638,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericPacketSent) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& packets_sent = parsed_log_.generic_packets_sent();
@@ -625,6 +653,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericAcksReceived) {
   if (encoding_type_ == RtcEventLog::EncodingType::Legacy) {
     return;
   }
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventGenericAckReceived>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -633,7 +662,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericAcksReceived) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& decoded_events = parsed_log_.generic_acks_received();
@@ -645,6 +674,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventGenericAcksReceived) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventDtlsTransportState) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventDtlsTransportState>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -653,7 +683,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventDtlsTransportState) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& dtls_transport_states = parsed_log_.dtls_transport_states();
@@ -670,6 +700,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventDtlsTransportState) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventDtlsWritableState) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventDtlsWritableState>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -678,7 +709,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventDtlsWritableState) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& dtls_writable_states = parsed_log_.dtls_writable_states();
@@ -696,6 +727,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventDtlsWritableState) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventFrameDecoded) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   // SSRCs will be randomly assigned out of this small pool, significant only
   // in that it also covers such edge cases as SSRC = 0 and SSRC = 0xffffffff.
   // The pool is intentionally small, so as to produce collisions.
@@ -715,7 +747,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventFrameDecoded) {
     original_events_by_ssrc[ssrc].push_back(std::move(event));
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   auto status = parsed_log_.ParseString(encoded_);
   if (!status.ok())
     RTC_LOG(LS_ERROR) << status.message();
@@ -751,11 +783,12 @@ TEST_P(RtcEventLogEncoderTest, RtcEventFrameDecoded) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventIceCandidatePairConfig) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::unique_ptr<RtcEventIceCandidatePairConfig> event =
       gen_.NewIceCandidatePairConfig();
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& ice_candidate_pair_configs =
       parsed_log_.ice_candidate_pair_configs();
@@ -767,10 +800,11 @@ TEST_P(RtcEventLogEncoderTest, RtcEventIceCandidatePairConfig) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventIceCandidatePair) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::unique_ptr<RtcEventIceCandidatePair> event = gen_.NewIceCandidatePair();
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& ice_candidate_pair_events =
       parsed_log_.ice_candidate_pair_events();
@@ -781,11 +815,12 @@ TEST_P(RtcEventLogEncoderTest, RtcEventIceCandidatePair) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventLoggingStarted) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   const int64_t timestamp_ms = prng_.Rand(1'000'000'000);
   const int64_t utc_time_ms = prng_.Rand(1'000'000'000);
 
   // Overwrite the previously encoded LogStart event.
-  encoded_ = encoder_->EncodeLogStart(timestamp_ms * 1000, utc_time_ms * 1000);
+  encoded_ = encoder->EncodeLogStart(timestamp_ms * 1000, utc_time_ms * 1000);
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& start_log_events = parsed_log_.start_log_events();
 
@@ -795,16 +830,17 @@ TEST_P(RtcEventLogEncoderTest, RtcEventLoggingStarted) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventLoggingStopped) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   const int64_t start_timestamp_ms = prng_.Rand(1'000'000'000);
   const int64_t start_utc_time_ms = prng_.Rand(1'000'000'000);
 
   // Overwrite the previously encoded LogStart event.
-  encoded_ = encoder_->EncodeLogStart(start_timestamp_ms * 1000,
-                                      start_utc_time_ms * 1000);
+  encoded_ = encoder->EncodeLogStart(start_timestamp_ms * 1000,
+                                     start_utc_time_ms * 1000);
 
   const int64_t stop_timestamp_ms =
       prng_.Rand(start_timestamp_ms, 2'000'000'000);
-  encoded_ += encoder_->EncodeLogEnd(stop_timestamp_ms * 1000);
+  encoded_ += encoder->EncodeLogEnd(stop_timestamp_ms * 1000);
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& stop_log_events = parsed_log_.stop_log_events();
 
@@ -814,11 +850,12 @@ TEST_P(RtcEventLogEncoderTest, RtcEventLoggingStopped) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventProbeClusterCreated) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::unique_ptr<RtcEventProbeClusterCreated> event =
       gen_.NewProbeClusterCreated();
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& bwe_probe_cluster_created_events =
       parsed_log_.bwe_probe_cluster_created_events();
@@ -830,11 +867,12 @@ TEST_P(RtcEventLogEncoderTest, RtcEventProbeClusterCreated) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventProbeResultFailure) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::unique_ptr<RtcEventProbeResultFailure> event =
       gen_.NewProbeResultFailure();
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& bwe_probe_failure_events = parsed_log_.bwe_probe_failure_events();
 
@@ -845,11 +883,12 @@ TEST_P(RtcEventLogEncoderTest, RtcEventProbeResultFailure) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventProbeResultSuccess) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::unique_ptr<RtcEventProbeResultSuccess> event =
       gen_.NewProbeResultSuccess();
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& bwe_probe_success_events = parsed_log_.bwe_probe_success_events();
 
@@ -864,6 +903,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPacketIncoming) {
     // As a work around, we're removing duplicates in the parser.
     return;
   }
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
 
   std::vector<std::unique_ptr<RtcEventRtcpPacketIncoming>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
@@ -873,7 +913,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPacketIncoming) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& incoming_rtcp_packets = parsed_log_.incoming_rtcp_packets();
@@ -886,6 +926,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPacketIncoming) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPacketOutgoing) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   std::vector<std::unique_ptr<RtcEventRtcpPacketOutgoing>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {
     events[i] = (i == 0 || !force_repeated_fields_)
@@ -894,7 +935,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPacketOutgoing) {
     history_.push_back(events[i]->Copy());
   }
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
   const auto& outgoing_rtcp_packets = parsed_log_.outgoing_rtcp_packets();
@@ -914,6 +955,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpReceiverReport) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::ReceiverReport> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -931,7 +974,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpReceiverReport) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& receiver_reports = parsed_log_.receiver_reports(direction);
@@ -952,6 +995,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpSenderReport) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::SenderReport> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -969,7 +1014,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpSenderReport) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& sender_reports = parsed_log_.sender_reports(direction);
@@ -990,6 +1035,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpExtendedReports) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::ExtendedReports> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -1007,7 +1054,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpExtendedReports) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& extended_reports = parsed_log_.extended_reports(direction);
@@ -1028,6 +1075,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpFir) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Fir> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -1045,7 +1094,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpFir) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& firs = parsed_log_.firs(direction);
@@ -1065,6 +1114,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPli) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Pli> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -1082,7 +1133,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPli) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& plis = parsed_log_.plis(direction);
@@ -1102,6 +1153,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpBye) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Bye> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -1119,7 +1172,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpBye) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& byes = parsed_log_.byes(direction);
@@ -1139,6 +1192,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpNack) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Nack> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -1156,7 +1211,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpNack) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& nacks = parsed_log_.nacks(direction);
@@ -1176,6 +1231,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpRemb) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::Remb> events(event_count_);
     std::vector<int64_t> timestamps_ms(event_count_);
@@ -1193,7 +1250,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpRemb) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& rembs = parsed_log_.rembs(direction);
@@ -1213,6 +1270,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpTransportFeedback) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::TransportFeedback> events;
     events.reserve(event_count_);
@@ -1231,7 +1290,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpTransportFeedback) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& transport_feedbacks =
@@ -1253,6 +1312,8 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpLossNotification) {
   rtc::ScopedFakeClock fake_clock;
   fake_clock.SetTime(Timestamp::Millis(prng_.Rand<uint32_t>()));
 
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+
   for (auto direction : {kIncomingPacket, kOutgoingPacket}) {
     std::vector<rtcp::LossNotification> events;
     events.reserve(event_count_);
@@ -1271,7 +1332,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpLossNotification) {
       fake_clock.AdvanceTime(TimeDelta::Millis(prng_.Rand(0, 1000)));
     }
 
-    encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+    encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
     ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
 
     const auto& loss_notifications = parsed_log_.loss_notifications(direction);
@@ -1285,36 +1346,41 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpLossNotification) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventRtpPacketIncoming) {
-  TestRtpPackets<RtcEventRtpPacketIncoming, LoggedRtpPacketIncoming>();
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+  TestRtpPackets<RtcEventRtpPacketIncoming, LoggedRtpPacketIncoming>(*encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventRtpPacketOutgoing) {
-  TestRtpPackets<RtcEventRtpPacketOutgoing, LoggedRtpPacketOutgoing>();
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+  TestRtpPackets<RtcEventRtpPacketOutgoing, LoggedRtpPacketOutgoing>(*encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest,
        RtcEventRtpPacketIncomingNoDependencyDescriptor) {
   test::ScopedFieldTrials no_dd(
       "WebRTC-RtcEventLogEncodeDependencyDescriptor/Disabled/");
-  TestRtpPackets<RtcEventRtpPacketIncoming, LoggedRtpPacketIncoming>();
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+  TestRtpPackets<RtcEventRtpPacketIncoming, LoggedRtpPacketIncoming>(*encoder);
 }
 
 TEST_P(RtcEventLogEncoderTest,
        RtcEventRtpPacketOutgoingNoDependencyDescriptor) {
   test::ScopedFieldTrials no_dd(
       "WebRTC-RtcEventLogEncodeDependencyDescriptor/Disabled/");
-  TestRtpPackets<RtcEventRtpPacketOutgoing, LoggedRtpPacketOutgoing>();
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
+  TestRtpPackets<RtcEventRtpPacketOutgoing, LoggedRtpPacketOutgoing>(*encoder);
 }
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventVideoReceiveStreamConfig) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   uint32_t ssrc = prng_.Rand<uint32_t>();
   RtpHeaderExtensionMap extensions = gen_.NewRtpHeaderExtensionMap();
   std::unique_ptr<RtcEventVideoReceiveStreamConfig> event =
       gen_.NewVideoReceiveStreamConfig(ssrc, extensions);
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& video_recv_configs = parsed_log_.video_recv_configs();
 
@@ -1324,13 +1390,14 @@ TEST_P(RtcEventLogEncoderTest, RtcEventVideoReceiveStreamConfig) {
 
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventVideoSendStreamConfig) {
+  std::unique_ptr<RtcEventLogEncoder> encoder = CreateEncoder();
   uint32_t ssrc = prng_.Rand<uint32_t>();
   RtpHeaderExtensionMap extensions = gen_.NewRtpHeaderExtensionMap();
   std::unique_ptr<RtcEventVideoSendStreamConfig> event =
       gen_.NewVideoSendStreamConfig(ssrc, extensions);
   history_.push_back(event->Copy());
 
-  encoded_ += encoder_->EncodeBatch(history_.begin(), history_.end());
+  encoded_ += encoder->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded_).ok());
   const auto& video_send_configs = parsed_log_.video_send_configs();
 
@@ -1357,7 +1424,8 @@ class RtcEventLogEncoderSimpleTest
         encoder_ = std::make_unique<RtcEventLogEncoderLegacy>();
         break;
       case RtcEventLog::EncodingType::NewFormat:
-        encoder_ = std::make_unique<RtcEventLogEncoderNewFormat>();
+        encoder_ = std::make_unique<RtcEventLogEncoderNewFormat>(
+            FieldTrialBasedConfig());
         break;
       case RtcEventLog::EncodingType::ProtoFree:
         encoder_ = std::make_unique<RtcEventLogEncoderV3>();

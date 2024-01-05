@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6bd324cc_0e88cb94",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-05T14:23:29Z",
+      "side": 1,
+      "message": "Yeah, using an optional to wrap the post_time timestamp would be better I think. Then you can use nullopt to indicate repeat.",
+      "parentUuid": "cec25d66_e7bb07c4",
+      "range": {
+        "startLine": 602,
+        "startChar": 40,
+        "endLine": 602,
+        "endChar": 54
+      },
+      "revId": "6b5307ac5b70e789fd3e89147f9b1be34770db58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44ed9477_7c35d7ed",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 17

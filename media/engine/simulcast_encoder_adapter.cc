@@ -352,6 +352,9 @@ int SimulcastEncoderAdapter::InitEncode(
   // * Multi-encoder simulcast or singlecast if layers are deactivated
   //   (active_streams_count >= 1). SEA creates N=active_streams_count encoders
   //   and configures each to produce a single stream.
+  // The field trial WebRTC-Video-ForceSimulcastEncoderAdapter can be used
+  // to force usage of the simulcast encoder adapter even for codecs and
+  // settings that natively support simulcast.
 
   int active_streams_count = CountActiveStreams(*codec_settings);
   // If we only have a single active layer it is better to create an encoder
@@ -359,7 +362,8 @@ int SimulcastEncoderAdapter::InitEncode(
   // layers because that way we control scaling.
   bool separate_encoders_needed =
       !encoder_context->encoder().GetEncoderInfo().supports_simulcast ||
-      active_streams_count == 1;
+      active_streams_count == 1 ||
+      field_trials.IsEnabled("WebRTC-Video-ForceSimulcastEncoderAdapter");
   // Singlecast or simulcast with simulcast-capable underlaying encoder.
   if (total_streams_count_ == 1 || !separate_encoders_needed) {
     int ret = encoder_context->encoder().InitEncode(&codec_, settings);

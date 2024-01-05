@@ -56,6 +56,7 @@ void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
   time_last_packet_delivery_queue_ = now;
 
   // Always produce key frame for all streams.
+  // TODO: change this, we now can!
   video_stream_encoder_->SendKeyFrame();
 }
 

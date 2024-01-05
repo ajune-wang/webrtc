@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "686170ed_1fdd20f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-05T02:55:51Z",
+      "side": 1,
+      "message": "Hi Björn, can you share which downstream build is broken, is there any issue tracker about this? Thanks in advance!",
+      "revId": "6cf0f36700bea84a0046da7365e3a36f6ad4fec6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

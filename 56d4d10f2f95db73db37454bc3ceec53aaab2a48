@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e85b69b7_337a2f0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-08T11:33:49Z",
+      "side": 1,
+      "message": "I wonder if we should actually do this because it will create a headache with wrapping due to being 15 bits only... it *can* be forwarded correctly, right?\n\nhttps://github.com/w3c/webrtc-encoded-transform/issues/220",
+      "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

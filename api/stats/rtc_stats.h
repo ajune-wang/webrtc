@@ -334,7 +334,6 @@ class RTCStatsMember : public RTCStatsMemberInterface {
     return &(*value_);
   }
 
- protected:
   bool IsEqual(const RTCStatsMemberInterface& other) const override {
     if (type() != other.type())
       return false;

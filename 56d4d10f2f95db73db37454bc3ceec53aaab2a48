@@ -16,6 +16,24 @@
       "message": "I wonder if we should actually do this because it will create a headache with wrapping due to being 15 bits only... it *can* be forwarded correctly, right?\n\nhttps://github.com/w3c/webrtc-encoded-transform/issues/220",
       "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25133ba_412d11ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-01-08T14:47:20Z",
+      "side": 1,
+      "message": "This is only adding temporalIndex and spatialIndex, so frameId will still be unset for received frames without the Dependency Descriptor. I agree, we definitely shouldn\u0027t try making up a new frameId here 😊.",
+      "parentUuid": "e85b69b7_337a2f0b",
+      "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

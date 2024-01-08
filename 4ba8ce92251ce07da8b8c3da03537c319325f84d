@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38126bf4_ceeed934",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-01-08T02:54:27Z",
+      "side": 1,
+      "message": "Thank you Harald!\nPS1 is the original patch, and PS2 is the new patch.\nHarald, Henrik, Markus, please take another look, thanks!",
+      "revId": "4ba8ce92251ce07da8b8c3da03537c319325f84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

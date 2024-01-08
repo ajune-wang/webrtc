@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c388cc8_06d0ec58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-08T09:49:57Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "0993ce0778499d6beec9f9690bc9db9c192ba705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9ef493_28f54dc4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-08T09:49:57Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think const is needed here in the ctor args.",
+      "range": {
+        "startLine": 106,
+        "startChar": 23,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "0993ce0778499d6beec9f9690bc9db9c192ba705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d387a090_c7339e62",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-08T09:49:57Z",
+      "side": 1,
+      "message": "nit: this comment is stale now.",
+      "range": {
+        "startLine": 667,
+        "startChar": 2,
+        "endLine": 670,
+        "endChar": 0
+      },
+      "revId": "0993ce0778499d6beec9f9690bc9db9c192ba705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dddd0e93_41bc5c58",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-01-08T09:49:57Z",
+      "side": 1,
+      "message": "nit: unnecessary.",
+      "range": {
+        "startLine": 1210,
+        "startChar": 46,
+        "endLine": 1210,
+        "endChar": 55
+      },
+      "revId": "0993ce0778499d6beec9f9690bc9db9c192ba705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

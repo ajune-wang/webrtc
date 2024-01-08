@@ -1278,8 +1278,10 @@ std::string TurnPort::ReconstructedServerUrl() {
       break;
   }
   rtc::StringBuilder url;
-  url << scheme << ":" << server_address_.address.hostname() << ":"
-      << server_address_.address.port() << "?transport=" << transport;
+  std::string hostname = server_address_.address.hostname();
+  url << scheme << ":"
+      << (hostname.empty() ? server_address_.ipaddr().ToString() : hostname)
+      << ":" << server_address_.address.port() << "?transport=" << transport;
   return url.Release();
 }
 

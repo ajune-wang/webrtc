@@ -17,6 +17,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/json.h"
+#include "stats/attribute.h"
 #include "stats/test/rtc_test_stats.h"
 #include "test/gtest.h"
 
@@ -65,6 +66,26 @@ WEBRTC_RTCSTATS_IMPL(RTCGrandChildStats,
                      RTCChildStats,
                      "grandchild-stats",
                      &grandchild_int)
+
+struct VisitTest {
+  void operator()(const std::string& str) { printf("it's a string\n"); }
+  template <typename T>
+  void operator()(T) {
+    printf("it's T\n");
+  }
+  /*void operator()(const bool& b) {
+    printf("it's a bool\n");
+  }*/
+};
+
+TEST(RTCStatsTest, HelloWorld) {
+  RTCStatsMember<bool> member("foo_member");
+  Attribute foo(member);
+  printf("%p\n", &foo);
+
+  absl::variant<std::string, bool> test = std::string("hello");
+  absl::visit(VisitTest(), test);
+}
 
 TEST(RTCStatsTest, RTCStatsAndMembers) {
   RTCTestStats stats("testId", Timestamp::Micros(42));

@@ -183,6 +183,7 @@
         'dummy_audio_file_devices_no_protobuf':
         'dummy_audio_file_devices_no_protobuf_x64',
         'rtti_no_sctp': 'rtti_no_sctp_x64',
+	'disable_trace_events': 'disable_trace_events_x64',
       },
       'linux_msan': 'msan_clang_release_bot_x64',
       'linux_rel': 'release_bot_x64',
@@ -302,6 +303,8 @@
     'debug_bot_arm64': ['openh264', 'debug_bot', 'arm64', 'h265'],
     'debug_bot_x64': ['openh264', 'debug_bot', 'x64', 'h265'],
     'debug_bot_x86': ['openh264', 'debug_bot', 'x86', 'h265'],
+    'disable_trace_events_x64':
+    ['x64', 'disable_trace_events', 'release_bot'],
     'dummy_audio_file_devices_no_protobuf_android_arm': [
       'android', 'debug_static_bot', 'arm', 'dummy_audio_file_devices',
       'no_protobuf'
@@ -450,6 +453,9 @@
     },
     'debug_static_bot': {
       'mixins': ['debug', 'minimal_symbols', 'reclient', 'strict_field_trials'],
+    },
+    'disable_trace_events': {
+      'gn_args': 'rtc_disable_trace_events=true',
     },
     'dummy_audio_file_devices': {
       'gn_args': 'rtc_use_dummy_audio_file_devices=true',

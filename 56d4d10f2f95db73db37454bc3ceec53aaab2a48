@@ -52,6 +52,24 @@
       "parentUuid": "a25133ba_412d11ea",
       "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c34bfaf_c1627e02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-01-08T16:11:03Z",
+      "side": 1,
+      "message": "That\u0027s a fair point. Maybe we should just change the spec \u0026 other docs to explicitly say the Metadata fields are only present on the receive side when there is a DD?",
+      "parentUuid": "cb08fe5d_289332f7",
+      "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

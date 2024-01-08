@@ -70,6 +70,24 @@
       "parentUuid": "cb08fe5d_289332f7",
       "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a993326d_0b8ee683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-08T17:14:32Z",
+      "side": 1,
+      "message": "Yeah... I need to find time to spec the same for width/height (https://github.com/w3c/webrtc-encoded-transform/issues/138)",
+      "parentUuid": "5c34bfaf_c1627e02",
+      "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

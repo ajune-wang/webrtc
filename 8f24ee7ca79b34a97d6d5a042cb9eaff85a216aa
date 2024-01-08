@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8531ebbe_cf56eda3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-08T10:17:01Z",
+      "side": 1,
+      "message": "Also plan to update `tools/metrics/histograms/metadata/web_rtc/histograms.xml`",
+      "revId": "8f24ee7ca79b34a97d6d5a042cb9eaff85a216aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

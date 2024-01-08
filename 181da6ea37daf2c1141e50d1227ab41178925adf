@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3444f381_3b84b52d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-08T09:13:54Z",
+      "side": 1,
+      "message": "will reland after next branch cut (January 22nd) to maximize time-in-flight",
+      "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "92fc4fc9_0966bd6a",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 3
@@ -85,6 +102,30 @@
       "side": 1,
       "message": "Sure, but my point is that DD/GFD should be mutually exclusive, but VLA can be enabled when there\u0027s scalability since it\u0027s orthogonal to DD/GFD.\n\n```c++\nif (uses_simulcast || uses_svc) {\n  bool uses_gfd \u003d [...]\n  for (RtpHeaderExtensionCapability\u0026 ext : header_extensions_to_negotiate_) {\n    if (ext.uri \u003d\u003d RtpExtension::kVideoLayersAllocationUri) {\n      ext.direction \u003d RtpTransceiverDirection::kSendRecv;\n    } else if (!uses_gfd \u0026\u0026\n               ext.uri \u003d\u003d RtpExtension::kDependencyDescriptorUri) {\n      ext.direction \u003d RtpTransceiverDirection::kSendRecv;\n    }\n  }\n}\n```\n\nHowever, AFAIK this \"legacy app\" doesn\u0027t use VLA either so this CL as it is now wouldn\u0027t cause any issues.",
       "parentUuid": "eff3e781_5463de19",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 62
+      },
+      "revId": "181da6ea37daf2c1141e50d1227ab41178925adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22cf743_971dcf9c",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-08T09:13:54Z",
+      "side": 1,
+      "message": "They should be exclusive but that should be a SDP offer/answer thing.\nJSEP actually says https://www.rfc-editor.org/rfc/rfc8829.html#section-5.11 \"Any RTP header extensions that were negotiated should be included in the outgoing RTP streams\" which we already don\u0027t do for some other things like toffset. More in the associated bug, it is a mess!",
+      "parentUuid": "719248dd_d6e392f1",
       "range": {
         "startLine": 202,
         "startChar": 12,

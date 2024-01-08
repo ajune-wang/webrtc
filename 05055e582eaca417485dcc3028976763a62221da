@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "933b419a_b81e94b8",
+        "filename": "infra/specs/variants.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2024-01-08T09:23:29Z",
+      "side": 1,
+      "message": "Why is the X still there? That means iPhone X or 10, right?",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "05055e582eaca417485dcc3028976763a62221da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,75 @@
       "message": "I still can\u0027t review :-|\nProbably best to remove that file, the Chrome information is obsolete since hbos moved to IDL stats.",
       "revId": "8caa7403e45c4dfa316ad25eb17ad465f8609c9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4664221d_64db7229",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-08T08:36:54Z",
+      "side": 1,
+      "message": "Keeping a reference to the spec still makes sense, but we can delete the other section",
+      "parentUuid": "fc2af59a_e54fc9f5",
+      "revId": "8caa7403e45c4dfa316ad25eb17ad465f8609c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36df4f1f_e9612273",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-08T08:36:54Z",
+      "side": 1,
+      "message": "+1 to update newline characters.\n\nBut while you\u0027re at it, can we delete the second section as per comments below?",
+      "revId": "8caa7403e45c4dfa316ad25eb17ad465f8609c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd9a96d6_fe62c985",
+        "filename": "stats/g3doc/stats.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-08T08:36:54Z",
+      "side": 1,
+      "message": "If we delete the other section we can update this date to today\u0027s date.",
+      "revId": "8caa7403e45c4dfa316ad25eb17ad465f8609c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74893c3_94afbfd9",
+        "filename": "stats/g3doc/stats.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-08T08:36:54Z",
+      "side": 1,
+      "message": "This entire section (everything below) can be deleted. Last year we did some refactoring which means that what this explains isn\u0027t applicable or true anymore.\n- peerconnection_getstats.js does not contain an allow list anymore and does not need to be updated when exposing new metrics.\n- RTCNonStandardStatsMember does not exist anymore, only RTCStatsMember (though I would like to replace these with absl::optional\u003cT\u003e instead!).\n\nThe reason for both of these things is that in Chromium, this file[1] manually exposes the standard metrics and ignores the rare instance of a non-standard metric.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_stats_report.cc",
+      "revId": "8caa7403e45c4dfa316ad25eb17ad465f8609c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,29 @@
       "message": "Should be ready to submit so that we can test with chromium config change",
       "revId": "19ee6e391f97814389828909e997c1f35779556c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89f26929_d281d253",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-01-08T09:13:01Z",
+      "side": 1,
+      "message": "Maybe we should add this also to run on the CI ?",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "19ee6e391f97814389828909e997c1f35779556c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

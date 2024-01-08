@@ -34,6 +34,24 @@
       "parentUuid": "e85b69b7_337a2f0b",
       "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb08fe5d_289332f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-08T15:02:12Z",
+      "side": 1,
+      "message": "True but it means that two of the three things from the VP8 payload descriptor are available without DD. API consistency headache but still a headache so it might be more consistent to not expose them *iff* they get forwarded without being exposed to JS (which is what we want to avoid but that might be doable at the blink layer)\n\nEither way, you\u0027ll deal with this ;-)",
+      "parentUuid": "a25133ba_412d11ea",
+      "revId": "56d4d10f2f95db73db37454bc3ceec53aaab2a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

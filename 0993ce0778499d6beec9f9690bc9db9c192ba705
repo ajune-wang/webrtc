@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "163d68c9_ed3b6397",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-08T10:12:10Z",
+      "side": 1,
+      "message": "Done.\n\nWill patch Chrome locally and test the CL before landing.",
+      "revId": "0993ce0778499d6beec9f9690bc9db9c192ba705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7d9ef493_28f54dc4",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 24
@@ -54,6 +71,30 @@
       "writtenOn": "2024-01-08T09:49:57Z",
       "side": 1,
       "message": "nit: this comment is stale now.",
+      "range": {
+        "startLine": 667,
+        "startChar": 2,
+        "endLine": 670,
+        "endChar": 0
+      },
+      "revId": "0993ce0778499d6beec9f9690bc9db9c192ba705",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c76ce4f_2653d004",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-01-08T10:12:10Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "d387a090_c7339e62",
       "range": {
         "startLine": 667,
         "startChar": 2,

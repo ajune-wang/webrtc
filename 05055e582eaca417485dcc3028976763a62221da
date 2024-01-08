@@ -22,6 +22,30 @@
       },
       "revId": "05055e582eaca417485dcc3028976763a62221da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3344051_4c10e729",
+        "filename": "infra/specs/variants.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-01-08T09:32:36Z",
+      "side": 1,
+      "message": "Just a copy paste that went wrong.",
+      "parentUuid": "933b419a_b81e94b8",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "05055e582eaca417485dcc3028976763a62221da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

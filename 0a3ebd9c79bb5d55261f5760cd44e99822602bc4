@@ -16,6 +16,23 @@
       "message": "Many thanks for the review comments.\n\nI updated the file as suggested. Please take a look.",
       "revId": "0a3ebd9c79bb5d55261f5760cd44e99822602bc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d56776_7b5e4dab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-08T11:02:08Z",
+      "side": 1,
+      "message": "Great, thank you!",
+      "revId": "0a3ebd9c79bb5d55261f5760cd44e99822602bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

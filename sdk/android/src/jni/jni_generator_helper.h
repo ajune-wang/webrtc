@@ -77,20 +77,15 @@ class MethodID {
 
 }  // namespace webrtc
 
-// Re-export relevant classes into the namespaces the script expects.
-namespace base {
-namespace android {
+namespace jni_zero {
 
+// Re-export relevant classes into the namespaces the script expects.
 using webrtc::JavaParamRef;
 using webrtc::JavaRef;
 using webrtc::LazyGetClass;
 using webrtc::MethodID;
 using webrtc::ScopedJavaLocalRef;
 
-}  // namespace android
-}  // namespace base
-
-namespace jni_zero {
 inline void CheckException(JNIEnv* env) {
   CHECK_EXCEPTION(env);
 }

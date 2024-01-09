@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "269029d4_16af4666",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-01-09T06:57:47Z",
+      "side": 1,
+      "message": "Hi @philipel@webrtc.org, this CL continues Qiujiao\u0027s effort on HEVC enabling. Before adding HEVC support for packet buffer, we\u0027d like to move H.264 specific hacks into a single place, then extend it for HEVC. I understand you had some CLs submitted for `H264PacketBuffer` and `RtpVideoFrameAssembler`, but they haven\u0027t been updated for about two years. It looks like Qiujiao\u0027s approach is simpler, just adding some util functions for H.26x. I\u0027m not sure if it aligns with your expectation. So I uploaded this draft CL before moving forward. Please let me know if you have any suggestions or comments. Thanks.",
+      "revId": "483948e6d823dc347d062d4d16351fd478762ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

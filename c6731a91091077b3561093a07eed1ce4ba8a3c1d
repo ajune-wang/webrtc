@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8de7b40_57fb11bf",
+        "filename": "docs/native-code/development/fuzzing/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 12725
+      },
+      "writtenOn": "2024-01-09T16:24:58Z",
+      "side": 1,
+      "message": "You could also link to the main Chromium fuzz testing \"getting started\" docs:\n\nhttps://chromium.googlesource.com/chromium/src/+/main/testing/libfuzzer/getting_started.md (FuzzTest)\nhttps://chromium.googlesource.com/chromium/src/+/main/testing/libfuzzer/getting_started_with_libfuzzer.md (libfuzzer)\n\nCurrently in WebRTC you\u0027re using libfuzzer, which is the old approach. That\u0027s fine, and you should probably stick with it for now if you\u0027re happy. Integrating fuzztest into non-Chromium projects is proving to be a bit of a headache. Eventually, perhaps we\u0027ll all move to the world of FuzzTest, which makes it easier (probably) to write fuzzers.",
+      "revId": "c6731a91091077b3561093a07eed1ce4ba8a3c1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1afc1d8b_49d6658c",
         "filename": "docs/native-code/development/fuzzing/README.md",
         "patchSetId": 7
@@ -54,6 +71,30 @@
       "writtenOn": "2024-01-09T16:13:20Z",
       "side": 1,
       "message": "More than traversing the codebase, I suspect they are built and uploaded to ClusterFuzz by https://ci.chromium.org/p/chromium/g/chromium.fuzz/console (see the \"upload\" bots under libfuzz).",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 89
+      },
+      "revId": "c6731a91091077b3561093a07eed1ce4ba8a3c1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12875f7c_6ec7ed05",
+        "filename": "docs/native-code/development/fuzzing/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 12725
+      },
+      "writtenOn": "2024-01-09T16:24:58Z",
+      "side": 1,
+      "message": "Here\u0027s how it works for fuzzers in the top level Chromium repo:\n\nStep one is that each fuzzer target depends on this specific gn target:\nhttps://source.chromium.org/chromium/chromium/src/+/main:testing/libfuzzer/BUILD.gn;l\u003d69?q\u003dfuzzing_engine%20f:.gn.\n\nStep two: the recipe that you highlight then builds all the targets which depend on that gn target. That all gets bundled up into a zip file.\n\nStep three: ClusterFuzz downloads that zip file and inspects each executable to see if they contain `LLVMFuzzerTestOneInput`. If so it thinks it\u0027s a fuzzer and will use it to fuzz.\n\n\nThe same fuzz targets are also built against other fuzzing engines. Currently that\u0027s just centipede (https://ci.chromium.org/ui/p/chromium/builders/luci.chromium.ci/Centipede%20Upload%20Linux%20ASan) which frankly doesn\u0027t work very well yet but may improve - it\u0027s the official replacement for libfuzzer and is ABI compatible. In the past we\u0027ve built the same fuzzers against other fuzzing engines and we may do so again in future.\n\nHowever, it looks to me like from your [libfuzzer-bot] you\u0027ve got a separate builder and bot which does step 2. I don\u0027t know how that\u0027s then picked up by ClusterFuzz (i.e. what\u0027s your equivalent of step 3).",
+      "parentUuid": "1afc1d8b_49d6658c",
       "range": {
         "startLine": 33,
         "startChar": 0,

@@ -39,6 +39,30 @@
       },
       "revId": "7efc8e31bf5f09ca044553cff55bf137abbcf35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d21bb7b9_1035c250",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-09T10:16:25Z",
+      "side": 1,
+      "message": "No, environment.h forward declare Clock and FieldTrialsView interfaces,\nso to use them, this file needs to include them explicitly.\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/api/environment/environment.h#32",
+      "parentUuid": "d9eef11c_a6143d81",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "7efc8e31bf5f09ca044553cff55bf137abbcf35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

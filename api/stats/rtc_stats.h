@@ -56,8 +56,8 @@ class RTC_EXPORT RTCStats {
  public:
   RTCStats(const std::string& id, Timestamp timestamp)
       : id_(id), timestamp_(timestamp) {}
-
-  virtual ~RTCStats() {}
+  RTCStats(const RTCStats& other);
+  virtual ~RTCStats();
 
   virtual std::unique_ptr<RTCStats> copy() const = 0;
 
@@ -94,11 +94,12 @@ class RTC_EXPORT RTCStats {
   // derived from parent classes. `additional_capacity` is how many more members
   // shall be reserved in the vector (so that subclasses can allocate a vector
   // with room for both parent and child members without it having to resize).
-  virtual std::vector<const RTCStatsMemberInterface*>
-  MembersOfThisObjectAndAncestors(size_t additional_capacity) const;
+  virtual void PopulateAttributes();
 
   std::string const id_;
   Timestamp timestamp_;
+
+  std::vector<std::unique_ptr<RTCStatsMemberInterface>> attributes_;
 };
 
 // All `RTCStats` classes should use these macros.
@@ -142,46 +143,36 @@ class RTC_EXPORT RTCStats {
 //         bar("bar") {
 //   }
 //
-#define WEBRTC_RTCSTATS_DECL()                                          \
- protected:                                                             \
-  std::vector<const webrtc::RTCStatsMemberInterface*>                   \
-  MembersOfThisObjectAndAncestors(size_t local_var_additional_capacity) \
-      const override;                                                   \
-                                                                        \
- public:                                                                \
-  static const char kType[];                                            \
-                                                                        \
-  std::unique_ptr<webrtc::RTCStats> copy() const override;              \
+#define WEBRTC_RTCSTATS_DECL()                             \
+ protected:                                                \
+  void PopulateAttributes() override;                      \
+                                                           \
+ public:                                                   \
+  static const char kType[];                               \
+                                                           \
+  std::unique_ptr<webrtc::RTCStats> copy() const override; \
   const char* type() const override
 
-#define WEBRTC_RTCSTATS_IMPL(this_class, parent_class, type_str, ...)          \
-  const char this_class::kType[] = type_str;                                   \
-                                                                               \
-  std::unique_ptr<webrtc::RTCStats> this_class::copy() const {                 \
-    return std::make_unique<this_class>(*this);                                \
-  }                                                                            \
-                                                                               \
-  const char* this_class::type() const {                                       \
-    return this_class::kType;                                                  \
-  }                                                                            \
-                                                                               \
-  std::vector<const webrtc::RTCStatsMemberInterface*>                          \
-  this_class::MembersOfThisObjectAndAncestors(                                 \
-      size_t local_var_additional_capacity) const {                            \
-    const webrtc::RTCStatsMemberInterface* local_var_members[] = {             \
-        __VA_ARGS__};                                                          \
-    size_t local_var_members_count =                                           \
-        sizeof(local_var_members) / sizeof(local_var_members[0]);              \
-    std::vector<const webrtc::RTCStatsMemberInterface*>                        \
-        local_var_members_vec = parent_class::MembersOfThisObjectAndAncestors( \
-            local_var_members_count + local_var_additional_capacity);          \
-    RTC_DCHECK_GE(                                                             \
-        local_var_members_vec.capacity() - local_var_members_vec.size(),       \
-        local_var_members_count + local_var_additional_capacity);              \
-    local_var_members_vec.insert(local_var_members_vec.end(),                  \
-                                 &local_var_members[0],                        \
-                                 &local_var_members[local_var_members_count]); \
-    return local_var_members_vec;                                              \
+#define WEBRTC_RTCSTATS_IMPL(this_class, parent_class, type_str, ...) \
+  const char this_class::kType[] = type_str;                          \
+                                                                      \
+  std::unique_ptr<webrtc::RTCStats> this_class::copy() const {        \
+    return std::make_unique<this_class>(*this);                       \
+  }                                                                   \
+                                                                      \
+  const char* this_class::type() const {                              \
+    return this_class::kType;                                         \
+  }                                                                   \
+                                                                      \
+  void this_class::PopulateAttributes() {                             \
+    const webrtc::RTCStatsMemberInterface* local_var_members[] = {    \
+        __VA_ARGS__};                                                 \
+    size_t local_var_members_count =                                  \
+        sizeof(local_var_members) / sizeof(local_var_members[0]);     \
+    parent_class::PopulateAttributes();                               \
+    for (size_t i = 0; i < local_var_members_count; ++i) {            \
+      attributes_.push_back(MemberToAttribute(local_var_members[i])); \
+    }                                                                 \
   }
 
 // A version of WEBRTC_RTCSTATS_IMPL() where "..." is omitted, used to avoid a
@@ -198,10 +189,8 @@ class RTC_EXPORT RTCStats {
     return this_class::kType;                                               \
   }                                                                         \
                                                                             \
-  std::vector<const webrtc::RTCStatsMemberInterface*>                       \
-  this_class::MembersOfThisObjectAndAncestors(                              \
-      size_t local_var_additional_capacity) const {                         \
-    return parent_class::MembersOfThisObjectAndAncestors(0);                \
+  void this_class::PopulateAttributes() {                                   \
+    parent_class::PopulateAttributes();                                     \
   }
 
 }  // namespace webrtc

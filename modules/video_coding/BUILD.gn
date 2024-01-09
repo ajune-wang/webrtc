@@ -98,6 +98,8 @@ rtc_library("nack_requester") {
 
 rtc_library("packet_buffer") {
   sources = [
+    "h26x_packet_buffer_utils.cc",
+    "h26x_packet_buffer_utils.h",
     "packet_buffer.cc",
     "packet_buffer.h",
   ]

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2afec53e_5b051e88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-01-09T16:13:57Z",
+      "side": 1,
+      "message": "Adrian, can you check the documentation around \"Running fuzzers automatically\" and see if it is OK?",
+      "revId": "c6731a91091077b3561093a07eed1ce4ba8a3c1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "395e6e4c_b63877ed",

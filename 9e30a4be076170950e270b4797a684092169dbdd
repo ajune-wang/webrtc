@@ -16,6 +16,23 @@
       "message": "hi guys, this is a proposal from me to add H.264 for LNTF ...",
       "revId": "9e30a4be076170950e270b4797a684092169dbdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24fb7f2_21894344",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2024-01-09T08:02:12Z",
+      "side": 1,
+      "message": "@sprang@webrtc.org - can you take the lead on this CL?\n\nThanks!",
+      "revId": "9e30a4be076170950e270b4797a684092169dbdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -66,13 +66,16 @@ class RTC_EXPORT EncodedImageCallback {
   // kDroppedByMediaOptimizations - dropped by MediaOptimizations (for rate
   // limiting purposes).
   // kDroppedByEncoder - dropped by encoder's internal rate limiter.
+  // kDroppedByEncoderStall - dropped by the encoder when the number of frames
+  // sent to the hardware video encoder reaches a certain limit.
   // TODO(bugs.webrtc.org/10164): Delete this enum? It duplicates the more
   // general VideoStreamEncoderObserver::DropReason. Also,
   // kDroppedByMediaOptimizations is not produced by any encoder, but by
   // VideoStreamEncoder.
   enum class DropReason : uint8_t {
     kDroppedByMediaOptimizations,
-    kDroppedByEncoder
+    kDroppedByEncoder,
+    kDroppedByEncoderStall,
   };
 
   // Callback function which is called when an image has been encoded.

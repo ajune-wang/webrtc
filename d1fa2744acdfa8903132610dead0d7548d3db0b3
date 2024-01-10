@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "851a3f95_ac4a9cc1",
+        "filename": "docs/native-code/development/README.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-01-10T09:04:01Z",
+      "side": 1,
+      "message": "This should be \"fuzzing\" (docs/native-code/development/fuzzing/README.md).\n\nOr maybe we can change docs/native-code/development/fuzzing/README.md to docs/native-code/development/fuzzers/README.md?",
+      "range": {
+        "startLine": 293,
+        "startChar": 83,
+        "endLine": 293,
+        "endChar": 90
+      },
+      "revId": "d1fa2744acdfa8903132610dead0d7548d3db0b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

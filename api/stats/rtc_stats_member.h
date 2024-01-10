@@ -80,7 +80,7 @@ class RTCStatsMemberInterface {
     return static_cast<const T&>(*this);
   }
 
- protected:
+  // protected:
   explicit RTCStatsMemberInterface(const char* name) : name_(name) {}
 
   virtual bool IsEqual(const RTCStatsMemberInterface& other) const = 0;
@@ -151,7 +151,7 @@ class RTCStatsMember : public RTCStatsMemberInterface {
     return &(*value_);
   }
 
- protected:
+  // protected:
   bool IsEqual(const RTCStatsMemberInterface& other) const override {
     if (type() != other.type())
       return false;

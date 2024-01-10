@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d245ff_164850b3",
+        "filename": "docs/native-code/development/README.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2024-01-10T09:34:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "851a3f95_ac4a9cc1",
+      "range": {
+        "startLine": 293,
+        "startChar": 83,
+        "endLine": 293,
+        "endChar": 90
+      },
+      "revId": "d1fa2744acdfa8903132610dead0d7548d3db0b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffa0b049_f7ac21a1",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4cee106_0cf373a2",
+        "filename": "docs/native-code/development/fuzzing/README.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2024-01-10T09:34:26Z",
+      "side": 1,
+      "message": "Did BUILD for brevity but have updated it to avoid confusion.",
+      "parentUuid": "ffa0b049_f7ac21a1",
+      "range": {
+        "startLine": 36,
+        "startChar": 48,
+        "endLine": 36,
+        "endChar": 53
+      },
+      "revId": "d1fa2744acdfa8903132610dead0d7548d3db0b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d3775b5_13afc33d",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-10T09:09:01Z",
       "side": 1,
       "message": "nit: \"link.\"",
+      "range": {
+        "startLine": 43,
+        "startChar": 32,
+        "endLine": 43,
+        "endChar": 36
+      },
+      "revId": "d1fa2744acdfa8903132610dead0d7548d3db0b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19157a32_29d22c3d",
+        "filename": "docs/native-code/development/fuzzing/README.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2024-01-10T09:34:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d3775b5_13afc33d",
       "range": {
         "startLine": 43,
         "startChar": 32,

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '0be61cbfaf184a3750b925190eafd4bc43c4ac1c',
+  'chromium_revision': '48a9ec83150e190cc7fd4e0283d307bd7e4de9cd',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,7 +50,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@1b5a9a93f1ce861841aa5b6616ff03d2f31745ae',
+    'https://chromium.googlesource.com/chromium/src/base@f8869b2344299b0fff41854db15805e11d9dc93f',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@13c26dbf3b7426e0ce4b9f3938b031e9c6a4451d',
   'src/buildtools':
@@ -61,13 +61,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@938faf7abcc59a50e86a461bcba572e682275d3b',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b72f9de721ba8b6a849f070ee13d8aff2db40f95',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@9320893fe5e768e9495fe68f35140c25bfc9bda7',
+    'https://chromium.googlesource.com/chromium/src/testing@871561ce4cadb0f008b99817dc9ac270aff52609',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@7b0e295b3c04861ecfbbba62a7d282be9af45d2a',
+    'https://chromium.googlesource.com/chromium/src/third_party@a6f498c3894bb10be59ff0635f9780f82f233540',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -355,7 +355,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@78ce9f25481d079a77675560abf2181f75922135',
+    'https://chromium.googlesource.com/chromium/src/tools@44f092ffa8285fce9ceddf4b08662829f467c428',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

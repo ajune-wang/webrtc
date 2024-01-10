@@ -129,6 +129,7 @@ H265BitstreamParser::Result H265BitstreamParser::ParseNonParameterSetNalu(
 
     uint32_t slice_segment_address_bits =
         H265::Log2Ceiling(pic_height_in_ctbs_y * pic_width_in_ctbs_y);
+    TRUE_OR_RETURN(~slice_segment_address_bits);
     slice_reader.ConsumeBits(slice_segment_address_bits);
   }
 

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b89859e8_228c1f1d",
+        "filename": "test/fuzzers/rtp_format_vp8_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-10T10:51:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcb9d03c_df5f4e31",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "cb3db4240f240fd900c15ac947df6cecdb4562cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6322d94_fdf6d860",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-10T09:22:57Z",
       "side": 1,
       "message": "2024",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "cb3db4240f240fd900c15ac947df6cecdb4562cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "614120c5_7256aa4a",
+        "filename": "test/fuzzers/rtp_format_vp9_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-10T10:51:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6322d94_fdf6d860",
       "range": {
         "startLine": 2,
         "startChar": 18,

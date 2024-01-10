@@ -185,6 +185,19 @@ absl::optional<float> GetConfiguredPacingFactor(
       default_pacing_config.pacing_factor);
 }
 
+int GetEncoderPriorityBitrate(std::string codec_name,
+                              const FieldTrialsView& field_trials) {
+  int priority_bitrate = 0;
+  if (PayloadStringToCodecType(codec_name) == VideoCodecType::kVideoCodecAV1) {
+    webrtc::FieldTrialParameter<int> av1_priority_bitrate("bitrate", 0);
+    webrtc::ParseFieldTrial(
+        {&av1_priority_bitrate},
+        field_trials.Lookup("WebRTC-AV1-OverridePriorityBitrate"));
+    priority_bitrate = av1_priority_bitrate;
+  }
+  return priority_bitrate;
+}
+
 uint32_t GetInitialEncoderMaxBitrate(int initial_encoder_max_bitrate) {
   if (initial_encoder_max_bitrate > 0)
     return rtc::dchecked_cast<uint32_t>(initial_encoder_max_bitrate);
@@ -249,6 +262,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
           GetInitialEncoderMaxBitrate(initial_encoder_max_bitrate)),
       encoder_target_rate_bps_(0),
       encoder_bitrate_priority_(initial_encoder_bitrate_priority),
+      encoder_priority_bitrate_bps_(
+          GetEncoderPriorityBitrate(config_->rtp.payload_name, field_trials)),
       video_stream_encoder_(video_stream_encoder),
       rtp_video_sender_(rtp_video_sender),
       configured_pacing_factor_(GetConfiguredPacingFactor(*config_,
@@ -464,7 +479,7 @@ MediaStreamAllocationConfig VideoSendStreamImpl::GetAllocationConfig() const {
       static_cast<uint32_t>(encoder_min_bitrate_bps_),
       encoder_max_bitrate_bps_,
       static_cast<uint32_t>(disable_padding_ ? 0 : max_padding_bitrate_),
-      /* priority_bitrate */ 0,
+      encoder_priority_bitrate_bps_,
       !config_->suspend_below_min_bitrate,
       encoder_bitrate_priority_};
 }

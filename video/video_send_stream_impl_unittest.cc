@@ -155,12 +155,18 @@ class VideoSendStreamImplTest : public ::testing::Test {
   std::unique_ptr<VideoSendStreamImpl> CreateVideoSendStreamImpl(
       int initial_encoder_max_bitrate,
       double initial_encoder_bitrate_priority,
-      VideoEncoderConfig::ContentType content_type) {
+      VideoEncoderConfig::ContentType content_type,
+      absl::optional<std::string> codec = std::nullopt) {
     EXPECT_CALL(bitrate_allocator_, GetStartBitrate(_))
         .WillOnce(Return(123000));
 
     std::map<uint32_t, RtpState> suspended_ssrcs;
     std::map<uint32_t, RtpPayloadState> suspended_payload_states;
+
+    if (codec) {
+      config_.rtp.payload_name = *codec;
+    }
+
     auto ret = std::make_unique<VideoSendStreamImpl>(
         time_controller_.GetClock(), &stats_proxy_, &transport_controller_,
         &bitrate_allocator_, &video_stream_encoder_, &config_,
@@ -678,6 +684,36 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationAfterTimeout) {
     time_controller_.AdvanceTime(TimeDelta::Zero());
   }
 
+  vss_impl->Stop();
+}
+
+TEST_F(VideoSendStreamImplTest, PriorityBitrateConfigInactiveByDefault) {
+  auto vss_impl = CreateVideoSendStreamImpl(
+      kDefaultInitialBitrateBps, kDefaultBitratePriority,
+      VideoEncoderConfig::ContentType::kRealtimeVideo);
+  EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+      .WillOnce(Invoke(
+          [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+            EXPECT_EQ(config.priority_bitrate_bps, 0);
+          }));
+  vss_impl->StartPerRtpStream({true});
+  EXPECT_CALL(bitrate_allocator_, RemoveObserver(vss_impl.get())).Times(1);
+  vss_impl->Stop();
+}
+
+TEST_F(VideoSendStreamImplTest, PriorityBitrateConfigAffectsAV1) {
+  test::ScopedFieldTrials override_priority_bitrate(
+      "WebRTC-AV1-OverridePriorityBitrate/value:20000/");
+  auto vss_impl = CreateVideoSendStreamImpl(
+      kDefaultInitialBitrateBps, kDefaultBitratePriority,
+      VideoEncoderConfig::ContentType::kRealtimeVideo, "AV1");
+  EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+      .WillOnce(Invoke(
+          [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+            EXPECT_EQ(config.priority_bitrate_bps, 20000);
+          }));
+  vss_impl->StartPerRtpStream({true});
+  EXPECT_CALL(bitrate_allocator_, RemoveObserver(vss_impl.get())).Times(1);
   vss_impl->Stop();
 }
 

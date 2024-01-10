@@ -264,6 +264,12 @@ VideoSendStreamImpl::VideoSendStreamImpl(
 
   RTC_CHECK(AlrExperimentSettings::MaxOneFieldTrialEnabled(field_trials));
 
+  if (PayloadStringToCodecType(config_->rtp.payload_name) ==
+      VideoCodecType::kVideoCodecAV1) {
+    StructParametersParser::Create("value", &encoder_priority_bitrate_)
+        ->Parse(field_trials.Lookup("WebRTC-AV1-OverridePriorityBitrate"));
+  }
+
   // Only request rotation at the source when we positively know that the remote
   // side doesn't support the rotation extension. This allows us to prepare the
   // encoder in the expectation that rotation is supported - which is the common
@@ -464,7 +470,7 @@ MediaStreamAllocationConfig VideoSendStreamImpl::GetAllocationConfig() const {
       static_cast<uint32_t>(encoder_min_bitrate_bps_),
       encoder_max_bitrate_bps_,
       static_cast<uint32_t>(disable_padding_ ? 0 : max_padding_bitrate_),
-      /* priority_bitrate */ 0,
+      encoder_priority_bitrate_ ? *encoder_priority_bitrate_ : 0,
       !config_->suspend_below_min_bitrate,
       encoder_bitrate_priority_};
 }

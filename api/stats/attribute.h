@@ -53,6 +53,8 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   const char* name() const;
   const StatVariant& as_variant() const;
 
+  bool has_value() const;
+
   static Attribute FromMemberInterface(const RTCStatsMemberInterface* member);
   // RTCStatsMemberInterface implementation.
   // TODO(https://crbug.com/webrtc/15164): Delete RTCStatsMemberInterface in

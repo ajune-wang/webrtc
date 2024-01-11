@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0c689b_cd122c72",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-11T21:24:32Z",
+      "side": 1,
+      "message": "This diff is misleading. The change is a new condition being added:\n\n`if ((local \u0026\u0026 remote_desc) || (!local \u0026\u0026 local_desc)) {`\n\nand that causes the rest to have to be re-indented and that\u0027s why the diff looks so big. (this function really could do with some re-factoring)",
+      "range": {
+        "startLine": 767,
+        "startChar": 6,
+        "endLine": 767,
+        "endChar": 7
+      },
+      "revId": "6b8054dac7f2b0c9ab92316b50ee4ce6e22edbc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -162,10 +162,12 @@ class JsepTransportController : public sigslot::has_slots<> {
   // properties. This includes RTP, DTLS, and ICE (but not SCTP). At least not
   // yet? May make sense to in the future.
   RTCError SetLocalDescription(SdpType type,
-                               const cricket::SessionDescription* description);
+                               const cricket::SessionDescription* description,
+                               const cricket::SessionDescription* remote_desc);
 
   RTCError SetRemoteDescription(SdpType type,
-                                const cricket::SessionDescription* description);
+                                const cricket::SessionDescription* description,
+                                const cricket::SessionDescription* remote_desc);
 
   // Get transports to be used for the provided `mid`. If bundling is enabled,
   // calling GetRtpTransport for multiple MIDs may yield the same object.
@@ -327,12 +329,15 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   RTCError ApplyDescription_n(bool local,
                               SdpType type,
-                              const cricket::SessionDescription* description)
+                              const cricket::SessionDescription* local_desc,
+                              const cricket::SessionDescription* remote_desc)
       RTC_RUN_ON(network_thread_);
   RTCError ValidateAndMaybeUpdateBundleGroups(
       bool local,
       SdpType type,
-      const cricket::SessionDescription* description);
+      const cricket::SessionDescription* local_desc,
+      const cricket::SessionDescription* remote_desc)
+      RTC_RUN_ON(network_thread_);
   RTCError ValidateContent(const cricket::ContentInfo& content_info);
 
   void HandleRejectedContent(const cricket::ContentInfo& content_info)

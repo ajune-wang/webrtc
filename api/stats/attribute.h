@@ -51,7 +51,21 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   ~Attribute() override;
 
   const char* name() const;
+  bool has_value() const;
   const StatVariant& as_variant() const;
+
+  bool operator==(const Attribute& other) const;
+  bool operator!=(const Attribute& other) const;
+
+  template <typename T>
+  bool operator==(const RTCStatsMember<T>& other) const {
+    return absl::visit([&](const auto* attr) { return attr == &other; },
+                       attribute_);
+  }
+  template <typename T>
+  bool operator!=(const RTCStatsMember<T>& other) const {
+    return !(*this == other);
+  }
 
   static Attribute FromMemberInterface(const RTCStatsMemberInterface* member);
   // RTCStatsMemberInterface implementation.

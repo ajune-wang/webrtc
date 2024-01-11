@@ -206,79 +206,79 @@ class RTCStatsVerifier {
       : report_(report), stats_(stats), all_tests_successful_(true) {
     RTC_CHECK(report_);
     RTC_CHECK(stats_);
-    for (const RTCStatsMemberInterface* member : stats_->Members()) {
-      untested_members_.insert(member->member_ptr());
+    for (const Attribute& attribute : stats_->Attributes()) {
+      untested_attribute_names_.insert(attribute.name());
     }
   }
 
-  void MarkMemberTested(const RTCStatsMemberInterface& member,
+  void MarkMemberTested(const RTCStatsMemberInterface& attribute,
                         bool test_successful) {
-    untested_members_.erase(member.member_ptr());
+    untested_attribute_names_.erase(attribute.name());
     all_tests_successful_ &= test_successful;
   }
 
-  void TestMemberIsDefined(const RTCStatsMemberInterface& member) {
-    EXPECT_TRUE(member.is_defined())
-        << stats_->type() << "." << member.name() << "[" << stats_->id()
+  void TestMemberIsDefined(const RTCStatsMemberInterface& attribute) {
+    EXPECT_TRUE(attribute.is_defined())
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
         << "] was undefined.";
-    MarkMemberTested(member, member.is_defined());
+    MarkMemberTested(attribute, attribute.is_defined());
   }
 
-  void TestMemberIsUndefined(const RTCStatsMemberInterface& member) {
-    EXPECT_FALSE(member.is_defined())
-        << stats_->type() << "." << member.name() << "[" << stats_->id()
-        << "] was defined (" << member.ValueToString() << ").";
-    MarkMemberTested(member, !member.is_defined());
+  void TestMemberIsUndefined(const RTCStatsMemberInterface& attribute) {
+    EXPECT_FALSE(attribute.is_defined())
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
+        << "] was defined (" << attribute.ValueToString() << ").";
+    MarkMemberTested(attribute, !attribute.is_defined());
   }
 
   template <typename T>
-  void TestMemberIsPositive(const RTCStatsMemberInterface& member) {
-    EXPECT_TRUE(member.is_defined())
-        << stats_->type() << "." << member.name() << "[" << stats_->id()
+  void TestMemberIsPositive(const RTCStatsMemberInterface& attribute) {
+    EXPECT_TRUE(attribute.is_defined())
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
         << "] was undefined.";
-    if (!member.is_defined()) {
-      MarkMemberTested(member, false);
+    if (!attribute.is_defined()) {
+      MarkMemberTested(attribute, false);
       return;
     }
-    bool is_positive = *member.cast_to<RTCStatsMember<T>>() > T(0);
+    bool is_positive = *attribute.cast_to<RTCStatsMember<T>>() > T(0);
     EXPECT_TRUE(is_positive)
-        << stats_->type() << "." << member.name() << "[" << stats_->id()
-        << "] was not positive (" << member.ValueToString() << ").";
-    MarkMemberTested(member, is_positive);
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
+        << "] was not positive (" << attribute.ValueToString() << ").";
+    MarkMemberTested(attribute, is_positive);
   }
 
   template <typename T>
-  void TestMemberIsNonNegative(const RTCStatsMemberInterface& member) {
-    EXPECT_TRUE(member.is_defined())
-        << stats_->type() << "." << member.name() << "[" << stats_->id()
+  void TestMemberIsNonNegative(const RTCStatsMemberInterface& attribute) {
+    EXPECT_TRUE(attribute.is_defined())
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
         << "] was undefined.";
-    if (!member.is_defined()) {
-      MarkMemberTested(member, false);
+    if (!attribute.is_defined()) {
+      MarkMemberTested(attribute, false);
       return;
     }
-    bool is_non_negative = *member.cast_to<RTCStatsMember<T>>() >= T(0);
+    bool is_non_negative = *attribute.cast_to<RTCStatsMember<T>>() >= T(0);
     EXPECT_TRUE(is_non_negative)
-        << stats_->type() << "." << member.name() << "[" << stats_->id()
-        << "] was not non-negative (" << member.ValueToString() << ").";
-    MarkMemberTested(member, is_non_negative);
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
+        << "] was not non-negative (" << attribute.ValueToString() << ").";
+    MarkMemberTested(attribute, is_non_negative);
   }
 
-  void TestMemberIsIDReference(const RTCStatsMemberInterface& member,
+  void TestMemberIsIDReference(const RTCStatsMemberInterface& attribute,
                                const char* expected_type) {
-    TestMemberIsIDReference(member, expected_type, false);
+    TestMemberIsIDReference(attribute, expected_type, false);
   }
 
-  void TestMemberIsOptionalIDReference(const RTCStatsMemberInterface& member,
+  void TestMemberIsOptionalIDReference(const RTCStatsMemberInterface& attribute,
                                        const char* expected_type) {
-    TestMemberIsIDReference(member, expected_type, true);
+    TestMemberIsIDReference(attribute, expected_type, true);
   }
 
   bool ExpectAllMembersSuccessfullyTested() {
-    if (untested_members_.empty())
+    if (untested_attribute_names_.empty())
       return all_tests_successful_;
-    for (const RTCStatsMemberInterface* member : untested_members_) {
-      EXPECT_TRUE(false) << stats_->type() << "." << member->name() << "["
-                         << stats_->id() << "] was not tested.";
+    for (const char* untested_attribute_name : untested_attribute_names_) {
+      EXPECT_TRUE(false) << stats_->type() << "." << untested_attribute_name
+                         << "[" << stats_->id() << "] was not tested.";
     }
     return false;
   }
@@ -325,7 +325,7 @@ class RTCStatsVerifier {
 
   rtc::scoped_refptr<const RTCStatsReport> report_;
   const RTCStats* stats_;
-  std::set<const RTCStatsMemberInterface*> untested_members_;
+  std::set<const char*> untested_attribute_names_;
   bool all_tests_successful_;
 };
 
@@ -1155,19 +1155,25 @@ TEST_F(RTCStatsIntegrationTest, GetStatsReferencedIds) {
     // Find all references by looking at all string members with the "Id" or
     // "Ids" suffix.
     std::set<const std::string*> expected_ids;
-    for (const auto* member : stats.Members()) {
-      if (!member->is_defined())
+    for (const Attribute& attribute : stats.Attributes()) {
+      if (!attribute.has_value())
         continue;
-      if (member->type() == RTCStatsMemberInterface::kString) {
-        if (absl::EndsWith(member->name(), "Id")) {
-          const auto& id = member->cast_to<const RTCStatsMember<std::string>>();
-          expected_ids.insert(&(*id));
+      const auto& variant = attribute.as_variant();
+      if (absl::holds_alternative<const RTCStatsMember<std::string>*>(
+              variant)) {
+        if (absl::EndsWith(attribute.name(), "Id")) {
+          const auto* id =
+              absl::get<const RTCStatsMember<std::string>*>(variant);
+          expected_ids.insert(&id->value());
         }
-      } else if (member->type() == RTCStatsMemberInterface::kSequenceString) {
-        if (absl::EndsWith(member->name(), "Ids")) {
-          const auto& ids =
-              member->cast_to<const RTCStatsMember<std::vector<std::string>>>();
-          for (const std::string& id : *ids)
+      } else if (absl::holds_alternative<
+                     const RTCStatsMember<std::vector<std::string>>*>(
+                     variant)) {
+        if (absl::EndsWith(attribute.name(), "Ids")) {
+          const auto* ids =
+              absl::get<const RTCStatsMember<std::vector<std::string>>*>(
+                  variant);
+          for (const std::string& id : ids->value())
             expected_ids.insert(&id);
         }
       }
@@ -1189,11 +1195,12 @@ TEST_F(RTCStatsIntegrationTest, GetStatsContainsNoDuplicateMembers) {
 
   rtc::scoped_refptr<const RTCStatsReport> report = GetStatsFromCallee();
   for (const RTCStats& stats : *report) {
-    std::set<std::string> member_names;
-    for (const auto* member : stats.Members()) {
-      EXPECT_TRUE(member_names.find(member->name()) == member_names.end())
-          << member->name() << " is a duplicate!";
-      member_names.insert(member->name());
+    std::set<std::string> attribute_names;
+    for (const auto& attribute : stats.Attributes()) {
+      EXPECT_TRUE(attribute_names.find(attribute.name()) ==
+                  attribute_names.end())
+          << attribute.name() << " is a duplicate!";
+      attribute_names.insert(attribute.name());
     }
   }
 }

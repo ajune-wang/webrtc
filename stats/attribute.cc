@@ -30,6 +30,21 @@ struct VisitIsSequence {
   }
 };
 
+struct VisitAttributeEquals {
+  template <typename T>
+  bool operator()(const RTCStatsMember<T>* attribute) {
+    const auto& other_variant = other.as_variant();
+    if (!absl::holds_alternative<const RTCStatsMember<T>*>(other_variant)) {
+      return false;
+    }
+    const auto* other_attribute =
+        absl::get<const RTCStatsMember<T>*>(other_variant);
+    return *attribute == *other_attribute;
+  }
+
+  const Attribute& other;
+};
+
 struct VisitIsEqual {
   template <typename T>
   bool operator()(const RTCStatsMember<T>* attribute) {
@@ -95,8 +110,21 @@ const char* Attribute::name() const {
   return absl::visit([](const auto* attr) { return attr->name(); }, attribute_);
 }
 
+bool Attribute::has_value() const {
+  return absl::visit([](const auto* attr) { return attr->has_value(); },
+                     attribute_);
+}
+
 const Attribute::StatVariant& Attribute::as_variant() const {
   return attribute_;
+}
+
+bool Attribute::operator==(const Attribute& other) const {
+  return absl::visit(VisitAttributeEquals{.other = other}, attribute_);
+}
+
+bool Attribute::operator!=(const Attribute& other) const {
+  return !(*this == other);
 }
 
 RTCStatsMemberInterface::Type Attribute::type() const {

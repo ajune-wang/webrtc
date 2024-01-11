@@ -774,6 +774,7 @@ if (current_os == "linux" || is_android) {
       "../../api:libjingle_peerconnection_api",
       "../../api:media_stream_interface",
       "../../api:rtc_event_log_output_file",
+      "../../api:rtc_stats_api",
       "../../api:rtp_parameters",
       "../../api:rtp_sender_interface",
       "../../api:turn_customizer",
@@ -804,6 +805,7 @@ if (current_os == "linux" || is_android) {
     absl_deps = [
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp/absl/types:variant",
     ]
   }
 

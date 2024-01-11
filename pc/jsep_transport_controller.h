@@ -162,7 +162,8 @@ class JsepTransportController : public sigslot::has_slots<> {
   // properties. This includes RTP, DTLS, and ICE (but not SCTP). At least not
   // yet? May make sense to in the future.
   RTCError SetLocalDescription(SdpType type,
-                               const cricket::SessionDescription* description);
+                               const cricket::SessionDescription* description,
+                               const cricket::SessionDescription* remote_desc);
 
   RTCError SetRemoteDescription(SdpType type,
                                 const cricket::SessionDescription* description);

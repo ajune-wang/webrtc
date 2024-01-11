@@ -76,14 +76,18 @@ JsepTransportController::~JsepTransportController() {
 
 RTCError JsepTransportController::SetLocalDescription(
     SdpType type,
-    const cricket::SessionDescription* description) {
+    const cricket::SessionDescription* description,
+    const cricket::SessionDescription* remote_desc) {
   TRACE_EVENT0("webrtc", "JsepTransportController::SetLocalDescription");
   if (!network_thread_->IsCurrent()) {
     return network_thread_->BlockingCall(
-        [=] { return SetLocalDescription(type, description); });
+        [=] { return SetLocalDescription(type, description, remote_desc); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
+
+  RTC_CHECK_EQ(remote_desc, remote_desc_);  // TODO(tommi): remove.
+
   if (!initial_offerer_.has_value()) {
     initial_offerer_.emplace(type == SdpType::kOffer);
     if (*initial_offerer_) {

@@ -74,7 +74,7 @@ class RTC_EXPORT RTCStats {
   // Returns Attributes() as `RTCStatsMemberInterface` pointers.
   // TODO(https://crbug.com/webrtc/15164): Update callers to use Attributes()
   // instead and delete this method as well as the RTCStatsMemberInterface.
-  std::vector<const RTCStatsMemberInterface*> Members() const;
+  // std::vector<const RTCStatsMemberInterface*> Members() const;
   // Checks if the two stats objects are of the same type and have the same
   // member values. Timestamps are not compared. These operators are exposed for
   // testing.

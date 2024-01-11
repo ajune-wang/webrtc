@@ -95,8 +95,21 @@ const char* Attribute::name() const {
   return absl::visit([](const auto* attr) { return attr->name(); }, attribute_);
 }
 
+bool Attribute::has_value() const {
+  return absl::visit([](const auto* attr) { return attr->has_value(); },
+                     attribute_);
+}
+
 const Attribute::StatVariant& Attribute::as_variant() const {
   return attribute_;
+}
+
+bool Attribute::operator==(const Attribute& other) const {
+  return as_variant() == other.as_variant();
+}
+
+bool Attribute::operator!=(const Attribute& other) const {
+  return as_variant() != other.as_variant();
 }
 
 RTCStatsMemberInterface::Type Attribute::type() const {

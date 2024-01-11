@@ -24,16 +24,13 @@ RTCStats::~RTCStats() {}
 bool RTCStats::operator==(const RTCStats& other) const {
   if (type() != other.type() || id() != other.id())
     return false;
-  std::vector<const RTCStatsMemberInterface*> members = Members();
-  std::vector<const RTCStatsMemberInterface*> other_members = other.Members();
-  RTC_DCHECK_EQ(members.size(), other_members.size());
-  for (size_t i = 0; i < members.size(); ++i) {
-    const RTCStatsMemberInterface* member = members[i];
-    const RTCStatsMemberInterface* other_member = other_members[i];
-    RTC_DCHECK_EQ(member->type(), other_member->type());
-    RTC_DCHECK_EQ(member->name(), other_member->name());
-    if (*member != *other_member)
+  std::vector<Attribute> attributes = Attributes();
+  std::vector<Attribute> other_attributes = other.Attributes();
+  RTC_DCHECK_EQ(attributes.size(), other_attributes.size());
+  for (size_t i = 0; i < attributes.size(); ++i) {
+    if (attributes[i] != other_attributes[i]) {
       return false;
+    }
   }
   return true;
 }
@@ -51,30 +48,35 @@ std::string RTCStats::ToJson() const {
      << "\","
         "\"timestamp\":"
      << timestamp_.us();
-  for (const RTCStatsMemberInterface* member : Members()) {
-    if (member->is_defined()) {
-      sb << ",\"" << member->name() << "\":";
-      if (member->is_string())
-        sb << "\"" << member->ValueToJson() << "\"";
-      else
-        sb << member->ValueToJson();
+  for (const Attribute& attribute : Attributes()) {
+    if (attribute.has_value()) {
+      sb << ",\"" << attribute.name() << "\":";
+      const auto& variant = attribute.as_variant();
+      bool use_quotes =
+          absl::holds_alternative<const RTCStatsMember<std::string>*>(variant);
+      if (use_quotes)
+        sb << "\"";
+      sb << absl::visit([](const auto* attr) { return attr->ValueToJson(); },
+                        variant);
+      if (use_quotes)
+        sb << "\"";
     }
   }
   sb << "}";
   return sb.Release();
 }
 
-std::vector<const RTCStatsMemberInterface*> RTCStats::Members() const {
-  if (cached_attributes_.empty()) {
-    cached_attributes_ = Attributes();
-  }
-  std::vector<const RTCStatsMemberInterface*> members;
-  members.reserve(cached_attributes_.size());
-  for (const auto& attribute : cached_attributes_) {
-    members.push_back(&attribute);
-  }
-  return members;
-}
+// std::vector<const RTCStatsMemberInterface*> RTCStats::Members() const {
+//   if (cached_attributes_.empty()) {
+//     cached_attributes_ = Attributes();
+//   }
+//   std::vector<const RTCStatsMemberInterface*> members;
+//   members.reserve(cached_attributes_.size());
+//   for (const auto& attribute : cached_attributes_) {
+//     members.push_back(&attribute);
+//   }
+//   return members;
+// }
 
 std::vector<Attribute> RTCStats::Attributes() const {
   return AttributesImpl(0);

@@ -76,14 +76,16 @@ JsepTransportController::~JsepTransportController() {
 
 RTCError JsepTransportController::SetLocalDescription(
     SdpType type,
-    const cricket::SessionDescription* description) {
+    const cricket::SessionDescription* description,
+    const cricket::SessionDescription* remote_desc) {
   TRACE_EVENT0("webrtc", "JsepTransportController::SetLocalDescription");
   if (!network_thread_->IsCurrent()) {
     return network_thread_->BlockingCall(
-        [=] { return SetLocalDescription(type, description); });
+        [=] { return SetLocalDescription(type, description, remote_desc); });
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
+
   if (!initial_offerer_.has_value()) {
     initial_offerer_.emplace(type == SdpType::kOffer);
     if (*initial_offerer_) {
@@ -92,7 +94,7 @@ RTCError JsepTransportController::SetLocalDescription(
       SetIceRole_n(cricket::ICEROLE_CONTROLLED);
     }
   }
-  return ApplyDescription_n(/*local=*/true, type, description);
+  return ApplyDescription_n(/*local=*/true, type, description, remote_desc);
 }
 
 RTCError JsepTransportController::SetRemoteDescription(
@@ -105,7 +107,7 @@ RTCError JsepTransportController::SetRemoteDescription(
   }
 
   RTC_DCHECK_RUN_ON(network_thread_);
-  return ApplyDescription_n(/*local=*/false, type, description);
+  return ApplyDescription_n(/*local=*/false, type, description, description);
 }
 
 RtpTransportInternal* JsepTransportController::GetRtpTransport(
@@ -563,7 +565,8 @@ JsepTransportController::GetActiveDtlsTransports() {
 RTCError JsepTransportController::ApplyDescription_n(
     bool local,
     SdpType type,
-    const cricket::SessionDescription* description) {
+    const cricket::SessionDescription* description,
+    const cricket::SessionDescription* remote_desc) {
   TRACE_EVENT0("webrtc", "JsepTransportController::ApplyDescription_n");
   RTC_DCHECK(description);
 
@@ -574,7 +577,8 @@ RTCError JsepTransportController::ApplyDescription_n(
   }
 
   RTCError error;
-  error = ValidateAndMaybeUpdateBundleGroups(local, type, description);
+  error =
+      ValidateAndMaybeUpdateBundleGroups(local, type, description, remote_desc);
   if (!error.ok()) {
     return error;
   }
@@ -686,7 +690,8 @@ RTCError JsepTransportController::ApplyDescription_n(
 RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroups(
     bool local,
     SdpType type,
-    const cricket::SessionDescription* description) {
+    const cricket::SessionDescription* description,
+    const cricket::SessionDescription* remote_desc) {
   RTC_DCHECK(description);
 
   std::vector<const cricket::ContentGroup*> new_bundle_groups =
@@ -752,6 +757,17 @@ RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroups(
       }
     }
   } else if (type == SdpType::kAnswer) {
+#if 1
+    // TODO(tommi): remove.
+    if (local) {
+      RTC_LOG(LS_ERROR) << "********************************************";
+      // RTC_DCHECK_NOTREACHED();
+      RTC_CHECK_EQ(remote_desc, remote_desc_);
+    } else {
+      // add check.
+    }
+#endif
+
     std::vector<const cricket::ContentGroup*> offered_bundle_groups =
         local ? remote_desc_->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE)
               : local_desc_->GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);

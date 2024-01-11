@@ -4910,8 +4910,9 @@ RTCError SdpOfferAnswerHandler::PushdownTransportDescription(
   if (source == cricket::CS_LOCAL) {
     const SessionDescriptionInterface* sdesc = local_description();
     RTC_DCHECK(sdesc);
-    return transport_controller_s()->SetLocalDescription(type,
-                                                         sdesc->description());
+    const auto* remote = remote_description();
+    return transport_controller_s()->SetLocalDescription(
+        type, sdesc->description(), remote ? remote->description() : nullptr);
   } else {
     const SessionDescriptionInterface* sdesc = remote_description();
     RTC_DCHECK(sdesc);

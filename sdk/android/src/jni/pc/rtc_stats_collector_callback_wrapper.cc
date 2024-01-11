@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/variant.h"
+#include "api/stats/attribute.h"
 #include "rtc_base/string_encode.h"
 #include "sdk/android/generated_external_classes_jni/BigInteger_jni.h"
 #include "sdk/android/generated_peerconnection_jni/RTCStatsCollectorCallback_jni.h"
@@ -42,80 +44,92 @@ ScopedJavaLocalRef<jobjectArray> NativeToJavaBigIntegerArray(
       env, container, java_math_BigInteger_clazz(env), &NativeToJavaBigInteger);
 }
 
-ScopedJavaLocalRef<jobject> MemberToJava(
+ScopedJavaLocalRef<jobject> StatVariantToJava(
     JNIEnv* env,
-    const RTCStatsMemberInterface& member) {
-  switch (member.type()) {
-    case RTCStatsMemberInterface::kBool:
-      return NativeToJavaBoolean(env, *member.cast_to<RTCStatsMember<bool>>());
-
-    case RTCStatsMemberInterface::kInt32:
-      return NativeToJavaInteger(env,
-                                 *member.cast_to<RTCStatsMember<int32_t>>());
-
-    case RTCStatsMemberInterface::kUint32:
-      return NativeToJavaLong(env, *member.cast_to<RTCStatsMember<uint32_t>>());
-
-    case RTCStatsMemberInterface::kInt64:
-      return NativeToJavaLong(env, *member.cast_to<RTCStatsMember<int64_t>>());
-
-    case RTCStatsMemberInterface::kUint64:
-      return NativeToJavaBigInteger(
-          env, *member.cast_to<RTCStatsMember<uint64_t>>());
-
-    case RTCStatsMemberInterface::kDouble:
-      return NativeToJavaDouble(env, *member.cast_to<RTCStatsMember<double>>());
-
-    case RTCStatsMemberInterface::kString:
-      return NativeToJavaString(env,
-                                *member.cast_to<RTCStatsMember<std::string>>());
-
-    case RTCStatsMemberInterface::kSequenceBool:
-      return NativeToJavaBooleanArray(
-          env, *member.cast_to<RTCStatsMember<std::vector<bool>>>());
-
-    case RTCStatsMemberInterface::kSequenceInt32:
-      return NativeToJavaIntegerArray(
-          env, *member.cast_to<RTCStatsMember<std::vector<int32_t>>>());
-
-    case RTCStatsMemberInterface::kSequenceUint32: {
-      const std::vector<uint32_t>& v =
-          *member.cast_to<RTCStatsMember<std::vector<uint32_t>>>();
-      return NativeToJavaLongArray(env,
-                                   std::vector<int64_t>(v.begin(), v.end()));
-    }
-    case RTCStatsMemberInterface::kSequenceInt64:
-      return NativeToJavaLongArray(
-          env, *member.cast_to<RTCStatsMember<std::vector<int64_t>>>());
-
-    case RTCStatsMemberInterface::kSequenceUint64:
-      return NativeToJavaBigIntegerArray(
-          env, *member.cast_to<RTCStatsMember<std::vector<uint64_t>>>());
-
-    case RTCStatsMemberInterface::kSequenceDouble:
-      return NativeToJavaDoubleArray(
-          env, *member.cast_to<RTCStatsMember<std::vector<double>>>());
-
-    case RTCStatsMemberInterface::kSequenceString:
-      return NativeToJavaStringArray(
-          env, *member.cast_to<RTCStatsMember<std::vector<std::string>>>());
-
-    case RTCStatsMemberInterface::kMapStringUint64:
-      return NativeToJavaMap(
-          env,
-          *member.cast_to<RTCStatsMember<std::map<std::string, uint64_t>>>(),
-          [](JNIEnv* env, const auto& entry) {
-            return std::make_pair(NativeToJavaString(env, entry.first),
-                                  NativeToJavaBigInteger(env, entry.second));
-          });
-
-    case RTCStatsMemberInterface::kMapStringDouble:
-      return NativeToJavaMap(
-          env, *member.cast_to<RTCStatsMember<std::map<std::string, double>>>(),
-          [](JNIEnv* env, const auto& entry) {
-            return std::make_pair(NativeToJavaString(env, entry.first),
-                                  NativeToJavaDouble(env, entry.second));
-          });
+    const Attribute::StatVariant& variant) {
+  if (absl::holds_alternative<const RTCStatsMember<bool>*>(variant)) {
+    return NativeToJavaBoolean(
+        env, absl::get<const RTCStatsMember<bool>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<int32_t>*>(variant)) {
+    return NativeToJavaInteger(
+        env, absl::get<const RTCStatsMember<int32_t>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<uint32_t>*>(
+                 variant)) {
+    return NativeToJavaLong(
+        env, absl::get<const RTCStatsMember<uint32_t>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<int64_t>*>(variant)) {
+    return NativeToJavaLong(
+        env, absl::get<const RTCStatsMember<int64_t>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<uint64_t>*>(
+                 variant)) {
+    return NativeToJavaBigInteger(
+        env, absl::get<const RTCStatsMember<uint64_t>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<double>*>(variant)) {
+    return NativeToJavaDouble(
+        env, absl::get<const RTCStatsMember<double>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<std::string>*>(
+                 variant)) {
+    return NativeToJavaString(
+        env, absl::get<const RTCStatsMember<std::string>*>(variant)->value());
+  } else if (absl::holds_alternative<const RTCStatsMember<std::vector<bool>>*>(
+                 variant)) {
+    return NativeToJavaBooleanArray(
+        env,
+        absl::get<const RTCStatsMember<std::vector<bool>>*>(variant)->value());
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::vector<int32_t>>*>(variant)) {
+    return NativeToJavaIntegerArray(
+        env, absl::get<const RTCStatsMember<std::vector<int32_t>>*>(variant)
+                 ->value());
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::vector<uint32_t>>*>(variant)) {
+    const std::vector<uint32_t>& v =
+        absl::get<const RTCStatsMember<std::vector<uint32_t>>*>(variant)
+            ->value();
+    return NativeToJavaLongArray(env, std::vector<int64_t>(v.begin(), v.end()));
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::vector<int64_t>>*>(variant)) {
+    return NativeToJavaLongArray(
+        env, absl::get<const RTCStatsMember<std::vector<int64_t>>*>(variant)
+                 ->value());
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::vector<uint64_t>>*>(variant)) {
+    return NativeToJavaBigIntegerArray(
+        env, absl::get<const RTCStatsMember<std::vector<uint64_t>>*>(variant)
+                 ->value());
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::vector<double>>*>(variant)) {
+    return NativeToJavaDoubleArray(
+        env, absl::get<const RTCStatsMember<std::vector<double>>*>(variant)
+                 ->value());
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::vector<std::string>>*>(variant)) {
+    return NativeToJavaStringArray(
+        env, absl::get<const RTCStatsMember<std::vector<std::string>>*>(variant)
+                 ->value());
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::map<std::string, uint64_t>>*>(
+                 variant)) {
+    return NativeToJavaMap(
+        env,
+        absl::get<const RTCStatsMember<std::map<std::string, uint64_t>>*>(
+            variant)
+            ->value(),
+        [](JNIEnv* env, const auto& entry) {
+          return std::make_pair(NativeToJavaString(env, entry.first),
+                                NativeToJavaBigInteger(env, entry.second));
+        });
+  } else if (absl::holds_alternative<
+                 const RTCStatsMember<std::map<std::string, double>>*>(
+                 variant)) {
+    return NativeToJavaMap(
+        env,
+        absl::get<const RTCStatsMember<std::map<std::string, double>>*>(variant)
+            ->value(),
+        [](JNIEnv* env, const auto& entry) {
+          return std::make_pair(NativeToJavaString(env, entry.first),
+                                NativeToJavaDouble(env, entry.second));
+        });
   }
   RTC_DCHECK_NOTREACHED();
   return nullptr;
@@ -124,11 +138,11 @@ ScopedJavaLocalRef<jobject> MemberToJava(
 ScopedJavaLocalRef<jobject> NativeToJavaRtcStats(JNIEnv* env,
                                                  const RTCStats& stats) {
   JavaMapBuilder builder(env);
-  for (auto* const member : stats.Members()) {
-    if (!member->is_defined())
+  for (const auto& attribute : stats.Attributes()) {
+    if (!attribute.has_value())
       continue;
-    builder.put(NativeToJavaString(env, member->name()),
-                MemberToJava(env, *member));
+    builder.put(NativeToJavaString(env, attribute.name()),
+                StatVariantToJava(env, attribute.as_variant()));
   }
   return Java_RTCStats_create(
       env, stats.timestamp().us(), NativeToJavaString(env, stats.type()),

@@ -1094,6 +1094,8 @@ if (is_ios || is_mac) {
         "../system_wrappers:metrics",
       ]
 
+      absl_deps = [ "//third_party/abseil-cpp/absl/types:variant" ]
+
       if (is_ios) {
         deps += [ ":native_api_audio_device_module" ]
       }

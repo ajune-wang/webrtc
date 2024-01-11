@@ -33,6 +33,24 @@
       "message": "Hi Zhu!\n\nI\u0027m sorry but I realize there has been some confusion about how we should manage H26X packets in WebRTC.\n\nThe way we want to go is to update the [1] h264_packet_buffer.cc to also support H265. Then in the [2] rtp_video_stream_receiver2.cc we would simply have special casing to use the H26X specific packet buffer instead of the regular one.\n\nSo the plan is something like this:\n1) Add H265 support to h264_packet_buffer (and rename it to h26x_packet_buffer).\n2) Update rtp_video_stream_receiver2.cc to use h26x_packet_buffer when H264/H265 is being received, and roll it out.\n3) Remove H26X specific hacks from packet_buffer.cc\n\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/h264_packet_buffer.cc;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9\n\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/rtp_video_stream_receiver2.cc;l\u003d705;drc\u003d67d90538f11c6b232dbfd716075db52aeb34fd15",
       "revId": "483948e6d823dc347d062d4d16351fd478762ffb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecf06d36_0a9b4de3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-01-11T07:19:33Z",
+      "side": 1,
+      "message": "Thanks for the clarification. Since `H264PacketBuffer` is not inherited from `PacketBuffer`, rtp_video_stream_receiver2.cc needs to maintain two members `packet_buffer_` and `h264_packet_buffer_`. I\u0027m wondering if it\u0027s a good idea to make `H264PacketBuffer` to be a derived class of `PacketBuffer`?",
+      "parentUuid": "ab6bd817_1a14c13a",
+      "revId": "483948e6d823dc347d062d4d16351fd478762ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

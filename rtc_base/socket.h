@@ -14,6 +14,7 @@
 #include <errno.h>
 
 #include "absl/types/optional.h"
+#include "rtc_base/checks.h"
 
 #if defined(WEBRTC_POSIX)
 #include <arpa/inet.h>
@@ -85,11 +86,11 @@ inline bool IsBlockingError(int e) {
 class Socket {
  public:
   struct ReceiveBuffer {
-    ReceiveBuffer(rtc::Buffer& payload) : payload(payload) {}
+    ReceiveBuffer(Buffer& payload) : payload(payload) {}
 
     absl::optional<webrtc::Timestamp> arrival_time;
     SocketAddress source_address;
-    rtc::Buffer& payload;
+    Buffer& payload;
   };
   virtual ~Socket() {}
 
@@ -113,7 +114,10 @@ class Socket {
   virtual int RecvFrom(void* pv,
                        size_t cb,
                        SocketAddress* paddr,
-                       int64_t* timestamp) = 0;
+                       int64_t* timestamp) {
+    // Not implemented. Use RecvFrom(ReceiveBuffer& buffer).
+    RTC_CHECK_NOTREACHED();
+  }
   // Intended to replace RecvFrom(void* ...).
   // Default implementation calls RecvFrom(void* ...) with 64Kbyte buffer.
   // Returns number of bytes received or a negative value on error.

@@ -71,6 +71,16 @@ class RTC_EXPORT RTCStats {
   // Returns all attributes of this stats object, i.e. a list of its individual
   // metrics as viewed via the Attribute wrapper.
   std::vector<Attribute> Attributes() const;
+  // Lookup an attribute's name.
+  template <typename T>
+  const char* AttributeName(const RTCStatsMember<T>& stat) {
+    for (const auto& attribute : Attributes()) {
+      if (attribute == stat) {
+        return attribute.name();
+      }
+    }
+    return nullptr;
+  }
   // Returns Attributes() as `RTCStatsMemberInterface` pointers.
   // TODO(https://crbug.com/webrtc/15164): Update callers to use Attributes()
   // instead and delete this method as well as the RTCStatsMemberInterface.

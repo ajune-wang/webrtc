@@ -51,6 +51,24 @@
       "parentUuid": "ab6bd817_1a14c13a",
       "revId": "483948e6d823dc347d062d4d16351fd478762ffb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a0db8b9_0e0eb39d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-11T13:28:06Z",
+      "side": 1,
+      "message": "Yes, `RtpVideoStreamReceiver2` would need two packet buffers. I remember looking into inheritance vs standalone H264 packet buffer, and I remember standalone was preferable but I can\u0027t remember why. I think we should avoid deriving from the `PacketBuffer`.",
+      "parentUuid": "ecf06d36_0a9b4de3",
+      "revId": "483948e6d823dc347d062d4d16351fd478762ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

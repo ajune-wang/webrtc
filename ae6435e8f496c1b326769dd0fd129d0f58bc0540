@@ -34,6 +34,24 @@
       "parentUuid": "2994b79e_f7d686da",
       "revId": "ae6435e8f496c1b326769dd0fd129d0f58bc0540",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ee7304b_d8eeaa16",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-12T08:45:33Z",
+      "side": 1,
+      "message": "Coverage says this function is never called in a test. I know RTCRemoteOutboundRtpStreamStats was a relatively recent addition, so I wonder if we have skipped adding a test that generates and tests such an object.",
+      "parentUuid": "4a8624e9_ec293dbc",
+      "revId": "ae6435e8f496c1b326769dd0fd129d0f58bc0540",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

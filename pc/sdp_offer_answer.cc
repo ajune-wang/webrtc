@@ -4530,6 +4530,8 @@ std::string SdpOfferAnswerHandler::GetSessionErrorMsg() {
 void SdpOfferAnswerHandler::SetSessionError(SessionError error,
                                             const std::string& error_desc) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // Is this exercised?
+  RTC_CHECK(false);
   if (error != session_error_) {
     session_error_ = error;
     session_error_desc_ = error_desc;

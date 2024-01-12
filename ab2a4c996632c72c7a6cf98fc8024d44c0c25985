@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b96d87_a5ccce71",
+        "filename": "api/stats/attribute.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-12T08:16:20Z",
+      "side": 1,
+      "message": "Does all this plumbing need to be public?\nIn particular, holds_alternative looks like an internal helper for \"cast to\".",
+      "revId": "ab2a4c996632c72c7a6cf98fc8024d44c0c25985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "453e9edb_f8b2da65",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6720
+      },
+      "writtenOn": "2024-01-12T09:25:23Z",
+      "side": 1,
+      "message": "what if `original_rect` is nullptr? Looks like it can be based on the check a few lines above.",
+      "revId": "844225a76a98aa3be5aca09c19ab72a5e7b6c38a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -52,6 +52,24 @@
       "parentUuid": "4a8624e9_ec293dbc",
       "revId": "ae6435e8f496c1b326769dd0fd129d0f58bc0540",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f40d35_abf5b8e3",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-12T10:44:22Z",
+      "side": 1,
+      "message": "Nice catch, looks like an existing problem, I don\u0027t trigger it locally either... filed https://crbug.com/webrtc/15765",
+      "parentUuid": "8ee7304b_d8eeaa16",
+      "revId": "ae6435e8f496c1b326769dd0fd129d0f58bc0540",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

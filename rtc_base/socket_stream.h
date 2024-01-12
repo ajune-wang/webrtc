@@ -21,7 +21,7 @@ namespace rtc {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class SocketStream : public StreamInterface, public sigslot::has_slots<> {
+class SocketStream : public StreamInterfaceBase, public sigslot::has_slots<> {
  public:
   explicit SocketStream(Socket* socket);
   ~SocketStream() override;

@@ -21,7 +21,7 @@ namespace rtc {
 
 // FifoBuffer allows for efficient, thread-safe buffering of data between
 // writer and reader.
-class FifoBuffer final : public StreamInterface {
+class FifoBuffer final : public StreamInterfaceBase {
  public:
   // Creates a FIFO buffer with the specified capacity.
   explicit FifoBuffer(size_t length);
@@ -78,9 +78,16 @@ class FifoBuffer final : public StreamInterface {
 
  private:
   void PostEvent(int events, int err) {
-    owner_->PostTask(webrtc::SafeTask(
-        task_safety_.flag(),
-        [this, events, err]() { SignalEvent(this, events, err); }));
+#if 0
+    RTC_DCHECK_RUN_ON(&construction_sequence_);
+    FireStreamEvent(events, err);
+#else
+    owner_->PostTask(
+        webrtc::SafeTask(task_safety_.flag(), [this, events, err]() {
+          RTC_DCHECK_RUN_ON(&construction_sequence_);
+          FireStreamEvent(events, err);
+        }));
+#endif
   }
 
   // Helper method that implements Read. Caller must acquire a lock

@@ -75,7 +75,7 @@ StreamInterfaceChannel::StreamInterfaceChannel(
 rtc::StreamResult StreamInterfaceChannel::Read(rtc::ArrayView<uint8_t> buffer,
                                                size_t& read,
                                                int& error) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
 
   if (state_ == rtc::SS_CLOSED)
     return rtc::SR_EOS;
@@ -93,7 +93,7 @@ rtc::StreamResult StreamInterfaceChannel::Write(
     rtc::ArrayView<const uint8_t> data,
     size_t& written,
     int& error) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   // Always succeeds, since this is an unreliable transport anyway.
   // TODO(zhihuang): Should this block if ice_transport_'s temporarily
   // unwritable?
@@ -105,7 +105,7 @@ rtc::StreamResult StreamInterfaceChannel::Write(
 }
 
 bool StreamInterfaceChannel::OnPacketReceived(const char* data, size_t size) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   if (packets_.size() > 0) {
     RTC_LOG(LS_WARNING) << "Packet already in queue.";
   }
@@ -117,17 +117,17 @@ bool StreamInterfaceChannel::OnPacketReceived(const char* data, size_t size) {
     // packet currently in packets_.
     RTC_LOG(LS_ERROR) << "Failed to write packet to queue.";
   }
-  SignalEvent(this, rtc::SE_READ, 0);
+  FireStreamEvent(rtc::SE_READ, 0);
   return ret;
 }
 
 rtc::StreamState StreamInterfaceChannel::GetState() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   return state_;
 }
 
 void StreamInterfaceChannel::Close() {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   packets_.Clear();
   state_ = rtc::SS_CLOSED;
 }
@@ -371,7 +371,8 @@ bool DtlsTransport::SetupDtls() {
   dtls_->SetMode(rtc::SSL_MODE_DTLS);
   dtls_->SetMaxProtocolVersion(ssl_max_version_);
   dtls_->SetServerRole(*dtls_role_);
-  dtls_->SignalEvent.connect(this, &DtlsTransport::OnDtlsEvent);
+  dtls_->SetEventHandler([this](rtc::StreamInterface* stream, int events,
+                                int err) { OnDtlsEvent(stream, events, err); });
   if (remote_fingerprint_value_.size() &&
       !dtls_->SetPeerCertificateDigest(
           remote_fingerprint_algorithm_,

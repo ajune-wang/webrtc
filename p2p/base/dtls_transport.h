@@ -36,7 +36,7 @@ namespace cricket {
 
 // A bridge between a packet-oriented/transport-type interface on
 // the bottom and a StreamInterface on the top.
-class StreamInterfaceChannel : public rtc::StreamInterface {
+class StreamInterfaceChannel : public rtc::StreamInterfaceBase {
  public:
   explicit StreamInterfaceChannel(IceTransportInternal* ice_transport);
 
@@ -57,10 +57,9 @@ class StreamInterfaceChannel : public rtc::StreamInterface {
                           int& error) override;
 
  private:
-  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker sequence_checker_;
   IceTransportInternal* const ice_transport_;  // owned by DtlsTransport
-  rtc::StreamState state_ RTC_GUARDED_BY(sequence_checker_);
-  rtc::BufferQueue packets_ RTC_GUARDED_BY(sequence_checker_);
+  rtc::StreamState state_ RTC_GUARDED_BY(construction_sequence_);
+  rtc::BufferQueue packets_ RTC_GUARDED_BY(construction_sequence_);
 };
 
 // This class provides a DTLS SSLStreamAdapter inside a TransportChannel-style
@@ -237,7 +236,7 @@ class DtlsTransport : public DtlsTransportInternal {
   // Sets the DTLS state, signaling if necessary.
   void set_dtls_state(webrtc::DtlsTransportState state);
 
-  webrtc::SequenceChecker thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker thread_checker_;
 
   const int component_;
   webrtc::DtlsTransportState dtls_state_ = webrtc::DtlsTransportState::kNew;

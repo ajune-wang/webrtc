@@ -280,8 +280,10 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
 
     ssl_stream_adapter_->StartSSL();
 
-    ssl_stream_adapter_->SignalEvent.connect(
-        this, &SSLAdapterTestDummyServer::OnSSLStreamAdapterEvent);
+    ssl_stream_adapter_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnSSLStreamAdapterEvent(stream, events, err);
+        });
   }
 
   const rtc::SSLMode ssl_mode_;

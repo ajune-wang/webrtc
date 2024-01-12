@@ -99,23 +99,27 @@ void SocketStream::Close() {
 }
 
 void SocketStream::OnConnectEvent(Socket* socket) {
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   RTC_DCHECK(socket == socket_);
-  SignalEvent(this, SE_OPEN | SE_READ | SE_WRITE, 0);
+  FireStreamEvent(SE_OPEN | SE_READ | SE_WRITE, 0);
 }
 
 void SocketStream::OnReadEvent(Socket* socket) {
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   RTC_DCHECK(socket == socket_);
-  SignalEvent(this, SE_READ, 0);
+  FireStreamEvent(SE_READ, 0);
 }
 
 void SocketStream::OnWriteEvent(Socket* socket) {
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   RTC_DCHECK(socket == socket_);
-  SignalEvent(this, SE_WRITE, 0);
+  FireStreamEvent(SE_WRITE, 0);
 }
 
 void SocketStream::OnCloseEvent(Socket* socket, int err) {
+  RTC_DCHECK_RUN_ON(&construction_sequence_);
   RTC_DCHECK(socket == socket_);
-  SignalEvent(this, SE_CLOSE, err);
+  FireStreamEvent(SE_CLOSE, err);
 }
 
 }  // namespace rtc

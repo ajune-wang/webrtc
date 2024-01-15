@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5175f062_f7defd00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-15T11:55:25Z",
+      "side": 1,
+      "message": "Thought there was a helper for that...",
+      "revId": "242dc1339609d0efafc78dfffbd12d3362a6e37f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066e26b7_cb97d2e9",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-15T11:55:25Z",
+      "side": 1,
+      "message": "actually you have SockeetAddress::HostAsURIString() that does this exact mapping. Note that since IP addresses are considered sensitive for logging, it may be context dependent if you want to use HostAsURIString or HotAsSensitiveURISTring.",
+      "revId": "242dc1339609d0efafc78dfffbd12d3362a6e37f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

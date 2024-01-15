@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d08782_a0482601",
+        "filename": "modules/video_capture/test/video_capture_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-15T09:21:43Z",
+      "side": 0,
+      "message": "drive-by, did not see that it could be cleaned up as part of https://webrtc-review.googlesource.com/c/src/+/332940",
+      "revId": "edd804816cd1e57374717e9e2bdd2c4237b6e692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

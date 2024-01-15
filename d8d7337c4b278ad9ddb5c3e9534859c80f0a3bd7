@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7911fc48_bf211ef6",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-15T09:22:42Z",
+      "side": 1,
+      "message": "nit: we more typically use `sizeof(rect)` since then the type is specified only once.",
+      "revId": "d8d7337c4b278ad9ddb5c3e9534859c80f0a3bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f1482e_9852cc67",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-15T09:22:42Z",
+      "side": 1,
+      "message": "possible null deref here",
+      "revId": "d8d7337c4b278ad9ddb5c3e9534859c80f0a3bd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

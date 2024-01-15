@@ -1256,14 +1256,12 @@ bool TurnPort::SetEntryChannelId(const rtc::SocketAddress& address,
 }
 
 std::string TurnPort::ReconstructedServerUrl() {
-  // draft-petithuguenin-behave-turn-uris-01
-  // turnURI       = scheme ":" turn-host [ ":" turn-port ]
+  // https://www.rfc-editor.org/rfc/rfc7065#section-3.1
+  // turnURI       = scheme ":" host [ ":" port ]
   //                 [ "?transport=" transport ]
   // scheme        = "turn" / "turns"
   // transport     = "udp" / "tcp" / transport-ext
   // transport-ext = 1*unreserved
-  // turn-host     = IP-literal / IPv4address / reg-name
-  // turn-port     = *DIGIT
   std::string scheme = "turn";
   std::string transport = "tcp";
   switch (server_address_.proto) {
@@ -1277,9 +1275,12 @@ std::string TurnPort::ReconstructedServerUrl() {
     case PROTO_TCP:
       break;
   }
+  std::string host = server_address_.address.hostname().empty()
+                         ? server_address_.address.ipaddr().ToString()
+                         : server_address_.address.hostname();
   rtc::StringBuilder url;
-  url << scheme << ":" << server_address_.address.hostname() << ":"
-      << server_address_.address.port() << "?transport=" << transport;
+  url << scheme << ":" << host << ":" << server_address_.address.port()
+      << "?transport=" << transport;
   return url.Release();
 }
 

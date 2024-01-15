@@ -56,6 +56,40 @@
       "message": "LGTM for me but I don\u0027t own these files. Adding hta@.",
       "revId": "76e1d2a20f8c14bbed827ef0be2218160421dc32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6f19e27_b7f8a19a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-15T13:15:28Z",
+      "side": 1,
+      "message": "I assume those were discovered by running a compiler that complained about it?\nIs this a flag on clang that we don\u0027t use, or is it a different compiler?\n\nApproving, asking in case we can run the tests in bots so that we don\u0027t introduce more of these.",
+      "revId": "76e1d2a20f8c14bbed827ef0be2218160421dc32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3f2492_bf28e7e9",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-15T13:15:28Z",
+      "side": 1,
+      "message": "So the problem here is that it\u0027s legal for the C++ compiler to move message before the expression \"message.stream_id()\" is evaluated?\n\nSounds like UB that is good to avoid.",
+      "revId": "76e1d2a20f8c14bbed827ef0be2218160421dc32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

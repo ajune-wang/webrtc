@@ -33,6 +33,24 @@
       "message": "I would like it better if the trigraph was in the line extracting the hostname instead of inside the \u003c\u003c chain. Both work, but I think the other is more readable.",
       "revId": "2525fdb8ee93d995ab0d70a732547e8d2b0ec27b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa24853_3a6bc43e",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-15T12:48:34Z",
+      "side": 1,
+      "message": "Done. Which turned out to show even deeper bug as the server_address_\u0027 hostname field gets cleared by DNS resolution...",
+      "parentUuid": "c457b61d_bc010551",
+      "revId": "2525fdb8ee93d995ab0d70a732547e8d2b0ec27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

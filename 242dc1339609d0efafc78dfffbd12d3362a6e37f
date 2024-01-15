@@ -33,6 +33,24 @@
       "message": "actually you have SockeetAddress::HostAsURIString() that does this exact mapping. Note that since IP addresses are considered sensitive for logging, it may be context dependent if you want to use HostAsURIString or HotAsSensitiveURISTring.",
       "revId": "242dc1339609d0efafc78dfffbd12d3362a6e37f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3e1b60c_d1c3a1aa",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-15T12:48:34Z",
+      "side": 1,
+      "message": "This has [] around IPv6 which is not how we show them in the .address field. But this is actually required since this is an URI and not a raw ip address?",
+      "parentUuid": "066e26b7_cb97d2e9",
+      "revId": "242dc1339609d0efafc78dfffbd12d3362a6e37f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2740fa0_9b5f048a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19999
+      },
+      "writtenOn": "2024-01-15T12:45:06Z",
+      "side": 1,
+      "message": "Hey,\nPutting you as reviewer as I saw you were reviewer on former CL. If you can review, it will be great.\n\nThanks",
+      "revId": "76e1d2a20f8c14bbed827ef0be2218160421dc32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

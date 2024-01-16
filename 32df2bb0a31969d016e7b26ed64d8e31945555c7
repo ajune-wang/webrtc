@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c44ce96a_3efa2ba2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-16T15:12:32Z",
+      "side": 1,
+      "message": "LGTM, PTAL at nit",
+      "revId": "32df2bb0a31969d016e7b26ed64d8e31945555c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec18f839_dc1ad73f",
+        "filename": "common_video/h265/h265_bitstream_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-16T15:12:32Z",
+      "side": 1,
+      "message": "Nit: I would write this as `TRUE_OR_RETURN(slice_segment_adress_bits !\u003d std::numeric_limits\u003cuint32_t\u003e::max());`",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 46
+      },
+      "revId": "32df2bb0a31969d016e7b26ed64d8e31945555c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

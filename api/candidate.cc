@@ -17,6 +17,20 @@
 
 namespace cricket {
 
+// static
+absl::string_view Candidate::TypeToString(Type type) {
+  switch (type) {
+    case Type::kLocal:
+      return "local";
+    case Type::kStun:
+      return "stun";
+    case Type::kPrflx:
+      return "prflx";
+    case Type::kRelay:
+      return "relay";
+  }
+}
+
 Candidate::Candidate()
     : id_(rtc::CreateRandomString(8)),
       component_(0),
@@ -33,7 +47,7 @@ Candidate::Candidate(int component,
                      uint32_t priority,
                      absl::string_view username,
                      absl::string_view password,
-                     absl::string_view type,
+                     Candidate::Type type,
                      uint32_t generation,
                      absl::string_view foundation,
                      uint16_t network_id,
@@ -81,9 +95,10 @@ std::string Candidate::ToStringInternal(bool sensitive) const {
   std::string related_address = sensitive ? related_address_.ToSensitiveString()
                                           : related_address_.ToString();
   ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address << ":" << username_ << ":" << password_ << ":"
-      << network_id_ << ":" << network_cost_ << ":" << generation_ << "]";
+      << ":" << protocol_ << ":" << priority_ << ":" << address << ":"
+      << TypeToString(type_) << ":" << related_address << ":" << username_
+      << ":" << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
+      << generation_ << "]";
   return ost.Release();
 }
 

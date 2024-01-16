@@ -1704,7 +1704,7 @@ void Connection::MaybeUpdateLocalCandidate(StunRequest* request,
   // address.
   local_candidate_.set_related_address(local_candidate_.address());
   local_candidate_.set_foundation(port()->ComputeFoundation(
-      PRFLX_PORT_TYPE, local_candidate_.protocol(),
+      Candidate::Type::kPrflx, local_candidate_.protocol(),
       local_candidate_.relay_protocol(), local_candidate_.address()));
   local_candidate_.set_priority(priority);
   local_candidate_.set_address(addr->GetAddress());

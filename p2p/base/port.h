@@ -207,8 +207,8 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
   // Note that the port type does NOT uniquely identify different subclasses of
   // Port. Use the 2-tuple of the port type AND the protocol (GetProtocol()) to
   // uniquely identify subclasses. Whenever a new subclass of Port introduces a
-  // conflit in the value of the 2-tuple, make sure that the implementation that
-  // relies on this 2-tuple for RTTI is properly changed.
+  // conflict in the value of the 2-tuple, make sure that the implementation
+  // that relies on this 2-tuple for RTTI is properly changed.
   const absl::string_view Type() const override;
   const rtc::Network* Network() const override;
 
@@ -385,7 +385,7 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
   //   then the foundation will be different.  Two candidate pairs with
   //   the same foundation pairs are likely to have similar network
   //   characteristics. Foundations are used in the frozen algorithm.
-  std::string ComputeFoundation(absl::string_view type,
+  std::string ComputeFoundation(Candidate::Type type,
                                 absl::string_view protocol,
                                 absl::string_view relay_protocol,
                                 const rtc::SocketAddress& base_address);
@@ -401,7 +401,7 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
                   absl::string_view protocol,
                   absl::string_view relay_protocol,
                   absl::string_view tcptype,
-                  absl::string_view type,
+                  Candidate::Type type,
                   uint32_t type_preference,
                   uint32_t relay_preference,
                   absl::string_view url,

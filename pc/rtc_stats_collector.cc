@@ -164,17 +164,13 @@ std::string RTCMediaSourceStatsIDFromKindAndAttachment(
   return sb.str();
 }
 
-const char* CandidateTypeToRTCIceCandidateType(const std::string& type) {
-  if (type == cricket::LOCAL_PORT_TYPE)
+absl::string_view CandidateTypeToRTCIceCandidateType(
+    cricket::Candidate::Type type) {
+  if (type == cricket::Candidate::Type::kLocal)
     return "host";
-  if (type == cricket::STUN_PORT_TYPE)
+  if (type == cricket::Candidate::Type::kStun)
     return "srflx";
-  if (type == cricket::PRFLX_PORT_TYPE)
-    return "prflx";
-  if (type == cricket::RELAY_PORT_TYPE)
-    return "relay";
-  RTC_DCHECK_NOTREACHED();
-  return nullptr;
+  return cricket::Candidate::TypeToString(type);
 }
 
 const char* DataStateToRTCDataChannelState(
@@ -2192,16 +2188,6 @@ void RTCStatsCollector::OnSctpDataChannelStateChanged(
       ++internal_record_.data_channels_closed;
     }
   }
-}
-
-const char* CandidateTypeToRTCIceCandidateTypeForTesting(
-    const std::string& type) {
-  return CandidateTypeToRTCIceCandidateType(type);
-}
-
-const char* DataStateToRTCDataChannelStateForTesting(
-    DataChannelInterface::DataState state) {
-  return DataStateToRTCDataChannelState(state);
 }
 
 }  // namespace webrtc

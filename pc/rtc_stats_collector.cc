@@ -354,6 +354,17 @@ double DoubleAudioLevelFromIntAudioLevel(int audio_level) {
   return audio_level / 32767.0;
 }
 
+double DoubleAudioLevelFromUInt8AudioLevel(
+    absl::optional<uint8_t> audio_level) {
+  if (!audio_level.has_value() || audio_level.value() == 127u)
+    return 0.0;
+  RTC_DCHECK_LE(audio_level.value(), 127u);
+  // Reverse the value before converting to double since the dBov values are
+  // negative, but the type is unsigned. Essentially 127u == 0.0 and 0u == 1.0.
+  uint8_t reversed = 127u - audio_level.value();
+  return reversed / 127.0;
+}
+
 // Gets the `codecId` identified by `transport_id` and `codec_params`. If no
 // such `RTCCodecStats` exist yet, create it and add it to `report`.
 std::string GetCodecIdAndMaybeCreateCodecStats(
@@ -476,10 +487,8 @@ std::unique_ptr<RTCInboundRtpStreamStats> CreateInboundAudioStreamStats(
       voice_receiver_info.inserted_samples_for_deceleration;
   inbound_audio->removed_samples_for_acceleration =
       voice_receiver_info.removed_samples_for_acceleration;
-  if (voice_receiver_info.audio_level >= 0) {
-    inbound_audio->audio_level =
-        DoubleAudioLevelFromIntAudioLevel(voice_receiver_info.audio_level);
-  }
+  inbound_audio->audio_level =
+      DoubleAudioLevelFromUInt8AudioLevel(voice_receiver_info.rtp_audio_level);
   inbound_audio->total_audio_energy = voice_receiver_info.total_output_energy;
   inbound_audio->total_samples_duration =
       voice_receiver_info.total_output_duration;

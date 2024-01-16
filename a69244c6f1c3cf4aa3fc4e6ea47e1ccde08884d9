@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85950b37_c2c8c99e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "LGTM mostly small nits around constexpr and concepts",
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa28235e_c36e3194",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "I believe that you can replace each these with std::is_same_v\u003cT, xxx\u003e to remove the ::value",
+      "range": {
+        "startLine": 41,
+        "startChar": 38,
+        "endLine": 41,
+        "endChar": 69
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b0ca722_7794d651",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "Perhaps this should be a concept instead of enable_if instead now that we are on C++20?\n\nhttps://en.cppreference.com/w/cpp/language/constraints\n\n template\u003ctypename T\u003e\n concept SimpleToString \u003d std::same_as\u003cT, int32\u003e || ...;\n \n template\u003cSimpleToString T\u003e\n std::string ValueToString(const T\u0026 value) {...}",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6541b603_7677426b",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "constexpr",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 8
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f56044d_fd9258b8",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "constexpr",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a482ff85_0a58c7e9",
+        "filename": "stats/rtc_stats_member.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "This can be replaced by `return constexpr !std::same_as\u003cstd::string, T\u003e \u0026\u0026 std::std::ranges::range\u003cT\u003e`",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 17
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edb23544_49994702",
+        "filename": "stats/rtc_stats_member.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-16T14:33:29Z",
+      "side": 1,
+      "message": "This can be replaced by `return constexpr std::same_as\u003cstd::string, T\u003e;`",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

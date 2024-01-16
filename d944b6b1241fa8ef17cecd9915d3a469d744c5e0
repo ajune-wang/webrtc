@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "286605ff_01f98f55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-16T14:34:03Z",
+      "side": 1,
+      "message": "Only one nit about documentation in api/",
+      "revId": "d944b6b1241fa8ef17cecd9915d3a469d744c5e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f121aa6_19308253",
+        "filename": "api/stats/attribute.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-16T14:34:03Z",
+      "side": 1,
+      "message": "Since this is the api/ folder, add a function description saying that the result is always parseable as a JSON object.",
+      "revId": "d944b6b1241fa8ef17cecd9915d3a469d744c5e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

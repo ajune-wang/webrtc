@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c95464b6_1ee78fb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19999
+      },
+      "writtenOn": "2024-01-16T07:30:51Z",
+      "side": 1,
+      "message": "CQ dry has passed, can you please add this to the CQ?\n\nThanks!",
+      "revId": "65760b6cd8ea0ceac36506453f63e0b1921a8df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -500,6 +500,7 @@ struct VoiceReceiverInfo : public MediaReceiverInfo {
   int jitter_buffer_preferred_ms = 0;
   int delay_estimate_ms = 0;
   int audio_level = 0;
+  absl::optional<uint8_t> rtp_audio_level;
   // Stats below correspond to similarly-named fields in the WebRTC stats spec.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats
   double total_output_energy = 0.0;

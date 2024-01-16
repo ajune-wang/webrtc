@@ -2165,8 +2165,18 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
 }
 
 TEST_F(RTCStatsCollectorTest, CollectRTCInboundRtpStreamStats_Audio) {
-  cricket::VoiceMediaInfo voice_media_info;
+  // Since audio levels are internally represented in a few different ways,
+  // define a few constants that are derived from the same, most coarse value,
+  // to make sure that they're mathematically comparable.
 
+  // Range: [0, 127], where 127 is silence and 0 is the loudest value.
+  const uint8_t kRtpAudioLevel = 60;
+  // Range: [0.0, 1.0], where 1.0 is loudest.
+  const double kAudioLevel = ((127u - kRtpAudioLevel) / 127.0);
+  // Range: [0, 32767], where 32767 is loudest.
+  const int kIntAudioLevel = static_cast<int>(kAudioLevel * 32767);
+
+  cricket::VoiceMediaInfo voice_media_info;
   voice_media_info.receivers.push_back(cricket::VoiceReceiverInfo());
   voice_media_info.receivers[0].local_stats.push_back(
       cricket::SsrcReceiverInfo());
@@ -2191,7 +2201,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRtpStreamStats_Audio) {
   voice_media_info.receivers[0].concealment_events = 6;
   voice_media_info.receivers[0].inserted_samples_for_deceleration = 7;
   voice_media_info.receivers[0].removed_samples_for_acceleration = 8;
-  voice_media_info.receivers[0].audio_level = 14442;  // [0,32767]
+  voice_media_info.receivers[0].audio_level = kIntAudioLevel;      // [0,32767]
+  voice_media_info.receivers[0].rtp_audio_level = kRtpAudioLevel;  // [0,127]
   voice_media_info.receivers[0].total_output_energy = 10.0;
   voice_media_info.receivers[0].total_output_duration = 11.0;
   voice_media_info.receivers[0].jitter_buffer_flushes = 7;
@@ -2249,7 +2260,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRtpStreamStats_Audio) {
   expected_audio.concealment_events = 6;
   expected_audio.inserted_samples_for_deceleration = 7;
   expected_audio.removed_samples_for_acceleration = 8;
-  expected_audio.audio_level = 14442.0 / 32767.0;  // [0,1]
+  expected_audio.audio_level = kAudioLevel;  // [0,1]
   expected_audio.total_audio_energy = 10.0;
   expected_audio.total_samples_duration = 11.0;
   expected_audio.jitter_buffer_flushes = 7;

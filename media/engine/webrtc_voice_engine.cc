@@ -2560,6 +2560,7 @@ bool WebRtcVoiceReceiveChannel::GetStats(VoiceMediaReceiveInfo* info,
     rinfo.jitter_buffer_preferred_ms = stats.jitter_buffer_preferred_ms;
     rinfo.delay_estimate_ms = stats.delay_estimate_ms;
     rinfo.audio_level = stats.audio_level;
+    rinfo.rtp_audio_level = stats.rtp_audio_level;
     rinfo.total_output_energy = stats.total_output_energy;
     rinfo.total_samples_received = stats.total_samples_received;
     rinfo.total_output_duration = stats.total_output_duration;

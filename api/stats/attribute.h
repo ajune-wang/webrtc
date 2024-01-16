@@ -16,11 +16,15 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "absl/types/variant.h"
-#include "api/stats/rtc_stats_member.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
+
+template <typename T>
+using RTCStatsMember = absl::optional<T>;
 
 // A light-weight wrapper of an RTCStats attribute (an individual metric).
 class RTC_EXPORT Attribute {

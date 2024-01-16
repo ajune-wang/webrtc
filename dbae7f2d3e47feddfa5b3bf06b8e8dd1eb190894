@@ -34,6 +34,41 @@
       "parentUuid": "b6e9a172_e13b29bb",
       "revId": "dbae7f2d3e47feddfa5b3bf06b8e8dd1eb190894",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da928b53_db964351",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-16T14:35:13Z",
+      "side": 1,
+      "message": "The cases I see are:\n- Temporal and spatial when DD is present\n- Temporal and spatial under VP8 without DD\n- Temporal and spatial under VP9 without DD\n\nI\u0027d also expect to see these being pulled from the encoded frame (meaning that it needs to go around an encode/decode cycle), not from the (pre-parsed) metadata. That\u0027s things that are hard to test in WPT; WPT mostly doesn\u0027t see those things, so WPT is not the right level.",
+      "parentUuid": "5c5dd40e_03aaccdc",
+      "revId": "dbae7f2d3e47feddfa5b3bf06b8e8dd1eb190894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23325610_473d1f79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-16T14:35:13Z",
+      "side": 1,
+      "message": "Pushing out a comment that languished in my drafts folder...",
+      "revId": "dbae7f2d3e47feddfa5b3bf06b8e8dd1eb190894",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

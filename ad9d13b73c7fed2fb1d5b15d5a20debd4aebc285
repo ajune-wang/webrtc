@@ -83,6 +83,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "597c9569_06ec1e5b",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-01-17T10:07:09Z",
+      "side": 1,
+      "message": "This is implemented intentionally only to mark current packet(payload) as part of a keyframe(i-frame), so if none of them are received, components after depacketizer will be sure that we\u0027re not ready to construct any frame for downlink components.\n\nJitter buffer after the depacketizer will update the frame type at frame level when it has more knowledge of packet receiving history.\n\nTheoretically, all the BLA/CRA/IDR types can be a sync-point if VPS/SPS/PPS has been sent to decoder previously. They\u0027re all intra-coded so not relying other pictures for decoding.\nIf VPS/PPS/SPS has not been sent to decoder, only IDR_N_LP and IDR_W_RADL is decodable(HEVC RTP spec requires VPS/SPS/PPS to be in IDR_N_LP/IDR_W_RADL pictures, but not mandate that for BLA/CRA pictures.",
+      "parentUuid": "5f7734de_f51b4ca9",
+      "range": {
+        "startLine": 146,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 42
+      },
+      "revId": "ad9d13b73c7fed2fb1d5b15d5a20debd4aebc285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44998b6f_0e592c4a",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265_unittest.cc",
         "patchSetId": 12

@@ -44,19 +44,22 @@ class RTCChildStats : public RTCStats {
   WEBRTC_RTCSTATS_DECL();
 
   RTCChildStats(const std::string& id, Timestamp timestamp)
-      : RTCStats(id, timestamp), child_int("childInt") {}
+      : RTCStats(id, timestamp) {}
 
   RTCStatsMember<int32_t> child_int;
 };
 
-WEBRTC_RTCSTATS_IMPL(RTCChildStats, RTCStats, "child-stats", &child_int)
+WEBRTC_RTCSTATS_IMPL(RTCChildStats,
+                     RTCStats,
+                     "child-stats",
+                     AttributeInit("childInt", &child_int))
 
 class RTCGrandChildStats : public RTCChildStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
   RTCGrandChildStats(const std::string& id, Timestamp timestamp)
-      : RTCChildStats(id, timestamp), grandchild_int("grandchildInt") {}
+      : RTCChildStats(id, timestamp) {}
 
   RTCStatsMember<int32_t> grandchild_int;
 };
@@ -64,7 +67,7 @@ class RTCGrandChildStats : public RTCChildStats {
 WEBRTC_RTCSTATS_IMPL(RTCGrandChildStats,
                      RTCChildStats,
                      "grandchild-stats",
-                     &grandchild_int)
+                     AttributeInit("grandchildInt", &grandchild_int))
 
 TEST(RTCStatsTest, RTCStatsAndAttributes) {
   RTCTestStats stats("testId", Timestamp::Micros(42));
@@ -104,7 +107,7 @@ TEST(RTCStatsTest, RTCStatsAndAttributes) {
   stats.m_sequence_bool = sequence_bool;
   stats.m_sequence_int32 = sequence_int32;
   stats.m_sequence_uint32 = sequence_uint32;
-  EXPECT_FALSE(stats.m_sequence_int64.is_defined());
+  EXPECT_FALSE(stats.m_sequence_int64.has_value());
   stats.m_sequence_int64 = sequence_int64;
   stats.m_sequence_uint64 = sequence_uint64;
   stats.m_sequence_double = sequence_double;
@@ -379,8 +382,8 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   // "mUint32" should not be part of the generated JSON object.
   int m_uint32;
   int m_uint64;
-  EXPECT_FALSE(stats.m_uint32.is_defined());
-  EXPECT_FALSE(stats.m_uint64.is_defined());
+  EXPECT_FALSE(stats.m_uint32.has_value());
+  EXPECT_FALSE(stats.m_uint64.has_value());
   EXPECT_FALSE(rtc::GetIntFromJsonObject(json_output, "mUint32", &m_uint32));
   EXPECT_FALSE(rtc::GetIntFromJsonObject(json_output, "mUint64", &m_uint64));
 
@@ -456,45 +459,50 @@ TEST(RTCStatsTest, IsString) {
   EXPECT_FALSE(stats.m_map_string_double.is_string());
 }
 
-TEST(RTCStatsTest, ValueToString) {
+TEST(RTCStatsTest, AttributeToString) {
   RTCTestStats stats("statsId", Timestamp::Micros(42));
   stats.m_bool = true;
-  EXPECT_EQ("true", stats.m_bool.ValueToString());
+  EXPECT_EQ("true", stats.GetAttribute(stats.m_bool).ToString());
 
   stats.m_string = "foo";
-  EXPECT_EQ("foo", stats.m_string.ValueToString());
+  EXPECT_EQ("foo", stats.GetAttribute(stats.m_string).ToString());
   stats.m_int32 = -32;
-  EXPECT_EQ("-32", stats.m_int32.ValueToString());
+  EXPECT_EQ("-32", stats.GetAttribute(stats.m_int32).ToString());
   stats.m_uint32 = 32;
-  EXPECT_EQ("32", stats.m_uint32.ValueToString());
+  EXPECT_EQ("32", stats.GetAttribute(stats.m_uint32).ToString());
   stats.m_int64 = -64;
-  EXPECT_EQ("-64", stats.m_int64.ValueToString());
+  EXPECT_EQ("-64", stats.GetAttribute(stats.m_int64).ToString());
   stats.m_uint64 = 64;
-  EXPECT_EQ("64", stats.m_uint64.ValueToString());
+  EXPECT_EQ("64", stats.GetAttribute(stats.m_uint64).ToString());
   stats.m_double = 0.5;
-  EXPECT_EQ("0.5", stats.m_double.ValueToString());
+  EXPECT_EQ("0.5", stats.GetAttribute(stats.m_double).ToString());
   stats.m_sequence_bool = {true, false};
-  EXPECT_EQ("[true,false]", stats.m_sequence_bool.ValueToString());
+  EXPECT_EQ("[true,false]",
+            stats.GetAttribute(stats.m_sequence_bool).ToString());
   stats.m_sequence_int32 = {-32, 32};
-  EXPECT_EQ("[-32,32]", stats.m_sequence_int32.ValueToString());
+  EXPECT_EQ("[-32,32]", stats.GetAttribute(stats.m_sequence_int32).ToString());
   stats.m_sequence_uint32 = {64, 32};
-  EXPECT_EQ("[64,32]", stats.m_sequence_uint32.ValueToString());
+  EXPECT_EQ("[64,32]", stats.GetAttribute(stats.m_sequence_uint32).ToString());
   stats.m_sequence_int64 = {-64, 32};
-  EXPECT_EQ("[-64,32]", stats.m_sequence_int64.ValueToString());
+  EXPECT_EQ("[-64,32]", stats.GetAttribute(stats.m_sequence_int64).ToString());
   stats.m_sequence_uint64 = {16, 32};
-  EXPECT_EQ("[16,32]", stats.m_sequence_uint64.ValueToString());
+  EXPECT_EQ("[16,32]", stats.GetAttribute(stats.m_sequence_uint64).ToString());
   stats.m_sequence_double = {0.5, 0.25};
-  EXPECT_EQ("[0.5,0.25]", stats.m_sequence_double.ValueToString());
+  EXPECT_EQ("[0.5,0.25]",
+            stats.GetAttribute(stats.m_sequence_double).ToString());
   stats.m_sequence_string = {"foo", "bar"};
-  EXPECT_EQ("[\"foo\",\"bar\"]", stats.m_sequence_string.ValueToString());
+  EXPECT_EQ("[\"foo\",\"bar\"]",
+            stats.GetAttribute(stats.m_sequence_string).ToString());
   stats.m_map_string_uint64 = std::map<std::string, uint64_t>();
   stats.m_map_string_uint64->emplace("foo", 32);
   stats.m_map_string_uint64->emplace("bar", 64);
-  EXPECT_EQ("{bar:64,foo:32}", stats.m_map_string_uint64.ValueToString());
+  EXPECT_EQ("{\"bar\":64,\"foo\":32}",
+            stats.GetAttribute(stats.m_map_string_uint64).ToString());
   stats.m_map_string_double = std::map<std::string, double>();
   stats.m_map_string_double->emplace("foo", 0.5);
   stats.m_map_string_double->emplace("bar", 0.25);
-  EXPECT_EQ("{bar:0.25,foo:0.5}", stats.m_map_string_double.ValueToString());
+  EXPECT_EQ("{\"bar\":0.25,\"foo\":0.5}",
+            stats.GetAttribute(stats.m_map_string_double).ToString());
 }
 
 // Death tests.
@@ -504,7 +512,7 @@ TEST(RTCStatsTest, ValueToString) {
 
 TEST(RTCStatsDeathTest, ValueOfUndefinedMember) {
   RTCTestStats stats("testId", Timestamp::Micros(0));
-  EXPECT_FALSE(stats.m_int32.is_defined());
+  EXPECT_FALSE(stats.m_int32.has_value());
   EXPECT_DEATH(*stats.m_int32, "");
 }
 

@@ -10,8 +10,13 @@
 
 #include "api/stats/attribute.h"
 
+#include <string>
+
 #include "absl/types/variant.h"
+#include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/string_encode.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 
@@ -30,69 +35,102 @@ struct VisitIsSequence {
   }
 };
 
+// Converts the attribute to string in a JSON-compatible way.
+struct VisitToString {
+  template <typename T,
+            typename std::enable_if_t<std::is_same<T, int32_t>::value ||
+                                          std::is_same<T, uint32_t>::value ||
+                                          std::is_same<T, bool>::value ||
+                                          std::is_same<T, std::string>::value,
+                                      bool> = true>
+  std::string ValueToString(const T& value) {
+    return rtc::ToString(value);
+  }
+  // Convert 64-bit integers to doubles before converting to string because JSON
+  // represents all numbers as floating points with ~15 digits of precision.
+  template <typename T,
+            typename std::enable_if_t<std::is_same<T, int64_t>::value ||
+                                          std::is_same<T, uint64_t>::value ||
+                                          std::is_same<T, double>::value,
+                                      bool> = true>
+  std::string ValueToString(const T& value) {
+    char buf[32];
+    const int len = std::snprintf(&buf[0], arraysize(buf), "%.16g",
+                                  static_cast<double>(value));
+    RTC_DCHECK_LE(len, arraysize(buf));
+    return std::string(&buf[0], len);
+  }
+
+  // Vector attributes.
+  template <typename T>
+  std::string operator()(const RTCStatsMember<std::vector<T>>* attribute) {
+    rtc::StringBuilder sb;
+    sb << "[";
+    const char* separator = "";
+    bool element_is_string = std::is_same<T, std::string>::value;
+    for (const T& element : attribute->value()) {
+      sb << separator;
+      if (element_is_string) {
+        sb << "\"";
+      }
+      sb << ValueToString(element);
+      if (element_is_string) {
+        sb << "\"";
+      }
+      separator = ",";
+    }
+    sb << "]";
+    return sb.Release();
+  }
+  // Map attributes.
+  template <typename T>
+  std::string operator()(
+      const RTCStatsMember<std::map<std::string, T>>* attribute) {
+    rtc::StringBuilder sb;
+    sb << "{";
+    const char* separator = "";
+    bool element_is_string = std::is_same<T, std::string>::value;
+    for (const auto& pair : attribute->value()) {
+      sb << separator;
+      sb << "\"" << pair.first << "\":";
+      if (element_is_string) {
+        sb << "\"";
+      }
+      sb << ValueToString(pair.second);
+      if (element_is_string) {
+        sb << "\"";
+      }
+      separator = ",";
+    }
+    sb << "}";
+    return sb.Release();
+  }
+  // Simple attributes.
+  template <typename T>
+  std::string operator()(const RTCStatsMember<T>* attribute) {
+    return ValueToString(attribute->value());
+  }
+};
+
 struct VisitIsEqual {
   template <typename T>
   bool operator()(const RTCStatsMember<T>* attribute) {
-    return attribute->IsEqual(other);
+    if (!other.holds_alternative<T>()) {
+      return false;
+    }
+    absl::optional<T> attribute_as_optional =
+        attribute->has_value() ? absl::optional<T>(attribute->value())
+                               : absl::nullopt;
+    return attribute_as_optional == other.as_optional<T>();
   }
 
-  const RTCStatsMemberInterface& other;
+  const Attribute& other;
 };
 
 }  // namespace
 
-Attribute::~Attribute() {}
-
-// static
-Attribute Attribute::FromMemberInterface(
-    const RTCStatsMemberInterface* member) {
-  switch (member->type()) {
-    case RTCStatsMemberInterface::Type::kBool:
-      return Attribute(&member->cast_to<RTCStatsMember<bool>>());
-    case RTCStatsMemberInterface::Type::kInt32:
-      return Attribute(&member->cast_to<RTCStatsMember<int32_t>>());
-    case RTCStatsMemberInterface::Type::kUint32:
-      return Attribute(&member->cast_to<RTCStatsMember<uint32_t>>());
-    case RTCStatsMemberInterface::Type::kInt64:
-      return Attribute(&member->cast_to<RTCStatsMember<int64_t>>());
-    case RTCStatsMemberInterface::Type::kUint64:
-      return Attribute(&member->cast_to<RTCStatsMember<uint64_t>>());
-    case RTCStatsMemberInterface::Type::kDouble:
-      return Attribute(&member->cast_to<RTCStatsMember<double>>());
-    case RTCStatsMemberInterface::Type::kString:
-      return Attribute(&member->cast_to<RTCStatsMember<std::string>>());
-    case RTCStatsMemberInterface::Type::kSequenceBool:
-      return Attribute(&member->cast_to<RTCStatsMember<std::vector<bool>>>());
-    case RTCStatsMemberInterface::Type::kSequenceInt32:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::vector<int32_t>>>());
-    case RTCStatsMemberInterface::Type::kSequenceUint32:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::vector<uint32_t>>>());
-    case RTCStatsMemberInterface::Type::kSequenceInt64:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::vector<int64_t>>>());
-    case RTCStatsMemberInterface::Type::kSequenceUint64:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::vector<uint64_t>>>());
-    case RTCStatsMemberInterface::Type::kSequenceDouble:
-      return Attribute(&member->cast_to<RTCStatsMember<std::vector<double>>>());
-    case RTCStatsMemberInterface::Type::kSequenceString:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::vector<std::string>>>());
-    case RTCStatsMemberInterface::Type::kMapStringUint64:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::map<std::string, uint64_t>>>());
-    case RTCStatsMemberInterface::Type::kMapStringDouble:
-      return Attribute(
-          &member->cast_to<RTCStatsMember<std::map<std::string, double>>>());
-    default:
-      RTC_CHECK_NOTREACHED();
-  }
-}
-
 const char* Attribute::name() const {
-  return absl::visit([](const auto* attr) { return attr->name(); }, attribute_);
+  return name_;
 }
 
 const Attribute::StatVariant& Attribute::as_variant() const {
@@ -104,18 +142,6 @@ bool Attribute::has_value() const {
                      attribute_);
 }
 
-RTCStatsMemberInterface::Type Attribute::type() const {
-  return absl::visit([](const auto* attr) { return attr->type(); }, attribute_);
-}
-
-const RTCStatsMemberInterface* Attribute::member_ptr() const {
-  return absl::visit(
-      [](const auto* attr) {
-        return static_cast<const RTCStatsMemberInterface*>(attr);
-      },
-      attribute_);
-}
-
 bool Attribute::is_sequence() const {
   return absl::visit(VisitIsSequence(), attribute_);
 }
@@ -125,23 +151,23 @@ bool Attribute::is_string() const {
       attribute_);
 }
 
-bool Attribute::is_defined() const {
-  return absl::visit([](const auto* attr) { return attr->is_defined(); },
-                     attribute_);
+std::string Attribute::ToString() const {
+  if (!has_value()) {
+    return "null";
+  }
+  return absl::visit(VisitToString(), attribute_);
 }
 
-std::string Attribute::ValueToString() const {
-  return absl::visit([](const auto* attr) { return attr->ValueToString(); },
-                     attribute_);
+bool Attribute::operator==(const Attribute& other) const {
+  return absl::visit(VisitIsEqual{.other = other}, attribute_);
 }
 
-std::string Attribute::ValueToJson() const {
-  return absl::visit([](const auto* attr) { return attr->ValueToJson(); },
-                     attribute_);
+bool Attribute::operator!=(const Attribute& other) const {
+  return !(*this == other);
 }
 
-bool Attribute::IsEqual(const RTCStatsMemberInterface& other) const {
-  return absl::visit(VisitIsEqual{.other = *other.member_ptr()}, attribute_);
-}
+AttributeInit::AttributeInit(const char* name,
+                             const Attribute::StatVariant& variant)
+    : name(name), variant(variant) {}
 
 }  // namespace webrtc

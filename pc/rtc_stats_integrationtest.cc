@@ -228,9 +228,10 @@ class RTCStatsVerifier {
 
   template <typename T>
   void TestAttributeIsUndefined(const RTCStatsMember<T>& field) {
+    Attribute attribute = stats_->GetAttribute(field);
     EXPECT_FALSE(field.has_value())
-        << stats_->type() << "." << stats_->GetAttribute(field).name() << "["
-        << stats_->id() << "] was defined (" << field.ValueToString() << ").";
+        << stats_->type() << "." << attribute.name() << "[" << stats_->id()
+        << "] was defined (" << attribute.ToString() << ").";
     MarkAttributeTested(field, !field.has_value());
   }
 
@@ -246,7 +247,7 @@ class RTCStatsVerifier {
     bool is_positive = field.value() > T(0);
     EXPECT_TRUE(is_positive)
         << stats_->type() << "." << attribute.name() << "[" << stats_->id()
-        << "] was not positive (" << attribute.ValueToString() << ").";
+        << "] was not positive (" << attribute.ToString() << ").";
     MarkAttributeTested(field, is_positive);
   }
 
@@ -262,7 +263,7 @@ class RTCStatsVerifier {
     bool is_non_negative = field.value() >= T(0);
     EXPECT_TRUE(is_non_negative)
         << stats_->type() << "." << attribute.name() << "[" << stats_->id()
-        << "] was not non-negative (" << attribute.ValueToString() << ").";
+        << "] was not non-negative (" << attribute.ToString() << ").";
     MarkAttributeTested(field, is_non_negative);
   }
 
@@ -323,8 +324,7 @@ class RTCStatsVerifier {
         << stats_->type() << "." << attribute.name()
         << " is not a reference to an "
            "existing dictionary of type "
-        << expected_type << " (value: "
-        << (field.has_value() ? attribute.ValueToString() : "null") << ").";
+        << expected_type << " (value: " << attribute.ToString() << ").";
     MarkAttributeTested(field, valid_reference);
   }
 
@@ -638,7 +638,7 @@ class RTCStatsReportVerifier {
         inbound_stream.header_bytes_received);
     verifier.TestAttributeIsDefined(
         inbound_stream.last_packet_received_timestamp);
-    if (inbound_stream.frames_received.ValueOrDefault(0) > 0) {
+    if (inbound_stream.frames_received.value_or(0) > 0) {
       verifier.TestAttributeIsNonNegative<uint32_t>(inbound_stream.frame_width);
       verifier.TestAttributeIsNonNegative<uint32_t>(
           inbound_stream.frame_height);

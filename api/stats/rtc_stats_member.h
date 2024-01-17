@@ -53,11 +53,10 @@ class RTCStatsMemberInterface {
 
   virtual ~RTCStatsMemberInterface() {}
 
-  const char* name() const { return name_; }
   virtual Type type() const = 0;
   virtual bool is_sequence() const = 0;
   virtual bool is_string() const = 0;
-  virtual bool is_defined() const = 0;
+  virtual bool has_value() const = 0;
   // Type and value comparator. The names are not compared. These operators are
   // exposed for testing.
   bool operator==(const RTCStatsMemberInterface& other) const {
@@ -66,13 +65,6 @@ class RTCStatsMemberInterface {
   bool operator!=(const RTCStatsMemberInterface& other) const {
     return !(*this == other);
   }
-  virtual std::string ValueToString() const = 0;
-  // This is the same as ValueToString except for kInt64 and kUint64 types,
-  // where the value is represented as a double instead of as an integer.
-  // Since JSON stores numbers as floating point numbers, very large integers
-  // cannot be accurately represented, so we prefer to display them as doubles
-  // instead.
-  virtual std::string ValueToJson() const = 0;
 
   virtual const RTCStatsMemberInterface* member_ptr() const { return this; }
   template <typename T>
@@ -82,11 +74,7 @@ class RTCStatsMemberInterface {
   }
 
  protected:
-  explicit RTCStatsMemberInterface(const char* name) : name_(name) {}
-
   virtual bool IsEqual(const RTCStatsMemberInterface& other) const = 0;
-
-  const char* const name_;
 };
 
 // Template implementation of `RTCStatsMemberInterface`.
@@ -95,28 +83,22 @@ class RTCStatsMemberInterface {
 template <typename T>
 class RTCStatsMember : public RTCStatsMemberInterface {
  public:
-  explicit RTCStatsMember(const char* name)
-      : RTCStatsMemberInterface(name), value_() {}
-  RTCStatsMember(const char* name, const T& value)
-      : RTCStatsMemberInterface(name), value_(value) {}
-  RTCStatsMember(const char* name, T&& value)
-      : RTCStatsMemberInterface(name), value_(std::move(value)) {}
-  explicit RTCStatsMember(const RTCStatsMember<T>& other)
-      : RTCStatsMemberInterface(other.name_), value_(other.value_) {}
-  explicit RTCStatsMember(RTCStatsMember<T>&& other)
-      : RTCStatsMemberInterface(other.name_), value_(std::move(other.value_)) {}
+  RTCStatsMember() {}
+  explicit RTCStatsMember(const T& value) : value_(value) {}
 
   static Type StaticType();
   Type type() const override { return StaticType(); }
   bool is_sequence() const override;
   bool is_string() const override;
-  bool is_defined() const override { return value_.has_value(); }
-  std::string ValueToString() const override;
-  std::string ValueToJson() const override;
 
   template <typename U>
-  inline T ValueOrDefault(U default_value) const {
+  inline T value_or(U default_value) const {
     return value_.value_or(default_value);
+  }
+  // TODO(https://crbug.com/webrtc/15164): Migrate to value_or() and delete.
+  template <typename U>
+  inline T ValueOrDefault(U default_value) const {
+    return value_or(default_value);
   }
 
   // Assignment operators.
@@ -132,7 +114,7 @@ class RTCStatsMember : public RTCStatsMemberInterface {
   // Getter methods that look the same as absl::optional<T>. Please prefer these
   // in order to unblock replacing RTCStatsMember<T> with absl::optional<T> in
   // the future (https://crbug.com/webrtc/15164).
-  bool has_value() const { return value_.has_value(); }
+  bool has_value() const override { return value_.has_value(); }
   const T& value() const { return value_.value(); }
   T& value() { return value_.value(); }
   T& operator*() {
@@ -178,10 +160,6 @@ typedef std::map<std::string, double> MapStringDouble;
   RTC_EXPORT bool RTCStatsMember<T>::is_sequence() const;                   \
   template <>                                                               \
   RTC_EXPORT bool RTCStatsMember<T>::is_string() const;                     \
-  template <>                                                               \
-  RTC_EXPORT std::string RTCStatsMember<T>::ValueToString() const;          \
-  template <>                                                               \
-  RTC_EXPORT std::string RTCStatsMember<T>::ValueToJson() const;            \
   extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)             \
       RTCStatsMember<T>
 

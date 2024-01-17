@@ -888,12 +888,12 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
 
   VideoSendStream* send_stream = new VideoSendStream(
       &env_.clock(), num_cpu_cores_, &env_.task_queue_factory(),
-      network_thread_, call_stats_->AsRtcpRttStats(), transport_send_.get(),
+      call_stats_->AsRtcpRttStats(), transport_send_.get(),
       config_.encode_metronome, bitrate_allocator_.get(),
       video_send_delay_stats_.get(), &env_.event_log(), std::move(config),
       std::move(encoder_config), suspended_video_send_ssrcs_,
       suspended_video_payload_states_, std::move(fec_controller),
-      env_.field_trials());
+      env_.field_trials(), VideoStreamEncoderFactory());
 
   for (uint32_t ssrc : ssrcs) {
     RTC_DCHECK(video_send_ssrcs_.find(ssrc) == video_send_ssrcs_.end());

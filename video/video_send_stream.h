@@ -30,6 +30,7 @@
 #include "video/send_delay_stats.h"
 #include "video/send_statistics_proxy.h"
 #include "video/video_send_stream_impl.h"
+#include "video/video_stream_encoder_factory.h"
 #include "video/video_stream_encoder_interface.h"
 
 namespace webrtc {
@@ -60,7 +61,6 @@ class VideoSendStream : public webrtc::VideoSendStream {
       Clock* clock,
       int num_cpu_cores,
       TaskQueueFactory* task_queue_factory,
-      TaskQueueBase* network_queue,
       RtcpRttStats* call_stats,
       RtpTransportControllerSendInterface* transport,
       Metronome* metronome,
@@ -72,7 +72,8 @@ class VideoSendStream : public webrtc::VideoSendStream {
       const std::map<uint32_t, RtpState>& suspended_ssrcs,
       const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
       std::unique_ptr<FecController> fec_controller,
-      const FieldTrialsView& field_trials);
+      const FieldTrialsView& field_trials,
+      VideoStreamEncoderFactory video_stream_encoder_factory);
 
   ~VideoSendStream() override;
 

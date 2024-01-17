@@ -105,31 +105,6 @@ RtpSenderObservers CreateObservers(RtcpRttStats* call_stats,
   return observers;
 }
 
-std::unique_ptr<VideoStreamEncoder> CreateVideoStreamEncoder(
-    Clock* clock,
-    int num_cpu_cores,
-    TaskQueueFactory* task_queue_factory,
-    SendStatisticsProxy* stats_proxy,
-    const VideoStreamEncoderSettings& encoder_settings,
-    VideoStreamEncoder::BitrateAllocationCallbackType
-        bitrate_allocation_callback_type,
-    const FieldTrialsView& field_trials,
-    Metronome* metronome,
-    webrtc::VideoEncoderFactory::EncoderSelectorInterface* encoder_selector) {
-  std::unique_ptr<TaskQueueBase, TaskQueueDeleter> encoder_queue =
-      task_queue_factory->CreateTaskQueue("EncoderQueue",
-                                          TaskQueueFactory::Priority::NORMAL);
-  TaskQueueBase* encoder_queue_ptr = encoder_queue.get();
-  return std::make_unique<VideoStreamEncoder>(
-      clock, num_cpu_cores, stats_proxy, encoder_settings,
-      std::make_unique<OveruseFrameDetector>(stats_proxy),
-      FrameCadenceAdapterInterface::Create(
-          clock, encoder_queue_ptr, metronome,
-          /*worker_queue=*/TaskQueueBase::Current(), field_trials),
-      std::move(encoder_queue), bitrate_allocation_callback_type, field_trials,
-      encoder_selector);
-}
-
 }  // namespace
 
 namespace internal {
@@ -138,7 +113,6 @@ VideoSendStream::VideoSendStream(
     Clock* clock,
     int num_cpu_cores,
     TaskQueueFactory* task_queue_factory,
-    TaskQueueBase* network_queue,
     RtcpRttStats* call_stats,
     RtpTransportControllerSendInterface* transport,
     Metronome* metronome,
@@ -150,17 +124,18 @@ VideoSendStream::VideoSendStream(
     const std::map<uint32_t, RtpState>& suspended_ssrcs,
     const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
     std::unique_ptr<FecController> fec_controller,
-    const FieldTrialsView& field_trials)
+    const FieldTrialsView& field_trials,
+    VideoStreamEncoderFactory video_stream_encoder_factory)
     : transport_(transport),
       stats_proxy_(clock, config, encoder_config.content_type, field_trials),
       send_packet_observer_(&stats_proxy_, send_delay_stats),
       config_(std::move(config)),
       content_type_(encoder_config.content_type),
-      video_stream_encoder_(CreateVideoStreamEncoder(
-          clock,
+      video_stream_encoder_(video_stream_encoder_factory.Create(
+          *clock,
           num_cpu_cores,
-          task_queue_factory,
-          &stats_proxy_,
+          *task_queue_factory,
+          stats_proxy_,
           config_.encoder_settings,
           GetBitrateAllocationCallbackType(config_, field_trials),
           field_trials,

@@ -25,9 +25,9 @@ namespace rtc {
 class SSLCertificateVerifier;
 class AsyncResolverInterface;
 
-struct PacketSocketTcpOptions {
-  PacketSocketTcpOptions() = default;
-  ~PacketSocketTcpOptions() = default;
+struct PacketSocketOptions {
+  PacketSocketOptions() = default;
+  ~PacketSocketOptions() = default;
 
   int opts = 0;
   std::vector<std::string> tls_alpn_protocols;
@@ -43,7 +43,7 @@ class RTC_EXPORT PacketSocketFactory {
   enum Options {
     OPT_STUN = 0x04,
 
-    // The TLS options below are mutually exclusive.
+    // The TLS and DTLS options below are mutually exclusive.
     OPT_TLS = 0x02,           // Real and secure TLS.
     OPT_TLS_FAKE = 0x01,      // Fake TLS with a dummy SSL handshake.
     OPT_TLS_INSECURE = 0x08,  // Insecure TLS without certificate validation.
@@ -57,7 +57,18 @@ class RTC_EXPORT PacketSocketFactory {
 
   virtual AsyncPacketSocket* CreateUdpSocket(const SocketAddress& address,
                                              uint16_t min_port,
-                                             uint16_t max_port) = 0;
+                                             uint16_t max_port) {
+    return CreateUdpSocket(address, SocketAddress(), min_port, max_port,
+                           PacketSocketOptions());
+  }
+
+  virtual AsyncPacketSocket* CreateUdpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      uint16_t min_port,
+      uint16_t max_port,
+      const PacketSocketOptions& options = PacketSocketOptions()) = 0;
+
   virtual AsyncListenSocket* CreateServerTcpSocket(
       const SocketAddress& local_address,
       uint16_t min_port,
@@ -69,7 +80,7 @@ class RTC_EXPORT PacketSocketFactory {
       const SocketAddress& remote_address,
       const ProxyInfo& proxy_info,
       const std::string& user_agent,
-      const PacketSocketTcpOptions& tcp_options) = 0;
+      const PacketSocketOptions& options) = 0;
 
   virtual std::unique_ptr<webrtc::AsyncDnsResolverInterface>
   CreateAsyncDnsResolver() = 0;

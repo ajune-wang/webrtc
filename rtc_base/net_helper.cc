@@ -18,12 +18,17 @@ const char UDP_PROTOCOL_NAME[] = "udp";
 const char TCP_PROTOCOL_NAME[] = "tcp";
 const char SSLTCP_PROTOCOL_NAME[] = "ssltcp";
 const char TLS_PROTOCOL_NAME[] = "tls";
+const char DTLS_PROTOCOL_NAME[] = "dtls";
 
 int GetProtocolOverhead(absl::string_view protocol) {
   if (protocol == TCP_PROTOCOL_NAME || protocol == SSLTCP_PROTOCOL_NAME) {
     return kTcpHeaderSize;
   } else if (protocol == UDP_PROTOCOL_NAME) {
     return kUdpHeaderSize;
+  } else if (protocol == DTLS_PROTOCOL_NAME) {
+    // 1 /*content_type */ + 2 /*version*/ + 2 /* epoch */ +
+    // 6 /* sequence number */ + 2 /* length */
+    return 13;
   } else {
     // TODO(srte): We should crash on unexpected input and handle TLS correctly.
     return 8;

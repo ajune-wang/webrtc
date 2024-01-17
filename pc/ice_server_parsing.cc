@@ -232,7 +232,11 @@ RTCError ParseIceServerUrl(
   int default_port = kDefaultStunPort;
   if (service_type == ServiceType::TURNS) {
     default_port = kDefaultStunTlsPort;
-    turn_transport_type = cricket::PROTO_TLS;
+    if (turn_transport_type == cricket::PROTO_TCP) {
+      turn_transport_type = cricket::PROTO_TLS;
+    } else if (turn_transport_type == cricket::PROTO_UDP) {
+      turn_transport_type = cricket::PROTO_DTLS;
+    }
   }
 
   if (hoststring.find('@') != absl::string_view::npos) {

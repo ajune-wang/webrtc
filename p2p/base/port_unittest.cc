@@ -1040,9 +1040,12 @@ class FakePacketSocketFactory : public rtc::PacketSocketFactory {
       : next_udp_socket_(NULL), next_server_tcp_socket_(NULL) {}
   ~FakePacketSocketFactory() override {}
 
-  AsyncPacketSocket* CreateUdpSocket(const SocketAddress& address,
-                                     uint16_t min_port,
-                                     uint16_t max_port) override {
+  AsyncPacketSocket* CreateUdpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      uint16_t min_port,
+      uint16_t max_port,
+      const rtc::PacketSocketOptions& options) override {
     EXPECT_TRUE(next_udp_socket_ != NULL);
     AsyncPacketSocket* result = next_udp_socket_;
     next_udp_socket_ = NULL;
@@ -1064,7 +1067,7 @@ class FakePacketSocketFactory : public rtc::PacketSocketFactory {
       const SocketAddress& remote_address,
       const rtc::ProxyInfo& proxy_info,
       const std::string& user_agent,
-      const rtc::PacketSocketTcpOptions& opts) override {
+      const rtc::PacketSocketOptions& opts) override {
     EXPECT_TRUE(next_client_tcp_socket_.has_value());
     AsyncPacketSocket* result = *next_client_tcp_socket_;
     next_client_tcp_socket_ = nullptr;

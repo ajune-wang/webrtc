@@ -66,6 +66,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "075025ea_a5e904fc",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-17T09:20:10Z",
+      "side": 1,
+      "message": "As discussed offline, I will try changing to concept as a separate follow-up CL to unblock CL chain and in case it gets reverted",
+      "parentUuid": "6b0ca722_7794d651",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae1b0b67_39d23e8f",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-17T09:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa28235e_c36e3194",
+      "range": {
+        "startLine": 41,
+        "startChar": 38,
+        "endLine": 41,
+        "endChar": 69
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6541b603_7677426b",
         "filename": "stats/attribute.cc",
         "patchSetId": 3
@@ -77,6 +125,30 @@
       "writtenOn": "2024-01-16T14:33:29Z",
       "side": 1,
       "message": "constexpr",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 8
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3576b1_86a02ada",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-17T09:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6541b603_7677426b",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -100,6 +172,30 @@
       "writtenOn": "2024-01-16T14:33:29Z",
       "side": 1,
       "message": "constexpr",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a243182_73e65b7e",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-17T09:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f56044d_fd9258b8",
       "range": {
         "startLine": 92,
         "startChar": 4,

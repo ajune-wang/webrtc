@@ -245,6 +245,30 @@
       },
       "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42339261_71a81c9d",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T16:26:52Z",
+      "side": 1,
+      "message": "that why I\u0027ve suggested `std::list` instead of `std::vector`\nfor std::list such erase is O(1) instead of O(n)",
+      "parentUuid": "03de205a_d32af291",
+      "range": {
+        "startLine": 1125,
+        "startChar": 0,
+        "endLine": 1130,
+        "endChar": 5
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

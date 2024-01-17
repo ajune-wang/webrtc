@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6821ece_ab3a4d2f",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T16:26:52Z",
+      "side": 1,
+      "message": "nit:\nnew preferred style for TODOs is\nTODO: $link - comment\ni.e. \nTODO: bugs.webrtc.org/15782 - prefer to stash assembled frames instead of individual packets, ...",
+      "revId": "c1668701037863a7987618d80ed602027a498578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d8de2f0_f347be0c",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T16:26:52Z",
+      "side": 1,
+      "message": "would it make sense to assemble frame without parsed DD, and pass it to the frame_transformer when both frame is assembled and full DD information is available?\nmandatory fields have information about frame boundaries and thus enough for assembling frames.",
+      "range": {
+        "startLine": 1116,
+        "startChar": 4,
+        "endLine": 1117,
+        "endChar": 34
+      },
+      "revId": "c1668701037863a7987618d80ed602027a498578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

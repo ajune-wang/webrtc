@@ -112,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6634f633_d6186ed7",
+        "filename": "stats/attribute.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-01-17T09:20:37Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "075025ea_a5e904fc",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6541b603_7677426b",

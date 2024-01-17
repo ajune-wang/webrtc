@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dbfc044_3b45275b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-17T07:25:39Z",
+      "side": 1,
+      "message": "spec change ready. Ideally we can land this shortly after the M122 branch cut on Monday.\n\nSee the CL history for why some tests became obsolete.",
+      "revId": "56ba5993ceb991cdf2ddae1d43c898a2607199ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

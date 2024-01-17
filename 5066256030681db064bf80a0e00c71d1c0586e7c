@@ -41,6 +41,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "320c7e8e_eea4d685",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-17T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309e7ca7_7e827861",
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abffa9e3_40ef0dd0",
@@ -66,6 +84,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e9160e9c_061d1873",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-17T16:14:21Z",
+      "side": 1,
+      "message": "Because we have received the packet, if we decide to drop it or not does not really matter.",
+      "parentUuid": "abffa9e3_40ef0dd0",
+      "range": {
+        "startLine": 1099,
+        "startChar": 0,
+        "endLine": 1102,
+        "endChar": 32
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "adfd591f_bd94e612",
         "filename": "video/rtp_video_stream_receiver2.cc",
         "patchSetId": 6
@@ -77,6 +119,30 @@
       "writtenOn": "2024-01-17T13:03:16Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#TODO_Comments\n“Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect.”",
+      "range": {
+        "startLine": 1113,
+        "startChar": 5,
+        "endLine": 1113,
+        "endChar": 30
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d153a00b_d737913e",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-17T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adfd591f_bd94e612",
       "range": {
         "startLine": 1113,
         "startChar": 5,
@@ -112,6 +178,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b421eade_efb6db78",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-17T16:14:21Z",
+      "side": 1,
+      "message": "The idea is that 100 stashed packets is more than plenty. The added complexity of interacting with the nack module will probably not result in any meaningful improvement.",
+      "parentUuid": "b842a673_f2c79b60",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1121,
+        "endChar": 31
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2ac81405_ef8b40b2",
         "filename": "video/rtp_video_stream_receiver2.cc",
         "patchSetId": 6
@@ -123,6 +213,30 @@
       "writtenOn": "2024-01-17T13:03:16Z",
       "side": 1,
       "message": "rather than recreate vector\u003cPackets\u003e on each incoming packet, may be store stashed_packets in a list:\n```\nfor (auto it \u003d stashed_packets_.begin(); it !\u003d stashed_packets_.end(); ){\n  if (parse_and_insert(*it)) {\n    ++it;  // keep in the stash.\n  } else {\n    it \u003d stashed_packets_.erase(it);\n  }\n}\n```",
+      "range": {
+        "startLine": 1125,
+        "startChar": 0,
+        "endLine": 1130,
+        "endChar": 5
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03de205a_d32af291",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-17T16:14:21Z",
+      "side": 1,
+      "message": "Yes, not creating a new vector every time is much better. I just didn\u0027t want the N^2 complexity of deleting packets like this (maybe do it in reverse?), but it should be rare.\n\nDone",
+      "parentUuid": "2ac81405_ef8b40b2",
       "range": {
         "startLine": 1125,
         "startChar": 0,

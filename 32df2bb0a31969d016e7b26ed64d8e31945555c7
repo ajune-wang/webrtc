@@ -39,6 +39,30 @@
       },
       "revId": "32df2bb0a31969d016e7b26ed64d8e31945555c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7a6cb3_3ce02fcb",
+        "filename": "common_video/h265/h265_bitstream_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2024-01-17T01:36:18Z",
+      "side": 1,
+      "message": "Thanks for the comment, this expression is easier to understand.",
+      "parentUuid": "ec18f839_dc1ad73f",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 46
+      },
+      "revId": "32df2bb0a31969d016e7b26ed64d8e31945555c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

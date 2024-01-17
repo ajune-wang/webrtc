@@ -328,7 +328,6 @@ class RTC_EXPORT StatsReport {
     int int_val() const;
     int64_t int64_val() const;
     float float_val() const;
-    const char* static_string_val() const;
     const std::string& string_val() const;
     bool bool_val() const;
     const Id& id_val() const;

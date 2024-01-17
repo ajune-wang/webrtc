@@ -347,11 +347,6 @@ float StatsReport::Value::float_val() const {
   return value_.float_;
 }
 
-const char* StatsReport::Value::static_string_val() const {
-  RTC_DCHECK_EQ(type_, kStaticString);
-  return value_.static_string_;
-}
-
 const std::string& StatsReport::Value::string_val() const {
   RTC_DCHECK_EQ(type_, kString);
   return *value_.string_;

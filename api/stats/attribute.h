@@ -48,6 +48,10 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   template <typename T>
   explicit Attribute(const RTCStatsMember<T>* attribute)
       : RTCStatsMemberInterface(attribute->name()), attribute_(attribute) {}
+
+  template <typename T>
+  explicit Attribute(const char* name, const RTCStatsMember<T>* attribute)
+      : RTCStatsMemberInterface(name), attribute_(attribute) {}
   ~Attribute() override;
 
   const char* name() const;
@@ -84,7 +88,12 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   StatVariant attribute_;
 };
 
-Attribute MemberToAttribute(const RTCStatsMemberInterface* member);
+struct RTC_EXPORT AttributeInit {
+  AttributeInit(const char* name, const Attribute::StatVariant& variant);
+
+  const char* name;
+  Attribute::StatVariant variant;
+};
 
 }  // namespace webrtc
 

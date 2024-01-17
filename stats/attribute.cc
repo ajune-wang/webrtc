@@ -144,4 +144,8 @@ bool Attribute::IsEqual(const RTCStatsMemberInterface& other) const {
   return absl::visit(VisitIsEqual{.other = *other.member_ptr()}, attribute_);
 }
 
+AttributeInit::AttributeInit(const char* name,
+                             const Attribute::StatVariant& variant)
+    : name(name), variant(variant) {}
+
 }  // namespace webrtc

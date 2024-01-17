@@ -16,39 +16,42 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "absl/types/variant.h"
-#include "api/stats/rtc_stats_member.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 
+// TODO(https://crbug.com/webrtc/15164): Migrate all uses of RTCStatsMember to
+// absl::optional and delete this type alias.
+template <typename T>
+using RTCStatsMember = absl::optional<T>;
+
 // A light-weight wrapper of an RTCStats attribute (an individual metric).
-class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
+class RTC_EXPORT Attribute {
  public:
-  // TODO(https://crbug.com/webrtc/15164): Replace uses of RTCStatsMember<T>
-  // with absl::optional<T> and update these pointer types.
-  typedef absl::variant<const RTCStatsMember<bool>*,
-                        const RTCStatsMember<int32_t>*,
-                        const RTCStatsMember<uint32_t>*,
-                        const RTCStatsMember<int64_t>*,
-                        const RTCStatsMember<uint64_t>*,
-                        const RTCStatsMember<double>*,
-                        const RTCStatsMember<std::string>*,
-                        const RTCStatsMember<std::vector<bool>>*,
-                        const RTCStatsMember<std::vector<int32_t>>*,
-                        const RTCStatsMember<std::vector<uint32_t>>*,
-                        const RTCStatsMember<std::vector<int64_t>>*,
-                        const RTCStatsMember<std::vector<uint64_t>>*,
-                        const RTCStatsMember<std::vector<double>>*,
-                        const RTCStatsMember<std::vector<std::string>>*,
-                        const RTCStatsMember<std::map<std::string, uint64_t>>*,
-                        const RTCStatsMember<std::map<std::string, double>>*>
+  typedef absl::variant<const absl::optional<bool>*,
+                        const absl::optional<int32_t>*,
+                        const absl::optional<uint32_t>*,
+                        const absl::optional<int64_t>*,
+                        const absl::optional<uint64_t>*,
+                        const absl::optional<double>*,
+                        const absl::optional<std::string>*,
+                        const absl::optional<std::vector<bool>>*,
+                        const absl::optional<std::vector<int32_t>>*,
+                        const absl::optional<std::vector<uint32_t>>*,
+                        const absl::optional<std::vector<int64_t>>*,
+                        const absl::optional<std::vector<uint64_t>>*,
+                        const absl::optional<std::vector<double>>*,
+                        const absl::optional<std::vector<std::string>>*,
+                        const absl::optional<std::map<std::string, uint64_t>>*,
+                        const absl::optional<std::map<std::string, double>>*>
       StatVariant;
 
   template <typename T>
-  explicit Attribute(const RTCStatsMember<T>* attribute)
-      : RTCStatsMemberInterface(attribute->name()), attribute_(attribute) {}
-  ~Attribute() override;
+  explicit Attribute(const char* name, const absl::optional<T>* attribute)
+      : name_(name), attribute_(attribute) {}
 
   const char* name() const;
   const StatVariant& as_variant() const;
@@ -56,35 +59,38 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   bool has_value() const;
   template <typename T>
   bool holds_alternative() const {
-    return absl::holds_alternative<const RTCStatsMember<T>*>(attribute_);
+    return absl::holds_alternative<const absl::optional<T>*>(attribute_);
+  }
+  template <typename T>
+  const absl::optional<T>& as_optional() const {
+    RTC_CHECK(holds_alternative<T>());
+    return *absl::get<const absl::optional<T>*>(attribute_);
   }
   template <typename T>
   const T& get() const {
     RTC_CHECK(holds_alternative<T>());
     RTC_CHECK(has_value());
-    return absl::get<const RTCStatsMember<T>*>(attribute_)->value();
+    return absl::get<const absl::optional<T>*>(attribute_)->value();
   }
 
-  static Attribute FromMemberInterface(const RTCStatsMemberInterface* member);
-  // RTCStatsMemberInterface implementation.
-  // TODO(https://crbug.com/webrtc/15164): Delete RTCStatsMemberInterface in
-  // favor of absl::optional<T>.
-  RTCStatsMemberInterface::Type type() const override;
-  bool is_sequence() const override;
-  bool is_string() const override;
-  bool is_defined() const override;
-  std::string ValueToString() const override;
-  std::string ValueToJson() const override;
+  bool is_sequence() const;
+  bool is_string() const;
+  std::string ToString() const;
 
- protected:
-  const RTCStatsMemberInterface* member_ptr() const override;
-  bool IsEqual(const RTCStatsMemberInterface& other) const override;
+  bool operator==(const Attribute& other) const;
+  bool operator!=(const Attribute& other) const;
 
  private:
+  const char* name_;
   StatVariant attribute_;
 };
 
-Attribute MemberToAttribute(const RTCStatsMemberInterface* member);
+struct RTC_EXPORT AttributeInit {
+  AttributeInit(const char* name, const Attribute::StatVariant& variant);
+
+  const char* name;
+  Attribute::StatVariant variant;
+};
 
 }  // namespace webrtc
 

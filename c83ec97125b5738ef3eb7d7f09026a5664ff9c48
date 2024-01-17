@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93869064_9370f0d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T12:20:21Z",
+      "side": 1,
+      "message": "I would expect receiving 1st packet of a key frame would clear nack list, but it seems only continuous frames clear the nack (i.e. only when all packets of a key frame are received nacking older packets would be cleared).\n\nI guess that creates a corner case where this optimization is not useless,\n but feels such case should be rare enough.",
+      "revId": "c83ec97125b5738ef3eb7d7f09026a5664ff9c48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

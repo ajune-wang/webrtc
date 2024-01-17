@@ -69,6 +69,7 @@ const int kPortTimeoutDelay = cricket::STUN_TOTAL_TIMEOUT + 5000;
 
 }  // namespace
 
+// TODO(tommi): Remove.
 // TODO(ronghuawu): Use "local", "srflx", "prflx" and "relay". But this requires
 // the signaling part be updated correspondingly as well.
 const char LOCAL_PORT_TYPE[] = "local";
@@ -99,14 +100,14 @@ const char TCPTYPE_ACTIVE_STR[] = "active";
 const char TCPTYPE_PASSIVE_STR[] = "passive";
 const char TCPTYPE_SIMOPEN_STR[] = "so";
 
-std::string Port::ComputeFoundation(absl::string_view type,
+std::string Port::ComputeFoundation(Candidate::Type type,
                                     absl::string_view protocol,
                                     absl::string_view relay_protocol,
                                     const rtc::SocketAddress& base_address) {
   // TODO(bugs.webrtc.org/14605): ensure IceTiebreaker() is set.
   rtc::StringBuilder sb;
-  sb << type << base_address.ipaddr().ToString() << protocol << relay_protocol
-     << rtc::ToString(IceTiebreaker());
+  sb << Candidate::TypeToString(type) << base_address.ipaddr().ToString()
+     << protocol << relay_protocol << rtc::ToString(IceTiebreaker());
   return rtc::ToString(rtc::ComputeCrc32(sb.Release()));
 }
 
@@ -259,13 +260,13 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       absl::string_view protocol,
                       absl::string_view relay_protocol,
                       absl::string_view tcptype,
-                      absl::string_view type,
+                      Candidate::Type type,
                       uint32_t type_preference,
                       uint32_t relay_preference,
                       absl::string_view url,
                       bool is_final) {
   RTC_DCHECK_RUN_ON(thread_);
-  if (protocol == TCP_PROTOCOL_NAME && type == LOCAL_PORT_TYPE) {
+  if (protocol == TCP_PROTOCOL_NAME && type == Candidate::Type::kLocal) {
     RTC_DCHECK(!tcptype.empty());
   }
 
@@ -300,7 +301,7 @@ bool Port::MaybeObfuscateAddress(Candidate* c,
   if (network_->GetMdnsResponder() == nullptr) {
     return false;
   }
-  if (type != LOCAL_PORT_TYPE) {
+  if (c->get_type() != Candidate::Type::kLocal) {
     return false;
   }
 

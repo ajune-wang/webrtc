@@ -131,6 +131,7 @@ class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
   RTCStatsMember<int32_t> port;
   RTCStatsMember<std::string> protocol;
   RTCStatsMember<std::string> relay_protocol;
+  // TODO(tommi): This could be string_view.
   RTCStatsMember<std::string> candidate_type;
   RTCStatsMember<int32_t> priority;
   RTCStatsMember<std::string> url;

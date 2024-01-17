@@ -238,6 +238,7 @@ TimeSeries CreateRtcpTypeTimeSeries(const std::vector<T>& rtcp_list,
 
 const char kUnknownEnumValue[] = "unknown";
 
+// TODO(tommi): Move to candidate.
 const char kIceCandidateTypeLocal[] = "local";
 const char kIceCandidateTypeStun[] = "stun";
 const char kIceCandidateTypePrflx[] = "prflx";
@@ -257,6 +258,7 @@ const char kNetworkTypeWifi[] = "wifi";
 const char kNetworkTypeVpn[] = "vpn";
 const char kNetworkTypeCellular[] = "cellular";
 
+// TODO(tommi): Move to candidate. Return string_view.
 std::string GetIceCandidateTypeAsString(webrtc::IceCandidateType type) {
   switch (type) {
     case webrtc::IceCandidateType::kLocal:

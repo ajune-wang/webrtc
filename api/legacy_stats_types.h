@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/ref_count.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
@@ -281,6 +282,7 @@ class RTC_EXPORT StatsReport {
     Value(StatsValueName name, float f);
     Value(StatsValueName name, const std::string& value);
     Value(StatsValueName name, const char* value);
+    Value(StatsValueName name, const absl::string_view value);
     Value(StatsValueName name, bool b);
     Value(StatsValueName name, const Id& value);
 
@@ -402,6 +404,7 @@ class RTC_EXPORT StatsReport {
 
   void AddString(StatsValueName name, const std::string& value);
   void AddString(StatsValueName name, const char* value);
+  void AddString(StatsValueName name, const absl::string_view value);
   void AddInt64(StatsValueName name, int64_t value);
   void AddInt(StatsValueName name, int value);
   void AddFloat(StatsValueName name, float value);

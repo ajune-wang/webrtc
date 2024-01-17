@@ -10,6 +10,7 @@
 
 #include "api/stats/attribute.h"
 
+#include <concepts>
 #include <string>
 
 #include "absl/types/variant.h"

@@ -78,6 +78,13 @@ struct FrameDependencyStructure {
   std::vector<FrameDependencyTemplate> templates;
 };
 
+struct DependencyDescriptorMandatory {
+  int frame_number;
+  int template_id;
+  bool first_packet_in_frame;
+  bool last_packet_in_frame;
+};
+
 struct DependencyDescriptor {
   static constexpr int kMaxSpatialIds = 4;
   static constexpr int kMaxTemporalIds = 8;

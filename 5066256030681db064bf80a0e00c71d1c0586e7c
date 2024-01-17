@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c6cc8f7_758655de",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T13:03:16Z",
+      "side": 1,
+      "message": "https://webrtc.googlesource.com/src/+/HEAD/api/README.md\n“Avoid defining api with structs as it makes harder for the api to evolve.”",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 6
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "309e7ca7_7e827861",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T13:03:16Z",
+      "side": 1,
+      "message": "may be move these log lines only when we drop the packet, \nor produce a different log line when packet is stashed and retried later.\n\nThis message is very often confusing.",
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abffa9e3_40ef0dd0",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T13:03:16Z",
+      "side": 1,
+      "message": "why move this block?\nThis way nack_module would mark packet as received even if OnReceivedPayloadData choose to ignore the packet.",
+      "range": {
+        "startLine": 1099,
+        "startChar": 0,
+        "endLine": 1102,
+        "endChar": 32
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfd591f_bd94e612",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T13:03:16Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#TODO_Comments\n“Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect.”",
+      "range": {
+        "startLine": 1113,
+        "startChar": 5,
+        "endLine": 1113,
+        "endChar": 30
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b842a673_f2c79b60",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T13:03:16Z",
+      "side": 1,
+      "message": "do you need an interaction with nack module here?\nif nack module consider stashed packet as received, but they are discarded, then they won\u0027t be nacked, and would never be received potentially causing a freeze.",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1121,
+        "endChar": 31
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ac81405_ef8b40b2",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-17T13:03:16Z",
+      "side": 1,
+      "message": "rather than recreate vector\u003cPackets\u003e on each incoming packet, may be store stashed_packets in a list:\n```\nfor (auto it \u003d stashed_packets_.begin(); it !\u003d stashed_packets_.end(); ){\n  if (parse_and_insert(*it)) {\n    ++it;  // keep in the stash.\n  } else {\n    it \u003d stashed_packets_.erase(it);\n  }\n}\n```",
+      "range": {
+        "startLine": 1125,
+        "startChar": 0,
+        "endLine": 1130,
+        "endChar": 5
+      },
+      "revId": "5066256030681db064bf80a0e00c71d1c0586e7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

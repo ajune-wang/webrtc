@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fbf9242_84266ead",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-17T10:02:40Z",
+      "side": 1,
+      "message": "bool stash_and_try_later ?",
+      "range": {
+        "startLine": 1090,
+        "startChar": 2,
+        "endLine": 1090,
+        "endChar": 6
+      },
+      "revId": "56dd00fed18a08189c149dc71359d94e81a5b90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67bf947d_000b344c",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-17T10:02:40Z",
+      "side": 1,
+      "message": "Should these packets always be dropped? No chance order of the stashed packets matter?  Ex couple of structure changes after each other?  If an old structure change gets decodable, this risk throwing away packets for newer structure changes. \nHow about sorting in id order? And check if an id is old and thus can be discarded if injecting fails.",
+      "range": {
+        "startLine": 1118,
+        "startChar": 4,
+        "endLine": 1118,
+        "endChar": 20
+      },
+      "revId": "56dd00fed18a08189c149dc71359d94e81a5b90a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

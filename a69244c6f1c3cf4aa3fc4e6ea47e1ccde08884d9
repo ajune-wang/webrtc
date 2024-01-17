@@ -253,6 +253,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b476a4b_e8bc7894",
+        "filename": "stats/rtc_stats_member.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-17T09:35:25Z",
+      "side": 1,
+      "message": "This entire file will soon be deleted (later in the CL chain), so not touching the old macros",
+      "parentUuid": "a482ff85_0a58c7e9",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 17
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edb23544_49994702",
@@ -266,6 +290,30 @@
       "writtenOn": "2024-01-16T14:33:29Z",
       "side": 1,
       "message": "This can be replaced by `return constexpr std::same_as\u003cstd::string, T\u003e;`",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "a69244c6f1c3cf4aa3fc4e6ea47e1ccde08884d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "920b379d_91d39a02",
+        "filename": "stats/rtc_stats_member.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-17T09:35:25Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "edb23544_49994702",
       "range": {
         "startLine": 26,
         "startChar": 11,

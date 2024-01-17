@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b6adb94_9b352d85",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-01-17T11:57:32Z",
+      "side": 1,
+      "message": "Not sure why it marks SPS as keyframe in H264. I would guess that\u0027s not really needed. It doesn\u0027t mark PPS as keyframe.",
+      "parentUuid": "0de46d02_b99c8b0c",
+      "range": {
+        "startLine": 146,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 42
+      },
+      "revId": "ad9d13b73c7fed2fb1d5b15d5a20debd4aebc285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44998b6f_0e592c4a",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265_unittest.cc",
         "patchSetId": 12

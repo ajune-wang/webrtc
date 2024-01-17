@@ -16,6 +16,115 @@
       "message": "Hi, can you help me take a look at the following CL to add a field-trial to change a bitrate allocation parameter?",
       "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92e162db_117d2a4b",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-17T09:53:29Z",
+      "side": 1,
+      "message": "Usually for trials with just a single parameter I\u0027d use `FieldTrialOptional\u003cint\u003e encoder_priority_bitrate_(\"bitrate\")` instead and parse it using e.g.\n\n```\nwebrtc::ParseFieldTrial({\u0026encoder_priority_bitrate_},                          \n  field_trials.Lookup(\"WebRTC-AV1-OverridePriorityBitrate\"));\n```\n\nBased on that you\u0027re always have a default value, instead of an optional I think it would be even better with a `webrtc::FieldTrialParameter\u003cint\u003e encoder_priority_bitrate_(\"bitrate\", /*default\u003d*/0)`",
+      "range": {
+        "startLine": 269,
+        "startChar": 4,
+        "endLine": 270,
+        "endChar": 75
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4717f634_e4f93d1a",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-17T09:53:29Z",
+      "side": 1,
+      "message": "nit: `encoder_priority_bitrate_`.value_or(0)`",
+      "range": {
+        "startLine": 473,
+        "startChar": 6,
+        "endLine": 473,
+        "endChar": 65
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f0699e8_70275704",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-17T09:53:29Z",
+      "side": 1,
+      "message": "Since this is fixed at construction time, consider making this const. You can use a helper function to do the parsing if it\u0027s too complex to do in-line.",
+      "range": {
+        "startLine": 157,
+        "startChar": 21,
+        "endLine": 157,
+        "endChar": 22
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf10078e_1ba4ed4a",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-17T09:53:29Z",
+      "side": 1,
+      "message": "Now we have both `encoder_bitrate_priority_` and \u0027encoder_priority_bitrate_\u0027 which is a little confusing. Consider naming it `av1_override_encoder_bitrate_priority_` or something along those lines.",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 47
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f4d87eb_99c73811",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-17T09:53:29Z",
+      "side": 1,
+      "message": "It looks like the normal encoder priority can change at runtime in `OnEncoderConfigurationChanged()`? Do we have test coverage for that in combination with AV1 override already?",
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5d4cf8e_e21e995a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-01-17T10:15:13Z",
+      "side": 1,
+      "message": "all these are IRAP pictures - meaning as long as VPS/SPS/PPS has been sent to decoder, we can start decoding at those pictures without other dependencies.\n\nIf SPS/VPS/PPS has not been sent to decoder, only IdrNlp \u0026 IdrWRadl is seekable to.",
+      "parentUuid": "df0bc6e4_efe1267a",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 41
+      },
+      "revId": "ad9d13b73c7fed2fb1d5b15d5a20debd4aebc285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f7734de_f51b4ca9",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 12

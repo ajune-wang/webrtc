@@ -53,7 +53,7 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   const char* name() const;
   const StatVariant& as_variant() const;
 
-  bool has_value() const;
+  bool has_value() const override;
   template <typename T>
   bool holds_alternative() const {
     return absl::holds_alternative<const RTCStatsMember<T>*>(attribute_);
@@ -72,7 +72,6 @@ class RTC_EXPORT Attribute : public RTCStatsMemberInterface {
   RTCStatsMemberInterface::Type type() const override;
   bool is_sequence() const override;
   bool is_string() const override;
-  bool is_defined() const override;
   std::string ValueToString() const override;
   std::string ValueToJson() const override;
 

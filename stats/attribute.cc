@@ -125,11 +125,6 @@ bool Attribute::is_string() const {
       attribute_);
 }
 
-bool Attribute::is_defined() const {
-  return absl::visit([](const auto* attr) { return attr->is_defined(); },
-                     attribute_);
-}
-
 std::string Attribute::ValueToString() const {
   return absl::visit([](const auto* attr) { return attr->ValueToString(); },
                      attribute_);

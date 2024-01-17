@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d209105e_1a1f8cdc",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-01-17T12:36:29Z",
+      "side": 1,
+      "message": "CRA could have B-pictures associated with it (RASL/RADL pictures), but it is also allowed there is no RASL/RADL following it.\n\nFor HEVC, CRA either serves as an alternative to IDR, or for splicing the stream. So it is allowed to be seen in WebRTC stream.",
+      "parentUuid": "8e9bacd8_dcd4f79b",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 41
+      },
+      "revId": "ad9d13b73c7fed2fb1d5b15d5a20debd4aebc285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f7734de_f51b4ca9",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 12

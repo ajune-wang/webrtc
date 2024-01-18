@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c89818_6d4984be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-01-18T15:10:00Z",
+      "side": 1,
+      "message": "+1, assuming SW VP9 encoder usage on Android is low",
+      "revId": "197c1f5b06940b258430c2545ebb25ce41bdfa8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

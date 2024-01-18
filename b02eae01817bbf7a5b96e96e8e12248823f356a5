@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f3a6dce_526ab0b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-18T07:20:59Z",
+      "side": 1,
+      "message": "Thanks for fixing this!",
+      "revId": "b02eae01817bbf7a5b96e96e8e12248823f356a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "814f438c_ca6aeabe",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-18T07:20:59Z",
+      "side": 1,
+      "message": "Can we add a comment or two what this is and how its related to DependencyDescriptor?",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 35
+      },
+      "revId": "b02eae01817bbf7a5b96e96e8e12248823f356a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

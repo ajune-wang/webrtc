@@ -16,6 +16,57 @@
       "message": "Please?",
       "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87425597_fa2fc70e",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-18T14:40:53Z",
+      "side": 1,
+      "message": "I think encodings[0].rid is \u0027q\u0027 and encodings[2].rid is \u0027f\u0027, can you confirm?",
+      "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93cab854_41ad0e1d",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2026,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-18T14:40:53Z",
+      "side": 1,
+      "message": "Encodings are scaled 4:2:1, which should mean q(uarter), h(alf) and f(ull).\n\nIs the problem that you\u0027re disabling the full (720p) resolution, but you are expecting that the quarter (180p) resolution is disabled?",
+      "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5549a851_e330d8dd",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2027,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-18T14:40:53Z",
+      "side": 1,
+      "message": "This is racy as in it could fail when it should pass.\n\nI think we need to inactivate and then call getStats, wait a while and then call getStats again and make sure counters are \u003d\u003d to their previous value.\n\nThat could in theory flakily pass when it should fail, but it would eventually always fail if there is a problem, which is better than flakily failing when there isn\u0027t a problem",
+      "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

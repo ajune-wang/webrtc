@@ -594,14 +594,8 @@ bool VideoSendStreamImpl::started() {
 }
 
 void VideoSendStreamImpl::Start() {
-  const std::vector<bool> active_layers(config_.rtp.ssrcs.size(), true);
-  StartPerRtpStream(active_layers);
-}
-
-void VideoSendStreamImpl::StartPerRtpStream(
-    const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-
+  const std::vector<bool> active_layers(config_.rtp.ssrcs.size(), true);
   rtc::StringBuilder active_layers_string;
   active_layers_string << "{";
   for (size_t i = 0; i < active_layers.size(); ++i) {
@@ -615,7 +609,7 @@ void VideoSendStreamImpl::StartPerRtpStream(
     }
   }
   active_layers_string << "}";
-  RTC_LOG(LS_INFO) << "StartPerRtpStream: " << active_layers_string.str();
+  RTC_LOG(LS_INFO) << "StartRtpStream: " << active_layers_string.str();
 
   bool previously_active = rtp_video_sender_->IsActive();
   rtp_video_sender_->SetActiveModules(active_layers);

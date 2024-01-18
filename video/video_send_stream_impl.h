@@ -96,7 +96,6 @@ class VideoSendStreamImpl : public webrtc::VideoSendStream,
 
   // webrtc::VideoSendStream implementation.
   void Start() override;
-  void StartPerRtpStream(std::vector<bool> active_layers) override;
   void Stop() override;
   bool started() override;
 

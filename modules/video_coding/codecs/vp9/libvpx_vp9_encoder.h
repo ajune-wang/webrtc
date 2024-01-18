@@ -234,6 +234,8 @@ class LibvpxVp9Encoder : public VP9Encoder {
   int num_steady_state_frames_;
   // Only set config when this flag is set.
   bool config_changed_;
+  // Enables per-layer frame dropping mode in non-SVC or KSVC.
+  bool layer_drop_;
 
   const LibvpxVp9EncoderInfoSettings encoder_info_override_;
 };

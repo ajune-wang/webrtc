@@ -266,7 +266,8 @@ LibvpxVp9Encoder::LibvpxVp9Encoder(const cricket::VideoCodec& codec,
                             "Disabled")),
       performance_flags_(ParsePerformanceFlagsFromTrials(trials)),
       num_steady_state_frames_(0),
-      config_changed_(true) {
+      config_changed_(true),
+      layer_drop_(trials.IsEnabled("WebRTC-Video-Vp9LayerDrop")) {
   codec_ = {};
   memset(&svc_params_, 0, sizeof(vpx_svc_extra_cfg_t));
 }
@@ -922,10 +923,15 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
         svc_drop_frame_.framedrop_thresh[i] = config_->rc_dropframe_thresh;
       }
     } else {
-      // Configure encoder to drop entire superframe whenever it needs to drop
-      // a layer. This mode is preferred over per-layer dropping which causes
-      // quality flickering and is not compatible with RTP non-flexible mode.
-      svc_drop_frame_.framedrop_mode = FULL_SUPERFRAME_DROP;
+      if (layer_drop_ && (inter_layer_pred_ == InterLayerPredMode::kOff ||
+                          inter_layer_pred_ == InterLayerPredMode::kOnKeyPic)) {
+        svc_drop_frame_.framedrop_mode = LAYER_DROP;
+      } else {
+        // Configure encoder to drop entire superframe whenever it needs to drop
+        // a layer. This mode is preferred over per-layer dropping which causes
+        // quality flickering and is not compatible with RTP non-flexible mode.
+        svc_drop_frame_.framedrop_mode = FULL_SUPERFRAME_DROP;
+      }
       svc_drop_frame_.max_consec_drop = std::numeric_limits<int>::max();
       for (size_t i = 0; i < num_spatial_layers_; ++i) {
         svc_drop_frame_.framedrop_thresh[i] = config_->rc_dropframe_thresh;

@@ -156,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49b36f1c_429c9391",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-01-18T06:09:32Z",
+      "side": 1,
+      "message": "Thanks！ Also existence of BLA does not necessarily indicate there is b-frame in the   stream. It is not guaranteed the Hevc stream received is the direct output of encoder; it could be result of a file streamed via WebRTC, where a splicer is placed before sending. \n\nFor example, BLA_N_LP will have no leading pictures. Basically all BLA pictures themselves are decodable so they\u0027re keyframe as well. Reference finder is responsible for deciding whether the leading pictures should be dropped or not. I suggest keep BLA here as well.",
+      "parentUuid": "50156da9_b52bd7a3",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 41
+      },
+      "revId": "ad9d13b73c7fed2fb1d5b15d5a20debd4aebc285",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f7734de_f51b4ca9",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265.cc",
         "patchSetId": 12

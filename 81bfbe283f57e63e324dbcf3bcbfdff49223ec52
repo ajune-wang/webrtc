@@ -16,6 +16,29 @@
       "message": "Please?",
       "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7970d877_9b043e16",
+        "filename": "rtc_base/nat_socket_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-01-18T16:35:49Z",
+      "side": 1,
+      "message": "this is not 100% safe...but it was like that also before this cl...",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

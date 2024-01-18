@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e05ee9_5db4e1b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-18T17:22:53Z",
+      "side": 1,
+      "message": "similar to https://webrtc-review.googlesource.com/c/src/+/334681\nbut using more hacky, but safer approach as it look like these two task queues refer owning pointer from the task queue itself in more scenarios than just  RTC_DCHECK_RUNS_ON",
+      "revId": "d5835c4c1377b0056bde8ab10b15052975c058ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

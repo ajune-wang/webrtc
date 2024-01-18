@@ -16,6 +16,29 @@
       "message": "Please?",
       "revId": "39f389cc4c7046cc694ff9c323cfdd552794e6f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cebfef2_42eddd66",
+        "filename": "call/call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-18T12:35:18Z",
+      "side": 1,
+      "message": "nit: Should the uses the interface instead? Or is there any other use for that interface so it can be removed too in a follow up?",
+      "range": {
+        "startLine": 391,
+        "startChar": 21,
+        "endLine": 391,
+        "endChar": 40
+      },
+      "revId": "39f389cc4c7046cc694ff9c323cfdd552794e6f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

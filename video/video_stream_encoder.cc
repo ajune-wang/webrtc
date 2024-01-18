@@ -1176,7 +1176,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                  << (codec.spatialLayers[i].active ? "true" : "false") << "\n";
     }
   }
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_LOG(LS_WARNING) << log_stream.str();
 
   codec.startBitrate = std::max(encoder_target_bitrate_bps_.value_or(0) / 1000,
                                 codec.minBitrate);
@@ -1675,6 +1675,14 @@ void VideoStreamEncoder::SetEncoderRates(
 
   if (last_encoder_rate_settings_ != rate_settings) {
     last_encoder_rate_settings_ = rate_settings;
+  }
+
+  RTC_LOG(LS_WARNING) << " VideoStreamEncoder::SetEncoderRates sum"
+                      << rate_settings.rate_control.bitrate.get_sum_bps();
+  for (int i = 0; i < 2; ++i) {
+    RTC_LOG(LS_WARNING)
+        << "BR sid " << i << "  sum"
+        << rate_settings.rate_control.bitrate.GetSpatialLayerSum(i);
   }
 
   if (!encoder_)

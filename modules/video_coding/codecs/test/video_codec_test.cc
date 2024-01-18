@@ -206,6 +206,8 @@ std::unique_ptr<VideoCodecStats> RunEncodeDecodeTest(
            ->QueryCodecSupport(sdp_video_format,
                                /*reference_scaling=*/false)
            .is_supported) {
+    // TODO(ssilkin): No H264 support in ffmpeg on ARM. Consider using HW
+    // decoder.
     decoder_factory = CreateDecoderFactory("builtin");
     if (!decoder_factory
              ->QueryCodecSupport(sdp_video_format,

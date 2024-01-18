@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a2e0bd_a4f3ea4c",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-01-18T09:57:28Z",
+      "side": 1,
+      "message": "@marpan@webrtc.org, Could LAYER_DROP lead to drop of an upper layer of a keyframe? That would break KSVC.",
+      "range": {
+        "startLine": 928,
+        "startChar": 41,
+        "endLine": 928,
+        "endChar": 51
+      },
+      "revId": "904cbb44fd99f1f34f7748c2171af0908c67b596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

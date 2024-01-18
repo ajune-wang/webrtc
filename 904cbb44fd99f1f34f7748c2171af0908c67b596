@@ -22,6 +22,30 @@
       },
       "revId": "904cbb44fd99f1f34f7748c2171af0908c67b596",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12004a13_f84b4784",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 7556
+      },
+      "writtenOn": "2024-01-18T17:46:06Z",
+      "side": 1,
+      "message": "No dropping is never done on superframes whose base is a keyframe.",
+      "parentUuid": "48a2e0bd_a4f3ea4c",
+      "range": {
+        "startLine": 928,
+        "startChar": 41,
+        "endLine": 928,
+        "endChar": 51
+      },
+      "revId": "904cbb44fd99f1f34f7748c2171af0908c67b596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "896afd73_88edb553",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-18T18:17:15Z",
+      "side": 1,
+      "message": "Mirko, shouldn\u0027t presubmit prevent windows-using me from adding files with wrong line endings? (i think I fixed it now by setting core.autocrlf to true)",
+      "revId": "b5d9d7213127aca7ce0d3e4baec6b7233426f0f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

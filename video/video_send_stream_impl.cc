@@ -594,40 +594,25 @@ bool VideoSendStreamImpl::started() {
 }
 
 void VideoSendStreamImpl::Start() {
-  const std::vector<bool> active_layers(config_.rtp.ssrcs.size(), true);
-  StartPerRtpStream(active_layers);
-}
-
-void VideoSendStreamImpl::StartPerRtpStream(
-    const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-
-  rtc::StringBuilder active_layers_string;
-  active_layers_string << "{";
-  for (size_t i = 0; i < active_layers.size(); ++i) {
-    if (active_layers[i]) {
-      active_layers_string << "1";
-    } else {
-      active_layers_string << "0";
-    }
-    if (i < active_layers.size() - 1) {
-      active_layers_string << ", ";
-    }
-  }
-  active_layers_string << "}";
-  RTC_LOG(LS_INFO) << "StartPerRtpStream: " << active_layers_string.str();
-
-  bool previously_active = rtp_video_sender_->IsActive();
+  const std::vector<bool> active_layers(config_.rtp.ssrcs.size(), true);
+  // This sender is allowed to send RTP packets. Start monitoring and allocating
+  // a rate if there is also active encodings. (has_active_encodings_).
   rtp_video_sender_->SetActiveModules(active_layers);
-  if (!rtp_video_sender_->IsActive() && previously_active) {
-    StopVideoSendStream();
-  } else if (rtp_video_sender_->IsActive() && !previously_active) {
+  if (!IsRunning() && has_active_encodings_) {
     StartupVideoSendStream();
   }
 }
 
+bool VideoSendStreamImpl::IsRunning() const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  return check_encoder_activity_task_.Running();
+}
+
 void VideoSendStreamImpl::StartupVideoSendStream() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK(rtp_video_sender_->IsActive());
+  RTC_DCHECK(has_active_encodings_);
 
   bitrate_allocator_->AddObserver(this, GetAllocationConfig());
   // Start monitoring encoder activity.
@@ -665,7 +650,9 @@ void VideoSendStreamImpl::Stop() {
 
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Stop");
   rtp_video_sender_->Stop();
-  StopVideoSendStream();
+  if (IsRunning()) {
+    StopVideoSendStream();
+  }
 }
 
 void VideoSendStreamImpl::StopVideoSendStream() {
@@ -788,9 +775,13 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
 
     encoder_max_bitrate_bps_ = 0;
     double stream_bitrate_priority_sum = 0;
+    has_active_encodings_ = false;
     for (const auto& stream : streams) {
       // We don't want to allocate more bitrate than needed to inactive streams.
-      encoder_max_bitrate_bps_ += stream.active ? stream.max_bitrate_bps : 0;
+      if (stream.active) {
+        has_active_encodings_ = true;
+        encoder_max_bitrate_bps_ += stream.max_bitrate_bps;
+      }
       if (stream.bitrate_priority) {
         RTC_DCHECK_GT(*stream.bitrate_priority, 0);
         stream_bitrate_priority_sum += *stream.bitrate_priority;
@@ -817,11 +808,16 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
 
     rtp_video_sender_->SetEncodingData(streams[0].width, streams[0].height,
                                        num_temporal_layers);
-
-    if (rtp_video_sender_->IsActive()) {
-      // The send stream is started already. Update the allocator with new
-      // bitrate limits.
-      bitrate_allocator_->AddObserver(this, GetAllocationConfig());
+    if (IsRunning()) {
+      if (has_active_encodings_) {
+        // The send stream is started already. Update the allocator with new
+        // bitrate limits.
+        bitrate_allocator_->AddObserver(this, GetAllocationConfig());
+      } else {  // no active encodings.
+        StopVideoSendStream();
+      }
+    } else if (has_active_encodings_ && rtp_video_sender_->IsActive()) {
+      StartupVideoSendStream();
     }
   };
 

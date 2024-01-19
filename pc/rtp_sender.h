@@ -301,6 +301,7 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
  private:
   // AudioSinkInterface implementation.
   void OnData(const void* audio_data,
+              size_t audio_data_size_bytes,
               int bits_per_sample,
               int sample_rate,
               size_t number_of_channels,
@@ -309,12 +310,13 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
 
   // AudioSinkInterface implementation.
   void OnData(const void* audio_data,
+              size_t audio_data_size_bytes,
               int bits_per_sample,
               int sample_rate,
               size_t number_of_channels,
               size_t number_of_frames) override {
-    OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
-           number_of_frames,
+    OnData(audio_data, audio_data_size_bytes, bits_per_sample, sample_rate,
+           number_of_channels, number_of_frames,
            /*absolute_capture_timestamp_ms=*/absl::nullopt);
   }
 

@@ -56,6 +56,30 @@
       },
       "revId": "4445c7440e9fbcca6958e2fa70c23d198606b36a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1b230dd_c5a9ee01",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2024-01-19T07:36:22Z",
+      "side": 1,
+      "message": "This is used to handle case in CreateVideoRtpDepacketizer when H265 is not enabled but a h265 depacketizer is reuqired to create, in this case, a nullptr will be returned. So we check the created depacketizer here to make it fail for this scenario.",
+      "parentUuid": "24d2da04_b4e1ec94",
+      "range": {
+        "startLine": 810,
+        "startChar": 6,
+        "endLine": 810,
+        "endChar": 41
+      },
+      "revId": "4445c7440e9fbcca6958e2fa70c23d198606b36a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

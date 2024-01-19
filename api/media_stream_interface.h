@@ -199,6 +199,7 @@ class RTC_EXPORT VideoTrackInterface
 class AudioTrackSinkInterface {
  public:
   virtual void OnData(const void* audio_data,
+                      size_t audio_data_size_bytes,
                       int bits_per_sample,
                       int sample_rate,
                       size_t number_of_channels,
@@ -211,6 +212,7 @@ class AudioTrackSinkInterface {
   // captured. This timestamp MUST be based on the same clock as
   // rtc::TimeMillis().
   virtual void OnData(const void* audio_data,
+                      size_t audio_data_size_bytes,
                       int bits_per_sample,
                       int sample_rate,
                       size_t number_of_channels,
@@ -218,8 +220,8 @@ class AudioTrackSinkInterface {
                       absl::optional<int64_t> absolute_capture_timestamp_ms) {
     // TODO(bugs.webrtc.org/10739): Deprecate the old OnData and make this one
     // pure virtual.
-    return OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
-                  number_of_frames);
+    return OnData(audio_data, audio_data_size_bytes, bits_per_sample,
+                  sample_rate, number_of_channels, number_of_frames);
   }
 
   // Returns the number of channels encoded by the sink. This can be less than

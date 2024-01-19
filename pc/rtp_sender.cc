@@ -604,6 +604,7 @@ LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
 
 void LocalAudioSinkAdapter::OnData(
     const void* audio_data,
+    size_t audio_data_size_bytes,
     int bits_per_sample,
     int sample_rate,
     size_t number_of_channels,

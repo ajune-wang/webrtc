@@ -157,8 +157,8 @@ void RemoteAudioSource::OnData(const AudioSinkInterface::Data& audio) {
   for (auto* sink : sinks_) {
     // When peerconnection acts as an audio source, it should not provide
     // absolute capture timestamp.
-    sink->OnData(audio.data, 16, audio.sample_rate, audio.channels,
-                 audio.samples_per_channel,
+    sink->OnData(audio.data, audio.data_size, 16, audio.sample_rate,
+                 audio.channels, audio.samples_per_channel,
                  /*absolute_capture_timestamp_ms=*/absl::nullopt);
   }
 }

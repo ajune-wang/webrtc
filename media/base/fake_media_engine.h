@@ -503,6 +503,7 @@ class FakeVoiceMediaReceiveChannel
     explicit VoiceChannelAudioSink(AudioSource* source);
     ~VoiceChannelAudioSink() override;
     void OnData(const void* audio_data,
+                size_t audio_data_size_bytes,
                 int bits_per_sample,
                 int sample_rate,
                 size_t number_of_channels,
@@ -586,6 +587,7 @@ class FakeVoiceMediaSendChannel
     explicit VoiceChannelAudioSink(AudioSource* source);
     ~VoiceChannelAudioSink() override;
     void OnData(const void* audio_data,
+                size_t auiod_data_size_bytes,
                 int bits_per_sample,
                 int sample_rate,
                 size_t number_of_channels,

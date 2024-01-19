@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3f9688e_2abb40e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-19T15:18:55Z",
+      "side": 1,
+      "message": "(Needs 1 chromium CL and 1 internal CL before this can land but they\u0027re both out for review)",
+      "revId": "13511326380e214df8c64f95db4397c68a882daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,40 @@
       "message": "(Just need a couple of downstream CLs to land first before chromium+internal bots will be happy)",
       "revId": "278757188455d6d90b7a2d147b62fcf7f8807cb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e281a44_50182daa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-19T17:07:02Z",
+      "side": 1,
+      "message": "Hooray!",
+      "revId": "278757188455d6d90b7a2d147b62fcf7f8807cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3191a5e6_d68b0bf2",
+        "filename": "api/stats/attribute.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-19T17:07:02Z",
+      "side": 1,
+      "message": "Should this have [[deprecated]], or is it too early for that?",
+      "revId": "278757188455d6d90b7a2d147b62fcf7f8807cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

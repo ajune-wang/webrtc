@@ -33,6 +33,24 @@
       "message": "Did you estimate impact on spatial quality from this change? Where is VP9 speed 9 in comparison to\n* SW VP9 speed 8\n* SW VP8 with default ARM settings\n* HW VP8 (QCOM?)\n\nIIUC, the ultimate goal is to unblock SW VP9 on ARM and use it instead of VP8. We need to make sure we still get a better quality / lower bitrate with VP9.",
       "revId": "197c1f5b06940b258430c2545ebb25ce41bdfa8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80ad7a8b_1b250ab9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-01-19T08:54:40Z",
+      "side": 1,
+      "message": "(keep it unresolved)",
+      "parentUuid": "bec95518_71d48e7d",
+      "revId": "197c1f5b06940b258430c2545ebb25ce41bdfa8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -31,6 +31,7 @@
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_layers_allocation.h"
 #include "api/video_codecs/sdp_video_format.h"
+#include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_source_restrictions.h"
@@ -884,7 +885,7 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                            callback = std::move(callback)]() mutable {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(sink_);
-    RTC_LOG(LS_INFO) << "ConfigureEncoder requested.";
+    RTC_LOG(LS_ERROR) << "ConfigureEncoder requested.";
 
     // Set up the frame cadence adapter according to if we're going to do
     // screencast. The final number of spatial layers is based on info
@@ -1148,6 +1149,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
   log_stream << "ReconfigureEncoder:\n";
   log_stream << "Simulcast streams:\n";
+  log_stream << CodecTypeToPayloadString(codec.codecType) << "\n";
+  int has_active = 0;
   for (size_t i = 0; i < codec.numberOfSimulcastStreams; ++i) {
     log_stream << i << ": " << codec.simulcastStream[i].width << "x"
                << codec.simulcastStream[i].height
@@ -1159,6 +1162,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                << " num_tl: " << codec.simulcastStream[i].numberOfTemporalLayers
                << " active: "
                << (codec.simulcastStream[i].active ? "true" : "false") << "\n";
+    if (codec.simulcastStream[i].active)
+      ++has_active;
   }
   if (encoder_config_.codec_type == kVideoCodecVP9 ||
       encoder_config_.codec_type == kVideoCodecAV1) {
@@ -1174,9 +1179,13 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                  << " num_tl: " << codec.spatialLayers[i].numberOfTemporalLayers
                  << " active: "
                  << (codec.spatialLayers[i].active ? "true" : "false") << "\n";
+      if (codec.spatialLayers[i].active)
+        ++has_active;
     }
   }
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  has_active_ = has_active;
+  RTC_LOG(LS_WARNING) << log_stream.str();
 
   codec.startBitrate = std::max(encoder_target_bitrate_bps_.value_or(0) / 1000,
                                 codec.minBitrate);
@@ -1677,6 +1686,14 @@ void VideoStreamEncoder::SetEncoderRates(
     last_encoder_rate_settings_ = rate_settings;
   }
 
+  RTC_LOG(LS_WARNING) << " VideoStreamEncoder::SetEncoderRates sum"
+                      << rate_settings.rate_control.bitrate.get_sum_bps();
+  for (int i = 0; i < 3; ++i) {
+    RTC_LOG(LS_WARNING)
+        << "BR sid " << i << "  sum"
+        << rate_settings.rate_control.bitrate.GetSpatialLayerSum(i);
+  }
+
   if (!encoder_)
     return;
 
@@ -2006,6 +2023,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   frame_encode_metadata_writer_.OnEncodeStarted(out_frame);
 
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_LOG(LS_ERROR) << " Encode frame!!!!" << " has_active_" << has_active_;
   const int32_t encode_status = encoder_->Encode(out_frame, &next_frame_types_);
   was_encode_called_since_last_initialization_ = true;
 
@@ -2106,6 +2125,7 @@ EncodedImage VideoStreamEncoder::AugmentEncodedImage(
 EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
+  RTC_LOG(LS_WARNING) << "OnEncodedImage!!!!!";
   TRACE_EVENT_INSTANT1("webrtc", "VCMEncodedFrameCallback::Encoded",
                        "timestamp", encoded_image.RtpTimestamp());
 

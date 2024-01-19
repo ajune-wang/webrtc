@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1150988c_3259a2be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-19T11:50:48Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "fe5969d32f740ad42bf9a6e53a3e9f703a0b13d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b081695_4d7467d2",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-19T11:50:48Z",
+      "side": 1,
+      "message": "Better name, still think \"av1 override\" or something like that should be in the name too 😊",
+      "range": {
+        "startLine": 221,
+        "startChar": 12,
+        "endLine": 221,
+        "endChar": 41
+      },
+      "revId": "fe5969d32f740ad42bf9a6e53a3e9f703a0b13d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95883e1a_4a16947f",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-19T11:50:48Z",
+      "side": 1,
+      "message": "I believe you can simplify this to\n```\nEXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(),\n  Field(\u0026MediaStreamAllocationConfig::priority_bitrate_bps, 0));\n```\n\nsame for other tests below",
+      "range": {
+        "startLine": 726,
+        "startChar": 2,
+        "endLine": 730,
+        "endChar": 14
+      },
+      "revId": "fe5969d32f740ad42bf9a6e53a3e9f703a0b13d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f84965f_97bec3d0",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-01-19T11:50:48Z",
+      "side": 1,
+      "message": "This then becomes\n```\nEXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(),\n  Field(\u0026MediaStreamAllocationConfig::priority_bitrate_bps, 0))\n  .Times(2);\n```",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 780,
+        "endChar": 14
+      },
+      "revId": "fe5969d32f740ad42bf9a6e53a3e9f703a0b13d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

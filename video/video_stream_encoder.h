@@ -483,6 +483,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   absl::optional<VideoSourceRestrictions> animate_restrictions_
       RTC_GUARDED_BY(&encoder_queue_);
 
+  int has_active_ = 0;
   // Used to cancel any potentially pending tasks to the worker thread.
   // Refrenced by tasks running on `encoder_queue_` so need to be destroyed
   // after stopping that queue. Must be created and destroyed on

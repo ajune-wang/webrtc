@@ -299,15 +299,28 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
   virtual ~LocalAudioSinkAdapter();
 
  private:
-  // AudioSinkInterface implementation.
+  // AudioSinkInterface implementation (Version 3 method signature)
   void OnData(const void* audio_data,
+              size_t audio_data_size_bytes,
               int bits_per_sample,
               int sample_rate,
               size_t number_of_channels,
               size_t number_of_frames,
               absl::optional<int64_t> absolute_capture_timestamp_ms) override;
 
-  // AudioSinkInterface implementation.
+  // AudioSinkInterface implementation (new method signature)
+  void OnData(const void* audio_data,
+              int bits_per_sample,
+              int sample_rate,
+              size_t number_of_channels,
+              size_t number_of_frames,
+              absl::optional<int64_t> absolute_capture_timestamp_ms) override {
+    OnData(audio_data, /*audio_data_size_bytes=*/static_cast<size_t>(-1),
+           bits_per_sample, sample_rate, number_of_channels, number_of_frames,
+           /*absolute_capture_timestamp_ms=*/absl::nullopt);
+  }
+
+  // AudioSinkInterface implementation (original method signature),
   void OnData(const void* audio_data,
               int bits_per_sample,
               int sample_rate,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "867a4873_b9f1271c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-19T12:44:15Z",
+      "side": 1,
+      "message": "I think I\u0027m fixing a race here.\n\nCurrently task_queue_ might be deleted after other members of the AudioDeviceBuffer, and thus pending LogStats may access deleted members.\n\nThat looks like a benign issue as these members looks all POD.\nBesides that might happen only when task_queue_ is overloaded and won\u0027t run StopPeriodicLogging quickly, before the destructor.\n\nStill better not to do that.",
+      "revId": "78b903275a5616e425fe13256ec9e16d087544c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4821cd_b62a61c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-19T15:25:06Z",
+      "side": 1,
+      "message": "(Just need a couple of downstream CLs to land first before chromium+internal bots will be happy)",
+      "revId": "278757188455d6d90b7a2d147b62fcf7f8807cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

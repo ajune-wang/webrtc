@@ -285,7 +285,8 @@ Connection* UDPPort::CreateConnection(const Candidate& address,
   //
   // See also the definition of MdnsNameRegistrationStatus::kNotStarted in
   // port.h.
-  RTC_DCHECK(!SharedSocket() || Candidates()[0].type() == LOCAL_PORT_TYPE ||
+  RTC_DCHECK(!SharedSocket() ||
+             Candidates()[0].get_type() == Candidate::Type::kLocal ||
              mdns_name_registration_status() !=
                  MdnsNameRegistrationStatus::kNotStarted);
 
@@ -380,7 +381,7 @@ void UDPPort::OnLocalAddressReady(rtc::AsyncPacketSocket* socket,
   MaybeSetDefaultLocalAddress(&addr);
 
   AddAddress(addr, addr, rtc::SocketAddress(), UDP_PROTOCOL_NAME, "", "",
-             LOCAL_PORT_TYPE, ICE_TYPE_PREFERENCE_HOST, 0, "", false);
+             Candidate::Type::kLocal, ICE_TYPE_PREFERENCE_HOST, 0, "", false);
   MaybePrepareStunCandidate();
 }
 
@@ -541,7 +542,7 @@ void UDPPort::OnStunBindingRequestSucceeded(
     url << "stun:" << stun_server_addr.hostname() << ":"
         << stun_server_addr.port();
     AddAddress(stun_reflected_addr, socket_->GetLocalAddress(), related_address,
-               UDP_PROTOCOL_NAME, "", "", STUN_PORT_TYPE,
+               UDP_PROTOCOL_NAME, "", "", Candidate::Type::kStun,
                ICE_TYPE_PREFERENCE_SRFLX, 0, url.str(), false);
   }
   MaybeSetPortCompleteOrError();

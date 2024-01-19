@@ -234,6 +234,12 @@ StatsReport::Value::Value(StatsValueName name, const char* value)
   value_.static_string_ = value;
 }
 
+StatsReport::Value::Value(StatsValueName name, const absl::string_view value)
+    : name(name), type_(kStaticString) {
+  RTC_DCHECK_EQ(value[value.size()], '\0');
+  value_.static_string_ = &value[0];
+}
+
 StatsReport::Value::Value(StatsValueName name, bool b)
     : name(name), type_(kBool) {
   value_.bool_ = b;
@@ -749,6 +755,13 @@ void StatsReport::AddString(StatsReport::StatsValueName name,
                             const char* value) {
   const Value* found = FindValue(name);
   if (!found || !(*found == value))
+    values_[name] = ValuePtr(new Value(name, value));
+}
+
+void StatsReport::AddString(StatsValueName name,
+                            const absl::string_view value) {
+  const Value* found = FindValue(name);
+  if (!found || !(*found == &value[0]))
     values_[name] = ValuePtr(new Value(name, value));
 }
 

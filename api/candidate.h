@@ -42,6 +42,16 @@ static constexpr size_t kMaxTurnServers = 32;
 
 class RTC_EXPORT Candidate {
  public:
+  enum class Type {
+    kLocal,
+    kStun,
+    kPrflx,
+    kRelay,
+  };
+
+  static absl::string_view TypeToString(Type type);
+  // static Type StringToType(absl::string_view);
+
   Candidate();
   // TODO(pthatcher): Match the ordering and param list as per RFC 5245
   // candidate-attribute syntax. http://tools.ietf.org/html/rfc5245#section-15.1
@@ -51,7 +61,7 @@ class RTC_EXPORT Candidate {
             uint32_t priority,
             absl::string_view username,
             absl::string_view password,
-            absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+            Type type,
             uint32_t generation,
             absl::string_view foundation,
             uint16_t network_id = 0,
@@ -108,23 +118,28 @@ class RTC_EXPORT Candidate {
   const std::string& password() const { return password_; }
   void set_password(absl::string_view password) { Assign(password_, password); }
 
-  const std::string& type() const { return type_; }
+  // TODO(tommi): Get rid of the string version?
+  absl::string_view type() const { return TypeToString(type_); }
+  Type get_type() const { return type_; }
 
   // Setting the type requires a constant string (e.g.
   // cricket::LOCAL_PORT_TYPE). The type should really be an enum rather than a
   // string, but until we make that change the lifetime attribute helps us lock
   // things down. See also the `Port` class.
   void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
-    Assign(type_, type);
+    // Assign(type_, type);
+    RTC_CHECK(false);
   }
+
+  void set_type(Type type) { type_ = type; }
 
   // Provide these simple checkers to abstract away dependency on the port types
   // that are currently defined outside of Candidate. This will ease the change
   // from the string type to an enum.
-  bool is_local() const;
-  bool is_stun() const;
-  bool is_prflx() const;
-  bool is_relay() const;
+  bool is_local() const { return type_ == Type::kLocal; }
+  bool is_stun() const { return type_ == Type::kStun; }
+  bool is_prflx() const { return type_ == Type::kPrflx; }
+  bool is_relay() const { return type_ == Type::kRelay; }
 
   const std::string& network_name() const { return network_name_; }
   void set_network_name(absl::string_view network_name) {
@@ -227,7 +242,8 @@ class RTC_EXPORT Candidate {
   uint32_t priority_;
   std::string username_;
   std::string password_;
-  std::string type_;
+  Type type_;
+
   std::string network_name_;
   rtc::AdapterType network_type_;
   rtc::AdapterType underlying_type_for_vpn_;

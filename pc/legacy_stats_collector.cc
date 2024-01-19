@@ -496,17 +496,18 @@ void ExtractStatsFromList(
 
 }  // namespace
 
-const char* IceCandidateTypeToStatsType(const std::string& candidate_type) {
-  if (candidate_type == cricket::LOCAL_PORT_TYPE) {
+const char* IceCandidateTypeToStatsType(
+    cricket::Candidate::Type candidate_type) {
+  if (candidate_type == cricket::Candidate::Type::kLocal) {
     return STATSREPORT_LOCAL_PORT_TYPE;
   }
-  if (candidate_type == cricket::STUN_PORT_TYPE) {
+  if (candidate_type == cricket::Candidate::Type::kStun) {
     return STATSREPORT_STUN_PORT_TYPE;
   }
-  if (candidate_type == cricket::PRFLX_PORT_TYPE) {
+  if (candidate_type == cricket::Candidate::Type::kPrflx) {
     return STATSREPORT_PRFLX_PORT_TYPE;
   }
-  if (candidate_type == cricket::RELAY_PORT_TYPE) {
+  if (candidate_type == cricket::Candidate::Type::kRelay) {
     return STATSREPORT_RELAY_PORT_TYPE;
   }
   RTC_DCHECK_NOTREACHED();
@@ -844,7 +845,7 @@ StatsReport* LegacyStatsCollector::AddCandidateReport(
     report->AddInt(StatsReport::kStatsValueNameCandidatePriority,
                    candidate.priority());
     report->AddString(StatsReport::kStatsValueNameCandidateType,
-                      IceCandidateTypeToStatsType(candidate.type()));
+                      IceCandidateTypeToStatsType(candidate.get_type()));
     report->AddString(StatsReport::kStatsValueNameCandidateTransportType,
                       candidate.protocol());
   }

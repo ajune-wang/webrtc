@@ -810,12 +810,15 @@ StatsReport* LegacyStatsCollector::AddConnectionInfoReport(
 
   report->AddString(StatsReport::kStatsValueNameLocalAddress,
                     info.local_candidate.address().ToString());
+  // TODO(tommi): `type_name()` will eventually return a static string. Once
+  // we're there, we don't need to construct a std::string here (and in the line
+  // below).
   report->AddString(StatsReport::kStatsValueNameLocalCandidateType,
-                    info.local_candidate.type());
+                    std::string(info.local_candidate.type_name()));
   report->AddString(StatsReport::kStatsValueNameRemoteAddress,
                     info.remote_candidate.address().ToString());
   report->AddString(StatsReport::kStatsValueNameRemoteCandidateType,
-                    info.remote_candidate.type());
+                    std::string(info.remote_candidate.type_name()));
   report->AddString(StatsReport::kStatsValueNameTransportType,
                     info.local_candidate.protocol());
   report->AddString(StatsReport::kStatsValueNameLocalCandidateRelayProtocol,

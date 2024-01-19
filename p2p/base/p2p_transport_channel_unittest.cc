@@ -613,7 +613,7 @@ class P2PTransportChannelTestBase : public ::testing::Test,
             remote_type == expected.controlled_type);
   }
 
-  // EXPECT_EQ on the approprite parts of the expected Result, based
+  // EXPECT_EQ on the appropriate parts of the expected Result, based
   // on the local and remote candidate of ep1_ch1.  This is like
   // CheckCandidate1, except that it will provide more detail about
   // what didn't match.
@@ -1571,7 +1571,7 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveCandidateBeforeSignaling) {
   ASSERT_TRUE_WAIT(
       (selected_connection = ep1_ch1()->selected_connection()) != nullptr,
       kMediumTimeout);
-  EXPECT_EQ(PRFLX_PORT_TYPE, selected_connection->remote_candidate().type());
+  EXPECT_TRUE(selected_connection->remote_candidate().is_prflx());
   EXPECT_EQ(kIceUfrag[1], selected_connection->remote_candidate().username());
   EXPECT_EQ(kIcePwd[1], selected_connection->remote_candidate().password());
   EXPECT_EQ(1u, selected_connection->remote_candidate().generation());
@@ -1608,15 +1608,15 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveRemoteCandidateIsSanitized) {
   // Check the selected candidate pair.
   auto pair_ep1 = ep1_ch1()->GetSelectedCandidatePair();
   ASSERT_TRUE(pair_ep1.has_value());
-  EXPECT_EQ(PRFLX_PORT_TYPE, pair_ep1->remote_candidate().type());
+  EXPECT_TRUE(pair_ep1->remote_candidate().is_prflx());
   EXPECT_TRUE(pair_ep1->remote_candidate().address().ipaddr().IsNil());
 
   IceTransportStats ice_transport_stats;
   ep1_ch1()->GetStats(&ice_transport_stats);
   // Check the candidate pair stats.
   ASSERT_EQ(1u, ice_transport_stats.connection_infos.size());
-  EXPECT_EQ(PRFLX_PORT_TYPE,
-            ice_transport_stats.connection_infos[0].remote_candidate.type());
+  EXPECT_TRUE(
+      ice_transport_stats.connection_infos[0].remote_candidate.is_prflx());
   EXPECT_TRUE(ice_transport_stats.connection_infos[0]
                   .remote_candidate.address()
                   .ipaddr()
@@ -1678,16 +1678,16 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveCandidateBeforeSignalingWithNAT) {
   ASSERT_TRUE_WAIT(
       (selected_connection = ep1_ch1()->selected_connection()) != nullptr,
       kMediumTimeout);
-  EXPECT_EQ(PRFLX_PORT_TYPE, selected_connection->remote_candidate().type());
+  EXPECT_TRUE(selected_connection->remote_candidate().is_prflx());
   EXPECT_EQ(kIceUfrag[1], selected_connection->remote_candidate().username());
   EXPECT_EQ(kIcePwd[1], selected_connection->remote_candidate().password());
   EXPECT_EQ(1u, selected_connection->remote_candidate().generation());
 
   ResumeCandidates(1);
 
-  EXPECT_EQ_WAIT(PRFLX_PORT_TYPE,
-                 ep1_ch1()->selected_connection()->remote_candidate().type(),
-                 kMediumTimeout);
+  EXPECT_TRUE_WAIT(
+      ep1_ch1()->selected_connection()->remote_candidate().is_prflx(),
+      kMediumTimeout);
   EXPECT_EQ(selected_connection, ep1_ch1()->selected_connection());
   DestroyChannels();
 }
@@ -1727,9 +1727,9 @@ TEST_F(P2PTransportChannelTest,
 
   // The caller should have the selected connection connected to the peer
   // reflexive candidate.
-  EXPECT_EQ_WAIT(PRFLX_PORT_TYPE,
-                 ep1_ch1()->selected_connection()->remote_candidate().type(),
-                 kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      ep1_ch1()->selected_connection()->remote_candidate().is_prflx(),
+      kDefaultTimeout);
   const Connection* prflx_selected_connection =
       ep1_ch1()->selected_connection();
 
@@ -5265,7 +5265,7 @@ TEST_F(P2PTransportChannelTest,
   ASSERT_TRUE_WAIT(
       (selected_connection = ep2_ch1()->selected_connection()) != nullptr,
       kMediumTimeout);
-  EXPECT_EQ(PRFLX_PORT_TYPE, selected_connection->remote_candidate().type());
+  EXPECT_TRUE(selected_connection->remote_candidate().is_prflx());
   EXPECT_EQ(kIceUfrag[0], selected_connection->remote_candidate().username());
   EXPECT_EQ(kIcePwd[0], selected_connection->remote_candidate().password());
   // Set expectation before ep1 signals a hostname candidate.
@@ -5327,8 +5327,7 @@ TEST_F(P2PTransportChannelTest,
   // There is a caveat in our implementation associated with this expectation.
   // See the big comment in P2PTransportChannel::OnUnknownAddress.
   ASSERT_TRUE_WAIT(ep2_ch1()->selected_connection() != nullptr, kMediumTimeout);
-  EXPECT_EQ(PRFLX_PORT_TYPE,
-            ep2_ch1()->selected_connection()->remote_candidate().type());
+  EXPECT_TRUE(ep2_ch1()->selected_connection()->remote_candidate().is_prflx());
   // ep2 should also be able resolve the hostname candidate. The resolved remote
   // host candidate should be merged with the prflx remote candidate.
 

@@ -604,6 +604,7 @@ LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
 
 void LocalAudioSinkAdapter::OnData(
     const void* audio_data,
+    size_t audio_data_size_bytes,
     int bits_per_sample,
     int sample_rate,
     size_t number_of_channels,
@@ -613,8 +614,9 @@ void LocalAudioSinkAdapter::OnData(
                sample_rate, "number_of_frames", number_of_frames);
   MutexLock lock(&lock_);
   if (sink_) {
-    sink_->OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
-                  number_of_frames, absolute_capture_timestamp_ms);
+    sink_->OnData(audio_data, audio_data_size_bytes, bits_per_sample,
+                  sample_rate, number_of_channels, number_of_frames,
+                  absolute_capture_timestamp_ms);
     num_preferred_channels_ = sink_->NumPreferredChannels();
   }
 }

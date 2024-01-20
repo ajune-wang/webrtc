@@ -23,17 +23,20 @@ class AudioSinkInterface {
 
   struct Data {
     Data(const int16_t* data,
+         size_t data_size,
          size_t samples_per_channel,
          int sample_rate,
          size_t channels,
          uint32_t timestamp)
         : data(data),
+          data_size(data_size),
           samples_per_channel(samples_per_channel),
           sample_rate(sample_rate),
           channels(channels),
           timestamp(timestamp) {}
 
     const int16_t* data;         // The actual 16bit audio data.
+    const size_t data_size;      // Capacity in elements of |data| as allocated.
     size_t samples_per_channel;  // Number of frames in the buffer.
     int sample_rate;             // Sample rate in Hz.
     size_t channels;             // Number of channels in the audio data.

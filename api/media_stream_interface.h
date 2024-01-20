@@ -198,6 +198,7 @@ class RTC_EXPORT VideoTrackInterface
 // Interface for receiving audio data from a AudioTrack.
 class AudioTrackSinkInterface {
  public:
+  // Version 1.
   virtual void OnData(const void* audio_data,
                       int bits_per_sample,
                       int sample_rate,
@@ -206,6 +207,7 @@ class AudioTrackSinkInterface {
     RTC_DCHECK_NOTREACHED() << "This method must be overridden, or not used.";
   }
 
+  // Version 2.
   // In this method, `absolute_capture_timestamp_ms`, when available, is
   // supposed to deliver the timestamp when this audio frame was originally
   // captured. This timestamp MUST be based on the same clock as
@@ -216,10 +218,26 @@ class AudioTrackSinkInterface {
                       size_t number_of_channels,
                       size_t number_of_frames,
                       absl::optional<int64_t> absolute_capture_timestamp_ms) {
+    // Call back into Version 1 by dropping arguments.
     // TODO(bugs.webrtc.org/10739): Deprecate the old OnData and make this one
     // pure virtual.
     return OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
                   number_of_frames);
+  }
+
+  // Version 3. Adds audio_data_size_bytes to previous version.
+  virtual void OnData(const void* audio_data,
+                      size_t audio_data_size_bytes,
+                      int bits_per_sample,
+                      int sample_rate,
+                      size_t number_of_channels,
+                      size_t number_of_frames,
+                      absl::optional<int64_t> absolute_capture_timestamp_ms) {
+    // Call back into Version 2 by dropping arguments.
+    // TODO(bugs.webrtc.org/10739): Deprecate the old OnData and make this one
+    // pure virtual.
+    return OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
+                  number_of_frames, absolute_capture_timestamp_ms);
   }
 
   // Returns the number of channels encoded by the sink. This can be less than

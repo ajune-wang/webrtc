@@ -115,6 +115,10 @@ class AudioFrame {
     return absolute_capture_timestamp_ms_;
   }
 
+  void set_audio_data_size_bytes(size_t size) { audio_data_size_bytes_ = size; }
+
+  size_t audio_data_size_bytes() const { return audio_data_size_bytes_; }
+
   // RTP timestamp of the first sample in the AudioFrame.
   uint32_t timestamp_ = 0;
   // Time since the first frame in milliseconds.
@@ -166,6 +170,9 @@ class AudioFrame {
   // capture timestamp of a received frame is found in `packet_infos_`.
   // This timestamp MUST be based on the same clock as rtc::TimeMillis().
   absl::optional<int64_t> absolute_capture_timestamp_ms_;
+
+  // Allocation length of audio data, or (size_t)(-1) if not known.
+  size_t audio_data_size_bytes_ = -1;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c81519a_d2ffc0f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-22T12:27:05Z",
+      "side": 1,
+      "message": "I\u0027m also changing name from \u0027CreateVideoDecoder\u0027 to simpler \u0027Create\u0027\nin particular to align with \nhttps://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/implementation_basics.md#reserved-class-suffixes\n\n\"FooFactory: Has a Create function that creates a Foo object and returns the object or an owning reference to it (for instance std::unique_ptr\"\n\nbut if you have a reason for Create function to have a longer name, I won\u0027t mind.",
+      "revId": "2f1baee519e547eedbde08315b76659e5fc7abe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

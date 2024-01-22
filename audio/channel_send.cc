@@ -154,6 +154,10 @@ class ChannelSend : public ChannelSendInterface,
   // ReportBlockDataObserver.
   void OnReportBlockDataUpdated(ReportBlockData report_block) override;
 
+  void SetFirstFrame(bool is_first_frame) override {
+    first_frame_.store(is_first_frame);
+  }
+
  private:
   // From AudioPacketizationCallback in the ACM
   int32_t SendData(AudioFrameType frameType,
@@ -742,6 +746,7 @@ void ChannelSend::ProcessAndEncodeAudio(
 
   // Update `timestamp_` based on the capture timestamp for the first frame
   // after sending is resumed.
+  // SHould we check if source_ is true here? How?
   if (first_frame_.load()) {
     first_frame_.store(false);
     if (last_capture_timestamp_ms_ &&

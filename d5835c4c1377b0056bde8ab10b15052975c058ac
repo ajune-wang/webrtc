@@ -56,6 +56,30 @@
       },
       "revId": "d5835c4c1377b0056bde8ab10b15052975c058ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d11fc4d_d5f8ef27",
+        "filename": "video/render/incoming_video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-22T09:53:48Z",
+      "side": 1,
+      "message": "Good point, unique_ptr implementation details are not obvious (though unique_ptr has good reason to call release before destructor).\nI\u0027ve added a sentence about that (both here and in video_stream_encoder.cc)",
+      "parentUuid": "5198fac8_668393f2",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 70
+      },
+      "revId": "d5835c4c1377b0056bde8ab10b15052975c058ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

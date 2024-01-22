@@ -92,6 +92,8 @@ class ChannelSendTest : public ::testing::Test {
     time_controller_.AdvanceTime(TimeDelta::Millis(10));
   }
 
+  void SetSourceToNull() { channel_->SetFirstFrame(true); }
+
   GlobalSimulatedTimeController time_controller_;
   webrtc::test::ScopedKeyValueConfig field_trials_;
   Environment env_;
@@ -140,6 +142,34 @@ TEST_F(ChannelSendTest, IncreaseRtpTimestampByPauseDuration) {
   channel_->StopSend();
   time_controller_.AdvanceTime(TimeDelta::Seconds(10));
   channel_->StartSend();
+
+  ProcessNextFrame();
+  ProcessNextFrame();
+  EXPECT_EQ(sent_packets, 2);
+  int64_t timestamp_gap_ms =
+      static_cast<int64_t>(timestamp - first_timestamp) * 1000 / kRtpRateHz;
+  EXPECT_EQ(timestamp_gap_ms, 10020);
+}
+
+TEST_F(ChannelSendTest, IncreaseRtpTimestampByPauseDurationWhenSourceResets) {
+  channel_->StartSend();
+  uint32_t timestamp;
+  int sent_packets = 0;
+  auto send_rtp = [&](rtc::ArrayView<const uint8_t> data,
+                      const PacketOptions& options) {
+    ++sent_packets;
+    RtpPacketReceived packet;
+    packet.Parse(data);
+    timestamp = packet.Timestamp();
+    return true;
+  };
+  EXPECT_CALL(transport_, SendRtp).WillRepeatedly(Invoke(send_rtp));
+  ProcessNextFrame();
+  ProcessNextFrame();
+  EXPECT_EQ(sent_packets, 1);
+  uint32_t first_timestamp = timestamp;
+  SetSourceToNull();
+  time_controller_.AdvanceTime(TimeDelta::Seconds(10));
 
   ProcessNextFrame();
   ProcessNextFrame();

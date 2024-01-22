@@ -112,6 +112,8 @@ class ChannelSendInterface {
   virtual void SetEncoderToPacketizerFrameTransformer(
       rtc::scoped_refptr<webrtc::FrameTransformerInterface>
           frame_transformer) = 0;
+
+  virtual void SetFirstFrame(bool is_first_frame) = 0;
 };
 
 std::unique_ptr<ChannelSendInterface> CreateChannelSend(

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75e8f2e9_e3427447",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-01-22T22:02:23Z",
+      "side": 1,
+      "message": "Mirko, do I understand this comment correctly, \nthat MacOS builds are broken for the M121 branch?\n\nhttps://webrtc-review.googlesource.com/c/src/+/331960/comments/29a61e7c_07d00058",
+      "revId": "1a6c6277625decc1b4d44ad71af5b39f5e0cf13a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

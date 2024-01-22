@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aba17223_b6737778",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-01-22T17:48:39Z",
+      "side": 1,
+      "message": "Switched to using FieldTrialParameter though not directly in the declaration in .h file. Adding a FieldTrialParameter\u003cint\u003e parameter in .h file causes unittest to complain/fail if the fieldtrial string is not parsed (e.g., due to being non-AV1).",
+      "parentUuid": "92e162db_117d2a4b",
+      "range": {
+        "startLine": 269,
+        "startChar": 4,
+        "endLine": 270,
+        "endChar": 75
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4717f634_e4f93d1a",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-17T09:53:29Z",
       "side": 1,
       "message": "nit: `encoder_priority_bitrate_`.value_or(0)`",
+      "range": {
+        "startLine": 473,
+        "startChar": 6,
+        "endLine": 473,
+        "endChar": 65
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a2bf79_68349017",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-01-22T17:48:39Z",
+      "side": 1,
+      "message": "changed so that encoder_priority_bitrate_bps_ defaults to 0 rather than optional, so this is no longer needed.",
+      "parentUuid": "4717f634_e4f93d1a",
       "range": {
         "startLine": 473,
         "startChar": 6,
@@ -110,6 +158,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fbdb6ba_6d556a23",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-01-22T17:48:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3f0699e8_70275704",
+      "range": {
+        "startLine": 157,
+        "startChar": 21,
+        "endLine": 157,
+        "endChar": 22
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8345041_9f0225ad",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-01-22T17:48:39Z",
+      "side": 1,
+      "message": "Let me change it to encoder_priority_bitrate_bps_ instead. We don\u0027t want to add AV1 to the name, since we are using it to set priority_bitrate for other codecs as well (even though it is going to be 0 for non-av1).  This new name will also parallel usage in MediaStreamAllocationConfig, where we have \"priority_bitrate_bps\" and \"bitrate_priority\".",
+      "parentUuid": "bf10078e_1ba4ed4a",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 47
+      },
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f4d87eb_99c73811",
@@ -123,6 +219,24 @@
       "writtenOn": "2024-01-17T09:53:29Z",
       "side": 1,
       "message": "It looks like the normal encoder priority can change at runtime in `OnEncoderConfigurationChanged()`? Do we have test coverage for that in combination with AV1 override already?",
+      "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e883e13f_219264ef",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2024-01-22T17:48:39Z",
+      "side": 1,
+      "message": "Added a new test case to check the configuration sticks even with an OnEncoderConfigurationChanged() call. Unlike audio where many things touches priority_bitrate, for video, it looks like it was always 0 and there is no code path to change it. The new behavior is that it is always encoder_priority_bitrate_bps_.",
+      "parentUuid": "1f4d87eb_99c73811",
       "revId": "2d73e67bb811fc202db5728457243b7c55835e53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

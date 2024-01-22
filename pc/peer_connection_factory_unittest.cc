@@ -76,6 +76,7 @@ static const char kTurnIceServer[] = "turn:test.com:1234";
 static const char kTurnIceServerWithTransport[] =
     "turn:hello.com?transport=tcp";
 static const char kSecureTurnIceServer[] = "turns:hello.com?transport=tcp";
+static const char kSecureDtlsTurnIceServer[] = "turns:hello.com?transport=udp";
 static const char kSecureTurnIceServerWithoutTransportParam[] =
     "turns:hello.com:443";
 static const char kSecureTurnIceServerWithoutTransportAndPortParam[] =
@@ -557,6 +558,10 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingSecureTurnUrl) {
   ice_server.username = kTurnUsername;
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
+  ice_server.uri = kSecureDtlsTurnIceServer;
+  ice_server.username = kTurnUsername;
+  ice_server.password = kTurnPassword;
+  config.servers.push_back(ice_server);
   ice_server.uri = kSecureTurnIceServerWithoutTransportParam;
   ice_server.username = kTurnUsername;
   ice_server.password = kTurnPassword;
@@ -577,14 +582,18 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingSecureTurnUrl) {
                                    kTurnUsername, kTurnPassword,
                                    cricket::PROTO_TLS);
   turn_servers.push_back(turn1);
-  // TURNS with transport param should be default to tcp.
-  cricket::RelayServerConfig turn2("hello.com", 443, kTurnUsername,
-                                   kTurnPassword, cricket::PROTO_TLS);
+  cricket::RelayServerConfig turn2("hello.com", kDefaultStunTlsPort,
+                                   kTurnUsername, kTurnPassword,
+                                   cricket::PROTO_DTLS);
   turn_servers.push_back(turn2);
-  cricket::RelayServerConfig turn3("hello.com", kDefaultStunTlsPort,
+  // TURNS with transport param should be default to tcp.
+  cricket::RelayServerConfig turn3("hello.com", 443, kTurnUsername,
+                                   kTurnPassword, cricket::PROTO_TLS);
+  turn_servers.push_back(turn3);
+  cricket::RelayServerConfig turn4("hello.com", kDefaultStunTlsPort,
                                    kTurnUsername, kTurnPassword,
                                    cricket::PROTO_TLS);
-  turn_servers.push_back(turn3);
+  turn_servers.push_back(turn4);
   VerifyTurnServers(turn_servers);
 }
 

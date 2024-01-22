@@ -82,6 +82,8 @@ rtc_library("rtc_p2p") {
     "base/transport_info.h",
     "base/turn_port.cc",
     "base/turn_port.h",
+    "base/udp_multiplex_socket.cc",
+    "base/udp_multiplex_socket.h",
     "base/udp_port.h",
     "base/wrapping_active_ice_controller.cc",
     "base/wrapping_active_ice_controller.h",

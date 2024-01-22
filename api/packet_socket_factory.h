@@ -25,6 +25,8 @@ namespace rtc {
 class SSLCertificateVerifier;
 class AsyncResolverInterface;
 
+// Unlike the name suggests, it also affects UDP, especially when using
+// DTLS.
 struct PacketSocketTcpOptions {
   PacketSocketTcpOptions() = default;
   ~PacketSocketTcpOptions() = default;
@@ -43,7 +45,7 @@ class RTC_EXPORT PacketSocketFactory {
   enum Options {
     OPT_STUN = 0x04,
 
-    // The TLS options below are mutually exclusive.
+    // The TLS and DTLS options below are mutually exclusive.
     OPT_TLS = 0x02,           // Real and secure TLS.
     OPT_TLS_FAKE = 0x01,      // Fake TLS with a dummy SSL handshake.
     OPT_TLS_INSECURE = 0x08,  // Insecure TLS without certificate validation.
@@ -55,9 +57,31 @@ class RTC_EXPORT PacketSocketFactory {
   PacketSocketFactory() = default;
   virtual ~PacketSocketFactory() = default;
 
+  // At least one of the following methods must be implemented by a subclass.
   virtual AsyncPacketSocket* CreateUdpSocket(const SocketAddress& address,
                                              uint16_t min_port,
-                                             uint16_t max_port) = 0;
+                                             uint16_t max_port) {
+    return CreateUdpSocket(address, SocketAddress(), min_port, max_port,
+                           PacketSocketTcpOptions());
+  }
+
+  virtual AsyncPacketSocket* CreateUdpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      uint16_t min_port,
+      uint16_t max_port,
+      const PacketSocketTcpOptions& options) {
+    if (!remote_address.IsNil()) {
+      // Remote address is not supported by this implementation.
+      return nullptr;
+    }
+    if (options.opts != 0) {
+      // Options are not supported by this implementation.
+      return nullptr;
+    }
+    return CreateUdpSocket(local_address, min_port, max_port);
+  }
+
   virtual AsyncListenSocket* CreateServerTcpSocket(
       const SocketAddress& local_address,
       uint16_t min_port,

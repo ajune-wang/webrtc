@@ -24,6 +24,14 @@ class MockPacketSocketFactory : public PacketSocketFactory {
               CreateUdpSocket,
               (const SocketAddress&, uint16_t, uint16_t),
               (override));
+  MOCK_METHOD(AsyncPacketSocket*,
+              CreateUdpSocket,
+              (const SocketAddress&,
+               const SocketAddress&,
+               uint16_t,
+               uint16_t,
+               const PacketSocketTcpOptions&),
+              (override));
   MOCK_METHOD(AsyncListenSocket*,
               CreateServerTcpSocket,
               (const SocketAddress&, uint16_t, uint16_t, int opts),

@@ -70,6 +70,10 @@ static int GetRelayPreference(cricket::ProtocolType proto) {
   switch (proto) {
     case cricket::PROTO_TCP:
       return ICE_TYPE_PREFERENCE_RELAY_TCP;
+    case cricket::PROTO_DTLS:
+      // Note: It may be better to add a new preference for DTLS,
+      // but for now we use the same as TLS.
+      ABSL_FALLTHROUGH_INTENDED;
     case cricket::PROTO_TLS:
       return ICE_TYPE_PREFERENCE_RELAY_TLS;
     default:
@@ -398,9 +402,27 @@ void TurnPort::PrepareAddress() {
 bool TurnPort::CreateTurnClientSocket() {
   RTC_DCHECK(!socket_ || SharedSocket());
 
-  if (server_address_.proto == PROTO_UDP && !SharedSocket()) {
+  if ((server_address_.proto == PROTO_UDP ||
+       server_address_.proto == PROTO_DTLS) &&
+      !SharedSocket()) {
+    int opts = rtc::PacketSocketFactory::OPT_STUN;
+    if (server_address_.proto == PROTO_DTLS) {
+      if (tls_cert_policy_ ==
+          TlsCertPolicy::TLS_CERT_POLICY_INSECURE_NO_CHECK) {
+        opts |= rtc::PacketSocketFactory::OPT_TLS_INSECURE;
+      } else {
+        opts |= rtc::PacketSocketFactory::OPT_TLS;
+      }
+    }
+    rtc::PacketSocketTcpOptions options;
+    options.opts = opts;
+    options.tls_alpn_protocols = tls_alpn_protocols_;
+    options.tls_elliptic_curves = tls_elliptic_curves_;
+    options.tls_cert_verifier = tls_cert_verifier_;
+
     socket_ = socket_factory()->CreateUdpSocket(
-        rtc::SocketAddress(Network()->GetBestIP(), 0), min_port(), max_port());
+        rtc::SocketAddress(Network()->GetBestIP(), 0), server_address_.address,
+        min_port(), max_port(), options);
   } else if (server_address_.proto == PROTO_TCP ||
              server_address_.proto == PROTO_TLS) {
     RTC_DCHECK(!SharedSocket());
@@ -452,7 +474,8 @@ bool TurnPort::CreateTurnClientSocket() {
   // TCP port is ready to send stun requests after the socket is connected,
   // while UDP port is ready to do so once the socket is created.
   if (server_address_.proto == PROTO_TCP ||
-      server_address_.proto == PROTO_TLS) {
+      server_address_.proto == PROTO_TLS ||
+      server_address_.proto == PROTO_DTLS) {
     socket_->SignalConnect.connect(this, &TurnPort::OnSocketConnect);
     socket_->SubscribeCloseEvent(
         this,
@@ -467,7 +490,8 @@ void TurnPort::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
   // This slot should only be invoked if we're using a connection-oriented
   // protocol.
   RTC_DCHECK(server_address_.proto == PROTO_TCP ||
-             server_address_.proto == PROTO_TLS);
+             server_address_.proto == PROTO_TLS ||
+             server_address_.proto == PROTO_DTLS);
 
   // Do not use this port if the socket bound to an address not associated with
   // the desired network interface. This is seen in Chrome, where TCP sockets
@@ -1269,6 +1293,9 @@ std::string TurnPort::ReconstructServerUrl() {
     case PROTO_TLS:
       scheme = "turns";
       break;
+    case PROTO_DTLS:
+      scheme = "turns";
+      ABSL_FALLTHROUGH_INTENDED;
     case PROTO_UDP:
       transport = "udp";
       break;

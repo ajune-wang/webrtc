@@ -191,6 +191,7 @@ class AudioSendStream : public AudioSender {
                                   int duration_ms) = 0;
 
   virtual void SetMuted(bool muted) = 0;
+  virtual void SetFirstFrame(bool is_first_frame) = 0;
 
   virtual Stats GetStats() const = 0;
   virtual Stats GetStats(bool has_remote_tracks) const = 0;

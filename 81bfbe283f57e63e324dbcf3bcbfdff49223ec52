@@ -20,6 +20,40 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a8a628cc_4fc6d460",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-22T12:35:29Z",
+      "side": 1,
+      "message": "LGTM, with some commentary",
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb72614_7daf9e50",
+        "filename": "rtc_base/nat_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-22T12:35:29Z",
+      "side": 1,
+      "message": "This shows that data has the wrong type (should have been ArrayView). Do you have thougths on when that should be changed?\n\n(not for this CL, obviously)",
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7970d877_9b043e16",
         "filename": "rtc_base/nat_socket_factory.cc",
         "patchSetId": 9
@@ -37,6 +71,64 @@
         "endLine": 58,
         "endChar": 40
       },
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f99be78_c927e56c",
+        "filename": "rtc_base/nat_socket_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-22T12:35:29Z",
+      "side": 1,
+      "message": "The alternative is probably to make a ByteBufferReader out of the buffer and use ReadUInt16(), making it \"someone else\u0027s problem\".\n(the edge case is if you get a 3-byte buffer and try to read the 3rd and 4th byte - you may want to promote the size() \u003e 8 to a CHECK).",
+      "parentUuid": "7970d877_9b043e16",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aa5fb5c_520bcafb",
+        "filename": "rtc_base/nat_socket_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-22T12:35:29Z",
+      "side": 1,
+      "message": "Good change!",
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e974b33_a2e2f50c",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-22T12:35:29Z",
+      "side": 1,
+      "message": "Is it possible to implement this by calling the other one, to avoid duplication?",
       "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

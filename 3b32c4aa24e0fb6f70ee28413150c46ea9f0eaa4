@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25cd966a_88199432",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-22T15:42:10Z",
+      "side": 1,
+      "message": "PTAL but need to wait for 2 internal CLs to land before +2",
+      "revId": "3b32c4aa24e0fb6f70ee28413150c46ea9f0eaa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

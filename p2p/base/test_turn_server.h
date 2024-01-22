@@ -21,6 +21,7 @@
 #include "api/transport/stun.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/turn_server.h"
+#include "p2p/base/udp_multiplex_socket.h"
 #include "rtc_base/async_udp_socket.h"
 #include "rtc_base/ssl_adapter.h"
 #include "rtc_base/ssl_identity.h"
@@ -99,6 +100,21 @@ class TestTurnServer : public TurnAuthInterface {
     if (proto == cricket::PROTO_UDP) {
       server_.AddInternalSocket(
           rtc::AsyncUDPSocket::Create(socket_factory_, int_addr), proto);
+    } else if (proto == cricket::PROTO_DTLS) {
+      rtc::Socket* socket = socket_factory_->CreateSocket(AF_INET, SOCK_DGRAM);
+      int result = socket->Bind(int_addr);
+      RTC_DCHECK_EQ(result, 0);
+
+      // Like TLS, wrap the UDP socket with an SSL adapter.
+      std::unique_ptr<rtc::SSLAdapterFactory> ssl_adapter_factory =
+          rtc::SSLAdapterFactory::Create();
+      ssl_adapter_factory->SetMode(rtc::SSL_MODE_DTLS);
+      ssl_adapter_factory->SetRole(rtc::SSL_SERVER);
+      ssl_adapter_factory->SetIdentity(
+          rtc::SSLIdentity::Create(common_name, rtc::KeyParams()));
+      ssl_adapter_factory->SetIgnoreBadCert(ignore_bad_cert);
+      server_.AddInternalServerSocket(new UdpMultiplexSocket(socket), proto,
+                                      std::move(ssl_adapter_factory));
     } else if (proto == cricket::PROTO_TCP || proto == cricket::PROTO_TLS) {
       // For TCP we need to create a server socket which can listen for incoming
       // new connections.

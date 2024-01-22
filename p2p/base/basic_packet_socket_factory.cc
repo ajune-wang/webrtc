@@ -35,19 +35,69 @@ BasicPacketSocketFactory::BasicPacketSocketFactory(
 BasicPacketSocketFactory::~BasicPacketSocketFactory() {}
 
 AsyncPacketSocket* BasicPacketSocketFactory::CreateUdpSocket(
-    const SocketAddress& address,
+    const SocketAddress& local_address,
+    const SocketAddress& remote_address,
     uint16_t min_port,
-    uint16_t max_port) {
+    uint16_t max_port,
+    const PacketSocketTcpOptions& options) {
+  int opts = options.opts;
+  if (opts & PacketSocketFactory::OPT_TLS_FAKE) {
+    RTC_LOG(LS_ERROR) << "Fake TLS not supported.";
+    return NULL;
+  }
+
   // UDP sockets are simple.
-  Socket* socket = socket_factory_->CreateSocket(address.family(), SOCK_DGRAM);
+  Socket* socket =
+      socket_factory_->CreateSocket(local_address.family(), SOCK_DGRAM);
   if (!socket) {
     return NULL;
   }
-  if (BindSocket(socket, address, min_port, max_port) < 0) {
+  if (BindSocket(socket, local_address, min_port, max_port) < 0) {
     RTC_LOG(LS_ERROR) << "UDP bind failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }
+
+  if ((opts & (PacketSocketFactory::OPT_TLS |
+               PacketSocketFactory::OPT_TLS_INSECURE)) != 0) {
+    if ((opts & PacketSocketFactory::OPT_STUN) == 0) {
+      RTC_LOG(LS_ERROR) << "DTLS without STUN not supported.";
+      delete socket;
+      return NULL;
+    }
+
+    if (socket->Connect(remote_address) < 0) {
+      RTC_LOG(LS_ERROR) << "UDP connect failed with error "
+                        << socket->GetError();
+      delete socket;
+      return NULL;
+    }
+
+    SSLAdapter* ssl_adapter = SSLAdapter::Create(socket);
+    if (!ssl_adapter) {
+      return NULL;
+    }
+
+    ssl_adapter->SetMode(SSL_MODE_DTLS);
+    if (opts & PacketSocketFactory::OPT_TLS_INSECURE) {
+      ssl_adapter->SetIgnoreBadCert(true);
+    }
+
+    ssl_adapter->SetAlpnProtocols(options.tls_alpn_protocols);
+    ssl_adapter->SetEllipticCurves(options.tls_elliptic_curves);
+    ssl_adapter->SetCertVerifier(options.tls_cert_verifier);
+
+    if (ssl_adapter->StartSSL(remote_address.hostname().c_str()) != 0) {
+      delete ssl_adapter;
+      return NULL;
+    }
+
+    // It may be weird that we're using AsyncStunTCPSocket for DTLS, but it
+    // works. Like TCP, AsyncStunTCPSocket's SignalConnect will be called when
+    // the DTLS handshake completes.
+    return new cricket::AsyncStunTCPSocket(ssl_adapter);
+  }
+
   return new AsyncUDPSocket(socket);
 }
 

@@ -16,6 +16,46 @@
       "message": "similar to https://webrtc-review.googlesource.com/c/src/+/334681\nbut using more hacky, but safer approach as it look like these two task queues refer owning pointer from the task queue itself in more scenarios than just  RTC_DCHECK_RUNS_ON",
       "revId": "d5835c4c1377b0056bde8ab10b15052975c058ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83fa6047_d9b308a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-22T06:49:04Z",
+      "side": 1,
+      "message": "LGTM % comment",
+      "revId": "d5835c4c1377b0056bde8ab10b15052975c058ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5198fac8_668393f2",
+        "filename": "video/render/incoming_video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-01-22T06:49:04Z",
+      "side": 1,
+      "message": "One could easily think the two lines of code below does exactly what the unique_ptr dtor would do (I thought so), but apparently the dtor does it in reverse order. If that was explained I think this comment would be much more helpful.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 70
+      },
+      "revId": "d5835c4c1377b0056bde8ab10b15052975c058ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

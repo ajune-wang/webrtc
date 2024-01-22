@@ -50,6 +50,24 @@
       "message": "Should this have [[deprecated]], or is it too early for that?",
       "revId": "278757188455d6d90b7a2d147b62fcf7f8807cb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0846e4_92fded33",
+        "filename": "api/stats/attribute.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-22T08:59:57Z",
+      "side": 1,
+      "message": "I think not yet, we need to migrate all uses of RTCStatsMember\u003cT\u003e within WebRTC first. But it might be that all downstream project references are Attributes() or direct variable references like `foo.stat` in which case we might even be able to skip the `[deprecated]` step if there are no uses of the type alias.",
+      "parentUuid": "3191a5e6_d68b0bf2",
+      "revId": "278757188455d6d90b7a2d147b62fcf7f8807cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

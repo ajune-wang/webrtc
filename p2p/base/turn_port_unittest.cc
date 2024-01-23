@@ -66,6 +66,7 @@ static const SocketAddress kLocalIPv6Addr2("2401:fa00:4:2000:be30:5bff:fee5:d4",
                                            0);
 static const SocketAddress kTurnUdpIntAddr("99.99.99.3",
                                            cricket::TURN_SERVER_PORT);
+static const SocketAddress kTurnDtlsIntAddr("99.99.99.3", 5349);
 static const SocketAddress kTurnTcpIntAddr("99.99.99.4",
                                            cricket::TURN_SERVER_PORT);
 static const SocketAddress kTurnUdpExtAddr("99.99.99.5", 0);
@@ -116,6 +117,8 @@ static const cricket::ProtocolAddress kTurnTcpProtoAddr(kTurnTcpIntAddr,
                                                         cricket::PROTO_TCP);
 static const cricket::ProtocolAddress kTurnTlsProtoAddr(kTurnTcpIntAddr,
                                                         cricket::PROTO_TLS);
+static const cricket::ProtocolAddress kTurnDtlsProtoAddr(kTurnDtlsIntAddr,
+                                                         cricket::PROTO_DTLS);
 static const cricket::ProtocolAddress kTurnUdpIPv6ProtoAddr(kTurnUdpIPv6IntAddr,
                                                             cricket::PROTO_UDP);
 static const cricket::ProtocolAddress kTurnDangerousProtoAddr(
@@ -304,7 +307,8 @@ class TurnPortTest : public ::testing::Test,
     turn_port_->SetIceTiebreaker(kTiebreakerDefault);
     ConnectSignals();
 
-    if (server_address.proto == cricket::PROTO_TLS) {
+    if (server_address.proto == cricket::PROTO_TLS ||
+        server_address.proto == cricket::PROTO_DTLS) {
       // The test TURN server has a self-signed certificate so will not pass
       // the normal client validation. Instruct the client to ignore certificate
       // errors for testing only.
@@ -399,6 +403,8 @@ class TurnPortTest : public ::testing::Test,
         // TLS operates over TCP and additionally has a round of HELLO for
         // negotiating ciphers and a round for exchanging certificates.
         return 2 * kSimulatedRtt + TimeToConnect(PROTO_TCP);
+      case PROTO_DTLS:
+        return 2 * kSimulatedRtt + TimeToConnect(PROTO_UDP);
       case PROTO_UDP:
       default:
         // UDP requires no round trips to set up the connection.
@@ -1448,6 +1454,14 @@ TEST_F(TurnPortTest, TestTurnTlsConnection) {
   turn_server_.AddInternalSocket(kTurnTcpIntAddr, PROTO_TLS);
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnTlsProtoAddr);
   TestTurnConnection(PROTO_TLS);
+}
+
+// Test that we can establish a DTLS connection with TURN server.
+TEST_F(TurnPortTest, TestTurnDtlsConnection) {
+  rtc::LogMessage::LogToDebug(rtc::LS_VERBOSE);
+  turn_server_.AddInternalSocket(kTurnDtlsIntAddr, PROTO_DTLS);
+  CreateTurnPort(kTurnUsername, kTurnPassword, kTurnDtlsProtoAddr);
+  TestTurnConnection(PROTO_DTLS);
 }
 
 // Test that if a connection on a TURN port is destroyed, the TURN port can

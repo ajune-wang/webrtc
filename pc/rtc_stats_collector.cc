@@ -164,17 +164,13 @@ std::string RTCMediaSourceStatsIDFromKindAndAttachment(
   return sb.str();
 }
 
-const char* CandidateTypeToRTCIceCandidateType(const cricket::Candidate& c) {
+absl::string_view CandidateTypeToRTCIceCandidateType(
+    const cricket::Candidate& c) {
   if (c.is_local())
     return "host";
   if (c.is_stun())
     return "srflx";
-  if (c.is_prflx())
-    return "prflx";
-  if (c.is_relay())
-    return "relay";
-  RTC_DCHECK_NOTREACHED();
-  return nullptr;
+  return c.type();
 }
 
 const char* DataStateToRTCDataChannelState(
@@ -961,12 +957,10 @@ const std::string& ProduceIceCandidateStats(Timestamp timestamp,
     if (is_local) {
       candidate_stats->network_type =
           NetworkTypeToStatsType(candidate.network_type());
-      const std::string& candidate_type = candidate.type();
-      const std::string& relay_protocol = candidate.relay_protocol();
+      const auto relay_protocol = candidate.relay_protocol();
       const std::string& url = candidate.url();
-      if (candidate_type == cricket::RELAY_PORT_TYPE ||
-          (candidate_type == cricket::PRFLX_PORT_TYPE &&
-           !relay_protocol.empty())) {
+      if (candidate.is_relay() ||
+          (candidate.is_prflx() && !relay_protocol.empty())) {
         RTC_DCHECK(relay_protocol.compare("udp") == 0 ||
                    relay_protocol.compare("tcp") == 0 ||
                    relay_protocol.compare("tls") == 0);
@@ -974,7 +968,7 @@ const std::string& ProduceIceCandidateStats(Timestamp timestamp,
         if (!url.empty()) {
           candidate_stats->url = url;
         }
-      } else if (candidate_type == cricket::STUN_PORT_TYPE) {
+      } else if (candidate.is_stun()) {
         if (!url.empty()) {
           candidate_stats->url = url;
         }
@@ -1001,7 +995,7 @@ const std::string& ProduceIceCandidateStats(Timestamp timestamp,
     candidate_stats->port = static_cast<int32_t>(candidate.address().port());
     candidate_stats->protocol = candidate.protocol();
     candidate_stats->candidate_type =
-        CandidateTypeToRTCIceCandidateType(candidate);
+        std::string(CandidateTypeToRTCIceCandidateType(candidate));
     candidate_stats->priority = static_cast<int32_t>(candidate.priority());
     candidate_stats->foundation = candidate.foundation();
     auto related_address = candidate.related_address();

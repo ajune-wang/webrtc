@@ -603,17 +603,17 @@ class P2PTransportChannelTestBase : public ::testing::Test,
   // on the local and remote candidate of ep1_ch1, match.  This can be
   // used in an EXPECT_TRUE_WAIT.
   bool CheckCandidate1(const Result& expected) {
-    const std::string& local_type = LocalCandidate(ep1_ch1())->type();
-    const std::string& local_protocol = LocalCandidate(ep1_ch1())->protocol();
-    const std::string& remote_type = RemoteCandidate(ep1_ch1())->type();
-    const std::string& remote_protocol = RemoteCandidate(ep1_ch1())->protocol();
+    const auto local_type = LocalCandidate(ep1_ch1())->type();
+    const auto local_protocol = LocalCandidate(ep1_ch1())->protocol();
+    const auto remote_type = RemoteCandidate(ep1_ch1())->type();
+    const auto remote_protocol = RemoteCandidate(ep1_ch1())->protocol();
     return (local_protocol == expected.controlling_protocol &&
             remote_protocol == expected.controlled_protocol &&
             local_type == expected.controlling_type &&
             remote_type == expected.controlled_type);
   }
 
-  // EXPECT_EQ on the approprite parts of the expected Result, based
+  // EXPECT_EQ on the appropriate parts of the expected Result, based
   // on the local and remote candidate of ep1_ch1.  This is like
   // CheckCandidate1, except that it will provide more detail about
   // what didn't match.
@@ -622,10 +622,10 @@ class P2PTransportChannelTestBase : public ::testing::Test,
       return;
     }
 
-    const std::string& local_type = LocalCandidate(ep1_ch1())->type();
-    const std::string& local_protocol = LocalCandidate(ep1_ch1())->protocol();
-    const std::string& remote_type = RemoteCandidate(ep1_ch1())->type();
-    const std::string& remote_protocol = RemoteCandidate(ep1_ch1())->protocol();
+    const auto local_type = LocalCandidate(ep1_ch1())->type();
+    const auto local_protocol = LocalCandidate(ep1_ch1())->protocol();
+    const auto remote_type = RemoteCandidate(ep1_ch1())->type();
+    const auto remote_protocol = RemoteCandidate(ep1_ch1())->protocol();
     EXPECT_EQ(expected.controlling_type, local_type);
     EXPECT_EQ(expected.controlled_type, remote_type);
     EXPECT_EQ(expected.controlling_protocol, local_protocol);
@@ -636,10 +636,10 @@ class P2PTransportChannelTestBase : public ::testing::Test,
   // on the local and remote candidate of ep2_ch1, match.  This can be
   // used in an EXPECT_TRUE_WAIT.
   bool CheckCandidate2(const Result& expected) {
-    const std::string& local_type = LocalCandidate(ep2_ch1())->type();
-    const std::string& local_protocol = LocalCandidate(ep2_ch1())->protocol();
-    const std::string& remote_type = RemoteCandidate(ep2_ch1())->type();
-    const std::string& remote_protocol = RemoteCandidate(ep2_ch1())->protocol();
+    const auto local_type = LocalCandidate(ep2_ch1())->type();
+    const auto local_protocol = LocalCandidate(ep2_ch1())->protocol();
+    const auto remote_type = RemoteCandidate(ep2_ch1())->type();
+    const auto remote_protocol = RemoteCandidate(ep2_ch1())->protocol();
     return (local_protocol == expected.controlled_protocol &&
             remote_protocol == expected.controlling_protocol &&
             local_type == expected.controlled_type &&
@@ -655,10 +655,10 @@ class P2PTransportChannelTestBase : public ::testing::Test,
       return;
     }
 
-    const std::string& local_type = LocalCandidate(ep2_ch1())->type();
-    const std::string& local_protocol = LocalCandidate(ep2_ch1())->protocol();
-    const std::string& remote_type = RemoteCandidate(ep2_ch1())->type();
-    const std::string& remote_protocol = RemoteCandidate(ep2_ch1())->protocol();
+    const auto local_type = LocalCandidate(ep2_ch1())->type();
+    const auto local_protocol = LocalCandidate(ep2_ch1())->protocol();
+    const auto remote_type = RemoteCandidate(ep2_ch1())->type();
+    const auto remote_protocol = RemoteCandidate(ep2_ch1())->protocol();
     EXPECT_EQ(expected.controlled_type, local_type);
     EXPECT_EQ(expected.controlling_type, remote_type);
     EXPECT_EQ(expected.controlled_protocol, local_protocol);

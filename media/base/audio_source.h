@@ -12,6 +12,7 @@
 #define MEDIA_BASE_AUDIO_SOURCE_H_
 
 #include <cstddef>
+#include <span>
 
 #include "absl/types/optional.h"
 
@@ -26,7 +27,7 @@ class AudioSource {
    public:
     // Callback to receive data from the AudioSource.
     virtual void OnData(
-        const void* audio_data,
+        std::span<const uint8_t> audio_data,
         int bits_per_sample,
         int sample_rate,
         size_t number_of_channels,

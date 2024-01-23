@@ -981,7 +981,7 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
 
   // AudioSource::Sink implementation.
   // This method is called on the audio thread.
-  void OnData(const void* audio_data,
+  void OnData(std::span<const uint8_t> audio_data,
               int bits_per_sample,
               int sample_rate,
               size_t number_of_channels,
@@ -994,9 +994,11 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
     RTC_DCHECK(stream_);
     std::unique_ptr<webrtc::AudioFrame> audio_frame(new webrtc::AudioFrame());
     audio_frame->UpdateFrame(
-        audio_frame->timestamp_, static_cast<const int16_t*>(audio_data),
-        number_of_frames, sample_rate, audio_frame->speech_type_,
-        audio_frame->vad_activity_, number_of_channels);
+        audio_frame->timestamp_,
+        reinterpret_cast<const int16_t*>(audio_data.data()), number_of_frames,
+        sample_rate, audio_frame->speech_type_, audio_frame->vad_activity_,
+        number_of_channels);
+    audio_frame->set_audio_data_size_bytes(audio_data.size());
     // TODO(bugs.webrtc.org/10739): add dcheck that
     // `absolute_capture_timestamp_ms` always receives a value.
     if (absolute_capture_timestamp_ms) {

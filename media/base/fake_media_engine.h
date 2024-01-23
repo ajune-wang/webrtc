@@ -16,6 +16,7 @@
 #include <map>
 #include <memory>
 #include <set>
+#include <span>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -502,7 +503,7 @@ class FakeVoiceMediaReceiveChannel
    public:
     explicit VoiceChannelAudioSink(AudioSource* source);
     ~VoiceChannelAudioSink() override;
-    void OnData(const void* audio_data,
+    void OnData(std::span<const uint8_t> audio_data,
                 int bits_per_sample,
                 int sample_rate,
                 size_t number_of_channels,
@@ -585,7 +586,7 @@ class FakeVoiceMediaSendChannel
    public:
     explicit VoiceChannelAudioSink(AudioSource* source);
     ~VoiceChannelAudioSink() override;
-    void OnData(const void* audio_data,
+    void OnData(std::span<const uint8_t> audio_data,
                 int bits_per_sample,
                 int sample_rate,
                 size_t number_of_channels,

@@ -16,6 +16,23 @@
       "message": "PTAL but need to wait for 2 internal CLs to land before +2",
       "revId": "3b32c4aa24e0fb6f70ee28413150c46ea9f0eaa4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fee5686_a93e4f7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-23T17:08:45Z",
+      "side": 1,
+      "message": "This should be ready to reland now, PTAL",
+      "revId": "3b32c4aa24e0fb6f70ee28413150c46ea9f0eaa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

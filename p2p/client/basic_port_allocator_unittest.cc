@@ -328,17 +328,6 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
         });
   }
 
-  static int CountCandidates(const std::vector<Candidate>& candidates,
-                             absl::string_view type,
-                             absl::string_view proto,
-                             const SocketAddress& addr) {
-    return absl::c_count_if(
-        candidates, [type, proto, addr](const Candidate& c) {
-          return c.type() == type && c.protocol() == proto &&
-                 AddressMatch(c.address(), addr);
-        });
-  }
-
   // Find a candidate and return it.
   static bool FindCandidate(const std::vector<Candidate>& candidates,
                             absl::string_view type,
@@ -1272,9 +1261,11 @@ TEST_F(BasicPortAllocatorTest, TestGetAllPortsNoAdapters) {
                            rtc::SocketAddress(kNatUdpAddr.ipaddr(), 0)));
   // Again, two TURN candidates, using UDP/TCP for the first hop to the TURN
   // server.
-  EXPECT_EQ(2,
-            CountCandidates(candidates_, "relay", "udp",
-                            rtc::SocketAddress(kTurnUdpExtAddr.ipaddr(), 0)));
+  rtc::SocketAddress addr(kTurnUdpExtAddr.ipaddr(), 0);
+  EXPECT_EQ(2, absl::c_count_if(candidates_, [&](const Candidate& c) {
+              return c.is_relay() && c.protocol() == "udp" &&
+                     AddressMatch(c.address(), addr);
+            }));
 }
 
 // Test that when enumeration is disabled, we should not have any ports when

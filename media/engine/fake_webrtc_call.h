@@ -76,6 +76,7 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
   webrtc::AudioSendStream::Stats GetStats() const override;
   webrtc::AudioSendStream::Stats GetStats(
       bool has_remote_tracks) const override;
+  void SetFirstFrame(bool is_first_frame) override;
 
   int id_ = -1;
   TelephoneEvent latest_telephone_event_;
@@ -83,6 +84,7 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
   webrtc::AudioSendStream::Stats stats_;
   bool sending_ = false;
   bool muted_ = false;
+  bool first_frame_ = false;
 };
 
 class FakeAudioReceiveStream final

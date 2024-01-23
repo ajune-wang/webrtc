@@ -16,6 +16,24 @@
       "message": "What is the value of adding this information when by definition\naudio_data_size_bytes \u003d bits_per_sample * number_of_channels * number_of_frames?",
       "revId": "6ad28a22f3d8f369300bc2038ea92ea0abb18a00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495c47c6_f739f0c6",
+        "filename": "media/base/audio_source.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-01-23T17:35:19Z",
+      "side": 1,
+      "message": "You got it wrong before and folks got pwned. Passing along the actual allocation size will facitlitate making basic sanity checks,.",
+      "parentUuid": "418de859_5b61d95f",
+      "revId": "6ad28a22f3d8f369300bc2038ea92ea0abb18a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -49,6 +49,7 @@ class PortInterface {
  public:
   virtual ~PortInterface();
 
+  // TODO(tommi): Use PortType enum.
   virtual const absl::string_view Type() const = 0;
   virtual const rtc::Network* Network() const = 0;
 

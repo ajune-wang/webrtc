@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "418de859_5b61d95f",
+        "filename": "media/base/audio_source.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5242
+      },
+      "writtenOn": "2024-01-23T13:39:16Z",
+      "side": 1,
+      "message": "What is the value of adding this information when by definition\naudio_data_size_bytes \u003d bits_per_sample * number_of_channels * number_of_frames?",
+      "revId": "6ad28a22f3d8f369300bc2038ea92ea0abb18a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

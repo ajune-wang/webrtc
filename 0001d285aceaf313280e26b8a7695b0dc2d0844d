@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7d2a1a_f708d775",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-23T14:26:01Z",
+      "side": 1,
+      "message": "Thank you, I guess we should do it for the other tests too, but that\u0027s another CL",
+      "parentUuid": "1e51e10a_736d8983",
+      "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93cab854_41ad0e1d",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "Not sure what you mean.",
       "parentUuid": "5549a851_e330d8dd",
+      "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19cef9d5_c6844d82",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2027,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-01-23T14:26:01Z",
+      "side": 1,
+      "message": "The last EXPECT of this test is that we have encoded no more than 3 additional frames (why 3?) since we inactivated the encoding. But this could be flaky on slow bots (imagine SetParameters taking unusually long time to execute and the encoder spits out a few more frames than normal until active\u003dfalse is applied). In the past these tests have been really flaky so I think it\u0027s better to that we wait until we know that the parameters have had an effect and then expect that the encoded frames counters stops incrementing.\n\nSuggestion: Write a helper method that returns if \"outbound-rtp.active\" is true or false, and then:\n\n```\n// Wait until the encoding is no longer active before getting its encoded frames\n// count.\nASSERT_TRUE_WAIT(!EncodingIsActive(local_pc_wrapper, \"f\"), kDefaultTimeout.ms());\nint encoded_frames_f \u003d EncodedFrames(local_pc_wrapper, \"f\");\n\n// Wait until the encoder has encoded another 10 frames on lower layers.\nASSERT_TRUE_WAIT(EncodedFrames(local_pc_wrapper, \"q\") \u003e encoded_frames_q + 10,\n                 kDefaultTimeout.ms());\nASSERT_TRUE_WAIT(EncodedFrames(local_pc_wrapper, \"h\") \u003e encoded_frames_h + 10,\n                kDefaultTimeout.ms());\n\n// No new frames should have been encoded on the inactive layer.\nEXPECT_LT(EncodedFrames(local_pc_wrapper, \"f\"), encoded_frames_f);\n```",
+      "parentUuid": "57781a42_e1696a8e",
       "revId": "0001d285aceaf313280e26b8a7695b0dc2d0844d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

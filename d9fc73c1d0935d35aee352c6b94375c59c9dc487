@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "792bbc45_14f4c21b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3267050
+      },
+      "writtenOn": "2024-01-23T18:39:48Z",
+      "side": 1,
+      "message": "PS10 is a sketch of what a spanified version would look like. I\u0027d stayed away from this because of lack of pre-exesting usage in webrtc, but this might be clearer.\n\nAs for sanity check, we want to make one here before entering this loop: https://source.chromium.org/chromium/chromium/src/+/main:media/base/audio_bus.h;drc\u003de63cbaf6fdcfdac0f04883d956b00e83330bd0a2;l\u003d317\n\nbut there isn\u0027t any way to plumb the actual size of the buffer to here.",
+      "revId": "d9fc73c1d0935d35aee352c6b94375c59c9dc487",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

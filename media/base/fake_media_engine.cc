@@ -32,21 +32,25 @@ FakeVoiceMediaReceiveChannel::VoiceChannelAudioSink::VoiceChannelAudioSink(
     : source_(source) {
   source_->SetSink(this);
 }
+
 FakeVoiceMediaReceiveChannel::VoiceChannelAudioSink::~VoiceChannelAudioSink() {
   if (source_) {
     source_->SetSink(nullptr);
   }
 }
+
 void FakeVoiceMediaReceiveChannel::VoiceChannelAudioSink::OnData(
-    const void* audio_data,
+    std::span<const uint8_t> audio_data,
     int bits_per_sample,
     int sample_rate,
     size_t number_of_channels,
     size_t number_of_frames,
     absl::optional<int64_t> absolute_capture_timestamp_ms) {}
+
 void FakeVoiceMediaReceiveChannel::VoiceChannelAudioSink::OnClose() {
   source_ = nullptr;
 }
+
 AudioSource* FakeVoiceMediaReceiveChannel::VoiceChannelAudioSink::source()
     const {
   return source_;
@@ -188,21 +192,25 @@ FakeVoiceMediaSendChannel::VoiceChannelAudioSink::VoiceChannelAudioSink(
     : source_(source) {
   source_->SetSink(this);
 }
+
 FakeVoiceMediaSendChannel::VoiceChannelAudioSink::~VoiceChannelAudioSink() {
   if (source_) {
     source_->SetSink(nullptr);
   }
 }
+
 void FakeVoiceMediaSendChannel::VoiceChannelAudioSink::OnData(
-    const void* audio_data,
+    std::span<const uint8_t> audio_data,
     int bits_per_sample,
     int sample_rate,
     size_t number_of_channels,
     size_t number_of_frames,
     absl::optional<int64_t> absolute_capture_timestamp_ms) {}
+
 void FakeVoiceMediaSendChannel::VoiceChannelAudioSink::OnClose() {
   source_ = nullptr;
 }
+
 AudioSource* FakeVoiceMediaSendChannel::VoiceChannelAudioSink::source() const {
   return source_;
 }

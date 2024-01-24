@@ -936,6 +936,7 @@ rtc_library("ice_transport_factory") {
     ":make_ref_counted",
     ":packet_socket_factory",
     ":scoped_refptr",
+    "../p2p:p2p_constants",
     "../p2p:rtc_p2p",
     "../rtc_base:threading",
     "../rtc_base/system:rtc_export",

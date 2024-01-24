@@ -50,8 +50,6 @@ rtc_library("rtc_p2p") {
     "base/ice_switch_reason.h",
     "base/ice_transport_internal.cc",
     "base/ice_transport_internal.h",
-    "base/p2p_constants.cc",
-    "base/p2p_constants.h",
     "base/p2p_transport_channel.cc",
     "base/p2p_transport_channel.h",
     "base/p2p_transport_channel_ice_field_trials.h",
@@ -93,6 +91,7 @@ rtc_library("rtc_p2p") {
   ]
 
   deps = [
+    ":p2p_constants",
     "../api:array_view",
     "../api:async_dns_resolver",
     "../api:candidate",
@@ -174,6 +173,14 @@ rtc_library("rtc_p2p") {
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+}
+
+rtc_source_set("p2p_constants") {
+  sources = [
+    "base/p2p_constants.cc",
+    "base/p2p_constants.h",
+  ]
+  deps = [ "../rtc_base/system:rtc_export" ]
 }
 
 if (rtc_include_tests) {
@@ -286,6 +293,7 @@ if (rtc_include_tests) {
     deps = [
       ":fake_ice_transport",
       ":fake_port_allocator",
+      ":p2p_constants",
       ":p2p_server_utils",
       ":p2p_test_utils",
       ":rtc_p2p",

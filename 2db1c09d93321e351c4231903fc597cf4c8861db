@@ -106,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "673fa108_f65ddb1d",
+        "filename": "p2p/base/test_turn_server.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-24T11:49:36Z",
+      "side": 1,
+      "message": "Hm. Expanding the scope shows that the coverage checker says that AddInternalSocket was never called - for any of the types involved. So the lack of coverage is an old bug.\n\nWhich test breaks if you put a bug into this code?",
+      "parentUuid": "59015918_268e962b",
+      "revId": "2db1c09d93321e351c4231903fc597cf4c8861db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9f04a55_ad8fbb3b",
         "filename": "p2p/base/udp_multiplex_socket.h",
         "patchSetId": 6

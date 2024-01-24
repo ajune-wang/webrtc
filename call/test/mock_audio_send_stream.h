@@ -44,6 +44,7 @@ class MockAudioSendStream : public AudioSendStream {
   MOCK_METHOD(void, SetMuted, (bool muted), (override));
   MOCK_METHOD(Stats, GetStats, (), (const, override));
   MOCK_METHOD(Stats, GetStats, (bool has_remote_tracks), (const, override));
+  MOCK_METHOD(void, SetFirstFrame, (bool is_first_frame), (override));
 };
 }  // namespace test
 }  // namespace webrtc

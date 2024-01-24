@@ -485,6 +485,10 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   return stats;
 }
 
+void AudioSendStream::SetFirstFrame(bool is_first_frame) {
+  channel_send_->SetFirstFrame(is_first_frame);
+}
+
 void AudioSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   channel_send_->ReceivedRTCPPacket(packet, length);

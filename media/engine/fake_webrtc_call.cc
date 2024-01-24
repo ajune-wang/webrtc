@@ -79,6 +79,10 @@ webrtc::AudioSendStream::Stats FakeAudioSendStream::GetStats(
   return stats_;
 }
 
+void FakeAudioSendStream::SetFirstFrame(bool is_first_frame) {
+  first_frame_ = is_first_frame;
+}
+
 FakeAudioReceiveStream::FakeAudioReceiveStream(
     int id,
     const webrtc::AudioReceiveStreamInterface::Config& config)

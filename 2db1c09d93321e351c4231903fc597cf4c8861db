@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "046fff4e_883b8f64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-24T01:58:11Z",
+      "side": 1,
+      "message": "Another important comment... missed this on the first round.",
+      "revId": "2db1c09d93321e351c4231903fc597cf4c8861db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffafa189_36b4e50a",
@@ -31,6 +48,23 @@
       "writtenOn": "2024-01-24T01:55:14Z",
       "side": 1,
       "message": "Please add a TODO(bug) for making the method being carried forward pure virtual again, and mark this one as \"for backwards compatibility\".",
+      "revId": "2db1c09d93321e351c4231903fc597cf4c8861db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f335277c_74f53ae2",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-24T01:58:11Z",
+      "side": 1,
+      "message": "Don\u0027t do this. Wrap the two files in their own target and let this target depend on it, if necessary.\n\nThis target is a gross violation of the One Definition Rule (https://webrtc.googlesource.com/src.git/+/61fce40f7a744bf0bf22aca7a17f3b15469fdf18/style-guide.md#h-cc-pairs), and its only reason for existing is that nobody\u0027s taken the time to refactor it yeet.",
       "revId": "2db1c09d93321e351c4231903fc597cf4c8861db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

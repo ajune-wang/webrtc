@@ -688,6 +688,10 @@ class RTC_EXPORT PeerConnectionInterface : public webrtc::RefCountInterface {
     // The burst interval of the pacer, see TaskQueuePacedSender constructor.
     absl::optional<TimeDelta> pacer_burst_interval;
 
+    // A bandwidth estimation probe may be sent on a writable Rtp stream that
+    // has RTX configured. It can be sent without first sending media packets.
+    bool allow_bandwidth_estimation_probe_without_media = false;
+
     //
     // Don't forget to update operator== if adding something.
     //

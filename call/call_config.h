@@ -74,6 +74,10 @@ struct CallConfig {
   // The burst interval of the pacer, see TaskQueuePacedSender constructor.
   absl::optional<TimeDelta> pacer_burst_interval;
 
+  // A bandwidth estimation probe may be sent on a writable Rtp stream that
+  // has RTX configured. It can be sent without first sending media packets.
+  bool allow_bandwidth_estimation_probe_without_media = false;
+
   // Enables send packet batching from the egress RTP sender.
   bool enable_send_packet_batching = false;
 };

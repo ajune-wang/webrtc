@@ -29,6 +29,8 @@ RtpTransportConfig CallConfig::ExtractTransportConfig() const {
   transport_config.network_state_predictor_factory =
       network_state_predictor_factory;
   transport_config.pacer_burst_interval = pacer_burst_interval;
+  transport_config.allow_bandwidth_estimation_probe_without_media =
+      allow_bandwidth_estimation_probe_without_media;
 
   return transport_config;
 }

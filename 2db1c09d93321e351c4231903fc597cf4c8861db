@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed5f6779_e2fc3dea",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 22800
+      },
+      "writtenOn": "2024-01-24T20:39:51Z",
+      "side": 1,
+      "message": "Wouldn\u0027t adding 2 flags dedicated for DTLS be better?\n\n```suggestion\n    OPT_DTLS \u003d 0x20,           // Real and secure DTLS.\n    OPT_DTLS_INSECURE \u003d 0x10,  // Fake DTLS with a dummy SSL handshake.\n```",
+      "revId": "2db1c09d93321e351c4231903fc597cf4c8861db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffafa189_36b4e50a",
         "filename": "api/packet_socket_factory.h",
         "patchSetId": 6

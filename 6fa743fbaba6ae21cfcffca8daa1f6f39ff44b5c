@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7cefa6_965d5566",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 22800
+      },
+      "writtenOn": "2024-01-24T20:39:51Z",
+      "side": 0,
+      "message": "Renaming this to -\u003e PacketSocketOptions would be more clear, ?",
+      "revId": "6fa743fbaba6ae21cfcffca8daa1f6f39ff44b5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

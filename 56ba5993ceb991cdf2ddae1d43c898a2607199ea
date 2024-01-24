@@ -16,6 +16,23 @@
       "message": "spec change ready. Ideally we can land this shortly after the M122 branch cut on Monday.\n\nSee the CL history for why some tests became obsolete.",
       "revId": "56ba5993ceb991cdf2ddae1d43c898a2607199ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "002b3b62_8e87897b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-24T16:58:59Z",
+      "side": 1,
+      "message": "Validated this still keep the behavior of only offering VP8 when being set via setCodecPreferences:\n  https://jsfiddle.net/fippo/Lf458mja/2/\n(thanks orphis!)",
+      "revId": "56ba5993ceb991cdf2ddae1d43c898a2607199ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

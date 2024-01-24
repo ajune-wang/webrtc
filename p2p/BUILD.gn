@@ -225,6 +225,7 @@ if (rtc_include_tests) {
       "base/test_stun_server.cc",
       "base/test_stun_server.h",
       "base/test_turn_customizer.h",
+      "base/test_turn_server.cc",
       "base/test_turn_server.h",
     ]
     deps = [

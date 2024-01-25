@@ -51,6 +51,41 @@
       "parentUuid": "bec95518_71d48e7d",
       "revId": "197c1f5b06940b258430c2545ebb25ce41bdfa8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e310d5_67ca6fa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22775
+      },
+      "writtenOn": "2024-01-25T07:59:48Z",
+      "side": 1,
+      "message": "See the \"Encoding speed settings related quality degradation\" section of\n\nhttps://docs.google.com/document/d/1XJngkXcDTquI8aj52qvo9Mpm9h-FuX1aPK-2dGSVQ7c/edit",
+      "revId": "197c1f5b06940b258430c2545ebb25ce41bdfa8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b27901a8_a8498cea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22775
+      },
+      "writtenOn": "2024-01-25T07:59:48Z",
+      "side": 1,
+      "message": "Will provide a quality esitmate.",
+      "parentUuid": "80ad7a8b_1b250ab9",
+      "revId": "197c1f5b06940b258430c2545ebb25ce41bdfa8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

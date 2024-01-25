@@ -11,32 +11,43 @@
 #include "video/encoder_rtcp_feedback.h"
 
 #include <memory>
+#include <string>
 
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/scoped_key_value_config.h"
 #include "video/test/mock_video_stream_encoder.h"
 
 using ::testing::_;
+using ::testing::ElementsAre;
 
 namespace webrtc {
 
-class VieKeyRequestTest : public ::testing::Test {
+class VieKeyRequestTestBase : public ::testing::Test {
  public:
-  VieKeyRequestTest()
+  VieKeyRequestTestBase(const std::string field_trials,
+                        std::vector<uint32_t> ssrcs)
       : simulated_clock_(123456789),
         encoder_(),
-        encoder_rtcp_feedback_(
-            &simulated_clock_,
-            std::vector<uint32_t>(1, VieKeyRequestTest::kSsrc),
-            &encoder_,
-            nullptr) {}
+        encoder_rtcp_feedback_(&simulated_clock_,
+                               webrtc::test::ScopedKeyValueConfig(field_trials),
+                               ssrcs,
+                               &encoder_,
+                               nullptr) {}
 
  protected:
-  const uint32_t kSsrc = 1234;
+  static const uint32_t kSsrc = 1234;
+  static const uint32_t kOtherSsrc = 4321;
 
   SimulatedClock simulated_clock_;
   ::testing::StrictMock<MockVideoStreamEncoder> encoder_;
   EncoderRtcpFeedback encoder_rtcp_feedback_;
+};
+
+class VieKeyRequestTest : public VieKeyRequestTestBase {
+ public:
+  VieKeyRequestTest()
+      : VieKeyRequestTestBase("", {VieKeyRequestTestBase::kSsrc}) {}
 };
 
 TEST_F(VieKeyRequestTest, CreateAndTriggerRequests) {
@@ -56,6 +67,61 @@ TEST_F(VieKeyRequestTest, TooManyOnReceivedIntraFrameRequest) {
   encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
   encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
   encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+}
+
+class VieKeyRequestPerLayerPliTest : public VieKeyRequestTestBase {
+ public:
+  VieKeyRequestPerLayerPliTest()
+      : VieKeyRequestTestBase(
+            "WebRTC-Video-ForceSimulcastEncoderAdapter/Enabled/",
+            {VieKeyRequestTestBase::kSsrc, VieKeyRequestTestBase::kOtherSsrc}) {
+  }
+};
+
+TEST_F(VieKeyRequestPerLayerPliTest, CreateAndTriggerRequests) {
+  EXPECT_CALL(encoder_,
+              SendKeyFrame(ElementsAre(VideoFrameType::kVideoFrameKey,
+                                       VideoFrameType::kVideoFrameDelta)))
+      .Times(1);
+  EXPECT_CALL(encoder_,
+              SendKeyFrame(ElementsAre(VideoFrameType::kVideoFrameDelta,
+                                       VideoFrameType::kVideoFrameKey)))
+      .Times(1);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kOtherSsrc);
+}
+
+TEST_F(VieKeyRequestPerLayerPliTest, TooManyOnReceivedIntraFrameRequest) {
+  EXPECT_CALL(encoder_,
+              SendKeyFrame(ElementsAre(VideoFrameType::kVideoFrameKey,
+                                       VideoFrameType::kVideoFrameDelta)))
+      .Times(1);
+  EXPECT_CALL(encoder_,
+              SendKeyFrame(ElementsAre(VideoFrameType::kVideoFrameDelta,
+                                       VideoFrameType::kVideoFrameKey)))
+      .Times(1);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kOtherSsrc);
+  simulated_clock_.AdvanceTimeMilliseconds(10);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kOtherSsrc);
+
+  EXPECT_CALL(encoder_,
+              SendKeyFrame(ElementsAre(VideoFrameType::kVideoFrameKey,
+                                       VideoFrameType::kVideoFrameDelta)))
+      .Times(1);
+  EXPECT_CALL(encoder_,
+              SendKeyFrame(ElementsAre(VideoFrameType::kVideoFrameDelta,
+                                       VideoFrameType::kVideoFrameKey)))
+      .Times(1);
+  simulated_clock_.AdvanceTimeMilliseconds(300);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kOtherSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kOtherSsrc);
+  encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kOtherSsrc);
 }
 
 }  // namespace webrtc

@@ -87,7 +87,6 @@ bool ResetTimestampIfExpired(const Timestamp now,
 }  // namespace
 
 constexpr size_t RTCPReceiver::RegisteredSsrcs::kMediaSsrcIndex;
-constexpr size_t RTCPReceiver::RegisteredSsrcs::kMaxSsrcs;
 
 RTCPReceiver::RegisteredSsrcs::RegisteredSsrcs(
     bool disable_sequence_checker,
@@ -105,7 +104,7 @@ RTCPReceiver::RegisteredSsrcs::RegisteredSsrcs(
     }
   }
   // Ensure that the RegisteredSsrcs can inline the SSRCs.
-  RTC_DCHECK_LE(ssrcs_.size(), RTCPReceiver::RegisteredSsrcs::kMaxSsrcs);
+  RTC_DCHECK_LE(ssrcs_.size(), kMaxSimulcastStreams);
 }
 
 bool RTCPReceiver::RegisteredSsrcs::contains(uint32_t ssrc) const {
@@ -127,6 +126,7 @@ struct RTCPReceiver::PacketInformation {
   uint32_t packet_type_flags = 0;  // RTCPPacketTypeFlags bit field.
 
   uint32_t remote_ssrc = 0;
+  absl::optional<uint32_t> media_ssrc;
   std::vector<uint16_t> nack_sequence_numbers;
   std::vector<ReportBlockData> report_block_datas;
   absl::optional<TimeDelta> rtt;
@@ -895,7 +895,6 @@ bool RTCPReceiver::HandlePli(const CommonHeader& rtcp_block,
   if (!pli.Parse(rtcp_block)) {
     return false;
   }
-
   if (local_media_ssrc() == pli.media_ssrc()) {
     ++packet_type_counter_.pli_packets;
     // Received a signal that we need to send a new key frame.

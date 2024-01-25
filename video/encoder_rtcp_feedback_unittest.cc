@@ -27,6 +27,7 @@ class VieKeyRequestTest : public ::testing::Test {
         encoder_(),
         encoder_rtcp_feedback_(
             &simulated_clock_,
+            FieldTrialsView(),
             std::vector<uint32_t>(1, VieKeyRequestTest::kSsrc),
             &encoder_,
             nullptr) {}
@@ -58,4 +59,5 @@ TEST_F(VieKeyRequestTest, TooManyOnReceivedIntraFrameRequest) {
   encoder_rtcp_feedback_.OnReceivedIntraFrameRequest(kSsrc);
 }
 
+// TODO: here we be a good place to add the simulcast test.
 }  // namespace webrtc

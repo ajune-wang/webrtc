@@ -172,6 +172,9 @@ std::vector<SpatialLayer> GetVp9SvcConfig(VideoCodec& codec) {
   absl::optional<ScalabilityMode> scalability_mode = codec.GetScalabilityMode();
   RTC_DCHECK(scalability_mode.has_value());
 
+  codec.VP9()->interLayerPred =
+      ScalabilityModeToInterLayerPredMode(*scalability_mode);
+
   bool requested_single_spatial_layer =
       ScalabilityModeToNumSpatialLayers(*scalability_mode) == 1;
 

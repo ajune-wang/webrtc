@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d96210_ee4edc4b",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-25T12:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eabdd0f_4faf6ef8",
+      "range": {
+        "startLine": 21,
+        "startChar": 54,
+        "endLine": 21,
+        "endChar": 61
+      },
+      "revId": "87bd5afa68ece1e55616cf30e7e71bc47611d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b1c36ab_d446538d",
@@ -41,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "725a8fef_d046836b",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-25T12:28:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1c36ab_d446538d",
+      "revId": "87bd5afa68ece1e55616cf30e7e71bc47611d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "409dcfdc_35f6dac5",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-01-25T11:44:26Z",
       "side": 1,
       "message": "Remove these?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "87bd5afa68ece1e55616cf30e7e71bc47611d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b51c700f_ae772f94",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-25T12:28:02Z",
+      "side": 1,
+      "message": "Done. Happy that these could stay away!",
+      "parentUuid": "409dcfdc_35f6dac5",
       "range": {
         "startLine": 25,
         "startChar": 0,

@@ -13,6 +13,7 @@
 #include <functional>
 #include <vector>
 
+#include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
@@ -33,6 +34,7 @@ class EncoderRtcpFeedback : public RtcpIntraFrameObserver,
  public:
   EncoderRtcpFeedback(
       Clock* clock,
+      const FieldTrialsView& field_trials,
       const std::vector<uint32_t>& ssrcs,
       VideoStreamEncoderInterface* encoder,
       std::function<std::vector<RtpSequenceNumberMap::Info>(
@@ -51,6 +53,7 @@ class EncoderRtcpFeedback : public RtcpIntraFrameObserver,
  private:
   Clock* const clock_;
   const std::vector<uint32_t> ssrcs_;
+  const bool per_layer_keyframes_;
   const std::function<std::vector<RtpSequenceNumberMap::Info>(
       uint32_t ssrc,
       const std::vector<uint16_t>& seq_nums)>

@@ -26,6 +26,7 @@ constexpr int kMinKeyframeSendIntervalMs = 300;
 
 EncoderRtcpFeedback::EncoderRtcpFeedback(
     Clock* clock,
+    const FieldTrialsView& field_trials,
     const std::vector<uint32_t>& ssrcs,
     VideoStreamEncoderInterface* encoder,
     std::function<std::vector<RtpSequenceNumberMap::Info>(
@@ -33,6 +34,8 @@ EncoderRtcpFeedback::EncoderRtcpFeedback(
         const std::vector<uint16_t>& seq_nums)> get_packet_infos)
     : clock_(clock),
       ssrcs_(ssrcs),
+      per_layer_keyframes_(
+          field_trials.IsEnabled("WebRTC-Video-ForceSimulcastEncoderAdapter")),
       get_packet_infos_(std::move(get_packet_infos)),
       video_stream_encoder_(encoder),
       time_last_packet_delivery_queue_(Timestamp::Zero()),
@@ -56,7 +59,17 @@ void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
   time_last_packet_delivery_queue_ = now;
 
   // Always produce key frame for all streams.
-  video_stream_encoder_->SendKeyFrame();
+  if (!per_layer_keyframes_) {
+    video_stream_encoder_->SendKeyFrame();
+  } else {
+    // Determine on which layers we ask for key frames.
+    std::vector<VideoFrameType> layers(ssrcs_.size());
+    for (size_t i = 0; i < ssrcs_.size(); i++) {
+      layers[i] = ssrcs_[i] == ssrc ? VideoFrameType::kVideoFrameKey
+                                    : VideoFrameType::kVideoFrameDelta;
+    }
+    video_stream_encoder_->SendKeyFrame(layers);
+  }
 }
 
 void EncoderRtcpFeedback::OnReceivedLossNotification(

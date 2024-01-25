@@ -16,6 +16,24 @@
       "message": "Will delete a few commented-out lines before finally submitting.",
       "revId": "3748748a2e668816701aa4c4dee5e8e49ba2a8b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa1a6609_99ba0fc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-01-25T11:44:26Z",
+      "side": 1,
+      "message": "Got it, I left a comment but I see now this is under control.\n\nNice work.",
+      "parentUuid": "a91a893a_fa362120",
+      "revId": "3748748a2e668816701aa4c4dee5e8e49ba2a8b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

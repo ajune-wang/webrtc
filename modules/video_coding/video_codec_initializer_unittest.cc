@@ -631,4 +631,23 @@ TEST_F(VideoCodecInitializerTest, Vp9TwoSpatialLayersBitratesAreConsistent) {
             codec.spatialLayers[0].maxBitrate);
 }
 
+TEST_F(VideoCodecInitializerTest, UpdatesVp9SpecificFieldsWithScalabilityMode) {
+  VideoEncoderConfig config;
+  config.simulcast_layers.resize(3);
+  config.simulcast_layers[0].active = true;
+  config.simulcast_layers[1].active = false;
+  config.simulcast_layers[2].active = false;
+
+  config.codec_type = VideoCodecType::kVideoCodecVP9;
+  std::vector<VideoStream> streams = {DefaultStream()};
+  streams[0].scalability_mode = ScalabilityMode::kL2T3_KEY;
+
+  VideoCodec codec;
+  EXPECT_TRUE(VideoCodecInitializer::SetupCodec(config, streams, &codec));
+
+  EXPECT_EQ(codec.VP9()->numberOfSpatialLayers, 2u);
+  EXPECT_EQ(codec.VP9()->numberOfTemporalLayers, 3u);
+  EXPECT_EQ(codec.VP9()->interLayerPred, InterLayerPredMode::kOnKeyPic);
+}
+
 }  // namespace webrtc

@@ -70,8 +70,6 @@ bool IsRelayed(const rtc::NetworkRoute& route) {
 RtpTransportControllerSend::RtpTransportControllerSend(
     const RtpTransportConfig& config)
     : env_(config.env),
-      allow_bandwidth_estimation_probe_without_media_(
-          config.allow_bandwidth_estimation_probe_without_media),
       task_queue_(TaskQueueBase::Current()),
       bitrate_configurator_(config.bitrate_config),
       pacer_started_(false),
@@ -168,7 +166,7 @@ void RtpTransportControllerSend::RegisterSendingRtpStream(
   packet_router_.AddSendRtpModule(&rtp_module,
                                   /*remb_candidate=*/true);
   pacer_.SetAllowProbeWithoutMediaPacket(
-      allow_bandwidth_estimation_probe_without_media_ &&
+      bwe_settings_.allow_probe_without_media &&
       packet_router_.SupportsRtxPayloadPadding());
 }
 
@@ -188,7 +186,7 @@ void RtpTransportControllerSend::DeRegisterSendingRtpStream(
     pacer_.RemovePacketsForSsrc(*rtp_module.FlexfecSsrc());
   }
   pacer_.SetAllowProbeWithoutMediaPacket(
-      allow_bandwidth_estimation_probe_without_media_ &&
+      bwe_settings_.allow_probe_without_media &&
       packet_router_.SupportsRtxPayloadPadding());
 }
 
@@ -255,6 +253,20 @@ void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
 StreamFeedbackProvider*
 RtpTransportControllerSend::GetStreamFeedbackProvider() {
   return &feedback_demuxer_;
+}
+
+void RtpTransportControllerSend::RestartBandwidthEstimation(
+    const BandWidthEstimationSettings& settings) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  bwe_settings_ = settings;
+  pacer_.SetAllowProbeWithoutMediaPacket(
+      bwe_settings_.allow_probe_without_media &&
+      packet_router_.SupportsRtxPayloadPadding());
+  // Controller is created when network is available.
+  if (controller_) {
+    control_handler_ = nullptr;
+    MaybeCreateControllers();
+  }
 }
 
 void RtpTransportControllerSend::RegisterTargetTransferRateObserver(

@@ -102,6 +102,7 @@
       'iOS Debug (simulator)': 'ios_debug_bot_x64',
       'iOS64 Debug': 'ios_debug_bot_arm64',
       'iOS64 Release': 'ios_release_bot_arm64',
+      
     },
     'client.webrtc.fyi': {
       # Android
@@ -163,7 +164,8 @@
 
       # iOS
       'ios_compile_arm64_dbg': 'ios_debug_bot_arm64',
-      'ios_compile_arm64_rel': 'ios_release_bot_arm64',
+      #'ios_compile_arm64_rel': 'ios_release_bot_arm64',
+      'ios_compile_arm64_rel' :  'ios_internal_pure_release_bot_arm64',
       'ios_dbg_simulator': 'ios_debug_bot_x64',
 
       # Linux

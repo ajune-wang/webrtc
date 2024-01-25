@@ -87,7 +87,6 @@ bool ResetTimestampIfExpired(const Timestamp now,
 }  // namespace
 
 constexpr size_t RTCPReceiver::RegisteredSsrcs::kMediaSsrcIndex;
-constexpr size_t RTCPReceiver::RegisteredSsrcs::kMaxSsrcs;
 
 RTCPReceiver::RegisteredSsrcs::RegisteredSsrcs(
     bool disable_sequence_checker,
@@ -105,7 +104,7 @@ RTCPReceiver::RegisteredSsrcs::RegisteredSsrcs(
     }
   }
   // Ensure that the RegisteredSsrcs can inline the SSRCs.
-  RTC_DCHECK_LE(ssrcs_.size(), RTCPReceiver::RegisteredSsrcs::kMaxSsrcs);
+  RTC_DCHECK_LE(ssrcs_.size(), kMaxSimulcastStreams);
 }
 
 bool RTCPReceiver::RegisteredSsrcs::contains(uint32_t ssrc) const {
@@ -127,6 +126,7 @@ struct RTCPReceiver::PacketInformation {
   uint32_t packet_type_flags = 0;  // RTCPPacketTypeFlags bit field.
 
   uint32_t remote_ssrc = 0;
+  absl::optional<uint32_t> media_ssrc;
   std::vector<uint16_t> nack_sequence_numbers;
   std::vector<ReportBlockData> report_block_datas;
   absl::optional<TimeDelta> rtt;
@@ -895,11 +895,17 @@ bool RTCPReceiver::HandlePli(const CommonHeader& rtcp_block,
   if (!pli.Parse(rtcp_block)) {
     return false;
   }
-
+  // TODO: any of the local media ssrcs for simulcast?
+  // i.e. registered_ssrcs_.contains(media_source_ssrc)
+  // Same for FIR.
+  RTC_LOG(LS_ERROR) << "PLI WITH " << pli.media_ssrc() << " LOCAL "
+                    << local_media_ssrc() << " contains "
+                    << registered_ssrcs_.contains(pli.media_ssrc());
   if (local_media_ssrc() == pli.media_ssrc()) {
     ++packet_type_counter_.pli_packets;
     // Received a signal that we need to send a new key frame.
     packet_information->packet_type_flags |= kRtcpPli;
+    packet_information->media_ssrc = pli.media_ssrc();
   }
   return true;
 }
@@ -1002,6 +1008,7 @@ bool RTCPReceiver::HandleFir(const CommonHeader& rtcp_block,
   const Timestamp now = clock_->CurrentTime();
   for (const rtcp::Fir::Request& fir_request : fir.requests()) {
     // Is it our sender that is requested to generate a new keyframe.
+    // TODO: registered_ssrcs_.contains(fir_request.ssrc) should be valid too.
     if (local_media_ssrc() != fir_request.ssrc)
       continue;
 
@@ -1092,17 +1099,21 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
   // can generate a new packet in a conference relay scenario, one received
   // report can generate several RTCP packets, based on number relayed/mixed
   // a send report block should go out to all receivers.
+  // TODO: this handles PLI and FIR the same which is ok but technically they
+  // have a different semantics (PLI: I lost a picture; FIR: I need a keyframe)
   if (rtcp_intra_frame_observer_) {
     RTC_DCHECK(!receiver_only_);
     if ((packet_information.packet_type_flags & kRtcpPli) ||
         (packet_information.packet_type_flags & kRtcpFir)) {
       if (packet_information.packet_type_flags & kRtcpPli) {
         RTC_LOG(LS_VERBOSE)
-            << "Incoming PLI from SSRC " << packet_information.remote_ssrc;
+            << "Incoming PLI from SSRC " << packet_information.remote_ssrc
+            << " for" << *packet_information.media_ssrc;
       } else {
         RTC_LOG(LS_VERBOSE)
             << "Incoming FIR from SSRC " << packet_information.remote_ssrc;
       }
+      // TODO: this needs to use the packet_information.media_ssrc
       rtcp_intra_frame_observer_->OnReceivedIntraFrameRequest(
           local_media_ssrc());
     }

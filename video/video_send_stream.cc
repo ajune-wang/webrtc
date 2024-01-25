@@ -164,6 +164,7 @@ VideoSendStream::VideoSendStream(
           config_.encoder_selector)),
       encoder_feedback_(
           clock,
+          field_trials,
           config_.rtp.ssrcs,
           video_stream_encoder_.get(),
           [this](uint32_t ssrc, const std::vector<uint16_t>& seq_nums) {

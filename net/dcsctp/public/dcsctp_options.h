@@ -129,6 +129,14 @@ struct DcSctpOptions {
   // Hearbeat interval (on idle connections only). Set to zero to disable.
   DurationMs heartbeat_interval = DurationMs(30000);
 
+  // In delayed ack mode, when there is no packet loss detected, a SACK will be
+  // generated for every `delayed_ack_factor` received packet (not DATA chunk).
+  // Note that SACKs are still sent after the delayed ack timeout. The default
+  // value (2) is stated as the recommended value in
+  // https://datatracker.ietf.org/doc/html/rfc9260#section-6.2, but it allows
+  // the transmitter to be more conservative (having a larger number).
+  int delayed_ack_factor = 2;
+
   // The maximum time when a SACK will be sent from the arrival of an
   // unacknowledged packet. Whatever is smallest of RTO/2 and this will be used.
   DurationMs delayed_ack_max_timeout = DurationMs(200);

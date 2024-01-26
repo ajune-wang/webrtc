@@ -22,7 +22,6 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/packet/chunk/abort_chunk.h"
 #include "net/dcsctp/packet/chunk/chunk.h"
 #include "net/dcsctp/packet/chunk/cookie_ack_chunk.h"
@@ -146,7 +145,9 @@ void AddCapabilityParameters(const DcSctpOptions& options,
     chunk_types.push_back(IForwardTsnChunk::kType);
   }
   if (options.enable_zero_checksum) {
-    builder.Add(ZeroChecksumAcceptableChunkParameter());
+    builder.Add(ZeroChecksumAcceptableChunkParameter(
+        ZeroChecksumAcceptableChunkParameter::
+            kErrorDetectionMethodSctpOverDtls));
   }
   builder.Add(SupportedExtensionsParameter(std::move(chunk_types)));
 }

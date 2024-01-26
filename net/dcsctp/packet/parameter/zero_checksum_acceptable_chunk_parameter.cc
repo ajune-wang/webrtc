@@ -15,32 +15,43 @@
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace dcsctp {
 
 // https://www.ietf.org/archive/id/draft-tuexen-tsvwg-sctp-zero-checksum-00.html#section-3
 
-//   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-//  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-//  |         Type = 0x8001         |          Length = 4           |
-//  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// |   Type = 0x8001 (suggested)   |          Length = 8           |
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// |           Error Detection Method Identifier (EDMID)           |
+// +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 constexpr int ZeroChecksumAcceptableChunkParameter::kType;
 
 absl::optional<ZeroChecksumAcceptableChunkParameter>
 ZeroChecksumAcceptableChunkParameter::Parse(
     rtc::ArrayView<const uint8_t> data) {
-  if (!ParseTLV(data).has_value()) {
+  absl::optional<BoundedByteReader<kHeaderSize>> reader = ParseTLV(data);
+  if (!reader.has_value()) {
     return absl::nullopt;
   }
-  return ZeroChecksumAcceptableChunkParameter();
+
+  uint32_t error_detection_method_identifier = reader->Load32<4>();
+  return ZeroChecksumAcceptableChunkParameter(
+      error_detection_method_identifier);
 }
 
 void ZeroChecksumAcceptableChunkParameter::SerializeTo(
     std::vector<uint8_t>& out) const {
-  AllocateTLV(out);
+  BoundedByteWriter<kHeaderSize> writer = AllocateTLV(out);
+  writer.Store32<4>(error_detection_method_identifier_);
 }
 
 std::string ZeroChecksumAcceptableChunkParameter::ToString() const {
-  return "Zero Checksum Acceptable";
+  rtc::StringBuilder sb;
+  sb << "Zero Checksum Acceptable (" << error_detection_method_identifier_
+     << ")";
+  return sb.Release();
 }
 }  // namespace dcsctp

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4626ae0_85441954",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-26T07:05:06Z",
+      "side": 1,
+      "message": "Not ready for review and how to actually roll this out via some kind of SDP signaling is still unresolved (VideoEncoderConfig has an SdpVideoFormat which suggests a \"webrtc-pli\" parameter).\n\nOverall the plumbing of PLIs is working as intended, it is just the last piece that is missing. The alternative to making the decision in encoder_rtcp_feedback would be to pass all the layers there and then let the underlying encoder decide what to do with this. While that would allow easier access to the SdpVideoFormat in the VideoEncoderConfig it seems more complex and error-prone?\n\nThoughts?",
+      "revId": "4b002e66abb07144391b65f8207cc896b35ca392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

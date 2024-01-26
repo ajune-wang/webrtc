@@ -181,6 +181,7 @@ class MockChannelSend : public voe::ChannelSendInterface {
       SetEncoderToPacketizerFrameTransformer,
       (rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer),
       (override));
+  MOCK_METHOD(void, SetFirstFrame, (bool is_first_frame), (override));
 };
 }  // namespace test
 }  // namespace webrtc

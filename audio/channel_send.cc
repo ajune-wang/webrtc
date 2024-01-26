@@ -154,6 +154,10 @@ class ChannelSend : public ChannelSendInterface,
   // ReportBlockDataObserver.
   void OnReportBlockDataUpdated(ReportBlockData report_block) override;
 
+  void SetFirstFrame(bool is_first_frame) override {
+    first_frame_.store(is_first_frame);
+  }
+
  private:
   // From AudioPacketizationCallback in the ACM
   int32_t SendData(AudioFrameType frameType,

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2e50fb_8365e41f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-26T22:42:08Z",
+      "side": 1,
+      "message": "RFCs don\u0027t have versions. Protocols have versions, and internet-drafts have versions. Can you update to the correct reference?\n\nLooking at the first file, I think you want to say \"Update the zero checksum option to version -06 of the internet-draft\".",
+      "revId": "0e894232668a01474712c4f36904ad6017c2e76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bdebe06_f0387920",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-26T22:42:08Z",
+      "side": 1,
+      "message": "Not a review (yet)...",
+      "revId": "0e894232668a01474712c4f36904ad6017c2e76a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

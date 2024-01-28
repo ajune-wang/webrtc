@@ -218,7 +218,7 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     candidate.set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
     candidate.set_protocol(cricket::UDP_PROTOCOL_NAME);
     candidate.set_address(address);
-    candidate.set_type(cricket::LOCAL_PORT_TYPE);
+    candidate.set_type(CandidateType::kHost);
     return candidate;
   }
 
@@ -362,7 +362,7 @@ class PeerConnectionIceTest
                  << " != " << b.address().ToString();
   }
   if (a.type() != b.type()) {
-    failure_info << "\ntype: " << a.type() << " != " << b.type();
+    failure_info << "\ntype: " << a.type_name() << " != " << b.type_name();
   }
   std::string failure_info_str = failure_info.str();
   if (failure_info_str.empty()) {

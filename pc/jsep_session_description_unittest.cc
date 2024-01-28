@@ -34,6 +34,7 @@
 
 using cricket::MediaProtocolType;
 using ::testing::Values;
+using webrtc::CandidateType;
 using webrtc::IceCandidateCollection;
 using webrtc::IceCandidateInterface;
 using webrtc::JsepIceCandidate;
@@ -265,7 +266,7 @@ TEST_F(JsepSessionDescriptionTest, AddHostnameCandidate) {
   c.set_component(cricket::ICE_CANDIDATE_COMPONENT_RTP);
   c.set_protocol(cricket::UDP_PROTOCOL_NAME);
   c.set_address(rtc::SocketAddress("example.local", 1234));
-  c.set_type(cricket::LOCAL_PORT_TYPE);
+  c.set_type(CandidateType::kHost);
   const size_t audio_index = 0;
   JsepIceCandidate hostname_candidate("audio", audio_index, c);
   EXPECT_TRUE(jsep_desc_->AddCandidate(&hostname_candidate));
@@ -296,7 +297,7 @@ TEST_F(JsepSessionDescriptionTest, SerializeDeserializeWithHostnameCandidate) {
   c.set_component(cricket::ICE_CANDIDATE_COMPONENT_RTP);
   c.set_protocol(cricket::UDP_PROTOCOL_NAME);
   c.set_address(rtc::SocketAddress("example.local", 1234));
-  c.set_type(cricket::LOCAL_PORT_TYPE);
+  c.set_type(CandidateType::kHost);
   const size_t audio_index = 0;
   const size_t video_index = 1;
   JsepIceCandidate hostname_candidate_audio("audio", audio_index, c);

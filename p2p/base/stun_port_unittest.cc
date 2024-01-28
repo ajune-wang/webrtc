@@ -444,7 +444,6 @@ TEST_F(StunPortTest, TestStunCandidateGeneratedWithMdnsObfuscationEnabled) {
 
   // One of the generated candidates is a local candidate and the other is a
   // stun candidate.
-  EXPECT_NE(port()->Candidates()[0].type(), port()->Candidates()[1].type());
   if (port()->Candidates()[0].is_local()) {
     EXPECT_TRUE(port()->Candidates()[1].is_stun());
   } else {

@@ -15,12 +15,28 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 
+using webrtc::CandidateType;
+
 namespace cricket {
 
 const char LOCAL_PORT_TYPE[] = "local";
 const char STUN_PORT_TYPE[] = "stun";
 const char PRFLX_PORT_TYPE[] = "prflx";
 const char RELAY_PORT_TYPE[] = "relay";
+
+// TODO(tommi): Remove when not needed.
+CandidateType CandidateFromString(absl::string_view type) {
+  if (type == LOCAL_PORT_TYPE)
+    return CandidateType::kHost;
+  if (type == STUN_PORT_TYPE)
+    return CandidateType::kSrflx;
+  if (type == PRFLX_PORT_TYPE)
+    return CandidateType::kPrflx;
+  if (type == RELAY_PORT_TYPE)
+    return CandidateType::kRelay;
+  RTC_DCHECK_NOTREACHED();
+  return CandidateType::kHost;
+}
 
 Candidate::Candidate()
     : id_(rtc::CreateRandomString(8)),
@@ -50,7 +66,33 @@ Candidate::Candidate(int component,
       priority_(priority),
       username_(username),
       password_(password),
-      type_(type),
+      candidate_type_(CandidateFromString(type)),
+      network_type_(rtc::ADAPTER_TYPE_UNKNOWN),
+      underlying_type_for_vpn_(rtc::ADAPTER_TYPE_UNKNOWN),
+      generation_(generation),
+      foundation_(foundation),
+      network_id_(network_id),
+      network_cost_(network_cost) {}
+
+Candidate::Candidate(int component,
+                     absl::string_view protocol,
+                     const rtc::SocketAddress& address,
+                     uint32_t priority,
+                     absl::string_view username,
+                     absl::string_view password,
+                     CandidateType type,
+                     uint32_t generation,
+                     absl::string_view foundation,
+                     uint16_t network_id,
+                     uint16_t network_cost)
+    : id_(rtc::CreateRandomString(8)),
+      component_(component),
+      protocol_(protocol),
+      address_(address),
+      priority_(priority),
+      username_(username),
+      password_(password),
+      candidate_type_(type),
       network_type_(rtc::ADAPTER_TYPE_UNKNOWN),
       underlying_type_for_vpn_(rtc::ADAPTER_TYPE_UNKNOWN),
       generation_(generation),
@@ -63,16 +105,46 @@ Candidate::Candidate(const Candidate&) = default;
 Candidate::~Candidate() = default;
 
 bool Candidate::is_local() const {
-  return type_ == LOCAL_PORT_TYPE;
+  return candidate_type_ == CandidateType::kHost;
 }
 bool Candidate::is_stun() const {
-  return type_ == STUN_PORT_TYPE;
+  return candidate_type_ == CandidateType::kSrflx;
 }
 bool Candidate::is_prflx() const {
-  return type_ == PRFLX_PORT_TYPE;
+  return candidate_type_ == CandidateType::kPrflx;
 }
 bool Candidate::is_relay() const {
-  return type_ == RELAY_PORT_TYPE;
+  return candidate_type_ == CandidateType::kRelay;
+}
+
+const absl::string_view Candidate::type_name() const {
+  switch (candidate_type_) {
+    case CandidateType::kHost:
+      return LOCAL_PORT_TYPE;
+    case CandidateType::kSrflx:
+      return STUN_PORT_TYPE;
+    case CandidateType::kPrflx:
+      return PRFLX_PORT_TYPE;
+    case CandidateType::kRelay:
+      return RELAY_PORT_TYPE;
+  }
+}
+
+// TODO(tommi): Change to enum.
+const std::string& Candidate::type() const {
+  Assign(type_, type_name());
+  return type_;
+}
+
+/*
+// TODO(tommi): Change to enum.
+void Candidate::set_type(absl::string_view type) {
+  set_type(CandidateFromString(type));
+}
+*/
+
+void Candidate::set_type(CandidateType type) {
+  candidate_type_ = type;
 }
 
 bool Candidate::IsEquivalent(const Candidate& c) const {
@@ -81,7 +153,7 @@ bool Candidate::IsEquivalent(const Candidate& c) const {
   // rest are.
   return (component_ == c.component_) && (protocol_ == c.protocol_) &&
          (address_ == c.address_) && (username_ == c.username_) &&
-         (password_ == c.password_) && (type_ == c.type_) &&
+         (password_ == c.password_) && (candidate_type_ == c.candidate_type_) &&
          (generation_ == c.generation_) && (foundation_ == c.foundation_) &&
          (related_address_ == c.related_address_) &&
          (network_id_ == c.network_id_);
@@ -99,9 +171,10 @@ std::string Candidate::ToStringInternal(bool sensitive) const {
   std::string related_address = sensitive ? related_address_.ToSensitiveString()
                                           : related_address_.ToString();
   ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address << ":" << username_ << ":" << password_ << ":"
-      << network_id_ << ":" << network_cost_ << ":" << generation_ << "]";
+      << ":" << protocol_ << ":" << priority_ << ":" << address << ":"
+      << type_name() << ":" << related_address << ":" << username_ << ":"
+      << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
+      << generation_ << "]";
   return ost.Release();
 }
 
@@ -153,9 +226,9 @@ bool Candidate::operator==(const Candidate& o) const {
          protocol_ == o.protocol_ && relay_protocol_ == o.relay_protocol_ &&
          address_ == o.address_ && priority_ == o.priority_ &&
          username_ == o.username_ && password_ == o.password_ &&
-         type_ == o.type_ && network_name_ == o.network_name_ &&
-         network_type_ == o.network_type_ && generation_ == o.generation_ &&
-         foundation_ == o.foundation_ &&
+         candidate_type_ == o.candidate_type_ &&
+         network_name_ == o.network_name_ && network_type_ == o.network_type_ &&
+         generation_ == o.generation_ && foundation_ == o.foundation_ &&
          related_address_ == o.related_address_ && tcptype_ == o.tcptype_ &&
          transport_name_ == o.transport_name_ && network_id_ == o.network_id_;
 }

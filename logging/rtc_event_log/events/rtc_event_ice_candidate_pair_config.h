@@ -39,7 +39,6 @@ enum class IceCandidateType {
   kStun,
   kPrflx,
   kRelay,
-  kNumValues,
 };
 
 enum class IceCandidatePairProtocol {

@@ -51,6 +51,10 @@ class MockRTPVideoFrameSenderInterface : public RTPVideoFrameSenderInterface {
               SetVideoLayersAllocationAfterTransformation,
               (VideoLayersAllocation allocation),
               (override));
+  MOCK_METHOD(void,
+              SetVideoStructure,
+              (const FrameDependencyStructure* video_structure),
+              (override));
 };
 
 class RtpSenderVideoFrameTransformerDelegateTest : public ::testing::Test {
@@ -83,7 +87,8 @@ class RtpSenderVideoFrameTransformerDelegateTest : public ::testing::Test {
     delegate->TransformFrame(
         /*payload_type=*/1, VideoCodecType::kVideoCodecVP8, /*rtp_timestamp=*/2,
         encoded_image, RTPVideoHeader::FromMetadata(metadata),
-        /*expected_retransmission_time=*/TimeDelta::Millis(10));
+        /*expected_retransmission_time=*/TimeDelta::Millis(10),
+        /*frame_dependency_structure=*/nullptr);
     return frame;
   }
 
@@ -123,7 +128,8 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
   delegate->TransformFrame(
       /*payload_type=*/1, VideoCodecType::kVideoCodecVP8, /*rtp_timestamp=*/2,
       encoded_image, RTPVideoHeader(),
-      /*expected_retransmission_time=*/TimeDelta::Millis(10));
+      /*expected_retransmission_time=*/TimeDelta::Millis(10),
+      /*frame_dependency_structure=*/nullptr);
 }
 
 TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
@@ -310,7 +316,8 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
   delegate->TransformFrame(
       /*payload_type=*/1, VideoCodecType::kVideoCodecVP8, /*rtp_timestamp=*/2,
       encoded_image, RTPVideoHeader(),
-      /*expected_retransmission_time=*/TimeDelta::Millis(10));
+      /*expected_retransmission_time=*/TimeDelta::Millis(10),
+      /*frame_dependency_structure=*/nullptr);
 }
 
 }  // namespace

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e1dd080_581e9009",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-29T09:08:50Z",
+      "side": 1,
+      "message": "Is this safe to land (changes the SDP answer) and does the AV1 encoder even care about these fields?\n\nAlso if I should make life easier and just give those constants names with AV1 ;-)",
+      "revId": "a340cd5b4733b6d8cbc48ebe072a49f18c938e1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

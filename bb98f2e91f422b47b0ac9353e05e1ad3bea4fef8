@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5daa6b_33403283",
+        "filename": "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T12:51:33Z",
+      "side": 1,
+      "message": "Is this used for anything other than logging?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "bb98f2e91f422b47b0ac9353e05e1ad3bea4fef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

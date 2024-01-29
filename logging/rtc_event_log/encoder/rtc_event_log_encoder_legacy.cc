@@ -140,10 +140,6 @@ rtclog::IceCandidatePairConfig::IceCandidateType ConvertIceCandidateType(
     case IceCandidateType::kRelay:
       RTC_DCHECK_EQ(type, IceCandidateType::kRelay);
       return rtclog::IceCandidatePairConfig::RELAY;
-    default:
-      // TODO(tommi): Remove the default handler when kNumValues is gone.
-      RTC_DCHECK_NOTREACHED();
-      return rtclog::IceCandidatePairConfig::UNKNOWN_CANDIDATE_TYPE;
   }
 }
 
@@ -201,6 +197,7 @@ rtclog::IceCandidatePairConfig::NetworkType ConvertIceCandidateNetworkType(
       return rtclog::IceCandidatePairConfig::CELLULAR;
     case IceCandidateNetworkType::kNumValues:
       RTC_DCHECK_NOTREACHED();
+      break;
   }
   RTC_DCHECK_NOTREACHED();
   return rtclog::IceCandidatePairConfig::UNKNOWN_NETWORK_TYPE;

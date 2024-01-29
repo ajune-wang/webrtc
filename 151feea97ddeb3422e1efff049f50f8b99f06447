@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efad2f02_9c131abf",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-01-29T14:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7229ab5e_33404e9a",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "611b6b4c_3a4a8fd0",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I\u0027ll wait for your change to land first, then we can compare it to `_requestedCapability` and with that the first scenario you described should be gone.",
       "parentUuid": "611b6b4c_3a4a8fd0",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4cd0544_90942e3e",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-01-29T14:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f4c5a8b_ae38d8f5",
       "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -172,6 +208,24 @@
       "side": 1,
       "message": "It will not deadlock, the lock is recursive.\n\nI will think about a better solution.",
       "parentUuid": "adc19141_7a7c78e1",
+      "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d03e8822_ca3bdd81",
+        "filename": "modules/video_capture/linux/video_capture_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-01-29T14:13:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a61f9fd_a69a6e5c",
       "revId": "151feea97ddeb3422e1efff049f50f8b99f06447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -26,6 +26,7 @@
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/field_trial.h"
@@ -230,7 +231,7 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
   // Always start with a complete key frame.
   if (key_frame_required_) {
     if (input_image._frameType != VideoFrameType::kVideoFrameKey)
-      return WEBRTC_VIDEO_CODEC_ERROR;
+      return -11;  // WEBRTC_VIDEO_CODEC_ERROR;
     key_frame_required_ = false;
   }
 
@@ -238,9 +239,10 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
   if (input_image.size() == 0) {
     buffer = NULL;  // Triggers full frame concealment.
   }
-  if (vpx_codec_decode(decoder_, buffer, input_image.size(), 0,
-                       kDecodeDeadlineRealtime)) {
-    return WEBRTC_VIDEO_CODEC_ERROR;
+  if (int err = vpx_codec_decode(decoder_, buffer, input_image.size(), 0,
+                                 kDecodeDeadlineRealtime)) {
+    RTC_LOG(LS_ERROR) << "VPX error " << err;
+    return -12;  // WEBRTC_VIDEO_CODEC_ERROR;
   }
 
   vpx_codec_iter_t iter = NULL;

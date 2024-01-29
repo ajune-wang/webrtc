@@ -33,6 +33,69 @@
       "message": "ping ;-)",
       "revId": "230d5b71d0c1c613e220f2cd829800847e7d6b27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4441db_ecc533d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T13:02:57Z",
+      "side": 1,
+      "message": "Sorry\n\nAdding these fields seems fine, but I have a some questions.",
+      "revId": "230d5b71d0c1c613e220f2cd829800847e7d6b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd8efdd_a1f2c62b",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T13:02:57Z",
+      "side": 1,
+      "message": "I would expect populating the deltas here, probably using the EncodeOptionalBlobs",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 702,
+        "endChar": 3
+      },
+      "revId": "230d5b71d0c1c613e220f2cd829800847e7d6b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7642fd9f_4a68e4f0",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T13:02:57Z",
+      "side": 1,
+      "message": "These seem unused? (Same below.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "230d5b71d0c1c613e220f2cd829800847e7d6b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

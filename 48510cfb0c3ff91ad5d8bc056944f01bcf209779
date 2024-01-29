@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "defe688b_3d908d89",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-29T14:09:55Z",
+      "side": 1,
+      "message": "Makes sense - kept the name `GetRuntimeIceCandidateType`",
+      "parentUuid": "caf6c2f6_c57b78a7",
+      "range": {
+        "startLine": 169,
+        "startChar": 5,
+        "endLine": 169,
+        "endChar": 10
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "216e7fd2_cc450ab1",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d4feafd_956aca55",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-29T14:09:55Z",
+      "side": 1,
+      "message": "It\u0027s being used outside of webrtc unfortunately.",
+      "parentUuid": "216e7fd2_cc450ab1",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 1
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "354a250f_9e5d5b69",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 5
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-29T12:44:49Z",
       "side": 1,
       "message": "Same as above; I think \"GetRuntime\" or \"ConvertToRuntime\" would be clearer.",
+      "range": {
+        "startLine": 827,
+        "startChar": 5,
+        "endLine": 827,
+        "endChar": 33
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c66ca925_df9f11c3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-29T14:09:55Z",
+      "side": 1,
+      "message": "renamed to `GetRuntimeIceCandidateType`",
+      "parentUuid": "354a250f_9e5d5b69",
       "range": {
         "startLine": 827,
         "startChar": 5,

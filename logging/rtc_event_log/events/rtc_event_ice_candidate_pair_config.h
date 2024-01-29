@@ -32,11 +32,10 @@ enum class IceCandidatePairConfigType {
   kNumValues,
 };
 
-// TODO(tommi): Change the names of candidate types to "host", "srflx" for
-// spec-compliance.
+// TODO(tommi): Move this definition to candidate.h.
 enum class IceCandidateType {
-  kLocal,
-  kStun,
+  kHost,
+  kSrflx,
   kPrflx,
   kRelay,
 };

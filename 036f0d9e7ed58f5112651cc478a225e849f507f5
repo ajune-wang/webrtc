@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d88bb09_15fd3eb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-29T09:09:54Z",
+      "side": 1,
+      "message": "Looks good. Nits only.",
+      "revId": "036f0d9e7ed58f5112651cc478a225e849f507f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a8c5d17_9de51173",
+        "filename": "net/dcsctp/packet/parameter/zero_checksum_acceptable_chunk_parameter_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-29T09:09:54Z",
+      "side": 1,
+      "message": "Draft, not RFC.",
+      "revId": "036f0d9e7ed58f5112651cc478a225e849f507f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4415b991_a86876ea",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-29T09:09:54Z",
+      "side": 1,
+      "message": "Is this leakage from another CL? It doesn\u0027t appear to be used in this CL.",
+      "revId": "036f0d9e7ed58f5112651cc478a225e849f507f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

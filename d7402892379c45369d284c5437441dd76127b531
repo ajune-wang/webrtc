@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9e8cee6_4ee0639d",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T12:44:49Z",
+      "side": 1,
+      "message": "Don\u0027t we want to have one `case` per enum value (without a default) to allow the compiler to detect when new values are added to the enum without being handled?\n\nEven if we want a `default`, I\u0027d prefer explicitly handling the valid cases\n```suggestion\n    case IceCandidateType::kRelay:\n      return rtclog::IceCandidatePairConfig::RELAY;\n    default:\n      RTC_CHECK_NOTREACHED();\n```",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 12
+      },
+      "revId": "d7402892379c45369d284c5437441dd76127b531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

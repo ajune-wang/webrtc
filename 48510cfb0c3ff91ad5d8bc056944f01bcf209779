@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caf6c2f6_c57b78a7",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T12:44:49Z",
+      "side": 1,
+      "message": "I think \"ParseRuntimeFoo\" makes it sound like we\u0027re parsing from a RuntimeFoo gather than converting to one. Maybe keep GetRuntimeFoo or change to ConvertToRuntimeFoo?",
+      "range": {
+        "startLine": 169,
+        "startChar": 5,
+        "endLine": 169,
+        "endChar": 10
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "216e7fd2_cc450ab1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T12:44:49Z",
+      "side": 1,
+      "message": "Can this be removed?",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 1
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "354a250f_9e5d5b69",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-29T12:44:49Z",
+      "side": 1,
+      "message": "Same as above; I think \"GetRuntime\" or \"ConvertToRuntime\" would be clearer.",
+      "range": {
+        "startLine": 827,
+        "startChar": 5,
+        "endLine": 827,
+        "endChar": 33
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

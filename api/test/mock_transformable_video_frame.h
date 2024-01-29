@@ -43,6 +43,10 @@ class MockTransformableVideoFrame
               GetCaptureTimeIdentifier,
               (),
               (const, override));
+  MOCK_METHOD(GetFrameDependencyStructure,
+              FrameDependencyStructure*,
+              (),
+              (override));
 };
 
 static_assert(!std::is_abstract_v<MockTransformableVideoFrame>, "");

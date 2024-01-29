@@ -119,7 +119,8 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
   // have video_header.frame_type == kVideoFrameKey.
   // All calls to SendVideo after this call must use video_header compatible
   // with the video_structure.
-  void SetVideoStructure(const FrameDependencyStructure* video_structure);
+  void SetVideoStructure(
+      const FrameDependencyStructure* video_structure) override;
   // Should only be used by a RTPSenderVideoFrameTransformerDelegate and exists
   // to ensure correct syncronization.
   void SetVideoStructureAfterTransformation(
@@ -201,8 +202,7 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
   VideoRotation last_rotation_ RTC_GUARDED_BY(send_checker_);
   absl::optional<ColorSpace> last_color_space_ RTC_GUARDED_BY(send_checker_);
   bool transmit_color_space_next_frame_ RTC_GUARDED_BY(send_checker_);
-  std::unique_ptr<FrameDependencyStructure> video_structure_
-      RTC_GUARDED_BY(send_checker_);
+  std::unique_ptr<FrameDependencyStructure> video_structure_;
   absl::optional<VideoLayersAllocation> allocation_
       RTC_GUARDED_BY(send_checker_);
   // Flag indicating if we should send `allocation_`.

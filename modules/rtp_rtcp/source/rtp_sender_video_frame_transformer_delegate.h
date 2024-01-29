@@ -44,6 +44,8 @@ class RTPVideoFrameSenderInterface {
       const FrameDependencyStructure* video_structure) = 0;
   virtual void SetVideoLayersAllocationAfterTransformation(
       VideoLayersAllocation allocation) = 0;
+  virtual void SetVideoStructure(
+      const FrameDependencyStructure* video_structure) = 0;
 
  protected:
   virtual ~RTPVideoFrameSenderInterface() = default;
@@ -63,12 +65,14 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
   void Init();
 
   // Delegates the call to FrameTransformerInterface::TransformFrame.
-  bool TransformFrame(int payload_type,
-                      absl::optional<VideoCodecType> codec_type,
-                      uint32_t rtp_timestamp,
-                      const EncodedImage& encoded_image,
-                      RTPVideoHeader video_header,
-                      TimeDelta expected_retransmission_time);
+  bool TransformFrame(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      const EncodedImage& encoded_image,
+      RTPVideoHeader video_header,
+      TimeDelta expected_retransmission_time,
+      const FrameDependencyStructure* frame_dependency_structure);
 
   // Implements TransformedFrameCallback. Can be called on any thread. Posts
   // the transformed frame to be sent on the `encoder_queue_`.

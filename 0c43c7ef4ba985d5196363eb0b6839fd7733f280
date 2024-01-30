@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d3cd98_4131fe09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-30T08:41:37Z",
+      "side": 1,
+      "message": "Looks good (really longer names, not much code changes).\nBut I wonder about that leftover old config variable.",
+      "revId": "0c43c7ef4ba985d5196363eb0b6839fd7733f280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "927bc2a8_b4dc50bb",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-01-30T08:41:37Z",
+      "side": 1,
+      "message": "What\u0027s the argument for leaving this one in? I can\u0027t see anything in the CL that accesses it, so it seems to be a non-functional flag.\nIf the reason is because external code accesses it, mark it with [[deprecated]].",
+      "revId": "0c43c7ef4ba985d5196363eb0b6839fd7733f280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

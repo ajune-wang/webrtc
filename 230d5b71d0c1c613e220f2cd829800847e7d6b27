@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7d96673_42d96ce1",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-30T09:51:31Z",
+      "side": 1,
+      "message": "Hrm... with a modified proto and a local copy of https://fippo.github.io/dump-webrtc-event-log/ I already see a mid and I expected the lack of mid in future packet batches to be a sign of this no longer being sent but that might not be quite correct\n\nSince mid/rid/rrid is a string how would one do deltas (the DD seems to have some blob code that deals with strings which seems closest). In practice the value won\u0027t change other than being no longer present but in theory (in particular on the receiver) one would have to deal with length changes etc.",
+      "parentUuid": "4fd8efdd_a1f2c62b",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 702,
+        "endChar": 3
+      },
+      "revId": "230d5b71d0c1c613e220f2cd829800847e7d6b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7642fd9f_4a68e4f0",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 4
@@ -88,6 +112,30 @@
       "writtenOn": "2024-01-29T13:02:57Z",
       "side": 1,
       "message": "These seem unused? (Same below.)",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "230d5b71d0c1c613e220f2cd829800847e7d6b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dadd736c_15547482",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-30T09:51:31Z",
+      "side": 1,
+      "message": "ah, if I don\u0027t do deltas I do not need these but just a comment that the values are reserved?",
+      "parentUuid": "7642fd9f_4a68e4f0",
       "range": {
         "startLine": 200,
         "startChar": 0,

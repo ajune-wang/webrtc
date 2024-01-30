@@ -20,12 +20,15 @@ namespace jni {
 
 static jlong JNI_VideoDecoderFallback_CreateDecoder(
     JNIEnv* jni,
+    jlong j_webrtc_env_ref,
     const JavaParamRef<jobject>& j_fallback_decoder,
     const JavaParamRef<jobject>& j_primary_decoder) {
+  const webrtc::Environment& webrtc_env =
+      *reinterpret_cast<const Environment*>(j_webrtc_env_ref);
   std::unique_ptr<VideoDecoder> fallback_decoder =
-      JavaToNativeVideoDecoder(jni, j_fallback_decoder);
+      JavaToNativeVideoDecoder(jni, j_fallback_decoder, webrtc_env);
   std::unique_ptr<VideoDecoder> primary_decoder =
-      JavaToNativeVideoDecoder(jni, j_primary_decoder);
+      JavaToNativeVideoDecoder(jni, j_primary_decoder, webrtc_env);
 
   VideoDecoder* nativeWrapper =
       CreateVideoDecoderSoftwareFallbackWrapper(std::move(fallback_decoder),

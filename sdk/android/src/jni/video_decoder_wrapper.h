@@ -16,6 +16,7 @@
 #include <atomic>
 #include <deque>
 
+#include "api/environment/environment.h"
 #include "api/sequence_checker.h"
 #include "api/video_codecs/video_decoder.h"
 #include "common_video/h264/h264_bitstream_parser.h"
@@ -118,7 +119,8 @@ class VideoDecoderWrapper : public VideoDecoder {
  */
 std::unique_ptr<VideoDecoder> JavaToNativeVideoDecoder(
     JNIEnv* jni,
-    const JavaRef<jobject>& j_decoder);
+    const JavaRef<jobject>& j_decoder,
+    const Environment& webrtc_env);
 
 }  // namespace jni
 }  // namespace webrtc

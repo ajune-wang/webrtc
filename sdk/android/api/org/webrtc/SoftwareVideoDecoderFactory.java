@@ -11,7 +11,6 @@
 package org.webrtc;
 
 import androidx.annotation.Nullable;
-import java.util.Arrays;
 import java.util.List;
 
 public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
@@ -26,15 +25,13 @@ public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
   @Nullable
   @Override
   public VideoDecoder createDecoder(VideoCodecInfo info) {
-    long nativeDecoder = nativeCreateDecoder(nativeFactory, info);
-    if (nativeDecoder == 0) {
-      Logging.w(TAG, "Trying to create decoder for unsupported format. " + info);
-      return null;
-    }
-
     return new WrappedNativeVideoDecoder() {
       @Override
-      public long createNativeVideoDecoder() {
+      public long createNative(long webrtcEnvRef) {
+        long nativeDecoder = nativeCreateDecoder(nativeFactory, webrtcEnvRef, info);
+        if (nativeDecoder == 0) {
+          Logging.w(TAG, "Trying to create decoder for unsupported format. " + info);
+        }
         return nativeDecoder;
       }
     };
@@ -47,7 +44,8 @@ public class SoftwareVideoDecoderFactory implements VideoDecoderFactory {
 
   private static native long nativeCreateFactory();
 
-  private static native long nativeCreateDecoder(long factory, VideoCodecInfo videoCodecInfo);
+  private static native long nativeCreateDecoder(
+      long factory, long webrtcEnvRef, VideoCodecInfo videoCodecInfo);
 
   private static native List<VideoCodecInfo> nativeGetSupportedCodecs(long factory);
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7399429_2ee6336f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-30T16:09:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b21ce7a_9504c663",
+      "revId": "01e0882e926c338f0a3557a3754eb011000a3d84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b570cb07_76428b62",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-30T13:51:09Z",
       "side": 1,
       "message": "uses Socket::Recv()?",
+      "revId": "01e0882e926c338f0a3557a3754eb011000a3d84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd81bbda_3d7eaf4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-30T16:09:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b570cb07_76428b62",
       "revId": "01e0882e926c338f0a3557a3754eb011000a3d84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

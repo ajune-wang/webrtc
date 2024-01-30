@@ -43,10 +43,7 @@ class ClassLoader {
   }
 
   ScopedJavaLocalRef<jclass> FindClass(JNIEnv* env, const char* c_name) {
-    // ClassLoader.loadClass expects a classname with components separated by
-    // dots instead of the slashes that JNIEnv::FindClass expects.
     std::string name(c_name);
-    std::replace(name.begin(), name.end(), '/', '.');
     ScopedJavaLocalRef<jstring> j_name = NativeToJavaString(env, name);
     const jclass clazz = static_cast<jclass>(env->CallObjectMethod(
         class_loader_.obj(), load_class_method_, j_name.obj()));
@@ -72,9 +69,14 @@ void InitClassLoader(JNIEnv* env) {
 ScopedJavaLocalRef<jclass> GetClass(JNIEnv* env, const char* name) {
   // The class loader will be null in the JNI code called from the ClassLoader
   // ctor when we are bootstrapping ourself.
+  // FindClass expects a classname with components separated by
+  // dots instead of the slashes that JNIEnv::GetClass expects.
+  std::string c_name(name);
+  std::replace(c_name.begin(), c_name.end(), '.', '/');
+  const char* j_name = c_name.c_str();
   return (g_class_loader == nullptr)
-             ? ScopedJavaLocalRef<jclass>(env, env->FindClass(name))
-             : g_class_loader->FindClass(env, name);
+             ? ScopedJavaLocalRef<jclass>(env, env->FindClass(j_name))
+             : g_class_loader->FindClass(env, j_name);
 }
 
 }  // namespace webrtc

@@ -18,7 +18,11 @@ import androidx.test.filters.SmallTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.BlockJUnit4ClassRunner;
 
+
+@RunWith(BlockJUnit4ClassRunner.class)
 public class Camera1CapturerUsingTextureTest {
   static final String TAG = "Camera1CapturerUsingTextureTest";
 

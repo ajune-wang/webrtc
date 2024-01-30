@@ -127,14 +127,6 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
       on_certificate_ready_(on_certificate_ready) {
   RTC_DCHECK(signaling_thread_);
 
-  if (!dtls_enabled) {
-    SetSdesPolicy(cricket::SEC_REQUIRED);
-    RTC_LOG(LS_VERBOSE) << "DTLS-SRTP disabled.";
-    return;
-  }
-
-  // SRTP-SDES is disabled if DTLS is on.
-  SetSdesPolicy(cricket::SEC_DISABLED);
   if (certificate) {
     // Use `certificate`.
     certificate_request_state_ = CERTIFICATE_WAITING;
@@ -256,15 +248,6 @@ void WebRtcSessionDescriptionFactory::CreateAnswer(
                certificate_request_state_ == CERTIFICATE_NOT_NEEDED);
     InternalCreateAnswer(request);
   }
-}
-
-void WebRtcSessionDescriptionFactory::SetSdesPolicy(
-    cricket::SecurePolicy secure_policy) {
-  session_desc_factory_.set_secure(secure_policy);
-}
-
-cricket::SecurePolicy WebRtcSessionDescriptionFactory::SdesPolicy() const {
-  return session_desc_factory_.secure();
 }
 
 void WebRtcSessionDescriptionFactory::InternalCreateOffer(
@@ -450,7 +433,6 @@ void WebRtcSessionDescriptionFactory::SetCertificate(
   on_certificate_ready_(certificate);
 
   transport_desc_factory_.set_certificate(std::move(certificate));
-  transport_desc_factory_.set_secure(cricket::SEC_ENABLED);
 
   while (!create_session_description_requests_.empty()) {
     if (create_session_description_requests_.front().type ==

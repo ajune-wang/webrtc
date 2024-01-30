@@ -22,6 +22,30 @@
       },
       "revId": "bb98f2e91f422b47b0ac9353e05e1ad3bea4fef8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d39f2a_abdd55cd",
+        "filename": "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-01-30T07:37:14Z",
+      "side": 1,
+      "message": "Not yet, but once I\u0027ve moved it, we can use it more broadly.\nI\u0027m removing the way the Candidate class has used strings for the type and use an enum instead. I\u0027d like to avoid adding one more enum for the same thing, so I\u0027m working on first locking this type down to only valid values, then move it, then remove the string based type property.\n\nOnce we\u0027re there, we should be able to remove some code that converts from the string to the enum as well as the opposite (since the Candidate class will also have support for getting the string_view for the type).",
+      "parentUuid": "0f5daa6b_33403283",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "bb98f2e91f422b47b0ac9353e05e1ad3bea4fef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

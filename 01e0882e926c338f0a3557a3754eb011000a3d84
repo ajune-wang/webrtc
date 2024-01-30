@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dac4d60_a15549cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-30T12:27:15Z",
+      "side": 1,
+      "message": "Harald, would you mind looking again and approve? I had some git issues and gerrit removed the approval.",
+      "revId": "01e0882e926c338f0a3557a3754eb011000a3d84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

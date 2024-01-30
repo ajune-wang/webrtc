@@ -54,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1eec46fd_be19c565",
+        "filename": "rtc_base/nat_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-30T12:27:15Z",
+      "side": 1,
+      "message": "Seems to come from this thing: class BufferedReadAdapter. That is nothing I plan to refactor unless it\u0027s in my way. To my understanding NatServer is TestOnly code.",
+      "parentUuid": "9cb72614_7daf9e50",
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7970d877_9b043e16",
         "filename": "rtc_base/nat_socket_factory.cc",
         "patchSetId": 9
@@ -101,6 +119,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "83b7eaf6_b4f19f5d",
+        "filename": "rtc_base/nat_socket_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-30T12:27:15Z",
+      "side": 1,
+      "message": "CHECK instead.",
+      "parentUuid": "3f99be78_c927e56c",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1aa5fb5c_520bcafb",
         "filename": "rtc_base/nat_socket_factory.h",
         "patchSetId": 9
@@ -129,6 +171,24 @@
       "writtenOn": "2024-01-22T12:35:29Z",
       "side": 1,
       "message": "Is it possible to implement this by calling the other one, to avoid duplication?",
+      "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89da7d1a_d737c339",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-01-30T12:27:15Z",
+      "side": 1,
+      "message": "Since buffer ownership is different, I had issues doing that. Probably better to try to remove it eventually.",
+      "parentUuid": "7e974b33_a2e2f50c",
       "revId": "81bfbe283f57e63e324dbcf3bcbfdff49223ec52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

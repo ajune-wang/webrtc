@@ -25,7 +25,6 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "api/crypto_params.h"
 #include "api/jsep_session_description.h"
 #include "api/media_types.h"
 #include "api/rtp_parameters.h"
@@ -59,7 +58,6 @@ using cricket::AudioContentDescription;
 using cricket::Candidate;
 using cricket::ContentGroup;
 using cricket::ContentInfo;
-using cricket::CryptoParams;
 using cricket::ICE_CANDIDATE_COMPONENT_RTCP;
 using cricket::ICE_CANDIDATE_COMPONENT_RTP;
 using cricket::kFecSsrcGroupSemantics;
@@ -1230,10 +1228,6 @@ class WebRtcSdpTest : public ::testing::Test {
     AudioContentDescription* audio = new AudioContentDescription();
     audio->set_rtcp_mux(true);
     audio->set_rtcp_reduced_size(true);
-    audio->AddCrypto(CryptoParams(
-        1, "AES_CM_128_HMAC_SHA1_32",
-        "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32",
-        "dummy_session_params"));
     audio->set_protocol(cricket::kMediaProtocolSavpf);
     audio->AddCodec(cricket::CreateAudioCodec(111, "opus", 48000, 2));
     audio->AddCodec(cricket::CreateAudioCodec(103, "ISAC", 16000, 1));
@@ -1308,9 +1302,6 @@ class WebRtcSdpTest : public ::testing::Test {
   // configuration.
   VideoContentDescription* CreateVideoContentDescription() {
     VideoContentDescription* video = new VideoContentDescription();
-    video->AddCrypto(CryptoParams(
-        1, "AES_CM_128_HMAC_SHA1_80",
-        "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32", ""));
     video->set_protocol(cricket::kMediaProtocolSavpf);
     video->AddCodec(cricket::CreateVideoCodec(120, "VP8"));
     return video;
@@ -1330,20 +1321,6 @@ class WebRtcSdpTest : public ::testing::Test {
 
     // rtcp_reduced_size
     EXPECT_EQ(cd1->rtcp_reduced_size(), cd2->rtcp_reduced_size());
-
-    // cryptos
-    EXPECT_EQ(cd1->cryptos().size(), cd2->cryptos().size());
-    if (cd1->cryptos().size() != cd2->cryptos().size()) {
-      ADD_FAILURE();
-      return;
-    }
-    for (size_t i = 0; i < cd1->cryptos().size(); ++i) {
-      const CryptoParams c1 = cd1->cryptos().at(i);
-      const CryptoParams c2 = cd2->cryptos().at(i);
-      EXPECT_TRUE(c1.Matches(c2));
-      EXPECT_EQ(c1.key_params, c2.key_params);
-      EXPECT_EQ(c1.session_params, c2.session_params);
-    }
 
     // protocol
     // Use an equivalence class here, for old and new versions of the
@@ -1627,11 +1604,6 @@ class WebRtcSdpTest : public ::testing::Test {
                      absl::WrapUnique(audio_desc_));
     desc_.AddContent(kVideoContentName, MediaProtocolType::kRtp,
                      absl::WrapUnique(video_desc_));
-  }
-
-  void RemoveCryptos() {
-    audio_desc_->set_cryptos(std::vector<CryptoParams>());
-    video_desc_->set_cryptos(std::vector<CryptoParams>());
   }
 
   // Removes everything in StreamParams from the session description that is
@@ -2054,7 +2026,6 @@ TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithFingerprint) {
 // be the case in a DTLS answer.
 TEST_F(WebRtcSdpTest, SerializeSessionDescriptionWithFingerprintNoCryptos) {
   AddFingerprint();
-  RemoveCryptos();
   JsepSessionDescription jdesc_with_fingerprint(kDummyType);
   MakeDescriptionWithoutCandidates(&jdesc_with_fingerprint);
   std::string message = webrtc::SdpSerialize(jdesc_with_fingerprint);

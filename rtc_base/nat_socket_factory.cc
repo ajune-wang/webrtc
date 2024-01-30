@@ -50,7 +50,7 @@ size_t PackAddressForNAT(char* buf,
 size_t UnpackAddressFromNAT(const char* buf,
                             size_t buf_size,
                             SocketAddress* remote_addr) {
-  RTC_DCHECK(buf_size >= 8);
+  RTC_CHECK(buf_size >= 8);
   RTC_DCHECK(buf[0] == 0);
   int family = buf[1];
   uint16_t port =

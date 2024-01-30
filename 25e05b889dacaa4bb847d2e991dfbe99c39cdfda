@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fe5c8d7_56f3320e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-30T17:05:19Z",
+      "side": 1,
+      "message": "doesn\u0027t removing SEC_DISABLED break the beta/canary flag for disabling encryption which works via PeerConnectionFactoryInterface::Options::disable_encryption?\n\nI tried removing that as we have RTP_DUMP but then didn\u0027t find enough folks to rubberstamp and nowadays actually use it too often since it is convenient in local testing",
+      "revId": "25e05b889dacaa4bb847d2e991dfbe99c39cdfda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -39,6 +39,26 @@ static jlong JNI_SoftwareVideoDecoderFactory_CreateDecoder(
   return webrtc::NativeToJavaPointer(decoder.release());
 }
 
+static jlong JNI_SoftwareVideoDecoderFactory_Create(
+    JNIEnv* env,
+    jlong j_factory,
+    jlong j_webrtc_env_ref,
+    const webrtc::JavaParamRef<jobject>& j_video_codec_info) {
+  auto* const native_factory =
+      reinterpret_cast<VideoDecoderFactory*>(j_factory);
+  const Environment& webrtc_env =
+      *reinterpret_cast<Environment*>(j_webrtc_env_ref);
+  const SdpVideoFormat video_format =
+      VideoCodecInfoToSdpVideoFormat(env, j_video_codec_info);
+
+  std::unique_ptr<VideoDecoder> decoder =
+      native_factory->Create(webrtc_env, video_format);
+  if (decoder == nullptr) {
+    return 0;
+  }
+  return NativeToJavaPointer(decoder.release());
+}
+
 static webrtc::ScopedJavaLocalRef<jobject>
 JNI_SoftwareVideoDecoderFactory_GetSupportedCodecs(JNIEnv* env,
                                                    jlong j_factory) {

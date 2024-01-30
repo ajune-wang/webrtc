@@ -756,9 +756,14 @@ bool RTPSenderVideo::SendEncodedImage(int payload_type,
                                       TimeDelta expected_retransmission_time) {
   if (frame_transformer_delegate_) {
     // The frame will be sent async once transformed.
+    // Provide a getter for video_structure_ which the transformer delegate will
+    // call synchronized to satisfy send_checker_.
     return frame_transformer_delegate_->TransformFrame(
         payload_type, codec_type, rtp_timestamp, encoded_image, video_header,
-        expected_retransmission_time);
+        expected_retransmission_time, [this]() {
+          RTC_DCHECK_RUNS_SERIALIZED(&send_checker_);
+          return video_structure_.get();
+        });
   }
   return SendVideo(payload_type, codec_type, rtp_timestamp,
                    encoded_image.CaptureTime(), encoded_image,

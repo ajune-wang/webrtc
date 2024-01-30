@@ -231,6 +231,10 @@ LibvpxVp9EncoderInfoSettings::LibvpxVp9EncoderInfoSettings()
     : EncoderInfoSettings("WebRTC-VP9-GetEncoderInfoOverride") {}
 
 LibaomAv1EncoderInfoSettings::LibaomAv1EncoderInfoSettings()
-    : EncoderInfoSettings("WebRTC-Av1-GetEncoderInfoOverride") {}
+    : EncoderInfoSettings(
+          field_trial::FindFullName("WebRTC-Av1-AlternateEncoderInfoOverride")
+                  .empty()
+              ? "WebRTC-Av1-GetEncoderInfoOverride"
+              : "WebRTC-Av1-AlternateEncoderInfoOverride") {}
 
 }  // namespace webrtc

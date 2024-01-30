@@ -99,4 +99,41 @@ TEST(EncoderSettingsTest, CommonSettingsUsedIfEncoderNameUnspecified) {
   EXPECT_EQ(3u, vp9_settings.requested_resolution_alignment());
 }
 
+TEST(EncoderSettingsTest, EncoderInfoOverrideAv1Honored) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Av1-GetEncoderInfoOverride/"
+      "frame_size_pixels:123|456|789,"
+      "min_start_bitrate_bps:11000|22000|33000,"
+      "min_bitrate_bps:44000|55000|66000,"
+      "max_bitrate_bps:77000|88000|99000/");
+  LibaomAv1EncoderInfoSettings av1_settings;
+  EXPECT_THAT(
+      av1_settings.resolution_bitrate_limits(),
+      ::testing::ElementsAre(
+          VideoEncoder::ResolutionBitrateLimits{123, 11000, 44000, 77000},
+          VideoEncoder::ResolutionBitrateLimits{456, 22000, 55000, 88000},
+          VideoEncoder::ResolutionBitrateLimits{789, 33000, 66000, 99000}));
+}
+
+TEST(EncoderSettingsTest, AlternateEncoderInfoOverrideAv1Honored) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Av1-GetEncoderInfoOverride/"
+      "frame_size_pixels:123|456|789,"
+      "min_start_bitrate_bps:11000|22000|33000,"
+      "min_bitrate_bps:44000|55000|66000,"
+      "max_bitrate_bps:77000|88000|99000/"
+      "WebRTC-Av1-AlternateEncoderInfoOverride/"
+      "frame_size_pixels:234|567|890,"
+      "min_start_bitrate_bps:11000|22000|33000,"
+      "min_bitrate_bps:44000|55000|66000,"
+      "max_bitrate_bps:77000|88000|99000/");
+  LibaomAv1EncoderInfoSettings av1_settings;
+  EXPECT_THAT(
+      av1_settings.resolution_bitrate_limits(),
+      ::testing::ElementsAre(
+          VideoEncoder::ResolutionBitrateLimits{234, 11000, 44000, 77000},
+          VideoEncoder::ResolutionBitrateLimits{567, 22000, 55000, 88000},
+          VideoEncoder::ResolutionBitrateLimits{890, 33000, 66000, 99000}));
+}
+
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3e700d1_a8741253",
+        "filename": "modules/video_coding/h26x_packet_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 20534
+      },
+      "writtenOn": "2024-01-30T12:41:53Z",
+      "side": 1,
+      "message": "Suggest to use H265 instead of HEVC.",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "001c102934fc95f3c8440582c063cfb4e8ddc874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

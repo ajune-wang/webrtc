@@ -238,6 +238,7 @@ TimeSeries CreateRtcpTypeTimeSeries(const std::vector<T>& rtcp_list,
 
 const char kUnknownEnumValue[] = "unknown";
 
+// TODO(tommi): Use constants from the `Candidate` class.
 // TODO(tommi): This should be "host".
 const char kIceCandidateTypeLocal[] = "local";
 // TODO(tommi): This should be "srflx".

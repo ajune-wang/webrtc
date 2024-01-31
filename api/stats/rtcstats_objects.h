@@ -122,6 +122,7 @@ class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
   absl::optional<int32_t> port;
   absl::optional<std::string> protocol;
   absl::optional<std::string> relay_protocol;
+  // TODO(tommi): This could be string_view.
   absl::optional<std::string> candidate_type;
   absl::optional<int32_t> priority;
   absl::optional<std::string> url;

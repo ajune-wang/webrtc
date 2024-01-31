@@ -74,6 +74,30 @@
       },
       "revId": "2fc8c3d27a371eaeab9bfc9c21213f8e05f25e33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f164d917_04ea9691",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-31T10:03:25Z",
+      "side": 1,
+      "message": "True but this would lead to exposing MaybeRemoveRembModuleCandidate and this is REMB which we thought we can deprecate ;-)",
+      "parentUuid": "2facf12b_b2ea0d98",
+      "range": {
+        "startLine": 1258,
+        "startChar": 4,
+        "endLine": 1260,
+        "endChar": 65
+      },
+      "revId": "2fc8c3d27a371eaeab9bfc9c21213f8e05f25e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

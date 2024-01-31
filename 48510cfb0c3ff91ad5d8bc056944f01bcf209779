@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15334275_752d8bab",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-01-31T08:55:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0d4feafd_956aca55",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 825,
+        "endChar": 1
+      },
+      "revId": "48510cfb0c3ff91ad5d8bc056944f01bcf209779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "354a250f_9e5d5b69",

@@ -51,6 +51,29 @@
       "message": "OK, will admit it as \"tested in the field\".",
       "revId": "2fc8c3d27a371eaeab9bfc9c21213f8e05f25e33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2facf12b_b2ea0d98",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-01-31T09:36:02Z",
+      "side": 1,
+      "message": "This feels unclear and unnecessary work.\n\nThis removes the module from the list, adds it back and then additionally calls ` AddRembModuleCandidate`: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/pacing/packet_router.cc;l\u003d127;drc\u003db58207f5aecc39db7d3da766e7d171e5d2c3598e\n\nI think a better approach would be to make AddRembModuleCandidate public and remove `bool remb_candidate` parameter from AddReceiveRtpModule.",
+      "range": {
+        "startLine": 1258,
+        "startChar": 4,
+        "endLine": 1260,
+        "endChar": 65
+      },
+      "revId": "2fc8c3d27a371eaeab9bfc9c21213f8e05f25e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

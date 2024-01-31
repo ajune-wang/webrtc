@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "becc30e2_c00fd069",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-01-31T08:30:37Z",
+      "side": 1,
+      "message": "Folks who know AV1 more, can you check the encoder does what the draft (and i) promise it does? References in the commit message ;-)",
+      "revId": "a043ed31869b790893d0557bb18568127fbdaba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

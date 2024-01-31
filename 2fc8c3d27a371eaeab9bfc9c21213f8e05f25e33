@@ -98,6 +98,30 @@
       },
       "revId": "2fc8c3d27a371eaeab9bfc9c21213f8e05f25e33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f41a0c6f_a890a22a",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-01-31T10:05:26Z",
+      "side": 1,
+      "message": "Ok, it seems to much work for such a small clean up.",
+      "parentUuid": "f164d917_04ea9691",
+      "range": {
+        "startLine": 1258,
+        "startChar": 4,
+        "endLine": 1260,
+        "endChar": 65
+      },
+      "revId": "2fc8c3d27a371eaeab9bfc9c21213f8e05f25e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

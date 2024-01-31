@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_H264_PACKET_BUFFER_H_
-#define MODULES_VIDEO_CODING_H264_PACKET_BUFFER_H_
+#ifndef MODULES_VIDEO_CODING_H26X_PACKET_BUFFER_H_
+#define MODULES_VIDEO_CODING_H26X_PACKET_BUFFER_H_
 
 #include <array>
 #include <memory>
@@ -22,15 +22,17 @@
 
 namespace webrtc {
 
-class H264PacketBuffer {
+class H26xPacketBuffer {
  public:
-  // The H264PacketBuffer does the same job as the PacketBuffer but for H264
-  // only. To make it fit in with surronding code the PacketBuffer input/output
-  // classes are used.
+  // The H26xPacketBuffer does the same job as the PacketBuffer but for H264 and
+  // H265 only. To make it fit in with surronding code the PacketBuffer
+  // input/output classes are used.
   using Packet = video_coding::PacketBuffer::Packet;
   using InsertResult = video_coding::PacketBuffer::InsertResult;
 
-  explicit H264PacketBuffer(bool idr_only_keyframes_allowed);
+  // |idr_only_keyframes_allowed| must be false for H.265. This is required by
+  // https://datatracker.ietf.org/doc/html/draft-ietf-avtcore-hevc-webrtc-01.
+  explicit H26xPacketBuffer(bool idr_only_keyframes_allowed);
 
   ABSL_MUST_USE_RESULT InsertResult
   InsertPacket(std::unique_ptr<Packet> packet);
@@ -53,4 +55,4 @@ class H264PacketBuffer {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_H264_PACKET_BUFFER_H_
+#endif  // MODULES_VIDEO_CODING_H26X_PACKET_BUFFER_H_

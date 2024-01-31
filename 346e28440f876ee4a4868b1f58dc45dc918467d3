@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6348cff_166061ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-01-31T16:15:06Z",
+      "side": 1,
+      "message": "de-facto I\u0027m doing two independent changes here,\nbut they are steps towards the same goal - remove need for the global field trial string.\nif you find it clearer, I can do the same in two CLs.",
+      "revId": "346e28440f876ee4a4868b1f58dc45dc918467d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

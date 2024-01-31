@@ -200,6 +200,13 @@ rtc_library("video_coding") {
     "video_receiver2.h",
   ]
 
+  if (rtc_use_h265) {
+    sources += [
+      "h265_parameter_sets_tracker.cc",
+      "h265_parameter_sets_tracker.h",
+    ]
+  }
+
   deps = [
     ":codec_globals_headers",
     ":encoded_frame",
@@ -1183,6 +1190,10 @@ if (rtc_include_tests) {
         "codecs/h264/h264_encoder_impl_unittest.cc",
         "codecs/h264/h264_simulcast_unittest.cc",
       ]
+    }
+
+    if (rtc_use_h265) {
+      sources += [ "h265_parameter_sets_tracker_unittest.cc" ]
     }
 
     deps = [

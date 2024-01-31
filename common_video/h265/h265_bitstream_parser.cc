@@ -543,4 +543,13 @@ absl::optional<int> H265BitstreamParser::GetLastSliceQp() const {
   return parsed_qp;
 }
 
+absl::optional<uint32_t> H265BitstreamParser::GetLastSlicePPSId() const {
+  if (!last_slice_pps_id_) {
+    RTC_LOG(LS_ERROR) << "Failed to parse PPS id from bitstream.";
+    return absl::nullopt;
+  }
+
+  return last_slice_pps_id_;
+}
+
 }  // namespace webrtc

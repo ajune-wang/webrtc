@@ -36,6 +36,8 @@ class H265BitstreamParser : public BitstreamParser {
   void ParseBitstream(rtc::ArrayView<const uint8_t> bitstream) override;
   absl::optional<int> GetLastSliceQp() const override;
 
+  absl::optional<uint32_t> GetLastSlicePPSId() const;
+
   static absl::optional<uint32_t> ParsePpsIdFromSliceSegmentLayerRbsp(
       const uint8_t* data,
       size_t length,

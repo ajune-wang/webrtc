@@ -48,7 +48,9 @@ class RtpVideoStreamReceiverFrameTransformerDelegate
   void Reset();
 
   // Delegates the call to FrameTransformerInterface::TransformFrame.
-  void TransformFrame(std::unique_ptr<RtpFrameObject> frame);
+  void TransformFrame(
+      std::unique_ptr<RtpFrameObject> frame,
+      const FrameDependencyStructure* frame_dependency_structure);
 
   // Implements TransformedFrameCallback. Can be called on any thread. Posts
   // the transformed frame to be managed on the `network_thread_`.

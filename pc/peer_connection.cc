@@ -1681,6 +1681,17 @@ RTCError PeerConnection::SetBitrate(const BitrateSettings& bitrate) {
   return RTCError::OK();
 }
 
+void PeerConnection::RestartBandwidthEstimation(
+    const BandWidthEstimationSettings& settings) {
+  if (!worker_thread()->IsCurrent()) {
+    worker_thread()->BlockingCall(
+        [this, settings] { RestartBandwidthEstimation(settings); });
+    return;
+  }
+  RTC_DCHECK_RUN_ON(worker_thread());
+  call_->GetTransportControllerSend()->RestartBandwidthEstimation(settings);
+}
+
 void PeerConnection::SetAudioPlayout(bool playout) {
   if (!worker_thread()->IsCurrent()) {
     worker_thread()->BlockingCall(

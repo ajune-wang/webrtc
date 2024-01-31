@@ -16,6 +16,23 @@
       "message": "This looks like something only specialist apps would care about.\nNormally I\u0027d say \"where\u0027s the test\", but I\u0027ll let it pass this time.",
       "revId": "55240471272e779b1c098503723da1592514eeb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6adcc963_34f49536",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-01-31T06:52:58Z",
+      "side": 1,
+      "message": "Thanks Harald. Since this is a straightforward change, I\u0027ll submit this without adding tests.",
+      "revId": "55240471272e779b1c098503723da1592514eeb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

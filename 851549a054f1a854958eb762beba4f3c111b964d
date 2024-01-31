@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf3e7c7_c600ccc0",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2024-01-31T16:04:41Z",
+      "side": 1,
+      "message": "Can this be `const FrameDependencyStructure*`?",
+      "revId": "851549a054f1a854958eb762beba4f3c111b964d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5dca50_c24938e1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2024-01-31T16:04:41Z",
+      "side": 1,
+      "message": "nit: Elaborate this comment a bit, maybe stating the requirement to access `video_structure_` under the lock held by the delegate, and that the getter avoids some uglier patter.",
+      "revId": "851549a054f1a854958eb762beba4f3c111b964d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

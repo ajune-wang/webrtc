@@ -16,6 +16,24 @@
       "message": "Folks who know AV1 more, can you check the encoder does what the draft (and i) promise it does? References in the commit message ;-)",
       "revId": "a043ed31869b790893d0557bb18568127fbdaba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f5353d_7ba9ceda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-01-31T10:22:35Z",
+      "side": 1,
+      "message": "I\u0027ve verified that libaom AV1 encoder produces seq_profile\u003d0, seq_level\u003d5, seq_tier\u003d0 by default.\n\nout/debug/video_codec_perf_tests --gtest_also_run_disabled_tests --gtest_filter\u003d*EncodeDecode --scalability_mode\u003dL1T1 --encoder\u003dlibaom-av1 --decoder\u003ddav1d --num_frames\u003d10 --dump_encoder_output\n\nout/DISABLED_EncodeDecode_enc_output-s0.ivf -\u003e https://ssilkin.github.io/bsparser/",
+      "parentUuid": "becc30e2_c00fd069",
+      "revId": "a043ed31869b790893d0557bb18568127fbdaba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

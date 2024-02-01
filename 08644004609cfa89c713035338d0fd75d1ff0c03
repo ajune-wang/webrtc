@@ -216,6 +216,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f13a5722_c68eb2fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-01T09:32:12Z",
+      "side": 1,
+      "message": "\u003e I think it\u0027s fine to have sendonly codecs in the body of the media section while still omitting them in the preferences list.\n\nSo \"the list of codecs\" in the SDP and the \"preference list\" are two separate lists. The fact that we supposedly have to add new codecs at the end of the list is therefore not a problem, because this is about the end of the codec list, not the end of the preference list?\n\nIn other words, we can setCodecPreferences() with recvonly codecs we want to receive, and the other endpoint can do the same with recvonly codecs they want to receive.\n\n- And importantly: even if what A wants to receive and what B wants to receive are DISTINCT sets of codecs, this will work. Correct?",
+      "parentUuid": "74f17647_9e93c726",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

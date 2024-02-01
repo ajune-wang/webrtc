@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "575a0774_11ff6649",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-01T14:49:46Z",
+      "side": 0,
+      "message": "Interesting... so because we\u0027re not preferring to *receive* VP9, setParameters() refuses to configure *sending* a VP9-only scalabilityMode?\n\nI think it would make more sense to fallback at SDP answer time when the sender is actually configured to send and not this early. As far as the RTCRtpSender is concerned at this point in time, L3T3_KEY is perfectly valid. It\u0027s up to `pc2` whether or not to prefer to receive VP9.\n\nLooks like there\u0027s still some sender dependency on receive preference...",
+      "parentUuid": "4e67c62c_bf53f6c2",
+      "revId": "199fd755bd585adcf352f8308026290779ea21ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbaf1716_bca0758d",
         "filename": "pc/peer_connection_encodings_integrationtest.cc",
         "patchSetId": 9

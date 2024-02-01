@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5afb16f2_6b6b68f5",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-01T17:50:16Z",
+      "side": 0,
+      "message": "Exactly, the test is expecting something awkward here.\nI changed it slightly to negotiate before trying to do stupid things and it passes again.",
+      "parentUuid": "575a0774_11ff6649",
+      "revId": "199fd755bd585adcf352f8308026290779ea21ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbaf1716_bca0758d",
         "filename": "pc/peer_connection_encodings_integrationtest.cc",
         "patchSetId": 9
@@ -139,6 +157,24 @@
       "side": 0,
       "message": "see above",
       "parentUuid": "bbaf1716_bca0758d",
+      "revId": "199fd755bd585adcf352f8308026290779ea21ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8922fc3_842038d0",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-01T17:50:16Z",
+      "side": 0,
+      "message": "actually no, these two attempt to send set a codec which was not negotiated. This is now covered by SetParametersRejectsUnknownCodecParameterAudio/SetParametersRejectsUnknownCodecParameterVideo directly above this.",
+      "parentUuid": "b66dae98_1ce3d37a",
       "revId": "199fd755bd585adcf352f8308026290779ea21ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

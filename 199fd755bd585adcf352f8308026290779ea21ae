@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d413f1c_755cef9f",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-01T10:41:59Z",
+      "side": 0,
+      "message": "But why and how did it broke?\n\nThere\u0027s nothing wrong with trying to negotiate VP8.\nThere\u0027s nothing wrong with trying to do kSVC, only you won\u0027t get it.\n\nThe test looks correct to me, it is checking the scalability mode fallback path.",
+      "parentUuid": "6cfcf195_fcc99ab3",
+      "revId": "199fd755bd585adcf352f8308026290779ea21ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbaf1716_bca0758d",
         "filename": "pc/peer_connection_encodings_integrationtest.cc",
         "patchSetId": 9

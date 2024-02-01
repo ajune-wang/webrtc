@@ -252,6 +252,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f67b7ae_4c984632",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-01T10:41:59Z",
+      "side": 1,
+      "message": "\u003e Folks have started using setCodecPreferences to control send codecs. Changing that would be a web compat issue and we can\u0027t change that so we should stick to the way it currently operates.\n\nRegarding web compat, the existing uses are only for sendrecv codecs, so their use case continues to work and is only when the other endpoint doesn\u0027t have a preference. So I don\u0027t see any web compat issues with the changes we\u0027re making.",
+      "parentUuid": "1c9564b9_087e822f",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c6a67ac_67f34d2d",

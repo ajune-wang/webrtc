@@ -187,6 +187,14 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
     case DecoderType::kHardware: {
       int32_t ret = WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
       ret = hw_decoder_->Decode(input_image, render_time_ms);
+      // TODO: this is just for testing obviously. Maybe testing with
+      // VP9 SVC would work?
+      RTC_LOG(LS_ERROR) << "FIPPO ERR=" << ret
+                        << " SW=" << WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
+      if (callback_) {
+        RTC_LOG(LS_ERROR) << "FIPPO GOT CB";
+        callback_->OnSoftwareFallback(VideoDecoderFallbackReason::kMaxValue);
+      }
       if (ret != WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE) {
         if (ret != WEBRTC_VIDEO_CODEC_ERROR) {
           ++hw_decoded_frames_since_last_fallback_;

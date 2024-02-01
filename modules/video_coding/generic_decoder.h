@@ -22,6 +22,7 @@
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/timing/timing.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/synchronization/mutex.h"
 
 namespace webrtc {
@@ -64,6 +65,11 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
   void Decoded(VideoFrame& decodedImage,
                absl::optional<int32_t> decode_time_ms,
                absl::optional<uint8_t> qp) override;
+
+  void OnSoftwareFallback(VideoDecoderFallbackReason reason) override {
+    RTC_LOG(LS_ERROR) << "FIPPO FALLBACK";
+    _receiveCallback->OnSoftwareFallback(reason);
+  }
 
   void OnDecoderInfoChanged(const VideoDecoder::DecoderInfo& decoder_info);
 

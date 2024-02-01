@@ -20,9 +20,22 @@
 #include "api/video/render_resolution.h"
 #include "api/video/video_codec_type.h"
 #include "api/video/video_frame.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
+
+// These values are persisted to logs. Entries should not be renumbered and
+// numeric values should never be reused.
+enum class VideoDecoderFallbackReason {
+  kSpatialLayers = 0,
+  kConsecutivePendingBufferOverflow = 1,
+  kReinitializationFailed = 2,
+  kPreviousErrorOnDecode = 3,
+  kPreviousErrorOnRegisterCallback = 4,
+  kConsecutivePendingBufferOverflowDuringInit = 5,
+  kMaxValue = kConsecutivePendingBufferOverflowDuringInit,
+};
 
 class RTC_EXPORT DecodedImageCallback {
  public:
@@ -40,6 +53,12 @@ class RTC_EXPORT DecodedImageCallback {
   virtual void Decoded(VideoFrame& decodedImage,
                        absl::optional<int32_t> decode_time_ms,
                        absl::optional<uint8_t> qp);
+
+  // Called when a fallback from hardware to software happens.
+  // TODO(fippo): make pure virtual.
+  virtual void OnSoftwareFallback(VideoDecoderFallbackReason reason) {
+    RTC_LOG(LS_ERROR) << "FIPPO NEEDS OVERRIDE";
+  }
 };
 
 class RTC_EXPORT VideoDecoder {

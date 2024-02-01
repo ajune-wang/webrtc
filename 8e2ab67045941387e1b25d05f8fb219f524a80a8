@@ -16,6 +16,24 @@
       "message": "this has chromoting as external dependency which needs to be removed prior to submit: https://chromium-review.googlesource.com/c/chromium/src/+/5169349\n\n(good bot catching this!)",
       "revId": "8e2ab67045941387e1b25d05f8fb219f524a80a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5478d6a0_fd6f8e0e",
+        "filename": "api/video_codecs/av1_profile.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-01T10:12:29Z",
+      "side": 0,
+      "message": "submitted",
+      "parentUuid": "89682398_a5dc5ba5",
+      "revId": "8e2ab67045941387e1b25d05f8fb219f524a80a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

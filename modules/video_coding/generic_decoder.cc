@@ -79,26 +79,6 @@ int32_t VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-std::pair<absl::optional<FrameInfo>, size_t>
-VCMDecodedFrameCallback::FindFrameInfo(uint32_t rtp_timestamp) {
-  absl::optional<FrameInfo> frame_info;
-
-  auto it = absl::c_find_if(frame_infos_, [rtp_timestamp](const auto& entry) {
-    return entry.rtp_timestamp == rtp_timestamp ||
-           IsNewerTimestamp(entry.rtp_timestamp, rtp_timestamp);
-  });
-  size_t dropped_frames = std::distance(frame_infos_.begin(), it);
-
-  if (it != frame_infos_.end() && it->rtp_timestamp == rtp_timestamp) {
-    // Frame was found and should also be removed from the queue.
-    frame_info = std::move(*it);
-    ++it;
-  }
-
-  frame_infos_.erase(frame_infos_.begin(), it);
-  return std::make_pair(std::move(frame_info), dropped_frames);
-}
-
 void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
                                       absl::optional<int32_t> decode_time_ms,
                                       absl::optional<uint8_t> qp) {
@@ -222,6 +202,26 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   _receiveCallback->FrameToRender(decodedImage, qp, decode_time,
                                   frame_info->content_type,
                                   frame_info->frame_type);
+}
+
+std::pair<absl::optional<FrameInfo>, size_t>
+VCMDecodedFrameCallback::FindFrameInfo(uint32_t rtp_timestamp) {
+  absl::optional<FrameInfo> frame_info;
+
+  auto it = absl::c_find_if(frame_infos_, [rtp_timestamp](const auto& entry) {
+    return entry.rtp_timestamp == rtp_timestamp ||
+           IsNewerTimestamp(entry.rtp_timestamp, rtp_timestamp);
+  });
+  size_t dropped_frames = std::distance(frame_infos_.begin(), it);
+
+  if (it != frame_infos_.end() && it->rtp_timestamp == rtp_timestamp) {
+    // Frame was found and should also be removed from the queue.
+    frame_info = std::move(*it);
+    ++it;
+  }
+
+  frame_infos_.erase(frame_infos_.begin(), it);
+  return std::make_pair(std::move(frame_info), dropped_frames);
 }
 
 void VCMDecodedFrameCallback::OnDecoderInfoChanged(

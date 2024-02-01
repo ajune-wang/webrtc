@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e67c62c_bf53f6c2",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-01T11:08:05Z",
+      "side": 0,
+      "message": "So with the new code it fails in what is line 448 here:\n(peer_connection.cc:1178): Adding video transceiver in response to a call to AddTransceiver.\n(peer_connection_encodings_integrationtest.cc:471): FIPPO VP8\n(peer_connection_encodings_integrationtest.cc:471): FIPPO rtx\n(peer_connection_encodings_integrationtest.cc:471): FIPPO red\n(peer_connection_encodings_integrationtest.cc:471): FIPPO ulpfec\n(peer_connection_encodings_integrationtest.cc:471): FIPPO flexfec-03\n(rtp_sender.cc:250): FIPPO SC VP8\n(rtp_sender.cc:250): FIPPO SC VP9\n(rtp_sender.cc:250): FIPPO SC VP9\n(rtp_sender.cc:250): FIPPO SC H264\n(rtp_sender.cc:250): FIPPO SC H264\n(rtp_sender.cc:250): FIPPO SC H264\n(rtp_sender.cc:250): FIPPO SC H264\n(rtp_sender.cc:250): FIPPO SC H264\n(rtp_sender.cc:250): FIPPO SC H264\n(rtp_sender.cc:250): FIPPO SC AV1\n(rtp_sender.cc:250): FIPPO SC red\n(rtp_sender.cc:250): FIPPO SC ulpfec\n..\\..\\pc\\peer_connection_encodings_integrationtest.cc(481): error: Value of: sender-\u003eSetParameters(parameters).ok()\n  Actual: true\nExpected: false\n\nBefore negotiation we do not know that VP9 can not be used as send codec and send_codecs_ still has VP9 so not throwing this error is ok.",
+      "parentUuid": "6cfcf195_fcc99ab3",
+      "revId": "199fd755bd585adcf352f8308026290779ea21ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbaf1716_bca0758d",
         "filename": "pc/peer_connection_encodings_integrationtest.cc",
         "patchSetId": 9

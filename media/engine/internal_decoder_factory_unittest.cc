@@ -58,25 +58,21 @@ MATCHER_P(Support, expected, "") {
 TEST(InternalDecoderFactoryTest, Vp8) {
   InternalDecoderFactory factory;
   std::unique_ptr<VideoDecoder> decoder =
-      factory.CreateVideoDecoder(SdpVideoFormat(cricket::kVp8CodecName));
+      factory.CreateVideoDecoder(SdpVideoFormat::VP8());
   EXPECT_TRUE(decoder);
 }
 
 TEST(InternalDecoderFactoryTest, Vp9Profile0) {
   InternalDecoderFactory factory;
   std::unique_ptr<VideoDecoder> decoder =
-      factory.CreateVideoDecoder(SdpVideoFormat(
-          cricket::kVp9CodecName,
-          {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile0)}}));
+      factory.CreateVideoDecoder(SdpVideoFormat::VP9Profile0());
   EXPECT_EQ(static_cast<bool>(decoder), kVp9Enabled);
 }
 
 TEST(InternalDecoderFactoryTest, Vp9Profile1) {
   InternalDecoderFactory factory;
   std::unique_ptr<VideoDecoder> decoder =
-      factory.CreateVideoDecoder(SdpVideoFormat(
-          cricket::kVp9CodecName,
-          {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile1)}}));
+      factory.CreateVideoDecoder(SdpVideoFormat::VP9Profile0());
   EXPECT_EQ(static_cast<bool>(decoder), kVp9Enabled);
 }
 
@@ -128,17 +124,14 @@ TEST(InternalDecoderFactoryTest, Av1Profile1_Dav1dDecoderTrialEnabled) {
 
 TEST(InternalDecoderFactoryTest, QueryCodecSupportNoReferenceScaling) {
   InternalDecoderFactory factory;
-  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat(cricket::kVp8CodecName),
+  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat::VP8(),
                                         /*reference_scaling=*/false),
               Support(kSupported));
-  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat(cricket::kVp9CodecName),
+  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat::VP9Profile0(),
                                         /*reference_scaling=*/false),
               Support(kVp9Enabled ? kSupported : kUnsupported));
-  EXPECT_THAT(factory.QueryCodecSupport(
-                  SdpVideoFormat(cricket::kVp9CodecName,
-                                 {{kVP9FmtpProfileId,
-                                   VP9ProfileToString(VP9Profile::kProfile1)}}),
-                  /*reference_scaling=*/false),
+  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat::VP9Profile1(),
+                                        /*reference_scaling=*/false),
               Support(kVp9Enabled ? kSupported : kUnsupported));
 
 #if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
@@ -151,7 +144,7 @@ TEST(InternalDecoderFactoryTest, QueryCodecSupportNoReferenceScaling) {
 TEST(InternalDecoderFactoryTest, QueryCodecSupportReferenceScaling) {
   InternalDecoderFactory factory;
   // VP9 and AV1 support for spatial layers.
-  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat(cricket::kVp9CodecName),
+  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat::VP9Profile0(),
                                         /*reference_scaling=*/true),
               Support(kVp9Enabled ? kSupported : kUnsupported));
 #if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
@@ -164,7 +157,7 @@ TEST(InternalDecoderFactoryTest, QueryCodecSupportReferenceScaling) {
   EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat(cricket::kH264CodecName),
                                         /*reference_scaling=*/true),
               Support(kUnsupported));
-  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat(cricket::kVp8CodecName),
+  EXPECT_THAT(factory.QueryCodecSupport(SdpVideoFormat::VP8(),
                                         /*reference_scaling=*/true),
               Support(kUnsupported));
 }

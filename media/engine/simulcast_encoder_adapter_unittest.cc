@@ -57,15 +57,14 @@ std::unique_ptr<SimulcastTestFixture> CreateSpecificSimulcastTestFixture(
       std::make_unique<FunctionVideoEncoderFactory>(
           [internal_encoder_factory]() {
             return std::make_unique<SimulcastEncoderAdapter>(
-                internal_encoder_factory,
-                SdpVideoFormat(cricket::kVp8CodecName));
+                internal_encoder_factory, SdpVideoFormat::VP8());
           });
   std::unique_ptr<VideoDecoderFactory> decoder_factory =
       std::make_unique<FunctionVideoDecoderFactory>(
           []() { return VP8Decoder::Create(); });
   return CreateSimulcastTestFixture(std::move(encoder_factory),
                                     std::move(decoder_factory),
-                                    SdpVideoFormat(cricket::kVp8CodecName));
+                                    SdpVideoFormat::VP8());
 }
 }  // namespace
 
@@ -352,8 +351,7 @@ class MockVideoEncoder : public VideoEncoder {
 
 std::vector<SdpVideoFormat> MockVideoEncoderFactory::GetSupportedFormats()
     const {
-  std::vector<SdpVideoFormat> formats = {SdpVideoFormat("VP8")};
-  return formats;
+  return {SdpVideoFormat::VP8()};
 }
 
 std::unique_ptr<VideoEncoder> MockVideoEncoderFactory::CreateVideoEncoder(

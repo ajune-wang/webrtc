@@ -194,8 +194,8 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
   RTPSender* const rtp_sender_;
   Clock* const clock_;
 
-  // These members should only be accessed from within SendVideo() to avoid
-  // potential race conditions.
+  // Methods accessing these members should be externally serialized, either via
+  // frame_transformer_delegate_ if one is set, or by the caller.
   rtc::RaceChecker send_checker_;
   int32_t retransmission_settings_ RTC_GUARDED_BY(send_checker_);
   VideoRotation last_rotation_ RTC_GUARDED_BY(send_checker_);

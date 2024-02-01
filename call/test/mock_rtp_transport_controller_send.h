@@ -69,6 +69,10 @@ class MockRtpTransportControllerSend
               SetAllocatedSendBitrateLimits,
               (BitrateAllocationLimits),
               (override));
+  MOCK_METHOD(void,
+              RestartBandwidthEstimation,
+              (const BandWidthEstimationSettings&),
+              (override));
   MOCK_METHOD(void, SetPacingFactor, (float), (override));
   MOCK_METHOD(void, SetQueueTimeLimit, (int), (override));
   MOCK_METHOD(StreamFeedbackProvider*,

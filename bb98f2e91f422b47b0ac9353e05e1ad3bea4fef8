@@ -46,6 +46,30 @@
       },
       "revId": "bb98f2e91f422b47b0ac9353e05e1ad3bea4fef8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23756f86_25d5b80e",
+        "filename": "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-02-01T11:13:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a9d39f2a_abdd55cd",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "bb98f2e91f422b47b0ac9353e05e1ad3bea4fef8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

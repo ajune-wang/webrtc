@@ -197,6 +197,9 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
     return RTCError(RTCErrorType::UNSUPPORTED_OPERATION, "Not implemented");
   }
 
+  void RestartBandwidthEstimation(
+      const BandWidthEstimationSettings& settings) override {}
+
   void SetAudioPlayout(bool playout) override {}
 
   void SetAudioRecording(bool recording) override {}

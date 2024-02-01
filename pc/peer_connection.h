@@ -236,6 +236,8 @@ class PeerConnection : public PeerConnectionInternal,
       const std::vector<cricket::Candidate>& candidates) override;
 
   RTCError SetBitrate(const BitrateSettings& bitrate) override;
+  void RestartBandwidthEstimation(
+      const BandWidthEstimationSettings& settings) override;
 
   void SetAudioPlayout(bool playout) override;
   void SetAudioRecording(bool recording) override;

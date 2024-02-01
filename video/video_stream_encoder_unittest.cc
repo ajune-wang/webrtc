@@ -8824,7 +8824,7 @@ class VideoStreamEncoderWithRealEncoderTest
         EXPECT_CALL(*mock_encoder_factory_for_multiplex_, CreateVideoEncoder)
             .WillRepeatedly([] { return VP8Encoder::Create(); });
         encoder = std::make_unique<MultiplexEncoderAdapter>(
-            mock_encoder_factory_for_multiplex_.get(), SdpVideoFormat("VP8"),
+            mock_encoder_factory_for_multiplex_.get(), SdpVideoFormat::VP8(),
             false);
         break;
       case kVideoCodecH265:

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "235b3f79_fb4affb3",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-02-01T11:56:10Z",
+      "side": 1,
+      "message": "Can and should! Done, thanks",
+      "parentUuid": "dbf3e7c7_c600ccc0",
+      "revId": "851549a054f1a854958eb762beba4f3c111b964d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b5dca50_c24938e1",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-31T16:04:41Z",
       "side": 1,
       "message": "nit: Elaborate this comment a bit, maybe stating the requirement to access `video_structure_` under the lock held by the delegate, and that the getter avoids some uglier patter.",
+      "revId": "851549a054f1a854958eb762beba4f3c111b964d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a98eff7a_9a5d67ac",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-02-01T11:56:10Z",
+      "side": 1,
+      "message": "Re-wrote it, and tried to improve the comment in the header too. Is this clearer?\n\nI\u0027ll do a follow up cl to rename the \"...AfterTransformation()\" methods to something more like \"...WithTransformLock()\" to be clearer - I only fully understood all of this locking this week after working with it for 3 years...",
+      "parentUuid": "3b5dca50_c24938e1",
       "revId": "851549a054f1a854958eb762beba4f3c111b964d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

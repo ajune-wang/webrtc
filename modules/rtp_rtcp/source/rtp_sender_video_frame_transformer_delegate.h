@@ -63,12 +63,16 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
   void Init();
 
   // Delegates the call to FrameTransformerInterface::TransformFrame.
+  // frame_dependency_structure_getter is guaranteed to not be called at the
+  // same time as SendVideo.
   bool TransformFrame(int payload_type,
                       absl::optional<VideoCodecType> codec_type,
                       uint32_t rtp_timestamp,
                       const EncodedImage& encoded_image,
                       RTPVideoHeader video_header,
-                      TimeDelta expected_retransmission_time);
+                      TimeDelta expected_retransmission_time,
+                      std::function<const FrameDependencyStructure*()>
+                          frame_dependency_structure_getter);
 
   // Implements TransformedFrameCallback. Can be called on any thread. Posts
   // the transformed frame to be sent on the `encoder_queue_`.

@@ -905,7 +905,8 @@ void RtpVideoStreamReceiver2::OnAssembledFrame(
   if (buffered_frame_decryptor_ != nullptr) {
     buffered_frame_decryptor_->ManageEncryptedFrame(std::move(frame));
   } else if (frame_transformer_delegate_) {
-    frame_transformer_delegate_->TransformFrame(std::move(frame));
+    frame_transformer_delegate_->TransformFrame(std::move(frame),
+                                                video_structure_.get());
   } else {
     OnCompleteFrames(reference_finder_->ManageFrame(std::move(frame)));
   }

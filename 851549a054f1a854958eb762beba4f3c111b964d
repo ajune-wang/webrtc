@@ -69,6 +69,24 @@
       "parentUuid": "3b5dca50_c24938e1",
       "revId": "851549a054f1a854958eb762beba4f3c111b964d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99618c69_41938c94",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2024-02-01T12:11:02Z",
+      "side": 1,
+      "message": "A lot clearer now.",
+      "parentUuid": "a98eff7a_9a5d67ac",
+      "revId": "851549a054f1a854958eb762beba4f3c111b964d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

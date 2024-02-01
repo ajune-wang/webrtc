@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f801c67d_e332c8f3",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-01T10:43:29Z",
+      "side": 0,
+      "message": "Since pc2 doesn\u0027t have any preferences of their own, they should respond with the same preferences that pc1 specified. There\u0027s nothing wrong with pc1 setting preferences to VP8 here is there?",
+      "parentUuid": "0d413f1c_755cef9f",
+      "revId": "199fd755bd585adcf352f8308026290779ea21ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbaf1716_bca0758d",
         "filename": "pc/peer_connection_encodings_integrationtest.cc",
         "patchSetId": 9

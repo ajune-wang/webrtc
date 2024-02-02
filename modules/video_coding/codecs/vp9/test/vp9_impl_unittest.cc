@@ -2459,4 +2459,112 @@ TEST(Vp9SpeedSettingsTrialsTest, DefaultPerLayerFlagsWithSvc) {
   }
 }
 
+struct SvcFrameDropConfigTestParameters {
+  bool allow_layer_drop;
+  absl::optional<ScalabilityMode> scalability_mode;
+  std::string field_trial;
+  int expected_framedrop_mode;
+  int expected_max_consec_drop;
+};
+
+class TestVp9ImplSvcFrameDropConfig
+    : public ::testing::TestWithParam<SvcFrameDropConfigTestParameters> {};
+
+TEST_P(TestVp9ImplSvcFrameDropConfig, SvcFrameDropConfig) {
+  SvcFrameDropConfigTestParameters test_params = GetParam();
+  auto* const vpx = new NiceMock<MockLibvpxInterface>();
+  LibvpxVp9Encoder encoder(
+      cricket::CreateVideoCodec(cricket::kVp9CodecName),
+      absl::WrapUnique<LibvpxInterface>(vpx),
+      test::ExplicitKeyValueConfig(test_params.field_trial));
+
+  vpx_image_t img;
+  ON_CALL(*vpx, img_wrap).WillByDefault(GetWrapImageFunction(&img));
+
+  EXPECT_CALL(*vpx,
+              codec_control(_, VP9E_SET_SVC_FRAME_DROP_LAYER,
+                            SafeMatcherCast<vpx_svc_frame_drop_t*>(AllOf(
+                                Field(&vpx_svc_frame_drop_t::framedrop_mode,
+                                      test_params.expected_framedrop_mode),
+                                Field(&vpx_svc_frame_drop_t::max_consec_drop,
+                                      test_params.expected_max_consec_drop)))));
+
+  VideoCodec settings = DefaultCodecSettings();
+  settings.VP9()->allow_layer_drop = test_params.allow_layer_drop;
+  if (test_params.scalability_mode.has_value()) {
+    settings.SetScalabilityMode(*test_params.scalability_mode);
+  }
+  settings.VP9()->numberOfSpatialLayers =
+      3;  // to execute SVC code paths even when scalability_mode is not set.
+
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder.InitEncode(&settings, kSettings));
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    All,
+    TestVp9ImplSvcFrameDropConfig,
+    ::testing::Values(
+        // Layer drop is not allowed - ignore layer_drop_mode from field trial.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = false,
+            .scalability_mode = ScalabilityMode::kL3T3_KEY,
+            .field_trial = "WebRTC-LibvpxVp9Encoder-SvcFrameDropConfig/"
+                           "Enabled,layer_drop_mode:1,max_consec_drop:7/",
+            .expected_framedrop_mode = FULL_SUPERFRAME_DROP,
+            .expected_max_consec_drop = 7},
+        // Layer drop is allowed but field trial is not provided - use default
+        // settings.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = true,
+            .scalability_mode = ScalabilityMode::kL3T3_KEY,
+            .field_trial = "",
+            .expected_framedrop_mode = FULL_SUPERFRAME_DROP,
+            .expected_max_consec_drop = std::numeric_limits<int>::max()},
+        // Layer drop is allowed but the field trial is disabled - use default
+        // settings.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = true,
+            .scalability_mode = ScalabilityMode::kL3T3_KEY,
+            .field_trial = "WebRTC-LibvpxVp9Encoder-SvcFrameDropConfig/"
+                           "Disabled,layer_drop_mode:1,max_consec_drop:7/",
+            .expected_framedrop_mode = FULL_SUPERFRAME_DROP,
+            .expected_max_consec_drop = std::numeric_limits<int>::max()},
+        // Layer drop is allowed and is configured, KSVC - apply config from
+        // field trial.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = true,
+            .scalability_mode = ScalabilityMode::kL3T3_KEY,
+            .field_trial = "WebRTC-LibvpxVp9Encoder-SvcFrameDropConfig/"
+                           "Enabled,layer_drop_mode:1,max_consec_drop:7/",
+            .expected_framedrop_mode = LAYER_DROP,
+            .expected_max_consec_drop = 7},
+        // Layer drop is allowed and is configured, simulcast - apply config
+        // from field trial.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = true,
+            .scalability_mode = ScalabilityMode::kS3T3,
+            .field_trial = "WebRTC-LibvpxVp9Encoder-SvcFrameDropConfig/"
+                           "Enabled,layer_drop_mode:1,max_consec_drop:7/",
+            .expected_framedrop_mode = LAYER_DROP,
+            .expected_max_consec_drop = 7},
+        // Layer drop is allowed and is configured, full SVC - ignore
+        // layer_drop_mode from field trial.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = false,
+            .scalability_mode = ScalabilityMode::kL3T3,
+            .field_trial = "WebRTC-LibvpxVp9Encoder-SvcFrameDropConfig/"
+                           "Enabled,layer_drop_mode:1,max_consec_drop:7/",
+            .expected_framedrop_mode = FULL_SUPERFRAME_DROP,
+            .expected_max_consec_drop = 7},
+        // Layer drop is allowed and is configure, scalability mode is not set
+        // (i.e., SVC controller is not enabled) - ignore layer_drop_mode from
+        // field trial.
+        SvcFrameDropConfigTestParameters{
+            .allow_layer_drop = true,
+            .scalability_mode = absl::nullopt,
+            .field_trial = "WebRTC-LibvpxVp9Encoder-SvcFrameDropConfig/"
+                           "Enabled,layer_drop_mode:1,max_consec_drop:7/",
+            .expected_framedrop_mode = FULL_SUPERFRAME_DROP,
+            .expected_max_consec_drop = 7}));
+
 }  // namespace webrtc

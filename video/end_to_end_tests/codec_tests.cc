@@ -193,12 +193,12 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesMultiplex) {
   test::FunctionVideoEncoderFactory encoder_factory(
       [&internal_encoder_factory]() {
         return std::make_unique<MultiplexEncoderAdapter>(
-            &internal_encoder_factory, SdpVideoFormat(cricket::kVp9CodecName));
+            &internal_encoder_factory, SdpVideoFormat::VP9Profile0());
       });
   test::FunctionVideoDecoderFactory decoder_factory(
       [&internal_decoder_factory]() {
         return std::make_unique<MultiplexDecoderAdapter>(
-            &internal_decoder_factory, SdpVideoFormat(cricket::kVp9CodecName));
+            &internal_decoder_factory, SdpVideoFormat::VP9Profile0());
       });
 
   CodecObserver test(5, kVideoRotation_0, absl::nullopt, "multiplex",
@@ -212,12 +212,12 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesMultiplexVideoRotation90) {
   test::FunctionVideoEncoderFactory encoder_factory(
       [&internal_encoder_factory]() {
         return std::make_unique<MultiplexEncoderAdapter>(
-            &internal_encoder_factory, SdpVideoFormat(cricket::kVp9CodecName));
+            &internal_encoder_factory, SdpVideoFormat::VP9Profile0());
       });
   test::FunctionVideoDecoderFactory decoder_factory(
       [&internal_decoder_factory]() {
         return std::make_unique<MultiplexDecoderAdapter>(
-            &internal_decoder_factory, SdpVideoFormat(cricket::kVp9CodecName));
+            &internal_decoder_factory, SdpVideoFormat::VP9Profile0());
       });
   CodecObserver test(5, kVideoRotation_90, absl::nullopt, "multiplex",
                      &encoder_factory, &decoder_factory);

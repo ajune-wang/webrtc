@@ -272,6 +272,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "24f2618f_44dee9e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-02T09:30:19Z",
+      "side": 1,
+      "message": "Long thread but I think all the concerns have been resolved, closing",
+      "parentUuid": "1f67b7ae_4c984632",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4c6a67ac_67f34d2d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -372,6 +390,24 @@
       "side": 1,
       "message": "We do both getting and setting of scalabilityMode in get/setParameters.\n\nConsidering codecs are set after the transceiver is created, I think you should be allowed to setParameters with your desired scalability mode before negotiating too.\n\nMC says which scalability modes are supported/smooth/powerEfficient for which codec, so no need for getCapabilities, but the API \"use case\" of scalabilityMode is setParamters.",
       "parentUuid": "c8f93a51_3147a4e6",
+      "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68744a84_fa84799b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-02T09:30:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dda6b296_38d46d72",
       "revId": "08644004609cfa89c713035338d0fd75d1ff0c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

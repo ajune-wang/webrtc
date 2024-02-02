@@ -16,6 +16,23 @@
       "message": "I think the Chrome blockers are all gone now.",
       "revId": "d3cdfe54cbb808d196bd4fb68fd7fc15277e2f0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "331ddca6_0b95e059",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-02-02T15:08:40Z",
+      "side": 1,
+      "message": "lgtm, fingers crossed",
+      "revId": "d3cdfe54cbb808d196bd4fb68fd7fc15277e2f0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

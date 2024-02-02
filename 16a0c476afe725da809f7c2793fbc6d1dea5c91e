@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9d6e36e_d3eb0efd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-02-02T12:18:32Z",
+      "side": 1,
+      "message": "One question, otherwise LGTM.",
+      "revId": "16a0c476afe725da809f7c2793fbc6d1dea5c91e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a75bdc_e8025375",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2176,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-02-02T12:18:32Z",
+      "side": 1,
+      "message": "Are we guaranteed to have a valid pointer here?",
+      "range": {
+        "startLine": 2176,
+        "startChar": 24,
+        "endLine": 2176,
+        "endChar": 32
+      },
+      "revId": "16a0c476afe725da809f7c2793fbc6d1dea5c91e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -17,10 +17,10 @@
 
 namespace cricket {
 
-const char LOCAL_PORT_TYPE[] = "local";
-const char STUN_PORT_TYPE[] = "stun";
-const char PRFLX_PORT_TYPE[] = "prflx";
-const char RELAY_PORT_TYPE[] = "relay";
+const absl::string_view LOCAL_PORT_TYPE = "local";
+const absl::string_view STUN_PORT_TYPE = "stun";
+const absl::string_view PRFLX_PORT_TYPE = "prflx";
+const absl::string_view RELAY_PORT_TYPE = "relay";
 
 Candidate::Candidate()
     : id_(rtc::CreateRandomString(8)),

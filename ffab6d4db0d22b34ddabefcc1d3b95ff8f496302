@@ -34,6 +34,24 @@
       "parentUuid": "c6c8906c_6a92ddc9",
       "revId": "ffab6d4db0d22b34ddabefcc1d3b95ff8f496302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f5779d_dcb6b4f3",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-02T08:26:00Z",
+      "side": 1,
+      "message": "If you just do Step 1 and Step 2 it doesn\u0027t require any trickery and is a quite small test.\n\nDo we agree that doing setParameters(L3T3_KEY) should work *prior* to negotiation, even if we\u0027re only preferring to *receive* VP8?\n\nAnd am I understanding that with this CL, Step 2 goes from working to not working?",
+      "parentUuid": "e1263369_5dfd8278",
+      "revId": "ffab6d4db0d22b34ddabefcc1d3b95ff8f496302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

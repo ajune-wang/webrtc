@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c8906c_6a92ddc9",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-02T07:45:13Z",
+      "side": 1,
+      "message": "While having the remote asking for VP8 makes this test more clear in the way it triggers the fallback, it also hides a regression that I think we need to fix before landing this CL.\n\nThe following should PASS. I suggest a new test for the following steps:\n\n1. pc1 setCodecPreferences(VP8).\n2. pc1 setParameters(L3T3_KEY) -- should work, but with the current CL fails.\n3. Negotiate and have pc2 setCodecPreferences(VP9) before SRD answer.\n4. pc1 is sending VP9 L3T3_KEY.\n\nA test that does all four steps is ideal, but even just doing steps 1 and 2 and asserting that SetParameters does not reject would give enough test coverage IMO.\n\nWe have a separate test that ensures SetParameters() fails if we attempt L3T3_KEY *after* we have negotiated the codecs and rules out VP9 which is Good. But the problem I\u0027m trying to highlight here is that we shouldn\u0027t refuse to do L3T3_KEY *before* we know if pc2 wants VP9 or not.\n\nThis is important for the unidirectional use case IMO because otherwise we have to flip-flop between scalabilityModes we don\u0027t want.",
+      "revId": "ffab6d4db0d22b34ddabefcc1d3b95ff8f496302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

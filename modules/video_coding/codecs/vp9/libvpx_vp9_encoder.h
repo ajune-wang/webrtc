@@ -234,8 +234,18 @@ class LibvpxVp9Encoder : public VP9Encoder {
   int num_steady_state_frames_;
   // Only set config when this flag is set.
   bool config_changed_;
+  // Enables per-layer frame dropping mode in non-SVC or KSVC.
+  bool layer_drop_;
 
   const LibvpxVp9EncoderInfoSettings encoder_info_override_;
+
+  const struct SvcFrameDropConfig {
+    bool enabled;
+    int layer_drop_mode;  // SVC_LAYER_DROP_MODE
+    int max_consec_drop;
+  } svc_frame_drop_config_;
+  static SvcFrameDropConfig ParseSvcFrameDropConfig(
+      const FieldTrialsView& trials);
 };
 
 }  // namespace webrtc

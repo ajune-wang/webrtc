@@ -973,6 +973,13 @@ WebRtcVideoSendChannel::WebRtcVideoSendStream::ConfigureVideoEncoderSettings(
         vp9_settings.interLayerPred = webrtc::InterLayerPredMode::kOnKeyPic;
       }
       vp9_settings.flexibleMode = force_flexible_mode.Get();
+
+      // Per-layer drops requires dependency descriptor.
+      vp9_settings.allow_layer_drop = absl::c_any_of(
+          parameters_.config.rtp.extensions,
+          [](const webrtc::RtpExtension& ext) {
+            return ext.uri == webrtc::RtpExtension::kDependencyDescriptorUri;
+          });
     } else {
       // Multiple spatial layers vp9 screenshare needs flexible mode.
       vp9_settings.flexibleMode = vp9_settings.numberOfSpatialLayers > 1;

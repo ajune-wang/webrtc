@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70ac8f41_6954a645",
+        "filename": "modules/video_coding/h265_parameter_sets_tracker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-02-03T10:40:50Z",
+      "side": 1,
+      "message": "from https://datatracker.ietf.org/doc/html/draft-ietf-avtcore-hevc-webrtc-01:\n sprop-sps, sprop-pps, sprop-vps, sprop-sei: H.265 allows sequence and\n   picture information to be sent both in-band and out-of-band.  WebRTC\n   implementations MUST signal this information in-band\n   \nAre there valid cases when we need to append sps/pps/... assuming the above requirement?",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

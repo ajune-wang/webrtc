@@ -22,6 +22,30 @@
       },
       "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd618f7_13cef2de",
+        "filename": "modules/video_coding/h265_parameter_sets_tracker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-02-03T10:45:03Z",
+      "side": 1,
+      "message": "Re-read the change description. The idea is to use this tracker on sender, ok. But is that still a good idea? Or should be offload this to encoder itself? I would prefer to keep WebRTC as simpler as possible.",
+      "parentUuid": "70ac8f41_6954a645",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

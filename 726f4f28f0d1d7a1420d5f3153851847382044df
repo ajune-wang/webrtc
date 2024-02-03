@@ -46,6 +46,30 @@
       },
       "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d19ff20_e81f77aa",
+        "filename": "modules/video_coding/h265_parameter_sets_tracker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-02-03T12:52:24Z",
+      "side": 1,
+      "message": "Since we have multiple encoders on different platforms, I\u0027ll be concerned to have same code in different accelerators to handle VPS/SPS/PPS insertion. I think handling this at single point in WebRTC sender is better?",
+      "parentUuid": "0cd618f7_13cef2de",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

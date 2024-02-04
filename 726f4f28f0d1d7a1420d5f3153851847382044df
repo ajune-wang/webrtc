@@ -94,6 +94,30 @@
       },
       "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "846364af_d69e07eb",
+        "filename": "modules/video_coding/h265_parameter_sets_tracker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-02-04T05:02:10Z",
+      "side": 1,
+      "message": "Any comments from other reviewers? If it is agreed that VEA needs to handle VPS/SPS/PPS repeat by themselves, I\u0027ll drop this and move the logic to chromium/media.",
+      "parentUuid": "29428f59_bd5c642e",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

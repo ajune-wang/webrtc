@@ -16,6 +16,23 @@
       "message": "@philipel@chromium.org, this CL mainly add HEVC support for h26x_packet_buffer. `Clear` and `ClearTo` are not implemented yet. I\u0027ll add them in a separate CL.",
       "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af9b9c0_18cba9ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T07:01:18Z",
+      "side": 1,
+      "message": "Holding off until H.26x experts have chimed in.\nSomewhat skeptical of merging the buffer classes when the resulting H26x class has \"if this codec/that codec\" functions. A common base class with subclasses may be a cleaner pattern.",
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

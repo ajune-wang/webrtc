@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94321c42_79414c62",
+        "filename": "modules/video_capture/linux/video_capture_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-05T15:09:51Z",
+      "side": 1,
+      "message": "Why did you move this below? Usually threading checks are all done at the top of the function.\n\nI can StartCapture() be called on a wrong thread if it\u0027s already started?",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 47
+      },
+      "revId": "13f3f57e244ec257a15e81a1f659afd2e3425294",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "987f9ef2_490dc6a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:56:25Z",
+      "side": 1,
+      "message": "I guess approval can wait until the internal builds don\u0027t fail.",
+      "revId": "9c96300c20c265ae32a6e46bd56bad522e04c04e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28945d4d_53d45a8a",
+        "filename": "api/candidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:56:25Z",
+      "side": 1,
+      "message": "does this pass the ban on Chrome static initializers?\nI assume that absl::string_view has a free pass....",
+      "revId": "9c96300c20c265ae32a6e46bd56bad522e04c04e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

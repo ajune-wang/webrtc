@@ -39,6 +39,30 @@
       },
       "revId": "16a0c476afe725da809f7c2793fbc6d1dea5c91e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c433ed2_2e340af8",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2176,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-02-05T09:32:36Z",
+      "side": 1,
+      "message": "From where we call it yes. But I suppose it is possible that it will be called from someplace else in the future, so it\u0027s best to check.",
+      "parentUuid": "63a75bdc_e8025375",
+      "range": {
+        "startLine": 2176,
+        "startChar": 24,
+        "endLine": 2176,
+        "endChar": 32
+      },
+      "revId": "16a0c476afe725da809f7c2793fbc6d1dea5c91e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

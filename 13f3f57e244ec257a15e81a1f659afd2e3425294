@@ -22,6 +22,30 @@
       },
       "revId": "13f3f57e244ec257a15e81a1f659afd2e3425294",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5495520_7a4f6dfe",
+        "filename": "modules/video_capture/linux/video_capture_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-05T15:19:14Z",
+      "side": 1,
+      "message": "In situation where a camera is shared across 2+ websites, we will get into calling StartCapture() multiple times. The description of the `capture_checker_` says it\u0027s for members that are accessed on the API thread while we are not capturing, but this will not be true when we are calling it for the second times to just share the same camera instance. For that reason we have to move the check below, because those first lines do not follow what\u0027s being said about this checker.",
+      "parentUuid": "94321c42_79414c62",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 47
+      },
+      "revId": "13f3f57e244ec257a15e81a1f659afd2e3425294",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

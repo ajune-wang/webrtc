@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed8c627_145cd505",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Unclear. I think you mean \"Initially, the only configuration available is allowing BWE probes without media\".",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf7e8271_c8be5eed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Nit: change -\u003e changes",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dda8814e_6345278b",
@@ -14,6 +48,142 @@
       "writtenOn": "2024-02-04T19:33:44Z",
       "side": 1,
       "message": "Ping? (I will mostly be ooo sick tomorrow though)",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6375cb_581aea6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "A bit too many worries to approve at once.\nThe biggest one is the thread dispatching question (Death to BlockingCall!)",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bd70bc3_02ebe878",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "This needs more words.\nIn particular, it should say that it resets and reconfigures the bandwidth estimation for all candidate pairs and all transports associated with the PeerConnection.\n\nI\u0027m somewhat skeptical of having this call at this level, because it seems to me that you\u0027ll want to reset the estimation for different candidate pairs at different times - and when switching candidate pairs, you should get new estimates for the transport (and thus for the PC) anyway.\n\nNaming it ReconfigureBandwidthEstimation (and mentioning the restart effect in the method documentation) would make it more obvious that the restarting is a side effect of changing the configuration - if that\u0027s the intended use of this call.",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea2650f_dfaf2dc2",
+        "filename": "api/transport/bandwidth_estimation_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Style: Bandwidth is one word, so BandwidthEstimationSettings.",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02fc1f70_cca8c6a3",
+        "filename": "api/transport/bandwidth_estimation_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Nit: support -\u003e supports",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "772898c8_dc5dac35",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "English: The controller is created.... when/if the network",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9ec5cd_36cd8c5d",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Naming is confusing.\n\nWhat about UpdateNetworkAvailability? (it\u0027s already implicit that it updates the controller since it\u0027s on a Controller interface)",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e27176c_3d74bdb1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Proxied methods are called on the signaling thread (except PROXY_SECONDARY methods that are called on the network thread).\n\nThis dispatching pattern is not good, since it obscures what threads you will be called from. I\u0027d rather have a DCHECK_RUN_ON(signaling_thread) and a dispatch to a private method RestartBandwidthEstimation_w.",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae72e0a1_7f9a09e0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1687,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T06:49:47Z",
+      "side": 1,
+      "message": "Does this really need to be a BlockingCall, when it returns nothing?\nIs there a good reason to synchronize on it, or can you just dispatch it?",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

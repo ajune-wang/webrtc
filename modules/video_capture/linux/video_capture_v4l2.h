@@ -50,7 +50,7 @@ class VideoCaptureModuleV4L2 : public VideoCaptureImpl {
   int32_t _buffersAllocatedByDevice RTC_GUARDED_BY(capture_lock_);
   VideoCaptureCapability configured_capability_
       RTC_GUARDED_BY(capture_checker_);
-  bool _captureStarted RTC_GUARDED_BY(capture_checker_);
+  bool _captureStarted RTC_GUARDED_BY(api_checker_);
   struct Buffer {
     void* start;
     size_t length;

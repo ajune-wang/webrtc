@@ -112,7 +112,6 @@ VideoCaptureModuleV4L2::~VideoCaptureModuleV4L2() {
 int32_t VideoCaptureModuleV4L2::StartCapture(
     const VideoCaptureCapability& capability) {
   RTC_DCHECK_RUN_ON(&api_checker_);
-  RTC_CHECK_RUNS_SERIALIZED(&capture_checker_);
 
   if (_captureStarted) {
     if (capability == _requestedCapability) {
@@ -121,6 +120,8 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
       StopCapture();
     }
   }
+
+  RTC_CHECK_RUNS_SERIALIZED(&capture_checker_);
 
   // Set a baseline of configured parameters. It is updated here during
   // configuration, then read from the capture thread.

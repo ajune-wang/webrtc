@@ -16,6 +16,24 @@
       "message": "Update the description to state what the final version of the CL does.\nNo need to keep the edit history.",
       "revId": "c5ca7e13662715078b2a93114995339a289ce019",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62dbd573_4eaed556",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-05T16:29:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a609a1cf_d4dd3b3b",
+      "revId": "c5ca7e13662715078b2a93114995339a289ce019",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

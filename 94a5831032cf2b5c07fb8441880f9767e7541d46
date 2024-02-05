@@ -34,6 +34,24 @@
       "parentUuid": "b13bea8d_ccec027a",
       "revId": "94a5831032cf2b5c07fb8441880f9767e7541d46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a08dd4c8_d47276eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-05T12:02:09Z",
+      "side": 1,
+      "message": "I changed the commit summary to reflect my mistake",
+      "parentUuid": "6835d6cd_140884e8",
+      "revId": "94a5831032cf2b5c07fb8441880f9767e7541d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

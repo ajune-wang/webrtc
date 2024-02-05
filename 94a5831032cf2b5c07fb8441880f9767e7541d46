@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b13bea8d_ccec027a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T11:08:10Z",
+      "side": 1,
+      "message": "do you have the godbolt link?\na vector of const int allows you to append or delete members (I think).\na const vector of ints shouldn\u0027t allow any change (I think). So they\u0027re not the same.",
+      "revId": "94a5831032cf2b5c07fb8441880f9767e7541d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

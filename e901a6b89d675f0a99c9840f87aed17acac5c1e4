@@ -33,6 +33,24 @@
       "message": "Holding off until H.26x experts have chimed in.\nSomewhat skeptical of merging the buffer classes when the resulting H26x class has \"if this codec/that codec\" functions. A common base class with subclasses may be a cleaner pattern.",
       "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60681dd5_9d851155",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-02-05T07:40:16Z",
+      "side": 1,
+      "message": "Philip might have some experiments two years ago, and decided to move forward with the standalone h26x_packet_buffer (see conversation with Philip above). It would be hard for him to recall the reason, but if you and Philip (or other reviewers) think it worths to try the inheritance pattern again, I can update the CL and see if there is any problems at this time.",
+      "parentUuid": "2af9b9c0_18cba9ab",
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcca54de_e7df9ea2",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-05T08:20:22Z",
+      "side": 1,
+      "message": "I wonder if we should rename this to SetDefaultCodecNumberOfTemporalLayers or something like that?\n\nOr is there the future need of configuring more things (hence \"SpecificSettings\" will include that as well)?",
+      "range": {
+        "startLine": 1259,
+        "startChar": 5,
+        "endLine": 1259,
+        "endChar": 36
+      },
+      "revId": "eda33730c81146a2b2510c3064714d789e2531d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a349a5e_f9251a38",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-05T08:20:22Z",
+      "side": 1,
+      "message": "Does this mean that we start with a high bitrate and then adapt it back?",
+      "range": {
+        "startLine": 1312,
+        "startChar": 20,
+        "endLine": 1312,
+        "endChar": 38
+      },
+      "revId": "eda33730c81146a2b2510c3064714d789e2531d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "637db5c0_8ca3094c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-05T13:34:32Z",
+      "side": 1,
+      "message": "Discussed this internally. The Chrome usage seems strange, but we shouldn\u0027t make the situation worse by adding more.\n\nSo let\u0027s do it this way.\n(And constness is good.)",
+      "revId": "6d700c0def64e72c609743ae64c5441151a4fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

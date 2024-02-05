@@ -51,6 +51,24 @@
       "parentUuid": "2af9b9c0_18cba9ab",
       "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13d50d8_3c82b0cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-02-05T07:56:28Z",
+      "side": 1,
+      "message": "Let me explain the difference of H.265 packet buffer impl. against H.264 packet buffer:\n\n1. For H.264 the output from depacketizer is an array of NALUs(without start code) with their indices in RTPHeader.H264CodecSpecific;\n   - Packet buffer is expected to 1) check existence of key-frame before outputting frame; 2) add start code before NALU; 3) configure RTPHeader.frameType according to current frame\u0027s real type.\n   \n2. For H.265 the output from depacketizer is already segments with start code inserted when necessary, and RTPHeader.frameType configured. Packet buffer is expected to only check existence of key-frame before outputting frame. Nothing else. The decision of not having H.265 codec specific RTPHeader member is made with RTC team at the beginning.\n\nLooks a little overkill to have a base H.26x packet_buffer class and H.264/H.265 override that, but I don\u0027t have strong objection on doing that.",
+      "parentUuid": "60681dd5_9d851155",
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

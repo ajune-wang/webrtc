@@ -93,6 +93,30 @@
       },
       "revId": "eda33730c81146a2b2510c3064714d789e2531d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "396efdab_96e71d2d",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-06T16:04:49Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "4c2b0f0c_dee94e50",
+      "range": {
+        "startLine": 1312,
+        "startChar": 20,
+        "endLine": 1312,
+        "endChar": 38
+      },
+      "revId": "eda33730c81146a2b2510c3064714d789e2531d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

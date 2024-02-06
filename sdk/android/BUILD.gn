@@ -451,6 +451,11 @@ if (is_android) {
     deps = [ ":audio_api_java" ]
   }
 
+  rtc_android_library("native_environment_java") {
+    sources = [ "api/org/webrtc/NativeEnvironment.java" ]
+    deps = []
+  }
+
   rtc_android_library("screencapturer_java") {
     visibility = [ "*" ]
     sources = [ "api/org/webrtc/ScreenCapturerAndroid.java" ]
@@ -663,6 +668,7 @@ if (current_os == "linux" || is_android) {
       "../../api:libjingle_peerconnection_api",
       "../../api:media_stream_interface",
       "../../api:sequence_checker",
+      "../../api/environment",
       "../../api/task_queue",
       "../../api/video:encoded_image",
       "../../api/video:render_resolution",
@@ -780,6 +786,8 @@ if (current_os == "linux" || is_android) {
       "../../api:rtp_sender_interface",
       "../../api:turn_customizer",
       "../../api/crypto:options",
+      "../../api/environment",
+      "../../api/environment:environment_factory",
       "../../api/rtc_event_log:rtc_event_log_factory",
       "../../api/task_queue:default_task_queue_factory",
       "../../api/video_codecs:video_codecs_api",
@@ -808,6 +816,16 @@ if (current_os == "linux" || is_android) {
     absl_deps = [
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
+    ]
+  }
+
+  rtc_library("native_environment_jni") {
+    sources = [ "src/jni/native_environment.cc" ]
+    deps = [
+      ":base_jni",
+      ":generated_native_environment_jni",
+      "../../api/environment",
+      "../../api/environment:environment_factory",
     ]
   }
 
@@ -908,6 +926,7 @@ if (current_os == "linux" || is_android) {
       ":libvpx_vp9_jni",
       ":native_api_jni",
       ":video_jni",
+      "../../api/environment",
       "../../api/video_codecs:builtin_video_decoder_factory",
       "../../api/video_codecs:builtin_video_encoder_factory",
       "../../api/video_codecs:video_codecs_api",
@@ -1306,6 +1325,12 @@ if (current_os == "linux" || is_android) {
     jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
   }
 
+  generate_jni("generated_native_environment_jni") {
+    sources = [ "api/org/webrtc/NativeEnvironment.java" ]
+    namespace = "webrtc::jni"
+    jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  }
+
   generate_jni("generated_video_jni") {
     sources = [
       "api/org/webrtc/EncodedImage.java",
@@ -1532,6 +1557,7 @@ if (is_android) {
         ":hwcodecs_java",
         ":libjingle_peerconnection_java",
         ":libjingle_peerconnection_metrics_default_java",
+        ":native_environment_java",
         ":peerconnection_java",
         ":surfaceviewrenderer_java",
         ":swcodecs_java",

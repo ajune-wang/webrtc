@@ -42,11 +42,12 @@ public class SoftwareVideoDecoderFactoryTest {
   @SmallTest
   @Test
   public void createDecoder_supportedCodec_returnsNotNull() {
+    NativeEnvironment webrtcEnv = new NativeEnvironment();
     VideoDecoderFactory factory = new SoftwareVideoDecoderFactory();
     VideoCodecInfo[] codecs = factory.getSupportedCodecs();
     assertThat(codecs.length).isGreaterThan(0);
     for (VideoCodecInfo codec : codecs) {
-      VideoDecoder decoder = factory.createDecoder(codec);
+      VideoDecoder decoder = factory.createDecoder(webrtcEnv.ref(), codec);
       assertThat(decoder).isNotNull();
     }
   }
@@ -54,9 +55,10 @@ public class SoftwareVideoDecoderFactoryTest {
   @SmallTest
   @Test
   public void createDecoder_unsupportedCodec_returnsNull() {
+    NativeEnvironment webrtcEnv = new NativeEnvironment();
     VideoDecoderFactory factory = new SoftwareVideoDecoderFactory();
     VideoCodecInfo codec = new VideoCodecInfo("unsupported", new HashMap<String, String>());
-    VideoDecoder decoder = factory.createDecoder(codec);
+    VideoDecoder decoder = factory.createDecoder(webrtcEnv.ref(), codec);
     assertThat(decoder).isNull();
   }
 }

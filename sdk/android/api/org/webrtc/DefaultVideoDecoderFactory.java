@@ -14,41 +14,45 @@ import androidx.annotation.Nullable;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 
-/**
- * Helper class that combines HW and SW decoders.
- */
+/** Helper class that combines HW and SW decoders. */
 public class DefaultVideoDecoderFactory implements VideoDecoderFactory {
   private final VideoDecoderFactory hardwareVideoDecoderFactory;
   private final VideoDecoderFactory softwareVideoDecoderFactory = new SoftwareVideoDecoderFactory();
   private final @Nullable VideoDecoderFactory platformSoftwareVideoDecoderFactory;
 
-  /**
-   * Create decoder factory using default hardware decoder factory.
-   */
+  /** Create decoder factory using default hardware decoder factory. */
   public DefaultVideoDecoderFactory(@Nullable EglBase.Context eglContext) {
     this.hardwareVideoDecoderFactory = new HardwareVideoDecoderFactory(eglContext);
     this.platformSoftwareVideoDecoderFactory = new PlatformSoftwareVideoDecoderFactory(eglContext);
   }
 
-  /**
-   * Create decoder factory using explicit hardware decoder factory.
-   */
+  /** Create decoder factory using explicit hardware decoder factory. */
   DefaultVideoDecoderFactory(VideoDecoderFactory hardwareVideoDecoderFactory) {
     this.hardwareVideoDecoderFactory = hardwareVideoDecoderFactory;
     this.platformSoftwareVideoDecoderFactory = null;
   }
 
+  @Nullable
   @Override
-  public @Nullable VideoDecoder createDecoder(VideoCodecInfo codecType) {
-    VideoDecoder softwareDecoder = softwareVideoDecoderFactory.createDecoder(codecType);
-    final VideoDecoder hardwareDecoder = hardwareVideoDecoderFactory.createDecoder(codecType);
+  @Deprecated
+  public VideoDecoder createDecoder(VideoCodecInfo info) {
+    return createDecoder(0, info);
+  }
+
+  @Nullable
+  @Override
+  public VideoDecoder createDecoder(long webrtcEnvRef, VideoCodecInfo codecType) {
+    VideoDecoder softwareDecoder =
+        softwareVideoDecoderFactory.createDecoder(webrtcEnvRef, codecType);
+    final VideoDecoder hardwareDecoder =
+        hardwareVideoDecoderFactory.createDecoder(webrtcEnvRef, codecType);
     if (softwareDecoder == null && platformSoftwareVideoDecoderFactory != null) {
-      softwareDecoder = platformSoftwareVideoDecoderFactory.createDecoder(codecType);
+      softwareDecoder = platformSoftwareVideoDecoderFactory.createDecoder(webrtcEnvRef, codecType);
     }
     if (hardwareDecoder != null && softwareDecoder != null) {
       // Both hardware and software supported, wrap it in a software fallback
       return new VideoDecoderFallback(
-          /* fallback= */ softwareDecoder, /* primary= */ hardwareDecoder);
+          webrtcEnvRef, /* fallback= */ softwareDecoder, /* primary= */ hardwareDecoder);
     }
     return hardwareDecoder != null ? hardwareDecoder : softwareDecoder;
   }

@@ -18,7 +18,21 @@ public interface VideoDecoderFactory {
    * Creates a VideoDecoder for the given codec. Supports the same codecs supported by
    * VideoEncoderFactory.
    */
-  @Nullable @CalledByNative VideoDecoder createDecoder(VideoCodecInfo info);
+
+  @Nullable
+  @Deprecated
+  default VideoDecoder createDecoder(VideoCodecInfo info) {
+    // TODO: bugs.webrtc.org/15791 - Remove this variant when another variant is implemented.
+    throw new UnsupportedOperationException("Not implemented.");
+  }
+
+  @Nullable
+  @CalledByNative
+  default VideoDecoder createDecoder(long webrtcEnvRef, VideoCodecInfo info) {
+    // TODO: bugs.webrtc.org/15791 - Remove default implementation when implemented
+    // by all derived classes
+    return createDecoder(info);
+  }
 
   /**
    * Enumerates the list of supported video codecs.

@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "api/environment/environment.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/video_decoder.h"
 #include "sdk/android/generated_swcodecs_jni/SoftwareVideoDecoderFactory_jni.h"
@@ -23,20 +24,27 @@ static jlong JNI_SoftwareVideoDecoderFactory_CreateFactory(JNIEnv* env) {
       CreateBuiltinVideoDecoderFactory().release());
 }
 
-static jlong JNI_SoftwareVideoDecoderFactory_CreateDecoder(
+jlong JNI_SoftwareVideoDecoderFactory_CreateDecoder(
     JNIEnv* env,
     jlong j_factory,
+    jlong j_webrtc_env_ref,
     const webrtc::JavaParamRef<jobject>& j_video_codec_info) {
-  auto* const native_factory =
-      reinterpret_cast<webrtc::VideoDecoderFactory*>(j_factory);
-  const auto video_format =
-      webrtc::jni::VideoCodecInfoToSdpVideoFormat(env, j_video_codec_info);
+  auto* native_factory = reinterpret_cast<VideoDecoderFactory*>(j_factory);
+  const auto* webrtc_env =
+      reinterpret_cast<const Environment*>(j_webrtc_env_ref);
+  SdpVideoFormat video_format =
+      VideoCodecInfoToSdpVideoFormat(env, j_video_codec_info);
 
-  auto decoder = native_factory->CreateVideoDecoder(video_format);
-  if (decoder == nullptr) {
-    return 0;
+  std::unique_ptr<VideoDecoder> decoder;
+  if (webrtc_env != nullptr) {
+    decoder = native_factory->Create(*webrtc_env, video_format);
+  } else {
+    // TODO: bugs.webrtc.org/15791 - Check webrtc_env is not null when
+    // webrtc::Environment is propagated through java VideoDecoderFactories.
+    decoder = native_factory->CreateVideoDecoder(video_format);
   }
-  return webrtc::NativeToJavaPointer(decoder.release());
+
+  return NativeToJavaPointer(decoder.release());
 }
 
 static webrtc::ScopedJavaLocalRef<jobject>

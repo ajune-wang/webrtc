@@ -45,7 +45,14 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
 
   @Nullable
   @Override
+  @Deprecated
   public VideoDecoder createDecoder(VideoCodecInfo codecType) {
+    return createDecoder(0, codecType);
+  }
+
+  @Nullable
+  @Override
+  public VideoDecoder createDecoder(long webrtcEnvRef, VideoCodecInfo codecType) {
     VideoCodecMimeType type = VideoCodecMimeType.valueOf(codecType.getName());
     MediaCodecInfo info = findCodecForType(type);
 

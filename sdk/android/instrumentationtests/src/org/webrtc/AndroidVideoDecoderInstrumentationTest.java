@@ -43,6 +43,7 @@ public final class AndroidVideoDecoderInstrumentationTest {
 
   private final VideoCodecInfo codecType;
   private final boolean useEglContext;
+  private final NativeEnvironment webrtcEnv = new NativeEnvironment();
 
   public AndroidVideoDecoderInstrumentationTest(String codecName, boolean useEglContext) {
     if (codecName.equals("H264")) {
@@ -121,7 +122,7 @@ public final class AndroidVideoDecoderInstrumentationTest {
   private @Nullable VideoDecoder createDecoder() {
     VideoDecoderFactory factory =
         createDecoderFactory(useEglContext ? eglBase.getEglBaseContext() : null);
-    return factory.createDecoder(codecType);
+    return factory.createDecoder(webrtcEnv.ref(), codecType);
   }
 
   private void encodeTestFrames() {

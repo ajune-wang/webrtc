@@ -65,7 +65,14 @@ public class RtpCapabilitiesTest {
 
     @Nullable
     @Override
-    public VideoDecoder createDecoder(VideoCodecInfo videoCodecInfo) {
+    @Deprecated
+    public VideoDecoder createDecoder(VideoCodecInfo info) {
+      return null;
+    }
+
+    @Nullable
+    @Override
+    public VideoDecoder createDecoder(long webrcEnvRef, VideoCodecInfo info) {
       return null;
     }
 

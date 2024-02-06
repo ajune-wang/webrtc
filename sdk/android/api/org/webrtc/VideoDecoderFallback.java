@@ -14,17 +14,24 @@ package org.webrtc;
  * A combined video decoder that falls back on a secondary decoder if the primary decoder fails.
  */
 public class VideoDecoderFallback extends WrappedNativeVideoDecoder {
-  private final VideoDecoder fallback;
-  private final VideoDecoder primary;
+  private final long nativeDecoder;
 
+  @Deprecated
   public VideoDecoderFallback(VideoDecoder fallback, VideoDecoder primary) {
-    this.fallback = fallback;
-    this.primary = primary;
+    this.nativeDecoder = nativeCreateDecoder(fallback, primary);
+  }
+
+  public VideoDecoderFallback(long webrtcEnvRef, VideoDecoder fallback, VideoDecoder primary) {
+    // TODO: bugs.webrtc.org/10335 - In VideoDecoderSoftwareFallbackWrapper
+    // use field trial from the propagated webrtcEnvRef instead of the global
+    // field trial when usage of the deprecated VideoDecoderFallback constructor
+    // is removed.
+    this.nativeDecoder = nativeCreateDecoder(fallback, primary);
   }
 
   @Override
   public long createNativeVideoDecoder() {
-    return nativeCreateDecoder(fallback, primary);
+    return nativeDecoder;
   }
 
   private static native long nativeCreateDecoder(VideoDecoder fallback, VideoDecoder primary);

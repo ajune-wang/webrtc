@@ -16,6 +16,24 @@
       "message": "Ah, this was why capture_checker_ was set the way it was in StartCapture. The problem here is that _captureStarted is used off the API thread in VideoCaptureModuleV4L2::CaptureProcess.\n\nYou might have to split _captureStarted into one API-thread-only member (api_checker), and one capture-only (capture_checker) member. Or involve the mutex, but it\u0027d be a bigger change.",
       "revId": "f0734b50f4bbb09b66311b86bee2c63d11473822",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d69ebf2_08356b8a",
+        "filename": "modules/video_capture/linux/video_capture_v4l2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-06T12:08:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e5f68a7_428ec4b4",
+      "revId": "f0734b50f4bbb09b66311b86bee2c63d11473822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

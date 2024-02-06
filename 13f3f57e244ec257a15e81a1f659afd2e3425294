@@ -70,6 +70,30 @@
       },
       "revId": "13f3f57e244ec257a15e81a1f659afd2e3425294",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e409d281_c3cb18d7",
+        "filename": "modules/video_capture/linux/video_capture_v4l2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-06T12:08:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84295a40_4a68c876",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 47
+      },
+      "revId": "13f3f57e244ec257a15e81a1f659afd2e3425294",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

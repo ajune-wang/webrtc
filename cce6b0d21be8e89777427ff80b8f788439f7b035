@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0656e9eb_c033537a",
+        "filename": "api/video_codecs/sdp_video_format.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-07T06:55:34Z",
+      "side": 1,
+      "message": "https://github.com/AOMediaCodec/av1-rtp-spec/pull/237 - the inconsistent wording here annoyed me too ;-)",
+      "revId": "cce6b0d21be8e89777427ff80b8f788439f7b035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "One thing this does *not* yet do is avoid 15 when you enable *everything*",
       "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e83ba7_ab7afcae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-07T17:26:35Z",
+      "side": 1,
+      "message": "I stand corrected, it *does* avoid 15. Phew!",
+      "parentUuid": "877f4bc5_489637c2",
+      "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

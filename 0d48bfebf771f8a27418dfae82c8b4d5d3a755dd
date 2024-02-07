@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fa37f83_73d1daad",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "That is a good compromise and probably more clear. \nWe already today reset BWE if connection change in some cases yes. \n\nHowever, if you are not sending video and later know a bit in advance that you want to start sending video, it may be beneficial to trigger a BWE probe first. \nSetting allow_probe_without_media\u003dtrue and calling this method will let you do that. \n\nIf you stop sending audio and video - and later want to resume sending video, you can call this method again with the same settings.",
+      "parentUuid": "5bd70bc3_02ebe878",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ea2650f_dfaf2dc2",
         "filename": "api/transport/bandwidth_estimation_settings.h",
         "patchSetId": 6
@@ -99,6 +117,24 @@
       "writtenOn": "2024-02-05T06:49:47Z",
       "side": 1,
       "message": "Style: Bandwidth is one word, so BandwidthEstimationSettings.",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de8e3948_d4d95dfe",
+        "filename": "api/transport/bandwidth_estimation_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "I do the same mistake over and over. thanks.",
+      "parentUuid": "7ea2650f_dfaf2dc2",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -116,6 +152,24 @@
       "writtenOn": "2024-02-05T06:49:47Z",
       "side": 1,
       "message": "Nit: support -\u003e supports",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60fadb60_40c6123d",
+        "filename": "api/transport/bandwidth_estimation_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02fc1f70_cca8c6a3",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -139,6 +193,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03cfd208_d76a37a3",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "done?",
+      "parentUuid": "772898c8_dc5dac35",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f9ec5cd_36cd8c5d",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 6
@@ -150,6 +222,24 @@
       "writtenOn": "2024-02-05T06:49:47Z",
       "side": 1,
       "message": "Naming is confusing.\n\nWhat about UpdateNetworkAvailability? (it\u0027s already implicit that it updates the controller since it\u0027s on a Controller interface)",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccdfec7b_acd92650",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f9ec5cd_36cd8c5d",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -173,6 +263,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55a96944_906730a0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "PROXY_SECONDARY seems to proxy to the worker thread on some objects. See ex PeerConnectionFactory::StartAecDump,  VideoTrackSource::AddOrUpdateSink(.\nI believe that was the original use. But it looks like PeerConnectionn proxy PROXY_SECONDARY calls to the network thread- such as PeerConnection::LookupDtlsTransportByMid. \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/peer_connection_factory.cc;drc\u003df089d7ea541106c8632db0aecee02d8c97e59ba7;l\u003d275\n\nWorker thread and network thread is the same thread in most of our products, including Chrome if handelms experiment has been concluded.... but not all. \nso ok.... I would have liked the proxy to proxy this call directly to the worker thread. but If I cant - proxy to the signaling thread and then post to the worker. \nSeems a bit stupid but inline with many other method calls. \n\nI wonder if we should consider proxying  most calls to the worker thread instead of the signaling thread and get rid of most blocking calls to the worker thread in the rest of the code. Obviously not in this cl....",
+      "parentUuid": "2e27176c_3d74bdb1",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae72e0a1_7f9a09e0",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 6
@@ -184,6 +292,24 @@
       "writtenOn": "2024-02-05T06:49:47Z",
       "side": 1,
       "message": "Does this really need to be a BlockingCall, when it returns nothing?\nIs there a good reason to synchronize on it, or can you just dispatch it?",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ef0903a_3b901232",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1687,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-07T10:24:17Z",
+      "side": 1,
+      "message": "yes why not.",
+      "parentUuid": "ae72e0a1_7f9a09e0",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -90,7 +90,6 @@ class PeerScenarioClient {
         {0, EmulatedEndpointConfig()}};
     CallbackHandlers handlers;
     PeerConnectionInterface::RTCConfiguration rtc_config;
-    bool disable_encryption = false;
     Config() { rtc_config.sdp_semantics = SdpSemantics::kUnifiedPlan; }
   };
 

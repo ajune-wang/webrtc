@@ -283,7 +283,6 @@ PeerScenarioClient::PeerScenarioClient(
 
   pc_factory_ = CreateModularPeerConnectionFactory(std::move(pcf_deps));
   PeerConnectionFactoryInterface::Options pc_options;
-  pc_options.disable_encryption = config.disable_encryption;
   pc_factory_->SetOptions(pc_options);
 
   PeerConnectionDependencies pc_deps(observer_.get());

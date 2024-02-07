@@ -52,7 +52,6 @@ TEST(BweRampupTest, RampUpWithUndemuxableRtpPackets) {
   PeerScenario s(*test_info_);
 
   PeerScenarioClient::Config config = PeerScenarioClient::Config();
-  config.disable_encryption = true;
   PeerScenarioClient* caller = s.CreateClient(config);
   PeerScenarioClient* callee = s.CreateClient(config);
 

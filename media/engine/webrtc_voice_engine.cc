@@ -651,7 +651,7 @@ WebRtcVoiceEngine::GetRtpHeaderExtensions() const {
     result.emplace_back(uri, id++, webrtc::RtpTransceiverDirection::kSendRecv);
   }
   for (const auto& uri : {webrtc::RtpExtension::kAbsoluteCaptureTimeUri}) {
-    result.emplace_back(uri, id++, webrtc::RtpTransceiverDirection::kStopped);
+    result.emplace_back(uri, id, webrtc::RtpTransceiverDirection::kStopped);
   }
   return result;
 }

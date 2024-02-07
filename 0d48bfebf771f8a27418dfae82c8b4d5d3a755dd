@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56daf780_d4eed8f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-07T10:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ed8c627_145cd505",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf7e8271_c8be5eed",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-05T06:49:47Z",
       "side": 1,
       "message": "Nit: change -\u003e changes",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dca8164_acf4d117",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-07T10:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf7e8271_c8be5eed",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -100,6 +136,24 @@
       "side": 1,
       "message": "That is a good compromise and probably more clear. \nWe already today reset BWE if connection change in some cases yes. \n\nHowever, if you are not sending video and later know a bit in advance that you want to start sending video, it may be beneficial to trigger a BWE probe first. \nSetting allow_probe_without_media\u003dtrue and calling this method will let you do that. \n\nIf you stop sending audio and video - and later want to resume sending video, you can call this method again with the same settings.",
       "parentUuid": "5bd70bc3_02ebe878",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6a0795_8df1648c",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-07T10:46:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1fa37f83_73d1daad",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -211,6 +265,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b328a34_045c9b9d",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-07T10:46:20Z",
+      "side": 1,
+      "message": "Not quite. Adding \"BWE\" doesn\u0027t remove the need to have \"The\" in front.",
+      "parentUuid": "03cfd208_d76a37a3",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f9ec5cd_36cd8c5d",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 6
@@ -279,6 +351,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde0a3dc_ffbd67b1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1686,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-07T10:46:20Z",
+      "side": 1,
+      "message": "Yes, the choice of what thread to dispatch to is made when you create the proxy, I think. We had at one time considered the possibility of PROXY_TERTIARY, but felt like that would be overkill for most places.\n\nI\u0027d like to kill the proxy, but as things stand, the isolation it provides is still important. Too much redesign involved in taking it out.\n\nAs you say - not in this CL.",
+      "parentUuid": "55a96944_906730a0",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae72e0a1_7f9a09e0",
@@ -310,6 +400,24 @@
       "side": 1,
       "message": "yes why not.",
       "parentUuid": "ae72e0a1_7f9a09e0",
+      "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab011d1_5d2c1cca",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1687,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-07T10:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ef0903a_3b901232",
       "revId": "0d48bfebf771f8a27418dfae82c8b4d5d3a755dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

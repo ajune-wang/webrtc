@@ -69,6 +69,190 @@
       "parentUuid": "60681dd5_9d851155",
       "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af2ee82c_f23fb8bd",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "Rename this to `h264_idr_only_keyframes_allowed`, also update the corresponding member.",
+      "range": {
+        "startLine": 144,
+        "startChar": 40,
+        "endLine": 144,
+        "endChar": 66
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6fc45dc_561e3afd",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "This check would now never hit if someone were to insert a non H264 packet.\n\nI think we can simply remove this check, or it would have to look like something like this:\n\n    if (!absl::holds_alternative\u003cRTPVideoHeaderH264\u003e(\n            packet-\u003evideo_header.video_type_header\n    #ifdef RTC_ENABLE_H265\n        || !absl::holds_alternative\u003cRTPVideoHeaderH265\u003e(\n            packet-\u003evideo_header.video_type_header\n    #endif  \n            ) {\n      return result;\n    }",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 17
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f8f13f_727dc331",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "Shouldn\u0027t `has_irap` match any of\n\n      H265::NaluType::kBlaWLp\n      H265::NaluType::kBlaWRadl\n      H265::NaluType::kBlaNLp\n      H265::NaluType::kIdrWRadl\n      H265::NaluType::kIdrNLp\n      H265::NaluType::kCra\n      H265::NaluType::kRsvIrapVcl23\n      \n?",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 16
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f284caad_3972eb6d",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "Move this to the end of the `if` block at 269.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 3
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0f915e5_6b2fe3a1",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "Move this to the end of the `else if` block at 278.",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 3
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc09c01_34cf0b04",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "Rename to FixH264VideoPayload.",
+      "range": {
+        "startLine": 333,
+        "startChar": 10,
+        "endLine": 333,
+        "endChar": 25
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ac585f_bc356493",
+        "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "`#endif  // RTC_ENABLE_H265`",
+      "range": {
+        "startLine": 339,
+        "startChar": 1,
+        "endLine": 339,
+        "endChar": 6
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d28008_af429781",
+        "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-07T10:22:56Z",
+      "side": 1,
+      "message": "`H265VpsSpsPpsIdrIsKeyframe`",
+      "range": {
+        "startLine": 933,
+        "startChar": 27,
+        "endLine": 933,
+        "endChar": 44
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

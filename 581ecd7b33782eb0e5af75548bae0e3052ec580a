@@ -34,6 +34,40 @@
       "parentUuid": "877f4bc5_489637c2",
       "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c487844f_0d8369f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-08T11:39:28Z",
+      "side": 1,
+      "message": "Stampy stampy, but I have a question / optional suggestion since with my limited context having all of them report the same ID looks a bit fishy",
+      "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf9d70c6_1f87f6cd",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-08T11:39:28Z",
+      "side": 1,
+      "message": "If the ID collides and in practice gets picked later, would it not make more sense to say that the ID is `absl::nullopt`, or does this break other assumptions?",
+      "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

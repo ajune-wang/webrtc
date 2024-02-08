@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e57ba5_c0cfeaee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-08T12:09:28Z",
+      "side": 1,
+      "message": "This should now be ready for review.\nI restored the functionality for turning off encryption at the last moment, but all the function calls for doing that are now named SetInsecureForTesting.",
+      "revId": "071361890a78dbda4d6c87a51c824140b2f60e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

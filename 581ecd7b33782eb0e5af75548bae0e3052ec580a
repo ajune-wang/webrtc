@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9863bb9_51d7b524",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-08T11:46:51Z",
+      "side": 1,
+      "message": "lets see if internal tests rely on particular ids (they should not)",
+      "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf9d70c6_1f87f6cd",
@@ -66,6 +83,24 @@
       "writtenOn": "2024-02-08T11:39:28Z",
       "side": 1,
       "message": "If the ID collides and in practice gets picked later, would it not make more sense to say that the ID is `absl::nullopt`, or does this break other assumptions?",
+      "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035513a2_1955c6eb",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-08T11:46:51Z",
+      "side": 1,
+      "message": "I tried setting it to 0 (which is not a valid id on the wire) but that leads to generating an offer with id\u003d0 which is a no-no and thankfully leads to SLD failing even though the offer is created with it.\n\nThe additional constraint that prevents us from not passing an id here is the desire to not change existing header extensions too much...",
+      "parentUuid": "cf9d70c6_1f87f6cd",
       "revId": "581ecd7b33782eb0e5af75548bae0e3052ec580a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

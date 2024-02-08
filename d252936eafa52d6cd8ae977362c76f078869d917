@@ -16,6 +16,23 @@
       "message": "My concerns have been addressed! Boideful! :D",
       "revId": "d252936eafa52d6cd8ae977362c76f078869d917",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad1edf0_9c8d9bc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-08T13:05:55Z",
+      "side": 1,
+      "message": "Note: if we do this (pending github discussions) we need to land https://webrtc-review.googlesource.com/c/src/+/338642 to avoid the SLD failure mentioned in https://github.com/w3c/webrtc-pc/issues/2932#issuecomment-1933873752",
+      "revId": "d252936eafa52d6cd8ae977362c76f078869d917",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

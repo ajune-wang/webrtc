@@ -50,6 +50,24 @@
       "message": "Has there been any discussion, or is there are design doc about how to solve this issue?\n\nSome things I don\u0027t like about this:\n - AFAICT the template structure would be copied for every frame sent.\n - We are cementing a bunch of mostly arbitrary implementation details.\n - (the big one) Why should the DD get special handling?\n \n My spontaneous feeling is that this CL incur a pretty big chunk of tech debt.\n \n Danil, could you PTAL and see what you think?",
       "revId": "12be33c1ebb39c25032a61ab541626fbed567149",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4d4bc3_45f2b37a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-08T13:41:17Z",
+      "side": 1,
+      "message": "I agree with these concerns:\n- FrameDependencyStructure is not cheap to copy, so making a copy of it on each frame would likely make transform api cpu expensive\n- FrameDependencyStructure is very DD specific, it would be better to make it less visible in the api\n\nSome idea how to address these concerns:\n- try to put FrameDependencyStructure inside existent Frame/RTPVideoHeader object, thus make it less visible.\n- make it cheap to copy by passing it using shared ownship instead of unique ownership (such refactoring would require first to refactor `struct FrameDependencyStructure` and how it is currently passed)\n- alternatively to shared ownership ensure FrameDependencyStructure is passed/copied only with key frame/first packet of a key frame. (Is there a scenario where frame need to be transformed without/before its associated key frame?)",
+      "parentUuid": "a1f0a0cf_fb88d82f",
+      "revId": "12be33c1ebb39c25032a61ab541626fbed567149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

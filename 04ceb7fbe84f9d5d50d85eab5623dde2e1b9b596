@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce88d231_ffc96ae8",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-08T17:04:35Z",
+      "side": 1,
+      "message": "Is this a good default for spatial index?\n\nI wonder if we should instead return 0 by default in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/encoded_image.h;l\u003d114;drc\u003dc9880805ed640fddb9c477d8bca7afe6da637f9f... I know this is an API change hence complicated. I am not blocking the CL, but I am curious to know if we have a better default we should embed in the code.",
+      "range": {
+        "startLine": 989,
+        "startChar": 61,
+        "endLine": 989,
+        "endChar": 73
+      },
+      "revId": "04ceb7fbe84f9d5d50d85eab5623dde2e1b9b596",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

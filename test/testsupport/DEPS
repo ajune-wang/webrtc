@@ -2,3 +2,13 @@ include_rules = [
   # Histogram C++ API, used by perf tests.
   "+third_party/catapult/tracing/tracing/value"
 ]
+
+specific_include_rules = {
+  # .cc files in api/ should not be restricted in what they can #include,
+  # so we re-add all the top-level directories here. (That's because .h
+  # files leak their #includes to whoever's #including them, but .cc files
+  # do not since no one #includes them.)
+  ".*\.cc": [
+    "+absl",
+  ],
+}

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35b0da5d_ccb5b039",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-08T10:04:12Z",
+      "side": 1,
+      "message": "are the files all in places that are .gitignore-listed and easy to clean out by rm -rf?\n\nSeems like an improvement, so approving anyway.",
+      "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5007acef_5c0df817",
@@ -20,6 +37,47 @@
         "endLine": 40,
         "endChar": 54
       },
+      "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "200e7b5b_bc2448d3",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-08T10:04:12Z",
+      "side": 1,
+      "message": "wouldn\u0027t \"wavtest1-\u003crandom\u003e.wav\" be better?\nthen one can delete all the wavtest1 files in a single rm...",
+      "parentUuid": "5007acef_5c0df817",
+      "range": {
+        "startLine": 40,
+        "startChar": 53,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30d5e16_3a4db85a",
+        "filename": "test/testsupport/file_utils_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-08T10:04:12Z",
+      "side": 1,
+      "message": "this shouldn\u0027t happen with the random component.\nOTOH, it also means that the directories will accumulate if there are multiple failed tests.",
       "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

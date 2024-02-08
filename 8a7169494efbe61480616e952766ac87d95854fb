@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f262b0dc_94a8a022",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-08T07:50:32Z",
+      "side": 1,
+      "message": "LGTM % 2 comments",
+      "revId": "8a7169494efbe61480616e952766ac87d95854fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c5e9d3b_b622a68d",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-08T07:50:32Z",
+      "side": 1,
+      "message": "This H264 specific parameter should be ignored when H265 is used, simply remove this DCHECK (and the comment in the header file).",
+      "range": {
+        "startLine": 285,
+        "startChar": 6,
+        "endLine": 285,
+        "endChar": 61
+      },
+      "revId": "8a7169494efbe61480616e952766ac87d95854fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d03873d1_40c817c0",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-02-08T07:50:32Z",
+      "side": 1,
+      "message": "\u003e Jianlin told me we don\u0027t want `RTCVideoHeaderH265` as per our previous discussion. Therefore, this check is only for H264.\n\nAh, good point, but in that case I would say just remove this check, it had very little value to begin with.",
+      "parentUuid": "9282b02c_2bc7287e",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 17
+      },
+      "revId": "e901a6b89d675f0a99c9840f87aed17acac5c1e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8f8f13f_727dc331",
         "filename": "modules/video_coding/h26x_packet_buffer.cc",
         "patchSetId": 7

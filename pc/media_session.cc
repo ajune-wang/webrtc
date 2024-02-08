@@ -2397,7 +2397,7 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForOffer(
   } else {
     content_description = std::make_unique<VideoContentDescription>();
   }
-
+  bool has_codecs = !content_description->codecs().empty();
   auto error = CreateMediaContentOffer(
       media_description_options, session_options,
       error_or_filtered_codecs.MoveValue(), sdes_policy,
@@ -2415,7 +2415,8 @@ RTCError MediaSessionDescriptionFactory::AddRtpContentForOffer(
 
   session_description->AddContent(
       media_description_options.mid, MediaProtocolType::kRtp,
-      media_description_options.stopped, std::move(content_description));
+      media_description_options.stopped || !has_codecs,
+      std::move(content_description));
   return AddTransportOffer(media_description_options.mid,
                            media_description_options.transport_options,
                            current_description, session_description,

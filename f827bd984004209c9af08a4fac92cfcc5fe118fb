@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bae12332_90ebc2fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-02-08T01:07:29Z",
+      "side": 1,
+      "message": "There was an attempt to replace the usage of `BaseChromiumAndroidJUnitRunner` with Androidx\u0027s `AndroidJUnitRunner`, but it wasn\u0027t merged. [1] I believe you\u0027re attempting the same thing.\n\nAll failed tests are parameterized tests. When I run `android_instrumentation_test_apk` to list tests, I observe that the parameterized tests are listed separately when running the tests with `BaseChromiumAndroidJUnitRunne`.\n\n```\n$ ./out/AndroidX64/bin/run_android_instrumentation_test_apk  --list-tests\n...\norg.webrtc.VideoFrameBufferTest#testCenterCrop[I420_JAVA]\norg.webrtc.VideoFrameBufferTest#testCenterCrop[I420_NATIVE]\norg.webrtc.VideoFrameBufferTest#testCenterCrop[NV12]\norg.webrtc.VideoFrameBufferTest#testCenterCrop[NV21]\norg.webrtc.VideoFrameBufferTest#testCenterCrop[OES_TEXTURE]\norg.webrtc.VideoFrameBufferTest#testCenterCrop[RGB_TEXTURE]\n...\n```\n\nHowever, when I run the tests with `AndroidJUnitRunner`, the parameterized tests are consolidated into a single test.\n\n```\n$ ./out/AndroidX64/bin/run_android_instrumentation_test_apk  --list-tests\n...\norg.webrtc.VideoFrameBufferTest#testCenterCrop\n...\n```\n\nThis consolidation might be due to the additional mechanism provided by `BaseChromiumAndroidJUnitRunner` for listing all tests, which `AndroidJUnitRunner` doesn\u0027t provide. Therefore, test scripts should dump dex and parse it to list all tests (`build/android/pylib/instrumentation/instrumentation_test_instance.py`). However, this approach isn\u0027t sufficient to identify parameterized tests.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/260466",
+      "revId": "f827bd984004209c9af08a4fac92cfcc5fe118fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

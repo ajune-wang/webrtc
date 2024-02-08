@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fb2646_dcb272c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-08T10:19:36Z",
+      "side": 1,
+      "message": "Looking at `wav_file_unittest` and `test_audio_device_unittest` they both use `test::OutputPath` which in turn places the files in a gitignored directory (specifically for linux, in \u003cproject-root\u003e/out).",
+      "parentUuid": "35b0da5d_ccb5b039",
+      "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5007acef_5c0df817",
@@ -65,6 +83,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ccbf6a_b86de3c2",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-08T10:19:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "200e7b5b_bc2448d3",
+      "range": {
+        "startLine": 40,
+        "startChar": 53,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f30d5e16_3a4db85a",
@@ -78,6 +120,24 @@
       "writtenOn": "2024-02-08T10:04:12Z",
       "side": 1,
       "message": "this shouldn\u0027t happen with the random component.\nOTOH, it also means that the directories will accumulate if there are multiple failed tests.",
+      "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "948a885a_408231ac",
+        "filename": "test/testsupport/file_utils_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-08T10:19:36Z",
+      "side": 1,
+      "message": "Yeah I see the issue here now. Perhaps we should append `test::OutputPath()` to the beginning here. WDYT?",
+      "parentUuid": "f30d5e16_3a4db85a",
       "revId": "a1088c4c0207f52c5135dae1189cbd70c7be9fc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

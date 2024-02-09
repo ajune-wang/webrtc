@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e4c832_edece6d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-09T09:25:30Z",
+      "side": 1,
+      "message": "Adding `No-Try: True` because the CQ failures are caused by:\n\n* Linux bots getting updated to Ubuntu 22.\n* libc++ version update\n\nBoth not ported on the branch (we don\u0027t do this because I would mean cherry pick all DEPS changes and run tests on all branches)",
+      "revId": "24ce62490ce950fd5b532af814f7f453d9c966c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

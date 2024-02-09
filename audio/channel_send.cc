@@ -85,6 +85,7 @@ class ChannelSend : public ChannelSendInterface,
   void ModifyEncoder(rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)>
                          modifier) override;
   void CallEncoder(rtc::FunctionView<void(AudioEncoder*)> modifier) override;
+  bool IsUsingEncodedTransforms() const override;
 
   // API methods
   void StartSend() override;
@@ -220,6 +221,7 @@ class ChannelSend : public ChannelSendInterface,
   std::atomic<bool> include_audio_level_indication_ = false;
   std::atomic<bool> encoder_queue_is_active_ = false;
   std::atomic<bool> first_frame_ = true;
+  std::atomic<bool> is_using_encoded_transform_ = false;
 
   // E2EE Audio Frame Encryption
   rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor_
@@ -547,6 +549,10 @@ void ChannelSend::CallEncoder(rtc::FunctionView<void(AudioEncoder*)> modifier) {
   });
 }
 
+bool ChannelSend::IsUsingEncodedTransforms() const {
+  return is_using_encoded_transform_;
+}
+
 void ChannelSend::OnBitrateAllocation(BitrateAllocationUpdate update) {
   // This method can be called on the worker thread, module process thread
   // or on a TaskQueue via VideoSendStreamImpl::OnEncoderConfigurationChanged.
@@ -759,6 +765,7 @@ void ChannelSend::ProcessAndEncodeAudio(
   }
 
   audio_frame->timestamp_ = timestamp_;
+  RTC_LOG(LS_ERROR) << timestamp_ << " this = " << this;
   timestamp_ += audio_frame->samples_per_channel_;
   last_capture_timestamp_ms_ = audio_frame->absolute_capture_timestamp_ms();
 
@@ -879,6 +886,8 @@ void ChannelSend::InitFrameTransformerDelegate(
           std::move(send_audio_callback), std::move(frame_transformer),
           encoder_queue_.get());
   frame_transformer_delegate_->Init();
+  is_using_encoded_transform_ =
+      !frame_transformer_delegate_->IsShortCircuited();
 }
 
 }  // namespace

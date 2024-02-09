@@ -92,8 +92,8 @@ class FakePortAllocatorSession : public PortAllocatorSession {
                              component,
                              ice_ufrag,
                              ice_pwd,
-                             /*kTiebreakerDefault = */ 44444,
                              allocator->flags()),
+        allocator_(allocator),
         network_thread_(network_thread),
         factory_(factory),
         ipv4_network_("network",
@@ -127,7 +127,8 @@ class FakePortAllocatorSession : public PortAllocatorSession {
                                       username(), password(), false,
                                       field_trials_));
       RTC_DCHECK(port_);
-      port_->SetIceTiebreaker(ice_tiebreaker());
+      port_->SetIceTiebreaker(allocator_->ice_tiebreaker());
+      port_->SetFoundationSeed(allocator_->foundation_seed());
       port_->SubscribePortDestroyed(
           [this](PortInterface* port) { OnPortDestroyed(port); });
       AddPort(port_.get());
@@ -199,6 +200,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
     port_.release();
   }
 
+  PortAllocator* allocator_;
   rtc::Thread* network_thread_;
   rtc::PacketSocketFactory* factory_;
   rtc::Network ipv4_network_;

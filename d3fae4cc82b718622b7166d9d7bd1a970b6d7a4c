@@ -50,6 +50,24 @@
       "message": "Is this condition sufficient?\nCan we end up here if the description contains only RTX codecs?",
       "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3eb71bc_3f7540f4",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2415,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-09T09:44:57Z",
+      "side": 1,
+      "message": "RTX woes should be prevented by https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/media_session.cc;l\u003d1482;drc\u003d8e453be292a43b73a61f5ac8ab232ea8cf239baf which determines the set of codecs. Previously (with my other CL included) we returned an offer from createOffer with no codecs. Which was then throwing in\n  https://jsfiddle.net/fippo/r63bp8d2/2/\nbecause it could not set receive codecs. Marking the content as rejected fixes that.\n\nNow the second question is why the code tries to set up receive parameters on a sendonly stream but since the RtpReceiver exists regardless of direction...",
+      "parentUuid": "5215d6ef_7a282d8f",
+      "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

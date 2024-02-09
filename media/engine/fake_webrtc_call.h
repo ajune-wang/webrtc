@@ -76,6 +76,7 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
   webrtc::AudioSendStream::Stats GetStats() const override;
   webrtc::AudioSendStream::Stats GetStats(
       bool has_remote_tracks) const override;
+  bool IsUsingEncodedTransforms() const override;
 
   int id_ = -1;
   TelephoneEvent latest_telephone_event_;

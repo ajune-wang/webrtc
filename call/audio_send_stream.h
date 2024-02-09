@@ -194,6 +194,7 @@ class AudioSendStream : public AudioSender {
 
   virtual Stats GetStats() const = 0;
   virtual Stats GetStats(bool has_remote_tracks) const = 0;
+  virtual bool IsUsingEncodedTransforms() const = 0;
 };
 
 }  // namespace webrtc

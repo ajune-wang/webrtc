@@ -246,7 +246,9 @@ bool Codec::MatchesRtpCodec(const webrtc::RtpCodec& codec_capability) const {
          (codec_parameters.name == cricket::kRtxCodecName ||
           (codec_parameters.num_channels == codec_capability.num_channels &&
            codec_parameters.clock_rate == codec_capability.clock_rate &&
-           codec_parameters.parameters == codec_capability.parameters));
+           IsSameCodecSpecific(
+               codec_parameters.name, codec_parameters.parameters,
+               codec_capability.name, codec_capability.parameters)));
 }
 
 bool Codec::GetParam(const std::string& name, std::string* out) const {

@@ -79,6 +79,10 @@ webrtc::AudioSendStream::Stats FakeAudioSendStream::GetStats(
   return stats_;
 }
 
+bool FakeAudioSendStream::IsUsingEncodedTransforms() const {
+  return false;
+}
+
 FakeAudioReceiveStream::FakeAudioReceiveStream(
     int id,
     const webrtc::AudioReceiveStreamInterface::Config& config)

@@ -16,6 +16,40 @@
       "message": "Test requires the other change to be landed first but this can already be reviewed.",
       "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e85b57ee_1280810d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-09T09:33:53Z",
+      "side": 1,
+      "message": "Worried about making a non-terminating condition into a terminal one...",
+      "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5215d6ef_7a282d8f",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2415,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-09T09:33:53Z",
+      "side": 1,
+      "message": "Is this condition sufficient?\nCan we end up here if the description contains only RTX codecs?",
+      "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -197,6 +197,11 @@ void ChannelSendFrameTransformerDelegate::SendFrame(
       transformed_frame->GetContributingSources());
 }
 
+bool ChannelSendFrameTransformerDelegate::IsShortCircuited() const {
+  MutexLock lock(&send_lock_);
+  return short_circuit_;
+}
+
 std::unique_ptr<TransformableAudioFrameInterface> CloneSenderAudioFrame(
     TransformableAudioFrameInterface* original) {
   std::vector<uint32_t> csrcs;

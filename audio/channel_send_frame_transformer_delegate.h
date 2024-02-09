@@ -72,6 +72,8 @@ class ChannelSendFrameTransformerDelegate : public TransformedFrameCallback {
   // by calling `send_audio_callback_`.
   void SendFrame(std::unique_ptr<TransformableFrameInterface> frame) const;
 
+  bool IsShortCircuited() const;
+
  protected:
   ~ChannelSendFrameTransformerDelegate() override = default;
 

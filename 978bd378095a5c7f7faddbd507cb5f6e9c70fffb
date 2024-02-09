@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb28b506_bfd606dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-02-09T00:29:02Z",
+      "side": 1,
+      "message": "It looks like I don\u0027t have the permission to submit this CL. Please help submit if it looks good to you. Thanks.",
+      "revId": "978bd378095a5c7f7faddbd507cb5f6e9c70fffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

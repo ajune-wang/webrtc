@@ -100,6 +100,7 @@ class ChannelSendInterface {
   // these conditions will be removed.
   // Returns the RTT in milliseconds.
   virtual int64_t GetRTT() const = 0;
+  virtual bool IsUsingEncodedTransforms() const = 0;
   virtual void StartSend() = 0;
   virtual void StopSend() = 0;
 

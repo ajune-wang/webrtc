@@ -135,6 +135,7 @@ class ChannelSend : public ChannelSendInterface,
   void ProcessAndEncodeAudio(std::unique_ptr<AudioFrame> audio_frame) override;
 
   int64_t GetRTT() const override;
+  bool IsUsingEncodedTransforms() const override;
 
   // E2EE Custom Audio Frame Encryption
   void SetFrameEncryptor(
@@ -220,6 +221,7 @@ class ChannelSend : public ChannelSendInterface,
   std::atomic<bool> include_audio_level_indication_ = false;
   std::atomic<bool> encoder_queue_is_active_ = false;
   std::atomic<bool> first_frame_ = true;
+  std::atomic<bool> is_using_encoded_transform_ = false;
 
   // E2EE Audio Frame Encryption
   rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor_
@@ -826,6 +828,10 @@ int64_t ChannelSend::GetRTT() const {
   return report_blocks.front().last_rtt().ms();
 }
 
+bool ChannelSend::IsUsingEncodedTransforms() const {
+  return is_using_encoded_transform_;
+}
+
 void ChannelSend::SetFrameEncryptor(
     rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor) {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
@@ -879,6 +885,10 @@ void ChannelSend::InitFrameTransformerDelegate(
           std::move(send_audio_callback), std::move(frame_transformer),
           encoder_queue_.get());
   frame_transformer_delegate_->Init();
+  // If |frame_transformer_delegate_| is short circuited, then encoded
+  // transforms is not used.
+  is_using_encoded_transform_ =
+      !frame_transformer_delegate_->IsShortCircuited();
 }
 
 }  // namespace

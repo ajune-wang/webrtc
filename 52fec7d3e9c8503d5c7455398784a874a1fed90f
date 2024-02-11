@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73e0489_a969f743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3302648
+      },
+      "writtenOn": "2024-02-11T18:12:41Z",
+      "side": 1,
+      "message": "Comment removed by: Mirko Bonadei; Reason: spam",
+      "revId": "52fec7d3e9c8503d5c7455398784a874a1fed90f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

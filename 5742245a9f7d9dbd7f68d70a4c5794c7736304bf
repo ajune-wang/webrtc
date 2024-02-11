@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41892123_f7261d8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-11T15:42:10Z",
+      "side": 1,
+      "message": "Hey folks,\nI though this might be a more robust solution to the issue I started working on. Let me know WDYT 😊",
+      "revId": "5742245a9f7d9dbd7f68d70a4c5794c7736304bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

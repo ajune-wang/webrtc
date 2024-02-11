@@ -16,6 +16,40 @@
       "message": "Hey folks,\nI though this might be a more robust solution to the issue I started working on. Let me know WDYT 😊",
       "revId": "5742245a9f7d9dbd7f68d70a4c5794c7736304bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98530b4d_ff70d1fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-11T21:40:45Z",
+      "side": 1,
+      "message": "Apart from naming, this looks like a good tool. I assume usage is coming in the next CL.",
+      "revId": "5742245a9f7d9dbd7f68d70a4c5794c7736304bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dfa1701_5da71c7b",
+        "filename": "test/testsupport/file_utils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-11T21:40:45Z",
+      "side": 1,
+      "message": "For clarity, I\u0027d suggest calling it \"OutputPathWithRandomDirectory\", although for conformance with surrounding use of \"dir\" in violation of the \"don\u0027t abbreviate when you don\u0027t have to\" rule, I suppose \"OutputPathWithRandomDir\" is OK.",
+      "revId": "5742245a9f7d9dbd7f68d70a4c5794c7736304bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -15,12 +15,29 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 
+using webrtc::IceCandidateType;
+
 namespace cricket {
 
 const absl::string_view LOCAL_PORT_TYPE = "local";
 const absl::string_view STUN_PORT_TYPE = "stun";
 const absl::string_view PRFLX_PORT_TYPE = "prflx";
 const absl::string_view RELAY_PORT_TYPE = "relay";
+
+namespace {
+IceCandidateType CandidateTypeFromString(absl::string_view type) {
+  if (type == LOCAL_PORT_TYPE) {
+    return IceCandidateType::kHost;
+  } else if (type == STUN_PORT_TYPE) {
+    return IceCandidateType::kSrflx;
+  } else if (type == PRFLX_PORT_TYPE) {
+    return IceCandidateType::kPrflx;
+  } else {
+    RTC_DCHECK_EQ(type, RELAY_PORT_TYPE);
+    return IceCandidateType::kRelay;
+  }
+}
+}  // namespace
 
 Candidate::Candidate()
     : id_(rtc::CreateRandomString(8)),
@@ -50,7 +67,7 @@ Candidate::Candidate(int component,
       priority_(priority),
       username_(username),
       password_(password),
-      type_(type),
+      type_(CandidateTypeFromString(type)),
       network_type_(rtc::ADAPTER_TYPE_UNKNOWN),
       underlying_type_for_vpn_(rtc::ADAPTER_TYPE_UNKNOWN),
       generation_(generation),
@@ -62,17 +79,34 @@ Candidate::Candidate(const Candidate&) = default;
 
 Candidate::~Candidate() = default;
 
+absl::string_view Candidate::type_name() const {
+  switch (type_) {
+    case IceCandidateType::kHost:
+      return LOCAL_PORT_TYPE;  // TODO(tommi): Return "host".
+    case IceCandidateType::kSrflx:
+      return STUN_PORT_TYPE;  // TODO(tommi): Return "srflx".
+    case IceCandidateType::kPrflx:
+      return PRFLX_PORT_TYPE;
+    case IceCandidateType::kRelay:
+      return RELAY_PORT_TYPE;
+  }
+}
+
+void Candidate::set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
+  type_ = CandidateTypeFromString(type);
+}
+
 bool Candidate::is_local() const {
-  return type_ == LOCAL_PORT_TYPE;
+  return type_ == IceCandidateType::kHost;
 }
 bool Candidate::is_stun() const {
-  return type_ == STUN_PORT_TYPE;
+  return type_ == IceCandidateType::kSrflx;
 }
 bool Candidate::is_prflx() const {
-  return type_ == PRFLX_PORT_TYPE;
+  return type_ == IceCandidateType::kPrflx;
 }
 bool Candidate::is_relay() const {
-  return type_ == RELAY_PORT_TYPE;
+  return type_ == IceCandidateType::kRelay;
 }
 
 bool Candidate::IsEquivalent(const Candidate& c) const {
@@ -99,9 +133,10 @@ std::string Candidate::ToStringInternal(bool sensitive) const {
   std::string related_address = sensitive ? related_address_.ToSensitiveString()
                                           : related_address_.ToString();
   ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address << ":" << username_ << ":" << password_ << ":"
-      << network_id_ << ":" << network_cost_ << ":" << generation_ << "]";
+      << ":" << protocol_ << ":" << priority_ << ":" << address << ":"
+      << type_name() << ":" << related_address << ":" << username_ << ":"
+      << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
+      << generation_ << "]";
   return ost.Release();
 }
 

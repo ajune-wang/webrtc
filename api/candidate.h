@@ -91,7 +91,7 @@ class RTC_EXPORT Candidate {
   const std::string& password() const { return password_; }
   void set_password(absl::string_view password) { Assign(password_, password); }
 
-  const std::string& type() const { return type_; }
+  absl::string_view type() const { return type_; }
 
   // Setting the type requires a constant string (e.g.
   // cricket::LOCAL_PORT_TYPE). The type should really be an enum rather than a

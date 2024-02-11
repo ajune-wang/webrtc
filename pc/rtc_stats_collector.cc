@@ -165,6 +165,7 @@ std::string RTCMediaSourceStatsIDFromKindAndAttachment(
 }
 
 const char* CandidateTypeToRTCIceCandidateType(const cricket::Candidate& c) {
+  // TODO(tommi): Use `c.type_name()` when type_name() has been updated.
   if (c.is_local())
     return "host";
   if (c.is_stun())

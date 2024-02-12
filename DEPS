@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f53e0380af68a8d94163346b451d257db8d59ddc',
+  'chromium_revision': '86442f79139f5ea04aafd78faafe4ce8681ef81d',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -50,24 +50,24 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@a3c0545d76119aed96d3ed6775c17f6541b39815',
+    'https://chromium.googlesource.com/chromium/src/base@f65b89ddd8e82ab0c8c7902269e657b997c90003',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@100a2e5828c11e1d67f01faa8e761f6479f650b6',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@f90248f2bf52549f4110fbda4bb37580e81bc262',
+    'https://chromium.googlesource.com/chromium/src/buildtools@f35a7d885ace0b7dd8e8ac2376ca759d3905f4dc',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@7d8367c78cfa1664531673e52a0d58a949d0eca8',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e77156a20f6003af7b2271783faa9c99677053a0',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@24fb660f299e140977bc4281abbf5d5cc85ff6a9',
+    'https://chromium.googlesource.com/chromium/src/testing@baeb585ae38a21865f70f8d4fc4418f16dcbee01',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@513fca12d3d735c92f9913493df0fb92a1988517',
+    'https://chromium.googlesource.com/chromium/src/third_party@762f63050a982e8d5ff6181a54ca83fd5fa077ce',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -302,7 +302,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@3d959a6b84994746c9a357c58516ac8a53299b77',
+    'https://android.googlesource.com/platform/external/perfetto.git@d113f991a01632593a5028ee4bbea02ce95b620b',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@96b64eaac5adbac59e43e34d87af3ba0fb06bca6',
   'src/third_party/libyuv':
@@ -331,7 +331,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'Ms1b55b8kRNZqqskNs35JxAgZvqbtKGKDimgS_0LGz4C',
+              'version': 'szZgxadOOC_Yfq3DhP5R0WR2LMRiVMVrt71WNfL5taIC',
           },
       ],
       'condition': 'checkout_android',
@@ -355,7 +355,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@daa8c430f199f0038c7d606aad90e4a1b1d897d1',
+    'https://chromium.googlesource.com/chromium/src/tools@89fb7da4505802b0cb9d8d7318755ef1547346ad',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -405,7 +405,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '0Jfh-EIa7YBsv86pah7juYpkhvYjTk-Og860SJavIM0C',
+          'version': 'rDm_kXJ4QiOAfQYXTO_2ZWlg_5HVE3VWUkkps3x0O3cC',
       },
     ],
     'condition': 'checkout_android',
@@ -498,7 +498,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/turbine',
-              'version': '7NPeRX_XAc2XOUX7V9moyIEyM8RjjPdAhRK-8DLzk_oC',
+              'version': 's-hdujub30RR2mH9Qf7pHv6h9uNGEiYVs6W1VXWeEe8C',
           },
       ],
       'condition': 'checkout_android',

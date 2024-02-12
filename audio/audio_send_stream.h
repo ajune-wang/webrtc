@@ -98,6 +98,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   webrtc::AudioSendStream::Stats GetStats() const override;
   webrtc::AudioSendStream::Stats GetStats(
       bool has_remote_tracks) const override;
+  bool IsUsingEncodedTransforms() const override;
 
   void DeliverRtcp(const uint8_t* packet, size_t length);
 

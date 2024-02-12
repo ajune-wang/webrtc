@@ -170,6 +170,7 @@ class MockChannelSend : public voe::ChannelSendInterface {
   MOCK_METHOD(RtpRtcpInterface*, GetRtpRtcp, (), (const, override));
   MOCK_METHOD(int, GetTargetBitrate, (), (const, override));
   MOCK_METHOD(int64_t, GetRTT, (), (const, override));
+  MOCK_METHOD(bool, IsUsingEncodedTransforms, (), (const, override));
   MOCK_METHOD(void, StartSend, (), (override));
   MOCK_METHOD(void, StopSend, (), (override));
   MOCK_METHOD(void,

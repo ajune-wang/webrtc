@@ -345,6 +345,11 @@ void AudioSendStream::ConfigureStream(
   webrtc::InvokeSetParametersCallback(callback, webrtc::RTCError::OK());
 }
 
+bool AudioSendStream::IsUsingEncodedTransforms() const {
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  return channel_send_->IsUsingEncodedTransforms();
+}
+
 void AudioSendStream::Start() {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   if (sending_) {

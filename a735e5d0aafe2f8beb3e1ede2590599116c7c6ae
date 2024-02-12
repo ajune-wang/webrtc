@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "963f2e24_4a9c4cc5",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-02-12T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "294cdc38_55455325",
+      "range": {
+        "startLine": 1092,
+        "startChar": 33,
+        "endLine": 1092,
+        "endChar": 58
+      },
+      "revId": "a735e5d0aafe2f8beb3e1ede2590599116c7c6ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62e1f091_3023d0e1",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54c2866b_cf808f4e",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-02-12T09:42:45Z",
+      "side": 1,
+      "message": "No, not explicitly. It gets called in the call path from RtpSenderBase::SetSsrc, which we call while setting up encoded transforms.",
+      "parentUuid": "62e1f091_3023d0e1",
+      "range": {
+        "startLine": 1095,
+        "startChar": 7,
+        "endLine": 1095,
+        "endChar": 24
+      },
+      "revId": "a735e5d0aafe2f8beb3e1ede2590599116c7c6ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eedf7cf6_037309a5",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-02-06T15:10:52Z",
       "side": 1,
       "message": "Remove comment?",
+      "range": {
+        "startLine": 1100,
+        "startChar": 0,
+        "endLine": 1100,
+        "endChar": 57
+      },
+      "revId": "a735e5d0aafe2f8beb3e1ede2590599116c7c6ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac0dba4b_5fcca4b2",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-02-12T09:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eedf7cf6_037309a5",
       "range": {
         "startLine": 1100,
         "startChar": 0,

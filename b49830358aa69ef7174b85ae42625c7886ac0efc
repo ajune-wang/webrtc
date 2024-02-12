@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c0b737b_9db9b6e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-02-12T09:42:45Z",
+      "side": 1,
+      "message": "Hi! Had to make a few more changes as I realized the patchset 12 did not work locally. This is because with the new feature\nWebRtcEncodedTransformsPerStreamCreation, transform delegate is now initialized for\nall streams and you instead need to check if it\u0027s short circuited or not.",
+      "revId": "b49830358aa69ef7174b85ae42625c7886ac0efc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

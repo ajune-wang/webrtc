@@ -38,6 +38,35 @@ namespace webrtc {
 
 namespace {
 
+const char* WebRtcVideoCodecErrorToString(int32_t error_code) {
+  switch (error_code) {
+    case WEBRTC_VIDEO_CODEC_TARGET_BITRATE_OVERSHOOT:
+      return "CODEC_TARGET_BITRATE_OVERSHOOT";
+    case WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME:
+      return "CODEC_OK_REQUEST_KEYFRAME";
+    case WEBRTC_VIDEO_CODEC_NO_OUTPUT:
+      return "CODEC_NO_OUTPUT";
+    case WEBRTC_VIDEO_CODEC_ERROR:
+      return "CODEC_ERROR";
+    case WEBRTC_VIDEO_CODEC_MEMORY:
+      return "CODEC_MEMORY";
+    case WEBRTC_VIDEO_CODEC_ERR_PARAMETER:
+      return "CODEC_ERR_PARAMETER";
+    case WEBRTC_VIDEO_CODEC_TIMEOUT:
+      return "CODEC_TIMEOUT";
+    case WEBRTC_VIDEO_CODEC_UNINITIALIZED:
+      return "CODEC_UNINITIALIZED";
+    case WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE:
+      return "CODEC_FALLBACK_SOFTWARE";
+    case WEBRTC_VIDEO_CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED:
+      return "CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED";
+    case WEBRTC_VIDEO_CODEC_ENCODER_FAILURE:
+      return "CODEC_ENCODER_FAILURE";
+    default:
+      return "UNKNOWN";
+  }
+}
+
 // If forced fallback is allowed, either:
 //
 // 1) The forced fallback is requested if the resolution is less than or equal
@@ -305,6 +334,12 @@ void VideoEncoderSoftwareFallbackWrapper::SetFecControllerOverride(
 int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
     const VideoCodec* codec_settings,
     const VideoEncoder::Settings& settings) {
+  RTC_LOG(LS_INFO) << "[VESFW] " << __func__ << "(codec="
+                   << CodecTypeToPayloadString(codec_settings->codecType)
+                   << ", settings={number_of_cores: "
+                   << settings.number_of_cores
+                   << ", max_payload_size: " << settings.max_payload_size
+                   << "})";
   // Store settings, in case we need to dynamically switch to the fallback
   // encoder after a failed Encode call.
   codec_settings_ = *codec_settings;
@@ -327,6 +362,8 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
     PrimeEncoder(current_encoder());
     return ret;
   }
+  RTC_LOG(LS_WARNING) << "[VESFW] Hardware encoder initialization failed with"
+                      << " error code: " << WebRtcVideoCodecErrorToString(ret);
 
   // Try to instantiate software codec.
   if (InitFallbackEncoder(/*is_forced=*/false)) {
@@ -335,6 +372,8 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
   }
 
   // Software encoder failed too, use original return code.
+  RTC_LOG(LS_WARNING)
+      << "[VESFW] Software fallback encoder initialization also failed.";
   encoder_state_ = EncoderState::kUninitialized;
   return ret;
 }

@@ -68,6 +68,24 @@
       "parentUuid": "7dfa1701_5da71c7b",
       "revId": "5742245a9f7d9dbd7f68d70a4c5794c7736304bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc0c9326_798ff016",
+        "filename": "test/testsupport/file_utils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-02-12T11:04:53Z",
+      "side": 1,
+      "message": "I was contemplating between current conventions in the file and explicit naming here.\nSGTM though, I prefer the longer explicit name anyway. I can look into renaming the rest of the methods here later.",
+      "parentUuid": "398e1571_fda473e0",
+      "revId": "5742245a9f7d9dbd7f68d70a4c5794c7736304bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

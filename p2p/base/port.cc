@@ -97,10 +97,9 @@ std::string Port::ComputeFoundation(absl::string_view type,
                                     absl::string_view protocol,
                                     absl::string_view relay_protocol,
                                     const rtc::SocketAddress& base_address) {
-  // TODO(bugs.webrtc.org/14605): ensure IceTiebreaker() is set.
   rtc::StringBuilder sb;
   sb << type << base_address.ipaddr().ToString() << protocol << relay_protocol
-     << rtc::ToString(IceTiebreaker());
+     << rtc::ToString(FoundationSeed());
   return rtc::ToString(rtc::ComputeCrc32(sb.Release()));
 }
 
@@ -209,6 +208,14 @@ void Port::SetIceTiebreaker(uint64_t tiebreaker) {
 
 uint64_t Port::IceTiebreaker() const {
   return tiebreaker_;
+}
+
+void Port::SetFoundationSeed(uint64_t foundation_seed) {
+  foundation_seed_ = foundation_seed;
+}
+
+uint64_t Port::FoundationSeed() const {
+  return foundation_seed_;
 }
 
 bool Port::SharedSocket() const {

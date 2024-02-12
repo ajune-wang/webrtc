@@ -16,6 +16,24 @@
       "message": "Can we add VideoCodec::ToString() method that we call instead of just logging the payload type?\n\nhttps://screenshot.googleplex.com/9Tkp6dtuWGS8YPg\n\nIt has scalability mode, simulcast resolutions, etc.",
       "revId": "e6a38f1922b259e2d3c19fa2c66581132a2460c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada82d82_36a7d0ae",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-12T10:00:06Z",
+      "side": 1,
+      "message": "\"just the codecType\" I mean, not payload type",
+      "parentUuid": "776c55af_f9513330",
+      "revId": "e6a38f1922b259e2d3c19fa2c66581132a2460c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a7d7d7_abed9615",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-12T09:09:00Z",
+      "side": 1,
+      "message": "LS_WARNING",
+      "range": {
+        "startLine": 365,
+        "startChar": 10,
+        "endLine": 365,
+        "endChar": 17
+      },
+      "revId": "b25f2a40aa384e486f616ecddb78e15926bd4732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

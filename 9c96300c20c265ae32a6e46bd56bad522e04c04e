@@ -33,6 +33,24 @@
       "message": "does this pass the ban on Chrome static initializers?\nI assume that absl::string_view has a free pass....",
       "revId": "9c96300c20c265ae32a6e46bd56bad522e04c04e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92927f60_13edd056",
+        "filename": "api/candidate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-12T13:55:46Z",
+      "side": 1,
+      "message": "Good point. Added ABSL_CONST_INIT to be sure.",
+      "parentUuid": "28945d4d_53d45a8a",
+      "revId": "9c96300c20c265ae32a6e46bd56bad522e04c04e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

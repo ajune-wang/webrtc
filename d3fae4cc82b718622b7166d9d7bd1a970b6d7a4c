@@ -103,6 +103,24 @@
       "parentUuid": "b3eb71bc_3f7540f4",
       "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a354c2ad_8681bb21",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2415,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-12T11:03:36Z",
+      "side": 1,
+      "message": "Rejecting the m\u003d section is probably better than failing to apply the SDP, but I don\u0027t like how easy it is to end up here unless sendrecv codecs are used.",
+      "parentUuid": "e101cad3_1192e2dd",
+      "revId": "d3fae4cc82b718622b7166d9d7bd1a970b6d7a4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

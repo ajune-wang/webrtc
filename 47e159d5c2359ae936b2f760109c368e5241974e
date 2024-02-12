@@ -16,6 +16,23 @@
       "message": "I tested this fix by:\n1. Simulating the race condition by introducing a `sleep` between the calls to `    getNativeNetworkObserversSync` and the dispatch loop. With the change this is not even possible, but I also verified that adding a `sleep` in every iteration of the loop doesn\u0027t yield major issues\n2. Tested it with a field-trial in our product and observed we no longer detect instances of this crash\n\nI looked into unit-testing it, but couldn\u0027t find a straight-forward way to do it within the context of the current unit-tests, since this requires a test that straddles both the Native and Java code. I\u0027m open to any suggestions on how to test this in unit tests (or if reviewers agree it\u0027s not critical)",
       "revId": "47e159d5c2359ae936b2f760109c368e5241974e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e42f18c_35a3ec0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-02-12T09:19:58Z",
+      "side": 1,
+      "message": "Adding relevant reviewers based on the people who touched this file in the past",
+      "revId": "47e159d5c2359ae936b2f760109c368e5241974e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

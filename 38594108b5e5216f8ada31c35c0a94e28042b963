@@ -68,6 +68,24 @@
       "parentUuid": "1836c09f_a6d914f1",
       "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9671c4c_ea85dc5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-02-13T19:45:27Z",
+      "side": 1,
+      "message": "That sounds like a bug in Firefox as if I understand the contract correctly, a capturer returning ERROR_PERMANENT will never again return valid frames, so it\u0027s essentially the same as this signal. I can certainly understand if they want to treat it differently (e.g. ERROR_PERMANENT while unrecoverable could indicate that they can simply try to re-create the capturer while ERROR_SHUTDOWN indicates that it was shutdown by user choice and we should not try to recreate it), but from what you are saying it sounds like they just treat ERROR_PERMANENT the same as ERROR_TEMPORARY?\n\nMy preference in order would be:\n1) Simply send ERROR_PERMANENT properly, as that seems to be what it\u0027s there for\n2) If we have to make a code change because either Chromium/Firefox want to treat this error differently than a generic permanent error, I think extending the enum is cleaner.\n3) We can add this method if needed.\n\nI could potentially be persuaded that this method is cleaner, especially in the eventual (though likely far-off) future of evented capturers, though they could also send a Permanent Error.\n\nThat makes sense regarding the `DesktopAndCursorComposer` though. I wasn\u0027t thinking of that one as a top-level wrapper capturer. I think you may also need to look at the fallback captuerer and there may be a generic wrapper capturer as well as I think they do similar things?",
+      "parentUuid": "7f5b22ca_ba1e7034",
+      "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -86,6 +86,24 @@
       "parentUuid": "7f5b22ca_ba1e7034",
       "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87d85af_e6066f84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-13T20:01:04Z",
+      "side": 1,
+      "message": "My understanding, looking at the Firefox code, is that the `DesktopCapture::Result` is not handled at all so I just need to add support for that, basically doing the same what I would do in case of the new added method.\n\nWhile I think options 2) and 3) are cleaner, I can go with 1), that\u0027s fine I guess and it will fix your issue with Chromium right away, while for Firefox it doesn\u0027t make any difference. I will update this change once I complete the Firefox part to be sure it will work as expected.Thanks.",
+      "parentUuid": "f9671c4c_ea85dc5d",
+      "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

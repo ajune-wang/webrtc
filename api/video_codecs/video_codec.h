@@ -80,6 +80,7 @@ struct VideoCodecVP9 {
   unsigned char numberOfSpatialLayers;
   bool flexibleMode;
   InterLayerPredMode interLayerPred;
+  bool allow_layer_drop;
 };
 
 // H264 specific.

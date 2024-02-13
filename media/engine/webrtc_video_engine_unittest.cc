@@ -4131,6 +4131,42 @@ INSTANTIATE_TEST_SUITE_P(
             1,
             webrtc::InterLayerPredMode::kOnKeyPic)));
 
+class Vp9SettingsTestAllowLayerDrop : public WebRtcVideoChannelTest {
+ protected:
+  void RunTest(bool dependency_descriptor) {
+    cricket::VideoSenderParameters parameters;
+    parameters.codecs.push_back(GetEngineCodec("VP9"));
+    if (dependency_descriptor) {
+      parameters.extensions.push_back(
+          RtpExtension(RtpExtension::kDependencyDescriptorUri, /*id=*/1));
+    }
+    ASSERT_TRUE(send_channel_->SetSenderParameters(parameters));
+    FakeVideoSendStream* stream = SetUpSimulcast(false, /*with_rtx=*/false);
+
+    webrtc::test::FrameForwarder frame_forwarder;
+    EXPECT_TRUE(
+        send_channel_->SetVideoSend(last_ssrc_, nullptr, &frame_forwarder));
+    send_channel_->SetSend(true);
+    frame_forwarder.IncomingCapturedFrame(frame_source_.GetFrame());
+
+    ASSERT_TRUE(stream->GetVp9Settings(&vp9_settings_)) << "No VP9 config set.";
+    EXPECT_TRUE(send_channel_->SetVideoSend(last_ssrc_, nullptr, nullptr));
+  }
+  webrtc::VideoCodecVP9 vp9_settings_;
+};
+
+TEST_F(Vp9SettingsTestAllowLayerDrop,
+       NoDependencyDescriptor_layerDropNotAllowed) {
+  RunTest(/*dependency_descriptor=*/false);
+  EXPECT_EQ(vp9_settings_.allow_layer_drop, false);
+}
+
+TEST_F(Vp9SettingsTestAllowLayerDrop,
+       HasDependencyDescriptor_layerDropAllowed) {
+  RunTest(/*dependency_descriptor=*/true);
+  EXPECT_EQ(vp9_settings_.allow_layer_drop, true);
+}
+
 TEST_F(WebRtcVideoChannelTest, VerifyMinBitrate) {
   std::vector<webrtc::VideoStream> streams = AddSendStream()->GetVideoStreams();
   ASSERT_EQ(1u, streams.size());

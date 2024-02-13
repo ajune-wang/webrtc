@@ -29,6 +29,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/explicit_key_value_config.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/test_flags.h"
 #include "test/testsupport/file_utils.h"
@@ -107,7 +108,15 @@ const std::map<std::string, VideoInfo> kRawVideos = {
     {"Johnny_1280x720_30",
      {.name = "Johnny_1280x720_30",
       .resolution = {.width = 1280, .height = 720},
-      .framerate = Frequency::Hertz(30)}}};
+      .framerate = Frequency::Hertz(30)}},
+    {"ConferenceMotion_1280_720_50",
+     {.name = "ConferenceMotion_1280_720_50",
+      .resolution = {.width = 1280, .height = 720},
+      .framerate = Frequency::Hertz(50)}},
+    {"portrait_video_8m_first10s",
+     {.name = "portrait_video_8m_first10s",
+      .resolution = {.width = 1920, .height = 1080},
+      .framerate = Frequency::Hertz(60)}}};
 
 static constexpr Frequency k90kHz = Frequency::Hertz(90000);
 
@@ -533,6 +542,7 @@ INSTANTIATE_TEST_SUITE_P(
     FramerateAdaptationTest::TestParamsToString);
 
 TEST(VideoCodecTest, DISABLED_EncodeDecode) {
+  ScopedFieldTrials field_trials(absl::GetFlag(FLAGS_field_trials));
   const Environment env =
       CreateEnvironment(std::make_unique<ExplicitKeyValueConfig>(
           absl::GetFlag(FLAGS_field_trials)));

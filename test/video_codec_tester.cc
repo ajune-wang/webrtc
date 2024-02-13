@@ -1054,6 +1054,7 @@ class Encoder : public EncodedImageCallback {
         break;
       case kVideoCodecVP9:
         *(vc.VP9()) = VideoEncoder::GetDefaultVp9Settings();
+        vc.VP9()->allow_layer_drop = true;
         // See LibvpxVp9Encoder::ExplicitlyConfiguredSpatialLayers.
         vc.spatialLayers[0].targetBitrate = vc.maxBitrate;
         vc.qpMax = cricket::kDefaultVideoMaxQpVpx;

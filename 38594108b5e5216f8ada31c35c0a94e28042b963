@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "426b3fab_b621b49a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-13T12:15:17Z",
+      "side": 1,
+      "message": "Marking as WIP for now. I\u0027m working on an implementation of this API addition in Firefox and I\u0027m not sure this change is complete yet, but I would like to have some opinions on this and to know whether it\u0027s something Chromium can also implement.\n\nIt\u0027s meant to fix https://issues.chromium.org/issues/40276865 once implemented in Chromium.",
+      "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

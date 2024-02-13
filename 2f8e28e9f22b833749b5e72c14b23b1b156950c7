@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3048e942_4e60e288",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-13T13:00:25Z",
+      "side": 1,
+      "message": "Not feeling competent to judge locking patterns in Java, so moving myself to CC.",
+      "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

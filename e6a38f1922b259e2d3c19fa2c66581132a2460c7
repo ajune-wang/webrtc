@@ -88,6 +88,24 @@
       "parentUuid": "41895d8b_d730ca6e",
       "revId": "e6a38f1922b259e2d3c19fa2c66581132a2460c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3a73185_57acfefe",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-02-13T12:57:58Z",
+      "side": 1,
+      "message": "The latest version now also logs error codes if the SW fallback initialization fails.",
+      "parentUuid": "90347791_9a7b83c5",
+      "revId": "e6a38f1922b259e2d3c19fa2c66581132a2460c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

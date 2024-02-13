@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3af935_d4a10a04",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-02-13T18:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b955bd8_36a64de0",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61b51a2e_5b314248",

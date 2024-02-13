@@ -81,6 +81,7 @@ class RTC_EXPORT DesktopAndCursorComposer
 
   // DesktopCapturer::Callback interface.
   void OnFrameCaptureStart() override;
+  void OnCaptureStop() override;
   void OnCaptureResult(DesktopCapturer::Result result,
                        std::unique_ptr<DesktopFrame> frame) override;
 

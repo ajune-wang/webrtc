@@ -240,6 +240,10 @@ void DesktopAndCursorComposer::OnFrameCaptureStart() {
   callback_->OnFrameCaptureStart();
 }
 
+void DesktopAndCursorComposer::OnCaptureStop() {
+  callback_->OnCaptureStop();
+}
+
 void DesktopAndCursorComposer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {

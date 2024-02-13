@@ -61,6 +61,9 @@ class RTC_EXPORT DesktopCapturer {
     // Called before a frame capture is started.
     virtual void OnFrameCaptureStart() {}
 
+    // Called when capturing session was ended by the host/producer.
+    virtual void OnCaptureStop() {}
+
     // Called after a frame has been captured. `frame` is not nullptr if and
     // only if `result` is SUCCESS.
     virtual void OnCaptureResult(Result result,

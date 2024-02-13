@@ -16,6 +16,23 @@
       "message": "Marking as WIP for now. I\u0027m working on an implementation of this API addition in Firefox and I\u0027m not sure this change is complete yet, but I would like to have some opinions on this and to know whether it\u0027s something Chromium can also implement.\n\nIt\u0027s meant to fix https://issues.chromium.org/issues/40276865 once implemented in Chromium.",
       "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1836c09f_a6d914f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-02-13T18:31:47Z",
+      "side": 1,
+      "message": "I replied on the bug; but I\u0027m wondering if we can\u0027t leverage the error response of the frame request once the capturer has stopped?",
+      "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df3658e_25fef1db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-13T17:52:40Z",
+      "side": 1,
+      "message": "Looks good! Just one case that isn\u0027t covered AFAIK and then I wonder if log levels matter, see below",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "668cf7cc_47ac4a34",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-13T17:52:40Z",
+      "side": 1,
+      "message": "I\u0027ve seen different log severity levels used in this CL, do all of them get picked up in Delve or only warnings/errors?",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b955bd8_36a64de0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-13T17:52:40Z",
+      "side": 1,
+      "message": "Delete this note to self ;)",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b51a2e_5b314248",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-13T17:52:40Z",
+      "side": 1,
+      "message": "We don\u0027t log this error, I think we should.\n\nNote: some errors get logged anyway if software wrapper is used, but software wrapper does not appear to be used unless we have HW, so we should assume the error has not been logged here.",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee7085e_9136cb9d",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-13T17:52:40Z",
+      "side": 1,
+      "message": "Same as previous comment, this error does not get logged. Can we log it?",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53d21b21_8434534c",
+        "filename": "modules/video_coding/include/video_error_codes.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2024-02-13T17:52:40Z",
+      "side": 1,
+      "message": "nit: I have a slight preference to include the full enum name here (\"WEBRTC_\") unless people feel otherwise",
+      "revId": "7e4ab43926c50f5601e588c32059b163a89aa3bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

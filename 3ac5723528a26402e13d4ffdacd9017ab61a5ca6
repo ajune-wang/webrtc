@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caef1c95_bd7a5dbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2024-02-13T12:57:08Z",
+      "side": 1,
+      "message": "@hbos@webrtc.org: please check the latest version.\n\nExample: https://paste.googleplex.com/6233057193885696",
+      "revId": "3ac5723528a26402e13d4ffdacd9017ab61a5ca6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,41 @@
       "message": "I replied on the bug; but I\u0027m wondering if we can\u0027t leverage the error response of the frame request once the capturer has stopped?",
       "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e394521d_c4e5bf71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-13T19:21:35Z",
+      "side": 1,
+      "message": "Marking as ready for review only to have reviewers notified about comments.",
+      "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5b22ca_ba1e7034",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-02-13T19:21:35Z",
+      "side": 1,
+      "message": "That\u0027s an option and it looks Chromium will correctly stop capturing, but Firefox doesn\u0027t handle the error at all and doesn\u0027t stop. It might make sense to extend the enum by a value representing that capturing was ended by the other side, on the other hand that would need an additional change in Chromium so that\u0027s up to you. Otherwise just a simple change to set `capturer_failed_` to true in `OnScreenCastSessionClosed` is enough.\n\nYour second question, why this is implemented only in `DesktopAndCursorComposer` and not other capturers? It\u0027s because this one is a wrapper around `DesktopCapture` used in both Chromium and Firefox so if it\u0027s not propagated there, then the callback will be lost. And I don\u0027t know if other capturers (Windows and MacOS ones) support this, at least on Linux on X11 this doesn\u0027t make any sense.",
+      "parentUuid": "1836c09f_a6d914f1",
+      "revId": "38594108b5e5216f8ada31c35c0a94e28042b963",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Not feeling competent to judge locking patterns in Java, so moving myself to CC.",
       "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6c6f72_d7599c2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2024-02-14T15:47:53Z",
+      "side": 1,
+      "message": "The copy-under-lock also protects us from observers removing themselves when they run. Which I think we lose with your change, as the lock would still be held by the same thread, so wouldn’t prevent the deletion to happen while we’re iterating on the list. Or am I missing something?",
+      "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

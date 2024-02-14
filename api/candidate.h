@@ -91,7 +91,9 @@ class RTC_EXPORT Candidate {
   const std::string& password() const { return password_; }
   void set_password(absl::string_view password) { Assign(password_, password); }
 
-  const std::string& type() const { return type_; }
+  // TODO(tommi): `type()` getter will change to return the enum value.
+  // To get the display name of the type, update callers to use `type_name()`.
+  absl::string_view type() const { return type_; }
   absl::string_view type_name() const;
 
   // Setting the type requires a constant string (e.g.

@@ -16,6 +16,23 @@
       "message": "I wonder if that is testable somehow...",
       "revId": "9db46b98c4b1faebb78184ef372b9e946e67eb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9730207a_8332ad39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-14T10:13:58Z",
+      "side": 1,
+      "message": "Higher level question: Why are these things settable at all?\nWhy can\u0027t we just initialize them at port creation and never touch them again?",
+      "revId": "9db46b98c4b1faebb78184ef372b9e946e67eb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

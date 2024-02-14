@@ -76,6 +76,17 @@ bool Candidate::is_relay() const {
   return type_ == RELAY_PORT_TYPE;
 }
 
+absl::string_view Candidate::type_name() const {
+  // The LOCAL_PORT_TYPE and STUN_PORT_TYPE constants are not the standard type
+  // names, so check for those specifically. For other types, `type_` will have
+  // the correct name.
+  if (is_local())
+    return "host";
+  if (is_stun())
+    return "srflx";
+  return type_;
+}
+
 bool Candidate::IsEquivalent(const Candidate& c) const {
   // We ignore the network name, since that is just debug information, and
   // the priority and the network cost, since they should be the same if the

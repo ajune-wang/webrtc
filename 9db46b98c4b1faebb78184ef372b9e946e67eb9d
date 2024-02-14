@@ -33,6 +33,24 @@
       "message": "Higher level question: Why are these things settable at all?\nWhy can\u0027t we just initialize them at port creation and never touch them again?",
       "revId": "9db46b98c4b1faebb78184ef372b9e946e67eb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "791abde1_c950e151",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-14T10:15:29Z",
+      "side": 1,
+      "message": "Because that would require a change in the constructor which is depended on by projects I can not touch or see :-|",
+      "parentUuid": "9730207a_8332ad39",
+      "revId": "9db46b98c4b1faebb78184ef372b9e946e67eb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -91,17 +91,18 @@ id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)> ObjCVideoDecoderFactory::wrapped_decod
   return decoder_factory_;
 }
 
-std::unique_ptr<VideoDecoder> ObjCVideoDecoderFactory::CreateVideoDecoder(
-    const SdpVideoFormat &format) {
+std::unique_ptr<VideoDecoder> ObjCVideoDecoderFactory::Create(const Environment &env,
+                                                              const SdpVideoFormat &format) {
   NSString *codecName = [NSString stringWithUTF8String:format.name.c_str()];
   for (RTC_OBJC_TYPE(RTCVideoCodecInfo) * codecInfo in decoder_factory_.supportedCodecs) {
     if ([codecName isEqualToString:codecInfo.name]) {
-      id<RTC_OBJC_TYPE(RTCVideoDecoder)> decoder = [decoder_factory_ createDecoder:codecInfo];
+      id<RTC_OBJC_TYPE(RTCVideoDecoder)> decoder = [decoder_factory_ createDecoder:env
+                                                                              info:codecInfo];
 
       if ([decoder isKindOfClass:[RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) class]]) {
         return [(RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) *)decoder releaseWrappedDecoder];
       } else {
-        return std::unique_ptr<ObjCVideoDecoder>(new ObjCVideoDecoder(decoder));
+        return std::make_unique<ObjCVideoDecoder>(decoder);
       }
     }
   }

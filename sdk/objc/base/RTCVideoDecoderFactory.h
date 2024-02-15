@@ -14,6 +14,10 @@
 #import "RTCVideoCodecInfo.h"
 #import "RTCVideoDecoder.h"
 
+namespace webrtc {
+class Environment;
+}
+
 NS_ASSUME_NONNULL_BEGIN
 
 /** RTCVideoDecoderFactory is an Objective-C version of webrtc::VideoDecoderFactory.
@@ -23,7 +27,8 @@ RTC_OBJC_EXPORT
 (RTCVideoDecoderFactory)<NSObject>
 
     - (nullable id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder
-    : (RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info;
+    : (const webrtc::Environment &)env info : (RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info;
+
 - (NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *)
     supportedCodecs;  // TODO(andersc): "supportedFormats" instead?
 

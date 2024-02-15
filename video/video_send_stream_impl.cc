@@ -52,6 +52,7 @@
 #include "call/rtp_config.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "call/video_send_stream.h"
+#include "media/base/media_constants.h"
 #include "modules/pacing/pacing_controller.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -419,6 +420,9 @@ VideoSendStreamImpl::VideoSendStreamImpl(
                     config_.encoder_selector)),
       encoder_feedback_(
           clock,
+          encoder_config.video_format.parameters.find(
+              cricket::kCodecParamPerLayerPictureLossIndication) !=
+              encoder_config.video_format.parameters.end(),
           config_.rtp.ssrcs,
           video_stream_encoder_.get(),
           [this](uint32_t ssrc, const std::vector<uint16_t>& seq_nums) {

@@ -269,7 +269,10 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
           RateControlSettings::ParseFromKeyValueConfig(&field_trials)
               .Vp8BoostBaseLayerQuality()),
       prefer_temporal_support_on_base_layer_(field_trials.IsEnabled(
-          "WebRTC-Video-PreferTemporalSupportOnBaseLayer")) {
+          "WebRTC-Video-PreferTemporalSupportOnBaseLayer")),
+      per_layer_pli_(format.parameters.find(
+                         cricket::kCodecParamPerLayerPictureLossIndication) !=
+                     format.parameters.end()) {
   RTC_DCHECK(primary_factory);
 
   // The adapter is typically created on the worker thread, but operated on
@@ -354,13 +357,17 @@ int SimulcastEncoderAdapter::InitEncode(
   //   (active_streams_count >= 1). SEA creates N=active_streams_count encoders
   //   and configures each to produce a single stream.
 
+  // The use of the nonstandard x-google-per-layer-pli fmtp parameter also
+  // forces the use of the simulcast encoder adapter to support per-layer
+  // handling of PLIs.
+
   int active_streams_count = CountActiveStreams(*codec_settings);
   // If we only have a single active layer it is better to create an encoder
   // with only one configured layer than creating it with all-but-one disabled
   // layers because that way we control scaling.
   bool separate_encoders_needed =
       !encoder_context->encoder().GetEncoderInfo().supports_simulcast ||
-      active_streams_count == 1;
+      active_streams_count == 1 || per_layer_pli_;
   RTC_LOG(LS_INFO) << "[SEA] InitEncode: total_streams_count: "
                    << total_streams_count_
                    << ", active_streams_count: " << active_streams_count

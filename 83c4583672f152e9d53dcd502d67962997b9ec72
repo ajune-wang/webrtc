@@ -16,6 +16,46 @@
       "message": "Erik, could you please take a look?",
       "revId": "83c4583672f152e9d53dcd502d67962997b9ec72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "207eadec_f9a1cd6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-02-15T14:47:12Z",
+      "side": 1,
+      "message": "lgtm\nI would however suggest following up asap with a CL turning layer drop on by default, so that we can find potential edge cases faster. Or possible even do that here, and let the config be a kill-switch instead. Up to you.",
+      "revId": "83c4583672f152e9d53dcd502d67962997b9ec72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "375cbac1_36011175",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-02-15T14:47:12Z",
+      "side": 1,
+      "message": "nit: add comment describing what this does",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "83c4583672f152e9d53dcd502d67962997b9ec72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

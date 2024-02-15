@@ -16,13 +16,13 @@
 #include <string>
 #include <utility>
 
+#include "api/field_trials_view.h"
 #include "api/video/encoded_image.h"
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
-#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -34,6 +34,7 @@ constexpr size_t kMaxConsequtiveHwErrors = 4;
 class VideoDecoderSoftwareFallbackWrapper final : public VideoDecoder {
  public:
   VideoDecoderSoftwareFallbackWrapper(
+      const Environment& env,
       std::unique_ptr<VideoDecoder> sw_fallback_decoder,
       std::unique_ptr<VideoDecoder> hw_decoder);
   ~VideoDecoderSoftwareFallbackWrapper() override;
@@ -59,6 +60,8 @@ class VideoDecoderSoftwareFallbackWrapper final : public VideoDecoder {
 
   VideoDecoder& active_decoder() const;
 
+  const Environment env_;
+
   // Determines if we are trying to use the HW or SW decoder.
   enum class DecoderType {
     kNone,
@@ -76,9 +79,11 @@ class VideoDecoderSoftwareFallbackWrapper final : public VideoDecoder {
 };
 
 VideoDecoderSoftwareFallbackWrapper::VideoDecoderSoftwareFallbackWrapper(
+    const Environment& env,
     std::unique_ptr<VideoDecoder> sw_fallback_decoder,
     std::unique_ptr<VideoDecoder> hw_decoder)
-    : decoder_type_(DecoderType::kNone),
+    : env_(env),
+      decoder_type_(DecoderType::kNone),
       hw_decoder_(std::move(hw_decoder)),
       fallback_decoder_(std::move(sw_fallback_decoder)),
       fallback_implementation_name_(
@@ -94,7 +99,7 @@ VideoDecoderSoftwareFallbackWrapper::~VideoDecoderSoftwareFallbackWrapper() =
 bool VideoDecoderSoftwareFallbackWrapper::Configure(const Settings& settings) {
   decoder_settings_ = settings;
 
-  if (webrtc::field_trial::IsEnabled("WebRTC-Video-ForcedSwDecoderFallback")) {
+  if (env_.field_trials().IsEnabled("WebRTC-Video-ForcedSwDecoderFallback")) {
     RTC_LOG(LS_INFO) << "Forced software decoder fallback enabled.";
     RTC_DCHECK(decoder_type_ == DecoderType::kNone);
     return InitFallbackDecoder();
@@ -276,10 +281,11 @@ VideoDecoder& VideoDecoderSoftwareFallbackWrapper::active_decoder() const {
 }  // namespace
 
 std::unique_ptr<VideoDecoder> CreateVideoDecoderSoftwareFallbackWrapper(
+    const Environment& env,
     std::unique_ptr<VideoDecoder> sw_fallback_decoder,
     std::unique_ptr<VideoDecoder> hw_decoder) {
   return std::make_unique<VideoDecoderSoftwareFallbackWrapper>(
-      std::move(sw_fallback_decoder), std::move(hw_decoder));
+      env, std::move(sw_fallback_decoder), std::move(hw_decoder));
 }
 
 }  // namespace webrtc

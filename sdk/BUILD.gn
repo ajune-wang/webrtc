@@ -123,6 +123,7 @@ if (is_ios || is_mac) {
     ]
 
     deps = [
+      "../api/environment",
       "../rtc_base:checks",
       "../rtc_base:logging",
     ]
@@ -716,7 +717,7 @@ if (is_ios || is_mac) {
     rtc_library("default_codec_factory_objc") {
       sources = [
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.h",
-        "objc/components/video_codec/RTCDefaultVideoDecoderFactory.m",
+        "objc/components/video_codec/RTCDefaultVideoDecoderFactory.mm",
         "objc/components/video_codec/RTCDefaultVideoEncoderFactory.h",
         "objc/components/video_codec/RTCDefaultVideoEncoderFactory.m",
       ]
@@ -769,6 +770,7 @@ if (is_ios || is_mac) {
       deps = [
         ":base_objc",
         ":wrapped_native_codec_objc",
+        "../api/environment",
         "../modules/video_coding:webrtc_vp8",
       ]
     }
@@ -1510,6 +1512,7 @@ if (is_ios || is_mac) {
           ":videocapture_objc",
           ":videocodec_objc",
           ":videotoolbox_objc",
+          "../api/environment",
         ]
         if (!build_with_chromium) {
           deps += [
@@ -1702,7 +1705,7 @@ if (is_ios || is_mac) {
       allow_poison = [ "audio_codecs" ]  # TODO(bugs.webrtc.org/8396): Remove.
       sources = [
         "objc/components/video_codec/RTCVideoDecoderFactoryH264.h",
-        "objc/components/video_codec/RTCVideoDecoderFactoryH264.m",
+        "objc/components/video_codec/RTCVideoDecoderFactoryH264.mm",
         "objc/components/video_codec/RTCVideoDecoderH264.h",
         "objc/components/video_codec/RTCVideoDecoderH264.mm",
         "objc/components/video_codec/RTCVideoEncoderFactoryH264.h",

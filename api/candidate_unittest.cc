@@ -15,14 +15,17 @@
 #include "p2p/base/p2p_constants.h"
 #include "rtc_base/gunit.h"
 
+using webrtc::IceCandidateType;
+
 namespace cricket {
 
 TEST(CandidateTest, Id) {
   Candidate c;
   EXPECT_EQ(c.id().size(), 8u);
-  std::string new_id = "12345678";
-  c.set_id(new_id);
-  EXPECT_EQ(new_id, c.id());
+  std::string current_id = c.id();
+  // Generate a new ID.
+  c.generate_id();
+  EXPECT_NE(current_id, c.id());
 }
 
 TEST(CandidateTest, Component) {
@@ -36,19 +39,19 @@ TEST(CandidateTest, TypeName) {
   Candidate c;
   // The `type_name()` property defaults to "host".
   EXPECT_EQ(c.type_name(), "host");
-  EXPECT_EQ(c.type(), LOCAL_PORT_TYPE);
+  EXPECT_EQ(c.type(), IceCandidateType::kHost);
 
-  c.set_type(STUN_PORT_TYPE);
+  c.set_type(IceCandidateType::kSrflx);
   EXPECT_EQ(c.type_name(), "srflx");
-  EXPECT_EQ(c.type(), STUN_PORT_TYPE);
+  EXPECT_EQ(c.type(), IceCandidateType::kSrflx);
 
-  c.set_type(PRFLX_PORT_TYPE);
+  c.set_type(IceCandidateType::kPrflx);
   EXPECT_EQ(c.type_name(), "prflx");
-  EXPECT_EQ(c.type(), PRFLX_PORT_TYPE);
+  EXPECT_EQ(c.type(), IceCandidateType::kPrflx);
 
-  c.set_type(RELAY_PORT_TYPE);
+  c.set_type(IceCandidateType::kRelay);
   EXPECT_EQ(c.type_name(), "relay");
-  EXPECT_EQ(c.type(), RELAY_PORT_TYPE);
+  EXPECT_EQ(c.type(), IceCandidateType::kRelay);
 }
 
 }  // namespace cricket

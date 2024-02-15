@@ -33,6 +33,24 @@
       "message": "What\u0027s the argument for leaving this one in? I can\u0027t see anything in the CL that accesses it, so it seems to be a non-functional flag.\nIf the reason is because external code accesses it, mark it with [[deprecated]].",
       "revId": "0c43c7ef4ba985d5196363eb0b6839fd7733f280",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34fc4716_a288d857",
+        "filename": "net/dcsctp/public/dcsctp_options.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-02-15T14:35:00Z",
+      "side": 1,
+      "message": "It was used in the internal codebase, but I\u0027m removing that now.",
+      "parentUuid": "927bc2a8_b4dc50bb",
+      "revId": "0c43c7ef4ba985d5196363eb0b6839fd7733f280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

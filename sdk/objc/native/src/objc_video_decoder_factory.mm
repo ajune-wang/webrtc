@@ -18,6 +18,7 @@
 #import "components/video_codec/RTCCodecSpecificInfoH264.h"
 #import "sdk/objc/api/peerconnection/RTCEncodedImage+Private.h"
 #import "sdk/objc/api/peerconnection/RTCVideoCodecInfo+Private.h"
+#import "sdk/objc/api/video_codec/RTCNativeVideoDecoderBuilder+Native.h"
 #import "sdk/objc/api/video_codec/RTCWrappedNativeVideoDecoder.h"
 #import "sdk/objc/helpers/NSString+StdString.h"
 
@@ -91,14 +92,16 @@ id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)> ObjCVideoDecoderFactory::wrapped_decod
   return decoder_factory_;
 }
 
-std::unique_ptr<VideoDecoder> ObjCVideoDecoderFactory::CreateVideoDecoder(
-    const SdpVideoFormat &format) {
+std::unique_ptr<VideoDecoder> ObjCVideoDecoderFactory::Create(const Environment &env,
+                                                              const SdpVideoFormat &format) {
   NSString *codecName = [NSString stringWithUTF8String:format.name.c_str()];
   for (RTC_OBJC_TYPE(RTCVideoCodecInfo) * codecInfo in decoder_factory_.supportedCodecs) {
     if ([codecName isEqualToString:codecInfo.name]) {
       id<RTC_OBJC_TYPE(RTCVideoDecoder)> decoder = [decoder_factory_ createDecoder:codecInfo];
 
-      if ([decoder isKindOfClass:[RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) class]]) {
+      if ([decoder conformsToProtocol:@protocol(RTC_OBJC_TYPE(RTCNativeVideoDecoderBuilder))]) {
+        return [((NSObject<RTC_OBJC_TYPE(RTCNativeVideoDecoderBuilder)> *)decoder) build:env];
+      } else if ([decoder isKindOfClass:[RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) class]]) {
         return [(RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) *)decoder releaseWrappedDecoder];
       } else {
         return std::unique_ptr<ObjCVideoDecoder>(new ObjCVideoDecoder(decoder));

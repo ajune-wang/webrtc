@@ -11,18 +11,25 @@
 #import <Foundation/Foundation.h>
 
 #import "RTCMacros.h"
+#import "RTCVideoCodecInfo.h"
 #import "RTCVideoDecoder.h"
 
 #include "api/environment/environment.h"
 
-RTC_OBJC_EXPORT
-@interface RTC_OBJC_TYPE (RTCVideoDecoderVP8) : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
-/* This returns a VP8 decoder that can be returned from a RTCVideoDecoderFactory injected into
- * RTCPeerConnectionFactory. Even though it implements the RTCVideoDecoder protocol, it can not be
- * used independently from the RTCPeerConnectionFactory.
+/** RTCVideoDecoderFactory is an Objective-C version of webrtc::VideoDecoderFactory.
  */
-+ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder __deprecated;
-+ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder:(const webrtc::Environment&)env;
+RTC_OBJC_EXPORT
+@protocol RTC_OBJC_TYPE
+(RTCVideoDecoderFactory)<NSObject>
+
+    - (nullable id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder
+    : (const webrtc::Environment &)env info : (RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info;
+
+- (NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *)
+    supportedCodecs;  // TODO(andersc): "supportedFormats" instead?
 
 @end
+
+NS_ASSUME_NONNULL_END

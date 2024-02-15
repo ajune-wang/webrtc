@@ -42,7 +42,8 @@
   return [codecs copy];
 }
 
-- (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info {
+- (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder:(const webrtc::Environment&)env
+                                               info:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info {
   return [[RTC_OBJC_TYPE(RTCVideoDecoderH264) alloc] init];
 }
 

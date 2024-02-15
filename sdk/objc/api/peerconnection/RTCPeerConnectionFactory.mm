@@ -23,7 +23,7 @@
 #import "RTCVideoSource+Private.h"
 #import "RTCVideoTrack+Private.h"
 #import "base/RTCLogging.h"
-#import "base/RTCVideoDecoderFactory.h"
+#import "base/RTCVideoDecoderFactory+Native.h"
 #import "base/RTCVideoEncoderFactory.h"
 #import "helpers/NSString+StdString.h"
 #include "rtc_base/checks.h"

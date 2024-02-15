@@ -811,11 +811,11 @@ StatsReport* LegacyStatsCollector::AddConnectionInfoReport(
   report->AddString(StatsReport::kStatsValueNameLocalAddress,
                     info.local_candidate.address().ToString());
   report->AddString(StatsReport::kStatsValueNameLocalCandidateType,
-                    info.local_candidate.type().data());
+                    info.local_candidate.type_name().data());
   report->AddString(StatsReport::kStatsValueNameRemoteAddress,
                     info.remote_candidate.address().ToString());
   report->AddString(StatsReport::kStatsValueNameRemoteCandidateType,
-                    info.remote_candidate.type().data());
+                    info.remote_candidate.type_name().data());
   report->AddString(StatsReport::kStatsValueNameTransportType,
                     info.local_candidate.protocol());
   report->AddString(StatsReport::kStatsValueNameLocalCandidateRelayProtocol,

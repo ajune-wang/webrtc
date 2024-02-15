@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f23a777_71f9481f",
+        "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-15T10:53:51Z",
+      "side": 1,
+      "message": "H265 code should be guarded behind RTC_ENABLE_H265: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/media_session.cc;l\u003d448;drc\u003d974044efca4fc3aa8bea9664aeb5934e0e2303aa.\n\nI am rolling back the CL but is should be easy to reland.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "a2655449ee310704ee2053fd6d43a5ab7002b755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

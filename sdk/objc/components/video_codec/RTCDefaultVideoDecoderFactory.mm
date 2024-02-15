@@ -63,11 +63,12 @@
   return result;
 }
 
-- (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info {
+- (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder:(RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info
+                                                env:(const webrtc::Environment&) env {
   if ([info.name isEqualToString:kRTCVideoCodecH264Name]) {
     return [[RTC_OBJC_TYPE(RTCVideoDecoderH264) alloc] init];
   } else if ([info.name isEqualToString:kRTCVideoCodecVp8Name]) {
-    return [RTC_OBJC_TYPE(RTCVideoDecoderVP8) vp8Decoder];
+    return [RTC_OBJC_TYPE(RTCVideoDecoderVP8) vp8Decoder:env];
   } else if ([info.name isEqualToString:kRTCVideoCodecVp9Name] &&
              [RTC_OBJC_TYPE(RTCVideoDecoderVP9) isSupported]) {
     return [RTC_OBJC_TYPE(RTCVideoDecoderVP9) vp9Decoder];

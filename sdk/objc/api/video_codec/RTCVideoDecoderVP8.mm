@@ -15,13 +15,19 @@
 #import "RTCVideoDecoderVP8.h"
 #import "RTCWrappedNativeVideoDecoder.h"
 
+#include "api/environment/environment.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 
 @implementation RTC_OBJC_TYPE (RTCVideoDecoderVP8)
 
 + (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder {
   return [[RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) alloc]
-      initWithNativeDecoder:std::unique_ptr<webrtc::VideoDecoder>(webrtc::VP8Decoder::Create())];
+      initWithNativeDecoder:webrtc::VP8Decoder::Create()];
+}
+
++ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder:(const webrtc::Environment&)env {
+  return [[RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) alloc]
+      initWithNativeDecoder:webrtc::CreateVp8Decoder(env)];
 }
 
 @end

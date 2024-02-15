@@ -255,7 +255,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     sources = [
       "objc/AppRTCMobile/ARDAppClient+Internal.h",
       "objc/AppRTCMobile/ARDAppClient.h",
-      "objc/AppRTCMobile/ARDAppClient.m",
+      "objc/AppRTCMobile/ARDAppClient.mm",
       "objc/AppRTCMobile/ARDAppEngineClient.h",
       "objc/AppRTCMobile/ARDAppEngineClient.m",
       "objc/AppRTCMobile/ARDCaptureController.h",

@@ -14,7 +14,7 @@
 #include <memory>
 
 #include "api/video_codecs/video_decoder_factory.h"
-#import "base/RTCVideoDecoderFactory.h"
+#import "base/RTCVideoDecoderFactory+Native.h"
 
 namespace webrtc {
 

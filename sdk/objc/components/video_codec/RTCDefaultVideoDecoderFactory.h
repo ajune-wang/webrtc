@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 
 #import "RTCMacros.h"
-#import "RTCVideoDecoderFactory.h"
+#import "RTCVideoDecoderFactory+Native.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

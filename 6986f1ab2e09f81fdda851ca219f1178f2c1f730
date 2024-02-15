@@ -16,6 +16,24 @@
       "message": "Approach to API change seems reasonable.\nI assume that there will be a period of time when the type() accessor doesn\u0027t exist, and after that the type() accessor will be added to return an enum.",
       "revId": "6986f1ab2e09f81fdda851ca219f1178f2c1f730",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a89e59b_379307f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-15T09:17:09Z",
+      "side": 1,
+      "message": "There are a few cases where the type() accessor is used in a way that\u0027s future compatible, so I think that once type_name() has been made available, we can change type() to be an enum without first removing it. For downstream projects, that will either trigger a compilation error that developers can react to, or, in the case where the code is future compatible, work as before.\nE.g. code like this:\n```\nCandidate a \u003d ...\nCandidate b \u003d ...\nif (a.type() \u003d\u003d b.type()) {\n  ...\n}\n```",
+      "parentUuid": "5b48a51c_258064d0",
+      "revId": "6986f1ab2e09f81fdda851ca219f1178f2c1f730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

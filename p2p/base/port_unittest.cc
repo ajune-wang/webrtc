@@ -3775,7 +3775,8 @@ TEST_F(PortTest, TestAddConnectionWithSameAddress) {
   port->PrepareAddress();
   EXPECT_EQ(1u, port->Candidates().size());
   rtc::SocketAddress address("1.1.1.1", 5000);
-  cricket::Candidate candidate(1, "udp", address, 0, "", "", "relay", 0, "");
+  cricket::Candidate candidate(1, "udp", address, 0, "", "",
+                               IceCandidateType::kRelay, 0, "");
   cricket::Connection* conn1 =
       port->CreateConnection(candidate, Port::ORIGIN_MESSAGE);
   cricket::Connection* conn_in_use = port->GetConnection(address);

@@ -8,25 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import <Foundation/Foundation.h>
+#ifdef __cplusplus
 
-#import "RTCMacros.h"
-#import "RTCVideoCodecInfo.h"
-#import "RTCVideoDecoder.h"
+#import "RTCVideoDecoderFactory+Native.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-/** RTCVideoDecoderFactory is an Objective-C version of webrtc::VideoDecoderFactory.
- */
-RTC_OBJC_EXPORT
-@protocol RTC_OBJC_TYPE
-(RTCVideoDecoderFactory)<NSObject>
-
-    - (nullable id<RTC_OBJC_TYPE(RTCVideoDecoder)>)createDecoder
-    : (RTC_OBJC_TYPE(RTCVideoCodecInfo) *)info;
-- (NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *)
-    supportedCodecs;  // TODO(andersc): "supportedFormats" instead?
-
-@end
-
-NS_ASSUME_NONNULL_END
+#endif

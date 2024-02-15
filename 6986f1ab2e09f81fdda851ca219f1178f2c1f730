@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b48a51c_258064d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-15T08:33:46Z",
+      "side": 1,
+      "message": "Approach to API change seems reasonable.\nI assume that there will be a period of time when the type() accessor doesn\u0027t exist, and after that the type() accessor will be added to return an enum.",
+      "revId": "6986f1ab2e09f81fdda851ca219f1178f2c1f730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

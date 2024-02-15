@@ -13,6 +13,8 @@
 #import "RTCMacros.h"
 #import "RTCVideoDecoder.h"
 
+#include "api/environment/environment.h"
+
 RTC_OBJC_EXPORT
 @interface RTC_OBJC_TYPE (RTCVideoDecoderVP8) : NSObject
 
@@ -20,6 +22,7 @@ RTC_OBJC_EXPORT
  * RTCPeerConnectionFactory. Even though it implements the RTCVideoDecoder protocol, it can not be
  * used independently from the RTCPeerConnectionFactory.
  */
-+ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder;
++ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder __deprecated;
++ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp8Decoder:(const webrtc::Environment&)env;
 
 @end

@@ -1413,10 +1413,11 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
   }
 
   if (ice_field_trials_.skip_relay_to_non_relay_connections) {
-    if ((port->Type() != remote_candidate.type()) &&
+    if ((port->Type() != remote_candidate.type_name()) &&
         (port->Type() == RELAY_PORT_TYPE || remote_candidate.is_relay())) {
       RTC_LOG(LS_INFO) << ToString() << ": skip creating connection "
-                       << port->Type() << " to " << remote_candidate.type();
+                       << port->Type() << " to "
+                       << remote_candidate.type_name();
       return false;
     }
   }

@@ -91,7 +91,9 @@ class RTC_EXPORT Candidate {
   const std::string& password() const { return password_; }
   void set_password(absl::string_view password) { Assign(password_, password); }
 
-  const std::string& type() const { return type_; }
+  // TODO(tommi): `type()` getter will change to return the enum value.
+  // To get the display name of the type, update callers to use `type_name()`.
+  absl::string_view type() const { return type_; }
 
   // Returns the name of the candidate type as specified in
   // https://datatracker.ietf.org/doc/html/rfc5245#section-15.1
@@ -101,9 +103,7 @@ class RTC_EXPORT Candidate {
   // cricket::LOCAL_PORT_TYPE). The type should really be an enum rather than a
   // string, but until we make that change the lifetime attribute helps us lock
   // things down. See also the `Port` class.
-  void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
-    Assign(type_, type);
-  }
+  void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
 
   // Provide these simple checkers to abstract away dependency on the port types
   // that are currently defined outside of Candidate. This will ease the change
@@ -232,7 +232,7 @@ class RTC_EXPORT Candidate {
   uint32_t priority_;
   std::string username_;
   std::string password_;
-  std::string type_;
+  absl::string_view type_;
   std::string network_name_;
   rtc::AdapterType network_type_;
   rtc::AdapterType underlying_type_for_vpn_;

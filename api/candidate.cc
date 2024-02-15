@@ -64,6 +64,12 @@ Candidate::Candidate(const Candidate&) = default;
 
 Candidate::~Candidate() = default;
 
+void Candidate::set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
+  RTC_DCHECK(type == LOCAL_PORT_TYPE || type == STUN_PORT_TYPE ||
+             type == PRFLX_PORT_TYPE || type == RELAY_PORT_TYPE);
+  type_ = type;
+}
+
 bool Candidate::is_local() const {
   return type_ == LOCAL_PORT_TYPE;
 }
@@ -112,9 +118,10 @@ std::string Candidate::ToStringInternal(bool sensitive) const {
   std::string related_address = sensitive ? related_address_.ToSensitiveString()
                                           : related_address_.ToString();
   ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address << ":" << username_ << ":" << password_ << ":"
-      << network_id_ << ":" << network_cost_ << ":" << generation_ << "]";
+      << ":" << protocol_ << ":" << priority_ << ":" << address << ":"
+      << type_name() << ":" << related_address << ":" << username_ << ":"
+      << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
+      << generation_ << "]";
   return ost.Release();
 }
 

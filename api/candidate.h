@@ -42,13 +42,21 @@ RTC_EXPORT extern const absl::string_view RELAY_PORT_TYPE;
 static constexpr size_t kMaxTurnServers = 32;
 
 // Candidate for ICE based connection discovery.
-// TODO(phoglund): remove things in here that are not needed in the public API.
-
 class RTC_EXPORT Candidate {
  public:
   Candidate();
-  // TODO(pthatcher): Match the ordering and param list as per RFC 5245
-  // candidate-attribute syntax. http://tools.ietf.org/html/rfc5245#section-15.1
+  Candidate(int component,
+            absl::string_view protocol,
+            const rtc::SocketAddress& address,
+            uint32_t priority,
+            absl::string_view username,
+            absl::string_view password,
+            webrtc::IceCandidateType type,
+            uint32_t generation,
+            absl::string_view foundation,
+            uint16_t network_id = 0,
+            uint16_t network_cost = 0);
+  // TODO(tommi): Deprecate.
   Candidate(int component,
             absl::string_view protocol,
             const rtc::SocketAddress& address,
@@ -63,8 +71,10 @@ class RTC_EXPORT Candidate {
   Candidate(const Candidate&);
   ~Candidate();
 
+  // 8 character long randomized ID string for logging purposes.
   const std::string& id() const { return id_; }
-  void set_id(absl::string_view id) { Assign(id_, id); }
+  // Generates a new, 8 character long, id.
+  void generate_id();
 
   int component() const { return component_; }
   void set_component(int component) { component_ = component; }
@@ -91,9 +101,7 @@ class RTC_EXPORT Candidate {
   const std::string& password() const { return password_; }
   void set_password(absl::string_view password) { Assign(password_, password); }
 
-  // TODO(tommi): `type()` getter will change to return the enum value.
-  // To get the display name of the type, update callers to use `type_name()`.
-  absl::string_view type() const { return type_; }
+  webrtc::IceCandidateType type() const { return type_; }
 
   // Returns the name of the candidate type as specified in
   // https://datatracker.ietf.org/doc/html/rfc5245#section-15.1
@@ -103,6 +111,9 @@ class RTC_EXPORT Candidate {
   // cricket::LOCAL_PORT_TYPE). The type should really be an enum rather than a
   // string, but until we make that change the lifetime attribute helps us lock
   // things down. See also the `Port` class.
+  void set_type(webrtc::IceCandidateType type) { type_ = type; }
+
+  // TODO(tommi): Deprecate.
   void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
 
   // Provide these simple checkers to abstract away dependency on the port types
@@ -232,7 +243,7 @@ class RTC_EXPORT Candidate {
   uint32_t priority_;
   std::string username_;
   std::string password_;
-  absl::string_view type_;
+  webrtc::IceCandidateType type_ = webrtc::IceCandidateType::kHost;
   std::string network_name_;
   rtc::AdapterType network_type_;
   rtc::AdapterType underlying_type_for_vpn_;

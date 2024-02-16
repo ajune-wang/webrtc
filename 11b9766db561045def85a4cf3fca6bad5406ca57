@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb18ca7_c76d987f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-02-16T10:51:14Z",
+      "side": 1,
+      "message": "Erik, could you please take another look?\n\nI realized that dependency descriptor may not be enough. If flexible mode is not enabled then refs in dependency descriptor and payload descriptor may get out-of-sync. We need flexible mode for layer-drop.",
+      "revId": "11b9766db561045def85a4cf3fca6bad5406ca57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

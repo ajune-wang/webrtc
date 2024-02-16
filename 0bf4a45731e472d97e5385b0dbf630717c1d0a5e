@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8961e8fd_74f30e53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-16T13:58:03Z",
+      "side": 1,
+      "message": "Is this an appropriate way to propagate c++ reference through objc, or is there some better way? (I know very little about objc)\n\nI\u0027ve also tried more streightforward approach of propagating through RTCVideoDecoderFactory protocol\nhttps://webrtc-review.googlesource.com/c/src/+/339863\nbut that pulls in c++ specific header, and start to require all users to move from .m to .mm\n\nAlso, this way is similar to how android sdk propagates same parameter.",
+      "revId": "0bf4a45731e472d97e5385b0dbf630717c1d0a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

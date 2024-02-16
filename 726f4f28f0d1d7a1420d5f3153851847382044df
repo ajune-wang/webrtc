@@ -142,6 +142,30 @@
       },
       "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f13c38b4_f483b84d",
+        "filename": "modules/video_coding/h265_parameter_sets_tracker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-02-16T03:30:38Z",
+      "side": 1,
+      "message": "\u003e Any comments from other reviewers? If it is agreed that VEA needs to handle VPS/SPS/PPS repeat by themselves, I\u0027ll drop this and move the logic to chromium/media.\n\nI\u0027m not a reviewer of this CL, but I have an opinion.\nIf WebRTC is going to use H.265, then I believe placing the helper subroutines for H.265 in the WebRTC repo, rather than chromium/media, would be a better choice. The reason is that chromium/media isn\u0027t the only place where such logic might be used. For example, Android/iOS HW codecs may also need to use the same helper subroutines, and they are located in WebRTC\u0027s `sdk` directory.\nWhen Chromium\u0027s media stack needs this logic, adding `RTC_EXPORT` to the helper subroutines should be enough for them to be used in chromium/media.",
+      "parentUuid": "58d27bdc_74a64e1f",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

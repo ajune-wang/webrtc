@@ -811,11 +811,11 @@ StatsReport* LegacyStatsCollector::AddConnectionInfoReport(
   report->AddString(StatsReport::kStatsValueNameLocalAddress,
                     info.local_candidate.address().ToString());
   report->AddString(StatsReport::kStatsValueNameLocalCandidateType,
-                    info.local_candidate.type());
+                    std::string(info.local_candidate.type()));
   report->AddString(StatsReport::kStatsValueNameRemoteAddress,
                     info.remote_candidate.address().ToString());
   report->AddString(StatsReport::kStatsValueNameRemoteCandidateType,
-                    info.remote_candidate.type());
+                    std::string(info.remote_candidate.type()));
   report->AddString(StatsReport::kStatsValueNameTransportType,
                     info.local_candidate.protocol());
   report->AddString(StatsReport::kStatsValueNameLocalCandidateRelayProtocol,

@@ -40,6 +40,8 @@
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
+using webrtc::IceCandidateType;
+
 namespace cricket {
 namespace {
 
@@ -93,7 +95,7 @@ const char TCPTYPE_ACTIVE_STR[] = "active";
 const char TCPTYPE_PASSIVE_STR[] = "passive";
 const char TCPTYPE_SIMOPEN_STR[] = "so";
 
-std::string Port::ComputeFoundation(absl::string_view type,
+std::string Port::ComputeFoundation(IceCandidateType type,
                                     absl::string_view protocol,
                                     absl::string_view relay_protocol,
                                     const rtc::SocketAddress& base_address) {
@@ -253,7 +255,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       absl::string_view protocol,
                       absl::string_view relay_protocol,
                       absl::string_view tcptype,
-                      absl::string_view type,
+                      IceCandidateType type,
                       uint32_t type_preference,
                       uint32_t relay_preference,
                       absl::string_view url,

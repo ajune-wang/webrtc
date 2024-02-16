@@ -397,7 +397,7 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
                   absl::string_view protocol,
                   absl::string_view relay_protocol,
                   absl::string_view tcptype,
-                  absl::string_view type,
+                  webrtc::IceCandidateType type,
                   uint32_t type_preference,
                   uint32_t relay_preference,
                   absl::string_view url,

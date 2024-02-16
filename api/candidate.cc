@@ -52,17 +52,36 @@ Candidate::Candidate(int component,
       priority_(priority),
       username_(username),
       password_(password),
-      type_(type),
       network_type_(rtc::ADAPTER_TYPE_UNKNOWN),
       underlying_type_for_vpn_(rtc::ADAPTER_TYPE_UNKNOWN),
       generation_(generation),
       foundation_(foundation),
       network_id_(network_id),
-      network_cost_(network_cost) {}
+      network_cost_(network_cost) {
+  // Call `set_type()` in case `type` is a view into a dynamically allocated
+  // string.
+  set_type(type);
+}
 
 Candidate::Candidate(const Candidate&) = default;
 
 Candidate::~Candidate() = default;
+
+void Candidate::set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
+  // Make sure that we only assign static values to `type_`. Although we're
+  // using `ABSL_ATTRIBUTE_LIFETIME_BOUND`, that doesn't catch all cases.
+  if (type == LOCAL_PORT_TYPE) {
+    type_ = LOCAL_PORT_TYPE;
+  } else if (type == STUN_PORT_TYPE) {
+    type_ = STUN_PORT_TYPE;
+  } else if (type == PRFLX_PORT_TYPE) {
+    type_ = PRFLX_PORT_TYPE;
+  } else if (type == RELAY_PORT_TYPE) {
+    type_ = RELAY_PORT_TYPE;
+  } else {
+    RTC_DCHECK_NOTREACHED();
+  }
+}
 
 bool Candidate::is_local() const {
   return type_ == LOCAL_PORT_TYPE;
@@ -112,9 +131,10 @@ std::string Candidate::ToStringInternal(bool sensitive) const {
   std::string related_address = sensitive ? related_address_.ToSensitiveString()
                                           : related_address_.ToString();
   ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address << ":" << username_ << ":" << password_ << ":"
-      << network_id_ << ":" << network_cost_ << ":" << generation_ << "]";
+      << ":" << protocol_ << ":" << priority_ << ":" << address << ":"
+      << type_name() << ":" << related_address << ":" << username_ << ":"
+      << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
+      << generation_ << "]";
   return ost.Release();
 }
 

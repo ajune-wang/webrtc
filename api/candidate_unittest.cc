@@ -49,6 +49,18 @@ TEST(CandidateTest, TypeName) {
   c.set_type(RELAY_PORT_TYPE);
   EXPECT_EQ(c.type_name(), "relay");
   EXPECT_EQ(c.type(), RELAY_PORT_TYPE);
+  {
+    // Even though we're using `ABSL_ATTRIBUTE_LIFETIME_BOUND`, that doesn't
+    // catch cases like this where a view to a string whose scope is narrower
+    // than that of `c`. The type should still be set and the internally stored
+    // type should not point to the
+    std::string out_of_scope_type(PRFLX_PORT_TYPE);
+    c.set_type(out_of_scope_type);
+    EXPECT_NE(out_of_scope_type.data(), c.type_name().data());
+  }
+  // Even though `out_of_scope_type` is now gone, the type should still be
+  // correct.
+  EXPECT_EQ(c.type_name(), "prflx");
 }
 
 }  // namespace cricket

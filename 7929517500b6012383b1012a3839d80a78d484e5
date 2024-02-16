@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78918f1b_2d67481d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-02-16T20:09:06Z",
+      "side": 1,
+      "message": "See discussion in https://webrtc-review.googlesource.com/c/src/+/336303 for the motivation behind this change. The plan is to commit this CL first, then that one.",
+      "revId": "7929517500b6012383b1012a3839d80a78d484e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

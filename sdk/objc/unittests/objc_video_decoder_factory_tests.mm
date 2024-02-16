@@ -14,6 +14,7 @@
 
 #include "sdk/objc/native/src/objc_video_decoder_factory.h"
 
+#include "api/environment/environment_factory.h"
 #import "base/RTCMacros.h"
 #import "base/RTCVideoDecoder.h"
 #import "base/RTCVideoDecoderFactory.h"
@@ -51,7 +52,8 @@ id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)> CreateErrorDecoderFactory() {
 std::unique_ptr<webrtc::VideoDecoder> GetObjCDecoder(
     id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)> factory) {
   webrtc::ObjCVideoDecoderFactory decoder_factory(factory);
-  return decoder_factory.CreateVideoDecoder(webrtc::SdpVideoFormat(cricket::kH264CodecName));
+  return decoder_factory.Create(webrtc::CreateEnvironment(),
+                                webrtc::SdpVideoFormat(cricket::kH264CodecName));
 }
 
 #pragma mark -

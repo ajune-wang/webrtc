@@ -50,6 +50,24 @@
       "message": "There are more than 100 usages of webrtc::AudioLevel in downstream sources, so two weeks may be a bit optimistic. Do you have a Googler signed up to do this job?",
       "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0bf8759_58bd8653",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-17T12:31:42Z",
+      "side": 1,
+      "message": "I can do it, update looks trivial, so two weeks seems realistic to me,\n\nbtw, if you wait until next chromium import into webrtc with latest abseil version (day or two), and use ABSL_DEPRECATE_AND_INLINE() instead of [[deprecated]], then those downstream updates can be done mostly automatically.\n\n```\n#include \"absl/base/macros.h\"\n...\nusing AudioLevel ABSL_DEPRECATE_AND_INLINE() \u003d AudioLevelExtension;\n```",
+      "parentUuid": "c19aa466_f0a82700",
+      "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

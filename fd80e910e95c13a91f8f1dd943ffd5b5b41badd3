@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcbd6cf7_b70518fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-17T10:00:58Z",
+      "side": 1,
+      "message": "I do like this, but I think the progress description is a bit optimistic.",
+      "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcab3960_951c3038",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-17T10:00:58Z",
+      "side": 1,
+      "message": "This header needs a file-level comment. The comment should probably say that the classes defined here are defining RTP header extensions, need to be defined in a way that is compatible with them being arguments to \u003cwhatever template is used with these classes\u003e, and that new classes should have names ending with \"Extension\".\n\n(Possibly with a TODO to rename non-\"extension\" classes to \"Extension\".",
+      "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c19aa466_f0a82700",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-17T10:00:58Z",
+      "side": 1,
+      "message": "There are more than 100 usages of webrtc::AudioLevel in downstream sources, so two weeks may be a bit optimistic. Do you have a Googler signed up to do this job?",
+      "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

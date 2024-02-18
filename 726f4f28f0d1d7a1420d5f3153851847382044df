@@ -166,6 +166,30 @@
       },
       "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad3e3401_543e07e5",
+        "filename": "modules/video_coding/h265_parameter_sets_tracker.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-02-18T02:55:38Z",
+      "side": 1,
+      "message": "Per offline discussion with WebRTC team, we will move this to blink|rtc_video_encoder. With this we are still able to cover output from all VEAs that handles HW encoding of H.265",
+      "parentUuid": "f13c38b4_f483b84d",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "726f4f28f0d1d7a1420d5f3153851847382044df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

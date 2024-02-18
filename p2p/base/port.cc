@@ -40,9 +40,12 @@
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
+using webrtc::IceCandidateType;
+
 namespace cricket {
 namespace {
 
+using ::webrtc::IceCandidateType;
 using ::webrtc::RTCError;
 using ::webrtc::RTCErrorType;
 using ::webrtc::TaskQueueBase;
@@ -85,6 +88,17 @@ absl::optional<ProtocolType> StringToProto(absl::string_view proto_name) {
     }
   }
   return absl::nullopt;
+}
+
+IceCandidateType PortTypeToIceCandidateType(const absl::string_view type) {
+  if (type == LOCAL_PORT_TYPE)
+    return IceCandidateType::kHost;
+  if (type == STUN_PORT_TYPE)
+    return IceCandidateType::kSrflx;
+  if (type == PRFLX_PORT_TYPE)
+    return IceCandidateType::kPrflx;
+  RTC_DCHECK_EQ(type, RELAY_PORT_TYPE);
+  return IceCandidateType::kRelay;
 }
 
 // RFC 6544, TCP candidate encoding rules.
@@ -253,17 +267,19 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       absl::string_view protocol,
                       absl::string_view relay_protocol,
                       absl::string_view tcptype,
-                      absl::string_view type,
+                      IceCandidateType type,
                       uint32_t type_preference,
                       uint32_t relay_preference,
                       absl::string_view url,
                       bool is_final) {
   RTC_DCHECK_RUN_ON(thread_);
 
-  std::string foundation =
-      ComputeFoundation(type, protocol, relay_protocol, base_address);
   Candidate c(component_, protocol, address, 0U, username_fragment(), password_,
-              type, generation_, foundation, network_->id(), network_cost_);
+              type, generation_, "", network_->id(), network_cost_);
+  c.set_relay_protocol(relay_protocol);
+  std::string foundation = ComputeFoundation(c.type_name(), c.protocol(),
+                                             relay_protocol, base_address);
+  c.set_foundation(foundation);
 
 #if RTC_DCHECK_IS_ON
   if (protocol == TCP_PROTOCOL_NAME && c.is_local()) {
@@ -271,7 +287,6 @@ void Port::AddAddress(const rtc::SocketAddress& address,
   }
 #endif
 
-  c.set_relay_protocol(relay_protocol);
   c.set_priority(
       c.GetPriority(type_preference, network_->preference(), relay_preference,
                     field_trials_->IsEnabled(

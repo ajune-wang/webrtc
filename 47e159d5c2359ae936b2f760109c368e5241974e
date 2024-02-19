@@ -51,6 +51,24 @@
       "parentUuid": "ae4618c5_596b5fc0",
       "revId": "47e159d5c2359ae936b2f760109c368e5241974e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce68813_7eb37651",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-02-19T14:30:55Z",
+      "side": 1,
+      "message": "We use C++ observers\n\nI\u0027m not 100% sure if this wouldn\u0027t be possible in C++, or just very cumbersome. The problem is that the C++ modules might be torn down while we\u0027re iterating - and in that case, we\u0027re basically trying to dereference a dangling pointer\nIt\u0027s possible that if we make this pointer a weak_ptr we can validate whether it\u0027s still alive on the C++ side, but TBH I haven\u0027t looked into that much, since the Java solution seemed pretty clean\n\nIf you think trying to solve this on the C++ side is better then let me know and I\u0027ll look into it",
+      "parentUuid": "ba554ee1_6660254f",
+      "revId": "47e159d5c2359ae936b2f760109c368e5241974e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

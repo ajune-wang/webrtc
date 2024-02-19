@@ -33,6 +33,41 @@
       "message": "The copy-under-lock also protects us from observers removing themselves when they run. Which I think we lose with your change, as the lock would still be held by the same thread, so wouldn’t prevent the deletion to happen while we’re iterating on the list. Or am I missing something?",
       "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c84bd2_6477e55c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-02-19T14:30:55Z",
+      "side": 1,
+      "message": "I\u0027m not completely sure if I\u0027m understanding the scenario correctly, but if I am, then I don\u0027t think this is an issue\nNote that the lock is held in Java, while the actual observers are executed in C++ on the network thread. If a C++ observer tried to unregister itself via a JNI call, that call would get blocked on the lock on line 169 (in `stopMonitoring`), until the current handling loop is done.\n(in other words, AFAICT these are different threads due to the shimming to the network thread)",
+      "parentUuid": "7a6c6f72_d7599c2c",
+      "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16041358_7fb1a505",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-02-19T14:30:55Z",
+      "side": 1,
+      "message": "Added some more details per the comments and question",
+      "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

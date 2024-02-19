@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "411934ba_9785dc2d",
+        "filename": "api/candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-19T12:53:50Z",
+      "side": 1,
+      "message": "Not sure I understand the purpose. Why would we want to generate a new id? Maybe Jonas is better reviewer.",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "aabea78e7ddacd894e18fb4bb7350e0af73de518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

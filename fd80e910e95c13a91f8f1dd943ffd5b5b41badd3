@@ -68,6 +68,24 @@
       "parentUuid": "c19aa466_f0a82700",
       "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02386803_1bbb936c",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-02-19T06:18:04Z",
+      "side": 1,
+      "message": "Thanks Danil for doing the change on your end. Will add ABSL_DEPRECATE_AND_INLINE once the new abseil is imported.",
+      "parentUuid": "b0bf8759_58bd8653",
+      "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

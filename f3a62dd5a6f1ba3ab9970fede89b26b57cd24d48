@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c23fd8bf_8f22a341",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-19T15:04:17Z",
+      "side": 1,
+      "message": "side note:\n\nwould be nice if there would be a class comment that links the spec(s) this class implements.\nOtherwise it far from trivial to see why it is not just IDR and CRA, but also BLA and RSV that are treated as key frames/ aka beginning of the coded video sequence.",
+      "revId": "f3a62dd5a6f1ba3ab9970fede89b26b57cd24d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f88d6d12_36e4b4f6",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h265_unittest.cc",
         "patchSetId": 1

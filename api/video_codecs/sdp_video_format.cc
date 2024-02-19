@@ -20,90 +20,13 @@
 #endif
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/vp9_profile.h"
+#include "media/base/codec_comparison.h"
 #include "media/base/media_constants.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
-
-namespace {
-
-std::string GetFmtpParameterOrDefault(const CodecParameterMap& params,
-                                      const std::string& name,
-                                      const std::string& default_value) {
-  const auto it = params.find(name);
-  if (it != params.end()) {
-    return it->second;
-  }
-  return default_value;
-}
-
-std::string H264GetPacketizationModeOrDefault(const CodecParameterMap& params) {
-  // If packetization-mode is not present, default to "0".
-  // https://tools.ietf.org/html/rfc6184#section-6.2
-  return GetFmtpParameterOrDefault(params, cricket::kH264FmtpPacketizationMode,
-                                   "0");
-}
-
-bool H264IsSamePacketizationMode(const CodecParameterMap& left,
-                                 const CodecParameterMap& right) {
-  return H264GetPacketizationModeOrDefault(left) ==
-         H264GetPacketizationModeOrDefault(right);
-}
-
-std::string AV1GetTierOrDefault(const CodecParameterMap& params) {
-  // If the parameter is not present, the tier MUST be inferred to be 0.
-  // https://aomediacodec.github.io/av1-rtp-spec/#72-sdp-parameters
-  return GetFmtpParameterOrDefault(params, cricket::kAv1FmtpTier, "0");
-}
-
-bool AV1IsSameTier(const CodecParameterMap& left,
-                   const CodecParameterMap& right) {
-  return AV1GetTierOrDefault(left) == AV1GetTierOrDefault(right);
-}
-
-std::string AV1GetLevelIdxOrDefault(const CodecParameterMap& params) {
-  // If the parameter is not present, it MUST be inferred to be 5 (level 3.1).
-  // https://aomediacodec.github.io/av1-rtp-spec/#72-sdp-parameters
-  return GetFmtpParameterOrDefault(params, cricket::kAv1FmtpLevelIdx, "5");
-}
-
-bool AV1IsSameLevelIdx(const CodecParameterMap& left,
-                       const CodecParameterMap& right) {
-  return AV1GetLevelIdxOrDefault(left) == AV1GetLevelIdxOrDefault(right);
-}
-
-// Some (video) codecs are actually families of codecs and rely on parameters
-// to distinguish different incompatible family members.
-bool IsSameCodecSpecific(const SdpVideoFormat& format1,
-                         const SdpVideoFormat& format2) {
-  // The assumption when calling this function is that the two formats have the
-  // same name.
-  RTC_DCHECK(absl::EqualsIgnoreCase(format1.name, format2.name));
-
-  VideoCodecType codec_type = PayloadStringToCodecType(format1.name);
-  switch (codec_type) {
-    case kVideoCodecH264:
-      return H264IsSameProfile(format1.parameters, format2.parameters) &&
-             H264IsSamePacketizationMode(format1.parameters,
-                                         format2.parameters);
-    case kVideoCodecVP9:
-      return VP9IsSameProfile(format1.parameters, format2.parameters);
-    case kVideoCodecAV1:
-      return AV1IsSameProfile(format1.parameters, format2.parameters) &&
-             AV1IsSameTier(format1.parameters, format2.parameters) &&
-             AV1IsSameLevelIdx(format1.parameters, format2.parameters);
-#ifdef RTC_ENABLE_H265
-    case kVideoCodecH265:
-      return H265IsSameProfileTierLevel(format1.parameters, format2.parameters);
-#endif
-    default:
-      return true;
-  }
-}
-
-}  // namespace
 
 SdpVideoFormat::SdpVideoFormat(const std::string& name) : name(name) {}
 
@@ -155,8 +78,8 @@ std::string SdpVideoFormat::ToString() const {
 bool SdpVideoFormat::IsSameCodec(const SdpVideoFormat& other) const {
   // Two codecs are considered the same if the name matches (case insensitive)
   // and certain codec-specific parameters match.
-  return absl::EqualsIgnoreCase(name, other.name) &&
-         IsSameCodecSpecific(*this, other);
+  return cricket::IsSameCodecSpecific(name, parameters, other.name,
+                                      other.parameters);
 }
 
 bool SdpVideoFormat::IsCodecInList(

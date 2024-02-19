@@ -244,12 +244,28 @@ rtc_source_set("media_channel") {
   ]
 }
 
+rtc_library("codec_comparison") {
+  sources = [
+    "base/codec_comparison.cc",
+    "base/codec_comparison.h",
+  ]
+  deps = [
+    ":media_constants",
+    "../api/video_codecs:codec_specifics",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_library("codec") {
   sources = [
     "base/codec.cc",
     "base/codec.h",
   ]
   deps = [
+    ":codec_comparison",
     ":media_constants",
     "../api:rtp_parameters",
     "../api/audio_codecs:audio_codecs_api",

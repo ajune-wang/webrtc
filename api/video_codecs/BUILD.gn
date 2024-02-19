@@ -41,13 +41,28 @@ rtc_source_set("scalability_mode_helper") {
   ]
 }
 
-rtc_library("video_codecs_api") {
+rtc_library("codec_specifics") {
   visibility = [ "*" ]
   sources = [
     "av1_profile.cc",
     "av1_profile.h",
     "h264_profile_level_id.cc",
     "h264_profile_level_id.h",
+    "vp9_profile.cc",
+    "vp9_profile.h",
+  ]
+  if (rtc_use_h265) {
+    sources += [
+      "h265_profile_tier_level.cc",
+      "h265_profile_tier_level.h",
+    ]
+  }
+  deps = [ "../../media:media_constants" ]
+}
+
+rtc_library("video_codecs_api") {
+  visibility = [ "*" ]
+  sources = [
     "sdp_video_format.cc",
     "sdp_video_format.h",
     "simulcast_stream.cc",
@@ -68,23 +83,16 @@ rtc_library("video_codecs_api") {
     "vp8_frame_config.h",
     "vp8_temporal_layers.cc",
     "vp8_temporal_layers.h",
-    "vp9_profile.cc",
-    "vp9_profile.h",
   ]
 
-  if (rtc_use_h265) {
-    sources += [
-      "h265_profile_tier_level.cc",
-      "h265_profile_tier_level.h",
-    ]
-  }
-
   deps = [
+    ":codec_specifics",
     ":scalability_mode",
     "..:fec_controller_api",
     "..:scoped_refptr",
     "../../api:array_view",
     "../../api:rtp_parameters",
+    "../../media:codec_comparison",
     "../../media:media_constants",
     "../../modules/video_coding:codec_globals_headers",
     "../../rtc_base:checks",

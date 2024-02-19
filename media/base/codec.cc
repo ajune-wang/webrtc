@@ -13,12 +13,8 @@
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
 #include "api/audio_codecs/audio_format.h"
-#include "api/video_codecs/av1_profile.h"
 #include "api/video_codecs/h264_profile_level_id.h"
-#ifdef RTC_ENABLE_H265
-#include "api/video_codecs/h265_profile_tier_level.h"
-#endif
-#include "api/video_codecs/vp9_profile.h"
+#include "media/base/codec_comparison.h"
 #include "media/base/media_constants.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -26,71 +22,6 @@
 #include "rtc_base/strings/string_builder.h"
 
 namespace cricket {
-namespace {
-
-std::string GetH264PacketizationModeOrDefault(
-    const webrtc::CodecParameterMap& params) {
-  auto it = params.find(kH264FmtpPacketizationMode);
-  if (it != params.end()) {
-    return it->second;
-  }
-  // If packetization-mode is not present, default to "0".
-  // https://tools.ietf.org/html/rfc6184#section-6.2
-  return "0";
-}
-
-bool IsSameH264PacketizationMode(const webrtc::CodecParameterMap& left,
-                                 const webrtc::CodecParameterMap& right) {
-  return GetH264PacketizationModeOrDefault(left) ==
-         GetH264PacketizationModeOrDefault(right);
-}
-
-#ifdef RTC_ENABLE_H265
-std::string GetH265TxModeOrDefault(const webrtc::CodecParameterMap& params) {
-  auto it = params.find(kH265FmtpTxMode);
-  if (it != params.end()) {
-    return it->second;
-  }
-  // If TxMode is not present, a value of "SRST" must be inferred.
-  // https://tools.ietf.org/html/rfc7798@section-7.1
-  return "SRST";
-}
-
-bool IsSameH265TxMode(const webrtc::CodecParameterMap& left,
-                      const webrtc::CodecParameterMap& right) {
-  return absl::EqualsIgnoreCase(GetH265TxModeOrDefault(left),
-                                GetH265TxModeOrDefault(right));
-}
-#endif
-
-// Some (video) codecs are actually families of codecs and rely on parameters
-// to distinguish different incompatible family members.
-bool IsSameCodecSpecific(const std::string& name1,
-                         const webrtc::CodecParameterMap& params1,
-                         const std::string& name2,
-                         const webrtc::CodecParameterMap& params2) {
-  // The names might not necessarily match, so check both.
-  auto either_name_matches = [&](const std::string name) {
-    return absl::EqualsIgnoreCase(name, name1) ||
-           absl::EqualsIgnoreCase(name, name2);
-  };
-  if (either_name_matches(kH264CodecName))
-    return webrtc::H264IsSameProfile(params1, params2) &&
-           IsSameH264PacketizationMode(params1, params2);
-  if (either_name_matches(kVp9CodecName))
-    return webrtc::VP9IsSameProfile(params1, params2);
-  if (either_name_matches(kAv1CodecName))
-    return webrtc::AV1IsSameProfile(params1, params2);
-#ifdef RTC_ENABLE_H265
-  if (either_name_matches(kH265CodecName)) {
-    return webrtc::H265IsSameProfileTierLevel(params1, params2) &&
-           IsSameH265TxMode(params1, params2);
-  }
-#endif
-  return true;
-}
-
-}  // namespace
 
 FeedbackParams::FeedbackParams() = default;
 FeedbackParams::~FeedbackParams() = default;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ed3502f_87f1f73e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-19T12:34:08Z",
+      "side": 1,
+      "message": "This CL can land once https://chromium-review.googlesource.com/c/chromium/src/+/5303701 has landed in Chromium.\nHowever it\u0027s in a reviewable state now.",
+      "revId": "118e7eaaf7d9f0c6eae869feb618a161a2623a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

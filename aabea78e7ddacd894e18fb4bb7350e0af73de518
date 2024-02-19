@@ -22,6 +22,30 @@
       },
       "revId": "aabea78e7ddacd894e18fb4bb7350e0af73de518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a79fc480_7193a9d4",
+        "filename": "api/candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-19T13:10:53Z",
+      "side": 1,
+      "message": "This change isn\u0027t about that actually. This is just moving those implementation details into the Candidate class, where we generate ids, to reduce the chance of making mistakes and the need for dependency on CreateRandomString().\n\nBut if you take a look at the connection.cc file, you can see when we do this.",
+      "parentUuid": "411934ba_9785dc2d",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "aabea78e7ddacd894e18fb4bb7350e0af73de518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "aabea78e7ddacd894e18fb4bb7350e0af73de518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "614a8c6f_7055b64a",
+        "filename": "api/candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-19T13:24:32Z",
+      "side": 1,
+      "message": "Sure- I guess don\u0027t need to understand. An alternative could maybe have been to have had a more explicit candidate copy method that generated a copy with a new id- but yes out of the scope of this cl.",
+      "parentUuid": "a79fc480_7193a9d4",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "aabea78e7ddacd894e18fb4bb7350e0af73de518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

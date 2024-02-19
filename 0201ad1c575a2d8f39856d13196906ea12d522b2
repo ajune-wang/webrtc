@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb20a99_004b17f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-19T15:05:27Z",
+      "side": 1,
+      "message": "I\u0027m going to approve this. We may revise the solution later, but rejecting a section is better than rejecting a whole SDP (I *think*.)",
+      "revId": "0201ad1c575a2d8f39856d13196906ea12d522b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

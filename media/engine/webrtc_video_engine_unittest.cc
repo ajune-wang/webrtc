@@ -1676,7 +1676,7 @@ class WebRtcVideoChannelEncodedFrameCallbackTest : public ::testing::Test {
 
 const std::vector<webrtc::SdpVideoFormat>
     WebRtcVideoChannelEncodedFrameCallbackTest::kSdpVideoFormats = {
-        webrtc::SdpVideoFormat("VP8")};
+        webrtc::SdpVideoFormat::VP8()};
 
 TEST_F(WebRtcVideoChannelEncodedFrameCallbackTest,
        SetEncodedFrameBufferFunction_DefaultStream) {
@@ -2617,9 +2617,8 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchStrictPreference) {
   ASSERT_TRUE(codec);
   EXPECT_EQ("VP8", codec->name);
 
-  SendImpl()->RequestEncoderSwitch(
-      webrtc::SdpVideoFormat("VP9", {{"profile-id", "1"}}),
-      /*allow_default_fallback=*/false);
+  SendImpl()->RequestEncoderSwitch(webrtc::SdpVideoFormat::VP9Profile1(),
+                                   /*allow_default_fallback=*/false);
   time_controller_.AdvanceTime(kFrameDuration);
 
   // VP9 profile_id=1 is not available. Default fallback is not allowed. Switch
@@ -2628,9 +2627,8 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchStrictPreference) {
   ASSERT_TRUE(codec);
   EXPECT_EQ("VP8", codec->name);
 
-  SendImpl()->RequestEncoderSwitch(
-      webrtc::SdpVideoFormat("VP9", {{"profile-id", "0"}}),
-      /*allow_default_fallback=*/false);
+  SendImpl()->RequestEncoderSwitch(webrtc::SdpVideoFormat::VP9Profile0(),
+                                   /*allow_default_fallback=*/false);
   time_controller_.AdvanceTime(kFrameDuration);
 
   // VP9 profile_id=0 is available. Switch encoder.
@@ -9823,7 +9821,7 @@ TEST_F(WebRtcVideoChannelBaseTest, EncoderSelectorSwitchCodec) {
 
   webrtc::MockEncoderSelector encoder_selector;
   EXPECT_CALL(encoder_selector, OnAvailableBitrate)
-      .WillRepeatedly(Return(webrtc::SdpVideoFormat("VP9")));
+      .WillRepeatedly(Return(webrtc::SdpVideoFormat::VP9Profile0()));
 
   send_channel_->SetEncoderSelector(kSsrc, &encoder_selector);
   time_controller_.AdvanceTime(kFrameDuration);

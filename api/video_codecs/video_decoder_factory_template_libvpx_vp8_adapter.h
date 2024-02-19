@@ -20,7 +20,7 @@
 namespace webrtc {
 struct LibvpxVp8DecoderTemplateAdapter {
   static std::vector<SdpVideoFormat> SupportedFormats() {
-    return {SdpVideoFormat("VP8")};
+    return {SdpVideoFormat::VP8()};
   }
 
   static std::unique_ptr<VideoDecoder> CreateDecoder(

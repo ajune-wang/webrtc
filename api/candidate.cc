@@ -18,6 +18,21 @@
 
 using webrtc::IceCandidateType;
 
+namespace webrtc {
+absl::string_view IceCandidateTypeToString(IceCandidateType type) {
+  switch (type) {
+    case IceCandidateType::kHost:
+      return "host";
+    case IceCandidateType::kSrflx:
+      return "srflx";
+    case IceCandidateType::kPrflx:
+      return "prflx";
+    case IceCandidateType::kRelay:
+      return "relay";
+  }
+}
+}  // namespace webrtc
+
 namespace cricket {
 
 ABSL_CONST_INIT const absl::string_view LOCAL_PORT_TYPE = "local";
@@ -125,16 +140,7 @@ bool Candidate::is_relay() const {
 }
 
 absl::string_view Candidate::type_name() const {
-  switch (type_) {
-    case IceCandidateType::kHost:
-      return "host";
-    case IceCandidateType::kSrflx:
-      return "srflx";
-    case IceCandidateType::kPrflx:
-      return "prflx";
-    case IceCandidateType::kRelay:
-      return "relay";
-  }
+  return webrtc::IceCandidateTypeToString(type_);
 }
 
 bool Candidate::IsEquivalent(const Candidate& c) const {

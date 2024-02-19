@@ -127,7 +127,7 @@ Port::Port(TaskQueueBase* thread,
            const webrtc::FieldTrialsView* field_trials)
     : thread_(thread),
       factory_(factory),
-      type_(type),
+      type_(PortTypeToIceCandidateType(type)),
       send_retransmit_count_attribute_(false),
       network_(network),
       min_port_(0),
@@ -158,7 +158,7 @@ Port::Port(TaskQueueBase* thread,
            const webrtc::FieldTrialsView* field_trials)
     : thread_(thread),
       factory_(factory),
-      type_(type),
+      type_(PortTypeToIceCandidateType(type)),
       send_retransmit_count_attribute_(false),
       network_(network),
       min_port_(min_port),
@@ -202,7 +202,7 @@ Port::~Port() {
   CancelPendingTasks();
 }
 
-const absl::string_view Port::Type() const {
+IceCandidateType Port::Type() const {
   return type_;
 }
 const rtc::Network* Port::Network() const {
@@ -897,8 +897,9 @@ void Port::OnNetworkTypeChanged(const rtc::Network* network) {
 std::string Port::ToString() const {
   rtc::StringBuilder ss;
   ss << "Port[" << rtc::ToHex(reinterpret_cast<uintptr_t>(this)) << ":"
-     << content_name_ << ":" << component_ << ":" << generation_ << ":" << type_
-     << ":" << network_->ToString() << "]";
+     << content_name_ << ":" << component_ << ":" << generation_ << ":"
+     << webrtc::IceCandidateTypeToString(type_) << ":" << network_->ToString()
+     << "]";
   return ss.Release();
 }
 

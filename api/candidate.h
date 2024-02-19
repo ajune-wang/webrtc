@@ -26,6 +26,7 @@
 
 namespace webrtc {
 enum class IceCandidateType : int { kHost, kSrflx, kPrflx, kRelay };
+RTC_EXPORT absl::string_view IceCandidateTypeToString(IceCandidateType);
 }  // namespace webrtc
 
 namespace cricket {

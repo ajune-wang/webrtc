@@ -16,6 +16,24 @@
       "message": "Mirko, can I please get an approval for the sdk/BUILD.gn changes",
       "revId": "821f79eb8238dd32fc36321e5614f8f71f17a526",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "139e2246_ead413f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-02-20T10:13:21Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "09182a95_44fdc2f1",
+      "revId": "821f79eb8238dd32fc36321e5614f8f71f17a526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

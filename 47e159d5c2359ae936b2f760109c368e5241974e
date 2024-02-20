@@ -69,6 +69,24 @@
       "parentUuid": "ba554ee1_6660254f",
       "revId": "47e159d5c2359ae936b2f760109c368e5241974e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c4f9062_7f3e1c17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-02-20T19:05:00Z",
+      "side": 1,
+      "message": "Just to clarify: We use the default WebRTC C++ observer from sdk/android/src/jni/android_network_monitor.cc, not a custom one.",
+      "parentUuid": "6ce68813_7eb37651",
+      "revId": "47e159d5c2359ae936b2f760109c368e5241974e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

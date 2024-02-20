@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e6a91d_3d2aded0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-02-20T08:39:24Z",
+      "side": 1,
+      "message": "Hi Danil, this looks fine to me. I guess the reason for declaring the RTCVideoDecoderVp8Builder in the .mm file is to avoid including the objc++ header in the objc header?",
+      "revId": "fb4726ac7825db8504790dbf41573a1c83e3a4fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc6a355_a9e46f8e",
+        "filename": "sdk/objc/native/src/objc_video_decoder_factory.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2024-02-20T08:39:24Z",
+      "side": 1,
+      "message": "nit: id\u003cRTC_OBJC_TYPE(RTCNativeVideoDecoderBuilder)\u003e instead of NSObject *",
+      "range": {
+        "startLine": 102,
+        "startChar": 18,
+        "endLine": 102,
+        "endChar": 26
+      },
+      "revId": "fb4726ac7825db8504790dbf41573a1c83e3a4fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

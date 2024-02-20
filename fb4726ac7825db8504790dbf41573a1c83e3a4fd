@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcd27cf_a60bfd78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-20T10:00:49Z",
+      "side": 1,
+      "message": "I guess so, just not familiar enough in objc terminology to be sure.\n\nIt is hard to declare RTCVideoDecoderVp8Builder in the RTCVideoDecoderVP8.h because that file is included in multiple .m files.\nI could have a dedeicated .h/.mm pair for it, but that widens api, and I do not see a good reason for that - I do not see a need to create it other than through RTCVideoDecoderVP8.vp8Decoder, i.e. other than as RTCVideoDecoder object.",
+      "parentUuid": "19e6a91d_3d2aded0",
+      "revId": "fb4726ac7825db8504790dbf41573a1c83e3a4fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cc6a355_a9e46f8e",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-02-20T08:39:24Z",
       "side": 1,
       "message": "nit: id\u003cRTC_OBJC_TYPE(RTCNativeVideoDecoderBuilder)\u003e instead of NSObject *",
+      "range": {
+        "startLine": 102,
+        "startChar": 18,
+        "endLine": 102,
+        "endChar": 26
+      },
+      "revId": "fb4726ac7825db8504790dbf41573a1c83e3a4fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95797bcd_d8725f11",
+        "filename": "sdk/objc/native/src/objc_video_decoder_factory.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-20T10:00:49Z",
+      "side": 1,
+      "message": "Done, thank you!",
+      "parentUuid": "8cc6a355_a9e46f8e",
       "range": {
         "startLine": 102,
         "startChar": 18,

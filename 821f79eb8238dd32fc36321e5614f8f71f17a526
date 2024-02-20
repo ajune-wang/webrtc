@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09182a95_44fdc2f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-20T10:00:49Z",
+      "side": 1,
+      "message": "Mirko, can I please get an approval for the sdk/BUILD.gn changes",
+      "revId": "821f79eb8238dd32fc36321e5614f8f71f17a526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,40 @@
       "message": "Mostly a process question... is adding \"sdp-ext\" to document this ok? I would call the current behavior a bug but it is now a behavior that folks may depend on.",
       "revId": "528987ade879b54da5b2fa4d45b41e7c9edcab61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "770deeb8_374a9cde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-20T09:37:09Z",
+      "side": 1,
+      "message": "Hm. I don\u0027t like this as a (semi)permanent solution. Not at all - it\u0027s sneaking in a new API surface through an unpoliced interface.\n\nI would like to document this as \"In order to allow for experimentation evaluating the performance impact of per-layer keyframes, we\u0027re adding this temporary hack\". I would also like to add a feature flag that we can do Finch experiments on to turn the default to \"all layers\" or \"one layer\". But that can be another CL.\n\nTL;DR: If documented as an experiment framework, I think I\u0027ll approve it.",
+      "revId": "528987ade879b54da5b2fa4d45b41e7c9edcab61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da8183c5_304f1c81",
+        "filename": "video/encoder_rtcp_feedback_unittest.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-20T09:37:09Z",
+      "side": 1,
+      "message": "What\u0027s a \"vie\"? Recommend writing VideoEncoder in full, if that\u0027s the intended meaning.\n(I know it\u0027s existing name, but since you\u0027re rewriting most of this file...)",
+      "revId": "528987ade879b54da5b2fa4d45b41e7c9edcab61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

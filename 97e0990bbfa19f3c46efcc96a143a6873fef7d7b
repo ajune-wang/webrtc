@@ -16,6 +16,23 @@
       "message": "This CL propagates the absolute capture time identifier to the decoded image object so it can be exposed in requestVideoFrameCallback API.",
       "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe37abe7_c35c532d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-20T16:00:15Z",
+      "side": 1,
+      "message": "agpalak@ you\u0027ve been adding capture_time_identifier on the send side. Is it normal to put absolute_time on the recieve side there?\n\nLooks pretty weird to me.",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

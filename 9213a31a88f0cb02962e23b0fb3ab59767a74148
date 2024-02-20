@@ -16,6 +16,23 @@
       "message": "Ilya, could you please officially take a look?",
       "revId": "9213a31a88f0cb02962e23b0fb3ab59767a74148",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca111ffc_7a04f3c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-20T11:09:28Z",
+      "side": 1,
+      "message": "Still LGTM",
+      "revId": "9213a31a88f0cb02962e23b0fb3ab59767a74148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

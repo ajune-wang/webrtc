@@ -129,6 +129,15 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
 
   decodedImage.set_ntp_time_ms(frame_info->ntp_time_ms);
   decodedImage.set_packet_infos(frame_info->packet_infos);
+  for (const RtpPacketInfo& packet_info : frame_info->packet_infos) {
+    if (packet_info.absolute_capture_time()) {
+      decodedImage.set_capture_time_identifier(
+          std::make_optional<webrtc::Timestamp>(webrtc::Timestamp::Millis(
+              webrtc::UQ32x32ToInt64Ms(packet_info.absolute_capture_time()
+                                           ->absolute_capture_timestamp))));
+      break;
+    }
+  }
   decodedImage.set_rotation(frame_info->rotation);
   VideoFrame::RenderParameters render_parameters = _timing->RenderParameters();
   if (render_parameters.max_composition_delay_in_frames) {

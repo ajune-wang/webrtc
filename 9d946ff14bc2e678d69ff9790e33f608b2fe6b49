@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f85a76_8207566f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-02-21T14:31:26Z",
+      "side": 1,
+      "message": "Hello guys,\n\nI wanted to add support for H.264 and LNTF. This patch adds also\nchecking of the H.264 codec.\n\nIs there a better solution to this, for example:\n\n* Remove VP8 check, enable for all codecs\n* Add check for VP8,VP9,H264,AV1 etc.\n* Add check for H264 only.\n\nI am happy to change or update the patch. Please let me know\nthe next steps...",
+      "revId": "9d946ff14bc2e678d69ff9790e33f608b2fe6b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

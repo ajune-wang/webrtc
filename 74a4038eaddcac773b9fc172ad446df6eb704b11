@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce3ee27b_f4b5f90e",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2024-02-21T18:07:29Z",
+      "side": 1,
+      "message": "Nit: I suggest moving this after `s.operating_point`. `s.all_layers` and `s.operating_point` are related, so it\u0027s good to keep them together.",
+      "revId": "74a4038eaddcac773b9fc172ad446df6eb704b11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

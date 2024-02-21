@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a42f6e5_ff62a9d9",
+        "filename": "api/candidate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-21T12:33:49Z",
+      "side": 1,
+      "message": "I actually think it is per ICE transport (port allocator). But happy to pretend there is nothing but max-bundle ;-)",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

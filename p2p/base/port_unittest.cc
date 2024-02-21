@@ -186,8 +186,7 @@ class TestPort : public Port {
     // Act as if the socket was bound to the best IP on the network, to the
     // first port in the allowed range.
     rtc::SocketAddress addr(Network()->GetBestIP(), min_port());
-    AddAddress(addr, addr, rtc::SocketAddress(), "udp", "", "",
-               cricket::PortTypeToIceCandidateType(Type()),
+    AddAddress(addr, addr, rtc::SocketAddress(), "udp", "", "", Type(),
                ICE_TYPE_PREFERENCE_HOST, 0, "", true);
   }
 
@@ -199,9 +198,8 @@ class TestPort : public Port {
 
   // Exposed for testing candidate building.
   void AddCandidateAddress(const rtc::SocketAddress& addr) {
-    AddAddress(addr, addr, rtc::SocketAddress(), "udp", "", "",
-               cricket::PortTypeToIceCandidateType(Type()), type_preference_, 0,
-               "", false);
+    AddAddress(addr, addr, rtc::SocketAddress(), "udp", "", "", Type(),
+               type_preference_, 0, "", false);
   }
   void AddCandidateAddress(const rtc::SocketAddress& addr,
                            const rtc::SocketAddress& base_address,

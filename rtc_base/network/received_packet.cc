@@ -13,15 +13,25 @@
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "rtc_base/socket_address.h"
 
 namespace rtc {
 
 ReceivedPacket::ReceivedPacket(rtc::ArrayView<const uint8_t> payload,
                                const SocketAddress& source_address,
-                               absl::optional<webrtc::Timestamp> arrival_time)
+                               absl::optional<webrtc::Timestamp> arrival_time,
+                               DecryptionInfo decryption)
     : payload_(payload),
       arrival_time_(std::move(arrival_time)),
-      source_address_(source_address) {}
+      source_address_(source_address),
+      decryption_info_(decryption) {}
+
+ReceivedPacket::ReceivedPacket(const ReceivedPacket& received_packet,
+                               DecryptionInfo decryption_info)
+    : ReceivedPacket(received_packet.payload(),
+                     received_packet.source_address(),
+                     received_packet.arrival_time(),
+                     decryption_info) {}
 
 // static
 ReceivedPacket ReceivedPacket::CreateFromLegacy(

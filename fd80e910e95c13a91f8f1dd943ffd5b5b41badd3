@@ -86,6 +86,24 @@
       "parentUuid": "b0bf8759_58bd8653",
       "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deef049c_b77a28f5",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-02-22T19:13:16Z",
+      "side": 1,
+      "message": "Looks like Autoroller has failed to roll any changes since 2/13. Let\u0027s proceed without ABSL_DEPRECATE_AND_INLINE for now?",
+      "parentUuid": "02386803_1bbb936c",
+      "revId": "fd80e910e95c13a91f8f1dd943ffd5b5b41badd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

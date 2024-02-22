@@ -16,6 +16,24 @@
       "message": "this is how p2ptc uses the tie breaker. But this is intentionally not part of the candidate but comes from the STUN packets.",
       "revId": "dc6a001b6b4f17c63700452e838d57f057e4bdbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb629c3_3d5e8584",
+        "filename": "api/candidate.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-22T22:04:55Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "522a8bb6_524f64d3",
+      "revId": "dc6a001b6b4f17c63700452e838d57f057e4bdbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82440f3_5a561055",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-22T22:04:55Z",
+      "side": 1,
+      "message": "I don\u0027t quite feel good about the name \"seed\". Usually \"seed\" is used to start off a pseudorandom generator - each iteration is different.\nIn this case we\u0027re adding the same value to all hashes that produce a foundation.\nA better name might be \"FoundationRandomness\".\nBut it\u0027s not really a big thing; I\u0027m willing to ship this.",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a42f6e5_ff62a9d9",
@@ -14,6 +31,24 @@
       "writtenOn": "2024-02-21T12:33:49Z",
       "side": 1,
       "message": "I actually think it is per ICE transport (port allocator). But happy to pretend there is nothing but max-bundle ;-)",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0230e60_9003d4e5",
+        "filename": "api/candidate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-22T22:04:55Z",
+      "side": 1,
+      "message": "it needs to be the same for all candidates used on a single transport. I don\u0027t think it harms anything by being reused in a larger scope.",
+      "parentUuid": "7a42f6e5_ff62a9d9",
       "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

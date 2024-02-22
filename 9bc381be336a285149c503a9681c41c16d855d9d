@@ -34,6 +34,23 @@
       "parentUuid": "17acb182_44d2a176",
       "revId": "9bc381be336a285149c503a9681c41c16d855d9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd7c504c_2154dda6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-22T14:03:12Z",
+      "side": 1,
+      "message": "I think this will cause trouble, in particular on Mac but we can fix the Mac woes before they hit production.",
+      "revId": "9bc381be336a285149c503a9681c41c16d855d9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

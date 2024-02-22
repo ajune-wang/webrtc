@@ -23,6 +23,13 @@ ReceivedPacket::ReceivedPacket(rtc::ArrayView<const uint8_t> payload,
       arrival_time_(std::move(arrival_time)),
       source_address_(source_address) {}
 
+ReceivedPacket::ReceivedPacket(const ReceivedPacket& received_packet,
+                               const TransportInfo& transport_info)
+    : payload_(received_packet.payload()),
+      arrival_time_(received_packet.arrival_time()),
+      source_address_(received_packet.source_address()),
+      transport_info_(transport_info) {}
+
 // static
 ReceivedPacket ReceivedPacket::CreateFromLegacy(
     const uint8_t* data,

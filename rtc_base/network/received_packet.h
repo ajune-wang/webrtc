@@ -20,6 +20,10 @@
 
 namespace rtc {
 
+// TransportInfo contains information added by different layers of the network
+// stack. For example, what type of payload a received packet contain.
+struct TransportInfo {};
+
 // ReceivedPacket repressent a received IP packet.
 // It contains a payload and metadata.
 // ReceivedPacket itself does not put constraints on what payload contains. For
@@ -33,6 +37,9 @@ class RTC_EXPORT ReceivedPacket {
       const SocketAddress& source_address,
       absl::optional<webrtc::Timestamp> arrival_time = absl::nullopt);
 
+  ReceivedPacket(const ReceivedPacket& received_packet,
+                 const TransportInfo& transport_info);
+
   // Address/port of the packet sender.
   const SocketAddress& source_address() const { return source_address_; }
   rtc::ArrayView<const uint8_t> payload() const { return payload_; }
@@ -42,6 +49,8 @@ class RTC_EXPORT ReceivedPacket {
   absl::optional<webrtc::Timestamp> arrival_time() const {
     return arrival_time_;
   }
+
+  const TransportInfo& transport_info() const { return transport_info_; }
 
   static ReceivedPacket CreateFromLegacy(
       const char* data,
@@ -62,6 +71,7 @@ class RTC_EXPORT ReceivedPacket {
   rtc::ArrayView<const uint8_t> payload_;
   absl::optional<webrtc::Timestamp> arrival_time_;
   const SocketAddress& source_address_;
+  TransportInfo transport_info_;
 };
 
 }  // namespace rtc

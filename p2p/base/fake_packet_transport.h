@@ -121,8 +121,8 @@ class FakePacketTransport : public PacketTransportInternal {
   void SendPacketInternal(const CopyOnWriteBuffer& packet) {
     last_sent_packet_ = packet;
     if (dest_) {
-      dest_->SignalReadPacket(dest_, packet.data<char>(), packet.size(),
-                              TimeMicros(), 0);
+      dest_->NotifyPacketReceived(rtc::ReceivedPacket::CreateFromLegacy(
+          packet.data(), packet.size(), rtc::TimeMicros()));
     }
   }
 

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da6ccf61_157963ef",
+        "filename": "sdk/android/instrumentationtests/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-02-23T15:02:12Z",
+      "side": 1,
+      "message": "Reference:\nAndroid: Use on-device test listing for AndroidJUnitRunner\nhttps://chromium-review.googlesource.com/c/chromium/src/+/5293118\n\nStop using Chromium\u0027s BaseChromiumAndroidJUnitRunner in android_instrumentation_test_apk\nhttps://webrtc-review.googlesource.com/c/src/+/338360",
+      "revId": "dd751a5300e92c17311154dc65372c7d953d304f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27186fd2_66d0793c",
+        "filename": "sdk/android/src/jni/jni_generator_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-02-23T15:02:12Z",
+      "side": 1,
+      "message": "Reference:\n\njni_zero: consolodating down to one externally visible jni_zero.h\nhttps://chromium-review.googlesource.com/c/chromium/src/+/5293049\n\nRoll chromium_revision a4279f2842..1f3819472a (1259805:1260961)\nhttps://webrtc-review.googlesource.com/c/src/+/339820",
+      "revId": "dd751a5300e92c17311154dc65372c7d953d304f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

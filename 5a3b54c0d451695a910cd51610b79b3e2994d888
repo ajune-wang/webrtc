@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aebff38a_7d9a2189",
+        "filename": "p2p/base/packet_transport_internal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-23T13:15:40Z",
+      "side": 1,
+      "message": "PacketTransportInternal is overriden by DtlsTransport, RtpTransport and DCSCTP transport. I was trying to ensure each layer can be refactored separately but all usage of layer must use either Sigslot or the callback list - not both.\n\nBut it should not matter much I hope. All three pending cls are out for review and then I can remove the Sigslot. Also - there are tests covering the usecase when DTLS transport forwards packets to both RtpTransport and DCSCT transport.",
+      "parentUuid": "9b61f515_7818b2e4",
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a353e24b_d5088c02",
         "filename": "p2p/base/packet_transport_internal.h",
         "patchSetId": 6
@@ -140,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f825a91_06b4e98d",
+        "filename": "p2p/base/packet_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-23T13:15:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0980096a_a203c87c",
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b052294_13ae18d0",
@@ -153,6 +189,24 @@
       "writtenOn": "2024-02-23T11:50:34Z",
       "side": 1,
       "message": "\"Bypass\" seems an odd name here. What does it mean?\n- Packet was Srtp encrypted, but is now decrypted?\n- Packet is Srtp encrypted and needs decryption?\nI don\u0027t like this state variable much.... and I can\u0027t see where in the code you use the value. Is this somethign that should be done in a different CL?",
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb0816b4_f274565d",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-23T13:15:40Z",
+      "side": 1,
+      "message": "Please see the usage in https://webrtc-review.googlesource.com/c/src/+/340301/7\nIt replaces the magic flag PF_SRTP_BYPASS on the receive path. \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/dtls_transport_internal.h;drc\u003df4a00cc248dd2dc8ec8759fb51620d47b5114090;l\u003d37 \n\nIts used by DSCTP to ignore SRTP packets.  We can call it kSrtpEncrypted instead.\n\nI can merge the two cls if you want. But I tried to keep it relatively small.",
+      "parentUuid": "9b052294_13ae18d0",
       "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

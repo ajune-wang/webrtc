@@ -33,6 +33,24 @@
       "message": "agpalak@ you\u0027ve been adding capture_time_identifier on the send side. Is it normal to put absolute_time on the recieve side there?\n\nLooks pretty weird to me.",
       "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0db218e_390524c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2024-02-23T01:06:59Z",
+      "side": 1,
+      "message": "I think it\u0027s desirable to have the `absolute capture timestamp` on each video frame but there are some problems with how that is defined and how the specs define `VideoFrameCallbackMetadata`\u0027s `captureTime` right now. In particular:\n\n1) `absolute capture timestamp` uses the capture system\u0027s global monotonic clock as reference. `captureTime`, on the other hand, is hinted at using  the receiving system\u0027s global monotonic clock as reference.\n\nIf the requirements in the specs are relaxed and `captureTime` doesn\u0027t use the receiving system\u0027s global monotonic clock as reference, then it becomes meaningless for a caller to ever compare `captureTime` with its adjacent `receiveTime` property in `VideoFrameCallbackMetadata` since they may be based on vastly different epochs.\n\n2) If `absolute capture timestamp` is exposed through an API, then it\u0027s most likely a good idea to also expose its `estimated capture clock offset` sibling. Particularly if the latter is adjusted to include the clock offset between the last sender system and the receiving system.\n\nAlternatively, instead of exposing the `absolute capture timestamp` and `estimated capture clock offset` pairs from the packets, a combined `absolute capture timestamp + estimated capture clock offset` (after adjustment) is exposed. This summed value ends up with the same epoch as `receiveTime` and hence is a suitable substitute for `captureTime` without any changes to the specs.",
+      "parentUuid": "daae658a_f209330e",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

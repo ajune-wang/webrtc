@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12237967_2ddb1141",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-23T15:04:48Z",
+      "side": 1,
+      "message": "OK, let\u0027s do this. Good to see another sigslot bite the dust!",
+      "revId": "6ecca037c4b656dee0e97cba303dbc9e26153230",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -124,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a32594bc_85bcf67f",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-23T18:32:35Z",
+      "side": 1,
+      "message": "Very much agree! Changing the constructor wasn\u0027t possible back then due to backmerges (and I think chromoting still depends on the exported version but that I can probably solve myself)",
+      "parentUuid": "0da74a86_7ac181cd",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e8e2ef5_fdc2f01f",
         "filename": "p2p/base/port_interface.h",
         "patchSetId": 6
@@ -135,6 +153,24 @@
       "writtenOn": "2024-02-23T11:42:13Z",
       "side": 1,
       "message": "Do we need a getter?",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f0b9ab_f6dd4fe2",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-23T18:32:35Z",
+      "side": 1,
+      "message": "Probably not but I hope to nuke it before anyone starts using it.",
+      "parentUuid": "5e8e2ef5_fdc2f01f",
       "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

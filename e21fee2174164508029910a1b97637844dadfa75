@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ed0d8d_9badf620",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-23T11:50:34Z",
+      "side": 1,
+      "message": "Not sure if the decryption flag belongs in this CL. It seems to belong in a different refactoring (one that actually uses it for something).\n\nOther comments are nits.",
+      "revId": "e21fee2174164508029910a1b97637844dadfa75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

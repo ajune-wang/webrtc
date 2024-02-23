@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b61f515_7818b2e4",
+        "filename": "p2p/base/packet_transport_internal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-23T11:50:34Z",
+      "side": 1,
+      "message": "If you invert the check (check for SignalReadPacket.is_empty), you don\u0027t have to maintain the callback list count (for the normal case).\n\nYou don\u0027t support using the signal and the callback list simultaneously anyway, so all that you\u0027re using it for is to catch the state where simultaneous usage is attempted.",
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a353e24b_d5088c02",
         "filename": "p2p/base/packet_transport_internal.h",
         "patchSetId": 6
@@ -78,6 +95,40 @@
         "endLine": 85,
         "endChar": 37
       },
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0980096a_a203c87c",
+        "filename": "p2p/base/packet_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-23T11:50:34Z",
+      "side": 1,
+      "message": "Nit: callback list is two words, so this should be received_packet_callback_list_.",
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b052294_13ae18d0",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-23T11:50:34Z",
+      "side": 1,
+      "message": "\"Bypass\" seems an odd name here. What does it mean?\n- Packet was Srtp encrypted, but is now decrypted?\n- Packet is Srtp encrypted and needs decryption?\nI don\u0027t like this state variable much.... and I can\u0027t see where in the code you use the value. Is this somethign that should be done in a different CL?",
       "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e0a23e9_8f47eabe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-23T11:42:13Z",
+      "side": 1,
+      "message": "lgtm - two minor comments since I think the architecture of this part of the code is more complicated than it needs to be and we could start requiring more const state at construction time, not add virtual methods we don\u0027t need and not make methods virtual that have a single implementation.",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a42f6e5_ff62a9d9",
@@ -84,6 +101,40 @@
       "side": 1,
       "message": "Yeah, unless you try to connect to yourself but DTLS should break that. This might have been broken in SDES \"loopback\" mode but tie breaking is pretty rare imo...",
       "parentUuid": "f0230e60_9003d4e5",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da74a86_7ac181cd",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-23T11:42:13Z",
+      "side": 1,
+      "message": "The PortInterface isn\u0027t a super useful abstraction (there\u0027s only one implementation), ideally the seed value should be supplied at construction time and only then, no setter needed. Could we make that change now?\n\nAlternatively, to address the \"TODO\" about whether or not the seed is set, have the seed member variable be absl::optional\u003c\u003e and RTC_DCHECK that it has been set before using it. Also, when setting it, RTC_DCHECK that it has not been set previously 😊 That way we get to the \"only once, practically const\" guarantee that a constructor would otherwise give us.",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8e2ef5_fdc2f01f",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-02-23T11:42:13Z",
+      "side": 1,
+      "message": "Do we need a getter?",
       "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

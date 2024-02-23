@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1298631_463b94ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-02-23T09:38:19Z",
+      "side": 1,
+      "message": "some nits otherwise LGTM",
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a353e24b_d5088c02",
+        "filename": "p2p/base/packet_transport_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-02-23T09:38:19Z",
+      "side": 1,
+      "message": "nit: do we really need a template F here ?\nit it not possible to have a real type ?\n(i don\u0027t remember the webrtc::CallbackList imlpementation!)",
+      "range": {
+        "startLine": 85,
+        "startChar": 7,
+        "endLine": 85,
+        "endChar": 37
+      },
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8502fe9a_c6236746",
+        "filename": "rtc_base/network/received_packet.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2024-02-23T09:38:19Z",
+      "side": 1,
+      "message": "nit: actually I think it might be nicer with a method on the original packet.\nsomething like (haven\u0027t thought about the exact name...)\n\nnewPacket \u003d packet.copyAndSet(decryptInfo)",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "5a3b54c0d451695a910cd51610b79b3e2994d888",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

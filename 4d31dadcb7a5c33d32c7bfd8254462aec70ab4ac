@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39d40580_024700df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-23T08:18:50Z",
+      "side": 1,
+      "message": "Tommi since you made me rebase... ;-)",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a42f6e5_ff62a9d9",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "it needs to be the same for all candidates used on a single transport. I don\u0027t think it harms anything by being reused in a larger scope.",
       "parentUuid": "7a42f6e5_ff62a9d9",
+      "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fdba663_54c7d3a5",
+        "filename": "api/candidate.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-23T08:18:50Z",
+      "side": 1,
+      "message": "Yeah, unless you try to connect to yourself but DTLS should break that. This might have been broken in SDES \"loopback\" mode but tie breaking is pretty rare imo...",
+      "parentUuid": "f0230e60_9003d4e5",
       "revId": "4d31dadcb7a5c33d32c7bfd8254462aec70ab4ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

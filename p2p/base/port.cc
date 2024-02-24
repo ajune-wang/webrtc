@@ -39,9 +39,12 @@
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
+using webrtc::IceCandidateType;
+
 namespace cricket {
 namespace {
 
+using ::webrtc::IceCandidateType;
 using ::webrtc::RTCError;
 using ::webrtc::RTCErrorType;
 using ::webrtc::TaskQueueBase;
@@ -84,6 +87,17 @@ absl::optional<ProtocolType> StringToProto(absl::string_view proto_name) {
     }
   }
   return absl::nullopt;
+}
+
+IceCandidateType PortTypeToIceCandidateType(const absl::string_view type) {
+  if (type == LOCAL_PORT_TYPE)
+    return IceCandidateType::kHost;
+  if (type == STUN_PORT_TYPE)
+    return IceCandidateType::kSrflx;
+  if (type == PRFLX_PORT_TYPE)
+    return IceCandidateType::kPrflx;
+  RTC_DCHECK_EQ(type, RELAY_PORT_TYPE);
+  return IceCandidateType::kRelay;
 }
 
 // RFC 6544, TCP candidate encoding rules.
@@ -241,7 +255,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       absl::string_view protocol,
                       absl::string_view relay_protocol,
                       absl::string_view tcptype,
-                      absl::string_view type,
+                      IceCandidateType type,
                       uint32_t type_preference,
                       uint32_t relay_preference,
                       absl::string_view url,

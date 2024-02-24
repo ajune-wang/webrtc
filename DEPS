@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'af00cd208a25c1e30b1b26172d294b0104fd4b7e',
+  'chromium_revision': 'f25fd5b342f55da53870f35c77c6fcd59d1bc944',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -67,7 +67,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@2f53c3ca75964c90e21906b2214da42a32250ca4',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@646491e14a60d910e32df47683caedff3e51743b',
+    'https://chromium.googlesource.com/chromium/src/third_party@696be169828ad3e21b029bb5fb7116aa0b886e30',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -230,7 +230,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/googletest/src':
-    'https://chromium.googlesource.com/external/github.com/google/googletest.git@af29db7ec28d6df1c7f0f745186884091e602e07',
+    'https://chromium.googlesource.com/external/github.com/google/googletest.git@76bb2afb8b522d24496ad1c757a49784fbfa2e42',
   'src/third_party/icu': {
     'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@1112fa6b3b8a5a4125d9dbc1b2efbb55e2e47a27',
   },
@@ -355,7 +355,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@ac20c40fa9c1ad5576ebdc31908af89faffa9247',
+    'https://chromium.googlesource.com/chromium/src/tools@1d4dab74daca8f0893884ec9ccb569abbe32baa1',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

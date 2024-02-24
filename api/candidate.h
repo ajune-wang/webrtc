@@ -57,18 +57,17 @@ class RTC_EXPORT Candidate {
             absl::string_view foundation,
             uint16_t network_id = 0,
             uint16_t network_cost = 0);
-  // TODO(tommi): Deprecate.
-  Candidate(int component,
-            absl::string_view protocol,
-            const rtc::SocketAddress& address,
-            uint32_t priority,
-            absl::string_view username,
-            absl::string_view password,
-            absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
-            uint32_t generation,
-            absl::string_view foundation,
-            uint16_t network_id = 0,
-            uint16_t network_cost = 0);
+  [[deprecated]] Candidate(int component,
+                           absl::string_view protocol,
+                           const rtc::SocketAddress& address,
+                           uint32_t priority,
+                           absl::string_view username,
+                           absl::string_view password,
+                           absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+                           uint32_t generation,
+                           absl::string_view foundation,
+                           uint16_t network_id = 0,
+                           uint16_t network_cost = 0);
   Candidate(const Candidate&);
   ~Candidate();
 
@@ -124,8 +123,8 @@ class RTC_EXPORT Candidate {
   // things down. See also the `Port` class.
   void set_type(webrtc::IceCandidateType type) { type_ = type; }
 
-  // TODO(tommi): Deprecate.
-  void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
+  [[deprecated]] void set_type(
+      absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
 
   // Provide these simple checkers to abstract away dependency on the port types
   // that are currently defined outside of Candidate. This will ease the change

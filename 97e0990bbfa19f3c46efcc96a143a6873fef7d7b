@@ -51,6 +51,24 @@
       "parentUuid": "daae658a_f209330e",
       "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c3ba934_ad669440",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-02-26T18:11:01Z",
+      "side": 1,
+      "message": "for 1) It is not clear to me what which clock is used, you may be right and that could be the meaning fo \"clock synchronization\" in the \"capture time is based on the RTP timestamp of the frame and estimated using clock synchronization\". I will raise an issue in the w3c github repo. If that is the case, i think it would make sense to add a `captureTimestamp` to the vrfc instead which will have consistent naming.\n\nfor 2), yes, I agree that exposing the `estimated capture clock offset`, but I have not seen an appropriate attribute in the videoframe object to include that info. I am not sure about what would be the value of the `absolute capture timestamp + estimated capture clock offset` in case of SFU scenario (Sender-\u003eSFU-\u003eReceiver).\n\nIn that case, the Sender will populate both the `absolute capture timestamp` and the `estimated capture clock offset` if using an external capture clock instead of the Sender system clock. When the header extension is received on the SFU, I don\u0027t expect the SFU to change any of the values of the header extension, hence I am not sure if it would be valid to adjust the `absolute capture timestamp + estimated capture clock offset` based on the SFU clock for the RTCP SR/RR. \n\nGiven said that, I still think that propagating as much metadata from the rtp packets to the decoded frame is usefull, and will not only be applicable not only for the rvfc but also could be used in the insertable streams api and for sure on native development.",
+      "parentUuid": "b0db218e_390524c7",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

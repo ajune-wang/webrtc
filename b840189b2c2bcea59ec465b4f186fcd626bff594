@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9083e373_b876fb0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-26T15:45:51Z",
+      "side": 1,
+      "message": "CreateTurnPort did not set the foundation seed which was likely causing this. Only on some platforms though, works fine on my machine.\n\nWill reland tomorrow. Or take the different route of putting it into the constructor first ;-)",
+      "revId": "b840189b2c2bcea59ec465b4f186fcd626bff594",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

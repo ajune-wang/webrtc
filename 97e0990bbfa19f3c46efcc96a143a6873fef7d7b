@@ -69,6 +69,24 @@
       "parentUuid": "b0db218e_390524c7",
       "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "056886fb_a55adf99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2024-02-26T19:00:16Z",
+      "side": 1,
+      "message": "Note that the specs at http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time distinguish between the \"capture system\" (e.g. the original sender with the webcam) and the \"sender system\" (e.g. the last SFU).\n\nEach RTCP-terminating receiver (e.g. SFU) is supposed to add the estimated clock offset between it and its previous hop into `estimated capture clock offset`. This will allow the final receiver to see the full clock offset between itself and the capture system.\n\nIf an RTCP-terminating receiver is unable to make such an update (e.g. not enough information from RTCP SR/RR), then the `estimated capture clock offset` part of the header extension must be omitted. The final receiver will then know that it can\u0027t calculate the full clock offset between itself and the capture system.",
+      "parentUuid": "7c3ba934_ad669440",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

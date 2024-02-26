@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba572891_c9874055",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-26T05:53:34Z",
+      "side": 1,
+      "message": "Found some spec note:\n  https://juberti.github.io/draughts/lrr/draft-ietf-avtext-lrr-00.html#rfc.section.5\n\nwhich kinda seems to justify the current behavior? But LRR has never been implemented, I hope this might yield results that say \"we want LRR\"!",
+      "revId": "0d9c868d891e42200433c0ba9fb941b410cb77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

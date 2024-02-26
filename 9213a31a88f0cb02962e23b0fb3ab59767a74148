@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ee34385_1347f8af",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-26T05:53:34Z",
+      "side": 1,
+      "message": "Done, sdp_video_format_utils looks like the right place but makes the build deps a bit awkward. But hey, we have a bot who added someone who can review that bit ;-)",
+      "parentUuid": "7ccef0c7_feff074f",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 280,
+        "endChar": 45
+      },
+      "revId": "9213a31a88f0cb02962e23b0fb3ab59767a74148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f461431e_49400940",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-02-20T11:57:56Z",
       "side": 1,
       "message": "Please reuse the same helper function as in SimulcastEncoderAdapter.",
+      "range": {
+        "startLine": 423,
+        "startChar": 9,
+        "endLine": 429,
+        "endChar": 64
+      },
+      "revId": "9213a31a88f0cb02962e23b0fb3ab59767a74148",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a02e44_093f24c2",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-26T05:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f461431e_49400940",
       "range": {
         "startLine": 423,
         "startChar": 9,

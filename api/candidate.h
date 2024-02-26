@@ -57,18 +57,17 @@ class RTC_EXPORT Candidate {
             absl::string_view foundation,
             uint16_t network_id = 0,
             uint16_t network_cost = 0);
-  // TODO(tommi): Deprecate.
-  Candidate(int component,
-            absl::string_view protocol,
-            const rtc::SocketAddress& address,
-            uint32_t priority,
-            absl::string_view username,
-            absl::string_view password,
-            absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
-            uint32_t generation,
-            absl::string_view foundation,
-            uint16_t network_id = 0,
-            uint16_t network_cost = 0);
+  [[deprecated]] Candidate(int component,
+                           absl::string_view protocol,
+                           const rtc::SocketAddress& address,
+                           uint32_t priority,
+                           absl::string_view username,
+                           absl::string_view password,
+                           absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+                           uint32_t generation,
+                           absl::string_view foundation,
+                           uint16_t network_id = 0,
+                           uint16_t network_cost = 0);
   Candidate(const Candidate&);
   ~Candidate();
 
@@ -124,8 +123,8 @@ class RTC_EXPORT Candidate {
   // things down. See also the `Port` class.
   void set_type(webrtc::IceCandidateType type) { type_ = type; }
 
-  // TODO(tommi): Deprecate.
-  void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
+  [[deprecated]] void set_type(
+      absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
 
   // Simple checkers for checking the candidate type without dependency on the
   // IceCandidateType enum. The `is_local()` and `is_stun()` names are legacy

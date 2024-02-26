@@ -68,6 +68,41 @@
       "message": "Added some more details per the comments and question",
       "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fea5fa_97edbfb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-02-26T14:49:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f2c84bd2_6477e55c",
+      "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d401d7af_54e5443b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20509
+      },
+      "writtenOn": "2024-02-26T14:49:47Z",
+      "side": 1,
+      "message": "Marking comments as resolved\n@xalep@webrtc.org, @jonaso@webrtc.org - please let me know if the responses make sense to you or if you think this should be done differently",
+      "revId": "2f8e28e9f22b833749b5e72c14b23b1b156950c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

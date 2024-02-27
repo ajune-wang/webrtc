@@ -204,6 +204,13 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
           return ret;
         }
       }
+      if (ret == WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE) {
+        RTC_LOG(LS_ERROR) << "FIPPO FALLBACK FROM HW TO SW DETECTED";
+        if (callback_) {
+          RTC_LOG(LS_ERROR) << "FIPPO TRIGGERING CALLBACK";
+          callback_->OnSoftwareFallback(VideoDecoderFallbackReason::kMaxValue);
+        }
+      }
 
       // HW decoder returned WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE or
       // too many generic errors on key-frames encountered.

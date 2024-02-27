@@ -16,6 +16,23 @@
       "message": "I\u0027m going to approve this. We may revise the solution later, but rejecting a section is better than rejecting a whole SDP (I *think*.)",
       "revId": "0201ad1c575a2d8f39856d13196906ea12d522b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0c19759_0cd33e3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-27T10:51:28Z",
+      "side": 1,
+      "message": "This depends on the sCP change which we might still need to revert. Asking for second +1 now, will submit Thursday",
+      "revId": "0201ad1c575a2d8f39856d13196906ea12d522b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

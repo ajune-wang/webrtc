@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05a6f595_d0091dc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-27T11:34:13Z",
+      "side": 1,
+      "message": "This avoids hand-crafting codecs and their fmtp parameters like Remoting did.\nH264 is a mess but it used to be a mess ;-)",
+      "revId": "8db3b3be9e834e8495f053624a86f533fce3568a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

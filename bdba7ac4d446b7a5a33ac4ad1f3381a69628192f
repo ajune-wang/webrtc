@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7908f8e1_3c6ae282",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-27T11:34:13Z",
+      "side": 1,
+      "message": "I would have preferred a static const member instead of a method but that caused compiler woes about lack of at-exit destructor.",
+      "revId": "bdba7ac4d446b7a5a33ac4ad1f3381a69628192f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

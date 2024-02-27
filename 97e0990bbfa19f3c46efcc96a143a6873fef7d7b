@@ -87,6 +87,24 @@
       "parentUuid": "7c3ba934_ad669440",
       "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0419de_d983eb2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-02-27T13:34:59Z",
+      "side": 1,
+      "message": "\u003e  an RTCP-terminating receiver is unable to make such an update (e.g. not enough information from RTCP SR/RR), then the estimated capture clock offset part of the header extension must be omitted. The final receiver will then know that it can\u0027t calculate the full clock offset between itself and the capture system.\n\nI missed that part of the draft, it makes sense.\n\nI am currently using the abs capture time for synchronizing metadata and having accurate frame time info without having to use insertable streams for parsing SEI timing messages on h264, so knowing what was the timestamp at capture time is a must for me. \n\nI also see the value of adding the combined `absolute capture timestamp + estimated capture clock offset`(after adjustment).\n\nMaybe the best proposal would be adding `captureTimestamp` `senderCaptureTimeOffset` to the `VideoFrameCallbackMetadata` and have the `absolute capture timestamp + estimated capture clock offset` be used as `captureTime` in case of uniderectional streams. \n\nMoving forward, this CL only propagates the metadata from the rtp packets to the decoded video frame, using the proper `capture_time_identifier` attribute, which I think should be done regardless of the decision made about the vrfc api.\n\nHow would you feel about continuing the discussion on the vrfc specifics on the github issue?\n\nhttps://github.com/WICG/video-rvfc/issues/86",
+      "parentUuid": "056886fb_a55adf99",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

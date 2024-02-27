@@ -157,6 +157,24 @@
       "message": "No test exercises this codepath?",
       "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ff9eed_69e1d1b9",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-02-27T14:59:15Z",
+      "side": 1,
+      "message": "Fair enough, I will add some tests to the generic_decoder_unittest.cc",
+      "parentUuid": "703543e5_77b678dd",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

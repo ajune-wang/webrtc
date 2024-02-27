@@ -16,6 +16,46 @@
       "message": "Erik, friendly ping.",
       "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62be1237_b996513c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-02-27T10:00:10Z",
+      "side": 1,
+      "message": "Is there a tracking bug for VP9 simulcast work?\nI\u0027m a bit concerned. I don\u0027t think we want to reuse neither `simulcast.cc` nor `SimulcastRateAllocator` for VP9.",
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e331a0f0_503f1d31",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-02-27T10:00:10Z",
+      "side": 1,
+      "message": "I don\u0027t think we should follow the bad precedence from VP8 of using a fixed table like this. Would suggest adding functionality to `SvcConfig` for simulcast instead. It looks like bitrates are already grabbed from there anyway?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

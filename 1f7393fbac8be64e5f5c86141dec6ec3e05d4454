@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4340d16_679b0757",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-27T12:40:13Z",
+      "side": 1,
+      "message": "Here\u0027s a design doc: https://docs.google.com/document/d/19vx-uQkBbRL_3PX9A0T3Q9W3WIg9LdSlrv24wBjT9DQ/edit?pli\u003d1\u0026tab\u003dt.0#heading\u003dh.1x7cxeujkiu7\n\nPeople generally agreed that simulcast.cc is better.",
+      "parentUuid": "62be1237_b996513c",
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e331a0f0_503f1d31",
         "filename": "video/config/simulcast.cc",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2024-02-27T10:00:10Z",
       "side": 1,
       "message": "I don\u0027t think we should follow the bad precedence from VP8 of using a fixed table like this. Would suggest adding functionality to `SvcConfig` for simulcast instead. It looks like bitrates are already grabbed from there anyway?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e16a3983_391aa0da",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-27T12:40:13Z",
+      "side": 1,
+      "message": "But this isn\u0027t SVC at all. It\u0027s simulcast, so it makes sense for it to be configured here.\n\nThe bitrates are slightly updated comparing to the SvcConfig.\nFixed table is actually not bad, it helps to address another issue, mentioned in the doc: the VGA bitrate is too low for VP9.",
+      "parentUuid": "e331a0f0_503f1d31",
       "range": {
         "startLine": 105,
         "startChar": 0,

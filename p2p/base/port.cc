@@ -92,6 +92,56 @@ const char TCPTYPE_ACTIVE_STR[] = "active";
 const char TCPTYPE_PASSIVE_STR[] = "passive";
 const char TCPTYPE_SIMOPEN_STR[] = "so";
 
+Port::Port(const CreatePortArgs& args,
+           absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND)
+    : thread_(args.network_thread),
+      factory_(args.socket_factory),
+      type_(type),
+      send_retransmit_count_attribute_(false),
+      network_(args.network),
+      min_port_(0),
+      max_port_(0),
+      component_(ICE_CANDIDATE_COMPONENT_DEFAULT),
+      generation_(0),
+      ice_username_fragment_(args.ice_username_fragment),
+      password_(args.ice_password),
+      timeout_delay_(kPortTimeoutDelay),
+      enable_port_packets_(false),
+      ice_role_(ICEROLE_UNKNOWN),
+      tiebreaker_(0),
+      shared_socket_(true),
+      weak_factory_(this),
+      field_trials_(args.field_trials) {
+  RTC_DCHECK(factory_ != NULL);
+  Construct();
+}
+
+Port::Port(const CreatePortArgs& args,
+           absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+           uint16_t min_port,
+           uint16_t max_port)
+    : thread_(args.network_thread),
+      factory_(args.socket_factory),
+      type_(type),
+      send_retransmit_count_attribute_(false),
+      network_(args.network),
+      min_port_(min_port),
+      max_port_(max_port),
+      component_(ICE_CANDIDATE_COMPONENT_DEFAULT),
+      generation_(0),
+      ice_username_fragment_(args.ice_username_fragment),
+      password_(args.ice_password),
+      timeout_delay_(kPortTimeoutDelay),
+      enable_port_packets_(false),
+      ice_role_(ICEROLE_UNKNOWN),
+      tiebreaker_(0),
+      shared_socket_(false),
+      weak_factory_(this),
+      field_trials_(args.field_trials) {
+  RTC_DCHECK(factory_ != NULL);
+  Construct();
+}
+
 Port::Port(TaskQueueBase* thread,
            absl::string_view type,
            rtc::PacketSocketFactory* factory,
@@ -99,27 +149,9 @@ Port::Port(TaskQueueBase* thread,
            absl::string_view username_fragment,
            absl::string_view password,
            const webrtc::FieldTrialsView* field_trials)
-    : thread_(thread),
-      factory_(factory),
-      type_(type),
-      send_retransmit_count_attribute_(false),
-      network_(network),
-      min_port_(0),
-      max_port_(0),
-      component_(ICE_CANDIDATE_COMPONENT_DEFAULT),
-      generation_(0),
-      ice_username_fragment_(username_fragment),
-      password_(password),
-      timeout_delay_(kPortTimeoutDelay),
-      enable_port_packets_(false),
-      ice_role_(ICEROLE_UNKNOWN),
-      tiebreaker_(0),
-      shared_socket_(true),
-      weak_factory_(this),
-      field_trials_(field_trials) {
-  RTC_DCHECK(factory_ != NULL);
-  Construct();
-}
+    : Port(
+          {thread, factory, network, username_fragment, password, field_trials},
+          type) {}
 
 Port::Port(TaskQueueBase* thread,
            absl::string_view type,
@@ -130,27 +162,11 @@ Port::Port(TaskQueueBase* thread,
            absl::string_view username_fragment,
            absl::string_view password,
            const webrtc::FieldTrialsView* field_trials)
-    : thread_(thread),
-      factory_(factory),
-      type_(type),
-      send_retransmit_count_attribute_(false),
-      network_(network),
-      min_port_(min_port),
-      max_port_(max_port),
-      component_(ICE_CANDIDATE_COMPONENT_DEFAULT),
-      generation_(0),
-      ice_username_fragment_(username_fragment),
-      password_(password),
-      timeout_delay_(kPortTimeoutDelay),
-      enable_port_packets_(false),
-      ice_role_(ICEROLE_UNKNOWN),
-      tiebreaker_(0),
-      shared_socket_(false),
-      weak_factory_(this),
-      field_trials_(field_trials) {
-  RTC_DCHECK(factory_ != NULL);
-  Construct();
-}
+    : Port(
+          {thread, factory, network, username_fragment, password, field_trials},
+          type,
+          min_port,
+          max_port) {}
 
 void Port::Construct() {
   RTC_DCHECK_RUN_ON(thread_);

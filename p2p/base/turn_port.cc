@@ -207,7 +207,68 @@ class TurnEntry : public sigslot::has_slots<> {
   webrtc::ScopedTaskSafety task_safety_;
 };
 
-TurnPort::TurnPort(TaskQueueBase* thread,
+TurnPort::TurnPort(const CreatePortArgs& args,
+                   rtc::AsyncPacketSocket* socket,
+                   const ProtocolAddress& server_address,
+                   const RelayCredentials& credentials,
+                   int server_priority,
+                   const std::vector<std::string>& tls_alpn_protocols,
+                   const std::vector<std::string>& tls_elliptic_curves,
+                   webrtc::TurnCustomizer* customizer,
+                   rtc::SSLCertificateVerifier* tls_cert_verifier)
+    : Port(args, RELAY_PORT_TYPE),
+      server_address_(server_address),
+      server_url_(ReconstructServerUrl()),
+      tls_alpn_protocols_(tls_alpn_protocols),
+      tls_elliptic_curves_(tls_elliptic_curves),
+      tls_cert_verifier_(tls_cert_verifier),
+      credentials_(credentials),
+      socket_(socket),
+      error_(0),
+      stun_dscp_value_(rtc::DSCP_NO_CHANGE),
+      request_manager_(
+          args.network_thread,
+          [this](const void* data, size_t size, StunRequest* request) {
+            OnSendStunPacket(data, size, request);
+          }),
+      next_channel_number_(TURN_CHANNEL_NUMBER_START),
+      state_(STATE_CONNECTING),
+      server_priority_(server_priority),
+      allocate_mismatch_retries_(0),
+      turn_customizer_(customizer) {}
+
+TurnPort::TurnPort(const CreatePortArgs& args,
+                   uint16_t min_port,
+                   uint16_t max_port,
+                   const ProtocolAddress& server_address,
+                   const RelayCredentials& credentials,
+                   int server_priority,
+                   const std::vector<std::string>& tls_alpn_protocols,
+                   const std::vector<std::string>& tls_elliptic_curves,
+                   webrtc::TurnCustomizer* customizer,
+                   rtc::SSLCertificateVerifier* tls_cert_verifier)
+    : Port(args, RELAY_PORT_TYPE, min_port, max_port),
+      server_address_(server_address),
+      server_url_(ReconstructServerUrl()),
+      tls_alpn_protocols_(tls_alpn_protocols),
+      tls_elliptic_curves_(tls_elliptic_curves),
+      tls_cert_verifier_(tls_cert_verifier),
+      credentials_(credentials),
+      socket_(nullptr),
+      error_(0),
+      stun_dscp_value_(rtc::DSCP_NO_CHANGE),
+      request_manager_(
+          args.network_thread,
+          [this](const void* data, size_t size, StunRequest* request) {
+            OnSendStunPacket(data, size, request);
+          }),
+      next_channel_number_(TURN_CHANNEL_NUMBER_START),
+      state_(STATE_CONNECTING),
+      server_priority_(server_priority),
+      allocate_mismatch_retries_(0),
+      turn_customizer_(customizer) {}
+
+TurnPort::TurnPort(webrtc::TaskQueueBase* thread,
                    rtc::PacketSocketFactory* factory,
                    const rtc::Network* network,
                    rtc::AsyncPacketSocket* socket,
@@ -221,34 +282,16 @@ TurnPort::TurnPort(TaskQueueBase* thread,
                    webrtc::TurnCustomizer* customizer,
                    rtc::SSLCertificateVerifier* tls_cert_verifier,
                    const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           RELAY_PORT_TYPE,
-           factory,
-           network,
-           username,
-           password,
-           field_trials),
-      server_address_(server_address),
-      server_url_(ReconstructServerUrl()),
-      tls_alpn_protocols_(tls_alpn_protocols),
-      tls_elliptic_curves_(tls_elliptic_curves),
-      tls_cert_verifier_(tls_cert_verifier),
-      credentials_(credentials),
-      socket_(socket),
-      error_(0),
-      stun_dscp_value_(rtc::DSCP_NO_CHANGE),
-      request_manager_(
-          thread,
-          [this](const void* data, size_t size, StunRequest* request) {
-            OnSendStunPacket(data, size, request);
-          }),
-      next_channel_number_(TURN_CHANNEL_NUMBER_START),
-      state_(STATE_CONNECTING),
-      server_priority_(server_priority),
-      allocate_mismatch_retries_(0),
-      turn_customizer_(customizer) {}
-
-TurnPort::TurnPort(TaskQueueBase* thread,
+    : TurnPort({thread, factory, network, username, password, field_trials},
+               socket,
+               server_address,
+               credentials,
+               server_priority,
+               tls_alpn_protocols,
+               tls_elliptic_curves,
+               customizer,
+               tls_cert_verifier) {}
+TurnPort::TurnPort(webrtc::TaskQueueBase* thread,
                    rtc::PacketSocketFactory* factory,
                    const rtc::Network* network,
                    uint16_t min_port,
@@ -263,34 +306,16 @@ TurnPort::TurnPort(TaskQueueBase* thread,
                    webrtc::TurnCustomizer* customizer,
                    rtc::SSLCertificateVerifier* tls_cert_verifier,
                    const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           RELAY_PORT_TYPE,
-           factory,
-           network,
-           min_port,
-           max_port,
-           username,
-           password,
-           field_trials),
-      server_address_(server_address),
-      server_url_(ReconstructServerUrl()),
-      tls_alpn_protocols_(tls_alpn_protocols),
-      tls_elliptic_curves_(tls_elliptic_curves),
-      tls_cert_verifier_(tls_cert_verifier),
-      credentials_(credentials),
-      socket_(nullptr),
-      error_(0),
-      stun_dscp_value_(rtc::DSCP_NO_CHANGE),
-      request_manager_(
-          thread,
-          [this](const void* data, size_t size, StunRequest* request) {
-            OnSendStunPacket(data, size, request);
-          }),
-      next_channel_number_(TURN_CHANNEL_NUMBER_START),
-      state_(STATE_CONNECTING),
-      server_priority_(server_priority),
-      allocate_mismatch_retries_(0),
-      turn_customizer_(customizer) {}
+    : TurnPort({thread, factory, network, username, password, field_trials},
+               min_port,
+               max_port,
+               server_address,
+               credentials,
+               server_priority,
+               tls_alpn_protocols,
+               tls_elliptic_curves,
+               customizer,
+               tls_cert_verifier) {}
 
 TurnPort::~TurnPort() {
   // TODO(juberti): Should this even be necessary?

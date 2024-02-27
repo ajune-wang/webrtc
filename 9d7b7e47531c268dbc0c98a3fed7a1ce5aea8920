@@ -16,6 +16,23 @@
       "message": "Please?",
       "revId": "9d7b7e47531c268dbc0c98a3fed7a1ce5aea8920",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d998698c_37ff3048",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-27T08:18:55Z",
+      "side": 1,
+      "message": "Good to see all those casts go! (side effect)",
+      "revId": "9d7b7e47531c268dbc0c98a3fed7a1ce5aea8920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

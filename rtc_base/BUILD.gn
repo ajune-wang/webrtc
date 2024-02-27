@@ -1109,6 +1109,7 @@ rtc_library("socket") {
     ":checks",
     ":macromagic",
     ":socket_address",
+    "../api/transport:ecn_marking",
     "../api/units:timestamp",
     "system:rtc_export",
     "third_party/sigslot",

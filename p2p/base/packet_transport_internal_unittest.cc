@@ -44,9 +44,9 @@ TEST(PacketTransportInternal,
   packet_transport.SignalReadPacket.connect(
       &receiver, &SigslotPacketReceiver::OnPacketReceived);
 
-  packet_transport.NotifyPacketReceived(
-      rtc::ReceivedPacket({}, rtc::SocketAddress(), absl::nullopt,
-                          rtc::ReceivedPacket::kNotDecrypted));
+  packet_transport.NotifyPacketReceived(rtc::ReceivedPacket(
+      {}, rtc::SocketAddress(), absl::nullopt, rtc::EcnMarking::kNotECT,
+      rtc::ReceivedPacket::kNotDecrypted));
   ASSERT_TRUE(receiver.packet_received_);
   EXPECT_EQ(receiver.flags_, 0);
 }
@@ -57,9 +57,9 @@ TEST(PacketTransportInternal, PacketFlagsCorrectWithSrtpPacketUsingSigslot) {
   packet_transport.SignalReadPacket.connect(
       &receiver, &SigslotPacketReceiver::OnPacketReceived);
 
-  packet_transport.NotifyPacketReceived(
-      rtc::ReceivedPacket({}, rtc::SocketAddress(), absl::nullopt,
-                          rtc::ReceivedPacket::kSrtpEncrypted));
+  packet_transport.NotifyPacketReceived(rtc::ReceivedPacket(
+      {}, rtc::SocketAddress(), absl::nullopt, rtc::EcnMarking::kNotECT,
+      rtc::ReceivedPacket::kSrtpEncrypted));
   ASSERT_TRUE(receiver.packet_received_);
   EXPECT_EQ(receiver.flags_, 1);
 }
@@ -70,9 +70,9 @@ TEST(PacketTransportInternal, PacketFlagsCorrectWithDtlsDecryptedUsingSigslot) {
   packet_transport.SignalReadPacket.connect(
       &receiver, &SigslotPacketReceiver::OnPacketReceived);
 
-  packet_transport.NotifyPacketReceived(
-      rtc::ReceivedPacket({}, rtc::SocketAddress(), absl::nullopt,
-                          rtc::ReceivedPacket::kDtlsDecrypted));
+  packet_transport.NotifyPacketReceived(rtc::ReceivedPacket(
+      {}, rtc::SocketAddress(), absl::nullopt, rtc::EcnMarking::kNotECT,
+      rtc::ReceivedPacket::kDtlsDecrypted));
   ASSERT_TRUE(receiver.packet_received_);
   EXPECT_EQ(receiver.flags_, 0);
 }
@@ -91,9 +91,9 @@ TEST(PacketTransportInternal,
             EXPECT_EQ(packet.decryption_info(),
                       rtc::ReceivedPacket::kDtlsDecrypted);
           });
-  packet_transport.NotifyPacketReceived(
-      rtc::ReceivedPacket({}, rtc::SocketAddress(), absl::nullopt,
-                          rtc::ReceivedPacket::kDtlsDecrypted));
+  packet_transport.NotifyPacketReceived(rtc::ReceivedPacket(
+      {}, rtc::SocketAddress(), absl::nullopt, rtc::EcnMarking::kNotECT,
+      rtc::ReceivedPacket::kDtlsDecrypted));
 
   packet_transport.DeregisterReceivedPacketCallback(&receiver);
 }

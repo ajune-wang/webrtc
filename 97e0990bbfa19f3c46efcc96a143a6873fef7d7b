@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2974a9de_59812513",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2024-02-27T14:39:50Z",
+      "side": 1,
+      "message": "I want to stress that even if I think there\u0027s value in exposing `capture timestamp` and `estimated capture clock offset` as separate properties and/or exposing the combined `capture timestamp + estimated capture clock offset` as a single value in `VideoFrameCallbackMetadata.captureTime`, I acknowledge that this will likely involve quite a bit of extra work (and discussions).\n\nI would therefore be happy if we only aim for the smaller change of setting `VideoFrameCallbackMetadata.captureTime \u003d captureTimestamp`. We just have to first change the language at https://wicg.github.io/video-rvfc/#dom-videoframecallbackmetadata-capturetime:\n\n\u003e For video frames coming from a local source, this is the time at which the frame was captured by the camera. For video frames coming from remote source, the capture time is based on the RTP timestamp of the frame and estimated using clock synchronization. This is best effort and can use methods like using RTCP SR as specified in RFC 3550 Section 6.4.1, or by other alternative means if use by RTCP SR isn’t feasible.\n\n... to instead be something like:\n\n\u003e For video frames coming from a local source, this is the time at which the frame was captured by the camera. For video frames coming from a remote source, this is timestamp set by the system that originally captured the frame and with its reference clock being the capture system\u0027s NTP clock (same clock used to generate NTP timestamps for RTCP sender reports on that system).\n\nI\u0027m happy to continue the conversation on GitHub!",
+      "parentUuid": "5a0419de_d983eb2b",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

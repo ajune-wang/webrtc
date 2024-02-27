@@ -26,6 +26,7 @@ rtc_library("received_packet") {
   deps = [
     "..:socket_address",
     "../../api:array_view",
+    "../../api/transport:ecn_marking",
     "../../api/units:timestamp",
     "../system:rtc_export",
   ]

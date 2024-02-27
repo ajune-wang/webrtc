@@ -29,6 +29,11 @@ rtc_source_set("enums") {
   sources = [ "enums.h" ]
 }
 
+rtc_source_set("ecn_marking") {
+  visibility = [ "*" ]
+  sources = [ "ecn_marking.h" ]
+}
+
 rtc_library("network_control") {
   visibility = [ "*" ]
   sources = [

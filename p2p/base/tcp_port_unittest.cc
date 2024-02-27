@@ -84,16 +84,18 @@ class TCPPortTest : public ::testing::Test, public sigslot::has_slots<> {
 
   std::unique_ptr<TCPPort> CreateTCPPort(const SocketAddress& addr) {
     auto port = std::unique_ptr<TCPPort>(
-        TCPPort::Create(&main_, &socket_factory_, MakeNetwork(addr), 0, 0,
-                        username_, password_, true, &field_trials_));
+        TCPPort::Create({&main_, &socket_factory_, MakeNetwork(addr), username_,
+                         password_, &field_trials_},
+                        0, 0, true));
     port->SetIceTiebreaker(kTiebreakerDefault);
     return port;
   }
 
   std::unique_ptr<TCPPort> CreateTCPPort(const rtc::Network* network) {
     auto port = std::unique_ptr<TCPPort>(
-        TCPPort::Create(&main_, &socket_factory_, network, 0, 0, username_,
-                        password_, true, &field_trials_));
+        TCPPort::Create({&main_, &socket_factory_, network, username_,
+                         password_, &field_trials_},
+                        0, 0, true));
     port->SetIceTiebreaker(kTiebreakerDefault);
     return port;
   }

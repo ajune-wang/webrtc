@@ -178,22 +178,30 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
   // PRUNED: It will be destroyed if no connection is using it for a period of
   // 30 seconds.
   enum class State { INIT, KEEP_ALIVE_UNTIL_PRUNED, PRUNED };
-  Port(webrtc::TaskQueueBase* thread,
+  Port(const CreatePortArgs& args,
+       absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND);
+  Port(const CreatePortArgs& args,
        absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
-       rtc::PacketSocketFactory* factory,
-       const rtc::Network* network,
-       absl::string_view username_fragment,
-       absl::string_view password,
-       const webrtc::FieldTrialsView* field_trials = nullptr);
-  Port(webrtc::TaskQueueBase* thread,
-       absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
-       rtc::PacketSocketFactory* factory,
-       const rtc::Network* network,
        uint16_t min_port,
-       uint16_t max_port,
-       absl::string_view username_fragment,
-       absl::string_view password,
-       const webrtc::FieldTrialsView* field_trials = nullptr);
+       uint16_t max_port);
+  [[deprecated("Pass arguments using CreatePortArgs")]] Port(
+      webrtc::TaskQueueBase* thread,
+      absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+      rtc::PacketSocketFactory* factory,
+      const rtc::Network* network,
+      absl::string_view username_fragment,
+      absl::string_view password,
+      const webrtc::FieldTrialsView* field_trials = nullptr);
+  [[deprecated("Pass arguments using CreatePortArgs")]] Port(
+      webrtc::TaskQueueBase* thread,
+      absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+      rtc::PacketSocketFactory* factory,
+      const rtc::Network* network,
+      uint16_t min_port,
+      uint16_t max_port,
+      absl::string_view username_fragment,
+      absl::string_view password,
+      const webrtc::FieldTrialsView* field_trials = nullptr);
   ~Port() override;
 
   // Note that the port type does NOT uniquely identify different subclasses of

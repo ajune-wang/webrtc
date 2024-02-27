@@ -207,27 +207,16 @@ class TurnEntry : public sigslot::has_slots<> {
   webrtc::ScopedTaskSafety task_safety_;
 };
 
-TurnPort::TurnPort(TaskQueueBase* thread,
-                   rtc::PacketSocketFactory* factory,
-                   const rtc::Network* network,
+TurnPort::TurnPort(const CreatePortArgs& args,
                    rtc::AsyncPacketSocket* socket,
-                   absl::string_view username,
-                   absl::string_view password,
                    const ProtocolAddress& server_address,
                    const RelayCredentials& credentials,
                    int server_priority,
                    const std::vector<std::string>& tls_alpn_protocols,
                    const std::vector<std::string>& tls_elliptic_curves,
                    webrtc::TurnCustomizer* customizer,
-                   rtc::SSLCertificateVerifier* tls_cert_verifier,
-                   const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           RELAY_PORT_TYPE,
-           factory,
-           network,
-           username,
-           password,
-           field_trials),
+                   rtc::SSLCertificateVerifier* tls_cert_verifier)
+    : Port(args, RELAY_PORT_TYPE),
       server_address_(server_address),
       server_url_(ReconstructServerUrl()),
       tls_alpn_protocols_(tls_alpn_protocols),
@@ -238,7 +227,7 @@ TurnPort::TurnPort(TaskQueueBase* thread,
       error_(0),
       stun_dscp_value_(rtc::DSCP_NO_CHANGE),
       request_manager_(
-          thread,
+          args.network_thread,
           [this](const void* data, size_t size, StunRequest* request) {
             OnSendStunPacket(data, size, request);
           }),
@@ -248,30 +237,17 @@ TurnPort::TurnPort(TaskQueueBase* thread,
       allocate_mismatch_retries_(0),
       turn_customizer_(customizer) {}
 
-TurnPort::TurnPort(TaskQueueBase* thread,
-                   rtc::PacketSocketFactory* factory,
-                   const rtc::Network* network,
+TurnPort::TurnPort(const CreatePortArgs& args,
                    uint16_t min_port,
                    uint16_t max_port,
-                   absl::string_view username,
-                   absl::string_view password,
                    const ProtocolAddress& server_address,
                    const RelayCredentials& credentials,
                    int server_priority,
                    const std::vector<std::string>& tls_alpn_protocols,
                    const std::vector<std::string>& tls_elliptic_curves,
                    webrtc::TurnCustomizer* customizer,
-                   rtc::SSLCertificateVerifier* tls_cert_verifier,
-                   const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           RELAY_PORT_TYPE,
-           factory,
-           network,
-           min_port,
-           max_port,
-           username,
-           password,
-           field_trials),
+                   rtc::SSLCertificateVerifier* tls_cert_verifier)
+    : Port(args, RELAY_PORT_TYPE, min_port, max_port),
       server_address_(server_address),
       server_url_(ReconstructServerUrl()),
       tls_alpn_protocols_(tls_alpn_protocols),
@@ -282,7 +258,7 @@ TurnPort::TurnPort(TaskQueueBase* thread,
       error_(0),
       stun_dscp_value_(rtc::DSCP_NO_CHANGE),
       request_manager_(
-          thread,
+          args.network_thread,
           [this](const void* data, size_t size, StunRequest* request) {
             OnSendStunPacket(data, size, request);
           }),

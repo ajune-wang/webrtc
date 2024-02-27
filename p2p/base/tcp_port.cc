@@ -89,24 +89,11 @@ namespace cricket {
 using ::webrtc::SafeTask;
 using ::webrtc::TimeDelta;
 
-TCPPort::TCPPort(rtc::Thread* thread,
-                 rtc::PacketSocketFactory* factory,
-                 const rtc::Network* network,
+TCPPort::TCPPort(const CreatePortArgs& args,
                  uint16_t min_port,
                  uint16_t max_port,
-                 absl::string_view username,
-                 absl::string_view password,
-                 bool allow_listen,
-                 const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           LOCAL_PORT_TYPE,
-           factory,
-           network,
-           min_port,
-           max_port,
-           username,
-           password,
-           field_trials),
+                 bool allow_listen)
+    : Port(args, LOCAL_PORT_TYPE, min_port, max_port),
       allow_listen_(allow_listen),
       error_(0) {
   // TODO(mallinath) - Set preference value as per RFC 6544.

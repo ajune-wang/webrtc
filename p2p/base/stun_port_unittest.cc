@@ -135,10 +135,11 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
 
   void CreateStunPort(const ServerAddresses& stun_servers,
                       const webrtc::FieldTrialsView* field_trials = nullptr) {
-    stun_port_ = cricket::StunPort::Create(
-        rtc::Thread::Current(), socket_factory(), &network_, 0, 0,
-        rtc::CreateRandomString(16), rtc::CreateRandomString(22), stun_servers,
-        absl::nullopt, field_trials);
+    stun_port_ =
+        cricket::StunPort::Create({rtc::Thread::Current(), socket_factory(),
+                                   &network_, rtc::CreateRandomString(16),
+                                   rtc::CreateRandomString(22), field_trials},
+                                  0, 0, stun_servers, absl::nullopt);
     stun_port_->SetIceTiebreaker(kTiebreakerDefault);
     stun_port_->set_stun_keepalive_delay(stun_keepalive_delay_);
     // If `stun_keepalive_lifetime_` is negative, let the stun port
@@ -168,10 +169,11 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
         [&](rtc::AsyncPacketSocket* socket, const rtc::ReceivedPacket& packet) {
           OnReadPacket(socket, packet);
         });
-    stun_port_ = cricket::UDPPort::Create(
-        rtc::Thread::Current(), socket_factory(), &network_, socket_.get(),
-        rtc::CreateRandomString(16), rtc::CreateRandomString(22), false,
-        absl::nullopt, field_trials);
+    stun_port_ =
+        cricket::UDPPort::Create({rtc::Thread::Current(), socket_factory(),
+                                  &network_, rtc::CreateRandomString(16),
+                                  rtc::CreateRandomString(22), field_trials},
+                                 socket_.get(), false, absl::nullopt);
     ASSERT_TRUE(stun_port_ != NULL);
     stun_port_->SetIceTiebreaker(kTiebreakerDefault);
     ServerAddresses stun_servers;

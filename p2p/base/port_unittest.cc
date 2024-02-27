@@ -140,24 +140,11 @@ bool WriteStunMessage(const StunMessage& msg, ByteBufferWriter* buf) {
 // Stub port class for testing STUN generation and processing.
 class TestPort : public Port {
  public:
-  TestPort(rtc::Thread* thread,
+  TestPort(const CreatePortArgs& args,
            absl::string_view type,
-           rtc::PacketSocketFactory* factory,
-           const rtc::Network* network,
            uint16_t min_port,
-           uint16_t max_port,
-           absl::string_view username_fragment,
-           absl::string_view password,
-           const webrtc::FieldTrialsView* field_trials = nullptr)
-      : Port(thread,
-             type,
-             factory,
-             network,
-             min_port,
-             max_port,
-             username_fragment,
-             password,
-             field_trials) {}
+           uint16_t max_port)
+      : Port(args, type, min_port, max_port) {}
   ~TestPort() {}
 
   // Expose GetStunMessage so that we can test it.
@@ -551,9 +538,9 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
   std::unique_ptr<UDPPort> CreateUdpPort(const SocketAddress& addr,
                                          PacketSocketFactory* socket_factory) {
-    auto port = UDPPort::Create(&main_, socket_factory, MakeNetwork(addr), 0, 0,
-                                username_, password_, true, absl::nullopt,
-                                &field_trials_);
+    auto port = UDPPort::Create({&main_, socket_factory, MakeNetwork(addr),
+                                 username_, password_, &field_trials_},
+                                0, 0, true, absl::nullopt);
     port->SetIceTiebreaker(kTiebreakerDefault);
     return port;
   }
@@ -562,10 +549,11 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
       const SocketAddress& global_addr,
       const SocketAddress& link_local_addr,
       PacketSocketFactory* socket_factory) {
-    auto port = UDPPort::Create(
-        &main_, socket_factory,
-        MakeNetworkMultipleAddrs(global_addr, link_local_addr), 0, 0, username_,
-        password_, true, absl::nullopt, &field_trials_);
+    auto port =
+        UDPPort::Create({&main_, socket_factory,
+                         MakeNetworkMultipleAddrs(global_addr, link_local_addr),
+                         username_, password_, &field_trials_},
+                        0, 0, true, absl::nullopt);
     port->SetIceTiebreaker(kTiebreakerDefault);
     return port;
   }
@@ -574,8 +562,9 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
   std::unique_ptr<TCPPort> CreateTcpPort(const SocketAddress& addr,
                                          PacketSocketFactory* socket_factory) {
-    auto port = TCPPort::Create(&main_, socket_factory, MakeNetwork(addr), 0, 0,
-                                username_, password_, true, &field_trials_);
+    auto port = TCPPort::Create({&main_, socket_factory, MakeNetwork(addr),
+                                 username_, password_, &field_trials_},
+                                0, 0, true);
     port->SetIceTiebreaker(kTiebreakerDefault);
     return port;
   }
@@ -583,9 +572,9 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
                                            rtc::PacketSocketFactory* factory) {
     ServerAddresses stun_servers;
     stun_servers.insert(kStunAddr);
-    auto port = StunPort::Create(&main_, factory, MakeNetwork(addr), 0, 0,
-                                 username_, password_, stun_servers,
-                                 absl::nullopt, &field_trials_);
+    auto port = StunPort::Create({&main_, factory, MakeNetwork(addr), username_,
+                                  password_, &field_trials_},
+                                 0, 0, stun_servers, absl::nullopt);
     port->SetIceTiebreaker(kTiebreakerDefault);
     return port;
   }
@@ -825,9 +814,10 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
       absl::string_view username,
       absl::string_view password,
       const webrtc::FieldTrialsView* field_trials = nullptr) {
-    auto port = std::make_unique<TestPort>(
-        &main_, cricket::LOCAL_PORT_TYPE, &socket_factory_, MakeNetwork(addr),
-        0, 0, username, password, field_trials);
+    CreatePortArgs args = {&main_,   &socket_factory_, MakeNetwork(addr),
+                           username, password,         field_trials};
+    auto port =
+        std::make_unique<TestPort>(args, cricket::LOCAL_PORT_TYPE, 0, 0);
     port->SignalRoleConflict.connect(this, &PortTest::OnRoleConflict);
     return port;
   }
@@ -845,9 +835,10 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   std::unique_ptr<TestPort> CreateTestPort(const rtc::Network* network,
                                            absl::string_view username,
                                            absl::string_view password) {
-    auto port = std::make_unique<TestPort>(&main_, cricket::LOCAL_PORT_TYPE,
-                                           &socket_factory_, network, 0, 0,
-                                           username, password);
+    CreatePortArgs args = {&main_, &socket_factory_, network, username,
+                           password};
+    auto port =
+        std::make_unique<TestPort>(args, cricket::LOCAL_PORT_TYPE, 0, 0);
     port->SignalRoleConflict.connect(this, &PortTest::OnRoleConflict);
     return port;
   }

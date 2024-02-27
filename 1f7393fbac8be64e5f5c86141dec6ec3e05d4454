@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbecee42_41d1b3db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-27T12:41:29Z",
+      "side": 1,
+      "message": "Notably, SimulcastRateAllocator behavior is better than SvcRateAllocator, especially for HW encoders, which would be a main benefit of switching to simulcast (namely, not dropping lower layers bitrate then enabling the higher layers)",
+      "parentUuid": "b4340d16_679b0757",
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e331a0f0_503f1d31",
         "filename": "video/config/simulcast.cc",
         "patchSetId": 1

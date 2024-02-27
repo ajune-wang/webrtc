@@ -21,6 +21,7 @@
 #include "modules/video_coding/decoder_database.h"
 #include "modules/video_coding/generic_decoder.h"
 #include "modules/video_coding/timing/timing.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "system_wrappers/include/clock.h"
 
@@ -50,6 +51,10 @@ class VideoReceiver2 {
   int32_t RegisterReceiveCallback(VCMReceiveCallback* receive_callback);
 
   int32_t Decode(const EncodedFrame* frame);
+
+  void OnSoftwareFallback(VideoDecoderFallbackReason reason) {
+    RTC_LOG(LS_ERROR) << "FIPPO";
+  }
 
  private:
   RTC_NO_UNIQUE_ADDRESS SequenceChecker construction_sequence_checker_;

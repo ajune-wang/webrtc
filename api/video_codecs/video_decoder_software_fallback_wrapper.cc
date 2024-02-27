@@ -119,6 +119,8 @@ bool VideoDecoderSoftwareFallbackWrapper::InitHwDecoder() {
   }
 
   decoder_type_ = DecoderType::kHardware;
+  RTC_LOG(LS_ERROR) << "FIPPO RegisterDecodeCompleteCallback(HW) " << this
+                    << " callback " << callback_;
   if (callback_)
     hw_decoder_->RegisterDecodeCompleteCallback(callback_);
   return true;
@@ -139,7 +141,8 @@ bool VideoDecoderSoftwareFallbackWrapper::InitFallbackDecoder() {
     hw_decoder_->Release();
   }
   decoder_type_ = DecoderType::kFallback;
-
+  RTC_LOG(LS_ERROR) << "FIPPO RegisterDecodeCompleteCallback(SW) " << this
+                    << " callback " << callback_;
   if (callback_)
     fallback_decoder_->RegisterDecodeCompleteCallback(callback_);
   return true;
@@ -204,6 +207,13 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
           return ret;
         }
       }
+      if (ret == WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE) {
+        RTC_LOG(LS_ERROR) << "FIPPO FALLBACK FROM HW TO SW DETECTED";
+        if (callback_) {
+          RTC_LOG(LS_ERROR) << "FIPPO TRIGGERING CALLBACK";
+          callback_->OnSoftwareFallback(VideoDecoderFallbackReason::kMaxValue);
+        }
+      }
 
       // HW decoder returned WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE or
       // too many generic errors on key-frames encountered.
@@ -224,6 +234,8 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
 
 int32_t VideoDecoderSoftwareFallbackWrapper::RegisterDecodeCompleteCallback(
     DecodedImageCallback* callback) {
+  RTC_LOG(LS_ERROR) << "FIPPO RegisterDecodeCompleteCallback " << this
+                    << " callback " << callback;
   callback_ = callback;
   return active_decoder().RegisterDecodeCompleteCallback(callback);
 }

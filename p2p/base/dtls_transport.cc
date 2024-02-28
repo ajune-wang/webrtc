@@ -509,6 +509,15 @@ int DtlsTransport::SetOption(rtc::Socket::Option opt, int value) {
   return ice_transport_->SetOption(opt, value);
 }
 
+std::string DtlsTransport::ToString() const {
+  const absl::string_view RECEIVING_ABBREV[2] = {"_", "R"};
+  const absl::string_view WRITABLE_ABBREV[2] = {"_", "W"};
+  rtc::StringBuilder sb;
+  sb << "DtlsTransport[" << transport_name() << "|" << component_ << "|"
+      << RECEIVING_ABBREV[receiving()] << WRITABLE_ABBREV[writable()] << "]";
+  return sb.Release();
+}
+
 void DtlsTransport::ConnectToIceTransport() {
   RTC_DCHECK(ice_transport_);
   ice_transport_->SignalWritableState.connect(this,

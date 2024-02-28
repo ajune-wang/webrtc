@@ -17,6 +17,7 @@
 
 namespace webrtc {
 
+#ifdef INSIDE_WEBRTC
 template <typename Range>
 std::string StrJoin(const Range& seq, absl::string_view delimiter) {
   rtc::StringBuilder sb;
@@ -50,6 +51,7 @@ std::string StrJoin(const Range& seq,
   }
   return sb.Release();
 }
+#endif
 
 }  // namespace webrtc
 

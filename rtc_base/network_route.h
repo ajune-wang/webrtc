@@ -74,18 +74,7 @@ struct NetworkRoute {
   // This is the maximum of any part of the route.
   int packet_overhead = 0;
 
-  RTC_NO_INLINE inline std::string DebugString() const {
-    rtc::StringBuilder oss;
-    oss << "[ connected: " << connected << " local: [ " << local.adapter_id()
-        << "/" << local.network_id() << " "
-        << AdapterTypeToString(local.adapter_type())
-        << " turn: " << local.uses_turn() << " ] remote: [ "
-        << remote.adapter_id() << "/" << remote.network_id() << " "
-        << AdapterTypeToString(remote.adapter_type())
-        << " turn: " << remote.uses_turn()
-        << " ] packet_overhead_bytes: " << packet_overhead << " ]";
-    return oss.Release();
-  }
+  std::string DebugString() const;
 
   bool operator==(const NetworkRoute& other) const;
 };

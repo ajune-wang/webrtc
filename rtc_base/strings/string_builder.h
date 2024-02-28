@@ -76,6 +76,7 @@ class SimpleStringBuilder {
   size_t size_ = 0;
 };
 
+#ifdef INSIDE_WEBRTC
 // A string builder that supports dynamic resizing while building a string.
 // The class is based around an instance of std::string and allows moving
 // ownership out of the class once the string has been built.
@@ -164,6 +165,7 @@ class StringBuilder {
  private:
   std::string str_;
 };
+#endif  // INSIDE_WEBRTC
 
 }  // namespace rtc
 

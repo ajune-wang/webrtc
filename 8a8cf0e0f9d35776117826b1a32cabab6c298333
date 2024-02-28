@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4297c9c_ea6536d4",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-28T13:43:04Z",
+      "side": 1,
+      "message": "This is a bit unsafe - There is no guarantee Environment passed in the constructor would outlive the DcSctpTransport.\none way is to annotate that it should (ABSL_ATTRIBUTE_LIFETIME_BOUND)\n\nBetter way - store Environment by value:\n\nEnvironment env_;\n...\nwebrtc::Timestamp now \u003d env_.clock().CurrentTime();",
+      "revId": "8a8cf0e0f9d35776117826b1a32cabab6c298333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10878ba5_33f42cc0",
+        "filename": "media/sctp/sctp_transport_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-28T13:43:04Z",
+      "side": 1,
+      "message": "Environment is designed to be stored by value, copied (internally it relies on shared ownership).\nWhy not keep the copy?",
+      "revId": "8a8cf0e0f9d35776117826b1a32cabab6c298333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

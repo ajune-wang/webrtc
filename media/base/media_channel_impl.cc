@@ -53,9 +53,76 @@ using webrtc::SafeTask;
 using webrtc::TaskQueueBase;
 using webrtc::VideoTrackInterface;
 
+namespace {
+
+template <class T>
+static std::string ToStringIfSet(const char* key,
+                                 const absl::optional<T>& val) {
+  std::string str;
+  if (val) {
+    str = key;
+    str += ": ";
+    str += val ? rtc::ToString(*val) : "";
+    str += ", ";
+  }
+  return str;
+}
+
+template <class T>
+static std::string VectorToString(const std::vector<T>& vals) {
+  rtc::StringBuilder ost;  // no-presubmit-check TODO(webrtc:8982)
+  ost << "[";
+  for (size_t i = 0; i < vals.size(); ++i) {
+    if (i > 0) {
+      ost << ", ";
+    }
+    ost << vals[i].ToString();
+  }
+  ost << "]";
+  return ost.Release();
+}
+
+}  // namespace
+
 VideoOptions::VideoOptions()
     : content_hint(VideoTrackInterface::ContentHint::kNone) {}
 VideoOptions::~VideoOptions() = default;
+
+std::string VideoOptions::ToString() const {
+  rtc::StringBuilder ost;
+  ost << "VideoOptions {";
+  ost << ToStringIfSet("noise reduction", video_noise_reduction);
+  ost << ToStringIfSet("screencast min bitrate kbps",
+                        screencast_min_bitrate_kbps);
+  ost << ToStringIfSet("is_screencast ", is_screencast);
+  ost << "}";
+  return ost.Release();
+}
+
+std::string MediaChannelParameters::ToString() const {
+  rtc::StringBuilder ost;
+  ost << "{";
+  const char* separator = "";
+  for (const auto& entry : ToStringMap()) {
+    ost << separator << entry.first << ": " << entry.second;
+    separator = ", ";
+  }
+  ost << "}";
+  return ost.Release();
+}
+
+std::map<std::string, std::string> MediaChannelParameters::ToStringMap() const {
+  return {{"codecs", VectorToString(codecs)},
+          {"extensions", VectorToString(extensions)}};
+}
+
+std::map<std::string, std::string> SenderParameters::ToStringMap() const {
+  auto params = MediaChannelParameters::ToStringMap();
+  params["max_bandwidth_bps"] = rtc::ToString(max_bandwidth_bps);
+  params["mid"] = (mid.empty() ? "<not set>" : mid);
+  params["extmap-allow-mixed"] = extmap_allow_mixed ? "true" : "false";
+  return params;
+}
 
 MediaChannelUtil::MediaChannelUtil(TaskQueueBase* network_thread,
                                    bool enable_dscp)

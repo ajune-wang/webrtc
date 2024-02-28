@@ -24,4 +24,17 @@ bool NetworkRoute::operator==(const NetworkRoute& other) const {
          last_sent_packet_id == other.last_sent_packet_id;
 }
 
+std::string NetworkRoute::DebugString() const {
+  rtc::StringBuilder oss;
+  oss << "[ connected: " << connected << " local: [ " << local.adapter_id()
+      << "/" << local.network_id() << " "
+      << AdapterTypeToString(local.adapter_type())
+      << " turn: " << local.uses_turn() << " ] remote: [ "
+      << remote.adapter_id() << "/" << remote.network_id() << " "
+      << AdapterTypeToString(remote.adapter_type())
+      << " turn: " << remote.uses_turn()
+      << " ] packet_overhead_bytes: " << packet_overhead << " ]";
+  return oss.Release();
+}
+
 }  // namespace rtc

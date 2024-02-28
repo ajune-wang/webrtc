@@ -1679,6 +1679,16 @@ void P2PTransportChannel::RemoveConnectionForTest(Connection* connection) {
   connection->Destroy();
 }
 
+std::string P2PTransportChannel::ToString() const {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  const std::string RECEIVING_ABBREV[2] = {"_", "R"};
+  const std::string WRITABLE_ABBREV[2] = {"_", "W"};
+  rtc::StringBuilder ss;
+  ss << "Channel[" << transport_name_ << "|" << component_ << "|"
+      << RECEIVING_ABBREV[receiving_] << WRITABLE_ABBREV[writable_] << "]";
+  return ss.Release();
+}
+
 // Monitor connection states.
 void P2PTransportChannel::UpdateConnectionStates() {
   RTC_DCHECK_RUN_ON(network_thread_);

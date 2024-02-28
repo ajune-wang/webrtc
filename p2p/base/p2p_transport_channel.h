@@ -236,15 +236,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal,
     return remote_candidates_;
   }
 
-  std::string ToString() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
-    const std::string RECEIVING_ABBREV[2] = {"_", "R"};
-    const std::string WRITABLE_ABBREV[2] = {"_", "W"};
-    rtc::StringBuilder ss;
-    ss << "Channel[" << transport_name_ << "|" << component_ << "|"
-       << RECEIVING_ABBREV[receiving_] << WRITABLE_ABBREV[writable_] << "]";
-    return ss.Release();
-  }
+  std::string ToString() const;
 
   absl::optional<std::reference_wrapper<StunDictionaryWriter>>
   GetDictionaryWriter() override {

@@ -202,14 +202,7 @@ class DtlsTransport : public DtlsTransportInternal {
 
   int SetOption(rtc::Socket::Option opt, int value) override;
 
-  std::string ToString() const {
-    const absl::string_view RECEIVING_ABBREV[2] = {"_", "R"};
-    const absl::string_view WRITABLE_ABBREV[2] = {"_", "W"};
-    rtc::StringBuilder sb;
-    sb << "DtlsTransport[" << transport_name() << "|" << component_ << "|"
-       << RECEIVING_ABBREV[receiving()] << WRITABLE_ABBREV[writable()] << "]";
-    return sb.Release();
-  }
+  std::string ToString() const;
 
  private:
   void ConnectToIceTransport();

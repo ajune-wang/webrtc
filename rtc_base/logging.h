@@ -493,7 +493,9 @@ class LogMessage {
   LogMessage& operator=(const LogMessage&) = delete;
 
   void AddTag(const char* tag);
+#ifdef INSIDE_WEBRTC
   rtc::StringBuilder& stream();
+#endif
   // Returns the time at which this function was called for the first time.
   // The time will be used as the logging start time.
   // If this is not called externally, the LogMessage ctor also calls it, in
@@ -559,7 +561,9 @@ class LogMessage {
   ~LogMessage() = default;
 
   inline void AddTag(const char* tag) {}
+#ifdef INSIDE_WEBRTC
   inline rtc::StringBuilder& stream() { return print_stream_; }
+#endif
   inline static int64_t LogStartTime() { return 0; }
   inline static uint32_t WallClockStartTime() { return 0; }
   inline static void LogThreads(bool on = true) {}
@@ -634,8 +638,10 @@ class LogMessage {
   inline void FinishPrintStream() {}
 #endif  // RTC_LOG_ENABLED()
 
+#ifdef INSIDE_WEBRTC
   // The stringbuilder that buffers the formatted message before output
   rtc::StringBuilder print_stream_;
+#endif
 };
 
 //////////////////////////////////////////////////////////////////////

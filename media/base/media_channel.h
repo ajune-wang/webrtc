@@ -84,33 +84,6 @@ class VoiceMediaReceiveChannelInterface;
 
 const int kScreencastDefaultFps = 5;
 
-template <class T>
-static std::string ToStringIfSet(const char* key,
-                                 const absl::optional<T>& val) {
-  std::string str;
-  if (val) {
-    str = key;
-    str += ": ";
-    str += val ? rtc::ToString(*val) : "";
-    str += ", ";
-  }
-  return str;
-}
-
-template <class T>
-static std::string VectorToString(const std::vector<T>& vals) {
-  rtc::StringBuilder ost;  // no-presubmit-check TODO(webrtc:8982)
-  ost << "[";
-  for (size_t i = 0; i < vals.size(); ++i) {
-    if (i > 0) {
-      ost << ", ";
-    }
-    ost << vals[i].ToString();
-  }
-  ost << "]";
-  return ost.Release();
-}
-
 // Options that can be applied to a VideoMediaChannel or a VideoMediaEngine.
 // Used to be flags, but that makes it hard to selectively apply options.
 // We are moving all of the setting of options to structs like this,
@@ -132,16 +105,7 @@ struct VideoOptions {
   }
   bool operator!=(const VideoOptions& o) const { return !(*this == o); }
 
-  std::string ToString() const {
-    rtc::StringBuilder ost;
-    ost << "VideoOptions {";
-    ost << ToStringIfSet("noise reduction", video_noise_reduction);
-    ost << ToStringIfSet("screencast min bitrate kbps",
-                         screencast_min_bitrate_kbps);
-    ost << ToStringIfSet("is_screencast ", is_screencast);
-    ost << "}";
-    return ost.Release();
-  }
+  std::string ToString() const;
 
   // Enable denoising? This flag comes from the getUserMedia
   // constraint 'googNoiseReduction', and WebRtcVideoEngine passes it
@@ -823,23 +787,10 @@ struct MediaChannelParameters {
   // TODO(pthatcher): Add streams.
   RtcpParameters rtcp;
 
-  std::string ToString() const {
-    rtc::StringBuilder ost;
-    ost << "{";
-    const char* separator = "";
-    for (const auto& entry : ToStringMap()) {
-      ost << separator << entry.first << ": " << entry.second;
-      separator = ", ";
-    }
-    ost << "}";
-    return ost.Release();
-  }
+  std::string ToString() const;
 
  protected:
-  virtual std::map<std::string, std::string> ToStringMap() const {
-    return {{"codecs", VectorToString(codecs)},
-            {"extensions", VectorToString(extensions)}};
-  }
+  virtual std::map<std::string, std::string> ToStringMap() const;
 };
 
 struct SenderParameters : MediaChannelParameters {
@@ -850,13 +801,7 @@ struct SenderParameters : MediaChannelParameters {
   bool extmap_allow_mixed = false;
 
  protected:
-  std::map<std::string, std::string> ToStringMap() const override {
-    auto params = MediaChannelParameters::ToStringMap();
-    params["max_bandwidth_bps"] = rtc::ToString(max_bandwidth_bps);
-    params["mid"] = (mid.empty() ? "<not set>" : mid);
-    params["extmap-allow-mixed"] = extmap_allow_mixed ? "true" : "false";
-    return params;
-  }
+  std::map<std::string, std::string> ToStringMap() const override;
 };
 
 struct AudioSenderParameter : SenderParameters {

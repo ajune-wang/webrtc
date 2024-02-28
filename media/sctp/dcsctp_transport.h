@@ -17,6 +17,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/environment/environment.h"
 #include "api/task_queue/task_queue_base.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "net/dcsctp/public/dcsctp_options.h"
@@ -40,13 +41,9 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
                         public dcsctp::DcSctpSocketCallbacks,
                         public sigslot::has_slots<> {
  public:
-  DcSctpTransport(rtc::Thread* network_thread,
-                  rtc::PacketTransportInternal* transport,
-                  Clock* clock);
-  DcSctpTransport(rtc::Thread* network_thread,
-                  rtc::PacketTransportInternal* transport,
-                  Clock* clock,
-                  std::unique_ptr<dcsctp::DcSctpSocketFactory> socket_factory);
+  DcSctpTransport(const Environment& env,
+                  rtc::Thread* network_thread,
+                  rtc::PacketTransportInternal* transport);
   ~DcSctpTransport() override;
 
   // cricket::SctpTransportInternal
@@ -102,7 +99,7 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
 
   rtc::Thread* network_thread_;
   rtc::PacketTransportInternal* transport_;
-  Clock* clock_;
+  Clock& clock_;
   Random random_;
 
   std::unique_ptr<dcsctp::DcSctpSocketFactory> socket_factory_;

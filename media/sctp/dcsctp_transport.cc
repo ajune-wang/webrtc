@@ -19,6 +19,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/environment/environment.h"
 #include "media/base/media_channel.h"
 #include "net/dcsctp/public/dcsctp_socket_factory.h"
 #include "net/dcsctp/public/packet_observer.h"
@@ -114,24 +115,14 @@ bool IsEmptyPPID(dcsctp::PPID ppid) {
 }
 }  // namespace
 
-DcSctpTransport::DcSctpTransport(rtc::Thread* network_thread,
-                                 rtc::PacketTransportInternal* transport,
-                                 Clock* clock)
-    : DcSctpTransport(network_thread,
-                      transport,
-                      clock,
-                      std::make_unique<dcsctp::DcSctpSocketFactory>()) {}
-
-DcSctpTransport::DcSctpTransport(
-    rtc::Thread* network_thread,
-    rtc::PacketTransportInternal* transport,
-    Clock* clock,
-    std::unique_ptr<dcsctp::DcSctpSocketFactory> socket_factory)
+DcSctpTransport::DcSctpTransport(const Environment& env,
+                                 rtc::Thread* network_thread,
+                                 rtc::PacketTransportInternal* transport)
     : network_thread_(network_thread),
       transport_(transport),
-      clock_(clock),
-      random_(clock_->TimeInMicroseconds()),
-      socket_factory_(std::move(socket_factory)),
+      clock_(env.clock()),
+      random_(clock_.TimeInMicroseconds()),
+      socket_factory_(std::make_unique<dcsctp::DcSctpSocketFactory>()),
       task_queue_timeout_factory_(
           *network_thread,
           [this]() { return TimeMillis(); },
@@ -423,7 +414,7 @@ std::unique_ptr<dcsctp::Timeout> DcSctpTransport::CreateTimeout(
 }
 
 dcsctp::TimeMs DcSctpTransport::TimeMillis() {
-  return dcsctp::TimeMs(clock_->TimeInMilliseconds());
+  return dcsctp::TimeMs(clock_.TimeInMilliseconds());
 }
 
 uint32_t DcSctpTransport::GetRandomInt(uint32_t low, uint32_t high) {

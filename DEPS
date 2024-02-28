@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'aa1c478fe012d41fd3b2607aab648de448a1e091',
+  'chromium_revision': 'a6f948e7126bcb0d99e93a2347d3c9fa647adfa6',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -65,9 +65,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@05bf67252fa0ef3fb9b56234ddeab935b21a778f',
+    'https://chromium.googlesource.com/chromium/src/testing@f1ba5710d033737e5801814c7b013a49e2735dc3',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@99b7011fc4546fb708a8136be7623c8ce26aa5f0',
+    'https://chromium.googlesource.com/chromium/src/third_party@77df291a2ec0656cdcccc0a035bd18a80e7c9fd2',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -202,7 +202,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@d972b831c3ca2be979c4009a1fb66baca9dc0b77',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@af26c1dfaae2f3c632d88bf9bd78526866afe180',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@79a88d33936007f95568ae1b39536d8452cd7366',
   'src/third_party/flatbuffers/src':
@@ -355,7 +355,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@7ff2c0ee3ded0dda432db9d8463b3c75c06f8357',
+    'https://chromium.googlesource.com/chromium/src/tools@0d5cad7f5469ed5100d49ac5289bfe9c898294ee',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -405,7 +405,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '1j7uahWSuRmjIRmOsXJ5wZQJafJoLaTNC7cFvlaXAFAC',
+          'version': 'FWqUT5IoVM8psEVxMdqcw7C2u3EfgoZddhNc6JEJQdkC',
       },
     ],
     'condition': 'checkout_android',

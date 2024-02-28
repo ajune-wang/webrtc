@@ -13,6 +13,7 @@ rtc_source_set("fake_sctp_transport") {
   sources = [ "fake_sctp_transport.h" ]
   deps = [
     "../../../api/transport:sctp_transport_factory_interface",
+    "../../../api/environment:environment",
     "../../../media:rtc_data_sctp_transport_internal",
   ]
 }

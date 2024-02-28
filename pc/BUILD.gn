@@ -292,6 +292,7 @@ rtc_source_set("jsep_transport_controller") {
     ":srtp_transport",
     ":transport_stats",
     "../api:async_dns_resolver",
+    "../api/environment:environment",
     "../api:candidate",
     "../api:dtls_transport_interface",
     "../api:ice_transport_factory",

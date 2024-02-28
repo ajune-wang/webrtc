@@ -167,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb967bb7_d0dd0acb",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-02-28T14:03:18Z",
+      "side": 1,
+      "message": "Please correct me if I am mistaken, but the  `VideoFrame::capture_time_identifier()` is only set and used currently on the sending/encoding side:\n\nI have been tracking the `RTCEncodedVideoFrame` usae of the capture_time_identifier as presentation timestamp and I have only been able to find that it is set on: third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h\n\nCould you point me how/if it is used on the receiver side as well?",
+      "parentUuid": "2776c1b2_c3a89972",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

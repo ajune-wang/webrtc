@@ -144,6 +144,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2776c1b2_c3a89972",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-02-28T11:58:16Z",
+      "side": 1,
+      "message": "This capture_time_identifier is not the one that corresponds to the absolute capture timestamp. But instead it\u0027s the one corresponding to the media timestamp. \n\nIt\u0027s exposed in RTCEncodedVideoFrame here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/rtc_encoded_video_frame_metadata.idl;l\u003d37;drc\u003df47e96fc819d9a711a0f1076ccf03a7f61bcfe29",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

@@ -302,6 +302,7 @@ rtc_source_set("jsep_transport_controller") {
     "../api:scoped_refptr",
     "../api:sequence_checker",
     "../api/crypto:options",
+    "../api/environment:environment",
     "../api/rtc_event_log",
     "../api/transport:datagram_transport_interface",
     "../api/transport:enums",

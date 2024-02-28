@@ -30,6 +30,7 @@ if (rtc_include_tests) {
       "../../api:candidate",
       "../../api:create_time_controller",
       "../../api:libjingle_peerconnection_api",
+      "../../api/environment:environment",
       "../../api:network_emulation_manager_api",
       "../../api:rtc_stats_api",
       "../../api:time_controller",

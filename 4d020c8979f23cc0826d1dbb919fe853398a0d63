@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90e0bb68_fac6e78e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3322240
+      },
+      "writtenOn": "2024-02-28T04:35:42Z",
+      "side": 1,
+      "message": "Hi, tommi@, \n\nI\u0027ve been uloading my first commit to the webrtc repo to fix the warning of the clang check. I think that the StringBuilder class is a class that does not need to be exposed to the outside. So, I would like to propose preventing headers from being exposed to the outside, like Blink\u0027s INSIDE_BLINK. If I am approaching it incorrectly, please correct me. Thanks.\n\nFYI, Chromium bots for this change will work well with https://chromium-review.googlesource.com/c/chromium/src/+/5329549 but I\u0027m not sure how to make the build with the CL over the repo.",
+      "revId": "4d020c8979f23cc0826d1dbb919fe853398a0d63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,29 @@
       "message": "Environment is designed to be stored by value, copied (internally it relies on shared ownership).\nWhy not keep the copy?",
       "revId": "8a8cf0e0f9d35776117826b1a32cabab6c298333",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81e83c8b_616d60ad",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-28T13:47:06Z",
+      "side": 1,
+      "message": "This is a peer connection _factory_ specific environment,\npeer connection environment can be different (different field trials).\nWhich one do you want?\n\nIf you want peer connection specific environment in the transports, then it is likely you would need to add Environment parameter not to the SctpTransportFactory constructor, but to the SctpTransportFactory::CreateSctpTransport function.",
+      "range": {
+        "startLine": 114,
+        "startChar": 33,
+        "endLine": 114,
+        "endChar": 38
+      },
+      "revId": "8a8cf0e0f9d35776117826b1a32cabab6c298333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

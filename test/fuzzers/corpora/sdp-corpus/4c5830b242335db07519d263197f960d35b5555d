@@ -1,0 +1,8 @@
+v=0
+o=- 58432 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+z=msid-seman.0
+a=ice-ufrag:ufrid:locaminptimel_stream_210352d8967d5
+a=ice-ufrag audio_track_id
+m=audio 9 RTPid:vide

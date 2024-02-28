@@ -1,0 +1,13 @@
+v=0
+o=- 1844674406941*584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid$semantic: WMS local_stream_1
+m=audio 9 RTP1 udp 213eneration 2
+a=candidate:a0+B/4 2 uvideo_track_iv=0
+o=- 18446744069414584320 18446462598732840960 IN IP3 127.0.0.1
+s=-
+t=0 0
+a=msid-„š’ž‘‹–œ: WMS
+m=audio 9 RTP/SAVPF 111 103 104
+c=NId_1

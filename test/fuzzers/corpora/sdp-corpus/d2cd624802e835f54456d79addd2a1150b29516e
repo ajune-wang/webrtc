@@ -1,0 +1,13 @@
+v=0
+o=- 1656229333038673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=grLE audio video data
+a=msid-semantic: WMS Ppsa09YmDLBombOh5e8HqfqxEIPF69a46H
+a=extmap:3 http://www.webrtc.org/expe
+m=video 9 UDP/TLS/RTP/SAVPF 100 101 116 103 104 9 0 8 106 105 13 126
+c=IN IP4 0rn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=extmap:3 http://wwwk4q3nLIL5NiMx
+a=ice-pwd:GL8/iŸ–M:27:64:C5:FE:46:6C:02:CPF 111 103 104 9 0 8 106 105 13 126
+c=IN IP4 0.0.0.a=sctpmap:5005 13 126
+c=IN IP4 0.0.0el 1024

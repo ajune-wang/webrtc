@@ -1,0 +1,25 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.-0.1
+s=-
+t=0 0
+a=grrtcp-rsize t9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcpuWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/v=0RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Qv=0
+o=mozi
+a=ice-options:trickle
+a=fingerprint:sha-224 B4:AB:3E:01:90:D1:FC:22:8F:=5:6A:01:76:B6:C5:0D:45:88:1A:E1:99:AF:18:43:E6:18:BB:D
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8F:35:F7:B1:50:66:88:81:92:CB:29:BA:53:A50:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:toffset:02:C8:0A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdp
+a=art

@@ -1,0 +1,11 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semacname WMS local_stream_1
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.1ÔÈcnameeration 2
+a=cÿÿÿÿÿÿÿÿÿÿextmap/3 2 udp 2130706432 74.125.127.126 2ce-pwd:pwd_voice
+a=mid:audio_co[ntent_name
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿa=sendrecv
+c:2 labec:3 label:vi/eo_track_id_1

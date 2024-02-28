@@ -1,0 +1,9 @@
+v=U
+o=- 367669001515738061 2 IN IµP4 127.0.0.1
+s=-
+t=0 0
+a=grouGyAGEQFAkQe1hT1
+m=videoU/DP 9 TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice)u25a

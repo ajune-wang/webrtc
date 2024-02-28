@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.˙.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-sematfsctp-port/draft-ietf-avtext-fram:D9
+a=group:BUNDLE+ sdpasemantic:WMS *
+m=au‰io 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP2 0..00.0
+a=1
+a=extmüè≈Œ1 http:Ø urn:ip-hdrext:sdemin_packet_sizescv
+a=rid:q recv
+a=simul#ast:recv+ f;h;q

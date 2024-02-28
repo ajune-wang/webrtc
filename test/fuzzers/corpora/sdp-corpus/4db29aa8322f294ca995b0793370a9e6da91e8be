@@ -1,0 +1,38 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-süÿÿÿemantic: WMS local_stream_1
+m=audio 2345 RTP/SAVPF 111 105 104
+c=IN IP4 74.125.127.126
+a=rtcp:2347 IN IP4 74.125.127.126
+a=candidatconference udp 2130706432 192.168.1.5 1234 typ host generation 2
+a=candtion 2
+a=candidate:a0+B/4 2 udp 2130706432 74.125.224rtcp-mux.39 3456 typ relay generž‹ion 2
+a=candidate:a0+B/4 1 udp 2130706432 74.125.224.39 3457 typ relay generation 0000000000000000000000000000000000000002
+a=ice-ufrag:ufrag_video
+a=ice-pwd:pwd_video
+a=mid:video_content_name
+a=sendrecv
+a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32
+a=rt6432 ::1 124 pt yh0ost generation 2
+a=candidate:a0+B/2 1 udp 2130706432 ::1 1241 typ host generaÿÿÿÿ 2
+a=candidate:a0+B/4 2 udp 21307ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ06432 74.125.224.39 3456 typ relay generation 2
+a=candidate:a0+B/4 1 udp 2130706432maxp 74.125.224.3a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 nack pli
+a=rtcpsymmetry-alÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿlowed1=
+a=fmtp:120 max-fs=12288;max-fl=60
+a=ice-pwd:b9f3911b9 3457 typ relay generation 2
+a=ice-ufrag:ufrag_video
+a=ice-pwd:pwd_video
+a=mpmap:120 VP8/90000
+a=ssrc-group:FEC 2 3
+a=ssrc:2 cname:stream_1_cname
+a=ssrc:2 msid:local_stream_1 video_track_id_1
+a=ssrc:2 mslabel:local_stream_1
+a=ssrc:2 label:video_track_id_1
+a=ssrc:3 cname:stream_1_cname
+a=ssrc:3 msid:local_stream_1 video_track_id_1
+a=ssrc:3 mslabel:local_stream_1
+a=ssrc:3 label:video_track_id_1

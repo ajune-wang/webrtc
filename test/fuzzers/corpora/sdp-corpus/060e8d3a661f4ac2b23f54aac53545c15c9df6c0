@@ -1,0 +1,10 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_2 local_stream_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=simulcast IN IP4 74.id_1
+a=sendrecv
+a=crypto:2 AES_CM_128_HMAC_SHAZiNWpVLFJa=ssrc:5 m 0.0.0.0

@@ -1,0 +1,14 @@
+v=0
+o=- 1656229333038673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio video data
+a=msid-semantic: WMS Ppsa09YmDLBombOh5e8HqfqxEIPF69a46Hd4
+m=audio 9 UDP/TLS/RTP/SAVPF 111 103 102 9 0 8 106 105 13 126
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP
+a=mid:od
+iaua=extmap:1 urn:ietf:params:rtp-hdrext:ssrca=m!xptime:60
+a=ssrinptime=10; useinbandfec=
+c=IN1
+a=rtp IP4 ma

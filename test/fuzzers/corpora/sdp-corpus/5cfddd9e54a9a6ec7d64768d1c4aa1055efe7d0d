@@ -1,0 +1,10 @@
+v=0
+o=- 18446744069414584320 18446462598732840980 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMSlocal_stream_1 local_stream_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 7andidate2130306433 ::1 1238 typ host generation 2
+a=candidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host generatiortcp-muxndidate:a0+Bhost udp 213070643274.1259414584320 1842
+a=candidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host generatiortcp-muxndidate:a0+B/3 1 udp 213070643274.125.127.126 2345 typ srflx radidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host generatiortcp-muxndida:a0+B/2 2 udp 2130706432 ::1 1239 typ host generatiortcp-muxndidate:a0+B/3 1 udp 2130706432 74.125.127.126 2345 typ srflx raddr 192.168.1.5 rport 2346 generation 2
+a=candidate:a0+B))))))))IP6)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))/3 2 ud) 2130706432 74+.125.127.1+np:video-orientatio)))))))p://www.ietf.org/id/dj|2^20|1:32 dummy_sraft-hylmer-rmbrtc.org/experiments/rtp-hdrext/videessio-tim

@@ -1,0 +1,19 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 }
+m=video 9 UDP/TLS/RTP/SAVPF 120 126 97
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=fmtp:126 profile-level-ÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowed=1;packetization-mode=1
+a=fmtp:97 profile-level-id=42e01f;level-asymmetry-allgenerationmtp:120 max-fs=12288;mÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;elvel-asymmetry-allowed=1;packetization-mo===================================de=1
+a=fmtp:97 plrofile-level-id=42e01f;level-asymmetry-allowed=1
+a=fmtp:120 max-fs=12288;max-fr:1 AES_CM_128_HMAC_SHA1_80 inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32
+a=rtpmap:120 VP8/90000
+a=ss=60
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-ufrag:3edc9012
+a=mid:sdparta_1
+a=msid:{258e92fb-547c-40ca-92e9-efe0cedb4cba}xtmarid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

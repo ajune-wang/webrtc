@@ -1,0 +1,12 @@
+v=0
+o=- 367669.62084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:Bnetwork-costid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFYrtp-hdrext:sdes:repaired-rtp-stream-id
+a=sendrecv
+a=msid:VfhSdt9LWGwoduWpnASvxGyAGEQFAkQT1 a8c06601-e9ed-4312-a7d4-283e07map:11 http://www.wet9LWGwoduWpoASvxGyAGEQFAkQe1hT1 a8c06601-e9ed-4312bbbbbbbbbbbbbbbbbbbbv f;h;q

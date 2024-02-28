@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BÿÿÿÿE 0
+a=msid-semoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0ms:rtp-hdrext:toffset
+a=extmap:13 http://wwwÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿions-01
+a=extmap:11 http://www.webrtc.org/experiments/rtp-iming
+a=extmarid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

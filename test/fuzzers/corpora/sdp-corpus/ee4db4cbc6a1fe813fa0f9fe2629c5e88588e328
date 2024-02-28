@@ -1,0 +1,26 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:trickLS/RTP/SAVPF 109 8 0 8
+c=IN IP4 0.0.0.0
+d=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp6:1A:E1:בבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבבa_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=p-hdrext:ssrc-audsimulcast:recv d:kjGBqIFYs8UqCyfmJ7nE@Jw/Q
+a=ice-options:trickLS/RTP/SAVPF 109 8 0 8
+c=IN IP4 0.0.0.0
+d=sendre=ca
+vextmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a= sdparta_f;h;q

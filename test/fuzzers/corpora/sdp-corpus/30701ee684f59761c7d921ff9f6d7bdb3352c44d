@@ -1,0 +1,10 @@
+v=0
+o=- 367669362084170381 2 IN I±4 127.ú.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿMS VfhSdt9LWGwoduWWMSpoASvxG htntp://www.webrtc.org/0
+a=group:BUNDLE 0
+a=msid-semantic: Wÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿt
+a=msid-semantic:a=rid:q recv
+a=simulcast:recv f;h;q

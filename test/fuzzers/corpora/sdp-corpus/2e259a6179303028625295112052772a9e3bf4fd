@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGtbowrc.osg/experiments/rtp-hdråxt/video-comslabelntent-type
+a=://tools.ietf=group:BUNDLE 0
+a=msid-semantic: WMSking-07
+a=extmap:9 http://www.webrtc.org/exLE 0
+a=msid-semantic: WMSkmid-07
+a=extmap:9 http://www.we½rtc.org/exper:imejts/rtp-hdrext/colÿÿÿÿÿÿÿÿÿÿÿ recv
+a=rid:q recv
+a=simulcast:recv f;h;q

@@ -1,0 +1,11 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IPsendonly4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32
+a=rtpmap:120 VP8/90000
+a=ssrc-group:FEC 2 3
+a=ssrc:2 cname:stloxmslabel:local_strea8000
+m_1
+a=ssrc:3 larel:video_track_id_1

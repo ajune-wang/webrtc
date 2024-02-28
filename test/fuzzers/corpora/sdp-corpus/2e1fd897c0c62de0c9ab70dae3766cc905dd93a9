@@ -1,0 +1,11 @@
+v=0
+o=mozilla...THIS_IS_.1 51 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprin5:4E:9Cle
+a=m%sid-semantic:WMS *
+m=audioÿÿP/TLS/RTP/SAVPF 109 9 0 8
+b=IN I,maxptime0
+a=s
+a=icnaice-pwdmetions:trickle
+a=fingerprint:sha-256 BfhSd4t9LWGw:A

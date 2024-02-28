@@ -1,0 +1,9 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.-0.1
+s=-
+t=0 0
+a=grgrrtcp-rsize t9LWGwoWpoASvxGions:trickle
+a=fingerprint:sha-224 B4:AB:3E:01:90:D1:FC:22:8F:=5:6A:01:76:B6:CCF:36:C5:30:0:66:88:81:92:CB:29:BA:53:A50:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+av==ex

@@ -1,0 +1,11 @@
+v=0
+o=- 18407464469414580320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1 local_stream_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 747.126
+a=candideat:aÿÿÿÿÿÿÿÿÿÿÿÿÿ92.168.1.5 rport 2348 gener 1 udp 2130706432 ::1 1238 typ host generation 2
+a=candidate:a0+B/2 2 udp 21332 74.125.127.126 2345 typ srflx raddr 192.168.1.5 rport 2346320 184464625987 IP4 127g/experiments/rtp-hdrext/abs-send-time
+a=sendrecv
+a=rtcp-muxeo_track_id_3

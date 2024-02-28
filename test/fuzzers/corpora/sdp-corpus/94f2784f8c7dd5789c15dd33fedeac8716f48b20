@@ -1,0 +1,23 @@
+v=0
+o=- 367669362087041381 2 IN IP4 127.0.0.1
+s=-
+t=0 }
+m=video 9 UDP/TLS/RTP/SAVPF 120 126 97
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=fmtp:126 profile-level-ÿÿÿÿÿÿÿÿÿÿ;max-fr:1 Aÿÿle-level-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-ÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowed=1;packetization-mode=42e01f;level-asymÈetry-allowed=0;packetization-m;;;;;;ode=1
+a=fmtp:97 pr
+a=fmtp:126 prmtp:120 max-fs=12288;mÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;elvel-asymmetry-alloweÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ®®®®®®®®®®®®®®®®®®®®®®®®®®ÿÿÿÿÿÿÿÿÿÿÿax-fs=06144;max-fr:1 Aÿÿle-level-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-ÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowed=1;packetization-mode=42e01f;level-asymmetry-allowed<1;packetization-m;;;;;;ode=1
+a=fmtp:97 pr
+a=fmtp:126 profile-level-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿed=1;pacprflxation-mode=42e01f;level-asymmetry-allowed=1;packetization-m;;;;;;ode=1
+a=fmtp:97 pr
+a=fmtp:126 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿßÿÿd=42e01f;level-ÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowedymmetry-allowed=1;packetization-m;;;;;:ode=1
+a=fmtp:97 stapr
+a=fmtp:126 profile-level-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-ÿÿÿÿÿÿÿÿÿÿÿÿÿd=42—e01f;level-asymmetry-allowed=1;packetization-mode=42e01f;level-asymmetry-allowed=1;packetization-m;;;;;;ode=1
+a=fmtp:97 pr
+a=fmtp:126 profile-level-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ:1 Aÿÿle-level-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-ÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowed=1;packetization-mode=ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿon-mode=1
+a=fmtp:97 profile-lfingerprint01f;level-asymmetry-alllevel-ÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asycketization-m;;;;;;ode=1
+a=fmtp:97 pr
+a=fmtp:126 profile-level-ÿÿtion-mode=1
+a=fmtp:97 plrofile-8e92fb-547recv
+a=simulcast:recv f;h;q

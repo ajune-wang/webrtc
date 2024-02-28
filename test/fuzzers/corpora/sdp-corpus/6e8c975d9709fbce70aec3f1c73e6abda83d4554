@@ -1,0 +1,8 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+b-547c-40ca-92e9-efe0cedb4cba} {9e8f5867-a9aa-4q489-8bd4-3a8a57a5e592}
+a=rtcp-fb:120ºnack
+a=rtcp-fS/RTPvideo 9 UDP/TLS/RTP/SAVPF 92
+c=IN IP4^^^^^^^^^^^^^tp://www.webrtc.org/experiments/S/RTrecv
+a=simulcast:recv f;h;q

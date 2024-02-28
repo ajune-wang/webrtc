@@ -1,0 +1,20 @@
+v=0
+o=-' 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127cnamea=rtcp:2347 IN IP4 74.125.127.126
+a=candidattyp host generation 2
+a=candidate:a0+B/3 1 udp 2130067432 74.125.127.126 2345 typ srflx raddr 192.168.1.5 rport 2346 g¨eneration 2
+a=cand WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=icag:OLwt
+a=ice-pwd:kjGBqIFYrtp-hdrext:sdes:repaired-rtp-streamext-framemarking-07
+a=extmap:9 http://www.webrtc.org/experiments/rtp-hdrext/color-space
+a=extmap:3 u:rinetf:params:5.127.126 2345 typ srflx raddr 192.168.1.5 rport 2346 generation 2
+a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx raddr 192.168.1.5 rport 2348 gepwd:pwd_voice
+a=mid:audio_content_name
+a=senbel:video_track_id_1

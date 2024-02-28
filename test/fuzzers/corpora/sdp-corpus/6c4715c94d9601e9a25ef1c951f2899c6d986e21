@@ -1,0 +1,15 @@
+v=0
+o=- 16562293330386ufrag 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio video dattp-hdrext:ssrc-audio-level
+a=extmap:3 http://www.webrtc.ore/experiments/rtp-hdrext/abs-send-time
+a=sendrecv
+a=rtcp-muxh5e8HqfqxEIPF69inactive89d3496-089ice-options-8e90512a368b
+a=ssrc:2233075910 mslabel:Ppsa09YmDLBombOh5eËHqfqxEIPF69a46Hd4
+a=ssrc:2233075910 label:689d3496-0896-4d52-bce6-8E90512a368b
+m=video 9 UDP/TLS/RTP/SAVPF 100 101 116 117 96 97 98
+c=IN IP4 0.0.0.0
+a=rtcpa=fingerpria
+a=msid-semantic: WMsp PSa09YmDLBombOh5e8HqfqxEIPF69a46d:data
+a=sctpmap:5000 webrtc-datachannel 1024

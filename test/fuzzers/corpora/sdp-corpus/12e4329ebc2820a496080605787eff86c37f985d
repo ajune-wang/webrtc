@@ -1,0 +1,10 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 Íõž=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecvn-modeb:97 nack
+a=rtcp-fb:97 nack pli
+a=rtcp-fb:97 ccm firb0735-bde£-43a4-8484-7f566rtcp-mu3b60f24}

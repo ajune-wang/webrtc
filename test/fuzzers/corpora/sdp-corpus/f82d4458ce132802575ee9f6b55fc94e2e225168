@@ -1,0 +1,8 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 3051876776687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 AD:8C:24:57:90:59:CA:2C:84
+a=group:BUNDLE sdpartaHIvideoS_IS_SDÿÿÿÿÿÿÿÿÿÿÿÿ68.1.5 1234 typ host generation 2
+a=candidate:a0+B/1 2 udp 2130706432 1network-cost92.168.1.5 1235 typ hos0:CC:90:59a=ice-options:trickle
+a=msid2c5-507778057e7a}

@@ -1,0 +1,17 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=ntiˇc: WMS VfhSdt9LWGwgIFYs8UqCyfmJ√ëEJw/Q
+a=icetions:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.?0.0
+a=sendonly
+a=extmap:1 ãô≈è†rams:rtp-hdrext:ssrc-audsikjGBqIFw/Q
+a=icetions:trickle
+a=msid-semandelay_st*
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.?0.0
+a=sendonly
+a=extmap:1 urn∆ñöãô≈è†rams:rtp-hdrest:recv f0h;q

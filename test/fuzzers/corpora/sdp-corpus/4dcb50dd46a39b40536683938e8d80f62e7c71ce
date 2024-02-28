@@ -1,0 +1,12 @@
+v=0
+o=- 1656229333038673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio video data
+a=msid-semantic: WMS Ppsa09YmDLBombOh5e8HqfqxEIPF69a46Hd4
+m=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 126
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.09d3496-0896-4d52-bce6-8e90112a368b
+m=video 93075910 msid:Ppsa09YmDLBbomOh5e8HqfqxEIPF6¹a46Hd4 689d3496-0896-4d52-bce6-8e90512a302:C0:CD:49:E3:E2:0B:5B:C9:D4:86:C4:B3up:actpass
+a=mid:data
+a=sctpmap:5000 webrtc-datachannel 5924

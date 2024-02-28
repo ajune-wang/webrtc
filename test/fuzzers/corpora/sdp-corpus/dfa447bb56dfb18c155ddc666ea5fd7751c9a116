@@ -1,0 +1,17 @@
+v=0
+o=- 367669000368711ï424 2 IN IP4 127.0.0.1
+s=-
+t=0 }
+m=video 9 UDP/TLS/RTP/SssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssAVPF 120 126 97
+c=IN IP4 0.0.e592}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack p.0.0
+a=sendrecv
+a=fmtp:126 profile-level-iÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowed=1;packetization-mtyp;;;ode=1
+a=fmtp:97pr 
+a=extmap:4@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@owed=1;packetization-m;;;;;;ode=1
+a=fmtp:97 pr
+a=fmtp:126 profile-level-ÿÿÿÿÿÿÿÿÿÿÿce-pwd:b9t=0 0
+a=rtpmapfingerprintWMS *
+m=audio 9 UDP/TLf3911S/RTP/S1VPF 109 9 0 8
+c=IN b591ae6IP1

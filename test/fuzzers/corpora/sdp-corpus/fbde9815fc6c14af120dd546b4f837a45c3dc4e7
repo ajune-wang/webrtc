@@ -1,0 +1,25 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDL¼E 0
+a=msid-semasendonlyS VfhSdt9LWÿÿÿ„éééGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:trickle
+a=fingerprint:sha-512 B4:AB:3E:01:90:D1:FC:22:8F:05:6A:01:76:B6:C5:0D:45:88:1A:E1:99:AF:18:43:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:toffset
+a=exvmap:øÿÿÿ13 network-costebrtc.oroptions:trickle
+a=fingerprint:sha-512 B4:ABGwrtcp*duWpoASv
+a=ice-options:trickle
+a=fi://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01
+a
+a=rtcp-m±x
+a=extmap:24 
+a=rtpmap:96 VP8z90000
+a=rtc=simulcast:send f;h;q

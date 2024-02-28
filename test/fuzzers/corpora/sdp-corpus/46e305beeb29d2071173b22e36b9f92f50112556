@@ -1,0 +1,17 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwobrtc.org/experiments/rtp-hdrext/video-content-type
+a=extmap:7 http://www.webrtc.org/experiments/rtp-hdrext/video-timing
+a=extmap:8 http://tools.ietf=group:BUNDLE 0
+a=msid-semantic: WMSking-07
+a=extmap:9 http://www.webrtc.org/experiments/rtp-hdrext/color-space
+amemarking-07
+a=extmap:9 http://www.webrtc.org/experiments/rtp-hdrext/color-space
+a=extmap:3 urn:ietf:params:rtÿÿÿÿÿÿÿÿÿÿÿÿcp-fb:96 nack pli
+a=rid:f recv
+a=rid:h recv
+a=rirtcpd:q recv
+a=simulcast:recv f;h;q

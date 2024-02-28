@@ -1,0 +1,11 @@
+v=0
+o=mozilla...THIS_IS_SDP4TA-47.0.1 3068771576687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerpriÿÿÿÿÿÿtpmap:114a}
+m=vœi~eo 4 PUDT/LS/RTP/SAVPF 120
+c=IN IP4 0.0.0.0
+a=recvonly
+a=f
+a=sctpmap:5000 webrtc-datachannel 256
+a=setup:actib598a29-a81bÿffe-a3c5-5077780}

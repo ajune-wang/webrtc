@@ -1,0 +1,10 @@
+v=0
+o=- 36766936208z170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0woduWpoASvxGyAT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0:C5:0D:45:88:1A:E:AF:18:43:E6:18:BB:D0:92:51:9B:0E
+a=se
+a=p:93:
+m=11:E4:Ems:rtp-haudio 9

@@ -1,0 +1,31 @@
+v=0
+o=- 1656229333038673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio video data
+a=msid-semantic: WMS Ppsa09YmDLBombOh5e8HqfqxEIPF69a46Hd4
+m=audio 4 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 126
+c=IN IP4 0.0.0.0n:3gpp:video-orientation
+a=sendrecv
+a=rtcp-mux
+a=rtpmap:100 VPfmtp:98 aptÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ=116
+a=ssrc-group:FID 50498894 2399294607 0 8 106 105 13 126
+c=IN IP4 0.0.0.0n:3gpp:video-orientation
+a=sendrecv
+a=rtcp-mux
+a=rtpmap:100 VP8/90ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ000
+a=rtcp-fb:100 ccm fir
+a=rtcp-f8894 msid:P127.0.0.1psa09YmDmtp:97 apt=101
+a=rtpmap:98 rtx/90000
+a=fmtp:98 apt=116
+a=ssrc-group:FID 50498894 2399294607 0 8 106 105 13 126
+c=IN IP4 0.0.0.0n:3gpp:video-orientation
+a=sendrecv
+a=rtcp-mux
+a=rtpmap:100 VP8/90000
+a=rtcp-fb:100 ccm fir
+a=rtcp-f8894 ms01 VP9/900;00
+a=rtcp-fb:min_packet_sizetcp-fb:101 nack
+a=rtcp-fb:101 ,ack pli
+a=rtcp-fb:101 goog-remb
+a=rtcp-Sdt9LWGwod

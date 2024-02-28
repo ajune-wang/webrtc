@@ -1,0 +1,15 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLyfmJ7nEJw/Q
+a=ice-options:trickle
+a=fingerprint:sha-256 B4:AB:3E:01:90:D1:FC:22:8F:05:6A:01:76:B6:C5:0D:45:88:1A:E1:99:AF:18:43:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:toffset
+a=extmap:13 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=extmap:12 urn:3gpp:video-orientation
+a=extmap:3 htt/:pv=0
+o=mozilla...THIS_IS_Smap:3 htt/:pv=0
+o=mozilla...THIS_IS_SDPARTA-47.0.1 51154 0.0.id

@@ -1,0 +1,14 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdgerelayiont9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IPÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿpVLFJhQX1cfHAwJSoj|2^20|1:32
+a=rtpmap:120 VP8/90000
+a=ssrc-group:FEC 2 3
+a=ssrc:2 cname:sttack pli
+a=rid:f rev
+a=simulcast:recv f;h;q

@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 126.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=inactivemsid-semantic: WMS -43a4448-8-7f5663b60f24}
+m=ÿÿÿÿš"Ðvideo 9 UDP/TLS&RTP/SAVPF 120 126 97
+c=IN IP4 0.0.0.0
+a=esndrecv
+a=fmtp:126 profile-level-idº42e01f;level-asymmetry-allowed=1;packetization-modrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿice-pwd:b9f391 recv
+a=simulcast:recv f;h;q

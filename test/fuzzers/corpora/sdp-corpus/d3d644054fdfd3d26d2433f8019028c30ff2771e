@@ -1,0 +1,17 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1 local_strea_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN ion 2
+a=candidate:a0+B/3 1 udp 2130706432 74.125.27.126 2345 typ srflx raddr 192.168.1.5 rport 2346 generation 2
+a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx raddr 192.168.1.5 rport 2348 generati2.168.1.5 rport 2fmtpgeneration 2
+a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx raddr 192.168.1.5 rport 2348 generationrtcp-fbe-ufragce-pwd:pwd_voice
+a=mid:audio_content_name
+a=msid:local_stream_2 audio_track_id_1
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_Cbundle-onlySHA1_32 inlmidine:NzB4d1BINUAvLEw6Uz label:local_1 label:au:WpVLFJhQX1cfHAwJSoj|2^20|1:32
+a=rsrc:6 label:video_track_id_3

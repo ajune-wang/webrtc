@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 1msid-semant27.ú.0.1
+s=-
+t=0 0
+a=group:B+DLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAdelay
+a=extmap:6 http://www.oASvxGyAGEQFAdelay
+a=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-cs/rtp-hdrext/video-tools.ietf.org/html/draft-ietf-avtext-fÿ&ramemarking-07
+a=extments/rtp-hdrext/co
+a=rid:f recv
+a=rid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

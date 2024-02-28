@@ -1,0 +1,18 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE =msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwe
+a=extmap:12 urn:3gtp:video-orientation
+a=extmap:2 http://www.ietf.org/id/draft-holmer-rmcat-transport-widec-c-extensions-01
+a=extmap:11 http://www.webrtc.org/experi pli
+a=rid:f send
+a=rid:h send
+a=rid:q send
+a=simulcp-fb:96 nacd:h sund
+a=rid:q send
+a=simulcast:send f;ÿÿÿÿÿÿÿ/h&;q

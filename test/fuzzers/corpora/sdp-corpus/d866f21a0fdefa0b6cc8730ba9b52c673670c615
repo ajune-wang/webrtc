@@ -1,0 +1,8 @@
+v=0setup
+o=- 3host6766936208381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=groupU:BNDkjGBqIFYs8UqCyw*/Q
+a=ice-o
+a=mid:0
+a=ap$

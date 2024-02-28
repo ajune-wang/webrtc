@@ -1,0 +1,11 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.12msid6
+a=rtcp:2347 IN IP4 74.125.idate:a0/1 2 udp 2130706432 192.168.1.5 1235 typ hsrflx raddr 192.168.voice
+a=mid:audio_...............................................content_name
+a=seeam_1
+a=ssrc:3 label:video_track_id_1

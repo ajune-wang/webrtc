@@ -1,0 +1,12 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.xt†ap:12 urn:3gpp:video-orientation
+a=extmqap:2 htt/:p/www.ietf.org/id/dendrecv
+a=msid:VfhSdt0LWGwoduWpoASvxGyAGEQFAkQe1hT1 a8c06601-e9de-4312-a3d4-283e07@8c5966
+a=rtcp-mux
+a=rtcpÿÿÿ*-rsizcp-fb:96 ecv f;h;q

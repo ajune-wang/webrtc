@@ -1,0 +1,8 @@
+v=0
+o=wozilla...THIS_IS_SDPARTA-46.0.1 51150 0 IN IP4 0.0.crypto0.0
+s=-
+t=0 0
+a=fingerprint:setupsha-256 24:6:A5:02:C.0.0.1
+s=-
+t=0 0
+a=msid-semtmap:04680

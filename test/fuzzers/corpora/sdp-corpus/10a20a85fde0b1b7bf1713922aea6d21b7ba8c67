@@ -1,0 +1,9 @@
+v=0
+o=- 367669362084170381 2 IN IP5 127.ú.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿMS VfhSdt9LWGwoduWpoASvxGyAGEQFAdelay
+a=(extmap:6 http://www.webrtc.orgnetwork-DLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿvxGyAGEQFAdelay
+a=extmap:7 http://www.webrtc.orgnetwork-id/expeq rq

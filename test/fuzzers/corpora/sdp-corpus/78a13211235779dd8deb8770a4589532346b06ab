@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN I±4 127.ú.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: Wÿÿÿÿ'ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ.ÿÿMS VfhSdt8LWGwoduWpoASvxGyAGEQFAdelay
+a=extmap:6 http://www.webrtc.org/0
+a=group:BUNDLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿzÿÿÿÿÿÿÿBUNDLE 0
+a=msid-semantic: Wÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿic: Wÿÿÿÿ'ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿMS VfhSdt8LWGwoduWpoASvxGyAGEQFAdelay
+a=extmap:6 http://www.webrtc.org/0
+a=group:BUNDLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿzÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿMS VfhSdt9LWa=simulcast:recv f;h;q

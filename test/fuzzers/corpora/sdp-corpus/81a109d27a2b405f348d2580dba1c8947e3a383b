@@ -1,0 +1,6 @@
+v=0
+o=- 1656229333018673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio video da98894 msid:Ppsa09YmDLBombOh5e8HqfqxEIPF69a46Hd4 1aef;6f4-fc4c-4f86-98f3-0fbf4f625f70
+a=ssrc:50498894 mslabel:-datachannel 1024

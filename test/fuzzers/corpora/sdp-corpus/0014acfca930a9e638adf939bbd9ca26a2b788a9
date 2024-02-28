@@ -1,0 +1,19 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0§.0
+s=-
+t=0 0
+a=finge2026 cname:{387b0735-bde2-43a4-8484-7f5663b60f24}
+m=apphicat on 9 DTLS/SCTP 500:
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=icfafff-bfd0-40d4-b0a3-2a87o 9 UDP/TLS/RT∫–SAVPF 120 126 97
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=fmtp:126 profile-level-id=42e01f;level-asymmetry-allowed=1;packetization-mode=1
+a=fmtp:)7 profile-level-id=42e01f;cff307ee}
+a=rtcp-mux
+a=rtpmap:109 opus/48000/2
+a=rtpmap:9 G722/8000/1
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8060 cname:{387b0735-bde2-4a4-8484-7f5663b60f24}
+bundle-onlyDP/TLS/RTP/SAV4-8484-7f5663b60f24}

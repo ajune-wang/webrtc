@@ -1,0 +1,13 @@
+v=0
+o=- 36766936208410[1837 2 IN IP4 127.0.0.1
+s=-
+t=0@0
+a=group:BUNDLE 1
+a=msid-semavidentic: WMS fVhSdt8LWGw=oduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP3 0.0.0.Ø0Ša=rtcp:9 PIN Ivideo4 0.0.0.0-ufraaudsim
+a=simulcast:recv f0h;q###########################Gice-pwd1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP3 0.0.0extmap-allow-mixed.Ø0Ša=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OL:relayaudsim
+a=simulcast:recv f0h;q###############ssrc########

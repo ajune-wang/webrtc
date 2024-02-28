@@ -1,0 +1,22 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcpid-
+a=rid:f send
+a=rid:semantic:WMS *
+m=audio 9 UDP/TLS/h send
+a=rid:q senRTP/SAVPF 109 9 0 8
+c4170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+arta_0
+a=msid:{258e92fb-547c-40ca-92e9-efe0cedb4cba} {b

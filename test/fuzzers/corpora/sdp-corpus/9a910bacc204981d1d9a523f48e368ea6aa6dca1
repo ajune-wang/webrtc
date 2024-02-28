@@ -1,0 +1,26 @@
+v=0ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿrtcp-fbÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUÿÿ
+o=- 1844674406941*584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_0
+m=aud'io 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcrat:a0+B/p 2130706432 ::1 1239 typ host generation 2
+a=candidate:a0+B/3 1 udp 2130706432 74.125.-12IP626 2345 typ srflx raddr 192.168.1.5 rport 2346 gen-hdrext:ssrc-audio-level
+a=fmtp:108 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-src-a-udio-level
+a=fmtp:109 maxplaybackrate=04800;stereo=1
+a=ice-pwd:b9f3911b591ae61erd7f6af0531fd2a3
+a=ice-ufrag:46462598732840960 IN S local_stream01
+m=aud'io 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcp: IN IP4 0.0.0.0
+a=ice-ufrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:audio_content_name
+60 IN IP4 127.0.0.1
+s=-
+t=0 a=ssrc:3 msid:local_stream_1 video_track_id_1
+a=ssrc:3 mslabel:local_stream_1
+a=ssrc:3 label:video_track_id_1

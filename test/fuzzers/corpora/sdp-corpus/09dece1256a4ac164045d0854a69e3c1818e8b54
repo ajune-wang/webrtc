@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=ms
+a=mid:0
+a=extmap:14 urn:ietÿÿÿÿÿÿÿÿ:rtp-hdrext:toffset
+a=:99actpass
+a=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:toffset
+a=extmap gaaaaaaaaaaaaaaaaaaaaaaaaaaaarecv
+a=simulcastÝ:recv f;h;q

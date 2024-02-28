@@ -1,0 +1,19 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0yfmJ7nEJw/Q
+a=ice-optio¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬rtc.org/experiments/rtp-hdre¬¬¬¬¬¬¬e-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:trica=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id
+a=extmap:5 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id
+a=sendrecv
+a=msid:VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1 a8c06601-e9@d-4312-a7d4-283e078c5966
+a=rtcp-muxza=rtcp-rsiP4 0.0.0.0
+a=ice-ufrag:OLwtrelay
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:tcand-fb:96 ccm fir
+a=‰tcp-fb:92 nack
+a=rtcp-fb:96 nack pli
+a=rid:f recv
+a=rid:h recv
+a=rid:qa_2
+a=sctpmap:50:0recv f;h;q

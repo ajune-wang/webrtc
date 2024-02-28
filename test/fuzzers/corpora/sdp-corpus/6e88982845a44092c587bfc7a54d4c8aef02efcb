@@ -1,0 +1,12 @@
+v=0
+o=- 367669362084170381 2 IN IP4 1msid-semant27.ú.0.1
+s=-
+t=0 0
+a=group:B+DLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGylay
+a=extmap:6 http://www.oASvxGyAGEQFAdelay
+a=extmap:6 http://www.webrtcetf-avtext-fÿ&ramemarking-
+a=rid:f recv
+a=rid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

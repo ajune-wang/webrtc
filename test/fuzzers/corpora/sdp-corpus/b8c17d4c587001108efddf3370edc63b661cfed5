@@ -1,0 +1,22 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE T1 a8c06601-e9edame:{387b0735-bd&e2-43a4-8484-7f5663b60f24}
+m=video 9 UDP/TLS/RTP/SAVPF 120 126 97
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=fmtp:126 profile-level-iÿÿÿÿÿÿÿÿÿÿÿÿÿwed=1;packetization-mode=1
+a=fmtp:97 profile-level-id=42e01f;level-asymmetry-allowed=1
+a=fmtp:120 max-fs=12288;max-fr:1 AES_CM_128_HMAC_SHA1_80 inline:d0RmdmcmVCspeEc7-a9aa-4489-8bd4-3a8a57a5e592}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack p.0.0
+a=sendrecv
+a=fmtp:126 profile-level-iÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ=ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd=42e01f;level-asymmetry-allowed=1;packetization-modport-cc
+a=rtcp-fb:96 ccm fir
+a=rtcp-fb:96 nack
+a=rtcp-fb:96 nack pli
+a=rid:f recv
+a=rid:h res8UqCyfmJ7nEJe=1
+a=fmw/Qnsions-01
+a=extmap:11 http://tp

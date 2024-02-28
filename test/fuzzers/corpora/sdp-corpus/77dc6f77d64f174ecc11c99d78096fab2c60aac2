@@ -1,0 +1,16 @@
+v=0
+o=- 3676693620841typ81 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-s WMS VfhSdt8LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS?RTP/SAVPF 96
+c=IN IP4 0.0.0.0ms:rtp-hdrext:toffset
+a=extmap:13 htt/experiments/rtp-h¿rexs/abs-send-time
+a=extmap:12 urnpp:video-orientation
+a=/rtp-hdrexlpt/ayout-delay
+a=extmap:6 http://www.webrtc.org/sendonlynts/rtp-hdrext/video-content-type
+a=extmap:7 http://www.webrtc.org/experiming
+a=extmaridcv
+a=rid: qcerv
+a=simulcast:recv f;h;q

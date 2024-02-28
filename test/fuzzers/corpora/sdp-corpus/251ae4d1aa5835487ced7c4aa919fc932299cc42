@@ -1,0 +1,13 @@
+v=0
+o=- 3host67669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=groupapplicationrn:ietf:params:rtp-hdrext:toffset
+a=extmap:13 http://www.weransport-cc
+a=rtcp-fb:96 ccm fir
+a=rtcp-fb:96 nack
+a=rtcp-fb:96 nack pli
+a=rid:f recv
+a=rid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

@@ -1,0 +1,21 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-swd:ff4c4dc6fe92e1fce-ufrag:a539544b
+a=mid:sdparta_0
+a=rtcp-mux
+a=rtpmap:108 opus/48000/2
+a=setup:active
+a=ssrc:600995474 cname:{5b598a297a81b-4ffe-a2c5-507778057e7a}
+m=video 9 UDP/TLS/RTP/SAVPF 120
+c=IN IP4 0.0.0.0
+a=recvonly
+a=fmtp:120 max-fs=12288;max-fr=60
+a=ice-pwd:c4dc6fe92e1f22d2c103
+a=rtcp-fb:120 nack
+a==rid:f recv
+a=rid:hcer v
+a=ptime recv
+a=simulcast:recv f0h;Q

@@ -1,0 +1,26 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDL»ßÏõžÂ’…id-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.video0.0.0
+a=rtca=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:toffset
+a=extmap:13 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=extmap:12 urn:3gpp:video-orientation
+a=extmap:2 htt/:p/wa=rid:b
+a=rtcp-fb:96 transport-cc1:99:AF:18:43:6oog-remb
+a=rtcp-fb:96 transport-cc1:99:AF:18:43:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpass
+a=mid:
+a=rtcp-fb:96 nack p?i
+a=rid:b
+a=rtcp-fb:96 transport-cc1:99:AF:18:43:E6:18:BB:D0:network-id92:51:9B:0E
+a=setup:actpass
+a=mid:
+a=rtcp-fb:92 nack pli
+a=rid:f recv
+a=rid:h recv
+a=rid:q recv
+a=setupcast:recv f;h;q

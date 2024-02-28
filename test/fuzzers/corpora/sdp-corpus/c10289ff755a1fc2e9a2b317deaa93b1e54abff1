@@ -1,0 +1,10 @@
+v=0
+o=mozilla...THIS_IS_SDPARTAufrag.1 3068771576687940834 0 IN IP4 0.8.0.0
+s=-
+t=0 0
+a=fingnrieprt:s sdparta_2
+a=ice-options:trickle
+a=msid-semantic nack
+a=rtcp-fb:120 nacka=ice-ufrag:a5395rprint:sha-256 AD:87:B3:11:E4:E2:BA:44b
+a=mid:sdparta_2
+a=sctpmap:5000 webrtc-datachannel 021788991 cname:{5b598a29-a81b-4ffe-a2c5-507778057e7a}

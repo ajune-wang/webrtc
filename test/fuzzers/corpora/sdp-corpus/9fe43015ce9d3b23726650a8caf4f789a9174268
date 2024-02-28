@@ -1,0 +1,28 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fing2erprint:sha-256 24:67:LE rtpmap:9 G722/8000/1
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=setup:actpass
+a=ssrc:2121669360 cname:{387b0735:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=setup:actpass
+a=ssrc:2121669360 cname:{387b0735-bde2-43a4448-8-7f5663b60f24}
+m=video 9 UDP/TLS/RTP/SAVPF 120 126 97
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=fmtp:126 profile-level-id=42e01asymmetry-allowed=1;packetization-modrc-audio-level
+a=fmtp:531fd2a3
+a=ice-ufrag:3edc9012
+a=mid:sdparta_LS/SCTP 5000
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=i%ce-pwd:b9f3911b591ae61e2d7f6af0531fd2a3v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 30687715766879408s=-
+t=0 0
+a=ice-ufrag:3edc901
+a=mid:sdpaAta_2
+a
+a=s=fingerprci

@@ -1,0 +1,20 @@
+v=0
+o=mozilla...msidTHIS_IS_SDPARTA-47.0.1 3068771576687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 AD:87:B3:11:E4:E2:BA:EF:D2:3F:2E:AC:24:57:8E:DC:10:67:41:29:44:C4:96:E3:62:90:CC:90:59:CA:2C:84
+a=grxup:BUNDLE sdparta_0 sdparta_1 sdparta_02
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109
+c=IN IP4 0.0.0.0
+a=0.0.0.0recvonly
+a=extmap:1 urn:iemsid-semantictf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 plmaxaybackrate=48000;stepmap:9690000
+a=rtcp-fb:96 goog-remb
+a=rtcp-fb:96 transport-cc
+a=rtcp-fb:96 d
+a=rid:h send
+a=rid:q send
+a=simulcast:send f0.0.0.0
+a=ice-ufrago=5-507778057e7a}

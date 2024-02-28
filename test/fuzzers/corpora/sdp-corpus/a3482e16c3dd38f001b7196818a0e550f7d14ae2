@@ -1,0 +1,8 @@
+v=0
+o=- 3host6766936208417038/ 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=ietf:params:rtpd:h recv
+a=rid:q recv
+a=simulcas
+a=t:recv f;-;q

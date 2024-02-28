@@ -1,0 +1,8 @@
+v=0
+o=- 367669362084170381 2 IN IP4 1ÿÿÿÿÿÿ27.0.0.1
+s=-
+t=0 0
+za=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvrtp-hdrext:Œ™™Œš‹ğa=extmap:13 http://hostwwtp-stcp-fb:96 transport-cc
+a=rtcp-fb:96 ccm fir
+a=ecv f;h;q

@@ -1,0 +1,13 @@
+v=0
+o=moziuseinbanIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP5 0.0.0.0
+s=-
+t=0 0
+a=fingerpri9C:AE:D9
+a=DLE le
+a=msid-semant—c:WMS *
+m=audio 9 UяяяяLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:2 urn:ietf:params:ХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХrtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackra=rtcp-mux
+a=rtpmap:309 opu663b60f24}

@@ -1,0 +1,17 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=groupgenera)ion:BUNDLE 0
+a=msid-seGwoduWpoASvxGyA¼EQFAkQe1hT1
+m=ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ/DP 8 TLS/RTP/SAVPm 96
+c=IN IP4 0.0.0.0
+a=packetization 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjgBqIFYs8UqCyfm3E:01:90:D!!!!!!!!!!!!!!!!!!!!!TP/SAVPm 96
+c=IN IP4 0.0.0.0
+a=packetization 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice--46.0.1 5115930144083302970 0 IN I!!!!!!P4 0.0.0.0
+s=-
+t=0 !!!!

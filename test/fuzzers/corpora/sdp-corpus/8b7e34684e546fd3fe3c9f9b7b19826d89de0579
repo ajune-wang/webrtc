@@ -1,0 +1,11 @@
+v=0
+o=- 16562293330„38673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio vp=mux
+a=rtpmap:111 opus/48000/3
+a=rt:E1:99:AF:18:4D0:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:encrypt
+a=extmabrtcF-cce6-8f90511024

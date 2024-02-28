@@ -1,0 +1,7 @@
+v=0
+o=- 0213283641453412290 2 IN IP4 12typ.0.1
+s=-
+t=0 0
+a=group:BUNDL deEo d
+m=audio 9 UDP/TLS/RTP/SAVPF 111 206 104 9 0 a0+B/3 ecvonly
+2 a

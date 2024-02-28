@@ -1,0 +1,107 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDice-ufragLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe0hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.Ø0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwtSdt9LWGwoduWpoASvxGyAGEQFAkQe0hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.Ø0
+a=rtcp:9 p-:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLp:97 profile-level-id=42e01f;level-asymmetry-allowed=1
+a=fmtp:120 max-fs=12288;max-fr=60
+a=ice-pwD:b9f3911b591ae61e2d7f6af05312}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLLLLLL°³LLLLnack pck pli
+a=rtcp-fb:97 ccm fir
+a=rtcp-mux
+a=rtpmaLLLLL°³LLLLnack pli
+a=rtcp-fb:126 ccm fir
+a=rtcp-fb:97 nack
+a=rtcp-fb:97 namtp:126 profile-level-id=42e01f;level-asymmetry-allowed=1;packetiztiaon-mode=1
+a=fmtp:97 profile-level-id=42e01f;level-asymmetry-allowed=1
+a=fmtp:120 max-fs=12288;max-fr=60
+a=ice-pwD:b9f3911b591ae61e2d7f6af05312}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLLLLLL°³LLLLnack pck pli
+a=rtcp-fb:97 ccm fir
+a=rIN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:trickle
+a=fingerprint:sha-256 B4:AB:3E:01:90:D1:FC:22:8F:05:6A:01:76:B6:C5:0D:45:88:1A:E1:99:AF:18:43:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+a=extmap:14 urn:ietf:params:rtp-hdrext:toffset
+a=extmap:13 httpc5966
+a=rtcp-mux
+a=rtcp-rsize
+a=rtpmap:96 VP8/90000
+a=rtcp-fb:96 goog-remb
+a=rtcp-fb:96 transport-cc
+a=rtcp-fb:48 ccm fir
+a=rtcp-fb:96 nack
+a=rtcp-fb:96 nack pli
+a=rid:f»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» recv
+a=rid:hcer v
+a=rid:q rnetwork-ttpc5966
+a=rtcp-mux
+a=r B4:AB:3E:01:90:D1:FC:22:8F:05:6A:01:76:B6:C5:0D:4tcp-rsize
+a=rtpmap:96 VP8/90000
+a=rtcp-fb:96 goog-rcp-fb:96 ccm fir
+a=rtcp-:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLp:97 profile-level-id=42e01f;level-asymmetry-allowed=1
+a=fmtp:120 max-fs=12288;max-fr=60
+a=ice-pwD:b9f3911b591ae61e2d7f6af05312}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLLLLLL°³LLLLnack pck pli
+a=rtcp-fb:97 ccm fir
+a=rtcp-mux
+a=rtpmaLLLLL°³LLLLnack pli
+a=rtcp-fb:126 ccm fir
+a=rtcp-fb:97 nack
+a=rtcp-fb:97 namtp:126 profile-level-id=42e01f;level-asymmetry-allowed=1;packetiztiaon-mode=1
+a=fmtp:97 profile-level-id=42e01f;level-asymmetry-allowed=1
+a=fmtp:120 max-fs=12288;max-fr=60
+a=ice-pwD:b9f3911b591ae61e2d7f6af05312}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLLLLLL°³LLLLnack pck pli
+a=rtcp-fb:97 ccm fir
+a=rtc max-fs=12288;max-fr=60
+a=ice-pwD:b9f3911b591ae61e2d7f6af05312}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 LLLLLLLLLLLLLLLLL°³LLLLnack pck pli
+a=rtcp-fb:97 ccm fir
+a=rtcp-mux
+a=rtpmap:120 (P8/90000
+a=rtpmap:126 H264/90000
+a=rtpmap:97 H264/90000
+a=setup:actpass
+a=ssrc:6 ccm firfb:96 nack
+a=rtcp-fb:96 nack pli
+a=rid:f»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» recv
+a=rid:hcer v
+a=rid:q rnetwork-costecv
+a=simulcast:recv f;h;q

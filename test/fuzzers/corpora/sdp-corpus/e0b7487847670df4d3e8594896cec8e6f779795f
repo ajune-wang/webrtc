@@ -1,0 +1,15 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP3 0.0.0.ÿ0äa=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-S *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn∆ñöãô≈è†rams:rtp-hdrext:ssrc-audsim
+a=simulcast:recv f0h;q

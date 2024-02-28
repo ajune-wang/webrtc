@@ -1,0 +1,21 @@
+v=0
+o=mo_SDPARTA-92.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprintWMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybarate=48000;=stereocp-fb:126 ccm fir
+a=rtcp-fb:97 nack
+a=rtcp-fb:97 nack pli
+a=rtcp-fb:97 ccm fir
+a=rtcp-mux
+a=rtpmap:120 VP8/90000
+a=rtpmap:126 H264/90000
+a=rtpmap:97 H264/90000
+a=setup:actpass
+a=ssrc:21588a=mid:sdparta_2
+a=sctpmap:5000 -7f5663b60a=rtcp:9 IN -gf24roup:}
+5I

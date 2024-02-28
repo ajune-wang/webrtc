@@ -1,0 +1,9 @@
+v=0
+o=- 367669362084170381N  I 2hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhIP5 127..01.0
+s=-
+t=0 0
+a=group:BUa=msid-semantic: WMS VfhWGwo`uWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN=extmap:8 http://el
+a=fmtp:109 maxplaybackrate=48000mid;stereo347:recv f;h;q

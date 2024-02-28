@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.ú.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿMS VfhSdt9LWGwoduWpoASvxGyAGEQFAdelay
+a=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type
+a=extmap:7 http://www.webrtc.orggroup:BUNDLE 0
+a=msid-semantic: WÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿMS VfhSdt9LWGwoduWpoASvx urn:ietf:params:rtp-hdrext:sdes:midspace
+a=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid
+a=extmrid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

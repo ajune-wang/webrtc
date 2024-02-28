@@ -1,0 +1,9 @@
+v=0
+o=) 2013283641453412290 1 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BU~NDLE audio video data
+a=msemantic: WMS
+m=audio 4 UDP/TLS/RTP/SAVPOd88VokV:ctiven
+a=recvonly
+a=map:100 VPvcm

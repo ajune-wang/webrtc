@@ -1,0 +1,13 @@
+v=0
+o=mozilla...THIS_PARTA-46.0.1 3068771576687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0ckle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109
+c=IN IP4 0.0.0.0
+a=recvonly
+a=extmap:1 urn:ietf:params:rl
+a=fmtp:109 m2axplaybafmtpte=539544bextmap
+a=mid:sdparta_1
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pl07778057e7a}

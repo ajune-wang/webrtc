@@ -1,0 +1,15 @@
+v=0
+o=- 18446744069414584320 18446fmtp462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1 local_stream_2
+m=auÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿrtcp-rsizeÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿdio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp:2347 IN IP4 74.125.127.126
+a=candidate:aÁÁ9ÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host generation 2
+a=candidatev=0
+o=- 18446744069414584320 18446432 192.168.1.5 1235 typ host generation 2
+ion_params
+a=rtpmap:111 opus/4a=candidate:a0+B/2 1 udp 2130706432 ::1 8000/2
+a=rtpmap:103 ISAC/160x-google-flag00
+a12=rtp3ma

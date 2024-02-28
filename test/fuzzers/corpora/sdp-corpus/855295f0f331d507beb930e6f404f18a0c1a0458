@@ -1,0 +1,17 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=ta_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc9012
+a=mid:sdparta_0
+a=msedb4cba} {bd1fafff-bfd0-40”Ë-b0a3-2a87cff3CCCCCCCCC07ee}
+a=rtcp-mux
+a=rtpmap:109 opus/48000/2
+a=rtpmap:9 G722/minptime8000/1
+a=rtpmap:0 PCMU/8000
+a=rrag387b0735-bde2-439:CF:84-7f5663b60f24}

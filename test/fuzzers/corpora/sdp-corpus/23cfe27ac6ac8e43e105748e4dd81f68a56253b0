@@ -1,0 +1,11 @@
+v=0
+o=- 1844674406941*584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcp:ùIP4 0.0.0.0active
+a=ssrc:3480150809 cname:{5b598a29-a81slabel:local_stream_1
+a=ssrc:2 label:videorc:3 mslabel:local_stream_1
+a=ssrc:3 label:video_track_id_1

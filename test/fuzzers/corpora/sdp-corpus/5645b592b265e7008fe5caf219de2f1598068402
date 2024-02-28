@@ -1,0 +1,21 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0`0
+a=msid-semantic: WMS local_stral_stream_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=t generation 2typcandidate:a0+32 74. mslabel:local_stream_1
+a=ssrc:1 label:audio_tract 2346 generation 2
+a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx raddr 192.168.1.5 rport 2348 rportation 2
+a=ice-ufrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:audio_content_namdio_track_id_1
+a=ssrc:1 mslabel:local_stream_1
+a=ssream_2_cstream_2
+a=ssrc:4 label:audio_track_id_2
+m=video 3457 RTP/SAVPF 120
+c=IN IP4 74.125.224.39
+a=rtcp:324.39
+a=candidate:a0+B/1 2 udp 2130706432 192.168 104
+c236 typ happl 2 IN icatIP4io 12

@@ -1,0 +1,12 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=sctp-portnt:sha-256 24:67:5E:1B:9A:0A:A5:4E:9C:AE:D9
+a=groxÿÿÿÿÿÿÿecvonly35-semantic:WMS *
+m=audio 9  9 0 8
+c=IN IP4 .00.0.0
+a=msidsendrec69414584320 18446462598732!40960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=P4 m0.0.0s.

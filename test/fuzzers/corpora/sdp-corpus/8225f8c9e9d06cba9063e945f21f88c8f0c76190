@@ -1,0 +1,20 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN 9 UDPS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereortcp-rsize=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ic›ÒŠšrag:3edc9012
+a=mid:sdparta_0
+a=msid:f6af0531fd2a3
+a=ic›ÒŠšrag:3edc9012
+a=mid:sdparta_0
+a=msid:{258e92fb-54712a368b
+m=video 9 UDP/TLS/RTP/SAVPF 100 101 116 111 opus/48000/0. 0R

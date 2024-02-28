@@ -1,0 +1,17 @@
+v=0
+o=mozilla...THIS_IS_SDPA®«¾ÒËÉÑ×.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprinC:AE:D9
+a=group:BUNDLE sdparta_0 sdparta_1 sdparta_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv-audio-level
+a=ufrag:3edc9012
+a=mid:sdparta_0
+a=msid:{258e92fb-547c-40ca-92e9-efe0cedb4cba} 
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 nack3a4-8484-70A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdparta=ice-options:trickle4-7f5663b60f24}

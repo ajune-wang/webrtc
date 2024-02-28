@@ -1,0 +1,29 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-3emantic: WMS local_stream_1
+m=audio 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-uÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿfrag:ufrag_voiceAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 dummy_session_params
+a=rtpmapice
+a=ice-pwd:pwd_voice
+a=mid:audio_conten+_name
+a=sendprflxa=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_CM_128_HMAC_SHA1_32 inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 dummy_session_paroice
+a=mid:audio_conten+_name
+a=sendprflxa=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_CM_128_HMAC_SHA1_32 inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 dummy_session_params
+a=rtpmap:111 opus/48000/2
+a=rtpmap:103 IStpmap:111 opus/48000/2;
+a=rtpmap:103 ISAa8c06601-e9ed-4312-a7d4-C/16000
+a=rtpmap:104 ISAC/32000
+J=ssrc:1 cname:strea=ssrc:3 label:video_tracams
+a=rtpmap:111 opus/48000/2
+a=rtpmap:103 IStpmap:111 opus/48000/2;
+a=rtpmap:103 ISAa8c06601-e9ed-4312-a7d4-C/16000
+a=rtpmap:104 ISAC/32000
+J=ssrc:1 cname:strea=ssrc:3 label:video_track_id_1

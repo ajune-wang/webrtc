@@ -1,0 +1,10 @@
+v=0
+o=- 1844 »À—069414584320 1844p462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1 local_st1eam_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp:2347 IN IP4 4.7125.127.126
+a=candidate:a0+B/1 1 udp 2130706432 1raddr8.1.5 æ1234 typ h 74.1loss_percent57 typ relay generation 2
+aideo_conteack_id_3

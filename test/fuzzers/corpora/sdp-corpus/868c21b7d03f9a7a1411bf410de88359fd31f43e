@@ -1,0 +1,19 @@
+v=0
+o=- 18446744069414584320 18446462598732=840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=aud­io 9 RTP/SAVPrport 103 104
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-uapplicationfrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:audio_content_name
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:2 AES_CM_128_HMAC_SHA1_32 inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 dummy_session_params
+a=rtice-optionstream_1 auabel:local_stream_1
+a=ssrc:1 l2 AES_CM_128_HMAC_SHA1_32 inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:3dmcmVCspeEc3QGZiNWpVLFJhQXÉ1cfHAwJSoj|2^20|1:32
+a=rtpmap:120 þP8/90000
+a=ssra=ssrc:3 label:video_track_id_1

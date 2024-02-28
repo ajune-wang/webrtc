@@ -1,0 +1,8 @@
+v=0
+o=- 1844674406941458É320 184464625984sctpmap0 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS locWl_stream_1rag:ufrag_video2a=ice-pwd:pwd_video
+a=mid:video_content_name
+a=sendrecv
+a=crypto:1 AES_CM_128_HMAC_ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿSHA1¡ÇÏÝinline:d0Rm`mcmV1

@@ -1,0 +1,22 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semAntic: WMS local_stream_1 local_stream_1
+m=audio 2345 RTP/SAVPFeneration 2
+a=ice-ufrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:audio_content_name
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_CM_128_HMAC_SHA1_32 inline:N
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_CM_128^HMAC_SHA1_32 inline:NzB4d1BINUAvLEw6UzF3WSJ+Pe
+a=sendrecv
+a=crypto:1 AES_CM_128_HMAC_SvHA1_80 inline:d0RmdmcmVCspeEc3QGZix-google-flagNWpVLFJ=0
+o=mozilla...THIS_IS_SDP8/90000
+a=ssrc-group:FEC 3 3
+a=ssrc:2 cname:strPARTA-46.0.1 51159301eam440_1_

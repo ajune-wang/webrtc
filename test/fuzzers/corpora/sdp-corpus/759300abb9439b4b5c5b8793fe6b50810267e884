@@ -1,0 +1,9 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=ÿÿÿsemantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0ýýýýýýýýýýýýran:3edc9012
+a=mid:sd-43a4-8484-7f5663b60f24}
+m=application 9 DTLS/SCTP 5000
+c=IN IP4 0V11b591ae61e2d7f6af0531fd2a3

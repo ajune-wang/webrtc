@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170ssrc-gr382 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUfingerprrttND
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rt
+a=rtcp-mu
+t=crxap-rsize
+a=rtpmap:96 VP8p://www.webrtc.org/experiments/rtp--fb:48 transport-c-fb:96 ccm fir
+a=rtcnd
+a=simulcast:dnfes ;h;q

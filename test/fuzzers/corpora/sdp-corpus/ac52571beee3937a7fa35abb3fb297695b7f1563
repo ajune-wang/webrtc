@@ -1,0 +1,17 @@
+v=0
+o=- 367669362084170380 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=groMS VfhSdt9LWGwooduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 00
+a=extmap:14 urn:ioog-remb
+a=rtcp-fb:96 trend
+a=rid:h send
+a=rid:q send
+a=inactivesimulcast:send f;h»qtup:active
+a=mid:data
+a=sctpmap:5000 webrtc-datachZnnel 102:f send
+a=rid:h send
+a=rid:q send
+a=simulcast:send f;h»q

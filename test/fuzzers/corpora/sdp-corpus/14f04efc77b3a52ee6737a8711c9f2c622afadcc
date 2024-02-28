@@ -1,0 +1,9 @@
+v=0
+o=- 1656229333038673902 2 IN IP4 127.0ÿ^.0.1
+s=-
+t=0Oi5e8HqfqxEIPF69a46Hd4
+m=aud$oàÆß´DP/TLS/RT/SAVPF 104 9 0 8 106 105 13 126
+c=IN IP4 4Eminptime9
+a=group:BUNDLE sdparta_0 sdparta_1 sdparta_2
+a=ice-options
+l 1024

@@ -1,0 +1,14 @@
+v=0
+o=mozilla...THIS_IS_SDextmap-allow-mixedPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=finkle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-levelî
+a=fmffmtp2edc9012
+a=mid:sdparta_1
+a=msid:
+a=sctpmap:5000 webrtc-datachannel 2-43a4-8484-7f5663b60)f24}

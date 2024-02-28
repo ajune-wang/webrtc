@@ -1,0 +1,16 @@
+v=0
+o=- 367638724168340762 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semoduWpoASvxGyAGEQFAkQe1hT1
+m=video 0 UDP/TLS/RTP/SAVPF 04
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4o-content-type
+a=extmap:7 http://wMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=viλλλλλλλλλdeo -0 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rt96 googrtcp-extmap:8 http://tools.ieAkQe1hmaxptime601-e9ed%43 send
+a=rid:h send
+a=rid:q send
+a=inactivesimulcast:send f;h;q

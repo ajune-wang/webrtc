@@ -1,0 +1,23 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMSÛ©™—¬›‹ÆLWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rt0
+a=ice-ufragVVVVVVVVVVVVVVVVVVVVVVs:r6 goog-remb
+a=rtcp-fb:96 transport-cc1:99:AF:18:43:E6:18:BB:D0:92:51:9B:0v=0
+o=- 1844674406>9414584320 1844#6462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=packetization: WMS local_stream_1
+m=1 1238 typ
+a=packetization: WMS local_stream_1
+m=1 1238 typ host genercv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_Cv=0
+o=- 367669362084M IcGd
+aP4

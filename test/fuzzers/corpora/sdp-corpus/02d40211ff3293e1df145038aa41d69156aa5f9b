@@ -1,0 +1,15 @@
+v=0
+o=- 1844674406941*584320 18446msid-semantic60 IN I|4 127.?.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0z0
+a=rtcpontent_name
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsizeöžÂ£rypto:HMAC_SHA1_32 in:E4:E2:BA`EF:D2:3F:2E:AC:24:00 ccm fir
+a=rtcp-mux
+a=rtpmap:1fffffffffffffffffffffff20 VP8/90000
+a0'a=ice-ufrork-idRRR-pwd:pwndrecv
+a=crypto:1 Apacketization-moHA1_80 inline:d0

@@ -1,0 +1,11 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=sendonemantic WMS Vhdrext/video-content-type
+a=extmap:7 http://www.webrtc.org/experiment0.0
+a=ice-uIP6frag:OLwt
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:P4 0.0.0.0
+a=sendrecv
+a=ice-pwd:bxint:shacv
+ast:recv f;h;q

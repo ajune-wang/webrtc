@@ -1,0 +1,7 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+tf:params:rtp-hdrex=1
+a=ice-pt=0 0
+a=m2 ::1 1239 typ host generation 2
+a=candidate:a0+B/3 1 udp 2!3070643i 74.1r-t

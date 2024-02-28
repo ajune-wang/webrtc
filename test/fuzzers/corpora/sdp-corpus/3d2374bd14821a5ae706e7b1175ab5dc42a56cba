@@ -1,0 +1,4 @@
+v=0
+o=bob 2IP6808844564 2808844564 IN IP4 host.biloxi.example.com*s=
+c=IN IP4 hoevent/8000
+a=recvonly

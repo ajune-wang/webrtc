@@ -1,0 +1,44 @@
+v=0ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+o=- 1844674406941*584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=aud'io 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcp: IN IP4 0.0.0.0
+a=ice-ufrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:audio_content_name
+a=sendrecv
+a=rtcp-mux
+a=N IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-src-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-ufrag:3edc9012
+a=mid:sdparta_0
+a=msid:drecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-src-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-ufrag:3rtcp-rsize
+a=crypto:1 AES_CM_128_HMAC_SHA1_32 in:E4:E2:BA:EF:D2:3F:2E:AC:24:0352d8967d5
+a=ice-ufrag:a5 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-mux
+a=rtpmap:120 VP8/90000
+a=setup:active
+a=ssrc:348015*809 cname:{5b598a29-a81slabel:local_stream_1
+a=ssrc:2 label:video_t(rack_i32840960 IN IP4 127.0.0.1
+s=-
+t=0 a=ssrc:3 msid:local_stream_1 video_track_id_1
+a=ssrc:3 mslabel:local_stream_1
+a=ssrc:3 label:video_track_id_1

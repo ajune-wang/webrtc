@@ -1,0 +1,35 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8F:35:F7:B1:50:66:88:81:92:CB:29:BA:53:A5:02:C8:0A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdparta_0 sdparta_1 sdparta_2
+a=ice-options:trickle
+a=msid-seWMS local_stream_1
+m=audio 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:ap:104 ISAC/32000
+J=ssrc:1 cnamertcp-mux
+a=rtcp-rsize
+a=crypto:~1 AES_CM_128_HMAC_SHA1_32 network-cost1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 durtcp-rsizen_params
+a=rtpmap:111 opus/48000/2
+a=rtpmap:103 ISAC/16000
+a=rtpmap:104 ISAC/32000
+J=ssrc:1 cname:stream_1_cname
+a=ssrc:1 msid:local_stream_0 audio_track_id_1
+a=ssrc:1 mslabel:local_stream_1
+a=ssrc:1 label:el:local_stream_1
+a=ssrc:1 label:audio_track_id669360 cname:{try-allowed=1;level-asymmetry-alpacketization-mode=1
+a=fmtp:97 profile-level-id=42e01f;level-asymmetry-allf5663b60f24}
+m=application 9 DTLS/SCTP 5000
+crport=IN IP4 0.0.0.0
+a=sendrecv
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-ufrag:3edc9012
+a=mid:sdparta_2
+a=sctpmap:5000 webrtc-daachannel 256
+a=setup:actpass
+a=ssrc:2670959794 cname:{387b0735-bde2-43a4-8484-725663b60f24}

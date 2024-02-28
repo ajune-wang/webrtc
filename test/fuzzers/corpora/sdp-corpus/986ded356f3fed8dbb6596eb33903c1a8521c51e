@@ -1,0 +1,10 @@
+v=0
+o=- 1extmap4069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMream_1
+m=audio 9 RTP/SAVPF 111 103 104
+c=IN IP4 0.0.0
+a=cryÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿzÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ)ÿÿÿÿÿÿÿÿÿÿÿÿ000
+a=ssrc-group:FEC 2 3ºa=ssrc:2 cnamo_track_id_1
+m=vieI 9Pod4 0. 0R

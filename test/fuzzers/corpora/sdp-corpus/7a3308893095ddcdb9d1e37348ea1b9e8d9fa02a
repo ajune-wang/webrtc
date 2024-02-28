@@ -1,0 +1,16 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.12wd:pwd_voice
+a=mid:audio_content_name
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsizemcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32
+a=rt6432 ::1 1240 typ host generation 2
+a=candidate:a0+B/2 1 udp 2130706432 ::1 1241 typ host generation 2
+a=candidate:a0+B/4 2 udp 2130706432 74.125.224.39 3456 typ relay generation 2
+a=candidate:a0+B/4 1 udp 2130706432 74.125.224.39 3457 typ relay generation 2
+a=ice-ufrag:ufra_stream_1 video_tdeo_track_id_1

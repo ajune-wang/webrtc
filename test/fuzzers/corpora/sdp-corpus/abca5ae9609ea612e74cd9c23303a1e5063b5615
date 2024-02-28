@@ -1,0 +1,12 @@
+v=0
+o=- 3676693sctp-port62084170381 2 IN IP4 127..00.1
+s=-
+t=0 0
+a=groupsendonly0
+a=:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpasÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓÓ×Órn:ietf:params:rtp-hdrext:sdes:repairetcp-fb:96 nack
+a=rtcp-fb:96 nack pli
+a=rid:f recv
+a=rid:h recv
+a=rid:q recv
+a=simulcast:recv f;h;q

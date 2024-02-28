@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE+ 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=vridideo 9 UDP/TLS/ARTP/SVPF 96
+c=IN I∞‘ 0.0.0.0
+a=rtcp:9 Ixt/abs-send-time
+a=extmap:12 urn:3gpp:video-orientat
+a=róõ≈ôﬂçöóˆ
+a=rid:h recv
+a=rid:q rssrc-groupudefaultecv f;h;q

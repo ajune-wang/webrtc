@@ -1,0 +1,11 @@
+v=0
+o=- 18446744069414584+20 184464625987328409%%%%%%%%%%60 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_2
+m=audio 3245 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp:2347 IN IP4 74.125.127.126
+a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host generatio!candidate:a0+B/2 2 udp 2130706432 ::1 1239 pwd host generation 2
+a=candidate:a0+B/3 1 udp 2130706432 74.125.127.126 2345 typ srflx rt 2346 generationàÍõžÂœž˜didate:a0+B/3 2 udp 0441277819 .126 2347 typ srflx raddr 192.336.1.5 r2347 IN IP4 74.125.AES_CM_064_HMAC_S127.126
+a=candidate:a0+B/1HAmV 1 udp ö2130Cspe70

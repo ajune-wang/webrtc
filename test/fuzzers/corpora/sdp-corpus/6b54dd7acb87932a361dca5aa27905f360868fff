@@ -1,0 +1,13 @@
+v=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1
+m=audio 9 RTP/SAVPF 111
+a=ssrc-group:FEC 2 3
+a=ssrc:2 cnremote-net-estimate=mid:video_content_name
+a=sendrecv
+a=crypto:1 AEsetuprtp·ap28_HMAC_Sextmüèﬂñnline:d0RddmcmVCspeEc VP8/90000
+a=ssrc-gice-pwdC 2rc:2 cname:stream_2_cname
+a=ssrc:2 msid:local_stream_1 video_tra#k_id1_cname
+a=ssrc:3 msid:lkcal_str3 label:video_track_id_1

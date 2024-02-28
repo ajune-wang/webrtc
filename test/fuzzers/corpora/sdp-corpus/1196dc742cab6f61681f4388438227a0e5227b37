@@ -1,0 +1,16 @@
+v=0
+o=- 367669362084170380 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=groupgeneration:BUNDLE 0
+a=msid-1
+m=videoU/DP 9 TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-optio-256(B4le
+a=fingerprint:sha-256 B4:AB:3E:01:90:D1:FC:22:8F:05:6A:01:76:B6:C5:0D:45:88:1A:E1:99:AF:18:43:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpass
+a=mid: urn:ietf:params:rtp-hdrext:toffset
+a=extmap:13 http://waa=-m25a

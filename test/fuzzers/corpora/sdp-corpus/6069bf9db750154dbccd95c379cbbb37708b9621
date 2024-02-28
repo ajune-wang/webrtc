@@ -1,0 +1,11 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.-0.1
+s=-
+t=0 0
+a=group:BUNDLE t9LWGwoduWpoAOvÅ∏yAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rpplication IN OP4 ˇˇˇˇˇˇˇ9e-pwd:kjGBqIFYs8UqCyfmJ7nEJw/Q
+a=ice-options:trl-send sdparta_2
+a=ice-options:trickle
+a=msd f;h;q

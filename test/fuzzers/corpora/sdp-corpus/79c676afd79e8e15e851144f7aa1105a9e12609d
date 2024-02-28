@@ -1,0 +1,55 @@
+v=0
+o=mozisetuplla...THIS_IS_SDPARTA-46.0.1 5112930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=ta_2
+a=ice-options:trickle
+a=msid-sema÷tic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc9012
+a=mid:sdparta_0
+a=msid:{25››››››a=sendrecv
+a=cr››››››››››8e92fb-547c-40ca-92e9-efe0cedb4cbaP4 0.0.0.0
+s=-
+t=0 0
+a=ta_2
+a=ice-options:trickle
+a=msidË-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc9012
+a=mid:sdparta_0
+a=msid:{2ÿ8e92fb-54
+t=0 0
+a=ta_2
+a=ice-options:trick15930144083302970 0 Idio 9 U=-
+t=0 0
+a=ta_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc909 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc9012
+a=mim=audio 9 7c-40ca-92e98e92fb-547c-40ca-92e9-efe0cedb4cbaP4 0.0.0.0
+s=-
+t=0 0109 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc9012
+a=mid:sdparta_0
+a=msid:{25›››››››››››››-options:trickle
+a=msid-semantic:WMSp:: G722/minptime8000/1
+a=rtpmap:0 PCMU/8000
+a=rrag387b0735-bde24d:{258e92fb-54
+t=0 0
+a=taa=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sedc9012
+a=mid:sdparta_0
+a=msid:{25›››››››››››››-options:trickle
+a=msid-semantic:WMSp:9 G722/minptime8000/1
+a=rtpmap:0 PCMU/8000
+a=rrag387b0735-bde2439:CF:84-7f5663b60f24}

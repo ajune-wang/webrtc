@@ -1,0 +1,12 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 3051876776687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 AD:87:B3:11:E4:E2:BA:EF:D2:3F:2E:AC:24:57:90:59:CA:2C:84
+a=group:BUNDLE sdpartaHIS_IS_SDPARTA-46.0.1 3051876776687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 AD:87:B3:11:E4:E2:BA:EF:D2:3F:2E:AC:24:57:8E:DC:1F:67:41:29:44:C4:96:E3:62:90:CC:90:59:CA:2C:84
+a=group:BUNDLE dparta_2
+a=ice-options:trickle
+a=msid2c5-507778057e7a}

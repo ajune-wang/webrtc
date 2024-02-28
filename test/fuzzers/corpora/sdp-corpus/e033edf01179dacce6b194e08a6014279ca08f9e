@@ -1,0 +1,26 @@
+v=0
+o=mozilla...THIS_IS_SDPAR4444444444444444444444444444444444444444444444444444444444444444444444444444444444444TA-47.0.1 3068771576687940834 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 AD:87:B3:11:E4:E2:BA:EF:D2:3F:2E:AC:24:57:8E:DC:1F:67:41:29:44:C4:96:E3:62:90:CC:90:59:CA:2C:84
+a=group:BUNDLE sdpar0 sdparta=extmap:2 urn:ietf:params:rtp-hdrext:toffset
+a=extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=extmap:4 urn:3gpp:video-orientation
+a=sendrecv
+a=rtcp-mux
+a=rtpmap:100 VP8/90000
+a=rtcp-fb:100 ccm fir
+a=rtcp-fb:100 nack
+a=rtcp-fb:100 nack pli
+a=rtcp-fb:1 0 goog-remb
+a=rtcp-fa=ržtcp-mux
+a=rtpmap:109 opus/48000/2
+a=setup:active
+a=ssrc:600995474 cname:{5b598a29-a81b-4ffe-a2c5-507778056e7a}
+m=video 4 UDP/TLS/RTP/SAVPF 120
+c=IN IP4 0.0.0.0
+a=recvonly
+a=f
+a=sctpmap:5000 webrtc-datachannel 256
+a=setup:active
+a=surc:3021788991 cname:{5b598a29-a81b-4ffe-a2c5-507778057e7a}

@@ -1,0 +1,14 @@
+v=0
+o=- 18446744001228333161 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1"local_stream_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp 103 104
+c=IN N IP4 74.125.127.126
+a=rtcp 103 104
+c|||||||||||||||27.126 2345 typ IS_SDPARTA-4ÿÿÿÿÿÿÿÿ15930:i IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint2sha-256 24:67:5E:1Bdate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 ty:

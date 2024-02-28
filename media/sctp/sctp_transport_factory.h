@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "api/environment/environment.h"
 #include "api/transport/sctp_transport_factory_interface.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "rtc_base/thread.h"
@@ -21,12 +22,14 @@ namespace cricket {
 
 class SctpTransportFactory : public webrtc::SctpTransportFactoryInterface {
  public:
-  explicit SctpTransportFactory(rtc::Thread* network_thread);
+  SctpTransportFactory(const webrtc::Environment& env,
+                       rtc::Thread* network_thread);
 
   std::unique_ptr<SctpTransportInternal> CreateSctpTransport(
       rtc::PacketTransportInternal* transport) override;
 
  private:
+  const webrtc::Environment& env_;
   rtc::Thread* network_thread_;
 };
 

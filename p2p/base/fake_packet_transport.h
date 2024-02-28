@@ -64,7 +64,7 @@ class FakePacketTransport : public PacketTransportInternal {
       return -1;
     }
     CopyOnWriteBuffer packet(data, len);
-    SendPacketInternal(packet);
+    SendPacketInternal(packet, options);
 
     SentPacket sent_packet(options.packet_id, TimeMillis());
     SignalSentPacket(this, sent_packet);
@@ -120,11 +120,13 @@ class FakePacketTransport : public PacketTransportInternal {
     SignalReceivingState(this);
   }
 
-  void SendPacketInternal(const CopyOnWriteBuffer& packet) {
+  void SendPacketInternal(const CopyOnWriteBuffer& packet,
+                          const rtc::PacketOptions& options) {
     last_sent_packet_ = packet;
     if (dest_) {
-      dest_->NotifyPacketReceived(rtc::ReceivedPacket::CreateFromLegacy(
-          packet.data(), packet.size(), rtc::TimeMicros()));
+      dest_->NotifyPacketReceived(rtc::ReceivedPacket(
+          packet, SocketAddress(), webrtc::Timestamp::Zero(),
+          options.ecn_1 ? EcnMarking::kECT1 : EcnMarking::kNotECT));
     }
   }
 

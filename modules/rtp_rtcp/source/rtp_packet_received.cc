@@ -23,8 +23,9 @@ namespace webrtc {
 RtpPacketReceived::RtpPacketReceived() = default;
 RtpPacketReceived::RtpPacketReceived(
     const ExtensionManager* extensions,
-    webrtc::Timestamp arrival_time /*= webrtc::Timestamp::MinusInfinity()*/)
-    : RtpPacket(extensions), arrival_time_(arrival_time) {}
+    webrtc::Timestamp arrival_time /*= webrtc::Timestamp::MinusInfinity()*/,
+    rtc::EcnMarking ecn)
+    : RtpPacket(extensions), arrival_time_(arrival_time), ecn_(ecn) {}
 RtpPacketReceived::RtpPacketReceived(const RtpPacketReceived& packet) = default;
 RtpPacketReceived::RtpPacketReceived(RtpPacketReceived&& packet) = default;
 

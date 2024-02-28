@@ -20,6 +20,7 @@
 #include "api/scoped_refptr.h"
 #include "api/units/timestamp.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
+#include "rtc_base/network/ecn_marking.h"
 
 namespace webrtc {
 // Class to hold rtp packet with metadata for receiver side.
@@ -30,7 +31,8 @@ class RtpPacketReceived : public RtpPacket {
   RtpPacketReceived();
   explicit RtpPacketReceived(
       const ExtensionManager* extensions,
-      webrtc::Timestamp arrival_time = webrtc::Timestamp::MinusInfinity());
+      webrtc::Timestamp arrival_time = webrtc::Timestamp::MinusInfinity(),
+      rtc::EcnMarking ecn = rtc::EcnMarking::kNotECT);
   RtpPacketReceived(const RtpPacketReceived& packet);
   RtpPacketReceived(RtpPacketReceived&& packet);
 
@@ -47,6 +49,8 @@ class RtpPacketReceived : public RtpPacket {
   // network.
   webrtc::Timestamp arrival_time() const { return arrival_time_; }
   void set_arrival_time(webrtc::Timestamp time) { arrival_time_ = time; }
+
+  rtc::EcnMarking ecn() const { return ecn_; }
 
   // Flag if packet was recovered via RTX or FEC.
   bool recovered() const { return recovered_; }
@@ -68,6 +72,7 @@ class RtpPacketReceived : public RtpPacket {
 
  private:
   webrtc::Timestamp arrival_time_ = Timestamp::MinusInfinity();
+  rtc::EcnMarking ecn_;
   int payload_type_frequency_ = 0;
   bool recovered_ = false;
   rtc::scoped_refptr<rtc::RefCountedBase> additional_data_;

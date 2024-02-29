@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d825cd9b_b92cbb0c",
+        "filename": "rtc_base/network/ecn_marking.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-29T10:54:39Z",
+      "side": 1,
+      "message": "Added ECT(0) and added description from RFC.",
+      "parentUuid": "c5d7fdc5_b87ff2dd",
+      "revId": "89cb8474b132ac6c6995052d51fc75e7bb29aca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d598cbf0_7676099c",
         "filename": "rtc_base/socket.h",
         "patchSetId": 12
@@ -48,6 +66,24 @@
       "writtenOn": "2024-02-29T08:49:56Z",
       "side": 1,
       "message": "Should we add in OPT_SEND_L4S_ECN while we\u0027re at it?",
+      "revId": "89cb8474b132ac6c6995052d51fc75e7bb29aca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64681014_9149dcee",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-02-29T10:54:39Z",
+      "side": 1,
+      "message": "This is just to set the socket option. Value of the bits is set in the call to SetOptions. \n\nBut I think we should implement support for setting different ECN values depending on type of packet. Ie, we can not control SCTP BWE so we should not set ECN(1) on data channel packets. But for now- this is easiest.",
+      "parentUuid": "d598cbf0_7676099c",
       "revId": "89cb8474b132ac6c6995052d51fc75e7bb29aca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

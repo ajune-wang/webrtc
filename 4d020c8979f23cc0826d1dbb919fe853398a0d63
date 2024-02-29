@@ -33,6 +33,24 @@
       "message": "I don\u0027t think this approach (bluntly requiring upstream projects to change their use of namespace-constrained names) is a viable one.\n\nIf I read https://clang.llvm.org/extra/clang-tidy/checks/bugprone/forward-declaration-namespace.html correctly, the correct approach is for Chromium to stop adding forward references to rtc::StringBuilder.",
       "revId": "4d020c8979f23cc0826d1dbb919fe853398a0d63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ca9142_9d895975",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3322240
+      },
+      "writtenOn": "2024-02-29T02:13:59Z",
+      "side": 1,
+      "message": "Thank you for the review comment. After reading your comment, I had second thoughts and I think fixing it in blink side would be the better direction. I will abandon this CL. Thank you again.",
+      "parentUuid": "86abe4b1_5fb678bf",
+      "revId": "4d020c8979f23cc0826d1dbb919fe853398a0d63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

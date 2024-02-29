@@ -33,6 +33,23 @@
       "message": "This depends on the sCP change which we might still need to revert. Asking for second +1 now, will submit Thursday",
       "revId": "0201ad1c575a2d8f39856d13196906ea12d522b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8964477f_42f7391d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2024-02-29T06:34:51Z",
+      "side": 1,
+      "message": "killswitch is coming in https://webrtc-review.googlesource.com/c/src/+/341460",
+      "revId": "0201ad1c575a2d8f39856d13196906ea12d522b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

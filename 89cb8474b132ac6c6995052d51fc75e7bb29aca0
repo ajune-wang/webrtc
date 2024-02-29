@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "121a52b0_86f9f5c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-29T08:49:56Z",
+      "side": 1,
+      "message": "What I wonder about here is that I wonder if we should wire up both variants of ECN (old-style ECN and L4S ECN) at the same time rather than slotting in one now and one later.\n\nI don\u0027t think ECN (old-style) works well for us - queues have already built by the time that\u0027s signalled.",
+      "revId": "89cb8474b132ac6c6995052d51fc75e7bb29aca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5d7fdc5_b87ff2dd",
+        "filename": "rtc_base/network/ecn_marking.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-29T08:49:56Z",
+      "side": 1,
+      "message": "might as well make kECT1 \u003d 2 and kOldStyleECT \u003d 1 (if that is the way the bits go, I\u0027m not sure which ECT variant got the high bit).",
+      "revId": "89cb8474b132ac6c6995052d51fc75e7bb29aca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d598cbf0_7676099c",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-02-29T08:49:56Z",
+      "side": 1,
+      "message": "Should we add in OPT_SEND_L4S_ECN while we\u0027re at it?",
+      "revId": "89cb8474b132ac6c6995052d51fc75e7bb29aca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

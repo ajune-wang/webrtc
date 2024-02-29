@@ -167,6 +167,9 @@ class RTC_EXPORT RtpTransceiverInterface : public webrtc::RefCountInterface {
   virtual webrtc::RTCError SetHeaderExtensionsToNegotiate(
       rtc::ArrayView<const RtpHeaderExtensionCapability> header_extensions) = 0;
 
+  virtual void RegisterSoftwareFallbackCallback(
+      webrtc::DecodedImageCallback::SoftwareFallbackCallback callback) = 0;
+
  protected:
   ~RtpTransceiverInterface() override = default;
 };

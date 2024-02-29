@@ -159,7 +159,9 @@ class VideoEngineInterface : public RtpHeaderExtensionQueryInterface {
   CreateReceiveChannel(webrtc::Call* call,
                        const MediaConfig& config,
                        const VideoOptions& options,
-                       const webrtc::CryptoOptions& crypto_options) {
+                       const webrtc::CryptoOptions& crypto_options,
+                       webrtc::DecodedImageCallback::SoftwareFallbackCallback
+                           softwarefallback_callback) {
     // Default implementation, delete when all is updated
     RTC_CHECK_NOTREACHED();
     return nullptr;

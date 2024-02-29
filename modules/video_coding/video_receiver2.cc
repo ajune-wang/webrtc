@@ -85,6 +85,20 @@ int32_t VideoReceiver2::Decode(const EncodedFrame* frame) {
   return decoder->Decode(*frame, clock_->CurrentTime());
 }
 
+void VideoReceiver2::RegisterSoftwareFallbackCallback(
+    DecodedImageCallback::SoftwareFallbackCallback callback) {
+  softwarefallback_callback_ = callback;
+}
+
+void VideoReceiver2::OnSoftwareFallback(VideoDecoderFallbackReason reason) {
+  if (softwarefallback_callback_) {
+    RTC_LOG(LS_ERROR) << "FIPPO callback set";
+    softwarefallback_callback_(reason);
+  } else {
+    RTC_LOG(LS_ERROR) << "FIPPO callback not set";
+  }
+}
+
 // Register possible receive codecs, can be called multiple times.
 // Called before decoder thread is started.
 void VideoReceiver2::RegisterReceiveCodec(

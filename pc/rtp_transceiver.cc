@@ -255,7 +255,13 @@ RTCError RtpTransceiver::CreateChannel(
 
       std::unique_ptr<cricket::VideoMediaReceiveChannelInterface>
           media_receive_channel = media_engine()->video().CreateReceiveChannel(
-              call_ptr, media_config, video_options, crypto_options);
+              call_ptr, media_config, video_options, crypto_options,
+              [this](webrtc::VideoDecoderFallbackReason reason) {
+                RTC_LOG(LS_ERROR) << "FIPPO CB REASON IN TRANSCEIVER";
+                if (softwarefallback_callback_) {
+                  softwarefallback_callback_(reason);
+                }
+              });
       if (!media_receive_channel) {
         return;
       }
@@ -760,6 +766,12 @@ void RtpTransceiver::OnNegotiationUpdate(
 
 void RtpTransceiver::SetPeerConnectionClosed() {
   is_pc_closed_ = true;
+}
+
+void RtpTransceiver::RegisterSoftwareFallbackCallback(
+    webrtc::DecodedImageCallback::SoftwareFallbackCallback
+        softwarefallback_callback) {
+  softwarefallback_callback_ = softwarefallback_callback;
 }
 
 }  // namespace webrtc

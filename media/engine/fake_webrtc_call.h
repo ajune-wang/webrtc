@@ -278,6 +278,9 @@ class FakeVideoReceiveStream final
     return RecordingState();
   }
   void GenerateKeyFrame() override {}
+  void RegisterSoftwareFallbackCallback(
+      webrtc::DecodedImageCallback::SoftwareFallbackCallback callback)
+      override {}
 
   void SetRtcpMode(webrtc::RtcpMode mode) override {
     config_.rtp.rtcp_mode = mode;

@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b48ab29f_5d034867",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-02-29T14:03:51Z",
+      "side": 1,
+      "message": "Yes, we have not implemented it yet for the receiver side. But the problem here is if we use this CL, the `capture_time_identifier` would mean different things on the encoding and decoding side, which is confusing.",
+      "parentUuid": "fb967bb7_d0dd0acb",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

@@ -21,6 +21,7 @@
 #include "modules/video_coding/decoder_database.h"
 #include "modules/video_coding/generic_decoder.h"
 #include "modules/video_coding/timing/timing.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "system_wrappers/include/clock.h"
 
@@ -51,6 +52,10 @@ class VideoReceiver2 {
 
   int32_t Decode(const EncodedFrame* frame);
 
+  void RegisterSoftwareFallbackCallback(
+      DecodedImageCallback::SoftwareFallbackCallback callback);
+  void OnSoftwareFallback(VideoDecoderFallbackReason reason);
+
  private:
   RTC_NO_UNIQUE_ADDRESS SequenceChecker construction_sequence_checker_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker decoder_sequence_checker_;
@@ -60,6 +65,8 @@ class VideoReceiver2 {
   // Once the decoder thread has been started, usage of `_codecDataBase` moves
   // over to the decoder thread.
   VCMDecoderDatabase codec_database_;
+
+  DecodedImageCallback::SoftwareFallbackCallback softwarefallback_callback_;
 };
 
 }  // namespace webrtc

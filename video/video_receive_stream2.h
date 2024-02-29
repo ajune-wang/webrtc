@@ -192,6 +192,8 @@ class VideoReceiveStream2
   RecordingState SetAndGetRecordingState(RecordingState state,
                                          bool generate_key_frame) override;
   void GenerateKeyFrame() override;
+  void RegisterSoftwareFallbackCallback(
+      DecodedImageCallback::SoftwareFallbackCallback callback) override;
 
   void UpdateRtxSsrc(uint32_t ssrc) override;
 

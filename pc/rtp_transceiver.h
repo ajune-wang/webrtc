@@ -296,6 +296,9 @@ class RtpTransceiver : public RtpTransceiverInterface {
   void OnNegotiationUpdate(SdpType sdp_type,
                            const cricket::MediaContentDescription* content);
 
+  void RegisterSoftwareFallbackCallback(
+      webrtc::DecodedImageCallback::SoftwareFallbackCallback callback) override;
+
  private:
   cricket::MediaEngineInterface* media_engine() const {
     return context_->media_engine();
@@ -346,6 +349,9 @@ class RtpTransceiver : public RtpTransceiverInterface {
       RTC_GUARDED_BY(thread_);
 
   const std::function<void()> on_negotiation_needed_;
+
+  webrtc::DecodedImageCallback::SoftwareFallbackCallback
+      softwarefallback_callback_;
 };
 
 BEGIN_PRIMARY_PROXY_MAP(RtpTransceiver)
@@ -372,6 +378,9 @@ PROXY_CONSTMETHOD0(std::vector<RtpHeaderExtensionCapability>,
 PROXY_METHOD1(RTCError,
               SetHeaderExtensionsToNegotiate,
               rtc::ArrayView<const RtpHeaderExtensionCapability>)
+PROXY_METHOD1(void,
+              RegisterSoftwareFallbackCallback,
+              webrtc::DecodedImageCallback::SoftwareFallbackCallback)
 END_PROXY_MAP(RtpTransceiver)
 
 }  // namespace webrtc

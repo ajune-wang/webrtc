@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a53b0321_65742391",
+        "filename": "media/sctp/sctp_transport_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-02-29T09:11:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10878ba5_33f42cc0",
+      "revId": "8a8cf0e0f9d35776117826b1a32cabab6c298333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "81e83c8b_616d60ad",
         "filename": "pc/connection_context.cc",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2024-02-28T13:47:06Z",
       "side": 1,
       "message": "This is a peer connection _factory_ specific environment,\npeer connection environment can be different (different field trials).\nWhich one do you want?\n\nIf you want peer connection specific environment in the transports, then it is likely you would need to add Environment parameter not to the SctpTransportFactory constructor, but to the SctpTransportFactory::CreateSctpTransport function.",
+      "range": {
+        "startLine": 114,
+        "startChar": 33,
+        "endLine": 114,
+        "endChar": 38
+      },
+      "revId": "8a8cf0e0f9d35776117826b1a32cabab6c298333",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cadcc3b2_98a7c899",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-02-29T09:11:45Z",
+      "side": 1,
+      "message": "Done - thanks!",
+      "parentUuid": "81e83c8b_616d60ad",
       "range": {
         "startLine": 114,
         "startChar": 33,

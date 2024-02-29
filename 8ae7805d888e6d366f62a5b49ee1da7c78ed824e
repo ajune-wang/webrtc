@@ -16,6 +16,91 @@
       "message": "Thanks for reviewing!",
       "revId": "8ae7805d888e6d366f62a5b49ee1da7c78ed824e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b90a65a1_7efdb062",
+        "filename": "api/transport/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-29T10:02:06Z",
+      "side": 1,
+      "message": "or \"../../api/environment\"\nwhen target match the folder name, it can be omitted.",
+      "revId": "8ae7805d888e6d366f62a5b49ee1da7c78ed824e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a754eb62_6b126895",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-29T10:02:06Z",
+      "side": 1,
+      "message": "drop namespace - this interface is already in the webrtc namespace",
+      "revId": "8ae7805d888e6d366f62a5b49ee1da7c78ed824e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2833eb_635e9c46",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-29T10:02:06Z",
+      "side": 1,
+      "message": "drop namespace here too",
+      "revId": "8ae7805d888e6d366f62a5b49ee1da7c78ed824e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e4d428_c06e7eb2",
+        "filename": "media/sctp/sctp_transport_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-29T10:02:06Z",
+      "side": 1,
+      "message": "can be removed now",
+      "revId": "8ae7805d888e6d366f62a5b49ee1da7c78ed824e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f0ba3a_02c77ee4",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-02-29T10:02:06Z",
+      "side": 1,
+      "message": "may be add \u0026field_trials_ to the environment\n\n(though that would require to change order - move field_trial_ member before env_)",
+      "revId": "8ae7805d888e6d366f62a5b49ee1da7c78ed824e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

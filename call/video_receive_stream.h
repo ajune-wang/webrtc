@@ -291,6 +291,10 @@ class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
   // Cause eventual generation of a key frame from the sender.
   virtual void GenerateKeyFrame() = 0;
 
+  // TODO: make pure virtual
+  virtual void RegisterSoftwareFallbackCallback(
+      DecodedImageCallback::SoftwareFallbackbackCallback callback) = 0;
+
   virtual void SetRtcpMode(RtcpMode mode) = 0;
 
   // Sets or clears a flexfec RTP sink. This affects `rtp.packet_sink_` and

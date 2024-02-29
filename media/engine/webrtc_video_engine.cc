@@ -3549,6 +3549,10 @@ void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::
   config.rtp.protected_by_flexfec = (flexfec_stream_ != nullptr);
   config.rtp.packet_sink_ = flexfec_stream_;
   stream_ = call_->CreateVideoReceiveStream(std::move(config));
+  stream_->RegisterSoftwareFallbackCallback(
+      [](webrtc::VideoDecoderFallbackReason reason) {
+        RTC_LOG(LS_ERROR) << "FIPPO CB REASON IN VIDEO ENGINE";
+      });
 }
 
 void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::StartReceiveStream() {

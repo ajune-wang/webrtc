@@ -50,6 +50,8 @@ class VideoStreamDecoder : public VCMReceiveCallback {
   void OnDecoderInfoChanged(
       const VideoDecoder::DecoderInfo& decoder_info) override;
 
+  void OnSoftwareFallback(VideoDecoderFallbackReason reason) override;
+
  private:
   VideoReceiver2* const video_receiver_;
   ReceiveStatisticsProxy* const receive_stats_callback_;

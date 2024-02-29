@@ -917,6 +917,12 @@ int VideoReceiveStream2::DecodeAndMaybeDispatchEncodedFrame(
         << ", temporal idx: " << frame_ptr->TemporalIndex().value_or(-1)
         << ", id: " << frame_ptr->Id();
   }
+  if (decode_result == WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE) {
+    // Maybe this one is easier than doing all the plumbing...
+    // But we only get the error, not the reason for the error and
+    // curios minds want to know!
+    RTC_LOG(LS_ERROR) << "FIPPO SW FALLBACK IN RECEIVE STREAM";
+  }
 
   if (encoded_frame_output_enabled) {
     absl::optional<RecordableEncodedFrame::EncodedResolution>
@@ -1086,6 +1092,11 @@ void VideoReceiveStream2::GenerateKeyFrame() {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   RequestKeyFrame(env_.clock().CurrentTime());
   keyframe_generation_requested_ = true;
+}
+
+void VideoReceiveStream2::RegisterSoftwareFallbackCallback(
+    DecodedImageCallback::SoftwareFallbackbackCallback callback) {
+  video_receiver_.RegisterSoftwareFallbackCallback(callback);
 }
 
 void VideoReceiveStream2::UpdateRtxSsrc(uint32_t ssrc) {

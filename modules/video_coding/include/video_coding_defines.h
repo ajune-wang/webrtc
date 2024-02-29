@@ -63,6 +63,9 @@ class VCMReceiveCallback {
   virtual void OnDecoderInfoChanged(
       const VideoDecoder::DecoderInfo& decoder_info);
 
+  // TODO(fippo): make pure virtual.
+  virtual void OnSoftwareFallback(VideoDecoderFallbackReason reason) {}
+
  protected:
   virtual ~VCMReceiveCallback() {}
 };

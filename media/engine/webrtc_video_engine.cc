@@ -791,9 +791,12 @@ WebRtcVideoEngine::CreateReceiveChannel(
     webrtc::Call* call,
     const MediaConfig& config,
     const VideoOptions& options,
-    const webrtc::CryptoOptions& crypto_options) {
+    const webrtc::CryptoOptions& crypto_options,
+    webrtc::DecodedImageCallback::SoftwareFallbackCallback
+        softwarefallback_callback) {
   return std::make_unique<WebRtcVideoReceiveChannel>(
-      call, config, options, crypto_options, decoder_factory_.get());
+      call, config, options, crypto_options, decoder_factory_.get(),
+      softwarefallback_callback);
 }
 
 std::vector<VideoCodec> WebRtcVideoEngine::send_codecs(bool include_rtx) const {
@@ -2576,7 +2579,9 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveChannel(
     const MediaConfig& config,
     const VideoOptions& options,
     const webrtc::CryptoOptions& crypto_options,
-    webrtc::VideoDecoderFactory* decoder_factory)
+    webrtc::VideoDecoderFactory* decoder_factory,
+    webrtc::DecodedImageCallback::SoftwareFallbackCallback
+        softwarefallback_callback)
     : MediaChannelUtil(call->network_thread(), config.enable_dscp),
       worker_thread_(call->worker_thread()),
       receiving_(false),
@@ -2590,7 +2595,8 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveChannel(
           IsEnabled(call_->trials(),
                     "WebRTC-Video-DiscardPacketsWithUnknownSsrc")),
       crypto_options_(crypto_options),
-      receive_buffer_size_(ParseReceiveBufferSize(call_->trials())) {
+      receive_buffer_size_(ParseReceiveBufferSize(call_->trials())),
+      softwarefallback_callback_(softwarefallback_callback) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   rtcp_receiver_report_ssrc_ = kDefaultRtcpReceiverReportSsrc;
   recv_codecs_ = MapCodecs(GetPayloadTypesAndDefaultCodecs(
@@ -2877,9 +2883,9 @@ bool WebRtcVideoReceiveChannel::AddRecvStream(const StreamParams& sp,
   if (unsignaled_frame_transformer_ && !config.frame_transformer)
     config.frame_transformer = unsignaled_frame_transformer_;
 
-  auto receive_stream =
-      new WebRtcVideoReceiveStream(call_, sp, std::move(config), default_stream,
-                                   recv_codecs_, flexfec_config);
+  auto receive_stream = new WebRtcVideoReceiveStream(
+      call_, sp, std::move(config), default_stream, recv_codecs_,
+      flexfec_config, softwarefallback_callback_);
   if (receiving_) {
     receive_stream->StartReceiveStream();
   }
@@ -3262,7 +3268,9 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
     webrtc::VideoReceiveStreamInterface::Config config,
     bool default_stream,
     const std::vector<VideoCodecSettings>& recv_codecs,
-    const webrtc::FlexfecReceiveStream::Config& flexfec_config)
+    const webrtc::FlexfecReceiveStream::Config& flexfec_config,
+    webrtc::DecodedImageCallback::SoftwareFallbackCallback
+        softwarefallback_callback)
     : call_(call),
       stream_params_(sp),
       stream_(NULL),
@@ -3273,7 +3281,8 @@ WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
       sink_(NULL),
       first_frame_timestamp_(-1),
       estimated_remote_start_ntp_time_ms_(0),
-      receiving_(false) {
+      receiving_(false),
+      softwarefallback_callback_(softwarefallback_callback) {
   RTC_DCHECK(config_.decoder_factory);
   RTC_DCHECK(config_.decoders.empty())
       << "Decoder info is supplied via `recv_codecs`";
@@ -3521,7 +3530,6 @@ void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::
     call_->DestroyFlexfecReceiveStream(flexfec_stream_);
     flexfec_stream_ = nullptr;
   }
-
   CreateReceiveStream();
 
   if (base_minimum_playout_delay_ms) {
@@ -3549,6 +3557,7 @@ void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::
   config.rtp.protected_by_flexfec = (flexfec_stream_ != nullptr);
   config.rtp.packet_sink_ = flexfec_stream_;
   stream_ = call_->CreateVideoReceiveStream(std::move(config));
+  stream_->RegisterSoftwareFallbackCallback(softwarefallback_callback_);
 }
 
 void WebRtcVideoReceiveChannel::WebRtcVideoReceiveStream::StartReceiveStream() {

@@ -337,6 +337,9 @@ int32_t VCMGenericDecoder::Decode(const EncodedImage& frame,
 
 int32_t VCMGenericDecoder::RegisterDecodeCompleteCallback(
     VCMDecodedFrameCallback* callback) {
+  RTC_LOG(LS_ERROR) << "FIPPO RegisterDecodeCompleteCallback " << this
+                    << " decoder " << decoder_
+                    << " callback(VCMDecodedFrameCallback) " << callback;
   _callback = callback;
   int32_t ret = decoder_->RegisterDecodeCompleteCallback(callback);
   if (callback && !decoder_info_.implementation_name.empty()) {

@@ -67,5 +67,10 @@ void VideoStreamDecoder::OnDecoderInfoChanged(
   receive_stats_callback_->OnDecoderInfo(decoder_info);
 }
 
+void VideoStreamDecoder::OnSoftwareFallback(VideoDecoderFallbackReason reason) {
+  RTC_LOG(LS_ERROR) << "FIPPO FALLBACK";
+  video_receiver_->OnSoftwareFallback(reason);
+}
+
 }  // namespace internal
 }  // namespace webrtc

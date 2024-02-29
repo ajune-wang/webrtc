@@ -114,7 +114,9 @@ class WebRtcVideoEngine : public VideoEngineInterface {
       webrtc::Call* call,
       const MediaConfig& config,
       const VideoOptions& options,
-      const webrtc::CryptoOptions& crypto_options) override;
+      const webrtc::CryptoOptions& crypto_options,
+      webrtc::DecodedImageCallback::SoftwareFallbackCallback
+          softwarefallback_callback) override;
 
   std::vector<VideoCodec> send_codecs() const override {
     return send_codecs(true);
@@ -560,11 +562,14 @@ class WebRtcVideoSendChannel : public MediaChannelUtil,
 class WebRtcVideoReceiveChannel : public MediaChannelUtil,
                                   public VideoMediaReceiveChannelInterface {
  public:
-  WebRtcVideoReceiveChannel(webrtc::Call* call,
-                            const MediaConfig& config,
-                            const VideoOptions& options,
-                            const webrtc::CryptoOptions& crypto_options,
-                            webrtc::VideoDecoderFactory* decoder_factory);
+  WebRtcVideoReceiveChannel(
+      webrtc::Call* call,
+      const MediaConfig& config,
+      const VideoOptions& options,
+      const webrtc::CryptoOptions& crypto_options,
+      webrtc::VideoDecoderFactory* decoder_factory,
+      webrtc::DecodedImageCallback::SoftwareFallbackCallback
+          softwarefallback_callback);
   ~WebRtcVideoReceiveChannel() override;
 
  public:
@@ -632,7 +637,6 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
                                      bool nack_enabled,
                                      webrtc::RtcpMode rtcp_mode,
                                      absl::optional<int> rtx_time) override;
-
  private:
   class WebRtcVideoReceiveStream;
   struct ChangedReceiverParameters {
@@ -689,7 +693,9 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
         webrtc::VideoReceiveStreamInterface::Config config,
         bool default_stream,
         const std::vector<VideoCodecSettings>& recv_codecs,
-        const webrtc::FlexfecReceiveStream::Config& flexfec_config);
+        const webrtc::FlexfecReceiveStream::Config& flexfec_config,
+        webrtc::DecodedImageCallback::SoftwareFallbackCallback
+            softwarefallback_callback);
     ~WebRtcVideoReceiveStream();
 
     webrtc::VideoReceiveStreamInterface& stream();
@@ -775,6 +781,9 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
 
     RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker thread_checker_;
     bool receiving_ RTC_GUARDED_BY(&thread_checker_);
+
+    webrtc::DecodedImageCallback::SoftwareFallbackCallback
+        softwarefallback_callback_;
   };
   bool GetChangedReceiverParameters(const VideoReceiverParameters& params,
                                     ChangedReceiverParameters* changed_params)
@@ -883,6 +892,9 @@ class WebRtcVideoReceiveChannel : public MediaChannelUtil,
       ssrc_list_changed_callback_;
 
   const int receive_buffer_size_;
+
+  webrtc::DecodedImageCallback::SoftwareFallbackCallback
+      softwarefallback_callback_;
 };
 
 // Keeping the old name "WebRtcVideoChannel" around because some external

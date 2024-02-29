@@ -215,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38c88377_e5e49934",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-02-29T14:11:56Z",
+      "side": 1,
+      "message": "I think you could reuse ntp_timestamp for this. It\u0027s used exactly for estimated capture timestamp. The estimation is happening here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/rtp_video_stream_receiver2.cc;l\u003d827;drc\u003df4a00cc248dd2dc8ec8759fb51620d47b5114090\n\nabsolute_capture_time is a newer and more accurate mechanism, so it makes sense that it should overwrite this if available.\nBut make sure that it\u0027s translated into the receiver\u0027s clock first.",
+      "parentUuid": "b48ab29f_5d034867",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

@@ -52,7 +52,7 @@ class PortInterface {
  public:
   virtual ~PortInterface();
 
-  virtual const absl::string_view Type() const = 0;
+  virtual webrtc::IceCandidateType Type() const = 0;
   virtual const rtc::Network* Network() const = 0;
 
   // Methods to set/get ICE role and tiebreaker values.

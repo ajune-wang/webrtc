@@ -203,7 +203,7 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
   // uniquely identify subclasses. Whenever a new subclass of Port introduces a
   // conflict in the value of the 2-tuple, make sure that the implementation
   // that relies on this 2-tuple for RTTI is properly changed.
-  const absl::string_view Type() const override;
+  webrtc::IceCandidateType Type() const override;
   const rtc::Network* Network() const override;
 
   // Methods to set/get ICE role and tiebreaker values.
@@ -476,7 +476,7 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
 
   webrtc::TaskQueueBase* const thread_;
   rtc::PacketSocketFactory* const factory_;
-  const absl::string_view type_;
+  webrtc::IceCandidateType type_;
   bool send_retransmit_count_attribute_;
   const rtc::Network* network_;
   uint16_t min_port_;

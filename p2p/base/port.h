@@ -123,6 +123,8 @@ typedef std::vector<CandidateStats> CandidateStatsList;
 
 const char* ProtoToString(ProtocolType proto);
 absl::optional<ProtocolType> StringToProto(absl::string_view proto_name);
+webrtc::IceCandidateType PortTypeToIceCandidateType(
+    const absl::string_view type);
 
 struct ProtocolAddress {
   rtc::SocketAddress address;
@@ -386,6 +388,22 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
                   absl::string_view relay_protocol,
                   absl::string_view tcptype,
                   absl::string_view type,
+                  uint32_t type_preference,
+                  uint32_t relay_preference,
+                  absl::string_view url,
+                  bool is_final) {
+    AddAddress(address, base_address, related_address, protocol, relay_protocol,
+               tcptype, PortTypeToIceCandidateType(type), type_preference,
+               relay_preference, url, is_final);
+  }
+
+  void AddAddress(const rtc::SocketAddress& address,
+                  const rtc::SocketAddress& base_address,
+                  const rtc::SocketAddress& related_address,
+                  absl::string_view protocol,
+                  absl::string_view relay_protocol,
+                  absl::string_view tcptype,
+                  webrtc::IceCandidateType type,
                   uint32_t type_preference,
                   uint32_t relay_preference,
                   absl::string_view url,

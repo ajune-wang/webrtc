@@ -37,6 +37,7 @@
 
 namespace cricket {
 
+using ::webrtc::IceCandidateType;
 using ::webrtc::SafeTask;
 using ::webrtc::TaskQueueBase;
 using ::webrtc::TimeDelta;
@@ -887,8 +888,9 @@ void TurnPort::OnAllocateSuccess(const rtc::SocketAddress& address,
              UDP_PROTOCOL_NAME,
              ProtoToString(server_address_.proto),  // The first hop protocol.
              "",  // TCP candidate type, empty for turn candidates.
-             RELAY_PORT_TYPE, GetRelayPreference(server_address_.proto),
-             server_priority_, server_url_, true);
+             IceCandidateType::kRelay,
+             GetRelayPreference(server_address_.proto), server_priority_,
+             server_url_, true);
 }
 
 void TurnPort::OnAllocateError(int error_code, absl::string_view reason) {

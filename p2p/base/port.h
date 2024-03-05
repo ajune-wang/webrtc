@@ -123,6 +123,8 @@ typedef std::vector<CandidateStats> CandidateStatsList;
 
 const char* ProtoToString(ProtocolType proto);
 absl::optional<ProtocolType> StringToProto(absl::string_view proto_name);
+webrtc::IceCandidateType PortTypeToIceCandidateType(
+    const absl::string_view type);
 
 struct ProtocolAddress {
   rtc::SocketAddress address;
@@ -179,21 +181,61 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
   // 30 seconds.
   enum class State { INIT, KEEP_ALIVE_UNTIL_PRUNED, PRUNED };
   Port(webrtc::TaskQueueBase* thread,
-       absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+       webrtc::IceCandidateType type,
        rtc::PacketSocketFactory* factory,
        const rtc::Network* network,
        absl::string_view username_fragment,
        absl::string_view password,
        const webrtc::FieldTrialsView* field_trials = nullptr);
   Port(webrtc::TaskQueueBase* thread,
-       absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+       webrtc::IceCandidateType type,
        rtc::PacketSocketFactory* factory,
        const rtc::Network* network,
        uint16_t min_port,
        uint16_t max_port,
        absl::string_view username_fragment,
        absl::string_view password,
-       const webrtc::FieldTrialsView* field_trials = nullptr);
+       const webrtc::FieldTrialsView* field_trials = nullptr,
+       bool shared_socket = false);
+
+  // TODO(tommi): Remove.
+  [[deprecated]] Port(webrtc::TaskQueueBase* thread,
+                      absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+                      rtc::PacketSocketFactory* factory,
+                      const rtc::Network* network,
+                      uint16_t min_port,
+                      uint16_t max_port,
+                      absl::string_view username_fragment,
+                      absl::string_view password,
+                      const webrtc::FieldTrialsView* field_trials = nullptr,
+                      bool shared_socket = false)
+      : Port(thread,
+             PortTypeToIceCandidateType(type),
+             factory,
+             network,
+             min_port,
+             max_port,
+             username_fragment,
+             password,
+             field_trials,
+             shared_socket) {}
+
+  // TODO(tommi): Remove.
+  [[deprecated]] Port(webrtc::TaskQueueBase* thread,
+                      absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND,
+                      rtc::PacketSocketFactory* factory,
+                      const rtc::Network* network,
+                      absl::string_view username_fragment,
+                      absl::string_view password,
+                      const webrtc::FieldTrialsView* field_trials = nullptr)
+      : Port(thread,
+             PortTypeToIceCandidateType(type),
+             factory,
+             network,
+             username_fragment,
+             password,
+             field_trials) {}
+
   ~Port() override;
 
   // Note that the port type does NOT uniquely identify different subclasses of
@@ -389,6 +431,22 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
                   uint32_t type_preference,
                   uint32_t relay_preference,
                   absl::string_view url,
+                  bool is_final) {
+    AddAddress(address, base_address, related_address, protocol, relay_protocol,
+               tcptype, PortTypeToIceCandidateType(type), type_preference,
+               relay_preference, url, is_final);
+  }
+
+  void AddAddress(const rtc::SocketAddress& address,
+                  const rtc::SocketAddress& base_address,
+                  const rtc::SocketAddress& related_address,
+                  absl::string_view protocol,
+                  absl::string_view relay_protocol,
+                  absl::string_view tcptype,
+                  webrtc::IceCandidateType type,
+                  uint32_t type_preference,
+                  uint32_t relay_preference,
+                  absl::string_view url,
                   bool is_final);
 
   void FinishAddingAddress(const Candidate& c, bool is_final)
@@ -452,8 +510,6 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
   const webrtc::FieldTrialsView& field_trials() const { return *field_trials_; }
 
  private:
-  void Construct();
-
   void PostDestroyIfDead(bool delayed);
   void DestroyIfDead();
 
@@ -474,7 +530,10 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
 
   webrtc::TaskQueueBase* const thread_;
   rtc::PacketSocketFactory* const factory_;
-  const absl::string_view type_;
+  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
+                             webrtc::FieldTrialBasedConfig>
+      field_trials_;
+  const webrtc::IceCandidateType type_;
   bool send_retransmit_count_attribute_;
   const rtc::Network* network_;
   uint16_t min_port_;
@@ -509,10 +568,6 @@ class RTC_EXPORT Port : public PortInterface, public sigslot::has_slots<> {
       MdnsNameRegistrationStatus::kNotStarted;
 
   rtc::WeakPtrFactory<Port> weak_factory_;
-  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                             webrtc::FieldTrialBasedConfig>
-      field_trials_;
-
   bool MaybeObfuscateAddress(const Candidate& c, bool is_final)
       RTC_RUN_ON(thread_);
 

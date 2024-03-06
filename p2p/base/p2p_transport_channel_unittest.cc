@@ -564,6 +564,7 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     fw()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, addr);
   }
   void SetProxy(int endpoint, rtc::ProxyType type) {
+    RTC_DCHECK_NOTREACHED();
     rtc::ProxyInfo info;
     info.type = type;
     info.address = (type == rtc::PROXY_HTTPS) ? kHttpsProxyAddrs[endpoint]
@@ -1182,12 +1183,13 @@ class P2PTransportChannelTest : public P2PTransportChannelTestBase {
           fw()->AddRule(false, rtc::FP_TCP, rtc::FD_ANY,
                         kPublicAddrs[endpoint]);
         } else if (config == PROXY_HTTPS) {
+          // RTC_DCHECK_NOTREACHED();
           // Block all TCP to/from the endpoint except to the proxy server
           fw()->AddRule(true, rtc::FP_TCP, kPublicAddrs[endpoint],
                         kHttpsProxyAddrs[endpoint]);
           fw()->AddRule(false, rtc::FP_TCP, rtc::FD_ANY,
                         kPublicAddrs[endpoint]);
-          SetProxy(endpoint, rtc::PROXY_HTTPS);
+          // SetProxy(endpoint, rtc::PROXY_HTTPS);
         }
         break;
       default:

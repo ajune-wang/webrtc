@@ -468,15 +468,18 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
   // PacketSocketFactory that creates proxy sockets.
   const std::string& user_agent() const {
     CheckRunOnValidThreadIfInitialized();
+    RTC_DCHECK(agent_.empty());
     return agent_;
   }
 
   const rtc::ProxyInfo& proxy() const {
     CheckRunOnValidThreadIfInitialized();
+    RTC_DCHECK_EQ(proxy_.type, rtc::PROXY_NONE);
     return proxy_;
   }
 
   void set_proxy(absl::string_view agent, const rtc::ProxyInfo& proxy) {
+    RTC_DCHECK_NOTREACHED();
     CheckRunOnValidThreadIfInitialized();
     agent_ = std::string(agent);
     proxy_ = proxy;

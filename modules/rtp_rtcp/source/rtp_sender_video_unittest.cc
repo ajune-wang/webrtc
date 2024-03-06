@@ -827,7 +827,7 @@ TEST_F(RtpSenderVideoTest,
   auto encryptor = rtc::make_ref_counted<NiceMock<MockFrameEncryptor>>();
   ON_CALL(*encryptor, GetMaxCiphertextByteSize).WillByDefault(ReturnArg<1>());
   ON_CALL(*encryptor, Encrypt)
-      .WillByDefault(WithArgs<3, 5>(
+      .WillByDefault(WithArgs<2, 4>(
           [](rtc::ArrayView<const uint8_t> frame, size_t* bytes_written) {
             *bytes_written = frame.size();
             return 0;
@@ -850,8 +850,7 @@ TEST_F(RtpSenderVideoTest,
   hdr.generic.emplace().decode_target_indications =
       video_structure.templates[0].decode_target_indications;
 
-  EXPECT_CALL(*encryptor,
-              Encrypt(_, _, Not(IsEmpty()), ElementsAreArray(kFrame), _, _));
+  EXPECT_CALL(*encryptor, Encrypt(_, _, ElementsAreArray(kFrame), _, _));
   rtp_sender_video.SendVideo(kPayload, kType, kTimestamp,
                              fake_clock_.CurrentTime(), kFrame, sizeof(kFrame),
                              hdr, kDefaultExpectedRetransmissionTime, {});

@@ -622,15 +622,9 @@ bool RTPSenderVideo::SendVideo(int payload_type,
 
     size_t bytes_written = 0;
 
-    // Enable header authentication if the field trial isn't disabled.
-    std::vector<uint8_t> additional_data;
-    if (generic_descriptor_auth_experiment_) {
-      additional_data = RtpDescriptorAuthentication(video_header);
-    }
-
     if (frame_encryptor_->Encrypt(
-            cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(), additional_data,
-            payload, encrypted_video_payload, &bytes_written) != 0) {
+            cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(), payload,
+            encrypted_video_payload, &bytes_written) != 0) {
       return false;
     }
 

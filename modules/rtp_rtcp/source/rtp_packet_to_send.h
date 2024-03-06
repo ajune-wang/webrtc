@@ -76,15 +76,6 @@ class RtpPacketToSend : public RtpPacket {
   }
   bool allow_retransmission() const { return allow_retransmission_; }
 
-  // An application can attach arbitrary data to an RTP packet using
-  // `additional_data`. The additional data does not affect WebRTC processing.
-  rtc::scoped_refptr<rtc::RefCountedBase> additional_data() const {
-    return additional_data_;
-  }
-  void set_additional_data(rtc::scoped_refptr<rtc::RefCountedBase> data) {
-    additional_data_ = std::move(data);
-  }
-
   void set_packetization_finish_time(webrtc::Timestamp time) {
     SetExtension<VideoTimingExtension>(
         VideoSendTiming::GetDeltaCappedMs(time - capture_time_),
@@ -143,7 +134,6 @@ class RtpPacketToSend : public RtpPacket {
   absl::optional<OriginalType> original_packet_type_;
   bool allow_retransmission_ = false;
   absl::optional<uint16_t> retransmitted_sequence_number_;
-  rtc::scoped_refptr<rtc::RefCountedBase> additional_data_;
   bool is_first_packet_of_frame_ = false;
   bool is_key_frame_ = false;
   bool fec_protect_packet_ = false;

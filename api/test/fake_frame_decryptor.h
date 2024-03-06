@@ -36,7 +36,6 @@ class FakeFrameDecryptor : public FrameDecryptorInterface {
   // the postfix byte. This will always fail if fail_decryption_ is set to true.
   Result Decrypt(cricket::MediaType media_type,
                  const std::vector<uint32_t>& csrcs,
-                 rtc::ArrayView<const uint8_t> additional_data,
                  rtc::ArrayView<const uint8_t> encrypted_frame,
                  rtc::ArrayView<uint8_t> frame) override;
   // Always returns 1 less than the size of the encrypted frame.

@@ -703,7 +703,6 @@ void ChannelReceive::ReceivePacket(const uint8_t* packet,
     const FrameDecryptorInterface::Result decrypt_result =
         frame_decryptor_->Decrypt(
             cricket::MEDIA_TYPE_AUDIO, csrcs,
-            /*additional_data=*/nullptr,
             rtc::ArrayView<const uint8_t>(payload, payload_data_length),
             decrypted_audio_payload);
 

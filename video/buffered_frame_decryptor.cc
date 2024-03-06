@@ -72,16 +72,9 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
   rtc::ArrayView<uint8_t> inline_decrypted_bitstream(frame->mutable_data(),
                                                      max_plaintext_byte_size);
 
-  // Enable authenticating the header if the field trial isn't disabled.
-  std::vector<uint8_t> additional_data;
-  if (generic_descriptor_auth_experiment_) {
-    additional_data = RtpDescriptorAuthentication(frame->GetRtpVideoHeader());
-  }
-
   // Attempt to decrypt the video frame.
   const FrameDecryptorInterface::Result decrypt_result =
-      frame_decryptor_->Decrypt(cricket::MEDIA_TYPE_VIDEO, /*csrcs=*/{},
-                                additional_data, *frame,
+      frame_decryptor_->Decrypt(cricket::MEDIA_TYPE_VIDEO, /*csrcs=*/{}, *frame,
                                 inline_decrypted_bitstream);
   // Optionally call the callback if there was a change in status
   if (decrypt_result.status != last_status_) {

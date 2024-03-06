@@ -25,7 +25,6 @@ class MockFrameDecryptor : public FrameDecryptorInterface {
               (cricket::MediaType,
                const std::vector<uint32_t>&,
                rtc::ArrayView<const uint8_t>,
-               rtc::ArrayView<const uint8_t>,
                rtc::ArrayView<uint8_t>),
               (override));
 

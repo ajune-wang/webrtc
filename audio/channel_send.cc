@@ -321,9 +321,8 @@ int32_t ChannelSend::SendRtpAudio(AudioFrameType frameType,
       // Encrypt the audio payload into the buffer.
       size_t bytes_written = 0;
       int encrypt_status = frame_encryptor_->Encrypt(
-          cricket::MEDIA_TYPE_AUDIO, rtp_rtcp_->SSRC(),
-          /*additional_data=*/nullptr, payload, encrypted_audio_payload,
-          &bytes_written);
+          cricket::MEDIA_TYPE_AUDIO, rtp_rtcp_->SSRC(), payload,
+          encrypted_audio_payload, &bytes_written);
       if (encrypt_status != 0) {
         RTC_DLOG(LS_ERROR)
             << "Channel::SendData() failed encrypt audio payload: "

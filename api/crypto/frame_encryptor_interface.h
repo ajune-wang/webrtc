@@ -37,7 +37,6 @@ class FrameEncryptorInterface : public rtc::RefCountInterface {
   // selected by the implementer to represent error codes.
   virtual int Encrypt(cricket::MediaType media_type,
                       uint32_t ssrc,
-                      rtc::ArrayView<const uint8_t> additional_data,
                       rtc::ArrayView<const uint8_t> frame,
                       rtc::ArrayView<uint8_t> encrypted_frame,
                       size_t* bytes_written) = 0;

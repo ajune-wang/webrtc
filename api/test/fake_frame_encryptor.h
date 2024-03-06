@@ -35,7 +35,6 @@ class FakeFrameEncryptor
   // bit to the end. This will always fail if fail_encryption_ is set to true.
   int Encrypt(cricket::MediaType media_type,
               uint32_t ssrc,
-              rtc::ArrayView<const uint8_t> additional_data,
               rtc::ArrayView<const uint8_t> frame,
               rtc::ArrayView<uint8_t> encrypted_frame,
               size_t* bytes_written) override;

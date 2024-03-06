@@ -23,7 +23,6 @@ class MockFrameEncryptor : public FrameEncryptorInterface {
               (cricket::MediaType,
                uint32_t,
                rtc::ArrayView<const uint8_t>,
-               rtc::ArrayView<const uint8_t>,
                rtc::ArrayView<uint8_t>,
                size_t*),
               (override));

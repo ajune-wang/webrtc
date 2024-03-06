@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cfbb44a_0aaf8015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "Looks straightforward, but always some nits.... we don\u0027t seem to have anything that prevents bad CLs from adding stuff after a WeakPtrFactory member, which is bad for consistency, and we should fix that when we see it, for instance.",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "218600ce_d62df0dd",
+        "filename": "api/candidate.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "Advice in style guide is to use [[deprecated(\"Use version with type enum\")]]",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab2b603_b7e0b63b",
+        "filename": "api/candidate.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2c85e39_c39d8fc6",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "Unclear - suggest \"Constructors for use only by constructors for derived classes\".",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06acce20_542bd443",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "Use bug format for TODOs, if possible.",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef99e2f_4f128a43",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe00cf42_7838af93",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "The names of the states here are odd, but it\u0027s just moving existing stuff, so let\u0027s let it go this time.",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b683e80a_ccce0d6c",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "And while you\u0027re here, move the weak factory to be last again....",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "348e897f_db8dfdf8",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-06T15:09:07Z",
+      "side": 1,
+      "message": "While you\u0027re moving stuff around, move this function up with the rest of the functions.",
+      "revId": "c575ec2f3fb95fefccaee9127f4fd4273d4747fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

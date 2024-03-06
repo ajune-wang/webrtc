@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44ed9231_2574a35e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-06T12:14:54Z",
+      "side": 1,
+      "message": "just a minor cleanup as a side effect of Environment propagation.",
+      "revId": "3d067c5a5a625b232f6b04f6561969e968245760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

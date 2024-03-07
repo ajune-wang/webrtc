@@ -217,7 +217,7 @@ void AsyncSSLSocket::ProcessInput(char* data, size_t* len) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
+/*
 AsyncHttpsProxySocket::AsyncHttpsProxySocket(Socket* socket,
                                              absl::string_view user_agent,
                                              const SocketAddress& proxy,
@@ -442,10 +442,6 @@ void AsyncHttpsProxySocket::ProcessLine(char* data, size_t len) {
     content_length_ = strtoul(data + 15, 0, 0);
   } else if (absl::StartsWithIgnoreCase(data, "Proxy-Connection: Keep-Alive")) {
     expect_close_ = false;
-    /*
-  } else if (absl::StartsWithIgnoreCase(data, "Connection: close") {
-    expect_close_ = true;
-    */
   }
 }
 
@@ -468,5 +464,5 @@ void AsyncHttpsProxySocket::Error(int error) {
   SetError(error);
   SignalCloseEvent(this, error);
 }
-
+*/
 }  // namespace rtc

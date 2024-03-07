@@ -78,7 +78,7 @@ class AsyncSSLSocket : public BufferedReadAdapter {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-
+/*
 // Implements a socket adapter that speaks the HTTP/S proxy protocol.
 class AsyncHttpsProxySocket : public BufferedReadAdapter {
  public:
@@ -135,7 +135,7 @@ class AsyncHttpsProxySocket : public BufferedReadAdapter {
   } state_;
   HttpAuthContext* context_;
   std::string unknown_mechanisms_;
-};
+};*/
 
 }  // namespace rtc
 

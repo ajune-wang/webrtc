@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9643d87f_72eec958",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-07T13:44:23Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment, since the dcSctpTransport implementation is part of the dcSCTP library.\nIs the intended meaning instead that the Environment is specified per dcSctpTransport, so two dcSctpTransport instances can have two different environments?",
+      "revId": "d9cf2d814e2fde1da748f055c01bce4688f1dc72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb78e82_5f5feca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-07T13:44:23Z",
+      "side": 1,
+      "message": "Code looks good. The diff display shows that some places aren\u0027t covered by tests, but that is a subject for another CL.",
+      "revId": "d9cf2d814e2fde1da748f055c01bce4688f1dc72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

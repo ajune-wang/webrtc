@@ -635,6 +635,7 @@ if (rtc_include_tests) {
       deps = [
         ":test_main_lib",
         ":test_support",
+        "//third_party/fuzztest",
       ]
 
       absl_deps = [

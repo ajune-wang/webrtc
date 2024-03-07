@@ -2623,9 +2623,7 @@ include_rules = [
   "-chromium",
   "+external/webrtc/webrtc",  # Android platform build.
   "+libyuv",
-
-  # These should eventually move out of here.
-  "+common_types.h",
+  "+fuzztest",
 
   "+WebRTC",
   "+api",

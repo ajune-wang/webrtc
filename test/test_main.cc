@@ -16,6 +16,7 @@
 #include "absl/debugging/failure_signal_handler.h"
 #include "absl/debugging/symbolize.h"
 #include "absl/flags/parse.h"
+#include "fuzztest/init_fuzztest.h"
 #include "test/gmock.h"
 #include "test/test_main_lib.h"
 
@@ -51,6 +52,7 @@ int main(int argc, char* argv[]) {
   // Initialize the symbolizer to get a human-readable stack trace
   absl::InitializeSymbolizer(argv[0]);
   testing::InitGoogleMock(&argc, argv);
+  fuzztest::InitFuzzTest(&argc, &argv);
   // Before parsing the arguments with the absl flag library, any internal '-'
   // characters will be converted to '_' characters to make sure the string is a
   // valid attribute name.

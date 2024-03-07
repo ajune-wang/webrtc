@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 #include "common_video/test/utilities.h"
+#include "fuzztest/fuzztest.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
@@ -205,6 +206,12 @@ void TestCreateAndParseColorSpaceExtension(bool with_hdr_metadata) {
   EXPECT_TRUE(parsed.GetExtension<ColorSpaceExtension>(&parsed_color_space));
   EXPECT_EQ(kColorSpace, parsed_color_space);
 }
+
+void ParseRtpPacketDoesntCrash(const std::vector<uint8_t>& bytes) {
+  RtpPacket packet;
+  packet.Parse(bytes);
+}
+FUZZ_TEST(RtpPacketFuzzTest, ParseRtpPacketDoesntCrash);
 
 TEST(RtpPacketTest, CreateMinimum) {
   RtpPacketToSend packet(nullptr);

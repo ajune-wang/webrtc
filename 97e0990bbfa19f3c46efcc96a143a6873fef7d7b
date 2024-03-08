@@ -142,6 +142,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26514151_b5557ffc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-08T19:01:51Z",
+      "side": 1,
+      "message": "Trying to ensure Sergio\u0027s getting what he needs for his use case and not something different..",
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2776c1b2_c3a89972",
@@ -251,6 +268,30 @@
       "side": 1,
       "message": "@agpalak@chromium.org I kind of disagree, the `capture_time_identifier` will always refer to the capture time in the capturer clock. In case of the sending side, it will probably match the sender clock (although in theory the capture time could be retrieved from the camera instead, for example on NDI sources) and in the receiver side it won\u0027t match the local clock.\n\n@ilnik@google.com if the `estimated capture clock offset` of the abs-capture-time is set, we definitively could reuse `ntp_timestamp` after converting to the local receiver clock. However, for my use case the local timestamp is irrelevant as I want to be able to match frames and metadata (sent over datachannel or ws) both using the same capturer clock.",
       "parentUuid": "38c88377_e5e49934",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6dd1fd1_380d0948",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-08T19:01:51Z",
+      "side": 1,
+      "message": "Seems that we need to ensure that the spec APIs are fit for purpose, then .... we need a timestamp that is consistent between something the sender puts into a datachannel (which means relays don\u0027t see it or adjust it) and something that we can extract from the RTP frame (which might be touched by intermediate nodes).\n\nIs it the unadjusted capture timestamp, in the opinion of the original sender, in the sender\u0027s clock, we\u0027re looking to extract here?",
+      "parentUuid": "795d88a1_00e01240",
       "range": {
         "startLine": 134,
         "startChar": 19,

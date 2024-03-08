@@ -119,6 +119,24 @@
       "message": "is there any value in only reading ECN bits sometimes ?",
       "revId": "853e5adac3f0b309d498fe47b951143a56245a33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c3d3637_58608c70",
+        "filename": "rtc_base/socket.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-03-08T09:06:10Z",
+      "side": 1,
+      "message": "I actually think that eventually we should read ECN bits, but dont use socket options for setting them since same sockets can have different packet types. RTCP, data channel etc.",
+      "parentUuid": "9f74d73a_ab237491",
+      "revId": "853e5adac3f0b309d498fe47b951143a56245a33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

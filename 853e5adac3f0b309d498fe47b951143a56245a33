@@ -50,6 +50,24 @@
       "message": "this is really a case switch. should there be a default failure (CHECK) for the case where \"you\u0027re holding it wrong\" and passing in an uint8_t larger than 3?",
       "revId": "853e5adac3f0b309d498fe47b951143a56245a33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf462f07_e21781f0",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-03-08T08:38:06Z",
+      "side": 1,
+      "message": "We only look at the ECN bits using kEcnMask. So no - the upper 5 bits can be anything. (traffic class if I understand correctly)",
+      "parentUuid": "b44d797e_bc3bf1ee",
+      "revId": "853e5adac3f0b309d498fe47b951143a56245a33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

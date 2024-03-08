@@ -742,6 +742,10 @@ cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
   cricket::SenderOptions sender_options;
   sender_options.track_id = transceiver->sender()->id();
   sender_options.stream_ids = transceiver->sender()->stream_ids();
+  RTC_LOG(LS_ERROR) << "FIPPO " << sender_options.track_id
+                    << " s=" << sender_options.stream_ids.size()
+                    << " mid=" << mid << " transceiver=" << transceiver
+                    << " ssrc=" << transceiver->sender()->ssrc();
 
   // The following sets up RIDs and Simulcast.
   // RIDs are included if Simulcast is requested or if any RID was specified.
@@ -4229,6 +4233,8 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanOffer(
   // remote description and generate a media section in this offer for the
   // associated transceiver. If a media section can be recycled, generate a
   // default, rejected media section here that can be later overwritten.
+  RTC_LOG(LS_ERROR) << "LC " << local_contents.size() << " RC "
+                    << remote_contents.size();
   for (size_t i = 0;
        i < std::max(local_contents.size(), remote_contents.size()); ++i) {
     // Either `local_content` or `remote_content` is non-null.

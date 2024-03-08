@@ -282,6 +282,8 @@ bool AddStreamParams(const std::vector<SenderOptions>& sender_options,
 
   for (const SenderOptions& sender : sender_options) {
     StreamParams* param = GetStreamByIds(*current_streams, sender.track_id);
+    RTC_LOG(LS_ERROR) << "FIPPO current #" << current_streams->size()
+                      << " track=" << sender.track_id << " param=" << param;
     if (!param) {
       // This is a new sender.
       StreamParams stream_param =

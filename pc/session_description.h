@@ -152,10 +152,14 @@ class MediaContentDescription {
   // to MediaContentDescription
   StreamParamsVec& mutable_streams() { return send_streams_; }
   void AddStream(const StreamParams& stream) {
+    RTC_LOG(LS_ERROR) << "AddStream " << stream.ssrcs[0];
+    for (const auto& stream : send_streams_)
+      RTC_LOG(LS_ERROR) << stream.ToString();
     send_streams_.push_back(stream);
   }
   // Legacy streams have an ssrc, but nothing else.
   void AddLegacyStream(uint32_t ssrc) {
+    RTC_LOG(LS_ERROR) << "Legacy stream " << ssrc;
     AddStream(StreamParams::CreateLegacy(ssrc));
   }
   void AddLegacyStream(uint32_t ssrc, uint32_t fid_ssrc) {

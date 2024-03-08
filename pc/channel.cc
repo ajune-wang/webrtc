@@ -647,6 +647,7 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
   // Check for new streams.
   std::vector<StreamParams> all_streams;
   for (const StreamParams& stream : streams) {
+    RTC_LOG(LS_INFO) << "STREAM " << stream.ToString();
     StreamParams* existing = GetStream(local_streams_, StreamFinder(&stream));
     if (existing) {
       // Parameters cannot change for an existing stream.

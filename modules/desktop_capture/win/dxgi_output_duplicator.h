@@ -99,7 +99,6 @@ class DxgiOutputDuplicator {
 
   // Returns true if the mouse cursor is embedded in the captured frame and
   // false if not. Also logs the same boolean as
-  // WebRTC.DesktopCapture.Win.DirectXCursorEmbedded UMA.
   bool ContainsMouseCursor(const DXGI_OUTDUPL_FRAME_INFO& frame_info);
 
   bool ReleaseFrame();

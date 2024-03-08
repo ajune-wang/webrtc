@@ -174,8 +174,6 @@ bool DxgiOutputDuplicator::ContainsMouseCursor(
   // AcquireNextFrame indicates that a separate pointer isn’t visible, hence
   // `frame_info.PointerPosition.Visible` is false.
   const bool cursor_embedded_in_frame = !frame_info.PointerPosition.Visible;
-  RTC_HISTOGRAM_BOOLEAN("WebRTC.DesktopCapture.Win.DirectXCursorEmbedded",
-                        cursor_embedded_in_frame);
   return cursor_embedded_in_frame;
 }
 

@@ -18,6 +18,7 @@
 #include "api/array_view.h"
 #include "api/video/render_resolution.h"
 #include "common_video/h264/h264_common.h"
+#include "rtc_base/random.h"
 #include "rtc_base/system/unused.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -42,6 +43,8 @@ using H264::NaluType::kSps;
 using H264::NaluType::kStapA;
 
 constexpr int kBufferSize = 2048;
+constexpr int kStartSize = 16;
+constexpr int kMaxSize = 64;
 
 std::vector<uint8_t> StartCode() {
   return {0, 0, 0, 1};
@@ -1053,6 +1056,313 @@ TEST(H26xPacketBufferTest, H265InsertingVpsSpsPpsLastCompletesKeyframe) {
               SizeIs(2));
 }
 #endif  // RTC_ENABLE_H265
+
+// Validates frame boundaries are valid and returns first sequence_number for
+// each frame.
+std::vector<uint16_t> StartSeqNums(
+    rtc::ArrayView<const std::unique_ptr<H26xPacketBuffer::Packet>> packets) {
+  std::vector<uint16_t> result;
+  bool frame_boundary = true;
+  for (const auto& packet : packets) {
+    EXPECT_EQ(frame_boundary, packet->is_first_packet_in_frame());
+    if (packet->is_first_packet_in_frame()) {
+      result.push_back(packet->seq_num);
+    }
+    frame_boundary = packet->is_last_packet_in_frame();
+  }
+  EXPECT_TRUE(frame_boundary);
+  return result;
+}
+
+MATCHER_P(StartSeqNumsAre, seq_num, "") {
+  return ::testing::Matches(::testing::ElementsAre(seq_num))(
+      StartSeqNums(arg.packets));
+}
+
+TEST(H26xPacketBufferTest, Clear) {
+  Random rand(0x7732213);
+  const uint16_t seq_num = rand.Rand<uint16_t>();
+
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  RTC_UNUSED(packet_buffer.InsertPacket(
+      H264Packet(kH264SingleNalu).Idr().SeqNum(seq_num).Build()));
+  RTC_UNUSED(packet_buffer.InsertPacket(
+      H264Packet(kH264SingleNalu).Slice().SeqNum(seq_num + 1).Build()));
+  EXPECT_THAT(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                             .Slice()
+                                             .SeqNum(seq_num + 2)
+                                             .Marker()
+                                             .Build()),
+              StartSeqNumsAre(seq_num));
+
+  packet_buffer.Clear();
+
+  RTC_UNUSED(packet_buffer.InsertPacket(
+      H264Packet(kH264SingleNalu).Idr().SeqNum(seq_num + kStartSize).Build()));
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .Slice()
+                                            .SeqNum(seq_num + kStartSize + 1)
+                                            .Build()));
+  EXPECT_THAT(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                             .Slice()
+                                             .SeqNum(seq_num + kStartSize + 2)
+                                             .Marker()
+                                             .Build()),
+              StartSeqNumsAre(seq_num + kStartSize));
+}
+
+TEST(H26xPacketBufferTest, ClearSinglePacket) {
+  Random rand(0x7732213);
+  const uint16_t seq_num = rand.Rand<uint16_t>();
+
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+
+  for (int i = 0; i < kMaxSize; ++i) {
+    RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                              .Slice()
+                                              .SeqNum(seq_num + kStartSize + i)
+                                              .AsFirstFragment()
+                                              .Marker()
+                                              .Build()));
+  }
+
+  packet_buffer.ClearTo(seq_num);
+  EXPECT_FALSE(packet_buffer
+                   .InsertPacket(H264Packet(kH264SingleNalu)
+                                     .Slice()
+                                     .SeqNum(seq_num + kMaxSize)
+                                     .AsFirstFragment()
+                                     .Marker()
+                                     .Build())
+                   .buffer_cleared);
+}
+
+TEST(H26xPacketBufferTest, InsertOldPackets) {
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  EXPECT_THAT(
+      packet_buffer
+          .InsertPacket(
+              H264Packet(kH264FuA).Idr().SeqNum(100).AsFirstFragment().Build())
+          .packets,
+      IsEmpty());
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264SingleNalu)
+                                    .Slice()
+                                    .SeqNum(102)
+                                    .AsFirstFragment()
+                                    .Marker()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+  EXPECT_THAT(
+      packet_buffer
+          .InsertPacket(H264Packet(kH264FuA).Idr().SeqNum(101).Marker().Build())
+          .packets,
+      SizeIs(3));
+
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264StapA)
+                                    .Sps()
+                                    .Pps()
+                                    .Idr()
+                                    .SeqNum(100)
+                                    .AsFirstFragment()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264StapA)
+                                    .Sps()
+                                    .Pps()
+                                    .Idr()
+                                    .SeqNum(100)
+                                    .AsFirstFragment()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264SingleNalu)
+                                    .Slice()
+                                    .SeqNum(102)
+                                    .AsFirstFragment()
+                                    .Marker()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+
+  packet_buffer.ClearTo(102);
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264SingleNalu)
+                                    .Slice()
+                                    .SeqNum(102)
+                                    .AsFirstFragment()
+                                    .Marker()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+  auto packets = packet_buffer
+                     .InsertPacket(H264Packet(kH264SingleNalu)
+                                       .Slice()
+                                       .SeqNum(103)
+                                       .AsFirstFragment()
+                                       .Marker()
+                                       .Build())
+                     .packets;
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264SingleNalu)
+                                    .Slice()
+                                    .SeqNum(103)
+                                    .AsFirstFragment()
+                                    .Marker()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+}
+
+TEST(H26xPacketBufferTest, ClearPacketBeforeFullyReceivedFrame) {
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  RTC_UNUSED(packet_buffer.InsertPacket(
+      H264Packet(kH264FuA).SeqNum(0).Idr().AsFirstFragment().Build()));
+  RTC_UNUSED(
+      packet_buffer.InsertPacket(H264Packet(kH264FuA).SeqNum(1).Idr().Build()));
+  packet_buffer.ClearTo(0);
+  EXPECT_THAT(
+      packet_buffer
+          .InsertPacket(H264Packet(kH264FuA).SeqNum(2).Idr().Marker().Build())
+          .packets,
+      IsEmpty());
+}
+
+TEST(H26xPacketBufferTest, ClearFullBuffer) {
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  for (int i = 0; i < kMaxSize; ++i) {
+    RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                              .SeqNum(i)
+                                              .Slice()
+                                              .AsFirstFragment()
+                                              .Marker()
+                                              .Build()));
+  }
+
+  packet_buffer.ClearTo(kMaxSize - 1);
+
+  for (int i = kMaxSize; i < 2 * kMaxSize; ++i) {
+    EXPECT_FALSE(packet_buffer
+                     .InsertPacket(H264Packet(kH264SingleNalu)
+                                       .SeqNum(i)
+                                       .Slice()
+                                       .AsFirstFragment()
+                                       .Marker()
+                                       .Build())
+                     .buffer_cleared);
+  }
+}
+
+TEST(H26xPacketBufferTest, DontClearNewerPacket) {
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  EXPECT_THAT(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                             .SeqNum(0)
+                                             .Idr()
+                                             .AsFirstFragment()
+                                             .Marker()
+                                             .Build()),
+              StartSeqNumsAre(0));
+  packet_buffer.ClearTo(0);
+  EXPECT_THAT(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                             .SeqNum(2 * kStartSize)
+                                             .Idr()
+                                             .AsFirstFragment()
+                                             .Marker()
+                                             .Build()),
+              StartSeqNumsAre(2 * kStartSize));
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264SingleNalu)
+                                    .SeqNum(3 * kStartSize + 1)
+                                    .Idr()
+                                    .AsFirstFragment()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+  packet_buffer.ClearTo(2 * kStartSize);
+  EXPECT_THAT(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                             .SeqNum(3 * kStartSize + 2)
+                                             .Idr()
+                                             .Marker()
+                                             .Build()),
+              StartSeqNumsAre(3 * kStartSize + 1));
+}
+
+TEST(H26xPacketBufferTest, FramesAfterClear) {
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .SeqNum(9025)
+                                            .Slice()
+                                            .AsFirstFragment()
+                                            .Marker()
+                                            .Build()));
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .SeqNum(9026)
+                                            .Idr()
+                                            .AsFirstFragment()
+                                            .Marker()
+                                            .Build()));
+  packet_buffer.ClearTo(9025);
+  EXPECT_THAT((packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                              .SeqNum(9057)
+                                              .Slice()
+                                              .AsFirstFragment()
+                                              .Marker()
+                                              .Build()))
+                  .packets,
+              IsEmpty());
+  EXPECT_THAT(packet_buffer
+                  .InsertPacket(H264Packet(kH264SingleNalu)
+                                    .SeqNum(9026)
+                                    .Slice()
+                                    .AsFirstFragment()
+                                    .Marker()
+                                    .Build())
+                  .packets,
+              IsEmpty());
+}
+
+TEST(H26xPacketBufferTest, ClearMissingPacketsOnKeyframe) {
+  H26xPacketBuffer packet_buffer(/*h264_allow_idr_only_keyframes=*/true);
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .SeqNum(0)
+                                            .Time(1000)
+                                            .Idr()
+                                            .AsFirstFragment()
+                                            .Marker()
+                                            .Build()));
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .SeqNum(2)
+                                            .Time(3000)
+                                            .Idr()
+                                            .AsFirstFragment()
+                                            .Marker()
+                                            .Build()));
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .SeqNum(3)
+                                            .Time(4000)
+                                            .Slice()
+                                            .AsFirstFragment()
+                                            .Build()));
+  RTC_UNUSED(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                            .SeqNum(4)
+                                            .Time(4000)
+                                            .Slice()
+                                            .Marker()
+                                            .Build()));
+  EXPECT_THAT(packet_buffer.InsertPacket(H264Packet(kH264SingleNalu)
+                                             .SeqNum(kStartSize + 1)
+                                             .Time(18000)
+                                             .Idr()
+                                             .AsFirstFragment()
+                                             .Marker()
+                                             .Build()),
+              StartSeqNumsAre(kStartSize + 1));
+}
 
 }  // namespace
 }  // namespace webrtc

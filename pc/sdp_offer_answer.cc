@@ -742,6 +742,10 @@ cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
   cricket::SenderOptions sender_options;
   sender_options.track_id = transceiver->sender()->id();
   sender_options.stream_ids = transceiver->sender()->stream_ids();
+  RTC_LOG(LS_ERROR) << "FIPPO " << sender_options.track_id
+                    << " s=" << sender_options.stream_ids.size()
+                    << " mid=" << mid << " transceiver=" << transceiver
+                    << " ssrc=" << transceiver->sender()->ssrc();
 
   // The following sets up RIDs and Simulcast.
   // RIDs are included if Simulcast is requested or if any RID was specified.

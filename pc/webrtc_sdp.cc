@@ -719,6 +719,8 @@ void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
     } else if (msid_signaling == cricket::kMsidSignalingNotUsed) {
       // Since no media streams isn't supported with older SDP signaling, we
       // use a default stream id.
+      RTC_LOG(LS_ERROR) << "Default msid " << kDefaultMsid << " msid_track_id #"
+                        << msid_track_id << "#";
       stream_ids.push_back(kDefaultMsid);
     }
 
@@ -742,6 +744,7 @@ void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
     // deduplication.
     if (stream.id.empty()) {
       stream.id = rtc::CreateRandomString(8);
+      RTC_LOG(LS_ERROR) << "Assigned random track id " << stream.id;
     }
   }
 }

@@ -304,6 +304,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "438d7eda_95086fe8",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-03-11T19:34:48Z",
+      "side": 1,
+      "message": "IMHO, ideally we should try to expose as much metadata as possible, but for my use case, I just need the unadjusted values of the header extensions, as exposed in:\n\nhttps://w3c.github.io/webrtc-extensions/#rtcrtpcontributingsource-attributes\n  DOMHighResTimeStamp captureTimestamp;\n  DOMHighResTimeStamp senderCaptureTimeOffset;\n\nI don\u0027t have an use case for the adjusted times (maybe for showing the glass to glass delay?). I have explained my use case here: \nhttps://github.com/w3c/webrtc-nv-use-cases/issues/130\n\nFor more context, in one of the use cases, I am receiving a H264 stream via SRT containing SEI pic_timing messages with the timestamp of the h264 frame and SCTE35 with splice information adjusted to the same clock for client side ad insertion. \n\nOn the SRT-\u003ewebrtc gateway I am using the SEI pic_timing info and passing it as abs-capture-header extension and propagating the SCTE35 messages via datachannels. \n\nOn the receiver I want to be able to match the datachannel timestamp and the frame captureTimestamp gathered on the rvfc.\n\nNote that this CL does not change the behaviour of the rvfc or the insertable streams/breack out box apis. I just tries to copy some metadata from the rtp packets to the decoded video frame which I thing would be beneficial.",
+      "parentUuid": "f6dd1fd1_380d0948",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

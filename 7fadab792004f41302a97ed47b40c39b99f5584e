@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9851b948_777fc361",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-11T13:23:43Z",
+      "side": 1,
+      "message": "Proposing newer api for internal 4 encoders together to have some consistency.\n(alternatively I can skip trying to re-align them and just add the Environment parameter to existent functions, do not try to make them consistent)",
+      "revId": "7fadab792004f41302a97ed47b40c39b99f5584e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

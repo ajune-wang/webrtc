@@ -1526,7 +1526,7 @@ bool WebRtcVoiceSendChannel::SetAudioSend(uint32_t ssrc,
 bool WebRtcVoiceSendChannel::AddSendStream(const StreamParams& sp) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::AddSendStream");
   RTC_DCHECK_RUN_ON(worker_thread_);
-  RTC_LOG(LS_INFO) << "AddSendStream: " << sp.ToString();
+  RTC_LOG(LS_ERROR) << "AddSendStream: " << sp.ToString();
 
   uint32_t ssrc = sp.first_ssrc();
   RTC_DCHECK(0 != ssrc);
@@ -1561,6 +1561,7 @@ bool WebRtcVoiceSendChannel::RemoveSendStream(uint32_t ssrc) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::RemoveSendStream");
   RTC_DCHECK_RUN_ON(worker_thread_);
   RTC_LOG(LS_INFO) << "RemoveSendStream: " << ssrc;
+  RTC_DCHECK(false);
 
   auto it = send_streams_.find(ssrc);
   if (it == send_streams_.end()) {

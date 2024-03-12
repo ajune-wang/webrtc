@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e949775_bc43293d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-12T14:54:30Z",
+      "side": 1,
+      "message": "Similar to https://webrtc-review.googlesource.com/c/src/+/336980\nbut now for encoders",
+      "revId": "16b05d8e3e0edc85a493c5c49cd012d83a2737ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

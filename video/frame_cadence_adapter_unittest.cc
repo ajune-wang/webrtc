@@ -144,7 +144,7 @@ TEST(FrameCadenceAdapterTest, FrameRateFollowsRateStatisticsByDefault) {
   for (int frame = 0; frame != 10; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
     rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-    adapter->UpdateFrameRate();
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
     EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
               adapter->GetInputFrameRateFps())
         << " failed for frame " << frame;
@@ -166,7 +166,7 @@ TEST(FrameCadenceAdapterTest,
   for (int frame = 0; frame != 10; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
     rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-    adapter->UpdateFrameRate();
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
     EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
               adapter->GetInputFrameRateFps())
         << " failed for frame " << frame;
@@ -183,7 +183,7 @@ TEST(FrameCadenceAdapterTest, FrameRateFollowsMaxFpsWhenZeroHertzActivated) {
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
   for (int frame = 0; frame != 10; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
-    adapter->UpdateFrameRate();
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
     EXPECT_EQ(adapter->GetInputFrameRateFps(), 1u);
   }
 }
@@ -226,7 +226,7 @@ TEST(FrameCadenceAdapterTest,
   for (int frame = 0; frame != MAX; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
     rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-    adapter->UpdateFrameRate();
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
   }
   // Turn off zero hertz on the next-last frame; after the last frame we
   // should see a value that tracks the rate oracle.
@@ -234,7 +234,7 @@ TEST(FrameCadenceAdapterTest,
   // Last frame.
   time_controller.AdvanceTime(TimeDelta::Millis(10));
   rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-  adapter->UpdateFrameRate();
+  adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
 
   EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
             adapter->GetInputFrameRateFps());

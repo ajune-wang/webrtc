@@ -775,7 +775,6 @@ class MockFrameCadenceAdapter : public FrameCadenceAdapterInterface {
               (override));
   MOCK_METHOD(void, OnFrame, (const VideoFrame&), (override));
   MOCK_METHOD(absl::optional<uint32_t>, GetInputFrameRateFps, (), (override));
-  MOCK_METHOD(void, UpdateFrameRate, (), (override));
   MOCK_METHOD(void,
               UpdateLayerQualityConvergence,
               (size_t spatial_index, bool converged),
@@ -9360,7 +9359,6 @@ TEST(VideoStreamEncoderFrameCadenceTest, UsesFrameCadenceAdapterForFrameRate) {
                                          /*max_data_payload_length=*/1000);
 
   EXPECT_CALL(*adapter_ptr, GetInputFrameRateFps);
-  EXPECT_CALL(*adapter_ptr, UpdateFrameRate);
   PassAFrame(encoder_queue, video_stream_encoder_callback, /*ntp_time_ms=*/1);
   factory.DepleteTaskQueues();
 }

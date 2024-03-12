@@ -58,7 +58,7 @@ class AdapterMode {
   virtual absl::optional<uint32_t> GetInputFrameRateFps() = 0;
 
   // Updates the frame rate.
-  virtual void UpdateFrameRate() = 0;
+  virtual void UpdateFrameRate(Timestamp frame_timestamp) = 0;
 };
 
 // Implements a pass-through adapter. Single-threaded.
@@ -83,9 +83,9 @@ class PassthroughAdapterMode : public AdapterMode {
     return input_framerate_.Rate(clock_->TimeInMilliseconds());
   }
 
-  void UpdateFrameRate() override {
+  void UpdateFrameRate(Timestamp frame_timestamp) override {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
-    input_framerate_.Update(1, clock_->TimeInMilliseconds());
+    input_framerate_.Update(1, frame_timestamp.ms());
   }
 
  private:
@@ -125,7 +125,7 @@ class ZeroHertzAdapterMode : public AdapterMode {
                bool queue_overload,
                const VideoFrame& frame) override;
   absl::optional<uint32_t> GetInputFrameRateFps() override;
-  void UpdateFrameRate() override {}
+  void UpdateFrameRate(Timestamp frame_timestamp) override {}
 
   // Notified on dropped frames.
   void OnDiscardedFrame();
@@ -286,9 +286,9 @@ class VSyncEncodeAdapterMode : public AdapterMode {
     return input_framerate_.Rate(clock_->TimeInMilliseconds());
   }
 
-  void UpdateFrameRate() override {
+  void UpdateFrameRate(Timestamp frame_timestamp) override {
     RTC_DCHECK_RUN_ON(&queue_sequence_checker_);
-    input_framerate_.Update(1, clock_->TimeInMilliseconds());
+    input_framerate_.Update(1, frame_timestamp.ms());
   }
 
   void EncodeAllEnqueuedFrames();
@@ -339,7 +339,6 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   void SetZeroHertzModeEnabled(
       absl::optional<ZeroHertzModeParams> params) override;
   absl::optional<uint32_t> GetInputFrameRateFps() override;
-  void UpdateFrameRate() override;
   void UpdateLayerQualityConvergence(size_t spatial_index,
                                      bool quality_converged) override;
   void UpdateLayerStatus(size_t spatial_index, bool enabled) override;
@@ -354,6 +353,7 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
       const VideoTrackSourceConstraints& constraints) override;
 
  private:
+  void UpdateFrameRate(Timestamp frame_timestamp);
   // Called from OnFrame in both pass-through and zero-hertz mode.
   void OnFrameOnMainQueue(Timestamp post_time,
                           bool queue_overload,
@@ -877,7 +877,7 @@ absl::optional<uint32_t> FrameCadenceAdapterImpl::GetInputFrameRateFps() {
   return current_adapter_mode_->GetInputFrameRateFps();
 }
 
-void FrameCadenceAdapterImpl::UpdateFrameRate() {
+void FrameCadenceAdapterImpl::UpdateFrameRate(Timestamp frame_timestamp) {
   RTC_DCHECK_RUN_ON(queue_);
   // The frame rate need not be updated for the zero-hertz adapter. The
   // vsync encode and passthrough adapter however uses it. Always pass frames
@@ -885,10 +885,10 @@ void FrameCadenceAdapterImpl::UpdateFrameRate() {
   // there be an adapter switch.
   if (metronome_) {
     RTC_CHECK(vsync_encode_adapter_);
-    vsync_encode_adapter_->UpdateFrameRate();
+    vsync_encode_adapter_->UpdateFrameRate(frame_timestamp);
   } else {
     RTC_CHECK(passthrough_adapter_);
-    passthrough_adapter_->UpdateFrameRate();
+    passthrough_adapter_->UpdateFrameRate(frame_timestamp);
   }
 }
 
@@ -978,6 +978,8 @@ void FrameCadenceAdapterImpl::OnFrameOnMainQueue(Timestamp post_time,
                                                  bool queue_overload,
                                                  const VideoFrame& frame) {
   RTC_DCHECK_RUN_ON(queue_);
+  current_adapter_mode_->UpdateFrameRate(
+      Timestamp::Micros(frame.timestamp_us()));
   current_adapter_mode_->OnFrame(post_time, queue_overload, frame);
 }
 

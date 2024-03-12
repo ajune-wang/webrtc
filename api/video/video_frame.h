@@ -15,6 +15,7 @@
 
 #include <utility>
 
+#include "absl/base/attributes.h"
 #include "absl/types/optional.h"
 #include "api/rtp_packet_infos.h"
 #include "api/scoped_refptr.h"
@@ -188,9 +189,16 @@ class RTC_EXPORT VideoFrame {
   }
 
   // Set frame timestamp (90kHz).
+  void set_rtp_timestamp(uint32_t rtp_timestamp) {
+    timestamp_rtp_ = rtp_timestamp;
+  }
+  ABSL_DEPRECATED("Use set_rtp_timestamp()")
   void set_timestamp(uint32_t timestamp) { timestamp_rtp_ = timestamp; }
 
   // Get frame timestamp (90kHz).
+
+  uint32_t rtp_timestamp() const { return timestamp_rtp_; }
+  ABSL_DEPRECATED("Use rtp_timestamp()")
   uint32_t timestamp() const { return timestamp_rtp_; }
 
   // Set capture ntp time in milliseconds.

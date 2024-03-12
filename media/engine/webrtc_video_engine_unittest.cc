@@ -4284,7 +4284,7 @@ TEST_F(WebRtcVideoChannelTest, EstimatesNtpStartTimeCorrectly) {
   // triggers a constant-overflow warning, hence we're calculating it explicitly
   // here.
   time_controller_.AdvanceTime(webrtc::TimeDelta::Millis(kFrameOffsetMs));
-  video_frame.set_timestamp(kFrameOffsetMs * 90 - 1);
+  video_frame.set_rtp_timestamp(kFrameOffsetMs * 90 - 1);
   video_frame.set_ntp_time_ms(kInitialNtpTimeMs + kFrameOffsetMs);
   stream->InjectFrame(video_frame);
 

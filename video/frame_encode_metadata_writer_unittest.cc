@@ -251,7 +251,7 @@ TEST(FrameEncodeMetadataWriterTest, NotifiesAboutDroppedFrames) {
 
   image.capture_time_ms_ = kTimestampMs1;
   image.SetRtpTimestamp(static_cast<uint32_t>(image.capture_time_ms_ * 90));
-  frame.set_timestamp(image.capture_time_ms_ * 90);
+  frame.set_rtp_timestamp(image.capture_time_ms_ * 90);
   frame.set_timestamp_us(image.capture_time_ms_ * 1000);
   encode_timer.OnEncodeStarted(frame);
 
@@ -261,7 +261,7 @@ TEST(FrameEncodeMetadataWriterTest, NotifiesAboutDroppedFrames) {
   image.capture_time_ms_ = kTimestampMs2;
   image.SetRtpTimestamp(static_cast<uint32_t>(image.capture_time_ms_ * 90));
   image.timing_ = EncodedImage::Timing();
-  frame.set_timestamp(image.capture_time_ms_ * 90);
+  frame.set_rtp_timestamp(image.capture_time_ms_ * 90);
   frame.set_timestamp_us(image.capture_time_ms_ * 1000);
   encode_timer.OnEncodeStarted(frame);
   // No OnEncodedImageCall for timestamp2. Yet, at this moment it's not known
@@ -271,7 +271,7 @@ TEST(FrameEncodeMetadataWriterTest, NotifiesAboutDroppedFrames) {
   image.capture_time_ms_ = kTimestampMs3;
   image.SetRtpTimestamp(static_cast<uint32_t>(image.capture_time_ms_ * 90));
   image.timing_ = EncodedImage::Timing();
-  frame.set_timestamp(image.capture_time_ms_ * 90);
+  frame.set_rtp_timestamp(image.capture_time_ms_ * 90);
   frame.set_timestamp_us(image.capture_time_ms_ * 1000);
   encode_timer.OnEncodeStarted(frame);
   encode_timer.FillTimingInfo(0, &image);
@@ -280,7 +280,7 @@ TEST(FrameEncodeMetadataWriterTest, NotifiesAboutDroppedFrames) {
   image.capture_time_ms_ = kTimestampMs4;
   image.SetRtpTimestamp(static_cast<uint32_t>(image.capture_time_ms_ * 90));
   image.timing_ = EncodedImage::Timing();
-  frame.set_timestamp(image.capture_time_ms_ * 90);
+  frame.set_rtp_timestamp(image.capture_time_ms_ * 90);
   frame.set_timestamp_us(image.capture_time_ms_ * 1000);
   encode_timer.OnEncodeStarted(frame);
   encode_timer.FillTimingInfo(0, &image);

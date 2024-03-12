@@ -125,7 +125,7 @@ class TestVideoEncoder : public MockVideoEncoder {
       encoded_frame.SetFrameType(frame.keyframe
                                      ? VideoFrameType::kVideoFrameKey
                                      : VideoFrameType::kVideoFrameDelta);
-      encoded_frame.SetRtpTimestamp(input_frame.timestamp());
+      encoded_frame.SetRtpTimestamp(input_frame.rtp_timestamp());
       encoded_frame.SetSpatialIndex(frame.layer_id.spatial_idx);
       encoded_frame.SetTemporalIndex(frame.layer_id.temporal_idx);
       encoded_frame.SetEncodedData(

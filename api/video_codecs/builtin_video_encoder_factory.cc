@@ -30,35 +30,15 @@ namespace {
 // This class wraps the internal factory and adds simulcast.
 class BuiltinVideoEncoderFactory : public VideoEncoderFactory {
  public:
-  BuiltinVideoEncoderFactory()
-      : internal_encoder_factory_(new InternalEncoderFactory()) {}
-
-  std::unique_ptr<VideoEncoder> CreateVideoEncoder(
-      const SdpVideoFormat& format) override {
-    // Try creating an InternalEncoderFactory-backed SimulcastEncoderAdapter.
-    // The adapter has a passthrough mode for the case that simulcast is not
-    // used, so all responsibility can be delegated to it.
-    std::unique_ptr<VideoEncoder> encoder;
-    if (format.IsCodecInList(
-            internal_encoder_factory_->GetSupportedFormats())) {
-      encoder = std::make_unique<SimulcastEncoderAdapter>(
-          /*primary_factory=*/internal_encoder_factory_.get(),
-          /*fallback_factory=*/nullptr, format, FieldTrialBasedConfig());
-    }
-
-    return encoder;
-  }
-
   std::unique_ptr<VideoEncoder> Create(const Environment& env,
                                        const SdpVideoFormat& format) override {
     // Try creating an InternalEncoderFactory-backed SimulcastEncoderAdapter.
     // The adapter has a passthrough mode for the case that simulcast is not
     // used, so all responsibility can be delegated to it.
-    if (format.IsCodecInList(
-            internal_encoder_factory_->GetSupportedFormats())) {
+    if (format.IsCodecInList(internal_encoder_factory_.GetSupportedFormats())) {
       return std::make_unique<SimulcastEncoderAdapter>(
           env,
-          /*primary_factory=*/internal_encoder_factory_.get(),
+          /*primary_factory=*/&internal_encoder_factory_,
           /*fallback_factory=*/nullptr, format);
     }
 
@@ -66,18 +46,18 @@ class BuiltinVideoEncoderFactory : public VideoEncoderFactory {
   }
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override {
-    return internal_encoder_factory_->GetSupportedFormats();
+    return internal_encoder_factory_.GetSupportedFormats();
   }
 
   CodecSupport QueryCodecSupport(
       const SdpVideoFormat& format,
       absl::optional<std::string> scalability_mode) const override {
-    return internal_encoder_factory_->QueryCodecSupport(format,
-                                                        scalability_mode);
+    return internal_encoder_factory_.QueryCodecSupport(format,
+                                                       scalability_mode);
   }
 
  private:
-  const std::unique_ptr<VideoEncoderFactory> internal_encoder_factory_;
+  InternalEncoderFactory internal_encoder_factory_;
 };
 
 }  // namespace

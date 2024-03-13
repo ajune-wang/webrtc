@@ -94,11 +94,14 @@ class MethodID {
 }  // namespace webrtc
 
 namespace jni_zero {
-
 // Re-export relevant classes into the namespaces the script expects.
 using webrtc::JavaParamRef;
 using webrtc::JavaRef;
+
+namespace internal {
 using webrtc::LazyGetClass;
+}  // namespace internal
+
 using webrtc::MethodID;
 using webrtc::ScopedJavaLocalRef;
 

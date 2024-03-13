@@ -95,13 +95,10 @@ class FrameCadenceAdapterInterface
   virtual void SetZeroHertzModeEnabled(
       absl::optional<ZeroHertzModeParams> params) = 0;
 
-  // Returns the input framerate. This is measured by RateStatistics when
-  // zero-hertz mode is off, and returns the max framerate in zero-hertz mode.
+  // Returns the input framerate. This is measured by RateStatistics based on
+  // Video frame timestamps when zero-hertz mode is off, and returns the max
+  // framerate in zero-hertz mode.
   virtual absl::optional<uint32_t> GetInputFrameRateFps() = 0;
-
-  // Updates frame rate. This is done unconditionally irrespective of adapter
-  // mode.
-  virtual void UpdateFrameRate() = 0;
 
   // Updates quality convergence status for an enabled spatial layer.
   // Convergence means QP has dropped to a low-enough level to warrant ceasing

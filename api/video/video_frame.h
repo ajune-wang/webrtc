@@ -188,10 +188,20 @@ class RTC_EXPORT VideoFrame {
   }
 
   // Set frame timestamp (90kHz).
-  void set_timestamp(uint32_t timestamp) { timestamp_rtp_ = timestamp; }
+  void set_rtp_timestamp(uint32_t rtp_timestamp) {
+    timestamp_rtp_ = rtp_timestamp;
+  }
+  [[deprecated("Use set_rtp_timestamp instead.")]]
+  void set_timestamp(uint32_t timestamp) {
+    timestamp_rtp_ = timestamp;
+  }
 
   // Get frame timestamp (90kHz).
-  uint32_t timestamp() const { return timestamp_rtp_; }
+  uint32_t rtp_timestamp() const { return timestamp_rtp_; }
+  [[deprecated("Use rtp_timestamp instead.")]]
+  uint32_t timestamp() const {
+    return timestamp_rtp_;
+  }
 
   // Set capture ntp time in milliseconds.
   void set_ntp_time_ms(int64_t ntp_time_ms) { ntp_time_ms_ = ntp_time_ms; }

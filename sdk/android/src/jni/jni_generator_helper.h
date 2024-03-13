@@ -94,11 +94,13 @@ class MethodID {
 }  // namespace webrtc
 
 namespace jni_zero {
-
+namespace internal {
 // Re-export relevant classes into the namespaces the script expects.
 using webrtc::JavaParamRef;
 using webrtc::JavaRef;
+
 using webrtc::LazyGetClass;
+
 using webrtc::MethodID;
 using webrtc::ScopedJavaLocalRef;
 
@@ -175,6 +177,8 @@ struct BASE_EXPORT JniJavaCallContextChecked {
 static_assert(sizeof(JniJavaCallContextChecked) ==
                   sizeof(JniJavaCallContextUnchecked),
               "Stack unwinder cannot work with structs of different sizes.");
+
+}  // namespace internal
 }  // namespace jni_zero
 
 // Re-export helpers in the old jni_generator namespace.

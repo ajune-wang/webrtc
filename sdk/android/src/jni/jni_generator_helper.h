@@ -94,11 +94,14 @@ class MethodID {
 }  // namespace webrtc
 
 namespace jni_zero {
-
 // Re-export relevant classes into the namespaces the script expects.
 using webrtc::JavaParamRef;
 using webrtc::JavaRef;
+
+namespace internal {
 using webrtc::LazyGetClass;
+}  // namespace internal
+
 using webrtc::MethodID;
 using webrtc::ScopedJavaLocalRef;
 
@@ -181,8 +184,10 @@ static_assert(sizeof(JniJavaCallContextChecked) ==
 // TODO(b/319078685): Remove once all uses of the jni_generator has been
 // updated.
 namespace jni_generator {
+namespace internal {
 using jni_zero::JniJavaCallContextChecked;
 using jni_zero::JniJavaCallContextUnchecked;
+}  // namespace internal
 }  // namespace jni_generator
 
 // Re-export helpers in the namespaces that the old jni_generator script

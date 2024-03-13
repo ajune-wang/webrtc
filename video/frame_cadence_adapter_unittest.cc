@@ -10,6 +10,7 @@
 
 #include "video/frame_cadence_adapter.h"
 
+#include <cstdint>
 #include <utility>
 #include <vector>
 
@@ -134,7 +135,8 @@ TEST(FrameCadenceAdapterTest, FrameRateFollowsRateStatisticsByDefault) {
   test::ScopedKeyValueConfig no_field_trials;
   GlobalSimulatedTimeController time_controller(Timestamp::Zero());
   auto adapter = CreateAdapter(no_field_trials, time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  MockCallback callback;
+  adapter->Initialize(&callback);
 
   // Create an "oracle" rate statistics which should be followed on a sequence
   // of frames.
@@ -143,10 +145,13 @@ TEST(FrameCadenceAdapterTest, FrameRateFollowsRateStatisticsByDefault) {
 
   for (int frame = 0; frame != 10; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
+    absl::optional<int64_t> expected_fps =
+        rate.Rate(time_controller.GetClock()->TimeInMilliseconds());
     rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-    adapter->UpdateFrameRate();
-    EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
-              adapter->GetInputFrameRateFps())
+    // FrameCadanceAdapter::OnFrame post the frame to another sequence.
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
+    time_controller.AdvanceTime(TimeDelta::Millis(0));
+    EXPECT_EQ(expected_fps, adapter->GetInputFrameRateFps())
         << " failed for frame " << frame;
   }
 }
@@ -156,7 +161,8 @@ TEST(FrameCadenceAdapterTest,
   ZeroHertzFieldTrialDisabler feature_disabler;
   GlobalSimulatedTimeController time_controller(Timestamp::Zero());
   auto adapter = CreateAdapter(feature_disabler, time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  MockCallback callback;
+  adapter->Initialize(&callback);
 
   // Create an "oracle" rate statistics which should be followed on a sequence
   // of frames.
@@ -165,10 +171,14 @@ TEST(FrameCadenceAdapterTest,
 
   for (int frame = 0; frame != 10; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
+    absl::optional<int64_t> expected_fps =
+        rate.Rate(time_controller.GetClock()->TimeInMilliseconds());
+
     rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-    adapter->UpdateFrameRate();
-    EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
-              adapter->GetInputFrameRateFps())
+    // FrameCadanceAdapter::OnFrame post the frame to another sequence.
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
+    time_controller.AdvanceTime(TimeDelta::Millis(0));
+    EXPECT_EQ(adapter->GetInputFrameRateFps(), expected_fps)
         << " failed for frame " << frame;
   }
 }
@@ -177,13 +187,16 @@ TEST(FrameCadenceAdapterTest, FrameRateFollowsMaxFpsWhenZeroHertzActivated) {
   ZeroHertzFieldTrialEnabler enabler;
   GlobalSimulatedTimeController time_controller(Timestamp::Zero());
   auto adapter = CreateAdapter(enabler, time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  MockCallback callback;
+  adapter->Initialize(&callback);
   adapter->SetZeroHertzModeEnabled(
       FrameCadenceAdapterInterface::ZeroHertzModeParams{});
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
   for (int frame = 0; frame != 10; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
-    adapter->UpdateFrameRate();
+    // FrameCadanceAdapter::OnFrame post the frame to another sequence.
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
+    time_controller.AdvanceTime(TimeDelta::Millis(0));
     EXPECT_EQ(adapter->GetInputFrameRateFps(), 1u);
   }
 }
@@ -216,7 +229,8 @@ TEST(FrameCadenceAdapterTest,
   ZeroHertzFieldTrialEnabler enabler;
   GlobalSimulatedTimeController time_controller(Timestamp::Zero());
   auto adapter = CreateAdapter(enabler, time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  MockCallback callback;
+  adapter->Initialize(&callback);
   adapter->SetZeroHertzModeEnabled(
       FrameCadenceAdapterInterface::ZeroHertzModeParams{});
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
@@ -226,15 +240,16 @@ TEST(FrameCadenceAdapterTest,
   for (int frame = 0; frame != MAX; ++frame) {
     time_controller.AdvanceTime(TimeDelta::Millis(10));
     rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-    adapter->UpdateFrameRate();
+    adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
+    time_controller.AdvanceTime(TimeDelta::Millis(0));
   }
   // Turn off zero hertz on the next-last frame; after the last frame we
   // should see a value that tracks the rate oracle.
   adapter->SetZeroHertzModeEnabled(absl::nullopt);
   // Last frame.
   time_controller.AdvanceTime(TimeDelta::Millis(10));
-  rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
-  adapter->UpdateFrameRate();
+  adapter->OnFrame(CreateFrameWithTimestamps(&time_controller));
+  time_controller.AdvanceTime(TimeDelta::Millis(0));
 
   EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
             adapter->GetInputFrameRateFps());

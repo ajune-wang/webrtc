@@ -80,18 +80,21 @@ NSString *const kRTCRtpTransceiverErrorDomain = @"org.webrtc.RTCRtpTranceiver";
       rtpTransceiverDirectionFromNativeDirection:_nativeRtpTransceiver->direction()];
 }
 
-- (void)setDirection:(RTCRtpTransceiverDirection)direction error:(NSError **)error {
+- (BOOL)setDirection:(RTCRtpTransceiverDirection)direction error:(NSError **)error {
   webrtc::RTCError nativeError = _nativeRtpTransceiver->SetDirectionWithError(
       [RTC_OBJC_TYPE(RTCRtpTransceiver) nativeRtpTransceiverDirectionFromDirection:direction]);
 
-  if (!nativeError.ok() && error) {
+  BOOL ok = nativeError.ok();
+  if (!ok && error) {
+    NSDictionary *userInfo = @{
+      NSLocalizedDescriptionKey : [NSString stringWithCString:nativeError.message()
+                                                     encoding:NSUTF8StringEncoding]
+    };
     *error = [NSError errorWithDomain:kRTCRtpTransceiverErrorDomain
                                  code:static_cast<int>(nativeError.type())
-                             userInfo:@{
-                               @"message" : [NSString stringWithCString:nativeError.message()
-                                                               encoding:NSUTF8StringEncoding]
-                             }];
+                             userInfo:userInfo];
   }
+  return ok;
 }
 
 - (BOOL)currentDirection:(RTCRtpTransceiverDirection *)currentDirectionOut {
@@ -108,12 +111,24 @@ NSString *const kRTCRtpTransceiverErrorDomain = @"org.webrtc.RTCRtpTranceiver";
   _nativeRtpTransceiver->StopInternal();
 }
 
-- (void)setCodecPreferences:(NSArray<RTC_OBJC_TYPE(RTCRtpCodecCapability) *> *)codecs {
+- (BOOL)setCodecPreferences:(NSArray<RTC_OBJC_TYPE(RTCRtpCodecCapability) *> *)codecs
+                      error:(NSError **)error {
   std::vector<webrtc::RtpCodecCapability> codecCapabilities;
   for (RTC_OBJC_TYPE(RTCRtpCodecCapability) * rtpCodecCapability in codecs) {
     codecCapabilities.push_back(rtpCodecCapability.nativeRtpCodecCapability);
   }
-  _nativeRtpTransceiver->SetCodecPreferences(codecCapabilities);
+  webrtc::RTCError nativeError = _nativeRtpTransceiver->SetCodecPreferences(codecCapabilities);
+  BOOL ok = nativeError.ok();
+  if (!ok && error) {
+    NSDictionary *userInfo = @{
+      NSLocalizedDescriptionKey : [NSString stringWithCString:nativeError.message()
+                                                     encoding:NSUTF8StringEncoding]
+    };
+    *error = [NSError errorWithDomain:kRTCRtpTransceiverErrorDomain
+                                 code:static_cast<int>(nativeError.type())
+                             userInfo:userInfo];
+  }
+  return ok;
 }
 
 - (NSString *)description {

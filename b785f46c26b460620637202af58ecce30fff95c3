@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1845091_430cdc04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-13T09:39:34Z",
+      "side": 1,
+      "message": "not sure what was the intent here,\nbut agree it is better to remove the broken trace, in particular it won\u0027t give false impression this event is logged.\n\nshould be easy to readd correctly, if needed.",
+      "revId": "b785f46c26b460620637202af58ecce30fff95c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

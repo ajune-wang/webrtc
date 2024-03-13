@@ -506,6 +506,62 @@
   }
 }
 
+- (void)testSetCodecPreferencesError {
+  @autoreleasepool {
+    RTC_OBJC_TYPE(RTCConfiguration) *config = [[RTC_OBJC_TYPE(RTCConfiguration) alloc] init];
+    RTC_OBJC_TYPE(RTCMediaConstraints) *constraints =
+        [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:nil
+                                                             optionalConstraints:nil];
+    RTC_OBJC_TYPE(RTCRtpTransceiverInit) *init =
+        [[RTC_OBJC_TYPE(RTCRtpTransceiverInit) alloc] init];
+
+    NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *supportedCodecs = @[
+      [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:@"VP8"],
+      [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:@"H264"],
+      [[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:@"rtx"]
+    ];
+
+    MockVideoEncoderDecoderFactory *encoder =
+        [[MockVideoEncoderDecoderFactory alloc] initWithSupportedCodecs:supportedCodecs];
+    MockVideoEncoderDecoderFactory *decoder =
+        [[MockVideoEncoderDecoderFactory alloc] initWithSupportedCodecs:supportedCodecs];
+
+    RTC_OBJC_TYPE(RTCPeerConnectionFactory) * factory;
+    RTC_OBJC_TYPE(RTCPeerConnection) * peerConnection;
+    RTC_OBJC_TYPE(RTCRtpTransceiver) * tranceiver;
+    factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] initWithEncoderFactory:encoder
+                                                                       decoderFactory:decoder];
+
+    peerConnection = [factory peerConnectionWithConfiguration:config
+                                                  constraints:constraints
+                                                     delegate:nil];
+    tranceiver = [peerConnection addTransceiverOfType:RTCRtpMediaTypeVideo init:init];
+    XCTAssertNotNil(tranceiver);
+
+    RTC_OBJC_TYPE(RTCRtpCapabilities) *capabilities =
+        [factory rtpReceiverCapabilitiesForKind:kRTCMediaStreamTrackKindVideo];
+
+    RTC_OBJC_TYPE(RTCRtpCodecCapability) * targetCodec;
+    for (RTC_OBJC_TYPE(RTCRtpCodecCapability) * codec in capabilities.codecs) {
+      if ([codec.name isEqual:@"rtx"]) {
+        targetCodec = codec;
+        break;
+      }
+    }
+    XCTAssertNotNil(targetCodec);
+
+    NSError *error = nil;
+    BOOL isOK = [tranceiver setCodecPreferences:@[ targetCodec ] error:&error];
+
+    XCTAssertNotNil(error);
+    XCTAssertFalse(isOK);
+    [peerConnection close];
+    peerConnection = nil;
+    factory = nil;
+    tranceiver = nil;
+  }
+}
+
 - (bool)negotiatePeerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)pc1
              withPeerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)pc2
              negotiationTimeout:(NSTimeInterval)timeout {

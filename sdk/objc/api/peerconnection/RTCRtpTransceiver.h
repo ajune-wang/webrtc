@@ -123,14 +123,15 @@ RTC_OBJC_EXPORT
  * by WebRTC for this transceiver.
  * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-setcodecpreferences
  */
-- (void)setCodecPreferences:(NSArray<RTC_OBJC_TYPE(RTCRtpCodecCapability) *> *)codecs;
+- (BOOL)setCodecPreferences:(NSArray<RTC_OBJC_TYPE(RTCRtpCodecCapability) *> *)codecs
+                      error:(NSError **)error;
 
 /** An update of directionality does not take effect immediately. Instead,
  *  future calls to createOffer and createAnswer mark the corresponding media
  *  descriptions as sendrecv, sendonly, recvonly, or inactive.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
  */
-- (void)setDirection:(RTCRtpTransceiverDirection)direction error:(NSError **)error;
+- (BOOL)setDirection:(RTCRtpTransceiverDirection)direction error:(NSError **)error;
 
 @end
 

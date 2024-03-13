@@ -94,17 +94,22 @@ class MethodID {
 }  // namespace webrtc
 
 namespace jni_zero {
-
 // Re-export relevant classes into the namespaces the script expects.
 using webrtc::JavaParamRef;
 using webrtc::JavaRef;
+
+namespace internal {
 using webrtc::LazyGetClass;
+}  // namespace internal
+
 using webrtc::MethodID;
 using webrtc::ScopedJavaLocalRef;
 
 inline void CheckException(JNIEnv* env) {
   CHECK_EXCEPTION(env);
 }
+
+namespace internal {
 
 // A 32 bit number could be an address on stack. Random 64 bit marker on the
 // stack is much less likely to be present on stack.
@@ -175,6 +180,8 @@ struct BASE_EXPORT JniJavaCallContextChecked {
 static_assert(sizeof(JniJavaCallContextChecked) ==
                   sizeof(JniJavaCallContextUnchecked),
               "Stack unwinder cannot work with structs of different sizes.");
+
+}  // namespace internal
 }  // namespace jni_zero
 
 // Re-export helpers in the old jni_generator namespace.

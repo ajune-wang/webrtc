@@ -201,6 +201,8 @@ rtc_library("event_tracer") {
     "event_tracer.cc",
     "event_tracer.h",
     "trace_event.h",
+    "tracing_categories.cc",
+    "tracing_categories.h",
   ]
   deps = [
     ":checks",

@@ -2121,7 +2121,7 @@ EncodedImage VideoStreamEncoder::AugmentEncodedImage(
 EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
-  TRACE_EVENT_INSTANT1("webrtc", "VCMEncodedFrameCallback::Encoded",
+  TRACE_EVENT_INSTANT1("webrtc", "VCMEncodedFrameCallback::Encoded", 0,
                        "timestamp", encoded_image.RtpTimestamp());
 
   const size_t simulcast_index = encoded_image.SimulcastIndex().value_or(0);

@@ -458,7 +458,7 @@ void ZeroHertzAdapterMode::UpdateLayerQualityConvergence(
     size_t spatial_index,
     bool quality_converged) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  TRACE_EVENT_INSTANT2(TRACE_DISABLED_BY_DEFAULT("webrtc"), __func__,
+  TRACE_EVENT_INSTANT2(TRACE_DISABLED_BY_DEFAULT("webrtc"), __func__, 0,
                        "spatial_index", spatial_index, "converged",
                        quality_converged);
   if (spatial_index >= layer_trackers_.size())
@@ -470,7 +470,7 @@ void ZeroHertzAdapterMode::UpdateLayerQualityConvergence(
 void ZeroHertzAdapterMode::UpdateLayerStatus(size_t spatial_index,
                                              bool enabled) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  TRACE_EVENT_INSTANT2(TRACE_DISABLED_BY_DEFAULT("webrtc"), __func__,
+  TRACE_EVENT_INSTANT2(TRACE_DISABLED_BY_DEFAULT("webrtc"), __func__, 0,
                        "spatial_index", spatial_index, "enabled", enabled);
   if (spatial_index >= layer_trackers_.size())
     return;
@@ -535,7 +535,7 @@ absl::optional<uint32_t> ZeroHertzAdapterMode::GetInputFrameRateFps() {
 void ZeroHertzAdapterMode::UpdateVideoSourceRestrictions(
     absl::optional<double> max_frame_rate) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  TRACE_EVENT_INSTANT1(TRACE_DISABLED_BY_DEFAULT("webrtc"), __func__,
+  TRACE_EVENT_INSTANT1(TRACE_DISABLED_BY_DEFAULT("webrtc"), __func__, 0,
                        "max_frame_rate", max_frame_rate.value_or(-1));
   if (max_frame_rate.value_or(0) > 0) {
     // Set new, validated (> 0) and restricted frame rate.
@@ -548,7 +548,7 @@ void ZeroHertzAdapterMode::UpdateVideoSourceRestrictions(
 
 void ZeroHertzAdapterMode::ProcessKeyFrameRequest() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  TRACE_EVENT_INSTANT0("webrtc", __func__);
+  TRACE_EVENT_INSTANT0("webrtc", __func__, 0);
   // If we're new and don't have a frame, there's no need to request refresh
   // frames as this was being triggered for us when zero-hz mode was set up.
   //

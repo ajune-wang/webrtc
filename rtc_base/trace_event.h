@@ -20,6 +20,21 @@
 #define RTC_TRACE_EVENTS_ENABLED 1
 #endif
 
+#if RTC_TRACE_EVENTS_ENABLED
+
+#if defined(WEBRTC_CHROMIUM_BUILD)
+
+#include "rtc_base/tracing_categories.h"
+
+#define TRACE_EVENT_ASYNC_STEP0(category_group, name, id, step) \
+  TRACE_EVENT_ASYNC_STEP_INTO0(category_group, name, id, step)
+#define TRACE_EVENT_ASYNC_STEP1(category_group, name, id, step, arg1_name, \
+                                arg1_val)                                  \
+  TRACE_EVENT_ASYNC_STEP_INTO1(category_group, name, id, step, arg1_name,  \
+                               arg1_val)
+
+#else
+
 // Type values for identifying types in the TraceValue union.
 #define TRACE_VALUE_TYPE_BOOL (static_cast<unsigned char>(1))
 #define TRACE_VALUE_TYPE_UINT (static_cast<unsigned char>(2))
@@ -28,8 +43,6 @@
 #define TRACE_VALUE_TYPE_POINTER (static_cast<unsigned char>(5))
 #define TRACE_VALUE_TYPE_STRING (static_cast<unsigned char>(6))
 #define TRACE_VALUE_TYPE_COPY_STRING (static_cast<unsigned char>(7))
-
-#if RTC_TRACE_EVENTS_ENABLED
 
 // Extracted from Chromium's src/base/debug/trace_event.h.
 
@@ -699,7 +712,10 @@ class TraceEndOnScopeClose {
 
 }  // namespace trace_event_internal
 }  // namespace webrtc
-#else
+
+#endif
+
+#else  // !RTC_TRACE_EVENTS_ENABLED
 
 ////////////////////////////////////////////////////////////////////////////////
 // This section defines no-op alternatives to the tracing macros when
@@ -708,7 +724,6 @@ class TraceEndOnScopeClose {
 #define RTC_NOOP() \
   do {             \
   } while (0)
-
 
 #define TRACE_DISABLED_BY_DEFAULT(name) "disabled-by-default-" name
 

@@ -103,7 +103,7 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
                                       absl::optional<int32_t> decode_time_ms,
                                       absl::optional<uint8_t> qp) {
   RTC_DCHECK(_receiveCallback) << "Callback must not be null at this point";
-  TRACE_EVENT_INSTANT1("webrtc", "VCMDecodedFrameCallback::Decoded",
+  TRACE_EVENT_INSTANT1("webrtc", "VCMDecodedFrameCallback::Decoded", 0,
                        "timestamp", decodedImage.timestamp());
   // TODO(holmer): We should improve this so that we can handle multiple
   // callbacks from one call to Decode().

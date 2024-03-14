@@ -21,6 +21,7 @@
 #include "absl/strings/string_view.h"
 #include "api/sequence_checker.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/diagnostic_logging.h"
 #include "rtc_base/event.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
@@ -29,6 +30,10 @@
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
+
+#if defined(WEBRTC_CHROMIUM_BUILD)
+#include "rtc_base/tracing_categories.h"
+#endif
 
 // This is a guesstimate that should be enough in most cases.
 static const size_t kEventLoggerArgsStrBufferInitialSize = 256;
@@ -45,8 +50,17 @@ AddTraceEventPtr g_add_trace_event_ptr = nullptr;
 
 void SetupEventTracer(GetCategoryEnabledPtr get_category_enabled_ptr,
                       AddTraceEventPtr add_trace_event_ptr) {
+#if !defined(WEBRTC_CHROMIUM_BUILD)
   g_get_category_enabled_ptr = get_category_enabled_ptr;
   g_add_trace_event_ptr = add_trace_event_ptr;
+#else
+  if (perfetto::Tracing::IsInitialized()) {
+    webrtc::TrackEvent::Register();
+    RTC_LOG(LS_ERROR) << "WEBRTC  LOGGING  REGISTERED";
+  } else {
+    RTC_LOG(LS_ERROR) << "webrtc logging NOT registered - not initialized.";
+  }
+#endif
 }
 
 const unsigned char* EventTracer::GetCategoryEnabled(const char* name) {
@@ -206,12 +220,12 @@ class EventLogger final {
     // Finally start, everything should be set up now.
     logging_thread_ =
         PlatformThread::SpawnJoinable([this] { Log(); }, "EventTracingThread");
-    TRACE_EVENT_INSTANT0("webrtc", "EventLogger::Start");
+    TRACE_EVENT_INSTANT0("webrtc", "EventLogger::Start", 0);
   }
 
   void Stop() {
     RTC_DCHECK(thread_checker_.IsCurrent());
-    TRACE_EVENT_INSTANT0("webrtc", "EventLogger::Stop");
+    TRACE_EVENT_INSTANT0("webrtc", "EventLogger::Stop", 0);
     // Try to stop. Abort if we're not currently logging.
     int one = 1;
     if (g_event_logging_active.compare_exchange_strong(one, 0))

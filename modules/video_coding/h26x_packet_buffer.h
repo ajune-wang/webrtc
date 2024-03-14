@@ -36,6 +36,9 @@ class H26xPacketBuffer {
   ABSL_MUST_USE_RESULT InsertResult
   InsertPacket(std::unique_ptr<Packet> packet);
 
+  void ClearTo(uint16_t seq_num);
+  void Clear();
+
  private:
   static constexpr int kBufferSize = 2048;
 
@@ -50,6 +53,10 @@ class H26xPacketBuffer {
   std::array<std::unique_ptr<Packet>, kBufferSize> buffer_;
   absl::optional<int64_t> last_continuous_unwrapped_seq_num_;
   SeqNumUnwrapper<uint16_t> seq_num_unwrapper_;
+  // The fist sequence number currently in the buffer.
+  absl::optional<uint16_t> first_seq_num_;
+  // The last sequence number that has been cleared.
+  absl::optional<uint16_t> cleared_to_seq_num_;
 };
 
 }  // namespace webrtc

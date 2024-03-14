@@ -143,7 +143,9 @@ rtc::CopyOnWriteBuffer FixH264VideoPayload(
 }  // namespace
 
 H26xPacketBuffer::H26xPacketBuffer(bool h264_idr_only_keyframes_allowed)
-    : h264_idr_only_keyframes_allowed_(h264_idr_only_keyframes_allowed) {}
+    : h264_idr_only_keyframes_allowed_(h264_idr_only_keyframes_allowed),
+      first_seq_num_(std::nullopt),
+      cleared_to_seq_num_(std::nullopt) {}
 
 H26xPacketBuffer::InsertResult H26xPacketBuffer::InsertPacket(
     std::unique_ptr<Packet> packet) {
@@ -153,6 +155,10 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::InsertPacket(
   InsertResult result;
 
   int64_t unwrapped_seq_num = seq_num_unwrapper_.Unwrap(packet->seq_num);
+  if (!first_seq_num_ || !cleared_to_seq_num_ ||
+      AheadOf<uint16_t>(unwrapped_seq_num, cleared_to_seq_num_.value())) {
+    first_seq_num_ = unwrapped_seq_num;
+  }
   auto& packet_slot = GetPacket(unwrapped_seq_num);
   if (packet_slot != nullptr &&
       AheadOrAt(packet_slot->timestamp, packet->timestamp)) {
@@ -224,7 +230,15 @@ H26xPacketBuffer::FindFrames(int64_t unwrapped_seq_num) {
            seq_num_start > seq_num - kBufferSize; --seq_num_start) {
         auto& prev_packet = GetPacket(seq_num_start - 1);
 
-        if (prev_packet == nullptr || prev_packet->timestamp != rtp_timestamp) {
+        // Previous packet is missing or is cleared.
+        if (!packet->is_first_packet_in_frame() && prev_packet == nullptr &&
+            cleared_to_seq_num_ &&
+            AheadOrAt<uint16_t>(cleared_to_seq_num_.value(),
+                                seq_num_start - 1)) {
+          return found_frames;
+        }
+
+        if (!prev_packet || prev_packet->timestamp != rtp_timestamp) {
           if (MaybeAssembleFrame(seq_num_start, seq_num, found_frames)) {
             // Frame was assembled, continue to look for more frames.
             break;
@@ -332,6 +346,48 @@ bool H26xPacketBuffer::MaybeAssembleFrame(
   }
 
   return true;
+}
+
+void H26xPacketBuffer::Clear() {
+  for (std::unique_ptr<Packet>& packet : buffer_) {
+    packet.reset();
+  }
+  first_seq_num_ = std::nullopt;
+  cleared_to_seq_num_ = std::nullopt;
+}
+
+void H26xPacketBuffer::ClearTo(uint16_t seq_num) {
+  // If the packet buffer was cleared between a frame was created and returned.
+  if (!first_seq_num_)
+    return;
+
+  int64_t unwrapped_seq_num = seq_num_unwrapper_.PeekUnwrap(seq_num);
+  // We have already cleared past this sequence number, no need to do anything.
+  if (cleared_to_seq_num_ &&
+      AheadOrAt<uint16_t>(cleared_to_seq_num_.value(), unwrapped_seq_num)) {
+    return;
+  }
+
+  // Avoid iterating over the buffer more than once by capping the number of
+  // iterations to the `size_` of the buffer.
+  ++unwrapped_seq_num;
+  size_t diff =
+      ForwardDiff<uint16_t>(first_seq_num_.value(), unwrapped_seq_num);
+  size_t iterations = std::min(diff, buffer_.size());
+  for (size_t i = 0; i < iterations; ++i) {
+    auto& stored = GetPacket(first_seq_num_.value());
+    if (stored != nullptr &&
+        AheadOf<uint16_t>(unwrapped_seq_num, stored->seq_num)) {
+      stored.reset();
+    }
+    ++first_seq_num_.value();
+  }
+
+  // If `diff` is larger than `iterations` it means that we don't increment
+  // `first_seq_num_` until we reach `seq_num`, so we set it here.
+  first_seq_num_ = unwrapped_seq_num;
+
+  cleared_to_seq_num_ = unwrapped_seq_num;
 }
 
 }  // namespace webrtc

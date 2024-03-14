@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55ed4502_41d52454",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-03-14T15:39:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cbecee42_41d1b3db",
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e331a0f0_503f1d31",
@@ -125,6 +143,30 @@
       "side": 1,
       "message": "But this isn\u0027t SVC at all. It\u0027s simulcast, so it makes sense for it to be configured here.\n\nThe bitrates are slightly updated comparing to the SvcConfig.\nFixed table is actually not bad, it helps to address another issue, mentioned in the doc: the VGA bitrate is too low for VP9.",
       "parentUuid": "e331a0f0_503f1d31",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb6bc8c_c5c1dbae",
+        "filename": "video/config/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-03-14T15:39:39Z",
+      "side": 1,
+      "message": "There was an offline discussion where we agreed that the table is an acceptable approach.",
+      "parentUuid": "e16a3983_391aa0da",
       "range": {
         "startLine": 105,
         "startChar": 0,

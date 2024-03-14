@@ -22,6 +22,30 @@
       },
       "revId": "52042c000d4aacaffff029bf094c1e801064520c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93fc9e87_e9ad4e8e",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-03-14T11:04:41Z",
+      "side": 1,
+      "message": "It sounds like rtp_video_stream_receiver2.cc doesn\u0027t need to call any clear functions for h26x_packet_buffer, it just calls `InsertPacket` when a new packet is received. Old packets will be replaced when a new packet in the same slot is received. Does this follow your design for h26x_packet_buffer?",
+      "parentUuid": "07aa5c26_875d6f00",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 3
+      },
+      "revId": "52042c000d4aacaffff029bf094c1e801064520c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -71,6 +71,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf791ba_df733159",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-03-14T15:38:44Z",
+      "side": 1,
+      "message": "Reduced VGA bitrate to the existing default.",
+      "revId": "1f7393fbac8be64e5f5c86141dec6ec3e05d4454",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e331a0f0_503f1d31",

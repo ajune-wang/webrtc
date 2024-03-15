@@ -328,6 +328,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "312f585d_d69f0681",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 20324
+      },
+      "writtenOn": "2024-03-15T10:16:50Z",
+      "side": 1,
+      "message": "On the sender side, where we fill capture_time_identifier with the value from media::VideoFrame::timestamp(), the value is actually relative to the first frame of the stream and not the absolute capture time. https://source.chromium.org/chromium/chromium/src/+/main:media/base/video_frame.h;l\u003d657;drc\u003dc292340f0c721cd88f9b14c453c877c55d13ce6b",
+      "parentUuid": "438d7eda_95086fe8",
+      "range": {
+        "startLine": 134,
+        "startChar": 19,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "97e0990bbfa19f3c46efcc96a143a6873fef7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "703543e5_77b678dd",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 1

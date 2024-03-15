@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "020e70bf_22a6f937",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-15T12:43:10Z",
+      "side": 1,
+      "message": "lgtm % comment",
+      "revId": "8bd67b167781ba0e7fc3aa011c58f612ae8068cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d253076f_991fbfb0",
+        "filename": "video/config/simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-15T12:43:10Z",
+      "side": 1,
+      "message": "Please add at least a few test verifying that we get expected bitrates for some arbitrary resolution and some in-between, when using VP9. (Not just that it differs from VP8).",
+      "range": {
+        "startLine": 528,
+        "startChar": 5,
+        "endLine": 528,
+        "endChar": 18
+      },
+      "revId": "8bd67b167781ba0e7fc3aa011c58f612ae8068cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

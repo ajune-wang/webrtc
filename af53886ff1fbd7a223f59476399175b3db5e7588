@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3b9b507_24633f5b",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Is this a common parameters in different CBR implementations?",
+      "parentUuid": "e3247685_3a22bd35",
+      "range": {
+        "startLine": 170,
+        "startChar": 22,
+        "endLine": 170,
+        "endChar": 57
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "408250d7_5b90f314",
         "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
         "patchSetId": 21
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-18T10:38:06Z",
       "side": 1,
       "message": "nit: I guess you\u0027re using warning logging level pretty much everywhere just for debugging purposes?",
+      "range": {
+        "startLine": 242,
+        "startChar": 10,
+        "endLine": 242,
+        "endChar": 20
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "758fc946_c9397117",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Yes, given that this will be used for prototyping I think these log messages can be useful for a while.",
+      "parentUuid": "408250d7_5b90f314",
       "range": {
         "startLine": 242,
         "startChar": 10,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fb216c2_31ec32a4",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fb5b1e2_a73fcc86",
+      "range": {
+        "startLine": 277,
+        "startChar": 28,
+        "endLine": 277,
+        "endChar": 36
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23df3544_128150fa",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-03-18T10:38:06Z",
       "side": 1,
       "message": "As discussed offline, we can skip this whole check. Should also make that clear in the interface.",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 7
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd2b1a7f_b1149081",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Updated the check to not check the top layer.",
+      "parentUuid": "23df3544_128150fa",
       "range": {
         "startLine": 287,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9cc54ed_21f57de4",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5e9500d_f8022350",
+      "range": {
+        "startLine": 316,
+        "startChar": 16,
+        "endLine": 316,
+        "endChar": 17
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd8ba318_e452f6d2",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-03-18T10:38:06Z",
       "side": 1,
       "message": "An alternative that might be slightly easier to read is to use set of use buffers and check if it exists already when trying to add.",
+      "range": {
+        "startLine": 321,
+        "startChar": 6,
+        "endLine": 326,
+        "endChar": 7
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb1238dd_91127b49",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cd8ba318_e452f6d2",
       "range": {
         "startLine": 321,
         "startChar": 6,
@@ -179,6 +323,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe89eb71_b55bc4eb",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Added a TODO.",
+      "parentUuid": "f98195ee_3e129294",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 437,
+        "endChar": 0
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3021f91a_ff73e630",
@@ -192,6 +360,30 @@
       "writtenOn": "2024-03-18T10:38:06Z",
       "side": 1,
       "message": "I guess in production code we want to avoid crashes for parameters that can be passed by a higher layer.\nHow should we handle this: `absl::StatusOr\u003caom_svc_params_t\u003e` return value perhaps so we can call the error callback?",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 30
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea9966a5_2427666b",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "This is an RTC_CHECK since we validated that the scaling factor are supported earlier.",
+      "parentUuid": "3021f91a_ff73e630",
       "range": {
         "startLine": 517,
         "startChar": 4,
@@ -248,6 +440,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77fb824f_55d0e74e",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "No, just the last layer\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/libaom/source/libaom/av1/av1_cx_iface.c;l\u003d3692-3694;drc\u003d353683321da2061bb47d7655d4b3fc04c1540ed3",
+      "parentUuid": "75124564_9b230323",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 78
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93c197ff_28dabeec",
@@ -271,6 +487,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90cc3795_f18bd75b",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "93c197ff_28dabeec",
+      "range": {
+        "startLine": 565,
+        "startChar": 12,
+        "endLine": 566,
+        "endChar": 32
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ce945ea_78bc6e8b",
@@ -284,6 +524,24 @@
       "writtenOn": "2024-03-18T10:38:06Z",
       "side": 1,
       "message": "Shouldn\u0027t we call the callback with an error result specifying that it was due to invalid parameters?",
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "763bb985_f5d7f3a4",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Some form of error information is probably good to have, but given that this is for prototyping I think we can do that in a followup CL.",
+      "parentUuid": "8ce945ea_78bc6e8b",
       "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -335,6 +593,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c87311fb_3f95dd99",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0e73766_d65e9175",
+      "range": {
+        "startLine": 38,
+        "startChar": 36,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8317d6bf_52474c15",
@@ -372,6 +654,30 @@
       "side": 1,
       "message": "The `effort_level` maps to the speed setting of the encoder. Higher effort level means slower speed, meaning longer encode speeds but better compression.",
       "parentUuid": "8317d6bf_52474c15",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b72c57_7ee879fd",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bd67a9c_a5bf11c8",
       "range": {
         "startLine": 42,
         "startChar": 8,
@@ -476,6 +782,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7d135ac_46083b97",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d9be887_d5c176aa",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0d9b890_b81d5777",
@@ -513,6 +843,30 @@
       "side": 1,
       "message": "The only reason we need `temporal_id` is because of how CBR rate controller work in actual implementations (every {sid,tid} has its own buffer levels).",
       "parentUuid": "a0d9b890_b81d5777",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82edef46_93fe2488",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7df425e8_427e4985",
       "range": {
         "startLine": 58,
         "startChar": 8,
@@ -570,6 +924,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf0ca170_d269e576",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe74c771_df470dcf",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 18
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1264d73_48696eee",
@@ -607,6 +985,30 @@
       "side": 1,
       "message": "Probably, it was more to reflect that reference order does not matter, it\u0027s just a set of references.",
       "parentUuid": "b1264d73_48696eee",
+      "range": {
+        "startLine": 61,
+        "startChar": 3,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cc4eebf_27fed616",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d31fb25c_6365891f",
       "range": {
         "startLine": 61,
         "startChar": 3,
@@ -664,6 +1066,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f10789d_6b926744",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b0dde17_617c6205",
+      "range": {
+        "startLine": 86,
+        "startChar": 28,
+        "endLine": 86,
+        "endChar": 60
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c080b965_7cf8d2fe",
@@ -701,6 +1127,30 @@
       "side": 1,
       "message": "It\u0027s not set in stone yet, but the idea right now is for the callback to be called once for every element in `frame_settings`.\n\nIf something goes wrong you get one error callback and then the encoder needs to be discarded.",
       "parentUuid": "c080b965_7cf8d2fe",
+      "range": {
+        "startLine": 87,
+        "startChar": 43,
+        "endLine": 87,
+        "endChar": 65
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "216d23a9_dbcc252f",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T15:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad5b9dc9_bcdbc729",
       "range": {
         "startLine": 87,
         "startChar": 43,

@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdafb28c_5d6f4191",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T16:38:56Z",
+      "side": 1,
+      "message": "This comment looks obsolete.",
+      "revId": "ca60eeaa399931cf4dc000235aeb371b3f0f8fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd153bcb_6720cd62",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T16:38:56Z",
+      "side": 1,
+      "message": "longer term I suspect it still better to generate frame_id outside of the RtpPayloadParams, may be even before encoding to have more predictable fdiffs when frames are dropped for various reasons.\n\ne.g., by keeping frame_id not in RtpPayloadState, but in the struct RtpStreamSender, and increment them same place shared_frame_id_ is currently incremented.\n\nBut same time - no need to spend much time on that potential improvement.",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 33
+      },
+      "revId": "ca60eeaa399931cf4dc000235aeb371b3f0f8fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8abccba_562b99e5",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T16:38:56Z",
+      "side": 1,
+      "message": "why move the place where shared_frame_id is incremented?\n\nIt might be safer to keep the old place, i.e. still generate frame id for a simulcast streams that is not sending.\nI\u0027m slightly worried that incrementing frame id here would change frame diffs and that would have surprising effect on packet sizes.",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 3
+      },
+      "revId": "ca60eeaa399931cf4dc000235aeb371b3f0f8fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d933ada_0f4feafe",
+        "filename": "experiments/field_trials.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T16:38:56Z",
+      "side": 1,
+      "message": "may be do not pick a deprecation date when many people are on holidays.",
+      "range": {
+        "startLine": 157,
+        "startChar": 26,
+        "endLine": 157,
+        "endChar": 32
+      },
+      "revId": "ca60eeaa399931cf4dc000235aeb371b3f0f8fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

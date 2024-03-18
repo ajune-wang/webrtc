@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4143dfe1_0c58d5ca",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T16:38:56Z",
+      "side": 1,
+      "message": "I still do not understand why do you need both fields.\nIs there a scenario when both fields are used?\nCould it be simpler to rename this field to frame_id and used as shared_frame_id when `independent_frame_ids_\u003d\u003dfalse`, and use it as per RTP stream frame_id when `independent_frame_ids_\u003d\u003dtrue`",
+      "parentUuid": "26b7a847_dd0997c5",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa5c0a7d_4f06965f",

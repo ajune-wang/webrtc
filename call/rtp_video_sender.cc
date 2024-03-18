@@ -402,6 +402,10 @@ RtpVideoSender::RtpVideoSender(
       rtp_config_(rtp_config),
       codec_type_(GetVideoCodecType(rtp_config)),
       transport_(transport),
+      independent_frame_ids_(
+          field_trials_.IsEnabled(
+              "WebRTC-Video-SimulcastIndependentFrameIds") &&
+          field_trials_.IsDisabled("WebRTC-GenericDescriptorAuth")),
       transport_overhead_bytes_per_packet_(0),
       encoder_target_rate_bps_(0),
       frame_counts_(rtp_config.ssrcs.size()),
@@ -527,7 +531,6 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   if (!active_)
     return Result(Result::ERROR_SEND_FAILED);
 
-  shared_frame_id_++;
   size_t simulcast_index = encoded_image.SimulcastIndex().value_or(0);
   RTC_DCHECK_LT(simulcast_index, rtp_streams_.size());
 
@@ -574,11 +577,16 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     }
   }
 
+  absl::optional<int64_t> frame_id;
+  if (!independent_frame_ids_) {
+    frame_id = shared_frame_id_++;
+  }
+
   bool send_result =
       rtp_streams_[simulcast_index].sender_video->SendEncodedImage(
           rtp_config_.payload_type, codec_type_, rtp_timestamp, encoded_image,
           params_[simulcast_index].GetRtpVideoHeader(
-              encoded_image, codec_specific_info, shared_frame_id_),
+              encoded_image, codec_specific_info, frame_id),
           expected_retransmission_time);
   if (frame_count_observer_) {
     FrameCounts& counts = frame_counts_[simulcast_index];

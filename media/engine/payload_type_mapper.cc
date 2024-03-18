@@ -148,8 +148,6 @@ bool PayloadTypeMapper::SdpAudioFormatOrdering::operator()(
     if (a.num_channels == b.num_channels) {
       int name_cmp =
           absl::AsciiStrToLower(a.name).compare(absl::AsciiStrToLower(b.name));
-      if (name_cmp == 0)
-        return a.parameters < b.parameters;
       return name_cmp < 0;
     }
     return a.num_channels < b.num_channels;

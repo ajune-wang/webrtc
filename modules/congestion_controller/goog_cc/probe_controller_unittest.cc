@@ -325,6 +325,28 @@ TEST(ProbeControllerTest, TestExponentialProbing) {
   EXPECT_EQ(probes[0].target_data_rate.bps(), 2 * 1800);
 }
 
+TEST(ProbeControllerTest, ExponentialProbingStopIfMaxAllocatedBitrateLow) {
+  ProbeControllerFixture fixture;
+  std::unique_ptr<ProbeController> probe_controller =
+      fixture.CreateController();
+  ASSERT_THAT(
+      probe_controller->OnNetworkAvailability({.network_available = true}),
+      IsEmpty());
+  auto probes = probe_controller->SetBitrates(
+      kMinBitrate, kStartBitrate, kMaxBitrate, fixture.CurrentTime());
+
+  // Repeated probe normally is sent when estimated bitrate climbs above
+  // 0.7 * 6 * kStartBitrate = 1260. But since allocated
+  probes = probe_controller->OnMaxTotalAllocatedBitrate(kStartBitrate,
+                                                        fixture.CurrentTime());
+  EXPECT_THAT(probes, IsEmpty());
+
+  probes = probe_controller->SetEstimatedBitrate(
+      DataRate::BitsPerSec(1800), BandwidthLimitedCause::kDelayBasedLimited,
+      fixture.CurrentTime());
+  EXPECT_THAT(probes, IsEmpty());
+}
+
 TEST(ProbeControllerTest, TestExponentialProbingTimeout) {
   ProbeControllerFixture fixture;
   std::unique_ptr<ProbeController> probe_controller =

@@ -52,45 +52,56 @@ StreamState FifoBuffer::GetState() const {
 StreamResult FifoBuffer::Read(rtc::ArrayView<uint8_t> buffer,
                               size_t& bytes_read,
                               int& error) {
-  webrtc::MutexLock lock(&mutex_);
-  const bool was_writable = data_length_ < buffer_length_;
   size_t copy = 0;
-  StreamResult result = ReadLocked(buffer.data(), buffer.size(), &copy);
+  bool was_writable;
 
-  if (result == SR_SUCCESS) {
-    // If read was successful then adjust the read position and number of
-    // bytes buffered.
-    read_position_ = (read_position_ + copy) % buffer_length_;
-    data_length_ -= copy;
-    bytes_read = copy;
+  {
+    webrtc::MutexLock lock(&mutex_);
+    was_writable = data_length_ < buffer_length_;
+    StreamResult result = ReadLocked(buffer.data(), buffer.size(), &copy);
 
-    // if we were full before, and now we're not, post an event
-    if (!was_writable && copy > 0) {
-      PostEvent(SE_WRITE, 0);
+    if (result == SR_SUCCESS) {
+      // If read was successful then adjust the read position and number of
+      // bytes buffered.
+      read_position_ = (read_position_ + copy) % buffer_length_;
+      data_length_ -= copy;
+      bytes_read = copy;
+    } else {
+      return result;
     }
   }
-  return result;
+
+  // if we were full before, and now we're not, post an event
+  if (!was_writable && copy > 0) {
+    PostEvent(SE_WRITE, 0);
+  }
+
+  return SR_SUCCESS;
 }
 
 StreamResult FifoBuffer::Write(rtc::ArrayView<const uint8_t> buffer,
                                size_t& bytes_written,
                                int& error) {
-  webrtc::MutexLock lock(&mutex_);
-
-  const bool was_readable = (data_length_ > 0);
+  bool was_readable;
   size_t copy = 0;
-  StreamResult result = WriteLocked(buffer.data(), buffer.size(), &copy);
+  {
+    webrtc::MutexLock lock(&mutex_);
+    was_readable = (data_length_ > 0);
+    StreamResult result = WriteLocked(buffer.data(), buffer.size(), &copy);
+    if (result != SR_SUCCESS)
+      return result;
 
-  if (result == SR_SUCCESS) {
     // If write was successful then adjust the number of readable bytes.
     data_length_ += copy;
     bytes_written = copy;
-    // if we didn't have any data to read before, and now we do, post an event
-    if (!was_readable && copy > 0) {
-      PostEvent(SE_READ, 0);
-    }
   }
-  return result;
+
+  // if we didn't have any data to read before, and now we do, post an event
+  if (!was_readable && copy > 0) {
+    PostEvent(SE_READ, 0);
+  }
+
+  return SR_SUCCESS;
 }
 
 void FifoBuffer::Close() {
@@ -107,11 +118,15 @@ const void* FifoBuffer::GetReadData(size_t* size) {
 }
 
 void FifoBuffer::ConsumeReadData(size_t size) {
-  webrtc::MutexLock lock(&mutex_);
-  RTC_DCHECK(size <= data_length_);
-  const bool was_writable = data_length_ < buffer_length_;
-  read_position_ = (read_position_ + size) % buffer_length_;
-  data_length_ -= size;
+  bool was_writable;
+  {
+    webrtc::MutexLock lock(&mutex_);
+    RTC_DCHECK(size <= data_length_);
+    was_writable = data_length_ < buffer_length_;
+    read_position_ = (read_position_ + size) % buffer_length_;
+    data_length_ -= size;
+  }
+
   if (!was_writable && size > 0) {
     PostEvent(SE_WRITE, 0);
   }
@@ -138,10 +153,14 @@ void* FifoBuffer::GetWriteBuffer(size_t* size) {
 }
 
 void FifoBuffer::ConsumeWriteBuffer(size_t size) {
-  webrtc::MutexLock lock(&mutex_);
-  RTC_DCHECK(size <= buffer_length_ - data_length_);
-  const bool was_readable = (data_length_ > 0);
-  data_length_ += size;
+  bool was_readable;
+  {
+    webrtc::MutexLock lock(&mutex_);
+    RTC_DCHECK(size <= buffer_length_ - data_length_);
+    was_readable = (data_length_ > 0);
+    data_length_ += size;
+  }
+
   if (!was_readable && size > 0) {
     PostEvent(SE_READ, 0);
   }

@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54c531f_59841f45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-18T10:38:06Z",
+      "side": 1,
+      "message": "In general looks great!\nsome comments after first skim pass\nDo you intend to break this up and land parts in sequence, or should we keep iterating here?",
+      "revId": "3c316461a70d55659a7c441f5ee8305ac10b53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad6d65b9_9388ee4c",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-18T10:38:06Z",
+      "side": 1,
+      "message": "We discussed one per layer, right?",
+      "range": {
+        "startLine": 748,
+        "startChar": 0,
+        "endLine": 750,
+        "endChar": 13
+      },
+      "revId": "3c316461a70d55659a7c441f5ee8305ac10b53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2ac9174_465c3986",
+        "filename": "api/video_codecs/simple_encoder_wrapper.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-18T10:38:06Z",
+      "side": 1,
+      "message": "nit: `(inter \u003d\u003d Inter::kS \u0026\u0026 spatial_layers \u003e 1)` \ni.e. it\u0027s always L1Tx, never S1Tx",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "3c316461a70d55659a7c441f5ee8305ac10b53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bac6650_94965746",
+        "filename": "api/video_codecs/simple_encoder_wrapper.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-18T10:38:06Z",
+      "side": 1,
+      "message": "nit: `spatial_layers \u003e 1` here too\nI guess we ignore the KEY_SHIFT ones for now too",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 3
+      },
+      "revId": "3c316461a70d55659a7c441f5ee8305ac10b53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50bfe17b_d94655e7",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-18T10:38:06Z",
+      "side": 1,
+      "message": "much POC :)",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "3c316461a70d55659a7c441f5ee8305ac10b53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b53820_e148add7",
+        "filename": "api/video_codecs/video_encoder_factory_interface.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-03-18T10:38:06Z",
+      "side": 1,
+      "message": "In the design we talked about having two method:\n```\n  virtual std::string CodecType() const \u003d 0;\n  virtual std::string ImplementationName() const \u003d 0;\n```\nWas there a particular reason for diverging from that?",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "3c316461a70d55659a7c441f5ee8305ac10b53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

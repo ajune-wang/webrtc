@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b7a847_dd0997c5",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T16:10:49Z",
+      "side": 1,
+      "message": "The `shared_frame_id` is still used, but at an `RtpVideoSender` level.",
+      "parentUuid": "0b0f22da_5902da24",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa5c0a7d_4f06965f",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-03-18T15:33:48Z",
       "side": 1,
       "message": "Even reading the test body I\u0027m not sure what scenario this test validates.\n(Expectation is that shared frame id is not used?)",
+      "range": {
+        "startLine": 363,
+        "startChar": 27,
+        "endLine": 363,
+        "endChar": 42
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7945eb_c4bc28d8",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T16:10:49Z",
+      "side": 1,
+      "message": "Updated it to `GenerateFrameIdWhenExternalFrameIdsAreNotProvided`",
+      "parentUuid": "fa5c0a7d_4f06965f",
       "range": {
         "startLine": 363,
         "startChar": 27,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23c86efc_be15122d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T16:10:49Z",
+      "side": 1,
+      "message": "When `WebRTC-GenericDescriptorAuth` is removed `shared_frame_id` should also be removed.\n\nDownstream still use it for now though...",
+      "parentUuid": "9059ea95_44c56aee",
+      "range": {
+        "startLine": 407,
+        "startChar": 14,
+        "endLine": 407,
+        "endChar": 57
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72b4b167_3f993bbd",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-03-18T15:33:48Z",
       "side": 1,
       "message": "It should be more robust to pass field trial explicitely and avoid relying on the global field trial,\ni.e., pass `\u0026field_trials` as last parameter to the `RtpVideoSenderTestFixture`\nand then also use ExplicitKeyValueConfig instead of the ScopedKeyValueConfig (former keeps all field trials in itself, latter also sets the global field trial string)",
+      "range": {
+        "startLine": 746,
+        "startChar": 47,
+        "endLine": 746,
+        "endChar": 49
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da43a61_bd4798c0",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-18T16:10:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72b4b167_3f993bbd",
       "range": {
         "startLine": 746,
         "startChar": 47,

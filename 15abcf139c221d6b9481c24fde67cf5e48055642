@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dceb3d6_07925992",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T15:33:48Z",
+      "side": 1,
+      "message": "I\u0027m a bit worried about support both \u0027shared\u0027 and \u0027non-shared\u0027 frame number scenarios in WebRTC.\n\nEach receiver should be able to work with either - it shouldn\u0027t make assumption about frame number continuity after a pause.\nBecause of that I worried about complicating a bit send side by supporting non-shared frame numbers.\n\n(got some nits comment also, but mostly worried if this the right approach overall)",
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0f22da_5902da24",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T15:33:48Z",
+      "side": 1,
+      "message": "why do you need both in the State?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa5c0a7d_4f06965f",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T15:33:48Z",
+      "side": 1,
+      "message": "Even reading the test body I\u0027m not sure what scenario this test validates.\n(Expectation is that shared frame id is not used?)",
+      "range": {
+        "startLine": 363,
+        "startChar": 27,
+        "endLine": 363,
+        "endChar": 42
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9059ea95_44c56aee",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T15:33:48Z",
+      "side": 1,
+      "message": "This is a new field trial, that should be registered (in particular hints plan how long it expects to live/how will be removed)\n\nLong term, do you think we need to keep the \u0027shared frame id\u0027 feature?",
+      "range": {
+        "startLine": 407,
+        "startChar": 14,
+        "endLine": 407,
+        "endChar": 57
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b4b167_3f993bbd",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-18T15:33:48Z",
+      "side": 1,
+      "message": "It should be more robust to pass field trial explicitely and avoid relying on the global field trial,\ni.e., pass `\u0026field_trials` as last parameter to the `RtpVideoSenderTestFixture`\nand then also use ExplicitKeyValueConfig instead of the ScopedKeyValueConfig (former keeps all field trials in itself, latter also sets the global field trial string)",
+      "range": {
+        "startLine": 746,
+        "startChar": 47,
+        "endLine": 746,
+        "endChar": 49
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

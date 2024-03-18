@@ -47,6 +47,9 @@ using ::dcsctp::SendPacketStatus;
 constexpr dcsctp::DurationMs kMaxTimerBackoffDuration =
     dcsctp::DurationMs(3000);
 
+// Buffer up to 16MB of unsent data per data channel/stream.
+constexpr size_t kDataChannelSendBufferSize = 16 * 1024 * 1024;
+
 enum class WebrtcPPID : dcsctp::PPID::UnderlyingType {
   // https://www.rfc-editor.org/rfc/rfc8832.html#section-8.1
   kDCEP = 50,
@@ -192,6 +195,9 @@ bool DcSctpTransport::Start(int local_sctp_port,
     // Don't close the connection automatically on too many retransmissions.
     options.max_retransmissions = absl::nullopt;
     options.max_init_retransmits = absl::nullopt;
+    options.per_stream_send_queue_limit = kDataChannelSendBufferSize;
+    // This is just set to avoid denial-of-service. Practically unlimited.
+    options.max_send_buffer_size = 8 * options.per_stream_send_queue_limit;
 
     std::unique_ptr<dcsctp::PacketObserver> packet_observer;
     if (RTC_LOG_CHECK_LEVEL(LS_VERBOSE)) {

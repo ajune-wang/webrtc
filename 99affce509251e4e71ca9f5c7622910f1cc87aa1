@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ac8f6df_cae580d3",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-03-19T12:52:20Z",
+      "side": 0,
+      "message": "it\u0027s so great to see all this complexity being removed! 😊",
+      "revId": "99affce509251e4e71ca9f5c7622910f1cc87aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

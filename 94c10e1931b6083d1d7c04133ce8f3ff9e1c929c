@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bab5cdf_1e92187a",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-03-19T12:52:20Z",
+      "side": 1,
+      "message": "nit: 0u 😄",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "934b67ca_48bb8962",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-03-19T12:52:20Z",
+      "side": 1,
+      "message": "just double checking - intentionally also for the error cases in SendDataMessage?",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19232e56_2964f4a3",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-03-19T12:52:20Z",
+      "side": 1,
+      "message": "any justification for how the value is picked? (even if it\u0027s arbitrary, that might be good to document)",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

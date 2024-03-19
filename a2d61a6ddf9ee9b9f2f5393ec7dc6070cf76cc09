@@ -46,6 +46,30 @@
       },
       "revId": "a2d61a6ddf9ee9b9f2f5393ec7dc6070cf76cc09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2526d181_f7e4ba21",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2024-03-19T16:33:31Z",
+      "side": 1,
+      "message": "Please add explanation of this use case in comment then.",
+      "parentUuid": "e61e7290_c970c60b",
+      "range": {
+        "startLine": 288,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 3
+      },
+      "revId": "a2d61a6ddf9ee9b9f2f5393ec7dc6070cf76cc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

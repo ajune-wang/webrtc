@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cd2bccf_fc1d6b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-19T07:27:08Z",
+      "side": 1,
+      "message": "Not clear what you are trying to achieve here, or if this is the only effect it will have.\n\nAre you trying to make it so that only one audio format will be generated? For Opus, or for all codecs? Are there audio formats that we want represented in SDP in multiple alternate shapes, varying only in parameters? Will this prevent that?\n\nPlease file a bug and explain more what the goal is.",
+      "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

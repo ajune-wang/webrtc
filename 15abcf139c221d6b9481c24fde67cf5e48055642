@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5a56967_dd32f7e2",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-19T08:25:09Z",
+      "side": 1,
+      "message": "Both fields are used, but never at the same time. The reason we have this state struct is to not forget the frame ID when a send stream is recreated, and for that reason a bool is not enough.",
+      "parentUuid": "4143dfe1_0c58d5ca",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "15abcf139c221d6b9481c24fde67cf5e48055642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa5c0a7d_4f06965f",

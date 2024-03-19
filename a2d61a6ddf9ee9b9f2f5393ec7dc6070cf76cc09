@@ -22,6 +22,30 @@
       },
       "revId": "a2d61a6ddf9ee9b9f2f5393ec7dc6070cf76cc09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61e7290_c970c60b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-03-19T16:31:26Z",
+      "side": 1,
+      "message": "The frame is captured once but encoded (and pre-encoded) 2 times.\nOnce here (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d1874) then here (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_encoder.cc;l\u003d2322).\nThe second time it is called, if the frame is already received (and removed from captured_frames_in_flight), then the code fails.",
+      "parentUuid": "324f0e40_2b315c77",
+      "range": {
+        "startLine": 288,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 3
+      },
+      "revId": "a2d61a6ddf9ee9b9f2f5393ec7dc6070cf76cc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

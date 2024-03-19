@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0cf058_1854a8c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-03-19T09:10:31Z",
+      "side": 1,
+      "message": "Using No-Try to avoid the presubmit not having machines to run Ubuntu 18 (their OS has been updated to Ubuntu 20 or 22 and there is no CP for infra on branches).",
+      "revId": "d91bfaf4a7c14e07a98d1a418b9637e47d4c7eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

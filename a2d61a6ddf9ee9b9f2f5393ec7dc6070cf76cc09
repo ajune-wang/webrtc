@@ -70,6 +70,30 @@
       },
       "revId": "a2d61a6ddf9ee9b9f2f5393ec7dc6070cf76cc09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a57e8a_57a3f921",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-03-19T16:44:15Z",
+      "side": 1,
+      "message": "Good point, now that I reread the log it was quite misleading.\nI simplified the log and added a comment describing the possible scenario.",
+      "parentUuid": "2526d181_f7e4ba21",
+      "range": {
+        "startLine": 288,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 3
+      },
+      "revId": "a2d61a6ddf9ee9b9f2f5393ec7dc6070cf76cc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfeca680_9d64eff4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-20T06:14:26Z",
+      "side": 1,
+      "message": "Some comments, just based on description:\n\n- Use apply-iwyu -r in order to get rid of superfluous includes in .h files\n- There\u0027s python3 tools_webrtc/gn_check_autofix.py -c debug_bot_x64 (more arguments possible) that is an existing script for autofixing DEPS files; you may consider using or improving that rather than adding a new script.\n\nMight be causing errors in other repos, someone will discover that eventually.",
+      "revId": "22bc4224e24dbda39f8170e8787ed4f30bce98ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

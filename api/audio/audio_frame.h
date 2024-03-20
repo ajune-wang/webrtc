@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "absl/types/optional.h"
 #include "api/audio/channel_layout.h"
 #include "api/rtp_packet_infos.h"
 

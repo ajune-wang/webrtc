@@ -21,6 +21,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/functional/any_invocable.h"
 #include "api/sequence_checker.h"
 #include "api/transport/network_types.h"
 #include "modules/pacing/pacing_controller.h"
@@ -41,11 +42,16 @@ class RtpRtcpInterface;
 class PacketRouter : public PacingController::PacketSender {
  public:
   PacketRouter();
-  explicit PacketRouter(uint16_t start_transport_seq);
   ~PacketRouter() override;
 
   PacketRouter(const PacketRouter&) = delete;
   PacketRouter& operator=(const PacketRouter&) = delete;
+
+  // Callback is invoked after pacing, before a packet is forwarded to the
+  // sending rtp module.
+  void RegisterModifyPacketBeforeSendCallback(
+      absl::AnyInvocable<void(RtpPacketToSend& packet,
+                              const PacedPacketInfo& pacing_info)> callback);
 
   void AddSendRtpModule(RtpRtcpInterface* rtp_module, bool remb_candidate);
   void RemoveSendRtpModule(RtpRtcpInterface* rtp_module);
@@ -66,8 +72,6 @@ class PacketRouter : public PacingController::PacketSender {
       rtc::ArrayView<const uint16_t> sequence_numbers) override;
   absl::optional<uint32_t> GetRtxSsrcForMedia(uint32_t ssrc) const override;
   void OnBatchComplete() override;
-
-  uint16_t CurrentTransportSequenceNumber() const;
 
   // Send REMB feedback.
   void SendRemb(int64_t bitrate_bps, std::vector<uint32_t> ssrcs);
@@ -108,7 +112,9 @@ class PacketRouter : public PacingController::PacketSender {
   RtcpFeedbackSenderInterface* active_remb_module_
       RTC_GUARDED_BY(thread_checker_);
 
-  uint64_t transport_seq_ RTC_GUARDED_BY(thread_checker_);
+  absl::AnyInvocable<void(RtpPacketToSend& packet,
+                          const PacedPacketInfo& pacing_info)>
+      before_send_callback_ RTC_GUARDED_BY(thread_checker_) = nullptr;
 
   std::vector<std::unique_ptr<RtpPacketToSend>> pending_fec_packets_
       RTC_GUARDED_BY(thread_checker_);

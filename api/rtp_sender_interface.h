@@ -14,6 +14,8 @@
 #ifndef API_RTP_SENDER_INTERFACE_H_
 #define API_RTP_SENDER_INTERFACE_H_
 
+#include <stdint.h>
+
 #include <memory>
 #include <string>
 #include <vector>

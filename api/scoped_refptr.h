@@ -63,6 +63,7 @@
 #ifndef API_SCOPED_REFPTR_H_
 #define API_SCOPED_REFPTR_H_
 
+#include <cstddef>
 #include <memory>
 #include <utility>
 

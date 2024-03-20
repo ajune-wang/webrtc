@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94092c6f_7439de99",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-20T07:28:19Z",
+      "side": 0,
+      "message": "This deletion was wrong.",
+      "revId": "bdb867f1635ad3ffaab9a0517bc2d400d88df898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

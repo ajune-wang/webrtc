@@ -12,7 +12,6 @@
 
 #include <stddef.h>
 #include <stdint.h>
-
 #include <functional>
 #include <map>
 #include <memory>

@@ -12,6 +12,7 @@
 #include <stdio.h>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -20,6 +21,7 @@
 #include "api/array_view.h"
 #include "api/test/metrics/metric.h"
 #include "test/testsupport/file_utils.h"
+#include "test/testsupport/perf_test.h"
 #include "test/testsupport/perf_test_histogram_writer.h"
 #include "test/testsupport/perf_test_result_writer.h"
 

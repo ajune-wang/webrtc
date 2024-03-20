@@ -12,10 +12,13 @@
 #include <stdio.h>
 
 #include <map>
+#include <optional>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "api/test/metrics/metric.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/logging.h"
 #include "test/testsupport/file_utils.h"
 

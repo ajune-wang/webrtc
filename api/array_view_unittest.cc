@@ -10,7 +10,9 @@
 
 #include "api/array_view.h"
 
-#include <algorithm>
+#include <stddef.h>
+#include <stdint.h>
+
 #include <array>
 #include <string>
 #include <utility>
@@ -18,8 +20,8 @@
 
 #include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/gunit.h"
 #include "test/gmock.h"
+#include "test/gtest.h"
 
 namespace rtc {
 

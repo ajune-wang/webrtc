@@ -49,7 +49,10 @@ rtc_library("metric") {
     "metric.cc",
     "metric.h",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings:string_view",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
   deps = [ "../../../api/units:timestamp" ]
 }
 
@@ -63,11 +66,16 @@ rtc_library("metrics_logger") {
     ":metric",
     ":metrics_accumulator",
     "../..:array_view",
+    "../../../rtc_base:macromagic",
     "../../../rtc_base/synchronization:mutex",
     "../../../system_wrappers",
     "../../numerics",
+    "../../units:timestamp",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
 }
 
 rtc_library("metrics_accumulator") {
@@ -78,6 +86,7 @@ rtc_library("metrics_accumulator") {
   ]
   deps = [
     ":metric",
+    "../..:array_view",
     "../../../rtc_base:macromagic",
     "../../../rtc_base/synchronization:mutex",
     "../../numerics",
@@ -152,11 +161,16 @@ rtc_library("metrics_set_proto_file_exporter") {
     "../..:array_view",
     "../../../rtc_base:logging",
     "../../../test:fileutils",
+    "../../units:timestamp",
   ]
 
   if (rtc_enable_protobuf) {
-    deps += [ ":metric_proto" ]
+    deps += [
+      ":metric_proto",
+      "../../units:timestamp",
+    ]
   }
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings:string_view" ]
 }
 
 rtc_library("print_result_proxy_metrics_exporter") {
@@ -171,6 +185,7 @@ rtc_library("print_result_proxy_metrics_exporter") {
     ":metrics_exporter",
     "../..:array_view",
     "../../../test:perf_test",
+    "../../numerics:numerics",
   ]
 }
 
@@ -181,6 +196,7 @@ rtc_library("global_metrics_logger_and_exporter") {
     "global_metrics_logger_and_exporter.h",
   ]
   deps = [
+    ":metric",
     ":metrics_exporter",
     ":metrics_logger",
     "../../../rtc_base:checks",
@@ -244,6 +260,7 @@ if (rtc_include_tests) {
       ":metric",
       ":metrics_exporter",
       ":metrics_logger",
+      "../..:array_view",
       "../../../system_wrappers",
       "../../../test:test_support",
     ]

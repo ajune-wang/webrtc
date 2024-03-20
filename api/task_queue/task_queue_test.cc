@@ -9,10 +9,17 @@
  */
 #include "api/task_queue/task_queue_test.h"
 
+#include <stdint.h>
+
 #include <memory>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include "absl/cleanup/cleanup.h"
+#include "absl/functional/any_invocable.h"
 #include "absl/strings/string_view.h"
+#include "api/ref_count.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/event.h"

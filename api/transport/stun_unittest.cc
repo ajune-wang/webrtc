@@ -10,6 +10,8 @@
 
 #include "api/transport/stun.h"
 
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <string.h>
 
 #include <memory>

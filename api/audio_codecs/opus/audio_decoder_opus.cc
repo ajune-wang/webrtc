@@ -16,6 +16,7 @@
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

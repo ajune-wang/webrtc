@@ -11,6 +11,9 @@
 #ifndef API_VIDEO_NV12_BUFFER_H_
 #define API_VIDEO_NV12_BUFFER_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include <memory>
 #include <utility>
 

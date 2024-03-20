@@ -9,6 +9,9 @@
  */
 #include "api/test/network_emulation/network_emulation_interfaces.h"
 
+#include <sys/socket.h>
+
+#include "rtc_base/checks.h"
 #include "rtc_base/net_helper.h"
 
 namespace webrtc {

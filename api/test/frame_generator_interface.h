@@ -11,6 +11,8 @@
 #ifndef API_TEST_FRAME_GENERATOR_INTERFACE_H_
 #define API_TEST_FRAME_GENERATOR_INTERFACE_H_
 
+#include <stddef.h>
+
 #include <utility>
 
 #include "absl/types/optional.h"

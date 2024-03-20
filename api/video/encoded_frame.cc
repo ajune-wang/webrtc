@@ -10,8 +10,14 @@
 
 #include "api/video/encoded_frame.h"
 
+#include <type_traits>
+
 #include "absl/types/optional.h"
+#include "absl/types/variant.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
+#include "modules/video_coding/codecs/interface/common_constants.h"
+#include "modules/video_coding/codecs/vp8/include/vp8_globals.h"
+#include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 
 namespace webrtc {
 

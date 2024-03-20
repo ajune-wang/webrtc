@@ -15,7 +15,9 @@
 
 #include "api/test/create_frame_generator.h"
 #include "api/test/pclf/media_configuration.h"
+#include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/clock.h"
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {

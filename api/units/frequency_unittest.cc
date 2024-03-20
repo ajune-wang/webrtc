@@ -9,8 +9,6 @@
  */
 #include "api/units/frequency.h"
 
-#include <limits>
-
 #include "test/gtest.h"
 
 namespace webrtc {

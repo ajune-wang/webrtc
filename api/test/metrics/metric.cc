@@ -9,8 +9,6 @@
  */
 #include "api/test/metrics/metric.h"
 
-#include <string>
-
 namespace webrtc {
 namespace test {
 

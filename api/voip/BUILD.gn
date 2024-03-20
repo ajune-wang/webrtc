@@ -42,6 +42,7 @@ rtc_library("voip_engine_factory") {
     "../../audio/voip:voip_core",
     "../../modules/audio_device:audio_device_api",
     "../../modules/audio_processing:api",
+    "../../rtc_base:checks",
     "../../rtc_base:logging",
     "../audio_codecs:audio_codecs_api",
     "../task_queue",
@@ -66,6 +67,7 @@ if (rtc_include_tests) {
     sources = [ "test/voip_engine_factory_unittest.cc" ]
     deps = [
       ":voip_engine_factory",
+      "..:make_ref_counted",
       "../../modules/audio_device:mock_audio_device",
       "../../modules/audio_processing:mocks",
       "../../test:audio_codec_mocks",

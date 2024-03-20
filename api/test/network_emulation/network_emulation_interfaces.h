@@ -10,6 +10,10 @@
 #ifndef API_TEST_NETWORK_EMULATION_NETWORK_EMULATION_INTERFACES_H_
 #define API_TEST_NETWORK_EMULATION_NETWORK_EMULATION_INTERFACES_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
+#include <functional>
 #include <map>
 #include <memory>
 #include <vector>

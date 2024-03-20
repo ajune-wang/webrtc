@@ -11,12 +11,14 @@
 #ifndef API_VIDEO_ENCODED_IMAGE_H_
 #define API_VIDEO_ENCODED_IMAGE_H_
 
+#include <stddef.h>
 #include <stdint.h>
 
 #include <map>
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "api/ref_count.h"
 #include "api/rtp_packet_infos.h"
 #include "api/scoped_refptr.h"
 #include "api/units/timestamp.h"

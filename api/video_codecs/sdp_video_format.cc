@@ -10,9 +10,12 @@
 
 #include "api/video_codecs/sdp_video_format.h"
 
+#include <utility>
+
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/video/video_codec_type.h"
 #include "api/video_codecs/av1_profile.h"
 #include "api/video_codecs/h264_profile_level_id.h"
 #ifdef RTC_ENABLE_H265

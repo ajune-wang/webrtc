@@ -11,6 +11,8 @@
 #ifndef API_VIDEO_CODECS_VIDEO_DECODER_H_
 #define API_VIDEO_CODECS_VIDEO_DECODER_H_
 
+#include <stdint.h>
+
 #include <memory>
 #include <string>
 #include <vector>

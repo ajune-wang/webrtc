@@ -82,6 +82,7 @@ rtc_library("builtin_audio_decoder_factory") {
   } else {
     defines += [ "WEBRTC_USE_BUILTIN_OPUS=0" ]
   }
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("builtin_audio_encoder_factory") {
@@ -93,6 +94,7 @@ rtc_library("builtin_audio_encoder_factory") {
   ]
   deps = [
     ":audio_codecs_api",
+    "..:field_trials_view",
     "..:scoped_refptr",
     "L16:audio_encoder_L16",
     "g711:audio_encoder_g711",
@@ -100,13 +102,17 @@ rtc_library("builtin_audio_encoder_factory") {
   ]
   defines = []
   if (rtc_include_ilbc) {
-    deps += [ "ilbc:audio_encoder_ilbc" ]
+    deps += [
+      "..:field_trials_view",
+      "ilbc:audio_encoder_ilbc",
+    ]
     defines += [ "WEBRTC_USE_BUILTIN_ILBC=1" ]
   } else {
     defines += [ "WEBRTC_USE_BUILTIN_ILBC=0" ]
   }
   if (rtc_include_opus) {
     deps += [
+      "..:field_trials_view",
       "opus:audio_encoder_multiopus",
       "opus:audio_encoder_opus",
     ]
@@ -114,6 +120,7 @@ rtc_library("builtin_audio_encoder_factory") {
   } else {
     defines += [ "WEBRTC_USE_BUILTIN_OPUS=0" ]
   }
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("opus_audio_decoder_factory") {
@@ -129,6 +136,7 @@ rtc_library("opus_audio_decoder_factory") {
     "opus:audio_decoder_multiopus",
     "opus:audio_decoder_opus",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("opus_audio_encoder_factory") {
@@ -140,8 +148,10 @@ rtc_library("opus_audio_encoder_factory") {
   ]
   deps = [
     ":audio_codecs_api",
+    "..:field_trials_view",
     "..:scoped_refptr",
     "opus:audio_encoder_multiopus",
     "opus:audio_encoder_opus",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }

@@ -11,9 +11,12 @@
 #include "api/video/frame_buffer.h"
 
 #include <algorithm>
+#include <iterator>
+#include <utility>
 
 #include "absl/algorithm/container.h"
 #include "absl/container/inlined_vector.h"
+#include "api/array_view.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 

@@ -9,6 +9,9 @@
  */
 #include "api/test/time_controller.h"
 
+#include "absl/strings/string_view.h"
+#include "api/task_queue/task_queue_base.h"
+
 namespace webrtc {
 std::unique_ptr<TaskQueueFactory> TimeController::CreateTaskQueueFactory() {
   class FactoryWrapper final : public TaskQueueFactory {

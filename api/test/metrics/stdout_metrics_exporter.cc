@@ -9,9 +9,11 @@
  */
 #include "api/test/metrics/stdout_metrics_exporter.h"
 
+#include <stdint.h>
 #include <stdio.h>
 
 #include <cmath>
+#include <cstdlib>
 #include <string>
 
 #include "absl/types/optional.h"

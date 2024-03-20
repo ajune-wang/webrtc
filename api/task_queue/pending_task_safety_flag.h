@@ -11,6 +11,7 @@
 #ifndef API_TASK_QUEUE_PENDING_TASK_SAFETY_FLAG_H_
 #define API_TASK_QUEUE_PENDING_TASK_SAFETY_FLAG_H_
 
+#include <type_traits>
 #include <utility>
 
 #include "absl/base/nullability.h"
@@ -18,6 +19,7 @@
 #include "api/ref_counted_base.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/task_queue_base.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/system/rtc_export.h"

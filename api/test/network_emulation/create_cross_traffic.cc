@@ -11,8 +11,8 @@
 
 #include <memory>
 
-#include "rtc_base/task_utils/repeating_task.h"
 #include "test/network/cross_traffic.h"
+#include "test/network/network_emulation.h"
 
 namespace webrtc {
 

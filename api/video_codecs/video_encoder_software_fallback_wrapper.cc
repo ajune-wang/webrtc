@@ -17,13 +17,17 @@
 #include <string>
 #include <vector>
 
+#include "absl/container/inlined_vector.h"
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/fec_controller_override.h"
+#include "api/scoped_refptr.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/video/i420_buffer.h"
-#include "api/video/video_bitrate_allocation.h"
+#include "api/video/video_codec_type.h"
 #include "api/video/video_frame.h"
+#include "api/video/video_frame_buffer.h"
+#include "api/video/video_frame_type.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "media/base/video_common.h"

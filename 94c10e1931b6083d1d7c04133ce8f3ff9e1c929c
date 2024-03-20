@@ -73,6 +73,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0e3b8f3b_15460458",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-03-20T20:53:54Z",
+      "side": 1,
+      "message": "The per-data-channel limit; 16MB, is the same as it was before. I have now changed the code to use the old constant - that\u0027s better.\n\n8 was just a picked number, that\u0027s true. Before this CL, there was no transport-wide limit, so let\u0027s remove it and keep the same behavior as before. We can always improve later.",
+      "parentUuid": "b72828a5_b062ed19",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9bab5cdf_1e92187a",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 5
@@ -84,6 +102,24 @@
       "writtenOn": "2024-03-19T12:52:20Z",
       "side": 1,
       "message": "nit: 0u 😄",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9405774e_30b9cd37",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-03-20T20:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bab5cdf_1e92187a",
       "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +141,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ba358d6_c5f63d82",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-03-20T20:53:54Z",
+      "side": 1,
+      "message": "Yes, it always - intentionally - increases the value whenever having called send. It doesn\u0027t actually handle errors even (that\u0027s a TODO in blink\u0027s RTCDataChannel). But now we handle that correctly, with eventual consistency.",
+      "parentUuid": "934b67ca_48bb8962",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19232e56_2964f4a3",
@@ -118,6 +172,24 @@
       "writtenOn": "2024-03-19T12:52:20Z",
       "side": 1,
       "message": "any justification for how the value is picked? (even if it\u0027s arbitrary, that might be good to document)",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32da589c_62e2e734",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-03-20T20:53:54Z",
+      "side": 1,
+      "message": "I have added a comment. PTAL and let me know if it\u0027s understandable. Yes, it\u0027s picked by \"common sense\".",
+      "parentUuid": "19232e56_2964f4a3",
       "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

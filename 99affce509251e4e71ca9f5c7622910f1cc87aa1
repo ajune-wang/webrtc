@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f4daacef_12628ca4",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-03-20T20:53:54Z",
+      "side": 0,
+      "message": "No! Because now the channel/stream can\u0027t block. It will be \"Ready to send\" when the SCTP association is connected, and will be \"not ready to send\" (blocked) when disconnected - and that\u0027s a terminal state.\n\nIn case we\u0027re reaching the per-channel limit, then https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel/send#networkerror says that the underlying connection should be closed. And https://w3c.github.io/webrtc-pc/#dom-rtcdatachannel-send says \"If queuing data is not possible because not enough buffer space is available, throw an OperationError.\". The error is propagated, but there is a TODO in blink/RTCDataChannel to actually handle this.\n\nA later CL will clean this up further.",
+      "parentUuid": "023ce9ba_99fe58b4",
+      "revId": "99affce509251e4e71ca9f5c7622910f1cc87aa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8ac8f6df_cae580d3",
         "filename": "pc/sctp_data_channel.h",
         "patchSetId": 5

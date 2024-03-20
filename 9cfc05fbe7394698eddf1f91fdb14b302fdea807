@@ -34,6 +34,41 @@
       "parentUuid": "2cd2bccf_fc1d6b16",
       "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08481d6_f19fd400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-20T03:00:52Z",
+      "side": 1,
+      "message": "A payload type in SDP indicates a particular codec *and its configuration*.\nI honestly don\u0027t know if offering G.711 with ptime\u003d10 ms is interoperable with G.711 with ptime\u003d20 ms. I know that offering both in an offer is legal.\n(I know that in many cases in video, the same codec with different fmtp lines represent formats that do *not* interoperate.)\n\nIf you change the default codec params for Opus, you will generate a new payload type - by definition it\u0027s different. Hopefully you will also stop generating the old one, so that you don\u0027t end up in a situation with both. But it seems wrong for a lower level comparison routine to decide that you *can\u0027t* have both.",
+      "parentUuid": "5cc90445_09bb60f9",
+      "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8670ea3_e2a65e11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-20T03:00:52Z",
+      "side": 1,
+      "message": "I think this is wrong, model-wise.",
+      "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

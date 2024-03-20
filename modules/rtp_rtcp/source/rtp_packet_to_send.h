@@ -70,6 +70,10 @@ class RtpPacketToSend : public RtpPacket {
   absl::optional<uint16_t> retransmitted_sequence_number() const {
     return retransmitted_sequence_number_;
   }
+  // If this is a retransmission, indicates the SSRC of the original
+  // media packet that this packet represents.
+  void set_original_ssrc(uint32_t ssrc) { original_ssrc_ = ssrc; }
+  absl::optional<uint32_t> original_ssrc() const { return original_ssrc_; }
 
   void set_allow_retransmission(bool allow_retransmission) {
     allow_retransmission_ = allow_retransmission;
@@ -143,6 +147,7 @@ class RtpPacketToSend : public RtpPacket {
   absl::optional<OriginalType> original_packet_type_;
   bool allow_retransmission_ = false;
   absl::optional<uint16_t> retransmitted_sequence_number_;
+  absl::optional<uint32_t> original_ssrc_;
   rtc::scoped_refptr<rtc::RefCountedBase> additional_data_;
   bool is_first_packet_of_frame_ = false;
   bool is_key_frame_ = false;

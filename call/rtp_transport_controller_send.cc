@@ -9,6 +9,7 @@
  */
 #include "call/rtp_transport_controller_send.h"
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -26,7 +27,9 @@
 #include "call/rtp_video_sender.h"
 #include "logging/rtc_event_log/events/rtc_event_remote_estimate.h"
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rate_limiter.h"
@@ -95,7 +98,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       network_available_(false),
       congestion_window_size_(DataSize::PlusInfinity()),
       is_congested_(false),
-      retransmission_rate_limiter_(&env_.clock(), kRetransmitWindowSizeMs) {
+      retransmission_rate_limiter_(&env_.clock(), kRetransmitWindowSizeMs),
+      transport_seq_(config.start_transport_sequence_number) {
   ParseFieldTrial(
       {&relay_bandwidth_cap_},
       env_.field_trials().Lookup("WebRTC-Bwe-NetworkRouteConstraints"));
@@ -112,6 +116,11 @@ RtpTransportControllerSend::RtpTransportControllerSend(
     // Default burst interval overriden by config.
     pacer_.SetSendBurstInterval(*config.pacer_burst_interval);
   }
+  packet_router_.RegisterNotifyBweCallback(
+      [this](const RtpPacketToSend& packet,
+             const PacedPacketInfo& pacing_info) {
+        return NotifyBweAndGenerateTransportSequenceNumber(packet, pacing_info);
+      });
 }
 
 RtpTransportControllerSend::~RtpTransportControllerSend() {
@@ -221,11 +230,6 @@ PacketRouter* RtpTransportControllerSend::packet_router() {
 
 NetworkStateEstimateObserver*
 RtpTransportControllerSend::network_state_estimate_observer() {
-  return this;
-}
-
-TransportFeedbackObserver*
-RtpTransportControllerSend::transport_feedback_observer() {
   return this;
 }
 
@@ -570,14 +574,33 @@ void RtpTransportControllerSend::OnRttUpdate(Timestamp receive_time,
     PostUpdates(controller_->OnRoundTripTimeUpdate(report));
 }
 
-void RtpTransportControllerSend::OnAddPacket(
-    const RtpPacketSendInfo& packet_info) {
+absl::optional<uint16_t>
+RtpTransportControllerSend::NotifyBweAndGenerateTransportSequenceNumber(
+    const RtpPacketToSend& packet,
+    const PacedPacketInfo& pacing_info) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+
+  bool assign_transport_sequence_number =
+      packet.HasExtension<TransportSequenceNumber>();
+  if (!assign_transport_sequence_number) {
+    return absl::nullopt;
+  }
+  if (!packet.packet_type()) {
+    RTC_DCHECK_NOTREACHED() << "Unknown packet type";
+    return absl::nullopt;
+  }
+
+  uint16_t transport_sequence_number = transport_seq_ & 0xFFFF;
+  ++transport_seq_;
+  RtpPacketSendInfo packet_info =
+      RtpPacketSendInfo::From(transport_sequence_number, packet, pacing_info);
+
   Timestamp creation_time =
       Timestamp::Millis(env_.clock().TimeInMilliseconds());
   feedback_demuxer_.AddPacket(packet_info);
   transport_feedback_adapter_.AddPacket(
       packet_info, transport_overhead_bytes_per_packet_, creation_time);
+  return transport_sequence_number;
 }
 
 void RtpTransportControllerSend::OnTransportFeedback(

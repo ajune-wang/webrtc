@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbaa6d6_5d9166fa",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-03-20T10:42:46Z",
+      "side": 1,
+      "message": "I don\u0027t think we want that type of limit, which is going to affect P2P applications disproportionately. We should not have a limit on the web, or make it the maximum possible integer (or at least maybe in the GB range).\nThe renderer processes already have limits on how much memory they can use, so it\u0027s fine to rely on this, and on the server side, you should be allowed to pick different values.",
+      "parentUuid": "caf59682_d6e38a74",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab5cdf_1e92187a",

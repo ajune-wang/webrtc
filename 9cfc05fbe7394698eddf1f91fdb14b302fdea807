@@ -69,6 +69,42 @@
       "message": "I think this is wrong, model-wise.",
       "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c3a197_96dea4f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-03-20T12:34:27Z",
+      "side": 1,
+      "message": "Yes, I agree, reverting.",
+      "parentUuid": "f8670ea3_e2a65e11",
+      "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eefaa63c_ec655ade",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-03-20T12:34:27Z",
+      "side": 1,
+      "message": "Alright, thanks for the explanation. This does indeed look like the wrong thing to do.\n\nFor the Opus case, it really doesn\u0027t make sense to have different formats for different sets of parameters since they are all interoperable, but I guess it could be different for other codecs.",
+      "parentUuid": "a08481d6_f19fd400",
+      "revId": "9cfc05fbe7394698eddf1f91fdb14b302fdea807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

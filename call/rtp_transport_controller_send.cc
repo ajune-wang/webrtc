@@ -9,6 +9,7 @@
  */
 #include "call/rtp_transport_controller_send.h"
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -26,7 +27,9 @@
 #include "call/rtp_video_sender.h"
 #include "logging/rtc_event_log/events/rtc_event_remote_estimate.h"
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rate_limiter.h"
@@ -95,7 +98,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       network_available_(false),
       congestion_window_size_(DataSize::PlusInfinity()),
       is_congested_(false),
-      retransmission_rate_limiter_(&env_.clock(), kRetransmitWindowSizeMs) {
+      retransmission_rate_limiter_(&env_.clock(), kRetransmitWindowSizeMs),
+      transport_seq_(config.start_transport_sequence_number) {
   ParseFieldTrial(
       {&relay_bandwidth_cap_},
       env_.field_trials().Lookup("WebRTC-Bwe-NetworkRouteConstraints"));
@@ -112,6 +116,10 @@ RtpTransportControllerSend::RtpTransportControllerSend(
     // Default burst interval overriden by config.
     pacer_.SetSendBurstInterval(*config.pacer_burst_interval);
   }
+  packet_router_.RegisterModifyPacketBeforeSendCallback(
+      [this](RtpPacketToSend& packet, const PacedPacketInfo& pacing_info) {
+        ModifyPacketForBweBeforeSend(packet, pacing_info);
+      });
 }
 
 RtpTransportControllerSend::~RtpTransportControllerSend() {
@@ -221,11 +229,6 @@ PacketRouter* RtpTransportControllerSend::packet_router() {
 
 NetworkStateEstimateObserver*
 RtpTransportControllerSend::network_state_estimate_observer() {
-  return this;
-}
-
-TransportFeedbackObserver*
-RtpTransportControllerSend::transport_feedback_observer() {
   return this;
 }
 
@@ -570,9 +573,51 @@ void RtpTransportControllerSend::OnRttUpdate(Timestamp receive_time,
     PostUpdates(controller_->OnRoundTripTimeUpdate(report));
 }
 
-void RtpTransportControllerSend::OnAddPacket(
-    const RtpPacketSendInfo& packet_info) {
+void RtpTransportControllerSend::ModifyPacketForBweBeforeSend(
+    RtpPacketToSend& packet,
+    const PacedPacketInfo& pacing_info) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+
+  bool assign_transport_sequence_number =
+      packet.HasExtension<TransportSequenceNumber>();
+  if (!assign_transport_sequence_number) {
+    return;
+  }
+  if (!packet.packet_type()) {
+    RTC_DCHECK_NOTREACHED() << "Unknown packet type";
+    return;
+  }
+
+  uint16_t transport_sequence_number = transport_seq_ & 0xFFFF;
+  ++transport_seq_;
+  packet.SetExtension<TransportSequenceNumber>(transport_sequence_number);
+
+  RtpPacketSendInfo packet_info;
+  packet_info.transport_sequence_number = transport_sequence_number;
+  packet_info.rtp_timestamp = packet.Timestamp();
+  packet_info.length = packet.size();
+  packet_info.pacing_info = pacing_info;
+  packet_info.packet_type = packet.packet_type();
+
+  switch (*packet_info.packet_type) {
+    case RtpPacketMediaType::kAudio:
+    case RtpPacketMediaType::kVideo:
+      packet_info.media_ssrc = packet.Ssrc();
+      packet_info.rtp_sequence_number = packet.SequenceNumber();
+      break;
+    case RtpPacketMediaType::kRetransmission:
+      // For retransmissions, we're want to remove the original media packet
+      // if the retransmit arrives - so populate that in the packet info.
+      packet_info.media_ssrc = *packet.original_ssrc();
+      packet_info.rtp_sequence_number = *packet.retransmitted_sequence_number();
+      break;
+    case RtpPacketMediaType::kPadding:
+    case RtpPacketMediaType::kForwardErrorCorrection:
+      // We're not interested in feedback about these packets being received
+      // or lost.
+      break;
+  }
+
   Timestamp creation_time =
       Timestamp::Millis(env_.clock().TimeInMilliseconds());
   feedback_demuxer_.AddPacket(packet_info);

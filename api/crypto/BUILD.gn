@@ -25,6 +25,7 @@ rtc_library("options") {
   deps = [
     "../../rtc_base:ssl",
     "../../rtc_base/system:rtc_export",
+    "//rtc_base:checks",
   ]
 }
 

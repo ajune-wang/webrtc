@@ -11,6 +11,7 @@
 #include "api/audio_codecs/ilbc/audio_decoder_ilbc.h"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "absl/strings/match.h"

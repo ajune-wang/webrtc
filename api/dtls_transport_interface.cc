@@ -10,6 +10,8 @@
 
 #include "api/dtls_transport_interface.h"
 
+#include <utility>
+
 namespace webrtc {
 
 DtlsTransportInformation::DtlsTransportInformation()

@@ -15,7 +15,7 @@
 #include "rtc_base/crc32.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/ip_address.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/strings/string_builder.h"
 
 using webrtc::IceCandidateType;

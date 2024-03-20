@@ -14,6 +14,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <optional>
+
 #include "api/audio/channel_layout.h"
 #include "api/rtp_packet_infos.h"
 

@@ -14,6 +14,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/base/attributes.h"
 #include "absl/types/optional.h"
 #include "api/ice_transport_interface.h"
 #include "api/ref_count.h"

@@ -23,6 +23,8 @@
 #include "api/video/video_content_type.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 

@@ -37,8 +37,14 @@ rtc_library("environment_factory") {
     "../rtc_event_log",
     "../task_queue:default_task_queue_factory",
     "../transport:field_trial_based_config",
+    "//api:field_trials_view",
+    "//api/task_queue:task_queue",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/base:nullability" ]
+  absl_deps = [
+    "//api:field_trials_view",
+    "//api/task_queue:task_queue",
+    "//third_party/abseil-cpp/absl/base:nullability",
+  ]
 }
 
 if (rtc_include_tests) {
@@ -57,6 +63,7 @@ if (rtc_include_tests) {
     ]
     absl_deps = [
       "//third_party/abseil-cpp/absl/functional:any_invocable",
+      "//third_party/abseil-cpp/absl/strings:string_view",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
   }

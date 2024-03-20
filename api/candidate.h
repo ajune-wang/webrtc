@@ -12,6 +12,7 @@
 #define API_CANDIDATE_H_
 
 #include <limits.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #include <algorithm>

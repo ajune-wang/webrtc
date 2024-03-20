@@ -10,6 +10,7 @@
 
 #include "api/units/time_delta.h"
 
+#include <cstdlib>
 #include <limits>
 
 #include "test/gtest.h"

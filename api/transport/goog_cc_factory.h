@@ -15,6 +15,7 @@
 #include "absl/base/attributes.h"
 #include "api/network_state_predictor.h"
 #include "api/transport/network_control.h"
+#include "api/units/time_delta.h"
 
 namespace webrtc {
 class RtcEventLog;

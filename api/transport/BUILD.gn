@@ -87,6 +87,8 @@ rtc_library("goog_cc") {
     "..:network_state_predictor_api",
     "../../api:field_trials_view",
     "../../modules/congestion_controller/goog_cc",
+    "../../rtc_base:checks",
+    "../units:time_delta",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
 }

@@ -16,6 +16,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <sys/socket.h>
 
 #include <functional>
 #include <memory>
@@ -25,6 +26,7 @@
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "rtc_base/byte_buffer.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/socket_address.h"
 

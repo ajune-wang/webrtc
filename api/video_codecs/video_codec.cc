@@ -10,11 +10,13 @@
 
 #include "api/video_codecs/video_codec.h"
 
-#include <string.h>
+#include <stddef.h>
 
+#include <optional>
 #include <string>
 
 #include "absl/strings/match.h"
+#include "api/array_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 

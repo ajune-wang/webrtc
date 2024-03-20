@@ -10,6 +10,7 @@
 
 #include "api/video_codecs/video_decoder_software_fallback_wrapper.h"
 
+#include <stddef.h>
 #include <stdint.h>
 
 #include <memory>
@@ -18,6 +19,8 @@
 
 #include "api/field_trials_view.h"
 #include "api/video/encoded_image.h"
+#include "api/video/video_codec_type.h"
+#include "api/video/video_frame_type.h"
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"

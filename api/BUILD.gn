@@ -637,6 +637,7 @@ rtc_source_set("frame_generator_api") {
 
   deps = [
     ":scoped_refptr",
+    "../rtc_base:checks",
     "video:video_frame",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
@@ -757,8 +758,10 @@ rtc_library("create_peer_connection_quality_test_frame_generator") {
     ":create_frame_generator",
     ":frame_generator_api",
     "../rtc_base:checks",
+    "../system_wrappers:system_wrappers",
     "../test:fileutils",
     "test/pclf:media_configuration",
+    "units:time_delta",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
@@ -877,13 +880,19 @@ rtc_source_set("network_emulation_manager_api") {
     ":time_controller",
     "../call:simulated_network",
     "../rtc_base:checks",
+    "../rtc_base:ip_address",
     "../rtc_base:network",
     "../rtc_base:network_constants",
+    "../rtc_base:socket_address",
     "../rtc_base:threading",
     "test/network_emulation",
     "units:data_rate",
     "units:data_size",
     "units:timestamp",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings:string_view",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
 
@@ -895,6 +904,7 @@ rtc_source_set("time_controller") {
   ]
 
   deps = [
+    "../rtc_base:socket_server",
     "../rtc_base:threading",
     "../rtc_base/synchronization:yield_policy",
     "../system_wrappers",
@@ -902,6 +912,7 @@ rtc_source_set("time_controller") {
     "units:time_delta",
     "units:timestamp",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings:string_view" ]
 }
 
 rtc_source_set("fec_controller_api") {
@@ -1004,10 +1015,12 @@ if (rtc_include_tests) {
       ]
 
       deps = [
+        ":scoped_refptr",
         "../modules/audio_processing",
         "../modules/audio_processing:api",
         "../modules/audio_processing:audioproc_f_impl",
       ]
+      absl_deps = [ "//third_party/abseil-cpp/absl/strings:string_view" ]
     }
 
     rtc_library("neteq_simulator_factory") {
@@ -1435,12 +1448,14 @@ if (rtc_include_tests) {
       ":time_controller",
       "../call",
       "../call:call_interfaces",
+      "../media:media_engine",
       "../pc:media_factory",
       "../rtc_base:checks",
       "../system_wrappers",
       "../test/time_controller",
       "environment",
       "environment:environment_factory",
+      "units:timestamp",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/base:nullability" ]
   }
@@ -1493,6 +1508,7 @@ if (rtc_include_tests) {
       "../rtc_base/containers:flat_set",
       "../rtc_base/task_utils:repeating_task",
       "../system_wrappers:field_trial",
+      "../system_wrappers:system_wrappers",
       "../test:field_trial",
       "../test:fileutils",
       "../test:rtc_expect_death",
@@ -1507,6 +1523,7 @@ if (rtc_include_tests) {
       "units:units_unittests",
       "video:frame_buffer_unittest",
       "video:rtp_video_frame_assembler_unittests",
+      "video:video_frame",
       "video:video_frame_metadata_unittest",
     ]
     absl_deps = [

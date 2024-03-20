@@ -15,6 +15,8 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #endif              // WEBRTC_UNIT_TEST
 
+#include <stdint.h>
+
 #include <cstdlib>
 #include <string>
 #include <type_traits>

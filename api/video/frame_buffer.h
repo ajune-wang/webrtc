@@ -11,6 +11,9 @@
 #ifndef API_VIDEO_FRAME_BUFFER_H_
 #define API_VIDEO_FRAME_BUFFER_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include <map>
 #include <memory>
 #include <utility>

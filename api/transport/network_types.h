@@ -10,6 +10,7 @@
 
 #ifndef API_TRANSPORT_NETWORK_TYPES_H_
 #define API_TRANSPORT_NETWORK_TYPES_H_
+#include <math.h>
 #include <stdint.h>
 
 #include <vector>

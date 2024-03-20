@@ -12,10 +12,10 @@
 
 #include <memory>
 
+#include "api/function_view.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/event.h"
-#include "rtc_base/logging.h"
 #include "rtc_base/task_queue_for_test.h"
-#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {

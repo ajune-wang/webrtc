@@ -10,7 +10,9 @@
 #include "api/test/metrics/metrics_set_proto_file_exporter.h"
 
 #include <fstream>
+#include <iterator>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 

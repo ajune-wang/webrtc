@@ -14,6 +14,8 @@
 #include <memory>
 #include <vector>
 
+#include "absl/strings/string_view.h"
+#include "api/scoped_refptr.h"
 #include "modules/audio_processing/include/audio_processing.h"
 
 namespace webrtc {

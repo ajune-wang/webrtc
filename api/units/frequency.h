@@ -14,12 +14,15 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #endif              // WEBRTC_UNIT_TEST
 
+#include <stdint.h>
+
 #include <cstdlib>
 #include <limits>
 #include <string>
 #include <type_traits>
 
 #include "api/units/time_delta.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/units/unit_base.h"  // IWYU pragma: export
 
 namespace webrtc {

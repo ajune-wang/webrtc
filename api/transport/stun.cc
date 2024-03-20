@@ -10,10 +10,10 @@
 
 #include "api/transport/stun.h"
 
-#include <string.h>
+#include <netinet/in.h>
 
 #include <algorithm>
-#include <cstdint>
+#include <cstring>
 #include <iterator>
 #include <memory>
 #include <utility>

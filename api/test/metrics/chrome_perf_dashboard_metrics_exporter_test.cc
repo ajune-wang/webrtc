@@ -10,7 +10,9 @@
 #include "api/test/metrics/chrome_perf_dashboard_metrics_exporter.h"
 
 #include <fstream>
+#include <iterator>
 #include <map>
+#include <optional>
 #include <vector>
 
 #include "api/test/metrics/metric.h"

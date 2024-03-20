@@ -10,10 +10,13 @@
 
 #include "api/transport/goog_cc_factory.h"
 
+#include <stdint.h>
+
 #include <memory>
 #include <utility>
 
 #include "modules/congestion_controller/goog_cc/goog_cc_network_control.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory(

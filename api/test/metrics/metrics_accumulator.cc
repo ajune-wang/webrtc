@@ -10,11 +10,13 @@
 #include "api/test/metrics/metrics_accumulator.h"
 
 #include <map>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "api/array_view.h"
 #include "api/numerics/samples_stats_counter.h"
 #include "api/test/metrics/metric.h"
 #include "api/units/timestamp.h"

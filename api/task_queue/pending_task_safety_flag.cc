@@ -10,6 +10,8 @@
 
 #include "api/task_queue/pending_task_safety_flag.h"
 
+#include "rtc_base/checks.h"
+
 namespace webrtc {
 
 // static

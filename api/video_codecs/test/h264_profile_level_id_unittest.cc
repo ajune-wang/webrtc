@@ -10,7 +10,6 @@
 
 #include "api/video_codecs/h264_profile_level_id.h"
 
-#include <map>
 #include <string>
 
 #include "absl/types/optional.h"

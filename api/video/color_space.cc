@@ -10,6 +10,11 @@
 
 #include "api/video/color_space.h"
 
+#include <stddef.h>
+
+#include <type_traits>
+
+#include "api/array_view.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {

@@ -11,6 +11,7 @@
 #include "api/video_codecs/av1_profile.h"
 
 #include <map>
+#include <string>
 #include <utility>
 
 #include "media/base/media_constants.h"

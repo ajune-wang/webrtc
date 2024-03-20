@@ -10,12 +10,12 @@
 #include "api/test/metrics/print_result_proxy_metrics_exporter.h"
 
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
 #include "api/test/metrics/metric.h"
 #include "api/units/timestamp.h"
-#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {

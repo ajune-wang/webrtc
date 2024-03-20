@@ -11,9 +11,10 @@
 
 #include "api/video/i422_buffer.h"
 
+#include <string.h>
+
 #include "api/video/i420_buffer.h"
 #include "test/frame_utils.h"
-#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {

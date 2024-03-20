@@ -10,6 +10,7 @@
 
 #include "api/metronome/test/fake_metronome.h"
 
+#include <type_traits>
 #include <utility>
 #include <vector>
 

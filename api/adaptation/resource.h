@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "api/ref_count.h"
 #include "api/scoped_refptr.h"
 #include "rtc_base/ref_count.h"
 #include "rtc_base/system/rtc_export.h"

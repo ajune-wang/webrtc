@@ -79,6 +79,12 @@ specific_include_rules = {
     "+rtc_base/socket_address.h",
   ],
 
+  "create_peerconnection_factory\.h": [
+    "+rtc_base/thread.h",
+    "+modules/audio_device/include/audio_device.h",
+    "+modules/audio_processing/include/audio_processing.h",
+  ],
+
   "data_channel_interface\.h": [
     "+rtc_base/copy_on_write_buffer.h",
   ],
@@ -108,14 +114,18 @@ specific_include_rules = {
     "+call/rtp_transport_controller_send_factory_interface.h",
     "+media/base/media_config.h",
     "+media/base/media_engine.h",
+    "+modules/audio_device/include/audio_device.h",
+    "+modules/audio_processing/include/audio_processing.h",
     "+p2p/base/port.h",
     "+p2p/base/port_allocator.h",
+    "+pc/media_factory.h",
     "+rtc_base/network.h",
     "+rtc_base/network_constants.h",
     "+rtc_base/network_monitor_factory.h",
     "+rtc_base/rtc_certificate.h",
     "+rtc_base/rtc_certificate_generator.h",
     "+rtc_base/socket_address.h",
+    "+rtc_base/socket_factory.h",
     "+rtc_base/ssl_certificate.h",
     "+rtc_base/ssl_stream_adapter.h",
     "+rtc_base/thread.h",
@@ -140,6 +150,7 @@ specific_include_rules = {
   ],
 
   "legacy_stats_types\.h": [
+    "+rtc_base/thread_annotations.h",
     "+rtc_base/thread_checker.h",
   ],
 

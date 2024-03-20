@@ -47,8 +47,10 @@ rtc_library("audio_encoder_opus") {
     "../../../api:field_trials_view",
     "../../../modules/audio_coding:webrtc_opus",
     "../../../rtc_base/system:rtc_export",
+    "//rtc_base:checks",
   ]
   absl_deps = [
+    "//rtc_base:checks",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -66,8 +68,10 @@ rtc_library("audio_decoder_opus") {
     "../../../api:field_trials_view",
     "../../../modules/audio_coding:webrtc_opus",
     "../../../rtc_base/system:rtc_export",
+    "//rtc_base:checks",
   ]
   absl_deps = [
+    "//rtc_base:checks",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]

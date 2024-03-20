@@ -10,12 +10,15 @@
 
 #include "api/audio_codecs/ilbc/audio_encoder_ilbc.h"
 
+#include <map>
 #include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/string_to_number.h"
 

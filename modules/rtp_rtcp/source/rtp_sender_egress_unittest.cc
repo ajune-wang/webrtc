@@ -403,6 +403,7 @@ TEST_F(RtpSenderEgressTest, OnSendPacketNotUpdatedForRetransmits) {
   packet->SetExtension<TransportSequenceNumber>(kTransportSequenceNumber);
   packet->set_packet_type(RtpPacketMediaType::kRetransmission);
   packet->set_retransmitted_sequence_number(packet->SequenceNumber());
+  packet->set_original_ssrc(7);
   sender->SendPacket(std::move(packet), PacedPacketInfo());
 }
 
@@ -798,6 +799,7 @@ TEST_F(RtpSenderEgressTest, SendPacketSetsPacketOptions) {
   std::unique_ptr<RtpPacketToSend> retransmission = BuildRtpPacket();
   retransmission->SetExtension<TransportSequenceNumber>(kPacketId + 1);
   retransmission->set_packet_type(RtpPacketMediaType::kRetransmission);
+  retransmission->set_original_ssrc(kSsrc);
   retransmission->set_retransmitted_sequence_number(packet_sequence_number);
   sender->SendPacket(std::move(retransmission), PacedPacketInfo());
   EXPECT_TRUE(transport_.last_packet()->options.is_retransmit);
@@ -827,6 +829,7 @@ TEST_F(RtpSenderEgressTest, SendPacketUpdatesStats) {
   std::unique_ptr<RtpPacketToSend> rtx_packet = BuildRtpPacket();
   rtx_packet->SetSsrc(kRtxSsrc);
   rtx_packet->set_packet_type(RtpPacketMediaType::kRetransmission);
+  rtx_packet->set_original_ssrc(kSsrc);
   rtx_packet->set_retransmitted_sequence_number(video_packet->SequenceNumber());
   rtx_packet->SetPayloadSize(kPayloadSize);
   rtx_packet->SetExtension<TransportSequenceNumber>(2);
@@ -871,6 +874,7 @@ TEST_F(RtpSenderEgressTest, TransportFeedbackObserverWithRetransmission) {
       kTransportSequenceNumber);
   uint16_t retransmitted_seq = retransmission->SequenceNumber() - 2;
   retransmission->set_retransmitted_sequence_number(retransmitted_seq);
+  retransmission->set_original_ssrc(kSsrc);
 
   std::unique_ptr<RtpSenderEgress> sender = CreateRtpSenderEgress();
   EXPECT_CALL(
@@ -895,6 +899,7 @@ TEST_F(RtpSenderEgressTest, TransportFeedbackObserverWithRtxRetransmission) {
   rtx_retransmission->set_packet_type(RtpPacketMediaType::kRetransmission);
   uint16_t rtx_retransmitted_seq = rtx_retransmission->SequenceNumber() - 2;
   rtx_retransmission->set_retransmitted_sequence_number(rtx_retransmitted_seq);
+  rtx_retransmission->set_original_ssrc(kSsrc);
 
   std::unique_ptr<RtpSenderEgress> sender = CreateRtpSenderEgress();
   EXPECT_CALL(

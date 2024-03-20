@@ -12,12 +12,14 @@
 #define API_NETEQ_NETEQ_H_
 
 #include <stddef.h>  // Provide access to size_t.
+#include <stdint.h>
 
 #include <map>
 #include <string>
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"

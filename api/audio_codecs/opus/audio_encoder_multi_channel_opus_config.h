@@ -12,7 +12,6 @@
 #define API_AUDIO_CODECS_OPUS_AUDIO_ENCODER_MULTI_CHANNEL_OPUS_CONFIG_H_
 
 #include <stddef.h>
-
 #include <vector>
 
 #include "absl/types/optional.h"

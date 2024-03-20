@@ -12,6 +12,7 @@
 
 #include <string.h>
 
+#include "absl/types/optional.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/time_utils.h"
 

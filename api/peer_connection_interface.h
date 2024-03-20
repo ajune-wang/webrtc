@@ -69,7 +69,6 @@
 
 #include <stdint.h>
 #include <stdio.h>
-
 #include <functional>
 #include <memory>
 #include <string>
@@ -128,13 +127,17 @@
 // inject a PacketSocketFactory and/or NetworkManager, and not expose
 // PortAllocator in the PeerConnection api.
 #include "api/ref_count.h"
+#include "api/units/time_delta.h"
+#include "p2p/base/port.h"
 #include "p2p/base/port_allocator.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/network.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/network_monitor_factory.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/socket_address.h"
+#include "rtc_base/socket_factory.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/system/rtc_export.h"
@@ -148,6 +151,8 @@ namespace webrtc {
 
 // MediaFactory class definition is not part of the api.
 class MediaFactory;
+class AudioDeviceModule;
+class AudioProcessing;
 
 // MediaStream container interface.
 class StreamCollectionInterface : public webrtc::RefCountInterface {

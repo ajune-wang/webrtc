@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37743403_4c7af600",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-03-20T08:04:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "468e5e14_f7c60499",
+      "revId": "22bc4224e24dbda39f8170e8787ed4f30bce98ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cef715e_827288c1",
@@ -65,6 +83,24 @@
       "writtenOn": "2024-03-20T06:21:34Z",
       "side": 1,
       "message": "we should make sure we understand why the new DEPS things are necessary.",
+      "revId": "22bc4224e24dbda39f8170e8787ed4f30bce98ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69bbcf18_c7c634da",
+        "filename": "api/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-03-20T08:04:09Z",
+      "side": 1,
+      "message": "You\u0027re right. I went all the way with automation, barely validating anything by hand.\nIn this case seems like IWYU added the includes even though the relevant classes are forward-declared in this file (and some others as I can see).\nLemme see if this is something about tuning the invocation of IWYU, but I\u0027ll also make sure to properly go over all modified files and not straight up submit for review.",
+      "parentUuid": "8cef715e_827288c1",
       "revId": "22bc4224e24dbda39f8170e8787ed4f30bce98ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -117,6 +153,24 @@
       "writtenOn": "2024-03-20T06:21:34Z",
       "side": 1,
       "message": "Only links to //third_party/abseil-cpp should be in absl_deps.",
+      "revId": "22bc4224e24dbda39f8170e8787ed4f30bce98ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee7ccc83_9d6deb50",
+        "filename": "api/audio_codecs/g722/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-03-20T08:04:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2b537da4_b14bb2db",
       "revId": "22bc4224e24dbda39f8170e8787ed4f30bce98ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

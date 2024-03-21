@@ -11,6 +11,7 @@
 #ifndef CALL_RTP_TRANSPORT_CONFIG_H_
 #define CALL_RTP_TRANSPORT_CONFIG_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "absl/types/optional.h"
@@ -38,6 +39,8 @@ struct RtpTransportConfig {
 
   // The burst interval of the pacer, see TaskQueuePacedSender constructor.
   absl::optional<TimeDelta> pacer_burst_interval;
+
+  uint16_t start_transport_sequence_number = 1;
 };
 }  // namespace webrtc
 

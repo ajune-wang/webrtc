@@ -404,33 +404,8 @@ void RtpSenderEgress::AddPacketToTransportFeedback(
     const RtpPacketToSend& packet,
     const PacedPacketInfo& pacing_info) {
   if (transport_feedback_observer_) {
-    RtpPacketSendInfo packet_info;
-    packet_info.transport_sequence_number = packet_id;
-    packet_info.rtp_timestamp = packet.Timestamp();
-    packet_info.length = packet.size();
-    packet_info.pacing_info = pacing_info;
-    packet_info.packet_type = packet.packet_type();
-
-    switch (*packet_info.packet_type) {
-      case RtpPacketMediaType::kAudio:
-      case RtpPacketMediaType::kVideo:
-        packet_info.media_ssrc = ssrc_;
-        packet_info.rtp_sequence_number = packet.SequenceNumber();
-        break;
-      case RtpPacketMediaType::kRetransmission:
-        // For retransmissions, we're want to remove the original media packet
-        // if the retransmit arrives - so populate that in the packet info.
-        packet_info.media_ssrc = ssrc_;
-        packet_info.rtp_sequence_number =
-            *packet.retransmitted_sequence_number();
-        break;
-      case RtpPacketMediaType::kPadding:
-      case RtpPacketMediaType::kForwardErrorCorrection:
-        // We're not interested in feedback about these packets being received
-        // or lost.
-        break;
-    }
-
+    RtpPacketSendInfo packet_info =
+        RtpPacketSendInfo::From(packet_id, packet, pacing_info);
     transport_feedback_observer_->OnAddPacket(packet_info);
   }
 }

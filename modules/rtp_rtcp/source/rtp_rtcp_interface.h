@@ -29,6 +29,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
 #include "modules/rtp_rtcp/source/video_fec_generator.h"
+#include "rtc_base/checks.h"
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
@@ -306,6 +307,20 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
                                  int64_t capture_time_ms,
                                  int payload_type,
                                  bool force_sender_report) = 0;
+
+  virtual bool CandSendPacket(const RtpPacketToSend& packet) const {
+    RTC_DCHECK_NOTREACHED() << "Not implemented";
+    return false;
+  }
+
+  virtual void AssignSequenceNumber(RtpPacketToSend& packet) {
+    RTC_DCHECK_NOTREACHED() << "Not implemented";
+  }
+
+  virtual void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
+                          const PacedPacketInfo& pacing_info) {
+    RTC_DCHECK_NOTREACHED() << "Not implemented";
+  }
 
   // Try to send the provided packet. Returns true iff packet matches any of
   // the SSRCs for this module (media/rtx/fec etc) and was forwarded to the

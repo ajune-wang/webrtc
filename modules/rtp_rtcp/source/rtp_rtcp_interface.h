@@ -29,6 +29,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
 #include "modules/rtp_rtcp/source/video_fec_generator.h"
+#include "rtc_base/checks.h"
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
@@ -313,8 +314,23 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   virtual bool TrySendPacket(std::unique_ptr<RtpPacketToSend> packet,
                              const PacedPacketInfo& pacing_info) = 0;
 
-  // Notifies that a batch of packet sends is completed. The implementation can
-  // use this to optimize packet sending.
+  //  Returns true if the module can send media packets and the module is ready
+  //  so send `packet` A RTP Sequence numbers may or may not have been assigned
+  //  to the packet.
+  virtual bool CanSendPacket(const RtpPacketToSend& packet) const = 0;
+
+  //  Assigns continuous RTP sequence number to packet.
+  virtual void AssignSequenceNumber(RtpPacketToSend& packet) = 0;
+
+  // Send the packet to transport. Before using this method, a caller must
+  // ensure the packet can be sent by first checking if the packet can be sent
+  // using CanSendPacket and the packet must be assigned a sequence number using
+  // AssignSequenceNumber.
+  virtual void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
+                          const PacedPacketInfo& pacing_info) = 0;
+
+  // Notifies that a batch of packet sends is completed. The implementation
+  // can use this to optimize packet sending.
   virtual void OnBatchComplete() = 0;
 
   // Update the FEC protection parameters to use for delta- and key-frames.

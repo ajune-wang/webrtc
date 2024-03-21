@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "802f65b0_b7b33a52",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-21T15:40:18Z",
+      "side": 0,
+      "message": "or just rewrite this condition:\nPointee(Property(\u0026RtpPacketToSend::transport_sequence_number, 1))",
+      "range": {
+        "startLine": 400,
+        "startChar": 20,
+        "endLine": 402,
+        "endChar": 51
+      },
+      "revId": "d7e0981281fc8a94043c8a0cd72fffd28cd2df0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

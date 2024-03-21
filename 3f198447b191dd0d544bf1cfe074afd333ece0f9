@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7ee44f_250b52e8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-21T15:40:18Z",
+      "side": 1,
+      "message": "not needed because there is stdint.h already.",
+      "revId": "3f198447b191dd0d544bf1cfe074afd333ece0f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ceace7_c94ad4a2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-21T15:40:18Z",
+      "side": 1,
+      "message": "why wrap sender into unique_ptr?\ni.e., may be\nRtpSenderEgress sender(DefaultConfig(), \u0026packet_history_);",
+      "range": {
+        "startLine": 374,
+        "startChar": 2,
+        "endLine": 375,
+        "endChar": 39
+      },
+      "revId": "3f198447b191dd0d544bf1cfe074afd333ece0f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

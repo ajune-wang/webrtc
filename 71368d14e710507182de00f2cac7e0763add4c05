@@ -22,6 +22,30 @@
       },
       "revId": "71368d14e710507182de00f2cac7e0763add4c05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9344bc14_8d97a53e",
+        "filename": "video/config/simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-03-21T13:00:44Z",
+      "side": 1,
+      "message": "For the VGA layer, the min_bitrate for vp9 is larger than that for vp8 (193 vs 150).",
+      "parentUuid": "826ed59d_ee402226",
+      "range": {
+        "startLine": 548,
+        "startChar": 2,
+        "endLine": 548,
+        "endChar": 11
+      },
+      "revId": "71368d14e710507182de00f2cac7e0763add4c05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

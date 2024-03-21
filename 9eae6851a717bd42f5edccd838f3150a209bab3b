@@ -16,6 +16,24 @@
       "message": "General question, @hta@webrtc.org\nWhat\u0027s the convention for \"original\" c headers vs their cpp version in our repo?\ne.g do we prefer \u003cstdint.h\u003e or \u003ccstdint\u003e\nIn any case, I\u0027ll proceed with what iwyu gives and can codemod this later.",
       "revId": "9eae6851a717bd42f5edccd838f3150a209bab3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6969c7d_92d04001",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-03-21T12:17:56Z",
+      "side": 1,
+      "message": "There is no convention, so it is OK to use whatever iwyu proposes.",
+      "parentUuid": "467fff50_002cfdb6",
+      "revId": "9eae6851a717bd42f5edccd838f3150a209bab3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

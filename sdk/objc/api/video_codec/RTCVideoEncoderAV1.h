@@ -11,10 +11,12 @@
 #import <Foundation/Foundation.h>
 
 #import "RTCMacros.h"
-#import "RTCVideoEncoder.h"
+#import "RTCNativeVideoEncoder.h"
+#import "RTCNativeVideoEncoderBuilder+Native.h"
 
 RTC_OBJC_EXPORT
-@interface RTC_OBJC_TYPE (RTCVideoEncoderAV1) : NSObject
+@interface RTC_OBJC_TYPE (RTCVideoEncoderAV1)
+    : RTC_OBJC_TYPE(RTCNativeVideoEncoder) <RTC_OBJC_TYPE (RTCNativeVideoEncoderBuilder)>
 
 /* This returns a AV1 encoder that can be returned from a RTCVideoEncoderFactory injected into
  * RTCPeerConnectionFactory. Even though it implements the RTCVideoEncoder protocol, it can not be

@@ -16,6 +16,24 @@
       "message": "nit: no need to dcheck pointers that we then directly dereferenced (we generally don\u0027t)",
       "revId": "64433011573226746697312f59d0516b15c8affb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "329f44c3_ba877236",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-03-21T18:40:19Z",
+      "side": 1,
+      "message": "I was just trying to be consistent in this file, but I agree so let\u0027s make this right.",
+      "parentUuid": "a93bba65_2489358f",
+      "revId": "64433011573226746697312f59d0516b15c8affb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc809a1_781acdf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-21T10:54:19Z",
+      "side": 1,
+      "message": "from RTP point of view such definition of the frame type looks more reasonable.\nI\u0027m a bit worried through there is some code or tests that rely on old definition.\n\nCan you hint in the description why this is helpful (rather than why it is not harmful)",
+      "revId": "1d66f89b6a7dadebecb021425fac1dcdb67ae011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

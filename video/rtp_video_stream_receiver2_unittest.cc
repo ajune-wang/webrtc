@@ -523,12 +523,19 @@ INSTANTIATE_TEST_SUITE_P(SpsPpsIdrIsKeyframe,
                          Values("", "WebRTC-SpsPpsIdrIsH264Keyframe/Enabled/"));
 
 TEST_P(RtpVideoStreamReceiver2TestH264, InBandSpsPps) {
+  constexpr int kH264PayloadType = 98;
+  webrtc::CodecParameterMap codec_params;
+  rtp_video_stream_receiver_->AddReceiveCodec(kH264PayloadType, kVideoCodecH264,
+                                              codec_params,
+                                              /*raw_payload=*/false);
+  rtp_video_stream_receiver_->StartReceive();
+
   rtc::CopyOnWriteBuffer sps_data;
   RtpPacketReceived rtp_packet;
   RTPVideoHeader sps_video_header = GetDefaultH264VideoHeader();
   AddSps(&sps_video_header, 0, &sps_data);
   rtp_packet.SetSequenceNumber(0);
-  rtp_packet.SetPayloadType(kPayloadType);
+  rtp_packet.SetPayloadType(kH264PayloadType);
   sps_video_header.is_first_packet_in_frame = true;
   sps_video_header.frame_type = VideoFrameType::kEmptyFrame;
   mock_on_complete_frame_callback_.AppendExpectedBitstream(
@@ -542,6 +549,7 @@ TEST_P(RtpVideoStreamReceiver2TestH264, InBandSpsPps) {
   RTPVideoHeader pps_video_header = GetDefaultH264VideoHeader();
   AddPps(&pps_video_header, 0, 1, &pps_data);
   rtp_packet.SetSequenceNumber(1);
+  rtp_packet.SetPayloadType(kH264PayloadType);
   pps_video_header.is_first_packet_in_frame = true;
   pps_video_header.frame_type = VideoFrameType::kEmptyFrame;
   mock_on_complete_frame_callback_.AppendExpectedBitstream(
@@ -555,6 +563,8 @@ TEST_P(RtpVideoStreamReceiver2TestH264, InBandSpsPps) {
   RTPVideoHeader idr_video_header = GetDefaultH264VideoHeader();
   AddIdr(&idr_video_header, 1);
   rtp_packet.SetSequenceNumber(2);
+  rtp_packet.SetPayloadType(kH264PayloadType);
+  rtp_packet.SetMarker(true);
   idr_video_header.is_first_packet_in_frame = true;
   idr_video_header.is_last_packet_in_frame = true;
   idr_video_header.frame_type = VideoFrameType::kVideoFrameKey;
@@ -579,6 +589,7 @@ TEST_P(RtpVideoStreamReceiver2TestH264, OutOfBandFmtpSpsPps) {
   rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType, kVideoCodecH264,
                                               codec_params,
                                               /*raw_payload=*/false);
+  rtp_video_stream_receiver_->StartReceive();
   const uint8_t binary_sps[] = {0x67, 0x42, 0x00, 0x0a, 0x96,
                                 0x53, 0x05, 0x89, 0x88};
   mock_on_complete_frame_callback_.AppendExpectedBitstream(
@@ -596,6 +607,7 @@ TEST_P(RtpVideoStreamReceiver2TestH264, OutOfBandFmtpSpsPps) {
   AddIdr(&video_header, 0);
   rtp_packet.SetPayloadType(kPayloadType);
   rtp_packet.SetSequenceNumber(2);
+  rtp_packet.SetMarker(true);
   video_header.is_first_packet_in_frame = true;
   video_header.is_last_packet_in_frame = true;
   video_header.codec = kVideoCodecH264;
@@ -605,7 +617,9 @@ TEST_P(RtpVideoStreamReceiver2TestH264, OutOfBandFmtpSpsPps) {
       kH264StartCode, sizeof(kH264StartCode));
   mock_on_complete_frame_callback_.AppendExpectedBitstream(data.data(),
                                                            data.size());
-  EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame(_));
+  if (!field_trials_.IsEnabled("WebRTC-SpsPpsIdrIsH264Keyframe")) {
+    EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame(_));
+  }
   rtp_video_stream_receiver_->OnReceivedPayloadData(data, rtp_packet,
                                                     video_header, 0);
 }
@@ -620,6 +634,7 @@ TEST_P(RtpVideoStreamReceiver2TestH264, ForceSpsPpsIdrIsKeyframe) {
   rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType, kVideoCodecH264,
                                               codec_params,
                                               /*raw_payload=*/false);
+  rtp_video_stream_receiver_->StartReceive();
   rtc::CopyOnWriteBuffer sps_data;
   RtpPacketReceived rtp_packet;
   RTPVideoHeader sps_video_header = GetDefaultH264VideoHeader();
@@ -652,6 +667,7 @@ TEST_P(RtpVideoStreamReceiver2TestH264, ForceSpsPpsIdrIsKeyframe) {
   RTPVideoHeader idr_video_header = GetDefaultH264VideoHeader();
   AddIdr(&idr_video_header, 1);
   rtp_packet.SetSequenceNumber(2);
+  rtp_packet.SetMarker(true);
   idr_video_header.is_first_packet_in_frame = true;
   idr_video_header.is_last_packet_in_frame = true;
   idr_video_header.frame_type = VideoFrameType::kVideoFrameKey;
@@ -672,9 +688,7 @@ TEST_P(RtpVideoStreamReceiver2TestH264, ForceSpsPpsIdrIsKeyframe) {
   mock_on_complete_frame_callback_.AppendExpectedBitstream(idr_data.data(),
                                                            idr_data.size());
   rtp_packet.SetSequenceNumber(3);
-  EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame)
-      .WillOnce(
-          [&](EncodedFrame* frame) { EXPECT_FALSE(frame->is_keyframe()); });
+  EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame).Times(0);
   rtp_video_stream_receiver_->OnReceivedPayloadData(idr_data, rtp_packet,
                                                     idr_video_header, 0);
 }

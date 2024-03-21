@@ -91,6 +91,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "10383771_eff41e4d",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-03-21T14:13:05Z",
+      "side": 1,
+      "message": "Since the blink layer assumes that we have a 16MB limit per channel and never verifies the result of the send() calls, if any application is trying to open more channels on a single peer connection for any reason, it could silently drop messages and that\u0027s not ok.\nWhile I\u0027m not aware of applications doing this, I could imagine one trying to send multiple files in parallel over DataChannels, or some stress tests doing this even.\nWe do not want a global limit for the web at all, thanks for making this change!",
+      "parentUuid": "0e3b8f3b_15460458",
+      "revId": "94c10e1931b6083d1d7c04133ce8f3ff9e1c929c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9bab5cdf_1e92187a",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 5

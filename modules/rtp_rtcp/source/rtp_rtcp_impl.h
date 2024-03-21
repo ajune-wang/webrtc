@@ -135,6 +135,20 @@ class ABSL_DEPRECATED("") ModuleRtpRtcpImpl
   bool TrySendPacket(std::unique_ptr<RtpPacketToSend> packet,
                      const PacedPacketInfo& pacing_info) override;
 
+  bool CanSendPacket(const RtpPacketToSend& packet) const override {
+    RTC_DCHECK_NOTREACHED() << "Not implemented";
+    return false;
+  }
+
+  void AssignSequenceNumber(RtpPacketToSend& packet) override {
+    RTC_DCHECK_NOTREACHED() << "Not implemented";
+  }
+
+  void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
+                  const PacedPacketInfo& pacing_info) override {
+    RTC_DCHECK_NOTREACHED() << "Not implemented";
+  }
+
   void OnBatchComplete() override {}
 
   void SetFecProtectionParams(const FecProtectionParams& delta_params,

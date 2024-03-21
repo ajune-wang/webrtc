@@ -10,22 +10,19 @@
 #include "modules/video_coding/h26x_packet_buffer.h"
 
 #include <cstring>
-#include <limits>
-#include <ostream>
-#include <string>
 #include <utility>
+#include <vector>
 
 #include "api/array_view.h"
 #include "api/video/render_resolution.h"
 #include "common_video/h264/h264_common.h"
 #include "rtc_base/system/unused.h"
-#include "test/gmock.h"
-#include "test/gtest.h"
 #ifdef RTC_ENABLE_H265
 #include "common_video/h265/h265_common.h"
 #endif
 
 namespace webrtc {
+namespace video_coding {
 namespace {
 
 using ::testing::ElementsAreArray;
@@ -1055,4 +1052,5 @@ TEST(H26xPacketBufferTest, H265InsertingVpsSpsPpsLastCompletesKeyframe) {
 #endif  // RTC_ENABLE_H265
 
 }  // namespace
+}  // namespace video_coding
 }  // namespace webrtc

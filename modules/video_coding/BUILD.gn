@@ -124,6 +124,26 @@ rtc_library("packet_buffer") {
   ]
 }
 
+rtc_library("h264_sps_pps_tracker") {
+  sources = [
+    "h264_sprop_parameter_sets.cc",
+    "h264_sprop_parameter_sets.h",
+    "h264_sps_pps_tracker.cc",
+    "h264_sps_pps_tracker.h",
+  ]
+  deps = [
+    ":codec_globals_headers",
+    "../../api:array_view",
+    "../../common_video",
+    "../../rtc_base:checks",
+    "../../rtc_base:copy_on_write_buffer",
+    "../../rtc_base:logging",
+    "../../rtc_base/third_party/base64",
+    "../rtp_rtcp:rtp_video_header",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:variant" ]
+}
+
 rtc_library("h26x_packet_buffer") {
   sources = [
     "h26x_packet_buffer.cc",
@@ -131,6 +151,7 @@ rtc_library("h26x_packet_buffer") {
   ]
   deps = [
     ":codec_globals_headers",
+    ":h264_sps_pps_tracker",
     ":packet_buffer",
     "../../api:array_view",
     "../../api:rtp_packet_info",
@@ -173,10 +194,6 @@ rtc_library("video_coding") {
     "fec_rate_table.h",
     "generic_decoder.cc",
     "generic_decoder.h",
-    "h264_sprop_parameter_sets.cc",
-    "h264_sprop_parameter_sets.h",
-    "h264_sps_pps_tracker.cc",
-    "h264_sps_pps_tracker.h",
     "include/video_codec_initializer.h",
     "internal_defines.h",
     "loss_notification_controller.cc",
@@ -1175,6 +1192,7 @@ if (rtc_include_tests) {
       ":encoded_frame",
       ":frame_dependencies_calculator",
       ":frame_helpers",
+      ":h264_sps_pps_tracker",
       ":h26x_packet_buffer",
       ":nack_requester",
       ":packet_buffer",

@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <cstdint>
 #include <utility>
 
 #include "absl/types/optional.h"
@@ -136,11 +137,20 @@ class RtpPacketToSend : public RtpPacket {
   absl::optional<TimeDelta> time_in_send_queue() const {
     return time_in_send_queue_;
   }
+  // A sequence number guaranteed to be monotically increasing by one for all
+  // packets where transport feedback is expected.
+  absl::optional<int64_t> transport_sequence_number() const {
+    return transport_sequence_number_;
+  }
+  void set_transport_sequence_number(int64_t transport_sequence_number) {
+    transport_sequence_number_ = transport_sequence_number;
+  }
 
  private:
   webrtc::Timestamp capture_time_ = webrtc::Timestamp::Zero();
   absl::optional<RtpPacketMediaType> packet_type_;
   absl::optional<OriginalType> original_packet_type_;
+  absl::optional<int64_t> transport_sequence_number_;
   bool allow_retransmission_ = false;
   absl::optional<uint16_t> retransmitted_sequence_number_;
   rtc::scoped_refptr<rtc::RefCountedBase> additional_data_;

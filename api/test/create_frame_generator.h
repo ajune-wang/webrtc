@@ -15,7 +15,9 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/environment/environment.h"
 #include "api/test/frame_generator_interface.h"
 #include "system_wrappers/include/clock.h"
 
@@ -51,8 +53,12 @@ std::unique_ptr<FrameGeneratorInterface> CreateFromNV12FileFrameGenerator(
     int frame_repeat_count = 1);
 
 // Creates a frame generator that repeatedly plays an ivf file.
+[[deprecated]] std::unique_ptr<FrameGeneratorInterface>
+CreateFromIvfFileFrameGenerator(std::string filename);
+
 std::unique_ptr<FrameGeneratorInterface> CreateFromIvfFileFrameGenerator(
-    std::string filename);
+    const Environment& env,
+    absl::string_view filename);
 
 // Creates a frame generator which takes a set of yuv files (wrapping a
 // frame generator created by CreateFromYuvFile() above), but outputs frames

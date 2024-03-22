@@ -16,6 +16,23 @@
       "message": "Michael, do we need to keep it around?",
       "revId": "7c3db21f8ca1828f7adb89f264613f1e95bcfb7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b284bd55_7add2e00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2024-03-22T16:46:59Z",
+      "side": 1,
+      "message": "I had hoped to find time to continue experimentation; however, the current values appear to work well enough to lower the priority of such future investigation.  Thank you Danil for preparing this CL -- much appreciated.",
+      "revId": "7c3db21f8ca1828f7adb89f264613f1e95bcfb7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

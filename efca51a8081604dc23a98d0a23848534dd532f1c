@@ -33,6 +33,63 @@
       "message": "Erik, would you mind?",
       "revId": "efca51a8081604dc23a98d0a23848534dd532f1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd8f0f95_3089bc72",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_send_info_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-22T15:25:56Z",
+      "side": 1,
+      "message": "SetPayloadSize might be clearer in this context.\n(the difference in functionality doesn\u0027t matter in these test, but name clearer indicates intent here)",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "efca51a8081604dc23a98d0a23848534dd532f1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b516e98d_505a0d3c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-22T15:25:56Z",
+      "side": 1,
+      "message": "why this empty lines?\nother setters/getters for the same field are not separated by an empty line (including newly added original_ssrc)",
+      "revId": "efca51a8081604dc23a98d0a23848534dd532f1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa541366_9ead9333",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-03-22T15:25:56Z",
+      "side": 1,
+      "message": "so here you ignore Extension\u003cTransportSequenceNumber\u003e\nand always pass transport_sequence_number()\n\nIntended?",
+      "revId": "efca51a8081604dc23a98d0a23848534dd532f1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

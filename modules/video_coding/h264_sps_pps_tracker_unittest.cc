@@ -18,6 +18,7 @@
 #include "common_video/h264/h264_common.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
+#include "modules/video_coding/h264_sprop_parameter_sets.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -117,123 +118,13 @@ class TestH264SpsPpsTracker : public ::testing::Test {
   H264SpsPpsTracker tracker_;
 };
 
-TEST_F(TestH264SpsPpsTracker, NoNalus) {
-  uint8_t data[] = {1, 2, 3};
-  H264VideoHeader header;
-  header.h264().packetization_type = kH264FuA;
-
-  H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &header);
-
-  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kInsert);
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(data));
-}
-
-TEST_F(TestH264SpsPpsTracker, FuAFirstPacket) {
-  uint8_t data[] = {1, 2, 3};
-  H264VideoHeader header;
-  header.h264().packetization_type = kH264FuA;
-  header.h264().nalus_length = 1;
-  header.is_first_packet_in_frame = true;
-
-  H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &header);
-
-  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kInsert);
-  std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {1, 2, 3});
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(expected));
-}
-
-TEST_F(TestH264SpsPpsTracker, StapAIncorrectSegmentLength) {
-  uint8_t data[] = {0, 0, 2, 0};
-  H264VideoHeader header;
-  header.h264().packetization_type = kH264StapA;
-  header.is_first_packet_in_frame = true;
-
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &header).action,
-            H264SpsPpsTracker::kDrop);
-}
-
-TEST_F(TestH264SpsPpsTracker, ConsecutiveStapA) {
-  // When the GenericFrameDescriptor or DependencyDescriptor RTP header
-  // extensions are used, we may receive a series of StapA packets where only
-  // the first packet has is_first_packet_in_frame = true set.
-  std::vector<uint8_t> data;
-  H264VideoHeader first_header;
-  first_header.h264().packetization_type = kH264StapA;
-  first_header.is_first_packet_in_frame = true;
-
-  // SPS in first packet.
-  data.insert(data.end(), {0});     // First byte is ignored
-  data.insert(data.end(), {0, 2});  // Length of segment
-  AddSps(&first_header, 13, &data);
-  H264SpsPpsTracker::FixedBitstream first_fixed =
-      tracker_.CopyAndFixBitstream(data, &first_header);
-  EXPECT_THAT(first_fixed.action, H264SpsPpsTracker::kInsert);
-
-  H264VideoHeader second_header;
-  second_header.h264().packetization_type = kH264StapA;
-  second_header.is_first_packet_in_frame = false;
-
-  // PPS and IDR in second packet.
-  data.insert(data.end(), {0, 2});  // Length of segment
-  AddPps(&second_header, 13, 27, &data);
-  data.insert(data.end(), {0, 5});  // Length of segment
-  AddIdr(&second_header, 27);
-  data.insert(data.end(), {1, 2, 3, 2, 1});
-
-  H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &second_header);
-
-  EXPECT_THAT(fixed.action, H264SpsPpsTracker::kInsert);
-  std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {H264::NaluType::kSps, 13});
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {H264::NaluType::kPps, 27});
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {1, 2, 3, 2, 1});
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(expected));
-}
-
-TEST_F(TestH264SpsPpsTracker, SingleNaluInsertStartCode) {
-  uint8_t data[] = {1, 2, 3};
-  H264VideoHeader header;
-  header.h264().nalus_length = 1;
-
-  H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &header);
-
-  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kInsert);
-  std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {1, 2, 3});
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(expected));
-}
-
-TEST_F(TestH264SpsPpsTracker, NoStartCodeInsertedForSubsequentFuAPacket) {
-  std::vector<uint8_t> data = {1, 2, 3};
-  H264VideoHeader header;
-  header.h264().packetization_type = kH264FuA;
-  // Since no NALU begin in this packet the nalus_length is zero.
-  header.h264().nalus_length = 0;
-
-  H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &header);
-
-  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kInsert);
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(data));
-}
-
 TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoSpsPpsInserted) {
   std::vector<uint8_t> data = {1, 2, 3};
   H264VideoHeader header;
   header.is_first_packet_in_frame = true;
   AddIdr(&header, 0);
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &header).action,
+  EXPECT_EQ(tracker_.FixBitstream(data, header).action,
             H264SpsPpsTracker::kRequestKeyframe);
 }
 
@@ -244,7 +135,7 @@ TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoPpsInserted) {
   AddSps(&header, 0, &data);
   AddIdr(&header, 0);
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &header).action,
+  EXPECT_EQ(tracker_.FixBitstream(data, header).action,
             H264SpsPpsTracker::kRequestKeyframe);
 }
 
@@ -255,7 +146,7 @@ TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoSpsInserted) {
   AddPps(&header, 0, 0, &data);
   AddIdr(&header, 0);
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &header).action,
+  EXPECT_EQ(tracker_.FixBitstream(data, header).action,
             H264SpsPpsTracker::kRequestKeyframe);
 }
 
@@ -266,8 +157,8 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsPacketThenIdrFirstPacket) {
   AddSps(&sps_pps_header, 0, &data);
   AddPps(&sps_pps_header, 0, 1, &data);
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &sps_pps_header).action,
-            H264SpsPpsTracker::kInsert);
+  EXPECT_EQ(tracker_.FixBitstream(data, sps_pps_header).action,
+            H264SpsPpsTracker::kPassthrough);
 
   // Insert first packet of the IDR
   H264VideoHeader idr_header;
@@ -276,13 +167,11 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsPacketThenIdrFirstPacket) {
   data = {1, 2, 3};
 
   H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &idr_header);
-  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kInsert);
+      tracker_.FixBitstream(data, idr_header);
+  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kPassthrough);
 
   std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {1, 2, 3});
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(expected));
+  EXPECT_EQ(fixed.bitstream.size(), 0u);
 }
 
 TEST_F(TestH264SpsPpsTracker, SpsPpsIdrInStapA) {
@@ -300,19 +189,9 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsIdrInStapA) {
   AddIdr(&header, 27);
   data.insert(data.end(), {1, 2, 3, 2, 1});
 
-  H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(data, &header);
+  H264SpsPpsTracker::FixedBitstream fixed = tracker_.FixBitstream(data, header);
 
-  EXPECT_THAT(fixed.action, H264SpsPpsTracker::kInsert);
-
-  std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {H264::NaluType::kSps, 13});
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {H264::NaluType::kPps, 27});
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {1, 2, 3, 2, 1});
-  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(expected));
+  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kPassthrough);
 }
 
 TEST_F(TestH264SpsPpsTracker, SpsPpsOutOfBand) {
@@ -333,7 +212,15 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsOutOfBand) {
   EXPECT_EQ(idr_header.h264().nalus_length, 1u);
 
   H264SpsPpsTracker::FixedBitstream fixed =
-      tracker_.CopyAndFixBitstream(kData, &idr_header);
+      tracker_.FixBitstream(kData, idr_header);
+
+  EXPECT_EQ(fixed.action, H264SpsPpsTracker::kInsert);
+  std::vector<uint8_t> expected;
+  expected.insert(expected.end(), start_code, start_code + 4);
+  expected.insert(expected.end(), sps.begin(), sps.end());
+  expected.insert(expected.end(), start_code, start_code + 4);
+  expected.insert(expected.end(), pps.begin(), pps.end());
+  EXPECT_THAT(Bitstream(fixed), ElementsAreArray(expected));
 
   EXPECT_EQ(idr_header.h264().nalus_length, 3u);
   EXPECT_EQ(idr_header.width, 320u);
@@ -357,7 +244,7 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsOutOfBandWrongNaluHeader) {
   idr_header.is_first_packet_in_frame = true;
   AddIdr(&idr_header, 0);
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(kData, &idr_header).action,
+  EXPECT_EQ(tracker_.FixBitstream(kData, idr_header).action,
             H264SpsPpsTracker::kRequestKeyframe);
 }
 
@@ -375,7 +262,7 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsOutOfBandIncompleteNalu) {
   idr_header.is_first_packet_in_frame = true;
   AddIdr(&idr_header, 0);
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(kData, &idr_header).action,
+  EXPECT_EQ(tracker_.FixBitstream(kData, idr_header).action,
             H264SpsPpsTracker::kRequestKeyframe);
 }
 
@@ -390,16 +277,16 @@ TEST_F(TestH264SpsPpsTracker, SaveRestoreWidthHeight) {
   sps_pps_header.width = 320;
   sps_pps_header.height = 240;
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &sps_pps_header).action,
-            H264SpsPpsTracker::kInsert);
+  EXPECT_EQ(tracker_.FixBitstream(data, sps_pps_header).action,
+            H264SpsPpsTracker::kPassthrough);
 
   H264VideoHeader idr_header;
   idr_header.is_first_packet_in_frame = true;
   AddIdr(&idr_header, 1);
   data.insert(data.end(), {1, 2, 3});
 
-  EXPECT_EQ(tracker_.CopyAndFixBitstream(data, &idr_header).action,
-            H264SpsPpsTracker::kInsert);
+  EXPECT_EQ(tracker_.FixBitstream(data, idr_header).action,
+            H264SpsPpsTracker::kPassthrough);
 
   EXPECT_EQ(idr_header.width, 320);
   EXPECT_EQ(idr_header.height, 240);

@@ -13,14 +13,16 @@
 
 #include <array>
 #include <memory>
-#include <vector>
+#include <string>
 
 #include "absl/base/attributes.h"
 #include "absl/types/optional.h"
+#include "modules/video_coding/h264_sps_pps_tracker.h"
 #include "modules/video_coding/packet_buffer.h"
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
 
 namespace webrtc {
+namespace video_coding {
 
 class H26xPacketBuffer {
  public:
@@ -36,22 +38,28 @@ class H26xPacketBuffer {
   ABSL_MUST_USE_RESULT InsertResult
   InsertPacket(std::unique_ptr<Packet> packet);
 
+  // Out of band supplied codec parameters for H.264.
+  void SetSpropParameterSets(const std::string& sprop_parameter_sets);
+
  private:
   static constexpr int kBufferSize = 2048;
 
   std::unique_ptr<Packet>& GetPacket(int64_t unwrapped_seq_num);
   bool BeginningOfStream(const Packet& packet) const;
-  std::vector<std::unique_ptr<Packet>> FindFrames(int64_t unwrapped_seq_num);
+  InsertResult FindFrames(int64_t unwrapped_seq_num);
   bool MaybeAssembleFrame(int64_t start_seq_num_unwrapped,
                           int64_t end_sequence_number_unwrapped,
-                          std::vector<std::unique_ptr<Packet>>& packets);
+                          InsertResult& result);
 
   const bool h264_idr_only_keyframes_allowed_;
   std::array<std::unique_ptr<Packet>, kBufferSize> buffer_;
   absl::optional<int64_t> last_continuous_unwrapped_seq_num_;
   SeqNumUnwrapper<uint16_t> seq_num_unwrapper_;
+  video_coding::H264SpsPpsTracker tracker_;
+  bool h264_out_of_band_sps_pps_ = false;
 };
 
+}  // namespace video_coding
 }  // namespace webrtc
 
 #endif  // MODULES_VIDEO_CODING_H26X_PACKET_BUFFER_H_

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2335d157_f4555c3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-03-22T06:55:45Z",
+      "side": 1,
+      "message": "Is it possible for me to trigger a full bot run as well? Or need to ask you guys to do that?",
+      "revId": "669a88c4dea1e70fd1b1740db2b32b69ddf4fc18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

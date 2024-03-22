@@ -97,21 +97,9 @@ class VideoEncoderFactory {
   }
 
   // Creates a VideoEncoder for the specified format.
-  virtual std::unique_ptr<VideoEncoder> Create(const Environment& env,
-                                               const SdpVideoFormat& format) {
-    return CreateVideoEncoder(format);
-  }
-
-  // Deprecated in favor of the `Create` above.
-  // TODO: bugs.webrtc.org/15860 - Make private when all callers are updated
-  // to use Create function above. Delete when all derived classes implement
-  // `Create` instead of this function.
-  virtual std::unique_ptr<VideoEncoder> CreateVideoEncoder(
-      const SdpVideoFormat& format) {
-    // Newer code shouldn't call this function,
-    // Older code should implement it in derived classes.
-    RTC_CHECK_NOTREACHED();
-  }
+  virtual std::unique_ptr<VideoEncoder> Create(
+      const Environment& env,
+      const SdpVideoFormat& format) = 0;
 
   // This method creates a EncoderSelector to use for a VideoSendStream.
   // (and hence should probably been called CreateEncoderSelector()).

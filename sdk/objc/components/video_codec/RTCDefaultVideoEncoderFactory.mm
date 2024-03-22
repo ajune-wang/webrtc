@@ -69,15 +69,15 @@
   if ([info.name isEqualToString:kRTCVideoCodecH264Name]) {
     return [[RTC_OBJC_TYPE(RTCVideoEncoderH264) alloc] initWithCodecInfo:info];
   } else if ([info.name isEqualToString:kRTCVideoCodecVp8Name]) {
-    return [RTC_OBJC_TYPE(RTCVideoEncoderVP8) vp8Encoder];
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderVP8) alloc] init];
   } else if ([info.name isEqualToString:kRTCVideoCodecVp9Name] &&
              [RTC_OBJC_TYPE(RTCVideoEncoderVP9) isSupported]) {
-    return [RTC_OBJC_TYPE(RTCVideoEncoderVP9) vp9Encoder];
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderVP9) alloc] init];
   }
 
 #if defined(RTC_USE_LIBAOM_AV1_ENCODER)
   if ([info.name isEqualToString:kRTCVideoCodecAv1Name]) {
-    return [RTC_OBJC_TYPE(RTCVideoEncoderAV1) av1Encoder];
+    return [[RTC_OBJC_TYPE(RTCVideoEncoderAV1) alloc] init];
   }
 #endif
 

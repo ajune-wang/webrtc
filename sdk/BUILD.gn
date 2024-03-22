@@ -718,7 +718,7 @@ if (is_ios || is_mac) {
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.h",
         "objc/components/video_codec/RTCDefaultVideoDecoderFactory.m",
         "objc/components/video_codec/RTCDefaultVideoEncoderFactory.h",
-        "objc/components/video_codec/RTCDefaultVideoEncoderFactory.m",
+        "objc/components/video_codec/RTCDefaultVideoEncoderFactory.mm",
       ]
 
       deps = [
@@ -769,6 +769,8 @@ if (is_ios || is_mac) {
       deps = [
         ":base_objc",
         ":wrapped_native_codec_objc",
+        "../api/environment",
+        "../api/video_codecs:video_codecs_api",
         "../modules/video_coding:webrtc_vp8",
       ]
     }
@@ -786,7 +788,8 @@ if (is_ios || is_mac) {
       deps = [
         ":base_objc",
         ":wrapped_native_codec_objc",
-        "../media:rtc_media_base",
+        "../api/environment",
+        "../api/video_codecs:video_codecs_api",
         "../modules/video_coding:webrtc_vp9",
       ]
     }
@@ -818,7 +821,8 @@ if (is_ios || is_mac) {
       deps = [
         ":base_objc",
         ":wrapped_native_codec_objc",
-        "../media:rtc_media_base",
+        "../api/environment",
+        "../api/video_codecs:video_codecs_api",
         "../modules/video_coding/codecs/av1:libaom_av1_encoder",
       ]
     }
@@ -1376,6 +1380,7 @@ if (is_ios || is_mac) {
           ":videocapture_objc",
           ":videocodec_objc",
           ":videotoolbox_objc",
+          ":wrapped_native_codec_objc",
         ]
         if (!build_with_chromium) {
           deps += [
@@ -1511,6 +1516,7 @@ if (is_ios || is_mac) {
           ":videocapture_objc",
           ":videocodec_objc",
           ":videotoolbox_objc",
+          ":wrapped_native_codec_objc",
         ]
         if (!build_with_chromium) {
           deps += [
@@ -1546,8 +1552,6 @@ if (is_ios || is_mac) {
         "objc/api/video_codec/RTCNativeVideoEncoder.h",
         "objc/api/video_codec/RTCNativeVideoEncoder.mm",
         "objc/api/video_codec/RTCNativeVideoEncoderBuilder+Native.h",
-        "objc/api/video_codec/RTCWrappedNativeVideoEncoder.h",
-        "objc/api/video_codec/RTCWrappedNativeVideoEncoder.mm",
       ]
 
       configs += [ "..:common_objc" ]

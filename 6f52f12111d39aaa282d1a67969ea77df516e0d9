@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e84fb2_a4e143c4",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-03-23T12:34:08Z",
+      "side": 1,
+      "message": "Can you also upload these in the same CL?",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 27
+      },
+      "revId": "6f52f12111d39aaa282d1a67969ea77df516e0d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d5ec07e_9f421680",
+        "filename": "rtc_base/event_tracer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-03-23T12:34:08Z",
+      "side": 1,
+      "message": "I think we should (unless this results in some build config complication) #include the header owning this symbol in the block at line 35.",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "6f52f12111d39aaa282d1a67969ea77df516e0d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

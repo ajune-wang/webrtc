@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2deba943_295e1531",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-03-24T14:43:05Z",
+      "side": 1,
+      "message": "I went over all files, seems legit. Wherever IWYU went crazy about forward declarations / removed includes that were flagged by the presubmit hooks, I manually added pragmas to overcome this.\nAfter all changes, running iwyu on this commit does not produce any changes for the listed files.",
+      "revId": "b755ca3304eaee3d2fc366baa9b54b71caa6aa4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

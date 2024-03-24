@@ -14,8 +14,6 @@
 #include <utility>
 #include <vector>
 
-#include "absl/memory/memory.h"
-#include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.h"
 
 namespace webrtc {

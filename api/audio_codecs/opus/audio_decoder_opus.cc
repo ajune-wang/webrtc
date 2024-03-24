@@ -10,12 +10,15 @@
 
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
 
+#include <map>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

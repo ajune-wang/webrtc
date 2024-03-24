@@ -11,6 +11,7 @@
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
 
 #include "modules/audio_coding/codecs/opus/audio_encoder_opus.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

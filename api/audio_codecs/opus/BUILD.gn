@@ -46,6 +46,7 @@ rtc_library("audio_encoder_opus") {
     "..:audio_codecs_api",
     "../../../api:field_trials_view",
     "../../../modules/audio_coding:webrtc_opus",
+    "../../../rtc_base:checks",
     "../../../rtc_base/system:rtc_export",
   ]
   absl_deps = [
@@ -65,6 +66,7 @@ rtc_library("audio_decoder_opus") {
     "..:audio_codecs_api",
     "../../../api:field_trials_view",
     "../../../modules/audio_coding:webrtc_opus",
+    "../../../rtc_base:checks",
     "../../../rtc_base/system:rtc_export",
   ]
   absl_deps = [

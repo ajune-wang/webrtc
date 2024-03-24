@@ -11,6 +11,7 @@
 #include "api/field_trials.h"
 
 #include <atomic>
+#include <utility>
 
 #include "rtc_base/checks.h"
 #include "system_wrappers/include/field_trial.h"

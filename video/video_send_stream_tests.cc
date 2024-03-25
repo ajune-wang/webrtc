@@ -108,6 +108,10 @@ enum class WaitUntil : bool { kZero = false, kNonZero = true };
 
 constexpr int64_t kRtcpIntervalMs = 1000;
 
+// Some of the test cases are expected to time out.
+// Use a shorter timeout window than the default one for those.
+constexpr TimeDelta kReducedTimeout = TimeDelta::Seconds(10);
+
 enum VideoFormat {
   kGeneric,
   kVP8,
@@ -519,18 +523,15 @@ class FakeReceiveStatistics : public ReceiveStatisticsProvider {
 
 class UlpfecObserver : public test::EndToEndTest {
  public:
-  // Some of the test cases are expected to time out.
-  // Use a shorter timeout window than the default one for those.
-  static constexpr TimeDelta kReducedTimeout = TimeDelta::Seconds(10);
-
-  UlpfecObserver(bool header_extensions_enabled,
-                 bool use_nack,
-                 bool expect_red,
-                 bool expect_ulpfec,
-                 const std::string& codec,
-                 VideoEncoderFactory* encoder_factory)
-      : EndToEndTest(expect_ulpfec ? test::VideoTestConstants::kDefaultTimeout
-                                   : kReducedTimeout),
+  UlpfecObserver(
+      bool header_extensions_enabled,
+      bool use_nack,
+      bool expect_red,
+      bool expect_ulpfec,
+      const std::string& codec,
+      VideoEncoderFactory* encoder_factory,
+      const TimeDelta& timeout = test::VideoTestConstants::kDefaultTimeout)
+      : EndToEndTest(timeout),
         encoder_factory_(encoder_factory),
         payload_name_(codec),
         use_nack_(use_nack),
@@ -668,14 +669,18 @@ class UlpfecObserver : public test::EndToEndTest {
 
 TEST_F(VideoSendStreamTest, SupportsUlpfecWithExtensions) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   UlpfecObserver test(true, false, true, true, "VP8", &encoder_factory);
   RunBaseTest(&test);
 }
 
 TEST_F(VideoSendStreamTest, SupportsUlpfecWithoutExtensions) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   UlpfecObserver test(false, false, true, true, "VP8", &encoder_factory);
   RunBaseTest(&test);
 }
@@ -691,8 +696,11 @@ class VideoSendStreamWithoutUlpfecTest : public test::CallTest {
 
 TEST_F(VideoSendStreamWithoutUlpfecTest, NoUlpfecIfDisabledThroughFieldTrial) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
-  UlpfecObserver test(false, false, false, false, "VP8", &encoder_factory);
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
+  UlpfecObserver test(false, false, false, false, "VP8", &encoder_factory,
+                      kReducedTimeout);
   RunBaseTest(&test);
 }
 
@@ -704,7 +712,8 @@ TEST_F(VideoSendStreamTest, DoesNotUtilizeUlpfecForH264WithNackEnabled) {
   test::FunctionVideoEncoderFactory encoder_factory([]() {
     return std::make_unique<test::FakeH264Encoder>(Clock::GetRealTimeClock());
   });
-  UlpfecObserver test(false, true, false, false, "H264", &encoder_factory);
+  UlpfecObserver test(false, true, false, false, "H264", &encoder_factory,
+                      kReducedTimeout);
   RunBaseTest(&test);
 }
 
@@ -719,7 +728,9 @@ TEST_F(VideoSendStreamTest, DoesUtilizeUlpfecForH264WithoutNackEnabled) {
 
 TEST_F(VideoSendStreamTest, DoesUtilizeUlpfecForVp8WithNackEnabled) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   UlpfecObserver test(false, true, true, true, "VP8", &encoder_factory);
   RunBaseTest(&test);
 }
@@ -727,8 +738,12 @@ TEST_F(VideoSendStreamTest, DoesUtilizeUlpfecForVp8WithNackEnabled) {
 #if defined(RTC_ENABLE_VP9)
 TEST_F(VideoSendStreamTest, DoesUtilizeUlpfecForVp9WithNackEnabled) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
-  UlpfecObserver test(false, true, true, true, "VP9", &encoder_factory);
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp9Encoder(env);
+      });
+  // Use kLongTimeout timeout because the test is flaky with kDefaultTimeout.
+  UlpfecObserver test(false, true, true, true, "VP9", &encoder_factory,
+                      test::VideoTestConstants::kLongTimeout);
   RunBaseTest(&test);
 }
 #endif  // defined(RTC_ENABLE_VP9)
@@ -860,28 +875,36 @@ class FlexfecObserver : public test::EndToEndTest {
 
 TEST_F(VideoSendStreamTest, SupportsFlexfecVp8) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   FlexfecObserver test(false, false, "VP8", &encoder_factory, 1);
   RunBaseTest(&test);
 }
 
 TEST_F(VideoSendStreamTest, SupportsFlexfecSimulcastVp8) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   FlexfecObserver test(false, false, "VP8", &encoder_factory, 2);
   RunBaseTest(&test);
 }
 
 TEST_F(VideoSendStreamTest, SupportsFlexfecWithNackVp8) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   FlexfecObserver test(false, true, "VP8", &encoder_factory, 1);
   RunBaseTest(&test);
 }
 
 TEST_F(VideoSendStreamTest, SupportsFlexfecWithRtpExtensionsVp8) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
   FlexfecObserver test(true, false, "VP8", &encoder_factory, 1);
   RunBaseTest(&test);
 }
@@ -889,14 +912,18 @@ TEST_F(VideoSendStreamTest, SupportsFlexfecWithRtpExtensionsVp8) {
 #if defined(RTC_ENABLE_VP9)
 TEST_F(VideoSendStreamTest, SupportsFlexfecVp9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp9Encoder(env);
+      });
   FlexfecObserver test(false, false, "VP9", &encoder_factory, 1);
   RunBaseTest(&test);
 }
 
 TEST_F(VideoSendStreamTest, SupportsFlexfecWithNackVp9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp9Encoder(env);
+      });
   FlexfecObserver test(false, true, "VP9", &encoder_factory, 1);
   RunBaseTest(&test);
 }
@@ -2987,7 +3014,10 @@ class Vp9HeaderObserver : public test::SendTest {
  public:
   explicit Vp9HeaderObserver(const Vp9TestParams& params)
       : SendTest(test::VideoTestConstants::kLongTimeout),
-        encoder_factory_([]() { return VP9Encoder::Create(); }),
+        encoder_factory_(
+            [](const Environment& env, const SdpVideoFormat& format) {
+              return CreateVp9Encoder(env);
+            }),
         params_(params),
         vp9_settings_(VideoEncoder::GetDefaultVp9Settings()) {}
 
@@ -4253,7 +4283,9 @@ TEST_F(VideoSendStreamTest, TestTemporalLayersVp8SimulcastWithDifferentNumTls) {
 
 TEST_F(VideoSendStreamTest, TestTemporalLayersVp8SimulcastWithoutSimAdapter) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
 
   TestTemporalLayers(&encoder_factory, "VP8",
                      /*num_temporal_layers=*/{2, 2},
@@ -4303,7 +4335,9 @@ TEST_F(VideoSendStreamTest, TestScalabilityModeVp8SimulcastWithDifferentMode) {
 
 TEST_F(VideoSendStreamTest, TestScalabilityModeVp8SimulcastWithoutSimAdapter) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP8Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp8Encoder(env);
+      });
 
   TestTemporalLayers(&encoder_factory, "VP8",
                      /*num_temporal_layers=*/{},
@@ -4312,7 +4346,9 @@ TEST_F(VideoSendStreamTest, TestScalabilityModeVp8SimulcastWithoutSimAdapter) {
 
 TEST_F(VideoSendStreamTest, TestTemporalLayersVp9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      [](const Environment& env, const SdpVideoFormat& format) {
+        return CreateVp9Encoder(env);
+      });
 
   TestTemporalLayers(&encoder_factory, "VP9",
                      /*num_temporal_layers=*/{2},

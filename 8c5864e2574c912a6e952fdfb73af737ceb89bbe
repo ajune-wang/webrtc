@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "233ef01e_ace36b5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-03-25T20:00:46Z",
+      "side": 1,
+      "message": "This is a follow up to:\nhttps://groups.google.com/g/discuss-webrtc/c/COix4av-6MA/m/9SAEo17sAQAJ",
+      "revId": "8c5864e2574c912a6e952fdfb73af737ceb89bbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

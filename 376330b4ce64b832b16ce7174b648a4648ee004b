@@ -16,6 +16,23 @@
       "message": "Please see patchset 7 vs 8, hopefully I didn\u0027t do any funky stuff...",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7048fbe0_9424edf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-25T21:04:31Z",
+      "side": 1,
+      "message": "might want to run the internal bots before committing (requires a Google engineer to clone the CL, upload and run the bots).",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

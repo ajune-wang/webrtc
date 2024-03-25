@@ -737,6 +737,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebb030fa_d2d8ad06",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18209
+      },
+      "writtenOn": "2024-03-25T20:54:42Z",
+      "side": 1,
+      "message": "A way for video encoder API users to run their own rate control by setting QP directly for each frame.\n\nhttps://www.w3.org/TR/webcodecs-avc-codec-registration/#avc-encode-options",
+      "parentUuid": "fd810876_820d37bb",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30ec0f6e_a98167dd",
         "filename": "api/video_codecs/video_encoder_interface.h",
         "patchSetId": 21
@@ -796,6 +820,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "8d9be887_d5c176aa",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6116b64a_c432a5d1",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 18209
+      },
+      "writtenOn": "2024-03-25T20:54:42Z",
+      "side": 1,
+      "message": "sorry, I am not sure that I understood what you mean hear. can a rate control algorithms be efficient if we adjust buffer size 60 times a second?",
+      "parentUuid": "b7d135ac_46083b97",
       "range": {
         "startLine": 55,
         "startChar": 4,

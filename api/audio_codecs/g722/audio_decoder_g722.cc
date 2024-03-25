@@ -11,10 +11,12 @@
 #include "api/audio_codecs/g722/audio_decoder_g722.h"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/g722/audio_decoder_g722.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {

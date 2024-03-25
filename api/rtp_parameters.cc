@@ -12,10 +12,10 @@
 #include <algorithm>
 #include <string>
 #include <tuple>
-#include <utility>
 
 #include "api/array_view.h"
 #include "media/base/media_constants.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {

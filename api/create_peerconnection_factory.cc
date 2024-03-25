@@ -16,11 +16,14 @@
 #include "api/enable_media.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
+#include "api/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "api/transport/field_trial_based_config.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "rtc_base/socket_server.h"
 #include "rtc_base/thread.h"
 
 namespace webrtc {

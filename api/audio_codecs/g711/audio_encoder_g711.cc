@@ -10,11 +10,18 @@
 
 #include "api/audio_codecs/g711/audio_encoder_g711.h"
 
+#include <stddef.h>
+
+#include <initializer_list>
+#include <map>
 #include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/string_to_number.h"

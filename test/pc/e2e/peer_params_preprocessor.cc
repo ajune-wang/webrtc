@@ -18,6 +18,7 @@
 #include "api/test/pclf/media_quality_test_params.h"
 #include "api/test/pclf/peer_configurer.h"
 #include "api/test/peer_network_dependencies.h"
+#include "media/base/media_constants.h"
 #include "modules/video_coding/svc/create_scalability_structure.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/arraysize.h"

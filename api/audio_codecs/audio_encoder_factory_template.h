@@ -12,9 +12,14 @@
 #define API_AUDIO_CODECS_AUDIO_ENCODER_FACTORY_TEMPLATE_H_
 
 #include <memory>
+#include <type_traits>
 #include <vector>
 
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_codec_pair_id.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
+#include "api/audio_codecs/audio_format.h"
 #include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"

@@ -10,6 +10,7 @@
 
 #include "api/crypto/crypto_options.h"
 
+#include "rtc_base/checks.h"
 #include "rtc_base/ssl_stream_adapter.h"
 
 namespace webrtc {

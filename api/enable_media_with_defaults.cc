@@ -10,12 +10,21 @@
 
 #include "api/enable_media_with_defaults.h"
 
+#include <memory>
+#include <utility>
+
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/enable_media.h"
+#include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
+#include "api/video_codecs/video_decoder_factory.h"
+#include "api/video_codecs/video_encoder_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"
 
 namespace webrtc {

@@ -66,10 +66,10 @@
 
 #ifndef API_PEER_CONNECTION_INTERFACE_H_
 #define API_PEER_CONNECTION_INTERFACE_H_
+// IWYU pragma: no_include "pc/media_factory.h"
 
 #include <stdint.h>
 #include <stdio.h>
-
 #include <functional>
 #include <memory>
 #include <string>
@@ -123,32 +123,38 @@
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/rtp_transport_controller_send_factory_interface.h"
 #include "media/base/media_config.h"
-#include "media/base/media_engine.h"
 // TODO(bugs.webrtc.org/7447): We plan to provide a way to let applications
 // inject a PacketSocketFactory and/or NetworkManager, and not expose
 // PortAllocator in the PeerConnection api.
+#include "api/audio/audio_frame_processor.h"
 #include "api/ref_count.h"
+#include "api/units/time_delta.h"
+#include "p2p/base/port.h"
 #include "p2p/base/port_allocator.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/network.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/network_monitor_factory.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/rtc_certificate_generator.h"
-#include "rtc_base/socket_address.h"
+#include "rtc_base/socket_factory.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread.h"
 
 namespace rtc {
-class Thread;
+class Thread;  // IWYU pragma: keep
 }  // namespace rtc
 
 namespace webrtc {
-
+// IWYU pragma: begin_keep
 // MediaFactory class definition is not part of the api.
 class MediaFactory;
+class AudioDeviceModule;
+class AudioProcessing;
 
+// IWYU pragma: end_keep
 // MediaStream container interface.
 class StreamCollectionInterface : public webrtc::RefCountInterface {
  public:

@@ -26,18 +26,19 @@ namespace video_coding {
 
 class H264SpsPpsTracker {
  public:
-  enum PacketAction { kInsert, kDrop, kRequestKeyframe };
+  enum PacketAction { kInsert, kDrop, kRequestKeyframe, kPassthrough };
   struct FixedBitstream {
     PacketAction action;
+    // If action is kInsert, prepend |bitstream| before the payload.
     rtc::CopyOnWriteBuffer bitstream;
   };
 
   H264SpsPpsTracker();
-  ~H264SpsPpsTracker();
+  virtual ~H264SpsPpsTracker();
 
-  // Returns fixed bitstream and modifies `video_header`.
-  FixedBitstream CopyAndFixBitstream(rtc::ArrayView<const uint8_t> bitstream,
-                                     RTPVideoHeader* video_header);
+  // Returns the action for fixing bitstream and modifies `video_header`.
+  virtual FixedBitstream FixBitstream(rtc::ArrayView<const uint8_t> bitstream,
+                                      RTPVideoHeader& video_header);
 
   void InsertSpsPpsNalus(const std::vector<uint8_t>& sps,
                          const std::vector<uint8_t>& pps);

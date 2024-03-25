@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f1ab4f2_543b3908",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10557
+      },
+      "writtenOn": "2024-03-25T09:15:10Z",
+      "side": 1,
+      "message": "lgtm stays",
+      "revId": "99c18a611cbfb79a6985eff9e2dd45ab7d90519a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

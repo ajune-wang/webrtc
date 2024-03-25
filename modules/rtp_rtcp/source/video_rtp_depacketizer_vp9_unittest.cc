@@ -369,5 +369,21 @@ TEST(VideoRtpDepacketizerVp9Test, ReferencesInputCopyOnWriteBuffer) {
   // Compare pointers to check there was no copy on write buffer unsharing.
   EXPECT_EQ(parsed->video_payload.cdata(), rtp_payload.cdata() + kHeaderSize);
 }
+
+TEST(VideoRtpDepacketizerVp9Test, InterLayerPredOnlyFrameMerkedAsDelta) {
+  const uint8_t kTemporalIdx = 0;
+  const uint8_t kUbit = 1;
+  const uint8_t kSpatialIdx = 1;
+  const uint8_t kDbit = 1;
+  const uint8_t kTl0PicIdx = 17;
+  uint8_t packet[13] = {0};
+  packet[0] = 0x20;  // I:0 P:1 L:1 F:0 B:0 E:0 V:0 Z:0
+  packet[1] = (kTemporalIdx << 5) | (kUbit << 4) | (kSpatialIdx << 1) | kDbit;
+  packet[2] = kTl0PicIdx;
+
+  RTPVideoHeader video_header;
+  VideoRtpDepacketizerVp9::ParseRtpPayload(packet, &video_header);
+  EXPECT_EQ(video_header.frame_type, VideoFrameType::kVideoFrameDelta);
+}
 }  // namespace
 }  // namespace webrtc

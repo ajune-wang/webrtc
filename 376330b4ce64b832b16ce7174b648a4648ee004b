@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "025fcc9d_5d69dfd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-03-26T19:06:07Z",
+      "side": 1,
+      "message": "I think this is a valuable tool to have. It may be useful when working on Chromium\u0027s codebase for which the WebRTC is not working (though we rarely have to update the dependencies).",
+      "parentUuid": "17877718_e8ee9cfe",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b0730616_c0e1903f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "Thanks! \u003c3",
       "parentUuid": "00d5e993_eddb0037",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d19e6b90_68a85fdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-03-26T19:06:07Z",
+      "side": 1,
+      "message": "Current reported failure is caused by using `third_party/absl/base/attributes.h` in `api/dtls_transport_interface.h` but not depending on `\"//third_party/abseil-cpp/absl/base:core_headers\"`.\nI wonder why the local checks didn\u0027t detect it?\n\nUnfortunately, it stops at the first error, so there may be more down the line.",
+      "parentUuid": "268c1281_7ef395a7",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

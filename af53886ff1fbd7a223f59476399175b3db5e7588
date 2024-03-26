@@ -761,6 +761,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cec0b7e2_4756c156",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-26T08:44:40Z",
+      "side": 1,
+      "message": "There is a `Cqp` struct that goes into the `rate_options` variant for this purpose.",
+      "parentUuid": "ebb030fa_d2d8ad06",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30ec0f6e_a98167dd",
         "filename": "api/video_codecs/video_encoder_interface.h",
         "patchSetId": 21
@@ -844,6 +868,30 @@
       "side": 1,
       "message": "sorry, I am not sure that I understood what you mean hear. can a rate control algorithms be efficient if we adjust buffer size 60 times a second?",
       "parentUuid": "b7d135ac_46083b97",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "af53886ff1fbd7a223f59476399175b3db5e7588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8773a158_c8c3f02f",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-26T08:44:40Z",
+      "side": 1,
+      "message": "Yes, most rate control algorithms work just fine with frequent moderate updates.\n\nIf there is a large jump in the target rate then rate controllers typically have some form of reset logic, and if you have frequent large jumps then that might cause some issues, but large jumps don\u0027t happen very often.",
+      "parentUuid": "6116b64a_c432a5d1",
       "range": {
         "startLine": 55,
         "startChar": 4,

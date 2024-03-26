@@ -46,6 +46,30 @@
       },
       "revId": "ff7a557f2e0712254f09bd8c18ece04074ca0b56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0539d28_b606b6e5",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-26T09:57:33Z",
+      "side": 0,
+      "message": "This is actually here to prevent OOB access of EncodedFrame::references [1], but I think you are right that the input validation on L103 should prevent this from happening. There is of course the very low probability of someone changing EncodedFrame::references to be shorter than 3, and then OOB could happen.\n\nI think I\u0027m leaning towards keeping the check, but you decide.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/encoded_frame.h;l\u003d81;drc\u003d55b593fb6bf4e13e64c7dec41e07ce24a88bdf3f",
+      "parentUuid": "c08dbc39_2b31d0ea",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 3
+      },
+      "revId": "ff7a557f2e0712254f09bd8c18ece04074ca0b56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

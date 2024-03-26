@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94be5b5b_36a5c719",
+        "filename": "modules/congestion_controller/pcc/pcc_network_controller_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-03-26T09:13:44Z",
+      "side": 1,
+      "message": "For any future readers: This cl improve input framerate calculation slightly so that input fps is never above 30 in this test. Before the cl, a few frames had frame rate 31 and 32. \nLikely this changed the size of the encoded frames that in turn changed the target rate.",
+      "revId": "1198c848a458838b0de5f9559693524cc879eacf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

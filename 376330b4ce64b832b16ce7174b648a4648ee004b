@@ -33,6 +33,23 @@
       "message": "might want to run the internal bots before committing (requires a Google engineer to clone the CL, upload and run the bots).",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e296b17_e9651e7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-26T07:39:30Z",
+      "side": 1,
+      "message": "I think you should apply for tryjob access.\nSee https://webrtc.googlesource.com/src/+/main/g3doc/become_a_committer.md for details.\n\nEventually, committer access seems a reasonable thing to work towards too.",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

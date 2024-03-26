@@ -22,6 +22,30 @@
       },
       "revId": "ff7a557f2e0712254f09bd8c18ece04074ca0b56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c08dbc39_2b31d0ea",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-03-26T09:22:15Z",
+      "side": 0,
+      "message": "I think it is not needed because we have a similar check (but more correct since it uses kMaxVp9RefPics\u003d3 instead of kMaxFrameReferences\u003d5) in L103 which prevents inserting GOFs with \u003e3 refs into gof_info_. Or am I missing something?",
+      "parentUuid": "8b899cac_32d3b29f",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 3
+      },
+      "revId": "ff7a557f2e0712254f09bd8c18ece04074ca0b56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

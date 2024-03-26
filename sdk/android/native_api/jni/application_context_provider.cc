@@ -11,11 +11,12 @@
 
 #include "sdk/android/generated_native_api_jni/ApplicationContextProvider_jni.h"
 #include "sdk/android/native_api/jni/scoped_java_ref.h"
+#include "third_party/jni_zero/jni_zero.h"
 
 namespace webrtc {
 
-ScopedJavaLocalRef<jobject> GetAppContext(JNIEnv* jni) {
-  return ScopedJavaLocalRef<jobject>(
+jni_zero::ScopedJavaLocalRef<jobject> GetAppContext(JNIEnv* jni) {
+  return jni_zero::ScopedJavaLocalRef<jobject>(
       jni::Java_ApplicationContextProvider_getApplicationContext(jni));
 }
 

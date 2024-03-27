@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc40360e_1a20baf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-03-27T05:52:52Z",
+      "side": 1,
+      "message": "This CL includes some behavior changes, please let me know if any of them are not expected.\n\n1. When `h264_idr_only_keyframes_allowed` is false, IDR frames without SPS/PPS are not returned by InsertPacket until SPS and PPS are received. Old packet buffer implementation returns it as a delta frame when `sps_pps_idr_is_h264_keyframe_` is true.\n1. H264SpsPpsTracker no longer returns fixed bitstream, it returns a prefix for SPS and PPS. H26xPacketBuffer prepend the prefix to the original bitstream.\n1. Start code for H.264 is inserted by H26xPacketBuffer.",
+      "revId": "59777070d5e2c46cc8b1e61306984c06cc82f015",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f808fed1_cb585acc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-03-27T15:38:15Z",
+      "side": 1,
+      "message": "This change is way to large to not be launch behind a field trial, so these should be our next steps:\n\n1) In the first CL, update H26XPacketBuffer to store/inject H264 SPS/PPS. DO NOT rely on the H264SpsPpsTracker, you should only need a small part of it so it should be easy to re-implement.\n\n2) In the next CL, Update RtpVideoStreamReciever2 to conditionally use the H26XPacketBuffer depending on payload type (what you have done already) and whether the, lets say \"WebRTC-Video-H26XPacketBuffer\", field trial is enabled. Remember to also update experiments/field_trials.py with the new field trial.\n\n3) We roll out the change and make sure things things look sane.\n\n4) In the last CL, we remove the field trial, H264 specific hacks from the PacketBuffer, and kill off the H264SpsPpsTracker.",
+      "revId": "4bdedeb353f30aec9894a5399f4fdc707c3c6ae1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

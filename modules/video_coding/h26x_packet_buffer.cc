@@ -23,6 +23,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
+#include "modules/video_coding/h264_sprop_parameter_sets.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/logging.h"
@@ -32,6 +33,7 @@
 #endif
 
 namespace webrtc {
+namespace video_coding {
 namespace {
 
 int64_t EuclideanMod(int64_t n, int64_t div) {
@@ -95,13 +97,20 @@ bool HasVps(const H26xPacketBuffer::Packet& packet) {
 //                              fiddle with the payload at this point.
 rtc::CopyOnWriteBuffer FixH264VideoPayload(
     rtc::ArrayView<const uint8_t> payload,
-    const RTPVideoHeader& video_header) {
+    const RTPVideoHeader& video_header,
+    video_coding::H264SpsPpsTracker::FixedBitstream& fixed) {
   constexpr uint8_t kStartCode[] = {0, 0, 0, 1};
 
   const auto& h264_header =
       absl::get<RTPVideoHeaderH264>(video_header.video_type_header);
-
   rtc::CopyOnWriteBuffer result;
+
+  // h264_header.nalus has been fixed by |tracker_->FixBitstream|, only
+  // AppendData here.
+  if (fixed.action == H264SpsPpsTracker::kInsert) {
+    result.AppendData(fixed.bitstream);
+  }
+
   switch (h264_header.packetization_type) {
     case kH264StapA: {
       const uint8_t* payload_end = payload.data() + payload.size();
@@ -142,8 +151,9 @@ rtc::CopyOnWriteBuffer FixH264VideoPayload(
 
 }  // namespace
 
-H26xPacketBuffer::H26xPacketBuffer(bool h264_idr_only_keyframes_allowed)
-    : h264_idr_only_keyframes_allowed_(h264_idr_only_keyframes_allowed) {}
+H26xPacketBuffer::H26xPacketBuffer(
+    std::unique_ptr<video_coding::H264SpsPpsTracker> tracker)
+    : tracker_(std::move(tracker)) {}
 
 H26xPacketBuffer::InsertResult H26xPacketBuffer::InsertPacket(
     std::unique_ptr<Packet> packet) {
@@ -162,8 +172,7 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::InsertPacket(
     packet_slot = std::move(packet);
   }
 
-  result.packets = FindFrames(unwrapped_seq_num);
-  return result;
+  return FindFrames(unwrapped_seq_num);
 }
 
 std::unique_ptr<H26xPacketBuffer::Packet>& H26xPacketBuffer::GetPacket(
@@ -174,8 +183,7 @@ std::unique_ptr<H26xPacketBuffer::Packet>& H26xPacketBuffer::GetPacket(
 bool H26xPacketBuffer::BeginningOfStream(
     const H26xPacketBuffer::Packet& packet) const {
   if (packet.codec() == kVideoCodecH264) {
-    return HasSps(packet) ||
-           (h264_idr_only_keyframes_allowed_ && BeginningOfIdr(packet));
+    return HasSps(packet) || (tracker_ && BeginningOfIdr(packet));
 #ifdef RTC_ENABLE_H265
   } else if (packet.codec() == kVideoCodecH265) {
     return HasVps(packet);
@@ -185,9 +193,9 @@ bool H26xPacketBuffer::BeginningOfStream(
   return false;
 }
 
-std::vector<std::unique_ptr<H26xPacketBuffer::Packet>>
-H26xPacketBuffer::FindFrames(int64_t unwrapped_seq_num) {
-  std::vector<std::unique_ptr<Packet>> found_frames;
+video_coding::PacketBuffer::InsertResult H26xPacketBuffer::FindFrames(
+    int64_t unwrapped_seq_num) {
+  InsertResult result;
 
   Packet* packet = GetPacket(unwrapped_seq_num).get();
   RTC_CHECK(packet != nullptr);
@@ -197,7 +205,7 @@ H26xPacketBuffer::FindFrames(int64_t unwrapped_seq_num) {
   if (unwrapped_seq_num - 1 != last_continuous_unwrapped_seq_num_) {
     if (unwrapped_seq_num <= last_continuous_unwrapped_seq_num_ ||
         !BeginningOfStream(*packet)) {
-      return found_frames;
+      return result;
     }
 
     last_continuous_unwrapped_seq_num_ = unwrapped_seq_num;
@@ -211,7 +219,7 @@ H26xPacketBuffer::FindFrames(int64_t unwrapped_seq_num) {
     // the 'buffer_'. Check that the `packet` sequence number match the expected
     // unwrapped sequence number.
     if (static_cast<uint16_t>(seq_num) != packet->seq_num) {
-      return found_frames;
+      return result;
     }
 
     last_continuous_unwrapped_seq_num_ = seq_num;
@@ -225,12 +233,13 @@ H26xPacketBuffer::FindFrames(int64_t unwrapped_seq_num) {
         auto& prev_packet = GetPacket(seq_num_start - 1);
 
         if (prev_packet == nullptr || prev_packet->timestamp != rtp_timestamp) {
-          if (MaybeAssembleFrame(seq_num_start, seq_num, found_frames)) {
+          if (MaybeAssembleFrame(seq_num_start, seq_num, result)) {
             // Frame was assembled, continue to look for more frames.
             break;
           } else {
+            RTC_LOG(LS_INFO) << "Frame was not assembled";
             // Frame was not assembled, no subsequent frame will be continuous.
-            return found_frames;
+            return result;
           }
         }
       }
@@ -239,17 +248,16 @@ H26xPacketBuffer::FindFrames(int64_t unwrapped_seq_num) {
     seq_num++;
     packet = GetPacket(seq_num).get();
     if (packet == nullptr) {
-      return found_frames;
+      return result;
     }
   }
 
-  return found_frames;
+  return result;
 }
 
-bool H26xPacketBuffer::MaybeAssembleFrame(
-    int64_t start_seq_num_unwrapped,
-    int64_t end_sequence_number_unwrapped,
-    std::vector<std::unique_ptr<Packet>>& frames) {
+bool H26xPacketBuffer::MaybeAssembleFrame(int64_t start_seq_num_unwrapped,
+                                          int64_t end_sequence_number_unwrapped,
+                                          InsertResult& result) {
 #ifdef RTC_ENABLE_H265
   bool has_vps = false;
 #endif
@@ -273,7 +281,8 @@ bool H26xPacketBuffer::MaybeAssembleFrame(
         has_pps |= nalu.type == H264::NaluType::kPps;
       }
       if (has_idr) {
-        if (!h264_idr_only_keyframes_allowed_ && (!has_sps || !has_pps)) {
+        if ((!tracker_ || !h264_out_of_band_sps_pps_) &&
+            (!has_sps || !has_pps)) {
           return false;
         }
       }
@@ -324,14 +333,45 @@ bool H26xPacketBuffer::MaybeAssembleFrame(
 
     // Start code is inserted by depacktizer for H.265.
     if (packet->codec() == kVideoCodecH264) {
-      packet->video_payload =
-          FixH264VideoPayload(packet->video_payload, packet->video_header);
+      video_coding::H264SpsPpsTracker::FixedBitstream fixed = {
+          H264SpsPpsTracker::kPassthrough};
+      if (tracker_) {
+        fixed =
+            tracker_->FixBitstream(packet->video_payload, packet->video_header);
+      }
+      switch (fixed.action) {
+        case H264SpsPpsTracker::kRequestKeyframe:
+          result.buffer_cleared = true;
+          [[fallthrough]];
+        case H264SpsPpsTracker::kDrop:
+          return false;
+        case H264SpsPpsTracker::kPassthrough:
+        case H264SpsPpsTracker::kInsert:
+          packet->video_payload = FixH264VideoPayload(
+              packet->video_payload, packet->video_header, fixed);
+      }
     }
 
-    frames.push_back(std::move(packet));
+    result.packets.push_back(std::move(packet));
   }
-
   return true;
 }
 
+void H26xPacketBuffer::SetSpropParameterSets(
+    const std::string& sprop_parameter_sets) {
+  if (!tracker_) {
+    RTC_LOG(LS_WARNING) << "Ignore sprop parameter sets because IDR only "
+                           "keyframe is not allowed.";
+    return;
+  }
+  H264SpropParameterSets sprop_decoder;
+  if (!sprop_decoder.DecodeSprop(sprop_parameter_sets)) {
+    return;
+  }
+  tracker_->InsertSpsPpsNalus(sprop_decoder.sps_nalu(),
+                              sprop_decoder.pps_nalu());
+  h264_out_of_band_sps_pps_ = true;
+}
+
+}  // namespace video_coding
 }  // namespace webrtc

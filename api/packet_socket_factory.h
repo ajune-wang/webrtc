@@ -69,6 +69,13 @@ class RTC_EXPORT PacketSocketFactory {
       const SocketAddress& remote_address,
       const ProxyInfo& proxy_info,
       const std::string& user_agent,
+      const PacketSocketTcpOptions& tcp_options) {
+    return CreateClientTcpSocket(local_address, remote_address, tcp_options);
+  }
+
+  virtual AsyncPacketSocket* CreateClientTcpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
       const PacketSocketTcpOptions& tcp_options) = 0;
 
   virtual std::unique_ptr<webrtc::AsyncDnsResolverInterface>

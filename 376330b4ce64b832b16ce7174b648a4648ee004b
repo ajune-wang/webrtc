@@ -264,6 +264,24 @@
       "parentUuid": "faa19392_77dcff17",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da689b06_791017bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-03-28T09:35:51Z",
+      "side": 1,
+      "message": "Ah, good old public_deps :-(\n\n@mbonadei@webrtc.org is the expert, I think - could one option be to make the rewrite script that processes absl_deps always insert core_headers in the dependency list?",
+      "parentUuid": "d2951c26_e3e34f8a",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,6 +10,8 @@
  */
 
 #include <memory>
+
+#include "rtc_base/diagnostic_logging.h"
 #ifdef RTC_ENABLE_VP9
 
 #include <algorithm>
@@ -598,8 +600,8 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
   scalability_mode_ = inst->GetScalabilityMode();
   if (scalability_mode_.has_value()) {
     // Use settings from `ScalabilityMode` identifier.
-    RTC_LOG(LS_INFO) << "Create scalability structure "
-                     << ScalabilityModeToString(*scalability_mode_);
+    RTC_LOG_F(LS_WARNING) << "Create scalability structure "
+                          << ScalabilityModeToString(*scalability_mode_);
     svc_controller_ = CreateScalabilityStructure(*scalability_mode_);
     if (!svc_controller_) {
       RTC_LOG(LS_WARNING) << "Failed to create scalability structure.";
@@ -618,11 +620,16 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
       num_temporal_layers_ = 1;
     }
     inter_layer_pred_ = inst->VP9().interLayerPred;
+    RTC_LOG_F(LS_WARNING) << "Create scalability structure without mode. sl="
+                          << num_spatial_layers_
+                          << " tl=" << num_temporal_layers_;
     auto vp9_scalability = CreateVp9ScalabilityStructure(*inst);
     if (vp9_scalability.has_value()) {
+      RTC_LOG_F(LS_WARNING) << "Got a structure";
       std::tie(svc_controller_, scalability_mode_) =
           std::move(vp9_scalability.value());
     } else {
+      RTC_LOG_F(LS_WARNING) << "sorry no structure";
       svc_controller_ = nullptr;
       scalability_mode_ = absl::nullopt;
     }
@@ -1477,7 +1484,13 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
       }
     }
   }
-  codec_specific->scalability_mode = scalability_mode_;
+  if (scalability_mode_) {
+    codec_specific->scalability_mode =
+        LimitNumSpatialLayers(*scalability_mode_, num_active_spatial_layers_);
+  } else {
+    codec_specific->scalability_mode = absl::nullopt;
+  }
+
   return true;
 }
 

@@ -10,6 +10,7 @@
  */
 
 #include <memory>
+
 #ifdef RTC_ENABLE_VP9
 
 #include <algorithm>
@@ -1477,7 +1478,13 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
       }
     }
   }
-  codec_specific->scalability_mode = scalability_mode_;
+  if (scalability_mode_) {
+    codec_specific->scalability_mode =
+        LimitNumSpatialLayers(*scalability_mode_, num_active_spatial_layers_);
+  } else {
+    codec_specific->scalability_mode = absl::nullopt;
+  }
+
   return true;
 }
 

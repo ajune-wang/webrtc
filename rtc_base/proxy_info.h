@@ -13,6 +13,7 @@
 
 namespace rtc {
 // TODO(tommi): Remove.
+// struct [[deprecated]] ProxyInfo {};
 struct ProxyInfo {};
 
 }  // namespace rtc

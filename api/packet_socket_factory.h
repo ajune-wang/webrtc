@@ -64,12 +64,23 @@ class RTC_EXPORT PacketSocketFactory {
       uint16_t max_port,
       int opts) = 0;
 
-  virtual AsyncPacketSocket* CreateClientTcpSocket(
+  // TODO(tommi): Remove.
+  [[deprecated]] virtual AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
       const ProxyInfo& proxy_info,
       const std::string& user_agent,
-      const PacketSocketTcpOptions& tcp_options) = 0;
+      const PacketSocketTcpOptions& tcp_options) {
+    return CreateClientTcpSocket(local_address, remote_address, tcp_options);
+  }
+
+  // TODO(tommi): Make pure virtual.
+  virtual AsyncPacketSocket* CreateClientTcpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      const PacketSocketTcpOptions& tcp_options) {
+    return nullptr;
+  }
 
   virtual std::unique_ptr<webrtc::AsyncDnsResolverInterface>
   CreateAsyncDnsResolver() = 0;

@@ -149,8 +149,7 @@ static const char kCACert[] =
 
 class SSLStreamAdapterTestBase;
 
-class SSLDummyStreamBase : public rtc::StreamInterface,
-                           public sigslot::has_slots<> {
+class SSLDummyStreamBase : public rtc::StreamInterfaceBase {
  public:
   SSLDummyStreamBase(SSLStreamAdapterTestBase* test,
                      absl::string_view side,
@@ -158,8 +157,10 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
                      rtc::StreamInterface* out)
       : test_base_(test), side_(side), in_(in), out_(out), first_packet_(true) {
     RTC_DCHECK_NE(in, out);
-    in_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventIn);
-    out_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventOut);
+    in_->SetEventHandler([this](rtc::StreamInterface* stream, int events,
+                                int err) { OnEventIn(stream, events, err); });
+    out_->SetEventHandler([this](rtc::StreamInterface* stream, int events,
+                                 int err) { OnEventOut(stream, events, err); });
   }
 
   rtc::StreamState GetState() const override { return rtc::SS_OPEN; }
@@ -245,7 +246,7 @@ class SSLDummyStreamTLS : public SSLDummyStreamBase {
       : SSLDummyStreamBase(test, side, in, out) {}
 };
 
-class BufferQueueStream : public rtc::StreamInterface {
+class BufferQueueStream : public rtc::StreamInterfaceBase {
  public:
   BufferQueueStream(size_t capacity, size_t default_size)
       : buffer_(capacity, default_size) {}
@@ -389,11 +390,14 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
                                     : new ScopedFieldTrials(server_experiment));
       server_ssl_ = rtc::SSLStreamAdapter::Create(CreateServerStream());
     }
-
-    client_ssl_->SignalEvent.connect(this,
-                                     &SSLStreamAdapterTestBase::OnClientEvent);
-    server_ssl_->SignalEvent.connect(this,
-                                     &SSLStreamAdapterTestBase::OnServerEvent);
+    client_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnClientEvent(stream, events, err);
+        });
+    server_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnServerEvent(stream, events, err);
+        });
   }
 
   // Recreate the client/server identities with the specified validity period.

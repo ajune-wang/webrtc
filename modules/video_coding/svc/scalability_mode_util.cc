@@ -13,9 +13,184 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/video_codecs/scalability_mode.h"
+#include "api/video_codecs/video_codec.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
+
+absl::optional<ScalabilityMode> MakeScalabilityMode(
+    int num_spatial_layers,
+    int num_temporal_layers,
+    InterLayerPredMode inter_layer_pred,
+    absl::optional<ScalabilityModeResolutionRatio> ratio,
+    bool shift) {
+  if (num_spatial_layers == 1) {
+    // Singlecast modes.
+    switch (num_temporal_layers) {
+      case 1:
+        return ScalabilityMode::kL1T1;
+      case 2:
+        return ScalabilityMode::kL1T2;
+      case 3:
+        return ScalabilityMode::kL1T3;
+    }
+  } else if (num_spatial_layers == 2) {
+    switch (inter_layer_pred) {
+      // S-modes.
+      case InterLayerPredMode::kOff: {
+        switch (ratio.value_or(ScalabilityModeResolutionRatio::kTwoToOne)) {
+          case ScalabilityModeResolutionRatio::kTwoToOne:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kS2T1;
+              case 2:
+                return ScalabilityMode::kS2T2;
+              case 3:
+                return ScalabilityMode::kS2T3;
+              default:
+                return absl::nullopt;
+            }
+          case ScalabilityModeResolutionRatio::kThreeToTwo:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kS2T1h;
+              case 2:
+                return ScalabilityMode::kS2T2h;
+              case 3:
+                return ScalabilityMode::kS2T3h;
+              default:
+                return absl::nullopt;
+            }
+        }
+      }
+      // Full SVC.
+      case InterLayerPredMode::kOn: {
+        switch (ratio.value_or(ScalabilityModeResolutionRatio::kTwoToOne)) {
+          case ScalabilityModeResolutionRatio::kTwoToOne:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kL2T1;
+              case 2:
+                return ScalabilityMode::kL2T2;
+              case 3:
+                return ScalabilityMode::kL2T3;
+              default:
+                return absl::nullopt;
+            }
+          case ScalabilityModeResolutionRatio::kThreeToTwo:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kL2T1h;
+              case 2:
+                return ScalabilityMode::kL2T2h;
+              case 3:
+                return ScalabilityMode::kL2T3h;
+              default:
+                return absl::nullopt;
+            }
+        }
+      }
+      // K-SVC.
+      case InterLayerPredMode::kOnKeyPic: {
+        switch (ratio.value_or(ScalabilityModeResolutionRatio::kTwoToOne)) {
+          case ScalabilityModeResolutionRatio::kTwoToOne:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kL2T1_KEY;
+              case 2: {
+                return shift ? ScalabilityMode::kL2T2_KEY_SHIFT
+                             : ScalabilityMode::kL2T2_KEY;
+              }
+              case 3:
+                return ScalabilityMode::kL2T3_KEY;
+              default:
+                return absl::nullopt;
+            }
+          case ScalabilityModeResolutionRatio::kThreeToTwo:
+            return absl::nullopt;
+        }
+      }
+    }
+
+  } else if (num_spatial_layers == 3) {
+    switch (inter_layer_pred) {
+      // S-modes.
+      case InterLayerPredMode::kOff: {
+        switch (ratio.value_or(ScalabilityModeResolutionRatio::kTwoToOne)) {
+          case ScalabilityModeResolutionRatio::kTwoToOne:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kS3T1;
+              case 2:
+                return ScalabilityMode::kS3T2;
+              case 3:
+                return ScalabilityMode::kS3T3;
+              default:
+                return absl::nullopt;
+            }
+          case ScalabilityModeResolutionRatio::kThreeToTwo:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kS3T1h;
+              case 2:
+                return ScalabilityMode::kS3T2h;
+              case 3:
+                return ScalabilityMode::kS3T3h;
+              default:
+                return absl::nullopt;
+            }
+        }
+      }
+      // Full SVC.
+      case InterLayerPredMode::kOn: {
+        switch (ratio.value_or(ScalabilityModeResolutionRatio::kTwoToOne)) {
+          case ScalabilityModeResolutionRatio::kTwoToOne:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kL3T1;
+              case 2:
+                return ScalabilityMode::kL3T2;
+              case 3:
+                return ScalabilityMode::kL3T3;
+              default:
+                return absl::nullopt;
+            }
+          case ScalabilityModeResolutionRatio::kThreeToTwo:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kL3T1h;
+              case 2:
+                return ScalabilityMode::kL3T2h;
+              case 3:
+                return ScalabilityMode::kL3T3h;
+              default:
+                return absl::nullopt;
+            }
+        }
+      }
+      // K-SVC.
+      case InterLayerPredMode::kOnKeyPic: {
+        switch (ratio.value_or(ScalabilityModeResolutionRatio::kTwoToOne)) {
+          case ScalabilityModeResolutionRatio::kTwoToOne:
+            switch (num_temporal_layers) {
+              case 1:
+                return ScalabilityMode::kL3T1_KEY;
+              case 2:
+                return ScalabilityMode::kL3T2_KEY;
+              case 3:
+                return ScalabilityMode::kL3T3_KEY;
+              default:
+                return absl::nullopt;
+            }
+          case ScalabilityModeResolutionRatio::kThreeToTwo:
+            return absl::nullopt;
+        }
+      }
+    }
+  }
+
+  return absl::nullopt;
+}
 
 absl::optional<ScalabilityMode> ScalabilityModeFromString(
     absl::string_view mode_string) {
@@ -290,6 +465,10 @@ absl::optional<ScalabilityModeResolutionRatio> ScalabilityModeToResolutionRatio(
       return ScalabilityModeResolutionRatio::kThreeToTwo;
   }
   RTC_CHECK_NOTREACHED();
+}
+
+bool ScalabilityModeIsShiftMode(ScalabilityMode scalability_mode) {
+  return scalability_mode == ScalabilityMode::kL2T2_KEY_SHIFT;
 }
 
 ScalabilityMode LimitNumSpatialLayers(ScalabilityMode scalability_mode,

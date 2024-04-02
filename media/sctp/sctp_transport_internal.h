@@ -73,12 +73,12 @@ enum class SctpErrorCauseCode : uint16_t {
 
 // Abstract SctpTransport interface for use internally (by PeerConnection etc.).
 // Exists to allow mock/fake SctpTransports to be created.
-class SctpTransportInternal {
+class SctpTransportInternal : public webrtc::DataChannelTransportInterface {
  public:
   virtual ~SctpTransportInternal() {}
 
   virtual void SetOnConnectedCallback(std::function<void()> callback) = 0;
-  virtual void SetDataChannelSink(webrtc::DataChannelSink* sink) = 0;
+  virtual void SetDataSink(webrtc::DataChannelSink* sink) = 0;
 
   // When Start is called, connects as soon as possible; this can be called
   // before DTLS completes, in which case the connection will begin when DTLS
@@ -103,32 +103,6 @@ class SctpTransportInternal {
   // NOTE: Initially there was a "Stop" method here, but it was never used, so
   // it was removed.
 
-  // Informs SctpTransport that `sid` will start being used. Returns false if
-  // it is impossible to use `sid`, or if it's already in use.
-  // Until calling this, can't send data using `sid`.
-  // TODO(deadbeef): Actually implement the "returns false if `sid` can't be
-  // used" part. See:
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=619849
-  virtual bool OpenStream(int sid) = 0;
-  // The inverse of OpenStream. Begins the closing procedure, which will
-  // eventually result in SignalClosingProcedureComplete on the side that
-  // initiates it, and both SignalClosingProcedureStartedRemotely and
-  // SignalClosingProcedureComplete on the other side.
-  virtual bool ResetStream(int sid) = 0;
-  // Send data down this channel.
-  // Returns RTCError::OK() if successful an error otherwise. Notably
-  // RTCErrorType::RESOURCE_EXHAUSTED for blocked operations.
-  virtual webrtc::RTCError SendData(int sid,
-                                    const webrtc::SendDataParams& params,
-                                    const rtc::CopyOnWriteBuffer& payload) = 0;
-
-  // Indicates when the SCTP socket is created and not blocked by congestion
-  // control. This changes to false when SDR_BLOCK is returned from SendData,
-  // and
-  // changes to true when SignalReadyToSendData is fired. The underlying DTLS/
-  // ICE channels may be unwritable while ReadyToSendData is true, because data
-  // can still be queued in usrsctp.
-  virtual bool ReadyToSendData() = 0;
   // Returns the current max message size, set with Start().
   virtual int max_message_size() const = 0;
   // Returns the current negotiated max # of outbound streams.
@@ -136,10 +110,6 @@ class SctpTransportInternal {
   virtual absl::optional<int> max_outbound_streams() const = 0;
   // Returns the current negotiated max # of inbound streams.
   virtual absl::optional<int> max_inbound_streams() const = 0;
-  // Returns the amount of buffered data in the send queue for a stream.
-  virtual size_t buffered_amount(int sid) const = 0;
-  virtual size_t buffered_amount_low_threshold(int sid) const = 0;
-  virtual void SetBufferedAmountLowThreshold(int sid, size_t bytes) = 0;
 
   // Helper for debugging.
   virtual void set_debug_name_for_testing(const char* debug_name) = 0;

@@ -77,7 +77,7 @@ void SctpTransport::UnregisterObserver() {
 RTCError SctpTransport::OpenChannel(int channel_id) {
   RTC_DCHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(internal_sctp_transport_);
-  internal_sctp_transport_->OpenStream(channel_id);
+  internal_sctp_transport_->OpenChannel(channel_id);
   return RTCError::OK();
 }
 
@@ -91,20 +91,20 @@ RTCError SctpTransport::SendData(int channel_id,
 RTCError SctpTransport::CloseChannel(int channel_id) {
   RTC_DCHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(internal_sctp_transport_);
-  internal_sctp_transport_->ResetStream(channel_id);
+  internal_sctp_transport_->CloseChannel(channel_id);
   return RTCError::OK();
 }
 
 void SctpTransport::SetDataSink(DataChannelSink* sink) {
   RTC_DCHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(internal_sctp_transport_);
-  internal_sctp_transport_->SetDataChannelSink(sink);
+  internal_sctp_transport_->SetDataSink(sink);
 }
 
 bool SctpTransport::IsReadyToSend() const {
   RTC_DCHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(internal_sctp_transport_);
-  return internal_sctp_transport_->ReadyToSendData();
+  return internal_sctp_transport_->IsReadyToSend();
 }
 
 size_t SctpTransport::buffered_amount(int channel_id) const {

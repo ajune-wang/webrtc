@@ -41,23 +41,12 @@ class SctpDataChannel;
 
 // Interface that acts as a bridge from the data channel to the transport.
 // All methods in this interface need to be invoked on the network thread.
-class SctpDataChannelControllerInterface {
+class SctpDataChannelControllerInterface
+    : public DataChannelTransportInterface {
  public:
-  // Sends the data to the transport.
-  virtual RTCError SendData(StreamId sid,
-                            const SendDataParams& params,
-                            const rtc::CopyOnWriteBuffer& payload) = 0;
-  // Adds the data channel SID to the transport for SCTP.
-  virtual void AddSctpDataStream(StreamId sid) = 0;
-  // Begins the closing procedure by sending an outgoing stream reset. Still
-  // need to wait for callbacks to tell when this completes.
-  virtual void RemoveSctpDataStream(StreamId sid) = 0;
   // Notifies the controller of state changes.
   virtual void OnChannelStateChanged(SctpDataChannel* data_channel,
                                      DataChannelInterface::DataState state) = 0;
-  virtual size_t buffered_amount(StreamId sid) const = 0;
-  virtual size_t buffered_amount_low_threshold(StreamId sid) const = 0;
-  virtual void SetBufferedAmountLowThreshold(StreamId sid, size_t bytes) = 0;
 
  protected:
   virtual ~SctpDataChannelControllerInterface() {}

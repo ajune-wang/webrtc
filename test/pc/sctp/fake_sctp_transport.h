@@ -23,21 +23,25 @@
 class FakeSctpTransport : public cricket::SctpTransportInternal {
  public:
   void SetOnConnectedCallback(std::function<void()> callback) override {}
-  void SetDataChannelSink(webrtc::DataChannelSink* sink) override {}
+  void SetDataSink(webrtc::DataChannelSink* sink) override {}
   bool Start(int local_port, int remote_port, int max_message_size) override {
     local_port_.emplace(local_port);
     remote_port_.emplace(remote_port);
     max_message_size_ = max_message_size;
     return true;
   }
-  bool OpenStream(int sid) override { return true; }
-  bool ResetStream(int sid) override { return true; }
-  webrtc::RTCError SendData(int sid,
-                            const webrtc::SendDataParams& params,
-                            const rtc::CopyOnWriteBuffer& payload) override {
+  webrtc::RTCError OpenChannel(int channel_id) override {
     return webrtc::RTCError::OK();
   }
-  bool ReadyToSendData() override { return true; }
+  webrtc::RTCError CloseChannel(int channel_id) override {
+    return webrtc::RTCError::OK();
+  }
+  webrtc::RTCError SendData(int channel_id,
+                            const webrtc::SendDataParams& params,
+                            const rtc::CopyOnWriteBuffer& buffer) override {
+    return webrtc::RTCError::OK();
+  }
+  bool IsReadyToSend() const override { return true; }
   void set_debug_name_for_testing(const char* debug_name) override {}
 
   int max_message_size() const override { return max_message_size_; }

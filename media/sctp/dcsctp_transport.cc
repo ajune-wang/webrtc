@@ -172,7 +172,7 @@ void DcSctpTransport::SetOnConnectedCallback(std::function<void()> callback) {
   on_connected_callback_ = std::move(callback);
 }
 
-void DcSctpTransport::SetDataChannelSink(DataChannelSink* sink) {
+void DcSctpTransport::SetDataSink(DataChannelSink* sink) {
   RTC_DCHECK_RUN_ON(network_thread_);
   data_channel_sink_ = sink;
   if (data_channel_sink_ && ready_to_send_data_) {
@@ -228,32 +228,35 @@ bool DcSctpTransport::Start(int local_sctp_port,
   return true;
 }
 
-bool DcSctpTransport::OpenStream(int sid) {
+RTCError DcSctpTransport::OpenChannel(int channel_id) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_DLOG(LS_INFO) << debug_name_ << "->OpenStream(" << sid << ").";
+  RTC_DLOG(LS_INFO) << debug_name_ << "->OpenChannel(" << channel_id << ").";
 
   StreamState stream_state;
-  stream_states_.insert_or_assign(dcsctp::StreamID(static_cast<uint16_t>(sid)),
-                                  stream_state);
-  return true;
+  stream_states_.insert_or_assign(
+      dcsctp::StreamID(static_cast<uint16_t>(channel_id)), stream_state);
+  return RTCError::OK();
 }
 
-bool DcSctpTransport::ResetStream(int sid) {
+RTCError DcSctpTransport::CloseChannel(int channel_id) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_DLOG(LS_INFO) << debug_name_ << "->ResetStream(" << sid << ").";
+  RTC_DLOG(LS_INFO) << debug_name_ << "->ResetStream(" << channel_id << ").";
   if (!socket_) {
-    RTC_LOG(LS_ERROR) << debug_name_ << "->ResetStream(sid=" << sid
+    RTC_LOG(LS_ERROR) << debug_name_
+                      << "->ResetStream(channel_id=" << channel_id
                       << "): Transport is not started.";
-    return false;
+    return RTCError::OK();
   }
 
-  dcsctp::StreamID streams[1] = {dcsctp::StreamID(static_cast<uint16_t>(sid))};
+  dcsctp::StreamID streams[1] = {
+      dcsctp::StreamID(static_cast<uint16_t>(channel_id))};
 
   auto it = stream_states_.find(streams[0]);
   if (it == stream_states_.end()) {
-    RTC_LOG(LS_ERROR) << debug_name_ << "->ResetStream(sid=" << sid
+    RTC_LOG(LS_ERROR) << debug_name_
+                      << "->ResetStream(channel_id=" << channel_id
                       << "): Stream is not open.";
-    return false;
+    return RTCError::OK();
   }
 
   StreamState& stream_state = it->second;
@@ -261,20 +264,20 @@ bool DcSctpTransport::ResetStream(int sid) {
       stream_state.outgoing_reset_done) {
     // The closing procedure was already initiated by the remote, don't do
     // anything.
-    return false;
+    return RTCError::OK();
   }
   stream_state.closure_initiated = true;
   socket_->ResetStreams(streams);
-  return true;
+  return RTCError::OK();
 }
 
-RTCError DcSctpTransport::SendData(int sid,
+RTCError DcSctpTransport::SendData(int channel_id,
                                    const SendDataParams& params,
-                                   const rtc::CopyOnWriteBuffer& payload) {
+                                   const rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_DLOG(LS_VERBOSE) << debug_name_ << "->SendData(sid=" << sid
+  RTC_DLOG(LS_VERBOSE) << debug_name_ << "->SendData(channel_id=" << channel_id
                        << ", type=" << static_cast<int>(params.type)
-                       << ", length=" << payload.size() << ").";
+                       << ", length=" << buffer.size() << ").";
 
   if (!socket_) {
     RTC_LOG(LS_ERROR) << debug_name_
@@ -289,33 +292,34 @@ RTCError DcSctpTransport::SendData(int sid,
   // The sending errors are not impacting the data channel API contract as
   // it is allowed to discard queued messages when the channel is closing.
   auto stream_state =
-      stream_states_.find(dcsctp::StreamID(static_cast<uint16_t>(sid)));
+      stream_states_.find(dcsctp::StreamID(static_cast<uint16_t>(channel_id)));
   if (stream_state == stream_states_.end()) {
-    RTC_LOG(LS_VERBOSE) << "Skipping message on non-open stream with sid: "
-                        << sid;
+    RTC_LOG(LS_VERBOSE)
+        << "Skipping message on non-open stream with channel_id: "
+        << channel_id;
     return RTCError(RTCErrorType::INVALID_STATE);
   }
 
   if (stream_state->second.closure_initiated ||
       stream_state->second.incoming_reset_done ||
       stream_state->second.outgoing_reset_done) {
-    RTC_LOG(LS_VERBOSE) << "Skipping message on closing stream with sid: "
-                        << sid;
+    RTC_LOG(LS_VERBOSE)
+        << "Skipping message on closing stream with channel_id: " << channel_id;
     return RTCError(RTCErrorType::INVALID_STATE);
   }
 
   auto max_message_size = socket_->options().max_message_size;
-  if (max_message_size > 0 && payload.size() > max_message_size) {
+  if (max_message_size > 0 && buffer.size() > max_message_size) {
     RTC_LOG(LS_WARNING) << debug_name_
                         << "->SendData(...): "
                            "Trying to send packet bigger "
                            "than the max message size: "
-                        << payload.size() << " vs max of " << max_message_size;
+                        << buffer.size() << " vs max of " << max_message_size;
     return RTCError(RTCErrorType::INVALID_RANGE);
   }
 
-  std::vector<uint8_t> message_payload(payload.cdata(),
-                                       payload.cdata() + payload.size());
+  std::vector<uint8_t> message_payload(buffer.cdata(),
+                                       buffer.cdata() + buffer.size());
   if (message_payload.empty()) {
     // https://www.rfc-editor.org/rfc/rfc8831.html#section-6.6
     // SCTP does not support the sending of empty user messages. Therefore, if
@@ -326,8 +330,8 @@ RTCError DcSctpTransport::SendData(int sid,
   }
 
   dcsctp::DcSctpMessage message(
-      dcsctp::StreamID(static_cast<uint16_t>(sid)),
-      dcsctp::PPID(static_cast<uint16_t>(ToPPID(params.type, payload.size()))),
+      dcsctp::StreamID(static_cast<uint16_t>(channel_id)),
+      dcsctp::PPID(static_cast<uint16_t>(ToPPID(params.type, buffer.size()))),
       std::move(message_payload));
 
   dcsctp::SendOptions send_options;
@@ -359,7 +363,7 @@ RTCError DcSctpTransport::SendData(int sid,
   }
 }
 
-bool DcSctpTransport::ReadyToSendData() {
+bool DcSctpTransport::IsReadyToSend() const {
   RTC_DCHECK_RUN_ON(network_thread_);
   return ready_to_send_data_;
 }
@@ -385,22 +389,23 @@ absl::optional<int> DcSctpTransport::max_inbound_streams() const {
   return socket_->options().announced_maximum_incoming_streams;
 }
 
-size_t DcSctpTransport::buffered_amount(int sid) const {
+size_t DcSctpTransport::buffered_amount(int channel_id) const {
   if (!socket_)
     return 0;
-  return socket_->buffered_amount(dcsctp::StreamID(sid));
+  return socket_->buffered_amount(dcsctp::StreamID(channel_id));
 }
 
-size_t DcSctpTransport::buffered_amount_low_threshold(int sid) const {
+size_t DcSctpTransport::buffered_amount_low_threshold(int channel_id) const {
   if (!socket_)
     return 0;
-  return socket_->buffered_amount_low_threshold(dcsctp::StreamID(sid));
+  return socket_->buffered_amount_low_threshold(dcsctp::StreamID(channel_id));
 }
 
-void DcSctpTransport::SetBufferedAmountLowThreshold(int sid, size_t bytes) {
+void DcSctpTransport::SetBufferedAmountLowThreshold(int channel_id,
+                                                    size_t bytes) {
   if (!socket_)
     return;
-  socket_->SetBufferedAmountLowThreshold(dcsctp::StreamID(sid), bytes);
+  socket_->SetBufferedAmountLowThreshold(dcsctp::StreamID(channel_id), bytes);
 }
 
 void DcSctpTransport::set_debug_name_for_testing(const char* debug_name) {

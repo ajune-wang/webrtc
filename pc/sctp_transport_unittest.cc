@@ -16,6 +16,7 @@
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/dtls_transport_interface.h"
+#include "api/rtc_error.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "media/base/media_channel.h"
 #include "p2p/base/fake_dtls_transport.h"
@@ -42,18 +43,18 @@ class FakeCricketSctpTransport : public cricket::SctpTransportInternal {
   void SetOnConnectedCallback(std::function<void()> callback) override {
     on_connected_callback_ = std::move(callback);
   }
-  void SetDataChannelSink(DataChannelSink* sink) override {}
+  void SetDataSink(DataChannelSink* sink) override {}
   bool Start(int local_port, int remote_port, int max_message_size) override {
     return true;
   }
-  bool OpenStream(int sid) override { return true; }
-  bool ResetStream(int sid) override { return true; }
+  RTCError OpenChannel(int channel_id) override { return RTCError::OK(); }
+  RTCError CloseChannel(int channel_id) override { return RTCError::OK(); }
   RTCError SendData(int sid,
                     const SendDataParams& params,
                     const rtc::CopyOnWriteBuffer& payload) override {
     return RTCError::OK();
   }
-  bool ReadyToSendData() override { return true; }
+  bool IsReadyToSend() const override { return true; }
   void set_debug_name_for_testing(const char* debug_name) override {}
   int max_message_size() const override { return 0; }
   absl::optional<int> max_outbound_streams() const override {

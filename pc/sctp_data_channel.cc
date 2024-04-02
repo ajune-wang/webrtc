@@ -486,7 +486,7 @@ Priority SctpDataChannel::priority() const {
 uint64_t SctpDataChannel::buffered_amount() const {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (controller_ != nullptr && id_n_.has_value()) {
-    return controller_->buffered_amount(*id_n_);
+    return controller_->buffered_amount(id_n_->stream_id_int());
   }
   return 0u;
 }
@@ -641,7 +641,7 @@ void SctpDataChannel::OnClosingProcedureComplete() {
   // all pending data and transitioned to kClosing already.
   RTC_DCHECK_EQ(state_, kClosing);
   if (controller_ && id_n_.has_value()) {
-    RTC_DCHECK_EQ(controller_->buffered_amount(*id_n_), 0);
+    RTC_DCHECK_EQ(controller_->buffered_amount(id_n_->stream_id_int()), 0);
   }
   SetState(kClosed);
 }
@@ -667,7 +667,7 @@ void SctpDataChannel::OnBufferedAmountLow() {
   if (state_ == DataChannelInterface::kClosing && !started_closing_procedure_ &&
       id_n_.has_value() && buffered_amount() == 0) {
     started_closing_procedure_ = true;
-    controller_->RemoveSctpDataStream(*id_n_);
+    controller_->CloseChannel(id_n_->stream_id_int());
   }
 }
 
@@ -811,14 +811,14 @@ void SctpDataChannel::UpdateState() {
       if (connected_to_transport() && controller_ && id_n_.has_value()) {
         // Wait for all queued data to be sent before beginning the closing
         // procedure.
-        if (controller_->buffered_amount(*id_n_) == 0) {
+        if (controller_->buffered_amount(id_n_->stream_id_int()) == 0) {
           // For SCTP data channels, we need to wait for the closing procedure
           // to complete; after calling RemoveSctpDataStream,
           // OnClosingProcedureComplete will end up called asynchronously
           // afterwards.
           if (!started_closing_procedure_ && id_n_.has_value()) {
             started_closing_procedure_ = true;
-            controller_->RemoveSctpDataStream(*id_n_);
+            controller_->CloseChannel(id_n_->stream_id_int());
           }
         }
       } else {
@@ -881,7 +881,8 @@ void SctpDataChannel::MaybeSendOnBufferedAmountChanged() {
   // too often. On benchmarks, Chrome handle around 300Mbps, which with this
   // size results in a rate of ~400 updates per second - a reasonable number.
   static constexpr int64_t kMinBufferedAmountDiffToTriggerCallback = 100 * 1024;
-  size_t actual_buffer_amount = controller_->buffered_amount(*id_n_);
+  size_t actual_buffer_amount =
+      controller_->buffered_amount(id_n_->stream_id_int());
   if (actual_buffer_amount > expected_buffer_amount_) {
     RTC_DLOG(LS_ERROR) << "Actual buffer_amount larger than expected";
     return;
@@ -902,7 +903,7 @@ void SctpDataChannel::MaybeSendOnBufferedAmountChanged() {
   // This ensures that this function will be called again, until the channel is
   // completely drained.
   controller_->SetBufferedAmountLowThreshold(
-      *id_n_,
+      id_n_->stream_id_int(),
       actual_buffer_amount > kMinBufferedAmountDiffToTriggerCallback
           ? actual_buffer_amount - kMinBufferedAmountDiffToTriggerCallback
           : 0);
@@ -931,7 +932,8 @@ RTCError SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
   send_params.type =
       buffer.binary ? DataMessageType::kBinary : DataMessageType::kText;
 
-  error_ = controller_->SendData(*id_n_, send_params, buffer.data);
+  error_ =
+      controller_->SendData(id_n_->stream_id_int(), send_params, buffer.data);
   MaybeSendOnBufferedAmountChanged();
   if (error_.ok()) {
     ++messages_sent_;
@@ -966,7 +968,8 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   send_params.ordered = ordered_ || is_open_message;
   send_params.type = DataMessageType::kControl;
 
-  RTCError err = controller_->SendData(*id_n_, send_params, buffer);
+  RTCError err =
+      controller_->SendData(id_n_->stream_id_int(), send_params, buffer);
   if (err.ok()) {
     RTC_DLOG(LS_VERBOSE) << "Sent CONTROL message on channel "
                          << id_n_->stream_id_int();

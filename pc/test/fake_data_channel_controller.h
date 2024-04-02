@@ -15,6 +15,7 @@
 #include <string>
 #include <utility>
 
+#include "api/rtc_error.h"
 #include "pc/sctp_data_channel.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/weak_ptr.h"
@@ -60,7 +61,7 @@ class FakeDataChannelController
                   transport_available_, init, signaling_thread_,
                   network_thread_);
           if (transport_available_ && channel->sid_n().has_value()) {
-            AddSctpDataStream(*channel->sid_n());
+            OpenChannel(channel->sid_n()->stream_id_int());
           }
           if (ready_to_send_) {
             network_thread_->PostTask([channel = channel] {
@@ -76,9 +77,9 @@ class FakeDataChannelController
     return channel;
   }
 
-  webrtc::RTCError SendData(webrtc::StreamId sid,
+  webrtc::RTCError SendData(int channel_id,
                             const webrtc::SendDataParams& params,
-                            const rtc::CopyOnWriteBuffer& payload) override {
+                            const rtc::CopyOnWriteBuffer& buffer) override {
     RTC_DCHECK_RUN_ON(network_thread_);
     RTC_CHECK(ready_to_send_);
     RTC_CHECK(transport_available_);
@@ -90,21 +91,22 @@ class FakeDataChannelController
       return webrtc::RTCError(webrtc::RTCErrorType::INTERNAL_ERROR);
     }
 
-    last_sid_ = sid;
+    last_sid_ = webrtc::StreamId(channel_id);
     last_send_data_params_ = params;
     return webrtc::RTCError::OK();
   }
 
-  void AddSctpDataStream(webrtc::StreamId sid) override {
+  webrtc::RTCError OpenChannel(int channel_id) override {
     RTC_DCHECK_RUN_ON(network_thread_);
-    if (!transport_available_) {
-      return;
+    if (transport_available_) {
+      known_stream_ids_.insert(webrtc::StreamId(channel_id));
     }
-    known_stream_ids_.insert(sid);
+    return webrtc::RTCError::OK();
   }
 
-  void RemoveSctpDataStream(webrtc::StreamId sid) override {
+  webrtc::RTCError CloseChannel(int channel_id) override {
     RTC_DCHECK_RUN_ON(network_thread_);
+    webrtc::StreamId sid(channel_id);
     known_stream_ids_.erase(sid);
     // Unlike the real SCTP transport, act like the closing procedure finished
     // instantly.
@@ -114,7 +116,11 @@ class FakeDataChannelController
     // (this class) doesn't have a transport that would do that.
     if (it != connected_channels_.end())
       (*it)->OnClosingProcedureComplete();
+    return webrtc::RTCError::OK();
   }
+
+  void SetDataSink(webrtc::DataChannelSink* sink) override {}
+  bool IsReadyToSend() const override { return true; }
 
   void OnChannelStateChanged(
       webrtc::SctpDataChannel* data_channel,
@@ -128,12 +134,11 @@ class FakeDataChannelController
     }
   }
 
-  size_t buffered_amount(webrtc::StreamId sid) const override { return 0; }
-  size_t buffered_amount_low_threshold(webrtc::StreamId sid) const override {
+  size_t buffered_amount(int channel_id) const override { return 0; }
+  size_t buffered_amount_low_threshold(int channel_id) const override {
     return 0;
   }
-  void SetBufferedAmountLowThreshold(webrtc::StreamId sid,
-                                     size_t bytes) override {}
+  void SetBufferedAmountLowThreshold(int channel_id, size_t bytes) override {}
 
   // Set true to emulate the SCTP stream being blocked by congestion control.
   void set_send_blocked(bool blocked) {

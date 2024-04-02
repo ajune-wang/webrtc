@@ -100,7 +100,7 @@ class SctpDataChannelTest : public ::testing::Test {
       RTC_DCHECK_RUN_ON(&network_thread_);
       if (!inner_channel_->sid_n().has_value()) {
         inner_channel_->SetSctpSid_n(sid);
-        controller_->AddSctpDataStream(sid);
+        controller_->OpenChannel(sid.stream_id_int());
       }
       inner_channel_->OnTransportChannelCreated();
     });
@@ -117,7 +117,7 @@ class SctpDataChannelTest : public ::testing::Test {
                      StreamId sid) {
     network_thread_.BlockingCall([&]() {
       channel->SetSctpSid_n(sid);
-      controller_->AddSctpDataStream(sid);
+      controller_->OpenChannel(sid.stream_id_int());
     });
   }
 

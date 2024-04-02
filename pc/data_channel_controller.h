@@ -47,16 +47,18 @@ class DataChannelController : public SctpDataChannelControllerInterface,
 
   // Implements
   // SctpDataChannelProviderInterface.
-  RTCError SendData(StreamId sid,
+  RTCError OpenChannel(int channel_id) override;
+  RTCError SendData(int channel_id,
                     const SendDataParams& params,
-                    const rtc::CopyOnWriteBuffer& payload) override;
-  void AddSctpDataStream(StreamId sid) override;
-  void RemoveSctpDataStream(StreamId sid) override;
-  void OnChannelStateChanged(SctpDataChannel* channel,
+                    const rtc::CopyOnWriteBuffer& buffer) override;
+  RTCError CloseChannel(int channel_id) override;
+  void SetDataSink(DataChannelSink* sink) override {}
+  bool IsReadyToSend() const override;
+  size_t buffered_amount(int channel_id) const override;
+  size_t buffered_amount_low_threshold(int channel_id) const override;
+  void SetBufferedAmountLowThreshold(int channel_id, size_t bytes) override;
+  void OnChannelStateChanged(SctpDataChannel* data_channel,
                              DataChannelInterface::DataState state) override;
-  size_t buffered_amount(StreamId sid) const override;
-  size_t buffered_amount_low_threshold(StreamId sid) const override;
-  void SetBufferedAmountLowThreshold(StreamId sid, size_t bytes) override;
 
   // Implements DataChannelSink.
   void OnDataReceived(int channel_id,

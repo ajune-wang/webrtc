@@ -52,22 +52,22 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
 
   // cricket::SctpTransportInternal
   void SetOnConnectedCallback(std::function<void()> callback) override;
-  void SetDataChannelSink(DataChannelSink* sink) override;
+  void SetDataSink(DataChannelSink* sink) override;
   bool Start(int local_sctp_port,
              int remote_sctp_port,
              int max_message_size) override;
-  bool OpenStream(int sid) override;
-  bool ResetStream(int sid) override;
-  RTCError SendData(int sid,
+  RTCError OpenChannel(int channel_id) override;
+  RTCError CloseChannel(int channel_id) override;
+  RTCError SendData(int channel_id,
                     const SendDataParams& params,
-                    const rtc::CopyOnWriteBuffer& payload) override;
-  bool ReadyToSendData() override;
+                    const rtc::CopyOnWriteBuffer& buffer) override;
+  bool IsReadyToSend() const override;
   int max_message_size() const override;
   absl::optional<int> max_outbound_streams() const override;
   absl::optional<int> max_inbound_streams() const override;
-  size_t buffered_amount(int sid) const override;
-  size_t buffered_amount_low_threshold(int sid) const override;
-  void SetBufferedAmountLowThreshold(int sid, size_t bytes) override;
+  size_t buffered_amount(int channel_id) const override;
+  size_t buffered_amount_low_threshold(int channel_id) const override;
+  void SetBufferedAmountLowThreshold(int channel_id, size_t bytes) override;
   void set_debug_name_for_testing(const char* debug_name) override;
 
  private:

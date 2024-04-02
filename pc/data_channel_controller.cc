@@ -39,31 +39,65 @@ bool DataChannelController::HasUsedDataChannels() const {
   return channel_usage_ != DataChannelUsage::kNeverUsed;
 }
 
-RTCError DataChannelController::SendData(
-    StreamId sid,
-    const SendDataParams& params,
-    const rtc::CopyOnWriteBuffer& payload) {
+RTCError DataChannelController::SendData(int channel_id,
+                                         const SendDataParams& params,
+                                         const rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK_RUN_ON(network_thread());
   if (!data_channel_transport_) {
     RTC_LOG(LS_ERROR) << "SendData called before transport is ready";
     return RTCError(RTCErrorType::INVALID_STATE);
   }
-  return data_channel_transport_->SendData(sid.stream_id_int(), params,
-                                           payload);
+  return data_channel_transport_->SendData(channel_id, params, buffer);
 }
 
-void DataChannelController::AddSctpDataStream(StreamId sid) {
+RTCError DataChannelController::OpenChannel(int channel_id) {
   RTC_DCHECK_RUN_ON(network_thread());
-  if (data_channel_transport_) {
-    data_channel_transport_->OpenChannel(sid.stream_id_int());
+  if (!data_channel_transport_) {
+    return RTCError::OK();
   }
+  return data_channel_transport_->OpenChannel(channel_id);
 }
 
-void DataChannelController::RemoveSctpDataStream(StreamId sid) {
+RTCError DataChannelController::CloseChannel(int channel_id) {
   RTC_DCHECK_RUN_ON(network_thread());
-  if (data_channel_transport_) {
-    data_channel_transport_->CloseChannel(sid.stream_id_int());
+  if (!data_channel_transport_) {
+    return RTCError::OK();
   }
+  return data_channel_transport_->CloseChannel(channel_id);
+}
+
+bool DataChannelController::IsReadyToSend() const {
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (!data_channel_transport_) {
+    return false;
+  }
+  return data_channel_transport_->IsReadyToSend();
+}
+
+size_t DataChannelController::buffered_amount(int channel_id) const {
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (!data_channel_transport_) {
+    return 0;
+  }
+  return data_channel_transport_->buffered_amount(channel_id);
+}
+
+size_t DataChannelController::buffered_amount_low_threshold(
+    int channel_id) const {
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (!data_channel_transport_) {
+    return 0;
+  }
+  return data_channel_transport_->buffered_amount_low_threshold(channel_id);
+}
+
+void DataChannelController::SetBufferedAmountLowThreshold(int channel_id,
+                                                          size_t bytes) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  if (!data_channel_transport_) {
+    return;
+  }
+  data_channel_transport_->SetBufferedAmountLowThreshold(channel_id, bytes);
 }
 
 void DataChannelController::OnChannelStateChanged(
@@ -87,34 +121,6 @@ void DataChannelController::OnChannelStateChanged(
         channel_usage_ = channel_usage;
         pc_->OnSctpDataChannelStateChanged(channel_id, state);
       }));
-}
-
-size_t DataChannelController::buffered_amount(StreamId sid) const {
-  RTC_DCHECK_RUN_ON(network_thread());
-  if (!data_channel_transport_) {
-    return 0;
-  }
-  return data_channel_transport_->buffered_amount(sid.stream_id_int());
-}
-
-size_t DataChannelController::buffered_amount_low_threshold(
-    StreamId sid) const {
-  RTC_DCHECK_RUN_ON(network_thread());
-  if (!data_channel_transport_) {
-    return 0;
-  }
-  return data_channel_transport_->buffered_amount_low_threshold(
-      sid.stream_id_int());
-}
-
-void DataChannelController::SetBufferedAmountLowThreshold(StreamId sid,
-                                                          size_t bytes) {
-  RTC_DCHECK_RUN_ON(network_thread());
-  if (!data_channel_transport_) {
-    return;
-  }
-  data_channel_transport_->SetBufferedAmountLowThreshold(sid.stream_id_int(),
-                                                         bytes);
 }
 
 void DataChannelController::OnDataReceived(
@@ -349,7 +355,7 @@ DataChannelController::CreateDataChannel(const std::string& label,
 
   // If we have an id already, notify the transport.
   if (sid.has_value())
-    AddSctpDataStream(*sid);
+    OpenChannel(sid->stream_id_int());
 
   return channel;
 }
@@ -412,7 +418,7 @@ void DataChannelController::AllocateSctpSids(rtc::SSLRole role) {
       absl::optional<StreamId> sid = sid_allocator_.AllocateSid(role);
       if (sid.has_value()) {
         (*it)->SetSctpSid_n(*sid);
-        AddSctpDataStream(*sid);
+        OpenChannel(sid->stream_id_int());
         if (ready_to_send) {
           RTC_LOG(LS_INFO) << "AllocateSctpSids: Id assigned, ready to send.";
           (*it)->OnTransportReady();
@@ -471,7 +477,7 @@ void DataChannelController::NotifyDataChannelsOfTransportCreated() {
 
   for (const auto& channel : sctp_data_channels_n_) {
     if (channel->sid_n().has_value())
-      AddSctpDataStream(*channel->sid_n());
+      OpenChannel(channel->sid_n()->stream_id_int());
     channel->OnTransportChannelCreated();
   }
 }

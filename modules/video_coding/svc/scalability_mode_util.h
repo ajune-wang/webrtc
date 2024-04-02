@@ -25,6 +25,13 @@ enum class ScalabilityModeResolutionRatio {
 
 static constexpr char kDefaultScalabilityModeStr[] = "L1T2";
 
+absl::optional<ScalabilityMode> MakeScalabilityMode(
+    int num_spatial_layers,
+    int num_temporal_layers,
+    InterLayerPredMode inter_layer_pred = InterLayerPredMode::kOff,
+    absl::optional<ScalabilityModeResolutionRatio> ratio = absl::nullopt,
+    bool shift = false);
+
 absl::optional<ScalabilityMode> ScalabilityModeFromString(
     absl::string_view scalability_mode_string);
 
@@ -34,6 +41,8 @@ InterLayerPredMode ScalabilityModeToInterLayerPredMode(
 int ScalabilityModeToNumSpatialLayers(ScalabilityMode scalability_mode);
 
 int ScalabilityModeToNumTemporalLayers(ScalabilityMode scalability_mode);
+
+bool ScalabilityModeIsShiftMode(ScalabilityMode scalability_mode);
 
 absl::optional<ScalabilityModeResolutionRatio> ScalabilityModeToResolutionRatio(
     ScalabilityMode scalability_mode);

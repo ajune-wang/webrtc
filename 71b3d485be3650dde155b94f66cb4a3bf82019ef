@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b968358a_c0d6e697",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-02T11:28:45Z",
+      "side": 1,
+      "message": "I\u0027ve reverted changes in media/BUILD.gn since they don\u0027t really belong to this CL and have lost LGTMs as a result.\n\n@danilchap@webrtc.org, @philipel@webrtc.org, could you please re-stamp?",
+      "revId": "71b3d485be3650dde155b94f66cb4a3bf82019ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

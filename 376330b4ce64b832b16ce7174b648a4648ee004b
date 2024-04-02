@@ -282,6 +282,24 @@
       "parentUuid": "d2951c26_e3e34f8a",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d74aae9_e66dbf05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-02T06:34:43Z",
+      "side": 1,
+      "message": "Have you tried using https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/gn_check_autofix.py?\n\nFor example:\n\n```\npython3 tools_webrtc/gn_check_autofix.py -m tryserver.webrtc -b android_arm_rel\n```",
+      "parentUuid": "da689b06_791017bc",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

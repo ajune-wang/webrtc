@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e6dab4_2531e141",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-04-02T15:40:39Z",
+      "side": 1,
+      "message": "LGTM % revert one of my mistaken requests.",
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75cdb209_6a45af82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-04-02T15:40:39Z",
+      "side": 1,
+      "message": "LGTM % revert on of my mistaken requests.",
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ccfc24e_10e3cc6b",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-04-02T15:40:39Z",
+      "side": 1,
+      "message": "I\u0027m terribly sorry. I made a mistake and thought that the function was in vp9_encoder.cc. Please move this back to the cc file. I didn\u0027t want this long function in the header, i just wanted it to be in scalability_mode_utils.*",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

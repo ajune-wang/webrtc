@@ -176,9 +176,6 @@ INDEFINITE = date(datetime.MAXYEAR, 1, 1)
 # therefore not required to follow it. Do not add any new field trials here.
 POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     # keep-sorted start
-    FieldTrial('UseTwccPlrForAna',
-               'webrtc:7058',
-               date(2024, 4, 1)),
     FieldTrial('WebRTC-AddNetworkCostToVpn',
                'webrtc:13097',
                date(2024, 4, 1)),

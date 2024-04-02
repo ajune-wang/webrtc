@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdab5073_301edfa2",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-02T11:12:12Z",
+      "side": 1,
+      "message": "Is this needed? Can has_idr be used instead?",
+      "range": {
+        "startLine": 211,
+        "startChar": 7,
+        "endLine": 211,
+        "endChar": 15
+      },
+      "revId": "12c10ef9b8b75a76de0d78c099b6e5ee23c54e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

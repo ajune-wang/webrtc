@@ -1091,9 +1091,9 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
   }
 
   std::unique_ptr<cricket::SctpTransportInternal> sctp_transport;
-  if (config_.sctp_factory) {
-    sctp_transport = config_.sctp_factory->CreateSctpTransport(
-        env_, rtp_dtls_transport.get());
+  if (config_.sctp_factory && rtp_dtls_transport != nullptr) {
+    sctp_transport =
+        config_.sctp_factory->CreateSctpTransport(env_, *rtp_dtls_transport);
   }
 
   std::unique_ptr<cricket::JsepTransport> jsep_transport =

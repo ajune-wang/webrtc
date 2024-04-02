@@ -27,7 +27,7 @@ SctpTransportFactory::SctpTransportFactory(rtc::Thread* network_thread)
 std::unique_ptr<SctpTransportInternal>
 SctpTransportFactory::CreateSctpTransport(
     const webrtc::Environment& env,
-    rtc::PacketTransportInternal* transport) {
+    rtc::PacketTransportInternal& transport) {
   std::unique_ptr<SctpTransportInternal> result;
 #ifdef WEBRTC_HAVE_DCSCTP
   result = std::unique_ptr<SctpTransportInternal>(

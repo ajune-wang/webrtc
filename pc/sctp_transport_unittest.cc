@@ -43,7 +43,6 @@ class FakeCricketSctpTransport : public cricket::SctpTransportInternal {
     on_connected_callback_ = std::move(callback);
   }
   void SetDataChannelSink(DataChannelSink* sink) override {}
-  void SetDtlsTransport(rtc::PacketTransportInternal* transport) override {}
   bool Start(int local_port, int remote_port, int max_message_size) override {
     return true;
   }

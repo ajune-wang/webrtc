@@ -40,7 +40,6 @@ SctpTransport::SctpTransport(
         OnDtlsStateChange(transport, state);
       });
 
-  internal_sctp_transport_->SetDtlsTransport(dtls_transport->internal());
   internal_sctp_transport_->SetOnConnectedCallback(
       [this]() { OnAssociationChangeCommunicationUp(); });
 }

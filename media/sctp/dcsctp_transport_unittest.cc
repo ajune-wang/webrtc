@@ -66,7 +66,7 @@ class Peer {
         .WillOnce(Return(ByMove(std::move(socket_ptr))));
 
     sctp_transport_ = std::make_unique<webrtc::DcSctpTransport>(
-        env_, rtc::Thread::Current(), &fake_packet_transport_,
+        env_, rtc::Thread::Current(), fake_packet_transport_,
         std::move(mock_dcsctp_socket_factory));
     sctp_transport_->SetDataChannelSink(&sink_);
     sctp_transport_->SetOnConnectedCallback([this]() { sink_.OnConnected(); });

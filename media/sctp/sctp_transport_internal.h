@@ -80,10 +80,6 @@ class SctpTransportInternal {
   virtual void SetOnConnectedCallback(std::function<void()> callback) = 0;
   virtual void SetDataChannelSink(webrtc::DataChannelSink* sink) = 0;
 
-  // Changes what underlying DTLS transport is uses. Used when switching which
-  // bundled transport the SctpTransport uses.
-  virtual void SetDtlsTransport(rtc::PacketTransportInternal* transport) = 0;
-
   // When Start is called, connects as soon as possible; this can be called
   // before DTLS completes, in which case the connection will begin when DTLS
   // completes. This method can be called multiple times, though not if either

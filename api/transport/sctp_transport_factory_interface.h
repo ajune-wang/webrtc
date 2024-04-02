@@ -37,7 +37,7 @@ class SctpTransportFactoryInterface {
   // Create an SCTP transport using `channel` for the underlying transport.
   virtual std::unique_ptr<cricket::SctpTransportInternal> CreateSctpTransport(
       const Environment& env,
-      rtc::PacketTransportInternal* channel) = 0;
+      rtc::PacketTransportInternal& channel) = 0;
 };
 
 }  // namespace webrtc

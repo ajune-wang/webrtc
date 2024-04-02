@@ -118,7 +118,7 @@ bool IsEmptyPPID(dcsctp::PPID ppid) {
 
 DcSctpTransport::DcSctpTransport(const Environment& env,
                                  rtc::Thread* network_thread,
-                                 rtc::PacketTransportInternal* transport)
+                                 rtc::PacketTransportInternal& transport)
     : DcSctpTransport(env,
                       network_thread,
                       transport,
@@ -126,7 +126,7 @@ DcSctpTransport::DcSctpTransport(const Environment& env,
 DcSctpTransport::DcSctpTransport(
     const Environment& env,
     rtc::Thread* network_thread,
-    rtc::PacketTransportInternal* transport,
+    rtc::PacketTransportInternal& transport,
     std::unique_ptr<dcsctp::DcSctpSocketFactory> socket_factory)
     : network_thread_(network_thread),
       transport_(transport),
@@ -144,7 +144,21 @@ DcSctpTransport::DcSctpTransport(
   rtc::StringBuilder sb;
   sb << debug_name_ << instance_count++;
   debug_name_ = sb.Release();
-  ConnectTransportSignals();
+  transport_.SignalWritableState.connect(
+      this, &DcSctpTransport::OnTransportWritableState);
+  transport_.RegisterReceivedPacketCallback(
+      this, [&](rtc::PacketTransportInternal* transport,
+                const rtc::ReceivedPacket& packet) {
+        OnTransportReadPacket(transport, packet);
+      });
+  transport_.SetOnCloseCallback([this]() {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_DLOG(LS_VERBOSE) << debug_name_ << "->OnTransportClosed().";
+    if (data_channel_sink_) {
+      data_channel_sink_->OnTransportClosed({});
+    }
+  });
+  MaybeConnectSocket();
 }
 
 DcSctpTransport::~DcSctpTransport() {
@@ -164,15 +178,6 @@ void DcSctpTransport::SetDataChannelSink(DataChannelSink* sink) {
   if (data_channel_sink_ && ready_to_send_data_) {
     data_channel_sink_->OnReadyToSend();
   }
-}
-
-void DcSctpTransport::SetDtlsTransport(
-    rtc::PacketTransportInternal* transport) {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  DisconnectTransportSignals();
-  transport_ = transport;
-  ConnectTransportSignals();
-  MaybeConnectSocket();
 }
 
 bool DcSctpTransport::Start(int local_sctp_port,
@@ -417,22 +422,22 @@ SendPacketStatus DcSctpTransport::SendPacketWithStatus(
   }
   TRACE_EVENT0("webrtc", "DcSctpTransport::SendPacket");
 
-  if (!transport_ || !transport_->writable())
+  if (!transport_.writable())
     return SendPacketStatus::kError;
 
   RTC_DLOG(LS_VERBOSE) << debug_name_ << "->SendPacket(length=" << data.size()
                        << ")";
 
   auto result =
-      transport_->SendPacket(reinterpret_cast<const char*>(data.data()),
-                             data.size(), rtc::PacketOptions(), 0);
+      transport_.SendPacket(reinterpret_cast<const char*>(data.data()),
+                            data.size(), rtc::PacketOptions(), 0);
 
   if (result < 0) {
     RTC_LOG(LS_WARNING) << debug_name_ << "->SendPacket(length=" << data.size()
-                        << ") failed with error: " << transport_->GetError()
+                        << ") failed with error: " << transport_.GetError()
                         << ".";
 
-    if (rtc::IsBlockingError(transport_->GetError())) {
+    if (rtc::IsBlockingError(transport_.GetError())) {
       return SendPacketStatus::kTemporaryFailure;
     }
     return SendPacketStatus::kError;
@@ -629,41 +634,10 @@ void DcSctpTransport::OnIncomingStreamsReset(
   }
 }
 
-void DcSctpTransport::ConnectTransportSignals() {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  if (!transport_) {
-    return;
-  }
-  transport_->SignalWritableState.connect(
-      this, &DcSctpTransport::OnTransportWritableState);
-  transport_->RegisterReceivedPacketCallback(
-      this, [&](rtc::PacketTransportInternal* transport,
-                const rtc::ReceivedPacket& packet) {
-        OnTransportReadPacket(transport, packet);
-      });
-  transport_->SetOnCloseCallback([this]() {
-    RTC_DCHECK_RUN_ON(network_thread_);
-    RTC_DLOG(LS_VERBOSE) << debug_name_ << "->OnTransportClosed().";
-    if (data_channel_sink_) {
-      data_channel_sink_->OnTransportClosed({});
-    }
-  });
-}
-
-void DcSctpTransport::DisconnectTransportSignals() {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  if (!transport_) {
-    return;
-  }
-  transport_->SignalWritableState.disconnect(this);
-  transport_->DeregisterReceivedPacketCallback(this);
-  transport_->SetOnCloseCallback(nullptr);
-}
-
 void DcSctpTransport::OnTransportWritableState(
     rtc::PacketTransportInternal* transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_DCHECK_EQ(transport_, transport);
+  RTC_DCHECK_EQ(&transport_, transport);
   RTC_DLOG(LS_VERBOSE) << debug_name_
                        << "->OnTransportWritableState(), writable="
                        << transport->writable();
@@ -687,7 +661,7 @@ void DcSctpTransport::OnTransportReadPacket(
 }
 
 void DcSctpTransport::MaybeConnectSocket() {
-  if (transport_ && transport_->writable() && socket_ &&
+  if (transport_.writable() && socket_ &&
       socket_->state() == dcsctp::SocketState::kClosed) {
     socket_->Connect();
   }

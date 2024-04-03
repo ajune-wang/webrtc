@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79cb035_bdecdfee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-04-03T10:40:49Z",
+      "side": 1,
+      "message": "You\u0027re right, this is only solving the immediate problem. From what I understand there are ongoing discussions on how the basic problem should be handled.",
+      "parentUuid": "ac3aab9c_35bfc6fc",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa90cfe7_23973065",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-03T09:47:30Z",
       "side": 1,
       "message": "Why is this a struct and not a class?",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "169faebf_660f0f24",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-04-03T10:40:49Z",
+      "side": 1,
+      "message": "I know I was thinking the same some years ago. At that time I concluded to myself that it kind of fulfills the [requirements](https://google.github.io/styleguide/cppguide.html#Structs_vs._Classes) for a struct. What I didn\u0027t realize at that time is that it fails at fulfilling ```\nThe struct must not have invariants that imply relationships between\ndifferent fields\n```\n\nSo, I agree, it should probably be a class. Or is a struct with const fields a viable option?\n\nAnyway, I think it\u0027s out-of-scope for this CL.",
+      "parentUuid": "fa90cfe7_23973065",
       "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbd5d0c_5de31bfc",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-04-03T10:40:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure we want everything to be using the predefined names at this point. I think that it\u0027s too big chance.",
+      "parentUuid": "6e3035e7_6652852e",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c03b4c51_9194f2b6",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-04-03T09:47:30Z",
       "side": 1,
       "message": "Add a comment saying what this does (create a new video format that is identical to the previous one, except for scalability modes). And move it out of the \"copy and assign operators\" list.",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12923ce7_8bb5a9d4",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-04-03T10:40:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c03b4c51_9194f2b6",
       "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ca44540_d918f9ca",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-04-03T08:57:58Z",
+      "side": 1,
+      "message": "A second think... maybe I can still use 64 as MinCbSizeY to get maximum possible value of pic_width/height_in_luma_samples, and round down level taking A.4.1 into consideration.",
+      "parentUuid": "b295a622_e2a667dc",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 291,
+        "endChar": 3
+      },
+      "revId": "0e5df083badc9e86dfafee68f7ed7acc7522f592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce8a918b_c0221ebf",
         "filename": "api/video_codecs/h265_profile_tier_level.h",
         "patchSetId": 1

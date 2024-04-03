@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3137962f_505eadef",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-03T08:19:41Z",
+      "side": 1,
+      "message": "maximum",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "0e5df083badc9e86dfafee68f7ed7acc7522f592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab41eda_bd11cb23",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-03T08:19:41Z",
+      "side": 1,
+      "message": "Should we also account for these requirements from A.4.1?:\n\nb) The value of pic_width_in_luma_samples shall be less than or equal to Sqrt( MaxLumaPs * 8 ).\nc) The value of pic_height_in_luma_samples shall be less than or equal to Sqrt( MaxLumaPs * 8 ).",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 291,
+        "endChar": 3
+      },
+      "revId": "0e5df083badc9e86dfafee68f7ed7acc7522f592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce8a918b_c0221ebf",
+        "filename": "api/video_codecs/h265_profile_tier_level.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-03T08:19:41Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 93,
+        "startChar": 55,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "0e5df083badc9e86dfafee68f7ed7acc7522f592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b2d1921_7d848a9f",
+        "filename": "api/video_codecs/h265_profile_tier_level.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-03T08:19:41Z",
+      "side": 1,
+      "message": "highest",
+      "range": {
+        "startLine": 94,
+        "startChar": 49,
+        "endLine": 94,
+        "endChar": 57
+      },
+      "revId": "0e5df083badc9e86dfafee68f7ed7acc7522f592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

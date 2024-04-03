@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f388f67b_d6212ce2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T11:46:55Z",
+      "side": 1,
+      "message": "Deleting one more pointer + length usage (even if internal) seems to me to be a Good Thing.",
+      "revId": "95e175fe0ff71ecfaa5d4ff1336e7637ca79b7a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

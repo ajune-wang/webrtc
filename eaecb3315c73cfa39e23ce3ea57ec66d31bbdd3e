@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b6b726a_d3f2c8f7",
+        "filename": "rtc_tools/wireshark/av1.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-04-03T10:50:33Z",
+      "side": 1,
+      "message": "Typo in \"Aggregration\" ...",
+      "revId": "eaecb3315c73cfa39e23ce3ea57ec66d31bbdd3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "626961aa_8cc6e943",
+        "filename": "rtc_tools/wireshark/av1.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-04-03T10:50:33Z",
+      "side": 1,
+      "message": "[3] \u003d First and second OBU has length prefix, third has not.",
+      "revId": "eaecb3315c73cfa39e23ce3ea57ec66d31bbdd3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "074446ca_d628707a",
+        "filename": "rtc_tools/wireshark/av1.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-04-03T10:50:33Z",
+      "side": 1,
+      "message": "Does the aggregation header have Forbidden bit ?",
+      "revId": "eaecb3315c73cfa39e23ce3ea57ec66d31bbdd3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68709bf7_1535efd0",
+        "filename": "rtc_tools/wireshark/av1.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-04-03T10:50:33Z",
+      "side": 1,
+      "message": "add elseif where w \u003d\u003d 3",
+      "revId": "eaecb3315c73cfa39e23ce3ea57ec66d31bbdd3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33424cb_90221af7",
+        "filename": "rtc_tools/wireshark/av1.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-04-03T10:50:33Z",
+      "side": 1,
+      "message": "all new codecs use dynamic payload type ...",
+      "revId": "eaecb3315c73cfa39e23ce3ea57ec66d31bbdd3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2156963_cd1921df",
+        "filename": "rtc_tools/wireshark/hdrext.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 20759
+      },
+      "writtenOn": "2024-04-03T10:50:33Z",
+      "side": 1,
+      "message": "the RTP Header extension ID is dynamically negotiated via SDP.",
+      "revId": "eaecb3315c73cfa39e23ce3ea57ec66d31bbdd3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

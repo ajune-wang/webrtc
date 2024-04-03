@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dea7752_f691121a",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-04-03T08:00:10Z",
+      "side": 1,
+      "message": "Done. We can use has_idr for both.",
+      "parentUuid": "b3b1aee0_f1f53992",
+      "range": {
+        "startLine": 211,
+        "startChar": 7,
+        "endLine": 211,
+        "endChar": 15
+      },
+      "revId": "12c10ef9b8b75a76de0d78c099b6e5ee23c54e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "854fdae4_fed044d2",

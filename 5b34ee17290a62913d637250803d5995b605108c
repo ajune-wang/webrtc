@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "478a4b30_2f4c084e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T12:09:10Z",
+      "side": 1,
+      "message": "This CL actually does a bit of redesign. Plese update description to reflect that.",
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e3e6dab4_2531e141",
@@ -78,6 +95,47 @@
         "endLine": 39,
         "endChar": 64
       },
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d1576f_0bdf41c3",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T12:09:10Z",
+      "side": 1,
+      "message": "How important is constexpr in this case (what property does it improve)?",
+      "parentUuid": "b422af96_5f827b27",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19c7fa72_225b8042",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T12:09:10Z",
+      "side": 1,
+      "message": "Rant, but not directly on this CL since it\u0027s not changing the representation:\n\nThis is still a lousy way to represent this information.\nHaving an array indexed on ScalabilityMode:: and array elements consisting of InterLayerPredMode, NumSpatialLayers and NumTemporalLayers would be easier to read, easier to maintain, and probably more compact in code (which matters more when there\u0027s one copy of these per compilation unit).",
       "revId": "5b34ee17290a62913d637250803d5995b605108c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

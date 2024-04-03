@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b459d154_7ac63c91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T09:59:28Z",
+      "side": 1,
+      "message": "Do you advise a generic search-and-replace for memcpy? There\u0027s only 493 left after this in webrtc...",
+      "revId": "699ea1bc6502f275b31d5e3251ff894364a19196",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

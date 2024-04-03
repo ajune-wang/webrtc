@@ -54,6 +54,70 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21f9652a_f644a978",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-03T15:33:08Z",
+      "side": 1,
+      "message": "If you want to keep it locked down to Chromium, I suggest to remove the visibility \"*\" from all the targets and let it fall back on https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d444-449;drc\u003de3b42636f30bee31dfefb167860a746cacd4e21b. By default we have WebRTC internal visibility and Chromium visibility via https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/BUILD.gn;l\u003d16;drc\u003dd9dba0eed3f7bfed1be7c0650abb4870689107f2.\n\nTo use it in Chromium, you will likely have to add the targets to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d444-449;drc\u003de3b42636f30bee31dfefb167860a746cacd4e21b (Chromium CL) and export some symbols with RTC_EXPORT (WebRTC CL).",
+      "parentUuid": "fd4c5fc5_5924d1ae",
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86665a0e_2dce1fec",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 26
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-03T15:33:08Z",
+      "side": 1,
+      "message": "Uncomment/remove?",
+      "range": {
+        "startLine": 383,
+        "startChar": 2,
+        "endLine": 383,
+        "endChar": 66
+      },
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac45bbcd_bfbf88e9",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 26
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-03T15:33:08Z",
+      "side": 1,
+      "message": "Same here, uncomment or is it not needed?",
+      "range": {
+        "startLine": 409,
+        "startChar": 2,
+        "endLine": 409,
+        "endChar": 45
+      },
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4a036d1_a391e804",
         "filename": "api/video_codecs/video_encoder_interface.h",
         "patchSetId": 26

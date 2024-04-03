@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7990f1cd_a5dcd989",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T10:30:55Z",
+      "side": 0,
+      "message": "Hm. Comment (and the fact that nothing breaks when you remove it) makes me wonder if there\u0027s something we\u0027ve not implemented here.\n\nThe envisioned scenario was something like\n\n- Negotiate bundles of media sections (A, B) and (C, D)\n- Multiplex SCTP on the (A, B) bundle\n- Stop A and B\n\nIn this case, the SCTP connection wants to be on the (C, D) bundle.\nBut I don\u0027t think anyone is using \u003e 1 bundle groups and stopping a whole bundle group in practice. So perhaps nobody cares?",
+      "revId": "6f68254ac3f04d1e9a73beab80c8e80f480b15f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

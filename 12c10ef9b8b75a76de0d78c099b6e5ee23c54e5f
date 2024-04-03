@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3b1aee0_f1f53992",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-03T07:52:11Z",
+      "side": 1,
+      "message": "has_idr and has_irap are used in L272 to decide frame type. We do not need to distinguish between H264 and H265 at that place. That\u0027s why I think that one flag should be enough.",
+      "parentUuid": "e5c9edde_88e48234",
+      "range": {
+        "startLine": 211,
+        "startChar": 7,
+        "endLine": 211,
+        "endChar": 15
+      },
+      "revId": "12c10ef9b8b75a76de0d78c099b6e5ee23c54e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "854fdae4_fed044d2",
         "filename": "modules/video_coding/h26x_packet_buffer.h",
         "patchSetId": 15

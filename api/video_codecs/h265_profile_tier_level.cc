@@ -12,6 +12,7 @@
 
 #include <string>
 
+#include "rtc_base/arraysize.h"
 #include "rtc_base/string_to_number.h"
 
 namespace webrtc {
@@ -21,6 +22,33 @@ namespace {
 const char kH265FmtpProfile[] = "profile-id";
 const char kH265FmtpTier[] = "tier-flag";
 const char kH265FmtpLevel[] = "level-id";
+// Used to align frame width and height for luma picture size calculation.
+// Use the maximium value allowed by spec to get upper bound of luma picture
+// size for given resolution.
+static constexpr int kMinCbSizeYMax = 64;
+
+struct LevelConstraint {
+  const int max_luma_picture_size;
+  const double max_luma_sample_rate;
+  const H265Level level;
+};
+
+// This is from ITU-T H.265 (09/2023) Table A.8, A.9 & A.11 – Level limits.
+static constexpr LevelConstraint kLevelConstraints[] = {
+    {36864, 552960, H265Level::kLevel1},
+    {122880, 3686400, H265Level::kLevel2},
+    {245760, 7372800, H265Level::kLevel2_1},
+    {552960, 16588800, H265Level::kLevel3},
+    {983040, 33177600, H265Level::kLevel3_1},
+    {2228224, 66846720, H265Level::kLevel4},
+    {2228224, 133693400, H265Level::kLevel4_1},
+    {8912896, 267386880, H265Level::kLevel5},
+    {8912896, 534773760, H265Level::kLevel5_1},
+    {8912896, 1069547520, H265Level::kLevel5_2},
+    {35651584, 1069547520, H265Level::kLevel6},
+    {35651584, 2139095040, H265Level::kLevel6_1},
+    {35651584, 4278190080, H265Level::kLevel6_2},
+};
 
 }  // anonymous namespace
 
@@ -243,6 +271,25 @@ bool H265IsSameProfileTierLevel(const CodecParameterMap& params1,
       ParseSdpForH265ProfileTierLevel(params2);
   return ptl1 && ptl2 && ptl1->profile == ptl2->profile &&
          ptl1->tier == ptl2->tier && ptl1->level == ptl2->level;
+}
+
+absl::optional<H265Level> GetSupportedH265Level(const Resolution& resolution,
+                                                float max_fps) {
+  int aligned_width =
+      (resolution.width + kMinCbSizeYMax - 1) & ~(kMinCbSizeYMax - 1);
+  int aligned_height =
+      (resolution.height + kMinCbSizeYMax - 1) & ~(kMinCbSizeYMax - 1);
+
+  for (int i = arraysize(kLevelConstraints) - 1; i >= 0; --i) {
+    const LevelConstraint& level_constraint = kLevelConstraints[i];
+    if (level_constraint.max_luma_picture_size <=
+            aligned_width * aligned_height &&
+        level_constraint.max_luma_sample_rate <=
+            aligned_width * aligned_height * max_fps) {
+      return level_constraint.level;
+    }
+  }
+  return absl::nullopt;
 }
 
 }  // namespace webrtc

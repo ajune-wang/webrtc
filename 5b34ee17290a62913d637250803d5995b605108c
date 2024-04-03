@@ -56,6 +56,30 @@
       },
       "revId": "5b34ee17290a62913d637250803d5995b605108c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b422af96_5f827b27",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-03T07:10:08Z",
+      "side": 1,
+      "message": "I needed to make it constexpr so it moved to the header file since constexpr definitions must be in the header.",
+      "parentUuid": "2ccfc24e_10e3cc6b",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

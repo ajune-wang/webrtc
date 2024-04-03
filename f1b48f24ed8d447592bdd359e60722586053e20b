@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6047085b_df4ca471",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T10:52:04Z",
+      "side": 1,
+      "message": "\"If in doubt, go with class\" :-)\nPerhaps time to delete the note about the class still being in development?",
+      "parentUuid": "169faebf_660f0f24",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e3035e7_6652852e",

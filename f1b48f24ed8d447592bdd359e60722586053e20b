@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3aab9c_35bfc6fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T09:47:30Z",
+      "side": 1,
+      "message": "Wonder if this is solving the basic problem or just solving this instance of it.\nWill approve if you say \"this CL is for solving the immediate problem\".",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa90cfe7_23973065",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T09:47:30Z",
+      "side": 1,
+      "message": "Why is this a struct and not a class?",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3035e7_6652852e",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T09:47:30Z",
+      "side": 1,
+      "message": "Seems to me the basic trap here is that these 3 constructors are public. Making them private would make it impossible to create any instance that is not an instance of the predefined names.\n\nIs making the constructors private a \"too big change\"?",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c03b4c51_9194f2b6",
+        "filename": "api/video_codecs/sdp_video_format.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-03T09:47:30Z",
+      "side": 1,
+      "message": "Add a comment saying what this does (create a new video format that is identical to the previous one, except for scalability modes). And move it out of the \"copy and assign operators\" list.",
+      "revId": "f1b48f24ed8d447592bdd359e60722586053e20b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a067f14d_9bee7ce3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-04-03T07:22:45Z",
+      "side": 1,
+      "message": "Thanks for your review. Please help run CQ and submit this CL if it looks good. I don\u0027t have CQ permission.",
+      "revId": "0c773d9f7e4f48dc4b3dca6512548c58c5eca859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

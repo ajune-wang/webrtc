@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5c9edde_88e48234",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-04-03T07:22:45Z",
+      "side": 1,
+      "message": "Theoretically, IRAP includes CRA and BLA as well, so it sounds more accurate than IDR for HEVC.",
+      "parentUuid": "cdab5073_301edfa2",
+      "range": {
+        "startLine": 211,
+        "startChar": 7,
+        "endLine": 211,
+        "endChar": 15
+      },
+      "revId": "12c10ef9b8b75a76de0d78c099b6e5ee23c54e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "854fdae4_fed044d2",
         "filename": "modules/video_coding/h26x_packet_buffer.h",
         "patchSetId": 15
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-02T14:25:59Z",
       "side": 1,
       "message": "Remove",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "12c10ef9b8b75a76de0d78c099b6e5ee23c54e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb02a2c9_2945b5c1",
+        "filename": "modules/video_coding/h26x_packet_buffer.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 12094
+      },
+      "writtenOn": "2024-04-03T07:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854fdae4_fed044d2",
       "range": {
         "startLine": 97,
         "startChar": 2,

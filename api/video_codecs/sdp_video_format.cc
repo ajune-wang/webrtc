@@ -138,13 +138,6 @@ SdpVideoFormat::SdpVideoFormat(
       parameters(parameters),
       scalability_modes(scalability_modes) {}
 
-SdpVideoFormat::SdpVideoFormat(
-    const SdpVideoFormat& format,
-    const absl::InlinedVector<ScalabilityMode, kScalabilityModeCount>& modes)
-    : SdpVideoFormat(format) {
-  scalability_modes = modes;
-}
-
 SdpVideoFormat::SdpVideoFormat(const SdpVideoFormat&) = default;
 SdpVideoFormat::SdpVideoFormat(SdpVideoFormat&&) = default;
 SdpVideoFormat& SdpVideoFormat::operator=(const SdpVideoFormat&) = default;

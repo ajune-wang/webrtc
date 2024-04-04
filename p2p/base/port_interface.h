@@ -19,7 +19,9 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/candidate.h"
+#include "api/field_trials_view.h"
 #include "api/packet_socket_factory.h"
+#include "api/task_queue/task_queue_base.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/callback_list.h"
@@ -43,6 +45,17 @@ enum ProtocolType {
   PROTO_SSLTCP,  // Pseudo-TLS.
   PROTO_TLS,
   PROTO_LAST = PROTO_TLS
+};
+
+// A struct containing common arguments to creating a port. See also
+// CreateRelayPortArgs.
+struct PortParametersRef {
+  webrtc::TaskQueueBase* network_thread;
+  rtc::PacketSocketFactory* socket_factory;
+  const rtc::Network* network;
+  absl::string_view ice_username_fragment;
+  absl::string_view ice_password;
+  const webrtc::FieldTrialsView* field_trials;
 };
 
 // Defines the interface for a port, which represents a local communication

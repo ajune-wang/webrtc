@@ -141,6 +141,7 @@ if (is_android) {
       ":video_egl_jni",
       "../../pc:libjingle_peerconnection",
       "../../rtc_base:ssl",
+      "//third_party/jni_zero",
     ]
     output_extension = "so"
   }

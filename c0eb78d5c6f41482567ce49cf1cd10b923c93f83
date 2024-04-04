@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "485899d6_5600ae26",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-04T14:24:55Z",
+      "side": 1,
+      "message": "SimulcastRateAllocator uses several field trials internally.\nI plan to propagate environment or FieldTrialsView into it in some follow up",
+      "revId": "c0eb78d5c6f41482567ce49cf1cd10b923c93f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

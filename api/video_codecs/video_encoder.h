@@ -333,6 +333,16 @@ class RTC_EXPORT VideoEncoder {
     // Experimental API - currently only supported by LibvpxVp8Encoder and
     // the OpenH264 encoder. If set, limits the number of encoder threads.
     absl::optional<int> encoder_thread_limit;
+
+    // If native simulcast or S-mode scalability is emulated by instantiating
+    // multiple encoder instances, the `SpatialIndicator1` indicates which of
+    // the layers this particular encoder is being configured to emulate.
+    // Note that only active layers are counted in this signal.
+    struct SpatilIndicator {
+      int num_active_layers;
+      int emulated_layer_index;
+    };
+    absl::optional<SpatilIndicator> spatial_indicator;
   };
 
   static VideoCodecVP8 GetDefaultVp8Settings();

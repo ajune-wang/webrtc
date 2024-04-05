@@ -37,6 +37,8 @@
 #include "test/scoped_key_value_config.h"
 
 using ::testing::_;
+using ::testing::AllOf;
+using ::testing::Field;
 using ::testing::Return;
 using EncoderInfo = webrtc::VideoEncoder::EncoderInfo;
 using FramerateFractions =
@@ -221,6 +223,7 @@ class MockVideoEncoder : public VideoEncoder {
   int32_t InitEncode(const VideoCodec* codecSettings,
                      const VideoEncoder::Settings& settings) override {
     codec_ = *codecSettings;
+    settings_ = settings;
     return init_encode_return_value_;
   }
 
@@ -262,6 +265,9 @@ class MockVideoEncoder : public VideoEncoder {
   virtual ~MockVideoEncoder() { factory_->DestroyVideoEncoder(this); }
 
   const VideoCodec& codec() const { return codec_; }
+  const absl::optional<VideoEncoder::Settings> settings() const {
+    return settings_;
+  }
 
   void SendEncodedImage(int width, int height) {
     // Sends a fake image of the given width/height.
@@ -351,6 +357,7 @@ class MockVideoEncoder : public VideoEncoder {
   std::vector<VideoEncoder::ResolutionBitrateLimits> resolution_bitrate_limits;
 
   VideoCodec codec_;
+  absl::optional<VideoEncoder::Settings> settings_;
   EncodedImageCallback* callback_;
 };
 
@@ -1897,6 +1904,84 @@ TEST_F(TestSimulcastEncoderAdapterFake, PopulatesScalabilityModeOfSubcodecs) {
             ScalabilityMode::kL1T2);
   EXPECT_EQ(helper_->factory()->encoders()[2]->codec().GetScalabilityMode(),
             ScalabilityMode::kL1T3);
+}
+
+TEST_F(TestSimulcastEncoderAdapterFake,
+       DoesNotSetSpatialIndicatorWhenSimulcastSupported) {
+  SimulcastTestFixtureImpl::DefaultSettings(
+      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
+      kVideoCodecVP8);
+  codec_.numberOfSimulcastStreams = 3;
+
+  // Indicate that mock encoders internally support simulcast.
+  helper_->factory()->set_supports_simulcast(true);
+  adapter_->RegisterEncodeCompleteCallback(this);
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
+
+  // Only one encoder should have been produced.
+  ASSERT_EQ(1u, helper_->factory()->encoders().size());
+  EXPECT_FALSE(helper_->factory()
+                   ->encoders()[0]
+                   ->settings()
+                   ->spatial_indicator.has_value());
+}
+
+TEST_F(TestSimulcastEncoderAdapterFake,
+       SetsSpatialIndicatorWhenSimulcastNotSupported) {
+  SimulcastTestFixtureImpl::DefaultSettings(
+      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
+      kVideoCodecVP8);
+  codec_.numberOfSimulcastStreams = 3;
+
+  // Indicate that mock encoders don't internally support simulcast.
+  helper_->factory()->set_supports_simulcast(false);
+  adapter_->RegisterEncodeCompleteCallback(this);
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
+
+  // Three separate encoders produced, with correct spatial indicators.
+  const std::vector<MockVideoEncoder*>& encoders =
+      helper_->factory()->encoders();
+  ASSERT_EQ(encoders.size(), 3u);
+  for (size_t i = 0; i < encoders.size(); ++i) {
+    EXPECT_THAT(
+        *encoders[i]->settings()->spatial_indicator,
+        AllOf(
+            Field(&VideoEncoder::Settings::SpatilIndicator::num_active_layers,
+                  3),
+            Field(
+                &VideoEncoder::Settings::SpatilIndicator::emulated_layer_index,
+                i)));
+  }
+}
+
+TEST_F(TestSimulcastEncoderAdapterFake,
+       SetsSpatialIndicatorWhenSimulcastNotSupportedAndInactiveStreamPresent) {
+  SimulcastTestFixtureImpl::DefaultSettings(
+      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
+      kVideoCodecVP8);
+  codec_.numberOfSimulcastStreams = 3;
+  // Deactivate top layer.
+  codec_.simulcastStream[2].active = false;
+
+  // Indicate that mock encoders don't internally support simulcast.
+  helper_->factory()->set_supports_simulcast(false);
+  adapter_->RegisterEncodeCompleteCallback(this);
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
+
+  // Only two separate encoders produced, with correct spatial indicators.
+  const std::vector<MockVideoEncoder*>& encoders =
+      helper_->factory()->encoders();
+  ASSERT_EQ(encoders.size(), 2u);
+  for (size_t i = 0; i < encoders.size(); ++i) {
+    EXPECT_THAT(
+        *encoders[i]->settings()->spatial_indicator,
+        AllOf(
+            Field(&VideoEncoder::Settings::SpatilIndicator::num_active_layers,
+                  2),
+            Field(
+                &VideoEncoder::Settings::SpatilIndicator::emulated_layer_index,
+                i)));
+  }
 }
 
 }  // namespace test

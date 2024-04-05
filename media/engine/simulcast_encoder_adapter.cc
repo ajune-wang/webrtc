@@ -393,6 +393,7 @@ int SimulcastEncoderAdapter::InitEncode(
   std::vector<uint32_t> stream_start_bitrate_kbps =
       GetStreamStartBitratesKbps(codec_);
 
+  int active_stream_index = 0;
   for (int stream_idx = 0; stream_idx < total_streams_count_; ++stream_idx) {
     if (!is_legacy_singlecast && !codec_.simulcastStream[stream_idx].active) {
       continue;
@@ -416,7 +417,13 @@ int SimulcastEncoderAdapter::InitEncode(
                      << stream_idx << ", active: "
                      << (codec_.simulcastStream[stream_idx].active ? "true"
                                                                    : "false");
-    int ret = encoder_context->encoder().InitEncode(&stream_codec, settings);
+
+    VideoEncoder::Settings stream_settings = settings;
+    stream_settings.spatial_indicator = {
+        .num_active_layers = active_streams_count,
+        .emulated_layer_index = active_stream_index++};
+    int ret =
+        encoder_context->encoder().InitEncode(&stream_codec, stream_settings);
     if (ret < 0) {
       encoder_context.reset();
       Release();

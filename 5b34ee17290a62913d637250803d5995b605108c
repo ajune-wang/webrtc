@@ -123,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d12e35_605ac3a0",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-05T11:16:28Z",
+      "side": 1,
+      "message": "I can use a static const list instead which will clean up this cl.",
+      "parentUuid": "d9d1576f_0bdf41c3",
+      "range": {
+        "startLine": 39,
+        "startChar": 29,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19c7fa72_225b8042",
@@ -136,6 +160,24 @@
       "writtenOn": "2024-04-03T12:09:10Z",
       "side": 1,
       "message": "Rant, but not directly on this CL since it\u0027s not changing the representation:\n\nThis is still a lousy way to represent this information.\nHaving an array indexed on ScalabilityMode:: and array elements consisting of InterLayerPredMode, NumSpatialLayers and NumTemporalLayers would be easier to read, easier to maintain, and probably more compact in code (which matters more when there\u0027s one copy of these per compilation unit).",
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d1bc176_ab794cbd",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-05T11:16:28Z",
+      "side": 1,
+      "message": "Agreed. How about I do that in a follow up?",
+      "parentUuid": "19c7fa72_225b8042",
       "revId": "5b34ee17290a62913d637250803d5995b605108c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

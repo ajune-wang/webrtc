@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88e743f5_ff2cd90a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-05T14:15:52Z",
+      "side": 1,
+      "message": "I think that what you have done in https://webrtc-review.googlesource.com/c/src/+/306181/26..27 is enough to make them visible from GN\u0027s point of view.\n\nAfter this CL lands, you need to file a CL to Chromium and add the targets you want to use in Chromium to this list https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/BUILD.gn;l\u003d16;drc\u003dd9dba0eed3f7bfed1be7c0650abb4870689107f2.\n\nNow, this is enough to static builds, for component builds (which rely on shared libraries) we need to mark symbols as exported. You can either wait to see what the linker complains about and tag them with RTC_EXPORT or do it now (in case you know which classes you will use). If you do it now, you will skip one CL (with its roll), but doing it in another CL is not the end of the world.",
+      "parentUuid": "16cb1c08_16a01624",
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86665a0e_2dce1fec",
         "filename": "api/video_codecs/BUILD.gn",
         "patchSetId": 26

@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16cb1c08_16a01624",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-05T13:07:09Z",
+      "side": 1,
+      "message": "\u003e To use it in Chromium, you will likely have to add the targets to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d444-449;drc\u003de3b42636f30bee31dfefb167860a746cacd4e21b (Chromium CL) and export some symbols with RTC_EXPORT (WebRTC CL).\n\nNot sure I understand this part. If I want \n\n    :video_encoder_interface\n    :video_encoder_factory_interface\n    :libaom_av1_encoder_factory\n\nto be available to Chrome, what do I need to do exactly? Should I add `RTC_EXPORT` to relevant classes for those buildtargets?",
+      "parentUuid": "21f9652a_f644a978",
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86665a0e_2dce1fec",
         "filename": "api/video_codecs/BUILD.gn",
         "patchSetId": 26
@@ -83,6 +101,30 @@
       "writtenOn": "2024-04-03T15:33:08Z",
       "side": 1,
       "message": "Uncomment/remove?",
+      "range": {
+        "startLine": 383,
+        "startChar": 2,
+        "endLine": 383,
+        "endChar": 66
+      },
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b178aba_bc5e749f",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 26
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-05T13:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86665a0e_2dce1fec",
       "range": {
         "startLine": 383,
         "startChar": 2,
@@ -106,6 +148,30 @@
       "writtenOn": "2024-04-03T15:33:08Z",
       "side": 1,
       "message": "Same here, uncomment or is it not needed?",
+      "range": {
+        "startLine": 409,
+        "startChar": 2,
+        "endLine": 409,
+        "endChar": 45
+      },
+      "revId": "8478961820807fbfe35fff42e6154f79b5e5f25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6527b484_cce7172a",
+        "filename": "api/video_codecs/BUILD.gn",
+        "patchSetId": 26
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-05T13:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac45bbcd_bfbf88e9",
       "range": {
         "startLine": 409,
         "startChar": 2,

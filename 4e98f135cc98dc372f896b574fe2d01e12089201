@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "978ce78d_6c79aca0",
+        "filename": "pc/peer_connection_encodings_integrationtest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-05T11:23:28Z",
+      "side": 1,
+      "message": "This also guarantees that the test will take more than one second to complete. Slow tests are bad for overall health. But if it happens relatively rarely (which seems likely given that the tests sometimes passed before), not an issue.",
+      "revId": "4e98f135cc98dc372f896b574fe2d01e12089201",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

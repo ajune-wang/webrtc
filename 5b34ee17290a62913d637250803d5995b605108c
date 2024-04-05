@@ -198,6 +198,24 @@
       "parentUuid": "19c7fa72_225b8042",
       "revId": "5b34ee17290a62913d637250803d5995b605108c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "613642b8_ddb1017b",
+        "filename": "modules/video_coding/svc/scalability_mode_util.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-05T11:23:28Z",
+      "side": 1,
+      "message": "Sounds good to me.",
+      "parentUuid": "7d1bc176_ab794cbd",
+      "revId": "5b34ee17290a62913d637250803d5995b605108c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

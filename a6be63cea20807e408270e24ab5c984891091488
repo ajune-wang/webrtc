@@ -16,6 +16,23 @@
       "message": "I\u0027m +1\u0027ing this, because it\u0027s better code.\nBut documenting why I am somewhat worried about whether we\u0027ll ever need it.",
       "revId": "a6be63cea20807e408270e24ab5c984891091488",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5647c1_43bd9771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-04-05T12:44:05Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "revId": "a6be63cea20807e408270e24ab5c984891091488",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

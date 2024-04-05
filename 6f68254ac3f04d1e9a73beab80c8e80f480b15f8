@@ -16,6 +16,24 @@
       "message": "Hm. Comment (and the fact that nothing breaks when you remove it) makes me wonder if there\u0027s something we\u0027ve not implemented here.\n\nThe envisioned scenario was something like\n\n- Negotiate bundles of media sections (A, B) and (C, D)\n- Multiplex SCTP on the (A, B) bundle\n- Stop A and B\n\nIn this case, the SCTP connection wants to be on the (C, D) bundle.\nBut I don\u0027t think anyone is using \u003e 1 bundle groups and stopping a whole bundle group in practice. So perhaps nobody cares?",
       "revId": "6f68254ac3f04d1e9a73beab80c8e80f480b15f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0e2bc08_a1b311b2",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-04-05T12:44:05Z",
+      "side": 0,
+      "message": "I don\u0027t know about this to understand how it would work and what this means. Could this happen at any time? Would DTLS be re-negotiated over the same ICE candidates (or different) and the SCTP implementation would be asked to simply switching to a different DTLS transport (I guess that\u0027s really what you\u0027re saying).\n\nThis isn\u0027t implemented now, clearly... And if we need this in the future, I\u0027m sure we can re-add.\n\nI\u0027m resolving this, but I have nothing to add - sorry!",
+      "parentUuid": "7990f1cd_a5dcd989",
+      "revId": "6f68254ac3f04d1e9a73beab80c8e80f480b15f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

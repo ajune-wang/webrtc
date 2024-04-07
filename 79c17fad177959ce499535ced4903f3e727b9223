@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04041957_d4c6bb2c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2024-04-07T04:33:06Z",
+      "side": 1,
+      "message": "These are the two earlier `RTC_CHECK_GE`\u0027s referred to in the commit message.",
+      "revId": "79c17fad177959ce499535ced4903f3e727b9223",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0239b3f8_6e623f50",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2024-04-07T04:33:06Z",
+      "side": 1,
+      "message": "This code was added in https://webrtc-review.googlesource.com/c/src/+/176517.",
+      "revId": "79c17fad177959ce499535ced4903f3e727b9223",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

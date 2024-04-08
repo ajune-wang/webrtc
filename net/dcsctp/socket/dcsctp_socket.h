@@ -54,7 +54,7 @@
 #include "net/dcsctp/tx/retransmission_error_counter.h"
 #include "net/dcsctp/tx/retransmission_queue.h"
 #include "net/dcsctp/tx/retransmission_timeout.h"
-#include "net/dcsctp/tx/rr_send_queue.h"
+#include "net/dcsctp/tx/wfq_send_queue.h"
 
 namespace dcsctp {
 
@@ -286,7 +286,7 @@ class DcSctpSocket : public DcSctpSocketInterface {
 
   // The actual SendQueue implementation. As data can be sent on a socket before
   // the connection is established, this component is not in the TCB.
-  RRSendQueue send_queue_;
+  WfqSendQueue send_queue_;
 
   // Contains verification tag and initial TSN between having sent the INIT
   // until the connection is established (there is no TCB at this point).

@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "net/dcsctp/tx/rr_send_queue.h"
+#include "net/dcsctp/tx/wfq_send_queue.h"
 
 #include <cstdint>
 #include <deque>
@@ -33,11 +33,11 @@ namespace dcsctp {
 using ::webrtc::TimeDelta;
 using ::webrtc::Timestamp;
 
-RRSendQueue::RRSendQueue(absl::string_view log_prefix,
-                         DcSctpSocketCallbacks* callbacks,
-                         size_t mtu,
-                         StreamPriority default_priority,
-                         size_t total_buffered_amount_low_threshold)
+WfqSendQueue::WfqSendQueue(absl::string_view log_prefix,
+                           DcSctpSocketCallbacks* callbacks,
+                           size_t mtu,
+                           StreamPriority default_priority,
+                           size_t total_buffered_amount_low_threshold)
     : log_prefix_(log_prefix),
       callbacks_(*callbacks),
       default_priority_(default_priority),
@@ -47,7 +47,7 @@ RRSendQueue::RRSendQueue(absl::string_view log_prefix,
   total_buffered_amount_.SetLowThreshold(total_buffered_amount_low_threshold);
 }
 
-size_t RRSendQueue::OutgoingStream::bytes_to_send_in_next_message() const {
+size_t WfqSendQueue::OutgoingStream::bytes_to_send_in_next_message() const {
   if (pause_state_ == PauseState::kPaused ||
       pause_state_ == PauseState::kResetting) {
     // The stream has paused (and there is no partially sent message).
@@ -61,7 +61,7 @@ size_t RRSendQueue::OutgoingStream::bytes_to_send_in_next_message() const {
   return items_.front().remaining_size;
 }
 
-void RRSendQueue::OutgoingStream::AddHandoverState(
+void WfqSendQueue::OutgoingStream::AddHandoverState(
     DcSctpSocketHandoverState::OutgoingStream& state) const {
   state.next_ssn = next_ssn_.value();
   state.next_ordered_mid = next_ordered_mid_.value();
@@ -69,7 +69,7 @@ void RRSendQueue::OutgoingStream::AddHandoverState(
   state.priority = *scheduler_stream_->priority();
 }
 
-bool RRSendQueue::IsConsistent() const {
+bool WfqSendQueue::IsConsistent() const {
   std::set<StreamID> expected_active_streams;
   std::set<StreamID> actual_active_streams =
       scheduler_.ActiveStreamsForTesting();
@@ -93,7 +93,7 @@ bool RRSendQueue::IsConsistent() const {
   return total_buffered_amount == total_buffered_amount_.value();
 }
 
-bool RRSendQueue::OutgoingStream::IsConsistent() const {
+bool WfqSendQueue::OutgoingStream::IsConsistent() const {
   size_t bytes = 0;
   for (const auto& item : items_) {
     bytes += item.remaining_size;
@@ -101,7 +101,7 @@ bool RRSendQueue::OutgoingStream::IsConsistent() const {
   return bytes == buffered_amount_.value();
 }
 
-void RRSendQueue::ThresholdWatcher::Decrease(size_t bytes) {
+void WfqSendQueue::ThresholdWatcher::Decrease(size_t bytes) {
   RTC_DCHECK(bytes <= value_);
   size_t old_value = value_;
   value_ -= bytes;
@@ -111,7 +111,7 @@ void RRSendQueue::ThresholdWatcher::Decrease(size_t bytes) {
   }
 }
 
-void RRSendQueue::ThresholdWatcher::SetLowThreshold(size_t low_threshold) {
+void WfqSendQueue::ThresholdWatcher::SetLowThreshold(size_t low_threshold) {
   // Betting on https://github.com/w3c/webrtc-pc/issues/2654 being accepted.
   if (low_threshold_ < value_ && low_threshold >= value_) {
     on_threshold_reached_();
@@ -119,8 +119,8 @@ void RRSendQueue::ThresholdWatcher::SetLowThreshold(size_t low_threshold) {
   low_threshold_ = low_threshold;
 }
 
-void RRSendQueue::OutgoingStream::Add(DcSctpMessage message,
-                                      MessageAttributes attributes) {
+void WfqSendQueue::OutgoingStream::Add(DcSctpMessage message,
+                                       MessageAttributes attributes) {
   bool was_active = bytes_to_send_in_next_message() > 0;
   buffered_amount_.Increase(message.payload().size());
   parent_.total_buffered_amount_.Increase(message.payload().size());
@@ -136,7 +136,7 @@ void RRSendQueue::OutgoingStream::Add(DcSctpMessage message,
   RTC_DCHECK(IsConsistent());
 }
 
-absl::optional<SendQueue::DataToSend> RRSendQueue::OutgoingStream::Produce(
+absl::optional<SendQueue::DataToSend> WfqSendQueue::OutgoingStream::Produce(
     Timestamp now,
     size_t max_size) {
   RTC_DCHECK(pause_state_ != PauseState::kPaused &&
@@ -221,7 +221,7 @@ absl::optional<SendQueue::DataToSend> RRSendQueue::OutgoingStream::Produce(
   return absl::nullopt;
 }
 
-void RRSendQueue::OutgoingStream::HandleMessageExpired(
+void WfqSendQueue::OutgoingStream::HandleMessageExpired(
     OutgoingStream::Item& item) {
   buffered_amount_.Decrease(item.remaining_size);
   parent_.total_buffered_amount_.Decrease(item.remaining_size);
@@ -235,7 +235,7 @@ void RRSendQueue::OutgoingStream::HandleMessageExpired(
   }
 }
 
-bool RRSendQueue::OutgoingStream::Discard(OutgoingMessageId message_id) {
+bool WfqSendQueue::OutgoingStream::Discard(OutgoingMessageId message_id) {
   bool result = false;
   if (!items_.empty()) {
     Item& item = items_.front();
@@ -262,7 +262,7 @@ bool RRSendQueue::OutgoingStream::Discard(OutgoingMessageId message_id) {
   return result;
 }
 
-void RRSendQueue::OutgoingStream::Pause() {
+void WfqSendQueue::OutgoingStream::Pause() {
   if (pause_state_ != PauseState::kNotPaused) {
     // Already in progress.
     return;
@@ -305,14 +305,14 @@ void RRSendQueue::OutgoingStream::Pause() {
   RTC_DCHECK(IsConsistent());
 }
 
-void RRSendQueue::OutgoingStream::Resume() {
+void WfqSendQueue::OutgoingStream::Resume() {
   RTC_DCHECK(pause_state_ == PauseState::kResetting);
   pause_state_ = PauseState::kNotPaused;
   scheduler_stream_->MaybeMakeActive();
   RTC_DCHECK(IsConsistent());
 }
 
-void RRSendQueue::OutgoingStream::Reset() {
+void WfqSendQueue::OutgoingStream::Reset() {
   // This can be called both when an outgoing stream reset has been responded
   // to, or when the entire SendQueue is reset due to detecting the peer having
   // restarted. The stream may be in any state at this time.
@@ -342,16 +342,16 @@ void RRSendQueue::OutgoingStream::Reset() {
   RTC_DCHECK(IsConsistent());
 }
 
-bool RRSendQueue::OutgoingStream::has_partially_sent_message() const {
+bool WfqSendQueue::OutgoingStream::has_partially_sent_message() const {
   if (items_.empty()) {
     return false;
   }
   return items_.front().mid.has_value();
 }
 
-void RRSendQueue::Add(Timestamp now,
-                      DcSctpMessage message,
-                      const SendOptions& send_options) {
+void WfqSendQueue::Add(Timestamp now,
+                       DcSctpMessage message,
+                       const SendOptions& send_options) {
   RTC_DCHECK(!message.payload().empty());
   // Any limited lifetime should start counting from now - when the message
   // has been added to the queue.
@@ -377,28 +377,28 @@ void RRSendQueue::Add(Timestamp now,
   RTC_DCHECK(IsConsistent());
 }
 
-bool RRSendQueue::IsEmpty() const {
+bool WfqSendQueue::IsEmpty() const {
   return total_buffered_amount() == 0;
 }
 
-absl::optional<SendQueue::DataToSend> RRSendQueue::Produce(Timestamp now,
-                                                           size_t max_size) {
+absl::optional<SendQueue::DataToSend> WfqSendQueue::Produce(Timestamp now,
+                                                            size_t max_size) {
   return scheduler_.Produce(now, max_size);
 }
 
-bool RRSendQueue::Discard(StreamID stream_id, OutgoingMessageId message_id) {
+bool WfqSendQueue::Discard(StreamID stream_id, OutgoingMessageId message_id) {
   bool has_discarded = GetOrCreateStreamInfo(stream_id).Discard(message_id);
 
   RTC_DCHECK(IsConsistent());
   return has_discarded;
 }
 
-void RRSendQueue::PrepareResetStream(StreamID stream_id) {
+void WfqSendQueue::PrepareResetStream(StreamID stream_id) {
   GetOrCreateStreamInfo(stream_id).Pause();
   RTC_DCHECK(IsConsistent());
 }
 
-bool RRSendQueue::HasStreamsReadyToBeReset() const {
+bool WfqSendQueue::HasStreamsReadyToBeReset() const {
   for (auto& [unused, stream] : streams_) {
     if (stream.IsReadyToBeReset()) {
       return true;
@@ -406,7 +406,7 @@ bool RRSendQueue::HasStreamsReadyToBeReset() const {
   }
   return false;
 }
-std::vector<StreamID> RRSendQueue::GetStreamsReadyToBeReset() {
+std::vector<StreamID> WfqSendQueue::GetStreamsReadyToBeReset() {
   RTC_DCHECK(absl::c_count_if(streams_, [](const auto& p) {
                return p.second.IsResetting();
              }) == 0);
@@ -420,7 +420,7 @@ std::vector<StreamID> RRSendQueue::GetStreamsReadyToBeReset() {
   return ready;
 }
 
-void RRSendQueue::CommitResetStreams() {
+void WfqSendQueue::CommitResetStreams() {
   RTC_DCHECK(absl::c_count_if(streams_, [](const auto& p) {
                return p.second.IsResetting();
              }) > 0);
@@ -432,7 +432,7 @@ void RRSendQueue::CommitResetStreams() {
   RTC_DCHECK(IsConsistent());
 }
 
-void RRSendQueue::RollbackResetStreams() {
+void WfqSendQueue::RollbackResetStreams() {
   RTC_DCHECK(absl::c_count_if(streams_, [](const auto& p) {
                return p.second.IsResetting();
              }) > 0);
@@ -444,7 +444,7 @@ void RRSendQueue::RollbackResetStreams() {
   RTC_DCHECK(IsConsistent());
 }
 
-void RRSendQueue::Reset() {
+void WfqSendQueue::Reset() {
   // Recalculate buffered amount, as partially sent messages may have been put
   // fully back in the queue.
   for (auto& [unused, stream] : streams_) {
@@ -453,7 +453,7 @@ void RRSendQueue::Reset() {
   scheduler_.ForceReschedule();
 }
 
-size_t RRSendQueue::buffered_amount(StreamID stream_id) const {
+size_t WfqSendQueue::buffered_amount(StreamID stream_id) const {
   auto it = streams_.find(stream_id);
   if (it == streams_.end()) {
     return 0;
@@ -461,7 +461,7 @@ size_t RRSendQueue::buffered_amount(StreamID stream_id) const {
   return it->second.buffered_amount().value();
 }
 
-size_t RRSendQueue::buffered_amount_low_threshold(StreamID stream_id) const {
+size_t WfqSendQueue::buffered_amount_low_threshold(StreamID stream_id) const {
   auto it = streams_.find(stream_id);
   if (it == streams_.end()) {
     return 0;
@@ -469,12 +469,12 @@ size_t RRSendQueue::buffered_amount_low_threshold(StreamID stream_id) const {
   return it->second.buffered_amount().low_threshold();
 }
 
-void RRSendQueue::SetBufferedAmountLowThreshold(StreamID stream_id,
-                                                size_t bytes) {
+void WfqSendQueue::SetBufferedAmountLowThreshold(StreamID stream_id,
+                                                 size_t bytes) {
   GetOrCreateStreamInfo(stream_id).buffered_amount().SetLowThreshold(bytes);
 }
 
-RRSendQueue::OutgoingStream& RRSendQueue::GetOrCreateStreamInfo(
+WfqSendQueue::OutgoingStream& WfqSendQueue::GetOrCreateStreamInfo(
     StreamID stream_id) {
   auto it = streams_.find(stream_id);
   if (it != streams_.end()) {
@@ -491,15 +491,15 @@ RRSendQueue::OutgoingStream& RRSendQueue::GetOrCreateStreamInfo(
       .first->second;
 }
 
-void RRSendQueue::SetStreamPriority(StreamID stream_id,
-                                    StreamPriority priority) {
+void WfqSendQueue::SetStreamPriority(StreamID stream_id,
+                                     StreamPriority priority) {
   OutgoingStream& stream = GetOrCreateStreamInfo(stream_id);
 
   stream.SetPriority(priority);
   RTC_DCHECK(IsConsistent());
 }
 
-StreamPriority RRSendQueue::GetStreamPriority(StreamID stream_id) const {
+StreamPriority WfqSendQueue::GetStreamPriority(StreamID stream_id) const {
   auto stream_it = streams_.find(stream_id);
   if (stream_it == streams_.end()) {
     return default_priority_;
@@ -507,7 +507,7 @@ StreamPriority RRSendQueue::GetStreamPriority(StreamID stream_id) const {
   return stream_it->second.priority();
 }
 
-HandoverReadinessStatus RRSendQueue::GetHandoverReadiness() const {
+HandoverReadinessStatus WfqSendQueue::GetHandoverReadiness() const {
   HandoverReadinessStatus status;
   if (!IsEmpty()) {
     status.Add(HandoverUnreadinessReason::kSendQueueNotEmpty);
@@ -515,7 +515,7 @@ HandoverReadinessStatus RRSendQueue::GetHandoverReadiness() const {
   return status;
 }
 
-void RRSendQueue::AddHandoverState(DcSctpSocketHandoverState& state) {
+void WfqSendQueue::AddHandoverState(DcSctpSocketHandoverState& state) {
   for (const auto& [stream_id, stream] : streams_) {
     DcSctpSocketHandoverState::OutgoingStream state_stream;
     state_stream.id = stream_id.value();
@@ -524,7 +524,7 @@ void RRSendQueue::AddHandoverState(DcSctpSocketHandoverState& state) {
   }
 }
 
-void RRSendQueue::RestoreFromState(const DcSctpSocketHandoverState& state) {
+void WfqSendQueue::RestoreFromState(const DcSctpSocketHandoverState& state) {
   for (const DcSctpSocketHandoverState::OutgoingStream& state_stream :
        state.tx.streams) {
     StreamID stream_id(state_stream.id);

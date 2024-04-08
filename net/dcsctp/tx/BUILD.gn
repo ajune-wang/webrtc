@@ -22,7 +22,7 @@ rtc_source_set("send_queue") {
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
-rtc_library("rr_send_queue") {
+rtc_library("wfq_send_queue") {
   deps = [
     ":send_queue",
     ":stream_scheduler",
@@ -37,8 +37,8 @@ rtc_library("rr_send_queue") {
     "../public:types",
   ]
   sources = [
-    "rr_send_queue.cc",
-    "rr_send_queue.h",
+    "wfq_send_queue.cc",
+    "wfq_send_queue.h",
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
@@ -181,9 +181,9 @@ if (rtc_include_tests) {
       ":retransmission_error_counter",
       ":retransmission_queue",
       ":retransmission_timeout",
-      ":rr_send_queue",
       ":send_queue",
       ":stream_scheduler",
+      ":wfq_send_queue",
       "../../../api:array_view",
       "../../../api/task_queue:task_queue",
       "../../../rtc_base:checks",
@@ -210,8 +210,8 @@ if (rtc_include_tests) {
       "retransmission_error_counter_test.cc",
       "retransmission_queue_test.cc",
       "retransmission_timeout_test.cc",
-      "rr_send_queue_test.cc",
       "stream_scheduler_test.cc",
+      "wfq_send_queue_test.cc",
     ]
   }
 }

@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "net/dcsctp/tx/rr_send_queue.h"
+#include "net/dcsctp/tx/wfq_send_queue.h"
 
 #include <cstdint>
 #include <type_traits>
@@ -41,9 +41,9 @@ constexpr size_t kOneFragmentPacketSize = 100;
 constexpr size_t kTwoFragmentPacketSize = 101;
 constexpr size_t kMtu = 1100;
 
-class RRSendQueueTest : public testing::Test {
+class WfqSendQueueTest : public testing::Test {
  protected:
-  RRSendQueueTest()
+  WfqSendQueueTest()
       : buf_("log: ",
              &callbacks_,
 
@@ -53,15 +53,15 @@ class RRSendQueueTest : public testing::Test {
 
   testing::NiceMock<MockDcSctpSocketCallbacks> callbacks_;
   const DcSctpOptions options_;
-  RRSendQueue buf_;
+  WfqSendQueue buf_;
 };
 
-TEST_F(RRSendQueueTest, EmptyBuffer) {
+TEST_F(WfqSendQueueTest, EmptyBuffer) {
   EXPECT_TRUE(buf_.IsEmpty());
   EXPECT_FALSE(buf_.Produce(kNow, kOneFragmentPacketSize).has_value());
 }
 
-TEST_F(RRSendQueueTest, AddAndGetSingleChunk) {
+TEST_F(WfqSendQueueTest, AddAndGetSingleChunk) {
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, {1, 2, 4, 5, 6}));
 
   EXPECT_FALSE(buf_.IsEmpty());
@@ -72,7 +72,7 @@ TEST_F(RRSendQueueTest, AddAndGetSingleChunk) {
   EXPECT_TRUE(chunk_opt->data.is_end);
 }
 
-TEST_F(RRSendQueueTest, CarveOutBeginningMiddleAndEnd) {
+TEST_F(WfqSendQueueTest, CarveOutBeginningMiddleAndEnd) {
   std::vector<uint8_t> payload(60);
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
 
@@ -97,7 +97,7 @@ TEST_F(RRSendQueueTest, CarveOutBeginningMiddleAndEnd) {
   EXPECT_FALSE(buf_.Produce(kNow, kOneFragmentPacketSize).has_value());
 }
 
-TEST_F(RRSendQueueTest, GetChunksFromTwoMessages) {
+TEST_F(WfqSendQueueTest, GetChunksFromTwoMessages) {
   std::vector<uint8_t> payload(60);
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
   buf_.Add(kNow, DcSctpMessage(StreamID(3), PPID(54), payload));
@@ -119,7 +119,7 @@ TEST_F(RRSendQueueTest, GetChunksFromTwoMessages) {
   EXPECT_TRUE(chunk_two->data.is_end);
 }
 
-TEST_F(RRSendQueueTest, BufferBecomesFullAndEmptied) {
+TEST_F(WfqSendQueueTest, BufferBecomesFullAndEmptied) {
   std::vector<uint8_t> payload(600);
   EXPECT_LT(buf_.total_buffered_amount(), 1000u);
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -156,7 +156,7 @@ TEST_F(RRSendQueueTest, BufferBecomesFullAndEmptied) {
   EXPECT_TRUE(buf_.IsEmpty());
 }
 
-TEST_F(RRSendQueueTest, DefaultsToOrderedSend) {
+TEST_F(WfqSendQueueTest, DefaultsToOrderedSend) {
   std::vector<uint8_t> payload(20);
 
   // Default is ordered
@@ -176,7 +176,7 @@ TEST_F(RRSendQueueTest, DefaultsToOrderedSend) {
   EXPECT_TRUE(chunk_two->data.is_unordered);
 }
 
-TEST_F(RRSendQueueTest, ProduceWithLifetimeExpiry) {
+TEST_F(WfqSendQueueTest, ProduceWithLifetimeExpiry) {
   std::vector<uint8_t> payload(20);
 
   // Default is no expiry
@@ -216,7 +216,7 @@ TEST_F(RRSendQueueTest, ProduceWithLifetimeExpiry) {
   ASSERT_FALSE(buf_.Produce(now, kOneFragmentPacketSize));
 }
 
-TEST_F(RRSendQueueTest, DiscardPartialPackets) {
+TEST_F(WfqSendQueueTest, DiscardPartialPackets) {
   std::vector<uint8_t> payload(120);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -247,7 +247,7 @@ TEST_F(RRSendQueueTest, DiscardPartialPackets) {
   ASSERT_FALSE(buf_.Produce(kNow, kOneFragmentPacketSize));
 }
 
-TEST_F(RRSendQueueTest, PrepareResetStreamsDiscardsStream) {
+TEST_F(WfqSendQueueTest, PrepareResetStreamsDiscardsStream) {
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, {1, 2, 3}));
   buf_.Add(kNow, DcSctpMessage(StreamID(2), PPID(54), {1, 2, 3, 4, 5}));
   EXPECT_EQ(buf_.total_buffered_amount(), 8u);
@@ -262,7 +262,7 @@ TEST_F(RRSendQueueTest, PrepareResetStreamsDiscardsStream) {
   EXPECT_EQ(buf_.total_buffered_amount(), 0u);
 }
 
-TEST_F(RRSendQueueTest, PrepareResetStreamsNotPartialPackets) {
+TEST_F(WfqSendQueueTest, PrepareResetStreamsNotPartialPackets) {
   std::vector<uint8_t> payload(120);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -277,7 +277,7 @@ TEST_F(RRSendQueueTest, PrepareResetStreamsNotPartialPackets) {
   EXPECT_EQ(buf_.total_buffered_amount(), payload.size() - 50);
 }
 
-TEST_F(RRSendQueueTest, EnqueuedItemsArePausedDuringStreamReset) {
+TEST_F(WfqSendQueueTest, EnqueuedItemsArePausedDuringStreamReset) {
   std::vector<uint8_t> payload(50);
 
   buf_.PrepareResetStream(StreamID(1));
@@ -303,7 +303,7 @@ TEST_F(RRSendQueueTest, EnqueuedItemsArePausedDuringStreamReset) {
   EXPECT_EQ(buf_.total_buffered_amount(), 0u);
 }
 
-TEST_F(RRSendQueueTest, PausedStreamsStillSendPartialMessagesUntilEnd) {
+TEST_F(WfqSendQueueTest, PausedStreamsStillSendPartialMessagesUntilEnd) {
   constexpr size_t kPayloadSize = 100;
   constexpr size_t kFragmentSize = 50;
   std::vector<uint8_t> payload(kPayloadSize);
@@ -332,7 +332,7 @@ TEST_F(RRSendQueueTest, PausedStreamsStillSendPartialMessagesUntilEnd) {
   EXPECT_FALSE(buf_.Produce(kNow, kFragmentSize).has_value());
 }
 
-TEST_F(RRSendQueueTest, CommittingResetsSSN) {
+TEST_F(WfqSendQueueTest, CommittingResetsSSN) {
   std::vector<uint8_t> payload(50);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -364,7 +364,7 @@ TEST_F(RRSendQueueTest, CommittingResetsSSN) {
   EXPECT_EQ(chunk_three->data.ssn, SSN(0));
 }
 
-TEST_F(RRSendQueueTest, CommittingDoesNotResetMessageId) {
+TEST_F(WfqSendQueueTest, CommittingDoesNotResetMessageId) {
   std::vector<uint8_t> payload(50);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -390,7 +390,7 @@ TEST_F(RRSendQueueTest, CommittingDoesNotResetMessageId) {
   EXPECT_EQ(chunk3.message_id, OutgoingMessageId(2));
 }
 
-TEST_F(RRSendQueueTest, CommittingResetsSSNForPausedStreamsOnly) {
+TEST_F(WfqSendQueueTest, CommittingResetsSSNForPausedStreamsOnly) {
   std::vector<uint8_t> payload(50);
 
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, payload));
@@ -433,7 +433,7 @@ TEST_F(RRSendQueueTest, CommittingResetsSSNForPausedStreamsOnly) {
   EXPECT_EQ(chunk_four->data.ssn, SSN(0));
 }
 
-TEST_F(RRSendQueueTest, RollBackResumesSSN) {
+TEST_F(WfqSendQueueTest, RollBackResumesSSN) {
   std::vector<uint8_t> payload(50);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -465,7 +465,7 @@ TEST_F(RRSendQueueTest, RollBackResumesSSN) {
   EXPECT_EQ(chunk_three->data.ssn, SSN(2));
 }
 
-TEST_F(RRSendQueueTest, ReturnsFragmentsForOneMessageBeforeMovingToNext) {
+TEST_F(WfqSendQueueTest, ReturnsFragmentsForOneMessageBeforeMovingToNext) {
   std::vector<uint8_t> payload(200);
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, payload));
   buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, payload));
@@ -487,7 +487,7 @@ TEST_F(RRSendQueueTest, ReturnsFragmentsForOneMessageBeforeMovingToNext) {
   EXPECT_EQ(chunk4.data.stream_id, StreamID(2));
 }
 
-TEST_F(RRSendQueueTest, ReturnsAlsoSmallFragmentsBeforeMovingToNext) {
+TEST_F(WfqSendQueueTest, ReturnsAlsoSmallFragmentsBeforeMovingToNext) {
   std::vector<uint8_t> payload(kTwoFragmentPacketSize);
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, payload));
   buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, payload));
@@ -515,7 +515,7 @@ TEST_F(RRSendQueueTest, ReturnsAlsoSmallFragmentsBeforeMovingToNext) {
               SizeIs(kTwoFragmentPacketSize - kOneFragmentPacketSize));
 }
 
-TEST_F(RRSendQueueTest, WillCycleInRoundRobinFashionBetweenStreams) {
+TEST_F(WfqSendQueueTest, WillCycleInRoundRobinFashionBetweenStreams) {
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(1)));
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(2)));
   buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(3)));
@@ -566,12 +566,12 @@ TEST_F(RRSendQueueTest, WillCycleInRoundRobinFashionBetweenStreams) {
   EXPECT_THAT(chunk8.data.payload, SizeIs(8));
 }
 
-TEST_F(RRSendQueueTest, DoesntTriggerOnBufferedAmountLowWhenSetToZero) {
+TEST_F(WfqSendQueueTest, DoesntTriggerOnBufferedAmountLowWhenSetToZero) {
   EXPECT_CALL(callbacks_, OnBufferedAmountLow).Times(0);
   buf_.SetBufferedAmountLowThreshold(StreamID(1), 0u);
 }
 
-TEST_F(RRSendQueueTest, TriggersOnBufferedAmountAtZeroLowWhenSent) {
+TEST_F(WfqSendQueueTest, TriggersOnBufferedAmountAtZeroLowWhenSent) {
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(1)));
   EXPECT_EQ(buf_.buffered_amount(StreamID(1)), 1u);
 
@@ -584,7 +584,7 @@ TEST_F(RRSendQueueTest, TriggersOnBufferedAmountAtZeroLowWhenSent) {
   EXPECT_EQ(buf_.buffered_amount(StreamID(1)), 0u);
 }
 
-TEST_F(RRSendQueueTest, WillRetriggerOnBufferedAmountLowIfAddingMore) {
+TEST_F(WfqSendQueueTest, WillRetriggerOnBufferedAmountLowIfAddingMore) {
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(1)));
 
   EXPECT_CALL(callbacks_, OnBufferedAmountLow(StreamID(1)));
@@ -607,7 +607,7 @@ TEST_F(RRSendQueueTest, WillRetriggerOnBufferedAmountLowIfAddingMore) {
   EXPECT_THAT(chunk2.data.payload, SizeIs(1));
 }
 
-TEST_F(RRSendQueueTest, OnlyTriggersWhenTransitioningFromAboveToBelowOrEqual) {
+TEST_F(WfqSendQueueTest, OnlyTriggersWhenTransitioningFromAboveToBelowOrEqual) {
   buf_.SetBufferedAmountLowThreshold(StreamID(1), 1000);
 
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(10)));
@@ -630,7 +630,7 @@ TEST_F(RRSendQueueTest, OnlyTriggersWhenTransitioningFromAboveToBelowOrEqual) {
   EXPECT_EQ(buf_.buffered_amount(StreamID(1)), 0u);
 }
 
-TEST_F(RRSendQueueTest, WillTriggerOnBufferedAmountLowSetAboveZero) {
+TEST_F(WfqSendQueueTest, WillTriggerOnBufferedAmountLowSetAboveZero) {
   EXPECT_CALL(callbacks_, OnBufferedAmountLow).Times(0);
 
   buf_.SetBufferedAmountLowThreshold(StreamID(1), 700);
@@ -668,7 +668,7 @@ TEST_F(RRSendQueueTest, WillTriggerOnBufferedAmountLowSetAboveZero) {
   EXPECT_EQ(buf_.buffered_amount(StreamID(1)), 600u);
 }
 
-TEST_F(RRSendQueueTest, WillRetriggerOnBufferedAmountLowSetAboveZero) {
+TEST_F(WfqSendQueueTest, WillRetriggerOnBufferedAmountLowSetAboveZero) {
   EXPECT_CALL(callbacks_, OnBufferedAmountLow).Times(0);
 
   buf_.SetBufferedAmountLowThreshold(StreamID(1), 700);
@@ -695,7 +695,7 @@ TEST_F(RRSendQueueTest, WillRetriggerOnBufferedAmountLowSetAboveZero) {
   EXPECT_EQ(buf_.buffered_amount(StreamID(1)), 600u);
 }
 
-TEST_F(RRSendQueueTest, TriggersOnBufferedAmountLowOnThresholdChanged) {
+TEST_F(WfqSendQueueTest, TriggersOnBufferedAmountLowOnThresholdChanged) {
   EXPECT_CALL(callbacks_, OnBufferedAmountLow).Times(0);
 
   buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(100)));
@@ -721,7 +721,7 @@ TEST_F(RRSendQueueTest, TriggersOnBufferedAmountLowOnThresholdChanged) {
   buf_.SetBufferedAmountLowThreshold(StreamID(1), 0);
 }
 
-TEST_F(RRSendQueueTest,
+TEST_F(WfqSendQueueTest,
        OnTotalBufferedAmountLowDoesNotTriggerOnBufferFillingUp) {
   EXPECT_CALL(callbacks_, OnTotalBufferedAmountLow).Times(0);
   std::vector<uint8_t> payload(kBufferedAmountLowThreshold - 1);
@@ -733,7 +733,7 @@ TEST_F(RRSendQueueTest,
                                std::vector<uint8_t>(kOneFragmentPacketSize)));
 }
 
-TEST_F(RRSendQueueTest, TriggersOnTotalBufferedAmountLowWhenCrossing) {
+TEST_F(WfqSendQueueTest, TriggersOnTotalBufferedAmountLowWhenCrossing) {
   EXPECT_CALL(callbacks_, OnTotalBufferedAmountLow).Times(0);
   std::vector<uint8_t> payload(kBufferedAmountLowThreshold);
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload));
@@ -748,7 +748,7 @@ TEST_F(RRSendQueueTest, TriggersOnTotalBufferedAmountLowWhenCrossing) {
       buf_.Produce(kNow, kOneFragmentPacketSize);
 }
 
-TEST_F(RRSendQueueTest, WillStayInAStreamAsLongAsThatMessageIsSending) {
+TEST_F(WfqSendQueueTest, WillStayInAStreamAsLongAsThatMessageIsSending) {
   buf_.Add(kNow, DcSctpMessage(StreamID(5), kPPID, std::vector<uint8_t>(1)));
 
   ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk1,
@@ -785,14 +785,14 @@ TEST_F(RRSendQueueTest, WillStayInAStreamAsLongAsThatMessageIsSending) {
   EXPECT_FALSE(buf_.Produce(kNow, kOneFragmentPacketSize).has_value());
 }
 
-TEST_F(RRSendQueueTest, StreamsHaveInitialPriority) {
+TEST_F(WfqSendQueueTest, StreamsHaveInitialPriority) {
   EXPECT_EQ(buf_.GetStreamPriority(StreamID(1)), kDefaultPriority);
 
   buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(40)));
   EXPECT_EQ(buf_.GetStreamPriority(StreamID(2)), kDefaultPriority);
 }
 
-TEST_F(RRSendQueueTest, CanChangeStreamPriority) {
+TEST_F(WfqSendQueueTest, CanChangeStreamPriority) {
   buf_.SetStreamPriority(StreamID(1), StreamPriority(42));
   EXPECT_EQ(buf_.GetStreamPriority(StreamID(1)), StreamPriority(42));
 
@@ -801,7 +801,7 @@ TEST_F(RRSendQueueTest, CanChangeStreamPriority) {
   EXPECT_EQ(buf_.GetStreamPriority(StreamID(2)), StreamPriority(42));
 }
 
-TEST_F(RRSendQueueTest, WillHandoverPriority) {
+TEST_F(WfqSendQueueTest, WillHandoverPriority) {
   buf_.SetStreamPriority(StreamID(1), StreamPriority(42));
 
   buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(40)));
@@ -810,14 +810,14 @@ TEST_F(RRSendQueueTest, WillHandoverPriority) {
   DcSctpSocketHandoverState state;
   buf_.AddHandoverState(state);
 
-  RRSendQueue q2("log: ", &callbacks_, kMtu, kDefaultPriority,
-                 kBufferedAmountLowThreshold);
+  WfqSendQueue q2("log: ", &callbacks_, kMtu, kDefaultPriority,
+                  kBufferedAmountLowThreshold);
   q2.RestoreFromState(state);
   EXPECT_EQ(q2.GetStreamPriority(StreamID(1)), StreamPriority(42));
   EXPECT_EQ(q2.GetStreamPriority(StreamID(2)), StreamPriority(42));
 }
 
-TEST_F(RRSendQueueTest, WillSendMessagesByPrio) {
+TEST_F(WfqSendQueueTest, WillSendMessagesByPrio) {
   buf_.EnableMessageInterleaving(true);
   buf_.SetStreamPriority(StreamID(1), StreamPriority(10));
   buf_.SetStreamPriority(StreamID(2), StreamPriority(20));
@@ -836,7 +836,7 @@ TEST_F(RRSendQueueTest, WillSendMessagesByPrio) {
   EXPECT_FALSE(buf_.Produce(kNow, 1).has_value());
 }
 
-TEST_F(RRSendQueueTest, WillSendLifecycleExpireWhenExpiredInSendQueue) {
+TEST_F(WfqSendQueueTest, WillSendLifecycleExpireWhenExpiredInSendQueue) {
   std::vector<uint8_t> payload(kOneFragmentPacketSize);
   buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, payload),
            SendOptions{.lifetime = DurationMs(1000),
@@ -850,7 +850,7 @@ TEST_F(RRSendQueueTest, WillSendLifecycleExpireWhenExpiredInSendQueue) {
           .has_value());
 }
 
-TEST_F(RRSendQueueTest, WillSendLifecycleExpireWhenDiscardingDuringPause) {
+TEST_F(WfqSendQueueTest, WillSendLifecycleExpireWhenDiscardingDuringPause) {
   std::vector<uint8_t> payload(120);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload),
@@ -870,7 +870,7 @@ TEST_F(RRSendQueueTest, WillSendLifecycleExpireWhenDiscardingDuringPause) {
   EXPECT_EQ(buf_.total_buffered_amount(), payload.size() - 50);
 }
 
-TEST_F(RRSendQueueTest, WillSendLifecycleExpireWhenDiscardingExplicitly) {
+TEST_F(WfqSendQueueTest, WillSendLifecycleExpireWhenDiscardingExplicitly) {
   std::vector<uint8_t> payload(kOneFragmentPacketSize + 20);
 
   buf_.Add(kNow, DcSctpMessage(kStreamID, kPPID, payload),

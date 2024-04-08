@@ -336,6 +336,24 @@
       "parentUuid": "9b7843d5_c874d145",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a826dfda_5d041989",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-08T08:53:53Z",
+      "side": 1,
+      "message": "Here\u0027s my autofix macro:\n```\nautofix() {\n  # android target not supported at the moment\n  # python3 tools_webrtc/gn_check_autofix.py -c android_release_bot_x86\n  python3 tools_webrtc/gn_check_autofix.py -c debug_bot_x64\n  # Impossible without a mac:\n  # python3 tools_webrtc/gn_check_autofix.py -c ios_release_bot_arm64\n  python3 tools_webrtc/gn_check_autofix.py -c win_clang_release_bot_x64  \n}\n```\nThis works on a Linux box and checks both the Linux and Windows configs.\nAndroid seems to require \"android\" in your .gclient\u0027s target_os list, which didn\u0027t work for me last time I tried installing it, so I\u0027ve skipped doing that.",
+      "parentUuid": "3ce60111_779ea8bb",
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

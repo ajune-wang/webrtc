@@ -747,7 +747,7 @@ TEST_F(WebRtcVideoEngineTest, CanConstructDecoderForVp9EncoderFactory) {
 
 TEST_F(WebRtcVideoEngineTest, PropagatesInputFrameTimestamp) {
   AddSupportedVideoCodecType("VP8");
-  FakeCall* fake_call = new FakeCall();
+  FakeCall* fake_call = new FakeCall(env_);
   call_.reset(fake_call);
   auto send_channel = SetSendParamsWithAllSupportedCodecs();
 
@@ -1476,7 +1476,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
 
 TEST_F(WebRtcVideoEngineTest, DISABLED_RecreatesEncoderOnContentTypeChange) {
   encoder_factory_->AddSupportedVideoCodecType("VP8");
-  std::unique_ptr<FakeCall> fake_call(new FakeCall());
+  std::unique_ptr<FakeCall> fake_call(new FakeCall(env_));
   auto send_channel = SetSendParamsWithAllSupportedCodecs();
 
   ASSERT_TRUE(
@@ -2613,6 +2613,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
       : WebRtcVideoEngineTest(field_trials),
         frame_source_(1280, 720, rtc::kNumMicrosecsPerSec / 30),
         last_ssrc_(0) {}
+
   void SetUp() override {
     AddSupportedVideoCodecType("VP8");
     AddSupportedVideoCodecType("VP9");
@@ -2622,7 +2623,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     AddSupportedVideoCodecType("H264");
 #endif
 
-    fake_call_.reset(new FakeCall(&field_trials_));
+    fake_call_ = std::make_unique<FakeCall>(env_);
     send_channel_ = engine_.CreateSendChannel(
         fake_call_.get(), GetMediaConfig(), VideoOptions(),
         webrtc::CryptoOptions(), video_bitrate_allocator_factory_.get());
@@ -9489,7 +9490,7 @@ TEST_F(WebRtcVideoChannelTest, GenerateKeyFrameSimulcast) {
 class WebRtcVideoChannelSimulcastTest : public ::testing::Test {
  public:
   WebRtcVideoChannelSimulcastTest()
-      : fake_call_(),
+      : fake_call_(CreateEnvironment(&field_trials_)),
         encoder_factory_(new cricket::FakeWebRtcVideoEncoderFactory),
         decoder_factory_(new cricket::FakeWebRtcVideoDecoderFactory),
         mock_rate_allocator_factory_(

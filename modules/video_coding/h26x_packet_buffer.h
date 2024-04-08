@@ -23,6 +23,7 @@
 #include "rtc_base/numerics/sequence_number_unwrapper.h"
 
 namespace webrtc {
+namespace video_coding {
 
 class H26xPacketBuffer {
  public:
@@ -102,6 +103,7 @@ class H26xPacketBuffer {
   std::map<uint32_t, SpsInfo> sps_data_;
 };
 
+}  // namespace video_coding
 }  // namespace webrtc
 
 #endif  // MODULES_VIDEO_CODING_H26X_PACKET_BUFFER_H_

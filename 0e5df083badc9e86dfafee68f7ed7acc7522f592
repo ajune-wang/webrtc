@@ -143,6 +143,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48acb0de_a8cf4937",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-04-08T14:00:11Z",
+      "side": 1,
+      "message": "Resolution check added. However sqrt(MaxLumaPs * 8) is very large for all levels so in real life no VEA reported profiles will cross that limit when other constraints are matched.",
+      "parentUuid": "5c2cff93_7da9d103",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 291,
+        "endChar": 3
+      },
+      "revId": "0e5df083badc9e86dfafee68f7ed7acc7522f592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce8a918b_c0221ebf",

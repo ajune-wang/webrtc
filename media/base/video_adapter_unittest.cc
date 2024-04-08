@@ -21,7 +21,6 @@
 #include "media/base/fake_frame_source.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/time_utils.h"
-#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -78,11 +77,8 @@ rtc::VideoSinkWants BuildSinkWants(
 class VideoAdapterTest : public ::testing::Test,
                          public ::testing::WithParamInterface<bool> {
  public:
-  VideoAdapterTest() : VideoAdapterTest("", 1) {}
-  explicit VideoAdapterTest(const std::string& field_trials,
-                            int source_resolution_alignment)
-      : override_field_trials_(field_trials),
-        frame_source_(std::make_unique<FakeFrameSource>(
+  explicit VideoAdapterTest(int source_resolution_alignment = 1)
+      : frame_source_(std::make_unique<FakeFrameSource>(
             kWidth,
             kHeight,
             VideoFormat::FpsToInterval(kDefaultFps) /
@@ -180,7 +176,6 @@ class VideoAdapterTest : public ::testing::Test,
     return std::make_pair(out, cropped);
   }
 
-  webrtc::test::ScopedFieldTrials override_field_trials_;
   const std::unique_ptr<FakeFrameSource> frame_source_;
   VideoAdapter adapter_;
   int64_t timestamp_ns_ = 0;
@@ -1287,7 +1282,7 @@ class VideoAdapterWithSourceAlignmentTest : public VideoAdapterTest {
   static constexpr int kSourceResolutionAlignment = 7;
 
   VideoAdapterWithSourceAlignmentTest()
-      : VideoAdapterTest(/*field_trials=*/"", kSourceResolutionAlignment) {}
+      : VideoAdapterTest(kSourceResolutionAlignment) {}
 };
 
 TEST_P(VideoAdapterWithSourceAlignmentTest, AdaptResolution) {

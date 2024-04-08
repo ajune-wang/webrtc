@@ -16,6 +16,24 @@
       "message": "Sad to approve....",
       "revId": "e86c3e3034207a09f40bcf5373d08e76c7fbb52a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "056eca23_e62f6dbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-04-08T07:23:17Z",
+      "side": 1,
+      "message": "I feel the same.",
+      "parentUuid": "a840c7c1_2b8c4efe",
+      "revId": "e86c3e3034207a09f40bcf5373d08e76c7fbb52a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -998,7 +998,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       RequestEncoderSwitch();
       return;
     }
-
     if (encoder_selector_) {
       encoder_selector_->OnCurrentEncoder(encoder_config_.video_format);
     }
@@ -1177,10 +1176,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
           encoder_->GetEncoderInfo(), encoder_config_, default_limits_allowed_),
       encoder_config_.simulcast_layers, &streams);
 
-  VideoCodec codec;
-  if (!VideoCodecInitializer::SetupCodec(encoder_config_, streams, &codec)) {
-    RTC_LOG(LS_ERROR) << "Failed to create encoder configuration.";
-  }
+  VideoCodec codec = VideoCodecInitializer::SetupCodec(
+      env_.field_trials(), encoder_config_, streams);
 
   if (encoder_config_.codec_type == kVideoCodecVP9 ||
       encoder_config_.codec_type == kVideoCodecAV1) {

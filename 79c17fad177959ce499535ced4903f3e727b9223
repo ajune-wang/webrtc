@@ -68,6 +68,24 @@
       "parentUuid": "857a80b1_8c31dfb0",
       "revId": "79c17fad177959ce499535ced4903f3e727b9223",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a3ae083_746c924b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1948,
+      "author": {
+        "id": 20429
+      },
+      "writtenOn": "2024-04-08T18:20:08Z",
+      "side": 1,
+      "message": "Ilya: Thank you very much for taking a look.",
+      "parentUuid": "9218ba5b_6c81b927",
+      "revId": "79c17fad177959ce499535ced4903f3e727b9223",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

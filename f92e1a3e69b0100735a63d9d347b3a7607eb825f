@@ -16,6 +16,75 @@
       "message": "sprang@, ssilkin@, PTAL. Thanks!",
       "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aff02bd6_2200261d",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-08T14:52:22Z",
+      "side": 1,
+      "message": "\".\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 52,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25ebbe1_d8f2eb43",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-08T14:52:22Z",
+      "side": 1,
+      "message": "Could you please help me to find this text in A.4.1? I do not see references to MinCbSizeY there.\n\nThis is what I see:\n\"\nb) The value of pic_width_in_luma_samples shall be less than or equal to Sqrt( MaxLumaPs * 8 ).\nc) The value of pic_height_in_luma_samples shall be less than or equal to Sqrt( MaxLumaPs * 8 ).\n\"\n\nand MaxLumaPs is specified in the table.\n\nThe final math looks correct to me.",
+      "range": {
+        "startLine": 40,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 75
+      },
+      "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa0453f_a24bb980",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-04-08T14:52:22Z",
+      "side": 1,
+      "message": "\".\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 72,
+        "endLine": 41,
+        "endChar": 73
+      },
+      "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

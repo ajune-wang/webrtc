@@ -161,8 +161,8 @@ rtc_library("dcsctp_socket") {
     "../tx:retransmission_error_counter",
     "../tx:retransmission_queue",
     "../tx:retransmission_timeout",
-    "../tx:rr_send_queue",
     "../tx:send_queue",
+    "../tx:wfq_send_queue",
   ]
   sources = [
     "callback_deferrer.cc",

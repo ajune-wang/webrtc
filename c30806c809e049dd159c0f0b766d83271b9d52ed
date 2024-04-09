@@ -22,6 +22,30 @@
       },
       "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66398a7b_2e39cb37",
+        "filename": "test/testsupport/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-09T07:56:31Z",
+      "side": 1,
+      "message": "I get this error:\n\n    Found change with 1 commit...\n    Running Python 3 presubmit upload checks ...\n    ** Presubmit ERRORS: 1 **\n    You added one or more #includes that violate checkdeps rules.\n    Check that the DEPS files in these locations contain valid rules.\n    See https://cs.chromium.org/chromium/src/buildtools/checkdeps/ for more details about checkdeps.\n      test/testsupport/y4m_frame_reader.cc\n          Illegal include: \"absl/strings/str_split.h\"\n        Because of no rule applying.",
+      "parentUuid": "979166d9_8681883d",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

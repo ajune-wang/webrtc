@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd43fb9dea08b2258369a4278eb06210b30b07435',
+  'chromium_revision': 'd5fe795d569ceb9a513a9f4a77017c09f91da2b6',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -52,7 +52,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@9b6719e48629f90138fdc0b44246761408631499',
+    'https://chromium.googlesource.com/chromium/src/base@4703592fe748f5fb55442a96c9e55f36e5127a77',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@6c1802265daa8d81a508fa167f2cd1526c17774e',
   'src/buildtools':
@@ -63,13 +63,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@771c1649a956df0cf03b0c4d66bc88f8bd9df408',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@27dedbfad38bbdc17b5cff034a9571bc48dc021f',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@e4c8140ed1a38e58662cb40bf864ef5d5509366c',
+    'https://chromium.googlesource.com/chromium/src/testing@46e070f755063b10b61e8bd3b2f55a84d756d047',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@03b22ac3a4bb5977fef3e813935efa1d52c910fe',
+    'https://chromium.googlesource.com/chromium/src/third_party@d5e2d80e88b55cc2eddb14a465e2506e39b83459',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -363,7 +363,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9d18bb8bab94bfbaf7ee910e16f992fc134e7747',
+    'https://chromium.googlesource.com/chromium/src/tools@572cd86cc3eb0eeb731589eef7f0f52c48b86ab1',
 
   'src/third_party/espresso': {
       'packages': [
@@ -402,7 +402,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'KkVEH2hidBiGpaUiwvoGzRqYGBqNri_uI7sjlcgyZCsC',
+          'version': 'cOChtG33QkTU7QqJTlBiTj9bVdEvIDwtDv3ZuLae_mQC',
       },
     ],
     'condition': 'checkout_android',

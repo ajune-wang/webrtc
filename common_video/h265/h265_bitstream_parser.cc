@@ -282,9 +282,6 @@ H265BitstreamParser::Result H265BitstreamParser::ParseNonParameterSetNalu(
       } else {
         curr_sps_idx = sps->num_short_term_ref_pic_sets;
       }
-      if (sps->short_term_ref_pic_set.size() <= curr_sps_idx) {
-        TRUE_OR_RETURN(!(curr_sps_idx != 0 || short_term_ref_pic_set_sps_flag));
-      }
       const H265SpsParser::ShortTermRefPicSet* ref_pic_set;
       if (curr_sps_idx < sps->short_term_ref_pic_set.size()) {
         ref_pic_set = &(sps->short_term_ref_pic_set[curr_sps_idx]);

@@ -16,6 +16,63 @@
       "message": "you made me rebase ;-)\n\nOnce this is in we can finally add the tie breaker and random to the *struct*, make them const and clean up more",
       "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "443cc9ba_cebfcc17",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-09T14:17:07Z",
+      "side": 1,
+      "message": "should the ice candidate type param be a part of this struct?\n\nalso, what about min_port/max_port?\n(could be absl::optional\u003c...\u003e, even absl::optional\u003cstd::pair\u003c...\u003e\u003e)",
+      "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f646a4f_e6f7c7fb",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-09T14:17:07Z",
+      "side": 1,
+      "message": "Should we have this definition co-located with the Create method?\nIt seems very implementation specific whereas the interface is supposed to be an abstraction (although it does include some implementation).",
+      "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d2617f5_c4d356c1",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-09T14:17:07Z",
+      "side": 1,
+      "message": "Out of curiosity - What does the \"Ref\" suffix signify?",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 24
+      },
+      "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

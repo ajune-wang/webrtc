@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2d6f9ca_58eec2ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-04-09T14:24:13Z",
+      "side": 1,
+      "message": "Thanks! I also created a reland in parallell: https://webrtc-review.googlesource.com/c/src/+/346502\n\nBut let\u0027s go with yours.",
+      "revId": "348d2ea9e77c1ecaca08bc8f6223fdbee308fff3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

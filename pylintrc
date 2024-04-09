@@ -19,9 +19,7 @@ disable=
   E0611,
   I0010,
   I0011,
-  W0232,
   C0413,
-  bad-continuation,
   broad-except,
   duplicate-code,
   eval-used,
@@ -30,7 +28,6 @@ disable=
   import-error,
   import-outside-toplevel,
   missing-docstring,
-  no-init,
   no-member,
   too-few-public-methods,
   too-many-ancestors,
@@ -104,9 +101,6 @@ indent-string='    '
 
 [BASIC]
 
-# List of builtins function names that should not be used, separated by a comma
-bad-functions=map,filter,apply,input
-
 # Naming style matching correct module names.
 module-naming-style=snake_case
 
@@ -161,9 +155,6 @@ max-locals=15
 # Maximum number of return / yield for function / method body
 max-returns=6
 
-# Maximum number of branch for function / method body
-max-branchs=12
-
 # Maximum number of statements in function / method body
 max-statements=50
 
@@ -199,4 +190,4 @@ deprecated-modules=regsub,TERMIOS,Bastion,rexec
 
 # Exceptions that will emit a warning when being caught. Defaults to
 # "Exception"
-overgeneral-exceptions=Exception
+overgeneral-exceptions=builtins.Exception

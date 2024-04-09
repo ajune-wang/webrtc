@@ -975,7 +975,7 @@ def CommonChecks(input_api, output_api):
                     r'^xcodebuild.*[\\\/].*\.py$',
                 ),
                 pylintrc='pylintrc',
-                version='2.7'))
+                version='2.17'))
 
     if pylint_old_style:
         results.extend(

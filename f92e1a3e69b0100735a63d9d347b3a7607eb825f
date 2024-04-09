@@ -85,6 +85,78 @@
       },
       "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3a906b8_a0e458f9",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-04-09T02:22:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2aa0453f_a24bb980",
+      "range": {
+        "startLine": 41,
+        "startChar": 72,
+        "endLine": 41,
+        "endChar": 73
+      },
+      "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee633edf_325ebb26",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-04-09T02:22:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aff02bd6_2200261d",
+      "range": {
+        "startLine": 41,
+        "startChar": 52,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8746475c_6129d81d",
+        "filename": "api/video_codecs/h265_profile_tier_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 18005
+      },
+      "writtenOn": "2024-04-09T02:22:14Z",
+      "side": 1,
+      "message": "There are a few locations in the spec leads to this comment message:\n\n1. In 7.4.3.2.1, syntax explanation of pic_width_in_luma_samples:  it should be an integer multiple of MinCbSizeY.\n2. According to equation 7-10 ~ 7-13, MinCbSizeY/CtbSizeY ranges from 8 - 64. HEVC spec allows 8x8, 16x16, 32x32, 64x64 CTBs only.\n3. So at least pic_width_in_luma_samples needs to be integer multiple of 8 for all levels. As a result, for actual picture width, the largest width will also be multiple of 8; If you consider MinCbSizeY to be 64, allowed actual resolution for a given level will likely be smaller.\n4. A.4.1 condition c) \"For level 5 and higher, the value of CtbSizeY shall be equal to 32 or 64. But CTbSizeY shall not impact pic_width_in_luma_samples directly, so I update the CL to uniformly use MinCbSizeY\u003d8 for the calculation.",
+      "parentUuid": "b25ebbe1_d8f2eb43",
+      "range": {
+        "startLine": 40,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 75
+      },
+      "revId": "f92e1a3e69b0100735a63d9d347b3a7607eb825f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

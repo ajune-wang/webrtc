@@ -70,6 +70,30 @@
       },
       "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66ae7e48_5d8a5675",
+        "filename": "test/testsupport/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-09T09:22:43Z",
+      "side": 1,
+      "message": "Thanks, updated!",
+      "parentUuid": "65960fb7_e8deeef3",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

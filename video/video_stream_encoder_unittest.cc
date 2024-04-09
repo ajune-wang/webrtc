@@ -227,8 +227,9 @@ class FakeNV12NativeBuffer : public webrtc::VideoFrameBuffer {
 
 class CpuOveruseDetectorProxy : public OveruseFrameDetector {
  public:
-  explicit CpuOveruseDetectorProxy(CpuOveruseMetricsObserver* metrics_observer)
-      : OveruseFrameDetector(metrics_observer),
+  CpuOveruseDetectorProxy(const Environment& env,
+                          CpuOveruseMetricsObserver* metrics_observer)
+      : OveruseFrameDetector(env, metrics_observer),
         last_target_framerate_fps_(-1),
         framerate_updated_event_(true /* manual_reset */,
                                  false /* initially_signaled */) {}
@@ -399,14 +400,35 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
           allocation_callback_type,
       const FieldTrialsView& field_trials,
       int num_cores)
-      : VideoStreamEncoder(
+      : VideoStreamEncoderUnderTest(
             CreateEnvironment(&field_trials, time_controller->GetClock()),
+            time_controller,
+            std::move(cadence_adapter),
+            std::move(encoder_queue),
+            stats_proxy,
+            settings,
+            std::move(allocation_callback_type),
+            num_cores) {}
+
+  VideoStreamEncoderUnderTest(
+      const Environment& env,
+      TimeController* time_controller,
+      std::unique_ptr<FrameCadenceAdapterInterface> cadence_adapter,
+      std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>
+          encoder_queue,
+      SendStatisticsProxy* stats_proxy,
+      const VideoStreamEncoderSettings& settings,
+      VideoStreamEncoder::BitrateAllocationCallbackType
+          allocation_callback_type,
+      int num_cores)
+      : VideoStreamEncoder(
+            env,
             num_cores,
             stats_proxy,
             settings,
             std::unique_ptr<OveruseFrameDetector>(
                 overuse_detector_proxy_ =
-                    new CpuOveruseDetectorProxy(stats_proxy)),
+                    new CpuOveruseDetectorProxy(env, stats_proxy)),
             std::move(cadence_adapter),
             std::move(encoder_queue),
             allocation_callback_type),
@@ -710,13 +732,14 @@ class SimpleVideoStreamEncoderFactory {
       std::unique_ptr<FrameCadenceAdapterInterface> zero_hertz_adapter,
       std::unique_ptr<TaskQueueBase, TaskQueueDeleter> encoder_queue,
       const FieldTrialsView* field_trials = nullptr) {
+    Environment env = CreateEnvironment(&field_trials_, field_trials,
+                                        time_controller_.GetClock());
     auto result = std::make_unique<AdaptedVideoStreamEncoder>(
-        CreateEnvironment(&field_trials_, field_trials,
-                          time_controller_.GetClock()),
+        env,
         /*number_of_cores=*/1,
         /*stats_proxy=*/stats_proxy_.get(), encoder_settings_,
-        std::make_unique<CpuOveruseDetectorProxy>(
-            /*stats_proxy=*/nullptr),
+        std::make_unique<CpuOveruseDetectorProxy>(env,
+                                                  /*stats_proxy=*/nullptr),
         std::move(zero_hertz_adapter), std::move(encoder_queue),
         VideoStreamEncoder::BitrateAllocationCallbackType::
             kVideoBitrateAllocation);
@@ -9428,7 +9451,7 @@ TEST(VideoStreamEncoderSimpleTest, CreateDestroy) {
   // simply be deleted.
   VideoStreamEncoder encoder(
       env, 1, &stats_proxy, encoder_settings,
-      std::make_unique<CpuOveruseDetectorProxy>(&stats_proxy),
+      std::make_unique<CpuOveruseDetectorProxy>(env, &stats_proxy),
       std::move(adapter), std::move(encoder_queue),
       VideoStreamEncoder::BitrateAllocationCallbackType::
           kVideoBitrateAllocation);

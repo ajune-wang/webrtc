@@ -46,6 +46,30 @@
       },
       "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65960fb7_e8deeef3",
+        "filename": "test/testsupport/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-09T08:16:01Z",
+      "side": 1,
+      "message": "Ok, I see.\n\nThe issue is that we don\u0027t allow to use str_split.h in WebRTC (the parts of absl that are allowed are https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/DEPS;l\u003d2635-2659;drc\u003da90942457721d360f4055275d74e8a60a4233898.\n\nWe usually rely on https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/string_encode.h;l\u003d46-55;drc\u003df1d822b03b9ec7232d0e4a3d6fad5b97f702b1e5, can you use that?",
+      "parentUuid": "66398a7b_2e39cb37",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

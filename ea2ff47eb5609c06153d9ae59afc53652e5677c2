@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16cadf2_88dc05e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-04-09T11:49:51Z",
+      "side": 1,
+      "message": "Actually, hold off on reviewing this. I think I might be able to solve my problem in a different way, in which case I can abandon this CL.",
+      "revId": "ea2ff47eb5609c06153d9ae59afc53652e5677c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

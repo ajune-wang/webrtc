@@ -16,6 +16,40 @@
       "message": "Hello guys,\n\nI wanted to add support for H.264 and LNTF. This patch adds also\nchecking of the H.264 codec.\n\nIs there a better solution to this, for example:\n\n* Remove VP8 check, enable for all codecs\n* Add check for VP8,VP9,H264,AV1 etc.\n* Add check for H264 only.\n\nI am happy to change or update the patch. Please let me know\nthe next steps...",
       "revId": "9d946ff14bc2e678d69ff9790e33f608b2fe6b49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d69193b1_4e85fdcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-09T06:55:26Z",
+      "side": 1,
+      "message": "1) What do you think is appropriate tests for this?\n2) Do you think the other issues mentioned in 15792 should be addressed before going public on this?\n3) Should there be a separate field trial for H.264, so as to avoid bumping stats on ongoing experiments with LNTF?\n\nErik may be able to tell what the status of LNTF experimentation is.",
+      "revId": "9d946ff14bc2e678d69ff9790e33f608b2fe6b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4bfba24_34c62a92",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-09T06:55:26Z",
+      "side": 1,
+      "message": "Hm. I\u0027m skeptical of touching LNTF just now because of https://crbug.com/webrtc/15907 (a followup bug that I have not been able to follow up on).\n\nHowever, this doesn\u0027t seem to dig us deeper into THAT hole.",
+      "revId": "9d946ff14bc2e678d69ff9790e33f608b2fe6b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

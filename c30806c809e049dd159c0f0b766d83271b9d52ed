@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979166d9_8681883d",
+        "filename": "test/testsupport/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-09T07:50:13Z",
+      "side": 1,
+      "message": "Is this needed?\n\nI don\u0027t expect it to be but there might be some misconfiguration. What happens if you remove?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "c30806c809e049dd159c0f0b766d83271b9d52ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

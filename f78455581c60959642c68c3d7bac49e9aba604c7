@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae96b403_11d8b472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-04-09T18:15:42Z",
+      "side": 1,
+      "message": "I think it\u0027s a good idea to keep pylint version aligned with Chromium.",
+      "revId": "f78455581c60959642c68c3d7bac49e9aba604c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

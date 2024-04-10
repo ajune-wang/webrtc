@@ -73,6 +73,66 @@
       },
       "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7061a7a_95e6576c",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T00:48:13Z",
+      "side": 1,
+      "message": "That will be the next change-list. Cleaning stuff up will be a lot easier (I think Chromium uses min_port/max_port so this needs a little more attention)\n\nHey, we need to hit 1200 commits this year and I have been slacking ;-)",
+      "parentUuid": "443cc9ba_cebfcc17",
+      "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d23a4d0d_48c3f835",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T00:48:13Z",
+      "side": 1,
+      "message": "Moved into the Port class which did not even require many changes (thanks scoping!)",
+      "parentUuid": "4f646a4f_e6f7c7fb",
+      "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a2a878_8742839e",
+        "filename": "p2p/base/port_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T00:48:13Z",
+      "side": 1,
+      "message": "\"reference type\" suggested in https://webrtc-review.googlesource.com/c/src/+/341021/12..15/p2p/base/port_interface.h#b52",
+      "parentUuid": "9d2617f5_c4d356c1",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 24
+      },
+      "revId": "b2845841ebe02eb4ffe1255b0d551b17f70f197e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

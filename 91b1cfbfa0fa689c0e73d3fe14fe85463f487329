@@ -16,6 +16,24 @@
       "message": "Probably copy-paste from above but how did that ever work? My only theory is that the local and remote stream ids match...",
       "revId": "91b1cfbfa0fa689c0e73d3fe14fe85463f487329",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71db1d32_cea4a447",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-10T05:37:00Z",
+      "side": 0,
+      "message": "If so, that would be a serious bug (ID confusion). Perhaps nobody ever followed that pointer?",
+      "parentUuid": "be735072_c1f5f388",
+      "revId": "91b1cfbfa0fa689c0e73d3fe14fe85463f487329",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

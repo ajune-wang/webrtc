@@ -16,6 +16,57 @@
       "message": "It makes me sad how different the approaches for audio and video are. But...",
       "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b1d84d4_3334f781",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-10T05:37:00Z",
+      "side": 1,
+      "message": "I assume this will be tested in WPT tests, so there will be a disable/rebase/enable cycle for that.",
+      "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2850de_7b076ec5",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-10T05:37:00Z",
+      "side": 1,
+      "message": "Can you add a TODO(12529): should implement DLRR?",
+      "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5aeb7e_007bc9b9",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-10T05:37:00Z",
+      "side": 1,
+      "message": "TODO here too, to point out that this is not a desirable end state?\nCould we use TestAttributeIsDefinedOptional (or whatever it is called) instead?",
+      "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

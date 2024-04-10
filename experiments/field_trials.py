@@ -10,6 +10,7 @@
 
 import datetime
 from datetime import date
+import hashlib
 import sys
 from typing import FrozenSet, List, Set
 
@@ -162,6 +163,8 @@ INDEFINITE = date(datetime.MAXYEAR, 1, 1)
 
 # These field trials precedes the policy in `g3doc/field-trials.md` and are
 # therefore not required to follow it. Do not add any new field trials here.
+# If you remove an entry you should also update
+# POLICY_EXEMPT_FIELD_TRIALS_DIGEST.
 POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     # keep-sorted start
     FieldTrial('UseTwccPlrForAna',
@@ -913,6 +916,9 @@ POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     # keep-sorted end
 ])  # yapf: disable
 
+POLICY_EXEMPT_FIELD_TRIALS_DIGEST: str = \
+    '023f4ce749a699f0ab811093b9f568d604da28a8'
+
 REGISTERED_FIELD_TRIALS: FrozenSet[FieldTrial] = ACTIVE_FIELD_TRIALS.union(
     POLICY_EXEMPT_FIELD_TRIALS)
 
@@ -1049,13 +1055,25 @@ def cmd_expired(args: argparse.Namespace) -> None:
 
 def cmd_validate(args: argparse.Namespace) -> None:
     del args
-    invalid = validate_field_trials()
+    invalid = False
 
-    if len(invalid) <= 0:
-        return
+    h = hashlib.sha1()
+    for f in sorted(POLICY_EXEMPT_FIELD_TRIALS, key=lambda f: f.key):
+        h.update(f.key.encode('ascii'))
+    if h.hexdigest() != POLICY_EXEMPT_FIELD_TRIALS_DIGEST:
+        invalid = True
+        print(
+            'POLICY_EXEMPT_FIELD_TRIALS has been modified. Please note that '
+            'you must not add any new entries there. If you removed an entry '
+            'you should also update POLICY_EXEMPT_FIELD_TRIALS_DIGEST. The'
+            f'new digest is "{h.hexdigest()}".')
 
-    print('\n'.join(sorted(invalid)))
-    sys.exit(1)
+    if f := validate_field_trials():
+        invalid = True
+        print('\n'.join(sorted(f)))
+
+    if invalid:
+        sys.exit(1)
 
 
 def main() -> None:

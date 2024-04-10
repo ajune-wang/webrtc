@@ -179,7 +179,7 @@ class VideoEncoderSoftwareFallbackWrapperTestBase : public ::testing::Test {
   std::unique_ptr<VideoFrame> frame_;
   std::unique_ptr<SimulcastRateAllocator> rate_allocator_;
 };
-
+WebRTC-Video-RequestedResolutionOverrideOutputFormatRequest
 class VideoEncoderSoftwareFallbackWrapperTest
     : public VideoEncoderSoftwareFallbackWrapperTestBase {
  protected:

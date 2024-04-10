@@ -16,6 +16,23 @@
       "message": "Friendly ping",
       "revId": "4a44b931b683c0389b926b178e93fe49e55a49fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8551ec32_11c68060",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10796
+      },
+      "writtenOn": "2024-04-10T11:43:19Z",
+      "side": 1,
+      "message": "Sorry I missed the mail.\n*Really* thanks a lot for this clean-up.",
+      "revId": "4a44b931b683c0389b926b178e93fe49e55a49fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

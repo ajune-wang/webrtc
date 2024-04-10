@@ -158,7 +158,8 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
 
 namespace {
 
-class SocketStream : public rtc::StreamInterface, public sigslot::has_slots<> {
+class SocketStream : public rtc::StreamInterfaceBase,
+                     public sigslot::has_slots<> {
  public:
   explicit SocketStream(rtc::Socket* socket) : socket_(socket) {
     socket_->SignalConnectEvent.connect(this, &SocketStream::OnConnectEvent);
@@ -216,21 +217,25 @@ class SocketStream : public rtc::StreamInterface, public sigslot::has_slots<> {
 
  private:
   void OnConnectEvent(rtc::Socket* socket) {
+    RTC_DCHECK_RUN_ON(&construction_sequence_);
     RTC_DCHECK_EQ(socket, socket_.get());
-    SignalEvent(this, rtc::SE_OPEN | rtc::SE_READ | rtc::SE_WRITE, 0);
+    FireStreamEvent(rtc::SE_OPEN | rtc::SE_READ | rtc::SE_WRITE, 0);
   }
 
   void OnReadEvent(rtc::Socket* socket) {
+    RTC_DCHECK_RUN_ON(&construction_sequence_);
     RTC_DCHECK_EQ(socket, socket_.get());
-    SignalEvent(this, rtc::SE_READ, 0);
+    FireStreamEvent(rtc::SE_READ, 0);
   }
   void OnWriteEvent(rtc::Socket* socket) {
+    RTC_DCHECK_RUN_ON(&construction_sequence_);
     RTC_DCHECK_EQ(socket, socket_.get());
-    SignalEvent(this, rtc::SE_WRITE, 0);
+    FireStreamEvent(rtc::SE_WRITE, 0);
   }
   void OnCloseEvent(rtc::Socket* socket, int err) {
+    RTC_DCHECK_RUN_ON(&construction_sequence_);
     RTC_DCHECK_EQ(socket, socket_.get());
-    SignalEvent(this, rtc::SE_CLOSE, err);
+    FireStreamEvent(rtc::SE_CLOSE, err);
   }
 
   std::unique_ptr<rtc::Socket> socket_;
@@ -361,8 +366,10 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
 
     ssl_stream_adapter_->StartSSL();
 
-    ssl_stream_adapter_->SignalEvent.connect(
-        this, &SSLAdapterTestDummyServer::OnSSLStreamAdapterEvent);
+    ssl_stream_adapter_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnSSLStreamAdapterEvent(stream, events, err);
+        });
   }
 
   const rtc::SSLMode ssl_mode_;

@@ -19,7 +19,7 @@ namespace rtc {
 
 // MemoryStream dynamically resizes to accomodate written data.
 
-class MemoryStream final : public StreamInterface {
+class MemoryStream final : public StreamInterfaceBase {
  public:
   MemoryStream();
   ~MemoryStream() override;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e13d1a0_2840e8f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-04-10T23:01:07Z",
+      "side": 1,
+      "message": "Since we have another crash report (https://bugs.webrtc.org/15908) w.r.t. the limitation of select() on MacOS, I rebased this CL and removed the WIP label. Could you please review this CL? I still believe poll() is okay even for other POSIX systems, but to simplify the discussion, I only added support for Apple systems.",
+      "revId": "54925cf68c4dc5b3bdaa07db884689a83a06f48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -26,6 +26,7 @@
 #endif
 
 namespace webrtc {
+namespace video_coding {
 namespace {
 
 using ::testing::ElementsAreArray;
@@ -1195,4 +1196,5 @@ TEST(H26xPacketBufferTest, H265InsertingVpsSpsPpsLastCompletesKeyframe) {
 #endif  // RTC_ENABLE_H265
 
 }  // namespace
+}  // namespace video_coding
 }  // namespace webrtc

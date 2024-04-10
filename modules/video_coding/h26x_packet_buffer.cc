@@ -35,6 +35,7 @@
 #endif
 
 namespace webrtc {
+namespace video_coding {
 namespace {
 
 int64_t EuclideanMod(int64_t n, int64_t div) {
@@ -518,4 +519,5 @@ bool H26xPacketBuffer::FixH264Packet(Packet& packet) {
   return false;
 }
 
+}  // namespace video_coding
 }  // namespace webrtc

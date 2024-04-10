@@ -34,6 +34,24 @@
       "parentUuid": "be735072_c1f5f388",
       "revId": "91b1cfbfa0fa689c0e73d3fe14fe85463f487329",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f523d7fb_cbd8d684",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T16:28:07Z",
+      "side": 0,
+      "message": "Quite likely, the waiter before only waits for remote-inbound-rtp and for audio it typically takes longer for the SR to be sent so remote-outbound-rtp was never present.",
+      "parentUuid": "71db1d32_cea4a447",
+      "revId": "91b1cfbfa0fa689c0e73d3fe14fe85463f487329",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

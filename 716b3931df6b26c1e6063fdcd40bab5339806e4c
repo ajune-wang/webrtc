@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cccf7b28_f6569497",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T16:28:07Z",
+      "side": 1,
+      "message": "no, webrtc_linux_chromium passes. The WPT for that is\n  https://wpt.fyi/results/webrtc-stats/supported-stats.https.html?label\u003dexperimental\u0026label\u003dmaster\u0026aligned\n remote-outbound-rtp\u0027s ...\nwhich currently passes because this is supported for audio. See \n  https://github.com/w3c/webrtc-stats/issues/707",
+      "parentUuid": "1b1d84d4_3334f781",
+      "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d2850de_7b076ec5",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-04-10T05:37:00Z",
       "side": 1,
       "message": "Can you add a TODO(12529): should implement DLRR?",
+      "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcfd18e1_6c69e0db",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T16:28:07Z",
+      "side": 1,
+      "message": "DLRR is implemented but not negotiated by default, see https://github.com/webrtc/samples/pull/1408#issuecomment-760902189 for some digging.\n\nThis *might* actually show up once one negotiates rrtr in the SDP but is easier to test once it is in Chromium.",
+      "parentUuid": "4d2850de_7b076ec5",
       "revId": "716b3931df6b26c1e6063fdcd40bab5339806e4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

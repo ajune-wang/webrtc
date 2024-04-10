@@ -33,6 +33,24 @@
       "message": "Sorry I missed the mail.\n*Really* thanks a lot for this clean-up.",
       "revId": "4a44b931b683c0389b926b178e93fe49e55a49fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79e6805e_ce7b64ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-04-10T12:04:43Z",
+      "side": 1,
+      "message": "No worries :) Do you mind LGTM with your webrtc.org account since that has owners permission?",
+      "parentUuid": "8551ec32_11c68060",
+      "revId": "4a44b931b683c0389b926b178e93fe49e55a49fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be735072_c1f5f388",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-10T02:13:41Z",
+      "side": 0,
+      "message": "Probably copy-paste from above but how did that ever work? My only theory is that the local and remote stream ids match...",
+      "revId": "91b1cfbfa0fa689c0e73d3fe14fe85463f487329",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

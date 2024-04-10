@@ -340,7 +340,8 @@ inline std::string JavaToStdString(JNIEnv* jni,
 
 // Deprecated. Use scoped jobjects instead.
 inline std::string JavaToStdString(JNIEnv* jni, jstring j_string) {
-  return JavaToStdString(jni, JavaParamRef<jstring>(j_string));
+  return JavaToStdString(jni,
+                         jni_zero::ScopedJavaLocalRef<jstring>(jni, j_string));
 }
 
 // Deprecated. Use JavaListToNativeVector<std::string, jstring> instead.
@@ -360,7 +361,8 @@ inline std::map<std::string, std::string> JavaToStdMapStrings(
 // Deprecated. Use scoped jobjects instead.
 inline std::map<std::string, std::string> JavaToStdMapStrings(JNIEnv* jni,
                                                               jobject j_map) {
-  return JavaToStdMapStrings(jni, JavaParamRef<jobject>(j_map));
+  return JavaToStdMapStrings(jni,
+                             jni_zero::ScopedJavaLocalRef<jobject>(jni, j_map));
 }
 
 }  // namespace webrtc

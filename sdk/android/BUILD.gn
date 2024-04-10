@@ -141,6 +141,7 @@ if (is_android) {
       ":video_egl_jni",
       "../../pc:libjingle_peerconnection",
       "../../rtc_base:ssl",
+      "//third_party/jni_zero",
     ]
     output_extension = "so"
   }
@@ -935,7 +936,6 @@ if (current_os == "linux" || is_android) {
       "native_api/jni/class_loader.cc",
       "native_api/jni/java_types.cc",
       "native_api/jni/jvm.cc",
-      "src/jni/jni_generator_helper.cc",
       "src/jni/jni_generator_helper.h",
     ]
 
@@ -943,7 +943,6 @@ if (current_os == "linux" || is_android) {
       "native_api/jni/application_context_provider.h",
       "native_api/jni/class_loader.h",
       "native_api/jni/java_types.h",
-      "native_api/jni/jni_int_wrapper.h",
       "native_api/jni/jvm.h",
       "native_api/jni/scoped_java_ref.h",
     ]
@@ -955,6 +954,7 @@ if (current_os == "linux" || is_android) {
       "../../api:sequence_checker",
       "//api:array_view",
       "//rtc_base:checks",
+      "//third_party/jni_zero",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
   }

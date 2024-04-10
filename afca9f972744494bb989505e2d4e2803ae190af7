@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd3b3ee_f9f29edb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2024-04-10T11:12:59Z",
+      "side": 1,
+      "message": "I\u0027ve revised this CL as well to rely on older Python 3.8 constructs, PTAL",
+      "revId": "afca9f972744494bb989505e2d4e2803ae190af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

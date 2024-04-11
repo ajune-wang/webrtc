@@ -1039,6 +1039,11 @@ void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
   bool remote_candidate_is_new = (candidate == nullptr);
   if (!remote_candidate_is_new) {
     remote_candidate = *candidate;
+  } else if (ice_field_trials_.skip_relay_to_non_relay_connections &&
+      port->Type() == IceCandidateType::kRelay) {
+    RTC_LOG(LS_INFO) << "P2PTransportChannel::OnUnknownAddress - "
+                        "Skip creating prflx to relay connection";
+    return;
   } else {
     // Create a new candidate with this address.
     // The priority of the candidate is set to the PRIORITY attribute
@@ -1346,6 +1351,13 @@ void P2PTransportChannel::RemoveRemoteCandidate(
     RTC_LOG(LS_VERBOSE) << "Removed remote candidate "
                         << cand_to_remove.ToSensitiveString();
     remote_candidates_.erase(iter, remote_candidates_.end());
+  }
+  for (Connection* conn : connections()) {
+    if (cand_to_remove.MatchesForRemoval(conn->remote_candidate())) {
+      RTC_LOG(LS_VERBOSE) << "Prune associated connection "
+                          << conn->ToString();
+      conn->FailAndPrune();
+    }
   }
 }
 

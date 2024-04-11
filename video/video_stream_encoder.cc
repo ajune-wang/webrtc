@@ -1952,11 +1952,21 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
     VideoFrame::UpdateRect update_rect = video_frame.update_rect();
     if (crop_width_ < 4 && crop_height_ < 4) {
       // The difference is small, crop without scaling.
+      int offset_x = crop_width_ / 2;
+      int offset_y = crop_height_ / 2;
+
+      // Aling cropping offsets to macropixel size to avoid displacement of
+      // pixel components and simplify cropping process.
+      const Resolution pixel_size =
+          video_frame.video_frame_buffer()->macropixel_size_pixels();
+      offset_x = (offset_x / pixel_size.width) * pixel_size.width;
+      offset_y = (offset_y / pixel_size.height) * pixel_size.height;
+
       cropped_buffer = video_frame.video_frame_buffer()->CropAndScale(
-          crop_width_ / 2, crop_height_ / 2, cropped_width, cropped_height,
-          cropped_width, cropped_height);
-      update_rect.offset_x -= crop_width_ / 2;
-      update_rect.offset_y -= crop_height_ / 2;
+          offset_x, offset_y, cropped_width, cropped_height, cropped_width,
+          cropped_height);
+      update_rect.offset_x -= offset_x;
+      update_rect.offset_y -= offset_y;
       update_rect.Intersect(
           VideoFrame::UpdateRect{0, 0, cropped_width, cropped_height});
 

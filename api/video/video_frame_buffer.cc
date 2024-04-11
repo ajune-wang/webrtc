@@ -79,6 +79,32 @@ rtc::scoped_refptr<VideoFrameBuffer> VideoFrameBuffer::GetMappedFrameBuffer(
   return nullptr;
 }
 
+Resolution VideoFrameBuffer::macropixel_size_pixels() const {
+  switch (type()) {
+    case Type::kI420:
+      [[fallthrough]];
+    case Type::kI420A:
+      [[fallthrough]];
+    case Type::kI010:
+      [[fallthrough]];
+    case Type::kNV12:
+      return {.width = 2, .height = 2};
+    case Type::kI422:
+      [[fallthrough]];
+    case Type::kI210:
+      return {.width = 2, .height = 1};
+    case Type::kI444:
+      [[fallthrough]];
+    case Type::kI410:
+      return {.width = 1, .height = 1};
+    case Type::kNative:
+      [[fallthrough]];
+    default:
+      RTC_DCHECK_NOTREACHED();
+  }
+  return {.width = 1, .height = 1};
+}
+
 VideoFrameBuffer::Type I420BufferInterface::type() const {
   return Type::kI420;
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e1ec135_70003ed4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-11T18:42:53Z",
+      "side": 1,
+      "message": "The spec actually solves the problem by not making msid conditional!\nMy only concern is whether the behavior asserted by the failing test is still useful. Removing the test seems the way to go?",
+      "revId": "6cbc784a0812e9fc372d49bf28d4274cda9f8794",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

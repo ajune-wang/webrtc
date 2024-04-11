@@ -327,7 +327,7 @@ TEST(ProbeControllerTest, TestExponentialProbing) {
   EXPECT_EQ(probes[0].target_data_rate.bps(), 2 * 1800);
 }
 
-TEST(ProbeControllerTest, ExponentialProbingStopIfMaxAllocatedBitrateLow) {
+TEST(ProbeControllerTest, ExponentialProbingStopIfMaxBitrateLow) {
   ProbeControllerFixture fixture(
       "WebRTC-Bwe-ProbingConfiguration/abort_further:true/");
   std::unique_ptr<ProbeController> probe_controller =
@@ -340,8 +340,35 @@ TEST(ProbeControllerTest, ExponentialProbingStopIfMaxAllocatedBitrateLow) {
   ASSERT_THAT(probes, SizeIs(Gt(0)));
 
   // Repeated probe normally is sent when estimated bitrate climbs above
-  // 0.7 * 6 * kStartBitrate = 1260. But since allocated bitrate i slow, expect
+  // 0.7 * 6 * kStartBitrate = 1260. But since max bitrate is low, expect
   // exponential probing to stop.
+  probes = probe_controller->SetBitrates(kMinBitrate, kStartBitrate,
+                                         /*max_bitrate=*/kStartBitrate,
+                                         fixture.CurrentTime());
+  EXPECT_THAT(probes, IsEmpty());
+
+  probes = probe_controller->SetEstimatedBitrate(
+      DataRate::BitsPerSec(1800), BandwidthLimitedCause::kDelayBasedLimited,
+      fixture.CurrentTime());
+  EXPECT_THAT(probes, IsEmpty());
+}
+
+TEST(ProbeControllerTest, ExponentialProbingIgnoreIfMaxAlloocatedBitrateIsLow) {
+  ProbeControllerFixture fixture(
+      "WebRTC-Bwe-ProbingConfiguration/abort_further:true/");
+  std::unique_ptr<ProbeController> probe_controller =
+      fixture.CreateController();
+  ASSERT_THAT(
+      probe_controller->OnNetworkAvailability({.network_available = true}),
+      IsEmpty());
+  auto probes = probe_controller->SetBitrates(
+      kMinBitrate, kStartBitrate, kMaxBitrate, fixture.CurrentTime());
+  ASSERT_THAT(probes, SizeIs(Gt(0)));
+
+  // Repeated probe is sent when estimated bitrate climbs above
+  // 0.7 * 6 * kStartBitrate = 1260. During the initial probe, we ignore the
+  // allocation limit and probe up to the max with
+  // WebRTC-Bwe-ProbingConfiguration/abort_further:true/.
   probes = probe_controller->OnMaxTotalAllocatedBitrate(kStartBitrate,
                                                         fixture.CurrentTime());
   EXPECT_THAT(probes, IsEmpty());
@@ -349,7 +376,8 @@ TEST(ProbeControllerTest, ExponentialProbingStopIfMaxAllocatedBitrateLow) {
   probes = probe_controller->SetEstimatedBitrate(
       DataRate::BitsPerSec(1800), BandwidthLimitedCause::kDelayBasedLimited,
       fixture.CurrentTime());
-  EXPECT_THAT(probes, IsEmpty());
+  EXPECT_EQ(probes.size(), 1u);
+  EXPECT_EQ(probes[0].target_data_rate.bps(), 2 * 1800);
 }
 
 TEST(ProbeControllerTest, TestExponentialProbingTimeout) {

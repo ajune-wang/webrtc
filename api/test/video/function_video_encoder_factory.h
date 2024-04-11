@@ -30,10 +30,10 @@ namespace test {
 class FunctionVideoEncoderFactory final : public VideoEncoderFactory {
  public:
   explicit FunctionVideoEncoderFactory(
-      std::function<std::unique_ptr<VideoEncoder>()> create)
-      : create_([create = std::move(create)](const Environment&,
+      std::function<std::unique_ptr<VideoEncoder>(const Environment&)> create)
+      : create_([create = std::move(create)](const Environment& env,
                                              const SdpVideoFormat&) {
-          return create();
+          return create(env);
         }) {}
   explicit FunctionVideoEncoderFactory(
       std::function<std::unique_ptr<VideoEncoder>(const Environment&,

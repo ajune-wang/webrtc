@@ -53,9 +53,8 @@ TEST_F(StatsEndToEndTest, GetStats) {
    public:
     StatsObserver()
         : EndToEndTest(test::VideoTestConstants::kLongTimeout),
-          encoder_factory_([]() {
-            return std::make_unique<test::DelayedEncoder>(
-                Clock::GetRealTimeClock(), 10);
+          encoder_factory_([](const Environment& env) {
+            return std::make_unique<test::DelayedEncoder>(env, 10);
           }) {}
 
    private:

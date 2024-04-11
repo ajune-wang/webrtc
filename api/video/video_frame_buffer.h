@@ -16,6 +16,7 @@
 #include "api/array_view.h"
 #include "api/ref_count.h"
 #include "api/scoped_refptr.h"
+#include "api/video/resolution.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -125,6 +126,11 @@ class RTC_EXPORT VideoFrameBuffer : public webrtc::RefCountInterface {
   virtual rtc::scoped_refptr<VideoFrameBuffer> GetMappedFrameBuffer(
       rtc::ArrayView<Type> types);
 
+  // Returns size of macropixel, in pixel units. Macropixel includes all samples
+  // necessary to reconstruct pixels within the macropixel. No pixels outside of
+  // a macropixel should use samples from this macropixel.
+  virtual Resolution macropixel_size_pixels() const;
+
  protected:
   ~VideoFrameBuffer() override {}
 };
@@ -224,8 +230,6 @@ class I444BufferInterface : public PlanarYuv8Buffer {
   ~I444BufferInterface() override {}
 };
 
-// This interface represents 8-bit to 16-bit color depth formats: Type::kI010 or
-// Type::kI210 .
 class PlanarYuv16BBuffer : public PlanarYuvBuffer {
  public:
   // Returns pointer to the pixel data for a given plane. The memory is owned by

@@ -148,6 +148,7 @@ class ProbeController {
     kProbingComplete,
   };
 
+  void UpdateState(State new_state);
   ABSL_MUST_USE_RESULT std::vector<ProbeClusterConfig>
   InitiateExponentialProbing(Timestamp at_time);
   ABSL_MUST_USE_RESULT std::vector<ProbeClusterConfig> InitiateProbing(
@@ -158,6 +159,7 @@ class ProbeController {
   bool TimeForNetworkStateProbe(Timestamp at_time) const;
 
   bool network_available_;
+  bool waiting_for_initial_probe_result_ = false;
   BandwidthLimitedCause bandwidth_limited_cause_ =
       BandwidthLimitedCause::kDelayBasedLimited;
   State state_;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "549dcb07_7a5eb702",
+        "filename": "api/video/video_frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-04-11T13:00:18Z",
+      "side": 1,
+      "message": "The buffer format will be kNative. It\u0027s always kNative in chrome, unless toI420() or similar was called prior, which isn\u0027t the case for the place where this function is called.",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 30
+      },
+      "revId": "969350be34d271b9337972cf6f6c516d1dc7fc36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

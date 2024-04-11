@@ -16,6 +16,7 @@
 #include "api/array_view.h"
 #include "api/ref_count.h"
 #include "api/scoped_refptr.h"
+#include "api/video/resolution.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -60,7 +61,7 @@ class RTC_EXPORT VideoFrameBuffer : public webrtc::RefCountInterface {
     kI010,
     kI210,
     kI410,
-    kNV12,
+    kNV12
   };
 
   // This function specifies in what pixel format the data is stored in.
@@ -94,6 +95,8 @@ class RTC_EXPORT VideoFrameBuffer : public webrtc::RefCountInterface {
   // especially for kNative.
   // First, the image is cropped to `crop_width` and `crop_height` and then
   // scaled to `scaled_width` and `scaled_height`.
+  // The offset_x or offset_y parameter of CropAndScale() should be even if
+  // WidthSubsampling() or HeightSubsampling() returns 1, respectively.
   virtual rtc::scoped_refptr<VideoFrameBuffer> CropAndScale(int offset_x,
                                                             int offset_y,
                                                             int crop_width,
@@ -124,6 +127,11 @@ class RTC_EXPORT VideoFrameBuffer : public webrtc::RefCountInterface {
   // frame has not implemented this method. Only callable if type() is kNative.
   virtual rtc::scoped_refptr<VideoFrameBuffer> GetMappedFrameBuffer(
       rtc::ArrayView<Type> types);
+
+  // Returns size of macropixel, in pixel units. Macropixel includes all samples
+  // necessary to reconstruct pixels within the macropixel. No pixels outside of
+  // a macropixel should use samples from this macropixel.
+  virtual Resolution macropixel_size_pixels() const;
 
  protected:
   ~VideoFrameBuffer() override {}
@@ -224,8 +232,8 @@ class I444BufferInterface : public PlanarYuv8Buffer {
   ~I444BufferInterface() override {}
 };
 
-// This interface represents 8-bit to 16-bit color depth formats: Type::kI010 or
-// Type::kI210 .
+// This interface represents 8-bit to 16-bit color depth formats: Type::kI010,
+// Type::kI210, or Type::kI410.
 class PlanarYuv16BBuffer : public PlanarYuvBuffer {
  public:
   // Returns pointer to the pixel data for a given plane. The memory is owned by

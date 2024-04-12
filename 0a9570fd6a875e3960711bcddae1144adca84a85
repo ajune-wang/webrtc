@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b853bf4_1e434f96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-12T08:54:41Z",
+      "side": 1,
+      "message": "Sergey, can you please check sdk/ change",
+      "revId": "0a9570fd6a875e3960711bcddae1144adca84a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

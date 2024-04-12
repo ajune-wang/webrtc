@@ -16,6 +16,23 @@
       "message": "Add ssilkin@ as well for comments. We found that this makes H.264 packet buffer behavior using GFD-00 more similar to the dependency descriptor and provides a good improvement to latency/freezes in lossy networks when temporal scaling is used.",
       "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c56ac563_a34e5d5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T16:51:19Z",
+      "side": 1,
+      "message": "I wouldn\u0027t use the GFD as it is not standardized, and it will probably be removed in the not so very distant future,\n\nIn regards to H264/5 things are currently moving around quite a bit: https://webrtc-review.googlesource.com/c/src/+/346280",
+      "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

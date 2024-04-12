@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aeb16c6_c31b1e6b",
+        "filename": "modules/video_coding/h26x_packet_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T06:05:35Z",
+      "side": 1,
+      "message": "We are moving away from the `video_coding` namespace, please remove.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "2dac724f0f89fd3e2959168590a4dd4c620ada26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a868a0_70eac10c",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T06:05:35Z",
+      "side": 1,
+      "message": "Please add comment why this is created here and not in the ctor (you want to know what `sps_pps_id_is_h264_keyframe_` will be before you create it).",
+      "range": {
+        "startLine": 1242,
+        "startChar": 2,
+        "endLine": 1242,
+        "endChar": 62
+      },
+      "revId": "2dac724f0f89fd3e2959168590a4dd4c620ada26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

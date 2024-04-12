@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00f5ec15_a309e326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-04-12T15:27:33Z",
+      "side": 1,
+      "message": "Add ssilkin@ as well for comments. We found that this makes H.264 packet buffer behavior using GFD-00 more similar to the dependency descriptor and provides a good improvement to latency/freezes in lossy networks when temporal scaling is used.",
+      "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

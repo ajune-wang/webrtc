@@ -33,6 +33,24 @@
       "message": "I wouldn\u0027t use the GFD as it is not standardized, and it will probably be removed in the not so very distant future,\n\nIn regards to H264/5 things are currently moving around quite a bit: https://webrtc-review.googlesource.com/c/src/+/346280",
       "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d836183_0d30e0cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7529
+      },
+      "writtenOn": "2024-04-12T17:29:22Z",
+      "side": 1,
+      "message": "We can update this CL to add the fix to H26xPacketBuffer instead (or in addition), if the fix looks OK.\n\nI agree moving to DD is good, but doing a temporary fix here for obviously broken GFD-00 behavior doesn\u0027t seem harmful until support for that is deleted from WebRTC. If you instead prefer to land no more fixes for GFD-00, the CL can be abandoned.",
+      "parentUuid": "c56ac563_a34e5d5b",
+      "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

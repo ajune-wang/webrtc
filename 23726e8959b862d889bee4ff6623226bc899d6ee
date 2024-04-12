@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eec026c_ff738da9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-12T18:17:17Z",
+      "side": 1,
+      "message": "tests still use global field trial sometimes, in particular because some vp8 encoder field trials are not propagated yet (child classes use the global field trial string).\nwill address those in some follow up.",
+      "revId": "23726e8959b862d889bee4ff6623226bc899d6ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

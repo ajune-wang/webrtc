@@ -1531,6 +1531,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9057a73f_c0eef678",
+        "filename": "api/video_codecs/simple_encoder_wrapper.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:55:35Z",
+      "side": 1,
+      "message": "This function determines which webrtc SVC scalability modes are supported, not general scalability modes.",
+      "parentUuid": "5fdd8d89_33d5beee",
+      "range": {
+        "startLine": 75,
+        "startChar": 58,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b5b2f61_e25db0a5",
@@ -1544,6 +1568,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "VA-API doesn\u0027t support non k-SVC and non S-mode spatial layer encoding. Does an encoder need to support it?",
+      "range": {
+        "startLine": 77,
+        "startChar": 10,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b4bc017_ddf9b875",
+        "filename": "api/video_codecs/simple_encoder_wrapper.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:55:35Z",
+      "side": 1,
+      "message": "An encoder does not need to support any scalability, we can still wrap it in this interface.",
+      "parentUuid": "0b5b2f61_e25db0a5",
       "range": {
         "startLine": 77,
         "startChar": 10,

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37bdb17c_41a97359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-12T07:44:06Z",
+      "side": 1,
+      "message": "Soon leaving for the day, so doing the +1.\nStill wondering if it\u0027s 100% right or just avoiding the specific error situation.",
+      "revId": "7dc16dded9142972fb92d8fc90c4da8d543737c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0c10ef_ccdd2910",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-12T07:44:06Z",
+      "side": 1,
+      "message": "Comment nit: I think sendonly from the remote (recvonly locally) will have msid lines. It\u0027s recvonly lines that don\u0027t have them.",
+      "revId": "7dc16dded9142972fb92d8fc90c4da8d543737c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

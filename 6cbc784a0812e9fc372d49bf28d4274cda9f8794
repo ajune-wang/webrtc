@@ -51,6 +51,24 @@
       "parentUuid": "be97c054_2eb8fe81",
       "revId": "6cbc784a0812e9fc372d49bf28d4274cda9f8794",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05a1fbe_693c0ce3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-12T07:44:06Z",
+      "side": 1,
+      "message": "So the answer to an offer without msid is an answer with media based msid lines.\nSeems like we could make the test pass as before if we react to the a\u003dsendrecv by saying \"this means that if he knew about msid, he should have told us\", reducing the case to what\u0027s described in the comment.",
+      "parentUuid": "0f07579f_e52bf024",
+      "revId": "6cbc784a0812e9fc372d49bf28d4274cda9f8794",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

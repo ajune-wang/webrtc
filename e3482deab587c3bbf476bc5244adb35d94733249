@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83e414af_79745c29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Hiro, thanks for the review. I just want to point out that this is for prototyping purposes, so things are certainly not set in stone.\n\nWhile we believe the API is basically done there will be a lot of polish as we iterate and make it more and more production ready.",
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a01fbedc_8b16ed33",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "nit:\n```\nreturn it !\u003d kSupportedScalingFactors.end() ? *it : absl::nullopt;\n```",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 12
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5884f762_18b7d9da",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a01fbedc_8b16ed33",
       "range": {
         "startLine": 70,
         "startChar": 2,
@@ -41,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bdf80f5_b7478f53",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f28fb7be_64fb74ca",
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "988229bb_1950bec0",
@@ -54,6 +113,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "override",
+      "range": {
+        "startLine": 79,
+        "startChar": 21,
+        "endLine": 79,
+        "endChar": 22
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb25e95c_e02b3535",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "988229bb_1950bec0",
       "range": {
         "startLine": 79,
         "startChar": 21,
@@ -87,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79c410d_47229a0f",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13757313_e5a4e777",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15bef482_62ee4ada",
@@ -100,6 +207,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "I think we should change this to non optional type, set a default value and configure for the default values in InitEncode().\nOtherwise, unless a user doesn\u0027t set these in TemporalUnitSettings, some configuration is never performed.\nEven if they are default in libaom, we should explicitly configure them.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 96,
+        "endChar": 44
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4048b33b_5f2306ec",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "No, they should not have any default values, everything has to be explicitly configured by the user.",
+      "parentUuid": "15bef482_62ee4ada",
       "range": {
         "startLine": 95,
         "startChar": 2,
@@ -133,6 +264,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec653524_636c42fd",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2db40ab_bd2cf06d",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c23f389b_bde02666",
@@ -146,6 +301,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "Is this correct?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/libaom/source/libaom/aom/aom_encoder.h;l\u003d419;drc\u003dfdd6af31b1f6ea19464daf961b46ad6a5befd89f\n\n\u003e * This value identifies the presentation resolution of the frame,\n\u003e * in pixels. Note that the frames passed as input to the encoder must\n\u003e * have this resolution. Frames will be presented by the decoder in this\n\u003e * resolution, independent of any spatial resampling the encoder may do.\n\nIt sounds the encoder resolution, not max resolution.",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 51
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a223b0_fd97a1ea",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Exactly, why does an _encode_ resolution have to be specified before encoding starts?\n\nWithout it init fails.",
+      "parentUuid": "c23f389b_bde02666",
       "range": {
         "startLine": 135,
         "startChar": 2,
@@ -179,6 +358,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10293036_9655e756",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Not removed from libaom, just removed from this wrapper since according to the documentation they don\u0027t have anything to do with CBR or CQP.",
+      "parentUuid": "0f5c9dc0_a00e6c05",
+      "range": {
+        "startLine": 143,
+        "startChar": 2,
+        "endLine": 143,
+        "endChar": 77
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a48a5b4f_8d3a9a48",
@@ -192,6 +395,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "Is this correct?\nIn CBR, I expect this uses traditional values.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder.cc;l\u003d260;drc\u003d604b4db346d3101870407add8b24543cc7bef051\n\nI am not sure what should be set in CQP.",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 58
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1312fe7d_41db7189",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Yes, this is correct. In the old wrapper they are hard coded, but with this API the user can specify buffer settings.",
+      "parentUuid": "a48a5b4f_8d3a9a48",
       "range": {
         "startLine": 149,
         "startChar": 2,
@@ -225,6 +452,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46e34d0a_eec8fd71",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Yes, that\u0027s clearer, updated.",
+      "parentUuid": "ae3bef39_c4974940",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 233,
+        "endChar": 23
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc236c7d_c7b31487",
@@ -238,6 +489,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "Is this correct in S-mode encoding?",
+      "range": {
+        "startLine": 326,
+        "startChar": 8,
+        "endLine": 329,
+        "endChar": 9
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dfc97f9_c907459a",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Yes, to do S-mode with libaom you have to use startframes.",
+      "parentUuid": "bc236c7d_c7b31487",
       "range": {
         "startLine": 326,
         "startChar": 8,
@@ -271,6 +546,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43af77fc_04cec41c",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "No, we use it later to get the scaling factor.",
+      "parentUuid": "d322c53e_5c90d284",
+      "range": {
+        "startLine": 347,
+        "startChar": 10,
+        "endLine": 347,
+        "endChar": 72
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3376469_9e1d105a",
@@ -284,6 +583,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "Theoretically, this is allowed. This seems to be assumed that a frame is not referenced beyond one layer.",
+      "range": {
+        "startLine": 353,
+        "startChar": 6,
+        "endLine": 358,
+        "endChar": 7
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad0e09b6_725e8b63",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "No, that is not what is being checked here. Here we check, for a given frame that is about the be encoded, if that frame is allowed to use the same buffer for prediction _twice_.",
+      "parentUuid": "b3376469_9e1d105a",
       "range": {
         "startLine": 353,
         "startChar": 6,
@@ -317,6 +640,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e881ca_920d33f8",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "e9a7fc63_4215c4e9",
+      "range": {
+        "startLine": 372,
+        "startChar": 30,
+        "endLine": 372,
+        "endChar": 66
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d887c701_54069ce0",
@@ -330,6 +677,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "LS_VERBOSE or remove.",
+      "range": {
+        "startLine": 401,
+        "startChar": 14,
+        "endLine": 401,
+        "endChar": 24
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41626803_09ec5d15",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "This is prototype code, so we want to keep this for now.",
+      "parentUuid": "d887c701_54069ce0",
       "range": {
         "startLine": 401,
         "startChar": 14,
@@ -363,6 +734,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f807df72_32cf29c7",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Ditto...",
+      "parentUuid": "e0824e2a_255c73dc",
+      "range": {
+        "startLine": 408,
+        "startChar": 12,
+        "endLine": 408,
+        "endChar": 22
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7f541ba_5f59a0ee",
@@ -386,6 +781,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88958414_c411379e",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "This is here for asserting purposes in debug, and documentation purposes in release.",
+      "parentUuid": "b7f541ba_5f59a0ee",
+      "range": {
+        "startLine": 421,
+        "startChar": 4,
+        "endLine": 421,
+        "endChar": 14
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d49c8b9b_80504c24",
@@ -399,6 +818,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "nit: RTC_CHECK",
+      "range": {
+        "startLine": 433,
+        "startChar": 4,
+        "endLine": 433,
+        "endChar": 14
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aae7d68_8badace4",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "d49c8b9b_80504c24",
       "range": {
         "startLine": 433,
         "startChar": 4,
@@ -457,6 +900,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd5c21c4_bebeea20",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Why?",
+      "parentUuid": "8e68c173_40807e74",
+      "range": {
+        "startLine": 531,
+        "startChar": 39,
+        "endLine": 531,
+        "endChar": 40
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3969924_71f506b0",
         "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
         "patchSetId": 27
@@ -468,6 +935,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "When does this happen? They are set in the following for-loop?",
+      "range": {
+        "startLine": 534,
+        "startChar": 2,
+        "endLine": 539,
+        "endChar": 3
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ebafcc_6aba551c",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "It\u0027s just how libaom works, not awsome for users ofc...",
+      "parentUuid": "b3969924_71f506b0",
       "range": {
         "startLine": 534,
         "startChar": 2,
@@ -501,6 +992,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "228ed275_6fd1a6a4",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Strange yes, just more libaom quirkiness.\n\nWe distribute the bitrate as specified by the settings on line 576.",
+      "parentUuid": "dd81c05b_a9a87415",
+      "range": {
+        "startLine": 565,
+        "startChar": 12,
+        "endLine": 577,
+        "endChar": 42
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6953df80_db5a9ed1",
@@ -514,6 +1029,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "Note that this qp is not a codec quantization parameter, but a parameter spefiically in libvpx/libaom, which is between 0 and 63.\n\nIf you think this is the quantization parameter defined in codec (e.g. 0-255 in AV1), then you need to convert it to the qp in libaom.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/libaom/source/libaom/av1/encoder/av1_quantize.c;l\u003d910;drc\u003d2a713e792a7439e460a4e0aa66f851cb0f2884a5",
+      "range": {
+        "startLine": 589,
+        "startChar": 54,
+        "endLine": 589,
+        "endChar": 68
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b429d7_01c254c1",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "the 0-63 \u003c--\u003e 0-255 range mapping is done by libaom, the user does not need to do that.",
+      "parentUuid": "6953df80_db5a9ed1",
       "range": {
         "startLine": 589,
         "startChar": 54,
@@ -547,6 +1086,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aba3db1_afc5d04e",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2a7d1f5d_bfa89aac",
+      "range": {
+        "startLine": 624,
+        "startChar": 27,
+        "endLine": 624,
+        "endChar": 29
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7a15a4a_5184766c",
@@ -560,6 +1123,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "nit: 8 -",
+      "range": {
+        "startLine": 632,
+        "startChar": 40,
+        "endLine": 632,
+        "endChar": 45
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2155a965_dcaccb17",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7a15a4a_5184766c",
       "range": {
         "startLine": 632,
         "startChar": 40,
@@ -593,6 +1180,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "915a1ce4_fe4635d5",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "I don\u0027t think that is desirable, it would just make it harder to add new hints to the API (given that most encoders implementations would not support the new content hint anyway).",
+      "parentUuid": "6f64b575_bb44704c",
+      "range": {
+        "startLine": 637,
+        "startChar": 4,
+        "endLine": 637,
+        "endChar": 69
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbee4992_2f693b25",
@@ -606,6 +1217,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "LS_VERBOSE?",
+      "range": {
+        "startLine": 656,
+        "startChar": 12,
+        "endLine": 656,
+        "endChar": 22
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "916ab40d_baaeaeba",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "prototype",
+      "parentUuid": "cbee4992_2f693b25",
       "range": {
         "startLine": 656,
         "startChar": 12,
@@ -639,6 +1274,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "859f81b6_b316fdb4",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "prototype",
+      "parentUuid": "46820897_0398d8e9",
+      "range": {
+        "startLine": 662,
+        "startChar": 12,
+        "endLine": 662,
+        "endChar": 22
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c588b975_9599e13f",
@@ -652,6 +1311,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "Where is this from?",
+      "range": {
+        "startLine": 738,
+        "startChar": 75,
+        "endLine": 738,
+        "endChar": 77
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa237a32_15730343",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "This is the configured timebase denominator in ms.",
+      "parentUuid": "c588b975_9599e13f",
       "range": {
         "startLine": 738,
         "startChar": 75,
@@ -685,6 +1368,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d01e7e6d_0f20ce66",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "There is no restriction on how many times an AnyInvocable can be called. You are probably thinking of using it with an rvalue signature, in which case you have to std::move it in order to call it.",
+      "parentUuid": "3cdeacd9_9233bad0",
+      "range": {
+        "startLine": 777,
+        "startChar": 4,
+        "endLine": 783,
+        "endChar": 5
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7836e7a_f72d90fe",
@@ -698,6 +1405,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "2024 ditto in other files.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc9056e5_673bf4be",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory_test.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7836e7a_f72d90fe",
       "range": {
         "startLine": 2,
         "startChar": 18,
@@ -932,6 +1663,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e09e452_5487b01e",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "In WebRTC we avoid forward declarations.",
+      "parentUuid": "e9c98bb6_da699355",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 53
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "478d1f51_f574bbfa",
@@ -955,6 +1710,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22aafda2_a18ee96e",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "To signal that something is wrong :)\n\nNote that this class is just a PoC to show that higher level APIs can be easily implemented on top of the lower level API.",
+      "parentUuid": "478d1f51_f574bbfa",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08fd0493_0c72a2d9",
@@ -968,6 +1747,30 @@
       "writtenOn": "2024-04-09T02:31:55Z",
       "side": 1,
       "message": "nit: Follow delcaration order \nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 4
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a3c644_ced68245",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-12T07:50:02Z",
+      "side": 1,
+      "message": "I don\u0027t see any obvious grouping/ordering of these members.",
+      "parentUuid": "08fd0493_0c72a2d9",
       "range": {
         "startLine": 46,
         "startChar": 2,

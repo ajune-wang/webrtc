@@ -136,6 +136,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "336cf35c_f8e364a3",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a6304f_33fa0c8b",
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "988229bb_1950bec0",
@@ -301,6 +319,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c945d3_7e8ca267",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "You are forced to provide these parameters when you call `Encode` (L631 for example).",
+      "parentUuid": "969dd7ed_e5c2ec26",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 96,
+        "endChar": 44
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2db40ab_bd2cf06d",
@@ -419,6 +461,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d57197df_85ca91ec",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Good point, updated.",
+      "parentUuid": "3ff6be2a_ab8f5dbf",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 51
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f5c9dc0_a00e6c05",
@@ -490,6 +556,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90d74648_fffd6828",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fe3e3033_be6995f1",
+      "range": {
+        "startLine": 143,
+        "startChar": 2,
+        "endLine": 143,
+        "endChar": 77
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a48a5b4f_8d3a9a48",
@@ -551,6 +641,30 @@
       "side": 1,
       "message": "I think we need to add more values. A user frequently sets rc_buf_initial_sz and rc_buf_optimal_sz to different values.\n\nI have no idea setting these values makes sense in CQP.\nsprang@, do you know?",
       "parentUuid": "1312fe7d_41db7189",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 58
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e57e012_e876ddfe",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Adding a value for `rc_buf_initial_sz` probably wouldn\u0027t hurt.\n\nThese values are only configured when you create an encoder with CBR rate control.",
+      "parentUuid": "a85e13eb_505da5f5",
       "range": {
         "startLine": 149,
         "startChar": 2,
@@ -1078,6 +1192,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d95d6ec4_6c2a483e",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "The current `libaom_av1_encoder.cc` assumes every layer is half the framerate of the previous one, that is not an assumption we should make.",
+      "parentUuid": "29fdabc1_6ead6250",
+      "range": {
+        "startLine": 531,
+        "startChar": 39,
+        "endLine": 531,
+        "endChar": 40
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3969924_71f506b0",
@@ -1139,6 +1277,30 @@
       "side": 1,
       "message": "The existing av1 encoder works just setting for required parameters.\nWhat makes a difference?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
       "parentUuid": "69ebafcc_6aba551c",
+      "range": {
+        "startLine": 534,
+        "startChar": 2,
+        "endLine": 539,
+        "endChar": 3
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8337d3c_14b41d8f",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Not sure what you mean, these values are set in the current wrapper as well?",
+      "parentUuid": "33a6dbc6_39d0032c",
       "range": {
         "startLine": 534,
         "startChar": 2,
@@ -1220,6 +1382,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "360a2ece_71bdf8fe",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Both `flat_layer_id` and `arg` will be layer specific. Note how this visitor is called on L592",
+      "parentUuid": "32c0d198_1c678803",
+      "range": {
+        "startLine": 565,
+        "startChar": 12,
+        "endLine": 577,
+        "endChar": 42
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6953df80_db5a9ed1",
@@ -1281,6 +1467,30 @@
       "side": 1,
       "message": "Exactly. \nMy point is that we should specify the qp value (target_qp) is the between 0 and 63  in https://webrtc-review.googlesource.com/c/src/+/306181/27..33/api/video_codecs/video_encoder_interface.h#54 if we set so.\n\nBut I am wondering if the qp should be quantization parameter defined in codec. \nOtherwise, we need to have the conversion in each encoder (e.g. hardware encoder).\nThis means we have some dependency in some specific library (e.g. libaom), which we would like to avoid by introducing the new API.",
       "parentUuid": "11b429d7_01c254c1",
+      "range": {
+        "startLine": 589,
+        "startChar": 54,
+        "endLine": 589,
+        "endChar": 68
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82bc7605_e1bb87af",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Right, the API supports this but I forgot to include it. Added now on L824.",
+      "parentUuid": "65c48ca9_0ea634d2",
       "range": {
         "startLine": 589,
         "startChar": 54,
@@ -2167,6 +2377,30 @@
       "side": 1,
       "message": "I meant to SimpleEncoderWrapper, for example, EncodeResultCallback and EncodeResult should be put to the first place in SimpleEncoderWrapper.",
       "parentUuid": "29a3c644_ced68245",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 4
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7d566a_919809dc",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T11:53:58Z",
+      "side": 1,
+      "message": "Ah, got it :)\n\nUpdated.",
+      "parentUuid": "2813e482_b4ce1b07",
       "range": {
         "startLine": 46,
         "startChar": 2,

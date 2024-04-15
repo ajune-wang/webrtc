@@ -33,6 +33,23 @@
       "message": "Makes sense to me.\n\nAdding tommi@ for a second opinion (needed for processing).",
       "revId": "54925cf68c4dc5b3bdaa07db884689a83a06f48b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd85a9c_61a8c4b2",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-15T12:48:41Z",
+      "side": 1,
+      "message": "why not keep them mutually exclusive? (by using #elif)",
+      "revId": "54925cf68c4dc5b3bdaa07db884689a83a06f48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

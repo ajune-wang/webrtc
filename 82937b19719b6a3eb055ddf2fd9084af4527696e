@@ -51,6 +51,24 @@
       "parentUuid": "c56ac563_a34e5d5b",
       "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df3fd6d_5f042f9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-15T13:13:31Z",
+      "side": 1,
+      "message": "We are not really supporting GFD-00 anymore, so I would suggest abandoning it.",
+      "parentUuid": "4d836183_0d30e0cf",
+      "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

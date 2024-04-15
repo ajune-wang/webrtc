@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd576d56_0f21203b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-15T14:48:16Z",
+      "side": 1,
+      "message": "Its usecase become obsolete as part of bugs.webrtc.org/15574 refactoring.\nDeleting it now to eliminate one of the (trivial) usages of the global field trial string through the FieldTrialBasedConfig class.",
+      "revId": "a9899e67510c551a2ee07398b3bea2c9539fd987",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

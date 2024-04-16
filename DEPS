@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd7e549b76cd135c2c115f9242b401d4bc088b7e6',
+  'chromium_revision': '0abb3a90f21c148a4c604b933e3635c51f97fba0',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -52,9 +52,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@50f324a835d67d77c6c06b5a647a2f0fd3aa3ac1',
+    'https://chromium.googlesource.com/chromium/src/base@7f3805fffd9ccd90f981f317410be20541a2c2d1',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@78b47753d45ab3fe204058824b5513d0a9cb5b60',
+    'https://chromium.googlesource.com/chromium/src/build@5cef78ec8648c78e2045fbc28460c87e2f0dab7f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@5eb927f0a922dfacf10cfa84ee76f39dcf2a7311',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -69,7 +69,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@87207dd4456c47523600430f8079dfa3283bd4da',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@bbfa5b189dee987d61227c2d19f594fa364fda05',
+    'https://chromium.googlesource.com/chromium/src/third_party@61f2e2417002c54167fa1a5d7aad41f72e031f6f',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -304,7 +304,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@3f2b2b6385d24f80239a7c49d464a06292fbd078',
+    'https://android.googlesource.com/platform/external/perfetto.git@6191dd39ee994efe60df79204ebd311f32470a52',
   'src/third_party/protobuf-javascript/src':
     Var('chromium_git') + '/external/github.com/protocolbuffers/protobuf-javascript' + '@' + 'e34549db516f8712f678fcd4bc411613b5cc5295',
   'src/third_party/libvpx/source/libvpx':
@@ -363,7 +363,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0caf82108f4bf718904427d3bd1d1e01802b029c',
+    'https://chromium.googlesource.com/chromium/src/tools@53d1475f4d3c01d1554279f383889f50a8e4590b',
 
   'src/third_party/espresso': {
       'packages': [

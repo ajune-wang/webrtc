@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c2f5342_8b931d91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-16T17:26:35Z",
+      "side": 1,
+      "message": "Found while verifying this in Chrome. Oddly webrtc-internals does not show graphs for this (it does for audio) but it shows the values in the table view and getStats() returns the right values...",
+      "revId": "5c7ad0fc85344e0b424e56fc65934c365f977877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

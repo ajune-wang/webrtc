@@ -19,13 +19,16 @@ namespace webrtc {
 RtcEventRtpPacketOutgoing::RtcEventRtpPacketOutgoing(
     const RtpPacketToSend& packet,
     int probe_cluster_id)
-    : packet_(packet), probe_cluster_id_(probe_cluster_id) {}
+    : packet_(packet),
+      probe_cluster_id_(probe_cluster_id),
+      packet_type_(packet.packet_type()) {}
 
 RtcEventRtpPacketOutgoing::RtcEventRtpPacketOutgoing(
     const RtcEventRtpPacketOutgoing& other)
     : RtcEvent(other.timestamp_us_),
       packet_(other.packet_),
-      probe_cluster_id_(other.probe_cluster_id_) {}
+      probe_cluster_id_(other.probe_cluster_id_),
+      packet_type_(other.packet_type_) {}
 
 RtcEventRtpPacketOutgoing::~RtcEventRtpPacketOutgoing() = default;
 

@@ -39,6 +39,7 @@
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/random.h"
 #include "test/explicit_key_value_config.h"
@@ -332,6 +333,22 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationPacketLoss) {
     }
   }
   TestRtcEventAudioNetworkAdaptation(events);
+}
+
+TEST_P(RtcEventLogEncoderTest, RtpPacketOutgoingPacketType) {
+  RtpHeaderExtensionMap extension_manager;
+  auto packet = std::make_unique<RtpPacketToSend>(&extension_manager);
+  int probe_cluster_id = 0;
+  auto packet_outgoing =
+      std::make_unique<RtcEventRtpPacketOutgoing>(*packet, probe_cluster_id);
+
+  EXPECT_FALSE(packet_outgoing->packet_type().has_value());
+
+  packet->set_packet_type(RtpPacketMediaType::kForwardErrorCorrection);
+  packet_outgoing =
+      std::make_unique<RtcEventRtpPacketOutgoing>(*packet, probe_cluster_id);
+  EXPECT_EQ(packet_outgoing->packet_type(),
+            RtpPacketMediaType::kForwardErrorCorrection);
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationFec) {

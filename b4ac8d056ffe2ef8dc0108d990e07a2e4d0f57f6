@@ -33,6 +33,40 @@
       "message": "I think it\u0027d be better to just take the WORKDIR instead of the JSON database as an argument. Then you can just generate it automatically for any build folder, not just `out/Default`.\n\nBut for a one off script to be used for testing right now by power users, it\u0027s not that necessary to change the current behavior though.",
       "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61c9e89_71dfb3ea",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-04-16T11:17:36Z",
+      "side": 1,
+      "message": "I guess this is editing files in place with the fixes? Might be good to have a mode to just report the issues and another one to fix them.",
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23079b7e_0f4c442e",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-04-16T11:17:36Z",
+      "side": 1,
+      "message": "nit: Could add a reminder to run `gn gen --check` too to ensure we have the right dependencies.",
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

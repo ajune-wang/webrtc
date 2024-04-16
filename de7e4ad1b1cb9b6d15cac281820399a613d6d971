@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9944ab6a_8f8e3e56",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-16T20:17:54Z",
+      "side": 0,
+      "message": "can you please keep these deprecated functions - they shouldn\u0027t block you from updating api/rtp_headers.h\n(I haven\u0027t prioritize cleaning this usage downstream)",
+      "revId": "de7e4ad1b1cb9b6d15cac281820399a613d6d971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -817,9 +817,6 @@ POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
     FieldTrial('WebRTC-VP8IosMaxNumberOfThread',
                'webrtc:10005',
                date(2024, 4, 1)),
-    FieldTrial('WebRTC-VP8VariableFramerateScreenshare',
-               'webrtc:10310',
-               date(2024, 4, 1)),
     FieldTrial('WebRTC-VP9-GetEncoderInfoOverride',
                '',
                date(2024, 4, 1)),
@@ -911,7 +908,7 @@ POLICY_EXEMPT_FIELD_TRIALS: FrozenSet[FieldTrial] = frozenset([
 ])  # yapf: disable
 
 POLICY_EXEMPT_FIELD_TRIALS_DIGEST: str = \
-    '3026f839766eb90355893fa0f1af8e9bf0d0dca1'
+    '9a6b9057863012a609bf712c59e6e827d86ea2d9'
 
 REGISTERED_FIELD_TRIALS: FrozenSet[FieldTrial] = ACTIVE_FIELD_TRIALS.union(
     POLICY_EXEMPT_FIELD_TRIALS)

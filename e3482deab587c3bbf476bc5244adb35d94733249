@@ -2245,6 +2245,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f07dd35_d341aa10",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-04-16T11:26:40Z",
+      "side": 1,
+      "message": "Oops, forgot this link: https://webrtc.googlesource.com/src/+/HEAD/g3doc/style-guide.md#forward-declarations",
+      "parentUuid": "3bad5dd2_511c6928",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 53
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "478d1f51_f574bbfa",

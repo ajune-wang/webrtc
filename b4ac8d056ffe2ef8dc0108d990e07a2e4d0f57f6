@@ -16,6 +16,23 @@
       "message": "WDYT?",
       "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f726dfaf_77fd752b",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-04-16T11:15:15Z",
+      "side": 1,
+      "message": "I think it\u0027d be better to just take the WORKDIR instead of the JSON database as an argument. Then you can just generate it automatically for any build folder, not just `out/Default`.\n\nBut for a one off script to be used for testing right now by power users, it\u0027s not that necessary to change the current behavior though.",
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

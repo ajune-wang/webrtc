@@ -20,6 +20,7 @@
 #include "api/array_view.h"
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "rtc_base/buffer_queue.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
@@ -149,17 +150,76 @@ static const char kCACert[] =
 
 class SSLStreamAdapterTestBase;
 
-class SSLDummyStreamBase : public rtc::StreamInterface,
-                           public sigslot::has_slots<> {
+// A wrapper class for `FifoBuffer` or `BufferQueueStream` that allows for
+// delivering stream event signals to `SSLDummyStreamBase` instances which are
+// technically designed to connect to two streams but `StreamWrapper` allows
+// multiple stream event handlers to be set without consuming the
+// `SetEventHandler` callback, which is reserved for
+// `InitializeClientAndServerStreams`.
+class StreamWrapper : public rtc::StreamInterface {
+ public:
+  explicit StreamWrapper(std::unique_ptr<rtc::StreamInterface> stream)
+      : stream_(std::move(stream)) {
+    stream_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          RTC_DCHECK_RUN_ON(&construction_sequence_);
+          callbacks_.Send(this, events, err);
+          FireStreamEvent(events, err);
+        });
+  }
+
+  template <typename F>
+  void SubscribeStreamEvent(const void* removal_tag, F&& callback) {
+    callbacks_.AddReceiver(removal_tag, std::forward<F>(callback));
+  }
+
+  void UnSubscribeStreamEvent(const void* removal_tag) {
+    callbacks_.RemoveReceivers(removal_tag);
+  }
+
+  rtc::StreamState GetState() const override { return stream_->GetState(); }
+
+  void Close() override { stream_->Close(); }
+
+  rtc::StreamResult Read(rtc::ArrayView<uint8_t> buffer,
+                         size_t& read,
+                         int& error) override {
+    return stream_->Read(buffer, read, error);
+  }
+
+  rtc::StreamResult Write(rtc::ArrayView<const uint8_t> data,
+                          size_t& written,
+                          int& error) override {
+    return stream_->Write(data, written, error);
+  }
+
+ private:
+  const std::unique_ptr<rtc::StreamInterface> stream_;
+  webrtc::CallbackList<StreamInterface*, int, int> callbacks_;
+};
+
+class SSLDummyStreamBase : public rtc::StreamInterface {
  public:
   SSLDummyStreamBase(SSLStreamAdapterTestBase* test,
                      absl::string_view side,
-                     rtc::StreamInterface* in,
-                     rtc::StreamInterface* out)
+                     StreamWrapper* in,
+                     StreamWrapper* out)
       : test_base_(test), side_(side), in_(in), out_(out), first_packet_(true) {
-    RTC_DCHECK_NE(in, out);
-    in_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventIn);
-    out_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventOut);
+    RTC_CHECK(thread_);
+    RTC_CHECK_NE(in, out);
+    in_->SubscribeStreamEvent(
+        this, [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEventIn(stream, events, err);
+        });
+    out_->SubscribeStreamEvent(
+        this, [this](rtc::StreamInterface* stream, int events, int err) {
+          OnEventOut(stream, events, err);
+        });
+  }
+
+  ~SSLDummyStreamBase() override {
+    in_->UnSubscribeStreamEvent(this);
+    out_->UnSubscribeStreamEvent(this);
   }
 
   rtc::StreamState GetState() const override { return rtc::SS_OPEN; }
@@ -222,8 +282,10 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
 
  private:
   void PostEvent(int events, int err) {
+    RTC_CHECK(thread_);
     thread_->PostTask(SafeTask(task_safety_.flag(), [this, events, err]() {
-      SignalEvent(this, events, err);
+      RTC_DCHECK_RUN_ON(&construction_sequence_);
+      FireStreamEvent(events, err);
     }));
   }
 
@@ -231,18 +293,9 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
   rtc::Thread* const thread_ = rtc::Thread::Current();
   SSLStreamAdapterTestBase* test_base_;
   const std::string side_;
-  rtc::StreamInterface* in_;
-  rtc::StreamInterface* out_;
+  StreamWrapper* const in_;
+  StreamWrapper* const out_;
   bool first_packet_;
-};
-
-class SSLDummyStreamTLS : public SSLDummyStreamBase {
- public:
-  SSLDummyStreamTLS(SSLStreamAdapterTestBase* test,
-                    absl::string_view side,
-                    rtc::FifoBuffer* in,
-                    rtc::FifoBuffer* out)
-      : SSLDummyStreamBase(test, side, in, out) {}
 };
 
 class BufferQueueStream : public rtc::StreamInterface {
@@ -293,22 +346,14 @@ class BufferQueueStream : public rtc::StreamInterface {
  private:
   void PostEvent(int events, int err) {
     thread_->PostTask(SafeTask(task_safety_.flag(), [this, events, err]() {
-      SignalEvent(this, events, err);
+      RTC_DCHECK_RUN_ON(&construction_sequence_);
+      FireStreamEvent(events, err);
     }));
   }
 
   rtc::Thread* const thread_ = rtc::Thread::Current();
   webrtc::ScopedTaskSafety task_safety_;
   rtc::BufferQueue buffer_;
-};
-
-class SSLDummyStreamDTLS : public SSLDummyStreamBase {
- public:
-  SSLDummyStreamDTLS(SSLStreamAdapterTestBase* test,
-                     absl::string_view side,
-                     BufferQueueStream* in,
-                     BufferQueueStream* out)
-      : SSLDummyStreamBase(test, side, in, out) {}
 };
 
 static const int kFifoBufferSize = 4096;
@@ -389,11 +434,14 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
                                     : new ScopedFieldTrials(server_experiment));
       server_ssl_ = rtc::SSLStreamAdapter::Create(CreateServerStream());
     }
-
-    client_ssl_->SignalEvent.connect(this,
-                                     &SSLStreamAdapterTestBase::OnClientEvent);
-    server_ssl_->SignalEvent.connect(this,
-                                     &SSLStreamAdapterTestBase::OnServerEvent);
+    client_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnClientEvent(stream, events, err);
+        });
+    server_ssl_->SetEventHandler(
+        [this](rtc::StreamInterface* stream, int events, int err) {
+          OnServerEvent(stream, events, err);
+        });
   }
 
   // Recreate the client/server identities with the specified validity period.
@@ -817,18 +865,16 @@ class SSLStreamAdapterTestTLS
                                  "",
                                  false,
                                  ::testing::get<0>(GetParam()),
-                                 ::testing::get<1>(GetParam())),
-        client_buffer_(kFifoBufferSize),
-        server_buffer_(kFifoBufferSize) {}
+                                 ::testing::get<1>(GetParam())) {}
 
   std::unique_ptr<rtc::StreamInterface> CreateClientStream() override final {
     return absl::WrapUnique(
-        new SSLDummyStreamTLS(this, "c2s", &client_buffer_, &server_buffer_));
+        new SSLDummyStreamBase(this, "c2s", &client_buffer_, &server_buffer_));
   }
 
   std::unique_ptr<rtc::StreamInterface> CreateServerStream() override final {
     return absl::WrapUnique(
-        new SSLDummyStreamTLS(this, "s2c", &server_buffer_, &client_buffer_));
+        new SSLDummyStreamBase(this, "s2c", &server_buffer_, &client_buffer_));
   }
 
   // Test data transfer for TLS
@@ -928,8 +974,10 @@ class SSLStreamAdapterTestTLS
   }
 
  private:
-  rtc::FifoBuffer client_buffer_;
-  rtc::FifoBuffer server_buffer_;
+  StreamWrapper client_buffer_{
+      std::make_unique<rtc::FifoBuffer>(kFifoBufferSize)};
+  StreamWrapper server_buffer_{
+      std::make_unique<rtc::FifoBuffer>(kFifoBufferSize)};
   rtc::MemoryStream send_stream_;
   rtc::MemoryStream recv_stream_;
 };
@@ -938,8 +986,6 @@ class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
  public:
   SSLStreamAdapterTestDTLSBase(rtc::KeyParams param1, rtc::KeyParams param2)
       : SSLStreamAdapterTestBase("", "", true, param1, param2),
-        client_buffer_(kBufferCapacity, kDefaultBufferSize),
-        server_buffer_(kBufferCapacity, kDefaultBufferSize),
         packet_size_(1000),
         count_(0),
         sent_(0) {}
@@ -947,20 +993,18 @@ class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
   SSLStreamAdapterTestDTLSBase(absl::string_view cert_pem,
                                absl::string_view private_key_pem)
       : SSLStreamAdapterTestBase(cert_pem, private_key_pem, true),
-        client_buffer_(kBufferCapacity, kDefaultBufferSize),
-        server_buffer_(kBufferCapacity, kDefaultBufferSize),
         packet_size_(1000),
         count_(0),
         sent_(0) {}
 
   std::unique_ptr<rtc::StreamInterface> CreateClientStream() override final {
     return absl::WrapUnique(
-        new SSLDummyStreamDTLS(this, "c2s", &client_buffer_, &server_buffer_));
+        new SSLDummyStreamBase(this, "c2s", &client_buffer_, &server_buffer_));
   }
 
   std::unique_ptr<rtc::StreamInterface> CreateServerStream() override final {
     return absl::WrapUnique(
-        new SSLDummyStreamDTLS(this, "s2c", &server_buffer_, &client_buffer_));
+        new SSLDummyStreamBase(this, "s2c", &server_buffer_, &client_buffer_));
   }
 
   void WriteData() override {
@@ -1050,8 +1094,10 @@ class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
   }
 
  protected:
-  BufferQueueStream client_buffer_;
-  BufferQueueStream server_buffer_;
+  StreamWrapper client_buffer_{
+      std::make_unique<BufferQueueStream>(kBufferCapacity, kDefaultBufferSize)};
+  StreamWrapper server_buffer_{
+      std::make_unique<BufferQueueStream>(kBufferCapacity, kDefaultBufferSize)};
 
  private:
   size_t packet_size_;

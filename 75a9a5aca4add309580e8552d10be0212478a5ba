@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf1b5d0_0d98597b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-16T15:38:15Z",
+      "side": 1,
+      "message": "Migrating to Environment looks much simpler and less risky that eliminating all of the VideoCodingModule.",
+      "revId": "75a9a5aca4add309580e8552d10be0212478a5ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -677,6 +677,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6adcfb4b_09228fa7",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5597
+      },
+      "writtenOn": "2024-04-16T12:41:30Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t see how they would be used in CQP.\nI wonder if we really need `rc_buf_initial_sz` to be anything other than `rc_buf_optimal_sz`. Iirc it was basically done, to account for the initial keyframe which could be bursty, but that\u0027s not a great way to deal with it imo - and we may have lots of keyframes at a later stage which does not get the same treatment..? I\u0027m skeptical.",
+      "parentUuid": "3e57e012_e876ddfe",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 58
+      },
+      "revId": "e3482deab587c3bbf476bc5244adb35d94733249",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ae3bef39_c4974940",
         "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
         "patchSetId": 27

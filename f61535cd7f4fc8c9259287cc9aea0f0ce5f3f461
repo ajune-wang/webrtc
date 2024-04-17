@@ -16,6 +16,24 @@
       "message": "Yes, that failure was due to this CL. I\u0027ve accounted for that case in the latest patch set. Can you take one more look?",
       "revId": "f61535cd7f4fc8c9259287cc9aea0f0ce5f3f461",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "981c0c9e_cda422ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-17T11:47:03Z",
+      "side": 1,
+      "message": "LGTM!",
+      "parentUuid": "e736b34f_64831c1e",
+      "revId": "f61535cd7f4fc8c9259287cc9aea0f0ce5f3f461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

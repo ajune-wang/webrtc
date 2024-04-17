@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92c19a91_1e2f8d04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5086
+      },
+      "writtenOn": "2024-04-17T19:26:59Z",
+      "side": 1,
+      "message": "\\o/",
+      "revId": "e7b750dfd7f2397fca3afea23fa14adf3750b108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1d1cf6_4c18bc8c",
+        "filename": "sdk/android/src/jni/jvm.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5086
+      },
+      "writtenOn": "2024-04-17T19:26:59Z",
+      "side": 1,
+      "message": "can just make this false?",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 34
+      },
+      "revId": "e7b750dfd7f2397fca3afea23fa14adf3750b108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

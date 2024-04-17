@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe561b83_917e6cf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-17T15:52:27Z",
+      "side": 1,
+      "message": "hrm... what surprises me is that this subtracts 70 years so seems to have converted from NTP time to unix time but we want NTP time for stats?!\n\nPlanning to cherry-pick so keeping this easy but we should probably use Timestamps more internally...",
+      "revId": "50ff5d2220dbf42563c411589aaf7375fc01d541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -69,6 +69,24 @@
       "parentUuid": "4d836183_0d30e0cf",
       "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419cafd2_88408399",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-17T16:15:18Z",
+      "side": 1,
+      "message": "GFD\u0027s non-standardness and \"no commitment\" is well understood but so far not documented in any of the files that implement GFD or places like https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/rtp_parameters.h;l\u003d328;drc\u003db9405c4748cf32b1bc85d74fa3f48f84498409a5\n\nWe are ok with this being removed without a deprecation process (a PSA would be nice) but merging this CL would reduce our maintenance burden in the meantime.",
+      "parentUuid": "1df3fd6d_5f042f9e",
+      "revId": "82937b19719b6a3eb055ddf2fd9084af4527696e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

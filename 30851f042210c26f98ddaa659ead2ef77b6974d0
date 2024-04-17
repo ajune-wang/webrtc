@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "714d1e99_178dadd7",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-17T13:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70550f3d_3d22fb8b",
+      "revId": "30851f042210c26f98ddaa659ead2ef77b6974d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6892fd8e_ea80e807",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-04-17T12:51:33Z",
       "side": 1,
       "message": "Should you say what\u0027s good about it (that there is tooling that does the inlining at the calling site)?",
+      "revId": "30851f042210c26f98ddaa659ead2ef77b6974d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c4d46d_04903eee",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-17T13:02:29Z",
+      "side": 1,
+      "message": "copied and rephrased some comments from the ABSL_DEPRECATE_AND_INLINE documentation. (keeping link so that reader can check the full documentation),",
+      "parentUuid": "6892fd8e_ea80e807",
       "revId": "30851f042210c26f98ddaa659ead2ef77b6974d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

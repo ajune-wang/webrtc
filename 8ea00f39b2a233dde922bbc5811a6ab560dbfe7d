@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "988a4018_b35ea326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-18T16:54:38Z",
+      "side": 1,
+      "message": "Looks like a nice first step - add TODO(11943) at appropriate points in case you have to drop this and someone else picks it up.",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de77d617_c9f28438",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-18T16:54:38Z",
+      "side": 1,
+      "message": "Can we use the name \"SendStreamEvent\" for this rather than introducing a new term \"Fire\"? See go/sigslot-to-callback-list for name suggestions.",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

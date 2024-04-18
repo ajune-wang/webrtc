@@ -2873,6 +2873,27 @@ bool ParseMediaDescription(
     ParseFailed(message, *pos, "Duplicate a=msid lines detected", error);
     return false;
   }
+  if (msid_signaling == cricket::kMsidSignalingNotUsed) {
+    // Check if we have only recvonly or inactive sections in which case
+    // we can not reliably determine if the other side supports msid.
+    bool sending = false;
+    for (const auto& content : desc->contents()) {
+      if (content.rejected) {
+        continue;
+      }
+      auto direction = content.media_description()->direction();
+      if (direction == RtpTransceiverDirection::kSendOnly ||
+          direction == RtpTransceiverDirection::kSendRecv) {
+        sending = true;
+        break;
+      }
+    }
+    if (!sending) {
+      // If the other side is not sending we do not really know whether it
+      // supports msid.
+      msid_signaling = cricket::kMsidSignalingSemantic;
+    }
+  }
 
   desc->set_msid_signaling(msid_signaling);
 

@@ -69,6 +69,24 @@
       "parentUuid": "0f07579f_e52bf024",
       "revId": "6cbc784a0812e9fc372d49bf28d4274cda9f8794",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b331215b_176da399",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-18T21:24:14Z",
+      "side": 1,
+      "message": "Correct. However, this is parsed in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/webrtc_sdp.cc;l\u003d2090;drc\u003dd31d2d07343b6515b61bb4b7f7c4ce32bd7e38d4;bpv\u003d1;bpt\u003d1\nwhich is called for both local and remote descriptions (why do we parse SDP we generate ... SDP munging!)\n\nWe have code that looks at this for generating offers or answers but I do not see code that, when creating an answer, looks at the correspoding remote offer and, when that does not have msid_signaling set, iterates over the remote contents and looks at the directions and iff we see only recvonly there sets the msid signaling in the answer to \"we should reply with msid signaling\". This could be done around line 2064 here but that seems like the wrong place to me?\nDid the CL anyway but it seems like a backward-looking solution to me:\n  https://webrtc-review.googlesource.com/c/src/+/347940\nand I think this gets called for both local and remote descriptions.",
+      "parentUuid": "d05a1fbe_693c0ce3",
+      "revId": "6cbc784a0812e9fc372d49bf28d4274cda9f8794",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

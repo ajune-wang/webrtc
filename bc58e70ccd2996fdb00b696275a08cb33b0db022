@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d2e4f0_1ffbf4d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3403625
+      },
+      "writtenOn": "2024-04-18T22:44:03Z",
+      "side": 1,
+      "message": "ABANDONED See instead https://webrtc-review.googlesource.com/c/src/+/347921",
+      "revId": "bc58e70ccd2996fdb00b696275a08cb33b0db022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

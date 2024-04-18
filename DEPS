@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f29000031566649b8b556aaacd29de0c72815056',
+  'chromium_revision': '1a06f4e794d104caf7a7bd944ff8d2e7c95fb748',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -66,13 +66,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@91fca561a82b04c74d50bfe62094fc85293f6374',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@99134f9f36d48c53367b2a10608d99a04ef421c5',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@8c9a418c625d0ce49711ce2559e53f64380a518d',
+    'https://chromium.googlesource.com/chromium/src/testing@d61705c3424d1d85b5d13d7d3c2aaf4d3591eee9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1bf2b5f3544b354f1b488b642659fdf6abd772e3',
+    'https://chromium.googlesource.com/chromium/src/third_party@1bde3c2ee10bd3971796c0da1f9df7a8aed8ecf6',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -207,7 +207,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@af97284b58afb6bdb7dd2b353bc651c718ce5bb4',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@6aaae85821254406042a11254d49b14c9d1b44f3',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@901248a373cbbe7af68fb92faf3be7d4f679150d',
   'src/third_party/flatbuffers/src':
@@ -366,7 +366,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@56951ed43642fe75beff5d7c9b51aac967aea1f2',
+    'https://chromium.googlesource.com/chromium/src/tools@89381abf4043139a9a9568e13aa932e320ca06ec',
 
   'src/third_party/espresso': {
       'packages': [

@@ -22,7 +22,7 @@
 #include "api/units/timestamp.h"
 #include "common_audio/wav_file.h"
 #include "common_audio/wav_header.h"
-#include "modules/audio_device/include/audio_device_defines.h"
+#include "api/audio/audio_device_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/synchronization/mutex.h"

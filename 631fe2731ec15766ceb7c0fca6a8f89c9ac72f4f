@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fddf9c0_2882feca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-19T16:24:21Z",
+      "side": 1,
+      "message": "Needed because there\u0027s a listener to this signal in Chrome-land.",
+      "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

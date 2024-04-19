@@ -8,6 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#ifndef RTC_BASE_EVENT_TRACER_H_
+#define RTC_BASE_EVENT_TRACER_H_
+
 // This file defines the interface for event tracing in WebRTC.
 //
 // Event log handlers are set through SetupEventTracer(). User of this API will
@@ -22,14 +25,6 @@
 //   provided.
 //
 // Parameters for the above two functions are described in trace_event.h.
-
-#ifndef RTC_BASE_EVENT_TRACER_H_
-#define RTC_BASE_EVENT_TRACER_H_
-
-#include <stdio.h>
-
-#include "absl/strings/string_view.h"
-#include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 
@@ -48,6 +43,7 @@ typedef void (*AddTraceEventPtr)(char phase,
 //
 // This method must be called before any WebRTC methods. Functions
 // provided should be thread-safe.
+// This method does nothing if using perfetto.
 void SetupEventTracer(GetCategoryEnabledPtr get_category_enabled_ptr,
                       AddTraceEventPtr add_trace_event_ptr);
 
@@ -70,6 +66,13 @@ class EventTracer {
 
 }  // namespace webrtc
 
+#if !defined(RTC_USE_PERFETTO)
+
+#include <stdio.h>
+
+#include "absl/strings/string_view.h"
+#include "rtc_base/system/rtc_export.h"
+
 namespace rtc {
 namespace tracing {
 // Set up internal event tracer.
@@ -81,5 +84,6 @@ RTC_EXPORT void StopInternalCapture();
 RTC_EXPORT void ShutdownInternalTracer();
 }  // namespace tracing
 }  // namespace rtc
+#endif  // !defined(RTC_USE_PERFETTO)
 
 #endif  // RTC_BASE_EVENT_TRACER_H_

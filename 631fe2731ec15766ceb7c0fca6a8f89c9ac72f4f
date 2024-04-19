@@ -51,6 +51,23 @@
       "parentUuid": "2623e668_4c9c88e1",
       "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ae87dd_b99f1847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-19T18:26:51Z",
+      "side": 1,
+      "message": "The other listener is addressed in https://chromium-review.googlesource.com/c/chromium/src/+/5318498",
+      "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

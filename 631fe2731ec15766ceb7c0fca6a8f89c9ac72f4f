@@ -68,6 +68,40 @@
       "message": "The other listener is addressed in https://chromium-review.googlesource.com/c/chromium/src/+/5318498",
       "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b481ac4e_7f73a932",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-19T18:44:33Z",
+      "side": 1,
+      "message": "wondering if we\u0027re stuck with that dependency or if we could do something about it (fine if it\u0027s not in this CL)",
+      "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb454f9f_21aa1a50",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-19T18:44:33Z",
+      "side": 1,
+      "message": "can we do something about the code in chrome that\u0027s depending on code in `p2p/base/ice_transport_internal.h` (with emphasis on \"internal\", but the rest of the path isn\u0027t exactly \"api\").",
+      "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

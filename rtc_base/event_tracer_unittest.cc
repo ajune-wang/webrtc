@@ -55,7 +55,7 @@ TEST(EventTracerTest, EventTracerDisabled) {
   TestStatistics::Get()->Reset();
 }
 
-#if RTC_TRACE_EVENTS_ENABLED
+#if RTC_TRACE_EVENTS_ENABLED && !defined(RTC_USE_PERFETTO)
 TEST(EventTracerTest, ScopedTraceEvent) {
   SetupEventTracer(
       [](const char* /*name*/) {

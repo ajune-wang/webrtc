@@ -7,7 +7,24 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+
 #include "rtc_base/event_tracer.h"
+
+#if defined(RTC_USE_PERFETTO)
+
+#include "rtc_base/trace_categories.h"
+
+namespace webrtc {
+
+void SetupEventTracer() {
+  if (perfetto::Tracing::IsInitialized()) {
+    webrtc::TrackEvent::Register();
+  }
+}
+
+}  // namespace webrtc
+
+#else
 
 #include <inttypes.h>
 #include <stdint.h>
@@ -412,3 +429,5 @@ void ShutdownInternalTracer() {
 
 }  // namespace tracing
 }  // namespace rtc
+
+#endif  // defined(RTC_USE_PERFETTO)

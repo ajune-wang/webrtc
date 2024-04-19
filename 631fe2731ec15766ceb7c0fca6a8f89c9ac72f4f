@@ -16,6 +16,23 @@
       "message": "Needed because there\u0027s a listener to this signal in Chrome-land.",
       "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2623e668_4c9c88e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-19T18:03:16Z",
+      "side": 1,
+      "message": "Are unit tests the reason why there are multiple listeners?\nI\u0027ve seen a few of those and have chosen to change the tests to handle this themselves rather than impose test specific requirements on the production code.\n\nI\u0027m currently fixing ssl_stream_adapter_unittest.cc where this is the case and there, the tests are really the ones doing something unusual.\n\nIf there\u0027s a single callback rather than an unknown number, that makes it simpler to reason about things while debugging.",
+      "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

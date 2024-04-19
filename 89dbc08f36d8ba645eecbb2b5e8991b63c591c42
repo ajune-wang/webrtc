@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56711138_9cc30cdd",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-19T18:05:36Z",
+      "side": 0,
+      "message": "Since this is afaict the only place in non-test code where a callback is set, the change in this CL allows for either multiple controllers to get callbacks or the same register multiple callbacks. I think it would be a good thing if we can enforce the \"at most 1\" rule.",
+      "revId": "89dbc08f36d8ba645eecbb2b5e8991b63c591c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

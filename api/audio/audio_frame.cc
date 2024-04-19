@@ -113,14 +113,34 @@ const int16_t* AudioFrame::data() const {
   return muted_ ? empty_data() : data_;
 }
 
-// TODO(henrik.lundin) Can we skip zeroing the buffer?
-// See https://bugs.chromium.org/p/webrtc/issues/detail?id=5647.
+rtc::ArrayView<const int16_t> AudioFrame::data_view() const {
+  return rtc::ArrayView<const int16_t>(&data_[0], sample_count());
+}
+
 int16_t* AudioFrame::mutable_data() {
+  // TODO(henrik.lundin) Can we skip zeroing the buffer?
+  // See https://bugs.chromium.org/p/webrtc/issues/detail?id=5647.
   if (muted_) {
     memset(data_, 0, kMaxDataSizeBytes);
     muted_ = false;
   }
   return data_;
+}
+
+rtc::ArrayView<int16_t> AudioFrame::mutable_data(size_t samples_per_channel,
+                                                 size_t num_channels) {
+  const size_t total_samples = samples_per_channel * num_channels;
+  RTC_CHECK_LE(total_samples, kMaxDataSizeSamples);
+
+  // TODO(henrik.lundin) Can we skip zeroing the buffer?
+  // See https://bugs.chromium.org/p/webrtc/issues/detail?id=5647.
+  if (muted_) {
+    memset(data_, 0, kMaxDataSizeBytes);
+    muted_ = false;
+  }
+  samples_per_channel_ = samples_per_channel;
+  num_channels_ = num_channels;
+  return rtc::ArrayView<int16_t>(&data_[0], total_samples);
 }
 
 void AudioFrame::Mute() {

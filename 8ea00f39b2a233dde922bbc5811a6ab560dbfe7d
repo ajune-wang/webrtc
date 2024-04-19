@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "107a796c_3225b889",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-19T09:47:11Z",
+      "side": 1,
+      "message": "Only two things are hard in computing: Naming, inheritance and off-by-one errors...",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de77d617_c9f28438",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "Good point. I guess that since the method\u0027s name contains \"Event\", I\u0027m accustomed to use terms \"fire an event\". To that point, go/sigslot-to-callback-list does even talk about \"firing\" events fwiw. But I subjectively find \"Send\" to be a bit unexpected choice for callbacks even though we already have it in CallbackList.\n\nA concern I have with the \"Send\" prefix however is that we use Send/Post so commonly and there\u0027s an implied message queue. For events, how about using \"Notify\", e.g. `NotifyStreamEvent`? \"Issue\" could also be used together with an event or callback concept.\n\nI figure that should be familiar api language since we have `NotifierInterface` already.",
       "parentUuid": "de77d617_c9f28438",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3433613_44fdefb7",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-19T09:47:11Z",
+      "side": 1,
+      "message": "I think the guidance needs to be consistent with what we\u0027re doing ... would like to do this thing only one way. Sigslot was called a signal, not an event, which led me to think of it as being \"sent\", not \"fired\". But the callback is called synchronously, not asynchronously, which is consistent with WebIDL \"events\" (that continue to astonish me) but not consistent with common use of terms like \"send\".\n\nThe confusion here is that we have two levels of naming - one is the sigslot \"signal\" abstraction, the other is the term \"event\" used in \"stream_events\". \"FireStreamEvent\" seems to be indicating that you fire the stream event, which I don\u0027t think is true - it\u0027s a notification that the event has already happened.\n\nPerhaps SendStreamEventNotification is both consistent with old guidance and descriptive of what we\u0027re doing here? Or should we change the guidance?",
+      "parentUuid": "410dc3cb_62f0f227",
       "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

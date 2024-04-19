@@ -17,6 +17,7 @@
 
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
+//#include "api/audio/audio_device.h"
 #include "api/crypto/crypto_options.h"
 #include "api/field_trials_view.h"
 #include "api/rtp_parameters.h"
@@ -30,7 +31,6 @@
 #include "rtc_base/system/file_wrapper.h"
 
 namespace webrtc {
-class AudioDeviceModule;
 class AudioMixer;
 class Call;
 }  // namespace webrtc

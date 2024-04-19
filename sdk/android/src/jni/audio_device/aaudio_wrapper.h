@@ -14,7 +14,7 @@
 #include <aaudio/AAudio.h>
 
 #include "api/sequence_checker.h"
-#include "modules/audio_device/include/audio_device_defines.h"
+#include "api/audio/audio_device_defines.h"
 
 namespace webrtc {
 

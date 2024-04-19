@@ -86,6 +86,24 @@
       "parentUuid": "410dc3cb_62f0f227",
       "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67cce5d3_9aa81e21",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-19T10:14:40Z",
+      "side": 1,
+      "message": "/bikesheddingtime!\n\n\u003csomewhat off the naming topic but looking at the StreamInterface itself\u003e\n\nThis event/callback firing method is only exposed to subclasses to get them to stop touching the sigslot variable directly - outside of webrtc, there are only test classes that inherit from the interface. In production in webrtc, there\u0027s then only one class that in practice inherits from the stream interface - `OpenSSLStreamAdapter`. `OpenSSLStreamAdapter` is also the only class that extends the `SSLStreamAdapter` interface (which inherits from StreamInterface).\n\nSo, it\u0027s even debatable if we need this level of abstraction and all the other classes that inherit from StreamInterface, aren\u0027t substituting OpenSSLStreamAdapter. OpenSSLStreamAdapter could actually be a simpler non-virtual class. So this complexity/interaction between that class and the other StreamInterface implementations, is possibly something we don\u0027t need or want.\n\nAnyway, back on topic 😊\n\nWe actually do have `FireOnChanged` already in the api as part of the `Notifier` class. That\u0027s been around for ages (as old as PeerConnectionInterface basically).\n\nBut since the name of the interface is StreamInterface, do we need to repeat \"Stream\" in the utility function? (`SendStreamEventNotification` seems a bit long so I\u0027m wondering how we could shorten it)\n\nIf \"Stream\" isn\u0027t necessary then I think we could pick between \"Event\" and \"Notification\". I.e. \"SendEvent\" or \"SendNotification\". Alternatively could also use the \"On\" prefix, e.g. `OnStreamEvent`?\n\nOr we could live with \"fire\", remove \"stream\" and go with a generic `FireEvent`, which replaces the sigslot `SignalEvent` language?",
+      "parentUuid": "a3433613_44fdefb7",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

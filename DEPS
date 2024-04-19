@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c14dac4d1a278da63957a21906a1a8afc207d7c8',
+  'chromium_revision': 'dee142bafc63c673b35916630a142e889f389ac8',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -55,7 +55,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@02b72a113434b00818bf55565c7abf4c3a056e08',
+    'https://chromium.googlesource.com/chromium/src/base@489602dda8890ba7ea805f57ef2aab665569bc88',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@c23fa2d3e9f2bf1049243b50991fd7fc1449a1a4',
   'src/buildtools':
@@ -66,13 +66,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@c3664b1c7e4269a121388730327dd310c1a20986',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@62b068470f640b65bcd5ec6d3e754a8dcd28b2a9',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@0d2ca4d99edb9354d4cca22d50185804d396ff7e',
+    'https://chromium.googlesource.com/chromium/src/testing@27a4fc9488b2d9b3be08a1f2234c119a582d6168',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@07ac02312d84fe2b6fb05d78bfc77894e9695fd1',
+    'https://chromium.googlesource.com/chromium/src/third_party@07f3492c7b694a8ebee058aa6df88a727fd40956',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -207,9 +207,9 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@b7ed76a09d1953d75968cbc14a53f724c11fb5f9',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@65faa11896edc1559596b6c864d57468725a49ec',
   'src/third_party/ffmpeg':
-    'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@901248a373cbbe7af68fb92faf3be7d4f679150d',
+    'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@af0ce8b29844deea9712fe970cc1b76178d0792a',
   'src/third_party/flatbuffers/src':
     'https://chromium.googlesource.com/external/github.com/google/flatbuffers.git@bcb9ef187628fe07514e57756d05e6a6296f7dc5',
   'src/third_party/grpc/src': {
@@ -221,7 +221,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@12adfc212bd2f7560e1e175e66458124f9bd554b',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@db83e9c0ec8b4ec8d7fa3bb3383d5160d1cfa719',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@155015f4bec434ecc2f94621665844218f05ce51',
   'src/third_party/google_benchmark/src': {
@@ -342,7 +342,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'XZtdTveVY7h3SeKbeq0RkkuR7_zt6EH_sKJDUDK08NAC',
+              'version': 'cRpPhFe0Ln8wX3pcqOs4cHobiYj7mMi6eVqchALlFUcC',
           },
       ],
       'condition': 'checkout_android',
@@ -366,7 +366,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@df0b9f35e2648a9c55228cf83aa55a458baa019b',
+    'https://chromium.googlesource.com/chromium/src/tools@f1e472e6442248510917bf67337b0555714c8758',
 
   'src/third_party/espresso': {
       'packages': [
@@ -405,7 +405,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'UKX5El2J6Sx7Ik-Xhy7SJaDtUuqpkVfG1OIc_XoPrn4C',
+          'version': 'JEa5i3xLOG6i0gkv59Zfd2PsraJvV4Wca8bxCQYhBbQC',
       },
     ],
     'condition': 'checkout_android',

@@ -26,6 +26,16 @@
 #ifndef RTC_BASE_EVENT_TRACER_H_
 #define RTC_BASE_EVENT_TRACER_H_
 
+#if defined(RTC_USE_PERFETTO)
+
+namespace webrtc {
+
+void SetupEventTracer();
+
+}
+
+#else
+
 #include <stdio.h>
 
 #include "absl/strings/string_view.h"
@@ -82,4 +92,5 @@ RTC_EXPORT void ShutdownInternalTracer();
 }  // namespace tracing
 }  // namespace rtc
 
+#endif  // defined(RTC_USE_PERFETTO)
 #endif  // RTC_BASE_EVENT_TRACER_H_

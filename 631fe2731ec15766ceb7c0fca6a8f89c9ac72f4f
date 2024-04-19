@@ -102,6 +102,24 @@
       "message": "can we do something about the code in chrome that\u0027s depending on code in `p2p/base/ice_transport_internal.h` (with emphasis on \"internal\", but the rest of the path isn\u0027t exactly \"api\").",
       "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445f6bea_5feff231",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-19T18:53:55Z",
+      "side": 1,
+      "message": "Chrome needs to fire a signal when this state changes. Once we have it as a function, it\u0027s much easier to move it to an API.\n\nThe class is marked with TODO already:\n// TODO(bugs.webrtc.org/15609): Define a public API for this.\nThere\u0027s 4 more signals to convert before we can drop sigslot from this class.\n\nOne step at a time?",
+      "parentUuid": "eb454f9f_21aa1a50",
+      "revId": "631fe2731ec15766ceb7c0fca6a8f89c9ac72f4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

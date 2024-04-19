@@ -66,24 +66,4 @@ class EventTracer {
 
 }  // namespace webrtc
 
-#if !defined(RTC_USE_PERFETTO)
-
-#include <stdio.h>
-
-#include "absl/strings/string_view.h"
-#include "rtc_base/system/rtc_export.h"
-
-namespace rtc {
-namespace tracing {
-// Set up internal event tracer.
-RTC_EXPORT void SetupInternalTracer(bool enable_all_categories = true);
-RTC_EXPORT bool StartInternalCapture(absl::string_view filename);
-RTC_EXPORT void StartInternalCaptureToFile(FILE* file);
-RTC_EXPORT void StopInternalCapture();
-// Make sure we run this, this will tear down the internal tracing.
-RTC_EXPORT void ShutdownInternalTracer();
-}  // namespace tracing
-}  // namespace rtc
-#endif  // !defined(RTC_USE_PERFETTO)
-
 #endif  // RTC_BASE_EVENT_TRACER_H_

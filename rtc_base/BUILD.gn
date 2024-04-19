@@ -1850,7 +1850,6 @@ if (rtc_include_tests) {
         "checks_unittest.cc",
         "copy_on_write_buffer_unittest.cc",
         "deprecated/recursive_critical_section_unittest.cc",
-        "event_tracer_unittest.cc",
         "event_unittest.cc",
         "frequency_tracker_unittest.cc",
         "logging_unittest.cc",

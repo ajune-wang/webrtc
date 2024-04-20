@@ -76,6 +76,7 @@ TEST(AudioFrameTest, UpdateFrameMono) {
   EXPECT_EQ(AudioFrame::kVadActive, frame.vad_activity_);
   EXPECT_EQ(kNumChannelsMono, frame.num_channels());
   EXPECT_EQ(CHANNEL_LAYOUT_MONO, frame.channel_layout());
+  EXPECT_EQ(kSamplesPerChannel * kNumChannelsMono, frame.sample_count());
 
   EXPECT_FALSE(frame.muted());
   EXPECT_EQ(0, memcmp(samples, frame.data(), sizeof(samples)));
@@ -84,6 +85,7 @@ TEST(AudioFrameTest, UpdateFrameMono) {
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
                     kNumChannelsMono);
   EXPECT_TRUE(frame.muted());
+  EXPECT_EQ(frame.sample_count(), 0u);  // 0u since the frame is muted.
   EXPECT_TRUE(AllSamplesAre(0, frame));
 }
 
@@ -93,13 +95,20 @@ TEST(AudioFrameTest, UpdateFrameMultiChannel) {
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
                     kNumChannelsStereo);
   EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel());
+  EXPECT_EQ(0u, frame.sample_count());  // 0u since the frame is muted.
   EXPECT_EQ(kNumChannelsStereo, frame.num_channels());
   EXPECT_EQ(CHANNEL_LAYOUT_STEREO, frame.channel_layout());
+  EXPECT_TRUE(frame.muted());
 
-  frame.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
+  // Initialize the frame with valid `kNumChannels5_1` data to make sure we
+  // get an unmuted frame with valid samples.
+  int16_t samples[kSamplesPerChannel * kNumChannels5_1] = {17};
+  frame.UpdateFrame(kTimestamp, samples /* data */, kSamplesPerChannel,
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
                     kNumChannels5_1);
+  EXPECT_FALSE(frame.muted());
   EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel());
+  EXPECT_EQ(kSamplesPerChannel * kNumChannels5_1, frame.sample_count());
   EXPECT_EQ(kNumChannels5_1, frame.num_channels());
   EXPECT_EQ(CHANNEL_LAYOUT_5_1, frame.channel_layout());
 }
@@ -121,6 +130,7 @@ TEST(AudioFrameTest, CopyFrom) {
   EXPECT_EQ(frame2.vad_activity_, frame1.vad_activity_);
   EXPECT_EQ(frame2.num_channels_, frame1.num_channels_);
 
+  EXPECT_EQ(frame2.sample_count(), frame1.sample_count());
   EXPECT_EQ(frame2.muted(), frame1.muted());
   EXPECT_EQ(0, memcmp(frame2.data(), frame1.data(), sizeof(samples)));
 

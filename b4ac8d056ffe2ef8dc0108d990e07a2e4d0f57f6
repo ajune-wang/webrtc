@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb78d31f_cf0cbaed",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-20T06:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b0e1171_6c1698c5",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f726dfaf_77fd752b",
@@ -71,6 +95,24 @@
       "writtenOn": "2024-04-16T11:15:15Z",
       "side": 1,
       "message": "I think it\u0027d be better to just take the WORKDIR instead of the JSON database as an argument. Then you can just generate it automatically for any build folder, not just `out/Default`.\n\nBut for a one off script to be used for testing right now by power users, it\u0027s not that necessary to change the current behavior though.",
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d141cb9_feb3e930",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-20T06:59:54Z",
+      "side": 1,
+      "message": "I removed the JSON database argument, and haven\u0027t added a WORKDIR argument yet.\nNext version...",
+      "parentUuid": "f726dfaf_77fd752b",
       "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -92,6 +134,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77178c67_58234485",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-20T06:59:54Z",
+      "side": 1,
+      "message": "Yes, this is edit-in-place. Adding an -n option that prints a diff may be nice.",
+      "parentUuid": "b61c9e89_71dfb3ea",
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23079b7e_0f4c442e",
@@ -105,6 +165,24 @@
       "writtenOn": "2024-04-16T11:17:36Z",
       "side": 1,
       "message": "nit: Could add a reminder to run `gn gen --check` too to ensure we have the right dependencies.",
+      "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d88ac5a3_9d76460d",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-20T06:59:54Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "23079b7e_0f4c442e",
       "revId": "b4ac8d056ffe2ef8dc0108d990e07a2e4d0f57f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

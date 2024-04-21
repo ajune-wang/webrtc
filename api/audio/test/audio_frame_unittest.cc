@@ -19,10 +19,36 @@ namespace webrtc {
 
 namespace {
 
+bool AllSamplesAre(int16_t sample, rtc::ArrayView<const int16_t> samples) {
+  for (const auto s : samples) {
+    if (s != sample) {
+      return false;
+    }
+  }
+  return true;
+}
+
 bool AllSamplesAre(int16_t sample, const AudioFrame& frame) {
-  const int16_t* frame_data = frame.data();
-  for (size_t i = 0; i < frame.max_16bit_samples(); i++) {
-    if (frame_data[i] != sample) {
+  return AllSamplesAre(sample, frame.data_view());
+}
+
+// Checks the values of samples in the AudioFrame buffer, regardless of whether
+// they're valid or not. Note that this check assumes internal implementation
+// details of AudioFrame and that the buffer returned from `data_view()` is
+// always of size `max_16bit_samples()`.
+bool AllBufferSamplesAre(int16_t sample, const AudioFrame& frame) {
+  auto frame_data = frame.data_view();
+  const int16_t* data = frame_data.data();
+  if (frame_data.empty()) {
+    // Special case while we have a mix of using the unchecked `data()` getter
+    // and `data_view()`. For muted frames with no valid samples, data_view()
+    // will return an empty array view, whereas data() always returns a pointer
+    // to a buffer (either the internal buffer or a static, nulled out, buffer).
+    RTC_DCHECK_EQ(frame.sample_count(), 0u);
+    data = frame.data();
+  }
+  for (size_t i = 0; i < frame.max_16bit_samples(); ++i) {
+    if (data[i] != sample) {
       return false;
     }
   }
@@ -38,16 +64,30 @@ constexpr size_t kSamplesPerChannel = kSampleRateHz / 100;
 
 }  // namespace
 
-TEST(AudioFrameTest, FrameStartsMuted) {
+TEST(AudioFrameTest, FrameStartsZeroedAndMuted) {
   AudioFrame frame;
   EXPECT_TRUE(frame.muted());
+  EXPECT_EQ(frame.sample_count(), 0u);
+  EXPECT_TRUE(frame.data_view().empty());
   EXPECT_TRUE(AllSamplesAre(0, frame));
+}
+
+// TODO: b/335805780 - Delete test when `mutable_data()` returns ArrayView.
+TEST(AudioFrameTest, UnmutedFrameIsInitiallyZeroedLegacy) {
+  AudioFrame frame;
+  frame.mutable_data();
+  EXPECT_FALSE(frame.muted());
+  EXPECT_TRUE(AllSamplesAre(0, frame));
+  EXPECT_TRUE(AllBufferSamplesAre(0, frame));
 }
 
 TEST(AudioFrameTest, UnmutedFrameIsInitiallyZeroed) {
   AudioFrame frame;
-  frame.mutable_data();
+  auto data = frame.mutable_data(kSamplesPerChannel, kNumChannelsMono);
   EXPECT_FALSE(frame.muted());
+  EXPECT_FALSE(frame.data_view().empty());
+  EXPECT_EQ(frame.sample_count(), kSamplesPerChannel);
+  EXPECT_EQ(data.size(), kSamplesPerChannel);
   EXPECT_TRUE(AllSamplesAre(0, frame));
 }
 
@@ -58,9 +98,11 @@ TEST(AudioFrameTest, MutedFrameBufferIsZeroed) {
     frame_data[i] = 17;
   }
   ASSERT_TRUE(AllSamplesAre(17, frame));
+  ASSERT_TRUE(AllBufferSamplesAre(17, frame));
   frame.Mute();
   EXPECT_TRUE(frame.muted());
   EXPECT_TRUE(AllSamplesAre(0, frame));
+  ASSERT_TRUE(AllBufferSamplesAre(0, frame));
 }
 
 TEST(AudioFrameTest, UpdateFrameMono) {
@@ -76,6 +118,7 @@ TEST(AudioFrameTest, UpdateFrameMono) {
   EXPECT_EQ(AudioFrame::kVadActive, frame.vad_activity_);
   EXPECT_EQ(kNumChannelsMono, frame.num_channels());
   EXPECT_EQ(CHANNEL_LAYOUT_MONO, frame.channel_layout());
+  EXPECT_EQ(kSamplesPerChannel * kNumChannelsMono, frame.sample_count());
 
   EXPECT_FALSE(frame.muted());
   EXPECT_EQ(0, memcmp(samples, frame.data(), sizeof(samples)));
@@ -84,6 +127,7 @@ TEST(AudioFrameTest, UpdateFrameMono) {
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
                     kNumChannelsMono);
   EXPECT_TRUE(frame.muted());
+  EXPECT_EQ(frame.sample_count(), 0u);  // 0u since the frame is muted.
   EXPECT_TRUE(AllSamplesAre(0, frame));
 }
 
@@ -93,13 +137,20 @@ TEST(AudioFrameTest, UpdateFrameMultiChannel) {
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
                     kNumChannelsStereo);
   EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel());
+  EXPECT_EQ(0u, frame.sample_count());  // 0u since the frame is muted.
   EXPECT_EQ(kNumChannelsStereo, frame.num_channels());
   EXPECT_EQ(CHANNEL_LAYOUT_STEREO, frame.channel_layout());
+  EXPECT_TRUE(frame.muted());
 
-  frame.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
+  // Initialize the frame with valid `kNumChannels5_1` data to make sure we
+  // get an unmuted frame with valid samples.
+  int16_t samples[kSamplesPerChannel * kNumChannels5_1] = {17};
+  frame.UpdateFrame(kTimestamp, samples /* data */, kSamplesPerChannel,
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
                     kNumChannels5_1);
+  EXPECT_FALSE(frame.muted());
   EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel());
+  EXPECT_EQ(kSamplesPerChannel * kNumChannels5_1, frame.sample_count());
   EXPECT_EQ(kNumChannels5_1, frame.num_channels());
   EXPECT_EQ(CHANNEL_LAYOUT_5_1, frame.channel_layout());
 }
@@ -121,6 +172,7 @@ TEST(AudioFrameTest, CopyFrom) {
   EXPECT_EQ(frame2.vad_activity_, frame1.vad_activity_);
   EXPECT_EQ(frame2.num_channels_, frame1.num_channels_);
 
+  EXPECT_EQ(frame2.sample_count(), frame1.sample_count());
   EXPECT_EQ(frame2.muted(), frame1.muted());
   EXPECT_EQ(0, memcmp(frame2.data(), frame1.data(), sizeof(samples)));
 

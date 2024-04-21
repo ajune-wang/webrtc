@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/array_view.h"
 #include "api/audio/channel_layout.h"
 #include "api/rtp_packet_infos.h"
 
@@ -68,6 +69,7 @@ class AudioFrame {
   // ResetWithoutMuting() to skip this wasteful zeroing.
   void ResetWithoutMuting();
 
+  // TODO: b/335805780 - Accept ArrayView.
   void UpdateFrame(uint32_t timestamp,
                    const int16_t* data,
                    size_t samples_per_channel,
@@ -90,10 +92,19 @@ class AudioFrame {
   int64_t ElapsedProfileTimeMs() const;
 
   // data() returns a zeroed static buffer if the frame is muted.
-  // mutable_frame() always returns a non-static buffer; the first call to
-  // mutable_frame() zeros the non-static buffer and marks the frame unmuted.
+  // TODO: b/335805780 - Return ArrayView.
   const int16_t* data() const;
+  rtc::ArrayView<const int16_t> data_view() const;
+  // mutable_frame() always returns a non-static buffer; the first call to
+  // mutable_frame() zeros the buffer and marks the frame as unmuted.
+  // TODO: b/335805780 - Return ArrayView based on the current values for
+  // samples per channel and num channels.
   int16_t* mutable_data();
+  // Prepares the internal buffer for writing. If the state is currently muted,
+  // then the internal buffer will be zeroed out before returning a writable
+  // buffer.
+  rtc::ArrayView<int16_t> mutable_data(size_t samples_per_channel,
+                                       size_t num_channels);
 
   // Prefer to mute frames using AudioFrameOperations::Mute.
   void Mute();
@@ -105,6 +116,12 @@ class AudioFrame {
   size_t num_channels() const { return num_channels_; }
   ChannelLayout channel_layout() const { return channel_layout_; }
   int sample_rate_hz() const { return sample_rate_hz_; }
+  // Total number of valid 16 bit samples held in the internal buffer.
+  // Note that for legacy reasons, samples_per_channel_ may hold a non 0 value
+  // even after UpdateFrame has been called with a nullptr.
+  size_t sample_count() const {
+    return muted_ ? 0u : samples_per_channel_ * num_channels_;
+  }
 
   void set_absolute_capture_timestamp_ms(
       int64_t absolute_capture_time_stamp_ms) {

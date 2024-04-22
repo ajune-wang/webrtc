@@ -129,6 +129,18 @@ int16_t* AudioFrame::mutable_data() {
   return data_;
 }
 
+rtc::ArrayView<int16_t> AudioFrame::mutable_data_view() {
+  // TODO: bugs.webrtc.org/5647 - Can we skip zeroing the buffer?
+  // Consider instead if we should rather zero the whole buffer when `muted_` is
+  // set to `true`.
+  const size_t total_samples = sample_count();
+  if (muted_) {
+    memset(data_, 0, total_samples * sizeof(int16_t));
+    muted_ = false;
+  }
+  return rtc::ArrayView<int16_t>(&data_[0], total_samples);
+}
+
 rtc::ArrayView<int16_t> AudioFrame::mutable_data(size_t samples_per_channel,
                                                  size_t num_channels) {
   const size_t total_samples = samples_per_channel * num_channels;

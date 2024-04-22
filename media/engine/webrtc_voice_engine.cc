@@ -1094,10 +1094,9 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     RTC_DCHECK(stream_);
     RTC_DCHECK_EQ(1UL, rtp_parameters_.encodings.size());
-    // Stream can be started without |source_| being set.
-    if (send_ && rtp_parameters_.encodings[0].active) {
+    if (send_ && source_ != nullptr && rtp_parameters_.encodings[0].active) {
       stream_->Start();
-    } else {
+    } else {  // !send || source_ = nullptr
       stream_->Stop();
     }
   }

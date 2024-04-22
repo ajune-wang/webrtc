@@ -34,6 +34,23 @@
       "parentUuid": "e8f97582_ab08a350",
       "revId": "2542a1aad5bb132631a40995e97f1090a90daa0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87613ac_199ad0a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-04-22T00:01:00Z",
+      "side": 1,
+      "message": "This patch was applied as a part of the following commit:\nhttps://webrtc-review.googlesource.com/c/src/+/347764\nSo I think we should close this CL.",
+      "revId": "2542a1aad5bb132631a40995e97f1090a90daa0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -139,8 +139,9 @@ TEST(FrameCombiner, ContainsAllRtpPacketInfos) {
   }
 }
 
-// There are DCHECKs in place to check for invalid parameters.
-TEST(FrameCombinerDeathTest, DebugBuildCrashesWithManyChannels) {
+#if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+// There are CHECKs in place to check for invalid parameters.
+TEST(FrameCombinerDeathTest, BuildCrashesWithManyChannels) {
   FrameCombiner combiner(true);
   for (const int rate : {8000, 18000, 34000, 48000}) {
     for (const int number_of_channels : {10, 20, 21}) {
@@ -149,7 +150,7 @@ TEST(FrameCombinerDeathTest, DebugBuildCrashesWithManyChannels) {
         continue;
       }
       const std::vector<AudioFrame*> all_frames = {&frame1, &frame2};
-      SetUpFrames(rate, number_of_channels);
+      EXPECT_DEATH(SetUpFrames(rate, number_of_channels), "");
 
       const int number_of_frames = 2;
       SCOPED_TRACE(
@@ -169,6 +170,7 @@ TEST(FrameCombinerDeathTest, DebugBuildCrashesWithManyChannels) {
     }
   }
 }
+#endif  // GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
 TEST(FrameCombinerDeathTest, DebugBuildCrashesWithHighRate) {
   FrameCombiner combiner(true);
@@ -249,7 +251,8 @@ TEST(FrameCombiner, CombiningZeroFramesShouldProduceSilence) {
 TEST(FrameCombiner, CombiningOneFrameShouldNotChangeFrame) {
   FrameCombiner combiner(false);
   for (const int rate : {8000, 10000, 11000, 32000, 44100}) {
-    for (const int number_of_channels : {1, 2, 4, 8, 10}) {
+    // kMaxConcurrentChannels is 8.
+    for (const int number_of_channels : {1, 2, 4, kMaxConcurrentChannels}) {
       SCOPED_TRACE(ProduceDebugText(rate, number_of_channels, 1));
 
       AudioFrame audio_frame_for_mixing;

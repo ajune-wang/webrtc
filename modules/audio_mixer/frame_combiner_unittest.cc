@@ -149,7 +149,11 @@ TEST(FrameCombinerDeathTest, DebugBuildCrashesWithManyChannels) {
         continue;
       }
       const std::vector<AudioFrame*> all_frames = {&frame1, &frame2};
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+      EXPECT_DEATH(SetUpFrames(rate, number_of_channels), "");
+#elif !RTC_DCHECK_IS_ON
       SetUpFrames(rate, number_of_channels);
+#endif
 
       const int number_of_frames = 2;
       SCOPED_TRACE(
@@ -249,7 +253,8 @@ TEST(FrameCombiner, CombiningZeroFramesShouldProduceSilence) {
 TEST(FrameCombiner, CombiningOneFrameShouldNotChangeFrame) {
   FrameCombiner combiner(false);
   for (const int rate : {8000, 10000, 11000, 32000, 44100}) {
-    for (const int number_of_channels : {1, 2, 4, 8, 10}) {
+    // kMaxConcurrentChannels is 8.
+    for (const int number_of_channels : {1, 2, 4, kMaxConcurrentChannels}) {
       SCOPED_TRACE(ProduceDebugText(rate, number_of_channels, 1));
 
       AudioFrame audio_frame_for_mixing;

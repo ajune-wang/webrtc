@@ -18,6 +18,230 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1459696f_a61c329e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Thanks for this CL! Really delighted to see the introduction of ArrayView in the AudioFrame code.\n\nI added some comments. PTAL",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11be234_171321f1",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Would it be possible to for the time-being (until the below mentioned explicit zeroing is added) do the following:\n1) Make this method non-const.\n2) Add the same zeroing done on line 126.\n\nIMO, that would be safer and would simplify the usage of this code as then the two ways of accessing the data would give the same result for muted data.",
+      "range": {
+        "startLine": 117,
+        "startChar": 54,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a81833_a3407f6f",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "I think this would be a really good change.\n\nAs it is now the behavior for data_view and mutable data is different from muted data.\n\nAlso, not zeroing the underlying data when muting occurs becomes error-prone when direct access is allowed to that, since it then becomes impossible to ensure that the muted data is properly handled.",
+      "range": {
+        "startLine": 122,
+        "startChar": 1,
+        "endLine": 124,
+        "endChar": 15
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d65094a_c84546b3",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "This would be a good change. And it should be fully safe.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 19
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0d4b7b_ad9e25b3",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "As commented in the header, I don\u0027t understand the purpose of this change. It even looks a bit risky.\n\nWouldn\u0027t it be better to add proper setters for these values, rather than to set it as a side-effect of a getter of the data?",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9097c219_e121b2b7",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "I think it would be good to add a comment for this function as well, and in particular mention how it differs from the newly added  \nrtc::ArrayView\u003cint16_t\u003e mutable_data(size_t samples_per_channel,\n                                     size_t num_channels);\n\nOne difference I see is how the muted case is treated, and I\u0027d guess that when the frame is muted, data_view and mutable_data will return different data. If that is the case, then that would be good to document",
+      "range": {
+        "startLine": 97,
+        "startChar": 31,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b251f3f_16b1146e",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "I think this line could probably be clarified a bit more?\nFrom what I can see, the intention of the function is to get an ArrayView access to the mutable data (instead of the raw-pointer access available today)\nThe comment does not mention that though and instead mentions the side-effect of preparing the internal buffer for writing.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 45
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5aa0eb_8dc3a46e",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Why are there two parameters needed?\nWhat happens if they differ from the current values of samples_per_channel_ and num_channels_?\n\nI think it would probably be good to document the intended usage and effect of these two parameters.",
+      "range": {
+        "startLine": 106,
+        "startChar": 39,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "110bd2f3_1f5d5bb0",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Would it somehow be possible to have an equality here?\nI.e., so that the Resample asks for Y samples, which then matches frame.num_channels_ * target_number_of_samples_per_channel?\n\nReason why that would be good is that then there is no risk of destination containing un-initialized values.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 75
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bd928c6_545f3e93",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "This seems a bit risky. I think we should then require \n RTC_CHECK_EQ(destination.size(),\n               frame.num_channels_ * target_number_of_samples_per_channel);\n\nI.e., we should validate that the destination size matches that of the contained number of channels and samples per channel.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c99038cf_1aaf4ca7",
@@ -43,6 +267,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca603996_e1860a4b",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Maybe put into a constexpr?\n\nE.g.\nconstexpr int kNumFramesPerSecond \u003d 100;\n\nOne aspect here is that this strictly enforces the sample rate to be divisible by 100, thereby excluding some sample rates.\n\nThose are probably not supported today in practice anyway by this code, but it would be good to enforce this via a DCHECK. And also to state this requirement in the header.",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9545a824_143e2720",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Fully ok. But just doublechecking whether this was intentional.",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "739b17f6_26b13676",
         "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
         "patchSetId": 15
@@ -60,6 +324,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e4f10f3_4a01d0d9",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "This change seems to exclude running SetupFrames under some conditions when DCHECKS are ON. Is that indented and what are the consequences for the test?\n\nIf intended, maybe good to add a comment explaining the implementation?",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 6
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a328f47_e85a1729",
         "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
         "patchSetId": 15
@@ -71,6 +358,29 @@
       "writtenOn": "2024-04-22T10:19:01Z",
       "side": 1,
       "message": "I\u0027m wondering if using AudioFrameView would be more natural for the audio stack overall. For example, RemixAndResample() could take it as an input.",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8d4d45d_e76d5d63",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-22T10:37:59Z",
+      "side": 1,
+      "message": "Can\u0027t we simply pass resampled_buffer_ and rely on automatic conversion to an ArrayView?",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 109,
+        "endChar": 69
+      },
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -122,6 +122,24 @@
       "parentUuid": "67cce5d3_9aa81e21",
       "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "635bc0eb_5e68e454",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:50:39Z",
+      "side": 1,
+      "message": "Assuming we\u0027ll want to move away from the \"signals and slots\" names from the sigslot implementation, I think the best precedent for what this particular method is, is `Notifier\u003cT\u003e::FireOnChanged()`, since it\u0027s the same situation here.\n\nWhat I wanted to do but had to back out of due to downstream problems, was to split the implementation away from the interface so that it could be pure virtual. Alas, that\u0027ll have to wait.\n\nBut, we can document such cases - I can update the above doc - e.g. naming of utility methods specifically offered for purposes of firing events, I can make that change.\n\nChanged the name to FireEvent in this CL.",
+      "parentUuid": "683de322_a6dd1025",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

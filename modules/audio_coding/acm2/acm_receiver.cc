@@ -171,10 +171,12 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
   if (need_resampling && !resampled_last_output_frame_) {
     // Prime the resampler with the last frame.
     int16_t temp_output[AudioFrame::kMaxDataSizeSamples];
+    rtc::ArrayView<const int16_t> src_audio(
+        last_audio_buffer_.get(),
+        (current_sample_rate_hz / 100) * audio_frame->num_channels_);
     int samples_per_channel_int = resampler_.Resample10Msec(
-        last_audio_buffer_.get(), current_sample_rate_hz, desired_freq_hz,
-        audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
-        temp_output);
+        src_audio, current_sample_rate_hz, desired_freq_hz,
+        audio_frame->num_channels_, rtc::ArrayView<int16_t>(temp_output));
     if (samples_per_channel_int < 0) {
       RTC_LOG(LS_ERROR) << "AcmReceiver::GetAudio - "
                            "Resampling last_audio_buffer_ failed.";
@@ -185,19 +187,21 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
   // TODO(bugs.webrtc.org/3923) Glitches in the output may appear if the output
   // rate from NetEq changes.
   if (need_resampling) {
-    // TODO(yujo): handle this more efficiently for muted frames.
+    // TODO(tommi): Can we skip the call to Resample10Msec for muted frames?
+    audio_frame->sample_rate_hz_ = desired_freq_hz;
+    auto source = audio_frame->data_view();  // Grab view before mutable_data().
     int samples_per_channel_int = resampler_.Resample10Msec(
-        audio_frame->data(), current_sample_rate_hz, desired_freq_hz,
-        audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
-        audio_frame->mutable_data());
+        source, current_sample_rate_hz, desired_freq_hz,
+        audio_frame->num_channels_,
+        audio_frame->mutable_data(desired_freq_hz / 100,
+                                  audio_frame->num_channels_));
     if (samples_per_channel_int < 0) {
       RTC_LOG(LS_ERROR)
           << "AcmReceiver::GetAudio - Resampling audio_buffer_ failed.";
       return -1;
     }
-    audio_frame->samples_per_channel_ =
-        static_cast<size_t>(samples_per_channel_int);
-    audio_frame->sample_rate_hz_ = desired_freq_hz;
+    RTC_DCHECK_EQ(audio_frame->samples_per_channel_,
+                  static_cast<size_t>(samples_per_channel_int));
     RTC_DCHECK_EQ(
         audio_frame->sample_rate_hz_,
         rtc::dchecked_cast<int>(audio_frame->samples_per_channel_ * 100));

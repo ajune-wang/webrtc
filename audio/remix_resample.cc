@@ -78,8 +78,7 @@ void RemixAndResample(const int16_t* src_data,
   if (out_length == -1) {
     RTC_FATAL() << "Resample failed: audio_ptr = " << audio_ptr
                 << ", src_length = " << src_length
-                << ", dst_frame->mutable_data() = "
-                << dst_frame->mutable_data();
+                << ", dst_frame->data() = " << dst_frame->data();
   }
 
   dst_frame->samples_per_channel_ = out_length / audio_ptr_num_channels;

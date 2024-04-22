@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96df5c10_759f675c",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "I get your point and have been thinking about this as well.\n\nWhere I ended is that currently use of `data_view()` is separate from `data()` and where data_view() is called, we need to account for the possibility that `data_view()` may return a nullptr view. I figured that this would basically be a good thing since it would make it obvious where we\u0027re missing those `muted()` checks and potentially reading bytes we shouldn\u0027t be.\n\nSo at least at the moment I\u0027m looking at it as each case needs to be migrated away from `data()` with that in mind. I.e. I\u0027d like to catch things if they break while I\u0027m updating the code if at all possible, rather than it \"accidentally working\" if that makes sense 😊\n\nWdyt?\n\nBtw, if the change of only zeroing the buffer when `muted_` is set to true (as well as in the ctor), then we\u0027d presumably remove line 126.",
+      "parentUuid": "e11be234_171321f1",
+      "range": {
+        "startLine": 117,
+        "startChar": 54,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70a81833_a3407f6f",
         "filename": "api/audio/audio_frame.cc",
         "patchSetId": 15
@@ -71,6 +95,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "I think this would be a really good change.\n\nAs it is now the behavior for data_view and mutable data is different from muted data.\n\nAlso, not zeroing the underlying data when muting occurs becomes error-prone when direct access is allowed to that, since it then becomes impossible to ensure that the muted data is properly handled.",
+      "range": {
+        "startLine": 122,
+        "startChar": 1,
+        "endLine": 124,
+        "endChar": 15
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "091c3e77_ad0d29e3",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Agreed",
+      "parentUuid": "70a81833_a3407f6f",
       "range": {
         "startLine": 122,
         "startChar": 1,
@@ -94,6 +142,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "This would be a good change. And it should be fully safe.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 19
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3087d585_39ab4d7c",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Great - I\u0027ll make a follow up CL for such a change.",
+      "parentUuid": "7d65094a_c84546b3",
       "range": {
         "startLine": 142,
         "startChar": 0,
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02b669b2_f30e991f",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Added clarification in the documentation for the method.\n\nPerhaps a better name is in order?",
+      "parentUuid": "8b0d4b7b_ad9e25b3",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9097c219_e121b2b7",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 15
@@ -140,6 +236,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "I think it would be good to add a comment for this function as well, and in particular mention how it differs from the newly added  \nrtc::ArrayView\u003cint16_t\u003e mutable_data(size_t samples_per_channel,\n                                     size_t num_channels);\n\nOne difference I see is how the muted case is treated, and I\u0027d guess that when the frame is muted, data_view and mutable_data will return different data. If that is the case, then that would be good to document",
+      "range": {
+        "startLine": 97,
+        "startChar": 31,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7909158_1916aece",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Yes, good point to call that out. I\u0027ve added a comment now.\n\nI made that decision on purpose since I see that there are places right now where we\u0027re doing things such as resampling muted frames. Perhaps this can help us identify those cases (I found one while writing this CL) and get a few CPU cycles back.",
+      "parentUuid": "9097c219_e121b2b7",
       "range": {
         "startLine": 97,
         "startChar": 31,
@@ -175,6 +295,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90fe2533_cf69416d",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Added documentation to clarify this.",
+      "parentUuid": "4b251f3f_16b1146e",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 45
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e5aa0eb_8dc3a46e",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 15
@@ -186,6 +330,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "Why are there two parameters needed?\nWhat happens if they differ from the current values of samples_per_channel_ and num_channels_?\n\nI think it would probably be good to document the intended usage and effect of these two parameters.",
+      "range": {
+        "startLine": 106,
+        "startChar": 39,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f7e08b_c2248c74",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "In a follow up step, I may add another method, depending on need, that does not require any arguments but instead relies on the currently set samples_per_channel_ and num_channels_. The common case seems to be for callers of `mutable_data()` to also modify the value of either or both of `samples_per_channel_` and `num_channels_`, so I\u0027m taking a look to see if those places can be updated to call this method instead and reserve the writable buffer and set the associated member variables, at the same time. The intent being to make those variables more consistently managed together (ideally less error prone).\n\nDocumentation should now be more helpful.",
+      "parentUuid": "2e5aa0eb_8dc3a46e",
       "range": {
         "startLine": 106,
         "startChar": 39,
@@ -219,6 +387,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d57abd8_1d1a4bb5",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Yes - changed to EQ test now. It is actually the case now that his calculation is done by callers. There are also tests in Chrome that exercise the \"frame.muted()\" path, which highlighted the the case where we were resampling muted audio.",
+      "parentUuid": "110bd2f3_1f5d5bb0",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 75
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bd928c6_545f3e93",
@@ -232,6 +424,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "This seems a bit risky. I think we should then require \n RTC_CHECK_EQ(destination.size(),\n               frame.num_channels_ * target_number_of_samples_per_channel);\n\nI.e., we should validate that the destination size matches that of the contained number of channels and samples per channel.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1efa82b4_985175d9",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Yes, check upgraded to EQ test now.",
+      "parentUuid": "4bd928c6_545f3e93",
       "range": {
         "startLine": 86,
         "startChar": 4,
@@ -267,6 +483,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "561caafe_8fbb12e9",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Added comments to those two places.\n\nWonder if we should be a bit more official about this assumption. It exists throughout the webrtc code base without much clarification (I get plenty of likely hits when I search for \"/ 100\").\n\nNot sure what would be the best place to declare such things though - maybe audio_frame.h is OK?",
+      "parentUuid": "c99038cf_1aaf4ca7",
+      "range": {
+        "startLine": 71,
+        "startChar": 53,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca603996_e1860a4b",
         "filename": "audio/remix_resample.cc",
         "patchSetId": 15
@@ -278,6 +518,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "Maybe put into a constexpr?\n\nE.g.\nconstexpr int kNumFramesPerSecond \u003d 100;\n\nOne aspect here is that this strictly enforces the sample rate to be divisible by 100, thereby excluding some sample rates.\n\nThose are probably not supported today in practice anyway by this code, but it would be good to enforce this via a DCHECK. And also to state this requirement in the header.",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a097f7_76903633",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "yup - suggestions where to put such a constant?",
+      "parentUuid": "ca603996_e1860a4b",
       "range": {
         "startLine": 73,
         "startChar": 36,
@@ -307,6 +571,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51d10a1e_65ace200",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "hmm - must have been left over while making changes. I think it\u0027s slightly easier to read with some whitespace following the previous if(){} clause so I think I\u0027d prefer to leave it.",
+      "parentUuid": "9545a824_143e2720",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "739b17f6_26b13676",
         "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
         "patchSetId": 15
@@ -318,6 +600,24 @@
       "writtenOn": "2024-04-22T10:19:01Z",
       "side": 1,
       "message": "Why do we have this as a part of the CL?",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c519999_8a37308d",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "It\u0027s because I added a check to mutable_data() that checks that the number of channels is valid.\n\nThere are a few cases where we fail much earlier now that stricter checks are introduced to AudioFrame.",
+      "parentUuid": "739b17f6_26b13676",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -347,6 +647,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74732560_f4cdb9b0",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "oh actually - the check that I added is a CHECK, not a DCHECK. So we should always expect a crash here.\n\nI\u0027ll need to update this test - possibly split it in two now since SetUpFrames() always invokes a crash with an invalid number of channels. Will follow up.",
+      "parentUuid": "2e4f10f3_4a01d0d9",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 6
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a328f47_e85a1729",
         "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
         "patchSetId": 15
@@ -364,6 +688,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e620c687_0570d497",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "Per - I think you\u0027d be better at answering that?\n\n(I\u0027m assuming the comment is higher level than this call to Resample(), but let me know if I\u0027m misunderstanding)",
+      "parentUuid": "9a328f47_e85a1729",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8d4d45d_e76d5d63",
         "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
         "patchSetId": 15
@@ -375,6 +717,30 @@
       "writtenOn": "2024-04-22T10:37:59Z",
       "side": 1,
       "message": "Can\u0027t we simply pass resampled_buffer_ and rely on automatic conversion to an ArrayView?",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 109,
+        "endChar": 69
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7315d50_9e5fba6c",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-22T14:36:12Z",
+      "side": 1,
+      "message": "indeed we can - done",
+      "parentUuid": "f8d4d45d_e76d5d63",
       "range": {
         "startLine": 108,
         "startChar": 22,

@@ -16,6 +16,63 @@
       "message": "on second thought - Per, maybe you could take a look?\nOlga - moved you to cc but feel free to take a look if you have time.",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c99038cf_1aaf4ca7",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-04-22T10:19:01Z",
+      "side": 1,
+      "message": "Can we update PushResampler and RemixAndResample() documentation to say they always run on 10 ms buffers? Otherwise it\u0027s unclear where this assumption is coming from.",
+      "range": {
+        "startLine": 71,
+        "startChar": 53,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739b17f6_26b13676",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-04-22T10:19:01Z",
+      "side": 1,
+      "message": "Why do we have this as a part of the CL?",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a328f47_e85a1729",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-04-22T10:19:01Z",
+      "side": 1,
+      "message": "I\u0027m wondering if using AudioFrameView would be more natural for the audio stack overall. For example, RemixAndResample() could take it as an input.",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

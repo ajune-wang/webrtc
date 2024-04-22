@@ -104,6 +104,24 @@
       "parentUuid": "a3433613_44fdefb7",
       "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "683de322_a6dd1025",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-22T07:47:36Z",
+      "side": 1,
+      "message": "I think the current naming suggestion was written for the case where a class had multiple signals, so the function of the signal needed to be in the name.\nFor this class, there seems to be only one, so \"FireEvent\" may be adequate - \"stream\" is in the name of the class.\n\nMy main worry is that we should make sure our guidance to implementors (the go/ link) and what we\u0027re doing is consistent as far as possible - so if we are changing what we think people should do, we should change the guidance too.",
+      "parentUuid": "67cce5d3_9aa81e21",
+      "revId": "8ea00f39b2a233dde922bbc5811a6ab560dbfe7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

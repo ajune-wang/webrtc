@@ -115,7 +115,7 @@ public class MediaStreamTrack {
     return nativeTrack;
   }
 
-  private void checkMediaStreamTrackExists() {
+  private void checkMediaStreamTrackExists() throws IllegalStateException {
     if (nativeTrack == 0) {
       throw new IllegalStateException("MediaStreamTrack has been disposed.");
     }

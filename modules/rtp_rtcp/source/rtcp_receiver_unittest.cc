@@ -26,6 +26,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/app.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/congestion_control_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/extended_reports.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/fir.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
@@ -1737,6 +1738,26 @@ TEST(RtcpReceiverTest, NotifiesNetworkLinkObserverOnTransportFeedback) {
                 Property(&rtcp::TransportFeedback::GetReceivedPackets,
                          SizeIs(1)))));
 
+  receiver.IncomingPacket(packet.Build());
+}
+
+TEST(RtcpReceiverTest, NotifiesNetworkLinkObserverOnCongestionControlFeedback) {
+  ReceiverMocks mocks;
+  RtpRtcpInterface::Configuration config = DefaultConfiguration(&mocks);
+  RTCPReceiver receiver(config, &mocks.rtp_rtcp_impl);
+  receiver.SetRemoteSSRC(kSenderSsrc);
+
+  std::vector<rtcp::CongestionControlFeedback::PacketInfo> received_packets = {{
+      .ssrc = 123,
+      .sequence_number = 1,
+  }};
+
+  const uint32_t kCompactNtp = 324;
+  rtcp::CongestionControlFeedback packet(std::move(received_packets),
+                                         kCompactNtp);
+  packet.SetSenderSsrc(kSenderSsrc);
+
+  EXPECT_CALL(mocks.network_link_rtcp_observer, OnCongestionControlFeedback);
   receiver.IncomingPacket(packet.Build());
 }
 

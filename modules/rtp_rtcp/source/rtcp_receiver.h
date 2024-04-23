@@ -342,6 +342,9 @@ class RTCPReceiver final {
   void HandleTransportFeedback(const rtcp::CommonHeader& rtcp_block,
                                PacketInformation* packet_information)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
+  bool HandleCongestionControlFeedback(const rtcp::CommonHeader& rtcp_block,
+                                       PacketInformation* packet_information)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
 
   bool RtcpRrTimeoutLocked(Timestamp now)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);

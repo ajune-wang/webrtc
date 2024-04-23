@@ -51,6 +51,7 @@ void AudioFrame::UpdateFrame(uint32_t timestamp,
                              SpeechType speech_type,
                              VADActivity vad_activity,
                              size_t num_channels) {
+  RTC_CHECK_LE(num_channels, kMaxConcurrentChannels);
   timestamp_ = timestamp;
   samples_per_channel_ = samples_per_channel;
   sample_rate_hz_ = sample_rate_hz;
@@ -113,14 +114,42 @@ const int16_t* AudioFrame::data() const {
   return muted_ ? empty_data() : data_;
 }
 
-// TODO(henrik.lundin) Can we skip zeroing the buffer?
-// See https://bugs.chromium.org/p/webrtc/issues/detail?id=5647.
+rtc::ArrayView<const int16_t> AudioFrame::data_view() const {
+  return rtc::ArrayView<const int16_t>(&data_[0], sample_count());
+}
+
 int16_t* AudioFrame::mutable_data() {
+  // TODO: bugs.webrtc.org/5647 - Can we skip zeroing the buffer?
+  // Consider instead if we should rather zero the buffer when `muted_` is set
+  // to `true`.
   if (muted_) {
     memset(data_, 0, kMaxDataSizeBytes);
     muted_ = false;
   }
   return data_;
+}
+
+rtc::ArrayView<int16_t> AudioFrame::mutable_data(size_t samples_per_channel,
+                                                 size_t num_channels) {
+  const size_t total_samples = samples_per_channel * num_channels;
+  RTC_CHECK_LE(total_samples, kMaxDataSizeSamples);
+  RTC_CHECK_LE(num_channels, kMaxConcurrentChannels);
+  // Sanity check for valid argument values during development.
+  // If `samples_per_channel` is <= kMaxConcurrentChannels but larger than 0,
+  // then chances are the order of arguments is incorrect.
+  RTC_DCHECK((samples_per_channel == 0 && num_channels == 0) ||
+             samples_per_channel > kMaxConcurrentChannels);
+
+  // TODO: bugs.webrtc.org/5647 - Can we skip zeroing the buffer?
+  // Consider instead if we should rather zero the whole buffer when `muted_` is
+  // set to `true`.
+  if (muted_) {
+    memset(data_, 0, total_samples * sizeof(int16_t));
+    muted_ = false;
+  }
+  samples_per_channel_ = samples_per_channel;
+  num_channels_ = num_channels;
+  return rtc::ArrayView<int16_t>(&data_[0], total_samples);
 }
 
 void AudioFrame::Mute() {

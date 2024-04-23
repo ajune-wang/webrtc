@@ -195,6 +195,19 @@ rtc_library("copy_on_write_buffer") {
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
+rtc_library("trace_categories") {
+  visibility = [ ":*" ]
+  sources = [
+    "trace_categories.cc",
+    "trace_categories.h",
+  ]
+  deps = [
+    "..:webrtc_tracing",
+    "system:rtc_export",
+    "//third_party/perfetto/include/perfetto/tracing",
+  ]
+}
+
 rtc_library("event_tracer") {
   visibility = [ "*" ]
   sources = [
@@ -215,6 +228,12 @@ rtc_library("event_tracer") {
     "system:rtc_export",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+  if (rtc_use_perfetto) {
+    deps += [
+      ":trace_categories",
+      "//third_party/perfetto/include/perfetto/tracing",
+    ]
+  }
 }
 
 rtc_library("histogram_percentile_counter") {

@@ -388,6 +388,11 @@ if (is_mac || is_ios) {
     rtc_common_configs += [ "//build/config/compiler:enable_arc" ]
   }
 }
+
+if (build_with_chromium && use_perfetto_client_library) {
+  rtc_use_perfetto = true
+}
+
 if (rtc_use_perfetto) {
   rtc_common_configs += [ "//third_party/perfetto/gn:public_config" ]
 }

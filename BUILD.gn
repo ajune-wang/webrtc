@@ -271,7 +271,6 @@ config("rtc_prod_config") {
   }
 }
 
-# TODO: Fix Chromium.
 group("webrtc_tracing") {
   if (rtc_use_perfetto) {
     if (build_with_chromium) {
@@ -284,7 +283,6 @@ group("webrtc_tracing") {
   }
 }
 
-# TODO: Fix build with Chromium
 if (rtc_use_perfetto) {
   rtc_library("webrtc_libperfetto") {
     public_configs = [ "//third_party/perfetto/gn:public_config" ]

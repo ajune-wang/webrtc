@@ -296,7 +296,8 @@ OpenSSLStreamAdapter::OpenSSLStreamAdapter(
 #endif
       ssl_mode_(SSL_MODE_TLS),
       ssl_max_version_(SSL_PROTOCOL_TLS_12) {
-  stream_->SignalEvent.connect(this, &OpenSSLStreamAdapter::OnEvent);
+  stream_->SetEventHandler([this](StreamInterface* stream, int events,
+                                  int err) { OnEvent(stream, events, err); });
 }
 
 OpenSSLStreamAdapter::~OpenSSLStreamAdapter() {

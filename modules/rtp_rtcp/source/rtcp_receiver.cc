@@ -19,13 +19,16 @@
 #include <utility>
 #include <vector>
 
+#include "api/transport/field_trial_based_config.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_bitrate_allocator.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/congestion_control_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/extended_reports.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/fir.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h"
@@ -131,6 +134,7 @@ struct RTCPReceiver::PacketInformation {
   absl::optional<TimeDelta> rtt;
   uint32_t receiver_estimated_max_bitrate_bps = 0;
   std::unique_ptr<rtcp::TransportFeedback> transport_feedback;
+  absl::optional<rtcp::CongestionControlFeedback> congestion_control_feedback;
   absl::optional<VideoBitrateAllocation> target_bitrate_allocation;
   absl::optional<NetworkStateEstimate> network_state_estimate;
   std::unique_ptr<rtcp::LossNotification> loss_notification;
@@ -437,6 +441,10 @@ bool RTCPReceiver::ParseCompoundPacket(rtc::ArrayView<const uint8_t> packet,
             break;
           case rtcp::TransportFeedback::kFeedbackMessageType:
             HandleTransportFeedback(rtcp_block, packet_information);
+            break;
+          case rtcp::CongestionControlFeedback::kFeedbackMessageType:
+            valid =
+                HandleCongestionControlFeedback(rtcp_block, packet_information);
             break;
           default:
             ++num_skipped_packets_;
@@ -1048,6 +1056,21 @@ void RTCPReceiver::HandleTransportFeedback(
   }
 }
 
+bool RTCPReceiver::HandleCongestionControlFeedback(
+    const CommonHeader& rtcp_block,
+    PacketInformation* packet_information) {
+  if (!FieldTrialBasedConfig().IsEnabled(
+          "WebRTC-RFC8888CongestionControlFeedback")) {
+    return false;
+  }
+  rtcp::CongestionControlFeedback feedback;
+  if (!feedback.Parse(rtcp_block)) {
+    return false;
+  }
+  packet_information->congestion_control_feedback.emplace(std::move(feedback));
+  return true;
+}
+
 void RTCPReceiver::NotifyTmmbrUpdated() {
   // Find bounding set.
   std::vector<rtcp::TmmbItem> bounding =
@@ -1136,6 +1159,10 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
     if (packet_information.transport_feedback != nullptr) {
       network_link_rtcp_observer_->OnTransportFeedback(
           now, *packet_information.transport_feedback);
+    }
+    if (packet_information.congestion_control_feedback) {
+      network_link_rtcp_observer_->OnCongestionControlFeedback(
+          now, *packet_information.congestion_control_feedback);
     }
   }
 

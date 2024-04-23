@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae31ff2b_55966918",
+        "filename": "api/video/video_frame_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2024-04-23T13:58:52Z",
+      "side": 1,
+      "message": "Note: this is to be overridden in Chromium to provide tracing data for kNative stuff.",
+      "range": {
+        "startLine": 84,
+        "startChar": 30,
+        "endLine": 84,
+        "endChar": 52
+      },
+      "revId": "edc0e4a2277587e210f89209e3bd772c4f87981e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

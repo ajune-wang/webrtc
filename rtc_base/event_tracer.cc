@@ -7,11 +7,19 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+
 #include "rtc_base/event_tracer.h"
 
+#include <stdio.h>
+
+#include "rtc_base/trace_event.h"
+
+#if defined(RTC_USE_PERFETTO)
+#include "perfetto/tracing/tracing.h"
+#include "rtc_base/trace_categories.h"
+#else
 #include <inttypes.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <string.h>
 
 #include <atomic>
@@ -28,11 +36,7 @@
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
-#include "rtc_base/trace_event.h"
-
-// This is a guesstimate that should be enough in most cases.
-static const size_t kEventLoggerArgsStrBufferInitialSize = 256;
-static const size_t kTraceArgBufferLength = 32;
+#endif
 
 namespace webrtc {
 
@@ -45,8 +49,14 @@ AddTraceEventPtr g_add_trace_event_ptr = nullptr;
 
 void SetupEventTracer(GetCategoryEnabledPtr get_category_enabled_ptr,
                       AddTraceEventPtr add_trace_event_ptr) {
+#if defined(RTC_USE_PERFETTO)
+  if (perfetto::Tracing::IsInitialized()) {
+    webrtc::TrackEvent::Register();
+  }
+#else
   g_get_category_enabled_ptr = get_category_enabled_ptr;
   g_add_trace_event_ptr = add_trace_event_ptr;
+#endif
 }
 
 const unsigned char* EventTracer::GetCategoryEnabled(const char* name) {
@@ -75,6 +85,24 @@ void EventTracer::AddTraceEvent(char phase,
 }
 
 }  // namespace webrtc
+
+#if defined(RTC_USE_PERFETTO)
+// TODO(bugs.webrtc.org/15917): Implement for perfetto.
+namespace rtc::tracing {
+void SetupInternalTracer(bool enable_all_categories) {}
+bool StartInternalCapture(absl::string_view filename) {
+  return false;
+}
+void StartInternalCaptureToFile(FILE* file) {}
+void StopInternalCapture() {}
+void ShutdownInternalTracer() {}
+
+}  // namespace rtc::tracing
+#else
+
+// This is a guesstimate that should be enough in most cases.
+static const size_t kEventLoggerArgsStrBufferInitialSize = 256;
+static const size_t kTraceArgBufferLength = 32;
 
 namespace rtc {
 namespace tracing {
@@ -412,3 +440,5 @@ void ShutdownInternalTracer() {
 
 }  // namespace tracing
 }  // namespace rtc
+
+#endif  // defined(RTC_USE_PERFETTO)

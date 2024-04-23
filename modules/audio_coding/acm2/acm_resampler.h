@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/array_view.h"
 #include "common_audio/resampler/include/push_resampler.h"
 
 namespace webrtc {
@@ -24,12 +25,11 @@ class ACMResampler {
   ACMResampler();
   ~ACMResampler();
 
-  int Resample10Msec(const int16_t* in_audio,
+  int Resample10Msec(rtc::ArrayView<const int16_t> in_audio,
                      int in_freq_hz,
                      int out_freq_hz,
                      size_t num_audio_channels,
-                     size_t out_capacity_samples,
-                     int16_t* out_audio);
+                     rtc::ArrayView<int16_t> out_audio);
 
  private:
   PushResampler<int16_t> resampler_;

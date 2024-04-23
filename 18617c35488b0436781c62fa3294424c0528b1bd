@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a1c6c7f_a99b7bb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-04-23T06:42:30Z",
+      "side": 1,
+      "message": "Can you please review this merge to M125? crbug/335337923.",
+      "revId": "18617c35488b0436781c62fa3294424c0528b1bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

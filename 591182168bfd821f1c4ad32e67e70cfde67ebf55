@@ -622,6 +622,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c48d255_d6ad9b14",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-04-23T18:00:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5c519999_8a37308d",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e4f10f3_4a01d0d9",
@@ -700,6 +718,24 @@
       "side": 1,
       "message": "Per - I think you\u0027d be better at answering that?\n\n(I\u0027m assuming the comment is higher level than this call to Resample(), but let me know if I\u0027m misunderstanding)",
       "parentUuid": "9a328f47_e85a1729",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35d092e2_5781684f",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-04-23T18:00:45Z",
+      "side": 1,
+      "message": "Yes, I mean we should use it wherever possible when accessing non-interleaved audio frame.",
+      "parentUuid": "e620c687_0570d497",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

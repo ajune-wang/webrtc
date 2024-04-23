@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1170cfba_c8b39c45",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2024-04-23T18:00:45Z",
+      "side": 1,
+      "message": "So we do it only for the first channel? Or is it always mono?",
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

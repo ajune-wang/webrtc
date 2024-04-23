@@ -93,9 +93,10 @@ TEST(AudioFrameTest, UnmutedFrameIsInitiallyZeroed) {
 
 TEST(AudioFrameTest, MutedFrameBufferIsZeroed) {
   AudioFrame frame;
-  int16_t* frame_data = frame.mutable_data();
-  for (size_t i = 0; i < frame.max_16bit_samples(); i++) {
-    frame_data[i] = 17;
+  auto samples =
+      frame.mutable_data(frame.max_16bit_samples(), kNumChannelsMono);
+  for (auto& s : samples) {
+    s = 17;
   }
   ASSERT_TRUE(AllSamplesAre(17, frame));
   ASSERT_TRUE(AllBufferSamplesAre(17, frame));

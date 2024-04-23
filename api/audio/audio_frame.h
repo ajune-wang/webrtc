@@ -31,7 +31,7 @@ namespace webrtc {
  * - The total number of samples is samples_per_channel_ * num_channels_.
  * - Stereo data is interleaved starting with the left channel.
  */
-class AudioFrame {
+class AudioFrame final {
  public:
   // Using constexpr here causes linker errors unless the variable also has an
   // out-of-class definition, which is impractical in this header-only class.
@@ -102,8 +102,8 @@ class AudioFrame {
 
   // mutable_frame() always returns a non-static buffer; the first call to
   // mutable_frame() zeros the buffer and marks the frame as unmuted.
-  // TODO: b/335805780 - Return ArrayView based on the current values for
-  // samples per channel and num channels.
+  // TODO: b/335805780 - Replace with `mutable_data_view()` for situations where
+  // accessing a writable view with the currently set dimensions is required.
   int16_t* mutable_data();
 
   // Grants write access to the audio buffer. The size of the returned writable
@@ -114,6 +114,11 @@ class AudioFrame {
   // If the state is currently muted, the returned view will be zeroed out.
   rtc::ArrayView<int16_t> mutable_data(size_t samples_per_channel,
                                        size_t num_channels);
+
+  // Grants write access to the audio buffer with the currently set values of
+  // `samples_per_channel` and `num_channels`.
+  // If the state is currently muted, the returned view will be zeroed out.
+  rtc::ArrayView<int16_t> mutable_data_view();
 
   // Prefer to mute frames using AudioFrameOperations::Mute.
   void Mute();

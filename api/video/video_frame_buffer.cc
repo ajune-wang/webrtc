@@ -79,6 +79,10 @@ rtc::scoped_refptr<VideoFrameBuffer> VideoFrameBuffer::GetMappedFrameBuffer(
   return nullptr;
 }
 
+std::string VideoFrameBuffer::storage_representation() const {
+  return "?";
+}
+
 VideoFrameBuffer::Type I420BufferInterface::type() const {
   return Type::kI420;
 }

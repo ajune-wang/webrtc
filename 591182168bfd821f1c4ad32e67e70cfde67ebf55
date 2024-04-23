@@ -742,6 +742,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c67e8f56_a384236c",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-23T20:19:15Z",
+      "side": 1,
+      "message": "The buffer owned by AudioFrame is always interleaved (well, technically you could say that a single channel buffer isn\u0027t 😄), however, we could add a class that\u0027s a simple wrapper around ArrayView that has convenient acccessors and constructors.\n\nWe might want to rename AudioFrameVew to AudioBufferView (since it\u0027s closer to AudioBuffer than AudioFrame) and then use the name AudioFrameView for views over a buffer owned by AudioFrame. Wdyt?",
+      "parentUuid": "35d092e2_5781684f",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8d4d45d_e76d5d63",
         "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
         "patchSetId": 15

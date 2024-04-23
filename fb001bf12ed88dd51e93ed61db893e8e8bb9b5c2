@@ -16,6 +16,24 @@
       "message": "So we do it only for the first channel? Or is it always mono?",
       "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b90b42_15eb2588",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-23T20:19:15Z",
+      "side": 1,
+      "message": "Yes, it assumes mono. It\u0027s not super clear from this code (it would be good to have e.g. a check for num_channels()), but if you take a look at the header file, you can see that the class assumes mono.",
+      "parentUuid": "1170cfba_c8b39c45",
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

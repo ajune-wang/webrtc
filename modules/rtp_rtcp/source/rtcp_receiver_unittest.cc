@@ -26,6 +26,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/app.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/congestion_control_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/extended_reports.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/fir.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
@@ -1738,6 +1739,50 @@ TEST(RtcpReceiverTest, NotifiesNetworkLinkObserverOnTransportFeedback) {
                          SizeIs(1)))));
 
   receiver.IncomingPacket(packet.Build());
+}
+
+TEST(RtcpReceiverTest, NotifiesNetworkLinkObserverOnCongestionControlFeedback) {
+  ReceiverMocks mocks;
+  RtpRtcpInterface::Configuration config = DefaultConfiguration(&mocks);
+  RTCPReceiver receiver(config, &mocks.rtp_rtcp_impl);
+  receiver.SetRemoteSSRC(kSenderSsrc);
+
+  rtcp::CongestionControlFeedback packet({{
+                                             .ssrc = 123,
+                                             .sequence_number = 1,
+                                         }},
+                                         /*report_timestamp_compact_ntp=*/324);
+  packet.SetSenderSsrc(kSenderSsrc);
+
+  EXPECT_CALL(
+      mocks.network_link_rtcp_observer,
+      OnCongestionControlFeedback(
+          mocks.clock.CurrentTime(),
+          Property(&rtcp::CongestionControlFeedback::packets, SizeIs(1))));
+  receiver.IncomingPacket(packet.Build());
+}
+
+TEST(RtcpReceiverTest, HandlesInvalidCongestionControlFeedback) {
+  ReceiverMocks mocks;
+  RtpRtcpInterface::Configuration config = DefaultConfiguration(&mocks);
+  RTCPReceiver receiver(config, &mocks.rtp_rtcp_impl);
+  receiver.SetRemoteSSRC(kSenderSsrc);
+
+  rtcp::CongestionControlFeedback packet({{
+                                             .ssrc = 123,
+                                             .sequence_number = 1,
+                                         }},
+                                         /*report_timestamp_compact_ntp=*/324);
+  packet.SetSenderSsrc(kSenderSsrc);
+  rtc::Buffer built_packet = packet.Build();
+  // Modify the CongestionControlFeedback packet so that it is invalid.
+  const size_t kNumReportsOffset = 14;
+  ByteWriter<uint16_t>::WriteBigEndian(&built_packet.data()[kNumReportsOffset],
+                                       42);
+
+  EXPECT_CALL(mocks.network_link_rtcp_observer, OnCongestionControlFeedback)
+      .Times(0);
+  receiver.IncomingPacket(built_packet);
 }
 
 TEST(RtcpReceiverTest,

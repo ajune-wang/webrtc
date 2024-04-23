@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bbdef7a_0c15c240",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-04-23T11:15:20Z",
+      "side": 1,
+      "message": "This is probably not the right place for the test, since the file is testing the encoder.\n\nHowever, if we\u0027re just storing the packet type (without encoding or any other logic) then I\u0027m not sure a unit test is needed.",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 61
+      },
+      "revId": "4d3a53fa46d7b7d383f3210f2227a2f43fd27248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

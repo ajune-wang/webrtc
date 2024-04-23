@@ -271,14 +271,16 @@ config("rtc_prod_config") {
   }
 }
 
-# TODO: Fix Chromium.
 group("webrtc_tracing") {
   if (rtc_use_perfetto) {
-    deps = [ ":webrtc_libperfetto" ]
+    if (build_with_chromium) {
+      deps = [ "//third_party/perfetto:libperfetto" ]
+    } else {
+      deps = [ ":webrtc_libperfetto" ]
+    }
   }
 }
 
-# TODO: Fix build with Chromium
 if (rtc_use_perfetto) {
   rtc_library("webrtc_libperfetto") {
     public_configs = [ "//third_party/perfetto/gn:public_config" ]

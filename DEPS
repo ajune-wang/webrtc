@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f24efc069cf83f90b686ff95f6c4f62fdcd23e9e',
+  'chromium_revision': '89f78a9ca860dc3fd1c65c668b6413182b8b458b',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -55,9 +55,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@4a55154d85833989f7052c512e270b667f6f4841',
+    'https://chromium.googlesource.com/chromium/src/base@f01f2efbbacddf3e12abf4612c0d7635b971d839',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@cd430bd4b263bce76a34122ebea05664ea72d797',
+    'https://chromium.googlesource.com/chromium/src/build@f7bf3dec5300a89cd1dc00913b2950c8f1708c3a',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@571c37f17dd4d1de37cc2efb6b32ff1032e47be2',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -66,19 +66,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@882b5ac360e244af96d7dfc0d31542ab497b1c1e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@c8b7ee50354fbc63bbec573084434adc75ec1575',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@bb1dc8b677f2ae1713965287dac88f8db9b382b6',
+    'https://chromium.googlesource.com/chromium/src/testing@52039c405067031e9e16f9535b81b4d4e3c5cad6',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@a5392d692caaa631d9db7011f6b5b848b3bd8410',
+    'https://chromium.googlesource.com/chromium/src/third_party@d5f599ce455900395c321de2e57bd4b6bb98cf1f',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-${{arch}}',
-        'version': 'git_revision:155c53952ec2dc324b0438ce5b9bd4a286577d25',
+        'version': 'git_revision:f284b6b47039a2d7edfcbfc51f52664f82b5a789',
       }
     ],
     'dep_type': 'cipd',
@@ -88,7 +88,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:155c53952ec2dc324b0438ce5b9bd4a286577d25',
+        'version': 'git_revision:f284b6b47039a2d7edfcbfc51f52664f82b5a789',
       }
     ],
     'dep_type': 'cipd',
@@ -98,7 +98,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:155c53952ec2dc324b0438ce5b9bd4a286577d25',
+        'version': 'git_revision:f284b6b47039a2d7edfcbfc51f52664f82b5a789',
       }
     ],
     'dep_type': 'cipd',
@@ -207,7 +207,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@3d170cb6cec304816d1f314be9861b5e121f6d76',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@df8c52a5490967bc4ad1fd63fed3f08e4b757a1a',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@092f84b6141055bfab609b6b2666b724eee2e130',
   'src/third_party/flatbuffers/src':
@@ -366,7 +366,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@6e2dc22fdeb42a6e11e4ec5a0258c0ddd72e1447',
+    'https://chromium.googlesource.com/chromium/src/tools@dfa83da5a23d782ae8cfd25c41fd908c0de49843',
 
   'src/third_party/espresso': {
       'packages': [
@@ -405,7 +405,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'Tf3-yKR6v8YVBUsPwghglgJNy7MCCn7Q9arzVk1f71QC',
+          'version': 'zjTkDjEytq8UvMcux37svh6JASctwxfi7K-XJ3tY-CEC',
       },
     ],
     'condition': 'checkout_android',

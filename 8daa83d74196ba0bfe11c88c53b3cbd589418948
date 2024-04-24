@@ -22,6 +22,30 @@
       },
       "revId": "8daa83d74196ba0bfe11c88c53b3cbd589418948",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "747d6bf2_6871329c",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-24T11:50:01Z",
+      "side": 1,
+      "message": "Added as follow-ups with that bug tagged.",
+      "parentUuid": "7e4248c6_5b7e9dff",
+      "range": {
+        "startLine": 392,
+        "startChar": 27,
+        "endLine": 392,
+        "endChar": 54
+      },
+      "revId": "8daa83d74196ba0bfe11c88c53b3cbd589418948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

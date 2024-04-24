@@ -421,5 +421,24 @@ TEST(VideoRtpDepacketizerH264Test, SeiPacket) {
   EXPECT_EQ(h264.nalus[0].pps_id, -1);
 }
 
+TEST(VideoRtpDepacketizerH264Test, BadSps) {
+  const uint8_t kPayload[] = {
+      kSps, 0x42, 0x41, 0x2a, 0xd3, 0x93, 0xd3, 0x3b  // Payload.
+  };
+  VideoRtpDepacketizerH264 depacketizer;
+  auto parsed = depacketizer.Parse(rtc::CopyOnWriteBuffer(kPayload));
+  EXPECT_FALSE(parsed);
+}
+
+TEST(VideoRtpDepacketizerH264Test, BadPps) {
+  const uint8_t kPayload[] = {
+      kPps,
+      0x00  // Payload.
+  };
+  VideoRtpDepacketizerH264 depacketizer;
+  auto parsed = depacketizer.Parse(rtc::CopyOnWriteBuffer(kPayload));
+  EXPECT_FALSE(parsed);
+}
+
 }  // namespace
 }  // namespace webrtc

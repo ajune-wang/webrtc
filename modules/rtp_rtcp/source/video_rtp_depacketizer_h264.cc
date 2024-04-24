@@ -133,8 +133,10 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
         SpsVuiRewriter::ParseResult result = SpsVuiRewriter::ParseAndRewriteSps(
             &payload_data[start_offset], end_offset - start_offset, &sps,
             nullptr, &output_buffer, SpsVuiRewriter::Direction::kIncoming);
-
-        if (result == SpsVuiRewriter::ParseResult::kVuiRewritten) {
+        if (result == SpsVuiRewriter::ParseResult::kFailure) {
+          RTC_LOG(LS_ERROR) << "Failed to parse SPS NAL unit.";
+          return absl::nullopt;
+        } else if (result == SpsVuiRewriter::ParseResult::kVuiRewritten) {
           if (modified_buffer) {
             RTC_LOG(LS_WARNING)
                 << "More than one H264 SPS NAL units needing "
@@ -162,14 +164,11 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
 
           modified_buffer = true;
         }
+        RTC_DCHECK(sps);
 
-        if (sps) {
-          parsed_payload->video_header.width = sps->width;
-          parsed_payload->video_header.height = sps->height;
-          nalu.sps_id = sps->id;
-        } else {
-          RTC_LOG(LS_WARNING) << "Failed to parse SPS id from SPS slice.";
-        }
+        nalu.sps_id = sps->id;
+        parsed_payload->video_header.width = sps->width;
+        parsed_payload->video_header.height = sps->height;
         parsed_payload->video_header.frame_type =
             VideoFrameType::kVideoFrameKey;
         break;
@@ -183,8 +182,9 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
           nalu.pps_id = pps_id;
           nalu.sps_id = sps_id;
         } else {
-          RTC_LOG(LS_WARNING)
+          RTC_LOG(LS_ERROR)
               << "Failed to parse PPS id and SPS id from PPS slice.";
+          return absl::nullopt;
         }
         break;
       }
@@ -198,8 +198,9 @@ absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> ProcessStapAOrSingleNalu(
         if (pps_id) {
           nalu.pps_id = *pps_id;
         } else {
-          RTC_LOG(LS_WARNING) << "Failed to parse PPS id from slice of type: "
-                              << static_cast<int>(nalu.type);
+          RTC_LOG(LS_ERROR) << "Failed to parse PPS id from slice of type: "
+                            << static_cast<int>(nalu.type);
+          return absl::nullopt;
         }
         break;
       }

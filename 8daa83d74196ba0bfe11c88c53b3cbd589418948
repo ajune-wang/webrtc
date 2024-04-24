@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4248c6_5b7e9dff",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 3401261
+      },
+      "writtenOn": "2024-04-24T09:58:05Z",
+      "side": 1,
+      "message": "After b/336718643 this flag will no longer affect Chromium build. Chromium will be using Perfetto regardless. So I think it makes sense to stop using it in WebRTC too? Just assume build_with_chromium \u003d\u003d use perfetto.\n\nSee also https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/build_overrides/build.gni?q\u003duse_perfetto_client_library%20f:webrtc%20-f:out%2F where it\u0027s overridden. Might make sense to remove that too?",
+      "range": {
+        "startLine": 392,
+        "startChar": 27,
+        "endLine": 392,
+        "endChar": 54
+      },
+      "revId": "8daa83d74196ba0bfe11c88c53b3cbd589418948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

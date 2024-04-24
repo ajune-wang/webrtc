@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db91a02e_89ec53c5",
+        "filename": "rtc_base/event_tracer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3401261
+      },
+      "writtenOn": "2024-04-24T10:50:09Z",
+      "side": 1,
+      "message": "If these are unused in Perfetto build, should they (and all methods that use them) be behind `#if !defined(RTC_USE_PERFETTO)` too?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 49
+      },
+      "revId": "e23195dc48c925c8308a981e64a5d3e7d47cbcc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

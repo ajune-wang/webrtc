@@ -16,6 +16,24 @@
       "message": "I wonder if it\u0027s possible to remove the entire method in the perfetto build, to make sure no code calls it accidentally. I\u0027m asking because when migrating Chrome, we had some hard-to-debug issues with old methods still being called when they were not supposed to.\n\nFeel free to disregard my comment if it\u0027s unpractical in this case.",
       "revId": "c89428b0fc66426a95d8ee21fdf0c77de448285a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7097829_18784b62",
+        "filename": "rtc_base/event_tracer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-24T13:02:22Z",
+      "side": 1,
+      "message": "This is probably a good idea, I left the same methods for safety. I\u0027ll get back to you.",
+      "parentUuid": "138a7592_9ab15cac",
+      "revId": "c89428b0fc66426a95d8ee21fdf0c77de448285a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -92,7 +92,7 @@ class WeakReference {
  public:
   // Although Flag is bound to a specific sequence, it may be
   // deleted from another via base::WeakPtr::~WeakPtr().
-  class Flag : public RefCountInterface {
+  class Flag {
    public:
     Flag();
 
@@ -100,17 +100,20 @@ class WeakReference {
     bool IsValid() const;
 
    private:
-    friend class RefCountedObject<Flag>;
+    friend class FinalRefCountedObject<Flag>;
 
-    ~Flag() override;
+    ~Flag();
 
     RTC_NO_UNIQUE_ADDRESS ::webrtc::SequenceChecker checker_{
         webrtc::SequenceChecker::kDetached};
     bool is_valid_;
   };
 
+  // `FlagType` is the reference counted (shared), non-virtual, flag type.
+  using FlagType = FinalRefCountedObject<Flag>;
+
   WeakReference();
-  explicit WeakReference(const Flag* flag);
+  explicit WeakReference(const FlagType* flag);
   ~WeakReference();
 
   WeakReference(WeakReference&& other);
@@ -121,7 +124,7 @@ class WeakReference {
   bool is_valid() const;
 
  private:
-  scoped_refptr<const Flag> flag_;
+  scoped_refptr<const FlagType> flag_;
 };
 
 class WeakReferenceOwner {
@@ -136,7 +139,7 @@ class WeakReferenceOwner {
   void Invalidate();
 
  private:
-  mutable scoped_refptr<RefCountedObject<WeakReference::Flag>> flag_;
+  mutable scoped_refptr<FinalRefCountedObject<WeakReference::Flag>> flag_;
 };
 
 // This class simplifies the implementation of WeakPtr's type conversion

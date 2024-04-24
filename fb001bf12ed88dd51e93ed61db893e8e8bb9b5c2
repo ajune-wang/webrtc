@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7de51612_0e8397b1",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "I did not comment on this is the previous round, but I wonder if it is really the right thing to do to state that the sample count is 0 when the frame is muted?\nIt all depends on how the calling code is constructed, but it would seem fully fine to have a muted frame reporting non-zero as sample count.\n\nOne example of where this could make a huge difference is for resampling of audio.\n\nIf the implementation is such that whenever sample_count is zero due to muting, then the resampling is not done, it is very easy to end up in situations where the resampler contains old input data in the state from before the muting was done, which will result in audio clicks.\nThis can be overcome by priming the resampler with zero data when unmuting occurs but that will instead increase the peak complexity.\n\nIf this is added, I think we need to be careful for how it is used, and add documentation about this aspect.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 3
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc5fbe39_493f5648",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "I missed this in the previous round but this is a bit risky in the sense that not keeping doing the resampling of muted data will cause the previous data to remain in the resampler state. That in turn will mean that when unmuting occurs, those samples will be put into the resampler output at that point, causing unwanted audio content to included and likely resulting in clicks.\n\nMy suggestion would be to keep resampling the muted data even though it is suboptimal.\nThe alternative would be to add a resetting mechanism to apply when data becomes unmuted. I\u0027m not convinced that logic warrants the CPU savings by not resampling muted data though, and on top of that the resetting will affect the peak complexity (while not reampling muted data will only improve the average complexity)",
+      "range": {
+        "startLine": 82,
+        "startChar": 5,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1170cfba_c8b39c45",
         "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
         "patchSetId": 19

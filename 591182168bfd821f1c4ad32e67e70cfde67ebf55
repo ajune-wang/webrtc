@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02610b59_013bf72d",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Sounds good, in particular given the likelihood of the pending change of zeroing the buffer whenever the frame is muted.",
+      "parentUuid": "96df5c10_759f675c",
+      "range": {
+        "startLine": 117,
+        "startChar": 54,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70a81833_a3407f6f",
         "filename": "api/audio/audio_frame.cc",
         "patchSetId": 15
@@ -223,6 +247,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "beea688e_e3676547",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Sounds good.\nYes, a naming change might improve this a bit but it is tricky to come up with a name that is not too verbose. Let\u0027s go with this.",
+      "parentUuid": "02b669b2_f30e991f",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 31
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9097c219_e121b2b7",
@@ -260,6 +308,30 @@
       "side": 1,
       "message": "Yes, good point to call that out. I\u0027ve added a comment now.\n\nI made that decision on purpose since I see that there are places right now where we\u0027re doing things such as resampling muted frames. Perhaps this can help us identify those cases (I found one while writing this CL) and get a few CPU cycles back.",
       "parentUuid": "9097c219_e121b2b7",
+      "range": {
+        "startLine": 97,
+        "startChar": 31,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419159e6_d347273b",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a7909158_1916aece",
       "range": {
         "startLine": 97,
         "startChar": 31,
@@ -317,6 +389,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d9b56a_759f7c6a",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90fe2533_cf69416d",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 45
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e5aa0eb_8dc3a46e",
@@ -354,6 +450,30 @@
       "side": 1,
       "message": "In a follow up step, I may add another method, depending on need, that does not require any arguments but instead relies on the currently set samples_per_channel_ and num_channels_. The common case seems to be for callers of `mutable_data()` to also modify the value of either or both of `samples_per_channel_` and `num_channels_`, so I\u0027m taking a look to see if those places can be updated to call this method instead and reserve the writable buffer and set the associated member variables, at the same time. The intent being to make those variables more consistently managed together (ideally less error prone).\n\nDocumentation should now be more helpful.",
       "parentUuid": "2e5aa0eb_8dc3a46e",
+      "range": {
+        "startLine": 106,
+        "startChar": 39,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ebbc094_d1d27297",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Thanks for the explanation and added documentation!",
+      "parentUuid": "02f7e08b_c2248c74",
       "range": {
         "startLine": 106,
         "startChar": 39,
@@ -507,6 +627,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81a08c79_e8525f38",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Yes, I think audio_frame.h would be a good place.",
+      "parentUuid": "561caafe_8fbb12e9",
+      "range": {
+        "startLine": 71,
+        "startChar": 53,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca603996_e1860a4b",
         "filename": "audio/remix_resample.cc",
         "patchSetId": 15
@@ -554,6 +698,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b208f746_dd909599",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "At least locally, before line 72 (changes it to a number with a documented meaning).\nWe could as well tie it to the audio_frame.h 10 ms frame size discussed above.",
+      "parentUuid": "55a097f7_76903633",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9545a824_143e2720",
         "filename": "audio/remix_resample.cc",
         "patchSetId": 15
@@ -583,6 +751,24 @@
       "side": 1,
       "message": "hmm - must have been left over while making changes. I think it\u0027s slightly easier to read with some whitespace following the previous if(){} clause so I think I\u0027d prefer to leave it.",
       "parentUuid": "9545a824_143e2720",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc0211ea_eda2fb6e",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "51d10a1e_65ace200",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -687,6 +873,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d10434a9_3d18fe36",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "74732560_f4cdb9b0",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 6
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a328f47_e85a1729",
@@ -754,6 +964,24 @@
       "side": 1,
       "message": "The buffer owned by AudioFrame is always interleaved (well, technically you could say that a single channel buffer isn\u0027t 😄), however, we could add a class that\u0027s a simple wrapper around ArrayView that has convenient acccessors and constructors.\n\nWe might want to rename AudioFrameVew to AudioBufferView (since it\u0027s closer to AudioBuffer than AudioFrame) and then use the name AudioFrameView for views over a buffer owned by AudioFrame. Wdyt?",
       "parentUuid": "35d092e2_5781684f",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "321a71fd_fa1c641f",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-24T12:49:52Z",
+      "side": 1,
+      "message": "I agree that AudioFrameView as of today is not suitable for this purpose, but I also think a renaming of AudioFrameView to AudioBufferView would be a good thing.\n\nWith that the AudioFrameView class can be designed from scratch to match the new usecase.\n\nI don\u0027t immediately see the benefit of using an AudioFrameView instead of directly accessing the AudioFrame though. The underlying data is interlieved so it is not simple to achieve benefits in a AudioFrameView on top of what is already in place for AudioFrame.",
+      "parentUuid": "c67e8f56_a384236c",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

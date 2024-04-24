@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eefe5244_3409070f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-24T08:01:12Z",
+      "side": 1,
+      "message": "Apart from the naming issue, looks fine to me.\n\nNot clear to me why it\u0027s cheaper, (and not clear to me how we\u0027d make a test for that), but I believe it.",
+      "revId": "f696d16784bbe418569b162bc4a4d81e1008ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbfa0cc0_7ac42481",
+        "filename": "rtc_base/weak_ptr.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-24T08:01:12Z",
+      "side": 1,
+      "message": "Having \"Type\" in a typename offends my sense of style.... could we call it RefCountedFlag to make it obvious what the difference between it and Flag is?",
+      "revId": "f696d16784bbe418569b162bc4a4d81e1008ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

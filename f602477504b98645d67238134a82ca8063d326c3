@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47164f0d_c9cc4fc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-24T11:47:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12946a37_91dda50c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "f602477504b98645d67238134a82ca8063d326c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ee718f5_09374fda",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d5132a_2b511b25",
+        "filename": "BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-24T11:47:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ee718f5_09374fda",
+      "range": {
+        "startLine": 275,
+        "startChar": 7,
+        "endLine": 275,
+        "endChar": 14
+      },
+      "revId": "f602477504b98645d67238134a82ca8063d326c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66853596_07defa80",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-04-24T09:48:45Z",
       "side": 1,
       "message": "For my understanding, this is needed because in Chromium we must use the perfetto component while in standalone WebRTC we statically link. Correct?",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 5
+      },
+      "revId": "f602477504b98645d67238134a82ca8063d326c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c95d0ea2_6ed58d2c",
+        "filename": "BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-04-24T11:47:14Z",
+      "side": 1,
+      "message": "Yes that is correct, and it is added in unit tests. No webrtc target currently adds perfetto - perhaps this should be added to more configs to show that things don\u0027t break? The webrtc_libperfetto is only the tracing bits and does not include any of the backends. There is no libperfetto available from perfetto outside of Chromium or Android.",
+      "parentUuid": "66853596_07defa80",
       "range": {
         "startLine": 277,
         "startChar": 0,

@@ -69,6 +69,24 @@
       "parentUuid": "bbfa0cc0_7ac42481",
       "revId": "f696d16784bbe418569b162bc4a4d81e1008ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e50c0ef_c57413c1",
+        "filename": "rtc_base/weak_ptr.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-24T08:55:14Z",
+      "side": 1,
+      "message": "Renamed to RefCountedFlag now",
+      "parentUuid": "ec6a97aa_20930ee7",
+      "revId": "f696d16784bbe418569b162bc4a4d81e1008ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12946a37_91dda50c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-24T09:48:45Z",
+      "side": 1,
+      "message": "I think we need to call out more directly that there are going to be 3 modes:\n1. Perfetto in Chrome\n2. Perfetto in Standalone WebRTC\n3. Legacy system (no Perfetto) in Standalone WebRTC.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "f602477504b98645d67238134a82ca8063d326c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ee718f5_09374fda",
+        "filename": "BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-24T09:48:45Z",
+      "side": 1,
+      "message": "Nit: I wouldn\u0027t bother prefixing things with webrtc_ here. I would just call it \"tracing\" and have a comment explaining why we need the indirection layer.",
+      "range": {
+        "startLine": 275,
+        "startChar": 7,
+        "endLine": 275,
+        "endChar": 14
+      },
+      "revId": "f602477504b98645d67238134a82ca8063d326c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66853596_07defa80",
+        "filename": "BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-04-24T09:48:45Z",
+      "side": 1,
+      "message": "For my understanding, this is needed because in Chromium we must use the perfetto component while in standalone WebRTC we statically link. Correct?",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 5
+      },
+      "revId": "f602477504b98645d67238134a82ca8063d326c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

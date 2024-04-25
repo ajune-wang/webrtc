@@ -16,6 +16,52 @@
       "message": "One of our fuzzers found weird things which from what I could see where caught by the SPS/PPS tracker. While that was good, rejecting bad input here is easier to understand.\n\nCan share a pcap + video_replay command line if you want to see what I saw ;-)",
       "revId": "2f7cfddc2dd24ea866ff7727748211b4aa2b5750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff21b7ec_b8380b5f",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-25T09:44:09Z",
+      "side": 1,
+      "message": "Can this happen on a malformed input from the network?\nIf yes, it shouldn\u0027t be ERROR, maximum WARNING\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/rtc_base/logging.h#89\nERROR is for events that \"should never happen\", but unlike CHECK/DCHECK code prefer to recover instead of crash.",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 26
+      },
+      "revId": "2f7cfddc2dd24ea866ff7727748211b4aa2b5750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32472ab7_5b21c022",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-25T09:44:09Z",
+      "side": 1,
+      "message": "Don\u0027t define a local variable just to use it, once, in a test assertion.\n`EXPECT_FALSE(depacketizer.Parse(rtc::CopyOnWriteBuffer(kPayload)))`",
+      "range": {
+        "startLine": 429,
+        "startChar": 7,
+        "endLine": 429,
+        "endChar": 13
+      },
+      "revId": "2f7cfddc2dd24ea866ff7727748211b4aa2b5750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

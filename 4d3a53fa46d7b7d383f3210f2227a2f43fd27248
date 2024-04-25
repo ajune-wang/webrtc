@@ -22,6 +22,30 @@
       },
       "revId": "4d3a53fa46d7b7d383f3210f2227a2f43fd27248",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a178a592_2cb0ff80",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 22134
+      },
+      "writtenOn": "2024-04-25T08:30:33Z",
+      "side": 1,
+      "message": "We indeed don\u0027t have related tests for fields in the `rtc_event_` types but: \n1. I preferred to add to the CL rather than not, worst case I can remove.\n2. I wanted to use it to make sure this works well, so coded this test anyway.\n\nI\u0027m willing to remove if you\u0027d like.",
+      "parentUuid": "9bbdef7a_0c15c240",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 61
+      },
+      "revId": "4d3a53fa46d7b7d383f3210f2227a2f43fd27248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

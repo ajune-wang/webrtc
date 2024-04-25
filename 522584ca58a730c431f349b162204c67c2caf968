@@ -63,6 +63,30 @@
       },
       "revId": "522584ca58a730c431f349b162204c67c2caf968",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7c52d68_1ea55858",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-25T14:14:44Z",
+      "side": 1,
+      "message": "long-term I think NtpTime type should be moved into modules/rtp_rtcp and be specific to it (in particular now -\u003e NtpTime conversion should be inside rtp_rtcp module, but clock should provide `now` with defined offset)\nbut that is mostly my personal view.\n\n\nIn the context of the current CL I think either is fine:\nNtpTime is already exposed through the Clock interface, and by itself it is very lightweight dependency, so I do not think creating that dependency is an issue.\n\nAnother option is to have \u0027To24Bits\u0027 conversion not in the `AbsoluteSendTime` class, but as private helper in RtpSenderEgress.\n\nYour suggested way is ok too, but I prefer to use less primitive types in api when custom abstraction is available: https://testing.googleblog.com/2017/11/obsessed-with-primitives.html  (aka http://go/tott/675)",
+      "parentUuid": "cfa41c89_f0e81616",
+      "range": {
+        "startLine": 61,
+        "startChar": 34,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "522584ca58a730c431f349b162204c67c2caf968",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

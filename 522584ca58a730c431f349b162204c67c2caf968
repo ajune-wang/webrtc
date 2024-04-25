@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7dded6d9_192dcf2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-04-25T14:03:20Z",
+      "side": 1,
+      "message": "thanks for the review.",
+      "revId": "522584ca58a730c431f349b162204c67c2caf968",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5e1372aa_4da2a627",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
         "patchSetId": 4
@@ -14,6 +31,30 @@
       "writtenOn": "2024-04-25T13:56:50Z",
       "side": 1,
       "message": "may be it should take NtpTime type and do conversion into uint64_t internally, e.g.:\n```\nstatic uint32_t To24Bits(NtpTime time) {\n  return static_cast\u003cuint32_t\u003e((static_cast\u003cuint64_t\u003e(time) \u003e\u003e 14) \u0026 0x00FF\u0027FFFF);\n}\n```",
+      "range": {
+        "startLine": 61,
+        "startChar": 34,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "522584ca58a730c431f349b162204c67c2caf968",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfa41c89_f0e81616",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-04-25T14:03:20Z",
+      "side": 1,
+      "message": "Yes, I did that on the first version. The problem is that then we create a dependency on the system_wrappers/include/ntp_time.h header. The rest of the included headers are mostly under the api/ folder. \n\nI can do that change if you think it is better. What is your view?",
+      "parentUuid": "5e1372aa_4da2a627",
       "range": {
         "startLine": 61,
         "startChar": 34,

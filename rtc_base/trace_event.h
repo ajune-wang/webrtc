@@ -19,7 +19,8 @@
 
 #if defined(RTC_USE_PERFETTO)
 
-#include "rtc_base/trace_categories.h"  // IWYU pragma: export
+#include "perfetto/tracing/track_event_args.h"  // IWYU pragma: export
+#include "rtc_base/trace_categories.h"          // IWYU pragma: export
 
 // TODO(webrtc:15917): Replace these events.
 #define TRACE_EVENT_ASYNC_STEP0(category_group, name, id, step) \
@@ -29,10 +30,14 @@
   TRACE_EVENT_ASYNC_STEP_INTO1(category_group, name, id, step, arg1_name,  \
                                arg1_val)
 
+#define PERFETTO_TERMINATING_FLOW perfetto::TerminatingFlow
+#define PERFETTO_FLOW perfetto::Flow
+
 #else
 
 #include <string>
 
+#include "perfetto/tracing/track_event_args.h"
 #include "rtc_base/event_tracer.h"
 
 // Type values for identifying types in the TraceValue union.
@@ -353,6 +358,10 @@ static constexpr uint8_t TRACE_EVENT_SCOPE_THREAD = 2u << 2;
   INTERNAL_TRACE_EVENT_ADD_WITH_ID(TRACE_EVENT_PHASE_ASYNC_END, category,      \
                                    name, id, TRACE_EVENT_FLAG_NONE, arg1_name, \
                                    arg1_val, arg2_name, arg2_val)
+
+#define TRACE_EVENT(...) \
+  do {                   \
+  } while (0)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation specific tracing API definitions.
@@ -797,6 +806,10 @@ class TraceEndOnScopeClose {
 #define TRACE_EVENT_API_GET_CATEGORY_ENABLED ""
 
 #define TRACE_EVENT_API_ADD_TRACE_EVENT RTC_NOOP()
+
+#define TRACE_EVENT(...) \
+  do {                   \
+  } while (0)
 
 #endif  // RTC_TRACE_EVENTS_ENABLED
 #endif  // RTC_USE_PERFETTO

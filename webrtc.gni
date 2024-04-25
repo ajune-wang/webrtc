@@ -381,15 +381,13 @@ webrtc_root = get_path_info(".", "abspath")
 # both for WebRTC stand-alone builds and for the scenario when WebRTC
 # native code is built as part of Chromium.
 rtc_common_configs = [ webrtc_root + ":common_config" ]
+rtc_common_configs += [ "//third_party/perfetto/gn:public_config" ]
 
 if (is_mac || is_ios) {
   if (filter_include(default_compiler_configs,
                      [ "//build/config/compiler:enable_arc" ]) == []) {
     rtc_common_configs += [ "//build/config/compiler:enable_arc" ]
   }
-}
-if (rtc_use_perfetto) {
-  rtc_common_configs += [ "//third_party/perfetto/gn:public_config" ]
 }
 
 # Global public configuration that should be applied to all WebRTC targets. You

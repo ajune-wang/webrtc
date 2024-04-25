@@ -81,6 +81,7 @@ int PASCAL wWinMain(HINSTANCE instance,
   int argc = win_args.argc();
   char** argv = win_args.argv();
 
+  main_thread.Start();
   absl::ParseCommandLine(argc, argv);
 
   // InitFieldTrialsFromString stores the char*, so the char array must outlive

@@ -216,6 +216,9 @@ bool PeerConnectionClient::ConnectControlSocket() {
     Close();
     return false;
   }
+  rtc::Thread* thread = rtc::Thread::Current();
+  RTC_DCHECK(thread != NULL);
+  thread->socketserver()->WakeUp();
   return true;
 }
 

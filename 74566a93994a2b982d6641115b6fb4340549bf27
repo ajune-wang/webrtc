@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8800dc30_756db08b",
+        "filename": "examples/peerconnection/client/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-25T07:32:38Z",
+      "side": 1,
+      "message": "can you add a comment that explains why Start() is called and not Run() as is done on other platforms?\n\nAlso, is it a bit too early to make the call? Should it be moved down to where the message loop is about to start?",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "856e7698_150b36d3",
+        "filename": "examples/peerconnection/client/peer_connection_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-25T07:32:38Z",
+      "side": 1,
+      "message": "nit: this DCHECK isn\u0027t needed since thread is dereferenced immediately. This could be \n\n  rtc::Thread::Current()-\u003eWakeUp();\n  \nCan you add a comment for why it\u0027s needed? Also, if it\u0027s only needed for Windows, then perhaps it should be inside an #ifdef.",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

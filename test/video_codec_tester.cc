@@ -574,6 +574,10 @@ class VideoCodecAnalyzer : public VideoCodecTester::VideoCodecStats {
     }
 
     int num_encoded_frames = stream.frame_size_bytes.NumSamples();
+    if (num_encoded_frames == 0) {
+      return stream;
+    }
+
     const Frame& first_frame = frames.front();
 
     Filter filter_all_layers{.min_timestamp_rtp = filter.min_timestamp_rtp,
@@ -587,7 +591,7 @@ class VideoCodecAnalyzer : public VideoCodecTester::VideoCodecStats {
       duration += 1 / *last_frame.target_framerate;
     }
 
-    DataRate encoded_bitrate =
+    DataRate encoded_bitrate = encoded_bitrate =
         DataSize::Bytes(stream.frame_size_bytes.GetSum()) / duration;
     Frequency encoded_framerate = num_encoded_frames / duration;
 

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c781547b_e5252f19",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-25T16:01:58Z",
+      "side": 1,
+      "message": "It can happen from the network but only in bad situations. Since it will eventually stop processing the frame (and trigger a PLI) it seems a bit higher than the warning below... but the sps_pps_tracker is using LS_WARNING too... updated!",
+      "parentUuid": "ff21b7ec_b8380b5f",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 26
+      },
+      "revId": "2f7cfddc2dd24ea866ff7727748211b4aa2b5750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32472ab7_5b21c022",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-04-25T09:44:09Z",
       "side": 1,
       "message": "Don\u0027t define a local variable just to use it, once, in a test assertion.\n`EXPECT_FALSE(depacketizer.Parse(rtc::CopyOnWriteBuffer(kPayload)))`",
+      "range": {
+        "startLine": 429,
+        "startChar": 7,
+        "endLine": 429,
+        "endChar": 13
+      },
+      "revId": "2f7cfddc2dd24ea866ff7727748211b4aa2b5750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea5df7bb_0dfded8a",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-25T16:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32472ab7_5b21c022",
       "range": {
         "startLine": 429,
         "startChar": 7,

@@ -45,6 +45,12 @@ class VideoEncoderInterface {
   };
 
   struct FrameEncodeSettings {
+    FrameEncodeSettings() = default;
+    FrameEncodeSettings(const FrameEncodeSettings&) = delete;
+    const FrameEncodeSettings& operator=(const FrameEncodeSettings&) = delete;
+    FrameEncodeSettings(FrameEncodeSettings&&) = default;
+    FrameEncodeSettings& operator=(FrameEncodeSettings&&) = default;
+
     struct Cbr {
       TimeDelta duration;
       DataRate target_bitrate;
@@ -81,7 +87,7 @@ class VideoEncoderInterface {
 
   virtual void Encode(rtc::scoped_refptr<webrtc::VideoFrameBuffer> frame_buffer,
                       const TemporalUnitSettings& settings,
-                      const std::vector<FrameEncodeSettings>& frame_settings,
+                      std::vector<FrameEncodeSettings> frame_settings,
                       EncodeResultCallback encode_result_callback) = 0;
 };
 

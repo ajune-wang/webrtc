@@ -14,37 +14,24 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/cleanup/cleanup.h"
 #include "api/video_codecs/video_encoder_interface.h"
 #include "rtc_base/logging.h"
 #include "third_party/libaom/source/libaom/aom/aom_codec.h"
 #include "third_party/libaom/source/libaom/aom/aom_encoder.h"
 #include "third_party/libaom/source/libaom/aom/aomcx.h"
 
-#define SET_OR_DO_ERROR_CALLBACK_AND_RETURN(param_id, param_value)    \
-  do {                                                                \
-    if (!SetEncoderControlParameters(&ctx_, param_id, param_value)) { \
-      encode_result_callback({});                                     \
-      return;                                                         \
-    }                                                                 \
-  } while (0)
-
-#define SET_OR_RETURN_FALSE(param_id, param_value)                    \
-  do {                                                                \
-    if (!SetEncoderControlParameters(&ctx_, param_id, param_value)) { \
-      return false;                                                   \
-    }                                                                 \
-  } while (0)
-
 namespace webrtc {
+namespace {
 
 using Cbr = VideoEncoderInterface::FrameEncodeSettings::Cbr;
 using Cqp = VideoEncoderInterface::FrameEncodeSettings::Cqp;
 using aom_img_ptr = std::unique_ptr<aom_image_t, decltype(&aom_img_free)>;
 
-namespace {
 // MaxQp defined here:
 // http://google3/third_party/libaom/git_root/av1/av1_cx_iface.c;l=3510;rcl=527067478
 constexpr int kMaxQp = 63;
@@ -86,10 +73,20 @@ class LibaomAv1Encoder : public VideoEncoderInterface {
 
   void Encode(rtc::scoped_refptr<webrtc::VideoFrameBuffer> frame_buffer,
               const TemporalUnitSettings& tu_settings,
-              const std::vector<FrameEncodeSettings>& frame_settings,
+              std::vector<FrameEncodeSettings> frame_settings,
               EncodeResultCallback encode_result_callback) override;
 
  private:
+  template <typename T>
+  [[nodiscard]] bool AomCodecControl(int id, T value) {
+    aom_codec_err_t error_code = aom_codec_control(&ctx_, id, value);
+    if (error_code != AOM_CODEC_OK) {
+      RTC_LOG(LS_WARNING) << "aom_codec_control returned " << error_code
+                          << " with id:  " << id << ".";
+    }
+    return error_code == AOM_CODEC_OK;
+  }
+
   aom_img_ptr image_to_encode_ = aom_img_ptr(nullptr, aom_img_free);
   aom_codec_ctx_t ctx_;
   aom_codec_enc_cfg_t cfg_;
@@ -99,16 +96,6 @@ class LibaomAv1Encoder : public VideoEncoderInterface {
   int max_number_of_threads_;
   std::array<absl::optional<Resolution>, 8> last_resolution_in_buffer_;
 };
-
-template <typename T>
-bool SetEncoderControlParameters(aom_codec_ctx_t* ctx, int id, T value) {
-  aom_codec_err_t error_code = aom_codec_control(ctx, id, value);
-  if (error_code != AOM_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "aom_codec_control returned " << error_code
-                        << " with id:  " << id << ".";
-  }
-  return error_code == AOM_CODEC_OK;
-}
 
 LibaomAv1Encoder::~LibaomAv1Encoder() {
   aom_codec_destroy(&ctx_);
@@ -163,44 +150,44 @@ bool LibaomAv1Encoder::InitEncode(
     return false;
   }
 
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_CDEF, 1);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_TPL_MODEL, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_DELTAQ_MODE, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_ORDER_HINT, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_AQ_MODE, 3);
-  SET_OR_RETURN_FALSE(AOME_SET_MAX_INTRA_BITRATE_PCT, 300);
-  SET_OR_RETURN_FALSE(AV1E_SET_COEFF_COST_UPD_FREQ, 3);
-  SET_OR_RETURN_FALSE(AV1E_SET_MODE_COST_UPD_FREQ, 3);
-  SET_OR_RETURN_FALSE(AV1E_SET_MV_COST_UPD_FREQ, 3);
-  SET_OR_RETURN_FALSE(AV1E_SET_ROW_MT, 1);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_OBMC, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_NOISE_SENSITIVITY, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_WARPED_MOTION, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_GLOBAL_MOTION, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_REF_FRAME_MVS, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_CFL_INTRA, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_SMOOTH_INTRA, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_ANGLE_DELTA, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_FILTER_INTRA, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_INTRA_DEFAULT_TX_ONLY, 1);
-  SET_OR_RETURN_FALSE(AV1E_SET_DISABLE_TRELLIS_QUANT, 1);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_DIST_WTD_COMP, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_DIFF_WTD_COMP, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_DUAL_FILTER, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_INTERINTRA_COMP, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_INTERINTRA_WEDGE, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_INTRA_EDGE_FILTER, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_INTRABC, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_MASKED_COMP, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_PAETH_INTRA, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_QM, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_RECT_PARTITIONS, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_RESTORATION, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_SMOOTH_INTERINTRA, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_ENABLE_TX64, 0);
-  SET_OR_RETURN_FALSE(AV1E_SET_MAX_REFERENCE_FRAMES, 3);
-
-  return true;
+  return                                                        //
+      AomCodecControl(AV1E_SET_ENABLE_CDEF, 1) &&               //
+      AomCodecControl(AV1E_SET_ENABLE_TPL_MODEL, 0) &&          //
+      AomCodecControl(AV1E_SET_DELTAQ_MODE, 0) &&               //
+      AomCodecControl(AV1E_SET_ENABLE_ORDER_HINT, 0) &&         //
+      AomCodecControl(AV1E_SET_AQ_MODE, 3) &&                   //
+      AomCodecControl(AOME_SET_MAX_INTRA_BITRATE_PCT, 300) &&   //
+      AomCodecControl(AV1E_SET_COEFF_COST_UPD_FREQ, 3) &&       //
+      AomCodecControl(AV1E_SET_MODE_COST_UPD_FREQ, 3) &&        //
+      AomCodecControl(AV1E_SET_MV_COST_UPD_FREQ, 3) &&          //
+      AomCodecControl(AV1E_SET_ROW_MT, 1) &&                    //
+      AomCodecControl(AV1E_SET_ENABLE_OBMC, 0) &&               //
+      AomCodecControl(AV1E_SET_NOISE_SENSITIVITY, 0) &&         //
+      AomCodecControl(AV1E_SET_ENABLE_WARPED_MOTION, 0) &&      //
+      AomCodecControl(AV1E_SET_ENABLE_GLOBAL_MOTION, 0) &&      //
+      AomCodecControl(AV1E_SET_ENABLE_REF_FRAME_MVS, 0) &&      //
+      AomCodecControl(AV1E_SET_ENABLE_CFL_INTRA, 0) &&          //
+      AomCodecControl(AV1E_SET_ENABLE_SMOOTH_INTRA, 0) &&       //
+      AomCodecControl(AV1E_SET_ENABLE_ANGLE_DELTA, 0) &&        //
+      AomCodecControl(AV1E_SET_ENABLE_FILTER_INTRA, 0) &&       //
+      AomCodecControl(AV1E_SET_INTRA_DEFAULT_TX_ONLY, 1) &&     //
+      AomCodecControl(AV1E_SET_DISABLE_TRELLIS_QUANT, 1) &&     //
+      AomCodecControl(AV1E_SET_ENABLE_DIST_WTD_COMP, 0) &&      //
+      AomCodecControl(AV1E_SET_ENABLE_DIFF_WTD_COMP, 0) &&      //
+      AomCodecControl(AV1E_SET_ENABLE_DUAL_FILTER, 0) &&        //
+      AomCodecControl(AV1E_SET_ENABLE_INTERINTRA_COMP, 0) &&    //
+      AomCodecControl(AV1E_SET_ENABLE_INTERINTRA_WEDGE, 0) &&   //
+      AomCodecControl(AV1E_SET_ENABLE_INTRA_EDGE_FILTER, 0) &&  //
+      AomCodecControl(AV1E_SET_ENABLE_INTRABC, 0) &&            //
+      AomCodecControl(AV1E_SET_ENABLE_MASKED_COMP, 0) &&        //
+      AomCodecControl(AV1E_SET_ENABLE_PAETH_INTRA, 0) &&        //
+      AomCodecControl(AV1E_SET_ENABLE_QM, 0) &&                 //
+      AomCodecControl(AV1E_SET_ENABLE_RECT_PARTITIONS, 0) &&    //
+      AomCodecControl(AV1E_SET_ENABLE_RESTORATION, 0) &&        //
+      AomCodecControl(AV1E_SET_ENABLE_SMOOTH_INTERINTRA, 0) &&  //
+      AomCodecControl(AV1E_SET_ENABLE_TX64, 0) &&               //
+      AomCodecControl(AV1E_SET_MAX_REFERENCE_FRAMES, 3) &&      //
+      true;
 }
 
 struct ThreadTilesAndSuperblockSizeInfo {
@@ -613,32 +600,36 @@ aom_svc_params_t GetSvcParams(
 void LibaomAv1Encoder::Encode(
     rtc::scoped_refptr<webrtc::VideoFrameBuffer> frame_buffer,
     const TemporalUnitSettings& tu_settings,
-    const std::vector<FrameEncodeSettings>& frame_settings,
+    std::vector<FrameEncodeSettings> frame_settings,
     EncodeResultCallback encode_result_callback) {
+  absl::Cleanup on_error = [&] { encode_result_callback(EncodingError()); };
+
   if (!ValidateEncodeParams(*frame_buffer, tu_settings, frame_settings,
                             last_resolution_in_buffer_, cfg_.rc_end_usage)) {
-    encode_result_callback({});
     return;
   }
 
   if (tu_settings.effort_level != current_effort_level_) {
     // For RTC we use speed level 6 to 10, with 8 being the default. Note that
     // low effort means higher speed.
-    SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AOME_SET_CPUUSED,
-                                        8 - tu_settings.effort_level);
+    if (!AomCodecControl(AOME_SET_CPUUSED, 8 - tu_settings.effort_level)) {
+      return;
+    }
     current_effort_level_ = tu_settings.effort_level;
   }
 
   if (current_content_type_ != tu_settings.content_hint) {
+    bool ok;
     if (tu_settings.content_hint == VideoCodecMode::kScreensharing) {
       // TD: Set speed 11?
-      SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_TUNE_CONTENT,
-                                          AOM_CONTENT_SCREEN);
-      SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_ENABLE_PALETTE, 1);
+      ok = AomCodecControl(AV1E_SET_TUNE_CONTENT, AOM_CONTENT_SCREEN) &&
+           AomCodecControl(AV1E_SET_ENABLE_PALETTE, 1);
     } else {
-      SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_TUNE_CONTENT,
-                                          AOM_CONTENT_DEFAULT);
-      SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_ENABLE_PALETTE, 0);
+      ok = AomCodecControl(AV1E_SET_TUNE_CONTENT, AOM_CONTENT_DEFAULT) &&
+           AomCodecControl(AV1E_SET_ENABLE_PALETTE, 0);
+    }
+    if (!ok) {
+      return;
     }
     current_content_type_ = tu_settings.content_hint;
   }
@@ -661,12 +652,11 @@ void LibaomAv1Encoder::Encode(
                         << frame_buffer->height();
     ThreadTilesAndSuperblockSizeInfo ttsbi = GetThreadingTilesAndSuperblockSize(
         frame_buffer->width(), frame_buffer->height(), max_number_of_threads_);
-    SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_SUPERBLOCK_SIZE,
-                                        ttsbi.superblock_size);
-    SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_TILE_ROWS,
-                                        ttsbi.exp_tile_rows);
-    SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_TILE_COLUMNS,
-                                        ttsbi.exp_tile_colums);
+    if (!(AomCodecControl(AV1E_SET_SUPERBLOCK_SIZE, ttsbi.superblock_size) &&
+          AomCodecControl(AV1E_SET_TILE_ROWS, ttsbi.exp_tile_rows) &&
+          AomCodecControl(AV1E_SET_TILE_COLUMNS, ttsbi.exp_tile_colums))) {
+      return;
+    }
     cfg_.g_threads = ttsbi.num_threads;
     cfg_.g_w = frame_buffer->width();
     cfg_.g_h = frame_buffer->height();
@@ -680,11 +670,12 @@ void LibaomAv1Encoder::Encode(
   if (aom_codec_err_t ret = aom_codec_enc_config_set(&ctx_, &cfg_);
       ret != AOM_CODEC_OK) {
     RTC_LOG(LS_ERROR) << "aom_codec_enc_config_set returned " << ret;
-    encode_result_callback({});
     return;
   }
   aom_svc_params_t svc_params = GetSvcParams(*frame_buffer, frame_settings);
-  SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_SVC_PARAMS, &svc_params);
+  if (!AomCodecControl(AV1E_SET_SVC_PARAMS, &svc_params)) {
+    return;
+  }
 
   // The libaom AV1 encoder requires that `aom_codec_encode` is called for
   // every spatial layer, even if no frame should be encoded for that layer.
@@ -707,10 +698,13 @@ void LibaomAv1Encoder::Encode(
         .spatial_layer_id = sid,
         .temporal_layer_id = settings.temporal_id,
     };
-    SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_SVC_LAYER_ID, &layer_id);
+    if (!AomCodecControl(AV1E_SET_SVC_LAYER_ID, &layer_id)) {
+      return;
+    }
     aom_svc_ref_frame_config_t ref_config = GetSvcRefFrameConfig(settings);
-    SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AV1E_SET_SVC_REF_FRAME_CONFIG,
-                                        &ref_config);
+    if (!AomCodecControl(AV1E_SET_SVC_REF_FRAME_CONFIG, &ref_config)) {
+      return;
+    }
 
     // TD: Why does the libaom have both `encode_timestamp_` and `duration`?
     // TD: Duration can't be zero, what does it matter when the layer is
@@ -737,7 +731,6 @@ void LibaomAv1Encoder::Encode(
         settings.frame_type == FrameType::kKeyframe ? AOM_EFLAG_FORCE_KF : 0);
     if (ret != AOM_CODEC_OK) {
       RTC_LOG(LS_WARNING) << "aom_codec_encode returned " << ret;
-      encode_result_callback({});
       return;
     }
 
@@ -758,8 +751,9 @@ void LibaomAv1Encoder::Encode(
     while (const aom_codec_cx_pkt_t* pkt =
                aom_codec_get_cx_data(&ctx_, &iter)) {
       if (pkt->kind == AOM_CODEC_CX_FRAME_PKT && pkt->data.frame.sz > 0) {
-        SET_OR_DO_ERROR_CALLBACK_AND_RETURN(AOME_GET_LAST_QUANTIZER_64,
-                                            &result.encoded_qp);
+        if (!AomCodecControl(AOME_GET_LAST_QUANTIZER_64, &result.encoded_qp)) {
+          return;
+        }
         result.frame_type = pkt->data.frame.flags & AOM_EFLAG_FORCE_KF
                                 ? FrameType::kKeyframe
                                 : FrameType::kDeltaFrame;
@@ -773,12 +767,12 @@ void LibaomAv1Encoder::Encode(
 
     if (result.bitstream_data == nullptr) {
       // TD: How should error callbacks be handled, only call once?
-      encode_result_callback({});
       return;
     } else {
       encode_result_callback(result);
     }
   }
+  std::move(on_error).Cancel();
 }
 }  // namespace
 

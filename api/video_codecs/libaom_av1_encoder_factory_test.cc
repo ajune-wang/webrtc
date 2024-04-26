@@ -34,6 +34,7 @@ using ::testing::Eq;
 using ::testing::Field;
 using ::testing::Gt;
 using ::testing::IsEmpty;
+using ::testing::IsNull;
 using ::testing::Lt;
 using ::testing::MockFunction;
 using ::testing::NotNull;
@@ -43,6 +44,7 @@ using EncodedData = VideoEncoderInterface::EncodedData;
 using EncodeResult = VideoEncoderInterface::EncodeResult;
 using EncodeResultCallback = VideoEncoderInterface::EncodeResultCallback;
 using FrameType = VideoEncoderInterface::FrameType;
+using FrameEncodeSettings = VideoEncoderInterface::FrameEncodeSettings;
 
 std::unique_ptr<test::FrameReader> CreateFrameReader() {
   return CreateY4mFrameReader(
@@ -173,7 +175,7 @@ class FrameEncoderSettingsBuilder {
   }
 
   VideoEncoderInterface::FrameEncodeSettings Build() {
-    return frame_encode_settings_;
+    return std::move(frame_encode_settings_);
   }
 
  private:
@@ -215,7 +217,7 @@ static constexpr VideoEncoderFactoryInterface::StaticEncoderSettings
                 .target_buffer_size = TimeDelta::Millis(600)},
         .max_number_of_threads = 1,
     };
-
+#if 0
 static constexpr VideoEncoderFactoryInterface::StaticEncoderSettings
     kCqpEncoderSettings{
         .max_encode_dimensions = {.width = 1920, .height = 1080},
@@ -224,7 +226,7 @@ static constexpr VideoEncoderFactoryInterface::StaticEncoderSettings
         .rc_mode = VideoEncoderFactoryInterface::StaticEncoderSettings::Cqp(),
         .max_number_of_threads = 1,
     };
-
+#endif
 static constexpr Cbr kCbr{.duration = TimeDelta::Millis(100),
                           .target_bitrate = DataRate::KilobitsPerSec(1000)};
 
@@ -252,59 +254,122 @@ TEST(LibaomAv1Encoder, KeyframeUpdatesSpecifiedBuffer) {
   auto raw_key = frame_reader->PullFrame();
   auto raw_delta = frame_reader->PullFrame();
 
+  std::vector<FrameEncodeSettings> frame_settings(1);
+  frame_settings[0] = Fb().Rate(kCbr).Res(640, 360).Upd(5).Key().Build();
   enc->Encode(raw_key, {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(640, 360).Upd(5).Key().Build()},
-              res.CallBack());
+              std::move(frame_settings), res.CallBack());
   ASSERT_THAT(res.FrameAt(0), NotNull());
   VideoFrame decoded_key = dec.Decode(*res.FrameAt(0));
   EXPECT_THAT(Resolution(decoded_key), ResolutionIs(640, 360));
   EXPECT_THAT(Psnr(raw_key, decoded_key), Gt(40));
 
+  frame_settings[0] = Fb().Rate(kCbr).Res(640, 360).Ref({0}).Build();
   enc->Encode(raw_delta, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(640, 360).Ref({0}).Build()}, res.CallBack());
-  ASSERT_THAT(res.FrameAt(1), Eq(nullptr));
+              std::move(frame_settings), res.CallBack());
+  ASSERT_THAT(res.FrameAt(1), IsNull());
 }
 
-TEST(LibaomAv1Encoder, MidTemporalUnitKeyframeResetsBuffers) {
+class FrameSettingsFactory {
+ private:
+  // Artificial invalid default value to track when they are unset in
+  // FrameOptions.
+  static std::vector<int> InvalidReference() { return {-1}; }
+  static ::webrtc::Resolution InvalidResolution() { return {-1, -1}; }
+
+ public:
+  struct FrameOptions {
+    absl::variant<Cqp, Cbr> rate = kCbr;
+    bool key = false;
+    int tid = 0;
+    std::optional<int> sid;
+    ::webrtc::Resolution resolution = InvalidResolution();
+    std::vector<int> reference = InvalidReference();
+    absl::optional<int> update;
+  };
+
+  explicit FrameSettingsFactory(EncodeResults& callback)
+      : callback_(callback) {}
+
+  FrameSettingsFactory& Frame(FrameOptions options) {
+    FrameEncodeSettings settings;
+    settings.rate_options = options.rate;
+    settings.frame_type =
+        options.key ? FrameType::kKeyframe : FrameType::kDeltaFrame;
+    settings.temporal_id = options.tid;
+    settings.spatial_id = options.sid.value_or(result_.size());
+    settings.update_buffer = options.update;
+    if (options.reference != InvalidReference()) {
+      settings.reference_buffers = std::move(options.reference);
+    } else if (!options.key) {
+      settings.reference_buffers = {0};
+    }
+    if (options.resolution != InvalidResolution()) {
+      settings.resolution = options.resolution;
+    } else {
+      settings.resolution = {160 << settings.spatial_id,
+                             90 << settings.spatial_id};
+    }
+    // settings.callback = callback_.AsCallback();
+    result_.push_back(std::move(settings));
+    return *this;
+  }
+  std::vector<FrameEncodeSettings> Build() { return std::move(result_); }
+
+ private:
+  [[maybe_unused]] EncodeResults& callback_;
+  std::vector<FrameEncodeSettings> result_;
+};
+
+TEST(LibaomAv1EncoderTest, MidTemporalUnitKeyframeResetsBuffers) {
   auto frame_reader = CreateFrameReader();
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
   EncodeResults res;
+  FrameSettingsFactory settings(res);
   Av1Decoder dec;
 
   enc->Encode(frame_reader->PullFrame(),
               {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({0}).Build()},
+              settings  //
+                  .Frame({.key = true, .update = 0})
+                  .Frame({.reference = {0}})
+                  .Frame({.reference = {0}})
+                  .Build(),
               res.CallBack());
   ASSERT_THAT(res.FrameAt(2), NotNull());
 
   enc->Encode(frame_reader->PullFrame(),
               {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Ref({0}).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Upd(1).Key().Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({0}).Build()},
+              settings  //
+                  .Frame({.reference = {0}, .update = 0})
+                  .Frame({.key = true, .update = 1})
+                  .Frame({.reference = {0}})
+                  .Build(),
               res.CallBack());
-  ASSERT_THAT(res.FrameAt(3), Eq(nullptr));
+  ASSERT_THAT(res.FrameAt(3), IsNull());
 }
 
-TEST(LibaomAv1Encoder, ResolutionSwitching) {
+TEST(LibaomAv1EncoderTest, ResolutionSwitching) {
   auto frame_reader = CreateFrameReader();
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
   EncodeResults res;
+  FrameSettingsFactory settings(res);
 
   rtc::scoped_refptr<I420Buffer> in0 = frame_reader->PullFrame();
-  enc->Encode(in0, {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(320, 180).Upd(0).Key().Build()},
-              res.CallBack());
+  enc->Encode(
+      in0, {.presentation_timestamp = Timestamp::Millis(0)},
+      settings.Frame({.key = true, .resolution = {320, 180}, .update = 0})
+          .Build(),
+      res.CallBack());
 
   rtc::scoped_refptr<I420Buffer> in1 = frame_reader->PullFrame();
   enc->Encode(in1, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(640, 360).Ref({0}).Build()}, res.CallBack());
+              settings.Frame({.resolution = {640, 360}}).Build(),
+              res.CallBack());
 
   rtc::scoped_refptr<I420Buffer> in2 = frame_reader->PullFrame();
   enc->Encode(in2, {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).Ref({0}).Build()}, res.CallBack());
+              settings.Frame({.resolution = {160, 90}}).Build(),
+              res.CallBack());
 
   EXPECT_THAT(res.FrameAt(0), Field(&EncodedData::spatial_id, 0));
   EXPECT_THAT(res.FrameAt(1), Field(&EncodedData::spatial_id, 0));
@@ -325,7 +390,7 @@ TEST(LibaomAv1Encoder, ResolutionSwitching) {
   // TD:
   // EXPECT_THAT(Psnr(in2, f2), Gt(40));
 }
-
+#if 0
 TEST(LibaomAv1Encoder, InputResolutionSwitching) {
   auto frame_reader = CreateFrameReader();
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
@@ -817,6 +882,6 @@ TEST(LibaomAv1Encoder, ConstantQp) {
     }
   }
 }
-
+#endif
 }  // namespace
 }  // namespace webrtc

@@ -209,7 +209,7 @@ void SimpleEncoderWrapper::Encode(
 
   encoder_->Encode(std::move(frame_buffer),
                    {.presentation_timestamp = presentation_timestamp_},
-                   encode_settings, std::move(callback_internal));
+                   std::move(encode_settings), std::move(callback_internal));
   presentation_timestamp_ += 1 / Frequency::Hertz(fps_);
 }
 

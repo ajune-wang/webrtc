@@ -15,10 +15,10 @@
 
 #include "api/task_queue/task_queue_base.h"
 #include "call/fake_network_pipe.h"
-#include "call/simulated_network.h"
 #include "modules/audio_device/include/test_audio_device.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
+#include "test/network/simulated_network.h"
 #include "test/video_test_constants.h"
 
 namespace webrtc {

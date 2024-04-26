@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60199369_fb6cdb3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-04-26T14:09:29Z",
+      "side": 1,
+      "message": "I think this turned out rather nice despite the workaround you had to do for the tests!\n\nlgtm % nits",
+      "revId": "eeb93d135073f06736916ea1d9b4f2ece68b5da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c0cc34_f341b878",
+        "filename": "api/video_codecs/libaom_av1_encoder_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-04-26T14:09:29Z",
+      "side": 1,
+      "message": "nit: `::webrtc::VideoEncoderInterface::FrameEncodeSettings;`",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 71
+      },
+      "revId": "eeb93d135073f06736916ea1d9b4f2ece68b5da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602a0d71_1e193b11",
+        "filename": "api/video_codecs/simple_encoder_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-04-26T14:09:29Z",
+      "side": 1,
+      "message": "why did this need to change to std::function?",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 44
+      },
+      "revId": "eeb93d135073f06736916ea1d9b4f2ece68b5da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be217887_8c332303",
+        "filename": "api/video_codecs/video_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-04-26T14:09:29Z",
+      "side": 1,
+      "message": "std::variant appears to be banned for now:\nhttps://chromium.googlesource.com/chromium/src/+/main/styleguide/c++/c++-features.md#std_variant-banned",
+      "range": {
+        "startLine": 54,
+        "startChar": 23,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "eeb93d135073f06736916ea1d9b4f2ece68b5da1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

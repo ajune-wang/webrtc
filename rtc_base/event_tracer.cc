@@ -15,7 +15,7 @@
 #include "rtc_base/trace_event.h"
 
 #if defined(RTC_USE_PERFETTO)
-#include "perfetto/tracing/tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/tracing.h"
 #include "rtc_base/trace_categories.h"
 #else
 #include <inttypes.h>

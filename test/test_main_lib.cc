@@ -44,8 +44,8 @@
 #include "test/testsupport/resources_dir_flag.h"
 
 #if defined(RTC_USE_PERFETTO)
-#include "perfetto/tracing/backend_type.h"
-#include "perfetto/tracing/tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/backend_type.h"
+#include "third_party/perfetto/include/perfetto/tracing/tracing.h"
 #include "protos/perfetto/config/trace_config.gen.h"
 #include "rtc_base/event_tracer.h"
 #endif

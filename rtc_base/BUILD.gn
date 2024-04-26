@@ -210,9 +210,11 @@ rtc_library("event_tracer") {
     ":platform_thread_types",
     ":rtc_event",
     ":timeutils",
+    "..:tracing",
     "../api:sequence_checker",
     "synchronization:mutex",
     "system:rtc_export",
+    "//third_party/perfetto/include/perfetto/tracing",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   if (rtc_use_perfetto) {
@@ -220,7 +222,6 @@ rtc_library("event_tracer") {
       "trace_categories.cc",
       "trace_categories.h",
     ]
-    deps += [ "..:tracing" ]
   }
 }
 

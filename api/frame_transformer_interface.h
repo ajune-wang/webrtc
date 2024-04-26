@@ -82,6 +82,8 @@ class TransformableAudioFrameInterface : public TransformableFrameInterface {
   // TODO(crbug.com/1456628): Change this to pure virtual after it
   // is implemented everywhere.
   virtual FrameType Type() const { return FrameType::kEmptyFrame; }
+
+  virtual absl::optional<uint8_t> AudioLevel() const = 0;
 };
 
 // Objects implement this interface to be notified with the transformed frame.

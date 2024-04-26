@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6ed7203_9ef2dd12",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-26T17:26:07Z",
+      "side": 1,
+      "message": "Since I\u0027ve now removed `sample_count()`. `data_view()` is now more like `data()` but not completely the same. See other comment thread for the details.",
+      "parentUuid": "02610b59_013bf72d",
+      "range": {
+        "startLine": 117,
+        "startChar": 54,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70a81833_a3407f6f",
         "filename": "api/audio/audio_frame.cc",
         "patchSetId": 15
@@ -651,6 +675,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec4c9343_67fe7a33",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-26T17:26:07Z",
+      "side": 1,
+      "message": "Turns out we have documentation around this in audio_process.h and for the size of the buffer, we have: AudioProcessing::GetFrameSize().  Adding that as a dependency\nto the AudioFrame target, feels a bit upside down though. I ended up adding things to audio_frame.* though and mention `AudioProcessing` in the comments. There\u0027s some refactoring to be done here.\n\nOh and by the way there\u0027s this part that I noticed and think is helpful as a general guideline for the buffer view discussion:\n```\nThe int16 interfaces use interleaved data,\nwhile the float interfaces use deinterleaved data.\n```\n(there are some exceptions to this, but it makes sense as general way to understand the code)",
+      "parentUuid": "81a08c79_e8525f38",
+      "range": {
+        "startLine": 71,
+        "startChar": 53,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca603996_e1860a4b",
         "filename": "audio/remix_resample.cc",
         "patchSetId": 15
@@ -710,6 +758,30 @@
       "side": 1,
       "message": "At least locally, before line 72 (changes it to a number with a documented meaning).\nWe could as well tie it to the audio_frame.h 10 ms frame size discussed above.",
       "parentUuid": "55a097f7_76903633",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc102d1_fe465e03",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-26T17:26:07Z",
+      "side": 1,
+      "message": "Added to audio_frame.h.",
+      "parentUuid": "b208f746_dd909599",
       "range": {
         "startLine": 73,
         "startChar": 36,
@@ -982,6 +1054,24 @@
       "side": 1,
       "message": "I agree that AudioFrameView as of today is not suitable for this purpose, but I also think a renaming of AudioFrameView to AudioBufferView would be a good thing.\n\nWith that the AudioFrameView class can be designed from scratch to match the new usecase.\n\nI don\u0027t immediately see the benefit of using an AudioFrameView instead of directly accessing the AudioFrame though. The underlying data is interlieved so it is not simple to achieve benefits in a AudioFrameView on top of what is already in place for AudioFrame.",
       "parentUuid": "c67e8f56_a384236c",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de728bd_9015c65b",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-26T17:26:07Z",
+      "side": 1,
+      "message": "Let\u0027s carry this discussion into a separate CL that I\u0027m working on.",
+      "parentUuid": "321a71fd_fa1c641f",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

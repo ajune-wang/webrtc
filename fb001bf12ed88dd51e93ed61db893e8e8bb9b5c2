@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77e348b6_3cc3c896",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-26T17:26:07Z",
+      "side": 1,
+      "message": "yes - after much deliberation I agree. I\u0027ve removed sample_count() now and changed `data_view()` so that it behaves _essentially_ the same way as `data()`.\n\n...with one important exception:\n\n* When ArrayView is created with a size of 0, `data()` will always return nullptr.\n\nThis means the following:\n```\nAudioFrame frame;  // By default samples_per_channel \u003d\u003d 0, num_channels \u003d\u003d 0.\nframe.data();      // Returns a valid pointer regardless of ^^^\nframe.data_view().data();  // Returns nullptr.\n```\n\nWhat I\u0027d like to do is move away from just constructing AudioFrame with no parameters, towards a more RAII model where we pass arguments to a constructor. So, as an example, I\u0027m adding a constructor that allows specifying those two size properties. If we get into that habit, we shouldn\u0027t be hitting that `nullptr` case and we also reduce code outside of the AudioFrame class that\u0027s touching the public member variables.\n\nBtw, I\u0027m concerned that num_channels and samples_per_channel are both `size_t` and easy to mix up when passing as parameters. I\u0027m wondering if it would be better down the line to make num_channels_ an enum. The AudioFrame test file already has constants such as `kNumChannelsMono`, `kNumChannelsStereo`, `kNumChannels5_1` which I think would help avoid this possible mix up and also help with readability.",
+      "parentUuid": "7de51612_0e8397b1",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 3
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc5fbe39_493f5648",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-24T12:49:52Z",
       "side": 1,
       "message": "I missed this in the previous round but this is a bit risky in the sense that not keeping doing the resampling of muted data will cause the previous data to remain in the resampler state. That in turn will mean that when unmuting occurs, those samples will be put into the resampler output at that point, causing unwanted audio content to included and likely resulting in clicks.\n\nMy suggestion would be to keep resampling the muted data even though it is suboptimal.\nThe alternative would be to add a resetting mechanism to apply when data becomes unmuted. I\u0027m not convinced that logic warrants the CPU savings by not resampling muted data though, and on top of that the resetting will affect the peak complexity (while not reampling muted data will only improve the average complexity)",
+      "range": {
+        "startLine": 82,
+        "startChar": 5,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763acc2b_334f105f",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-26T17:26:07Z",
+      "side": 1,
+      "message": "ok thanks for catching that - I\u0027ll remove this",
+      "parentUuid": "fc5fbe39_493f5648",
       "range": {
         "startLine": 82,
         "startChar": 5,

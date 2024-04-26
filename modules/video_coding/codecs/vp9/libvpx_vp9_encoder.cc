@@ -352,7 +352,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
       framerate_controller_[sl_idx].SetTargetRate(
           codec_.spatialLayers[sl_idx].maxFramerate);
     }
-  } else {
+  } /*else {
     float rate_ratio[VPX_MAX_LAYERS] = {0};
     float total = 0;
     for (int i = 0; i < num_spatial_layers_; ++i) {
@@ -393,7 +393,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
       framerate_controller_[i].SetTargetRate(codec_.maxFramerate);
     }
-  }
+  }*/
 
   num_active_spatial_layers_ = 0;
   first_active_layer_ = 0;

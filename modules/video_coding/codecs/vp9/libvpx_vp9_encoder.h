@@ -80,7 +80,6 @@ class LibvpxVp9Encoder : public VideoEncoder {
   vpx_svc_ref_frame_config_t SetReferences(bool is_key_pic,
                                            int first_active_spatial_layer_id);
 
-  bool ExplicitlyConfiguredSpatialLayers() const;
   bool SetSvcRates(const VideoBitrateAllocation& bitrate_allocation);
 
   // Configures which spatial layers libvpx should encode according to
@@ -139,6 +138,7 @@ class LibvpxVp9Encoder : public VideoEncoder {
   uint8_t num_spatial_layers_;         // Number of configured SLs
   uint8_t num_active_spatial_layers_;  // Number of actively encoded SLs
   uint8_t first_active_layer_;
+  uint8_t last_active_layer_;
   bool layer_deactivation_requires_key_frame_;
   bool is_svc_;
   InterLayerPredMode inter_layer_pred_;

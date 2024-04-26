@@ -94,6 +94,12 @@ std::pair<size_t, size_t> GetActiveLayers(
   return {0, 0};
 }
 
+bool ExplicitlyConfiguredSpatialLayers(const VideoCodec& codec) {
+  // We check target_bitrate_bps of the 0th layer to see if the spatial layers
+  // (i.e. bitrates) were explicitly configured.
+  return codec.spatialLayers[0].targetBitrate > 0;
+}
+
 std::unique_ptr<ScalableVideoController> CreateVp9ScalabilityStructure(
     const VideoCodec& codec) {
   int num_spatial_layers = codec.VP9().numberOfSpatialLayers;
@@ -103,73 +109,85 @@ std::unique_ptr<ScalableVideoController> CreateVp9ScalabilityStructure(
     return std::make_unique<ScalableVideoControllerNoLayering>();
   }
 
-  char name[20];
-  rtc::SimpleStringBuilder ss(name);
   if (codec.mode == VideoCodecMode::kScreensharing) {
     // TODO(bugs.webrtc.org/11999): Compose names of the structures when they
     // are implemented.
     return nullptr;
-  } else if (codec.VP9().interLayerPred == InterLayerPredMode::kOn ||
-             num_spatial_layers == 1) {
-    ss << "L" << num_spatial_layers << "T" << num_temporal_layers;
-  } else if (codec.VP9().interLayerPred == InterLayerPredMode::kOnKeyPic) {
-    ss << "L" << num_spatial_layers << "T" << num_temporal_layers << "_KEY";
-  } else {
-    RTC_DCHECK_EQ(codec.VP9().interLayerPred, InterLayerPredMode::kOff);
-    ss << "S" << num_spatial_layers << "T" << num_temporal_layers;
   }
 
-  // Check spatial ratio.
-  if (num_spatial_layers > 1 && codec.spatialLayers[0].targetBitrate > 0) {
+  int num_active_layers = num_spatial_layers;
+  absl::optional<ScalabilityModeResolutionRatio> spatial_ratio;
+
+  if (num_spatial_layers > 1 && ExplicitlyConfiguredSpatialLayers(codec)) {
+    num_active_layers = 0;
+    for (int sid = 0; sid < num_spatial_layers; ++sid) {
+      if (codec.spatialLayers[sid].active) {
+        ++num_active_layers;
+      }
+    }
+
+    // Check spatial ratio.
     if (codec.width != codec.spatialLayers[num_spatial_layers - 1].width ||
         codec.height != codec.spatialLayers[num_spatial_layers - 1].height) {
       RTC_LOG(LS_WARNING)
           << "Top layer resolution expected to match overall resolution";
       return nullptr;
     }
+
     // Check if the ratio is one of the supported.
     int numerator;
     int denominator;
     if (codec.spatialLayers[1].width == 2 * codec.spatialLayers[0].width) {
       numerator = 1;
       denominator = 2;
-      // no suffix for 1:2 ratio.
+      spatial_ratio = ScalabilityModeResolutionRatio::kTwoToOne;
     } else if (2 * codec.spatialLayers[1].width ==
                3 * codec.spatialLayers[0].width) {
       numerator = 2;
       denominator = 3;
-      ss << "h";
+      spatial_ratio = ScalabilityModeResolutionRatio::kThreeToTwo;
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported scalability ratio "
+      RTC_LOG(LS_WARNING) << "Unsupported spatial ratio "
                           << codec.spatialLayers[0].width << ":"
                           << codec.spatialLayers[1].width;
       return nullptr;
     }
+
     // Validate ratio is consistent for all spatial layer transitions.
     for (int sid = 1; sid < num_spatial_layers; ++sid) {
-      if (codec.spatialLayers[sid].width * numerator !=
-              codec.spatialLayers[sid - 1].width * denominator ||
-          codec.spatialLayers[sid].height * numerator !=
-              codec.spatialLayers[sid - 1].height * denominator) {
-        RTC_LOG(LS_WARNING) << "Inconsistent scalability ratio " << numerator
-                            << ":" << denominator;
+      auto const& base = codec.spatialLayers[sid - 1];
+      auto const& curr = codec.spatialLayers[sid];
+      if (curr.width * numerator != base.width * denominator ||
+          curr.height * numerator != base.height * denominator) {
+        RTC_LOG(LS_WARNING)
+            << "Inconsistent spatial ratio " << numerator << ":" << denominator;
         return nullptr;
       }
     }
   }
 
   absl::optional<ScalabilityMode> scalability_mode =
-      ScalabilityModeFromString(name);
+      MakeScalabilityMode(num_active_layers, num_temporal_layers,
+                          codec.VP9().interLayerPred, spatial_ratio,
+                          /*shift=*/false);
+
   if (!scalability_mode.has_value()) {
-    RTC_LOG(LS_WARNING) << "Invalid scalability mode " << name;
+    RTC_LOG(LS_WARNING) << "Failed to make scalability mode."
+                        << " num_spatial_layers " << num_spatial_layers
+                        << " num_active_layers " << num_active_layers
+                        << " num_temporal_layers " << num_temporal_layers
+                        << " inter_layer_pred " << codec.VP9().interLayerPred;
     return nullptr;
   }
+
   auto scalability_structure_controller =
       CreateScalabilityStructure(*scalability_mode);
   if (scalability_structure_controller == nullptr) {
-    RTC_LOG(LS_WARNING) << "Unsupported scalability structure " << name;
+    RTC_LOG(LS_WARNING) << "Unsupported scalability structure "
+                        << ScalabilityModeToString(*scalability_mode);
   } else {
-    RTC_LOG(LS_INFO) << "Created scalability structure " << name;
+    RTC_LOG(LS_INFO) << "Created scalability structure "
+                     << ScalabilityModeToString(*scalability_mode);
   }
   return scalability_structure_controller;
 }
@@ -301,12 +319,6 @@ int LibvpxVp9Encoder::Release() {
   return ret_val;
 }
 
-bool LibvpxVp9Encoder::ExplicitlyConfiguredSpatialLayers() const {
-  // We check target_bitrate_bps of the 0th layer to see if the spatial layers
-  // (i.e. bitrates) were explicitly configured.
-  return codec_.spatialLayers[0].targetBitrate > 0;
-}
-
 bool LibvpxVp9Encoder::SetSvcRates(
     const VideoBitrateAllocation& bitrate_allocation) {
   std::pair<size_t, size_t> current_layers =
@@ -333,7 +345,8 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
   config_->rc_target_bitrate = bitrate_allocation.get_sum_kbps();
 
-  if (ExplicitlyConfiguredSpatialLayers()) {
+  //if (ExplicitlyConfiguredSpatialLayers(codec_))
+  {
     for (size_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
       const bool was_layer_active = (config_->ss_target_bitrate[sl_idx] > 0);
       config_->ss_target_bitrate[sl_idx] =
@@ -352,7 +365,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
       framerate_controller_[sl_idx].SetTargetRate(
           codec_.spatialLayers[sl_idx].maxFramerate);
     }
-  } else {
+  } /* else {
     float rate_ratio[VPX_MAX_LAYERS] = {0};
     float total = 0;
     for (int i = 0; i < num_spatial_layers_; ++i) {
@@ -393,7 +406,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
       framerate_controller_[i].SetTargetRate(codec_.maxFramerate);
     }
-  }
+  }*/
 
   num_active_spatial_layers_ = 0;
   first_active_layer_ = 0;
@@ -786,7 +799,7 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
       svc_params_.scaling_factor_num[i] = stream_config.scaling_factor_num[i];
       svc_params_.scaling_factor_den[i] = stream_config.scaling_factor_den[i];
     }
-  } else if (ExplicitlyConfiguredSpatialLayers()) {
+  } else if (ExplicitlyConfiguredSpatialLayers(*inst)) {
     for (int i = 0; i < num_spatial_layers_; ++i) {
       const auto& layer = codec_.spatialLayers[i];
       RTC_CHECK_GT(layer.width, 0);
@@ -839,9 +852,9 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
   SvcRateAllocator init_allocator(codec_);
   current_bitrate_allocation_ =
       init_allocator.Allocate(VideoBitrateAllocationParameters(
-          inst->startBitrate * 1000, inst->maxFramerate));
+           inst->startBitrate * 1000, inst->maxFramerate));
   if (!SetSvcRates(current_bitrate_allocation_)) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
   const vpx_codec_err_t rv = libvpx_->codec_enc_init(
@@ -1458,7 +1471,8 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     codec_specific->scalability_mode = scalability_mode_;
   } else {
     codec_specific_.scalability_mode = MakeScalabilityMode(
-        num_active_spatial_layers_, num_temporal_layers_, inter_layer_pred_,
+        num_active_spatial_layers_ - first_active_layer_, num_temporal_layers_,
+        inter_layer_pred_,
         num_active_spatial_layers_ > 1
             ? absl::make_optional(ScalabilityModeResolutionRatio::kTwoToOne)
             : absl::nullopt,

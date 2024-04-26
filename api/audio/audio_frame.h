@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/array_view.h"
 #include "api/audio/channel_layout.h"
 #include "api/rtp_packet_infos.h"
 
@@ -56,6 +57,7 @@ class AudioFrame {
   };
 
   AudioFrame();
+  AudioFrame(size_t samples_per_channel, size_t num_channels);
 
   AudioFrame(const AudioFrame&) = delete;
   AudioFrame& operator=(const AudioFrame&) = delete;
@@ -68,6 +70,7 @@ class AudioFrame {
   // ResetWithoutMuting() to skip this wasteful zeroing.
   void ResetWithoutMuting();
 
+  // TODO: b/335805780 - Accept ArrayView.
   void UpdateFrame(uint32_t timestamp,
                    const int16_t* data,
                    size_t samples_per_channel,
@@ -90,10 +93,28 @@ class AudioFrame {
   int64_t ElapsedProfileTimeMs() const;
 
   // data() returns a zeroed static buffer if the frame is muted.
-  // mutable_frame() always returns a non-static buffer; the first call to
-  // mutable_frame() zeros the non-static buffer and marks the frame unmuted.
+  // TODO: b/335805780 - Return ArrayView.
   const int16_t* data() const;
+
+  // Returns a read-only view of all the valid samples held by the AudioFrame.
+  // Note that for a muted AudioFrame, the size of the returned view will be
+  // 0u and the contained data will be nullptr.
+  rtc::ArrayView<const int16_t> data_view() const;
+
+  // mutable_frame() always returns a non-static buffer; the first call to
+  // mutable_frame() zeros the buffer and marks the frame as unmuted.
+  // TODO: b/335805780 - Return ArrayView based on the current values for
+  // samples per channel and num channels.
   int16_t* mutable_data();
+
+  // Grants write access to the audio buffer. The size of the returned writable
+  // view is determined by the `samples_per_channel` and `num_channels`
+  // dimensions which the function checks for correctness and stores in the
+  // internal member variables; `samples_per_channel()` and `num_channels()`
+  // respectively.
+  // If the state is currently muted, the returned view will be zeroed out.
+  rtc::ArrayView<int16_t> mutable_data(size_t samples_per_channel,
+                                       size_t num_channels);
 
   // Prefer to mute frames using AudioFrameOperations::Mute.
   void Mute();
@@ -154,9 +175,9 @@ class AudioFrame {
 
  private:
   // A permanently zeroed out buffer to represent muted frames. This is a
-  // header-only class, so the only way to avoid creating a separate empty
+  // header-only class, so the only way to avoid creating a separate zeroed
   // buffer per translation unit is to wrap a static in an inline function.
-  static const int16_t* empty_data();
+  static rtc::ArrayView<const int16_t> zeroed_data();
 
   int16_t data_[kMaxDataSizeSamples];
   bool muted_ = true;

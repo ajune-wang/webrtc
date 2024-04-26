@@ -23,7 +23,6 @@
 #include "api/test/create_network_emulation_manager.h"
 #include "api/test/network_emulation_manager.h"
 #include "api/units/time_delta.h"
-#include "call/simulated_network.h"
 #include "net/dcsctp/public/dcsctp_options.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
 #include "net/dcsctp/public/types.h"
@@ -37,6 +36,7 @@
 #include "rtc_base/strings/string_format.h"
 #include "rtc_base/time_utils.h"
 #include "test/gmock.h"
+#include "test/network/simulated_network.h"
 
 #if !defined(WEBRTC_ANDROID) && defined(NDEBUG) && \
     !defined(THREAD_SANITIZER) && !defined(MEMORY_SANITIZER)

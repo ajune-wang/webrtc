@@ -130,11 +130,11 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":audio",
+      "..//test/network:simulated_network",
       "../api:simulated_network_api",
       "../api/audio:audio_device",
       "../api/task_queue",
       "../call:fake_network",
-      "../call:simulated_network",
       "../modules/audio_device:test_audio_device_module",
       "../system_wrappers",
       "../test:test_common",

@@ -16,6 +16,40 @@
       "message": "Thanks for the review and suggestion.",
       "revId": "0cf37ecae60ecb0e5ecc3fbd5ba788fbe18b8522",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "352e4c30_1648e56a",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-26T10:38:00Z",
+      "side": 1,
+      "message": "may be drop NtpTime prefix in the function name - it is redundant with the parameter type.",
+      "revId": "0cf37ecae60ecb0e5ecc3fbd5ba788fbe18b8522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b21c48_f76f521f",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-04-26T10:38:00Z",
+      "side": 1,
+      "message": "outer static cast I think can be omitted relying on implicit cast instead.\nprobably code would be a bit more readable without it.",
+      "revId": "0cf37ecae60ecb0e5ecc3fbd5ba788fbe18b8522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

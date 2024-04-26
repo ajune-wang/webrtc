@@ -117,9 +117,9 @@ std::unique_ptr<ScalableVideoController> CreateVp9ScalabilityStructure(
   } else {
     RTC_DCHECK_EQ(codec.VP9().interLayerPred, InterLayerPredMode::kOff);
     ss << "S" << num_spatial_layers << "T" << num_temporal_layers;
-  }
+    }
 
-  // Check spatial ratio.
+    // Check spatial ratio.
   if (num_spatial_layers > 1 && codec.spatialLayers[0].targetBitrate > 0) {
     if (codec.width != codec.spatialLayers[num_spatial_layers - 1].width ||
         codec.height != codec.spatialLayers[num_spatial_layers - 1].height) {
@@ -333,9 +333,14 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
   config_->rc_target_bitrate = bitrate_allocation.get_sum_kbps();
 
-  if (ExplicitlyConfiguredSpatialLayers()) {
+  //if (ExplicitlyConfiguredSpatialLayers(codec_))
+  {
     for (size_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
-      const bool was_layer_active = (config_->ss_target_bitrate[sl_idx] > 0);
+      if (config_->ss_target_bitrate[sl_idx] == 0) {
+        // Reset frame rate controller if layer is resumed after pause.
+        framerate_controller_[sl_idx].Reset();
+      }
+
       config_->ss_target_bitrate[sl_idx] =
           bitrate_allocation.GetSpatialLayerSum(sl_idx) / 1000;
 
@@ -344,15 +349,10 @@ bool LibvpxVp9Encoder::SetSvcRates(
             bitrate_allocation.GetTemporalLayerSum(sl_idx, tl_idx) / 1000;
       }
 
-      if (!was_layer_active) {
-        // Reset frame rate controller if layer is resumed after pause.
-        framerate_controller_[sl_idx].Reset();
-      }
-
       framerate_controller_[sl_idx].SetTargetRate(
           codec_.spatialLayers[sl_idx].maxFramerate);
     }
-  } else {
+  } /* else {
     float rate_ratio[VPX_MAX_LAYERS] = {0};
     float total = 0;
     for (int i = 0; i < num_spatial_layers_; ++i) {
@@ -393,7 +393,7 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
       framerate_controller_[i].SetTargetRate(codec_.maxFramerate);
     }
-  }
+  }*/
 
   num_active_spatial_layers_ = 0;
   first_active_layer_ = 0;
@@ -839,9 +839,9 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
   SvcRateAllocator init_allocator(codec_);
   current_bitrate_allocation_ =
       init_allocator.Allocate(VideoBitrateAllocationParameters(
-          inst->startBitrate * 1000, inst->maxFramerate));
+           inst->startBitrate * 1000, inst->maxFramerate));
   if (!SetSvcRates(current_bitrate_allocation_)) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
   const vpx_codec_err_t rv = libvpx_->codec_enc_init(
@@ -1457,6 +1457,7 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   if (scalability_mode_) {
     codec_specific->scalability_mode = scalability_mode_;
   } else {
+    // TODO(ssilkin): num_active_spatial_layers_ - first_active_layer_
     codec_specific_.scalability_mode = MakeScalabilityMode(
         num_active_spatial_layers_, num_temporal_layers_, inter_layer_pred_,
         num_active_spatial_layers_ > 1

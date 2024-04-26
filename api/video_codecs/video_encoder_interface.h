@@ -44,6 +44,17 @@ class VideoEncoderInterface {
     int effort_level = 0;
   };
 
+  // Results from calling Encode. Called once for each configured frame.
+  struct EncodingError {};
+  struct EncodedData {
+    rtc::scoped_refptr<EncodedImageBufferInterface> bitstream_data;
+    FrameType frame_type;
+    int encoded_qp;
+  };
+  using EncodeResult = std::variant<EncodingError, EncodedData>;
+  using EncodeResultCallback =
+      absl::AnyInvocable<void(const EncodeResult& result)>;
+
   struct FrameEncodeSettings {
     struct Cbr {
       TimeDelta duration;
@@ -62,26 +73,13 @@ class VideoEncoderInterface {
     Resolution resolution;
     std::vector<int> reference_buffers;
     absl::optional<int> update_buffer;
+
+    EncodeResultCallback result_callback;
   };
-
-  // Results from calling Encode. Called once for each configured frame.
-  struct EncodingError {};
-
-  struct EncodedData {
-    rtc::scoped_refptr<EncodedImageBufferInterface> bitstream_data;
-    FrameType frame_type;
-    int spatial_id;
-    int encoded_qp;
-  };
-
-  using EncodeResult = std::variant<EncodingError, EncodedData>;
-  using EncodeResultCallback =
-      absl::AnyInvocable<void(const EncodeResult& result)>;
 
   virtual void Encode(rtc::scoped_refptr<webrtc::VideoFrameBuffer> frame_buffer,
                       const TemporalUnitSettings& settings,
-                      const std::vector<FrameEncodeSettings>& frame_settings,
-                      EncodeResultCallback encode_result_callback) = 0;
+                      std::vector<FrameEncodeSettings> frame_settings) = 0;
 };
 
 }  // namespace webrtc

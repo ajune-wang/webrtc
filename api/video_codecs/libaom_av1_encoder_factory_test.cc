@@ -59,7 +59,7 @@ std::string OutPath() {
 
 class EncodeResults {
  public:
-  EncodeResultCallback CallBack() {
+  EncodeResultCallback Cb() {
     return [&](const EncodeResult& result) { results_.push_back(result); };
   }
 
@@ -172,8 +172,13 @@ class FrameEncoderSettingsBuilder {
     return *this;
   }
 
-  VideoEncoderInterface::FrameEncodeSettings Build() {
-    return frame_encode_settings_;
+  FrameEncoderSettingsBuilder& Cb(EncodeResultCallback cb) {
+    frame_encode_settings_.result_callback = std::move(cb);
+    return *this;
+  }
+
+  operator VideoEncoderInterface::FrameEncodeSettings&&() {
+    return std::move(frame_encode_settings_);
   }
 
  private:
@@ -181,6 +186,16 @@ class FrameEncoderSettingsBuilder {
 };
 
 using Fb = FrameEncoderSettingsBuilder;
+
+// Since FrameEncodeSettings is move only, initalizer-list initialization won't
+// work, so instead a C-style array can be used to do aggregate initialization.
+template <int N>
+std::vector<VideoEncoderInterface::FrameEncodeSettings> ToVec(
+    VideoEncoderInterface::FrameEncodeSettings (&&settings)[N]) {
+  return std::vector<VideoEncoderInterface::FrameEncodeSettings>(
+      std::make_move_iterator(std::begin(settings)),
+      std::make_move_iterator(std::end(settings)));
+}
 
 // For reasonable debug printout when an EXPECT fail.
 struct Resolution {
@@ -253,15 +268,14 @@ TEST(LibaomAv1Encoder, KeyframeUpdatesSpecifiedBuffer) {
   auto raw_delta = frame_reader->PullFrame();
 
   enc->Encode(raw_key, {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(640, 360).Upd(5).Key().Build()},
-              res.CallBack());
+              ToVec({Fb().Rate(kCbr).Res(640, 360).Upd(5).Key().Cb(res.Cb())}));
   ASSERT_THAT(res.FrameAt(0), NotNull());
   VideoFrame decoded_key = dec.Decode(*res.FrameAt(0));
   EXPECT_THAT(Resolution(decoded_key), ResolutionIs(640, 360));
   EXPECT_THAT(Psnr(raw_key, decoded_key), Gt(40));
 
   enc->Encode(raw_delta, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(640, 360).Ref({0}).Build()}, res.CallBack());
+              ToVec({Fb().Rate(kCbr).Res(640, 360).Ref({0}).Cb(res.Cb())}));
   ASSERT_THAT(res.FrameAt(1), Eq(nullptr));
 }
 
@@ -271,20 +285,20 @@ TEST(LibaomAv1Encoder, MidTemporalUnitKeyframeResetsBuffers) {
   EncodeResults res;
   Av1Decoder dec;
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({0}).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({0}).Cb(res.Cb())}));
   ASSERT_THAT(res.FrameAt(2), NotNull());
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Ref({0}).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Upd(1).Key().Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({0}).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Ref({0}).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Upd(1).Key().Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({0}).Cb(res.Cb())}));
   ASSERT_THAT(res.FrameAt(3), Eq(nullptr));
 }
 
@@ -295,20 +309,15 @@ TEST(LibaomAv1Encoder, ResolutionSwitching) {
 
   rtc::scoped_refptr<I420Buffer> in0 = frame_reader->PullFrame();
   enc->Encode(in0, {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(320, 180).Upd(0).Key().Build()},
-              res.CallBack());
+              ToVec({Fb().Rate(kCbr).Res(320, 180).Upd(0).Key().Cb(res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> in1 = frame_reader->PullFrame();
   enc->Encode(in1, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(640, 360).Ref({0}).Build()}, res.CallBack());
+              ToVec({Fb().Rate(kCbr).Res(640, 360).Ref({0}).Cb(res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> in2 = frame_reader->PullFrame();
   enc->Encode(in2, {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).Ref({0}).Build()}, res.CallBack());
-
-  EXPECT_THAT(res.FrameAt(0), Field(&EncodedData::spatial_id, 0));
-  EXPECT_THAT(res.FrameAt(1), Field(&EncodedData::spatial_id, 0));
-  EXPECT_THAT(res.FrameAt(2), Field(&EncodedData::spatial_id, 0));
+              ToVec({Fb().Rate(kCbr).Res(160, 90).Ref({0}).Cb(res.Cb())}));
 
   Av1Decoder dec;
   VideoFrame f0 = dec.Decode(*res.FrameAt(0));
@@ -333,26 +342,21 @@ TEST(LibaomAv1Encoder, InputResolutionSwitching) {
 
   rtc::scoped_refptr<I420Buffer> in0 = frame_reader->PullFrame();
   enc->Encode(in0, {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).Upd(0).Key().Build()},
-              res.CallBack());
+              ToVec({Fb().Rate(kCbr).Res(160, 90).Upd(0).Key().Cb(res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> in1 = frame_reader->PullFrame(
       /*frame_num=*/nullptr,
       /*resolution=*/{320, 180},
       /*framerate_scale=*/{1, 1});
   enc->Encode(in1, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).Ref({0}).Build()}, res.CallBack());
+              ToVec({Fb().Rate(kCbr).Res(160, 90).Ref({0}).Cb(res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> in2 = frame_reader->PullFrame(
       /*frame_num=*/nullptr,
       /*resolution=*/{160, 90},
       /*framerate_scale=*/{1, 1});
   enc->Encode(in2, {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).Ref({0}).Build()}, res.CallBack());
-
-  EXPECT_THAT(res.FrameAt(0), Field(&EncodedData::spatial_id, 0));
-  EXPECT_THAT(res.FrameAt(1), Field(&EncodedData::spatial_id, 0));
-  EXPECT_THAT(res.FrameAt(2), Field(&EncodedData::spatial_id, 0));
+              ToVec({Fb().Rate(kCbr).Res(160, 90).Ref({0}).Cb(res.Cb())}));
 
   Av1Decoder dec;
   VideoFrame f0 = dec.Decode(*res.FrameAt(0));
@@ -380,24 +384,27 @@ TEST(LibaomAv1Encoder, TempoSpatial) {
   const Cbr k20Fps{.duration = TimeDelta::Millis(50),
                    .target_bitrate = DataRate::KilobitsPerSec(500)};
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(k10Fps).Res(160, 90).S(0).Upd(0).Key().Build(),
-               Fb().Rate(k10Fps).Res(320, 180).S(1).Ref({0}).Upd(1).Build(),
-               Fb().Rate(k20Fps).Res(640, 360).S(2).Ref({1}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec(
+          {Fb().Rate(k10Fps).Res(160, 90).S(0).Upd(0).Key().Cb(res.Cb()),
+           Fb().Rate(k10Fps).Res(320, 180).S(1).Ref({0}).Upd(1).Cb(res.Cb()),
+           Fb().Rate(k20Fps).Res(640, 360).S(2).Ref({1}).Upd(2).Cb(res.Cb())}));
 
   enc->Encode(frame_reader->PullFrame(),
               {.presentation_timestamp = Timestamp::Millis(50)},
-              {Fb().Rate(k20Fps).Res(640, 360).S(2).Ref({2}).Upd(2).Build()},
-              res.CallBack());
+              ToVec({Fb().Rate(k20Fps).Res(640, 360).S(2).Ref({2}).Upd(2).Cb(
+                  res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> frame = frame_reader->PullFrame();
-  enc->Encode(frame, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(k10Fps).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(k10Fps).Res(320, 180).S(1).Ref({0, 1}).Upd(1).Build(),
-               Fb().Rate(k20Fps).Res(640, 360).S(2).Ref({1, 2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame, {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec(
+          {Fb().Rate(k10Fps).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+           Fb().Rate(k10Fps).Res(320, 180).S(1).Ref({0, 1}).Upd(1).Cb(res.Cb()),
+           Fb().Rate(k20Fps).Res(640, 360).S(2).Ref({1, 2}).Upd(2).Cb(
+               res.Cb())}));
 
   Av1Decoder dec;
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(0))), ResolutionIs(160, 90));
@@ -418,22 +425,23 @@ TEST(DISABLED_LibaomAv1Encoder, InvertedTempoSpatial) {
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
   EncodeResults res;
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(320, 180).S(0).Upd(0).Key().Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(1).Ref({0}).Upd(1).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec({Fb().Rate(kCbr).Res(320, 180).S(0).Upd(0).Key().Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(1).Ref({0}).Upd(1).Cb(res.Cb())}));
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(320, 180).S(0).Ref({0}).Upd(0).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec({Fb().Rate(kCbr).Res(320, 180).S(0).Ref({0}).Upd(0).Cb(res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> frame = frame_reader->PullFrame();
-  enc->Encode(frame, {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(320, 180).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(1).Ref({1, 0}).Upd(1).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame, {.presentation_timestamp = Timestamp::Millis(200)},
+      ToVec({Fb().Rate(kCbr).Res(320, 180).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(1).Ref({1, 0}).Upd(1).Cb(
+                 res.Cb())}));
 
   Av1Decoder dec;
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(0))), ResolutionIs(320, 180));
@@ -448,25 +456,26 @@ TEST(LibaomAv1Encoder, SkipMidLayer) {
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
   EncodeResults res;
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1}).Upd(2).Cb(res.Cb())}));
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Cb(res.Cb())}));
 
   rtc::scoped_refptr<I420Buffer> frame = frame_reader->PullFrame();
-  enc->Encode(frame, {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0, 1}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1, 2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame, {.presentation_timestamp = Timestamp::Millis(200)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0, 1}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1, 2}).Upd(2).Cb(
+                 res.Cb())}));
 
   Av1Decoder dec;
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(0))), ResolutionIs(160, 90));
@@ -486,26 +495,26 @@ TEST(LibaomAv1Encoder, L3T1) {
   auto frame_reader = CreateFrameReader();
   auto enc = LibaomAv1EncoderFactory().CreateEncoder(kCbrEncoderSettings, {});
   EncodeResults res;
-
   Av1Decoder dec;
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1}).Upd(2).Cb(res.Cb())}));
 
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(0))), ResolutionIs(160, 90));
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(1))), ResolutionIs(320, 180));
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(2))), ResolutionIs(640, 360));
 
   auto tu1_frame = frame_reader->PullFrame();
-  enc->Encode(tu1_frame, {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1, 0}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2, 1}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      tu1_frame, {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1, 0}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2, 1}).Upd(2).Cb(
+                 res.Cb())}));
 
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(3))), ResolutionIs(160, 90));
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(4))), ResolutionIs(320, 180));
@@ -515,11 +524,12 @@ TEST(LibaomAv1Encoder, L3T1) {
   EXPECT_THAT(Psnr(tu1_frame, f_tu1), Gt(40));
 
   auto tu2_frame = frame_reader->PullFrame();
-  enc->Encode(tu2_frame, {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1, 0}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2, 1}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      tu2_frame, {.presentation_timestamp = Timestamp::Millis(200)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1, 0}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2, 1}).Upd(2).Cb(
+                 res.Cb())}));
 
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(6))), ResolutionIs(160, 90));
   EXPECT_THAT(Resolution(dec.Decode(*res.FrameAt(7))), ResolutionIs(320, 180));
@@ -538,12 +548,12 @@ TEST(LibaomAv1Encoder, L3T1_KEY) {
   Av1Decoder dec_s1;
   Av1Decoder dec_s2;
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Upd(0).Key().Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({0}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({1}).Upd(2).Cb(res.Cb())}));
 
   EXPECT_THAT(Resolution(dec_s0.Decode(*res.FrameAt(0))),
               ResolutionIs(160, 90));
@@ -557,12 +567,12 @@ TEST(LibaomAv1Encoder, L3T1_KEY) {
   EXPECT_THAT(Resolution(dec_s2.Decode(*res.FrameAt(2))),
               ResolutionIs(640, 360));
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Cb(res.Cb())}));
 
   EXPECT_THAT(Resolution(dec_s0.Decode(*res.FrameAt(3))),
               ResolutionIs(160, 90));
@@ -571,12 +581,12 @@ TEST(LibaomAv1Encoder, L3T1_KEY) {
   EXPECT_THAT(Resolution(dec_s2.Decode(*res.FrameAt(5))),
               ResolutionIs(640, 360));
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(200)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Cb(res.Cb())}));
 
   EXPECT_THAT(Resolution(dec_s0.Decode(*res.FrameAt(6))),
               ResolutionIs(160, 90));
@@ -595,12 +605,12 @@ TEST(LibaomAv1Encoder, S3T1) {
   Av1Decoder dec_s1;
   Av1Decoder dec_s2;
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(0)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Start().Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Start().Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Start().Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(0)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Start().Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Start().Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Start().Upd(2).Cb(res.Cb())}));
   EXPECT_THAT(Resolution(dec_s0.Decode(*res.FrameAt(0))),
               ResolutionIs(160, 90));
   EXPECT_THAT(Resolution(dec_s1.Decode(*res.FrameAt(1))),
@@ -608,12 +618,12 @@ TEST(LibaomAv1Encoder, S3T1) {
   EXPECT_THAT(Resolution(dec_s2.Decode(*res.FrameAt(2))),
               ResolutionIs(640, 360));
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(100)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(100)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Cb(res.Cb())}));
 
   EXPECT_THAT(Resolution(dec_s0.Decode(*res.FrameAt(3))),
               ResolutionIs(160, 90));
@@ -622,12 +632,12 @@ TEST(LibaomAv1Encoder, S3T1) {
   EXPECT_THAT(Resolution(dec_s2.Decode(*res.FrameAt(5))),
               ResolutionIs(640, 360));
 
-  enc->Encode(frame_reader->PullFrame(),
-              {.presentation_timestamp = Timestamp::Millis(200)},
-              {Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Build(),
-               Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Build(),
-               Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Build()},
-              res.CallBack());
+  enc->Encode(
+      frame_reader->PullFrame(),
+      {.presentation_timestamp = Timestamp::Millis(200)},
+      ToVec({Fb().Rate(kCbr).Res(160, 90).S(0).Ref({0}).Upd(0).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(320, 180).S(1).Ref({1}).Upd(1).Cb(res.Cb()),
+             Fb().Rate(kCbr).Res(640, 360).S(2).Ref({2}).Upd(2).Cb(res.Cb())}));
 
   EXPECT_THAT(Resolution(dec_s0.Decode(*res.FrameAt(6))),
               ResolutionIs(160, 90));
@@ -653,7 +663,7 @@ TEST(LibaomAv1Encoder, HigherEffortLevelYieldsHigherQualityFrames) {
     enc->Encode(
         frame_in,
         {.presentation_timestamp = Timestamp::Millis(0), .effort_level = i},
-        {Fb().Rate(kCbr).Res(640, 360).Upd(0).Key().Build()}, res.CallBack());
+        ToVec({Fb().Rate(kCbr).Res(640, 360).Upd(0).Key().Cb(res.Cb())}));
     double psnr = Psnr(frame_in, dec.Decode(*res.FrameAt(0)));
     EXPECT_THAT(psnr, Gt(psnr_last));
     psnr_last = psnr;
@@ -689,12 +699,12 @@ TEST(LibaomAv1Encoder, KeyframeAndStartrameAreApproximatelyEqual) {
     auto frame_in = frame_reader->PullFrame();
     enc_key->Encode(
         frame_in, {.presentation_timestamp = Timestamp::Millis(0)},
-        {Fb().Rate(kRate).Res(640, 360).S(sid).Upd(0).Key().Build()},
-        res_key.CallBack());
+        ToVec({Fb().Rate(kRate).Res(640, 360).S(sid).Upd(0).Key().Cb(
+            res_key.Cb())}));
     enc_start->Encode(
         frame_in, {.presentation_timestamp = Timestamp::Millis(0)},
-        {Fb().Rate(kRate).Res(640, 360).S(sid).Start().Upd(0).Build()},
-        res_start.CallBack());
+        ToVec({Fb().Rate(kRate).Res(640, 360).S(sid).Start().Upd(0).Cb(
+            res_start.Cb())}));
     total_size_key +=
         DataSize::Bytes(res_key.FrameAt(0)->bitstream_data->size());
     total_size_start +=
@@ -710,12 +720,12 @@ TEST(LibaomAv1Encoder, KeyframeAndStartrameAreApproximatelyEqual) {
       frame_in = frame_reader->PullFrame();
       enc_key->Encode(
           frame_in, {.presentation_timestamp = Timestamp::Millis(f * 100)},
-          {Fb().Rate(kRate).Res(640, 360).S(sid).Ref({0}).Upd(0).Build()},
-          res_key.CallBack());
+          ToVec({Fb().Rate(kRate).Res(640, 360).S(sid).Ref({0}).Upd(0).Cb(
+              res_key.Cb())}));
       enc_start->Encode(
           frame_in, {.presentation_timestamp = Timestamp::Millis(f * 100)},
-          {Fb().Rate(kRate).Res(640, 360).S(sid).Ref({0}).Upd(0).Build()},
-          res_start.CallBack());
+          ToVec({Fb().Rate(kRate).Res(640, 360).S(sid).Ref({0}).Upd(0).Cb(
+              res_start.Cb())}));
       total_size_key +=
           DataSize::Bytes(res_key.FrameAt(f)->bitstream_data->size());
       total_size_start +=
@@ -751,8 +761,8 @@ TEST(LibaomAv1Encoder, BitrateConsistentAcrossSpatialLayers) {
     EncodeResults res;
     enc->Encode(frame_reader->PullFrame(),
                 {.presentation_timestamp = Timestamp::Millis(0)},
-                {Fb().Rate(kRate).Res(640, 360).S(sid).Upd(0).Key().Build()},
-                res.CallBack());
+                ToVec({Fb().Rate(kRate).Res(640, 360).S(sid).Upd(0).Key().Cb(
+                    res.Cb())}));
     total_size += DataSize::Bytes(res.FrameAt(0)->bitstream_data->size());
     total_duration += kRate.duration;
     dec.Decode(*res.FrameAt(0));
@@ -761,8 +771,8 @@ TEST(LibaomAv1Encoder, BitrateConsistentAcrossSpatialLayers) {
       enc->Encode(
           frame_reader->PullFrame(),
           {.presentation_timestamp = Timestamp::Millis(f * 100)},
-          {Fb().Rate(kRate).Res(640, 360).S(sid).Ref({0}).Upd(0).Build()},
-          res.CallBack());
+          ToVec({Fb().Rate(kRate).Res(640, 360).S(sid).Ref({0}).Upd(0).Cb(
+              res.Cb())}));
       total_size += DataSize::Bytes(res.FrameAt(f)->bitstream_data->size());
       total_duration += kRate.duration;
       dec.Decode(*res.FrameAt(f));
@@ -791,13 +801,12 @@ TEST(LibaomAv1Encoder, ConstantQp) {
 
     enc->Encode(frame_reader->PullFrame(),
                 {.presentation_timestamp = Timestamp::Millis(0)},
-                {Fb().Rate(Cqp{.target_qp = kQp})
-                     .Res(640, 360)
-                     .S(sid)
-                     .Upd(0)
-                     .Key()
-                     .Build()},
-                res.CallBack());
+                ToVec({Fb().Rate(Cqp{.target_qp = kQp})
+                           .Res(640, 360)
+                           .S(sid)
+                           .Upd(0)
+                           .Key()
+                           .Cb(res.Cb())}));
     EXPECT_THAT(res.FrameAt(0)->encoded_qp, Eq(kQp));
     total_size += DataSize::Bytes(res.FrameAt(0)->bitstream_data->size());
     dec.Decode(*res.FrameAt(0));
@@ -805,13 +814,12 @@ TEST(LibaomAv1Encoder, ConstantQp) {
     for (int f = 1; f < 10; ++f) {
       enc->Encode(frame_reader->PullFrame(),
                   {.presentation_timestamp = Timestamp::Millis(f * 100)},
-                  {Fb().Rate(Cqp{.target_qp = kQp - f})
-                       .Res(640, 360)
-                       .S(sid)
-                       .Ref({0})
-                       .Upd(0)
-                       .Build()},
-                  res.CallBack());
+                  ToVec({Fb().Rate(Cqp{.target_qp = kQp - f})
+                             .Res(640, 360)
+                             .S(sid)
+                             .Ref({0})
+                             .Upd(0)
+                             .Cb(res.Cb())}));
       EXPECT_THAT(res.FrameAt(f)->encoded_qp, Eq(kQp - f));
       dec.Decode(*res.FrameAt(f));
     }

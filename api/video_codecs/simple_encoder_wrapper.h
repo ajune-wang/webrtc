@@ -11,6 +11,7 @@
 #ifndef API_VIDEO_CODECS_SIMPLE_ENCODER_WRAPPER_H_
 #define API_VIDEO_CODECS_SIMPLE_ENCODER_WRAPPER_H_
 
+#include <deque>
 #include <memory>
 #include <string>
 #include <vector>
@@ -33,8 +34,7 @@ class SimpleEncoderWrapper {
     absl::optional<FrameDependencyStructure> dependency_structure;
   };
 
-  using EncodeResultCallback =
-      absl::AnyInvocable<void(const EncodeResult& result)>;
+  using EncodeResultCallback = std::function<void(const EncodeResult& result)>;
 
   static std::vector<std::string> SupportedWebrtcSvcModes(
       const VideoEncoderFactoryInterface::Capabilities::PredictionConstraints&

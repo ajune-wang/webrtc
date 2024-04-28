@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687a7290_73553116",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-28T17:25:13Z",
+      "side": 1,
+      "message": "I\u0027d claim that the CL removes it, not deprecates it.",
+      "revId": "779b14e48ad9e099451cf9a697b77b192996d30c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f46212a5_7f3a4bb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-28T17:25:13Z",
+      "side": 1,
+      "message": "Mostly commenting on the comments.",
+      "revId": "779b14e48ad9e099451cf9a697b77b192996d30c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41904e78_0d0b2edb",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 22
+      },
+      "lineNbr": 2110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-28T17:25:13Z",
+      "side": 1,
+      "message": "Still needed for something else?",
+      "revId": "779b14e48ad9e099451cf9a697b77b192996d30c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2a1f73e_55d34561",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 22
+      },
+      "lineNbr": 2128,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-28T17:25:13Z",
+      "side": 1,
+      "message": "any reason to have this dep down here and not inline with the rest of always-on dependencies?",
+      "revId": "779b14e48ad9e099451cf9a697b77b192996d30c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b15a43e_c3014773",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-28T17:25:13Z",
+      "side": 1,
+      "message": "I\u0027ve read this explanation 3 times now, and still don\u0027t understand what it\u0027s trying to say. Suggest rewrite?",
+      "revId": "779b14e48ad9e099451cf9a697b77b192996d30c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

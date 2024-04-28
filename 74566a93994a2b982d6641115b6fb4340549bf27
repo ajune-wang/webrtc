@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd719933_ae325591",
+        "filename": "examples/peerconnection/client/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3359326
+      },
+      "writtenOn": "2024-04-28T02:43:44Z",
+      "side": 1,
+      "message": "Because Thread.Run() would run in current main thread and block it, Thread.Start() would trigger one new thread loop. This loop would be blocked on socket until socket events wake up.",
+      "parentUuid": "8800dc30_756db08b",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "856e7698_150b36d3",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-25T07:32:38Z",
       "side": 1,
       "message": "nit: this DCHECK isn\u0027t needed since thread is dereferenced immediately. This could be \n\n  rtc::Thread::Current()-\u003eWakeUp();\n  \nCan you add a comment for why it\u0027s needed? Also, if it\u0027s only needed for Windows, then perhaps it should be inside an #ifdef.",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "363047e8_3be2aaf5",
+        "filename": "examples/peerconnection/client/peer_connection_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 3359326
+      },
+      "writtenOn": "2024-04-28T02:43:44Z",
+      "side": 1,
+      "message": "Sure it could be rtc::Thread::Current()-\u003eWakeUpSocketServer();\nYes it\u0027s only for Windows platform, because physical_socket_server handle socket events differently between Posix and Windows platform.\nfor Posix: use EPOLL or POLL\nfor Windows: \nbool PhysicalSocketServer::Wait(webrtc::TimeDelta max_wait_duration,\n                                bool process_io);\ncall below function WSAEventSelect for requested socket event, then block on WSAWaitForMultipleEvents.\nWSAEventSelect(s, events[0],\n                         FlagsToEvents(disp-\u003eGetRequestedEvents()));\nbut PhysicalSocket::DoConnect() will do connect and then enable DE_CONNECT event.\nSo WSAEventSelect got no channce to monitor that event.",
+      "parentUuid": "856e7698_150b36d3",
       "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

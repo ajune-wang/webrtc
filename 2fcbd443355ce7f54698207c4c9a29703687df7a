@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0330af59_7ea2bb4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-29T12:44:24Z",
+      "side": 1,
+      "message": "I don\u0027t see an actual calculation based on the samples in this CL; did I miss it? Or isn\u0027t it there?\n\nI would want to make sure any knowledge of audio level is preserved, but a transform shouldn\u0027t need to unpack the audio in order to measure the samples.",
+      "revId": "2fcbd443355ce7f54698207c4c9a29703687df7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3af810a_779ca1ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-29T12:44:24Z",
+      "side": 1,
+      "message": "Code looks good(ish), wonder if the description is right.",
+      "revId": "2fcbd443355ce7f54698207c4c9a29703687df7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e411b8f_023dc974",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-04-29T12:44:24Z",
+      "side": 1,
+      "message": "Passing zero here seems odd given that it\u0027s an absl::optional. absl::nullopt?",
+      "revId": "2fcbd443355ce7f54698207c4c9a29703687df7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

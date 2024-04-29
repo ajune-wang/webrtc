@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9322591_a5897fa9",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "I really like the ability to set these at construction.\n\nMy concern here though is that two different schemes are introduced for specifying the number of samples per channel:\n1) In the c-tor, it is specified explicitly via the samples_per_channel, which allows any sample count to be specified.\n2) In the setter SetSampleRateAndChannelSize it is specified via the sample rate which sets samples_per_channel to what SampleRateToDefaultChannelSize specifies\n\n\nThis makes the usage a bit tricky and it allows for two different ways of specifying the sample rate or the samples per channel.\n\nWould it be possible to only allow setting the sample rate, and via that set the number of samples per channel? Or alternatively, to not at all involve the sample rate? Or specify the sample rate together with a frame size in milliseconds?\n\nAt any rate, I think it would be good to only have one single way of specifying the frame length.",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 62
+      },
+      "revId": "943f407e22e0f6f268b1cccd69154ae4c374713c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77cc0584_5cd0f454",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Optional and unrelated to the CL, but since this code is anyway changed, it would be nice to change from auto to int here.\n\nEven though I knew that this must be an int or a size_t, the fact that it was an auto forced me to doublecheck. And on some other cases the risk of mixup between a signed and unsigned type could have side-effects.",
+      "range": {
+        "startLine": 269,
+        "startChar": 1,
+        "endLine": 269,
+        "endChar": 7
+      },
+      "revId": "943f407e22e0f6f268b1cccd69154ae4c374713c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

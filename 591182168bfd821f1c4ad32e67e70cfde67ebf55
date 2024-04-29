@@ -130,6 +130,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae808e3_24e23db8",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d6ed7203_9ef2dd12",
+      "range": {
+        "startLine": 117,
+        "startChar": 54,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a81833_a3407f6f",
@@ -697,6 +721,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6259df_04b9e97a",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Yes, I too think that a refactoring would be good. The 10 ms frame size assumption is a bit tricky since it is so wide-spread. I\u0027m not sure what should be the main part of the code determining that. And I agree that the it feels wrong to do that in AudioProcessing",
+      "parentUuid": "ec4c9343_67fe7a33",
+      "range": {
+        "startLine": 71,
+        "startChar": 53,
+        "endLine": 71,
+        "endChar": 77
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca603996_e1860a4b",
@@ -782,6 +830,30 @@
       "side": 1,
       "message": "Added to audio_frame.h.",
       "parentUuid": "b208f746_dd909599",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d3cf98_e9cead71",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "afc102d1_fe465e03",
       "range": {
         "startLine": 73,
         "startChar": 36,
@@ -1072,6 +1144,24 @@
       "side": 1,
       "message": "Let\u0027s carry this discussion into a separate CL that I\u0027m working on.",
       "parentUuid": "321a71fd_fa1c641f",
+      "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b33b899d_c12b7345",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3de728bd_9015c65b",
       "revId": "591182168bfd821f1c4ad32e67e70cfde67ebf55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

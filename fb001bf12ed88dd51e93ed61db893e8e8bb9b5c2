@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c30443f_5ab3dedc",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Sounds good with an implementation that returns nullptr for zero sizes.!\n\nMoving to fully use an RAII model would be great! At least it should be possible to give some kind of assessment for the parameters at construction time, even though it may be needed to change those later on.\n\nRegarding the num_channels and samples_per_channel I partly share the concern, but I see it slightly differently. Some aspects:\n-I\u0027d myself prefer to keep a channel count as size_t (or an int) since that is actually how it is used in the code, and I fear that going via enums would require a fair amount of boilerplate code to convert back and forth. \n-I think bundling the layout into the enums such as kNumChannels5_1 will tying additional information into the channel count which is rarely used.\n-I think the main risk of mixup of num_channels is due to the use of samples_per_channel. If instead num_channels and sample_rate_hz is specified, the risk of mixup should be much less. (e.g., CHECKS/DCHECKs could then be added to make sure that the channel count is less than 1000, which should work since there are no usable sample rates for audio that are that low).",
+      "parentUuid": "77e348b6_3cc3c896",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 3
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc5fbe39_493f5648",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 19
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "ok thanks for catching that - I\u0027ll remove this",
       "parentUuid": "fc5fbe39_493f5648",
+      "range": {
+        "startLine": 82,
+        "startChar": 5,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1563826a_bddca6f0",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-29T17:57:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "763acc2b_334f105f",
       "range": {
         "startLine": 82,
         "startChar": 5,

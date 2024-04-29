@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0a032ff_0a3d35d8",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-29T21:44:44Z",
+      "side": 1,
+      "message": "Yes, thanks for pointing this out. I\u0027ve removed use of `ChannelLayoutToChannelCount()` from here and also reliance on it from `RemixFrame()`",
+      "parentUuid": "c91b030f_9ef62131",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 45
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f794d53_8609e338",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-29T18:18:11Z",
       "side": 1,
       "message": "I think it would be good to look into how the channel layout is actually used.\nThere are definitely some cases I\u0027m aware of where one needs to specify the channel count independently of the layout, and where having the setting of the layout specifying the channel count can achieve surprising and unwanted results.\n\nI added some more information on that in the comment in the .cc file.\n\nI have no good suggestion as to how to ensure that a channel layout is always accompanied with a valid channel count. (e.g., today it seems fully possible to for a layout of CHANNEL_LAYOUT_STEREO specify 3 channels). My best suggestion to move forward here would be to look into how the layout is actually used in WebRTC, and see if one could somehow decouple it from AudioFrame.\nAlternatively, one could use an approach where\n-Only layouts that are specifically tied to a certain channel count can be set with this method (and CHECK for all other layouts).\n-A similar method also taking num_channels as a parameter is implemented that can only be used for the layouts that require the channel count to be separately stated (and CHECK for all other layouts)",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 53
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fec06a0_bc5aed1a",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-29T21:44:44Z",
+      "side": 1,
+      "message": "I ended up removing the \"guessing work\" from the approach, changed this method to accepting both layout and num_channels and removed the guessing work from `RemixFrame()` too. There isn\u0027t a need to guess the number of channels there.",
+      "parentUuid": "6f794d53_8609e338",
       "range": {
         "startLine": 110,
         "startChar": 3,
@@ -83,6 +131,30 @@
       "writtenOn": "2024-04-29T18:18:11Z",
       "side": 1,
       "message": "There are layouts, e.g., the DISCRETE layout where this will go wrong. Maybe they are not used in this code though?",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "675961bd_60d4c86c",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-29T21:44:44Z",
+      "side": 1,
+      "message": "The layout that, before this CL, was sent here, was guessed from the number of channels. Somewhat confusingly, that guessed layout was then used to guess the number of channels in this class. I\u0027ve changed that so that the known num_channels is actually passed unguessed to ChannelMixer now but the layouts are still guessed in the RemixCode, with a TODO for bugs.webrtc.org/10783 to fix.",
+      "parentUuid": "ea578617_07b8e7aa",
       "range": {
         "startLine": 52,
         "startChar": 4,

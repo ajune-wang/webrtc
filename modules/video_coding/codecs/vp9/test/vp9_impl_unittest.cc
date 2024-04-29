@@ -64,6 +64,7 @@ using FramerateFractions =
 
 constexpr size_t kWidth = 1280;
 constexpr size_t kHeight = 720;
+constexpr int kBitrateKbps = 2048;
 
 const VideoEncoder::Capabilities kCapabilities(false);
 const VideoEncoder::Settings kSettings(kCapabilities,
@@ -75,17 +76,18 @@ VideoCodec DefaultCodecSettings() {
   webrtc::test::CodecSettings(kVideoCodecVP9, &codec_settings);
   codec_settings.width = kWidth;
   codec_settings.height = kHeight;
+  codec_settings.startBitrate = kBitrateKbps;
+  codec_settings.maxBitrate = kBitrateKbps;
   codec_settings.VP9()->numberOfTemporalLayers = 1;
   codec_settings.VP9()->numberOfSpatialLayers = 1;
   return codec_settings;
 }
 
 void ConfigureSvc(VideoCodec& codec_settings,
-                  int num_spatial_layers,
+                  int num_spatial_layers = 1,
                   int num_temporal_layers = 1) {
   codec_settings.VP9()->numberOfSpatialLayers = num_spatial_layers;
   codec_settings.VP9()->numberOfTemporalLayers = num_temporal_layers;
-  codec_settings.SetFrameDropEnabled(false);
 
   std::vector<SpatialLayer> layers = GetSvcConfig(
       codec_settings.width, codec_settings.height, codec_settings.maxFramerate,
@@ -292,9 +294,10 @@ TEST(Vp9ImplTest, EncodeAttachesTemplateStructureWithSvcController) {
 TEST(Vp9ImplTest, EncoderWith2TemporalLayers) {
   std::unique_ptr<VideoEncoder> encoder = CreateVp9Encoder(CreateEnvironment());
   VideoCodec codec_settings = DefaultCodecSettings();
-  codec_settings.VP9()->numberOfTemporalLayers = 2;
   // Tl0PidIdx is only used in non-flexible mode.
   codec_settings.VP9()->flexibleMode = false;
+  ConfigureSvc(codec_settings, /*num_spatial_layers=*/1,
+               /*num_temporal_layers=*/2);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
 
@@ -314,7 +317,8 @@ TEST(Vp9ImplTest, EncoderWith2TemporalLayers) {
 TEST(Vp9ImplTest, EncodeTemporalLayersWithSvcController) {
   std::unique_ptr<VideoEncoder> encoder = CreateVp9Encoder(CreateEnvironment());
   VideoCodec codec_settings = DefaultCodecSettings();
-  codec_settings.VP9()->numberOfTemporalLayers = 2;
+  ConfigureSvc(codec_settings, /*num_spatial_layers=*/1,
+               /*num_temporal_layers=*/2);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
 
@@ -343,7 +347,7 @@ TEST(Vp9ImplTest, EncodeTemporalLayersWithSvcController) {
 TEST(Vp9ImplTest, EncoderWith2SpatialLayers) {
   std::unique_ptr<VideoEncoder> encoder = CreateVp9Encoder(CreateEnvironment());
   VideoCodec codec_settings = DefaultCodecSettings();
-  codec_settings.VP9()->numberOfSpatialLayers = 2;
+  ConfigureSvc(codec_settings, /*num_spatial_layers=*/2);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
 
@@ -361,7 +365,7 @@ TEST(Vp9ImplTest, EncoderWith2SpatialLayers) {
 TEST(Vp9ImplTest, EncodeSpatialLayersWithSvcController) {
   std::unique_ptr<VideoEncoder> encoder = CreateVp9Encoder(CreateEnvironment());
   VideoCodec codec_settings = DefaultCodecSettings();
-  codec_settings.VP9()->numberOfSpatialLayers = 2;
+  ConfigureSvc(codec_settings, /*num_spatial_layers=*/2);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
 
@@ -388,34 +392,7 @@ TEST(Vp9ImplTest, EncodeSpatialLayersWithSvcController) {
 }
 
 TEST_F(TestVp9Impl, EncoderExplicitLayering) {
-  // Override default settings.
-  codec_settings_.VP9()->numberOfTemporalLayers = 1;
-  codec_settings_.VP9()->numberOfSpatialLayers = 2;
-
-  codec_settings_.width = 960;
-  codec_settings_.height = 540;
-  codec_settings_.spatialLayers[0].minBitrate = 200;
-  codec_settings_.spatialLayers[0].maxBitrate = 500;
-  codec_settings_.spatialLayers[0].targetBitrate =
-      (codec_settings_.spatialLayers[0].minBitrate +
-       codec_settings_.spatialLayers[0].maxBitrate) /
-      2;
-  codec_settings_.spatialLayers[0].active = true;
-
-  codec_settings_.spatialLayers[1].minBitrate = 400;
-  codec_settings_.spatialLayers[1].maxBitrate = 1500;
-  codec_settings_.spatialLayers[1].targetBitrate =
-      (codec_settings_.spatialLayers[1].minBitrate +
-       codec_settings_.spatialLayers[1].maxBitrate) /
-      2;
-  codec_settings_.spatialLayers[1].active = true;
-
-  codec_settings_.spatialLayers[0].width = codec_settings_.width / 2;
-  codec_settings_.spatialLayers[0].height = codec_settings_.height / 2;
-  codec_settings_.spatialLayers[0].maxFramerate = codec_settings_.maxFramerate;
-  codec_settings_.spatialLayers[1].width = codec_settings_.width;
-  codec_settings_.spatialLayers[1].height = codec_settings_.height;
-  codec_settings_.spatialLayers[1].maxFramerate = codec_settings_.maxFramerate;
+  ConfigureSvc(codec_settings_, /*num_spatial_layers=*/2);
 
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             encoder_->InitEncode(&codec_settings_, kSettings));
@@ -1853,8 +1830,7 @@ TEST_P(Vp9ImplWithLayeringTest, FlexibleMode) {
   VideoCodec codec_settings = DefaultCodecSettings();
   codec_settings.VP9()->flexibleMode = true;
   codec_settings.SetFrameDropEnabled(false);
-  codec_settings.VP9()->numberOfSpatialLayers = num_spatial_layers_;
-  codec_settings.VP9()->numberOfTemporalLayers = num_temporal_layers_;
+  ConfigureSvc(codec_settings, num_spatial_layers_, num_temporal_layers_);
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
             WEBRTC_VIDEO_CODEC_OK);
 
@@ -1932,6 +1908,7 @@ TEST_F(TestVp9ImplFrameDropping, PreEncodeFrameDropping) {
   const float max_abs_framerate_error_fps = expected_framerate_fps * 0.1f;
 
   codec_settings_.maxFramerate = static_cast<uint32_t>(expected_framerate_fps);
+  ConfigureSvc(codec_settings_);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             encoder_->InitEncode(&codec_settings_, kSettings));
 
@@ -2487,9 +2464,11 @@ TEST_P(TestVp9ImplSvcFrameDropConfig, SvcFrameDropConfig) {
   settings.VP9()->flexibleMode = test_params.flexible_mode;
   if (test_params.scalability_mode.has_value()) {
     settings.SetScalabilityMode(*test_params.scalability_mode);
+  } else {
+    int num_spatial_layers =
+        3;  // to execute SVC code paths even when scalability_mode is not set.
+    ConfigureSvc(settings, num_spatial_layers);
   }
-  settings.VP9()->numberOfSpatialLayers =
-      3;  // to execute SVC code paths even when scalability_mode is not set.
 
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder.InitEncode(&settings, kSettings));
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "729ea904_7f58cdd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-29T18:35:43Z",
+      "side": 1,
+      "message": "tripwire so we don\u0027t scratch our heads again.\n\nTechnically we are violating JSEP which says \u0027If and only if present in the offer, an \"a\u003dmid\" line\u0027 in 5.3.1 Initial answers but that does not seem harmful.\nJSEP also makes the mid mandatory for datachannel which seems safe to ignore too.\n\nIf only the process to \"fix\" JSEP was not so complicated ;-)",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

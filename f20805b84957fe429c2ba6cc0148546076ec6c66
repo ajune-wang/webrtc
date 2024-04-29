@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b49e6694_b28d2751",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-29T16:31:13Z",
+      "side": 1,
+      "message": "This needs to handle three cases:\n1/ SPS failed to parse (bailing out now)\n2/ VUI was amended and data needs to be updated\n3/ VUI did not need to be amended\nSwitch is slightly nicer and makes the [[fallthrough]] from 2 to 3 more obvious",
+      "parentUuid": "28461460_1fe30d80",
+      "revId": "f20805b84957fe429c2ba6cc0148546076ec6c66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4279aac7_fb793c3f",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-04-28T19:43:40Z",
       "side": 1,
       "message": "I think this doesn\u0027t test compound packets with multiple NALUs. Wondering if something strange could happen if the error is not in the first part of the compound.\n\nBut that wasn\u0027t tested before either....",
+      "revId": "f20805b84957fe429c2ba6cc0148546076ec6c66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e82d95af_40bcff8f",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-04-29T16:31:13Z",
+      "side": 1,
+      "message": "Guess how I found this... ;-)\nIf there is any error this will return nullopt, running into https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/rtp_video_frame_assembler.cc;l\u003d109;drc\u003d6f3f85b321146cfc0f9eb81a74c7c2257821461e;bpv\u003d1;bpt\u003d1 and friends.\n\nI hope that is tested in a way that it does clear any lingering state from the same RTP timestamp, there are quite a few cases.",
+      "parentUuid": "4279aac7_fb793c3f",
       "revId": "f20805b84957fe429c2ba6cc0148546076ec6c66",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

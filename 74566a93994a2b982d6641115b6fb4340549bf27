@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c63dbe24_d79b44f0",
+        "filename": "examples/peerconnection/client/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-29T07:15:33Z",
+      "side": 1,
+      "message": "Sorry, I mean add a comment in the code.\n\nAlso, wdyt about my second question?",
+      "parentUuid": "fd719933_ae325591",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "856e7698_150b36d3",
         "filename": "examples/peerconnection/client/peer_connection_client.cc",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Sure it could be rtc::Thread::Current()-\u003eWakeUpSocketServer();\nYes it\u0027s only for Windows platform, because physical_socket_server handle socket events differently between Posix and Windows platform.\nfor Posix: use EPOLL or POLL\nfor Windows: \nbool PhysicalSocketServer::Wait(webrtc::TimeDelta max_wait_duration,\n                                bool process_io);\ncall below function WSAEventSelect for requested socket event, then block on WSAWaitForMultipleEvents.\nWSAEventSelect(s, events[0],\n                         FlagsToEvents(disp-\u003eGetRequestedEvents()));\nbut PhysicalSocket::DoConnect() will do connect and then enable DE_CONNECT event.\nSo WSAEventSelect got no channce to monitor that event.",
       "parentUuid": "856e7698_150b36d3",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f47886c_cfd5999f",
+        "filename": "examples/peerconnection/client/peer_connection_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-29T07:15:33Z",
+      "side": 1,
+      "message": "Thanks. Please remove the DCHECK as per the first sentence in my review comment. The reason is that we don\u0027t have DCHECKs for pointers that are directly derefenced following the DCHECK.\n\nAlso, can you add documentation in the form of a comment in the code? I.e. explain that on Windows a connection event will otherwise be missed.\n\nIs there something that could be done to the Windows `DoConnect()` method to address that problem rather than worka around it here?",
+      "parentUuid": "363047e8_3be2aaf5",
       "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

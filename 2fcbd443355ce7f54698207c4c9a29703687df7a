@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "06c9ac94_07b36166",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-04-29T13:15:12Z",
+      "side": 1,
+      "message": "Hmm, yeah, this isn\u0027t super well worded. It\u0027s the ChannelSend.rms_levels_ object that collects up stats on all of the samples fed to Analyze() and does the calculation (and resets the stats) when we call Average(). After the cl, we call Average() to calculate \u0026 reset as soon as a packet is produced and send it along with that packet.\nUpdated the description to reference the rms_levels_ obj, hope that\u0027s clearer.",
+      "parentUuid": "0330af59_7ea2bb4e",
+      "revId": "2fcbd443355ce7f54698207c4c9a29703687df7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e3af810a_779ca1ee",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -48,6 +66,24 @@
       "writtenOn": "2024-04-29T12:44:24Z",
       "side": 1,
       "message": "Passing zero here seems odd given that it\u0027s an absl::optional. absl::nullopt?",
+      "revId": "2fcbd443355ce7f54698207c4c9a29703687df7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02a3580_17bd7474",
+        "filename": "audio/channel_send_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-04-29T13:15:12Z",
+      "side": 1,
+      "message": "This interface was actually a uint8_t. Thinking again, it should be an optional to capture when the sender doesn\u0027t have the AudioLevel header extension enabled, so doesn\u0027t compute the audio level. Fixed, thanks!",
+      "parentUuid": "0e411b8f_023dc974",
       "revId": "2fcbd443355ce7f54698207c4c9a29703687df7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

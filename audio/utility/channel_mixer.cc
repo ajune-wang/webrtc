@@ -49,8 +49,8 @@ void ChannelMixer::Transform(AudioFrame* frame) {
 
   // Only change the number of output channels if the audio frame is muted.
   if (frame->muted()) {
-    frame->num_channels_ = output_channels_;
-    frame->channel_layout_ = output_layout_;
+    frame->SetLayoutAndNumChannels(output_layout_);
+    RTC_DCHECK_EQ(frame->num_channels(), output_channels_);
     return;
   }
 
@@ -87,8 +87,8 @@ void ChannelMixer::Transform(AudioFrame* frame) {
   }
 
   // Update channel information.
-  frame->num_channels_ = output_channels_;
-  frame->channel_layout_ = output_layout_;
+  frame->SetLayoutAndNumChannels(output_layout_);
+  RTC_DCHECK_EQ(frame->num_channels(), output_channels_);
 
   // Copy the output result to the audio frame in `frame`.
   memcpy(

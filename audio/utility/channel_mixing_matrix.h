@@ -42,9 +42,9 @@ class ChannelMixingMatrix {
   std::vector<std::vector<float>>* matrix_;
 
   // Input and output channel layout provided during construction.
-  ChannelLayout input_layout_;
+  const ChannelLayout input_layout_;
   int input_channels_;
-  ChannelLayout output_layout_;
+  const ChannelLayout output_layout_;
   int output_channels_;
 
   // Helper variable for tracking which inputs are currently unaccounted,

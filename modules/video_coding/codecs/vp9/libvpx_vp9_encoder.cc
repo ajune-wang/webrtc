@@ -301,12 +301,6 @@ int LibvpxVp9Encoder::Release() {
   return ret_val;
 }
 
-bool LibvpxVp9Encoder::ExplicitlyConfiguredSpatialLayers() const {
-  // We check target_bitrate_bps of the 0th layer to see if the spatial layers
-  // (i.e. bitrates) were explicitly configured.
-  return codec_.spatialLayers[0].targetBitrate > 0;
-}
-
 bool LibvpxVp9Encoder::SetSvcRates(
     const VideoBitrateAllocation& bitrate_allocation) {
   std::pair<size_t, size_t> current_layers =
@@ -333,66 +327,22 @@ bool LibvpxVp9Encoder::SetSvcRates(
 
   config_->rc_target_bitrate = bitrate_allocation.get_sum_kbps();
 
-  if (ExplicitlyConfiguredSpatialLayers()) {
-    for (size_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
-      const bool was_layer_active = (config_->ss_target_bitrate[sl_idx] > 0);
-      config_->ss_target_bitrate[sl_idx] =
-          bitrate_allocation.GetSpatialLayerSum(sl_idx) / 1000;
-
-      for (size_t tl_idx = 0; tl_idx < num_temporal_layers_; ++tl_idx) {
-        config_->layer_target_bitrate[sl_idx * num_temporal_layers_ + tl_idx] =
-            bitrate_allocation.GetTemporalLayerSum(sl_idx, tl_idx) / 1000;
-      }
-
-      if (!was_layer_active) {
-        // Reset frame rate controller if layer is resumed after pause.
-        framerate_controller_[sl_idx].Reset();
-      }
-
-      framerate_controller_[sl_idx].SetTargetRate(
-          codec_.spatialLayers[sl_idx].maxFramerate);
-    }
-  } else {
-    float rate_ratio[VPX_MAX_LAYERS] = {0};
-    float total = 0;
-    for (int i = 0; i < num_spatial_layers_; ++i) {
-      if (svc_params_.scaling_factor_num[i] <= 0 ||
-          svc_params_.scaling_factor_den[i] <= 0) {
-        RTC_LOG(LS_ERROR) << "Scaling factors not specified!";
-        return false;
-      }
-      rate_ratio[i] = static_cast<float>(svc_params_.scaling_factor_num[i]) /
-                      svc_params_.scaling_factor_den[i];
-      total += rate_ratio[i];
+  for (size_t sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
+    if (config_->ss_target_bitrate[sl_idx] == 0) {
+      // Reset frame rate controller if layer is resumed after pause.
+      framerate_controller_[sl_idx].Reset();
     }
 
-    for (int i = 0; i < num_spatial_layers_; ++i) {
-      RTC_CHECK_GT(total, 0);
-      config_->ss_target_bitrate[i] = static_cast<unsigned int>(
-          config_->rc_target_bitrate * rate_ratio[i] / total);
-      if (num_temporal_layers_ == 1) {
-        config_->layer_target_bitrate[i] = config_->ss_target_bitrate[i];
-      } else if (num_temporal_layers_ == 2) {
-        config_->layer_target_bitrate[i * num_temporal_layers_] =
-            config_->ss_target_bitrate[i] * 2 / 3;
-        config_->layer_target_bitrate[i * num_temporal_layers_ + 1] =
-            config_->ss_target_bitrate[i];
-      } else if (num_temporal_layers_ == 3) {
-        config_->layer_target_bitrate[i * num_temporal_layers_] =
-            config_->ss_target_bitrate[i] / 2;
-        config_->layer_target_bitrate[i * num_temporal_layers_ + 1] =
-            config_->layer_target_bitrate[i * num_temporal_layers_] +
-            (config_->ss_target_bitrate[i] / 4);
-        config_->layer_target_bitrate[i * num_temporal_layers_ + 2] =
-            config_->ss_target_bitrate[i];
-      } else {
-        RTC_LOG(LS_ERROR) << "Unsupported number of temporal layers: "
-                          << num_temporal_layers_;
-        return false;
-      }
+    config_->ss_target_bitrate[sl_idx] =
+        bitrate_allocation.GetSpatialLayerSum(sl_idx) / 1000;
 
-      framerate_controller_[i].SetTargetRate(codec_.maxFramerate);
+    for (size_t tl_idx = 0; tl_idx < num_temporal_layers_; ++tl_idx) {
+      config_->layer_target_bitrate[sl_idx * num_temporal_layers_ + tl_idx] =
+          bitrate_allocation.GetTemporalLayerSum(sl_idx, tl_idx) / 1000;
     }
+
+    framerate_controller_[sl_idx].SetTargetRate(
+        codec_.spatialLayers[sl_idx].maxFramerate);
   }
 
   num_active_spatial_layers_ = 0;
@@ -786,7 +736,8 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
       svc_params_.scaling_factor_num[i] = stream_config.scaling_factor_num[i];
       svc_params_.scaling_factor_den[i] = stream_config.scaling_factor_den[i];
     }
-  } else if (ExplicitlyConfiguredSpatialLayers()) {
+  }
+  {
     for (int i = 0; i < num_spatial_layers_; ++i) {
       const auto& layer = codec_.spatialLayers[i];
       RTC_CHECK_GT(layer.width, 0);
@@ -820,15 +771,6 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
         RTC_DCHECK_GE(codec_.spatialLayers[i].maxFramerate,
                       codec_.spatialLayers[i - 1].maxFramerate);
       }
-    }
-  } else {
-    int scaling_factor_num = 256;
-    for (int i = num_spatial_layers_ - 1; i >= 0; --i) {
-      // 1:2 scaling in each dimension.
-      svc_params_.scaling_factor_num[i] = scaling_factor_num;
-      svc_params_.scaling_factor_den[i] = 256;
-      if (inst->mode != VideoCodecMode::kScreensharing)
-        scaling_factor_num /= 2;
     }
   }
 
@@ -1457,6 +1399,7 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   if (scalability_mode_) {
     codec_specific->scalability_mode = scalability_mode_;
   } else {
+    // TODO(ssilkin): num_active_spatial_layers_ - first_active_layer_
     codec_specific_.scalability_mode = MakeScalabilityMode(
         num_active_spatial_layers_, num_temporal_layers_, inter_layer_pred_,
         num_active_spatial_layers_ > 1

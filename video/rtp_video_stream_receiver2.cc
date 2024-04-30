@@ -893,7 +893,10 @@ void RtpVideoStreamReceiver2::OnAssembledFrame(
   if (buffered_frame_decryptor_ != nullptr) {
     buffered_frame_decryptor_->ManageEncryptedFrame(std::move(frame));
   } else if (frame_transformer_delegate_) {
-    frame_transformer_delegate_->TransformFrame(std::move(frame));
+    // Only provide the video_structure_ to be copied on keyframes.
+    bool is_keyframe = frame->FrameType() == VideoFrameType::kVideoFrameKey;
+    frame_transformer_delegate_->TransformFrame(
+        std::move(frame), is_keyframe ? video_structure_.get() : nullptr);
   } else {
     OnCompleteFrames(reference_finder_->ManageFrame(std::move(frame)));
   }

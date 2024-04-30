@@ -22,6 +22,7 @@
 #include "api/test/mock_transformable_video_frame.h"
 #include "call/video_receive_stream.h"
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h"
 #include "rtc_base/event.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -46,8 +47,38 @@ TEST(FrameTransformerFactory, CloneAudioFrame) {
   EXPECT_THAT(cloned_frame->GetData(), ElementsAreArray(data));
 }
 
+class MockTransformableVideoFrameWithDependencies
+    : public TransformableVideoFrameWithDependencies {
+ public:
+  MOCK_METHOD(rtc::ArrayView<const uint8_t>, GetData, (), (const, override));
+  MOCK_METHOD(void, SetData, (rtc::ArrayView<const uint8_t> data), (override));
+  MOCK_METHOD(uint32_t, GetTimestamp, (), (const, override));
+  MOCK_METHOD(void, SetRTPTimestamp, (uint32_t), (override));
+  MOCK_METHOD(uint32_t, GetSsrc, (), (const, override));
+  MOCK_METHOD(bool, IsKeyFrame, (), (const, override));
+  MOCK_METHOD(void,
+              SetMetadata,
+              (const webrtc::VideoFrameMetadata&),
+              (override));
+  MOCK_METHOD(uint8_t, GetPayloadType, (), (const, override));
+  MOCK_METHOD(TransformableFrameInterface::Direction,
+              GetDirection,
+              (),
+              (const, override));
+  MOCK_METHOD(std::string, GetMimeType, (), (const, override));
+  MOCK_METHOD(VideoFrameMetadata, Metadata, (), (const, override));
+  MOCK_METHOD(absl::optional<Timestamp>,
+              GetCaptureTimeIdentifier,
+              (),
+              (const, override));
+  MOCK_METHOD(const FrameDependencyStructure*,
+              GetFrameDependencyStructure,
+              (),
+              (const, override));
+};
+
 TEST(FrameTransformerFactory, CloneVideoFrame) {
-  NiceMock<MockTransformableVideoFrame> original_frame;
+  NiceMock<MockTransformableVideoFrameWithDependencies> original_frame;
   uint8_t data[10];
   std::fill_n(data, 10, 5);
   rtc::ArrayView<uint8_t> data_view(data);

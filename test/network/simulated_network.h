@@ -54,16 +54,33 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
                         config_modifier) override;
   void PauseTransmissionUntil(int64_t until_us) override;
 
+  // Updates the configuration at a specific time.
+  // Note that packets that have already passed the narrow section constrained
+  // by link capacity will not be affected by the change. If packet re-ordering
+  // is not allowed, packets with new shorter queue delays will arrive
+  // immediately after packets with the old, longer queue delays. Must be
+  // invocked on the same sequence as other methods in NetworkBehaviorInterface.
+  void SetConfigNow(const BuiltInNetworkBehaviorConfig& config,
+                    int64_t config_update_time_us);
+
   // NetworkBehaviorInterface
   bool EnqueuePacket(PacketInFlightInfo packet) override;
   std::vector<PacketDeliveryInfo> DequeueDeliverablePackets(
       int64_t receive_time_us) override;
 
   absl::optional<int64_t> NextDeliveryTimeUs() const override;
+  void RegisterDeliveryTimeChangedCallback(
+      absl::AnyInvocable<void()> callback) override;
 
  private:
   struct PacketInfo {
     PacketInFlightInfo packet;
+    // Time the packet was last updated by the capacity link.
+    int64_t last_update_time_us;
+    // Size of the packet left to send through the capacity link. May differ to
+    // the packet size if the link capacity change while beeing in the capacity
+    // link.
+    size_t bits_left_to_send;
     // Time when the packet has left (or will leave) the network.
     int64_t arrival_time_us;
   };
@@ -80,10 +97,19 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
     int64_t pause_transmission_until_us = 0;
   };
 
+  // Calculates next_process_time_us_. Returns true if changed.
+  bool UpdateNextProcessTime() RTC_RUN_ON(&process_checker_);
   // Moves packets from capacity- to delay link.
-  void UpdateCapacityQueue(ConfigState state, int64_t time_now_us)
+  // If `previouse_config` is set, it is the config that was used until
+  // `time_now_us`
+  void UpdateCapacityQueue(
+      ConfigState state,
+      int64_t time_now_us,
+      absl::optional<const BuiltInNetworkBehaviorConfig> previouse_config)
       RTC_RUN_ON(&process_checker_);
   ConfigState GetConfigState() const;
+
+  ConfigState GetConfigState(int64_t at_time) const;
 
   mutable Mutex config_lock_;
 
@@ -112,6 +138,8 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
   // `capacity_link_` or both).
   absl::optional<int64_t> next_process_time_us_
       RTC_GUARDED_BY(process_checker_);
+  absl::AnyInvocable<void()> next_process_time_changed_callback_
+      RTC_GUARDED_BY(process_checker_) = nullptr;
 
   ConfigState config_state_ RTC_GUARDED_BY(config_lock_);
 

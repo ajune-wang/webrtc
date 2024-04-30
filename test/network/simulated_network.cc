@@ -13,8 +13,11 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <limits>
 #include <utility>
 
+#include "absl/types/optional.h"
+#include "api/test/simulated_network.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
@@ -29,9 +32,8 @@ namespace {
 int64_t CalculateArrivalTimeUs(int64_t start_time_us,
                                int64_t bits,
                                int capacity_kbps) {
-  // If capacity is 0, the link capacity is assumed to be infinite.
   if (capacity_kbps == 0) {
-    return start_time_us;
+    return std::numeric_limits<int64_t>::max();
   }
   // Adding `capacity - 1` to the numerator rounds the extra delay caused by
   // capacity constraints up to an integral microsecond. Sending 0 bits takes 0
@@ -76,6 +78,20 @@ void SimulatedNetwork::SetConfig(const Config& config) {
     config_state_.prob_loss_bursting = (1.0 - 1.0 / avg_burst_loss_length);
     config_state_.prob_start_bursting =
         prob_loss / (1 - prob_loss) / avg_burst_loss_length;
+  }
+}
+
+void SimulatedNetwork::SetConfig(const BuiltInNetworkBehaviorConfig& new_config,
+                                 int64_t config_update_time_us) {
+  RTC_DCHECK_RUNS_SERIALIZED(&process_checker_);
+
+  absl::optional<BuiltInNetworkBehaviorConfig> previouse_config =
+      GetConfigState().config;
+  SetConfig(new_config);
+  UpdateCapacityQueue(GetConfigState(), config_update_time_us,
+                      previouse_config);
+  if (UpdateNextProcessTime() && next_process_time_changed_callback_) {
+    next_process_time_changed_callback_();
   }
 }
 
@@ -126,13 +142,15 @@ bool SimulatedNetwork::EnqueuePacket(PacketInFlightInfo packet) {
         std::max(packet_send_time_us, capacity_link_.back().arrival_time_us);
   }
   capacity_link_.push({.packet = packet,
+                       .last_update_time_us = packet.send_time_us,
+                       .bits_left_to_send = 8 * packet.size,
                        .arrival_time_us = CalculateArrivalTimeUs(
                            packet_send_time_us, packet.size * 8,
                            state.config.link_capacity_kbps)});
 
   // Only update `next_process_time_us_` if not already set (if set, there is no
   // way that a new packet will make the `next_process_time_us_` change).
-  if (!next_process_time_us_) {
+  if (!next_process_time_us_ && state.config.link_capacity_kbps > 0) {
     RTC_DCHECK_EQ(capacity_link_.size(), 1);
     next_process_time_us_ = capacity_link_.front().arrival_time_us;
   }
@@ -146,17 +164,33 @@ absl::optional<int64_t> SimulatedNetwork::NextDeliveryTimeUs() const {
   return next_process_time_us_;
 }
 
-void SimulatedNetwork::UpdateCapacityQueue(ConfigState state,
-                                           int64_t time_now_us) {
+void SimulatedNetwork::UpdateCapacityQueue(
+    ConfigState state,
+    int64_t time_now_us,
+    absl::optional<const BuiltInNetworkBehaviorConfig> previouse_config) {
   // If there is at least one packet in the `capacity_link_`, let's update its
   // arrival time to take into account changes in the network configuration
   // since the last call to UpdateCapacityQueue.
   if (!capacity_link_.empty()) {
-    capacity_link_.front().arrival_time_us = CalculateArrivalTimeUs(
-        std::max(capacity_link_.front().packet.send_time_us,
-                 last_capacity_link_exit_time_),
-        capacity_link_.front().packet.size * 8,
-        state.config.link_capacity_kbps);
+    capacity_link_.front().last_update_time_us =
+        std::max(capacity_link_.front().last_update_time_us,
+                 last_capacity_link_exit_time_);
+    if (previouse_config) {
+      int64_t duration_with_old_config =
+          time_now_us - capacity_link_.front().last_update_time_us;
+      RTC_DCHECK_GE(duration_with_old_config, 0);
+      // There is a packet in the narrow section. The arrival time depends on
+      // the previouse link capacity. How many bits have already past through?
+      capacity_link_.front().bits_left_to_send -=
+          (duration_with_old_config * previouse_config->link_capacity_kbps) /
+          (1000);
+      capacity_link_.front().last_update_time_us = time_now_us;
+    }
+
+    capacity_link_.front().arrival_time_us =
+        CalculateArrivalTimeUs(capacity_link_.front().last_update_time_us,
+                               capacity_link_.front().bits_left_to_send,
+                               state.config.link_capacity_kbps);
   }
 
   // The capacity link is empty or the first packet is not expected to exit yet.
@@ -251,7 +285,7 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
     int64_t receive_time_us) {
   RTC_DCHECK_RUNS_SERIALIZED(&process_checker_);
 
-  UpdateCapacityQueue(GetConfigState(), receive_time_us);
+  UpdateCapacityQueue(GetConfigState(), receive_time_us, absl::nullopt);
   std::vector<PacketDeliveryInfo> packets_to_deliver;
 
   // Check the extra delay queue.
@@ -263,14 +297,28 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
     delay_link_.pop_front();
   }
 
+  UpdateNextProcessTime();
+  return packets_to_deliver;
+}
+
+bool SimulatedNetwork::UpdateNextProcessTime() {
+  absl::optional<int64_t> next_process_time_us = next_process_time_us_;
+
   if (!delay_link_.empty()) {
     next_process_time_us_ = delay_link_.front().arrival_time_us;
-  } else if (!capacity_link_.empty()) {
+  } else if (!capacity_link_.empty() &&
+             GetConfigState().config.link_capacity_kbps > 0) {
     next_process_time_us_ = capacity_link_.front().arrival_time_us;
   } else {
     next_process_time_us_.reset();
   }
-  return packets_to_deliver;
+  return next_process_time_us != next_process_time_us_;
+}
+
+void SimulatedNetwork::RegisterDeliveryTimeChangedCallback(
+    absl::AnyInvocable<void()> callback) {
+  RTC_DCHECK_RUNS_SERIALIZED(&process_checker_);
+  next_process_time_changed_callback_ = std::move(callback);
 }
 
 }  // namespace webrtc

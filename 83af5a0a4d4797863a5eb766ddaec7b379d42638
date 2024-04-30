@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "183cdcfc_2fa503e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-04-30T09:44:26Z",
+      "side": 1,
+      "message": "Resurrecting this now I\u0027ve had some more time to think about solutions. Have adopted a couple of Danil\u0027s suggestions as detailed below.\n\nPTAL!",
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

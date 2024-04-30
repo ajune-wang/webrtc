@@ -68,6 +68,24 @@
       "parentUuid": "a1f0a0cf_fb88d82f",
       "revId": "12be33c1ebb39c25032a61ab541626fbed567149",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9feb4848_75c8c7b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-04-30T09:44:26Z",
+      "side": 1,
+      "message": "Thanks for putting so much thought into this!\n- I\u0027ve removed FrameDependencyStructure from the TransformableVideoFrameInterface API interface by adding an extra internal interface shared by the receiver and sender implementations\n- Danil is right, we only need the full FDS on keyframes (as senders will only attach it on keyframes anyway, and serializing is all I care about right now). Changed to only copy \u0026 set for keyframes\n\nWhat do you both think?",
+      "parentUuid": "3d4d4bc3_45f2b37a",
+      "revId": "12be33c1ebb39c25032a61ab541626fbed567149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

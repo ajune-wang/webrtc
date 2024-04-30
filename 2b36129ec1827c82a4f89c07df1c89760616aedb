@@ -39,6 +39,30 @@
       },
       "revId": "2b36129ec1827c82a4f89c07df1c89760616aedb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15369cd1_f447b052",
+        "filename": "tools_webrtc/apple/generate_privacy_manifest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-04-30T08:17:14Z",
+      "side": 1,
+      "message": "I\u0027m by no means an expert on privacy, but it seems you\u0027re right. I updated the patch to include this type of reason as well.",
+      "parentUuid": "c70c3a03_8e809717",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "2b36129ec1827c82a4f89c07df1c89760616aedb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

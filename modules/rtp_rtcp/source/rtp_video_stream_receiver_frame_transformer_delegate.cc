@@ -16,6 +16,7 @@
 
 #include "absl/memory/memory.h"
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/thread.h"
@@ -24,14 +25,21 @@ namespace webrtc {
 
 namespace {
 class TransformableVideoReceiverFrame
-    : public TransformableVideoFrameInterface {
+    : public TransformableVideoFrameWithDependencies {
  public:
-  TransformableVideoReceiverFrame(std::unique_ptr<RtpFrameObject> frame,
-                                  uint32_t ssrc,
-                                  RtpVideoFrameReceiver* receiver)
+  TransformableVideoReceiverFrame(
+      std::unique_ptr<RtpFrameObject> frame,
+      uint32_t ssrc,
+      RtpVideoFrameReceiver* receiver,
+      const FrameDependencyStructure* frame_dependency_structure)
       : frame_(std::move(frame)),
         metadata_(frame_->GetRtpVideoHeader().GetAsMetadata()),
-        receiver_(receiver) {
+        receiver_(receiver),
+        frame_dependency_structure_(
+            frame_dependency_structure
+                ? std::make_unique<FrameDependencyStructure>(
+                      *frame_dependency_structure)
+                : nullptr) {
     metadata_.SetSsrc(ssrc);
     metadata_.SetCsrcs(frame_->Csrcs());
   }
@@ -84,10 +92,15 @@ class TransformableVideoReceiverFrame
 
   const RtpVideoFrameReceiver* Receiver() { return receiver_; }
 
+  const FrameDependencyStructure* GetFrameDependencyStructure() const override {
+    return frame_dependency_structure_.get();
+  }
+
  private:
   std::unique_ptr<RtpFrameObject> frame_;
   VideoFrameMetadata metadata_;
   RtpVideoFrameReceiver* receiver_;
+  std::unique_ptr<FrameDependencyStructure> frame_dependency_structure_;
 };
 }  // namespace
 
@@ -118,15 +131,16 @@ void RtpVideoStreamReceiverFrameTransformerDelegate::Reset() {
 }
 
 void RtpVideoStreamReceiverFrameTransformerDelegate::TransformFrame(
-    std::unique_ptr<RtpFrameObject> frame) {
+    std::unique_ptr<RtpFrameObject> frame,
+    const FrameDependencyStructure* frame_dependency_structure) {
   RTC_DCHECK_RUN_ON(&network_sequence_checker_);
   if (short_circuit_) {
     // Just pass the frame straight back.
     receiver_->ManageFrame(std::move(frame));
   } else {
     frame_transformer_->Transform(
-        std::make_unique<TransformableVideoReceiverFrame>(std::move(frame),
-                                                          ssrc_, receiver_));
+        std::make_unique<TransformableVideoReceiverFrame>(
+            std::move(frame), ssrc_, receiver_, frame_dependency_structure));
   }
 }
 

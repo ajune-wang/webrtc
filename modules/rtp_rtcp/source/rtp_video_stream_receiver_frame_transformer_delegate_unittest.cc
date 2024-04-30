@@ -107,7 +107,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest, TransformFrame) {
           /*remote_ssrc*/ 1111));
   auto frame = CreateRtpFrameObject();
   EXPECT_CALL(*frame_transformer, Transform);
-  delegate->TransformFrame(std::move(frame));
+  delegate->TransformFrame(std::move(frame),
+                           /*frame_dependency_structure=*/nullptr);
 }
 
 TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
@@ -141,7 +142,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
             EXPECT_STRCASEEQ("video/Generic", frame->GetMimeType().c_str());
             callback->OnTransformedFrame(std::move(frame));
           });
-  delegate->TransformFrame(CreateRtpFrameObject(RTPVideoHeader(), csrcs));
+  delegate->TransformFrame(CreateRtpFrameObject(RTPVideoHeader(), csrcs),
+                           /*frame_dependency_structure=*/nullptr);
   rtc::ThreadManager::ProcessAllMessageQueuesForTesting();
 }
 
@@ -190,7 +192,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
         EXPECT_EQ(metadata.GetCsrcs(), csrcs);
       });
   // The delegate creates a transformable frame from the RtpFrameObject.
-  delegate->TransformFrame(CreateRtpFrameObject(video_header, csrcs));
+  delegate->TransformFrame(CreateRtpFrameObject(video_header, csrcs),
+                           /*frame_dependency_structure=*/nullptr);
 }
 
 TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
@@ -253,7 +256,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
       });
 
   // The delegate creates a transformable frame from the RtpFrameObject.
-  delegate->TransformFrame(CreateRtpFrameObject(video_header, csrcs));
+  delegate->TransformFrame(CreateRtpFrameObject(video_header, csrcs),
+                           /*frame_dependency_structure=*/nullptr);
   rtc::ThreadManager::ProcessAllMessageQueuesForTesting();
 }
 
@@ -345,7 +349,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
   std::unique_ptr<RtpFrameObject> untransformed_frame =
       CreateRtpFrameObject(RTPVideoHeader(), csrcs);
   untransformed_frame->SetId(frame_id);
-  delegate1->TransformFrame(std::move(untransformed_frame));
+  delegate1->TransformFrame(std::move(untransformed_frame),
+                            /*frame_dependency_structure=*/nullptr);
   rtc::ThreadManager::ProcessAllMessageQueuesForTesting();
 }
 
@@ -369,7 +374,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
   EXPECT_CALL(*mock_frame_transformer, Transform).Times(0);
   // Will pass the frame straight to the reciever.
   EXPECT_CALL(receiver, ManageFrame);
-  delegate->TransformFrame(CreateRtpFrameObject());
+  delegate->TransformFrame(CreateRtpFrameObject(),
+                           /*frame_dependency_structure=*/nullptr);
 }
 
 }  // namespace

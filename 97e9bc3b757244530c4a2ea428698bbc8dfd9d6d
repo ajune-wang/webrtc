@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4007e27_b6934da0",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-30T10:53:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c0a032ff_0a3d35d8",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 45
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f794d53_8609e338",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I ended up removing the \"guessing work\" from the approach, changed this method to accepting both layout and num_channels and removed the guessing work from `RemixFrame()` too. There isn\u0027t a need to guess the number of channels there.",
       "parentUuid": "6f794d53_8609e338",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 53
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bd7850a_21798655",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-30T10:53:53Z",
+      "side": 1,
+      "message": "Thanks! That is definitely a good change.",
+      "parentUuid": "2fec06a0_bc5aed1a",
       "range": {
         "startLine": 110,
         "startChar": 3,
@@ -165,6 +213,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc12729_d8d1e57b",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-30T10:53:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "675961bd_60d4c86c",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d6030d0_62673c34",
@@ -178,6 +250,30 @@
       "writtenOn": "2024-04-29T18:18:11Z",
       "side": 1,
       "message": "Same comment as above",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 49
+      },
+      "revId": "97e9bc3b757244530c4a2ea428698bbc8dfd9d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fb3121e_37cd4a0d",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-04-30T10:53:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8d6030d0_62673c34",
       "range": {
         "startLine": 89,
         "startChar": 2,

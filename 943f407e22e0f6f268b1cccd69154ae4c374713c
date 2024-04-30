@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97616a17_356171bd",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-30T08:01:49Z",
+      "side": 1,
+      "message": "Changed the ctor to accept the sample rate and calculate samples_per_channel based on that, using `SampleRateToDefaultChannelSize()`. Since ChannelLayout is also related to num_channels, I included an optional way of specifying the layout at the same time.",
+      "parentUuid": "b9322591_a5897fa9",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 62
+      },
+      "revId": "943f407e22e0f6f268b1cccd69154ae4c374713c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77cc0584_5cd0f454",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 24
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-29T17:57:34Z",
       "side": 1,
       "message": "Optional and unrelated to the CL, but since this code is anyway changed, it would be nice to change from auto to int here.\n\nEven though I knew that this must be an int or a size_t, the fact that it was an auto forced me to doublecheck. And on some other cases the risk of mixup between a signed and unsigned type could have side-effects.",
+      "range": {
+        "startLine": 269,
+        "startChar": 1,
+        "endLine": 269,
+        "endChar": 7
+      },
+      "revId": "943f407e22e0f6f268b1cccd69154ae4c374713c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "099cb125_0ea17088",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-30T08:01:49Z",
+      "side": 1,
+      "message": "Fixed. Indeed it is mixed here. `Resample()` returns an int but `number_of_channels` and `number_of_frames` are both size_t.\n\nHaving a stricter type could help with consistency and range checking.",
+      "parentUuid": "77cc0584_5cd0f454",
       "range": {
         "startLine": 269,
         "startChar": 1,

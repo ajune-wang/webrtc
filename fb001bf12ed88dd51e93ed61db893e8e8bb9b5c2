@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c50d368d_93fde19d",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-04-30T08:01:49Z",
+      "side": 1,
+      "message": "OK, makes sense. I guess we could also define separate types for those values (or even just one) to make it harder to mix them up. Also, since there\u0027s no reason for them to be 64bit values, they could both be 16bit and save a bit of stack size in the future since we\u0027ll be passing pointers with frame size information (likely 3 separate properties; channels, per-channel-size, allocation size).",
+      "parentUuid": "9c30443f_5ab3dedc",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 3
+      },
+      "revId": "fb001bf12ed88dd51e93ed61db893e8e8bb9b5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc5fbe39_493f5648",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 19

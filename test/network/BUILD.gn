@@ -235,6 +235,7 @@ if (rtc_include_tests) {
       "../../api/units:data_rate",
       "../../api/units:data_size",
       "../../api/units:time_delta",
+      "../../api/units:timestamp",
       "//testing/gtest",
     ]
     absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]

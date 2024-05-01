@@ -103,6 +103,24 @@
       "message": "@deadbeef@webrtc.org any thoughts/comments/guidance on this one?",
       "revId": "a184c44254c23cd656539565e86046888bce28e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447c15b9_f7509216",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2024-05-01T18:03:19Z",
+      "side": 1,
+      "message": "I was wondering \"why didn\u0027t we just do this in the first place\", and it looks like we did: https://webrtc-review.googlesource.com/c/src/+/57040/9/sdk/android/api/org/webrtc/NetworkMonitor.java\n\nBut it was reverted because it was \"suspected to break a downstream project\". Looking at the history (at least as far back until it was renamed), these callbacks used to Invoke on the worker thread, which is blocking: https://source.chromium.org/chromium/_/webrtc/src/+/57b09eca64df9315e603ac1a43934d8fbda64f46:sdk/android/src/jni/android_network_monitor.cc;l\u003d344;drc\u003d1c05765831f2993672b058c29df4879b921adc8e.\n\nSo I imagine what was happening is that the OnDisconnected callback was causing the worker thread to try to remove the observer while the Java thread is still in the synchronized block, causing a deadlock.\n\nBut all of these callbacks now Post to the network thread, which is non-blocking. So I don\u0027t think this should be an issue anymore.",
+      "parentUuid": "afa39704_fbdc4602",
+      "revId": "a184c44254c23cd656539565e86046888bce28e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -797,7 +797,6 @@ if (current_os == "linux" || is_android) {
       "../../pc:peer_connection_factory",
       "../../pc:webrtc_sdp",
       "../../rtc_base:checks",
-      "../../rtc_base:event_tracer",
       "../../rtc_base:log_sinks",
       "../../rtc_base:logging",
       "../../rtc_base:refcount",
@@ -806,6 +805,7 @@ if (current_os == "linux" || is_android) {
       "../../rtc_base:ssl",
       "../../rtc_base:stringutils",
       "../../rtc_base:threading",
+      "../../rtc_base/tracing:legacy_tracer",
       "../../stats:rtc_stats",
       "../../system_wrappers:field_trial",
     ]

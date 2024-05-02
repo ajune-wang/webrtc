@@ -28,9 +28,6 @@
 
 #include <stdio.h>
 
-#include "absl/strings/string_view.h"
-#include "rtc_base/system/rtc_export.h"
-
 namespace webrtc {
 
 #if defined(RTC_USE_PERFETTO)
@@ -73,16 +70,5 @@ class EventTracer {
 #endif
 
 }  // namespace webrtc
-
-namespace rtc::tracing {
-// Set up internal event tracer.
-// TODO(webrtc:15917): Implement for perfetto.
-RTC_EXPORT void SetupInternalTracer(bool enable_all_categories = true);
-RTC_EXPORT bool StartInternalCapture(absl::string_view filename);
-RTC_EXPORT void StartInternalCaptureToFile(FILE* file);
-RTC_EXPORT void StopInternalCapture();
-// Make sure we run this, this will tear down the internal tracing.
-RTC_EXPORT void ShutdownInternalTracer();
-}  // namespace rtc::tracing
 
 #endif  // RTC_BASE_EVENT_TRACER_H_

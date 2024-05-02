@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc9d7d8_70425329",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-02T16:33:59Z",
+      "side": 1,
+      "message": "Given that we respond with a\u003dmid unconditionally (see https://webrtc-review.googlesource.com/c/src/+/349380) we can do this for msid too.",
+      "revId": "2148e9316872e32551259c007a841992c0539f78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

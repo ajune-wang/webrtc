@@ -22,9 +22,9 @@
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "modules/utility/include/jvm_android.h"
-#include "rtc_base/event_tracer.h"
 #include "rtc_base/physical_socket_server.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/tracing/legacy_tracer.h"
 #include "sdk/android/generated_peerconnection_jni/PeerConnectionFactory_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/native_api/stacktrace/stacktrace.h"
@@ -186,7 +186,7 @@ static void JNI_PeerConnectionFactory_InitializeFieldTrials(
 }
 
 static void JNI_PeerConnectionFactory_InitializeInternalTracer(JNIEnv* jni) {
-  rtc::tracing::SetupInternalTracer();
+  webrtc::tracing::SetupInternalTracer();
 }
 
 static ScopedJavaLocalRef<jstring>
@@ -206,17 +206,17 @@ static jboolean JNI_PeerConnectionFactory_StartInternalTracingCapture(
   const char* init_string =
       jni->GetStringUTFChars(j_event_tracing_filename.obj(), NULL);
   RTC_LOG(LS_INFO) << "Starting internal tracing to: " << init_string;
-  bool ret = rtc::tracing::StartInternalCapture(init_string);
+  bool ret = webrtc::tracing::StartInternalCapture(init_string);
   jni->ReleaseStringUTFChars(j_event_tracing_filename.obj(), init_string);
   return ret;
 }
 
 static void JNI_PeerConnectionFactory_StopInternalTracingCapture(JNIEnv* jni) {
-  rtc::tracing::StopInternalCapture();
+  webrtc::tracing::StopInternalCapture();
 }
 
 static void JNI_PeerConnectionFactory_ShutdownInternalTracer(JNIEnv* jni) {
-  rtc::tracing::ShutdownInternalTracer();
+  webrtc::tracing::ShutdownInternalTracer();
 }
 
 // Following parameters are optional:

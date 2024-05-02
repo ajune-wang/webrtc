@@ -1,0 +1,22 @@
+import("../../webrtc.gni")
+
+rtc_library("legacy_tracer") {
+  sources = [
+    "legacy_tracer.cc",
+    "legacy_tracer.h",
+  ]
+  deps = [
+    "..:checks",
+    "..:event_tracer",
+    "..:logging",
+    "..:macromagic",
+    "..:platform_thread",
+    "..:platform_thread_types",
+    "..:rtc_event",
+    "..:timeutils",
+    "../../api:sequence_checker",
+    "../synchronization:mutex",
+    "../system:rtc_export",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings:string_view" ]
+}

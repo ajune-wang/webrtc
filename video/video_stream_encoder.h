@@ -331,7 +331,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   bool encoder_failed_ RTC_GUARDED_BY(encoder_queue_) = false;
 
   // Used to make sure incoming time stamp is increasing for every frame.
-  int64_t last_captured_timestamp_ RTC_GUARDED_BY(encoder_queue_) = 0;
+  Timestamp last_captured_timestamp_ RTC_GUARDED_BY(encoder_queue_) =
+      Timestamp::MinusInfinity();
   // Delta used for translating between NTP and internal timestamps.
   const int64_t delta_ntp_internal_ms_ RTC_GUARDED_BY(encoder_queue_);
 

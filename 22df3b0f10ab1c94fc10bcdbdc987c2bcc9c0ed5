@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d81b40_b6d45ba8",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-02T16:25:40Z",
+      "side": 1,
+      "message": "JSEP seems correct, these should be orthogonal. You can backfill but you should still be able to tell whether the remote sent mid.\n\nGiven that the offerer should silently ignore lines it does not understand what we do seems pragmatic and we should not change without intention - which would cause this test to fail ;-)",
+      "parentUuid": "e63bcef1_9949e446",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a62a4fb_11824216",
@@ -69,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5931353a_105208c8",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-02T16:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a62a4fb_11824216",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7cf4141_b5d63d4c",
@@ -82,6 +118,24 @@
       "writtenOn": "2024-05-02T08:20:21Z",
       "side": 1,
       "message": "Can you add a TODO(bug id): this shouldn\u0027t work?",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c698f7b0_21178f5d",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-02T16:25:40Z",
+      "side": 1,
+      "message": "Changing would reject which I don\u0027t think we should do without a good reason.\nAnd the code would be ugly since we would have to do some checks before backfilling here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/sdp_offer_answer.cc;l\u003d2558;drc\u003d6f3f85b321146cfc0f9eb81a74c7c2257821461e;bpv\u003d1;bpt\u003d1",
+      "parentUuid": "a7cf4141_b5d63d4c",
       "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

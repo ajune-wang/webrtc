@@ -13,21 +13,24 @@
 #include <memory>
 #include <string>
 
+#include "api/test/time_controller.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/experiments/encoder_info_settings.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/time_utils.h"
-#include "test/field_trial.h"
 #include "test/gtest.h"
+#include "test/time_controller/real_time_controller.h"
 
 namespace webrtc {
 
 namespace {
 constexpr int kFramerateFps = 30;
-constexpr TimeDelta kDefaultBitrateStateUpdateInterval = TimeDelta::Seconds(5);
 constexpr TimeDelta kDefaultEncodeTime = TimeDelta::Seconds(1) / kFramerateFps;
+constexpr TimeDelta kWaitTime =
+    BandwidthQualityScaler::kBitrateStateUpdateInterval +
+    TimeDelta::Millis(200);
 
 }  // namespace
 
@@ -50,20 +53,7 @@ class FakeBandwidthQualityScalerHandler
   int adapt_down_event_count_ = 0;
 };
 
-class BandwidthQualityScalerUnderTest : public BandwidthQualityScaler {
- public:
-  explicit BandwidthQualityScalerUnderTest(
-      BandwidthQualityScalerUsageHandlerInterface* handler)
-      : BandwidthQualityScaler(handler) {}
-
-  int GetBitrateStateUpdateIntervalMs() {
-    return this->kBitrateStateUpdateInterval.ms() + 200;
-  }
-};
-
-class BandwidthQualityScalerTest
-    : public ::testing::Test,
-      public ::testing::WithParamInterface<std::string> {
+class BandwidthQualityScalerTest : public ::testing::Test {
  protected:
   enum ScaleDirection {
     kKeepScaleNormalBandwidth,
@@ -94,13 +84,14 @@ class BandwidthQualityScalerTest
   };
 
   BandwidthQualityScalerTest()
-      : scoped_field_trial_(GetParam()),
-        task_queue_("BandwidthQualityScalerTestQueue"),
+      : time_controller_(std::make_unique<RealTimeController>()),
+        task_queue_(time_controller_->GetTaskQueueFactory()->CreateTaskQueue(
+            "BandwidthQualityScalerTestQueue",
+            TaskQueueFactory::Priority::NORMAL)),
         handler_(std::make_unique<FakeBandwidthQualityScalerHandler>()) {
     task_queue_.SendTask([this] {
       bandwidth_quality_scaler_ =
-          std::unique_ptr<BandwidthQualityScalerUnderTest>(
-              new BandwidthQualityScalerUnderTest(handler_.get()));
+          std::make_unique<BandwidthQualityScaler>(handler_.get());
       bandwidth_quality_scaler_->SetResolutionBitrateLimits(
           EncoderInfoSettings::
               GetDefaultSinglecastBitrateLimitsWhenQpIsUntrusted());
@@ -149,52 +140,46 @@ class BandwidthQualityScalerTest
 
   void TriggerBandwidthQualityScalerTest(
       const std::vector<FrameConfig>& frame_configs) {
-    task_queue_.SendTask([frame_configs, this] {
-      RTC_CHECK(!frame_configs.empty());
+    RTC_CHECK(!frame_configs.empty());
 
-      int total_frame_nums = 0;
-      for (const FrameConfig& frame_config : frame_configs) {
-        total_frame_nums += frame_config.frame_num;
+    int total_frame_nums = 0;
+    for (const FrameConfig& frame_config : frame_configs) {
+      total_frame_nums += frame_config.frame_num;
+    }
+
+    EXPECT_EQ(kFramerateFps *
+                  BandwidthQualityScaler::kBitrateStateUpdateInterval.seconds(),
+              total_frame_nums);
+
+    TimeDelta delay = TimeDelta::Zero();
+    for (const FrameConfig& config : frame_configs) {
+      absl::optional<VideoEncoder::ResolutionBitrateLimits> suitable_bitrate =
+          GetDefaultSuitableBitrateLimit(config.actual_width *
+                                         config.actual_height);
+      EXPECT_TRUE(suitable_bitrate);
+      for (int j = 0; j <= config.frame_num; ++j) {
+        delay += kDefaultEncodeTime;
+        int frame_size_bytes = GetFrameSizeBytes(config, *suitable_bitrate);
+        RTC_CHECK_GT(frame_size_bytes, 0);
+        task_queue_.PostDelayedTask(
+            [frame_size_bytes, config, this] {
+              bandwidth_quality_scaler_->ReportEncodeInfo(
+                  frame_size_bytes,
+                  time_controller_->GetClock()->CurrentTime().ms(),
+                  config.actual_width, config.actual_height);
+            },
+            delay);
       }
-
-      EXPECT_EQ(kFramerateFps * kDefaultBitrateStateUpdateInterval.seconds(),
-                total_frame_nums);
-
-      uint32_t time_send_to_scaler_ms_ = rtc::TimeMillis();
-      for (size_t i = 0; i < frame_configs.size(); ++i) {
-        const FrameConfig& config = frame_configs[i];
-        absl::optional<VideoEncoder::ResolutionBitrateLimits> suitable_bitrate =
-            GetDefaultSuitableBitrateLimit(config.actual_width *
-                                           config.actual_height);
-        EXPECT_TRUE(suitable_bitrate);
-        for (int j = 0; j <= config.frame_num; ++j) {
-          time_send_to_scaler_ms_ += kDefaultEncodeTime.ms();
-          int frame_size_bytes =
-              GetFrameSizeBytes(config, suitable_bitrate.value());
-          RTC_CHECK(frame_size_bytes > 0);
-          bandwidth_quality_scaler_->ReportEncodeInfo(
-              frame_size_bytes, time_send_to_scaler_ms_, config.actual_width,
-              config.actual_height);
-        }
-      }
-    });
+    }
   }
 
-  test::ScopedFieldTrials scoped_field_trial_;
+  std::unique_ptr<TimeController> time_controller_;
   TaskQueueForTest task_queue_;
-  std::unique_ptr<BandwidthQualityScalerUnderTest> bandwidth_quality_scaler_;
+  std::unique_ptr<BandwidthQualityScaler> bandwidth_quality_scaler_;
   std::unique_ptr<FakeBandwidthQualityScalerHandler> handler_;
 };
 
-INSTANTIATE_TEST_SUITE_P(
-    FieldTrials,
-    BandwidthQualityScalerTest,
-    ::testing::Values("WebRTC-Video-BandwidthQualityScalerSettings/"
-                      "bitrate_state_update_interval_s_:1/",
-                      "WebRTC-Video-BandwidthQualityScalerSettings/"
-                      "bitrate_state_update_interval_s_:2/"));
-
-TEST_P(BandwidthQualityScalerTest, AllNormalFrame_640x360) {
+TEST_F(BandwidthQualityScalerTest, AllNormalFrame_640x360) {
   const std::vector<FrameConfig> frame_configs{
       FrameConfig(150, FrameType::kNormalFrame, 640, 360)};
   TriggerBandwidthQualityScalerTest(frame_configs);
@@ -202,13 +187,12 @@ TEST_P(BandwidthQualityScalerTest, AllNormalFrame_640x360) {
   // When resolution is 640*360, experimental working bitrate range is
   // [500000,800000] bps. Encoded bitrate is 654253, so it falls in the range
   // without any operation(up/down).
-  EXPECT_FALSE(handler_->event_.Wait(TimeDelta::Millis(
-      bandwidth_quality_scaler_->GetBitrateStateUpdateIntervalMs())));
+  EXPECT_FALSE(handler_->event_.Wait(kWaitTime));
   EXPECT_EQ(0, handler_->adapt_down_event_count_);
   EXPECT_EQ(0, handler_->adapt_up_event_count_);
 }
 
-TEST_P(BandwidthQualityScalerTest, AllNoramlFrame_AboveMaxBandwidth_640x360) {
+TEST_F(BandwidthQualityScalerTest, AllNoramlFrame_AboveMaxBandwidth_640x360) {
   const std::vector<FrameConfig> frame_configs{
       FrameConfig(150, FrameType::kNormalFrame_Overuse, 640, 360)};
   TriggerBandwidthQualityScalerTest(frame_configs);
@@ -216,13 +200,12 @@ TEST_P(BandwidthQualityScalerTest, AllNoramlFrame_AboveMaxBandwidth_640x360) {
   // When resolution is 640*360, experimental working bitrate range is
   // [500000,800000] bps. Encoded bitrate is 1208000 > 800000 * 0.95, so it
   // triggers adapt_up_event_count_.
-  EXPECT_TRUE(handler_->event_.Wait(TimeDelta::Millis(
-      bandwidth_quality_scaler_->GetBitrateStateUpdateIntervalMs())));
+  EXPECT_TRUE(handler_->event_.Wait(kWaitTime));
   EXPECT_EQ(0, handler_->adapt_down_event_count_);
   EXPECT_EQ(1, handler_->adapt_up_event_count_);
 }
 
-TEST_P(BandwidthQualityScalerTest, AllNormalFrame_Underuse_640x360) {
+TEST_F(BandwidthQualityScalerTest, AllNormalFrame_Underuse_640x360) {
   const std::vector<FrameConfig> frame_configs{
       FrameConfig(150, FrameType::kNormalFrame_Underuse, 640, 360)};
   TriggerBandwidthQualityScalerTest(frame_configs);
@@ -230,13 +213,12 @@ TEST_P(BandwidthQualityScalerTest, AllNormalFrame_Underuse_640x360) {
   // When resolution is 640*360, experimental working bitrate range is
   // [500000,800000] bps. Encoded bitrate is 377379 < 500000 * 0.8, so it
   // triggers adapt_down_event_count_.
-  EXPECT_TRUE(handler_->event_.Wait(TimeDelta::Millis(
-      bandwidth_quality_scaler_->GetBitrateStateUpdateIntervalMs())));
+  EXPECT_TRUE(handler_->event_.Wait(kWaitTime));
   EXPECT_EQ(1, handler_->adapt_down_event_count_);
   EXPECT_EQ(0, handler_->adapt_up_event_count_);
 }
 
-TEST_P(BandwidthQualityScalerTest, FixedFrameTypeTest1_640x360) {
+TEST_F(BandwidthQualityScalerTest, FixedFrameTypeTest1_640x360) {
   const std::vector<FrameConfig> frame_configs{
       FrameConfig(5, FrameType::kNormalFrame_Underuse, 640, 360),
       FrameConfig(110, FrameType::kNormalFrame, 640, 360),
@@ -248,13 +230,12 @@ TEST_P(BandwidthQualityScalerTest, FixedFrameTypeTest1_640x360) {
   // When resolution is 640*360, experimental working bitrate range is
   // [500000,800000] bps. Encoded bitrate is 1059462 > 800000 * 0.95, so it
   // triggers adapt_up_event_count_.
-  EXPECT_TRUE(handler_->event_.Wait(TimeDelta::Millis(
-      bandwidth_quality_scaler_->GetBitrateStateUpdateIntervalMs())));
+  EXPECT_TRUE(handler_->event_.Wait(kWaitTime));
   EXPECT_EQ(0, handler_->adapt_down_event_count_);
   EXPECT_EQ(1, handler_->adapt_up_event_count_);
 }
 
-TEST_P(BandwidthQualityScalerTest, FixedFrameTypeTest2_640x360) {
+TEST_F(BandwidthQualityScalerTest, FixedFrameTypeTest2_640x360) {
   const std::vector<FrameConfig> frame_configs{
       FrameConfig(10, FrameType::kNormalFrame_Underuse, 640, 360),
       FrameConfig(50, FrameType::kNormalFrame, 640, 360),
@@ -266,8 +247,7 @@ TEST_P(BandwidthQualityScalerTest, FixedFrameTypeTest2_640x360) {
   // When resolution is 640*360, experimental working bitrate range is
   // [500000,800000] bps. Encoded bitrate is 1059462 > 800000 * 0.95, so it
   // triggers adapt_up_event_count_.
-  EXPECT_TRUE(handler_->event_.Wait(TimeDelta::Millis(
-      bandwidth_quality_scaler_->GetBitrateStateUpdateIntervalMs())));
+  EXPECT_TRUE(handler_->event_.Wait(kWaitTime));
   EXPECT_EQ(0, handler_->adapt_down_event_count_);
   EXPECT_EQ(1, handler_->adapt_up_event_count_);
 }

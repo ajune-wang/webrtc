@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba886905_2c2eee6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-02T09:53:34Z",
+      "side": 1,
+      "message": "chromium:41496465, webrtc:42226112",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "183cdcfc_2fa503e5",
@@ -14,6 +37,109 @@
       "writtenOn": "2024-04-30T09:44:26Z",
       "side": 1,
       "message": "Resurrecting this now I\u0027ve had some more time to think about solutions. Have adopted a couple of Danil\u0027s suggestions as detailed below.\n\nPTAL!",
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "778c9e06_cc1be4f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-02T09:53:34Z",
+      "side": 1,
+      "message": "Looks convoluted, need some time to understand what\u0027s going on.\n\nI\u0027m not sure what value adds extra TransformableVideoFrameWithDependencies interface.\n\nadding getter intstead of passing the value looks suspecious too, but that is documented, I just need a bit more time to read that part to be sure there is no better alternative.\nIn particular I need to understand why std::function. If getter is always called in the same function then rtc::FunctionView is likely better alternative. If you might need to move this getter and call it from another thread/another context, then absl::AnyInvocable might be better.\nThe type of the functor communicates assumptions how it can be called, and thus helps to understand what can be in it.",
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fb19205_44007d96",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-02T09:53:34Z",
+      "side": 1,
+      "message": "Why this cast is safe?\n\nIs it guaranteed this class would always be `TransformableVideoReceiverFrame` ? (then you can cast to it and don\u0027t need extra TransformableVideoFrameWithDependencies interface)",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "305d54a9_bc1711e4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-02T09:53:34Z",
+      "side": 1,
+      "message": "might be better to avoid calling virtual function twice and assume it returns the same result.\n\nconst FrameDependencyStructure* sturcture \u003d original_frame-\u003eGetFrameDependencyStructure();\nreturn std::make_unique\u003c...\u003e(..., sturcture !\u003d nullptr : std::make_unique\u003cFrameDependencyStructure\u003e(*sturcture) : nullptr);\n\nBut, if you cast not to `TransformableVideoFrameWithDependencies`, but to the original class `TransformableVideoSenderFrame`, then it would be ok to use cheap accessor to the video structure twice and be sure it returns the same.",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 63
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d066013f_309e24c6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-02T09:53:34Z",
+      "side": 1,
+      "message": "do not use c-cast  https://google.github.io/styleguide/cppguide.html#Casting\n\nmoreover - do not store reference to a temporary: \nEncodedImageBuffer::Create() creates a ref counted object that is then immediately destroyed before next expression, buffer points to dangled memory.\nInstead keep the created image buffer until the end of the test:\n```\nrtc::scoped_refptr\u003cEncodedImageBuffer\u003e image_buffer \u003d EncodedImageBuffer::Create(1);\nrtc::ArrayView\u003cconst uint8_t\u003e buffer_view(*image_buffer);\nON_CALL(....Return(buffer));\n```\n\n(or you may try to skip extra variable and try to write\n`ON_CALL(....Return(*image_buffer));` but I\u0027m not sure that would compile)",
+      "range": {
+        "startLine": 376,
+        "startChar": 6,
+        "endLine": 376,
+        "endChar": 37
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38705ce4_ab2cb019",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-02T09:53:34Z",
+      "side": 1,
+      "message": "I read this as \u0027when it is a key frame, pass just the video structure\u0027\nDid you mean\n\u0027Provide the video_structures_ to be copied only on keyframes\u0027 ?",
       "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

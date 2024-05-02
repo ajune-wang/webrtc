@@ -48,6 +48,8 @@
 #include "third_party/perfetto/include/perfetto/tracing/backend_type.h"
 #include "third_party/perfetto/include/perfetto/tracing/tracing.h"
 #include "third_party/perfetto/protos/perfetto/config/trace_config.gen.h"
+#else
+#include "rtc_base/tracing/legacy_tracer.h"
 #endif
 
 #if defined(WEBRTC_WIN)
@@ -291,8 +293,8 @@ class TestMainImpl : public TestMain {
         << trace_output_file << "\"";
     tracing_session_->StartBlocking();
 #else
-    rtc::tracing::SetupInternalTracer();
-    rtc::tracing::StartInternalCapture(trace_output_file);
+    webrtc::tracing::SetupInternalTracer();
+    webrtc::tracing::StartInternalCapture(trace_output_file);
 #endif
   }
 
@@ -315,7 +317,7 @@ class TestMainImpl : public TestMain {
     }
 
 #else
-    rtc::tracing::StopInternalCapture();
+    webrtc::tracing::StopInternalCapture();
 #endif
   }
 };

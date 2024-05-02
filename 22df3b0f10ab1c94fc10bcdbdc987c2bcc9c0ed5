@@ -16,6 +16,74 @@
       "message": "tripwire so we don\u0027t scratch our heads again.\n\nTechnically we are violating JSEP which says \u0027If and only if present in the offer, an \"a\u003dmid\" line\u0027 in 5.3.1 Initial answers but that does not seem harmful.\nJSEP also makes the mid mandatory for datachannel which seems safe to ignore too.\n\nIf only the process to \"fix\" JSEP was not so complicated ;-)",
       "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3673cd4_de1280c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-02T08:20:21Z",
+      "side": 1,
+      "message": "Seems reasonable!\nIf we document existing bugs by adding tests for them, we should also add a TODO with a bug number. Apart from that - go for it!\n\n(note: the recommended TODO format is now TODO: buglink - description)",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e63bcef1_9949e446",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-02T08:20:21Z",
+      "side": 1,
+      "message": "Add a TODO(bug): change JSEP or change the behavior?",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a62a4fb_11824216",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-02T08:20:21Z",
+      "side": 1,
+      "message": "Nit: do to -\u003e due to",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7cf4141_b5d63d4c",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-02T08:20:21Z",
+      "side": 1,
+      "message": "Can you add a TODO(bug id): this shouldn\u0027t work?",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

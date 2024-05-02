@@ -12,6 +12,7 @@
 
 #include <stdint.h>
 
+#include <cstdint>
 #include <deque>
 #include <queue>
 #include <vector>
@@ -19,7 +20,6 @@
 #include "absl/types/optional.h"
 #include "api/sequence_checker.h"
 #include "api/test/simulated_network.h"
-#include "api/units/data_size.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/random.h"
@@ -46,10 +46,20 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
   // EnqueuePacket but also packets in the network that have not left the
   // network emulation. Packets that are ready to be retrieved by
   // DequeueDeliverablePackets are not affected by the new configuration.
-  // TODO(bugs.webrtc.org/14525): Fix SetConfig and make it apply only to the
-  // part of the packet that is currently being sent (instead of applying to
-  // all of it).
+  // This method can be invoked directly by tests on any thread/sequence, but is
+  // less accurate than the version with timestamp since changes to the
+  // configuration does not take affect until the time returned by
+  // NextDeliveryTimeUs has passed.
   void SetConfig(const Config& config) override;
+  // Updates the configuration at a specific time.
+  // Note that packets that have already passed the narrow section constrained
+  // by link capacity will not be affected by the change. If packet re-ordering
+  // is not allowed, packets with new shorter queue delays will arrive
+  // immediately after packets with the old, longer queue delays. Must be
+  // invoked on the same sequence as other methods in NetworkBehaviorInterface.
+  void SetConfig(const BuiltInNetworkBehaviorConfig& config,
+                 Timestamp config_update_time);
+
   void UpdateConfig(std::function<void(BuiltInNetworkBehaviorConfig*)>
                         config_modifier) override;
   void PauseTransmissionUntil(int64_t until_us) override;
@@ -60,12 +70,20 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
       int64_t receive_time_us) override;
 
   absl::optional<int64_t> NextDeliveryTimeUs() const override;
+  void RegisterDeliveryTimeChangedCallback(
+      absl::AnyInvocable<void()> callback) override;
 
  private:
   struct PacketInfo {
     PacketInFlightInfo packet;
+    // Time the packet was last updated by the capacity link.
+    Timestamp last_update_time;
+    // Size of the packet left to send through the capacity link. May differ to
+    // the packet size if the link capacity change while beeing in the capacity
+    // link.
+    int64_t bits_left_to_send;
     // Time when the packet has left (or will leave) the network.
-    int64_t arrival_time_us;
+    Timestamp arrival_time;
   };
   // Contains current configuration state.
   struct ConfigState {
@@ -80,10 +98,16 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
     int64_t pause_transmission_until_us = 0;
   };
 
+  // Calculates next_process_time_us_. Returns true if changed.
+  bool UpdateNextProcessTime() RTC_RUN_ON(&process_checker_);
   // Moves packets from capacity- to delay link.
-  void UpdateCapacityQueue(ConfigState state, int64_t time_now_us)
+  // If `previouse_config` is set, it is the config that was used until
+  // `time_now_us`
+  void UpdateCapacityQueue(ConfigState state, Timestamp time_now)
       RTC_RUN_ON(&process_checker_);
   ConfigState GetConfigState() const;
+
+  ConfigState GetConfigState(int64_t at_time) const;
 
   mutable Mutex config_lock_;
 
@@ -110,8 +134,10 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
   // Represents the next moment in time when the network is supposed to deliver
   // packets to the client (either by pulling them from `delay_link_` or
   // `capacity_link_` or both).
-  absl::optional<int64_t> next_process_time_us_
-      RTC_GUARDED_BY(process_checker_);
+  Timestamp next_process_time_ RTC_GUARDED_BY(process_checker_) =
+      Timestamp::PlusInfinity();
+  absl::AnyInvocable<void()> next_process_time_changed_callback_
+      RTC_GUARDED_BY(process_checker_) = nullptr;
 
   ConfigState config_state_ RTC_GUARDED_BY(config_lock_);
 
@@ -126,7 +152,7 @@ class RTC_EXPORT SimulatedNetwork : public SimulatedNetworkInterface {
   // The last time a packet left the capacity_link_ (used to enforce
   // the capacity of the link and avoid packets starts to get sent before
   // the link it free).
-  int64_t last_capacity_link_exit_time_;
+  Timestamp last_capacity_link_exit_time_ = Timestamp::MinusInfinity();
 };
 
 }  // namespace webrtc

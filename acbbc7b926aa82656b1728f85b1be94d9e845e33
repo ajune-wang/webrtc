@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9663f33f_b88c2644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-05-03T10:42:13Z",
+      "side": 1,
+      "message": "Hello. This change is for fixing broken DEPS autoroller. I also formatted `tools_webrtc/autoroller/unittests/roll_deps_test.py` to match the current style. Please take a look. Thank you.",
+      "revId": "acbbc7b926aa82656b1728f85b1be94d9e845e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35baa89_e1e84acb",
+        "filename": "modules/video_coding/codecs/test/video_codec_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2024-05-03T13:13:11Z",
+      "side": 1,
+      "message": "Maybe add a helper method ToSourceSettings(const VideoInfo\u0026 into).",
+      "range": {
+        "startLine": 320,
+        "startChar": 35,
+        "endLine": 320,
+        "endChar": 50
+      },
+      "revId": "0a7552cef82d763704361e466489645cee92849c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

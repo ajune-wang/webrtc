@@ -16,6 +16,29 @@
       "message": "Asa for changes in modules/video_coding/codecs/test/\nMirko changes in test/",
       "revId": "b3f3fa0912e746148b3c315fd07fa4b6b21d144d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e00ef37_34fe7c36",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-03T10:40:56Z",
+      "side": 1,
+      "message": "Since we are here, let\u0027s check that yuv is the extension and crash otherwise (in an else branch).",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "b3f3fa0912e746148b3c315fd07fa4b6b21d144d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

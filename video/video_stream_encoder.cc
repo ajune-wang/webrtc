@@ -1515,30 +1515,48 @@ void VideoStreamEncoder::OnFrame(Timestamp post_time,
     incoming_frame.set_timestamp_us(post_time.us());
 
   // Capture time may come from clock with an offset and drift from clock_.
-  int64_t capture_ntp_time_ms;
+  Timestamp capture_ntp_time = Timestamp::Zero();
   if (video_frame.ntp_time_ms() > 0) {
-    capture_ntp_time_ms = video_frame.ntp_time_ms();
-  } else if (video_frame.render_time_ms() != 0) {
-    capture_ntp_time_ms = video_frame.render_time_ms() + delta_ntp_internal_ms_;
+    capture_ntp_time = Timestamp::Millis(video_frame.ntp_time_ms());
+  } else if (video_frame.timestamp_us() != 0) {
+    capture_ntp_time = Timestamp::Micros(video_frame.timestamp_us()) +
+                       TimeDelta::Millis(delta_ntp_internal_ms_);
   } else {
-    capture_ntp_time_ms = post_time.ms() + delta_ntp_internal_ms_;
+    capture_ntp_time = post_time + TimeDelta::Millis(delta_ntp_internal_ms_);
   }
-  incoming_frame.set_ntp_time_ms(capture_ntp_time_ms);
+
+  RTC_LOG(LS_ERROR) << "Timestamp::Micros(video_frame.timestamp_us()) + "
+                       "TimeDelta::Millis(delta_ntp_internal_ms_) = "
+                    << Timestamp::Micros(video_frame.timestamp_us()) +
+                           TimeDelta::Millis(delta_ntp_internal_ms_);
+  RTC_LOG(LS_ERROR) << "video_frame.render_time_ms() = "
+                    << video_frame.render_time_ms();
+  RTC_LOG(LS_ERROR) << "delta_ntp_internal_ms_= " << delta_ntp_internal_ms_;
+  RTC_LOG(LS_ERROR) << "video_frame.ntp_time_ms()= "
+                    << video_frame.ntp_time_ms();
+  RTC_LOG(LS_ERROR) << "post_time + TimeDelta::Millis(delta_ntp_internal_ms_)= "
+                    << post_time + TimeDelta::Millis(delta_ntp_internal_ms_);
+  RTC_LOG(LS_ERROR) << "post_time= " << post_time;
+  RTC_LOG(LS_ERROR) << "capture_ntp_time= " << capture_ntp_time;
+  RTC_LOG(LS_ERROR) << "last_captured_timestamp_= " << last_captured_timestamp_;
+
+  incoming_frame.set_ntp_time_ms(capture_ntp_time.ms());
 
   // Convert NTP time, in ms, to RTP timestamp.
   const int kMsToRtpTimestamp = 90;
   incoming_frame.set_rtp_timestamp(
       kMsToRtpTimestamp * static_cast<uint32_t>(incoming_frame.ntp_time_ms()));
+  RTC_LOG(LS_ERROR) << "incoming_frame.rtp_timestamp()= "
+                    << incoming_frame.rtp_timestamp();
 
   // Identifier should remain the same for newly produced incoming frame and the
   // received |video_frame|.
   incoming_frame.set_capture_time_identifier(
       video_frame.capture_time_identifier());
 
-  if (incoming_frame.ntp_time_ms() <= last_captured_timestamp_) {
+  if (capture_ntp_time <= last_captured_timestamp_) {
     // We don't allow the same capture time for two frames, drop this one.
-    RTC_LOG(LS_WARNING) << "Same/old NTP timestamp ("
-                        << incoming_frame.ntp_time_ms()
+    RTC_LOG(LS_WARNING) << "Same/old NTP timestamp (" << capture_ntp_time
                         << " <= " << last_captured_timestamp_
                         << ") for incoming frame. Dropping.";
     ProcessDroppedFrame(incoming_frame,
@@ -1552,7 +1570,7 @@ void VideoStreamEncoder::OnFrame(Timestamp post_time,
     log_stats = true;
   }
 
-  last_captured_timestamp_ = incoming_frame.ntp_time_ms();
+  last_captured_timestamp_ = capture_ntp_time;
 
   encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
                                            incoming_frame.height());

@@ -63,6 +63,30 @@
       },
       "revId": "b3f3fa0912e746148b3c315fd07fa4b6b21d144d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ea59ae_55307731",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-05-03T12:57:04Z",
+      "side": 1,
+      "message": "TempFilename - https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/testsupport/file_utils.cc;l\u003d111 - doesn\u0027t allow to specify extension and always adds XXXXXX - https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/testsupport/file_utils.cc;l\u003d121 - to the end of file name.\n\nTests in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/video_codec_tester_unittest.cc;l\u003d90, which use TempFilename, fail because of that.\n\nI\u0027m not sure how to fix this. One option would be to remove XXXXXX. But, I guess, it is there for a reason. Other option would be to add extension param to TempFilename(). The later will be a big change, touching many files (which I would prefer to avoid). Yet another option would be to append extension to path returned by TempFilename() + \".yuv\". But it doesn\u0027t seem safe to modify temp file name.\n\n@mbonadei@webrtc.org, Unless you have some suggestion, I would prefer to not add CHECK.",
+      "parentUuid": "ef58dfac_3b19f7ff",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "b3f3fa0912e746148b3c315fd07fa4b6b21d144d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

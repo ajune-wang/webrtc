@@ -97,6 +97,8 @@ class FrameObserver : public test::RtpRtcpObserver,
         return DROP_PACKET;
 
       ++num_sent_frames_;
+      RTC_LOG(LS_ERROR) << "rtp_packet.Timestamp() = "
+                        << rtp_packet.Timestamp();
       sent_timestamps_.push_back(rtp_packet.Timestamp());
     }
 
@@ -107,6 +109,13 @@ class FrameObserver : public test::RtpRtcpObserver,
   // Verifies that all sent frames are decoded and rendered.
   void OnFrame(const VideoFrame& rendered_frame) override {
     MutexLock lock(&mutex_);
+    RTC_LOG(LS_ERROR) << "sent_timestamps_.size() = "
+                      << sent_timestamps_.size();
+    for (auto i = 0; i < sent_timestamps_.size(); i++) {
+      RTC_LOG(LS_ERROR) << "sent_timestamps_[i] = " << sent_timestamps_[i];
+    }
+    RTC_LOG(LS_ERROR) << "rendered_frame.rtp_timestamp() = "
+                      << rendered_frame.rtp_timestamp();
     EXPECT_THAT(sent_timestamps_, Contains(rendered_frame.rtp_timestamp()));
 
     // Remove old timestamps too, only the newest decoded frame is rendered.

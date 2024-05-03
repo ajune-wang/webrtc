@@ -16,6 +16,299 @@
       "message": "Please?",
       "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb94604_62529b98",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: I think this part of the comment is a bit confusing; the interface doesn\u0027t invoke NextDeliveryTimeUs.\n\nMaybe something like:\nThe intended usage is to invoke NextDeliveryTimeUs and reschedule the DequeueDeliverablePackets call when network parameters (such as link capacity) changes.\nWDYT?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 34
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec00f01_d9c926ec",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "Nice! Thanks for doing this!",
+      "range": {
+        "startLine": 95,
+        "startChar": 32,
+        "endLine": 102,
+        "endChar": 65
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b865eff6_a370eb50",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "Not sure if this should be `std::max(enqueue_time, last_capacity_link_exit_time_)` or maybe it doesn\u0027t matter?",
+      "range": {
+        "startLine": 161,
+        "startChar": 27,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70851c97_c30f9f05",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "Maybe a DCHECK, e.g.\n```\nif (next_process_time_.IsFinite()) {\n  RTC_DCHECK_LE(next_process_time_, arrival_time)\n}\n```\n?",
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f810c31d_78e5dc3f",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: arrival_time",
+      "range": {
+        "startLine": 209,
+        "startChar": 61,
+        "endLine": 209,
+        "endChar": 76
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7627abda_d1d2f483",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: time_now",
+      "range": {
+        "startLine": 210,
+        "startChar": 27,
+        "endLine": 210,
+        "endChar": 38
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "350250a6_5de49595",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "PacketDeliveryInfo::kNotReceived is used in a lot of places. Is this change purely internal because of the translation at line 306?",
+      "range": {
+        "startLine": 232,
+        "startChar": 39,
+        "endLine": 232,
+        "endChar": 52
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "668a8bc5_ea96e4b8",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: arrival_time?",
+      "range": {
+        "startLine": 265,
+        "startChar": 21,
+        "endLine": 265,
+        "endChar": 36
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929af98e_5966715e",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: arrival_time?",
+      "range": {
+        "startLine": 277,
+        "startChar": 39,
+        "endLine": 277,
+        "endChar": 54
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad05481_0654f85c",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "This can be MinusInfinity, right? Would that cause any problems?",
+      "range": {
+        "startLine": 317,
+        "startChar": 45,
+        "endLine": 317,
+        "endChar": 57
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a455207a_c945e065",
+        "filename": "test/network/simulated_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: May differ from the packet size if the link capacity changes while the packet is in the capacity link.\n\nWDYT?",
+      "range": {
+        "startLine": 81,
+        "startChar": 66,
+        "endLine": 83,
+        "endChar": 12
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d8da10_775eb16d",
+        "filename": "test/network/simulated_network_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "I don\u0027t understand. Did this change?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46813446_774a6ff7",
+        "filename": "test/network/simulated_network_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-03T16:05:13Z",
+      "side": 1,
+      "message": "nit: through",
+      "range": {
+        "startLine": 235,
+        "startChar": 68,
+        "endLine": 235,
+        "endChar": 74
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

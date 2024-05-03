@@ -16,6 +16,23 @@
       "message": "not worth adding a TODO",
       "revId": "7424188cd545a0695c03e156829d81375170ca3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a3397d_79c46fc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-03T07:28:49Z",
+      "side": 1,
+      "message": "Being JSEP-incompliant is a bug. Bugs should have bug numbers, even when the fix may be changing or ignoring JSEP for Web compatibility.\n\nBut I think we should land those tests anyway, so +1.",
+      "revId": "7424188cd545a0695c03e156829d81375170ca3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

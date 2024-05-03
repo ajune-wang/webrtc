@@ -138,6 +138,24 @@
       "parentUuid": "a7cf4141_b5d63d4c",
       "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "247dbc34_4b3321f7",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-03T07:28:49Z",
+      "side": 1,
+      "message": "My worry is that this is a footgun - there\u0027s absolutely no question that this incoming offer is broken (referring to a MID that it hasn\u0027t included). The answer works because of the particular choice of starting point for the backfill - if this were a subsequent offer, after an earlier exchange had used up 0, or if we were to change the default from \"0\" to \"A\", it would fail, and the failure would be quite hard to figure out.",
+      "parentUuid": "c698f7b0_21178f5d",
+      "revId": "22df3b0f10ab1c94fc10bcdbdc987c2bcc9c0ed5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

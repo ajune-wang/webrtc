@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "362b1398_7ba6066a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-04T15:07:36Z",
+      "side": 1,
+      "message": "nit: formatting",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "23857336a29551ac791a86d2050d566f48517ae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b496a2e_c31c7817",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-04T15:07:36Z",
+      "side": 1,
+      "message": "Nit: the concept of narrow section doesn\u0027t exist at the moment in comments.\n\nIIUC this is capacity_link_, if I got this right, maybe add a comment to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/network/simulated_network.h next to it where you introduce the terminology?",
+      "range": {
+        "startLine": 16,
+        "startChar": 26,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "23857336a29551ac791a86d2050d566f48517ae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a9f53f6c_22f0670b",
@@ -14,6 +60,29 @@
       "writtenOn": "2024-05-04T08:50:52Z",
       "side": 1,
       "message": "PTAL",
+      "revId": "23857336a29551ac791a86d2050d566f48517ae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35221813_7fbefc8a",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-04T15:07:36Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment about why we don\u0027t check and invoke next_process_time_changed_callback_ here. It will be useful the next time someone takes a look at the code.\n\nI guess this is because the packet has already passed the narrow section but let\u0027s clarify it.",
+      "range": {
+        "startLine": 311,
+        "startChar": 2,
+        "endLine": 311,
+        "endChar": 26
+      },
       "revId": "23857336a29551ac791a86d2050d566f48517ae3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

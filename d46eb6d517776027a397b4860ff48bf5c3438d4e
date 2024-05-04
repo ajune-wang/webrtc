@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1721763a_3de702ad",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "thanks",
+      "parentUuid": "7bb94604_62529b98",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 34
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7ec00f01_d9c926ec",
         "filename": "test/network/simulated_network.cc",
         "patchSetId": 6
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "42469468_06fc9a70",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "I think it made more sense to not change packets that are not yet processed. \nIe, only the first packet arrival time matters to set next proces_time. Otherwise, updates happen in UpdateCapacityQueue.",
+      "parentUuid": "b865eff6_a370eb50",
+      "range": {
+        "startLine": 161,
+        "startChar": 27,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70851c97_c30f9f05",
         "filename": "test/network/simulated_network.cc",
         "patchSetId": 6
@@ -100,6 +148,24 @@
       "writtenOn": "2024-05-03T16:05:13Z",
       "side": 1,
       "message": "Maybe a DCHECK, e.g.\n```\nif (next_process_time_.IsFinite()) {\n  RTC_DCHECK_LE(next_process_time_, arrival_time)\n}\n```\n?",
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e4cdf53_bfa95e50",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done ?",
+      "parentUuid": "70851c97_c30f9f05",
       "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -127,6 +193,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21bdb357_09fb68ee",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f810c31d_78e5dc3f",
+      "range": {
+        "startLine": 209,
+        "startChar": 61,
+        "endLine": 209,
+        "endChar": 76
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7627abda_d1d2f483",
@@ -140,6 +230,30 @@
       "writtenOn": "2024-05-03T16:05:13Z",
       "side": 1,
       "message": "nit: time_now",
+      "range": {
+        "startLine": 210,
+        "startChar": 27,
+        "endLine": 210,
+        "endChar": 38
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb4fa2b_410280dd",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7627abda_d1d2f483",
       "range": {
         "startLine": 210,
         "startChar": 27,
@@ -175,6 +289,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f04de79c_2a414600",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "yes, I got tired of _us and kbps conversions but realized that DataSize dont have bit precision.... \nAnyway, I think this a step in the right direction.",
+      "parentUuid": "350250a6_5de49595",
+      "range": {
+        "startLine": 232,
+        "startChar": 39,
+        "endLine": 232,
+        "endChar": 52
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "668a8bc5_ea96e4b8",
         "filename": "test/network/simulated_network.cc",
         "patchSetId": 6
@@ -186,6 +324,30 @@
       "writtenOn": "2024-05-03T16:05:13Z",
       "side": 1,
       "message": "nit: arrival_time?",
+      "range": {
+        "startLine": 265,
+        "startChar": 21,
+        "endLine": 265,
+        "endChar": 36
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3a02aa7_48933818",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "668a8bc5_ea96e4b8",
       "range": {
         "startLine": 265,
         "startChar": 21,
@@ -209,6 +371,30 @@
       "writtenOn": "2024-05-03T16:05:13Z",
       "side": 1,
       "message": "nit: arrival_time?",
+      "range": {
+        "startLine": 277,
+        "startChar": 39,
+        "endLine": 277,
+        "endChar": 54
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ccb01f5_06c7dbad",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "929af98e_5966715e",
       "range": {
         "startLine": 277,
         "startChar": 39,
@@ -244,6 +430,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c8c4a7a_c0eecb6f",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Good point. I wonder how that works today. \nIe, first packet int the delay link is lost, next received.  Looks like that packet will not be delivered if we are unlucky.\nRewrote and added test NextDeliveryTimeSetAfterLostPackets",
+      "parentUuid": "3ad05481_0654f85c",
+      "range": {
+        "startLine": 317,
+        "startChar": 45,
+        "endLine": 317,
+        "endChar": 57
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a455207a_c945e065",
         "filename": "test/network/simulated_network.h",
         "patchSetId": 6
@@ -255,6 +465,30 @@
       "writtenOn": "2024-05-03T16:05:13Z",
       "side": 1,
       "message": "nit: May differ from the packet size if the link capacity changes while the packet is in the capacity link.\n\nWDYT?",
+      "range": {
+        "startLine": 81,
+        "startChar": 66,
+        "endLine": 83,
+        "endChar": 12
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b2e79d_41a2fa2f",
+        "filename": "test/network/simulated_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a455207a_c945e065",
       "range": {
         "startLine": 81,
         "startChar": 66,
@@ -288,6 +522,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eaf825a_10dad698",
+        "filename": "test/network/simulated_network_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "No, sorry, changed my mind about infinite capacity.",
+      "parentUuid": "76d8da10_775eb16d",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 73
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46813446_774a6ff7",
@@ -301,6 +559,30 @@
       "writtenOn": "2024-05-03T16:05:13Z",
       "side": 1,
       "message": "nit: through",
+      "range": {
+        "startLine": 235,
+        "startChar": 68,
+        "endLine": 235,
+        "endChar": 74
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "491c0f43_8a1661f4",
+        "filename": "test/network/simulated_network_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-04T08:50:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46813446_774a6ff7",
       "range": {
         "startLine": 235,
         "startChar": 68,

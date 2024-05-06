@@ -69,6 +69,30 @@
       },
       "revId": "e15632f7602b7ae8f1c1b3e0cd4b7a32cd293ef4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c8dc29_7a82ac11",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-05-06T15:50:59Z",
+      "side": 1,
+      "message": "it is set to false as soon as we write data to it: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/audio/audio_frame.cc;l\u003d159;drc\u003de09826065bb5964f247be565890dcabda54ac9e3\n\nGiven the dcheck in GetAudio that checks that they are always the same, I think it is safe to assume that it is always set to false in the non-muted case.",
+      "parentUuid": "83e44b14_df6a3eb9",
+      "range": {
+        "startLine": 759,
+        "startChar": 4,
+        "endLine": 759,
+        "endChar": 19
+      },
+      "revId": "e15632f7602b7ae8f1c1b3e0cd4b7a32cd293ef4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

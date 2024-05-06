@@ -864,8 +864,8 @@ TEST_P(LowLatencyVideoStreamBufferControllerTest, ZeroPlayoutDelayFullQueue) {
   buffer_->InsertFrame(std::move(frame));
   EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(test::WithId(0)));
 
-  // Queue up 5 frames (configured max queue size for 0-playout delay pacing).
-  for (int id = 1; id <= 6; ++id) {
+  // Queue up 8 frames (configured max queue size for 0-playout delay pacing).
+  for (int id = 1; id <= 9; ++id) {
     frame = test::FakeFrameBuilder()
                 .Id(id)
                 .Time(kFps30Rtp * id)
@@ -917,10 +917,7 @@ INSTANTIATE_TEST_SUITE_P(
     LowLatencyVideoStreamBufferControllerTest,
     ::testing::Combine(
         ::testing::Bool(),
-        ::testing::Values(
-            "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/",
-            "WebRTC-ZeroPlayoutDelay/"
-            "min_pacing:16ms,max_decode_queue_size:5/")));
+        ::testing::Values("WebRTC-ZeroPlayoutDelay/min_pacing:16ms/")));
 
 class IncomingTimestampVideoStreamBufferControllerTest
     : public ::testing::Test,

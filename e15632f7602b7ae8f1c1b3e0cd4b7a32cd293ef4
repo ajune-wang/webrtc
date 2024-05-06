@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed34ba77_fb326065",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-05-06T12:51:57Z",
+      "side": 1,
+      "message": "Why don\u0027t you take away the \u0027muted\u0027 argument from \u0027GetAudioInternal\u0027, and simply set it from \u0027audio_frame-\u003emuted()\u0027 below? That is, in the interface to \u0027GetAudioInternal\u0027, the \u0027audio_frame\u0027 is the single source of the mute state info.",
+      "range": {
+        "startLine": 221,
+        "startChar": 36,
+        "endLine": 221,
+        "endChar": 41
+      },
+      "revId": "e15632f7602b7ae8f1c1b3e0cd4b7a32cd293ef4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -60,7 +60,6 @@ float SimulcastRateAllocator::GetTemporalRateAllocation(
 
 SimulcastRateAllocator::SimulcastRateAllocator(const VideoCodec& codec)
     : codec_(codec),
-      stable_rate_settings_(StableTargetRateExperiment::ParseFromFieldTrials()),
       rate_control_settings_(RateControlSettings::ParseFromFieldTrials()),
       legacy_conference_mode_(false) {}
 
@@ -69,12 +68,7 @@ SimulcastRateAllocator::~SimulcastRateAllocator() = default;
 VideoBitrateAllocation SimulcastRateAllocator::Allocate(
     VideoBitrateAllocationParameters parameters) {
   VideoBitrateAllocation allocated_bitrates;
-  DataRate stable_rate = parameters.total_bitrate;
-  if (stable_rate_settings_.IsEnabled() &&
-      parameters.stable_bitrate > DataRate::Zero()) {
-    stable_rate = std::min(parameters.stable_bitrate, parameters.total_bitrate);
-  }
-  DistributeAllocationToSimulcastLayers(parameters.total_bitrate, stable_rate,
+  DistributeAllocationToSimulcastLayers(parameters.total_bitrate,
                                         &allocated_bitrates);
   DistributeAllocationToTemporalLayers(&allocated_bitrates);
   return allocated_bitrates;
@@ -82,15 +76,12 @@ VideoBitrateAllocation SimulcastRateAllocator::Allocate(
 
 void SimulcastRateAllocator::DistributeAllocationToSimulcastLayers(
     DataRate total_bitrate,
-    DataRate stable_bitrate,
     VideoBitrateAllocation* allocated_bitrates) {
   DataRate left_in_total_allocation = total_bitrate;
-  DataRate left_in_stable_allocation = stable_bitrate;
 
   if (codec_.maxBitrate) {
     DataRate max_rate = DataRate::KilobitsPerSec(codec_.maxBitrate);
     left_in_total_allocation = std::min(left_in_total_allocation, max_rate);
-    left_in_stable_allocation = std::min(left_in_stable_allocation, max_rate);
   }
 
   if (codec_.numberOfSimulcastStreams == 0) {
@@ -134,7 +125,7 @@ void SimulcastRateAllocator::DistributeAllocationToSimulcastLayers(
   DataRate min_rate = DataRate::KilobitsPerSec(
       codec_.simulcastStream[layer_index[active_layer]].minBitrate);
   left_in_total_allocation = std::max(left_in_total_allocation, min_rate);
-  left_in_stable_allocation = std::max(left_in_stable_allocation, min_rate);
+  DataRate left_in_stable_allocation = left_in_total_allocation;
 
   // Begin by allocating bitrate to simulcast streams, putting all bitrate in
   // temporal layer 0. We'll then distribute this bitrate, across potential
@@ -162,9 +153,7 @@ void SimulcastRateAllocator::DistributeAllocationToSimulcastLayers(
     DataRate min_bitrate = DataRate::KilobitsPerSec(stream.minBitrate);
     DataRate target_bitrate = DataRate::KilobitsPerSec(stream.targetBitrate);
     double hysteresis_factor =
-        codec_.mode == VideoCodecMode::kRealtimeVideo
-            ? stable_rate_settings_.GetVideoHysteresisFactor()
-            : stable_rate_settings_.GetScreenshareHysteresisFactor();
+        codec_.mode == VideoCodecMode::kRealtimeVideo ? 1.2 : 1.35;
     if (!first_allocation && !stream_enabled_[layer_index[active_layer]]) {
       min_bitrate = std::min(hysteresis_factor * min_bitrate, target_bitrate);
     }

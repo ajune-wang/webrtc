@@ -1459,7 +1459,8 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     codec_specific->scalability_mode = scalability_mode_;
   } else {
     codec_specific_.scalability_mode = MakeScalabilityMode(
-        num_active_spatial_layers_, num_temporal_layers_, inter_layer_pred_,
+        num_active_spatial_layers_ - first_active_layer_, num_temporal_layers_,
+        inter_layer_pred_,
         num_active_spatial_layers_ > 1
             ? absl::make_optional(ScalabilityModeResolutionRatio::kTwoToOne)
             : absl::nullopt,

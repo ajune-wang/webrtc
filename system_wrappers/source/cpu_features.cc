@@ -78,8 +78,7 @@ int GetCPUInfo(CPUFeature feature) {
     return 0 != (cpu_info[2] & 0x00000001);
   }
 #if defined(WEBRTC_ENABLE_AVX2)
-  if (feature == kAVX2 &&
-      !webrtc::field_trial::IsEnabled("WebRTC-Avx2SupportKillSwitch")) {
+  if (feature == kAVX2) {
     int cpu_info7[4];
     __cpuid(cpu_info7, 0);
     int num_ids = cpu_info7[0];

@@ -135,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b21119d4_a55baf8c",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-06T09:58:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "42469468_06fc9a70",
+      "range": {
+        "startLine": 161,
+        "startChar": 27,
+        "endLine": 161,
+        "endChar": 39
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70851c97_c30f9f05",
@@ -166,6 +190,24 @@
       "side": 1,
       "message": "Done ?",
       "parentUuid": "70851c97_c30f9f05",
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e036bcf0_ed5b44ca",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-06T09:58:50Z",
+      "side": 1,
+      "message": "Reading the comment above, I was thinking whether it\u0027s possible to verify this programmatically. (The claim that a new packet can\u0027t be processed at 95 ms if the previous packet is scheduled to be processed 100 ms, is not a priori obvious to me. What if reordering is allowed, for example?)",
+      "parentUuid": "9e4cdf53_bfa95e50",
       "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -301,6 +343,30 @@
       "side": 1,
       "message": "yes, I got tired of _us and kbps conversions but realized that DataSize dont have bit precision.... \nAnyway, I think this a step in the right direction.",
       "parentUuid": "350250a6_5de49595",
+      "range": {
+        "startLine": 232,
+        "startChar": 39,
+        "endLine": 232,
+        "endChar": 52
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "361d482a_90267269",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-06T09:58:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f04de79c_2a414600",
       "range": {
         "startLine": 232,
         "startChar": 39,

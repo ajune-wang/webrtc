@@ -46,6 +46,29 @@
       },
       "revId": "e15632f7602b7ae8f1c1b3e0cd4b7a32cd293ef4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83e44b14_df6a3eb9",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2024-05-06T15:13:49Z",
+      "side": 1,
+      "message": "Are we sure that audio_frame-\u003emuted is false in the non-muted case? Or should we explicitly set it somewhere (for instance here)?",
+      "range": {
+        "startLine": 759,
+        "startChar": 4,
+        "endLine": 759,
+        "endChar": 19
+      },
+      "revId": "e15632f7602b7ae8f1c1b3e0cd4b7a32cd293ef4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

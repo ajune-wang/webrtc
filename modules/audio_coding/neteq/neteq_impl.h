@@ -133,7 +133,7 @@ class NetEqImpl : public webrtc::NetEq {
 
   int GetAudio(
       AudioFrame* audio_frame,
-      bool* muted,
+      bool* muted = nullptr,
       int* current_sample_rate_hz = nullptr,
       absl::optional<Operation> action_override = absl::nullopt) override;
 

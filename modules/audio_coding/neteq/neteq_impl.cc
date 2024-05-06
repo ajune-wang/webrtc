@@ -753,7 +753,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
   DtmfEvent dtmf_event;
   Operation operation;
   bool play_dtmf;
-  *muted = false;
+  if (muted != nullptr) {
+    *muted = false;
+  }
   last_decoded_packet_infos_.clear();
   tick_timer_->Increment();
   stats_->IncreaseCounter(output_size_samples_, fs_hz_);
@@ -786,7 +788,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
     audio_frame->num_channels_ = sync_buffer_->Channels();
     stats_->ExpandedNoiseSamples(output_size_samples_, false);
     controller_->NotifyMutedState();
-    *muted = true;
+    if (muted != nullptr) {
+      *muted = true;
+    }
     return 0;
   }
   int return_value = GetDecision(&operation, &packet_list, &dtmf_event,

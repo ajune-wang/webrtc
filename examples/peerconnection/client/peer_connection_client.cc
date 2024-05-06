@@ -216,6 +216,9 @@ bool PeerConnectionClient::ConnectControlSocket() {
     Close();
     return false;
   }
+#if defined(WEBRTC_WIN)
+  rtc::Thread::Current()->socketserver()->WakeUp();
+#endif
   return true;
 }
 

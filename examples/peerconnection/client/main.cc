@@ -107,6 +107,8 @@ int PASCAL wWinMain(HINSTANCE instance,
   rtc::InitializeSSL();
   PeerConnectionClient client;
   auto conductor = rtc::make_ref_counted<Conductor>(&client, &wnd);
+  // Start loop to handle callback of socket events
+  main_thread.Start();
 
   // Main loop.
   MSG msg;

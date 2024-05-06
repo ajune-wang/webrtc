@@ -38,8 +38,8 @@
       },
       {
         "args": [
-          "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb",
-          "--nologs"
+          "--nologs",
+          "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb"
         ],
         "merge": {
           "args": [
@@ -109,8 +109,8 @@
       },
       {
         "args": [
-          "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb",
-          "--nologs"
+          "--nologs",
+          "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb"
         ],
         "merge": {
           "args": [
@@ -151,6 +151,7 @@
           "--test-launcher-summary-output=${ISOLATED_OUTDIR}/gtest_output.json",
           "--test-arg=--gtest_output=json:/custom_artifacts/gtest_output.json",
           "--test-arg=--undefok=test_launcher_summary_output",
+          "--test-arg=--test-launcher-shard-index=0",
           "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb"
         ],
         "merge": {
@@ -182,12 +183,13 @@
       },
       {
         "args": [
+          "--nologs",
           "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json",
           "--test-launcher-summary-output=${ISOLATED_OUTDIR}/gtest_output.json",
           "--test-arg=--gtest_output=json:/custom_artifacts/gtest_output.json",
           "--test-arg=--undefok=test_launcher_summary_output",
-          "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb",
-          "--nologs"
+          "--test-arg=--test-launcher-shard-index=0",
+          "--isolated-script-test-perf-output=${ISOLATED_OUTDIR}/perftest-output.pb"
         ],
         "merge": {
           "args": [
@@ -254,8 +256,8 @@
         "args": [
           "--test_artifacts_dir=${ISOLATED_OUTDIR}",
           "--save_worst_frame",
-          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json",
-          "--nologs"
+          "--nologs",
+          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "merge": {
           "args": [
@@ -322,8 +324,8 @@
         "args": [
           "--test_artifacts_dir=${ISOLATED_OUTDIR}",
           "--save_worst_frame",
-          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json",
-          "--nologs"
+          "--nologs",
+          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "merge": {
           "args": [
@@ -391,8 +393,8 @@
         "args": [
           "--test_artifacts_dir=${ISOLATED_OUTDIR}",
           "--save_worst_frame",
-          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json",
-          "--nologs"
+          "--nologs",
+          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "merge": {
           "args": [
@@ -459,8 +461,8 @@
         "args": [
           "--test_artifacts_dir=${ISOLATED_OUTDIR}",
           "--save_worst_frame",
-          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json",
-          "--nologs"
+          "--nologs",
+          "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "merge": {
           "args": [

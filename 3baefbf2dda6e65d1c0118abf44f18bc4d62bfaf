@@ -22,6 +22,30 @@
       },
       "revId": "3baefbf2dda6e65d1c0118abf44f18bc4d62bfaf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9965b051_39a17c7c",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-05-06T14:47:48Z",
+      "side": 0,
+      "message": "This comment must be outdated. AudioFrame data can be accessed when it is muted: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/audio/audio_frame.cc;l\u003d137;drc\u003d57b09eca64df9315e603ac1a43934d8fbda64f46\n\nIn fact, all AudioFrameOperations::Mute does is setting the AudioFrame to muted, so it is a noop.",
+      "parentUuid": "bccd165a_24253884",
+      "range": {
+        "startLine": 411,
+        "startChar": 20,
+        "endLine": 411,
+        "endChar": 45
+      },
+      "revId": "3baefbf2dda6e65d1c0118abf44f18bc4d62bfaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebec4a85_28368a81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-07T22:47:12Z",
+      "side": 1,
+      "message": "smells a bit like http code, maybe from the early libjingle days with its pseudohttp filetransfer?",
+      "revId": "423a296b27f4262f8ad44ca0f1a1ff0cd677af0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

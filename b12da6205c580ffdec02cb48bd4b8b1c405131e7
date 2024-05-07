@@ -16,6 +16,23 @@
       "message": "Thanks for the review and details @deadbeef@webrtc.org ! I also saw that the specific race condition in the context of native observers was raised as a concern in the CL you linked.\n\n@hta@webrtc.org any thoughts or concerns about moving forward with this one?\n\nCheers,\nHershi",
       "revId": "b12da6205c580ffdec02cb48bd4b8b1c405131e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7763453_10909cfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-07T18:35:22Z",
+      "side": 1,
+      "message": "If Taylor says it\u0027s likely OK, and Zoe does not object, let\u0027s try it.",
+      "revId": "b12da6205c580ffdec02cb48bd4b8b1c405131e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "PTAL?",
       "revId": "f08d227b600bad1345ba0db5e69a63ff628bd4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b04da67f_8bd8b416",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-07T08:00:06Z",
+      "side": 1,
+      "message": "LGTM, this is a step forward. Thanks!\n\nI am curious to see if we will get metrics to move. 😊",
+      "parentUuid": "8c52f7b6_44d422a1",
+      "revId": "f08d227b600bad1345ba0db5e69a63ff628bd4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

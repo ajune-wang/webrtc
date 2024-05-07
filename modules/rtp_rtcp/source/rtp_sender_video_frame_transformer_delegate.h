@@ -30,18 +30,18 @@ namespace webrtc {
 // have been applied.
 class RTPVideoFrameSenderInterface {
  public:
-  virtual bool SendVideo(int payload_type,
-                         absl::optional<VideoCodecType> codec_type,
-                         uint32_t rtp_timestamp,
-                         Timestamp capture_time,
-                         rtc::ArrayView<const uint8_t> payload,
-                         size_t encoder_output_size,
-                         RTPVideoHeader video_header,
-                         TimeDelta expected_retransmission_time,
-                         std::vector<uint32_t> csrcs) = 0;
+  virtual bool SendVideo(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      Timestamp capture_time,
+      rtc::ArrayView<const uint8_t> payload,
+      size_t encoder_output_size,
+      RTPVideoHeader video_header,
+      TimeDelta expected_retransmission_time,
+      std::vector<uint32_t> csrcs,
+      std::unique_ptr<FrameDependencyStructure> video_structure) = 0;
 
-  virtual void SetVideoStructureAfterTransformation(
-      const FrameDependencyStructure* video_structure) = 0;
   virtual void SetVideoLayersAllocationAfterTransformation(
       VideoLayersAllocation allocation) = 0;
 
@@ -63,12 +63,14 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
   void Init();
 
   // Delegates the call to FrameTransformerInterface::TransformFrame.
-  bool TransformFrame(int payload_type,
-                      absl::optional<VideoCodecType> codec_type,
-                      uint32_t rtp_timestamp,
-                      const EncodedImage& encoded_image,
-                      RTPVideoHeader video_header,
-                      TimeDelta expected_retransmission_time);
+  bool TransformFrame(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      const EncodedImage& encoded_image,
+      RTPVideoHeader video_header,
+      TimeDelta expected_retransmission_time,
+      std::unique_ptr<FrameDependencyStructure> video_structure);
 
   // Implements TransformedFrameCallback. Can be called on any thread. Posts
   // the transformed frame to be sent on the `encoder_queue_`.
@@ -81,11 +83,6 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
   void SendVideo(std::unique_ptr<TransformableFrameInterface> frame) const
       RTC_RUN_ON(transformation_queue_);
 
-  // Delegates the call to RTPSendVideo::SetVideoStructureAfterTransformation
-  // under `sender_lock_`.
-  void SetVideoStructureUnderLock(
-      const FrameDependencyStructure* video_structure);
-
   // Delegates the call to
   // RTPSendVideo::SetVideoLayersAllocationAfterTransformation under
   // `sender_lock_`.
@@ -95,6 +92,10 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
   // `sender_` under lock. Called from RTPSenderVideo destructor to prevent the
   // `sender_` to dangle.
   void Reset();
+
+  // TODO: bugs.webrtc.org/41496465 - remove when RtpSenderVideo deprecated
+  // functions that uses this one are removed too.
+  Mutex& sender_lock() const { return sender_lock_; }
 
  protected:
   ~RTPSenderVideoFrameTransformerDelegate() override = default;

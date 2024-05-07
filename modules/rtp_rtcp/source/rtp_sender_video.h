@@ -96,34 +96,57 @@ class RTPSenderVideo : public RTPVideoFrameSenderInterface {
   // `expected_retransmission_time.IsFinite()` -> retransmission allowed.
   // `encoder_output_size` is the size of the video frame as it came out of the
   // video encoder, excluding any additional overhead.
+  // `video_structure` describes coded video sequence for dependency descriptor
+  //  RTP header extension when set on a key frame. If set to nullptr on a key
+  //  frame, implies no dependency descriptor should be produced.
+  // `video_structure` is ignored for delta frames.
   // Calls to this method are assumed to be externally serialized.
-  bool SendVideo(int payload_type,
-                 absl::optional<VideoCodecType> codec_type,
-                 uint32_t rtp_timestamp,
-                 Timestamp capture_time,
-                 rtc::ArrayView<const uint8_t> payload,
-                 size_t encoder_output_size,
-                 RTPVideoHeader video_header,
-                 TimeDelta expected_retransmission_time,
-                 std::vector<uint32_t> csrcs) override;
+  bool SendVideo(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      Timestamp capture_time,
+      rtc::ArrayView<const uint8_t> payload,
+      size_t encoder_output_size,
+      RTPVideoHeader video_header,
+      TimeDelta expected_retransmission_time,
+      std::vector<uint32_t> csrcs,
+      std::unique_ptr<FrameDependencyStructure> video_structure) override;
 
-  bool SendEncodedImage(int payload_type,
-                        absl::optional<VideoCodecType> codec_type,
-                        uint32_t rtp_timestamp,
-                        const EncodedImage& encoded_image,
-                        RTPVideoHeader video_header,
-                        TimeDelta expected_retransmission_time);
+  [[deprecated]] bool SendVideo(int payload_type,
+                                absl::optional<VideoCodecType> codec_type,
+                                uint32_t rtp_timestamp,
+                                Timestamp capture_time,
+                                rtc::ArrayView<const uint8_t> payload,
+                                size_t encoder_output_size,
+                                RTPVideoHeader video_header,
+                                TimeDelta expected_retransmission_time,
+                                std::vector<uint32_t> csrcs);
+
+  [[deprecated]] bool SendEncodedImage(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      const EncodedImage& encoded_image,
+      RTPVideoHeader video_header,
+      TimeDelta expected_retransmission_time);
 
   // Configures video structures produced by encoder to send using the
   // dependency descriptor rtp header extension. Next call to SendVideo should
   // have video_header.frame_type == kVideoFrameKey.
   // All calls to SendVideo after this call must use video_header compatible
   // with the video_structure.
-  void SetVideoStructure(const FrameDependencyStructure* video_structure);
-  // Should only be used by a RTPSenderVideoFrameTransformerDelegate and exists
-  // to ensure correct syncronization.
-  void SetVideoStructureAfterTransformation(
-      const FrameDependencyStructure* video_structure) override;
+  [[deprecated]] void SetVideoStructure(
+      const FrameDependencyStructure* video_structure);
+
+  bool SendEncodedImage(
+      int payload_type,
+      absl::optional<VideoCodecType> codec_type,
+      uint32_t rtp_timestamp,
+      const EncodedImage& encoded_image,
+      RTPVideoHeader video_header,
+      TimeDelta expected_retransmission_time,
+      std::unique_ptr<FrameDependencyStructure> video_structure);
 
   // Sets current active VideoLayersAllocation. The allocation will be sent
   // using the rtp video layers allocation extension. The allocation will be

@@ -13,6 +13,7 @@
 #include <stddef.h>
 
 #include <algorithm>
+#include <memory>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/strings/match.h"
@@ -130,12 +131,14 @@ void SetVideoTiming(const EncodedImage& image, VideoSendTiming* timing) {
 // template_fdiffs()). The set of the templates is not tuned for any paricular
 // structure thus dependency descriptor would use more bytes on the wire than
 // with tuned templates.
-FrameDependencyStructure MinimalisticStructure(int num_spatial_layers,
-                                               int num_temporal_layers) {
+std::unique_ptr<FrameDependencyStructure> MinimalisticStructure(
+    int num_spatial_layers,
+    int num_temporal_layers) {
+  auto result = std::make_unique<FrameDependencyStructure>();
   RTC_DCHECK_LE(num_spatial_layers, DependencyDescriptor::kMaxSpatialIds);
   RTC_DCHECK_LE(num_temporal_layers, DependencyDescriptor::kMaxTemporalIds);
   RTC_DCHECK_LE(num_spatial_layers * num_temporal_layers, 32);
-  FrameDependencyStructure structure;
+  FrameDependencyStructure& structure = *result;
   structure.num_decode_targets = num_spatial_layers * num_temporal_layers;
   structure.num_chains = num_spatial_layers;
   structure.templates.reserve(num_spatial_layers * num_temporal_layers);
@@ -164,7 +167,7 @@ FrameDependencyStructure MinimalisticStructure(int num_spatial_layers,
       structure.decode_target_protected_by_chain.push_back(sid);
     }
   }
-  return structure;
+  return result;
 }
 }  // namespace
 
@@ -353,10 +356,10 @@ void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
   RTC_DCHECK_NOTREACHED() << "Unsupported codec.";
 }
 
-absl::optional<FrameDependencyStructure> RtpPayloadParams::GenericStructure(
+std::unique_ptr<FrameDependencyStructure> RtpPayloadParams::GenericStructure(
     const CodecSpecificInfo* codec_specific_info) {
   if (codec_specific_info == nullptr) {
-    return absl::nullopt;
+    return nullptr;
   }
   // This helper shouldn't be used when template structure is specified
   // explicetly.
@@ -367,12 +370,12 @@ absl::optional<FrameDependencyStructure> RtpPayloadParams::GenericStructure(
         return MinimalisticStructure(/*num_spatial_layers=*/1,
                                      /*num_temporal_layer=*/1);
       }
-      return absl::nullopt;
+      return nullptr;
     case VideoCodecType::kVideoCodecVP8:
       return MinimalisticStructure(/*num_spatial_layers=*/1,
                                    /*num_temporal_layer=*/kMaxTemporalStreams);
     case VideoCodecType::kVideoCodecVP9: {
-      absl::optional<FrameDependencyStructure> structure =
+      std::unique_ptr<FrameDependencyStructure> structure =
           MinimalisticStructure(
               /*num_spatial_layers=*/kMaxSimulatedSpatialLayers,
               /*num_temporal_layer=*/kMaxTemporalStreams);
@@ -411,7 +414,7 @@ absl::optional<FrameDependencyStructure> RtpPayloadParams::GenericStructure(
     case VideoCodecType::kVideoCodecAV1:
     case VideoCodecType::kVideoCodecH264:
     case VideoCodecType::kVideoCodecH265:
-      return absl::nullopt;
+      return nullptr;
   }
   RTC_DCHECK_NOTREACHED() << "Unsupported codec.";
 }

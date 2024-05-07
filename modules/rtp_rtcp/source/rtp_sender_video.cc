@@ -220,14 +220,10 @@ void RTPSenderVideo::SetRetransmissionSetting(int32_t retransmission_settings) {
 void RTPSenderVideo::SetVideoStructure(
     const FrameDependencyStructure* video_structure) {
   if (frame_transformer_delegate_) {
-    frame_transformer_delegate_->SetVideoStructureUnderLock(video_structure);
+    MutexLock lock(&frame_transformer_delegate_->sender_lock());
+    SetVideoStructureInternal(video_structure);
     return;
   }
-  SetVideoStructureInternal(video_structure);
-}
-
-void RTPSenderVideo::SetVideoStructureAfterTransformation(
-    const FrameDependencyStructure* video_structure) {
   SetVideoStructureInternal(video_structure);
 }
 
@@ -466,6 +462,28 @@ bool RTPSenderVideo::SendVideo(int payload_type,
                                TimeDelta expected_retransmission_time,
                                std::vector<uint32_t> csrcs) {
   RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
+  std::unique_ptr<FrameDependencyStructure> structure;
+  if (video_header.frame_type == VideoFrameType::kVideoFrameKey) {
+    structure = std::move(video_structure_);
+  }
+
+  return SendVideo(payload_type, codec_type, rtp_timestamp, capture_time,
+                   payload, encoder_output_size, video_header,
+                   expected_retransmission_time, csrcs, std::move(structure));
+}
+
+bool RTPSenderVideo::SendVideo(
+    int payload_type,
+    absl::optional<VideoCodecType> codec_type,
+    uint32_t rtp_timestamp,
+    Timestamp capture_time,
+    rtc::ArrayView<const uint8_t> payload,
+    size_t encoder_output_size,
+    RTPVideoHeader video_header,
+    TimeDelta expected_retransmission_time,
+    std::vector<uint32_t> csrcs,
+    std::unique_ptr<FrameDependencyStructure> structure) {
+  RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
 
   if (video_header.frame_type == VideoFrameType::kEmptyFrame)
     return true;
@@ -499,6 +517,22 @@ bool RTPSenderVideo::SendVideo(int payload_type,
     if (allocation_) {
       // Send the bitrate allocation on every key frame.
       send_allocation_ = SendVideoLayersAllocation::kSendWithResolution;
+    }
+
+    if (structure == nullptr) {
+      video_structure_ = nullptr;
+    } else if (video_structure_ != nullptr && *video_structure_ == *structure) {
+      // Same structure (just a new key frame), no update required.
+    } else {
+      if (video_structure_) {
+        // When setting different video structure make sure structure_id is
+        // updated so that templates from different structures do not collide.
+        static constexpr int kMaxTemplates = 64;
+        structure->structure_id = (video_structure_->structure_id +
+                                   video_structure_->templates.size()) %
+                                  kMaxTemplates;
+      }
+      video_structure_ = std::move(structure);
     }
   }
 
@@ -750,16 +784,35 @@ bool RTPSenderVideo::SendEncodedImage(int payload_type,
                                       const EncodedImage& encoded_image,
                                       RTPVideoHeader video_header,
                                       TimeDelta expected_retransmission_time) {
+  RTC_DCHECK_RUNS_SERIALIZED(&send_checker_);
+  std::unique_ptr<FrameDependencyStructure> structure;
+  if (video_header.frame_type == VideoFrameType::kVideoFrameKey) {
+    structure = std::move(video_structure_);
+  }
+
+  return SendEncodedImage(payload_type, codec_type, rtp_timestamp,
+                          encoded_image, video_header,
+                          expected_retransmission_time, std::move(structure));
+}
+
+bool RTPSenderVideo::SendEncodedImage(
+    int payload_type,
+    absl::optional<VideoCodecType> codec_type,
+    uint32_t rtp_timestamp,
+    const EncodedImage& encoded_image,
+    RTPVideoHeader video_header,
+    TimeDelta expected_retransmission_time,
+    std::unique_ptr<FrameDependencyStructure> structure) {
   if (frame_transformer_delegate_) {
     // The frame will be sent async once transformed.
     return frame_transformer_delegate_->TransformFrame(
         payload_type, codec_type, rtp_timestamp, encoded_image, video_header,
-        expected_retransmission_time);
+        expected_retransmission_time, std::move(structure));
   }
-  return SendVideo(payload_type, codec_type, rtp_timestamp,
-                   encoded_image.CaptureTime(), encoded_image,
-                   encoded_image.size(), video_header,
-                   expected_retransmission_time, /*csrcs=*/{});
+  return SendVideo(
+      payload_type, codec_type, rtp_timestamp, encoded_image.CaptureTime(),
+      encoded_image, encoded_image.size(), video_header,
+      expected_retransmission_time, /*csrcs=*/{}, std::move(structure));
 }
 
 DataRate RTPSenderVideo::PostEncodeOverhead() const {

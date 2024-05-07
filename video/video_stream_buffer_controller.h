@@ -130,13 +130,6 @@ class VideoStreamBufferController {
   bool decoder_ready_for_new_frame_ RTC_GUARDED_BY(&worker_sequence_checker_) =
       false;
 
-  // Maximum number of frames in the decode queue to allow pacing. If the
-  // queue grows beyond the max limit, pacing will be disabled and frames will
-  // be pushed to the decoder as soon as possible. This only has an effect
-  // when the low-latency rendering path is active, which is indicated by
-  // the frame's render time == 0.
-  FieldTrialParameter<unsigned> zero_playout_delay_max_decode_queue_size_;
-
   ScopedTaskSafety worker_safety_;
 };
 

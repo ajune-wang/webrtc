@@ -1154,12 +1154,14 @@ if (rtc_include_tests) {
     sources = [
       "acm2/acm_send_test.cc",
       "acm2/acm_send_test.h",
+      "test/acm2_absolute_capture_time_unittest.cc",
     ]
 
     defines = audio_coding_defines
 
     deps = [
       ":audio_coding",
+      ":audio_coding_module_typedefs",
       ":neteq_input_audio_tools",
       ":neteq_tools",
       ":neteq_tools_minimal",

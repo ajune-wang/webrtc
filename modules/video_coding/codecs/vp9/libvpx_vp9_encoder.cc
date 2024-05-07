@@ -663,9 +663,9 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
   config_->rc_dropframe_thresh = inst->GetFrameDropEnabled() ? 30 : 0;
   config_->rc_end_usage = VPX_CBR;
   config_->g_pass = VPX_RC_ONE_PASS;
-  config_->rc_min_quantizer =
-      codec_.mode == VideoCodecMode::kScreensharing ? 8 : 2;
-  config_->rc_max_quantizer = 52;
+  config_->rc_min_quantizer = codec_.spatialLayers[0].min_qp.value_or(
+      codec_.mode == VideoCodecMode::kScreensharing ? 8 : 2);
+  config_->rc_max_quantizer = codec_.spatialLayers[0].max_qp.value_or(52);
   config_->rc_undershoot_pct = 50;
   config_->rc_overshoot_pct = 50;
   config_->rc_buf_initial_sz = 500;

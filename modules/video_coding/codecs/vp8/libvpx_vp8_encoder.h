@@ -119,7 +119,6 @@ class LibvpxVp8Encoder : public VideoEncoder {
   VideoCodec codec_;
   bool inited_ = false;
   int64_t timestamp_ = 0;
-  int qp_max_ = 56;
   int cpu_speed_default_ = -6;
   int number_of_cores_ = 0;
   uint32_t rc_max_intra_target_ = 0;

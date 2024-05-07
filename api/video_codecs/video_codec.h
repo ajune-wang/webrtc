@@ -161,6 +161,8 @@ class RTC_EXPORT VideoCodec {
   // simulcast streams,by allocating 0 bitrate if inactive.
   bool active;
 
+  // TODO(ssilkin): Delete after downstream projects switched to
+  // SimulcastStream/SpatialLayer::min/max_qp.
   unsigned int qpMax;
   // The actual number of simulcast streams. This is <= 1 in singlecast (it can
   // be 0 in old code paths), but it is also 1 in the {active,inactive,inactive}

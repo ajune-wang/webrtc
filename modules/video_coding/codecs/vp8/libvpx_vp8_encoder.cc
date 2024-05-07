@@ -393,8 +393,8 @@ void LibvpxVp8Encoder::SetRates(const RateControlParameters& parameters) {
   codec_.maxFramerate = static_cast<uint32_t>(parameters.framerate_fps + 0.5);
 
   if (encoders_.size() > 1) {
-    // If we have more than 1 stream, reduce the qp_max for the low resolution
-    // stream if frame rate is not too low. The trade-off with lower qp_max is
+    // If we have more than 1 stream, reduce the max QP for the low resolution
+    // stream if frame rate is not too low. The trade-off with lower max QP is
     // possibly more dropped frames, so we only do this if the frame rate is
     // above some threshold (base temporal layer is down to 1/4 for 3 layers).
     // We may want to condition this on bitrate later.
@@ -403,7 +403,8 @@ void LibvpxVp8Encoder::SetRates(const RateControlParameters& parameters) {
       vpx_configs_[encoders_.size() - 1].rc_max_quantizer = 45;
     } else {
       // Go back to default value set in InitEncode.
-      vpx_configs_[encoders_.size() - 1].rc_max_quantizer = qp_max_;
+      vpx_configs_[encoders_.size() - 1].rc_max_quantizer =
+          vpx_configs_[0].rc_max_quantizer;
     }
   }
 
@@ -607,16 +608,19 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   vpx_configs_[0].g_pass = VPX_RC_ONE_PASS;
   // Handle resizing outside of libvpx.
   vpx_configs_[0].rc_resize_allowed = 0;
-  vpx_configs_[0].rc_min_quantizer =
-      codec_.mode == VideoCodecMode::kScreensharing ? 12 : 2;
-  if (inst->qpMax >= vpx_configs_[0].rc_min_quantizer) {
-    qp_max_ = inst->qpMax;
-  }
+  const SimulcastStream& top_stream =
+      inst->simulcastStream[number_of_streams - 1];
+  vpx_configs_[0].rc_min_quantizer = top_stream.min_qp.value_or(
+      codec_.mode == VideoCodecMode::kScreensharing ? 12 : 2);
   if (rate_control_settings_.LibvpxVp8QpMax()) {
-    qp_max_ = std::max(rate_control_settings_.LibvpxVp8QpMax().value(),
-                       static_cast<int>(vpx_configs_[0].rc_min_quantizer));
+    vpx_configs_[0].rc_max_quantizer = *rate_control_settings_.LibvpxVp8QpMax();
+  } else if (top_stream.max_qp.has_value()) {
+    vpx_configs_[0].rc_max_quantizer = *top_stream.max_qp;
+  } else {
+    vpx_configs_[0].rc_max_quantizer = inst->qpMax;
   }
-  vpx_configs_[0].rc_max_quantizer = qp_max_;
+  vpx_configs_[0].rc_max_quantizer = std::max(vpx_configs_[0].rc_max_quantizer,
+                                              vpx_configs_[0].rc_min_quantizer);
   vpx_configs_[0].rc_undershoot_pct = 100;
   vpx_configs_[0].rc_overshoot_pct = 15;
   vpx_configs_[0].rc_buf_initial_sz = 500;

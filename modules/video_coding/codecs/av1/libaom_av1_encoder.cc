@@ -247,8 +247,13 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   cfg_.rc_dropframe_thresh = encoder_settings_.GetFrameDropEnabled() ? 30 : 0;
   cfg_.g_input_bit_depth = kBitDepth;
   cfg_.kf_mode = AOM_KF_DISABLED;
-  cfg_.rc_min_quantizer = kQpMin;
-  cfg_.rc_max_quantizer = encoder_settings_.qpMax;
+  cfg_.rc_min_quantizer =
+      encoder_settings_.spatialLayers[0].min_qp.value_or(kQpMin);
+  if (encoder_settings_.spatialLayers[0].max_qp.has_value()) {
+    cfg_.rc_max_quantizer = *encoder_settings_.spatialLayers[0].max_qp;
+  } else {
+    cfg_.rc_max_quantizer = encoder_settings_.qpMax;
+  }
   cfg_.rc_undershoot_pct = 50;
   cfg_.rc_overshoot_pct = 50;
   cfg_.rc_buf_initial_sz = 600;

@@ -46,6 +46,30 @@
       },
       "revId": "4d3a53fa46d7b7d383f3210f2227a2f43fd27248",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9a096a1_d5cfe3fe",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-07T08:22:06Z",
+      "side": 1,
+      "message": "I\u0027d probably remove the test. But if you\u0027d like to keep it, I\u0027d prefer to create a new file `events/rtc_event_rtp_packet_outgoing_unittest.cc`.",
+      "parentUuid": "a178a592_2cb0ff80",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 61
+      },
+      "revId": "4d3a53fa46d7b7d383f3210f2227a2f43fd27248",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

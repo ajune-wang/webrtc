@@ -40,13 +40,10 @@ class MockRTPVideoFrameSenderInterface : public RTPVideoFrameSenderInterface {
                size_t encoder_output_size,
                RTPVideoHeader video_header,
                TimeDelta expected_retransmission_time,
-               std::vector<uint32_t> csrcs),
+               std::vector<uint32_t> csrcs,
+               const FrameDependencyStructure* video_structure),
               (override));
 
-  MOCK_METHOD(void,
-              SetVideoStructureAfterTransformation,
-              (const FrameDependencyStructure* video_structure),
-              (override));
   MOCK_METHOD(void,
               SetVideoLayersAllocationAfterTransformation,
               (VideoLayersAllocation allocation),
@@ -83,7 +80,7 @@ class RtpSenderVideoFrameTransformerDelegateTest : public ::testing::Test {
     delegate->TransformFrame(
         /*payload_type=*/1, VideoCodecType::kVideoCodecVP8, /*rtp_timestamp=*/2,
         encoded_image, RTPVideoHeader::FromMetadata(metadata),
-        /*expected_retransmission_time=*/TimeDelta::Millis(10));
+        /*expected_retransmission_time=*/TimeDelta::Millis(10), nullptr);
     return frame;
   }
 
@@ -123,7 +120,7 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
   delegate->TransformFrame(
       /*payload_type=*/1, VideoCodecType::kVideoCodecVP8, /*rtp_timestamp=*/2,
       encoded_image, RTPVideoHeader(),
-      /*expected_retransmission_time=*/TimeDelta::Millis(10));
+      /*expected_retransmission_time=*/TimeDelta::Millis(10), nullptr);
 }
 
 TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
@@ -261,7 +258,7 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
       SendVideo(payload_type, absl::make_optional(kVideoCodecVP8), timestamp,
                 /*capture_time=*/Timestamp::MinusInfinity(), buffer, _, _,
                 /*expected_retransmission_time=*/TimeDelta::Millis(10),
-                frame_csrcs))
+                frame_csrcs, _))
       .WillOnce(WithoutArgs([&] {
         event.Set();
         return true;
@@ -310,7 +307,7 @@ TEST_F(RtpSenderVideoFrameTransformerDelegateTest,
   delegate->TransformFrame(
       /*payload_type=*/1, VideoCodecType::kVideoCodecVP8, /*rtp_timestamp=*/2,
       encoded_image, RTPVideoHeader(),
-      /*expected_retransmission_time=*/TimeDelta::Millis(10));
+      /*expected_retransmission_time=*/TimeDelta::Millis(10), nullptr);
 }
 
 }  // namespace

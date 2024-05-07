@@ -555,6 +555,9 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
         rtp_streams_[simulcast_index].rtp_rtcp->ExpectedRetransmissionTime();
   }
 
+  RTPSenderVideo& sender_video = *rtp_streams_[simulcast_index].sender_video;
+  absl::optional<FrameDependencyStructure> generated_structure;
+  const FrameDependencyStructure* structure = nullptr;
   if (IsFirstFrameOfACodedVideoSequence(encoded_image, codec_specific_info)) {
     // In order to use the dependency descriptor RTP header extension:
     //  - Pass along any `FrameDependencyStructure` templates produced by the
@@ -564,15 +567,12 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     //    minimal set of templates.
     //  - Otherwise, don't pass along any templates at all which will disable
     //    the generation of a dependency descriptor.
-    RTPSenderVideo& sender_video = *rtp_streams_[simulcast_index].sender_video;
     if (codec_specific_info && codec_specific_info->template_structure) {
-      sender_video.SetVideoStructure(&*codec_specific_info->template_structure);
-    } else if (absl::optional<FrameDependencyStructure> structure =
-                   params_[simulcast_index].GenericStructure(
-                       codec_specific_info)) {
-      sender_video.SetVideoStructure(&*structure);
-    } else {
-      sender_video.SetVideoStructure(nullptr);
+      structure = &*codec_specific_info->template_structure;
+    } else if (generated_structure = params_[simulcast_index].GenericStructure(
+                   codec_specific_info);
+               generated_structure.has_value()) {
+      structure = &*generated_structure;
     }
   }
 
@@ -581,12 +581,11 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     frame_id = shared_frame_id_;
   }
 
-  bool send_result =
-      rtp_streams_[simulcast_index].sender_video->SendEncodedImage(
-          rtp_config_.payload_type, codec_type_, rtp_timestamp, encoded_image,
-          params_[simulcast_index].GetRtpVideoHeader(
-              encoded_image, codec_specific_info, frame_id),
-          expected_retransmission_time);
+  bool send_result = sender_video.SendEncodedImage(
+      rtp_config_.payload_type, codec_type_, rtp_timestamp, encoded_image,
+      params_[simulcast_index].GetRtpVideoHeader(encoded_image,
+                                                 codec_specific_info, frame_id),
+      expected_retransmission_time, structure);
   if (frame_count_observer_) {
     FrameCounts& counts = frame_counts_[simulcast_index];
     if (encoded_image._frameType == VideoFrameType::kVideoFrameKey) {

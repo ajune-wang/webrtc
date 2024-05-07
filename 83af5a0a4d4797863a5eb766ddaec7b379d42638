@@ -147,6 +147,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b6fdc60_77fb3db0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-07T16:47:26Z",
+      "side": 1,
+      "message": "I have some thoughts, but they do not look small to implement.\n\nCurrent api seems to force to use unsafe casts - OnTransformFrame takes base interface, and callbacks with the same interface, but all callbacks expect it to be more concrete class/interface.\nCurrently nothing prevents chromium to create their own version of TransformableFrameInterface and pass it to the callback.\n\nI\u0027m not sure \"TransformableFrame\" should be an virtual interface at all - this class suppose to pass information around, but in c++ virtual interfaces better fit for classes that perform some logic.\nIn particular mocking shouldn\u0027t be the 1st choice to test how it is used ( https://testing.googleblog.com/2024/02/increase-test-fidelity-by-avoiding-mocks.html )\n\nIt might be possible to use Passkey idiom to allow only webrtc to create instances of the TranformableVideoFrame interfaces (that idiom is mentioned in https://abseil.io/tips/134 for std::shared_ptr constructor, but can be applied more widely), then those casts would be more safe.\n\nAnother option is to use public interface for things that can be changed publicly, and add few friends to change things that can be changed/accessed only by webrtc:\n```\n.h\nclass TransforambleVideoFrame {\n public:\n  // Not copyable\n  TransforambleVideoFrame(const TransforambleVideoFrame\u0026) \u003d delete;\n  // Publicly movable\n  TransforambleVideoFrame(TransforambleVideoFrame\u0026\u0026) \u003d default;\n  // Can be deleted by anyone.\n  ~TransforambleVideoFrame();\n  // accessors for properties that can be changed outside of the webrtc.\n  uint32_t GetSsrc() const;\n  \n private:\n  class Impl;\n  \n  // non-move constructor(s) are private, use TransormableVideoFrameFactory;\n  TransforambleVideoFrame(); \n\n  // This class can do low level modification to the impl,\n  // but it is defined in build target private to WebRTC\n  friend class TransormableVideoFrameAccessor;\n  std::unique_ptr\u003cFrameDependencyStructure\u003e FetchStructure();\n  \n  // Alternativly, may skip intermediate Accessor helper and befriend WebRTC transformers directly\n  friend class RTPSenderVideoFrameTransformerDelegate;\n  friend class RTPReceiveVideoFrameTransformerDelegate;\n  \n  // This class is the only one that may create new instances of the TransformableVideoFrame, public users may only move the class around, or delete it, but can\u0027t create new instances of the TranformableVideoFrame\n  // Once again, it is in a build target that is private to WebRTC\n  friend class TransormableVideoFrameFactory;\n  std::unique_ptr\u003cImpl\u003e impl_;\n};\n\napi/tranformable_video_frame.cc\nstruct TransforambleVideoFrame::Impl {\n  uint32_t ssrc;\n  uint32_t rtp_timestamp;\n  rtc::scoped_refptr\u003cEncodedBufferInterface\u003e elementary_bitstream;\n  std::unique_ptr\u003cFrameDependencyStructure\u003e structure_if_key_frame;\n};\n\nstd::unique_ptr\u003cFrameDependencyStructure\u003e TransforambleVideoFrame::FetchStructure() { return std::move(impl_-\u003estructure_if_key_frame);\n\n\nprivate, modules/rtp_rtcp/transformable_video_frame_accessor.h\n\nclass TransormableVideoFrameAccessor {\n public:\n  TransormableVideoFrameAccessor(TransforambleVideoFrame\u0026 video_frame) : ref(video_frame) {}\n  \n  std::unique_ptr\u003cFrameDependencyStructure\u003e FetchStructure() {\n    return video_frame_.FetchStructure();\n  }\n\n private:\n  TransforambleVideoFrame\u0026 video_frame_;\n}\n\nuser, modules/rtp_rtcp/video_frame_transformer.cc\n\nSendTranformer::Do(TransformableVideoFrame video_frame) {\n  if (video_frame.IsKeyFrame()) {\n    video_sender_-\u003eSetVideoStructure(\n      TransormableVideoFrameAccessor(video_frame).FetchStructure());\n  }\n  video_sender_-\u003eSendVideo(\n     TransormableVideoFrameAccessor(video_frame).ExtractEverytingForSending());\n}\n\n\n```\nand expand Tranformer interface to work separately on Audio and Video frames.\n\nIt might help to cleanup how tranformer is integrated into pipeline (e.g. do something like in this dirty draft: https://webrtc-review.googlesource.com/c/src/+/350121 )\nThough that is not directly related to what you are doing, it might make it easier to follow code around.",
+      "parentUuid": "44c98e73_686a1e87",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "305d54a9_bc1711e4",

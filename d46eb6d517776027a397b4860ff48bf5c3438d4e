@@ -230,6 +230,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5d73d2_0c926522",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-07T08:13:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f304f2b1_e7347493",
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f810c31d_78e5dc3f",
@@ -526,6 +544,30 @@
       "side": 1,
       "message": "Good point. I wonder how that works today. \nIe, first packet int the delay link is lost, next received.  Looks like that packet will not be delivered if we are unlucky.\nRewrote and added test NextDeliveryTimeSetAfterLostPackets",
       "parentUuid": "3ad05481_0654f85c",
+      "range": {
+        "startLine": 317,
+        "startChar": 45,
+        "endLine": 317,
+        "endChar": 57
+      },
+      "revId": "d46eb6d517776027a397b4860ff48bf5c3438d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "751d873c_3e95aab7",
+        "filename": "test/network/simulated_network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-07T08:13:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4c8c4a7a_c0eecb6f",
       "range": {
         "startLine": 317,
         "startChar": 45,

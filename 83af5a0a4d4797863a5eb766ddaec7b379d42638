@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "575fad93_53811b83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-07T10:13:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba886905_2c2eee6e",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "183cdcfc_2fa503e5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -58,6 +82,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b59b25d_7eaa94f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-07T10:13:27Z",
+      "side": 1,
+      "message": "The getter pattern, due to the external sequencing requirements of the RTPSenderVideo, is certainly convoluted...\nrtc::FunctionView looks like a good fit for what we need to do here - I\u0027ve switched to that.\n\nRe the interface, as discussed in the comment below about casting, we need to add some interface/class declaration in one of the headers, be that an interface like I\u0027ve done so far, or the entire TransformableVideoReceiverFrame class. I do like having all of the impl details of specific frames kept within the single .cc...",
+      "parentUuid": "778c9e06_cc1be4f6",
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fb19205_44007d96",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-05-02T09:53:34Z",
       "side": 1,
       "message": "Why this cast is safe?\n\nIs it guaranteed this class would always be `TransformableVideoReceiverFrame` ? (then you can cast to it and don\u0027t need extra TransformableVideoFrameWithDependencies interface)",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44c98e73_686a1e87",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-07T10:13:27Z",
+      "side": 1,
+      "message": "It needs to be one of the internal subclasses of TransformableVideoFrame, so either TransformableVideoReceiverFrame or a Mock in tests, but I\u0027ve not found a good way to add that requirement to the API at compile time yet. Any thoughts?\n\nWe could move TransformableVideoReceiverFrame up into the receiver transform delegate\u0027s header file and cast it directly here (and change mocks to mock that), but that\u0027s pretty similar to adding this interface except with more implementation details getting exposed, no?",
+      "parentUuid": "8fb19205_44007d96",
       "range": {
         "startLine": 246,
         "startChar": 8,
@@ -104,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5371af2c_15b576c5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-07T10:13:27Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "305d54a9_bc1711e4",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 63
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d066013f_309e24c6",
@@ -117,6 +207,30 @@
       "writtenOn": "2024-05-02T09:53:34Z",
       "side": 1,
       "message": "do not use c-cast  https://google.github.io/styleguide/cppguide.html#Casting\n\nmoreover - do not store reference to a temporary: \nEncodedImageBuffer::Create() creates a ref counted object that is then immediately destroyed before next expression, buffer points to dangled memory.\nInstead keep the created image buffer until the end of the test:\n```\nrtc::scoped_refptr\u003cEncodedImageBuffer\u003e image_buffer \u003d EncodedImageBuffer::Create(1);\nrtc::ArrayView\u003cconst uint8_t\u003e buffer_view(*image_buffer);\nON_CALL(....Return(buffer));\n```\n\n(or you may try to skip extra variable and try to write\n`ON_CALL(....Return(*image_buffer));` but I\u0027m not sure that would compile)",
+      "range": {
+        "startLine": 376,
+        "startChar": 6,
+        "endLine": 376,
+        "endChar": 37
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4c44174_3c9b0cac",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-07T10:13:27Z",
+      "side": 1,
+      "message": "Ah, well spotted, thanks. Fixed here and in the existing code.",
+      "parentUuid": "d066013f_309e24c6",
       "range": {
         "startLine": 376,
         "startChar": 6,

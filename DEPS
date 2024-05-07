@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2c3468559e6fb837487550d52d4c5ce25d9b3283',
+  'chromium_revision': '49ee37fcc316a7797ae7fd0e599576fdb8b9c5e1',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -55,7 +55,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@d8a00a3b74d32f07e37f1b86a5d5a31e1a0920a0',
+    'https://chromium.googlesource.com/chromium/src/base@3fb05bdb07405504e0a60653d8d8349bfc76f020',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@39e82ca2f8e9005de3a4152832a2bcb893eff416',
   'src/buildtools':
@@ -66,13 +66,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@28b4e69990e64dbfce83ebd08e37594d489c0131',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@fa386d23ccdadfffca640d40a38ded56ee9591d3',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@2e34c023bab4c785929f3861bf7a7b3d95fbd543',
+    'https://chromium.googlesource.com/chromium/src/testing@23f720166d317531bf9fcbcd66c8fdab83065540',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2f108b7164c3a953f497e02f8f448a178a38a637',
+    'https://chromium.googlesource.com/chromium/src/third_party@af73b04224a272d1fc0633406522d19dfc48d221',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -380,7 +380,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9c90438ae125b0382c77b2e63cd900553e11e38a',
+    'https://chromium.googlesource.com/chromium/src/tools@38c3baff85fce14e4a8a22951c359556e97c3f93',
 
   'src/third_party/espresso': {
       'packages': [

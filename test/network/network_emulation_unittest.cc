@@ -163,7 +163,7 @@ class NetworkEmulationManagerThreeNodesRoutingTest : public ::testing::Test {
   MockReceiver r_e3_e1_;
 
   NetworkEmulationManagerImpl emulation_{
-      TimeMode::kRealTime, EmulatedNetworkStatsGatheringMode::kDefault};
+      NetworkEmulationManagerConfig{.time_mode = TimeMode::kRealTime}};
   EmulatedEndpoint* e1_;
   EmulatedEndpoint* e2_;
   EmulatedEndpoint* e3_;
@@ -181,7 +181,7 @@ using ::testing::_;
 
 TEST(NetworkEmulationManagerTest, GeneratedIpv4AddressDoesNotCollide) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kRealTime, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kRealTime});
   std::set<rtc::IPAddress> ips;
   EmulatedEndpointConfig config;
   config.generated_ip_family = EmulatedEndpointConfig::IpAddressFamily::kIpv4;
@@ -195,7 +195,7 @@ TEST(NetworkEmulationManagerTest, GeneratedIpv4AddressDoesNotCollide) {
 
 TEST(NetworkEmulationManagerTest, GeneratedIpv6AddressDoesNotCollide) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kRealTime, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kRealTime});
   std::set<rtc::IPAddress> ips;
   EmulatedEndpointConfig config;
   config.generated_ip_family = EmulatedEndpointConfig::IpAddressFamily::kIpv6;
@@ -209,7 +209,7 @@ TEST(NetworkEmulationManagerTest, GeneratedIpv6AddressDoesNotCollide) {
 
 TEST(NetworkEmulationManagerTest, Run) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kRealTime, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kRealTime});
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(
       std::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
@@ -363,7 +363,7 @@ TEST(NetworkEmulationManagerTest, Run) {
 
 TEST(NetworkEmulationManagerTest, DebugStatsCollectedInDebugMode) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kSimulated, EmulatedNetworkStatsGatheringMode::kDebug);
+      {.time_mode = TimeMode::kSimulated});
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(
       std::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
@@ -463,7 +463,7 @@ TEST(NetworkEmulationManagerTest, DebugStatsCollectedInDebugMode) {
 
 TEST(NetworkEmulationManagerTest, ThroughputStats) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kRealTime, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kRealTime});
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(
       std::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
@@ -594,7 +594,7 @@ TEST_F(NetworkEmulationManagerThreeNodesRoutingTest,
 
 TEST(NetworkEmulationManagerTest, EndpointLoopback) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kSimulated, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kSimulated});
   auto endpoint = network_manager.CreateEndpoint(EmulatedEndpointConfig());
 
   MockReceiver receiver;
@@ -611,7 +611,7 @@ TEST(NetworkEmulationManagerTest, EndpointCanSendWithDifferentSourceIp) {
   constexpr uint32_t kEndpointIp = 0xC0A80011;  // 192.168.0.17
   constexpr uint32_t kSourceIp = 0xC0A80012;    // 192.168.0.18
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kSimulated, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kSimulated});
   EmulatedEndpointConfig endpoint_config;
   endpoint_config.ip = rtc::IPAddress(kEndpointIp);
   endpoint_config.allow_send_packet_with_different_source_ip = true;
@@ -632,7 +632,7 @@ TEST(NetworkEmulationManagerTest,
   constexpr uint32_t kDestEndpointIp = 0xC0A80011;  // 192.168.0.17
   constexpr uint32_t kDestIp = 0xC0A80012;          // 192.168.0.18
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kSimulated, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kSimulated});
   auto sender_endpoint =
       network_manager.CreateEndpoint(EmulatedEndpointConfig());
   EmulatedEndpointConfig endpoint_config;
@@ -656,7 +656,7 @@ TEST(NetworkEmulationManagerTest,
 
 TEST(NetworkEmulationManagerTURNTest, GetIceServerConfig) {
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kRealTime, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kRealTime});
   auto turn = network_manager.CreateTURNServer(EmulatedTURNServerConfig());
 
   EXPECT_GT(turn->GetIceServerConfig().username.size(), 0u);
@@ -667,8 +667,7 @@ TEST(NetworkEmulationManagerTURNTest, GetIceServerConfig) {
 }
 
 TEST(NetworkEmulationManagerTURNTest, ClientTraffic) {
-  NetworkEmulationManagerImpl emulation(
-      TimeMode::kSimulated, EmulatedNetworkStatsGatheringMode::kDefault);
+  NetworkEmulationManagerImpl emulation({.time_mode = TimeMode::kSimulated});
   auto* ep = emulation.CreateEndpoint(EmulatedEndpointConfig());
   auto* turn = emulation.CreateTURNServer(EmulatedTURNServerConfig());
   auto* node = CreateEmulatedNodeWithDefaultBuiltInConfig(&emulation);
@@ -695,7 +694,7 @@ TEST(NetworkEmulationManagerTURNTest, ClientTraffic) {
 TEST(LinkEmulationTest, HandlesDeliveryTimeChangedCallback) {
   constexpr uint32_t kEndpointIp = 0xC0A80011;  // 192.168.0.17
   NetworkEmulationManagerImpl network_manager(
-      TimeMode::kSimulated, EmulatedNetworkStatsGatheringMode::kDefault);
+      {.time_mode = TimeMode::kSimulated});
   auto mock_behaviour =
       std::make_unique<::testing::NiceMock<MockNetworkBehaviourInterface>>();
   MockNetworkBehaviourInterface* mock_behaviour_ptr = mock_behaviour.get();

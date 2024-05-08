@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'fb6772e9b14e0e66168fbc4a767599841ff8f225',
+  'chromium_revision': 'a454a882363374fe2f2f2cb7ccd13561c3937535',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -55,9 +55,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ce2851f9b90143ad4795321036490aa768112d5f',
+    'https://chromium.googlesource.com/chromium/src/base@ada559048d8050d9256af13e8afed6ed6e43b809',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@18c63ed8a3494b506a79ffbdf65ec1111008e7a6',
+    'https://chromium.googlesource.com/chromium/src/build@900b5a4a92d057b597be22e202567f64a7a9034b',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@1ed5a9966e568413486d32437006874643ae80bd',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -66,19 +66,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@deb2830717307599b8003d5387d03f08e8647d61',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e82f74151b9923bcc938fddb0663f5a1e28481de',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d247921fd12989986b8f7e3650aae34252d66f96',
+    'https://chromium.googlesource.com/chromium/src/testing@ff4773b5010b5440d1fa085ed87c9fc868e453b6',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@bb8ac176060060dfface03cbbd798916e45b5f46',
+    'https://chromium.googlesource.com/chromium/src/third_party@0c8e806e5e53d6c2e72807a3aa77e9753d0bb125',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-${{arch}}',
-        'version': 'git_revision:f284b6b47039a2d7edfcbfc51f52664f82b5a789',
+        'version': 'git_revision:b0c2742896b6b9f869dc0eb35ae4785cbf2a4512',
       }
     ],
     'dep_type': 'cipd',
@@ -88,7 +88,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:f284b6b47039a2d7edfcbfc51f52664f82b5a789',
+        'version': 'git_revision:b0c2742896b6b9f869dc0eb35ae4785cbf2a4512',
       }
     ],
     'dep_type': 'cipd',
@@ -98,7 +98,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:f284b6b47039a2d7edfcbfc51f52664f82b5a789',
+        'version': 'git_revision:b0c2742896b6b9f869dc0eb35ae4785cbf2a4512',
       }
     ],
     'dep_type': 'cipd',
@@ -221,7 +221,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@2ca8efcec86613a2245e840ee4da31bbe0f576e4',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@2f5dd07a00c9722ee7298413d97fa521a7a2d417',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@092f84b6141055bfab609b6b2666b724eee2e130',
   'src/third_party/flatbuffers/src':
@@ -235,7 +235,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@2240e21cf5073e69442ae42519f5486014bd7d5d',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@5858fa16cace81fb7b3de7600cb765a820348bed',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@155015f4bec434ecc2f94621665844218f05ce51',
   'src/third_party/google_benchmark/src': {
@@ -380,7 +380,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2dbc56e416e7de1c6334ef6f694e322417457026',
+    'https://chromium.googlesource.com/chromium/src/tools@a2291a3a2aaafab4c400999c88ad7cdbf86d8a62',
 
   'src/third_party/espresso': {
       'packages': [

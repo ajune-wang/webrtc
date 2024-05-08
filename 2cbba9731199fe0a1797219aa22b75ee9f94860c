@@ -22,6 +22,30 @@
       },
       "revId": "2cbba9731199fe0a1797219aa22b75ee9f94860c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90aac225_1a4150cc",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2024-05-08T11:56:42Z",
+      "side": 1,
+      "message": "Yes, a test running under MSan caught this.",
+      "parentUuid": "eb08f2ce_9ab22721",
+      "range": {
+        "startLine": 416,
+        "startChar": 4,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "2cbba9731199fe0a1797219aa22b75ee9f94860c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

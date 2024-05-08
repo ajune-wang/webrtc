@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb08f2ce_9ab22721",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-08T11:53:28Z",
+      "side": 1,
+      "message": "Was this caught by MSan now that we look into the packet data?",
+      "range": {
+        "startLine": 416,
+        "startChar": 4,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "2cbba9731199fe0a1797219aa22b75ee9f94860c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8103c84d_aa5af7f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2024-05-08T09:21:14Z",
+      "side": 1,
+      "message": "I\u0027ve verified sharding that it works with this change but the regeneration of the bot files incurs many other changes that bloats this CL.\n\nJeremy is OOO.",
+      "revId": "ae2e5d83293e41691a83ab44b37b0ee710b160f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

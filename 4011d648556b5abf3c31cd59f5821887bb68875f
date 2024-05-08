@@ -16,6 +16,23 @@
       "message": "davidben: can you please confirm this is no longer needed as of... 2017 ;-)\nI wonder about the RAND_poll() call...\n\nDiscovered \"by chance\" while trying to break up the \"ssl\" target which is depended on by Chromium: https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/peer_connection_dependency_factory.cc;l\u003d551;drc\u003d0561e2c98b7e4033b14c97dd34d4768306be2f29;bpv\u003d1;bpt\u003d1 (which is going away next)",
       "revId": "4011d648556b5abf3c31cd59f5821887bb68875f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffccaa65_bb5ab3f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-08T11:28:39Z",
+      "side": 1,
+      "message": "Will approve as soon as @davidben says it\u0027s OK. (second pair of eyes, not first)",
+      "revId": "4011d648556b5abf3c31cd59f5821887bb68875f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

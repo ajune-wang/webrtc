@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0372cd1d_93533cbe",
+        "filename": "examples/peerconnection/client/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3359326
+      },
+      "writtenOn": "2024-05-08T09:52:30Z",
+      "side": 1,
+      "message": "Sorry to late reply.\nSure it could be moved down.",
+      "parentUuid": "c63dbe24_d79b44f0",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "856e7698_150b36d3",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Thanks. Please remove the DCHECK as per the first sentence in my review comment. The reason is that we don\u0027t have DCHECKs for pointers that are directly derefenced following the DCHECK.\n\nAlso, can you add documentation in the form of a comment in the code? I.e. explain that on Windows a connection event will otherwise be missed.\n\nIs there something that could be done to the Windows `DoConnect()` method to address that problem rather than worka around it here?",
       "parentUuid": "363047e8_3be2aaf5",
+      "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56fe1b0_9049dc2f",
+        "filename": "examples/peerconnection/client/peer_connection_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 3359326
+      },
+      "writtenOn": "2024-05-08T09:52:30Z",
+      "side": 1,
+      "message": "No, there are several functions call ConnectControlSocket().\nfor instance, PeerConnectionClient::SendToPeer.",
+      "parentUuid": "9f47886c_cfd5999f",
       "revId": "74566a93994a2b982d6641115b6fb4340549bf27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

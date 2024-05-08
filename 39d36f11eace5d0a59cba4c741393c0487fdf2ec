@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82469e8c_3733a518",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-08T11:43:46Z",
+      "side": 1,
+      "message": "Henrik, Per: It looks like this code is not built. The last change is a commit form 2017 (when we moved src/webrtc to src/). Can we maybe change this CL into a code delete CL for the folder https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/test/android/ ?",
+      "revId": "39d36f11eace5d0a59cba4c741393c0487fdf2ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0896633_393073b9",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2024-05-08T12:07:05Z",
+      "side": 1,
+      "message": "I suppose this class should accept an webrtc::Environment instead, but that can be done later as well",
+      "range": {
+        "startLine": 172,
+        "startChar": 2,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "2cbba9731199fe0a1797219aa22b75ee9f94860c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb08f2ce_9ab22721",

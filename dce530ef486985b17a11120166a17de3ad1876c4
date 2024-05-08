@@ -16,6 +16,23 @@
       "message": "LGTM\n\n+Mark as a needed second reviewer.",
       "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49406f04_08708e70",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-05-08T18:01:35Z",
+      "side": 1,
+      "message": "`latest_frame_lock` only guards the `latest_available_frame_` pointer and not the frame contents itself.  So it should be okay to release the lock after calling `latest_available_frame_-\u003eShare()`.",
+      "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

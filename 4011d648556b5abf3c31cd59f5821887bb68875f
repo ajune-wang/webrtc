@@ -33,6 +33,23 @@
       "message": "Will approve as soon as @davidben says it\u0027s OK. (second pair of eyes, not first)",
       "revId": "4011d648556b5abf3c31cd59f5821887bb68875f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66510a4_d3c2ada1",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-05-08T14:59:11Z",
+      "side": 1,
+      "message": "So, this is slightly complicated. 😞\n\nI\u0027m not sure where the situation is in OpenSSL, but looking at their internals, I\u0027m fairly sure not all APIs will behave correctly if you omit the initialization. E.g. the \"low-level\" SHA256 APIs don\u0027t seem to initialize the CPU capabilities vector. I\u0027m a little perplexed to see that they don\u0027t think applications need to call the init function. I guess they fixed the other cases?\n\nHistorically, some applications would use `RAND_poll` to prime the PRNG, e.g. before entering a sandbox. I\u0027ve no idea what the history is here, but BoringSSL does not need this, so I\u0027ve no objections to removing that. In BoringSSL, `SSL_load_error_strings`, `ERR_load_BIO_strings`, `OpenSSL_add_all_algorithms`, and `RAND_poll` are all unnecessary. In fact, they all do nothing. 😊\n\n`SSL_library_init` is a bit trickier. The one piece of state that BoringSSL needs to initialize is the CPU capabilities vector. By default, we just use a static initializer to initialize this to avoid worrying about this. However, Chromium (and thus, by extension, WebRTC\u0027s GN build) turns off the static initializer.\n\nBecause that value is read very deep in the library, even from assembly, it was difficult to attach it to a `pthread_once`. So our story, for the longest time, was that you had to either use the default static initializer, OR call one of the many initialization functions first. (OpenSSL has dozens of spellings for it. We wire them all to the same thing, so feel free to spell it `SSL_library_init` or `OPENSSL_init_ssl` or `CRYPTO_library_init` or `OPENSSL_init_crypto` or whatever. We don\u0027t care.)\n\nThat said, this is unfriendly, so we\u0027ve been fixing this up by moving the accesses out of assembly and are nearly done. (Finally!) The tracking bug is https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d35, though most of the work is in https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d673\n\nOnce that\u0027s done, it will unambiguously be OK to do this for BoringSSL. If this is a blocker for something, happy to prioritize that, or just land a simpler fix for the remaining bits, and then do the more involved fix as a follow-up. (This hasn\u0027t been a huge blocker thus far, so we\u0027ve been taking the scenic route and getting the accesses out of the assembly.)\n\nFor OpenSSL, I don\u0027t know for sure since we\u0027ve diverged from them a lot.",
+      "revId": "4011d648556b5abf3c31cd59f5821887bb68875f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

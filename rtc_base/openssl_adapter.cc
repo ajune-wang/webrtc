@@ -170,15 +170,9 @@ namespace rtc {
 using ::webrtc::TimeDelta;
 
 bool OpenSSLAdapter::InitializeSSL() {
-  if (!SSL_library_init())
-    return false;
-#if !defined(ADDRESS_SANITIZER) || !defined(WEBRTC_MAC) || defined(WEBRTC_IOS)
-  // Loading the error strings crashes mac_asan.  Omit this debugging aid there.
-  SSL_load_error_strings();
-#endif
-  ERR_load_BIO_strings();
-  OpenSSL_add_all_algorithms();
-  RAND_poll();
+  // Used to call SSL_library_init() which has been deprecated in OpenSSL 1.1,
+  // replaced by OPENSSL_init_ssl() which is not required to be called by the
+  // application.
   return true;
 }
 

@@ -254,40 +254,38 @@ void android_main(struct android_app* state) {
 
     // loop waiting for stuff to do.
 
-    while (1) {
+    while (!state->destroyRequested) {
         // Read all pending events.
-        int ident;
-        int events;
-        struct android_poll_source* source;
-
         // If not animating, we will block forever waiting for events.
         // If animating, we loop until all events are read, then continue
         // to draw the next frame of animation.
-        while ((ident=ALooper_pollAll(engine.animating ? 0 : -1, NULL, &events,
-                (void**)&source)) >= 0) {
+        struct android_poll_source* source = nullptr;
+        int events = 0;
+        auto ident = ALooper_pollOnce(engine.animating ? 0 : -1,
+                                      NULL,
+                                      &events,
+                                      (void**)&source);
 
-            // Process this event.
-            if (source != NULL) {
-                source->process(state, source);
-            }
+        // Break out if this is an unrecoverable error.
+        if (ident == ALOOPER_POLL_ERROR) {
+          fatal("ALooper_pollOnce returned an error");
+        }
 
-            // If a sensor has data, process it now.
-            if (ident == LOOPER_ID_USER) {
-                if (engine.accelerometerSensor != NULL) {
-                    ASensorEvent event;
-                    while (ASensorEventQueue_getEvents(engine.sensorEventQueue,
-                            &event, 1) > 0) {
-                        LOGI("accelerometer: x=%f y=%f z=%f",
-                                event.acceleration.x, event.acceleration.y,
-                                event.acceleration.z);
-                    }
+        // Process this event.
+        if (source != NULL) {
+            source->process(state, source);
+        }
+
+        // If a sensor has data, process it now.
+        if (ident == LOOPER_ID_USER) {
+            if (engine.accelerometerSensor != NULL) {
+                ASensorEvent event;
+                while (ASensorEventQueue_getEvents(engine.sensorEventQueue,
+                        &event, 1) > 0) {
+                    LOGI("accelerometer: x=%f y=%f z=%f",
+                            event.acceleration.x, event.acceleration.y,
+                            event.acceleration.z);
                 }
-            }
-
-            // Check if we are exiting.
-            if (state->destroyRequested != 0) {
-                engine_term_display(&engine);
-                return;
             }
         }
 
@@ -303,5 +301,7 @@ void android_main(struct android_app* state) {
             engine_draw_frame(&engine);
         }
     }
+    // The above loop terminates only if a destroy is requested, terminate.
+    engine_term_display(&engine);
 }
 //END_INCLUDE(all)

@@ -35,7 +35,7 @@
     'args': [
       '--test-launcher-summary-output=${ISOLATED_OUTDIR}/gtest_output.json',
       '--test-arg=--gtest_output=json:/custom_artifacts/gtest_output.json',
-      '--test-arg=--undefok=test_launcher_summary_output'
+      '--test-arg=--undefok=test_launcher_summary_output',
     ],
   },
   'ios-device-16.7': {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "785a0f76_0e579141",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-05-08T16:08:54Z",
+      "side": 1,
+      "message": "LGTM\n\n+Mark as a needed second reviewer.",
+      "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

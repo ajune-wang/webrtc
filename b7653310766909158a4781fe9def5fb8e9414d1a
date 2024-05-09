@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "105277be_14bdbc24",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-05-09T18:20:40Z",
+      "side": 1,
+      "message": "I see.  I might help to add a comment like,\n\n// Queue buffer for reuse; it will not be processed further.",
+      "parentUuid": "4ff3b38e_86140556",
+      "range": {
+        "startLine": 331,
+        "startChar": 4,
+        "endLine": 331,
+        "endChar": 26
+      },
+      "revId": "b7653310766909158a4781fe9def5fb8e9414d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f2ff6b6_2010f43a",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 3
@@ -120,6 +144,24 @@
       "side": 1,
       "message": "All the Observer API is used by the SharedScreenCastStream unit test only. It doesn\u0027t make sense to call `observer_-\u003eOnFailedToProcessBuffer()` here, because the test doesn\u0027t produce corrupted buffers.",
       "parentUuid": "0f2ff6b6_2010f43a",
+      "revId": "b7653310766909158a4781fe9def5fb8e9414d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fb40b2_ec0016ca",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-05-09T18:20:40Z",
+      "side": 1,
+      "message": "Interesting that the usages didn\u0027t appear with codesearch, maybe the codesearch pipeline isn\u0027t indexing the unit tests or setting the right build flags?\n\nArguably, the unit test should be updated to cover the case of corrupted buffers.  How hard would that be?",
+      "parentUuid": "31dc122e_01a0ddac",
       "revId": "b7653310766909158a4781fe9def5fb8e9414d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

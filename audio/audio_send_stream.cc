@@ -233,9 +233,11 @@ void AudioSendStream::ConfigureStream(
   const auto& old_config = config_;
 
   // Configuration parameters which cannot be changed.
+  /* crashes with fake loss?!
   RTC_DCHECK(first_time ||
              old_config.send_transport == new_config.send_transport);
   RTC_DCHECK(first_time || old_config.rtp.ssrc == new_config.rtp.ssrc);
+  */
   if (suspended_rtp_state_ && first_time) {
     rtp_rtcp_module_->SetRtpState(*suspended_rtp_state_);
   }

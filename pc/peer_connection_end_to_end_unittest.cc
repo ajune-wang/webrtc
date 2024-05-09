@@ -759,6 +759,14 @@ TEST_P(PeerConnectionEndToEndTest, CanRestartIce) {
   // is that we do not crash. We should also be testing that restart happens.
 }
 
+TEST_P(PeerConnectionEndToEndTest, Fippo) {
+  CreatePcs(webrtc::CreateOpusAudioEncoderFactory(),
+            webrtc::CreateOpusAudioDecoderFactory());
+  GetAndAddUserMedia(true, {}, false);
+  Negotiate();
+  WaitForCallEstablished();
+}
+
 INSTANTIATE_TEST_SUITE_P(PeerConnectionEndToEndTest,
                          PeerConnectionEndToEndTest,
                          Values(SdpSemantics::kPlanB_DEPRECATED,

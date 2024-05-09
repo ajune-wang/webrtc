@@ -424,6 +424,7 @@ class WebRtcVoiceReceiveChannel final
       override;
 
   void SetReceiveNackEnabled(bool enabled) override;
+  void SetRtcpMode(webrtc::RtcpMode mode) override;
   void SetReceiveNonSenderRttEnabled(bool enabled) override;
 
  private:
@@ -457,6 +458,7 @@ class WebRtcVoiceReceiveChannel final
 
   AudioOptions options_;
   bool recv_nack_enabled_ = false;
+  webrtc::RtcpMode recv_rtcp_mode_ = webrtc::RtcpMode::kCompound;
   bool enable_non_sender_rtt_ = false;
   bool playout_ = false;
   webrtc::Call* const call_ = nullptr;

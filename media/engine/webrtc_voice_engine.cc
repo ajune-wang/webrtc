@@ -283,6 +283,7 @@ webrtc::AudioReceiveStreamInterface::Config BuildReceiveStreamConfig(
   config.rtp.remote_ssrc = remote_ssrc;
   config.rtp.local_ssrc = local_ssrc;
   config.rtp.nack.rtp_history_ms = use_nack ? kNackRtpHistoryMs : 0;
+  config.rtp.rtcp_mode = webrtc::RtcpMode::kCompound;
   if (!stream_ids.empty()) {
     config.sync_group = stream_ids[0];
   }
@@ -1075,7 +1076,7 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
     }
 
     rtp_parameters_.rtcp.cname = config_.rtp.c_name;
-    rtp_parameters_.rtcp.reduced_size = false;
+    rtp_parameters_.rtcp.reduced_size = parameters.rtcp.reduced_size;
 
     // parameters.encodings[0].active could have changed.
     UpdateSendState();
@@ -1935,6 +1936,11 @@ class WebRtcVoiceReceiveChannel::WebRtcAudioReceiveStream {
     stream_->SetNackHistory(use_nack ? kNackRtpHistoryMs : 0);
   }
 
+  void SetRtcpMode(webrtc::RtcpMode mode) {
+    RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+    stream_->SetRtcpMode(mode);
+  }
+
   void SetNonSenderRttMeasurement(bool enabled) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     stream_->SetNonSenderRttMeasurement(enabled);
@@ -2065,6 +2071,8 @@ bool WebRtcVoiceReceiveChannel::SetReceiverParameters(
     recv_rtp_extension_map_ =
         webrtc::RtpHeaderExtensionMap(recv_rtp_extensions_);
   }
+  SetRtcpMode(params.rtcp.reduced_size ? webrtc::RtcpMode::kReducedSize
+                                       : webrtc::RtcpMode::kCompound);
   return true;
 }
 
@@ -2087,6 +2095,8 @@ webrtc::RtpParameters WebRtcVoiceReceiveChannel::GetRtpReceiverParameters(
   for (const Codec& codec : recv_codecs_) {
     rtp_params.codecs.push_back(codec.ToCodecParameters());
   }
+  rtp_params.rtcp.reduced_size =
+      recv_rtcp_mode_ == webrtc::RtcpMode::kReducedSize;
   return rtp_params;
 }
 
@@ -2208,6 +2218,18 @@ void WebRtcVoiceReceiveChannel::SetReceiveNackEnabled(bool enabled) {
     recv_nack_enabled_ = enabled;
     for (auto& kv : recv_streams_) {
       kv.second->SetUseNack(recv_nack_enabled_);
+    }
+  }
+}
+
+void WebRtcVoiceReceiveChannel::SetRtcpMode(webrtc::RtcpMode mode) {
+  // Check if the NACK status has changed on the
+  // preferred send codec, and in that case reconfigure all receive streams.
+  if (recv_rtcp_mode_ != mode) {
+    RTC_LOG(LS_INFO) << "Changing RTCP mode on receive streams.";
+    recv_rtcp_mode_ = mode;
+    for (auto& kv : recv_streams_) {
+      kv.second->SetRtcpMode(recv_rtcp_mode_);
     }
   }
 }

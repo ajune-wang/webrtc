@@ -120,6 +120,7 @@ struct ConfigHelper {
 
     channel_receive_ = new ::testing::StrictMock<MockChannelReceive>();
     EXPECT_CALL(*channel_receive_, SetNACKStatus(true, 15)).Times(1);
+    EXPECT_CALL(*channel_receive_, SetRtcpMode(_)).Times(1);
     EXPECT_CALL(*channel_receive_,
                 RegisterReceiverCongestionControlObjects(&packet_router_))
         .Times(1);
@@ -210,7 +211,7 @@ TEST(AudioReceiveStreamTest, ConfigToString) {
   config.rtp.local_ssrc = kLocalSsrc;
   EXPECT_EQ(
       "{rtp: {remote_ssrc: 1234, local_ssrc: 5678, nack: "
-      "{rtp_history_ms: 0}}, "
+      "{rtp_history_ms: 0}, rtcp: off}, "
       "rtcp_send_transport: null}",
       config.ToString());
 }

@@ -841,7 +841,10 @@ struct MediaChannelParameters {
  protected:
   virtual std::map<std::string, std::string> ToStringMap() const {
     return {{"codecs", VectorToString(codecs)},
-            {"extensions", VectorToString(extensions)}};
+            {"extensions", VectorToString(extensions)},
+            {"rtcp",
+             "reduced_size:" + rtc::ToString(rtcp.reduced_size) +
+                 ", remote_estimate:" + rtc::ToString(rtcp.remote_estimate)}};
   }
 };
 

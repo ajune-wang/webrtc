@@ -830,6 +830,9 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
     config_.rtcp_report_interval_ms = rtcp_report_interval_ms;
     rtp_parameters_.encodings[0].ssrc = ssrc;
     rtp_parameters_.rtcp.cname = c_name;
+    RTC_LOG(LS_ERROR) << "Create send stream with RSIZE "
+                      << rtp_parameters_.rtcp.reduced_size
+                      << "\nßßßßßßßßßßß\n\n";
     rtp_parameters_.header_extensions = extensions;
 
     audio_network_adaptor_config_from_options_ = audio_network_adaptor_config;
@@ -876,6 +879,14 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
       return;
     }
     config_.rtp.mid = mid;
+    ReconfigureAudioSendStream(nullptr);
+  }
+
+  void SetRtcpReducedSize(bool reduced_size) {
+    if (rtp_parameters_.rtcp.reduced_size == reduced_size) {
+      return;
+    }
+    rtp_parameters_.rtcp.reduced_size = reduced_size;
     ReconfigureAudioSendStream(nullptr);
   }
 
@@ -1075,6 +1086,8 @@ class WebRtcVoiceSendChannel::WebRtcAudioSendStream : public AudioSource::Sink {
     }
 
     rtp_parameters_.rtcp.cname = config_.rtp.c_name;
+    RTC_LOG(LS_ERROR) << "\n\n\n\nRSIZE? " << parameters.rtcp.reduced_size
+                      << "\n\n\n";
     rtp_parameters_.rtcp.reduced_size = false;
 
     // parameters.encodings[0].active could have changed.
@@ -1301,6 +1314,12 @@ bool WebRtcVoiceSendChannel::SetSenderParameters(
     for (auto& it : send_streams_) {
       it.second->SetExtmapAllowMixed(params.extmap_allow_mixed);
     }
+  }
+  RTC_LOG(LS_ERROR) << "RSIZE " << params.rtcp.reduced_size
+                    << "\nßßßßßßßßßßßßßßßß\n\n";
+  // TODO: only on changes
+  for (auto& it : send_streams_) {
+    it.second->SetRtcpReducedSize(params.rtcp.reduced_size);
   }
 
   std::vector<webrtc::RtpExtension> filtered_extensions = FilterRtpExtensions(

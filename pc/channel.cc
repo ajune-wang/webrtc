@@ -92,6 +92,7 @@ void MediaChannelParametersFromMediaDescription(
   if (desc->rtp_header_extensions_set()) {
     params->extensions = extensions;
   }
+  RTC_LOG(LS_ERROR) << "\n\nRSIZE " << desc->rtcp_reduced_size();
   params->rtcp.reduced_size = desc->rtcp_reduced_size();
   params->rtcp.remote_estimate = desc->remote_estimate();
 }

@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff3b38e_86140556",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-05-09T06:32:38Z",
+      "side": 1,
+      "message": "This `pw_stream_queue_buffer` call just makes the buffer reusable by the other side (compositor) so new metadata and frame information can be filled in. We are not going to do anything with this buffer at this point, we just send it back.",
+      "parentUuid": "30634c6e_b0e120a1",
+      "range": {
+        "startLine": 331,
+        "startChar": 4,
+        "endLine": 331,
+        "endChar": 26
+      },
+      "revId": "b7653310766909158a4781fe9def5fb8e9414d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f2ff6b6_2010f43a",
@@ -78,6 +102,24 @@
       "writtenOn": "2024-05-08T17:34:16Z",
       "side": 1,
       "message": "In other cases where we skip processing the data, we call `observer_-\u003eOnFailedToProcessBuffer()`, so for consistency I think it would make sense to call it here too.\n\nOn the other hand, this Observer API appears to be completely unused, so another solution would be to remove it entirely in a separate CL.",
+      "revId": "b7653310766909158a4781fe9def5fb8e9414d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31dc122e_01a0ddac",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-05-09T06:32:38Z",
+      "side": 1,
+      "message": "All the Observer API is used by the SharedScreenCastStream unit test only. It doesn\u0027t make sense to call `observer_-\u003eOnFailedToProcessBuffer()` here, because the test doesn\u0027t produce corrupted buffers.",
+      "parentUuid": "0f2ff6b6_2010f43a",
       "revId": "b7653310766909158a4781fe9def5fb8e9414d1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

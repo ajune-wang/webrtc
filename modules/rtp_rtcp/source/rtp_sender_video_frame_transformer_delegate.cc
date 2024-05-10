@@ -39,7 +39,9 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
                                 TimeDelta expected_retransmission_time,
                                 uint32_t ssrc,
                                 std::vector<uint32_t> csrcs)
-      : encoded_data_(encoded_image.GetEncodedData()),
+      : TransformableVideoFrameInterface(
+            TransformableVideoFramePasskeyFactory::MakePasskey()),
+        encoded_data_(encoded_image.GetEncodedData()),
         pre_transform_payload_size_(encoded_image.size()),
         header_(video_header),
         frame_type_(encoded_image._frameType),

@@ -60,7 +60,9 @@ class TransformableOutgoingAudioFrame
       std::vector<uint32_t> csrcs,
       const std::string& codec_mime_type,
       absl::optional<uint16_t> sequence_number)
-      : frame_type_(frame_type),
+      : TransformableAudioFrameInterface(
+            TransformableAudioFramePasskeyFactory::MakePasskey()),
+        frame_type_(frame_type),
         payload_type_(payload_type),
         rtp_timestamp_with_offset_(rtp_timestamp_with_offset),
         payload_(payload_data, payload_size),

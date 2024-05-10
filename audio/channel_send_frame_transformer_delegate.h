@@ -22,6 +22,12 @@
 #include "rtc_base/synchronization/mutex.h"
 
 namespace webrtc {
+class TransformableAudioFramePasskeyFactory {
+ public:
+  static TransformableFrameInterface::Passkey MakePasskey() {
+    return TransformableFrameInterface::Passkey();
+  }
+};
 
 // Delegates calls to FrameTransformerInterface to transform frames, and to
 // ChannelSend to send the transformed frames using `send_frame_callback_` on

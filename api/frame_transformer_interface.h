@@ -24,6 +24,26 @@ namespace webrtc {
 // Owns the frame payload data.
 class TransformableFrameInterface {
  public:
+  class Passkey {
+   public:
+    ~Passkey() = default;
+
+   private:
+    friend class MockTransformableFrame;
+    friend class MockTransformableAudioFrame;
+    friend class MockTransformableVideoFrame;
+
+    friend class TransformableAudioFramePasskeyFactory;
+    friend class TransformableVideoFramePasskeyFactory;
+    Passkey() = default;
+  };
+  explicit TransformableFrameInterface(Passkey) {}
+
+  // Not copyable
+  TransformableFrameInterface(const TransformableFrameInterface&) = delete;
+  // Publicly movable
+  TransformableFrameInterface(TransformableFrameInterface&&) = default;
+
   virtual ~TransformableFrameInterface() = default;
 
   // Returns the frame payload data. The data is valid until the next non-const
@@ -58,6 +78,9 @@ class TransformableFrameInterface {
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {
  public:
+  explicit TransformableVideoFrameInterface(
+      TransformableFrameInterface::Passkey passkey)
+      : TransformableFrameInterface(passkey) {}
   virtual ~TransformableVideoFrameInterface() = default;
   virtual bool IsKeyFrame() const = 0;
 
@@ -69,6 +92,9 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
 // Extends the TransformableFrameInterface to expose audio-specific information.
 class TransformableAudioFrameInterface : public TransformableFrameInterface {
  public:
+  explicit TransformableAudioFrameInterface(
+      TransformableFrameInterface::Passkey passkey)
+      : TransformableFrameInterface(passkey) {}
   virtual ~TransformableAudioFrameInterface() = default;
 
   virtual rtc::ArrayView<const uint32_t> GetContributingSources() const = 0;

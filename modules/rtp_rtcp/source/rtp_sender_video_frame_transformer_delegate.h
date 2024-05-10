@@ -49,6 +49,13 @@ class RTPVideoFrameSenderInterface {
   virtual ~RTPVideoFrameSenderInterface() = default;
 };
 
+class TransformableVideoFramePasskeyFactory {
+ public:
+  static TransformableFrameInterface::Passkey MakePasskey() {
+    return TransformableFrameInterface::Passkey();
+  }
+};
+
 // Delegates calls to FrameTransformerInterface to transform frames, and to
 // RTPSenderVideo to send the transformed frames. Ensures thread-safe access to
 // the sender.

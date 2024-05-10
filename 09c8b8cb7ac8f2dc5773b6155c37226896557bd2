@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69c60393_3ae99fa2",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-10T14:15:34Z",
+      "side": 1,
+      "message": "May be document why the Passkey, \nsomething about creating TransformableFrames is not part of the public api, and Passkey ensures such protection",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5196518_83f5ec92",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-10T14:15:34Z",
+      "side": 1,
+      "message": "may be it is enough to have one factory for classes that live in the anonymous namespaces and thus can\u0027t be mentioned here.\n\nAlternatively to introducing factory, move those classes to the webrtc namespace and list them explicitly here. I think that can give better protection and better overview what classed can be created. (those classes still can be declared fully in the .cc as they are now, just need to be moved out of the anonymous namespace)",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a65e434_b6d15958",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-10T14:15:34Z",
+      "side": 1,
+      "message": "thinking more about it - documenting if instances of this class can be copyable/movable is out of scope of introducing the passkey.\nFor interface classes I think it is not recommended to put such limitations:\n\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types\n“These declarations/deletions can be omitted only if they are obvious:\nIf the class has no private section, like a struct or an *interface-only base class*”\n\n\nThis would be in scope if TransformableFrame would be a concrete class, not an abstract interface....\ncomments were just my explanation, style suggest not to write them explicitly.\ninstead it suggest to mention assign operator explicitly.\nIf you still want to document that frames can\u0027t be copied, replace these four lines with these two:\n```\nTransformableFrameInterface(TransformableFrameInterface\u0026\u0026) \u003d default;\nTransformableFrameInterface\u0026 operator\u003d(TransformableFrameInterface\u0026\u0026) \u003d default;\n```",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 71
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee1d764_55dcc272",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-10T14:15:34Z",
+      "side": 1,
+      "message": "because the class is derived from the TransformableFrameInterface, it inherit all the child class names too, i.e. class name prefix can be omitted:\n\n```\nexplicit TransformableVideoFrameInterface(Passkey passkey)\n    : TransformableFrameInterface(passkey) {}```",
+      "range": {
+        "startLine": 82,
+        "startChar": 6,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9802f026_e6193d4d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-10T14:15:34Z",
+      "side": 1,
+      "message": "nit: when your class is named `Factory`, then recommended name of the main function is `Create`: https://webrtc.googlesource.com/src/+/HEAD/g3doc/implementation_basics.md#reserved-class-suffixes \n\"FooFactory: Has a Create function that creates a Foo object and returns the object\"\n\n```\nTransformableFrameInterface::Passkey Create() { return {}; }\n```",
+      "range": {
+        "startLine": 54,
+        "startChar": 46,
+        "endLine": 54,
+        "endChar": 57
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10bf2bd_b3e695dd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-10T14:15:34Z",
+      "side": 1,
+      "message": "rtp_sender_video_frame_transformer_delegate.h is a public header in a build target with public visibility.\n\nThus anyone can include this header and use TransformableVideoFramePasskeyFactory  bypassing the Passkey protection.\n\nmay be move this helper function into own small target with private visibility, and make sure it is included only by .cc files (though I\u0027m not sure how to protect it against including it from .h and thus against transitive includes)\n\nand/or put it into webrtc_internal subnamespace to stress this class should be used only by webrtc itself (http://go/totw/56)\n\nalternatively, do not introduce Factory workaround as suggested in another comment.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

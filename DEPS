@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b42414ce8cb9679ccae9f811f25b9bf60c11a32b',
+  'chromium_revision': '083e0637b1438630ecf7ef0e22fae15291a8688e',
 
   # Fetch the prebuilt binaries for llvm-cov and llvm-profdata. Needed to
   # process the raw profiles produced by instrumented targets (built with
@@ -55,7 +55,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@a23b0a1282963ca324d7e773fd3153f0a34869ec',
+    'https://chromium.googlesource.com/chromium/src/base@a72760ddc94ed6ebe73f4b37f6e819fc0d87c88d',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@01e3c73f58ca209014103abf934cc33be5f863d6',
   'src/buildtools':
@@ -72,7 +72,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@5a26b48913feebe09a03cc0249ffbcd265508735',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f99780306271fdcc9320d9c18cbcb03b12603a6a',
+    'https://chromium.googlesource.com/chromium/src/third_party@2ae9d5b5de7996a630736c531925de83a79ee924',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -122,7 +122,7 @@ deps = {
   'src/third_party/libc++/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@e3b94d0e5b86883fd77696bf10dc33ba250ba99b',
   'src/third_party/libc++abi/src':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@d17298ab09b44bbc95e5e59c0f285145d0e5f8a7',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@a37a3aa431f132b02a58656f13984d51098330a2',
   'src/third_party/libunwind/src':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@419b03c0b8f20d6da9ddcb0d661a94a97cdd7dad',
 
@@ -380,7 +380,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a184749b9daf1c86fc8dc2b557767cc27676a3e1',
+    'https://chromium.googlesource.com/chromium/src/tools@a9c4de8534eacdaaf7b7f4d130e356be0b647b32',
 
   'src/third_party/espresso': {
       'packages': [

@@ -70,6 +70,9 @@ ABSL_FLAG(int,
           key_interval,
           std::numeric_limits<int>::max(),
           "Keyframe interval in frames.");
+ABSL_FLAG(int, min_qp, -1, "Min QP");
+ABSL_FLAG(int, max_qp, -1, "Max QP");
+ABSL_FLAG(int, max_intra_bitrate_pct, -1, "Max intrate bitrate.");
 ABSL_FLAG(int, num_frames, 300, "Number of frames to encode and/or decode.");
 ABSL_FLAG(std::string, field_trials, "", "Field trials to apply.");
 ABSL_FLAG(std::string, test_name, "", "Test name.");
@@ -80,6 +83,10 @@ ABSL_FLAG(bool, dump_encoder_output, false, "Dump encoder output.");
 ABSL_FLAG(bool, write_csv, false, "Write metrics to a CSV file.");
 
 namespace webrtc {
+int gg_min_qp = -1;
+int gg_max_qp = -1;
+int gg_max_intra_bitrate_pct = -1;
+
 namespace test {
 
 namespace {
@@ -547,6 +554,10 @@ INSTANTIATE_TEST_SUITE_P(All,
                          FramerateAdaptationTest::TestParamsToString);
 
 TEST(VideoCodecTest, DISABLED_EncodeDecode) {
+  gg_min_qp = absl::GetFlag(FLAGS_min_qp);
+  gg_max_qp = absl::GetFlag(FLAGS_max_qp);
+  gg_max_intra_bitrate_pct = absl::GetFlag(FLAGS_max_intra_bitrate_pct);
+
   ScopedFieldTrials field_trials(absl::GetFlag(FLAGS_field_trials));
   const Environment env =
       CreateEnvironment(std::make_unique<ExplicitKeyValueConfig>(

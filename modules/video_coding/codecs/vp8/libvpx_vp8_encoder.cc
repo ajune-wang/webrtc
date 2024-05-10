@@ -49,6 +49,9 @@
 #endif
 
 namespace webrtc {
+extern int gg_min_qp;
+extern int gg_max_qp;
+
 namespace {
 #if defined(WEBRTC_IOS)
 constexpr char kVP8IosMaxNumberOfThreadFieldTrial[] =
@@ -623,6 +626,14 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   vpx_configs_[0].rc_buf_optimal_sz = 600;
   vpx_configs_[0].rc_buf_sz = 1000;
 
+  if (gg_min_qp >= 0 && gg_max_qp >= 0) {
+    vpx_configs_[0].rc_min_quantizer = gg_min_qp;
+    vpx_configs_[0].rc_max_quantizer = gg_max_qp;
+    if (gg_min_qp == gg_max_qp) {
+      vpx_configs_[0].rc_end_usage = VPX_Q;
+    }
+  }
+
   // Set the maximum target size of any key-frame.
   rc_max_intra_target_ = MaxIntraTarget(vpx_configs_[0].rc_buf_optimal_sz);
 
@@ -849,6 +860,12 @@ int LibvpxVp8Encoder::InitAndSetControlSettings() {
 #else
   denoiserState denoiser_state = kDenoiserOnAdaptive;
 #endif
+
+  if (vpx_configs_[0].rc_end_usage == VPX_Q) {
+    // https://source.chromium.org/chromium/chromium/src/+/main:third_party/libvpx/source/libvpx/vp8/vp8_cx_iface.c;l=216;drc=8762f5efb2917765316a198e6713f0bc93b07c9b
+    libvpx_->codec_control(&encoders_[0], VP8E_SET_CQ_LEVEL, gg_min_qp);
+  }
+
   libvpx_->codec_control(
       &encoders_[0], VP8E_SET_NOISE_SENSITIVITY,
       codec_.VP8()->denoisingOn ? denoiser_state : kDenoiserOff);

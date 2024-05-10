@@ -55,6 +55,10 @@
   } while (0)
 
 namespace webrtc {
+extern int gg_min_qp;
+extern int gg_max_qp;
+extern int gg_max_intra_bitrate_pct;
+
 namespace {
 
 // Encoder configuration parameters
@@ -261,6 +265,14 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   cfg_.g_pass = AOM_RC_ONE_PASS;        // One-pass rate control
   cfg_.g_lag_in_frames = kLagInFrames;  // No look ahead when lag equals 0.
 
+  if (gg_min_qp >= 0 && gg_max_qp >= 0) {
+    cfg_.rc_min_quantizer = gg_min_qp;
+    cfg_.rc_max_quantizer = gg_max_qp;
+    if (gg_min_qp == gg_max_qp) {
+      cfg_.rc_end_usage = AOM_Q;
+    }
+  }
+
   if (frame_for_encode_ != nullptr) {
     aom_img_free(frame_for_encode_);
     frame_for_encode_ = nullptr;
@@ -286,7 +298,12 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_DELTAQ_MODE, 0);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_ENABLE_ORDER_HINT, 0);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_AQ_MODE, 3);
-  SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_MAX_INTRA_BITRATE_PCT, 300);
+  if (gg_max_intra_bitrate_pct >= 0) {
+    SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_MAX_INTRA_BITRATE_PCT,
+                                      gg_max_intra_bitrate_pct);
+  } else {
+    SET_ENCODER_PARAM_OR_RETURN_ERROR(AOME_SET_MAX_INTRA_BITRATE_PCT, 300);
+  }
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_COEFF_COST_UPD_FREQ, 3);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_MODE_COST_UPD_FREQ, 3);
   SET_ENCODER_PARAM_OR_RETURN_ERROR(AV1E_SET_MV_COST_UPD_FREQ, 3);

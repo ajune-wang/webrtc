@@ -37,14 +37,6 @@
       }
     }
   },
-  'crosshatch': {
-    'swarming': {
-      'dimensions': {
-        'device_type': 'crosshatch',
-        'os': 'Android'
-      }
-    }
-  },
   'fuchsia-gtest-output': {
     'args': [
       '--test-launcher-summary-output=${ISOLATED_OUTDIR}/gtest_output.json',
@@ -243,6 +235,11 @@
       'result_format': 'json'
     }
   },
+  'shards-12': {
+    'swarming': {
+      'shards': 12
+    }
+  },
   'shards-2': {
     'swarming': {
       'shards': 2
@@ -256,11 +253,6 @@
   'shards-6': {
     'swarming': {
       'shards': 6
-    }
-  },
-  'shards-8': {
-    'swarming': {
-      'shards': 8
     }
   },
   'timeout-2h': {

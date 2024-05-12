@@ -21,14 +21,6 @@
       }
     }
   },
-  'crosshatch': {
-    'swarming': {
-      'dimensions': {
-        'device_type': 'crosshatch',
-        'os': 'Android',
-      },
-    },
-  },
   # Hack to use the test-launcher-summary-output flag + emulator folders for gtest-output
   # but it's currently the only way to get the file out of the emulator.
   'fuchsia-gtest-output': {
@@ -57,6 +49,14 @@
         'device_status': 'available'
       },
     },
+  },
+  'ios_runtime_cache_15_5': {
+    'swarming': {
+      'named_caches': [{
+        'name': 'runtime_ios_15_5',
+        'path': 'Runtime-ios-15.5'
+      }]
+    }
   },
   'limited-capacity': {
     # Sometimes there are multiple tests that can be run only on one machine.
@@ -169,9 +169,9 @@
       'shards': 6,
     },
   },
-  'shards-8': {
+  'shards-12': {
     'swarming': {
-      'shards': 8,
+      'shards': 12,
     },
   },
   'timeout-2h': {

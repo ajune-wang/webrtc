@@ -69,6 +69,24 @@
       "parentUuid": "969d1978_1e863148",
       "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de14666_3f1dcf95",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-05-13T17:30:27Z",
+      "side": 1,
+      "message": "Right, but these are called only when `latest_frame_lock` is held. I would make the `damage_region_` guarded (`RTC_GUARDED_BY`) by the same lock, but then I would have to put it to `UpdateFrameUpdatedRegions()` and that wouldn\u0027t work out.",
+      "parentUuid": "57e65a4d_8bdcd9a3",
+      "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

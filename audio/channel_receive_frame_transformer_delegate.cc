@@ -13,10 +13,10 @@
 #include <string>
 #include <utility>
 
+#include "audio/channel_send_frame_transformer_delegate.h"
 #include "rtc_base/buffer.h"
 
 namespace webrtc {
-namespace {
 
 class TransformableIncomingAudioFrame
     : public TransformableAudioFrameInterface {
@@ -25,7 +25,8 @@ class TransformableIncomingAudioFrame
                                   const RTPHeader& header,
                                   uint32_t ssrc,
                                   const std::string& codec_mime_type)
-      : payload_(payload.data(), payload.size()),
+      : TransformableAudioFrameInterface(Passkey()),
+        payload_(payload.data(), payload.size()),
         header_(header),
         ssrc_(ssrc),
         codec_mime_type_(codec_mime_type) {}
@@ -83,7 +84,6 @@ class TransformableIncomingAudioFrame
   uint32_t ssrc_;
   std::string codec_mime_type_;
 };
-}  // namespace
 
 ChannelReceiveFrameTransformerDelegate::ChannelReceiveFrameTransformerDelegate(
     ReceiveFrameCallback receive_frame_callback,

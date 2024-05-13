@@ -24,6 +24,34 @@ namespace webrtc {
 // Owns the frame payload data.
 class TransformableFrameInterface {
  public:
+  class Passkey {
+   public:
+    ~Passkey() = default;
+
+   private:
+    // Explicit list of allowed internal implmentations of
+    // TransformableFrameInterface.
+    friend class TransformableOutgoingAudioFrame;
+    friend class TransformableIncomingAudioFrame;
+    friend class TransformableVideoSenderFrame;
+    friend class TransformableVideoReceiverFrame;
+
+    friend class MockTransformableFrame;
+    friend class MockTransformableAudioFrame;
+    friend class MockTransformableVideoFrame;
+    Passkey() = default;
+  };
+  // Only a known list of internal implementations of transformable frames are
+  // permitted to allow internal downcasting. This is enforced via the
+  // internally-visible Passkay.
+  // TODO(https://bugs.webrtc.org/339815768): Remove this passkey once the
+  // downcasts are removed.
+  explicit TransformableFrameInterface(Passkey) {}
+
+  TransformableFrameInterface(TransformableFrameInterface&&) = default;
+  TransformableFrameInterface& operator=(TransformableFrameInterface&&) =
+      default;
+
   virtual ~TransformableFrameInterface() = default;
 
   // Returns the frame payload data. The data is valid until the next non-const
@@ -58,6 +86,8 @@ class TransformableFrameInterface {
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {
  public:
+  explicit TransformableVideoFrameInterface(Passkey passkey)
+      : TransformableFrameInterface(passkey) {}
   virtual ~TransformableVideoFrameInterface() = default;
   virtual bool IsKeyFrame() const = 0;
 
@@ -69,6 +99,8 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
 // Extends the TransformableFrameInterface to expose audio-specific information.
 class TransformableAudioFrameInterface : public TransformableFrameInterface {
  public:
+  explicit TransformableAudioFrameInterface(Passkey passkey)
+      : TransformableFrameInterface(passkey) {}
   virtual ~TransformableAudioFrameInterface() = default;
 
   virtual rtc::ArrayView<const uint32_t> GetContributingSources() const = 0;

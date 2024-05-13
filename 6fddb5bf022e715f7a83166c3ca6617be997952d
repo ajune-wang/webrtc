@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b2f4a9_879019b4",
+        "filename": "api/frame_transformer_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-13T16:41:54Z",
+      "side": 1,
+      "message": "or add inline and keep them in the header too\n```\n//------------------------------------------------------------------------------\n// Implementation details follow\n//------------------------------------------------------------------------------\nclass TransformableFrameInterface::Passkey {\n...\n};\n\ninline TransformableFrameInterface::TransformableFrameInterface(\n    TransformableFrameInterface::Passkey) {}\n\ninline TransformableVideoFrameInterface::TransformableVideoFrameInterface(\n    TransformableFrameInterface::Passkey passkey)\n    : TransformableFrameInterface(passkey) {}\n\ninline TransformableAudioFrameInterface::TransformableAudioFrameInterface(\n    TransformableFrameInterface::Passkey passkey)\n    : TransformableFrameInterface(passkey) {}\n\n```",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 45
+      },
+      "revId": "6fddb5bf022e715f7a83166c3ca6617be997952d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e073349_16d52e19",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-13T16:41:54Z",
+      "side": 1,
+      "message": "TODO: bugs.webrtc.org/339815768 - Remove ...\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#comments",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 45
+      },
+      "revId": "6fddb5bf022e715f7a83166c3ca6617be997952d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

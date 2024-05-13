@@ -35,6 +35,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2d69fd8_b30152d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-13T15:54:35Z",
+      "side": 1,
+      "message": "For some definition of \"just\" ;-)\n\nThere should be no difference in stats but I do expect slight positive movements when you use NACK so someone from Meet might want to look.\nPlanning land without killswitch once branch cut has happened.",
+      "parentUuid": "6c7d88c6_cf39a36b",
+      "revId": "ebcc1e91b5911256da9f6f121a7b9d01603ea93d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3068b733_0afb1810",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-13T15:54:35Z",
+      "side": 1,
+      "message": "I wonder why we expose reducedSize to JS even... well, sunk cost!",
+      "parentUuid": "16080cba_dd2d4fd7",
+      "revId": "ebcc1e91b5911256da9f6f121a7b9d01603ea93d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d6370ee_239ae312",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-05-13T06:27:49Z",
       "side": 1,
       "message": "Nit: Remove \"and in that case\" (leftover from previous grammar?)",
+      "revId": "ebcc1e91b5911256da9f6f121a7b9d01603ea93d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cdcface_6965d3cb",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2244,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-13T15:54:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d6370ee_239ae312",
       "revId": "ebcc1e91b5911256da9f6f121a7b9d01603ea93d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

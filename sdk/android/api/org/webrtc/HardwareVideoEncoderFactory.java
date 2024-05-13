@@ -16,6 +16,7 @@ import static org.webrtc.MediaCodecUtils.QCOM_PREFIX;
 
 import android.media.MediaCodecInfo;
 import android.media.MediaCodecList;
+import android.os.Build.VERSION;
 import android.os.Build;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
@@ -233,7 +234,8 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     }
     String name = info.getName();
     // QCOM and Exynos H264 encoders are always supported.
-    return name.startsWith(QCOM_PREFIX) || name.startsWith(EXYNOS_PREFIX);
+    // return name.startsWith(QCOM_PREFIX) || name.startsWith(EXYNOS_PREFIX);
+    return name.startsWith("OMX.qcom.") && VERSION.SDK_INT >= 19 || name.startsWith("OMX.Exynos.") && VERSION.SDK_INT >= 21 || name.startsWith("c2.exynos") || name.startsWith("c2.android") || name.startsWith("OMX.google");
   }
 
   private boolean isMediaCodecAllowed(MediaCodecInfo info) {

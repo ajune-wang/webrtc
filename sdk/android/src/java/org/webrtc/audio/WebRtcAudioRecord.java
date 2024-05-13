@@ -97,10 +97,10 @@ class WebRtcAudioRecord {
   private final ScheduledExecutorService executor;
   private @Nullable ScheduledFuture<String> future;
 
-  private volatile boolean microphoneMute;
+  private boolean microphoneMute = true;
+
   private final AtomicReference<Boolean> audioSourceMatchesRecordingSessionRef =
-      new AtomicReference<>();
-  private byte[] emptyBytes;
+          new AtomicReference<>();
 
   private final @Nullable AudioRecordErrorCallback errorCallback;
   private final @Nullable AudioRecordStateCallback stateCallback;
@@ -138,10 +138,6 @@ class WebRtcAudioRecord {
       while (keepAlive) {
         int bytesRead = audioRecord.read(byteBuffer, byteBuffer.capacity());
         if (bytesRead == byteBuffer.capacity()) {
-          if (microphoneMute) {
-            byteBuffer.clear();
-            byteBuffer.put(emptyBytes);
-          }
           // It's possible we've been shut down during the read, and stopRecording() tried and
           // failed to join this thread. To be a bit safer, try to avoid calling any native methods
           // in case they've been unregistered after stopRecording() returned.
@@ -149,7 +145,7 @@ class WebRtcAudioRecord {
             long captureTimeNs = 0;
             if (Build.VERSION.SDK_INT >= 24) {
               if (audioRecord.getTimestamp(audioTimestamp, AudioTimestamp.TIMEBASE_MONOTONIC)
-                  == AudioRecord.SUCCESS) {
+                      == AudioRecord.SUCCESS) {
                 captureTimeNs = audioTimestamp.nanoTime;
               }
             }
@@ -159,10 +155,10 @@ class WebRtcAudioRecord {
             // Copy the entire byte buffer array. The start of the byteBuffer is not necessarily
             // at index 0.
             byte[] data = Arrays.copyOfRange(byteBuffer.array(), byteBuffer.arrayOffset(),
-                byteBuffer.capacity() + byteBuffer.arrayOffset());
+                    byteBuffer.capacity() + byteBuffer.arrayOffset());
             audioSamplesReadyCallback.onWebRtcAudioRecordSamplesReady(
-                new JavaAudioDeviceModule.AudioSamples(audioRecord.getAudioFormat(),
-                    audioRecord.getChannelCount(), audioRecord.getSampleRate(), data));
+                    new JavaAudioDeviceModule.AudioSamples(audioRecord.getAudioFormat(),
+                            audioRecord.getChannelCount(), audioRecord.getSampleRate(), data));
           }
         } else {
           String errorMessage = "AudioRecord.read failed: " + bytesRead;
@@ -195,17 +191,17 @@ class WebRtcAudioRecord {
   @CalledByNative
   WebRtcAudioRecord(Context context, AudioManager audioManager) {
     this(context, newDefaultScheduler() /* scheduler */, audioManager, DEFAULT_AUDIO_SOURCE,
-        DEFAULT_AUDIO_FORMAT, null /* errorCallback */, null /* stateCallback */,
+            DEFAULT_AUDIO_FORMAT, null /* errorCallback */, null /* stateCallback */,
         null /* audioSamplesReadyCallback */, WebRtcAudioEffects.isAcousticEchoCancelerSupported(),
         WebRtcAudioEffects.isNoiseSuppressorSupported());
   }
 
   public WebRtcAudioRecord(Context context, ScheduledExecutorService scheduler,
-      AudioManager audioManager, int audioSource, int audioFormat,
+                           AudioManager audioManager, int audioSource, int audioFormat,
       @Nullable AudioRecordErrorCallback errorCallback,
       @Nullable AudioRecordStateCallback stateCallback,
       @Nullable SamplesReadyCallback audioSamplesReadyCallback,
-      boolean isAcousticEchoCancelerSupported, boolean isNoiseSuppressorSupported) {
+                           boolean isAcousticEchoCancelerSupported, boolean isNoiseSuppressorSupported) {
     if (isAcousticEchoCancelerSupported && !WebRtcAudioEffects.isAcousticEchoCancelerSupported()) {
       throw new IllegalArgumentException("HW AEC not supported");
     }
@@ -288,7 +284,6 @@ class WebRtcAudioRecord {
       return -1;
     }
     Logging.d(TAG, "byteBuffer.capacity: " + byteBuffer.capacity());
-    emptyBytes = new byte[byteBuffer.capacity()];
     // Rather than passing the ByteBuffer with every callback (requiring
     // the potentially expensive GetDirectBufferAddress) we simply have the
     // the native class cache the address to the memory once.
@@ -315,7 +310,7 @@ class WebRtcAudioRecord {
         // Use the AudioRecord.Builder class on Android M (23) and above.
         // Throws IllegalArgumentException.
         audioRecord = createAudioRecordOnMOrHigher(
-            audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
+                audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
         audioSourceMatchesRecordingSessionRef.set(null);
         if (preferredDevice != null) {
           setPreferredDevice(preferredDevice);
@@ -324,7 +319,7 @@ class WebRtcAudioRecord {
         // Use the old AudioRecord constructor for API levels below 23.
         // Throws UnsupportedOperationException.
         audioRecord = createAudioRecordOnLowerThanM(
-            audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
+                audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
         audioSourceMatchesRecordingSessionRef.set(null);
       }
     } catch (IllegalArgumentException | UnsupportedOperationException e) {
@@ -344,12 +339,12 @@ class WebRtcAudioRecord {
     // Check number of active recording sessions. Should be zero but we have seen conflict cases
     // and adding a log for it can help us figure out details about conflicting sessions.
     final int numActiveRecordingSessions =
-        logRecordingConfigurations(audioRecord, false /* verifyAudioConfig */);
+            logRecordingConfigurations(audioRecord, false /* verifyAudioConfig */);
     if (numActiveRecordingSessions != 0) {
       // Log the conflict as a warning since initialization did in fact succeed. Most likely, the
       // upcoming call to startRecording() will fail under these conditions.
       Logging.w(
-          TAG, "Potential microphone conflict. Active sessions: " + numActiveRecordingSessions);
+              TAG, "Potential microphone conflict. Active sessions: " + numActiveRecordingSessions);
     }
     return framesPerBuffer;
   }
@@ -362,7 +357,7 @@ class WebRtcAudioRecord {
   @TargetApi(Build.VERSION_CODES.M)
   void setPreferredDevice(@Nullable AudioDeviceInfo preferredDevice) {
     Logging.d(
-        TAG, "setPreferredDevice " + (preferredDevice != null ? preferredDevice.getId() : null));
+            TAG, "setPreferredDevice " + (preferredDevice != null ? preferredDevice.getId() : null));
     this.preferredDevice = preferredDevice;
     if (audioRecord != null) {
       if (!audioRecord.setPreferredDevice(preferredDevice)) {
@@ -371,22 +366,38 @@ class WebRtcAudioRecord {
     }
   }
 
+  /**
+   * Starts recording audio.
+   * This method is called by native code through JNI (Java Native Interface) to initiate audio recording.
+   *
+   * @return {@code true} if the recording started successfully, {@code false} otherwise.
+   *
+   * @see #setMicrophoneMute(boolean) To control the recording state based on the mute status of the microphone.
+   * @see #stopRecordingThread() To terminate the audio recording thread.
+   */
   @CalledByNative
   private boolean startRecording() {
     Logging.d(TAG, "startRecording");
+
+    //Added check to avoid default call from jni for this startRecording() after initRecording() method.
+    if (microphoneMute) {
+      Logging.d(TAG, "AudioRecord.startRecording Recording is not started because the microphone is muted.");
+      return false;
+    }
+
     assertTrue(audioRecord != null);
     assertTrue(audioThread == null);
     try {
       audioRecord.startRecording();
     } catch (IllegalStateException e) {
       reportWebRtcAudioRecordStartError(AudioRecordStartErrorCode.AUDIO_RECORD_START_EXCEPTION,
-          "AudioRecord.startRecording failed: " + e.getMessage());
+              "AudioRecord.startRecording failed: " + e.getMessage());
       return false;
     }
     if (audioRecord.getRecordingState() != AudioRecord.RECORDSTATE_RECORDING) {
       reportWebRtcAudioRecordStartError(AudioRecordStartErrorCode.AUDIO_RECORD_START_STATE_MISMATCH,
-          "AudioRecord.startRecording failed - incorrect state: "
-              + audioRecord.getRecordingState());
+              "AudioRecord.startRecording failed - incorrect state: "
+                      + audioRecord.getRecordingState());
       return false;
     }
     audioThread = new AudioRecordThread("AudioRecordJavaThread");
@@ -395,10 +406,34 @@ class WebRtcAudioRecord {
     return true;
   }
 
+  /**
+   * This method is called by native code through JNI (Java Native Interface) when the audio recording needs to be cleared.
+   * It stops the audio recording thread and releases/clears audio resources.
+   *
+   * @return {@code true} if the operation was successful, {@code false} otherwise.
+   * @see #stopRecordingThread() To stop only audio recording thread.
+   */
   @CalledByNative
   private boolean stopRecording() {
     Logging.d(TAG, "stopRecording");
-    assertTrue(audioThread != null);
+    if (audioThread != null) {
+      stopRecordingThread();
+    }
+    effects.release();
+    releaseAudioResources();
+    return true;
+  }
+
+  /**
+   * This method is responsible for stopping the audio recording thread without releasing audio resources.
+   * If audio resources are released, initRecording() needs to be called again with "sample rate" and "channel".
+   *
+   * @see #stopRecording() To release audio resources after terminating the recording thread.
+   * @see #setMicrophoneMute(boolean) To control the recording state based on the mute status of the microphone
+   */
+  private void stopRecordingThread() {
+    Logging.d(TAG, "stopRecordingThread");
+    if (audioThread == null) return;
     if (future != null) {
       if (!future.isDone()) {
         // Might be needed if the client calls startRecording(), stopRecording() back-to-back.
@@ -412,47 +447,44 @@ class WebRtcAudioRecord {
       WebRtcAudioUtils.logAudioState(TAG, context, audioManager);
     }
     audioThread = null;
-    effects.release();
-    releaseAudioResources();
-    return true;
   }
 
   @TargetApi(Build.VERSION_CODES.M)
   private static AudioRecord createAudioRecordOnMOrHigher(
-      int audioSource, int sampleRate, int channelConfig, int audioFormat, int bufferSizeInBytes) {
+          int audioSource, int sampleRate, int channelConfig, int audioFormat, int bufferSizeInBytes) {
     Logging.d(TAG, "createAudioRecordOnMOrHigher");
     return new AudioRecord.Builder()
-        .setAudioSource(audioSource)
-        .setAudioFormat(new AudioFormat.Builder()
-                            .setEncoding(audioFormat)
-                            .setSampleRate(sampleRate)
-                            .setChannelMask(channelConfig)
-                            .build())
-        .setBufferSizeInBytes(bufferSizeInBytes)
-        .build();
+            .setAudioSource(audioSource)
+            .setAudioFormat(new AudioFormat.Builder()
+                    .setEncoding(audioFormat)
+                    .setSampleRate(sampleRate)
+                    .setChannelMask(channelConfig)
+                    .build())
+            .setBufferSizeInBytes(bufferSizeInBytes)
+            .build();
   }
 
   private static AudioRecord createAudioRecordOnLowerThanM(
-      int audioSource, int sampleRate, int channelConfig, int audioFormat, int bufferSizeInBytes) {
+          int audioSource, int sampleRate, int channelConfig, int audioFormat, int bufferSizeInBytes) {
     Logging.d(TAG, "createAudioRecordOnLowerThanM");
     return new AudioRecord(audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
   }
 
   private void logMainParameters() {
     Logging.d(TAG,
-        "AudioRecord: "
-            + "session ID: " + audioRecord.getAudioSessionId() + ", "
-            + "channels: " + audioRecord.getChannelCount() + ", "
-            + "sample rate: " + audioRecord.getSampleRate());
+            "AudioRecord: "
+                    + "session ID: " + audioRecord.getAudioSessionId() + ", "
+                    + "channels: " + audioRecord.getChannelCount() + ", "
+                    + "sample rate: " + audioRecord.getSampleRate());
   }
 
   @TargetApi(Build.VERSION_CODES.M)
   private void logMainParametersExtended() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       Logging.d(TAG,
-          "AudioRecord: "
-              // The frame count of the native AudioRecord buffer.
-              + "buffer size in frames: " + audioRecord.getBufferSizeInFrames());
+              "AudioRecord: "
+                      // The frame count of the native AudioRecord buffer.
+                      + "buffer size in frames: " + audioRecord.getBufferSizeInFrames());
     }
   }
 
@@ -481,8 +513,8 @@ class WebRtcAudioRecord {
         // as its client parameters. If these do not match, recording might work but under invalid
         // conditions.
         audioSourceMatchesRecordingSessionRef.set(
-            verifyAudioConfig(audioRecord.getAudioSource(), audioRecord.getAudioSessionId(),
-                audioRecord.getFormat(), audioRecord.getRoutedDevice(), configs));
+                verifyAudioConfig(audioRecord.getAudioSource(), audioRecord.getAudioSessionId(),
+                        audioRecord.getFormat(), audioRecord.getRoutedDevice(), configs));
       }
     }
     return numActiveRecordingSessions;
@@ -500,15 +532,37 @@ class WebRtcAudioRecord {
   }
 
   private native void nativeCacheDirectBufferAddress(
-      long nativeAudioRecordJni, ByteBuffer byteBuffer);
+          long nativeAudioRecordJni, ByteBuffer byteBuffer);
   private native void nativeDataIsRecorded(
-      long nativeAudioRecordJni, int bytes, long captureTimestampNs);
+          long nativeAudioRecordJni, int bytes, long captureTimestampNs);
 
-  // Sets all recorded samples to zero if `mute` is true, i.e., ensures that
-  // the microphone is muted.
+  /**
+   * Stops or starts recording based on the mute status.
+   * If {@param mute} is true, recording is stopped; otherwise, it is started.
+   *
+   * @see #stopRecordingThread() To stop recording when muting the microphone.
+   * @see #startRecording() To start recording when unmuting the microphone.
+   *
+   */
   public void setMicrophoneMute(boolean mute) {
     Logging.w(TAG, "setMicrophoneMute(" + mute + ")");
+    if (microphoneMute == mute) return; //same state, no need any changes.
     microphoneMute = mute;
+  }
+
+  public void setAudioRecordStatus(boolean startRecord) {
+    // In Android 12 and newer devices, even when the microphone is not in use,
+    // a green indicator still appear in the top right corner.
+    // To prevent this indicator from showing, we stop and start recording based on setMicrophoneMute.
+    // If mute == true, and audioRecordInProgress == true, then
+    if (microphoneMute == !startRecord) return; //same state, no need any changes.
+    microphoneMute = !startRecord;
+    if (startRecord) {
+      // start recording
+      startRecording();
+    } else {
+      stopRecordingThread();
+    }
   }
 
   // Sets whether NoiseSuppressor should be enabled or disabled.
@@ -618,7 +672,7 @@ class WebRtcAudioRecord {
 
   @TargetApi(Build.VERSION_CODES.N)
   private static boolean logActiveRecordingConfigs(
-      int session, List<AudioRecordingConfiguration> configs) {
+          int session, List<AudioRecordingConfiguration> configs) {
     assertTrue(!configs.isEmpty());
     final Iterator<AudioRecordingConfiguration> it = configs.iterator();
     Logging.d(TAG, "AudioRecordingConfigurations: ");
@@ -629,53 +683,53 @@ class WebRtcAudioRecord {
       final int audioSource = config.getClientAudioSource();
       conf.append("  client audio source=")
           .append(WebRtcAudioUtils.audioSourceToString(audioSource))
-          .append(", client session id=")
-          .append(config.getClientAudioSessionId())
-          // Compare with our own id (based on AudioRecord#getAudioSessionId()).
-          .append(" (")
-          .append(session)
-          .append(")")
-          .append("\n");
+              .append(", client session id=")
+              .append(config.getClientAudioSessionId())
+              // Compare with our own id (based on AudioRecord#getAudioSessionId()).
+              .append(" (")
+              .append(session)
+              .append(")")
+              .append("\n");
       // Audio format at which audio is recorded on this Android device. Note that it may differ
       // from the client application recording format (see getClientFormat()).
       AudioFormat format = config.getFormat();
       conf.append("  Device AudioFormat: ")
-          .append("channel count=")
-          .append(format.getChannelCount())
-          .append(", channel index mask=")
-          .append(format.getChannelIndexMask())
-          // Only AudioFormat#CHANNEL_IN_MONO is guaranteed to work on all devices.
-          .append(", channel mask=")
+              .append("channel count=")
+              .append(format.getChannelCount())
+              .append(", channel index mask=")
+              .append(format.getChannelIndexMask())
+              // Only AudioFormat#CHANNEL_IN_MONO is guaranteed to work on all devices.
+              .append(", channel mask=")
           .append(WebRtcAudioUtils.channelMaskToString(format.getChannelMask()))
-          .append(", encoding=")
+              .append(", encoding=")
           .append(WebRtcAudioUtils.audioEncodingToString(format.getEncoding()))
-          .append(", sample rate=")
-          .append(format.getSampleRate())
-          .append("\n");
+              .append(", sample rate=")
+              .append(format.getSampleRate())
+              .append("\n");
       // Audio format at which the client application is recording audio.
       format = config.getClientFormat();
       conf.append("  Client AudioFormat: ")
-          .append("channel count=")
-          .append(format.getChannelCount())
-          .append(", channel index mask=")
-          .append(format.getChannelIndexMask())
-          // Only AudioFormat#CHANNEL_IN_MONO is guaranteed to work on all devices.
-          .append(", channel mask=")
+              .append("channel count=")
+              .append(format.getChannelCount())
+              .append(", channel index mask=")
+              .append(format.getChannelIndexMask())
+              // Only AudioFormat#CHANNEL_IN_MONO is guaranteed to work on all devices.
+              .append(", channel mask=")
           .append(WebRtcAudioUtils.channelMaskToString(format.getChannelMask()))
-          .append(", encoding=")
+              .append(", encoding=")
           .append(WebRtcAudioUtils.audioEncodingToString(format.getEncoding()))
-          .append(", sample rate=")
-          .append(format.getSampleRate())
-          .append("\n");
+              .append(", sample rate=")
+              .append(format.getSampleRate())
+              .append("\n");
       // Audio input device used for this recording session.
       final AudioDeviceInfo device = config.getAudioDevice();
       if (device != null) {
         assertTrue(device.isSource());
         conf.append("  AudioDevice: ")
-            .append("type=")
-            .append(WebRtcAudioUtils.deviceTypeToString(device.getType()))
-            .append(", id=")
-            .append(device.getId());
+                .append("type=")
+                .append(WebRtcAudioUtils.deviceTypeToString(device.getType()))
+                .append(", id=")
+                .append(device.getId());
       }
       Logging.d(TAG, conf.toString());
     }
@@ -686,7 +740,7 @@ class WebRtcAudioRecord {
   // configuration (same as AudioRecord's).
   @TargetApi(Build.VERSION_CODES.N)
   private static boolean verifyAudioConfig(int source, int session, AudioFormat format,
-      AudioDeviceInfo device, List<AudioRecordingConfiguration> configs) {
+                                           AudioDeviceInfo device, List<AudioRecordingConfiguration> configs) {
     assertTrue(!configs.isEmpty());
     final Iterator<AudioRecordingConfiguration> it = configs.iterator();
     while (it.hasNext()) {
@@ -696,19 +750,19 @@ class WebRtcAudioRecord {
         continue;
       }
       if ((config.getClientAudioSource() == source)
-          && (config.getClientAudioSessionId() == session)
-          // Check the client format (should match the format of the AudioRecord instance).
-          && (config.getClientFormat().getEncoding() == format.getEncoding())
-          && (config.getClientFormat().getSampleRate() == format.getSampleRate())
-          && (config.getClientFormat().getChannelMask() == format.getChannelMask())
-          && (config.getClientFormat().getChannelIndexMask() == format.getChannelIndexMask())
-          // Ensure that the device format is properly configured.
-          && (config.getFormat().getEncoding() != AudioFormat.ENCODING_INVALID)
-          && (config.getFormat().getSampleRate() > 0)
-          //  For the channel mask, either the position or index-based value must be valid.
-          && ((config.getFormat().getChannelMask() != AudioFormat.CHANNEL_INVALID)
+              && (config.getClientAudioSessionId() == session)
+              // Check the client format (should match the format of the AudioRecord instance).
+              && (config.getClientFormat().getEncoding() == format.getEncoding())
+              && (config.getClientFormat().getSampleRate() == format.getSampleRate())
+              && (config.getClientFormat().getChannelMask() == format.getChannelMask())
+              && (config.getClientFormat().getChannelIndexMask() == format.getChannelIndexMask())
+              // Ensure that the device format is properly configured.
+              && (config.getFormat().getEncoding() != AudioFormat.ENCODING_INVALID)
+              && (config.getFormat().getSampleRate() > 0)
+              //  For the channel mask, either the position or index-based value must be valid.
+              && ((config.getFormat().getChannelMask() != AudioFormat.CHANNEL_INVALID)
               || (config.getFormat().getChannelIndexMask() != AudioFormat.CHANNEL_INVALID))
-          && checkDeviceMatch(configDevice, device)) {
+              && checkDeviceMatch(configDevice, device)) {
         Logging.d(TAG, "verifyAudioConfig: PASS");
         return true;
       }
@@ -747,7 +801,7 @@ class WebRtcAudioRecord {
       public Thread newThread(Runnable r) {
         Thread thread = Executors.defaultThreadFactory().newThread(r);
         thread.setName(String.format("WebRtcAudioRecordScheduler-%s-%s",
-            nextSchedulerId.getAndIncrement(), nextThreadId.getAndIncrement()));
+                nextSchedulerId.getAndIncrement(), nextThreadId.getAndIncrement()));
         return thread;
       }
     });

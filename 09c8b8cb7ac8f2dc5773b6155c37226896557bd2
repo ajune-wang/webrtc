@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0165530_c7328aaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T15:58:17Z",
+      "side": 1,
+      "message": "I\u0027m fine with either, with a small preference for this passkey way:\n\n- We don\u0027t have the list of subclasses embedded as methods in the interface, just as a list in a \"private section\" of friends\n- The subclasses are all defined in .ccs, so the static_casts are right next to the definitions and can\u0027t spread elsewhere\n\nIf you feel very strongly, Harald, and Danil is on board, I can rewrite with As\u003c\u003e() methods.",
+      "parentUuid": "a0c0aa46_c9b6a1a2",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "69c60393_3ae99fa2",

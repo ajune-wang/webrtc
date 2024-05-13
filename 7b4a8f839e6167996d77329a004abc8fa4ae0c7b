@@ -70,6 +70,30 @@
       },
       "revId": "7b4a8f839e6167996d77329a004abc8fa4ae0c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46798126_041bf670",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-05-13T16:10:51Z",
+      "side": 1,
+      "message": "Ack. I think the duplicate SetUp would be okay, I think there are ways to ignore the uninteresting call (Simplest would be to create it as a NiceMock I think: https://google.github.io/googletest/gmock_cook_book.html#NiceStrictNaggy), but we can leave as-is for now.\n\nThe benefit to splitting it up is that we get a clearer picture of what operations are buggy/failing.",
+      "parentUuid": "47c2c7db_ca30a9a9",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "7b4a8f839e6167996d77329a004abc8fa4ae0c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

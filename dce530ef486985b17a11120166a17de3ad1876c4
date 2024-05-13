@@ -51,6 +51,24 @@
       "parentUuid": "49406f04_08708e70",
       "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e65a4d_8bdcd9a3",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2024-05-13T17:20:10Z",
+      "side": 1,
+      "message": "Ok, but there are at least two other functions that modify damage_region_ without holding the lock:\n\nUpdateFrameUpdatedRegions()\nNotifyCallbackOfNewFrame()",
+      "parentUuid": "969d1978_1e863148",
+      "revId": "dce530ef486985b17a11120166a17de3ad1876c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

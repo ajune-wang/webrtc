@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bba064a9_204e9d4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-13T14:13:21Z",
+      "side": 1,
+      "message": "Another way (the one used in MediaDescription) to avoid the need for downcasts is to have the base class have As\u003csubclass\u003e functions in its API.\nThis means that the base class has to explicitly enumerate all subclasses that callers are supposed to be able to cast into - which may be a Good Thing; you can expose the interfaces to these classes rather than their implementation.\n\nBut the Passkey implementation, as given, already exposes that list in api/.\n\n(I\u0027ve had bad experiences with static_cast in client code when doing refactoring. I prefer to have them only within the implementation rather than spread across the codebase....)",
+      "parentUuid": "c9b63898_cedefe12",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "69c60393_3ae99fa2",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2

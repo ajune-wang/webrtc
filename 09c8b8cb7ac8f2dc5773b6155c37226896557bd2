@@ -18,6 +18,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea72ed0e_0c12fddd",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-05-13T09:38:25Z",
+      "side": 1,
+      "message": "IIUC the passkey is used to make sure that any `TransformableFrameInterface` object was created as one of the `friend` classes, making downcasting safer at a later stage.\n\nGiven that a JS level ctor will be introduced for encoded frames, how would that work with the passkey?",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b5196518_83f5ec92",

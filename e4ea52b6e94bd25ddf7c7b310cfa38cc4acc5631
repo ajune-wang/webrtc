@@ -16,6 +16,29 @@
       "message": "Still don\u0027t understand how this protects against an attack (as opposed to footgunning yourself, which static_cast can do at any time).",
       "revId": "e4ea52b6e94bd25ddf7c7b310cfa38cc4acc5631",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b4549c2_bd4de535",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-13T14:45:10Z",
+      "side": 1,
+      "message": "May move it somewhere below, to keep the public section of the api concise:\n```\npublic:\n // Comment with the motivation of the Passkey\n class Passkey;\n explicit TransformableFrameInterface(Passkey) {};\n ...\n};\n...\n\n//------------------------------------------------------------------------------\n// Implementation details follow\n//------------------------------------------------------------------------------\n\nclass TransformableFrameInterface::Passkey {\n public:\n    ~Passkey() \u003d default;\n    \n private:\n  // Explicit list of allowed internal implementations of\n  // TransformableFrameInterface.\n  friend class TransformableOutgoingAudioFrame;\n  friend class TransformableIncomingAudioFrame;\n  friend class TransformableVideoSenderFrame;\n  friend class TransformableVideoReceiverFrame;\n\n  friend class MockTransformableFrame;\n  friend class MockTransformableAudioFrame;\n  friend class MockTransformableVideoFrame;\n  Passkey() \u003d default;\n};\n```",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 4
+      },
+      "revId": "e4ea52b6e94bd25ddf7c7b310cfa38cc4acc5631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a0c0aa46_c9b6a1a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-13T14:45:10Z",
+      "side": 1,
+      "message": "Passkey disallows client code (e.g. chromium) to create own implementations of the TransformableFrame:\n\n```\nclass ChromiumTransformer : public FrameTransformerInterface {\n public:\n  class ChromiumFrame : public TransformableFrameInterface {...};\n   \n  virtual void RegisterTransformedFrameCallback(\n      rtc::scoped_refptr\u003cTransformedFrameCallback\u003e cb) { cb_ \u003d cb; }\n  \n  void Transform(\n      std::unique_ptr\u003cTransformableFrameInterface\u003e transformable_frame) {\n    auto own_frame \u003d std::make_unique\u003cChromiumFrame\u003e(*transformable_frame);\n    own_frame-\u003eset_a();\n    own_frame-\u003eset_b();\n    cb_-\u003eOnTransformedFrame(std::move(own_frame));\n  }\n```\n\nThus casting in the `webrtc::*FrameTransformerDelegate::OnTransformedFrame` become a bit safer - at least it knows it is one of the types that webrtc created.",
+      "parentUuid": "bba064a9_204e9d4d",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "69c60393_3ae99fa2",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2

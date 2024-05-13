@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c9b63898_cedefe12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "Added some more documentation on the API class - hope that makes sense.\nThis is mostly coming out of the comment thread on the Dependency Descriptor cl: https://webrtc-review.googlesource.com/c/src/+/336781/13..15/modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc#b246",
+      "parentUuid": "e0a8116b_ac0ab0bc",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "69c60393_3ae99fa2",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2
@@ -60,6 +78,48 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "303669db_77961ac4",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "We do currently have (unimplemented) factory functions in api/frame_transformer_factory.h, so we could use those with additional known internal implementations.\n\nAlternatively we expand TransformableFrameInterface, or its Audio/Video subclasses, with additional methods supplying all of the extra info so we don\u0027t need to do the downcasts and can remove the passkey. Potentially also making TransformableFrameInterface non-abstract in the process and keeping some private methods \u0026 constructors.\n\nUltimately depends on how the constructor interface ends up shaping up, how we get all the additional metadata into it etc.\n\nFor now I\u0027m just targeting something small to be able to get https://webrtc-review.googlesource.com/c/src/+/336781 landed safely with the current interface.",
+      "parentUuid": "ea72ed0e_0c12fddd",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee40074a_da78d7c2",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69c60393_3ae99fa2",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b5196518_83f5ec92",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2
@@ -71,6 +131,30 @@
       "writtenOn": "2024-05-10T14:15:34Z",
       "side": 1,
       "message": "may be it is enough to have one factory for classes that live in the anonymous namespaces and thus can\u0027t be mentioned here.\n\nAlternatively to introducing factory, move those classes to the webrtc namespace and list them explicitly here. I think that can give better protection and better overview what classed can be created. (those classes still can be declared fully in the .cc as they are now, just need to be moved out of the anonymous namespace)",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 54
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d93a22_f24a78ee",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "Ack. Went with that alternative and removed the Factories.",
+      "parentUuid": "b5196518_83f5ec92",
       "range": {
         "startLine": 36,
         "startChar": 17,
@@ -104,6 +188,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9418dbe_0a34fb9b",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "Would be good to prevent unintentional copies. Done.",
+      "parentUuid": "5a65e434_b6d15958",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 71
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ee1d764_55dcc272",
@@ -117,6 +225,30 @@
       "writtenOn": "2024-05-10T14:15:34Z",
       "side": 1,
       "message": "because the class is derived from the TransformableFrameInterface, it inherit all the child class names too, i.e. class name prefix can be omitted:\n\n```\nexplicit TransformableVideoFrameInterface(Passkey passkey)\n    : TransformableFrameInterface(passkey) {}```",
+      "range": {
+        "startLine": 82,
+        "startChar": 6,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff5a73ac_5f16c53e",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ee1d764_55dcc272",
       "range": {
         "startLine": 82,
         "startChar": 6,
@@ -163,6 +295,30 @@
       "writtenOn": "2024-05-10T14:15:34Z",
       "side": 1,
       "message": "rtp_sender_video_frame_transformer_delegate.h is a public header in a build target with public visibility.\n\nThus anyone can include this header and use TransformableVideoFramePasskeyFactory  bypassing the Passkey protection.\n\nmay be move this helper function into own small target with private visibility, and make sure it is included only by .cc files (though I\u0027m not sure how to protect it against including it from .h and thus against transitive includes)\n\nand/or put it into webrtc_internal subnamespace to stress this class should be used only by webrtc itself (http://go/totw/56)\n\nalternatively, do not introduce Factory workaround as suggested in another comment.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db3675cb_4707de06",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T11:18:26Z",
+      "side": 1,
+      "message": "Ah, I see, thanks. Went with listing the explicit implementations as discussed.",
+      "parentUuid": "f10bf2bd_b3e695dd",
       "range": {
         "startLine": 52,
         "startChar": 0,

@@ -46,6 +46,30 @@
       },
       "revId": "7b4a8f839e6167996d77329a004abc8fa4ae0c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47c2c7db_ca30a9a9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2024-05-13T07:50:37Z",
+      "side": 1,
+      "message": "So I spent some time trying to split this, but it would probably need to be written differently. If I write more `TEST_F` tests, each will call the  `SetUp` method, so we are all the time initializing PipeWire and have to duplicate the initial setup and part of the test. Also not testing all the mock functions in each `TEST_F`, they get reported:\n```\nGMOCK WARNING:\nUninteresting mock function call - returning directly.\n    Function call: OnStopStreaming()\n``` \nIt\u0027s been a while I worked with this API so at this moment I have no idea how to rewrite it to be more \"cleaner\" and I would prefer not to spend that much time on it.",
+      "parentUuid": "b1283c64_69a068f9",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "7b4a8f839e6167996d77329a004abc8fa4ae0c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e0a8116b_ac0ab0bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-13T09:42:51Z",
+      "side": 1,
+      "message": "I don\u0027t understand what attack vector this is protecting against.\n\nIn particular, I don\u0027t understand how the linked bug relates to the proposed solution.\n\nCan someone please explain (preferably in the bug or in the class documentation)?",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "69c60393_3ae99fa2",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2

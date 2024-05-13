@@ -54,6 +54,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4992d7a2_b248672b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-13T12:33:59Z",
+      "side": 1,
+      "message": "@all assuming we can make the downcasting safe, do you have any remaining concerns here?",
+      "revId": "2dc14fd71e40e48d0c663014b560725495563ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7d259c64_0201a6c4",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
         "patchSetId": 15

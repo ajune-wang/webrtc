@@ -84,7 +84,6 @@ rtc_source_set("svc_rate_allocator") {
     "../../../api/video:video_codec_constants",
     "../../../api/video_codecs:video_codecs_api",
     "../../../rtc_base:checks",
-    "../../../rtc_base/experiments:stable_target_rate_experiment",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/container:inlined_vector" ]
 }

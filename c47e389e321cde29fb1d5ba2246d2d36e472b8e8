@@ -16,6 +16,46 @@
       "message": "Please?",
       "revId": "c47e389e321cde29fb1d5ba2246d2d36e472b8e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5187565e_06a79eb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-14T10:05:45Z",
+      "side": 1,
+      "message": "right, it would create FieldTrials internally and keep pointer to the deleted object.\nIt wouldn\u0027t be a problem in the future when config would save full environment instead of extracting raw pointers from it, but until then Environment need to stay alive somewhere else.",
+      "revId": "c47e389e321cde29fb1d5ba2246d2d36e472b8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "278b9299_dbdbdb88",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-14T10:05:45Z",
+      "side": 1,
+      "message": "just \"../api/environment\"\n(when build target matches the folder name, it can be omitted)",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 388,
+        "endChar": 40
+      },
+      "revId": "c47e389e321cde29fb1d5ba2246d2d36e472b8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,24 @@
       "parentUuid": "82469e8c_3733a518",
       "revId": "39d36f11eace5d0a59cba4c741393c0487fdf2ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f48e6b6f_2aa4a069",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-14T12:03:51Z",
+      "side": 1,
+      "message": "Yes, I don\u0027t know of any usage of this code either. I think it should be ok to delete it.",
+      "parentUuid": "4201e773_0c284191",
+      "revId": "39d36f11eace5d0a59cba4c741393c0487fdf2ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

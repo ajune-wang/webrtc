@@ -71,6 +71,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4a0dc380_90c85953",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-14T10:30:35Z",
+      "side": 1,
+      "message": "My main concern is increasing code complexity:\n\n- Extra intermediate interface TransformableVideoFrameWithDependencies that makes casting a bit less safe.\nIs it possible instead to move TransformableVideoReceiverFrame into own file and add test helper to create one for testing purposing instead of introducing the Mock?\n\n- Getter function that is called once instead of passing the value directly.\nI have a draft where that is not needed.\n\nHow urgently this change is needed? If it is urgent, I can accept that extra complexity with the promise to clean it up a bit later. (can you please injects TODOs so it won\u0027t be forgotten)\nIf it is not urgent, first I prefer to see refactorings that allows to make this change simpler.",
+      "parentUuid": "4992d7a2_b248672b",
+      "revId": "2dc14fd71e40e48d0c663014b560725495563ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7d259c64_0201a6c4",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
         "patchSetId": 15

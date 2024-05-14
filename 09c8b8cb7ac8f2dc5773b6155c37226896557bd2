@@ -90,6 +90,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ba1604_87cdf1cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-14T07:39:29Z",
+      "side": 1,
+      "message": "Of course someone who *wishes* to create its own implementation of TransformableFrame could just do the static_cast anyway. (Or fork the repo and extend the list. Or derive a subclass of one of the subclasses, or ....)\n\nBut it does serve as a stumbling block for those who want to know what they\u0027re supposed to conform to.\n\nGiven that it is a known pattern in the industry, let\u0027s keep it this way.",
+      "parentUuid": "e0165530_c7328aaa",
+      "revId": "09c8b8cb7ac8f2dc5773b6155c37226896557bd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "69c60393_3ae99fa2",

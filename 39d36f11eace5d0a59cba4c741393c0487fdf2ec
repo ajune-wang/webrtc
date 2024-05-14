@@ -70,6 +70,24 @@
       "parentUuid": "f48e6b6f_2aa4a069",
       "revId": "39d36f11eace5d0a59cba4c741393c0487fdf2ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c42884_9c8c749e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5623
+      },
+      "writtenOn": "2024-05-14T14:12:59Z",
+      "side": 1,
+      "message": "Thanks for the review! Closing this thread.",
+      "parentUuid": "1b4c211a_0996ad38",
+      "revId": "39d36f11eace5d0a59cba4c741393c0487fdf2ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

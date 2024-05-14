@@ -22,6 +22,30 @@
       },
       "revId": "26a082ce36e0403248a36d448b50cf38098178a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac455569_da46749b",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-14T15:40:54Z",
+      "side": 0,
+      "message": "how did that work? Probably because it is not needed anymore. Different burn-step though ;-)",
+      "parentUuid": "68a71699_6464803d",
+      "range": {
+        "startLine": 1497,
+        "startChar": 4,
+        "endLine": 1497,
+        "endChar": 16
+      },
+      "revId": "26a082ce36e0403248a36d448b50cf38098178a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

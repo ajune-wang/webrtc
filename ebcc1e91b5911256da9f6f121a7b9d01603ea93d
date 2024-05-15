@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f1b7fd3_49ed66c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-15T15:36:10Z",
+      "side": 1,
+      "message": "For P2P this won\u0027t have impact since NACK is not negotiated by default.\nFor servers this will need to negotiated too (assuming they do not auto reply with rsize) which will not correlate with any Chrome rollout so experimentation would have to be driven from there.\n\nCan add if you want to \"drive\" experiments and look at the results but I suspect we will have to talk to our respective server peeps for that ;-)",
+      "parentUuid": "bf0cc980_1bebc218",
+      "revId": "ebcc1e91b5911256da9f6f121a7b9d01603ea93d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d6370ee_239ae312",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 17

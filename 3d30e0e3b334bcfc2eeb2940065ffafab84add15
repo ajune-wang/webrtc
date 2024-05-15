@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aed3da9_08a5a57b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-05-15T07:42:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure that this is the best way forward. Do we really need to reconfigure the encoder for any source change? If the resolution changes, reconfiguration will happen anyway on a next frame. If the source is_screenshare changes, there will be difference in `options` and reconfiguration will happen anyway.\n\nThe only issue we have to address is that the new source might have a different timestamps base. It might be fixed in a more precise way in VideoStreamEncoder. I assume just resetting the |last_captured_timestamp_| will be enough. WDYT?",
+      "revId": "3d30e0e3b334bcfc2eeb2940065ffafab84add15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

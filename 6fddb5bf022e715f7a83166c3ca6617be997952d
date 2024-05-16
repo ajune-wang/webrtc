@@ -128,6 +128,30 @@
       },
       "revId": "6fddb5bf022e715f7a83166c3ca6617be997952d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78bf0b6d_7cc8cd79",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-16T11:30:21Z",
+      "side": 1,
+      "message": "or may be that mean there is missing \u0027 - \u0027 between the link and the message.",
+      "parentUuid": "a7f3a6b1_c6d4bccd",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 45
+      },
+      "revId": "6fddb5bf022e715f7a83166c3ca6617be997952d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3a0219_180bc2bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2024-05-16T07:35:21Z",
+      "side": 1,
+      "message": "\u003e Repeated initial probes are sent every 5s.\nUpdate it to: sent every 1s in the first 5s or till onMaxAllocatedBitrate.",
+      "revId": "8b5d6d16a0b67cece15714a211023db4898406fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

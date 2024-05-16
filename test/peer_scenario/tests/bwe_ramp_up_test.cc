@@ -145,7 +145,7 @@ INSTANTIATE_TEST_SUITE_P(
              .expected_bwe_min = DataRate::KilobitsPerSec(2500),
          },
          {
-             .network_capacity = webrtc::DataRate::KilobitsPerSec(500),
+             .network_capacity = webrtc::DataRate::KilobitsPerSec(600),
              .expected_bwe_min = webrtc::DataRate::KilobitsPerSec(400),
          }}));
 

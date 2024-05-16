@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c241a635_7a73e9e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-16T10:05:13Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "d1822bb3e59e87a479f8f552d639fa880110828f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55b47f03_b5fd9e0c",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-05-16T09:52:01Z",
       "side": 1,
       "message": "nit: You could use the `contains()` method that was added in C++20 here.\nI understand this is just moving code, so feel free to ignore if that\u0027s troublesome.",
+      "revId": "d1822bb3e59e87a479f8f552d639fa880110828f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa0a0746_20408316",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3714,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-16T10:05:13Z",
+      "side": 1,
+      "message": "hm. https://chromium.googlesource.com/external/webrtc/+/HEAD/g3doc/style-guide.md?pli\u003d1 doesn\u0027t say anything about C++ 20 features apart from banning designated initializers. I think I won\u0027t fix it in this one, but we should probably update - topic for webrtc-core.",
+      "parentUuid": "55b47f03_b5fd9e0c",
       "revId": "d1822bb3e59e87a479f8f552d639fa880110828f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

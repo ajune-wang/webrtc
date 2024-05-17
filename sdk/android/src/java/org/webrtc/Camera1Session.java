@@ -238,6 +238,9 @@ class Camera1Session implements CameraSession {
     }
   }
 
+  // Note: it is important to make sure that this method catches all
+  // runtime exceptions thrown by the Camera API cause it is used by
+  // [startCapturing] to handle such errors.
   private void stopInternal() {
     Logging.d(TAG, "Stop internal");
     checkIsOnCameraThread();
@@ -251,8 +254,16 @@ class Camera1Session implements CameraSession {
     // Note: stopPreview or other driver code might deadlock. Deadlock in
     // Camera._stopPreview(Native Method) has been observed on
     // Nexus 5 (hammerhead), OS version LMY48I.
-    camera.stopPreview();
-    camera.release();
+    try {
+      camera.stopPreview();
+    } catch (RuntimeException e) {
+      Logging.e(TAG, "Failed to stop camera preview", e);
+    }
+    try {
+      camera.release();
+    } catch (RuntimeException e) {
+      Logging.e(TAG, "Failed to release camera", e);
+    }
     events.onCameraClosed(this);
     Logging.d(TAG, "Stop done");
   }

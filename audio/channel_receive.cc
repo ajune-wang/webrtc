@@ -25,6 +25,8 @@
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
+#include "arrival_time_tracker.h"
+#include "audio/arrival_time_tracker.h"
 #include "audio/audio_level.h"
 #include "audio/channel_receive_frame_transformer_delegate.h"
 #include "audio/channel_send.h"
@@ -253,6 +255,7 @@ class ChannelReceive : public ChannelReceiveInterface,
   acm2::AcmReceiver acm_receiver_;
   AudioSinkInterface* audio_sink_ = nullptr;
   AudioLevel _outputAudioLevel;
+  ArrivalTimeTracker arrival_time_tracker_;
 
   Clock* const clock_;
   RemoteNtpTimeEstimator ntp_estimator_ RTC_GUARDED_BY(ts_stats_lock_);
@@ -479,6 +482,11 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
                   packet_info.absolute_capture_time()
                       ->estimated_capture_clock_offset)));
     }
+    std::optional<Timestamp> arrival_time =
+        arrival_time_tracker_.GetArrivalTime(audio_frame->timestamp_);
+    if (arrival_time) {
+      new_packet_info.set_receive_time(*arrival_time);
+    }
     packet_infos.push_back(std::move(new_packet_info));
   }
   audio_frame->packet_infos_ = RtpPacketInfos(packet_infos);
@@ -545,6 +553,7 @@ ChannelReceive::ChannelReceive(
                               jitter_buffer_fast_playout,
                               jitter_buffer_min_delay_ms)),
       _outputAudioLevel(),
+      arrival_time_tracker_(100),
       clock_(clock),
       ntp_estimator_(clock),
       playout_timestamp_rtp_(0),
@@ -609,6 +618,7 @@ void ChannelReceive::StopPlayout() {
   playing_ = false;
   _outputAudioLevel.ResetLevelFullRange();
   acm_receiver_.FlushBuffers();
+  arrival_time_tracker_.Reset();
 }
 
 absl::optional<std::pair<int, SdpAudioFormat>> ChannelReceive::GetReceiveCodec()
@@ -646,6 +656,7 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
     return;
   // TODO(bugs.webrtc.org/7135): Set payload_type_frequency earlier, when packet
   // is parsed.
+
   RtpPacketReceived packet_copy(packet);
   packet_copy.set_payload_type_frequency(it->second);
 
@@ -653,6 +664,9 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
 
   RTPHeader header;
   packet_copy.GetHeader(&header);
+  arrival_time_tracker_.InsertPacket(/*rtp_timestamp=*/header.timestamp,
+                                     header.sequenceNumber,
+                                     packet.arrival_time());
 
   // Interpolates absolute capture timestamp RTP header extension.
   header.extension.absolute_capture_time =

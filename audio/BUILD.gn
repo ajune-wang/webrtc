@@ -14,6 +14,8 @@ if (is_android) {
 
 rtc_library("audio") {
   sources = [
+    "arrival_time_tracker.cc",
+    "arrival_time_tracker.h",
     "audio_level.cc",
     "audio_level.h",
     "audio_receive_stream.cc",
@@ -146,6 +148,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "arrival_time_tracker_unittest.cc",
       "audio_receive_stream_unittest.cc",
       "audio_send_stream_tests.cc",
       "audio_send_stream_unittest.cc",

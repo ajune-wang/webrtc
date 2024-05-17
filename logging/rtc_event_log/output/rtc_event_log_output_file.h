@@ -14,6 +14,5 @@
 // TODO(bugs.webrtc.org/6463): For backwards compatibility; delete as soon as
 // downstream dependencies are updated.
 
-#include "api/rtc_event_log_output_file.h"
 
 #endif  // LOGGING_RTC_EVENT_LOG_OUTPUT_RTC_EVENT_LOG_OUTPUT_FILE_H_

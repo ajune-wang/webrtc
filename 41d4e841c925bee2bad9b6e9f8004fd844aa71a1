@@ -16,6 +16,29 @@
       "message": "+ xalep@webrtc.org for second +1",
       "revId": "41d4e841c925bee2bad9b6e9f8004fd844aa71a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ef7f665_9032a2fb",
+        "filename": "sdk/android/src/java/org/webrtc/Camera1Session.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2024-05-20T14:10:46Z",
+      "side": 1,
+      "message": "If this is only for the use in `startCapturing`, why not catch and log over there?\n\nIt seems that failure in other cases would be good to know about, and not ignore, no?",
+      "range": {
+        "startLine": 242,
+        "startChar": 49,
+        "endLine": 243,
+        "endChar": 44
+      },
+      "revId": "41d4e841c925bee2bad9b6e9f8004fd844aa71a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

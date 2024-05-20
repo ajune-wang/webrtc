@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87a62a1a_a47c0ff3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-20T03:53:03Z",
+      "side": 1,
+      "message": "PS1..7 shows my intent, PS8 makes it backward compatible ;-)",
+      "revId": "5a1e6a7e0ecacd5aff4792e44a8cd9206b29f284",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

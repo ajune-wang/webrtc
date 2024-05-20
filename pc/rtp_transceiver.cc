@@ -179,6 +179,14 @@ RtpTransceiver::RtpTransceiver(
       }
     }
   }
+  if (!uses_simulcast) {
+    // Without simulcast, we can deactivate the RID extension.
+    for (RtpHeaderExtensionCapability& ext : header_extensions_to_negotiate_) {
+      if (ext.uri == RtpExtension::kRidUri) {
+        ext.direction = RtpTransceiverDirection::kStopped;
+      }
+    }
+  }
 }
 
 RtpTransceiver::~RtpTransceiver() {

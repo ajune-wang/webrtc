@@ -16,6 +16,24 @@
       "message": "Does this actually work for headers not associated with a .cc file?\nEarlier discussions (orphis) claimed that the tool was unable to find a relevant compile instructions for .h files without a corresponding .cc file.",
       "revId": "e91f1f005f98bcdc5b0235faae507557ed0fcfa2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a086469e_1725c204",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-05-21T08:12:09Z",
+      "side": 1,
+      "message": "That\u0027s a good question. I don\u0027t know what compile commands clang-include-cleaner needs and whether there are any corner cases that prevent them from being generated. However, https://webrtc-review.googlesource.com/c/src/+/350923 fixes header files without any corresponding cc file, so it would have to be a more complicated corner case. (For example logged_rtp_rtcp.h doesn\u0027t have any corresponding logged_rtp_rtcp.cc file)\n\nThe comment refers to the case where foo.h contains `#include \"bar.h\"` and foo.cc uses `Bar`. If the header is processed first, `#include \"bar.h\"` will be removed, and then `Bar` will be an unrecognized symbol when running include cleaner on the cc file. Processing headers last reduce the risk of this happening.",
+      "parentUuid": "cce17e97_d207578f",
+      "revId": "e91f1f005f98bcdc5b0235faae507557ed0fcfa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -29,7 +29,16 @@
 
 namespace webrtc {
 
-using CodecParameterMap = std::map<std::string, std::string>;
+// Use custom comparator to allow heterogeneous lookup,
+// https://abseil.io/tips/144
+struct CodecParameterMapCmp {
+  using is_transparent = void;
+  bool operator()(absl::string_view lhs, absl::string_view rhs) const {
+    return lhs < rhs;
+  }
+};
+using CodecParameterMap =
+    std::map<std::string, std::string, CodecParameterMapCmp>;
 
 // These structures are intended to mirror those defined by:
 // http://draft.ortc.org/#rtcrtpdictionaries*
@@ -159,7 +168,7 @@ struct RTC_EXPORT RtpCodec {
   // Contrary to ORTC, these parameters are named using all lowercase strings.
   // This helps make the mapping to SDP simpler, if an application is using SDP.
   // Boolean values are represented by the string "1".
-  std::map<std::string, std::string> parameters;
+  CodecParameterMap parameters;
 
   bool operator==(const RtpCodec& o) const {
     return name == o.name && kind == o.kind && clock_rate == o.clock_rate &&

@@ -21,7 +21,8 @@ SdpVideoFormat VideoCodecInfoToSdpVideoFormat(JNIEnv* jni,
                                               const JavaRef<jobject>& j_info) {
   return SdpVideoFormat(
       JavaToNativeString(jni, Java_VideoCodecInfo_getName(jni, j_info)),
-      JavaToNativeStringMap(jni, Java_VideoCodecInfo_getParams(jni, j_info)));
+      JavaToStringToStringContainer<CodecParameterMap>(
+          jni, Java_VideoCodecInfo_getParams(jni, j_info)));
 }
 
 ScopedJavaLocalRef<jobject> SdpVideoFormatToVideoCodecInfo(

@@ -191,6 +191,26 @@ std::map<std::string, std::string> JavaToNativeStringMap(
     JNIEnv* env,
     const JavaRef<jobject>& j_map);
 
+template <typename C>
+void JavaToStringToStringContainer(JNIEnv* env,
+                                   const JavaRef<jobject>& j_map,
+                                   C& container) {
+  for (auto const& j_entry : GetJavaMapEntrySet(env, j_map)) {
+    container.emplace(
+        JavaToNativeString(env, static_java_ref_cast<jstring>(
+                                    env, GetJavaMapEntryKey(env, j_entry))),
+        JavaToNativeString(env, static_java_ref_cast<jstring>(
+                                    env, GetJavaMapEntryValue(env, j_entry))));
+  }
+}
+
+template <typename C>
+C JavaToStringToStringContainer(JNIEnv* env, const JavaRef<jobject>& j_map) {
+  C container;
+  JavaToStringToStringContainer(env, j_map, container);
+  return container;
+}
+
 // --------------------------------------------------------
 // -- Methods for converting native types to Java types. --
 // --------------------------------------------------------

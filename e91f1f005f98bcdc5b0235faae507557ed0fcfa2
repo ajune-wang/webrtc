@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b7746ad_069eed8c",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-05-21T09:15:51Z",
+      "side": 1,
+      "message": "I think this is potentially dangerous, as it will change anything in any git submodules we have too.\nI\u0027d rather see an approach like `git ls-tree -r --full-name --name-only HEAD .. | grep \"\\.\\(c\\|cc\\|cpp\\)$\"` to find the files.\n\nThen, this is going to run the fixes sequentially, and it\u0027s terrible on the machines that have so many cores like ours. A quick way to parallelize the commands would be to use: `xargs -n1 -P16 $CLEANER $INCLUDE_ARGS $COMMAND`. Finding the core count is a bit tricky to do cross-platform unfortunately.",
+      "revId": "e91f1f005f98bcdc5b0235faae507557ed0fcfa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cce17e97_d207578f",
         "filename": "tools_webrtc/iwyu/apply-include-cleaner",
         "patchSetId": 2
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "That\u0027s a good question. I don\u0027t know what compile commands clang-include-cleaner needs and whether there are any corner cases that prevent them from being generated. However, https://webrtc-review.googlesource.com/c/src/+/350923 fixes header files without any corresponding cc file, so it would have to be a more complicated corner case. (For example logged_rtp_rtcp.h doesn\u0027t have any corresponding logged_rtp_rtcp.cc file)\n\nThe comment refers to the case where foo.h contains `#include \"bar.h\"` and foo.cc uses `Bar`. If the header is processed first, `#include \"bar.h\"` will be removed, and then `Bar` will be an unrecognized symbol when running include cleaner on the cc file. Processing headers last reduce the risk of this happening.",
       "parentUuid": "cce17e97_d207578f",
+      "revId": "e91f1f005f98bcdc5b0235faae507557ed0fcfa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f15ecf75_da3a7897",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2024-05-21T09:15:51Z",
+      "side": 1,
+      "message": "It\u0027s an issue for headers including code in the `third_party` folder as those headers are often requiring special include paths. But for the majority of the code, we\u0027re relying on a relative path from the root of the project, which is the same include path for all files.",
+      "parentUuid": "a086469e_1725c204",
       "revId": "e91f1f005f98bcdc5b0235faae507557ed0fcfa2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

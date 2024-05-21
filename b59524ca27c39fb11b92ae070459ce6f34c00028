@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ff828a_abb47e13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-05-21T08:08:09Z",
+      "side": 1,
+      "message": "Asa, could you please re-stamp it? I\u0027ve uploaded unrelated changes in patch 2 (reverted in patch 3) and lost your 1+.",
+      "revId": "b59524ca27c39fb11b92ae070459ce6f34c00028",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

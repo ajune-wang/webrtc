@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cce17e97_d207578f",
+        "filename": "tools_webrtc/iwyu/apply-include-cleaner",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-21T06:11:51Z",
+      "side": 1,
+      "message": "Does this actually work for headers not associated with a .cc file?\nEarlier discussions (orphis) claimed that the tool was unable to find a relevant compile instructions for .h files without a corresponding .cc file.",
+      "revId": "e91f1f005f98bcdc5b0235faae507557ed0fcfa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

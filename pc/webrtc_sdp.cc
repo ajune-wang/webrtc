@@ -1871,7 +1871,7 @@ bool GetMinValue(const std::vector<int>& values, int* value) {
 bool GetParameter(const std::string& name,
                   const webrtc::CodecParameterMap& params,
                   int* value) {
-  std::map<std::string, std::string>::const_iterator found = params.find(name);
+  auto found = params.find(name);
   if (found == params.end()) {
     return false;
   }

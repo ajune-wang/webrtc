@@ -16,7 +16,7 @@ namespace webrtc {
 
 absl::optional<std::string> GetFormatParameter(const SdpAudioFormat& format,
                                                absl::string_view param) {
-  auto it = format.parameters.find(std::string(param));
+  auto it = format.parameters.find(param);
   if (it == format.parameters.end())
     return absl::nullopt;
 

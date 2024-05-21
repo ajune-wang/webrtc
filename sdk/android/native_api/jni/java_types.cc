@@ -167,14 +167,21 @@ std::string JavaToNativeString(JNIEnv* jni, const JavaRef<jstring>& j_string) {
 std::map<std::string, std::string> JavaToNativeStringMap(
     JNIEnv* jni,
     const JavaRef<jobject>& j_map) {
-  return JavaToNativeMap<std::string, std::string>(
-      jni, j_map,
-      [](JNIEnv* env, JavaRef<jobject> const& key,
-         JavaRef<jobject> const& value) {
-        return std::make_pair(
-            JavaToNativeString(env, static_java_ref_cast<jstring>(env, key)),
-            JavaToNativeString(env, static_java_ref_cast<jstring>(env, value)));
-      });
+  return JavaToStringToStringContainer<std::map<std::string, std::string>>(
+      jni, j_map);
+}
+
+void JavaAddNativeStringPairs(
+    JNIEnv* env,
+    const JavaRef<jobject>& j_map,
+    rtc::FunctionView<void(std::string key, std::string value)> append) {
+  for (const auto& j_entry : GetJavaMapEntrySet(env, j_map)) {
+    append(
+        JavaToNativeString(env, static_java_ref_cast<jstring>(
+                                    env, GetJavaMapEntryKey(env, j_entry))),
+        JavaToNativeString(env, static_java_ref_cast<jstring>(
+                                    env, GetJavaMapEntryValue(env, j_entry))));
+  }
 }
 
 ScopedJavaLocalRef<jobject> NativeToJavaBoolean(JNIEnv* env, bool b) {

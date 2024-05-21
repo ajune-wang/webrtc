@@ -26,6 +26,7 @@
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/function_view.h"
 #include "api/sequence_checker.h"
 #include "rtc_base/checks.h"
 #include "sdk/android/native_api/jni/scoped_java_ref.h"
@@ -183,6 +184,27 @@ std::map<Key, T> JavaToNativeMap(JNIEnv* env,
     container.emplace(convert(env, GetJavaMapEntryKey(env, j_entry),
                               GetJavaMapEntryValue(env, j_entry)));
   }
+  return container;
+}
+
+void JavaAddNativeStringPairs(
+    JNIEnv* env,
+    const JavaRef<jobject>& j_map,
+    rtc::FunctionView<void(std::string key, std::string value)> append);
+
+template <typename C>
+void JavaToStringToStringContainer(JNIEnv* env,
+                                   const JavaRef<jobject>& j_map,
+                                   C& container) {
+  JavaAddNativeStringPairs(env, j_map, [&](std::string key, std::string value) {
+    container.emplace(key, value);
+  });
+}
+
+template <typename C>
+C JavaToStringToStringContainer(JNIEnv* env, const JavaRef<jobject>& j_map) {
+  C container;
+  JavaToStringToStringContainer(env, j_map, container);
   return container;
 }
 

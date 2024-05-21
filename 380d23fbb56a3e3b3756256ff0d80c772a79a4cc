@@ -16,6 +16,115 @@
       "message": "Please?",
       "revId": "380d23fbb56a3e3b3756256ff0d80c772a79a4cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4029f3f_8a73323d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-05-21T15:14:50Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "380d23fbb56a3e3b3756256ff0d80c772a79a4cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58d247cb_7a496991",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-05-21T15:14:50Z",
+      "side": 1,
+      "message": "nit: add a `using ::testing::SizeIs;` above",
+      "range": {
+        "startLine": 281,
+        "startChar": 52,
+        "endLine": 281,
+        "endChar": 61
+      },
+      "revId": "380d23fbb56a3e3b3756256ff0d80c772a79a4cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12417a0_6f78964d",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-05-21T15:14:50Z",
+      "side": 1,
+      "message": "nit: using",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 297,
+        "endChar": 11
+      },
+      "revId": "380d23fbb56a3e3b3756256ff0d80c772a79a4cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7ee3a73_3272bff2",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-05-21T15:14:50Z",
+      "side": 1,
+      "message": "nit: couldn\u0027t this be\n```\nEXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), Field(\u0026MediaStreamAllocationConfig::max_bitrate_bps, Eq(one_active_encoding.max_bitrate_bps)))\n```\n\n...and similar below?",
+      "range": {
+        "startLine": 300,
+        "startChar": 2,
+        "endLine": 300,
+        "endChar": 65
+      },
+      "revId": "380d23fbb56a3e3b3756256ff0d80c772a79a4cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa0a55ba_f34eb695",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-05-21T15:14:50Z",
+      "side": 1,
+      "message": "nit: .Times(1) is implicit right?",
+      "range": {
+        "startLine": 332,
+        "startChar": 6,
+        "endLine": 332,
+        "endChar": 15
+      },
+      "revId": "380d23fbb56a3e3b3756256ff0d80c772a79a4cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

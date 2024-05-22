@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3865184e_7f9c190c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-22T00:00:16Z",
+      "side": 1,
+      "message": "Basically the important change is in pc/jsep_transport_controller.cc, the rest is just... away with this API :-)",
+      "revId": "30b9451ba58f4164f5bed5df2cdcd3fcfcab305e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34afde0_b29b0921",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1812,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-22T00:00:16Z",
+      "side": 1,
+      "message": "this is basically TestSignalRoleConflict which was only used once.\nIt gets a bit more tricky since the tiebreaker is no longer controllable but should be equivalent.",
+      "revId": "30b9451ba58f4164f5bed5df2cdcd3fcfcab305e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

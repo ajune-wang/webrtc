@@ -13,6 +13,7 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -126,8 +127,10 @@ class NetEqImpl : public webrtc::NetEq {
   NetEqImpl& operator=(const NetEqImpl&) = delete;
 
   // Inserts a new packet into NetEq. Returns 0 on success, -1 on failure.
-  int InsertPacket(const RTPHeader& rtp_header,
-                   rtc::ArrayView<const uint8_t> payload) override;
+  int InsertPacket(
+      const RTPHeader& rtp_header,
+      rtc::ArrayView<const uint8_t> payload,
+      std::optional<Timestamp> receive_time = std::nullopt) override;
 
   void InsertEmptyPacket(const RTPHeader& rtp_header) override;
 
@@ -204,7 +207,8 @@ class NetEqImpl : public webrtc::NetEq {
   // above. Returns 0 on success, otherwise an error code.
   // TODO(hlundin): Merge this with InsertPacket above?
   int InsertPacketInternal(const RTPHeader& rtp_header,
-                           rtc::ArrayView<const uint8_t> payload)
+                           rtc::ArrayView<const uint8_t> payload,
+                           std::optional<Timestamp> receive_time)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   // Returns true if the payload type changed (this should be followed by

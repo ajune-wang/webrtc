@@ -193,11 +193,12 @@ NetEqImpl::NetEqImpl(const NetEq::Config& config,
 NetEqImpl::~NetEqImpl() = default;
 
 int NetEqImpl::InsertPacket(const RTPHeader& rtp_header,
-                            rtc::ArrayView<const uint8_t> payload) {
+                            rtc::ArrayView<const uint8_t> payload,
+                            std::optional<Timestamp> receive_time) {
   rtc::MsanCheckInitialized(payload);
   TRACE_EVENT0("webrtc", "NetEqImpl::InsertPacket");
   MutexLock lock(&mutex_);
-  if (InsertPacketInternal(rtp_header, payload) != 0) {
+  if (InsertPacketInternal(rtp_header, payload, receive_time) != 0) {
     return kFail;
   }
   return kOK;
@@ -464,13 +465,16 @@ NetEq::Operation NetEqImpl::last_operation_for_test() const {
 // Methods below this line are private.
 
 int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
-                                    rtc::ArrayView<const uint8_t> payload) {
+                                    rtc::ArrayView<const uint8_t> payload,
+                                    std::optional<Timestamp> receive_time) {
   if (payload.empty()) {
     RTC_LOG_F(LS_ERROR) << "payload is empty";
     return kInvalidPointer;
   }
 
-  Timestamp receive_time = clock_->CurrentTime();
+  if (!receive_time.has_value()) {
+    receive_time = clock_->CurrentTime();
+  }
   stats_->ReceivedPacket();
 
   PacketList packet_list;
@@ -608,7 +612,7 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
         new_packet.priority.red_level = original_priority.red_level;
         // Only associate the header information with the primary packet.
         if (new_packet.timestamp == rtp_header.timestamp) {
-          new_packet.packet_info = RtpPacketInfo(rtp_header, receive_time);
+          new_packet.packet_info = RtpPacketInfo(rtp_header, *receive_time);
         }
         new_packet.frame = std::move(result.frame);
         return new_packet;

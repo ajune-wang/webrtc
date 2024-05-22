@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "079ade87_4be40d8b",
+        "filename": "modules/remote_bitrate_estimator/feedback_generator_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-22T13:33:27Z",
+      "side": 1,
+      "message": "sure,",
+      "parentUuid": "5da7c59c_35ad59d8",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a64072bc_3b8d6056",
@@ -71,6 +95,24 @@
       "writtenOn": "2024-05-22T12:07:31Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#Function_Comments\n\n“When documenting function overrides, focus on the specifics of the override itself, rather than repeating the comment from the overridden function. In many of these cases, the override needs no additional documentation and thus no comment is required.”",
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d66696eb_8e5d6374",
+        "filename": "modules/remote_bitrate_estimator/transport_sequence_number_feedback_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-22T13:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85d64831_e1252b5e",
       "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

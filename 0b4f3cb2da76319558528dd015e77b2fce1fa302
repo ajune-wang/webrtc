@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3067be97_ca6d4569",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21076
+      },
+      "writtenOn": "2024-05-22T22:11:05Z",
+      "side": 1,
+      "message": "DestroyStoredEncoders() will be called in https://chromium-review.googlesource.com/c/chromium/src/+/5561087/1/third_party/blink/renderer/platform/peerconnection/instrumented_simulcast_adapter.cc#90.",
+      "revId": "0b4f3cb2da76319558528dd015e77b2fce1fa302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

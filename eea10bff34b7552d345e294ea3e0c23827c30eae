@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f511b5_8d5515d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-05-22T08:28:30Z",
+      "side": 1,
+      "message": "Ilya, what do you think of removing this experiment?\nOr is there any reason to keep it?",
+      "revId": "eea10bff34b7552d345e294ea3e0c23827c30eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

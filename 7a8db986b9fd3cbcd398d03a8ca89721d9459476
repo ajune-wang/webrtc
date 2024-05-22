@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef1c527_82c1c99a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-22T12:07:31Z",
+      "side": 1,
+      "message": "I think it would be really helpful longer term to pick a different name for the new interface.\n\n(new class name for the concrete type lgtm - that one clearly describe what Feedback it is about)",
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5da7c59c_35ad59d8",
+        "filename": "modules/remote_bitrate_estimator/feedback_generator_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-22T12:07:31Z",
+      "side": 1,
+      "message": "I\u0027m worried that out of the context the name is too generic: Feedback might be about anything. Generic name like this increases chance of name collision with something else in webrtc namespace.\n\nMay be\n`RtpTransportFeedbackGenerator` or something else that clarify what `Feedback` this about.\n\n(side note `Interface` suffix is allowed for pure virtual class but is not required)",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64072bc_3b8d6056",
+        "filename": "modules/remote_bitrate_estimator/feedback_generator_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-22T12:07:31Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\n“A blank line before a comment line usually helps readability”",
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d64831_e1252b5e",
+        "filename": "modules/remote_bitrate_estimator/transport_sequence_number_feedback_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-22T12:07:31Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Function_Comments\n\n“When documenting function overrides, focus on the specifics of the override itself, rather than repeating the comment from the overridden function. In many of these cases, the override needs no additional documentation and thus no comment is required.”",
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca1c2b7_5f15170e",
+        "filename": "modules/remote_bitrate_estimator/transport_sequence_number_feedback_generator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-22T12:07:31Z",
+      "side": 1,
+      "message": "Here generic name `feedback_generator_` is fine as it is a local name,\ncontext clearly describe what kind feedback it is about.",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "7a8db986b9fd3cbcd398d03a8ca89721d9459476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

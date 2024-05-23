@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26eacfc4_5744c7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-23T17:42:20Z",
+      "side": 1,
+      "message": "Now \"helpers\" is more like a \"cryptographic random\" thing (we have a non-crypto random target too!)",
+      "revId": "75f4f5f148de61d64349be7a74863c9315bd7c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

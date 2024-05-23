@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb6b6dfb_608f6bbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-23T21:57:45Z",
+      "side": 1,
+      "message": "I wonder why this was a TSAN flake... the race is between\n  webrtc::JsepCandidateCollection::count()\nwhich gets called from SdpSerialize via GetCandidatesByMindex\nand\n  SdpOfferAnswerHandler::AddLocalIceCandidate\n(i.e. candidate gathering) since one thread tries to count the candidates and put them into the SDP while another thread gathers a candidate?\n\nIt seems extra flaky in this test which is good because we have a repro?",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

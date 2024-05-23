@@ -16,6 +16,24 @@
       "message": "Hi Alex, can we request this to be backported to M126? I just noticed we missed the deadline with this change by a day or two. We have now Fedora 40 released with KDE Plasma 6 and people will end up with broken screen sharing.",
       "revId": "cfbd6b0884db2eab893831e7bde5cfe640fe52db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07ea49c_e674a889",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-05-23T21:16:15Z",
+      "side": 1,
+      "message": "Merged to 126 with https://webrtc-review.googlesource.com/c/src/+/349881 (and via https://issues.chromium.org/issues/341928670)",
+      "parentUuid": "ed9f2296_299256e7",
+      "revId": "cfbd6b0884db2eab893831e7bde5cfe640fe52db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

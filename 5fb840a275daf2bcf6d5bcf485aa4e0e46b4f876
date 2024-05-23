@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "725bd74e_9c53e293",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-23T13:04:46Z",
+      "side": 1,
+      "message": "Such a cute little CL - approved!",
+      "revId": "5fb840a275daf2bcf6d5bcf485aa4e0e46b4f876",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

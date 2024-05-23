@@ -16,6 +16,40 @@
       "message": "I wonder why this was a TSAN flake... the race is between\n  webrtc::JsepCandidateCollection::count()\nwhich gets called from SdpSerialize via GetCandidatesByMindex\nand\n  SdpOfferAnswerHandler::AddLocalIceCandidate\n(i.e. candidate gathering) since one thread tries to count the candidates and put them into the SDP while another thread gathers a candidate?\n\nIt seems extra flaky in this test which is good because we have a repro?",
       "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2188e9ce_0217f6a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-23T22:22:28Z",
+      "side": 1,
+      "message": "Deflaking is good, but root-causing would make me even happier.",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a75b26_2966d193",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-23T22:22:28Z",
+      "side": 1,
+      "message": "The difference is that on this line, offer (which is referenced by a std::unique_ptr was being destructed. Now it\u0027s kept alive until the end of the test.\nThis indicates that there are multiple pointers to the object, which is a Bad Thing (ownership contract is not preserved). Are we just repairing a symptom here?",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aed638ea_3105c65a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-23T22:54:41Z",
+      "side": 1,
+      "message": "it is threading so Tommi might be interested :-)",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a75b26_2966d193",
@@ -48,6 +65,24 @@
       "writtenOn": "2024-05-23T22:22:28Z",
       "side": 1,
       "message": "The difference is that on this line, offer (which is referenced by a std::unique_ptr was being destructed. Now it\u0027s kept alive until the end of the test.\nThis indicates that there are multiple pointers to the object, which is a Bad Thing (ownership contract is not preserved). Are we just repairing a symptom here?",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50951d04_1dc5816f",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-23T22:54:41Z",
+      "side": 1,
+      "message": "I agree this is just fixing a symptom of what issue... previously \"offer\" was kept alive by the remote description but it would have been the SDP deserialized offer which should not get any new candidates added to it. So the race was ToString() and candidates being gathered but the argument to ToString should have been a clone already?!",
+      "parentUuid": "79a75b26_2966d193",
       "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

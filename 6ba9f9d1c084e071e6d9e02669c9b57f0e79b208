@@ -85,6 +85,24 @@
       "parentUuid": "79a75b26_2966d193",
       "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53303cad_56333e7a",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-24T09:21:15Z",
+      "side": 1,
+      "message": "It is a clone (I checked). But the clone operation is quite a lot deeper than is comfortable (copy and assign are defaulted at the first level, depending on copy/assign being overridden at deeper levels to do proper deep-copy).\n\nSo at some level down there, there\u0027s a memory release of something that is shared between copies where it shouldn\u0027t have been. The TSAN run should be a possible way to pinpoint exactly what.",
+      "parentUuid": "50951d04_1dc5816f",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

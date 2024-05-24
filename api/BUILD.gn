@@ -342,6 +342,7 @@ rtc_library("libjingle_peerconnection_api") {
     "../pc:media_factory",
     "../rtc_base:copy_on_write_buffer",
     "../rtc_base:logging",
+    "../rtc_base:macromagic",
     "../rtc_base:network",
     "../rtc_base:network_constants",
     "../rtc_base:rtc_certificate_generator",

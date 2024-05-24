@@ -22,7 +22,9 @@
 
 #include "api/candidate.h"
 #include "api/jsep.h"
+#include "api/sequence_checker.h"
 #include "rtc_base/system/rtc_export.h"
+#include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 
@@ -82,7 +84,9 @@ class JsepCandidateCollection : public IceCandidateCollection {
   size_t remove(const cricket::Candidate& candidate);
 
  private:
-  std::vector<std::unique_ptr<JsepIceCandidate>> candidates_;
+  const SequenceChecker thread_checker_{SequenceChecker::kDetached};
+  std::vector<std::unique_ptr<JsepIceCandidate>> candidates_
+      RTC_GUARDED_BY(thread_checker_);
 };
 
 }  // namespace webrtc

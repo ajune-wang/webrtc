@@ -40,19 +40,23 @@ JsepCandidateCollection::JsepCandidateCollection(JsepCandidateCollection&& o)
     : candidates_(std::move(o.candidates_)) {}
 
 size_t JsepCandidateCollection::count() const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   return candidates_.size();
 }
 
 void JsepCandidateCollection::add(JsepIceCandidate* candidate) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   candidates_.push_back(absl::WrapUnique(candidate));
 }
 
 const IceCandidateInterface* JsepCandidateCollection::at(size_t index) const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   return candidates_[index].get();
 }
 
 bool JsepCandidateCollection::HasCandidate(
     const IceCandidateInterface* candidate) const {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   return absl::c_any_of(
       candidates_, [&](const std::unique_ptr<JsepIceCandidate>& entry) {
         return entry->sdp_mid() == candidate->sdp_mid() &&
@@ -62,6 +66,7 @@ bool JsepCandidateCollection::HasCandidate(
 }
 
 size_t JsepCandidateCollection::remove(const cricket::Candidate& candidate) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   auto iter = absl::c_find_if(
       candidates_, [&](const std::unique_ptr<JsepIceCandidate>& c) {
         return candidate.MatchesForRemoval(c->candidate());

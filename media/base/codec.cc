@@ -548,4 +548,14 @@ Codec CreateVideoCodec(const webrtc::SdpVideoFormat& c) {
   return Codec(c);
 }
 
+Codec ConvertCodecDescription(webrtc::RtpCodec codec) {
+  if (codec.kind == MEDIA_TYPE_AUDIO) {
+    return CreateAudioCodec(
+        webrtc::SdpAudioFormat(codec.name, codec.clock_rate.value(),
+                               codec.num_channels.value(), codec.parameters));
+  }
+  RTC_CHECK(codec.kind == MEDIA_TYPE_VIDEO);
+  return CreateVideoCodec(webrtc::SdpVideoFormat(codec.name, codec.parameters));
+}
+
 }  // namespace cricket

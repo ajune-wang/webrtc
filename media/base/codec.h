@@ -241,6 +241,8 @@ std::vector<const Codec*> FindAllMatchingCodecs(
 RTC_EXPORT void AddH264ConstrainedBaselineProfileToSupportedFormats(
     std::vector<webrtc::SdpVideoFormat>* supported_formats);
 
+Codec ConvertCodecDescription(webrtc::RtpCodec codec);
+
 }  // namespace cricket
 
 #endif  // MEDIA_BASE_CODEC_H_

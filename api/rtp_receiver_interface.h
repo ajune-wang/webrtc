@@ -125,6 +125,7 @@ class RTC_EXPORT RtpReceiverInterface : public webrtc::RefCountInterface,
   // TODO: bugs.webrtc.org/15929 - Make pure virtual.
   void SetFrameTransformer(
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) override;
+  void AddIncomingMediaType(RtpCodec codec) override { RTC_CHECK_NOTREACHED(); }
 
  protected:
   ~RtpReceiverInterface() override = default;

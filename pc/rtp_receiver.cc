@@ -22,6 +22,11 @@
 
 namespace webrtc {
 
+void RtpReceiverInternal::AddIncomingMediaType(RtpCodec codec) {
+  cricket::Codec internal_codec = cricket::ConvertCodecDescription(codec);
+  enabled_codecs_.push_back(internal_codec);
+}
+
 // This function is only expected to be called on the signalling thread.
 // On the other hand, some test or even production setups may use
 // several signaling threads.

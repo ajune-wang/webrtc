@@ -41,6 +41,13 @@ namespace webrtc {
 // Internal class used by PeerConnection.
 class RtpReceiverInternal : public RtpReceiverInterface {
  public:
+  virtual ~RtpReceiverInternal() = default;
+  // Implementation of RtpReceiverInterface functions that do not need
+  // to be separated on media type.
+  void AddIncomingMediaType(RtpCodec codec) override;
+
+  // Functions only available internally.
+
   // Call on the signaling thread, to let the receiver know that the the
   // embedded source object should enter a stopped/ended state and the track's
   // state set to `kEnded`, a final state that cannot be reversed.
@@ -89,11 +96,24 @@ class RtpReceiverInternal : public RtpReceiverInterface {
   // The special value zero means that no track is attached.
   virtual int AttachmentId() const = 0;
 
+  void SetEnabledCodecs(const std::vector<cricket::Codec>& codecs) {
+    enabled_codecs_ = codecs;
+  }
+  std::vector<cricket::Codec> EnabledCodecs() { return enabled_codecs_; }
+  std::vector<cricket::Codec> NegotiatedCodecsForTesting() {
+    return negotiated_codecs_;
+  }
+
  protected:
   static int GenerateUniqueId();
 
   static std::vector<rtc::scoped_refptr<MediaStreamInterface>>
   CreateStreamsFromIds(std::vector<std::string> stream_ids);
+
+  // All the enabled codecs from the spec's virtual [[ReceiveCodecs]]
+  std::vector<cricket::Codec> enabled_codecs_;
+  // All the codecs that have been negotiated and accepted in the last O/A
+  std::vector<cricket::Codec> negotiated_codecs_;
 };
 
 }  // namespace webrtc

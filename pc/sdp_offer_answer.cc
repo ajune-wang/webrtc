@@ -714,6 +714,15 @@ void AddPlanBRtpSenderOptions(
   }
 }
 
+void AppendNewCodecsFrom(const std::vector<cricket::Codec> new_codecs,
+                         std::vector<cricket::Codec>& old_codecs) {
+  for (auto& codec : new_codecs) {
+    if (FindAllMatchingCodecs(old_codecs, codec).empty()) {
+      old_codecs.push_back(codec);
+    }
+  }
+}
+
 cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
     RtpTransceiver* transceiver,
     const std::string& mid,
@@ -773,6 +782,33 @@ cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
   // simulcast, or simulcast is acheived by munging the SDP.
   sender_options.num_sim_layers = has_rids ? 0 : 1;
   media_description_options.sender_options.push_back(sender_options);
+
+  // TODO/FIXME: Finish codec decision logic.
+  // Decision logic on codecs:
+  // We start by using the preferred codecs (if present), and then add
+  // the rest of the codecs.
+  // If negotiated_codecs is set on either sender or receiver, merge in those
+  // two sets.
+  // If they're not set (new transceiver), merge their enabled_codecs.
+  // Skip sender if direction is recvonly, skip receiver if direction is
+  // sendonly.
+  std::vector<RtpCodecCapability> codec_prefs =
+      transceiver->codec_preferences();
+  for (auto& codec : codec_prefs) {
+    media_description_options.codecs_to_include.push_back(
+        cricket::ConvertCodecDescription(codec));
+  }
+  if (transceiver->direction() == RtpTransceiverDirection::kSendRecv ||
+      transceiver->direction() == RtpTransceiverDirection::kSendOnly) {
+    // TODO/FIXME: Enable when code added to sender
+    // AppendNewCodecsFrom(transceiver->sender_internal()->EnabledCodecs(),
+    //                    media_description_options.codecs_to_include);
+  }
+  if (transceiver->direction() == RtpTransceiverDirection::kSendRecv ||
+      transceiver->direction() == RtpTransceiverDirection::kRecvOnly) {
+    AppendNewCodecsFrom(transceiver->receiver_internal()->EnabledCodecs(),
+                        media_description_options.codecs_to_include);
+  }
 
   return media_description_options;
 }

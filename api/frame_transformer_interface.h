@@ -15,6 +15,7 @@
 #include <string>
 
 #include "api/ref_count.h"
+#include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/video/encoded_frame.h"
 #include "api/video/video_frame_metadata.h"
@@ -146,9 +147,13 @@ class FrameTransformerHost {
   virtual ~FrameTransformerHost() {}
   virtual void SetFrameTransformer(
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) = 0;
+  virtual void AddIncomingMediaType(RtpCodec codec) {
+    // TODO: bugs.webrtc.org/15929 - remove default implementation and make
+    // pure virtual
+    RTC_CHECK_NOTREACHED();
+  }
   // TODO: bugs.webrtc.org/15929 - To be added:
-  // virtual AddIncomingMediaType(RtpCodec codec) = 0;
-  // virtual AddOutgoingMediaType(RtpCodec codec) = 0;
+  // virtual void AddOutgoingMediaType(RtpCodec codec) = 0;
 };
 
 //------------------------------------------------------------------------------

@@ -1948,4 +1948,15 @@ INSTANTIATE_TEST_SUITE_P(
     RtpSenderReceiverTest,
     ::testing::ValuesIn(kDisableSimulcastLayersParameters));
 
+TEST_F(RtpSenderReceiverTest, AddCodecToReceiver) {
+  CreateVideoRtpReceiver();
+  RtpCodec codec;
+  codec.kind = cricket::MEDIA_TYPE_VIDEO;
+  codec.name = "custom-codec";
+  size_t enabled_size = video_rtp_receiver_->EnabledCodecs().size();
+  video_rtp_receiver_->AddIncomingMediaType(codec);
+  EXPECT_EQ(video_rtp_receiver_->EnabledCodecs().size(), enabled_size + 1);
+  DestroyVideoRtpReceiver();
+}
+
 }  // namespace webrtc

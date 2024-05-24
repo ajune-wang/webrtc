@@ -150,6 +150,10 @@ RtpTransceiver::RtpTransceiver(
           : media_engine()->voice().send_codecs());
   senders_.push_back(sender);
   receivers_.push_back(receiver);
+  receiver->internal()->SetEnabledCodecs(
+      receiver->media_type() == cricket::MEDIA_TYPE_VIDEO
+          ? media_engine()->video().recv_codecs()
+          : media_engine()->voice().recv_codecs());
 
   // Set default header extensions depending on whether simulcast/SVC is used.
   RtpParameters parameters = sender->internal()->GetParametersInternal();

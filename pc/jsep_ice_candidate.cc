@@ -54,6 +54,8 @@ JsepIceCandidate::~JsepIceCandidate() {}
 
 JsepCandidateCollection JsepCandidateCollection::Clone() const {
   JsepCandidateCollection new_collection;
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK_RUN_ON(&new_collection.thread_checker_);
   for (const auto& candidate : candidates_) {
     new_collection.candidates_.push_back(std::make_unique<JsepIceCandidate>(
         candidate->sdp_mid(), candidate->sdp_mline_index(),

@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f66c897_09480abf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-24T15:44:02Z",
+      "side": 1,
+      "message": "Filed https://issues.webrtc.org/342607573 as an example of the failure.",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a75b26_2966d193",

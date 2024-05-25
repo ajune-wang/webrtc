@@ -137,7 +137,9 @@ TEST(AudioUtilTest, InterleavingStereo) {
   ExpectArraysEq(kRefRight, right, kSamplesPerChannel);
 
   int16_t interleaved[kLength];
-  Interleave(deinterleaved, kSamplesPerChannel, kNumChannels, interleaved);
+  InterleavedView<int16_t> view(&interleaved[0], kSamplesPerChannel,
+                                kNumChannels);
+  Interleave(deinterleaved, kSamplesPerChannel, kNumChannels, view);
   ExpectArraysEq(kInterleaved, interleaved, kLength);
 }
 
@@ -151,7 +153,9 @@ TEST(AudioUtilTest, InterleavingMonoIsIdentical) {
   ExpectArraysEq(kInterleaved, mono, kSamplesPerChannel);
 
   int16_t interleaved[kSamplesPerChannel];
-  Interleave(deinterleaved, kSamplesPerChannel, kNumChannels, interleaved);
+  InterleavedView<int16_t> view(&interleaved[0], kSamplesPerChannel,
+                                kNumChannels);
+  Interleave(deinterleaved, kSamplesPerChannel, kNumChannels, view);
   ExpectArraysEq(mono, interleaved, kSamplesPerChannel);
 }
 

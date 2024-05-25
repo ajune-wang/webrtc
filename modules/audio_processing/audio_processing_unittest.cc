@@ -2060,16 +2060,20 @@ class AudioProcessingTest
           StreamConfig(output_rate, num_output_channels), out_cb.channels()));
 
       // Dump forward output to file.
+      InterleavedView<float> interleaved_dst(
+          float_data.get(), out_cb.num_frames(), out_cb.num_channels());
       Interleave(out_cb.channels(), out_cb.num_frames(), out_cb.num_channels(),
-                 float_data.get());
+                 interleaved_dst);
       size_t out_length = out_cb.num_channels() * out_cb.num_frames();
 
       ASSERT_EQ(out_length, fwrite(float_data.get(), sizeof(float_data[0]),
                                    out_length, out_file));
 
       // Dump reverse output to file.
+      interleaved_dst = InterleavedView<float>(
+          float_data.get(), rev_out_cb.num_frames(), rev_out_cb.num_channels());
       Interleave(rev_out_cb.channels(), rev_out_cb.num_frames(),
-                 rev_out_cb.num_channels(), float_data.get());
+                 rev_out_cb.num_channels(), interleaved_dst);
       size_t rev_out_length =
           rev_out_cb.num_channels() * rev_out_cb.num_frames();
 

@@ -18,6 +18,7 @@
 #include <cstring>
 #include <limits>
 
+#include "api/audio/audio_view.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -135,7 +136,9 @@ template <typename T>
 void Interleave(const T* const* deinterleaved,
                 size_t samples_per_channel,
                 size_t num_channels,
-                T* interleaved) {
+                InterleavedView<T>& interleaved) {
+  RTC_DCHECK_EQ(NumChannels(interleaved), num_channels);
+  RTC_DCHECK_EQ(SamplesPerChannel(interleaved), samples_per_channel);
   for (size_t i = 0; i < num_channels; ++i) {
     const T* channel = deinterleaved[i];
     size_t interleaved_idx = i;

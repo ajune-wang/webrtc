@@ -16,6 +16,24 @@
       "message": "This test appears to either have introduced a race or uncovered an existing one. Can you take a look?\n\nhttps://issues.webrtc.org/issues/342671886",
       "revId": "bad99ab253f62b2a26d55d2ff75bc8ecf8ad46cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87592f3e_c7f5505e",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-25T19:13:28Z",
+      "side": 1,
+      "message": "uncovered I would say, see\n  https://webrtc-review.googlesource.com/c/src/+/351565\nfor the test fix and hta@ is taking a stab at the actual fix.",
+      "parentUuid": "9e40d8c1_d12abddb",
+      "revId": "bad99ab253f62b2a26d55d2ff75bc8ecf8ad46cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

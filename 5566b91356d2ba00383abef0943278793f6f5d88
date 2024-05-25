@@ -16,6 +16,24 @@
       "message": "Could this CL have caused the TestExtendedReportsCanSignalZeroTargetBitrate test to become more flaky?\n\nhttps://ci.chromium.org/ui/p/webrtc/builders/ci/Mac64%20Debug/32351/overview",
       "revId": "5566b91356d2ba00383abef0943278793f6f5d88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2cb9247_7a45727f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-05-25T09:33:32Z",
+      "side": 1,
+      "message": "luci analysis doesn\u0027t show an increase in flakiness after this CL was submitted:\nhttps://luci-analysis.appspot.com/p/webrtc/clusters/testname-v4/82d0b764552f0811b37cc651c0962399?historyTimeRange\u003d30d\u0026annotated\u003dfalse\u0026selectedMetrics\u003dtest-runs-failed%2Cfailures\n\nNote that the test is only flaky on Mac OS.",
+      "parentUuid": "fca2d56c_8059094d",
+      "revId": "5566b91356d2ba00383abef0943278793f6f5d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

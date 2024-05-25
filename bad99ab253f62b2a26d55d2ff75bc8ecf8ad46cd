@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e40d8c1_d12abddb",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-25T07:44:30Z",
+      "side": 1,
+      "message": "This test appears to either have introduced a race or uncovered an existing one. Can you take a look?\n\nhttps://issues.webrtc.org/issues/342671886",
+      "revId": "bad99ab253f62b2a26d55d2ff75bc8ecf8ad46cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

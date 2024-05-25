@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fca2d56c_8059094d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-25T07:47:41Z",
+      "side": 1,
+      "message": "Could this CL have caused the TestExtendedReportsCanSignalZeroTargetBitrate test to become more flaky?\n\nhttps://ci.chromium.org/ui/p/webrtc/builders/ci/Mac64%20Debug/32351/overview",
+      "revId": "5566b91356d2ba00383abef0943278793f6f5d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

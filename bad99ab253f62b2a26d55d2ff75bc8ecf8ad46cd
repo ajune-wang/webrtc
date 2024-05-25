@@ -34,6 +34,24 @@
       "parentUuid": "9e40d8c1_d12abddb",
       "revId": "bad99ab253f62b2a26d55d2ff75bc8ecf8ad46cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c9d6e18_380b10ab",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-25T20:30:22Z",
+      "side": 1,
+      "message": "https://webrtc-review.googlesource.com/c/src/+/351663 is the CL that shows what the problem is (multi-threaded usage of a map, probably from destruction of a referring object).",
+      "parentUuid": "87592f3e_c7f5505e",
+      "revId": "bad99ab253f62b2a26d55d2ff75bc8ecf8ad46cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

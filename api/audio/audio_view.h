@@ -248,6 +248,17 @@ void CopySamples(D& destination, const S& source) {
          source.size() * sizeof(typename S::value_type));
 }
 
+template <typename T>
+void ClearSamples(T& view) {
+  memset(&view[0], 0, view.size() * sizeof(typename T::value_type));
+}
+
+template <typename T>
+void ClearSamples(T& view, size_t sample_count) {
+  RTC_DCHECK_LE(sample_count, view.size());
+  memset(&view[0], 0, sample_count * sizeof(typename T::value_type));
+}
+
 }  // namespace webrtc
 
 #endif  // API_AUDIO_AUDIO_VIEW_H_

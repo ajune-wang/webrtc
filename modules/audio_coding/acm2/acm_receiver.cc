@@ -206,6 +206,7 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
   }
 
   // Store current audio in `last_audio_buffer_` for next time.
+  // TODO: b/335805780 - Use CopySamples().
   memcpy(last_audio_buffer_.get(), audio_frame->data(),
          sizeof(int16_t) * audio_frame->samples_per_channel_ *
              audio_frame->num_channels_);

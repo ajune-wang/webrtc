@@ -22,6 +22,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/string_utils.h"
 #include "rtc_base/win32.h"
+#include "ui/display/win/screen_win.h"
 
 namespace webrtc {
 
@@ -52,7 +53,18 @@ bool GetScreenList(DesktopCapturer::SourceList* screens,
       continue;
     }
 
-    screens->push_back({device_index, std::string()});
+    int64_t display_id = kInvalidDisplayId;
+    HMONITOR hmonitor;
+    if (GetHmonitorFromDeviceIndex(device_index, &hmonitor)) {
+      MONITORINFOEX info = {};
+      info.cbSize = sizeof(info);
+      GetMonitorInfo(hmonitor, &info);
+      // TODO: Resolve //ui/display dependency, share or re-implement logic.
+      display_id = display::win::ScreenWin::DisplayIdFromMonitorInfo(info);
+    }
+    screens->push_back(
+        {.id = device_index, .title = std::string(), .display_id = display_id});
+
     if (device_names) {
       device_names->push_back(rtc::ToUtf8(device.DeviceName));
     }

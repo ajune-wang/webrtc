@@ -127,17 +127,22 @@ TEST(AudioUtilTest, InterleavingStereo) {
   const int16_t kInterleaved[] = {2, 3, 4, 9, 8, 27, 16, 81};
   const size_t kSamplesPerChannel = 4;
   const int kNumChannels = 2;
-  const size_t kLength = kSamplesPerChannel * kNumChannels;
-  int16_t left[kSamplesPerChannel], right[kSamplesPerChannel];
-  int16_t* deinterleaved[] = {left, right};
-  Deinterleave(kInterleaved, kSamplesPerChannel, kNumChannels, deinterleaved);
+  constexpr const size_t kLength = kSamplesPerChannel * kNumChannels;
+  int16_t deinterleaved[kLength] = {};
+  int16_t* left = &deinterleaved[0];
+  int16_t* right = &deinterleaved[kSamplesPerChannel];
+  int16_t* deinterleaved_pointers[] = {left, right};
+  Deinterleave(kInterleaved, kSamplesPerChannel, kNumChannels,
+               deinterleaved_pointers);
   const int16_t kRefLeft[] = {2, 4, 8, 16};
   const int16_t kRefRight[] = {3, 9, 27, 81};
   ExpectArraysEq(kRefLeft, left, kSamplesPerChannel);
   ExpectArraysEq(kRefRight, right, kSamplesPerChannel);
 
   int16_t interleaved[kLength];
-  Interleave(deinterleaved, kSamplesPerChannel, kNumChannels, interleaved);
+  InterleavedView<int16_t> view(&interleaved[0], kSamplesPerChannel,
+                                kNumChannels);
+  Interleave({&deinterleaved[0], kSamplesPerChannel, kNumChannels}, view);
   ExpectArraysEq(kInterleaved, interleaved, kLength);
 }
 
@@ -146,12 +151,15 @@ TEST(AudioUtilTest, InterleavingMonoIsIdentical) {
   const size_t kSamplesPerChannel = 5;
   const int kNumChannels = 1;
   int16_t mono[kSamplesPerChannel];
-  int16_t* deinterleaved[] = {mono};
-  Deinterleave(kInterleaved, kSamplesPerChannel, kNumChannels, deinterleaved);
+  int16_t* deinterleaved_pointers[] = {mono};
+  Deinterleave(kInterleaved, kSamplesPerChannel, kNumChannels,
+               deinterleaved_pointers);
   ExpectArraysEq(kInterleaved, mono, kSamplesPerChannel);
 
   int16_t interleaved[kSamplesPerChannel];
-  Interleave(deinterleaved, kSamplesPerChannel, kNumChannels, interleaved);
+  InterleavedView<int16_t> view(&interleaved[0], kSamplesPerChannel,
+                                kNumChannels);
+  Interleave({&mono[0], kSamplesPerChannel, kNumChannels}, view);
   ExpectArraysEq(mono, interleaved, kSamplesPerChannel);
 }
 

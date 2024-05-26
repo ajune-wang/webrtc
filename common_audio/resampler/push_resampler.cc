@@ -109,9 +109,9 @@ int PushResampler<T>::Resample(InterleavedView<const T> src,
     channel_data_array_[ch] = channel_resamplers_[ch].destination.data();
   }
 
-  // TODO: b/335805780 - Interleave should accept InterleavedView<> as dst.
+  // TODO: b/335805780 - Interleave should accept DeInterleavedView<> as src.
   Interleave(channel_data_array_.data(), dst.samples_per_channel(),
-             num_channels_, &dst[0]);
+             num_channels_, dst);
   return static_cast<int>(dst.size());
 }
 

@@ -16,6 +16,275 @@
       "message": "I think this is ready for more eyes. Please?",
       "revId": "882add930ca6a901529d6381921978c19bd2c882",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86294b0b_b2f54773",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "First pass\n(this is not a small CL: introduce new class, implements both non-trivial timing, and filling of the RTCP at the same time. Takes time to review)",
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b43e72_7ae8f862",
+        "filename": "modules/remote_bitrate_estimator/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "Prefer to put .cc/.h pair in its own build target (specially for new code)\n\n[I guess that would force you to move rtp_transport_feedback_generator.h into own small build target]",
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24f498a_ec3340e8",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "why not reuse CompactNtp from rtp_rtcp/source/time_util.h ?\ncircular dependency?\n\nMay be can be solved by moving rtcp/source/time_util into own small helper library.\n\n[side note. These days I would probably use simpler implementation:\n`return static_cast\u003cuint64_t\u003e(ntp) \u003e\u003e 16;` ]",
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "630857cb_d4640157",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "or skip `info` altogether:\n```\npackets_.push_back({.ssrc \u003d \n  ...\n  .ecn \u003d packet.ecn()});\n```",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9abc4d_503521b7",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "so when `packets_.empty()`, then TimeToSendFeedback() would always return non-zero,\nand then SendFeedback from OnReceivedPacket or Process would never ever send.\n\nThat doesn\u0027t look intended based on the name of the `min_time_between_feedback_` variable.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 3
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4eab350_9af085ea",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "can this be negative?\n(feels like it can).\n\nMay be result of the TimeToSendFeedback shouldn\u0027t be compared with zero for equality, but instead if `next_feedback \u003c\u003d TimeDelta::Zero()`\n\nAlternativly TimeToSendFeedback(now) may return a timestamp rather than delta, and callers would then compare result with the now, something like:\n\n```\nProcess(Timestamp now) {\n  Timestamp next_feedback \u003d NextTimeToSend(now);\n  if (next_feedback \u003e now) {\n      return next_feedback - now;\n  }\n  Send(now);\n  return time_to_next_process_;\n}\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 48
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76c20bfb_31917ce2",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "absl::c_sort(packets_, []lambda);",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 21
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09aed2b4_bc544242",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "personally prefer to use names \u0027lhs\u0027 and \u0027rhs\u0027 (left hand side/right hand size) in binary operators.",
+      "range": {
+        "startLine": 113,
+        "startChar": 33,
+        "endLine": 113,
+        "endChar": 34
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef2732e_ef50c7c8",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "Avoid \u0027used for\u0027 comments in the api.\nI think this line can be removed as next 3 do describe what this class is/what it is responsible for.",
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5536abf2_c3ed2e37",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "nit: const (same as rtcp_sender_ is const)",
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99606cd2_9b1e7a47",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "Can you please document somewhere, e.g., next to this test - why there is special treatment of the packets with marker bit.",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 50
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1c1c530_ac7e14cc",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "or\n```\nEXPECT_CALL(rtcp__sender, Call).WillOnce(WithoutArgs([\u0026] { \n  EXPECT_EQ(clock.CurrentTime(), expected_feedback_time);\n}));\n```",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc964028_cb30bf91",
+        "filename": "modules/remote_bitrate_estimator/congestion_control_feedback_generator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:50:16Z",
+      "side": 1,
+      "message": "May be provide that max 250ms (or another, non-default value) through field trials, to better describe where it come from:\n```\ntest::ExplicitKeyValueConfig field_trials(\"WebRTC-RFC8888/max_something\u003d250ms\");\nSimulatedClock clock(123456);\n... CreateEnvironment(\u0026field_trials, \u0026clock), ...\n```",
+      "range": {
+        "startLine": 210,
+        "startChar": 23,
+        "endLine": 210,
+        "endChar": 31
+      },
+      "revId": "882add930ca6a901529d6381921978c19bd2c882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

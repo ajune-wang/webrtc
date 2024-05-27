@@ -8,7 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <atomic>
+#include <utility>
+
 #include "api/stats/rtcstats_objects.h"
+#include "api/test/network_emulation/schedulable_network_node_builder.h"
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
@@ -16,6 +20,7 @@
 #include "modules/rtp_rtcp/source/rtp_util.h"
 #include "pc/media_session.h"
 #include "pc/test/mock_peer_connection_observers.h"
+#include "test/create_frame_generator_capturer.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/peer_scenario/peer_scenario.h"
@@ -47,6 +52,53 @@ DataRate GetAvailableSendBitrate(
     return DataRate::Zero();
   }
   return DataRate::BitsPerSec(*stats[0]->available_outgoing_bitrate);
+}
+
+TEST(BweRampupTest, BweRampUpWhenCapacityIncrease) {
+  PeerScenario s(*test_info_);
+
+  PeerScenarioClient* caller = s.CreateClient({});
+  PeerScenarioClient* callee = s.CreateClient({});
+
+  network_behaviour::NetworkConfigSchedule schedule;
+  auto initial_config = schedule.add_item();
+  initial_config->set_link_capacity_kbps(500);
+  auto updated_capacity = schedule.add_item();
+  updated_capacity->set_time_since_first_sent_packet_ms(3000);
+  updated_capacity->set_link_capacity_kbps(3000);
+  SchedulableNetworkNodeBuilder schedulable_builder(*s.net(),
+                                                    std::move(schedule));
+
+  auto caller_node = schedulable_builder.Build();
+  auto callee_node = s.net()->NodeBuilder().capacity_kbps(5000).Build().node;
+  s.net()->CreateRoute(caller->endpoint(), {caller_node}, callee->endpoint());
+  s.net()->CreateRoute(callee->endpoint(), {callee_node}, caller->endpoint());
+
+  FrameGeneratorCapturerConfig::SquaresVideo video_resolution = {
+      .framerate = 30, .width = 1280, .height = 720};
+  PeerScenarioClient::VideoSendTrack track = caller->CreateVideo(
+      "VIDEO", {.generator = {.squares_video = video_resolution}});
+
+  auto signaling =
+      s.ConnectSignaling(caller, callee, {caller_node}, {callee_node});
+
+  signaling.StartIceSignaling();
+
+  std::atomic<bool> offer_exchange_done(false);
+  signaling.NegotiateSdp([&](const SessionDescriptionInterface& answer) {
+    offer_exchange_done = true;
+  });
+  // Wait for SDP negotiation.
+  s.WaitAndProcess(&offer_exchange_done);
+
+  s.ProcessMessages(TimeDelta::Seconds(3));
+  DataRate bwe_before_capacity_increase =
+      GetAvailableSendBitrate(GetStatsAndProcess(s, caller));
+  EXPECT_GT(bwe_before_capacity_increase.kbps(), 300);
+  EXPECT_LT(bwe_before_capacity_increase.kbps(), 600);
+  s.ProcessMessages(TimeDelta::Seconds(10));
+  EXPECT_GT(GetAvailableSendBitrate(GetStatsAndProcess(s, caller)).kbps(),
+            1000);
 }
 
 // Test that caller BWE can rampup even if callee can not demux incoming RTP

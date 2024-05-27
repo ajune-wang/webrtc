@@ -137,6 +137,24 @@
       "parentUuid": "50951d04_1dc5816f",
       "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "979de120_5bd5485f",
+        "filename": "pc/sdp_offer_answer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-27T07:31:02Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "53303cad_56333e7a",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

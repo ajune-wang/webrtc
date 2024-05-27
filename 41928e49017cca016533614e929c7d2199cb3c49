@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2ab7fc_39319076",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-27T14:56:17Z",
+      "side": 1,
+      "message": "unfortunately I do not remember what is the intended usage of this bwe logging feature, thus I\u0027m unsure if it is used or not - need some archaeology digging.\n\nthe linked bug shows why you want to remove it, but doesn\u0027t link to the history why it was added. Was there an issue with the description why it was added?",
+      "revId": "41928e49017cca016533614e929c7d2199cb3c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

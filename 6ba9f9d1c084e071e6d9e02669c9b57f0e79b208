@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b998f5fb_7b8161b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-27T01:04:54Z",
+      "side": 1,
+      "message": "seems to be stuck acquiring the lock for the CQ?",
+      "revId": "6ba9f9d1c084e071e6d9e02669c9b57f0e79b208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a75b26_2966d193",

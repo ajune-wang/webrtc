@@ -19,9 +19,12 @@ if (rtc_include_tests) {
     ]
     deps = [
       "..:peer_scenario",
+      "../../:create_frame_generator_capturer",
       "../../:field_trial",
       "../../:test_support",
       "../../../api:rtc_stats_api",
+      "../../../api/test/network_emulation:network_config_schedule_proto",
+      "../../../api/test/network_emulation:schedulable_network_node_builder",
       "../../../api/units:data_rate",
       "../../../api/units:time_delta",
       "../../../media:stream_params",
@@ -29,6 +32,7 @@ if (rtc_include_tests) {
       "../../../pc:media_session",
       "../../../pc:pc_test_utils",
       "../../../pc:session_description",
+      "../../network:schedulable_network_behavior",
     ]
   }
 }

@@ -197,6 +197,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "63f9fe28_0e59a926",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-27T07:16:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ce79fc8f_e2e89699",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "83af5a0a4d4797863a5eb766ddaec7b379d42638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "305d54a9_bc1711e4",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 13

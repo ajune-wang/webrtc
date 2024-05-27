@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "57aa1fbd_f8c4fd9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-05-27T07:16:36Z",
+      "side": 1,
+      "message": "Fair enough, thanks. It\u0027s not super urgent - the usecase I\u0027m supporting is currently able to use the GenericFrameDescriptor for propagating dependency info, but that\u0027s not ideal obviously 😊",
+      "parentUuid": "4a0dc380_90c85953",
+      "revId": "2dc14fd71e40e48d0c663014b560725495563ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7d259c64_0201a6c4",

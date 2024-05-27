@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0add41c3_9dda2265",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-05-27T09:30:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4289b31_b333ddbe",
+      "range": {
+        "startLine": 669,
+        "startChar": 16,
+        "endLine": 669,
+        "endChar": 33
+      },
+      "revId": "3b7be10da13ce046b8a7096d0faa5c7c9a0207c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af571196_bfb72f8d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-27T09:19:05Z",
       "side": 1,
       "message": "nit: pass `expected_receive_time` instead?",
+      "range": {
+        "startLine": 499,
+        "startChar": 33,
+        "endLine": 499,
+        "endChar": 70
+      },
+      "revId": "3b7be10da13ce046b8a7096d0faa5c7c9a0207c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "880c9403_b0c49947",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-05-27T09:30:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af571196_bfb72f8d",
       "range": {
         "startLine": 499,
         "startChar": 33,

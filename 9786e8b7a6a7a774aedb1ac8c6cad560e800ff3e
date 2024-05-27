@@ -16,6 +16,23 @@
       "message": "TSAN flakyness should go away with https://webrtc-review.googlesource.com/c/src/+/351565",
       "revId": "9786e8b7a6a7a774aedb1ac8c6cad560e800ff3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4259f256_55d02cfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-27T15:33:01Z",
+      "side": 1,
+      "message": "chromium issue looks like an infra fail",
+      "revId": "9786e8b7a6a7a774aedb1ac8c6cad560e800ff3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

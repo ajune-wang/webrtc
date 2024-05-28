@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60f2cb6f_efc49f6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-05-28T15:48:29Z",
+      "side": 1,
+      "message": "I would like to provide Environment for AudioEncoders (and later, for AudioDecoders) to remove usage of the global field trial string there.\n\nSo idea is to update AudioEncoderFactory for that - pass extra parameter here, similar to VideoEncoderFactory (see v1)\n\nBut then I see a TODO from ossu that suggests to remove a parameter, and removing such parameter would require yet another round of updating all the callers and implementations. Thus I think it might be helpful to group \u0027optional\u0027 parameters into single parameter (see v2).\n\nbut that still doesn\u0027t feel enough - I do not like structs in api\n(https://webrtc.googlesource.com/src/+/refs/heads/main/api/README.md\n“Avoid defining api with structs”)\n\nSo my next idea - split \u0027callers\u0027 and \u0027implementors of the AudioEncoderFactory\u0027 - for former keep using struct with designated initializers (I haven\u0027t got idea how to have a nice to call api if that optional struct is a class)\nfor latter - introduce a class that is much easier to evolve than a struct.\nit also simplifies implementation and minimize needed change for \u0027passthrough\u0027 factories as exampled in pc/peer_connection_end_to_end_unittest.cc \nSo this approach can make future evolution simpler, but in a moment it is a lot of boilerplate. Having separate functions to call and to implement might be confusing too.\n\nSo, as an owner of this api, Which version would you prefer?",
+      "revId": "e346be1d6085ffd209eb1984284623a73d74db7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

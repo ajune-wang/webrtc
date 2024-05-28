@@ -627,6 +627,8 @@ if (is_mac) {
       "mac/desktop_frame_iosurface.mm",
       "mac/desktop_frame_provider.h",
       "mac/desktop_frame_provider.mm",
+      "mac/sck_screen_capturer.h",
+      "mac/sck_screen_capturer.mm",
       "mac/screen_capturer_mac.h",
       "mac/screen_capturer_mac.mm",
       "mac/window_list_utils.h",
@@ -658,8 +660,10 @@ if (is_mac) {
     ]
     frameworks = [
       "AppKit.framework",
+      "CoreVideo.framework",
       "IOKit.framework",
       "IOSurface.framework",
+      "ScreenCaptureKit.framework",
     ]
   }
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c70ede5c_99f9868a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-05-28T09:45:50Z",
+      "side": 1,
+      "message": "ptal - I plan to make a separate cl for ntp_time_util...",
+      "revId": "61e3633b9d28f02fcf2706e5b0989d0772024c39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

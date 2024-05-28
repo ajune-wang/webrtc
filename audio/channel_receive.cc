@@ -663,6 +663,15 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
           rtc::saturated_cast<uint32_t>(packet_copy.payload_type_frequency()),
           header.extension.absolute_capture_time);
 
+  const TimeDelta nw_to_jitterbuffer_delay =
+      clock_->CurrentTime() - packet.arrival_time();
+  worker_thread_->PostTask(
+      SafeTask(worker_safety_.flag(), [this, nw_to_jitterbuffer_delay]() {
+        RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+        RTC_HISTOGRAM_COUNTS_100000(
+            "WebRTC.Audio.NetworkToJitterBufferMicroSeconds",
+            nw_to_jitterbuffer_delay.us());
+      }));
   ReceivePacket(packet_copy.data(), packet_copy.size(), header);
 }
 

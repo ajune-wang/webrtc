@@ -95,6 +95,13 @@ class AudioEncoderFactoryT : public AudioEncoderFactory {
     return Helper<Ts...>::QueryAudioEncoder(format);
   }
 
+  std::unique_ptr<AudioEncoder> CreateAudioEncoder(
+      const CreateParameters& p) override {
+    return Helper<Ts...>::MakeAudioEncoder(p.payload_type(), p.format(),
+                                           p.codec_pair_id(),
+                                           &p.env().field_trials());
+  }
+
   std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       int payload_type,
       const SdpAudioFormat& format,

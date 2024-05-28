@@ -71,4 +71,5 @@
 /x86-generic_out/
 /xcodebuild
 /.vscode
+compile_commands.json
 !webrtc/*

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba74a91_0e21895f",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-28T09:01:39Z",
+      "side": 1,
+      "message": "This is the same method as was in the audio_util header. I just moved it here since there\u0027s code that uses `ChannelBuffer` and needs it still.",
+      "revId": "24abea4f256561c0f6d267010e8131787b1b40a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

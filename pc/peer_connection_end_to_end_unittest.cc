@@ -419,6 +419,14 @@ TEST_P(PeerConnectionEndToEndTest, CallWithCustomCodec) {
         const webrtc::SdpAudioFormat& format) override {
       return fact_->QueryAudioEncoder(format);
     }
+    std::unique_ptr<webrtc::AudioEncoder> Create(
+        const webrtc::Environment& env,
+        const webrtc::SdpAudioFormat& format,
+        Options options) override {
+      EXPECT_TRUE(options.codec_pair_id.has_value());
+      codec_ids_->push_back(*options.codec_pair_id);
+      return fact_->Create(env, format, options);
+    }
     std::unique_ptr<webrtc::AudioEncoder> MakeAudioEncoder(
         int payload_type,
         const webrtc::SdpAudioFormat& format,

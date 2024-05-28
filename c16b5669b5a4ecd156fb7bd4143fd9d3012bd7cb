@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f480a7c8_df6b97ec",
+        "filename": "api/test/network_emulation/network_config_schedule.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-28T09:31:42Z",
+      "side": 1,
+      "message": "Nit: Should this be 1, and 2 used below?",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "c16b5669b5a4ecd156fb7bd4143fd9d3012bd7cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7fe2938_58868da6",
         "filename": "test/network/schedulable_network_behavior.cc",
         "patchSetId": 7
@@ -31,6 +54,30 @@
       "writtenOn": "2024-05-28T09:10:39Z",
       "side": 1,
       "message": "isn\u0027t this \"next_schedule_index_ \u003d 1\" ?",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 76
+      },
+      "revId": "c16b5669b5a4ecd156fb7bd4143fd9d3012bd7cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4218088_04019115",
+        "filename": "test/network/schedulable_network_behavior.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-28T09:31:42Z",
+      "side": 1,
+      "message": "Yes, I think it is easier to just set to 1 in this case.\n\nPer: should we also call SimulatedNetwork::SetConfig on the initial value of config_?",
+      "parentUuid": "e7fe2938_58868da6",
       "range": {
         "startLine": 81,
         "startChar": 4,

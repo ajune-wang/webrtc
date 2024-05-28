@@ -7,12 +7,11 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/rtp_rtcp/source/time_util.h"
-
 #include <cstdint>
 #include <limits>
 
 #include "api/units/time_delta.h"
+#include "modules/rtp_rtcp/source/ntp_time_util.h"
 #include "test/gtest.h"
 
 namespace webrtc {

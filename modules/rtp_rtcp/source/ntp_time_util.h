@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_TIME_UTIL_H_
-#define MODULES_RTP_RTCP_SOURCE_TIME_UTIL_H_
+#ifndef MODULES_RTP_RTCP_SOURCE_NTP_TIME_UTIL_H_
+#define MODULES_RTP_RTCP_SOURCE_NTP_TIME_UTIL_H_
 
 #include <stdint.h>
 
@@ -53,4 +53,4 @@ inline constexpr int64_t ToNtpUnits(TimeDelta delta) {
 TimeDelta CompactNtpRttToTimeDelta(uint32_t compact_ntp_interval);
 
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_TIME_UTIL_H_
+#endif  // MODULES_RTP_RTCP_SOURCE_NTP_TIME_UTIL_H_

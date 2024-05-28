@@ -26,17 +26,17 @@ constexpr float kInputLevel = 10000.f;
 
 // Run audio at specified settings through the level estimator, and
 // verify that the output level falls within the bounds.
-void TestLevelEstimator(int sample_rate_hz,
+void TestLevelEstimator(size_t samples_per_channel,
                         int num_channels,
                         float input_level_linear_scale,
                         float expected_min,
                         float expected_max) {
   ApmDataDumper apm_data_dumper(0);
-  FixedDigitalLevelEstimator level_estimator(sample_rate_hz, &apm_data_dumper);
+  FixedDigitalLevelEstimator level_estimator(samples_per_channel,
+                                             &apm_data_dumper);
 
   const VectorFloatFrame vectors_with_float_frame(
-      num_channels, rtc::CheckedDivExact(sample_rate_hz, 100),
-      input_level_linear_scale);
+      num_channels, samples_per_channel, input_level_linear_scale);
 
   for (int i = 0; i < 500; ++i) {
     const auto level = level_estimator.ComputeLevel(
@@ -56,7 +56,7 @@ void TestLevelEstimator(int sample_rate_hz,
 
 // Returns time it takes for the level estimator to decrease its level
 // estimate by 'level_reduction_db'.
-float TimeMsToDecreaseLevel(int sample_rate_hz,
+float TimeMsToDecreaseLevel(size_t samples_per_channel,
                             int num_channels,
                             float input_level_db,
                             float level_reduction_db) {
@@ -64,10 +64,11 @@ float TimeMsToDecreaseLevel(int sample_rate_hz,
   RTC_DCHECK_GT(level_reduction_db, 0);
 
   const VectorFloatFrame vectors_with_float_frame(
-      num_channels, rtc::CheckedDivExact(sample_rate_hz, 100), input_level);
+      num_channels, samples_per_channel, input_level);
 
   ApmDataDumper apm_data_dumper(0);
-  FixedDigitalLevelEstimator level_estimator(sample_rate_hz, &apm_data_dumper);
+  FixedDigitalLevelEstimator level_estimator(samples_per_channel,
+                                             &apm_data_dumper);
 
   // Give the LevelEstimator plenty of time to ramp up and stabilize
   float last_level = 0.f;
@@ -78,8 +79,8 @@ float TimeMsToDecreaseLevel(int sample_rate_hz,
   }
 
   // Set input to 0.
-  VectorFloatFrame vectors_with_zero_float_frame(
-      num_channels, rtc::CheckedDivExact(sample_rate_hz, 100), 0);
+  VectorFloatFrame vectors_with_zero_float_frame(num_channels,
+                                                 samples_per_channel, 0);
 
   const float reduced_level_linear =
       DbfsToFloatS16(input_level_db - level_reduction_db);
@@ -102,21 +103,21 @@ float TimeMsToDecreaseLevel(int sample_rate_hz,
 }  // namespace
 
 TEST(GainController2FixedDigitalLevelEstimator, EstimatorShouldNotCrash) {
-  TestLevelEstimator(8000, 1, 0, std::numeric_limits<float>::lowest(),
+  TestLevelEstimator(8000u / 100u, 1, 0, std::numeric_limits<float>::lowest(),
                      std::numeric_limits<float>::max());
 }
 
 TEST(GainController2FixedDigitalLevelEstimator,
      EstimatorShouldEstimateConstantLevel) {
-  TestLevelEstimator(10000, 1, kInputLevel, kInputLevel * 0.99,
+  TestLevelEstimator(10000u / 100u, 1, kInputLevel, kInputLevel * 0.99,
                      kInputLevel * 1.01);
 }
 
 TEST(GainController2FixedDigitalLevelEstimator,
      EstimatorShouldEstimateConstantLevelForManyChannels) {
   constexpr size_t num_channels = 10;
-  TestLevelEstimator(20000, num_channels, kInputLevel, kInputLevel * 0.99,
-                     kInputLevel * 1.01);
+  TestLevelEstimator(20000u / 100u, num_channels, kInputLevel,
+                     kInputLevel * 0.99, kInputLevel * 1.01);
 }
 
 TEST(GainController2FixedDigitalLevelEstimator, TimeToDecreaseForLowLevel) {
@@ -124,8 +125,8 @@ TEST(GainController2FixedDigitalLevelEstimator, TimeToDecreaseForLowLevel) {
   constexpr float kInitialLowLevel = -40;
   constexpr float kExpectedTime = kLevelReductionDb * test::kDecayMs;
 
-  const float time_to_decrease =
-      TimeMsToDecreaseLevel(22000, 1, kInitialLowLevel, kLevelReductionDb);
+  const float time_to_decrease = TimeMsToDecreaseLevel(
+      22000u / 100u, 1, kInitialLowLevel, kLevelReductionDb);
 
   EXPECT_LE(kExpectedTime * 0.9, time_to_decrease);
   EXPECT_LE(time_to_decrease, kExpectedTime * 1.1);
@@ -137,7 +138,7 @@ TEST(GainController2FixedDigitalLevelEstimator,
   constexpr float kExpectedTime = kLevelReductionDb * test::kDecayMs;
 
   const float time_to_decrease =
-      TimeMsToDecreaseLevel(26000, 1, 0, kLevelReductionDb);
+      TimeMsToDecreaseLevel(26000u / 100u, 1, 0, kLevelReductionDb);
 
   EXPECT_LE(kExpectedTime * 0.9, time_to_decrease);
   EXPECT_LE(time_to_decrease, kExpectedTime * 1.1);
@@ -150,7 +151,7 @@ TEST(GainController2FixedDigitalLevelEstimator,
   constexpr size_t kNumChannels = 10;
 
   const float time_to_decrease =
-      TimeMsToDecreaseLevel(28000, kNumChannels, 0, kLevelReductionDb);
+      TimeMsToDecreaseLevel(28000u / 100u, kNumChannels, 0, kLevelReductionDb);
 
   EXPECT_LE(kExpectedTime * 0.9, time_to_decrease);
   EXPECT_LE(time_to_decrease, kExpectedTime * 1.1);

@@ -23,7 +23,7 @@ class ApmDataDumper;
 
 class Limiter {
  public:
-  Limiter(int sample_rate_hz,
+  Limiter(size_t samples_per_channel,
           ApmDataDumper* apm_data_dumper,
           absl::string_view histogram_name_prefix);
   Limiter(const Limiter& limiter) = delete;
@@ -34,12 +34,11 @@ class Limiter {
   void Process(AudioFrameView<float> signal);
   InterpolatedGainCurve::Stats GetGainCurveStats() const;
 
-  // Supported rates must be
+  // Supported values must be
   // * supported by FixedDigitalLevelEstimator
-  // * below kMaximalNumberOfSamplesPerChannel*1000/kFrameDurationMs
-  //   so that samples_per_channel fit in the
-  //   per_sample_scaling_factors_ array.
-  void SetSampleRate(int sample_rate_hz);
+  // * below kMaximalNumberOfSamplesPerChannel / 100 so that samples_per_channel
+  //   fit in the per_sample_scaling_factors_ array.
+  void SetSamplesPerChannel(size_t samples_per_channel);
 
   // Resets the internal state.
   void Reset();

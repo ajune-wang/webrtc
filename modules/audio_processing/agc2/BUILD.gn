@@ -388,6 +388,7 @@ rtc_library("fixed_digital_unittests") {
     "..:apm_logging",
     "..:audio_frame_view",
     "../../../api:array_view",
+    "../../../api/audio:audio_frame_api",
     "../../../common_audio",
     "../../../rtc_base:checks",
     "../../../rtc_base:gunit_helpers",

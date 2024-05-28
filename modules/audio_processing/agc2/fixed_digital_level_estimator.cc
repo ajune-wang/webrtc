@@ -34,14 +34,17 @@ constexpr float kDecayFilterConstant = 0.9971259f;
 }  // namespace
 
 FixedDigitalLevelEstimator::FixedDigitalLevelEstimator(
-    int sample_rate_hz,
+    size_t samples_per_channel,
     ApmDataDumper* apm_data_dumper)
     : apm_data_dumper_(apm_data_dumper),
       filter_state_level_(kInitialFilterStateLevel) {
-  SetSampleRate(sample_rate_hz);
+  SetSamplesPerChannel(samples_per_channel);
   CheckParameterCombination();
   RTC_DCHECK(apm_data_dumper_);
-  apm_data_dumper_->DumpRaw("agc2_level_estimator_samplerate", sample_rate_hz);
+  // Convert `samples_per_channel` to sample rate for
+  // `agc2_level_estimator_samplerate`.
+  apm_data_dumper_->DumpRaw("agc2_level_estimator_samplerate",
+                            samples_per_channel * 100);
 }
 
 void FixedDigitalLevelEstimator::CheckParameterCombination() {
@@ -106,9 +109,9 @@ std::array<float, kSubFramesInFrame> FixedDigitalLevelEstimator::ComputeLevel(
   return envelope;
 }
 
-void FixedDigitalLevelEstimator::SetSampleRate(int sample_rate_hz) {
-  samples_in_frame_ =
-      rtc::CheckedDivExact(sample_rate_hz * kFrameDurationMs, 1000);
+void FixedDigitalLevelEstimator::SetSamplesPerChannel(
+    size_t samples_per_channel) {
+  samples_in_frame_ = static_cast<int>(samples_per_channel);
   samples_in_sub_frame_ =
       rtc::CheckedDivExact(samples_in_frame_, kSubFramesInFrame);
   CheckParameterCombination();

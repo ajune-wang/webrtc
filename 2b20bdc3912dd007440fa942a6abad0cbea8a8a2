@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f2785a_1df03bf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-29T14:48:59Z",
+      "side": 1,
+      "message": "lgtm, but please check the comment on constexpr const",
+      "revId": "2b20bdc3912dd007440fa942a6abad0cbea8a8a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa4a42dc_c4a237a1",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-29T14:48:59Z",
+      "side": 1,
+      "message": "This is still constexpr const.\nIt should only be constexpr, right?",
+      "range": {
+        "startLine": 127,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "2b20bdc3912dd007440fa942a6abad0cbea8a8a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

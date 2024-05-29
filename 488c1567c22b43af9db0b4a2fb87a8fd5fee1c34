@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "925bc8b8_e5de338f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-29T07:45:59Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa3cfb4_8cebce71",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-29T07:45:59Z",
+      "side": 1,
+      "message": "If the line 130 is changed to constexpr, if would be good to change these lines as well at the same time to be constexpr",
+      "range": {
+        "startLine": 127,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add7abde_49544fc0",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-29T07:45:59Z",
+      "side": 1,
+      "message": "I think it is sufficient to only use constexpr",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "376f5311_2c926329",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-05-29T07:45:59Z",
+      "side": 1,
+      "message": "It would be nice to follow the same pattern here as is done for the Deinterleave function above and store num_channels and samples_per_channel as local constants. There could potentially be some performance benefits of that as well, but I also think that those performance aspects could be debated",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 54
+      },
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

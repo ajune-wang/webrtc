@@ -110,6 +110,61 @@ std::array<float, kSubFramesInFrame> FixedDigitalLevelEstimator::ComputeLevel(
   return envelope;
 }
 
+std::array<float, kSubFramesInFrame> FixedDigitalLevelEstimator::ComputeLevel(
+    const DeinterleavedView<const float>& float_frame) {
+  RTC_DCHECK_GT(float_frame.num_channels(), 0);
+  RTC_DCHECK_EQ(float_frame.samples_per_channel(), samples_in_frame_);
+
+  // Compute max envelope without smoothing.
+  std::array<float, kSubFramesInFrame> envelope{};
+  for (size_t channel_idx = 0; channel_idx < float_frame.num_channels();
+       ++channel_idx) {
+    const auto channel = float_frame[channel_idx];
+    for (int sub_frame = 0; sub_frame < kSubFramesInFrame; ++sub_frame) {
+      for (int sample_in_sub_frame = 0;
+           sample_in_sub_frame < samples_in_sub_frame_; ++sample_in_sub_frame) {
+        envelope[sub_frame] =
+            std::max(envelope[sub_frame],
+                     std::abs(channel[sub_frame * samples_in_sub_frame_ +
+                                      sample_in_sub_frame]));
+      }
+    }
+  }
+
+  // Make sure envelope increases happen one step earlier so that the
+  // corresponding *gain decrease* doesn't miss a sudden signal
+  // increase due to interpolation.
+  for (int sub_frame = 0; sub_frame < kSubFramesInFrame - 1; ++sub_frame) {
+    if (envelope[sub_frame] < envelope[sub_frame + 1]) {
+      envelope[sub_frame] = envelope[sub_frame + 1];
+    }
+  }
+
+  // Add attack / decay smoothing.
+  for (int sub_frame = 0; sub_frame < kSubFramesInFrame; ++sub_frame) {
+    const float envelope_value = envelope[sub_frame];
+    if (envelope_value > filter_state_level_) {
+      envelope[sub_frame] = envelope_value * (1 - kAttackFilterConstant) +
+                            filter_state_level_ * kAttackFilterConstant;
+    } else {
+      envelope[sub_frame] = envelope_value * (1 - kDecayFilterConstant) +
+                            filter_state_level_ * kDecayFilterConstant;
+    }
+    filter_state_level_ = envelope[sub_frame];
+
+    // Dump data for debug.
+    RTC_DCHECK(apm_data_dumper_);
+    const auto channel = float_frame[0];
+    apm_data_dumper_->DumpRaw("agc2_level_estimator_samples",
+                              samples_in_sub_frame_,
+                              &channel[sub_frame * samples_in_sub_frame_]);
+    apm_data_dumper_->DumpRaw("agc2_level_estimator_level",
+                              envelope[sub_frame]);
+  }
+
+  return envelope;
+}
+
 void FixedDigitalLevelEstimator::SetSamplesPerChannel(
     size_t samples_per_channel) {
   samples_in_frame_ = static_cast<int>(samples_per_channel);

@@ -86,6 +86,20 @@ void ScaleSamples(MonoView<const float> per_sample_scaling_factors,
     }
   }
 }
+
+void ScaleSamples(MonoView<const float> per_sample_scaling_factors,
+                  const DeinterleavedView<float>& signal) {
+  const int samples_per_channel = signal.samples_per_channel();
+  RTC_DCHECK_EQ(samples_per_channel,
+                SamplesPerChannel(per_sample_scaling_factors));
+  for (size_t i = 0; i < signal.num_channels(); ++i) {
+    MonoView<float> channel = signal[i];
+    for (int j = 0; j < samples_per_channel; ++j) {
+      channel[j] = rtc::SafeClamp(channel[j] * per_sample_scaling_factors[j],
+                                  kMinFloatS16Value, kMaxFloatS16Value);
+    }
+  }
+}
 }  // namespace
 
 Limiter::Limiter(size_t samples_per_channel,
@@ -100,6 +114,36 @@ Limiter::Limiter(size_t samples_per_channel,
 Limiter::~Limiter() = default;
 
 void Limiter::Process(AudioFrameView<float> signal) {
+  const std::array<float, kSubFramesInFrame> level_estimate =
+      level_estimator_.ComputeLevel(signal);
+
+  RTC_DCHECK_EQ(level_estimate.size() + 1, scaling_factors_.size());
+  scaling_factors_[0] = last_scaling_factor_;
+  std::transform(level_estimate.begin(), level_estimate.end(),
+                 scaling_factors_.begin() + 1, [this](float x) {
+                   return interp_gain_curve_.LookUpGainToApply(x);
+                 });
+
+  const int samples_per_channel = signal.samples_per_channel();
+  RTC_DCHECK_LE(samples_per_channel, kMaximalNumberOfSamplesPerChannel);
+
+  auto per_sample_scaling_factors =
+      MonoView<float>(&per_sample_scaling_factors_[0], samples_per_channel);
+  ComputePerSampleSubframeFactors(scaling_factors_, samples_per_channel,
+                                  per_sample_scaling_factors);
+  ScaleSamples(per_sample_scaling_factors, signal);
+
+  last_scaling_factor_ = scaling_factors_.back();
+
+  // Dump data for debug.
+  apm_data_dumper_->DumpRaw("agc2_limiter_last_scaling_factor",
+                            last_scaling_factor_);
+  apm_data_dumper_->DumpRaw(
+      "agc2_limiter_region",
+      static_cast<int>(interp_gain_curve_.get_stats().region));
+}
+
+void Limiter::Process(DeinterleavedView<float> signal) {
   const std::array<float, kSubFramesInFrame> level_estimate =
       level_estimator_.ComputeLevel(signal);
 

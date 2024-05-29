@@ -389,6 +389,29 @@
       "parentUuid": "5b80e561_2f0a07a0",
       "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf6a21a5_14ce5be3",
+        "filename": "api/audio_codecs/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-05-29T07:26:30Z",
+      "side": 1,
+      "message": "Remove absl_deps, they are not needed anymore (https://webrtc-review.googlesource.com/c/src/+/352200). Just move them inside deps.\n\nSame in the rest of the CL.",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 11
+      },
+      "revId": "376330b4ce64b832b16ce7174b648a4648ee004b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

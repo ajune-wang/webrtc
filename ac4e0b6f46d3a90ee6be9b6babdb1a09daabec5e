@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e209334_2e435049",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-29T05:17:34Z",
+      "side": 0,
+      "message": "2 remaining usages of this one. Will check if they can be modified.",
+      "revId": "ac4e0b6f46d3a90ee6be9b6babdb1a09daabec5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

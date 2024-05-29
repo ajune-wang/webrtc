@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ecfec36_d9765465",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T07:53:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "561844e3_974731c4",
+      "range": {
+        "startLine": 83,
+        "startChar": 11,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "8c600fc3d28debddd218b1c8626c23ff2f8ecfcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dff086f1_7551457f",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-05-29T07:36:34Z",
       "side": 1,
       "message": "Nit: Maybe use data_-\u003edata()",
+      "range": {
+        "startLine": 137,
+        "startChar": 43,
+        "endLine": 137,
+        "endChar": 51
+      },
+      "revId": "8c600fc3d28debddd218b1c8626c23ff2f8ecfcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9221b51_9a045f45",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T07:53:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dff086f1_7551457f",
       "range": {
         "startLine": 137,
         "startChar": 43,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47ffb195_acfc6aa2",
+        "filename": "audio/remix_resample.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T07:53:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4216ea8_e91673cf",
+      "range": {
+        "startLine": 59,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "8c600fc3d28debddd218b1c8626c23ff2f8ecfcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a16612a2_8358465f",
@@ -127,6 +199,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f92c078_871dca8a",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T07:53:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a16612a2_8358465f",
+      "range": {
+        "startLine": 171,
+        "startChar": 5,
+        "endLine": 171,
+        "endChar": 30
+      },
+      "revId": "8c600fc3d28debddd218b1c8626c23ff2f8ecfcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54f36a17_fe3383fa",
@@ -140,6 +236,30 @@
       "writtenOn": "2024-05-29T07:36:34Z",
       "side": 1,
       "message": "Nit: last_audio_buffer_-\u003edata()",
+      "range": {
+        "startLine": 208,
+        "startChar": 9,
+        "endLine": 208,
+        "endChar": 31
+      },
+      "revId": "8c600fc3d28debddd218b1c8626c23ff2f8ecfcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0001b651_61b46588",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T07:53:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54f36a17_fe3383fa",
       "range": {
         "startLine": 208,
         "startChar": 9,

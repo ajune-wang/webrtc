@@ -16,6 +16,24 @@
       "message": "Thanks for cleaning up this code!",
       "revId": "94b9a2ded37f64f84fd0b94d479a5e74fdc250ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a3eae40_8d65f75a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T08:25:45Z",
+      "side": 1,
+      "message": "😊 - can you add lgtm?",
+      "parentUuid": "8d6220e0_ffa4d23e",
+      "revId": "94b9a2ded37f64f84fd0b94d479a5e74fdc250ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

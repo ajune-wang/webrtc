@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf672a9b_2411171c",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-05-29T09:41:21Z",
+      "side": 1,
+      "message": "`\u003d nullptr;`?",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78599062_8354a547",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-05-29T09:41:21Z",
+      "side": 1,
+      "message": "`\u003d nullptr;`?",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e31738b_972db929",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-05-29T09:41:21Z",
+      "side": 1,
+      "message": "Would this limit the time the lock is held?\n```\n  std::unique_ptr\u003cSharedDesktopFrame\u003e frame \u003d\n      SharedDesktopFrame::Wrap(std::move(desktop_frame_io_surface));\n  {\n    MutexLock lock(\u0026latest_frame_lock_);\n    std::swap(latest_frame_, frame);\n  }\n```\nstd::swap used to ensure the destructor is also invoked after the mutex is relinquished.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 80
+      },
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ededce_de78c832",
+        "filename": "modules/desktop_capture/screen_capturer_darwin.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-05-29T09:41:21Z",
+      "side": 1,
+      "message": "Not commenting as this part is patently still WIP. :-)",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

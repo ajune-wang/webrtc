@@ -33,6 +33,23 @@
       "message": "Not quite there....",
       "revId": "443630b2853297d904dfc0dd286ff6f8807af50f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "538b3ecc_c262cd64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-29T09:17:42Z",
+      "side": 1,
+      "message": "Blockers are gone. +1.",
+      "revId": "443630b2853297d904dfc0dd286ff6f8807af50f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

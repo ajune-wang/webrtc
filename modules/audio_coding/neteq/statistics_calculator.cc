@@ -275,6 +275,13 @@ void StatisticsCalculator::JitterBufferDelay(
   lifetime_stats_.jitter_buffer_emitted_count += num_samples;
 }
 
+void StatisticsCalculator::TotalProcessingDelay(
+    size_t num_samples,
+    uint64_t processing_delay_us) {
+lifetime_stats_.total_processing_delay_us += num_samples * processing_delay_us;
+
+    }
+
 void StatisticsCalculator::SecondaryDecodedSamples(int num_samples) {
   secondary_decoded_samples_ += num_samples;
 }

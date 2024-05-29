@@ -1980,6 +1980,15 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
                               controller_->TargetLevelMs(),
                               controller_->UnlimitedTargetLevelMs());
 
+    if (packet->packet_info.has_value()) {
+      TimeDelta processing_time = clock_->CurrentTime() - packet->packet_info->receive_time();
+      stats_->TotalProcessingDelay(packet_duration, processing_time.us());
+    } else {
+      // Packet info is not available, update the total processing delay with
+      // the jitter buffer delay which should be a close approximation.
+      stats_->TotalProcessingDelay(packet_duration, waiting_time_ms * 1000);
+    }
+
     // Check what packet is available next.
     next_packet = packet_buffer_->PeekNextPacket();
     next_packet_available =

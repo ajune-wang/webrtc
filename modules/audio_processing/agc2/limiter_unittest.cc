@@ -10,6 +10,7 @@
 
 #include "modules/audio_processing/agc2/limiter.h"
 
+#include "api/audio/audio_frame.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/agc2/agc2_testing_common.h"
@@ -23,7 +24,8 @@ TEST(Limiter, LimiterShouldConstructAndRun) {
   const int sample_rate_hz = 48000;
   ApmDataDumper apm_data_dumper(0);
 
-  Limiter limiter(sample_rate_hz, &apm_data_dumper, "");
+  Limiter limiter(SampleRateToDefaultChannelSize(sample_rate_hz),
+                  &apm_data_dumper, "");
 
   VectorFloatFrame vectors_with_float_frame(1, sample_rate_hz / 100,
                                             kMaxAbsFloatS16Value);
@@ -37,7 +39,8 @@ TEST(Limiter, OutputVolumeAboveThreshold) {
       2.f;
   ApmDataDumper apm_data_dumper(0);
 
-  Limiter limiter(sample_rate_hz, &apm_data_dumper, "");
+  Limiter limiter(SampleRateToDefaultChannelSize(sample_rate_hz),
+                  &apm_data_dumper, "");
 
   // Give the level estimator time to adapt.
   for (int i = 0; i < 5; ++i) {

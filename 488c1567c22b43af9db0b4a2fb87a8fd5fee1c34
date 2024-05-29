@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35ddade2_51d48755",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T08:05:29Z",
+      "side": 1,
+      "message": "Done. constexpr doesn\u0027t make a difference for these lines however. The only reason for doing it for the calculation from constants below would be to perform the multiplication at compile time, not runtime. Likely it would have been done at runtime anyway so I\u0027m not even sure it matters anyway.",
+      "parentUuid": "8fa3cfb4_8cebce71",
+      "range": {
+        "startLine": 127,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "add7abde_49544fc0",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4722fc73_b7930913",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T08:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "add7abde_49544fc0",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "376f5311_2c926329",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-05-29T07:45:59Z",
       "side": 1,
       "message": "It would be nice to follow the same pattern here as is done for the Deinterleave function above and store num_channels and samples_per_channel as local constants. There could potentially be some performance benefits of that as well, but I also think that those performance aspects could be debated",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 54
+      },
+      "revId": "488c1567c22b43af9db0b4a2fb87a8fd5fee1c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "789fe55b_f2b44962",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-29T08:05:29Z",
+      "side": 1,
+      "message": "num_channels() and samples_per_samples() are inline getters, so there isn\u0027t an additional benefit to having additional stack variables. For `Deinterleave()` however, `Deinterleave\u003cT\u003e::operator[]` returns a new `MonoView\u003c\u003e` with offset calculations, which will be the same for every sample of that `MonoView\u003c\u003e` - so there it makes sense to not create a new view per sample.",
+      "parentUuid": "376f5311_2c926329",
       "range": {
         "startLine": 159,
         "startChar": 0,

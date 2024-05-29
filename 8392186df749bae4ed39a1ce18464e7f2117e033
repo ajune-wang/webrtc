@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "158656d3_49753cf3",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-05-29T23:31:48Z",
+      "side": 1,
+      "message": "This is an Obj-C reference, so it would be `nil` I think? Not sure if we need to be explicit?",
+      "parentUuid": "cf672a9b_2411171c",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78599062_8354a547",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e120e8f2_8cf4d3ca",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-05-29T23:31:48Z",
+      "side": 1,
+      "message": "Same thing here.",
+      "parentUuid": "78599062_8354a547",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e31738b_972db929",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-05-29T09:41:21Z",
       "side": 1,
       "message": "Would this limit the time the lock is held?\n```\n  std::unique_ptr\u003cSharedDesktopFrame\u003e frame \u003d\n      SharedDesktopFrame::Wrap(std::move(desktop_frame_io_surface));\n  {\n    MutexLock lock(\u0026latest_frame_lock_);\n    std::swap(latest_frame_, frame);\n  }\n```\nstd::swap used to ensure the destructor is also invoked after the mutex is relinquished.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 80
+      },
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85303a6a_e296f78e",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-05-29T23:31:48Z",
+      "side": 1,
+      "message": "I like that! 👍 Then the mutex is only held while 2 pointers get swapped. Done!",
+      "parentUuid": "3e31738b_972db929",
       "range": {
         "startLine": 192,
         "startChar": 0,

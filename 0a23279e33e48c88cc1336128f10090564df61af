@@ -34,6 +34,24 @@
       "parentUuid": "00533b39_bda48d80",
       "revId": "0a23279e33e48c88cc1336128f10090564df61af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a62f5fd_da5f08a7",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-30T15:54:13Z",
+      "side": 0,
+      "message": "OK. GetSSLVersionBytes is enough.\nBUT: Used from internal code. Please [[deprecate]] it instead (for now).\nQuick inspection says that it\u0027s only used for testing, so deleting it downstream MAY be easy. But not tonight.",
+      "parentUuid": "38f4a283_1c25a1b9",
+      "revId": "0a23279e33e48c88cc1336128f10090564df61af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

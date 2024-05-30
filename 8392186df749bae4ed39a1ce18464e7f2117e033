@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62d7b0cb_62e4688a",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-05-30T08:04:27Z",
+      "side": 1,
+      "message": "I\u0027m not an expert, but a cursory check yielded that the answer is likely \"only if ARC is used.\" I am not sure if ARC is used for all libwebrtc builds.\n\nI could imagine it would be considered best practice to initialize explicitly regardless; it\u0027s harder for me to imagine it would be discouraged to initialize explicitly.\n\nAlso, you\u0027re already initializing `callback_` down in line 63... :-)",
+      "parentUuid": "158656d3_49753cf3",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78599062_8354a547",
         "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
         "patchSetId": 1

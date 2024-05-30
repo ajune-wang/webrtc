@@ -83,7 +83,8 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface> {
   std::list<AudioObserver*> audio_observers_;
   Mutex sink_lock_;
   std::list<AudioTrackSinkInterface*> sinks_;
-  SourceState state_;
+  SourceState state_ RTC_GUARDED_BY(main_thread_);
+  bool muted_on_audio_thread_ = true;
 };
 
 }  // namespace webrtc

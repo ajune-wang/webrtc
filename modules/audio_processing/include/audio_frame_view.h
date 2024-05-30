@@ -56,7 +56,33 @@ class AudioFrameView {
     return MonoView<const T>(audio_samples_[idx], channel_size_);
   }
 
+  // TODO(tommi): Consider rather exposing this on VectorFloatFrame and
+  // change VectorFloatFrame to use a single allocation.
+  DeinterleavedView<T> ToDeinterleavedView() {
+    RTC_DCHECK(IsContiguous());
+    if (!num_channels_)
+      return DeinterleavedView<T>();
+    return DeinterleavedView<T>(audio_samples_[0], channel_size_,
+                                num_channels_);
+  }
+
+  DeinterleavedView<const T> ToDeinterleavedView() const {
+    RTC_DCHECK(IsContiguous());
+    if (!num_channels_)
+      return DeinterleavedView<const T>();
+    return DeinterleavedView<const T>(audio_samples_[0], channel_size_,
+                                      num_channels_);
+  }
+
   T* const* data() { return audio_samples_; }
+
+  // Simple check that's used for DCHECKing that the channels sit together in a
+  // contiguously allocated block of memory.
+  bool IsContiguous() const {
+    return num_channels_ <= 1
+               ? true
+               : audio_samples_[1] == (audio_samples_[0] + channel_size_);
+  }
 
  private:
   T* const* audio_samples_;

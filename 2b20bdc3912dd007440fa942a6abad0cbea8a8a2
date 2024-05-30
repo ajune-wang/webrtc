@@ -39,6 +39,30 @@
       },
       "revId": "2b20bdc3912dd007440fa942a6abad0cbea8a8a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd01d7e_0ef2b9d4",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-05-30T11:29:13Z",
+      "side": 1,
+      "message": "ah, yes - I somehow didn\u0027t register the explicit constness! 😊 fixed.\nLooking over the code, we have a few \"constexpr const\" here and there so looks like I\u0027m not alone. 😄",
+      "parentUuid": "fa4a42dc_c4a237a1",
+      "range": {
+        "startLine": 127,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "2b20bdc3912dd007440fa942a6abad0cbea8a8a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -56,6 +56,10 @@ class SourceTracker {
   // order (i.e. with the most recently updated entries appearing first).
   std::vector<RtpSource> GetSources() const;
 
+  // Returns the current audio level for a remote source or absl::nullopt if no
+  // data exists (e.g has expired or hasn't been received).
+  absl::optional<uint8_t> GetAudioLevel(uint32_t ssrc) const;
+
  private:
   struct SourceKey {
     SourceKey(RtpSourceType source_type, uint32_t source)

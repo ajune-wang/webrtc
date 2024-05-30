@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd5a12eb_d4205091",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-30T15:06:54Z",
+      "side": 1,
+      "message": "I like the smell of burning dtls code in the morning!",
+      "revId": "9782fdfed58485b99dfe214358b03a40d5e35476",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

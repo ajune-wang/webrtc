@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a38094e_48d22c8f",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1983,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-05-30T07:10:14Z",
+      "side": 1,
+      "message": "Maybe you want something like:\n`if (packet-\u003epacket_info.has_value() \u0026\u0026 !packet-\u003epacket_info-\u003ereceive_time().IsMinusInfinity()) {`",
+      "revId": "2799862666a79dd45acfcec4d69c6d0f991fb918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc123101_d38d03df",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 19084
+      },
+      "writtenOn": "2024-05-30T07:10:14Z",
+      "side": 1,
+      "message": "I think you meant: `processing_delay_us`",
+      "range": {
+        "startLine": 93,
+        "startChar": 13,
+        "endLine": 93,
+        "endChar": 37
+      },
+      "revId": "2799862666a79dd45acfcec4d69c6d0f991fb918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

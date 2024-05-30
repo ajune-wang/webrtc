@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657cbf59_f6acef0b",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-05-30T08:40:41Z",
+      "side": 1,
+      "message": "I think that ScreenCaptureKit should be added to weak_frameworks since it\u0027s a new API.",
+      "range": {
+        "startLine": 666,
+        "startChar": 7,
+        "endLine": 666,
+        "endChar": 33
+      },
+      "revId": "3a64a2002ca3920b8452f95efe639ca6ecde9fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ccc4ec0_b8d2c0fe",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-05-30T08:40:41Z",
+      "side": 1,
+      "message": "The update regions of the current frame are available as an attachment [SCStreamFrameInfoDirtyRects](https://developer.apple.com/documentation/screencapturekit/scstreamframeinfodirtyrects?language\u003dobjc) of the CMSampleBufferRef. I have not looked at this signal so I don\u0027t know how accurate it is.\n\nA basic principle of the SCK API is that it only produces new frames on updates. So the capture fps is usually very low for static content. A very simple first implementation that is also needed in conjunction with SCStreamFrameInfoDirtyRects is to set the updated_region to empty if the frame has been retrieved before.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "3a64a2002ca3920b8452f95efe639ca6ecde9fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7f28cf_d9235ea7",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-05-30T08:40:41Z",
+      "side": 1,
+      "message": "There was a bug in the initial release of this API that caused desktop captures to be empty. If I remember correctly, it was fixed in macOS 13.\n\nhttps://chromium-review.googlesource.com/c/chromium/src/+/4013379",
+      "range": {
+        "startLine": 201,
+        "startChar": 6,
+        "endLine": 201,
+        "endChar": 32
+      },
+      "revId": "3a64a2002ca3920b8452f95efe639ca6ecde9fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

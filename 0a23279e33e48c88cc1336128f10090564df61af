@@ -16,6 +16,24 @@
       "message": "I don\u0027t think you should remove this. DTLS 1.3 is coming.",
       "revId": "0a23279e33e48c88cc1336128f10090564df61af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f4a283_1c25a1b9",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-30T15:46:35Z",
+      "side": 0,
+      "message": "For that we have GetSSlVersionBytes which is the more modern variant also used by getStats(). SSLProtocolVersion is just returning our \"internal\" view of the world.\n\nAgree we should keep the struct itself and the unit tests surrounding it around",
+      "parentUuid": "00533b39_bda48d80",
+      "revId": "0a23279e33e48c88cc1336128f10090564df61af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

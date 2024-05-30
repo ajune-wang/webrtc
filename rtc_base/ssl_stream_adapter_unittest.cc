@@ -768,13 +768,6 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
       return server_ssl_->GetSslCipherSuite(retval);
   }
 
-  int GetSslVersion(bool client) {
-    if (client)
-      return client_ssl_->GetSslVersion();
-    else
-      return server_ssl_->GetSslVersion();
-  }
-
   bool ExportKeyingMaterial(absl::string_view label,
                             const unsigned char* context,
                             size_t context_len,
@@ -1605,7 +1598,6 @@ TEST_F(SSLStreamAdapterTestDTLSFromPEMStrings, TestDTLSGetPeerCertificate) {
 }
 
 // Test getting the used DTLS 1.2 ciphers.
-// DTLS 1.2 enabled for client and server -> DTLS 1.2 will be used.
 TEST_P(SSLStreamAdapterTestDTLS, TestGetSslCipherSuiteDtls12Both) {
   SetupProtocolVersions(rtc::SSL_PROTOCOL_DTLS_12, rtc::SSL_PROTOCOL_DTLS_12);
   TestHandshake();
@@ -1614,9 +1606,6 @@ TEST_P(SSLStreamAdapterTestDTLS, TestGetSslCipherSuiteDtls12Both) {
   ASSERT_TRUE(GetSslCipherSuite(true, &client_cipher));
   int server_cipher;
   ASSERT_TRUE(GetSslCipherSuite(false, &server_cipher));
-
-  ASSERT_EQ(rtc::SSL_PROTOCOL_DTLS_12, GetSslVersion(true));
-  ASSERT_EQ(rtc::SSL_PROTOCOL_DTLS_12, GetSslVersion(false));
 
   ASSERT_EQ(client_cipher, server_cipher);
   ASSERT_TRUE(rtc::SSLStreamAdapter::IsAcceptableCipher(
@@ -1633,9 +1622,6 @@ TEST_P(SSLStreamAdapterTestDTLS, TestGetSslCipherSuite) {
   ASSERT_TRUE(GetSslCipherSuite(true, &client_cipher));
   int server_cipher;
   ASSERT_TRUE(GetSslCipherSuite(false, &server_cipher));
-
-  ASSERT_EQ(rtc::SSL_PROTOCOL_DTLS_12, GetSslVersion(true));
-  ASSERT_EQ(rtc::SSL_PROTOCOL_DTLS_12, GetSslVersion(false));
 
   ASSERT_EQ(client_cipher, server_cipher);
   ASSERT_TRUE(rtc::SSLStreamAdapter::IsAcceptableCipher(

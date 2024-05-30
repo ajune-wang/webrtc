@@ -408,31 +408,6 @@ bool OpenSSLStreamAdapter::GetSslCipherSuite(int* cipher_suite) {
   return true;
 }
 
-SSLProtocolVersion OpenSSLStreamAdapter::GetSslVersion() const {
-  if (state_ != SSL_CONNECTED) {
-    return SSL_PROTOCOL_NOT_GIVEN;
-  }
-
-  int ssl_version = SSL_version(ssl_);
-  if (ssl_mode_ == SSL_MODE_DTLS) {
-    if (ssl_version == DTLS1_VERSION) {
-      return SSL_PROTOCOL_DTLS_10;
-    } else if (ssl_version == DTLS1_2_VERSION) {
-      return SSL_PROTOCOL_DTLS_12;
-    }
-  } else {
-    if (ssl_version == TLS1_VERSION) {
-      return SSL_PROTOCOL_TLS_10;
-    } else if (ssl_version == TLS1_1_VERSION) {
-      return SSL_PROTOCOL_TLS_11;
-    } else if (ssl_version == TLS1_2_VERSION) {
-      return SSL_PROTOCOL_TLS_12;
-    }
-  }
-
-  return SSL_PROTOCOL_NOT_GIVEN;
-}
-
 bool OpenSSLStreamAdapter::GetSslVersionBytes(int* version) const {
   if (state_ != SSL_CONNECTED) {
     return false;

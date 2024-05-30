@@ -74,12 +74,12 @@ void ComputePerSampleSubframeFactors(
 }
 
 void ScaleSamples(MonoView<const float> per_sample_scaling_factors,
-                  AudioFrameView<float> signal) {
+                  const DeinterleavedView<float>& signal) {
   const int samples_per_channel = signal.samples_per_channel();
   RTC_DCHECK_EQ(samples_per_channel,
                 SamplesPerChannel(per_sample_scaling_factors));
-  for (int i = 0; i < signal.num_channels(); ++i) {
-    MonoView<float> channel = signal.channel(i);
+  for (size_t i = 0; i < signal.num_channels(); ++i) {
+    MonoView<float> channel = signal[i];
     for (int j = 0; j < samples_per_channel; ++j) {
       channel[j] = rtc::SafeClamp(channel[j] * per_sample_scaling_factors[j],
                                   kMinFloatS16Value, kMaxFloatS16Value);
@@ -99,7 +99,7 @@ Limiter::Limiter(size_t samples_per_channel,
 
 Limiter::~Limiter() = default;
 
-void Limiter::Process(AudioFrameView<float> signal) {
+void Limiter::Process(DeinterleavedView<float> signal) {
   const std::array<float, kSubFramesInFrame> level_estimate =
       level_estimator_.ComputeLevel(signal);
 

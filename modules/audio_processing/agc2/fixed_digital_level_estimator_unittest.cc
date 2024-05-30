@@ -41,7 +41,7 @@ void TestLevelEstimator(size_t samples_per_channel,
 
   for (int i = 0; i < 500; ++i) {
     const auto level = level_estimator.ComputeLevel(
-        vectors_with_float_frame.float_frame_view());
+        vectors_with_float_frame.float_frame_view().ToDeinterleavedView());
 
     // Give the estimator some time to ramp up.
     if (i < 50) {
@@ -75,7 +75,7 @@ float TimeMsToDecreaseLevel(size_t samples_per_channel,
   float last_level = 0.f;
   for (int i = 0; i < 500; ++i) {
     const auto level_envelope = level_estimator.ComputeLevel(
-        vectors_with_float_frame.float_frame_view());
+        vectors_with_float_frame.float_frame_view().ToDeinterleavedView());
     last_level = *level_envelope.rbegin();
   }
 
@@ -88,7 +88,7 @@ float TimeMsToDecreaseLevel(size_t samples_per_channel,
   int sub_frames_until_level_reduction = 0;
   while (last_level > reduced_level_linear) {
     const auto level_envelope = level_estimator.ComputeLevel(
-        vectors_with_zero_float_frame.float_frame_view());
+        vectors_with_zero_float_frame.float_frame_view().ToDeinterleavedView());
     for (const auto& v : level_envelope) {
       EXPECT_LT(v, last_level);
       sub_frames_until_level_reduction++;

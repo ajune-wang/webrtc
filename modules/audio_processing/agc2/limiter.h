@@ -33,7 +33,11 @@ class Limiter {
   ~Limiter();
 
   // Applies limiter and hard-clipping to `signal`.
-  void Process(AudioFrameView<float> signal);
+  void Process(DeinterleavedView<float> signal);
+  [[deprecated("Use DeinterleavedView version")]] void Process(
+      AudioFrameView<float> signal) {
+    return Process(signal.ToDeinterleavedView());
+  }
   InterpolatedGainCurve::Stats GetGainCurveStats() const;
 
   // Supported values must be

@@ -51,6 +51,14 @@ class AudioFrameView {
 
   DeinterleavedView<T> view() { return view_; }
 
+  // Simple check that's used for DCHECKing that the channels sit together in a
+  // contiguously allocated block of memory.
+  bool IsContiguous() const {
+    return num_channels_ <= 1
+               ? true
+               : audio_samples_[1] == (audio_samples_[0] + channel_size_);
+  }
+
  private:
   DeinterleavedView<T> view_;
 };

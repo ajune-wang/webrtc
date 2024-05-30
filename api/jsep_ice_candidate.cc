@@ -15,6 +15,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "rtc_base/thread.h"
 
 namespace webrtc {
 
@@ -40,19 +41,27 @@ JsepCandidateCollection::JsepCandidateCollection(JsepCandidateCollection&& o)
     : candidates_(std::move(o.candidates_)) {}
 
 size_t JsepCandidateCollection::count() const {
+  RTC_LOG(LS_ERROR) << "DEBUG: JCC:Count on " << this << " from "
+                    << rtc::Thread::Current();
+  NoteReading();
   return candidates_.size();
 }
 
 void JsepCandidateCollection::add(JsepIceCandidate* candidate) {
+  RTC_LOG(LS_ERROR) << "DEBUG: JCC:Add on " << this << " from "
+                    << rtc::Thread::Current();
+  AssertWritable();
   candidates_.push_back(absl::WrapUnique(candidate));
 }
 
 const IceCandidateInterface* JsepCandidateCollection::at(size_t index) const {
+  NoteReading();
   return candidates_[index].get();
 }
 
 bool JsepCandidateCollection::HasCandidate(
     const IceCandidateInterface* candidate) const {
+  NoteReading();
   return absl::c_any_of(
       candidates_, [&](const std::unique_ptr<JsepIceCandidate>& entry) {
         return entry->sdp_mid() == candidate->sdp_mid() &&
@@ -62,6 +71,7 @@ bool JsepCandidateCollection::HasCandidate(
 }
 
 size_t JsepCandidateCollection::remove(const cricket::Candidate& candidate) {
+  AssertWritable();
   auto iter = absl::c_find_if(
       candidates_, [&](const std::unique_ptr<JsepIceCandidate>& c) {
         return candidate.MatchesForRemoval(c->candidate());
@@ -71,6 +81,16 @@ size_t JsepCandidateCollection::remove(const cricket::Candidate& candidate) {
     return 1;
   }
   return 0;
+}
+
+void JsepCandidateCollection::AssertWritable() {
+  RTC_DCHECK(writable_);
+}
+
+void JsepCandidateCollection::NoteReading() const {
+  if (!sequence_checker_.IsCurrent()) {
+    writable_ = false;
+  }
 }
 
 }  // namespace webrtc

@@ -1371,11 +1371,13 @@ TEST_F(SdpOfferAnswerTest, ReducedSizeNotNegotiated) {
   auto offer = caller->CreateOfferAndSetAsLocal();
   ASSERT_NE(offer, nullptr);
   std::string sdp;
+  RTC_LOG(LS_ERROR) << "DEBUG: ToString starting";
   offer->ToString(&sdp);
+  RTC_LOG(LS_ERROR) << "DEBUG: ToString ending";
   // Remove rtcp-rsize attribute.
-  auto modified_offer = CreateSessionDescription(
+  offer = CreateSessionDescription(
       SdpType::kOffer, absl::StrReplaceAll(sdp, {{"a=rtcp-rsize\r\n", ""}}));
-  EXPECT_TRUE(callee->SetRemoteDescription(std::move(modified_offer)));
+  EXPECT_TRUE(callee->SetRemoteDescription(std::move(offer)));
   auto answer = callee->CreateAnswerAndSetAsLocal();
   EXPECT_TRUE(caller->SetRemoteDescription(std::move(answer)));
 

@@ -22,6 +22,7 @@
 
 #include "api/candidate.h"
 #include "api/jsep.h"
+#include "api/sequence_checker.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -82,6 +83,15 @@ class JsepCandidateCollection : public IceCandidateCollection {
   size_t remove(const cricket::Candidate& candidate);
 
  private:
+  // Checking thread properties of the class: Attributes can be read from
+  // any thread, but once multiple threads read them, the object cannot
+  // be modiifed.
+  // Throw a check if there are multiple threads reading the object.
+  void AssertWritable();
+  // Note that the current thread is reading.
+  void NoteReading() const;
+  const SequenceChecker sequence_checker_{SequenceChecker::kDetached};
+  mutable bool writable_ = true;
   std::vector<std::unique_ptr<JsepIceCandidate>> candidates_;
 };
 

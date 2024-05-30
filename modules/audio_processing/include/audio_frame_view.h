@@ -50,6 +50,7 @@ class AudioFrameView {
   MonoView<const T> channel(int idx) const { return view_[idx]; }
 
   DeinterleavedView<T> view() { return view_; }
+  DeinterleavedView<const T> view() const { return view_; }
 
  private:
   DeinterleavedView<T> view_;

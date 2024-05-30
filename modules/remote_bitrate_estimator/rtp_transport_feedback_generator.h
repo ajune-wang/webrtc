@@ -11,6 +11,9 @@
 #ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_RTP_TRANSPORT_FEEDBACK_GENERATOR_H_
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_RTP_TRANSPORT_FEEDBACK_GENERATOR_H_
 
+#include <memory>
+#include <vector>
+
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
@@ -21,6 +24,8 @@ namespace webrtc {
 
 class RtpTransportFeedbackGenerator {
  public:
+  using RtcpSender = std::function<void(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets)>;
   virtual ~RtpTransportFeedbackGenerator() = default;
 
   virtual void OnReceivedPacket(const RtpPacketReceived& packet) = 0;

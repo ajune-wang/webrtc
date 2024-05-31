@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf571676_826d3805",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-05-31T09:30:02Z",
+      "side": 1,
+      "message": "One more usage of SetIceTiebreaker discovered.",
+      "revId": "fbd241e7cfe2d6fdb082f40f1155487fc526396f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

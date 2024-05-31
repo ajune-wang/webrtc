@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39c32d2b_139ff2d8",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1983,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-05-31T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a38094e_48d22c8f",
+      "revId": "2799862666a79dd45acfcec4d69c6d0f991fb918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc123101_d38d03df",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-05-30T07:10:14Z",
       "side": 1,
       "message": "I think you meant: `processing_delay_us`",
+      "range": {
+        "startLine": 93,
+        "startChar": 13,
+        "endLine": 93,
+        "endChar": 37
+      },
+      "revId": "2799862666a79dd45acfcec4d69c6d0f991fb918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e5478f_931a7283",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-05-31T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc123101_d38d03df",
       "range": {
         "startLine": 93,
         "startChar": 13,

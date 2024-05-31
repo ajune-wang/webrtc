@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e10cd1a0_ca419e29",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2024-05-31T12:48:48Z",
+      "side": 1,
+      "message": "Note that this is in the WebRTC repo, btw, and that projects other than Chromium also use this repo.",
+      "parentUuid": "b94403ee_f6abeac4",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78599062_8354a547",
         "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
         "patchSetId": 1

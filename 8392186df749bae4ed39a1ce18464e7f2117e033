@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "796696ea_6d21dc28",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-05-31T18:52:44Z",
+      "side": 1,
+      "message": "I haven\u0027t seen `__strong` in either the Google or Chromium Obj-C style guides. Happy to follow this rule anyway - does it also apply to local variables?",
+      "parentUuid": "1326ce0b_f2fdd9df",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78599062_8354a547",
         "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
         "patchSetId": 1

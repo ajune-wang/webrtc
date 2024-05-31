@@ -35,6 +35,7 @@ rtc_source_set("enable_media") {
   deps = [
     ":libjingle_peerconnection_api",
     "../call",
+    "../call:call_interfaces",
     "../media:rtc_audio_video",
     "../pc:media_factory",
     "../rtc_base/system:rtc_export",

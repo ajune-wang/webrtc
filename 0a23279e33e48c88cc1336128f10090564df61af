@@ -52,6 +52,24 @@
       "parentUuid": "38f4a283_1c25a1b9",
       "revId": "0a23279e33e48c88cc1336128f10090564df61af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9370a7db_d286ebc5",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-05-31T18:31:55Z",
+      "side": 0,
+      "message": "Can you burn that before this lands or do I need to explicitly deprecate?",
+      "parentUuid": "4a62f5fd_da5f08a7",
+      "revId": "0a23279e33e48c88cc1336128f10090564df61af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

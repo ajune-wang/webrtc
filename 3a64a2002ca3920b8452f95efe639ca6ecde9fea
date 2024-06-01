@@ -68,6 +68,30 @@
       },
       "revId": "3a64a2002ca3920b8452f95efe639ca6ecde9fea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e20d08ad_b25f389c",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-01T00:54:18Z",
+      "side": 1,
+      "message": "Updated to 13.0, with comment.",
+      "parentUuid": "8b7f28cf_d9235ea7",
+      "range": {
+        "startLine": 201,
+        "startChar": 6,
+        "endLine": 201,
+        "endChar": 32
+      },
+      "revId": "3a64a2002ca3920b8452f95efe639ca6ecde9fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

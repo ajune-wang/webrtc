@@ -18,6 +18,9 @@
 #include "absl/strings/match.h"
 #include "api/array_view.h"
 #include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
+#include "api/test/create_frame_generator.h"
+#include "api/test/frame_generator_interface.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "api/video/builtin_video_bitrate_allocator_factory.h"
@@ -83,36 +86,75 @@ const std::set<ScalabilityMode> kKeySvcScalabilityModes{
     ScalabilityMode::kL3T1_KEY,       ScalabilityMode::kL3T2_KEY,
     ScalabilityMode::kL3T3_KEY};
 
-// A thread-safe raw video frame reader.
+// A thread-safe video frame reader. Reads frames from YUV, Y4M or IVF
+// (compressed with VPx, AV1 or H264) files. Stores last `kMaxFrameBufferSize`
+// for using them as references for quality measurement.
 class VideoSource {
  public:
+  static constexpr int kMaxFrameBufferSize = 32;
+
   explicit VideoSource(VideoSourceSettings source_settings)
       : source_settings_(source_settings) {
     MutexLock lock(&mutex_);
-    if (absl::EndsWith(source_settings.file_path, "y4m")) {
-      frame_reader_ =
+    if (absl::EndsWith(source_settings.file_path, "ivf")) {
+      ivf_reader_ = CreateFromIvfFileFrameGenerator(CreateEnvironment(),
+                                                    source_settings.file_path);
+    } else if (absl::EndsWith(source_settings.file_path, "y4m")) {
+      yuv_reader_ =
           CreateY4mFrameReader(source_settings_.file_path,
                                YuvFrameReaderImpl::RepeatMode::kPingPong);
     } else {
-      frame_reader_ = CreateYuvFrameReader(
+      yuv_reader_ = CreateYuvFrameReader(
           source_settings_.file_path, source_settings_.resolution,
           YuvFrameReaderImpl::RepeatMode::kPingPong);
     }
-    RTC_CHECK(frame_reader_);
+    RTC_CHECK(ivf_reader_ || yuv_reader_);
   }
 
-  // Pulls next frame.
   VideoFrame PullFrame(uint32_t timestamp_rtp,
                        Resolution resolution,
                        Frequency framerate) {
     MutexLock lock(&mutex_);
-    int frame_num;
-    auto buffer = frame_reader_->PullFrame(
-        &frame_num, resolution,
-        {.num = framerate.millihertz<int>(),
-         .den = source_settings_.framerate.millihertz<int>()});
-    RTC_CHECK(buffer) << "Can not pull frame. RTP timestamp " << timestamp_rtp;
-    frame_num_[timestamp_rtp] = frame_num;
+
+    if (last_frames_.size() > kMaxFrameBufferSize) {
+      last_frames_.erase(last_frames_.begin());
+    }
+
+    // If requested frame rate is different from original, rescale it by
+    // skipping or repeating frames.
+    ticks_ = ticks_.value_or(framerate.hertz<float>());
+    int skip = 0;
+    while (ticks_ <= 0) {
+      *ticks_ += framerate.hertz<float>();
+      ++skip;
+    }
+    *ticks_ -= source_settings_.framerate.hertz<float>();
+
+    if (skip == 0 && !last_frames_.empty()) {
+      // Repeat last frame.
+      last_frames_.insert({timestamp_rtp, last_frames_.rbegin()->second});
+    } else {
+      rtc::scoped_refptr<VideoFrameBuffer> buffer;
+      do {
+        if (yuv_reader_) {
+          buffer = yuv_reader_->PullFrame();
+        } else {
+          buffer = ivf_reader_->NextFrame().buffer;
+        }
+      } while (--skip > 0);
+      RTC_CHECK(buffer) << "Could not read frame. timestamp_rtp "
+                        << timestamp_rtp;
+
+      last_frames_.insert({timestamp_rtp, buffer});
+    }
+
+    rtc::scoped_refptr<VideoFrameBuffer> buffer =
+        last_frames_.at(timestamp_rtp);
+    if (buffer->width() != resolution.width &&
+        buffer->height() != resolution.height) {
+      buffer = buffer->Scale(resolution.width, resolution.height);
+    }
+
     return VideoFrame::Builder()
         .set_video_frame_buffer(buffer)
         .set_rtp_timestamp(timestamp_rtp)
@@ -125,21 +167,31 @@ class VideoSource {
   // before.
   VideoFrame ReadFrame(uint32_t timestamp_rtp, Resolution resolution) {
     MutexLock lock(&mutex_);
-    RTC_CHECK(frame_num_.find(timestamp_rtp) != frame_num_.end())
-        << "Frame with RTP timestamp " << timestamp_rtp
-        << " was not pulled before";
-    auto buffer =
-        frame_reader_->ReadFrame(frame_num_.at(timestamp_rtp), resolution);
+    auto it = last_frames_.find(timestamp_rtp);
+    RTC_CHECK(it != last_frames_.end());
+    if (it != last_frames_.begin()) {
+      last_frames_.erase(last_frames_.begin(), it);
+    }
+    rtc::scoped_refptr<VideoFrameBuffer> buffer =
+        last_frames_.at(timestamp_rtp);
+    if (buffer->width() != resolution.width &&
+        buffer->height() != resolution.height) {
+      buffer = buffer->Scale(resolution.width, resolution.height);
+    }
     return VideoFrame::Builder()
         .set_video_frame_buffer(buffer)
         .set_rtp_timestamp(timestamp_rtp)
+        .set_timestamp_us((timestamp_rtp / k90kHz).us())
         .build();
   }
 
  private:
   VideoSourceSettings source_settings_;
-  std::unique_ptr<FrameReader> frame_reader_ RTC_GUARDED_BY(mutex_);
-  std::map<uint32_t, int> frame_num_ RTC_GUARDED_BY(mutex_);
+  std::unique_ptr<FrameReader> yuv_reader_ RTC_GUARDED_BY(mutex_);
+  std::unique_ptr<FrameGeneratorInterface> ivf_reader_ RTC_GUARDED_BY(mutex_);
+  std::map<uint32_t, rtc::scoped_refptr<VideoFrameBuffer>> last_frames_
+      RTC_GUARDED_BY(mutex_);
+  absl::optional<float> ticks_;
   Mutex mutex_;
 };
 

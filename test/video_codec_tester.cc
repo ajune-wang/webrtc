@@ -189,12 +189,11 @@ class Pacer {
 class LimitedTaskQueue {
  public:
   // The codec tester reads frames from video source in the main thread.
-  // Encoding and decoding are done in separate threads. If encoding or
-  // decoding is slow, the reading may go far ahead and may buffer too many
-  // frames in memory. To prevent this we limit the encoding/decoding queue
-  // size. When the queue is full, the main thread and, hence, reading frames
-  // from video source is blocked until a previously posted encoding/decoding
-  // task starts.
+  // Encoding and decoding are done in separate threads. If encoding or decoding
+  // is slow, the reading may run far ahead and read too many frames into
+  // memory. To prevent this we limit the encoding/decoding queue size. When the
+  // queue is full, the main thread and, hence, reading frames from video source
+  // is blocked until a previously posted encoding/decoding task starts.
   static constexpr int kMaxTaskQueueSize = 3;
 
   LimitedTaskQueue() : queue_size_(0) {}
@@ -215,14 +214,21 @@ class LimitedTaskQueue {
     });
 
     task_executed_.Reset();
-    if (queue_size_ > kMaxTaskQueueSize) {
-      task_executed_.Wait(rtc::Event::kForever);
-      RTC_CHECK(queue_size_ <= kMaxTaskQueueSize);
+    while (queue_size_ > kMaxTaskQueueSize) {
+      task_executed_.Wait(TimeDelta::Seconds(10));
     }
   }
 
-  void PostTaskAndWait(absl::AnyInvocable<void() &&> task) {
+  void PostTask(absl::AnyInvocable<void() &&> task) {
     PostScheduledTask(std::move(task), Timestamp::Millis(rtc::TimeMillis()));
+  }
+
+  void PostTaskAndWait(absl::AnyInvocable<void() &&> task) {
+    PostTask(std::move(task));
+    WaitForPreviouslyPostedTasks();
+  }
+
+  void WaitForPreviouslyPostedTasks() {
     task_queue_.WaitForPreviouslyPostedTasks();
   }
 
@@ -776,7 +782,7 @@ class VideoCodecAnalyzer : public VideoCodecTester::VideoCodecStats {
   }
 
   VideoSource* const video_source_;
-  TaskQueueForTest task_queue_;
+  LimitedTaskQueue task_queue_;
   // RTP timestamp -> spatial layer -> Frame
   std::map<uint32_t, std::map<int, Frame>> frames_;
   std::map<uint32_t, EncodingSettings> encoding_settings_;

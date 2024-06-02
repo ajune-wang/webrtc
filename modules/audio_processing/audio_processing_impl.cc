@@ -2400,8 +2400,9 @@ void AudioProcessingImpl::InitializeVoiceActivityDetector() {
             submodules_.gain_controller2->GetCpuFeatures(),
             proc_fullband_sample_rate_hz());
   } else {
-    submodules_.voice_activity_detector->Initialize(
-        proc_fullband_sample_rate_hz());
+    RTC_CHECK_NOTREACHED();
+    // submodules_.voice_activity_detector->Initialize(
+    //    proc_fullband_sample_rate_hz());
   }
 }
 

@@ -26,6 +26,14 @@ template <typename T>
 PushResampler<T>::PushResampler() = default;
 
 template <typename T>
+PushResampler<T>::PushResampler(size_t src_samples_per_channel,
+                                size_t dst_samples_per_channel,
+                                size_t num_channels) {
+  EnsureInitialized(src_samples_per_channel, dst_samples_per_channel,
+                    num_channels);
+}
+
+template <typename T>
 PushResampler<T>::~PushResampler() = default;
 
 template <typename T>
@@ -43,29 +51,35 @@ int PushResampler<T>::InitializeIfNeeded(int src_sample_rate_hz,
   const size_t dst_size_10ms_mono =
       static_cast<size_t>(dst_sample_rate_hz / 100);
 
-  if (src_size_10ms_mono == SamplesPerChannel(source_view_) &&
-      dst_size_10ms_mono == SamplesPerChannel(destination_view_) &&
+  EnsureInitialized(src_size_10ms_mono, dst_size_10ms_mono, num_channels);
+  return 0;
+}
+
+template <typename T>
+void PushResampler<T>::EnsureInitialized(size_t src_samples_per_channel,
+                                         size_t dst_samples_per_channel,
+                                         size_t num_channels) {
+  if (src_samples_per_channel == SamplesPerChannel(source_view_) &&
+      dst_samples_per_channel == SamplesPerChannel(destination_view_) &&
       num_channels == NumChannels(source_view_)) {
     // No-op if settings haven't changed.
-    return 0;
+    return;
   }
 
   // Allocate two buffers for all source and destination channels.
   // Then organize source and destination views together with an array of
   // resamplers for each channel in the deinterlaved buffers.
-  source_.reset(new T[src_size_10ms_mono * num_channels]);
-  destination_.reset(new T[dst_size_10ms_mono * num_channels]);
-  source_view_ =
-      DeinterleavedView<T>(source_.get(), src_size_10ms_mono, num_channels);
-  destination_view_ = DeinterleavedView<T>(destination_.get(),
-                                           dst_size_10ms_mono, num_channels);
+  source_.reset(new T[src_samples_per_channel * num_channels]);
+  destination_.reset(new T[dst_samples_per_channel * num_channels]);
+  source_view_ = DeinterleavedView<T>(source_.get(), src_samples_per_channel,
+                                      num_channels);
+  destination_view_ = DeinterleavedView<T>(
+      destination_.get(), dst_samples_per_channel, num_channels);
   resamplers_.resize(num_channels);
   for (size_t i = 0; i < num_channels; ++i) {
-    resamplers_[i] = std::make_unique<PushSincResampler>(src_size_10ms_mono,
-                                                         dst_size_10ms_mono);
+    resamplers_[i] = std::make_unique<PushSincResampler>(
+        src_samples_per_channel, dst_samples_per_channel);
   }
-
-  return 0;
 }
 
 template <typename T>

@@ -10,9 +10,10 @@
 
 #include "api/sequence_checker.h"
 
+#include <functional>
 #include <memory>
-#include <utility>
 
+#include "absl/functional/any_invocable.h"
 #include "api/function_view.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/event.h"

@@ -200,6 +200,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67b186b4_7bfc3441",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-03T19:40:28Z",
+      "side": 1,
+      "message": "Yes, `callback_` is a C++ raw pointer. If I\u0027m not mistaken, I believe that raw pointers and integers need explicit initialization (to `nullptr` or 0), but smart pointers and objects don\u0027t need this?\n\nSo I\u0027ve initialized these:\n* `callback_` (raw C++ pointer)\n* `current_display_` (integer type)\n\nBut I haven\u0027t initialized these:\n* `latest_frame_lock_` (C++ object, not POD)\n* `latest_frame_` (smart C++ pointer)\n* `helper_` (Obj-C reference annotated with `__strong`)\n\nMy understanding is that `__strong` clarifies that the type is a smart reference - it forces ARC to be enabled for this code?\n\nI\u0027m not sure about local Obj-C variables though. Avi said not to use `__strong` for these, so maybe there is value in adding `\u003d nil` to them, to convey they are Obj-C references, not raw pointers?",
+      "parentUuid": "10e40ad6_f316d955",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78599062_8354a547",
         "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
         "patchSetId": 1

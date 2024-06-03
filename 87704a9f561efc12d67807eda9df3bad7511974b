@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e231ac69_d8406b74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-03T09:25:37Z",
+      "side": 1,
+      "message": "One last comment and then I think this CL can land.\n\nhta@, orphis@: what do you think?",
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5be830e_249b48b2",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-03T09:25:37Z",
+      "side": 1,
+      "message": "Why not include this into the IWYU pragma?\n\n(do we even need that the pragma?)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "559032b0_e7338f49",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-03T09:25:37Z",
+      "side": 1,
+      "message": "nit: double comment?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 2
+      },
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -203,4 +203,18 @@ TEST(StatisticsCalculator, DiscardedPackets) {
             statistics_calculator.GetLifetimeStatistics().packets_discarded);
 }
 
+TEST(StatisticsCalculator, ProcessingDelay) {
+  StatisticsCalculator stats;
+  NetEqLifetimeStatistics lts;
+  lts = stats.GetLifetimeStatistics();
+  EXPECT_EQ(lts.total_processing_delay_us, 0ul);
+  stats.TotalProcessingDelay(/*num_samples=*/480,
+                             /*processing_delay_us=*/100 * 1000ul);
+  lts = stats.GetLifetimeStatistics();
+  EXPECT_EQ(lts.total_processing_delay_us / 480, 100 * 1000ul);
+  stats.TotalProcessingDelay(/*num_samples=*/480,
+                             /*processing_delay_us=*/100 * 1000ul);
+  EXPECT_EQ(lts.total_processing_delay_us / 480, 100 * 1000ul);
+}
+
 }  // namespace webrtc

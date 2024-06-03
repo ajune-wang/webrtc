@@ -1980,6 +1980,13 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
                               controller_->TargetLevelMs(),
                               controller_->UnlimitedTargetLevelMs());
 
+    if (packet->packet_info.has_value() &&
+        !packet->packet_info->receive_time().IsMinusInfinity()) {
+      TimeDelta processing_time =
+          clock_->CurrentTime() - packet->packet_info->receive_time();
+      stats_->TotalProcessingDelay(packet_duration, processing_time.us());
+    }
+
     // Check what packet is available next.
     next_packet = packet_buffer_->PeekNextPacket();
     next_packet_available =

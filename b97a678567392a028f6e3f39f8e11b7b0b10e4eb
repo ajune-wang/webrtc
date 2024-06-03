@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7baa562_3f9f1054",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-06-03T13:58:54Z",
+      "side": 1,
+      "message": "thanks for the review",
+      "revId": "b97a678567392a028f6e3f39f8e11b7b0b10e4eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7127a06c_821dabba",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edb4306a_8c3939bc",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-06-03T13:58:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7127a06c_821dabba",
+      "range": {
+        "startLine": 1989,
+        "startChar": 0,
+        "endLine": 1992,
+        "endChar": 0
+      },
+      "revId": "b97a678567392a028f6e3f39f8e11b7b0b10e4eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae4c6a70_ba8d69b5",
@@ -54,6 +95,30 @@
       "writtenOn": "2024-06-03T12:49:06Z",
       "side": 1,
       "message": "IMO, we should just add this to JitterBufferDelay instead (it should probably be called JitterBufferEmitted or PacketDecoded or something..).",
+      "range": {
+        "startLine": 91,
+        "startChar": 57,
+        "endLine": 91,
+        "endChar": 76
+      },
+      "revId": "b97a678567392a028f6e3f39f8e11b7b0b10e4eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06c37817_41efeba5",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-06-03T13:58:54Z",
+      "side": 1,
+      "message": "right now we are just calling this method when receive time is available: \n```\nif (packet-\u003epacket_info.has_value() \u0026\u0026\n        !packet-\u003epacket_info-\u003ereceive_time().IsMinusInfinity())\n```\n\nare you proposing to pipe that packet_info inside the JitterBufferDelay method in order to make that check?",
+      "parentUuid": "ae4c6a70_ba8d69b5",
       "range": {
         "startLine": 91,
         "startChar": 57,

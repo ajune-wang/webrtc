@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11fdb30c_8485397e",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-03T14:50:57Z",
+      "side": 1,
+      "message": "Yes, now it is much more clear. Thanks.",
+      "parentUuid": "02436acb_a1e65d06",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 10
+      },
+      "revId": "a255acecbf391e947449074e252f11fafad6ac49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b741143f_bd2f3511",

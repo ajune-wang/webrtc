@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e3c2d7_a6312382",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-03T11:26:41Z",
+      "side": 1,
+      "message": "IIUC ticks_ is the previous framerate (% changes that happen when removing the source_setting framerate at line 131).\n\nI am not sure I am following what is happening here. 😊\n\nCan you help me understand? So I can do a proper code review, at the moment I am not sure I follow.",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 10
+      },
+      "revId": "a255acecbf391e947449074e252f11fafad6ac49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b741143f_bd2f3511",
+        "filename": "test/video_codec_tester.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-03T11:26:41Z",
+      "side": 1,
+      "message": "When do we expect ticks_ to be negative?\nShould\u0027t that be an RTC_CHECK?",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "a255acecbf391e947449074e252f11fafad6ac49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

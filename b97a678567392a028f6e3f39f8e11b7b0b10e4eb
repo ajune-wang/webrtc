@@ -127,6 +127,30 @@
       },
       "revId": "b97a678567392a028f6e3f39f8e11b7b0b10e4eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24faeae_56d08c0c",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-06-03T14:24:54Z",
+      "side": 1,
+      "message": "No, just set processing delay to zero when receive time is missing (which is the same thing as not incrementing the metric).",
+      "parentUuid": "06c37817_41efeba5",
+      "range": {
+        "startLine": 91,
+        "startChar": 57,
+        "endLine": 91,
+        "endChar": 76
+      },
+      "revId": "b97a678567392a028f6e3f39f8e11b7b0b10e4eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

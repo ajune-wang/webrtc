@@ -39,6 +39,30 @@
       },
       "revId": "d62f65d0a6c1a9fd095873e0591ae723020c9a5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3364b2a9_09cb8405",
+        "filename": "build_overrides/partition_alloc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-04T09:22:30Z",
+      "side": 1,
+      "message": "I think we can do this, do you want me to try in this CL?\n\nOn a second note, is this the proper way to depend on it? (we depend on it because of build dependencies, not because WebRTC uses it and we need a way to keep it working with low maintenance).",
+      "parentUuid": "71ec6237_b9d81c53",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "d62f65d0a6c1a9fd095873e0591ae723020c9a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

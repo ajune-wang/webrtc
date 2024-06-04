@@ -11,4 +11,7 @@
 import(
     "//base/allocator/partition_allocator/build_overrides/partition_alloc.gni")
 
+# The file base/allocator/partition_allocator/partition_alloc.gni reads the
+# variable `is_cronet_build` but cannot depend on //build.
+import("//build/config/cronet/config.gni")
 assert_cpp20_default = true

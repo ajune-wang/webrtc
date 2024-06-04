@@ -87,6 +87,30 @@
       },
       "revId": "d62f65d0a6c1a9fd095873e0591ae723020c9a5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7512a1_b038bf3f",
+        "filename": "build_overrides/partition_alloc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-04T11:36:50Z",
+      "side": 1,
+      "message": "Done. Adding jleconte@ for owners approval.",
+      "parentUuid": "8b84fb94_de5db1ce",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "d62f65d0a6c1a9fd095873e0591ae723020c9a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

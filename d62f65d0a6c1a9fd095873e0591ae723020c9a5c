@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42c0c179_0eb3fc0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 21294
+      },
+      "writtenOn": "2024-06-04T08:58:35Z",
+      "side": 1,
+      "message": "Thanks!\n\nnon OWNER LGTM % one suggestion:",
+      "revId": "d62f65d0a6c1a9fd095873e0591ae723020c9a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ec6237_b9d81c53",
+        "filename": "build_overrides/partition_alloc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 21294
+      },
+      "writtenOn": "2024-06-04T08:58:35Z",
+      "side": 1,
+      "message": "I didn\u0027t know WebRTC was depending on the partition_alloc standalone build config. It probably shouldn\u0027t, because this is going to prevent me from updating it.\n\nCould we remove this dependencies. WebRTC can configure PartitionAlloc independently.\n\nWhat about:\n```suggestion\n# Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.\n#\n# Use of this source code is governed by a BSD-style license\n# that can be found in the LICENSE file in the root of the source\n# tree. An additional intellectual property rights grant can be found\n# in the file PATENTS.  All contributing project authors may\n# be found in the AUTHORS file in the root of the source tree.\n\n# Dependencies from //build defining variables used by partition_alloc.\nimport(\"//build/config/android/config.gni\")\nimport(\"//build/config/cast.gni\")\nimport(\"//build/config/chromeos/ui_mode.gni\")\nimport(\"//build/config/compiler/compiler.gni\")\nimport(\"//build/config/cronet/config.gni\")\nimport(\"//build/config/dcheck_always_on.gni\")\nimport(\"//build/config/logging.gni\")\n\npartition_alloc_enable_arc_config \u003d \"//build/config/compiler:enable_arc\"\n\n# partition_alloc is performance critical and it should generally be optimized\n# for speed, even in debug mode. WebRTC doesn\u0027t really need its debug version.\npartition_alloc_remove_configs \u003d\n    [ \"//build/config/compiler:default_optimization\" ]\npartition_alloc_add_configs \u003d [ \"//build/config/compiler:optimize_speed\" ]\n\n# Disable partition_alloc for WebRTC standalone builds.\nuse_partition_alloc_as_malloc_default \u003d false\nuse_allocator_shim_default \u003d false\nenable_backup_ref_ptr_support_default \u003d false\nenable_backup_ref_ptr_slow_checks_default \u003d false\nenable_dangling_raw_ptr_checks_default \u003d false\n\n# raw_ptr behave like naked pointers, except they are always initialized. This\n# avoids relying on undefined behaviors.\nraw_ptr_zero_on_construct_default \u003d true\nraw_ptr_zero_on_move_default \u003d true\nraw_ptr_zero_on_destruct_default \u003d false\n\n# WebRTC used C++20 by default:\nassert_cpp20_default \u003d true\n```",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "d62f65d0a6c1a9fd095873e0591ae723020c9a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

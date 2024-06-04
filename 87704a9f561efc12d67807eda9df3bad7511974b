@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ed3ffb_9bfc89fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-04T12:50:39Z",
+      "side": 1,
+      "message": "Unfortunately the internal checks are always green when they\u0027re triggered on a CL from an external user :-( So you don\u0027t see that they fail, even.\nhttps://webrtc-review.googlesource.com/c/src/+/353420 is the test run that failed; I believe you can see the fact of failure, but not what failed.",
+      "parentUuid": "9bd05390_3ccd69a8",
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5be830e_249b48b2",

@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "efcad54d_c33ed295",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-04T12:45:59Z",
+      "side": 1,
+      "message": "Not including it in the pragma because its needed in the file and iwyu wasn\u0027t trying to remove it.\nre if we need the pragma - iirc iwyu was removing those. Let me retry though.",
+      "parentUuid": "d5be830e_249b48b2",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "559032b0_e7338f49",
         "filename": "api/field_trials_registry.cc",
         "patchSetId": 10
@@ -88,6 +112,30 @@
       "writtenOn": "2024-06-03T09:25:37Z",
       "side": 1,
       "message": "nit: double comment?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 2
+      },
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d467cca_122d63cf",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-04T12:45:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "559032b0_e7338f49",
       "range": {
         "startLine": 20,
         "startChar": 0,

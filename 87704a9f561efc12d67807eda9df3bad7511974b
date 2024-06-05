@@ -137,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43fab5ce_e9dbb8e8",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-05T09:38:10Z",
+      "side": 1,
+      "message": "Yeah so basically:\n- string_view doesn\u0027t need to go into the pragma because it\u0027s in the function definition, its aware it needs to keep it.\n- The rest of the includes IWYU attempts to remove. I guess because the used symbols (DCHECK, LOG, linear_search, kRegisteredFieldTrials) are under ifdefs which are not enabled by default hence the compilation db does not reflect them.",
+      "parentUuid": "efcad54d_c33ed295",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "559032b0_e7338f49",
         "filename": "api/field_trials_registry.cc",
         "patchSetId": 10

@@ -12,7 +12,6 @@
 
 #include <memory>
 
-#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe7ff6f_69ef2138",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-05T09:41:47Z",
+      "side": 1,
+      "message": "I actually cannot see anything red/failing. Perhaps I\u0027m looking at the wrong place?\nI looked over at the checks tab and tried to scroll around but the only thing I see is the information signal that mentions that binary size is gucci. The rest are green.\nAlso opened a bunch of random bot runs and couldn\u0027t find any indication to failures.",
+      "parentUuid": "32ed3ffb_9bfc89fd",
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5be830e_249b48b2",

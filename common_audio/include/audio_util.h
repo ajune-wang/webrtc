@@ -25,6 +25,19 @@ namespace webrtc {
 
 typedef std::numeric_limits<int16_t> limits_int16;
 
+// Absolute highest acceptable sample rate supported for audio processing,
+// capture and codecs. Note that for some components some cases a lower limit
+// applies which typically is 48000 but in some cases is lower.
+constexpr int kMaxSampleRate = 384000;
+
+// Highest default (10ms) number of samples per channel for the highest
+// sample rate.
+constexpr size_t kMaxSamplesPerChannel = kMaxSampleRate / 100u;
+
+// Maximum concurrent number of channels. Note that this may be different from
+// what the maximum is for audio codecs.
+constexpr int kMaxNumberOfChannels = 8;
+
 // The conversion functions use the following naming convention:
 // S16:      int16_t [-32768, 32767]
 // Float:    float   [-1.0, 1.0]

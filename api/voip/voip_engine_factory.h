@@ -40,9 +40,10 @@ struct VoipEngineConfig {
   // to limit the set to reduce application footprint.
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory;
 
-  // Mandatory (e.g. api/task_queue/default_task_queue_factory).
+  // Optional (e.g. api/task_queue/default_task_queue_factory).
   // TaskQeueuFactory provided for VoipEngine to work asynchronously on its
-  // encoding flow.
+  // encoding flow. When optionally not set, VoipEngine will create a default
+  // task queue factory.
   std::unique_ptr<TaskQueueFactory> task_queue_factory;
 
   // Mandatory (e.g. modules/audio_device/include).

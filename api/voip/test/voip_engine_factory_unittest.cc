@@ -36,12 +36,10 @@ TEST(VoipEngineFactoryTest, CreateEngineWithMockModules) {
   EXPECT_NE(voip_engine, nullptr);
 }
 
-// Create voip engine without setting audio processing as optional component.
-TEST(VoipEngineFactoryTest, UseNoAudioProcessing) {
+TEST(VoipEngineFactoryTest, CreateWithoutOptionalComponents) {
   VoipEngineConfig config;
   config.encoder_factory = rtc::make_ref_counted<MockAudioEncoderFactory>();
   config.decoder_factory = rtc::make_ref_counted<MockAudioDecoderFactory>();
-  config.task_queue_factory = CreateDefaultTaskQueueFactory();
   config.audio_device_module = test::MockAudioDeviceModule::CreateNice();
 
   auto voip_engine = CreateVoipEngine(std::move(config));

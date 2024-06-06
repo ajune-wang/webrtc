@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "185b6ae9_166b9f6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-06T10:53:27Z",
+      "side": 1,
+      "message": "ah - checked with an anonymous window .... for external contributors, the existence of the internal bots is hidden from view :-(\nI didn\u0027t realize we were hiding things that hard :-(",
+      "parentUuid": "6fe7ff6f_69ef2138",
+      "revId": "87704a9f561efc12d67807eda9df3bad7511974b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5be830e_249b48b2",

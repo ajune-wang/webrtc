@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "529977c8_42c2ba37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-06T10:53:27Z",
+      "side": 1,
+      "message": "One error from the build:\n\n./third_party/webrtc/files/stable/webrtc/api/dtls_transport_interface.h:16:10: error: module //third_party/webrtc/files/stable/webrtc/api:dtls_transport_interface does not directly depend on a module exporting \u0027third_party/absl/base/attributes.h\u0027, which is part of indirectly-used module third_party/absl/base/attributes.h\n\nthis shows an undeclared dependency on absl/base:attributes, I think. This target is around line 232 in api/BUILD.gn. Does your include-cleaner ignore abseil deps?\n\n(the internal build system doesn\u0027t honor abseil\u0027s public_deps declarations)",
+      "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

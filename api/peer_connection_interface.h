@@ -1221,6 +1221,8 @@ class RTC_EXPORT PeerConnectionInterface : public webrtc::RefCountInterface {
   // pointers.
   virtual rtc::Thread* signaling_thread() const = 0;
 
+  virtual NetworkControllerInterface* GetNetworkController() = 0;
+
  protected:
   // Dtor protected as objects shouldn't be deleted via this interface.
   ~PeerConnectionInterface() override = default;

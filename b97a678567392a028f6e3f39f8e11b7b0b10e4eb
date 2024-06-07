@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c2ec940_e43cda17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-06-07T09:27:16Z",
+      "side": 1,
+      "message": "hta@ - this is our interpretation of the spec (which is quite confusing): we measure the time from a packet was received from the network (in Chrome, packets are stamped in the network service) until it is decoded, which for audio is the same time as we increment `jitterBufferEmittedCount` and `jitterBufferDelay`. It is not incremented for each GetAudio callback when we play out, since it becomes difficult to trace the delay for individual audio samples after decoding (due to PLC/time stretching etc.).\n\nThis implementation is very similar to how it is already implemented for video.\n\nOne thing that confused us while reading the spec was this part: \"In the case of audio, several samples are received in the same RTP packet, all samples will share the same reception timestamp and different decoded timestamps\"\n\nThe spec also mentions using a `totalSamplesDecoded` as divisor which we don\u0027t see the need for audio.",
+      "parentUuid": "f7e8501a_4d343b8e",
+      "revId": "b97a678567392a028f6e3f39f8e11b7b0b10e4eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7127a06c_821dabba",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 5

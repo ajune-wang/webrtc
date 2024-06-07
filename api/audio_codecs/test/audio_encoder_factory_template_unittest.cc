@@ -20,11 +20,16 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_encoder.h"
-#include "test/scoped_key_value_config.h"
 
 namespace webrtc {
-
 namespace {
+
+using ::testing::ElementsAre;
+using ::testing::IsNull;
+using ::testing::Pointer;
+using ::testing::Property;
+using ::testing::Return;
+using ::testing::StrictMock;
 
 struct BogusParams {
   static SdpAudioFormat AudioFormat() { return {"bogus", 8000, 1}; }
@@ -47,8 +52,7 @@ struct AudioEncoderFakeApi {
   static absl::optional<Config> SdpToConfig(
       const SdpAudioFormat& audio_format) {
     if (Params::AudioFormat() == audio_format) {
-      Config config = {audio_format};
-      return config;
+      return {{audio_format}};
     } else {
       return absl::nullopt;
     }
@@ -65,138 +69,116 @@ struct AudioEncoderFakeApi {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const Config&,
       int payload_type,
-      absl::optional<AudioCodecPairId> /*codec_pair_id*/ = absl::nullopt) {
-    auto enc = std::make_unique<testing::StrictMock<MockAudioEncoder>>();
-    EXPECT_CALL(*enc, SampleRateHz())
-        .WillOnce(::testing::Return(Params::CodecInfo().sample_rate_hz));
-    return std::move(enc);
+      absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    auto enc = std::make_unique<StrictMock<MockAudioEncoder>>();
+    EXPECT_CALL(*enc, SampleRateHz)
+        .WillOnce(Return(Params::CodecInfo().sample_rate_hz));
+    return enc;
   }
 };
 
-}  // namespace
-
-TEST(AudioEncoderFactoryTemplateTest, NoEncoderTypes) {
-  test::ScopedKeyValueConfig field_trials;
-  rtc::scoped_refptr<AudioEncoderFactory> factory(
-      rtc::make_ref_counted<
-          audio_encoder_factory_template_impl::AudioEncoderFactoryT<>>(
-          &field_trials));
-  EXPECT_THAT(factory->GetSupportedEncoders(), ::testing::IsEmpty());
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-}
-
 TEST(AudioEncoderFactoryTemplateTest, OneEncoderType) {
   auto factory = CreateAudioEncoderFactory<AudioEncoderFakeApi<BogusParams>>();
-  EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(AudioCodecInfo(8000, 1, 12345),
-            factory->QueryAudioEncoder({"bogus", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-  auto enc = factory->MakeAudioEncoder(17, {"bogus", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc);
-  EXPECT_EQ(8000, enc->SampleRateHz());
+  EXPECT_THAT(
+      factory->GetSupportedEncoders(),
+      ElementsAre(AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"bogus", 8000, 1}),
+            AudioCodecInfo(8000, 1, 12345));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bogus", 8000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, TwoEncoderTypes) {
   auto factory = CreateAudioEncoderFactory<AudioEncoderFakeApi<BogusParams>,
                                            AudioEncoderFakeApi<ShamParams>>();
-  EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}},
+  EXPECT_THAT(
+      factory->GetSupportedEncoders(),
+      ElementsAre(AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}},
                   AudioCodecSpec{{"sham", 16000, 2, {{"param", "value"}}},
                                  {16000, 2, 23456}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(AudioCodecInfo(8000, 1, 12345),
-            factory->QueryAudioEncoder({"bogus", 8000, 1}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"bogus", 8000, 1}),
+            AudioCodecInfo(8000, 1, 12345));
   EXPECT_EQ(
-      AudioCodecInfo(16000, 2, 23456),
-      factory->QueryAudioEncoder({"sham", 16000, 2, {{"param", "value"}}}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-  auto enc1 = factory->MakeAudioEncoder(17, {"bogus", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc1);
-  EXPECT_EQ(8000, enc1->SampleRateHz());
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"sham", 16000, 2}, absl::nullopt));
-  auto enc2 = factory->MakeAudioEncoder(
-      17, {"sham", 16000, 2, {{"param", "value"}}}, absl::nullopt);
-  ASSERT_NE(nullptr, enc2);
-  EXPECT_EQ(16000, enc2->SampleRateHz());
+      factory->QueryAudioEncoder({"sham", 16000, 2, {{"param", "value"}}}),
+      AudioCodecInfo(16000, 2, 23456));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bogus", 8000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8000)));
+
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"sham", 16000, 2}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(
+                  17, {"sham", 16000, 2, {{"param", "value"}}}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 16000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, G711) {
   auto factory = CreateAudioEncoderFactory<AudioEncoderG711>();
   EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"PCMU", 8000, 1}, {8000, 1, 64000}},
-                  AudioCodecSpec{{"PCMA", 8000, 1}, {8000, 1, 64000}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"PCMA", 16000, 1}));
-  EXPECT_EQ(AudioCodecInfo(8000, 1, 64000),
-            factory->QueryAudioEncoder({"PCMA", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"PCMU", 16000, 1}, absl::nullopt));
-  auto enc1 = factory->MakeAudioEncoder(17, {"PCMU", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc1);
-  EXPECT_EQ(8000, enc1->SampleRateHz());
-  auto enc2 = factory->MakeAudioEncoder(17, {"PCMA", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc2);
-  EXPECT_EQ(8000, enc2->SampleRateHz());
+              ElementsAre(AudioCodecSpec{{"PCMU", 8000, 1}, {8000, 1, 64000}},
+                          AudioCodecSpec{{"PCMA", 8000, 1}, {8000, 1, 64000}}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"PCMA", 16000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"PCMA", 8000, 1}),
+            AudioCodecInfo(8000, 1, 64000));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"PCMU", 16000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"PCMU", 8000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8000)));
+
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"PCMA", 8000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, G722) {
   auto factory = CreateAudioEncoderFactory<AudioEncoderG722>();
-  EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"G722", 8000, 1}, {16000, 1, 64000}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(AudioCodecInfo(16000, 1, 64000),
-            factory->QueryAudioEncoder({"G722", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-  auto enc = factory->MakeAudioEncoder(17, {"G722", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc);
-  EXPECT_EQ(16000, enc->SampleRateHz());
+  EXPECT_THAT(
+      factory->GetSupportedEncoders(),
+      ElementsAre(AudioCodecSpec{{"G722", 8000, 1}, {16000, 1, 64000}}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"G722", 8000, 1}),
+            AudioCodecInfo(16000, 1, 64000));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"G722", 8000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 16000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, Ilbc) {
   auto factory = CreateAudioEncoderFactory<AudioEncoderIlbc>();
   EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"ILBC", 8000, 1}, {8000, 1, 13333}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(AudioCodecInfo(8000, 1, 13333),
-            factory->QueryAudioEncoder({"ilbc", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 8000, 1}, absl::nullopt));
-  auto enc = factory->MakeAudioEncoder(17, {"ilbc", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc);
-  EXPECT_EQ(8000, enc->SampleRateHz());
+              ElementsAre(AudioCodecSpec{{"ILBC", 8000, 1}, {8000, 1, 13333}}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"ilbc", 8000, 1}),
+            AudioCodecInfo(8000, 1, 13333));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 8000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"ilbc", 8000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, L16) {
   auto factory = CreateAudioEncoderFactory<AudioEncoderL16>();
   EXPECT_THAT(
       factory->GetSupportedEncoders(),
-      ::testing::ElementsAre(
+      ElementsAre(
           AudioCodecSpec{{"L16", 8000, 1}, {8000, 1, 8000 * 16}},
           AudioCodecSpec{{"L16", 16000, 1}, {16000, 1, 16000 * 16}},
           AudioCodecSpec{{"L16", 32000, 1}, {32000, 1, 32000 * 16}},
           AudioCodecSpec{{"L16", 8000, 2}, {8000, 2, 8000 * 16 * 2}},
           AudioCodecSpec{{"L16", 16000, 2}, {16000, 2, 16000 * 16 * 2}},
           AudioCodecSpec{{"L16", 32000, 2}, {32000, 2, 32000 * 16 * 2}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"L16", 8000, 0}));
-  EXPECT_EQ(AudioCodecInfo(48000, 1, 48000 * 16),
-            factory->QueryAudioEncoder({"L16", 48000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"L16", 8000, 0}, absl::nullopt));
-  auto enc = factory->MakeAudioEncoder(17, {"L16", 48000, 2}, absl::nullopt);
-  ASSERT_NE(nullptr, enc);
-  EXPECT_EQ(48000, enc->SampleRateHz());
+  EXPECT_EQ(factory->QueryAudioEncoder({"L16", 8000, 0}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"L16", 48000, 1}),
+            AudioCodecInfo(48000, 1, 48000 * 16));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"L16", 8000, 0}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"L16", 48000, 2}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 48000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, Opus) {
@@ -206,19 +188,19 @@ TEST(AudioEncoderFactoryTemplateTest, Opus) {
   info.supports_network_adaption = true;
   EXPECT_THAT(
       factory->GetSupportedEncoders(),
-      ::testing::ElementsAre(AudioCodecSpec{
+      ElementsAre(AudioCodecSpec{
           {"opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}},
           info}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8000, 1}), absl::nullopt);
   EXPECT_EQ(
-      info,
       factory->QueryAudioEncoder(
-          {"opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-  auto enc = factory->MakeAudioEncoder(17, {"opus", 48000, 2}, absl::nullopt);
-  ASSERT_NE(nullptr, enc);
-  EXPECT_EQ(48000, enc->SampleRateHz());
+          {"opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}}),
+      info);
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"opus", 48000, 2}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 48000)));
 }
 
+}  // namespace
 }  // namespace webrtc

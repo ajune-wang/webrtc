@@ -17,6 +17,8 @@
 #include "api/audio_codecs/g722/audio_encoder_g722.h"
 #include "api/audio_codecs/ilbc/audio_encoder_ilbc.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "api/environment/environment.h"
+#include "api/environment/environment_factory.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_encoder.h"
@@ -25,6 +27,11 @@
 namespace webrtc {
 
 namespace {
+
+using ::testing::ElementsAre;
+using ::testing::IsNull;
+using ::testing::Pointer;
+using ::testing::Property;
 
 struct BogusParams {
   static SdpAudioFormat AudioFormat() { return {"bogus", 8000, 1}; }
@@ -75,58 +82,56 @@ struct AudioEncoderFakeApi {
 
 }  // namespace
 
-TEST(AudioEncoderFactoryTemplateTest, NoEncoderTypes) {
-  test::ScopedKeyValueConfig field_trials;
-  rtc::scoped_refptr<AudioEncoderFactory> factory(
-      rtc::make_ref_counted<
-          audio_encoder_factory_template_impl::AudioEncoderFactoryT<>>(
-          &field_trials));
-  EXPECT_THAT(factory->GetSupportedEncoders(), ::testing::IsEmpty());
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-}
-
 TEST(AudioEncoderFactoryTemplateTest, OneEncoderType) {
+  const Environment env = CreateEnvironment();
   auto factory = CreateAudioEncoderFactory<AudioEncoderFakeApi<BogusParams>>();
-  EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(AudioCodecInfo(8000, 1, 12345),
-            factory->QueryAudioEncoder({"bogus", 8000, 1}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-  auto enc = factory->MakeAudioEncoder(17, {"bogus", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc);
-  EXPECT_EQ(8000, enc->SampleRateHz());
+  EXPECT_THAT(
+      factory->GetSupportedEncoders(),
+      ElementsAre(AudioCodecSpec{{"bogus", 8'000, 1}, {8'000, 1, 12345}}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8'000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"bogus", 8'000, 1}),
+            AudioCodecInfo(8'000, 1, 12345));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 16'000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->Create(env, {"bar", 16'000, 1}, {}), IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bogus", 8'000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8'000)));
+  EXPECT_THAT(factory->Create(env, {"bogus", 8'000, 1}, {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8'000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, TwoEncoderTypes) {
+  const Environment env = CreateEnvironment();
   auto factory = CreateAudioEncoderFactory<AudioEncoderFakeApi<BogusParams>,
                                            AudioEncoderFakeApi<ShamParams>>();
-  EXPECT_THAT(factory->GetSupportedEncoders(),
-              ::testing::ElementsAre(
-                  AudioCodecSpec{{"bogus", 8000, 1}, {8000, 1, 12345}},
-                  AudioCodecSpec{{"sham", 16000, 2, {{"param", "value"}}},
-                                 {16000, 2, 23456}}));
-  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
-  EXPECT_EQ(AudioCodecInfo(8000, 1, 12345),
-            factory->QueryAudioEncoder({"bogus", 8000, 1}));
+  EXPECT_THAT(
+      factory->GetSupportedEncoders(),
+      ElementsAre(AudioCodecSpec{{"bogus", 8'000, 1}, {8'000, 1, 12345}},
+                  AudioCodecSpec{{"sham", 16'000, 2, {{"param", "value"}}},
+                                 {16'000, 2, 23456}}));
+  EXPECT_EQ(factory->QueryAudioEncoder({"foo", 8'000, 1}), absl::nullopt);
+  EXPECT_EQ(factory->QueryAudioEncoder({"bogus", 8'000, 1}),
+            AudioCodecInfo(8'000, 1, 12345));
   EXPECT_EQ(
-      AudioCodecInfo(16000, 2, 23456),
-      factory->QueryAudioEncoder({"sham", 16000, 2, {{"param", "value"}}}));
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
-  auto enc1 = factory->MakeAudioEncoder(17, {"bogus", 8000, 1}, absl::nullopt);
-  ASSERT_NE(nullptr, enc1);
-  EXPECT_EQ(8000, enc1->SampleRateHz());
-  EXPECT_EQ(nullptr,
-            factory->MakeAudioEncoder(17, {"sham", 16000, 2}, absl::nullopt));
-  auto enc2 = factory->MakeAudioEncoder(
-      17, {"sham", 16000, 2, {{"param", "value"}}}, absl::nullopt);
-  ASSERT_NE(nullptr, enc2);
-  EXPECT_EQ(16000, enc2->SampleRateHz());
+      factory->QueryAudioEncoder({"sham", 16'000, 2, {{"param", "value"}}}),
+      AudioCodecInfo(16'000, 2, 23456));
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->Create(env, {"bar", 16'000, 1}, {}), IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"bogus", 8'000, 1}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8'000)));
+  EXPECT_THAT(factory->Create(env, {"bogus", 8'000, 1}, {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 8'000)));
+
+  EXPECT_THAT(factory->MakeAudioEncoder(17, {"sham", 16'000, 2}, absl::nullopt),
+              IsNull());
+  EXPECT_THAT(factory->Create(env, {"sham", 16'000, 2}, {}), IsNull());
+  EXPECT_THAT(factory->MakeAudioEncoder(
+                  17, {"sham", 16'000, 2, {{"param", "value"}}}, absl::nullopt),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 16'000)));
+  EXPECT_THAT(
+      factory->Create(env, {"sham", 16'000, 2, {{"param", "value"}}}, {}),
+      Pointer(Property(&AudioEncoder::SampleRateHz, 16'000)));
 }
 
 TEST(AudioEncoderFactoryTemplateTest, G711) {

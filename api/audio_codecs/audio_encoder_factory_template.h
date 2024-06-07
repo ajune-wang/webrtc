@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/base/nullability.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
@@ -75,6 +76,24 @@ struct Helper<T, Ts...> {
                                              codec_pair_id, field_trials);
     }
   }
+
+  static absl::Nullable<std::unique_ptr<AudioEncoder>> CreateAudioEncoder(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      const AudioEncoderFactory::Options& options) {
+    if (auto opt_config = T::SdpToConfig(format); opt_config.has_value()) {
+      // TODO: bugs.webrtc.org/343086059 - propagate `env` to the individual
+      // encoder factory functions.
+      return T::MakeAudioEncoder(*opt_config, options.payload_type,
+                                 options.codec_pair_id);
+    }
+
+    if constexpr (sizeof...(Ts) > 0) {
+      return Helper<Ts...>::CreateAudioEncoder(env, format, options);
+    } else {
+      return nullptr;
+    }
+  }
 };
 
 template <typename... Ts>
@@ -93,6 +112,13 @@ class AudioEncoderFactoryT : public AudioEncoderFactory {
   absl::optional<AudioCodecInfo> QueryAudioEncoder(
       const SdpAudioFormat& format) override {
     return Helper<Ts...>::QueryAudioEncoder(format);
+  }
+
+  absl::Nullable<std::unique_ptr<AudioEncoder>> Create(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      Options options) override {
+    return Helper<Ts...>::CreateAudioEncoder(env, format, options);
   }
 
   std::unique_ptr<AudioEncoder> MakeAudioEncoder(

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe33898a_991b6157",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-07T16:34:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure this test is meant to test this part, although it does exercise that path. That particular path, is in `turn_server.cc`, which is utility code for tests only.\n\nThe production code actually doesn\u0027t reject negative numbers, which is why the test doesn\u0027t crash inside of `SetEntryChannelId`.",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "536fc635_1d0daf2d",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-07T16:34:01Z",
+      "side": 1,
+      "message": "I guess that this is more what the test is about, but from the name of the test it\u0027s hard to tell.",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

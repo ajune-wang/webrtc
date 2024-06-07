@@ -439,6 +439,15 @@ class PeerConnection : public PeerConnectionInternal,
   }
   void RequestUsagePatternReportForTesting();
 
+  NetworkControllerInterface* GetNetworkController() override {
+    if (!worker_thread()->IsCurrent()) {
+      return worker_thread()->BlockingCall(
+          [this]() { return GetNetworkController(); });
+    }
+    RTC_DCHECK_RUN_ON(worker_thread());
+    return call_->GetTransportControllerSend()->GetNetworkController();
+  }
+
  protected:
   // Available for rtc::scoped_refptr creation
   PeerConnection(const Environment& env,

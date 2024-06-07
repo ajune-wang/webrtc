@@ -16,6 +16,23 @@
       "message": "thanks for the review.",
       "revId": "63ac872c64ac6f551d3d1d5b4f5d21b9235e3ef9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b866c3a_f1426161",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-07T13:13:54Z",
+      "side": 1,
+      "message": "One issue, rest looks straightforward.",
+      "revId": "63ac872c64ac6f551d3d1d5b4f5d21b9235e3ef9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

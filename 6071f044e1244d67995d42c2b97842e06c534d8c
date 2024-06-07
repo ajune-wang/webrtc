@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c131e56_39745574",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-07T13:13:54Z",
+      "side": 0,
+      "message": "Why remove the test for processing delay stats on video?\ncut/paste rather than copy/paste?",
+      "revId": "6071f044e1244d67995d42c2b97842e06c534d8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

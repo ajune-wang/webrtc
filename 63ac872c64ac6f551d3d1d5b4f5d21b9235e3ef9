@@ -33,6 +33,23 @@
       "message": "One issue, rest looks straightforward.",
       "revId": "63ac872c64ac6f551d3d1d5b4f5d21b9235e3ef9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d21b89b_2231a247",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8580
+      },
+      "writtenOn": "2024-06-07T13:19:41Z",
+      "side": 1,
+      "message": "Thanks for the review. Please, find my reply to the removal of the test for the processing delay stat.",
+      "revId": "63ac872c64ac6f551d3d1d5b4f5d21b9235e3ef9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Why remove the test for processing delay stats on video?\ncut/paste rather than copy/paste?",
       "revId": "6071f044e1244d67995d42c2b97842e06c534d8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3712fe03_735bce24",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 8580
+      },
+      "writtenOn": "2024-06-07T13:19:41Z",
+      "side": 0,
+      "message": "It is moved to the lines 611, 612 as this stat now applies to both, audio and video. I just put it besides other metrics that are shared, like jitter_buffer_emitted_count.",
+      "parentUuid": "7c131e56_39745574",
+      "revId": "6071f044e1244d67995d42c2b97842e06c534d8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

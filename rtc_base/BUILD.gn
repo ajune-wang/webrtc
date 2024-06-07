@@ -1528,7 +1528,6 @@ rtc_library("crypto_random") {
 rtc_library("ssl") {
   visibility = [ "*" ]
   sources = [
-    "helpers.h",
     "openssl_key_pair.cc",
     "openssl_key_pair.h",
     "openssl_utility.cc",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9614584c_93d2f829",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-06-10T07:23:10Z",
+      "side": 1,
+      "message": "FYI: The device_status is currently not \u0027available\u0027.\nhttps://chrome-swarming.appspot.com/botlist?c\u003did\u0026c\u003dtask\u0026c\u003dos\u0026c\u003dstatus\u0026d\u003dasc\u0026f\u003ddevice_status%3Aavailable\u0026f\u003dcpu%3Ax86-64\u0026f\u003dpool%3AWebRTC\u0026s\u003did",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "042f55f836aa01fb7785f7808ce274dc006dd73d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

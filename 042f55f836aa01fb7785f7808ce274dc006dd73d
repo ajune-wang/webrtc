@@ -22,6 +22,30 @@
       },
       "revId": "042f55f836aa01fb7785f7808ce274dc006dd73d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e89b14_3fc02e89",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2024-06-10T07:27:57Z",
+      "side": 1,
+      "message": "Yeah I know, they have been struggling to get the devices to become available, I suspect it could be due to the check_tests runs with whatever xcode has been installed and currently its xcode 14 due to our old dimensions, it does not have the --enumerate_test flag thus fails. xcode 15 has this.",
+      "parentUuid": "9614584c_93d2f829",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "042f55f836aa01fb7785f7808ce274dc006dd73d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

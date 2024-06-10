@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "modules/desktop_capture/mac/sck_screen_capturer.h"
 #include "modules/desktop_capture/mac/screen_capturer_mac.h"
 
 namespace webrtc {
@@ -21,12 +22,15 @@ std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawScreenCapturer(
     return nullptr;
   }
 
+  /*
   std::unique_ptr<ScreenCapturerMac> capturer(new ScreenCapturerMac(
       options.configuration_monitor(), options.detect_updated_region(), options.allow_iosurface()));
   if (!capturer.get()->Init()) {
     return nullptr;
   }
+  */
 
+  auto capturer = CreateSckScreenCapturer(options);
   return capturer;
 }
 

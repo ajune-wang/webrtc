@@ -46,11 +46,11 @@ constexpr long kDecodeDeadlineRealtime = 1;  // NOLINT
 const char kVp8PostProcArmFieldTrial[] = "WebRTC-VP8-Postproc-Config-Arm";
 const char kVp8PostProcFieldTrial[] = "WebRTC-VP8-Postproc-Config";
 
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
-    defined(WEBRTC_ANDROID)
-constexpr bool kIsArm = true;
+#if (defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64)) && \
+    (defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
+constexpr bool kIsMobileArm = true;
 #else
-constexpr bool kIsArm = false;
+constexpr bool kIsMobileArm = false;
 #endif
 
 absl::optional<LibvpxVp8Decoder::DeblockParams> DefaultDeblockParams() {
@@ -61,8 +61,8 @@ absl::optional<LibvpxVp8Decoder::DeblockParams> DefaultDeblockParams() {
 
 absl::optional<LibvpxVp8Decoder::DeblockParams>
 GetPostProcParamsFromFieldTrialGroup(const FieldTrialsView& field_trials) {
-  std::string group = field_trials.Lookup(kIsArm ? kVp8PostProcArmFieldTrial
-                                                 : kVp8PostProcFieldTrial);
+  std::string group = field_trials.Lookup(
+      kIsMobileArm ? kVp8PostProcArmFieldTrial : kVp8PostProcFieldTrial);
   if (group.empty()) {
     return DefaultDeblockParams();
   }
@@ -116,8 +116,8 @@ class LibvpxVp8Decoder::QpSmoother {
 
 LibvpxVp8Decoder::LibvpxVp8Decoder(const Environment& env)
     : use_postproc_(
-          kIsArm ? env.field_trials().IsEnabled(kVp8PostProcArmFieldTrial)
-                 : true),
+          kIsMobileArm ? env.field_trials().IsEnabled(kVp8PostProcArmFieldTrial)
+                       : true),
       buffer_pool_(false, 300 /* max_number_of_buffers*/),
       decode_complete_callback_(NULL),
       inited_(false),
@@ -192,7 +192,7 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
     // MFQE enabled to reduce key frame popping.
     ppcfg.post_proc_flag = VP8_MFQE;
 
-    if (kIsArm) {
+    if (kIsMobileArm) {
       RTC_DCHECK(deblock_params_.has_value());
     }
     if (deblock_params_.has_value()) {

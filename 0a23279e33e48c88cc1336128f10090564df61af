@@ -70,6 +70,24 @@
       "parentUuid": "4a62f5fd_da5f08a7",
       "revId": "0a23279e33e48c88cc1336128f10090564df61af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f119f46_159f4586",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-11T10:00:02Z",
+      "side": 0,
+      "message": "Can\u0027t take the time to burn it this week (at ICANN) - easier to land by deprecating the old API.",
+      "parentUuid": "9370a7db_d286ebc5",
+      "revId": "0a23279e33e48c88cc1336128f10090564df61af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

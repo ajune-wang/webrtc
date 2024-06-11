@@ -60,9 +60,9 @@ ABSL_FLAG(std::vector<std::string>,
           {"1024"},
           "Encode target bitrate per layer (l0t0,l0t1,...l1t0,l1t1 and so on) "
           "in kbps.");
-ABSL_FLAG(absl::optional<double>,
+ABSL_FLAG(std::vector<std::string>,
           framerate_fps,
-          absl::nullopt,
+          {"30"},
           "Encode target frame rate of the top temporal layer in fps.");
 ABSL_FLAG(bool, screencast, false, "Enable screen encoding mode.");
 ABSL_FLAG(bool, frame_drop, true, "Enable frame dropping.");
@@ -320,7 +320,7 @@ TEST_P(SpatialQualityTest, SpatialQuality) {
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
       env, codec_type, /*scalability_mode=*/"L1T1", width, height,
       {DataRate::KilobitsPerSec(bitrate_kbps)},
-      Frequency::Hertz(framerate_fps));
+      {Frequency::Hertz(framerate_fps)});
 
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, num_frames);
@@ -400,14 +400,14 @@ TEST_P(BitrateAdaptationTest, BitrateAdaptation) {
       env, codec_type, /*scalability_mode=*/"L1T1",
       /*width=*/640, /*height=*/360,
       {DataRate::KilobitsPerSec(bitrate_kbps.first)},
-      /*framerate=*/Frequency::Hertz(30));
+      /*framerate=*/{Frequency::Hertz(30)});
 
   EncodingSettings encoding_settings2 =
       VideoCodecTester::CreateEncodingSettings(
           env, codec_type, /*scalability_mode=*/"L1T1",
           /*width=*/640, /*height=*/360,
           {DataRate::KilobitsPerSec(bitrate_kbps.second)},
-          /*framerate=*/Frequency::Hertz(30));
+          /*framerate=*/{Frequency::Hertz(30)});
 
   std::map<uint32_t, EncodingSettings> frame_settings =
       VideoCodecTester::CreateFrameSettings(encoding_settings, num_frames);
@@ -486,14 +486,14 @@ TEST_P(FramerateAdaptationTest, FramerateAdaptation) {
       env, codec_type, /*scalability_mode=*/"L1T1",
       /*width=*/640, /*height=*/360,
       /*bitrate=*/{DataRate::KilobitsPerSec(512)},
-      Frequency::Hertz(framerate_fps.first));
+      {Frequency::Hertz(framerate_fps.first)});
 
   EncodingSettings encoding_settings2 =
       VideoCodecTester::CreateEncodingSettings(
           env, codec_type, /*scalability_mode=*/"L1T1",
           /*width=*/640, /*height=*/360,
           /*bitrate=*/{DataRate::KilobitsPerSec(512)},
-          Frequency::Hertz(framerate_fps.second));
+          {Frequency::Hertz(framerate_fps.second)});
 
   int num_frames = static_cast<int>(duration_s * framerate_fps.first);
   std::map<uint32_t, EncodingSettings> frame_settings =
@@ -565,16 +565,19 @@ TEST(VideoCodecTest, DISABLED_EncodeDecode) {
                    return DataRate::KilobitsPerSec(std::stoi(str));
                  });
 
-  Frequency framerate = Frequency::Hertz<double>(
-      absl::GetFlag(FLAGS_framerate_fps)
-          .value_or(absl::GetFlag(FLAGS_input_framerate_fps)));
+  std::vector<std::string> framerate_str = absl::GetFlag(FLAGS_framerate_fps);
+  std::vector<Frequency> framerate;
+  std::transform(framerate_str.begin(), framerate_str.end(),
+                 std::back_inserter(framerate), [](const std::string& str) {
+                   return Frequency::Hertz<double>(std::stof(str));
+                 });
 
   EncodingSettings encoding_settings = VideoCodecTester::CreateEncodingSettings(
       env, CodecNameToCodecType(absl::GetFlag(FLAGS_encoder)),
       absl::GetFlag(FLAGS_scalability_mode),
       absl::GetFlag(FLAGS_width).value_or(absl::GetFlag(FLAGS_input_width)),
       absl::GetFlag(FLAGS_height).value_or(absl::GetFlag(FLAGS_input_height)),
-      {bitrate}, framerate, absl::GetFlag(FLAGS_screencast),
+      bitrate, framerate, absl::GetFlag(FLAGS_screencast),
       absl::GetFlag(FLAGS_frame_drop));
 
   int num_frames = absl::GetFlag(FLAGS_num_frames);
@@ -584,7 +587,7 @@ TEST(VideoCodecTest, DISABLED_EncodeDecode) {
   for (int frame_num = 0; frame_num < num_frames; ++frame_num) {
     encoding_settings.keyframe = (frame_num % (key_interval + 1) == 0);
     frame_settings.emplace(timestamp_rtp, encoding_settings);
-    timestamp_rtp += k90kHz / framerate;
+    timestamp_rtp += k90kHz / framerate.back();
   }
 
   std::unique_ptr<VideoCodecStats> stats;

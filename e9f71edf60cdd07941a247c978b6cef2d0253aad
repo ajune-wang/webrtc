@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd11708_e7a28924",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-11T14:31:11Z",
+      "side": 1,
+      "message": "I think the code is ~right, but want more commentary on what\u0027s wrong with it :-)",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe33898a_991b6157",
@@ -31,6 +48,40 @@
       "writtenOn": "2024-06-07T16:34:01Z",
       "side": 1,
       "message": "I guess that this is more what the test is about, but from the name of the test it\u0027s hard to tell.",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61630f2a_83e8e2ea",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-11T14:31:11Z",
+      "side": 1,
+      "message": "The only caller of SetEntryChannelId is this test. Can you rename the function to SetEntryChannelIdForTesting? (which gives us an excuse for not checking if the number is valid or not in the call)",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ad73c2d_e84d7632",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-11T14:31:11Z",
+      "side": 1,
+      "message": "Add // TODO: Verify that the packet was received unchanneled, not channeled.",
       "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

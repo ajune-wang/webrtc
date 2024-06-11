@@ -234,6 +234,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ef2d705_0d208aa9",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-11T21:05:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9db6647e_7da31b7e",
+      "revId": "8392186df749bae4ed39a1ce18464e7f2117e033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78599062_8354a547",

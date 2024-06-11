@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5da0174e_285b3d50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-11T21:05:09Z",
+      "side": 1,
+      "message": "Still not quite ready for review - there is a PRESUBMIT checkdeps failure to address, and an unresolved comment about Mac frameworks.",
+      "revId": "b28fff759ed42e73bfa39b2911da5a3426859e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

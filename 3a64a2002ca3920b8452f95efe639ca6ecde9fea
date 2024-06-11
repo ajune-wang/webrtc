@@ -47,6 +47,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aad0b94_801ed0c5",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-11T21:05:09Z",
+      "side": 1,
+      "message": "I now set the updated_region to empty if `CaptureFrame()` is called again, and there is no new frame to return.\n\nI also examine the DirtyRects attachment, and if all rectangles are empty, I discard the new frame. I left a more detailed comment in the bug, that the DirtyRects signal isn\u0027t completely reliable. So I also look at the new frame\u0027s size compared with the previous frame - if they are different, the whole frame is treated as dirty.",
+      "parentUuid": "9ccc4ec0_b8d2c0fe",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "3a64a2002ca3920b8452f95efe639ca6ecde9fea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b7f28cf_d9235ea7",

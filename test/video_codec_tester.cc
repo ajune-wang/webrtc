@@ -999,9 +999,16 @@ class Encoder : public EncodedImageCallback {
           }
           last_encoding_settings_ = encoding_settings;
 
-          std::vector<VideoFrameType> frame_types = {
-              encoding_settings.keyframe ? VideoFrameType::kVideoFrameKey
-                                         : VideoFrameType::kVideoFrameDelta};
+          VideoFrameType frame_type = encoding_settings.keyframe
+                                          ? VideoFrameType::kVideoFrameKey
+                                          : VideoFrameType::kVideoFrameDelta;
+          std::vector<VideoFrameType> frame_types;
+          const int num_spatial_layers = ScalabilityModeToNumSpatialLayers(
+              encoding_settings.scalability_mode);
+          for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
+            frame_types.push_back(frame_type);
+          }
+
           int error = encoder_->Encode(input_frame, &frame_types);
           if (error != 0) {
             RTC_LOG(LS_WARNING)
@@ -1299,8 +1306,8 @@ void ConfigureSimulcast(VideoCodec* vc) {
   const std::vector<webrtc::VideoStream> streams = cricket::GetSimulcastConfig(
       /*min_layer=*/1, num_spatial_layers, vc->width, vc->height,
       /*bitrate_priority=*/1.0, cricket::kDefaultVideoMaxQpVpx,
-      /*is_screenshare=*/false, /*temporal_layers_supported=*/true,
-      field_trials, webrtc::kVideoCodecVP8);
+      vc->mode == VideoCodecMode::kScreensharing,
+      /*temporal_layers_supported=*/true, field_trials, webrtc::kVideoCodecVP8);
 
   vc->numberOfSimulcastStreams = streams.size();
   RTC_CHECK_LE(vc->numberOfSimulcastStreams, num_spatial_layers);
@@ -1382,6 +1389,8 @@ SplitBitrateAndUpdateScalabilityMode(const Environment& env,
   vc.SetScalabilityMode(scalability_mode);
   SetDefaultCodecSpecificSettings(&vc, num_temporal_layers);
 
+  bool is_screencast = (content_type == VideoCodecMode::kScreensharing);
+
   if (num_bitrates == num_spatial_layers) {
     switch (vc.codecType) {
       case kVideoCodecVP8:
@@ -1390,8 +1399,11 @@ SplitBitrateAndUpdateScalabilityMode(const Environment& env,
         vc.numberOfSimulcastStreams = num_spatial_layers;
         for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
           SimulcastStream* ss = &vc.simulcastStream[sidx];
-          ss->width = width >> (num_spatial_layers - sidx - 1);
-          ss->height = height >> (num_spatial_layers - sidx - 1);
+          ss->width =
+              is_screencast ? width : width >> (num_spatial_layers - sidx - 1);
+          ss->height = is_screencast
+                           ? height
+                           : height >> (num_spatial_layers - sidx - 1);
           ss->maxFramerate = vc.maxFramerate;
           ss->numberOfTemporalLayers = num_temporal_layers;
           ss->maxBitrate = layer_bitrate[sidx].kbps();
@@ -1538,7 +1550,7 @@ EncodingSettings VideoCodecTester::CreateEncodingSettings(
     int width,
     int height,
     std::vector<DataRate> bitrate,
-    Frequency framerate,
+    std::vector<Frequency> framerate,
     bool screencast,
     bool frame_drop) {
   VideoCodecMode content_type = screencast ? VideoCodecMode::kScreensharing
@@ -1547,7 +1559,7 @@ EncodingSettings VideoCodecTester::CreateEncodingSettings(
   auto [adjusted_bitrate, scalability_mode] =
       SplitBitrateAndUpdateScalabilityMode(
           env, codec_type, *ScalabilityModeFromString(scalability_name), width,
-          height, bitrate, framerate, content_type);
+          height, bitrate, framerate[0], content_type);
 
   int num_spatial_layers = ScalabilityModeToNumSpatialLayers(scalability_mode);
   int num_temporal_layers =
@@ -1555,14 +1567,19 @@ EncodingSettings VideoCodecTester::CreateEncodingSettings(
 
   std::map<LayerId, LayerSettings> layers_settings;
   for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
-    int layer_width = width >> (num_spatial_layers - sidx - 1);
-    int layer_height = height >> (num_spatial_layers - sidx - 1);
+    int layer_width =
+        screencast ? width : width >> (num_spatial_layers - sidx - 1);
+    int layer_height =
+        screencast ? height : height >> (num_spatial_layers - sidx - 1);
+    Frequency layer_framerate =
+        framerate.size() > 1 ? framerate[sidx] : framerate[0];
     for (int tidx = 0; tidx < num_temporal_layers; ++tidx) {
       layers_settings.emplace(
           LayerId{.spatial_idx = sidx, .temporal_idx = tidx},
           LayerSettings{
               .resolution = {.width = layer_width, .height = layer_height},
-              .framerate = framerate / (1 << (num_temporal_layers - tidx - 1)),
+              .framerate =
+                  layer_framerate / (1 << (num_temporal_layers - tidx - 1)),
               .bitrate = adjusted_bitrate[sidx * num_temporal_layers + tidx]});
     }
   }

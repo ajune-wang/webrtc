@@ -20,7 +20,6 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_encoder.h"
-#include "test/scoped_key_value_config.h"
 
 namespace webrtc {
 
@@ -76,11 +75,9 @@ struct AudioEncoderFakeApi {
 }  // namespace
 
 TEST(AudioEncoderFactoryTemplateTest, NoEncoderTypes) {
-  test::ScopedKeyValueConfig field_trials;
   rtc::scoped_refptr<AudioEncoderFactory> factory(
       rtc::make_ref_counted<
-          audio_encoder_factory_template_impl::AudioEncoderFactoryT<>>(
-          &field_trials));
+          audio_encoder_factory_template_impl::AudioEncoderFactoryT<>>());
   EXPECT_THAT(factory->GetSupportedEncoders(), ::testing::IsEmpty());
   EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
   EXPECT_EQ(nullptr,

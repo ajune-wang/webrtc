@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8671a010_e13a6c15",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-11T16:44:24Z",
+      "side": 1,
+      "message": "Ah, got it. That is what I was missing. I removed the comment about checking the channel id is legal and added a comment on the SetEntryChannelIdForTesting method.",
+      "parentUuid": "fe33898a_991b6157",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "536fc635_1d0daf2d",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-06-07T16:34:01Z",
       "side": 1,
       "message": "I guess that this is more what the test is about, but from the name of the test it\u0027s hard to tell.",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1dfb3f_e97a0f3b",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-11T16:44:24Z",
+      "side": 1,
+      "message": "Agreed. I kept the comment but I moved it below as per Harald\u0027s comment.",
+      "parentUuid": "536fc635_1d0daf2d",
       "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8b9d53_77f3d84b",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-11T16:44:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61630f2a_83e8e2ea",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ad73c2d_e84d7632",
@@ -82,6 +136,24 @@
       "writtenOn": "2024-06-11T14:31:11Z",
       "side": 1,
       "message": "Add // TODO: Verify that the packet was received unchanneled, not channeled.",
+      "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7262e9_925bc5c4",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-11T16:44:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ad73c2d_e84d7632",
       "revId": "e9f71edf60cdd07941a247c978b6cef2d0253aad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

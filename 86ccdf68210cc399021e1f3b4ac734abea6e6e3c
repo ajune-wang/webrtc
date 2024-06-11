@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca6f5b6_d1067210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-11T21:00:09Z",
+      "side": 1,
+      "message": "When using multi slice encoding (for example with x264 and zerolatency tune), the first packet of each slice within the frame is set as is_first_packet_in_frame. In case of packet losses this causes incomplete frames to be sent to the decoder and artifacts happen.\n\nThis CL parses the slice header and only sets the flag if the first_mb_in_slice is 0.",
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,86 @@
       "message": "When using multi slice encoding (for example with x264 and zerolatency tune), the first packet of each slice within the frame is set as is_first_packet_in_frame. In case of packet losses this causes incomplete frames to be sent to the decoder and artifacts happen.\n\nThis CL parses the slice header and only sets the flag if the first_mb_in_slice is 0.",
       "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fd56a31_6a125658",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-12T11:35:01Z",
+      "side": 1,
+      "message": "can you please add some tests, and update existent ones to adapt to the new function signature.\n\n(overall looks good)",
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0e0832_5e1ff5df",
+        "filename": "common_video/h264/pps_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-12T11:35:01Z",
+      "side": 1,
+      "message": "do not introduce this member until it is needed.",
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b739a410_1668cd35",
+        "filename": "common_video/h264/pps_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-12T11:35:01Z",
+      "side": 1,
+      "message": "might be helpful to change parameter to rtc::ArrayView\u003cconst uint8_t\u003e\nsince you\u0027re changing this function anyway, and thus would need to update all call sites.\n\nhttps://issues.webrtc.org/42225170",
+      "range": {
+        "startLine": 56,
+        "startChar": 54,
+        "endLine": 57,
+        "endChar": 67
+      },
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02d1ad60_b3e5511c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-12T11:35:01Z",
+      "side": 1,
+      "message": "I\u0027m not familiar enough with H264 to evaluate how \u0027address of the first macroblock in the slice is 0\u0027 is related to determine beginning of a frame.\n\nLeaving that for other reviewers.",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 50
+      },
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

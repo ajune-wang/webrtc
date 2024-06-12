@@ -16,6 +16,29 @@
       "message": "One further question, does chrome have a different packet buffer than libwebrtc? We have seen very positive results with native apps using libwebrtc directly, but I have not been able to reproduce the same behaviors on compiled chromium.",
       "revId": "198dc332c683427ef157face1e944d1a79de3d65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd91a66_70a740cb",
+        "filename": "common_video/h264/pps_parser_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-12T15:10:48Z",
+      "side": 1,
+      "message": "`ASSERT_TRUE(slice_header);`, \nmay be even clearer to `ASSERT_TRUE(slice_header.has_value());`\n\nanother option is to combine everything into single matcher:\n```\nEXPECT_THAT(PpsParser::ParseSliceHeader(\n              kH264BitstreamChunk + index.payload_start_offset,\n              index.payload_size),\n   Optional(AllOf(Field(\u0026PpsParser::SliceHeader::first_mb_in_slice, Eq(2)),\n                  Field(\u0026PpsParser::SliceHeader::pic_parameter_set_id, Eq(0)))));\n```\nbut I\u0027m not sure it would be more readable.",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 17
+      },
+      "revId": "198dc332c683427ef157face1e944d1a79de3d65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,6 +39,29 @@
       },
       "revId": "198dc332c683427ef157face1e944d1a79de3d65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "262d5c6e_eb372e24",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-12T15:13:37Z",
+      "side": 1,
+      "message": "all this code should be under \"if (original_nal_type\u003d\u003dslice/idr)\"",
+      "range": {
+        "startLine": 255,
+        "startChar": 3,
+        "endLine": 260,
+        "endChar": 70
+      },
+      "revId": "198dc332c683427ef157face1e944d1a79de3d65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

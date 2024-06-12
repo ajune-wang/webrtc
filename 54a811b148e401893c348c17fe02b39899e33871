@@ -16,6 +16,69 @@
       "message": "+cc Alex - Please take a look at this code, and share any thoughts you have on whether this belongs in WebRTC or Chromium?\n\nThis is still WIP - the changes to `screen_capturer_darwin.mm` are temporary for testing.",
       "revId": "54a811b148e401893c348c17fe02b39899e33871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b609cb8_4f59fd5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-12T00:02:40Z",
+      "side": 1,
+      "message": "Couple of high-level thoughts; but I\u0027m really not familiar with Objective C. Regarding code location, I left a comment on the bug.",
+      "revId": "54a811b148e401893c348c17fe02b39899e33871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ca65f2_b06e3e6a",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-12T00:02:40Z",
+      "side": 1,
+      "message": "There is a DesktopCaptureOptions for this: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_capture_options.h;drc\u003d58e97b86003e1b34677eaf0d9aae556c4cf7b2f6;l\u003d114",
+      "range": {
+        "startLine": 193,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 26
+      },
+      "revId": "54a811b148e401893c348c17fe02b39899e33871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e58c140_9c4c1cb7",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-12T00:02:40Z",
+      "side": 1,
+      "message": "Any reason to not use a https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/screen_capture_frame_queue.h ?\n\nI believe performance wise it prevents allocating/deallocating a bunch of memory, and seems to be used by most other classes (including the existing mac capturer) *but* all of those appear to be doing a frame copy while you\u0027re mainly just extending a keep alive wrapper on an object allocated by the system? Does `-\u003eShare` appropriately keep that sub-object alive?",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 68
+      },
+      "revId": "54a811b148e401893c348c17fe02b39899e33871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

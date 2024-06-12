@@ -214,7 +214,7 @@ TEST_F(PpsParserTest, MaxPps) {
   RunTest();
 }
 
-TEST_F(PpsParserTest, PpsIdFromSlice) {
+TEST_F(PpsParserTest, ParseSliceHeader) {
   std::vector<H264::NaluIndex> nalu_indices =
       H264::FindNaluIndices(kH264BitstreamChunk, sizeof(kH264BitstreamChunk));
   EXPECT_EQ(nalu_indices.size(), 3ull);
@@ -222,9 +222,13 @@ TEST_F(PpsParserTest, PpsIdFromSlice) {
     H264::NaluType nalu_type =
         H264::ParseNaluType(kH264BitstreamChunk[index.payload_start_offset]);
     if (nalu_type == H264::NaluType::kIdr) {
-      absl::optional<uint32_t> pps_id = PpsParser::ParsePpsIdFromSlice(
-          kH264BitstreamChunk + index.payload_start_offset, index.payload_size);
-      EXPECT_EQ(pps_id, 0u);
+      absl::optional<PpsParser::SliceHeader> slice_header =
+          PpsParser::ParseSliceHeader(
+              kH264BitstreamChunk + index.payload_start_offset,
+              index.payload_size);
+      EXPECT_TRUE(slice_header.has_value());
+      EXPECT_EQ(slice_header->first_mb_in_slice, 2u);
+      EXPECT_EQ(slice_header->pic_parameter_set_id, 0u);
       break;
     }
   }

@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff6e577_831e8093",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715c36db_31f98703",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "Often the sample rate constants/variables are named with the unit as a suffix, e.g., kMaxSampleRateHz",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f8c1de9_874389f1",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "Somewhat Nit, but it is somewhat vague that the comment states that this is a highest default number of samples per channel, and the constant name says it is a max (i.e., what does default mean).\n\nAlso, this constant is a bit tricky since not all parts of the code deal with 10 ms chunks of audio (e.g., the AEC filter inputs can be much longer.)\n\nWhen this constant is used in the context of an audio frame, or an audio buffer, I think the naming is spot-on, but it is a bit less clear when the constant is stated without that, as it is here.",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904d4d2d_3c7e997e",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "While this is one possible placeholder for these constants, I\u0027m not convinced it is the best place. Reason is that this header is mainly an interface for some of the common_audio utility functions and does not at all have anything to do with the constants we add here.\n\nCould we instead create a separate header for these, such as audio_constants.h or something similar (have not thought the naming through)",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07dcae0_a1b07eab",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "Not sure about this one. While there are some parts of the code that has this restriction, other part of the code does not. \nI\u0027d prefer to localize this restriction to the code that really requires this maximum rather to state it for all of WebRTC audio.",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4050b2ab_d0220e51",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "I really like this way of ensuring that they are the same\nHowever, ideally, we should only have one constant.\n\nCould we add a to-do for removing this constant?",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dcf668f_17f1d2a4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2399,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 1,
+      "message": "Is this change due to a rebase?",
+      "range": {
+        "startLine": 2395,
+        "startChar": 0,
+        "endLine": 2399,
+        "endChar": 41
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

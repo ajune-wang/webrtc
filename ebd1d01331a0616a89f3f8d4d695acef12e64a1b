@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e82c52_005b6b9b",
+        "filename": "modules/audio_processing/audio_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-12T07:46:59Z",
+      "side": 0,
+      "message": "This change means that the code is no longer local.\nI.e., the maximum number of channels, and the supported maximum sample rate, is no longer only controlled and self-contained by the AudioBuffer.\n\nAlso, we have a situation where we still have AudioBuffer::kMaxSampleRate, but where kMaxSamplesPerChannel now are specified by audio_util.h. \n\nThey have matching values now as AudioBuffer::kMaxSampleRate\u003dwebrtc::kMaxSampleRate\nbut I think it makes the code a bit more fragile. \nI think this change is ok though if we remove AudioBuffer::kMaxSampleRate or if we add a todo+plan to remove it.",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 75
+      },
+      "revId": "ebd1d01331a0616a89f3f8d4d695acef12e64a1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

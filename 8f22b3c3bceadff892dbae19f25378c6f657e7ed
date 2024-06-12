@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0df20da_ed4c5d20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-06-12T23:58:15Z",
+      "side": 1,
+      "message": "Hi Johannes, I noticed that this CL of yours and my CL at [1] are addressing the same issue. I wonder if we could collaborate to avoid duplicated work. What do you think? Thanks for considering.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/354500",
+      "revId": "8f22b3c3bceadff892dbae19f25378c6f657e7ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

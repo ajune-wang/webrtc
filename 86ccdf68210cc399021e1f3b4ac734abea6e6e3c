@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d306b91_b594f8c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-12T14:58:53Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "9fd56a31_6a125658",
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb0e0832_5e1ff5df",
@@ -71,6 +89,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0a1a6364_a243d0e0",
+        "filename": "common_video/h264/pps_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-12T14:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb0e0832_5e1ff5df",
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b739a410_1668cd35",
         "filename": "common_video/h264/pps_parser.h",
         "patchSetId": 1
@@ -82,6 +118,30 @@
       "writtenOn": "2024-06-12T11:35:01Z",
       "side": 1,
       "message": "might be helpful to change parameter to rtc::ArrayView\u003cconst uint8_t\u003e\nsince you\u0027re changing this function anyway, and thus would need to update all call sites.\n\nhttps://issues.webrtc.org/42225170",
+      "range": {
+        "startLine": 56,
+        "startChar": 54,
+        "endLine": 57,
+        "endChar": 67
+      },
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5a1d3b_3b890bd7",
+        "filename": "common_video/h264/pps_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-12T14:58:53Z",
+      "side": 1,
+      "message": "H264::ParseRbsp() requires a uin8t_t* data anyway, so in order to have any effect we would need to do quite a lot of changes (happy to provide a subsequent patch for that)",
+      "parentUuid": "b739a410_1668cd35",
       "range": {
         "startLine": 56,
         "startChar": 54,
@@ -115,6 +175,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85d762a0_e55eecb7",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-12T14:58:53Z",
+      "side": 1,
+      "message": "from my reading of the h264 spec, it tells which is the first mb of the slice, and will be 0 for the first slice (given that they are transmitted in order) and non-zero for the following slices. This matches the behavior of x264 with multiple slices.",
+      "parentUuid": "02d1ad60_b3e5511c",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 50
+      },
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4477766_6aace65e",
@@ -128,6 +212,30 @@
       "writtenOn": "2024-06-12T11:52:24Z",
       "side": 1,
       "message": "Seems that we assume that FU always contains slice. I couldn\u0027t see any restrictions on NALU types which can be fragmented in https://datatracker.ietf.org/doc/html/rfc6184#section-5.8. I.e., any NALU can be fragmented.\n\nCould you please put this under (original_nal_type \u003d\u003d idr/slice) ?",
+      "range": {
+        "startLine": 256,
+        "startChar": 19,
+        "endLine": 256,
+        "endChar": 35
+      },
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e615312e_98c68280",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-12T14:58:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4477766_6aace65e",
       "range": {
         "startLine": 256,
         "startChar": 19,

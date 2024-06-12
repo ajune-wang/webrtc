@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80b64a35_59d49a3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-12T14:58:53Z",
+      "side": 1,
+      "message": "One further question, does chrome have a different packet buffer than libwebrtc? We have seen very positive results with native apps using libwebrtc directly, but I have not been able to reproduce the same behaviors on compiled chromium.",
+      "revId": "198dc332c683427ef157face1e944d1a79de3d65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

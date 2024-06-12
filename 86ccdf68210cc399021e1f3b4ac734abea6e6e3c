@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e62e4b_be430925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-12T11:52:24Z",
+      "side": 1,
+      "message": "Looks good. Please add tests.",
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb0e0832_5e1ff5df",
@@ -93,6 +110,29 @@
         "startChar": 14,
         "endLine": 205,
         "endChar": 50
+      },
+      "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4477766_6aace65e",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-12T11:52:24Z",
+      "side": 1,
+      "message": "Seems that we assume that FU always contains slice. I couldn\u0027t see any restrictions on NALU types which can be fragmented in https://datatracker.ietf.org/doc/html/rfc6184#section-5.8. I.e., any NALU can be fragmented.\n\nCould you please put this under (original_nal_type \u003d\u003d idr/slice) ?",
+      "range": {
+        "startLine": 256,
+        "startChar": 19,
+        "endLine": 256,
+        "endChar": 35
       },
       "revId": "86ccdf68210cc399021e1f3b4ac734abea6e6e3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

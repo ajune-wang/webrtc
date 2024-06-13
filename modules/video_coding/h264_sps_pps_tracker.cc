@@ -58,8 +58,7 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
   auto sps = sps_data_.end();
   auto pps = pps_data_.end();
 
-  for (size_t i = 0; i < h264_header.nalus_length; ++i) {
-    const NaluInfo& nalu = h264_header.nalus[i];
+  for (const NaluInfo& nalu : h264_header.nalus) {
     switch (nalu.type) {
       case H264::NaluType::kSps: {
         SpsInfo& sps_info = sps_data_[nalu.sps_id];
@@ -140,7 +139,7 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
       nalu_ptr += segment_length;
     }
   } else {
-    if (h264_header.nalus_length > 0) {
+    if (h264_header.nalus.size() > 0) {
       required_size += sizeof(start_code_h264);
     }
     required_size += bitstream.size();
@@ -168,13 +167,8 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
     pps_info.type = H264::NaluType::kPps;
     pps_info.sps_id = sps->first;
     pps_info.pps_id = pps->first;
-    if (h264_header.nalus_length + 2 <= kMaxNalusPerPacket) {
-      h264_header.nalus[h264_header.nalus_length++] = sps_info;
-      h264_header.nalus[h264_header.nalus_length++] = pps_info;
-    } else {
-      RTC_LOG(LS_WARNING) << "Not enough space in H.264 codec header to insert "
-                             "SPS/PPS provided out-of-band.";
-    }
+    h264_header.nalus.push_back(sps_info);
+    h264_header.nalus.push_back(pps_info);
   }
 
   // Copy the rest of the bitstream and insert start codes.
@@ -196,7 +190,7 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
       nalu_ptr += segment_length;
     }
   } else {
-    if (h264_header.nalus_length > 0) {
+    if (h264_header.nalus.size() > 0) {
       fixed.bitstream.AppendData(start_code_h264);
     }
     fixed.bitstream.AppendData(bitstream.data(), bitstream.size());

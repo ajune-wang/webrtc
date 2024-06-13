@@ -12,6 +12,7 @@
 
 #include <string.h>
 
+#include <algorithm>
 #include <vector>
 
 #include "absl/types/variant.h"
@@ -139,9 +140,8 @@ std::vector<NaluInfo> VCMSessionInfo::GetNaluInfos() const {
   for (const VCMPacket& packet : packets_) {
     const auto& h264 =
         absl::get<RTPVideoHeaderH264>(packet.video_header.video_type_header);
-    for (size_t i = 0; i < h264.nalus_length; ++i) {
-      nalu_infos.push_back(h264.nalus[i]);
-    }
+    std::copy(h264.nalus.begin(), h264.nalus.end(),
+              std::back_inserter(nalu_infos));
   }
   return nalu_infos;
 }

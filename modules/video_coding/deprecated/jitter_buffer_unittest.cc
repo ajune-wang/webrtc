@@ -903,10 +903,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->markerBit = true;
   packet_->video_header.codec = kVideoCodecH264;
   h264_header.nalu_type = H264::NaluType::kIdr;
-  h264_header.nalus[0].type = H264::NaluType::kIdr;
-  h264_header.nalus[0].sps_id = -1;
-  h264_header.nalus[0].pps_id = 0;
-  h264_header.nalus_length = 1;
+  h264_header.nalus = {{H264::NaluType::kIdr, -1, 0}};
   bool retransmitted = false;
   EXPECT_EQ(kCompleteSession,
             jitter_buffer_->InsertPacket(*packet_, &retransmitted));
@@ -922,13 +919,8 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->markerBit = false;
   packet_->video_header.codec = kVideoCodecH264;
   h264_header.nalu_type = H264::NaluType::kStapA;
-  h264_header.nalus[0].type = H264::NaluType::kSps;
-  h264_header.nalus[0].sps_id = 0;
-  h264_header.nalus[0].pps_id = -1;
-  h264_header.nalus[1].type = H264::NaluType::kPps;
-  h264_header.nalus[1].sps_id = 0;
-  h264_header.nalus[1].pps_id = 0;
-  h264_header.nalus_length = 2;
+  h264_header.nalus = {{H264::NaluType::kSps, 0, -1},
+                       {H264::NaluType::kPps, 0, 0}};
   // Not complete since the marker bit hasn't been received.
   EXPECT_EQ(kIncomplete,
             jitter_buffer_->InsertPacket(*packet_, &retransmitted));
@@ -940,10 +932,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->markerBit = true;
   packet_->video_header.codec = kVideoCodecH264;
   h264_header.nalu_type = H264::NaluType::kIdr;
-  h264_header.nalus[0].type = H264::NaluType::kIdr;
-  h264_header.nalus[0].sps_id = -1;
-  h264_header.nalus[0].pps_id = 0;
-  h264_header.nalus_length = 1;
+  h264_header.nalus = {{H264::NaluType::kIdr, -1, 0}};
   // Complete and decodable since the pps and sps are received in the first
   // packet of this frame.
   EXPECT_EQ(kCompleteSession,
@@ -961,10 +950,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->markerBit = true;
   packet_->video_header.codec = kVideoCodecH264;
   h264_header.nalu_type = H264::NaluType::kSlice;
-  h264_header.nalus[0].type = H264::NaluType::kSlice;
-  h264_header.nalus[0].sps_id = -1;
-  h264_header.nalus[0].pps_id = 0;
-  h264_header.nalus_length = 1;
+  h264_header.nalus = {{H264::NaluType::kSlice, -1, 0}};
   // Complete and decodable since sps, pps and key frame has been received.
   EXPECT_EQ(kCompleteSession,
             jitter_buffer_->InsertPacket(*packet_, &retransmitted));

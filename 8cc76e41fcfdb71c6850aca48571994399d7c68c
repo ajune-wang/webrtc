@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f7a485_0a51edb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-13T22:54:54Z",
+      "side": 1,
+      "message": "Johannes Kron: please review?\nAlex Cooper: please take a look for OWNERS approval?",
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

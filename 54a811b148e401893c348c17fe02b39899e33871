@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b467d14_99ab33be",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-13T22:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ca65f2_b06e3e6a",
+      "range": {
+        "startLine": 193,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 26
+      },
+      "revId": "54a811b148e401893c348c17fe02b39899e33871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e58c140_9c4c1cb7",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-06-12T00:02:40Z",
       "side": 1,
       "message": "Any reason to not use a https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/screen_capture_frame_queue.h ?\n\nI believe performance wise it prevents allocating/deallocating a bunch of memory, and seems to be used by most other classes (including the existing mac capturer) *but* all of those appear to be doing a frame copy while you\u0027re mainly just extending a keep alive wrapper on an object allocated by the system? Does `-\u003eShare` appropriately keep that sub-object alive?",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 68
+      },
+      "revId": "54a811b148e401893c348c17fe02b39899e33871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdee427c_f37beb0e",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-13T22:54:54Z",
+      "side": 1,
+      "message": "I understand that SCK manages its own queue of framebuffers internally (and there\u0027s an option to set the queue size, which I haven\u0027t used). As you say, I\u0027m not creating any new buffers or doing any pixel copying, so I don\u0027t think we need to manage another queue here?\n\nI can\u0027t say I fully understand the memory-model around this, but I\u0027ve tested this extensively: changing screen resolutions, selecting between multiple monitors, creating/destroying multiple capturers. So far, I haven\u0027t seen any crashes, or any signs of memory-leaks from looking at the process\u0027s memory usage.\n\nThe `-\u003eShare` increments a ref-count, and I think the underlying `DesktopFrame` core object only gets deleted when the ref-count drops to 0. So all the `SharedDesktopFrame` instances will keep alive the `DesktopFrame` that they wrap. It\u0027s a bit complicated, because each instance has its own `updated_region`, but I think they share a common `Core` object for the underlying framebuffer.",
+      "parentUuid": "0e58c140_9c4c1cb7",
       "range": {
         "startLine": 241,
         "startChar": 0,

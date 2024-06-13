@@ -16,6 +16,24 @@
       "message": "Hi Johannes, I noticed that this CL of yours and my CL at [1] are addressing the same issue. I wonder if we could collaborate to avoid duplicated work. What do you think? Thanks for considering.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/354500",
       "revId": "8f22b3c3bceadff892dbae19f25378c6f657e7ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a20b650b_803db3e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-13T07:13:38Z",
+      "side": 1,
+      "message": "Thanks for the comment! Yes, seems as if we run into the same issue.\n\nI agree that it\u0027s enough with one of these CLs. I have a slight preference for my CL because it avoids the risk that someone will call LinkCapacity() from some other part of the code and forget about the special treatment of \"0\".\n\nAdding sprang@ to this review as well and let him decide.",
+      "parentUuid": "e0df20da_ed4c5d20",
+      "revId": "8f22b3c3bceadff892dbae19f25378c6f657e7ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

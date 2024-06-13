@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a445373_870ad2ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-13T11:44:24Z",
+      "side": 1,
+      "message": "Currently we only support 10 NALUs per H264 frame. If using multislice encoding, the number of slices can be much bigger than that, especially on 4k. \n\nAlso changing a c array by a proper c++ vector should make code safer.",
+      "revId": "105a5f381faffb1bf47ce1938ad5b475bec37544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

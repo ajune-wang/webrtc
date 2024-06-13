@@ -16,4 +16,7 @@ specific_include_rules = {
   "screen_capturer_mac\.mm": [
     "+sdk/objc",
   ],
+  "sck_screen_capturer\.mm": [
+    "+sdk/objc",
+  ],
 }

@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca05f759_f0055908",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-13T18:09:27Z",
+      "side": 1,
+      "message": "Thanks for this CL!\nIt looks great but I have some minor comments.",
+      "revId": "1e937a41463095e972e81542170b5f3268fa90b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa747b13_6a362abf",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-13T18:09:27Z",
+      "side": 1,
+      "message": "Nit: This is a pre-existing code-behavior but shouldn\u0027t this be called by value instead of by reference?",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "1e937a41463095e972e81542170b5f3268fa90b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3607ec4f_46be69fe",
+        "filename": "modules/audio_processing/agc2/limiter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-13T18:09:27Z",
+      "side": 1,
+      "message": "Should this be const-ref? Cannot this be pass-by-value?",
+      "range": {
+        "startLine": 75,
+        "startChar": 17,
+        "endLine": 75,
+        "endChar": 56
+      },
+      "revId": "1e937a41463095e972e81542170b5f3268fa90b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818b566b_8238d760",
+        "filename": "modules/audio_processing/agc2/limiter_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-13T18:09:27Z",
+      "side": 1,
+      "message": "I don\u0027t think this works?\nWhat about changing to\nbuffer.fill(kMaxAbsFloatS16Value);\n?",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "1e937a41463095e972e81542170b5f3268fa90b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7dc5a34_06576b0b",
+        "filename": "modules/audio_processing/agc2/limiter_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2024-06-13T18:09:27Z",
+      "side": 1,
+      "message": "samples_per_channel \n-\u003e\nkNumSamplesPerChannel",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "1e937a41463095e972e81542170b5f3268fa90b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

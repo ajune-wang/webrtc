@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6891c5_7b5fbc89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "Thank you, vector is much more convinent and safer to work with than c-array with size.\n\nI have bunch of style comments.",
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d81905b6_a1f2299c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "may be keep kExpectedNalus as c array and they use\nEXPECT_THAT(h264.nalus, ElementsAreArray(kExpectedNalus));\n\nhttps://google.github.io/googletest/reference/matchers.html#container-matchers",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df664af_adc4f852",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "ASSERT_THAT(h264.nalus, SizeIs(1));",
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba463a4b_37f6031c",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "EXPECT_THAT(h264.nalus, IsEmpty());",
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff272c0d_b5d0672f",
+        "filename": "modules/video_coding/deprecated/jitter_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "it become unclear what \u0027-1\u0027 mean here,\ncan be solved with desingated initializers:\n\n`h264_header.nalus \u003d {{.type \u003d H264::NaluType::kIdr, .sps_id \u003d  -1, .pps_id \u003d 0}};`",
+      "range": {
+        "startLine": 906,
+        "startChar": 22,
+        "endLine": 906,
+        "endChar": 54
+      },
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e74f41_d236cde5",
+        "filename": "modules/video_coding/deprecated/session_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "or\n`absl::c_copy(h264.nalus, std::back_inserter(nalu_infos));`\n\nto make it easier to see full container is appended.",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 46
+      },
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24207b72_a10ad2a0",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "`if (!h264_header.nalus.empty())`\n\nhttps://clang.llvm.org/extra/clang-tidy/checks/readability/container-size-empty.html",
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f6249f_439d19ce",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "or skip sps_info/pps_info variables:\n```\nh264_header.nalus.push_back({\n    .type \u003d H264::NaluType::kSps,\n    .sps_id \u003d sps-\u003efirst,\n    .pps_id \u003d -1});\nh264_header.nalus.push_back({\n    .type \u003d H264::NaluType::kPps,\n    .sps_id \u003d sps-\u003efirst,\n    .pps_id \u003d pps-\u003efirst});\n```",
+      "range": {
+        "startLine": 170,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 42
+      },
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "970f1632_0b2f8bca",
+        "filename": "modules/video_coding/h264_sps_pps_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T12:24:04Z",
+      "side": 1,
+      "message": "`.resize(1)`\nlikely communicates intent in a more clear way",
+      "range": {
+        "startLine": 135,
+        "startChar": 21,
+        "endLine": 135,
+        "endChar": 29
+      },
+      "revId": "9b49371e12ca627d2f143aab3839ab5ccd4a521a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

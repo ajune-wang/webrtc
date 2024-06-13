@@ -412,7 +412,7 @@ void VideoCaptureModulePipeWire::ProcessBuffers() {
           static_cast<uint8_t*>(
               mmap(nullptr,
                    spaBuffer->datas[0].maxsize + spaBuffer->datas[0].mapoffset,
-                   PROT_READ, MAP_PRIVATE, spaBuffer->datas[0].fd, 0)),
+                   PROT_READ, MAP_SHARED, spaBuffer->datas[0].fd, 0)),
           spaBuffer->datas[0].maxsize + spaBuffer->datas[0].mapoffset,
           spaBuffer->datas[0].fd, spaBuffer->datas[0].type == SPA_DATA_DmaBuf);
 

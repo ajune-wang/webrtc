@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d1c77f_01525c1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 20124
+      },
+      "writtenOn": "2024-06-13T14:16:39Z",
+      "side": 1,
+      "message": "Nit: it was a Thinkpad X13*s* ;)",
+      "revId": "308dfd345597771eafb84b93e302fb18e5088f1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "936582d2_63752a76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-06-13T06:56:15Z",
+      "side": 1,
+      "message": "Would you mind as an owner? Or approve https://webrtc-review.googlesource.com/c/src/+/354580",
+      "revId": "bf50ec9bdc280b62188e10a2018c87a86eed7e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

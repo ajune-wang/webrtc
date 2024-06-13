@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ee1721_6b86cff3",
+        "filename": "common_video/h264/pps_parser_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-13T08:54:41Z",
+      "side": 1,
+      "message": "still EXPECT, not ASSERT in the latest patchset for checking presence of the optional (i.e., should it fail, the test would crash next line.)\n\nhttps://google.github.io/googletest/primer.html#assertions\n\n“ASSERT_* versions generate fatal failures when they fail, and abort the current function. EXPECT_* versions generate nonfatal failures, which don’t abort the current function. Usually EXPECT_* are preferred, as they allow more than one failure to be reported in a test. However, you should use ASSERT_* if it doesn’t make sense to continue when the assertion in question fails.”",
+      "parentUuid": "ab8537ec_0cd1fb42",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 17
+      },
+      "revId": "198dc332c683427ef157face1e944d1a79de3d65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "262d5c6e_eb372e24",

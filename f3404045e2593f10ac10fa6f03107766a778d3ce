@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b92d31_1b808afb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2024-06-14T06:57:27Z",
+      "side": 1,
+      "message": "17.4.1 is no longer signed by apple thus it could not be installed.",
+      "revId": "f3404045e2593f10ac10fa6f03107766a778d3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

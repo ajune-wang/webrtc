@@ -999,15 +999,15 @@ class Encoder : public EncodedImageCallback {
           }
           last_encoding_settings_ = encoding_settings;
 
-          VideoFrameType frame_type = encoding_settings.keyframe
-                                          ? VideoFrameType::kVideoFrameKey
-                                          : VideoFrameType::kVideoFrameDelta;
           std::vector<VideoFrameType> frame_types;
           const int num_spatial_layers = ScalabilityModeToNumSpatialLayers(
               encoding_settings.scalability_mode);
-          for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
-            frame_types.push_back(frame_type);
-          }
+          frame_types.resize(IsSimulcast(encoding_settings) ? num_spatial_layers
+                                                            : 1);
+          std::fill(frame_types.begin(), frame_types.end(),
+                    encoding_settings.keyframe
+                        ? VideoFrameType::kVideoFrameKey
+                        : VideoFrameType::kVideoFrameDelta);
 
           int error = encoder_->Encode(input_frame, &frame_types);
           if (error != 0) {
@@ -1144,11 +1144,7 @@ class Encoder : public EncodedImageCallback {
         break;
     }
 
-    bool is_simulcast =
-        num_spatial_layers > 1 &&
-        (vc.codecType == kVideoCodecVP8 || vc.codecType == kVideoCodecH264 ||
-         vc.codecType == kVideoCodecH265);
-    if (is_simulcast) {
+    if (IsSimulcast(es)) {
       vc.numberOfSimulcastStreams = num_spatial_layers;
       for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
         auto tl0_settings = es.layers_settings.find(
@@ -1214,6 +1210,16 @@ class Encoder : public EncodedImageCallback {
     }
 
     return true;
+  }
+
+  static bool IsSimulcast(const EncodingSettings& es) {
+    const int num_spatial_layers =
+        ScalabilityModeToNumSpatialLayers(es.scalability_mode);
+    VideoCodecType codec_type =
+        PayloadStringToCodecType(es.sdp_video_format.name);
+    return num_spatial_layers > 1 &&
+           (codec_type == kVideoCodecVP8 || codec_type == kVideoCodecH264 ||
+            codec_type == kVideoCodecH265);
   }
 
   static bool IsSvc(const EncodedImage& encoded_frame,
@@ -1392,12 +1398,10 @@ SplitBitrateAndUpdateScalabilityMode(const Environment& env,
   if (num_bitrates == num_spatial_layers) {
     switch (vc.codecType) {
       case kVideoCodecVP8:
-      case kVideoCodecH264:
-      case kVideoCodecH265:
-        vc.numberOfSimulcastStreams = num_spatial_layers;
-        [[fallthrough]];
       case kVideoCodecVP9:
       case kVideoCodecAV1:
+      case kVideoCodecH264:
+      case kVideoCodecH265:
         for (int sidx = 0; sidx < num_spatial_layers; ++sidx) {
           SimulcastStream* ss = &vc.simulcastStream[sidx];
           if (content_type == VideoCodecMode::kScreensharing) {
@@ -1414,6 +1418,10 @@ SplitBitrateAndUpdateScalabilityMode(const Environment& env,
           ss->minBitrate = 0;
           ss->qpMax = 0;
           ss->active = true;
+        }
+        if (ScalabilityModeToInterLayerPredMode(scalability_mode) ==
+            InterLayerPredMode::kOff) {
+          vc.numberOfSimulcastStreams = num_spatial_layers;
         }
         break;
       case kVideoCodecGeneric:

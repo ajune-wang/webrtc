@@ -54,7 +54,6 @@ class VideoCodecTester {
     VideoCodecMode content_type = VideoCodecMode::kRealtimeVideo;
     bool frame_drop = true;
     bool keyframe = false;
-
     struct LayerSettings {
       Resolution resolution;
       Frequency framerate;

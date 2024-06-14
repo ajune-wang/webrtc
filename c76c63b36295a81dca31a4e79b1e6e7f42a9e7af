@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f098b79_8287f788",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-14T23:42:47Z",
+      "side": 1,
+      "message": "still trying to eat the elephant of merging the openssl adapters into the ssl ones...",
+      "revId": "c76c63b36295a81dca31a4e79b1e6e7f42a9e7af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

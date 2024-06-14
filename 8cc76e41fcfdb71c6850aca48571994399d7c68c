@@ -16,6 +16,69 @@
       "message": "Johannes Kron: please review?\nAlex Cooper: please take a look for OWNERS approval?",
       "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b82a48ef_1ea432b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2024-06-14T02:39:59Z",
+      "side": 1,
+      "message": "I don’t have much knowledge of SCK nor of WebRTC, so treat my comments as advisory. In any case, I can’t vote so it doesn’t matter 😊\n\nThis is lookin’ pretty good.",
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d0f91e4_7bc2b043",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2024-06-14T02:39:59Z",
+      "side": 1,
+      "message": "Is this parallel to `screen_capturer_mac`? Perhaps rename `screen_capturer_mac` to `screen_capturer_cgdisplay` and this to `screen_capturer_sck`?\n\nIn general, we should align names so that parallel classes are named similarly.",
+      "range": {
+        "startLine": 630,
+        "startChar": 11,
+        "endLine": 630,
+        "endChar": 30
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c320c2d_be2838df",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2024-06-14T02:39:59Z",
+      "side": 1,
+      "message": "Is this intentionally empty or TODO to fill? Either way, a comment would clarify.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 67
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

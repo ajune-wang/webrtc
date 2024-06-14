@@ -40,18 +40,6 @@ std::string SrtpCryptoSuiteToName(int crypto_suite) {
   }
 }
 
-int SrtpCryptoSuiteFromName(absl::string_view crypto_suite) {
-  if (crypto_suite == kCsAesCm128HmacSha1_32)
-    return kSrtpAes128CmSha1_32;
-  if (crypto_suite == kCsAesCm128HmacSha1_80)
-    return kSrtpAes128CmSha1_80;
-  if (crypto_suite == kCsAeadAes128Gcm)
-    return kSrtpAeadAes128Gcm;
-  if (crypto_suite == kCsAeadAes256Gcm)
-    return kSrtpAeadAes256Gcm;
-  return kSrtpInvalidCryptoSuite;
-}
-
 bool GetSrtpKeyAndSaltLengths(int crypto_suite,
                               int* key_length,
                               int* salt_length) {

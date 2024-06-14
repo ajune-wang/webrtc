@@ -58,9 +58,6 @@ extern const char kCsAeadAes256Gcm[];
 // name, as defined in https://tools.ietf.org/html/rfc5764#section-4.1.2.
 std::string SrtpCryptoSuiteToName(int crypto_suite);
 
-// The reverse of above conversion.
-int SrtpCryptoSuiteFromName(absl::string_view crypto_suite);
-
 // Get key length and salt length for given crypto suite. Returns true for
 // valid suites, otherwise false.
 bool GetSrtpKeyAndSaltLengths(int crypto_suite,

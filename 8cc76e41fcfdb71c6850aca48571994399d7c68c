@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4419bf61_dd46d394",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-14T08:51:19Z",
+      "side": 1,
+      "message": "Looks good in general! Only minor comments/questions.",
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d0f91e4_7bc2b043",
@@ -60,6 +77,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c21081f_4e84fa90",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-14T08:51:19Z",
+      "side": 1,
+      "message": "Since we set `sampleHandlerQueue:dispatch_get_main_queue()`, this will run on the application\u0027s main thread. Not sure what thread/sequence `CaptureFrame()` is called on, but perhaps `latest_frame_lock_` could be removed?",
+      "range": {
+        "startLine": 67,
+        "startChar": 62,
+        "endLine": 67,
+        "endChar": 93
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c320c2d_be2838df",
         "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
         "patchSetId": 18
@@ -76,6 +116,52 @@
         "startChar": 0,
         "endLine": 136,
         "endChar": 67
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20e1668_cb6a1431",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-14T08:51:19Z",
+      "side": 1,
+      "message": "From what I\u0027ve seen 0 is not the ID of the first display. The IDs appear to be random numbers.\n\nMy suggestion is to set `current_display_ \u003d id` and take care of the special treatment of `kFullDesktopScreenId` in `OnShareableContentCreated()`.",
+      "range": {
+        "startLine": 175,
+        "startChar": 6,
+        "endLine": 175,
+        "endChar": 27
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1064996b_02e65a8e",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-14T08:51:19Z",
+      "side": 1,
+      "message": "Is this assignment needed? Can\u0027t helper_ be used directly in the handler?",
+      "range": {
+        "startLine": 326,
+        "startChar": 2,
+        "endLine": 326,
+        "endChar": 30
       },
       "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

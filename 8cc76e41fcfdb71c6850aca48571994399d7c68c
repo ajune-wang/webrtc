@@ -99,6 +99,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0100c4c5_42b8fbd9",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-14T23:50:35Z",
+      "side": 1,
+      "message": "This makes sense. I\u0027ve renamed the new file to `screen_capturer_sck`, but kept the old `screen_capturer_mac` name for safety.",
+      "parentUuid": "f38a99f2_f7c655a5",
+      "range": {
+        "startLine": 630,
+        "startChar": 11,
+        "endLine": 630,
+        "endChar": 30
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c21081f_4e84fa90",
@@ -112,6 +136,30 @@
       "writtenOn": "2024-06-14T08:51:19Z",
       "side": 1,
       "message": "Since we set `sampleHandlerQueue:dispatch_get_main_queue()`, this will run on the application\u0027s main thread. Not sure what thread/sequence `CaptureFrame()` is called on, but perhaps `latest_frame_lock_` could be removed?",
+      "range": {
+        "startLine": 67,
+        "startChar": 62,
+        "endLine": 67,
+        "endChar": 93
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c54ada41_155a27f3",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-14T23:50:35Z",
+      "side": 1,
+      "message": "On Mac and Windows, I think CRD runs each capturer on its own thread, which is created in Chromium code. We tried to do the same on Linux/X11 (each display had its own capturer thread), but some of our users saw crashes that we could not reproduce, so we had to roll that back. We saw measurable perf gains from the experiment, so it\u0027s a shame we couldn\u0027t fix the crashes 😞\n\nIf we want the same perf benefit here, we probably shouldn\u0027t use `dispatch_get_main_queue()` - I think I copied this code from Chromium? For now, I\u0027ve changed this to `nil` (it\u0027s an optional parameter) with a TODO to tune this for performance. Maybe my imagination, but this change already seems to improve perf! 😄",
+      "parentUuid": "7c21081f_4e84fa90",
       "range": {
         "startLine": 67,
         "startChar": 62,
@@ -145,6 +193,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94064a3b_ee8a9483",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-14T23:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c320c2d_be2838df",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 67
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d20e1668_cb6a1431",
@@ -158,6 +230,30 @@
       "writtenOn": "2024-06-14T08:51:19Z",
       "side": 1,
       "message": "From what I\u0027ve seen 0 is not the ID of the first display. The IDs appear to be random numbers.\n\nMy suggestion is to set `current_display_ \u003d id` and take care of the special treatment of `kFullDesktopScreenId` in `OnShareableContentCreated()`.",
+      "range": {
+        "startLine": 175,
+        "startChar": 6,
+        "endLine": 175,
+        "endChar": 27
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a944fd19_cfde54f4",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-14T23:50:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d20e1668_cb6a1431",
       "range": {
         "startLine": 175,
         "startChar": 6,
@@ -185,6 +281,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a883ab_d464cbe1",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-14T23:50:35Z",
+      "side": 1,
+      "message": "Whoops, yes it should - done!",
+      "parentUuid": "1dd0486a_ba30507a",
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1064996b_02e65a8e",
@@ -198,6 +312,30 @@
       "writtenOn": "2024-06-14T08:51:19Z",
       "side": 1,
       "message": "Is this assignment needed? Can\u0027t helper_ be used directly in the handler?",
+      "range": {
+        "startLine": 326,
+        "startChar": 2,
+        "endLine": 326,
+        "endChar": 30
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "418856f1_b1404b03",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-14T23:50:35Z",
+      "side": 1,
+      "message": "Thank you for calling this out - I\u0027ve added a comment to clarify why I\u0027ve done this.\n\nI have empirically verified this avoids a crash. To test this, I added this code inside `CreateSckScreenCapturer()`:\n\n```\n{  // XXX - crash test\n  SckScreenCapturer c(options);\n  c.Start(nullptr);\n}\n```\n\nThen the process always crashes if the Objective-C block captures `helper_` and never crashes if the block captures `helper`. I think it\u0027s because `helper_` is treated by the compiler as `this-\u003ehelper_` and the Obj-C block captures `this`, which is not allowed.\n\nBy making a copy of the Obj-C reference, my understanding is that the ref-count gets bumped, and so the Obj-C block keeps the `helper` object alive for as long as needed. The helper is then responsible for atomically checking the C++ object is alive before calling methods on it.",
+      "parentUuid": "1064996b_02e65a8e",
       "range": {
         "startLine": 326,
         "startChar": 2,

@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f38a99f2_f7c655a5",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-14T19:37:46Z",
+      "side": 1,
+      "message": "IIRC, we\u0027ve had issues where downstreams have depended on some of these files directly, so I\u0027d caution against renaming `screen_capturer_mac`.\n\nI\u0027m ambivalent between the two new proposed class names though.",
+      "parentUuid": "0d0f91e4_7bc2b043",
+      "range": {
+        "startLine": 630,
+        "startChar": 11,
+        "endLine": 630,
+        "endChar": 30
+      },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c21081f_4e84fa90",
         "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
         "patchSetId": 18
@@ -140,6 +164,23 @@
         "endLine": 175,
         "endChar": 27
       },
+      "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dd0486a_ba30507a",
+        "filename": "modules/desktop_capture/mac/sck_screen_capturer.mm",
+        "patchSetId": 18
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-14T19:37:46Z",
+      "side": 1,
+      "message": "Should this also not set `permanent_error_ \u003d true` ?",
       "revId": "8cc76e41fcfdb71c6850aca48571994399d7c68c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

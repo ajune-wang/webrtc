@@ -480,8 +480,13 @@ bool LibaomAv1Encoder::SetSvcParams(
   }
 
   for (int sid = 0; sid < svc_config.num_spatial_layers; ++sid) {
-    svc_params.scaling_factor_num[sid] = svc_config.scaling_factor_num[sid];
-    svc_params.scaling_factor_den[sid] = svc_config.scaling_factor_den[sid];
+    if (encoder_settings_.mode == VideoCodecMode::kScreensharing) {
+      svc_params.scaling_factor_num[sid] = 1;
+      svc_params.scaling_factor_den[sid] = 1;
+    } else {
+      svc_params.scaling_factor_num[sid] = svc_config.scaling_factor_num[sid];
+      svc_params.scaling_factor_den[sid] = svc_config.scaling_factor_den[sid];
+    }
   }
 
   // svc_params.layer_target_bitrate is set in SetRates() before svc_params is

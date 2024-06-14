@@ -54,7 +54,6 @@ class VideoCodecTester {
     VideoCodecMode content_type = VideoCodecMode::kRealtimeVideo;
     bool frame_drop = true;
     bool keyframe = false;
-
     struct LayerSettings {
       Resolution resolution;
       Frequency framerate;
@@ -194,15 +193,16 @@ class VideoCodecTester {
   // and per-temporal layer. If layer bitrates are not explicitly specified,
   // then the codec-specific rate allocators used to distribute the total
   // bitrate across spatial or/and temporal layers.
-  static EncodingSettings CreateEncodingSettings(const Environment& env,
-                                                 std::string codec_type,
-                                                 std::string scalability_name,
-                                                 int width,
-                                                 int height,
-                                                 std::vector<DataRate> bitrate,
-                                                 Frequency framerate,
-                                                 bool screencast = false,
-                                                 bool frame_drop = true);
+  static EncodingSettings CreateEncodingSettings(
+      const Environment& env,
+      std::string codec_type,
+      std::string scalability_name,
+      int width,
+      int height,
+      std::vector<DataRate> bitrate,
+      std::vector<Frequency> framerate,
+      bool screencast = false,
+      bool frame_drop = true);
 
   // A helper function that creates a map of RTP timestamps to
   // `EncodingSettings` for the given number of frames.

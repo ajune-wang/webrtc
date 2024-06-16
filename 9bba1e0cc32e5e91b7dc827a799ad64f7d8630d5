@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a418dfb4_8d0c703c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-16T13:11:55Z",
+      "side": 1,
+      "message": "Those changes shouldn\u0027t cause those errors. Approved.",
+      "revId": "9bba1e0cc32e5e91b7dc827a799ad64f7d8630d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

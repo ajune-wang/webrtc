@@ -16,6 +16,23 @@
       "message": "PTAL? I renamed the files separately (patchset #21) so you can more easily see my other changes.\n\nThanks again for reviewing!",
       "revId": "3c1207fb996b831f072349e4a08f10c6ca8a5104",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9f7092_429aa5bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2024-06-17T09:19:23Z",
+      "side": 1,
+      "message": "LGTM!",
+      "revId": "3c1207fb996b831f072349e4a08f10c6ca8a5104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

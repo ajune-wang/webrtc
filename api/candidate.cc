@@ -10,12 +10,13 @@
 
 #include "api/candidate.h"
 
-#include "absl/base/attributes.h"
+#include <algorithm>  // IWYU pragma: keep
+
 #include "p2p/base/p2p_constants.h"
 #include "rtc_base/crc32.h"
 #include "rtc_base/crypto_random.h"
 #include "rtc_base/ip_address.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/strings/string_builder.h"
 
 using webrtc::IceCandidateType;

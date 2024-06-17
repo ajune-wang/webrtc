@@ -10,11 +10,17 @@
 
 #include "api/audio_codecs/L16/audio_encoder_L16.h"
 
+#include <stddef.h>
+
+#include <map>
 #include <memory>
+#include <string>
+#include <utility>
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/pcm16b/audio_encoder_pcm16b.h"
 #include "modules/audio_coding/codecs/pcm16b/pcm16b_common.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/string_to_number.h"

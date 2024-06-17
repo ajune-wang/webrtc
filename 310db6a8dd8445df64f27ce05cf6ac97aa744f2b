@@ -69,6 +69,24 @@
       "parentUuid": "9667a87a_d955a567",
       "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c185828_4f478eab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22184
+      },
+      "writtenOn": "2024-06-17T11:02:43Z",
+      "side": 1,
+      "message": "Browsing through the stack I didn\u0027t see a dependency on `absl/base:attributes`.\nFrom other files targets that own files that include `attributes.h` seems like the required dep is `//third_party/abseil-cpp/absl/base:core_headers`",
+      "parentUuid": "e28a4807_95a547d8",
+      "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

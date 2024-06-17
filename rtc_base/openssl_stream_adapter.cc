@@ -930,7 +930,7 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       break;
 
     case SSL_ERROR_ZERO_RETURN:
-    default:
+    default: {
       SSLHandshakeError ssl_handshake_err = SSLHandshakeError::UNKNOWN;
       int err_code = ERR_peek_last_error();
       if (err_code != 0 && ERR_GET_REASON(err_code) == SSL_R_NO_SHARED_CIPHER) {
@@ -942,6 +942,7 @@ int OpenSSLStreamAdapter::ContinueSSL() {
         handshake_error_(ssl_handshake_err);
       }
       return (ssl_error != 0) ? ssl_error : -1;
+    }
   }
 
   return 0;

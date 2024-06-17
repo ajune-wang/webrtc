@@ -16,6 +16,23 @@
       "message": "@hta@webrtc.org lets try to re-run the internal bots?",
       "revId": "5a1296171434c46dac04c5941b059af03decb8ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56c843c7_cee1bfe9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-17T12:22:12Z",
+      "side": 1,
+      "message": "Targets with issues:\napi/audio_codecs:builtin_audio_encoder_factory not depending on source for absl/types/optional.h\nsome internal stuff claiming that api/async_dns_resolver doesn\u0027t fully define webrtc::AudioDeviceModule (possibly same problem)\n\nThis is not detected in webrtc itself because that system understands public_deps.\n\nSeems like multiple targets show the same error wrt builtin_audio_encoder_factory, so I\u0027m preparing a CL to run include-cleaner on the api/audio_codecs directory.",
+      "revId": "5a1296171434c46dac04c5941b059af03decb8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

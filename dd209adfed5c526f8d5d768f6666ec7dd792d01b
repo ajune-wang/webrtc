@@ -83,6 +83,115 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9697b3b1_ae292860",
+        "filename": "common_video/h264/h264_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T13:53:54Z",
+      "side": 1,
+      "message": "here index looks unused, so can be simpler loop:\n`for (uint8_t byte : bytes) {`",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 28
+      },
+      "revId": "dd209adfed5c526f8d5d768f6666ec7dd792d01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9dee70f_4fbc6355",
+        "filename": "common_video/h264/h264_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T13:53:54Z",
+      "side": 1,
+      "message": "same for these two functions",
+      "revId": "dd209adfed5c526f8d5d768f6666ec7dd792d01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76182ba2_13800d4d",
+        "filename": "common_video/h264/pps_parser_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T13:53:54Z",
+      "side": 1,
+      "message": "ArrayView automatically calculates size of the c-arrays, \ni.e.,\n`rtc::ArrayView\u003cconst uint8_t\u003e chunk(kH264BitstreamChunk);`\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/api/array_view.h#180",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 67
+      },
+      "revId": "dd209adfed5c526f8d5d768f6666ec7dd792d01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d765bb5_3c08461a",
+        "filename": "common_video/h264/sps_parser_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T13:53:54Z",
+      "side": 1,
+      "message": "idea of MakeArrayView is that you do not need to give it a parameter.\nand here you do not need to manually convert it to ArrayView at all because ArrayView has an implicit constructor from c-array\ni.e.,\n`absl::optional\u003cSpsParser::SpsState\u003e sps \u003d SpsParser::ParseSps(buffer);`",
+      "range": {
+        "startLine": 120,
+        "startChar": 24,
+        "endLine": 120,
+        "endChar": 39
+      },
+      "revId": "dd209adfed5c526f8d5d768f6666ec7dd792d01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03d4b719_42df3692",
+        "filename": "common_video/h264/sps_vui_rewriter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T13:53:54Z",
+      "side": 1,
+      "message": "or `rtc::MakeArrayView(rbsp, byte_count)`\nso that you can omit long type name.",
+      "range": {
+        "startLine": 300,
+        "startChar": 18,
+        "endLine": 300,
+        "endChar": 66
+      },
+      "revId": "dd209adfed5c526f8d5d768f6666ec7dd792d01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4012c49a_dc068fd8",
         "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer_h264.cc",
         "patchSetId": 1

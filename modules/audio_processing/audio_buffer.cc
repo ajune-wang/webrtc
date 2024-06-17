@@ -15,7 +15,6 @@
 #include <cstdint>
 
 #include "common_audio/channel_buffer.h"
-#include "common_audio/include/audio_util.h"
 #include "common_audio/resampler/push_sinc_resampler.h"
 #include "modules/audio_processing/splitting_filter.h"
 #include "rtc_base/checks.h"
@@ -25,7 +24,6 @@ namespace {
 
 constexpr size_t kSamplesPer32kHzChannel = 320;
 constexpr size_t kSamplesPer48kHzChannel = 480;
-constexpr size_t kMaxSamplesPerChannel = AudioBuffer::kMaxSampleRate / 100;
 
 size_t NumBandsFromFramesPerChannel(size_t num_frames) {
   if (num_frames == kSamplesPer32kHzChannel) {

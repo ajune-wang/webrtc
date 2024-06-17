@@ -50,6 +50,24 @@
       "message": "Nit: prefer RTC_CHECK_NOTREACHED when you otherwise would fall off the end with no return value (UB?)",
       "revId": "c76c63b36295a81dca31a4e79b1e6e7f42a9e7af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae000b4d_497ac0be",
+        "filename": "pc/test/srtp_test_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-17T18:50:03Z",
+      "side": 1,
+      "message": "This is only used in tests so DCHECK should be sufficient",
+      "parentUuid": "4b276e19_697ec658",
+      "revId": "c76c63b36295a81dca31a4e79b1e6e7f42a9e7af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

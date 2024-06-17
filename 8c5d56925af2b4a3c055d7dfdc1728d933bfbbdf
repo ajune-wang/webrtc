@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "68d607a4_6f5f394c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-06-17T14:46:36Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "8c5d56925af2b4a3c055d7dfdc1728d933bfbbdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "31cb7fc1_8c280e3b",
         "filename": "pc/peer_connection.h",
         "patchSetId": 5
@@ -31,6 +48,24 @@
       "writtenOn": "2024-06-17T14:42:58Z",
       "side": 1,
       "message": "Normally I would frown on chaining pointers without checking them, but transport_send_ is a const member initialized at creation time.\nHowever, call_ is released in Close(), so I\u0027d prefer at least an RTC_DCHECK(call_); I don\u0027t see anything that would otherwise prevent this from being called after Close().",
+      "revId": "8c5d56925af2b4a3c055d7dfdc1728d933bfbbdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4943754b_ac4d9b86",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2024-06-17T14:46:36Z",
+      "side": 1,
+      "message": "Great point. Done.",
+      "parentUuid": "31cb7fc1_8c280e3b",
       "revId": "8c5d56925af2b4a3c055d7dfdc1728d933bfbbdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

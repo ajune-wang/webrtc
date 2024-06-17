@@ -63,7 +63,7 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
 
     ssl_adapter_.reset(rtc::SSLAdapter::Create(socket));
 
-    ssl_adapter_->SetMode(ssl_mode_);
+    // ssl_adapter_->SetMode(ssl_mode_);
 
     // Ignore any certificate errors for the purpose of testing.
     // Note: We do this only because we don't have a real certificate.
@@ -345,7 +345,7 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
     ssl_stream_adapter_ =
         rtc::SSLStreamAdapter::Create(std::make_unique<SocketStream>(socket));
 
-    ssl_stream_adapter_->SetMode(ssl_mode_);
+    // ssl_stream_adapter_->SetMode(ssl_mode_);
     ssl_stream_adapter_->SetServerRole();
 
     // SSLStreamAdapter is normally used for peer-to-peer communication, but

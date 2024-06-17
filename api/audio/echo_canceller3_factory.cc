@@ -11,6 +11,7 @@
 
 #include <memory>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/aec3/echo_canceller3.h"
 
 namespace webrtc {

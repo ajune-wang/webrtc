@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "525a93f6_f11934a1",
+        "filename": "common_video/h264/h264_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T15:52:37Z",
+      "side": 1,
+      "message": "generally prefer to link issue instead of a person in a TODO:\n`// TODO: bugs.webrtc.org/42225170 - Deprecate`\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#comments",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 52
+      },
+      "revId": "6acfd1a79408298ac11638a87f8eb1c0b1bd49e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c91450a7_a570aea8",
+        "filename": "common_video/h265/h265_bitstream_parser_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-17T15:52:37Z",
+      "side": 1,
+      "message": "in this test `chunk` is used once, so you may pass `kH265SliceChunk` directly, bypassing temporary variable.\n(it will implicitly convert into rtc::ArrayView)",
+      "range": {
+        "startLine": 131,
+        "startChar": 54,
+        "endLine": 131,
+        "endChar": 59
+      },
+      "revId": "6acfd1a79408298ac11638a87f8eb1c0b1bd49e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

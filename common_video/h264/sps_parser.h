@@ -41,7 +41,7 @@ class RTC_EXPORT SpsParser {
   };
 
   // Unpack RBSP and parse SPS state from the supplied buffer.
-  static absl::optional<SpsState> ParseSps(const uint8_t* data, size_t length);
+  static absl::optional<SpsState> ParseSps(rtc::ArrayView<const uint8_t> data);
 
  protected:
   // Parse the SPS state, up till the VUI part, for a buffer where RBSP

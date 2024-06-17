@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d2e844_ee3bbcd2",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 1,
+      "message": "Renamed to `kMaxSampleRateHz`",
+      "parentUuid": "715c36db_31f98703",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f8c1de9_874389f1",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-12T07:46:59Z",
       "side": 1,
       "message": "Somewhat Nit, but it is somewhat vague that the comment states that this is a highest default number of samples per channel, and the constant name says it is a max (i.e., what does default mean).\n\nAlso, this constant is a bit tricky since not all parts of the code deal with 10 ms chunks of audio (e.g., the AEC filter inputs can be much longer.)\n\nWhen this constant is used in the context of an audio frame, or an audio buffer, I think the naming is spot-on, but it is a bit less clear when the constant is stated without that, as it is here.",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "510d8c41_1d376404",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 1,
+      "message": "Rewrote the comment as:\n`// Number of samples per channel for 10ms of audio at the highest sample rate.`\nAnd renamed the constant to `kMaxSamplesPerChannel10ms`. I figured that `10ms` is sort of a unit in that sense, so I used it as a suffix.",
+      "parentUuid": "3f8c1de9_874389f1",
       "range": {
         "startLine": 33,
         "startChar": 11,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e50acd29_3b356280",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 1,
+      "message": "I added a TODO for the two of us to follow up on that. I think that since this (10ms) is such a widely spread assumption that we should consider the api/ directory as a location.",
+      "parentUuid": "904d4d2d_3c7e997e",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a07dcae0_a1b07eab",
         "filename": "common_audio/include/audio_util.h",
         "patchSetId": 9
@@ -100,6 +172,30 @@
       "writtenOn": "2024-06-12T07:46:59Z",
       "side": 1,
       "message": "Not sure about this one. While there are some parts of the code that has this restriction, other part of the code does not. \nI\u0027d prefer to localize this restriction to the code that really requires this maximum rather to state it for all of WebRTC audio.",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e5e6a8_637ff89c",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 1,
+      "message": "Yeah I went back and forth on this considering decoder limits, channel layouts etc.\n\nMoved now to `PushResampler\u003c\u003e` but a thing to consider is that a pattern of adding localized constants for these sort of things, creates more fragmentation/incompatibility. There\u0027s a risk that when new components get added or have their own localized limits change, that such a change is easy to make, nothing else will be affected by it at compile time, but at runtime we may hit unexpected errors because dependencies are no longer called out to the developer while writing the code.",
+      "parentUuid": "a07dcae0_a1b07eab",
       "range": {
         "startLine": 39,
         "startChar": 14,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b08d2c_6c255f68",
+        "filename": "modules/audio_processing/audio_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4050b2ab_d0220e51",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dcf668f_17f1d2a4",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-06-12T07:46:59Z",
       "side": 1,
       "message": "Is this change due to a rebase?",
+      "range": {
+        "startLine": 2395,
+        "startChar": 0,
+        "endLine": 2399,
+        "endChar": 41
+      },
+      "revId": "762d683ed352ca700cf992329f37edb641457b3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab3e7e2c_14defcb1",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 1,
+      "message": "I removed the `Initialize()` method so instead of calling Initialize(), the code always creates a new VoiceActivityDetectorWrapper when InitializeVoiceActivityDetector() is called.",
+      "parentUuid": "1dcf668f_17f1d2a4",
       "range": {
         "startLine": 2395,
         "startChar": 0,

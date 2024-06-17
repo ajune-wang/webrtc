@@ -22,6 +22,30 @@
       },
       "revId": "ebd1d01331a0616a89f3f8d4d695acef12e64a1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347cf509_49ca6cda",
+        "filename": "modules/audio_processing/audio_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-17T13:21:52Z",
+      "side": 0,
+      "message": "Yes, I\u0027d like to remove the AudioBuffer constant. It\u0027s being used outside the class too, so in the sense that changing it affected implementations outside the class, it wasn\u0027t truly local (assuming you don\u0027t mean the `kMaxSamplesPerChannel` constant itself). Because of that I actually felt that it was more fragile to have more shared definitions of what the max sample rate is. (I know that there are still areas that have their own, more restricted max values).",
+      "parentUuid": "21e82c52_005b6b9b",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 75
+      },
+      "revId": "ebd1d01331a0616a89f3f8d4d695acef12e64a1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

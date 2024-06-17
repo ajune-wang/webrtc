@@ -51,6 +51,24 @@
       "message": "General lesson for self - go for smaller files set in my upcoming CLs in this issue 😐",
       "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28a4807_95a547d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22184
+      },
+      "writtenOn": "2024-06-17T10:33:02Z",
+      "side": 1,
+      "message": "Correction - running `apply-iwyu -r` on the cc file does re-introduce the include.\nI\u0027m not sure why would the -r option affects *introducing* new includes as it indicates it\u0027d *remove* non-required includes.",
+      "parentUuid": "9667a87a_d955a567",
+      "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

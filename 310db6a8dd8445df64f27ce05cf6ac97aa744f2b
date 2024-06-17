@@ -16,6 +16,41 @@
       "message": "One error from the build:\n\n./third_party/webrtc/files/stable/webrtc/api/dtls_transport_interface.h:16:10: error: module //third_party/webrtc/files/stable/webrtc/api:dtls_transport_interface does not directly depend on a module exporting \u0027third_party/absl/base/attributes.h\u0027, which is part of indirectly-used module third_party/absl/base/attributes.h\n\nthis shows an undeclared dependency on absl/base:attributes, I think. This target is around line 232 in api/BUILD.gn. Does your include-cleaner ignore abseil deps?\n\n(the internal build system doesn\u0027t honor abseil\u0027s public_deps declarations)",
       "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9667a87a_d955a567",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22184
+      },
+      "writtenOn": "2024-06-17T10:29:38Z",
+      "side": 1,
+      "message": "By include-cleaner you mean iwyu?\nOddly, I tried removing this line and running iwyu for the file and it did not offer any change then re-introducing it and running iwyu - no change either.\nIT IS required though, since we use `ABSL_DEPRECATED` in this file.\nI\u0027ll manually introduce this dep into the owning target, but I do not understand two things:\n- Why iwyu isn\u0027t aware that this include is required / can be rm\u0027ed\n- Why `gn gen --check` is OK with the absence of `absl/base:attributes` given this include is in place?",
+      "parentUuid": "529977c8_42c2ba37",
+      "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c479607_1572bf64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22184
+      },
+      "writtenOn": "2024-06-17T10:29:38Z",
+      "side": 1,
+      "message": "General lesson for self - go for smaller files set in my upcoming CLs in this issue 😐",
+      "revId": "310db6a8dd8445df64f27ce05cf6ac97aa744f2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

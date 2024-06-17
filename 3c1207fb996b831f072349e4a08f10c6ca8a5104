@@ -56,6 +56,30 @@
       },
       "revId": "3c1207fb996b831f072349e4a08f10c6ca8a5104",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a889a432_38ad964a",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 22
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-17T23:03:26Z",
+      "side": 1,
+      "message": "Thanks, I didn\u0027t know about that! I\u0027ve renamed to `local_helper`.",
+      "parentUuid": "91b8999c_ff4e2bda",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 0
+      },
+      "revId": "3c1207fb996b831f072349e4a08f10c6ca8a5104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

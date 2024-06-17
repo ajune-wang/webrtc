@@ -33,6 +33,29 @@
       "message": "LGTM!",
       "revId": "3c1207fb996b831f072349e4a08f10c6ca8a5104",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91b8999c_ff4e2bda",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 22
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2024-06-17T14:47:28Z",
+      "side": 1,
+      "message": "LG\n\nNote that this is standard Objective-C practice, sometimes spelled as\n\n```\nSckHelper* local_helper \u003d helper_;\n// ...\n```",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 0
+      },
+      "revId": "3c1207fb996b831f072349e4a08f10c6ca8a5104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

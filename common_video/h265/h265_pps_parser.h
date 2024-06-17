@@ -43,12 +43,10 @@ class RTC_EXPORT H265PpsParser {
   };
 
   // Unpack RBSP and parse PPS state from the supplied buffer.
-  static absl::optional<PpsState> ParsePps(const uint8_t* data,
-                                           size_t length,
+  static absl::optional<PpsState> ParsePps(rtc::ArrayView<const uint8_t> data,
                                            const H265SpsParser::SpsState* sps);
 
-  static bool ParsePpsIds(const uint8_t* data,
-                          size_t length,
+  static bool ParsePpsIds(rtc::ArrayView<const uint8_t> data,
                           uint32_t* pps_id,
                           uint32_t* sps_id);
 

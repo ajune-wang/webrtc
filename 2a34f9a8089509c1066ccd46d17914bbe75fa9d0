@@ -16,6 +16,24 @@
       "message": "Personally I think v2 gives the best balance between complexity and evolvability,\nbut if you have a different opinion, I do not mind choosing another path.",
       "revId": "2a34f9a8089509c1066ccd46d17914bbe75fa9d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a58d64_98e6520e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-06-17T12:03:50Z",
+      "side": 1,
+      "message": "I think this looks good :) I don\u0027t have a strong preference between this and v1.",
+      "parentUuid": "57563726_02cc9541",
+      "revId": "2a34f9a8089509c1066ccd46d17914bbe75fa9d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

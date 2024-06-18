@@ -16,6 +16,23 @@
       "message": "Alex, please could you give OWNERS approval if you\u0027re OK with landing this?",
       "revId": "636b860a8bb82630e2775ac5b84522c87850dfbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25cd59b9_c40c682a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-18T20:55:27Z",
+      "side": 1,
+      "message": "LGTM with the caveat that I am not an Objective-C expert",
+      "revId": "636b860a8bb82630e2775ac5b84522c87850dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

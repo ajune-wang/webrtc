@@ -102,6 +102,24 @@
       "message": "It seems like this change (from an included definition via some nested include to a forward declaration) is problematic for the internal compilation. Please include the definition (api/audio/audio_device.h) directly (and possibly file a bug to remove it again).",
       "revId": "5a1296171434c46dac04c5941b059af03decb8ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55110aef_4a7b11e4",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-18T13:20:31Z",
+      "side": 1,
+      "message": "Yeah I just did this change. Uploading now.",
+      "parentUuid": "b62efade_aba20579",
+      "revId": "5a1296171434c46dac04c5941b059af03decb8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

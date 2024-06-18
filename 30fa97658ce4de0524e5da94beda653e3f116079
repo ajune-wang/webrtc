@@ -33,6 +33,23 @@
       "message": "Test run result (redacted):\n\n.....\nIn file included from ./third_party/webrtc/files/stable/webrtc/api/async_dns_resolver.h:18:\nIn file included from ./third_party/webrtc/files/stable/webrtc/rtc_base/checks.h:59:\n./third_party/webrtc/files/stable/webrtc/api/scoped_refptr.h:103:11: error: member access into incomplete type \u0027webrtc::AudioDeviceModule\u0027\n  103 |       ptr_-\u003eRelease();\n      |           ^\n./communication/harmony/testing/testplatformhelper.h:27:7: note: in instantiation of member function \u0027webrtc::scoped_refptr\u003cwebrtc::AudioDeviceModule\u003e::~scoped_refptr\u0027 requested here\n   27 | class TestPlatformHelper : public PlatformHelperInterface {\n      |       ^\n./third_party/webrtc/files/stable/webrtc/api/peer_connection_interface.h:154:7: note: forward declaration of \u0027webrtc::AudioDeviceModule\u0027\n  154 | class AudioDeviceModule;\n      |       ^\n1 error generated.",
       "revId": "30fa97658ce4de0524e5da94beda653e3f116079",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee5646a8_79d98105",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2024-06-18T13:16:08Z",
+      "side": 1,
+      "message": "Looking more at internal compile failures, I think I have a candidate culprit.",
+      "revId": "30fa97658ce4de0524e5da94beda653e3f116079",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

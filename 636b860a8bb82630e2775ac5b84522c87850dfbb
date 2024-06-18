@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8708a39a_072c8a0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-18T20:52:41Z",
+      "side": 1,
+      "message": "Alex, please could you give OWNERS approval if you\u0027re OK with landing this?",
+      "revId": "636b860a8bb82630e2775ac5b84522c87850dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

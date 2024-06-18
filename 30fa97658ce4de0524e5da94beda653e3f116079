@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7800eab9_c2264fcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-18T12:44:19Z",
+      "side": 1,
+      "message": "@hta@webrtc.org I re-ran the apply-include-cleaner for all the files.\nOne thing I think we\u0027re missing is the a similar mechanism to IWYU mapping as the include-cleaner attempted to place some `gtest/gtest.h` includes.\nProbably solvable in the bash wrapper as I couldn\u0027t see an option to do something similar in clang\u0027s include cleaner.",
+      "revId": "30fa97658ce4de0524e5da94beda653e3f116079",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

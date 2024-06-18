@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c7a7bd4_04278610",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2024-06-18T21:50:16Z",
+      "side": 1,
+      "message": "PTAL? My intention is to enable the new capturer in CRD via a website experiment so we can easily roll back if there are unexpected issues.",
+      "revId": "993e587798fd5871d756a0b6a4e3f6267d371161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

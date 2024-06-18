@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a87b89e_b5fc47a9",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-18T11:27:12Z",
+      "side": 1,
+      "message": "not sure how this line compiles....\nConfig::clock is a reference,\nassigning to reference means reassinging object reference points to, and Clock natrually doesn\u0027t have an assign operator (it is an abstract interface)\n\nBut... that is the same as before this change.",
+      "revId": "5dc78638f81868a3948869cca56303729bae7108",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

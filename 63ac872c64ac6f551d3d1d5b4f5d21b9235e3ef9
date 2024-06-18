@@ -50,6 +50,23 @@
       "message": "Thanks for the review. Please, find my reply to the removal of the test for the processing delay stat.",
       "revId": "63ac872c64ac6f551d3d1d5b4f5d21b9235e3ef9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c58e8a4_933a63e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2024-06-18T06:35:17Z",
+      "side": 1,
+      "message": "Thanks for the review and comments.",
+      "revId": "63ac872c64ac6f551d3d1d5b4f5d21b9235e3ef9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

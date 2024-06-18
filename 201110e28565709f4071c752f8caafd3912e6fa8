@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7208c5b5_88ab4ee9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-18T23:02:44Z",
+      "side": 1,
+      "message": "I assume you meant TURN but then checked ice-tcp and uargh!",
+      "parentUuid": "23c2f73c_f81fa874",
+      "revId": "201110e28565709f4071c752f8caafd3912e6fa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5ecf3d5b_54552672",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -65,6 +83,24 @@
       "writtenOn": "2024-06-18T12:53:14Z",
       "side": 1,
       "message": "Will we also arrive here if the TURN server is not reachable (ENOTREACH rather than ECONNREFUSED)?\nMight need to condition the text on errno() too.",
+      "revId": "201110e28565709f4071c752f8caafd3912e6fa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa40607b_6134ba15",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-18T23:02:44Z",
+      "side": 1,
+      "message": "We have *a* error_ in TcpPort but this is a TurnPort which can be any underlying protocol. So wiggling around this now.\n\nWe are also missing IceCandidateErrorEvent in TCPConnection::OnClose where it would affect ICE-TCP. Oddly doing it there where error_ and error are available (but 0, I presume because of MOJO since I am testing in Chrome) is not hitting *this* code path. More work required over there...",
+      "parentUuid": "67bcf79e_8f5a1083",
       "revId": "201110e28565709f4071c752f8caafd3912e6fa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

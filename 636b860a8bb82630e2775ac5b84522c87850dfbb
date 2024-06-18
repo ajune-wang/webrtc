@@ -33,6 +33,23 @@
       "message": "LGTM with the caveat that I am not an Objective-C expert",
       "revId": "636b860a8bb82630e2775ac5b84522c87850dfbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6e10e8_0da4eaaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6116
+      },
+      "writtenOn": "2024-06-18T21:09:08Z",
+      "side": 1,
+      "message": "SLGTM",
+      "revId": "636b860a8bb82630e2775ac5b84522c87850dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

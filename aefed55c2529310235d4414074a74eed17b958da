@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ab4a1f1_8e343925",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19769
+      },
+      "writtenOn": "2024-06-19T06:30:06Z",
+      "side": 1,
+      "message": "Thanks for the patience with this folks! Really appreciate it.\nI\u0027ll go ahead and proceed for the rest of the files and subdirs (t-z) in the api directory now.",
+      "revId": "aefed55c2529310235d4414074a74eed17b958da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

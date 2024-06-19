@@ -246,4 +246,33 @@ std::vector<SpatialLayer> GetSvcConfig(
   }
 }
 
+void ConvertSimulcastConfigToSvc(VideoCodec& codec) {
+  if (codec.IsSinglecast())
+    return;
+  for (size_t i = 0; i < codec.numberOfSimulcastStreams; ++i) {
+    codec.spatialLayers[i].width = codec.simulcastStream[i].width;
+    codec.spatialLayers[i].height = codec.simulcastStream[i].height;
+    codec.spatialLayers[i].maxFramerate = codec.simulcastStream[i].maxFramerate;
+    codec.spatialLayers[i].numberOfTemporalLayers =
+        codec.simulcastStream[i].numberOfTemporalLayers;
+    codec.spatialLayers[i].maxBitrate = codec.simulcastStream[i].maxBitrate;
+    codec.spatialLayers[i].targetBitrate =
+        codec.simulcastStream[i].targetBitrate;
+    codec.spatialLayers[i].minBitrate = codec.simulcastStream[i].minBitrate;
+    codec.spatialLayers[i].qpMax = codec.simulcastStream[i].qpMax;
+    codec.spatialLayers[i].active = codec.simulcastStream[i].active;
+  }
+  codec.simulcastStream[0] =
+      codec.simulcastStream[codec.numberOfSimulcastStreams - 1];
+  codec.VP9()->numberOfSpatialLayers = codec.numberOfSimulcastStreams;
+  codec.numberOfSimulcastStreams = 1;
+}
+
+void ConvertSvcFrameToSimulcast(EncodedImage& /*encoded_image*/,
+                                CodecSpecificInfo& codec_specific) {
+  // In SVC structure, only the top layer has end_of_picture flag.
+  // For simulcast frames, all of the streams must have it.
+  codec_specific.end_of_picture = true;
+}
+
 }  // namespace webrtc

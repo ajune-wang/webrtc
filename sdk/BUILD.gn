@@ -1293,6 +1293,7 @@ if (is_ios || is_mac) {
           "objc/components/video_codec/RTCVideoDecoderH264.h",
           "objc/components/video_codec/RTCVideoEncoderFactoryH264.h",
           "objc/components/video_codec/RTCVideoEncoderH264.h",
+          "objc/components/video_codec/RTCVideoToolboxDecoder.h",
           "objc/components/video_frame_buffer/RTCCVPixelBuffer.h",
           "objc/helpers/RTCCameraPreviewView.h",
           "objc/helpers/RTCDispatcher.h",
@@ -1492,6 +1493,7 @@ if (is_ios || is_mac) {
           "objc/components/video_codec/RTCVideoDecoderH264.h",
           "objc/components/video_codec/RTCVideoEncoderFactoryH264.h",
           "objc/components/video_codec/RTCVideoEncoderH264.h",
+          "objc/components/video_codec/RTCVideoToolboxDecoder.h",
           "objc/components/video_frame_buffer/RTCCVPixelBuffer.h",
           "objc/helpers/RTCDispatcher.h",
         ]
@@ -1689,6 +1691,7 @@ if (is_ios || is_mac) {
         ":videotoolbox_objc",
       ]
       sources = [
+        "objc/components/video_codec/frame_decode_params.h",
         "objc/components/video_codec/helpers.cc",
         "objc/components/video_codec/helpers.h",
         "objc/components/video_codec/nalu_rewriter.cc",
@@ -1715,6 +1718,9 @@ if (is_ios || is_mac) {
         "objc/components/video_codec/RTCVideoEncoderFactoryH264.m",
         "objc/components/video_codec/RTCVideoEncoderH264.h",
         "objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "objc/components/video_codec/RTCVideoToolboxDecoder+Private.h",
+        "objc/components/video_codec/RTCVideoToolboxDecoder.h",
+        "objc/components/video_codec/RTCVideoToolboxDecoder.mm",
       ]
 
       configs += [

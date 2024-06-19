@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "329e660b_a41851bb",
+        "filename": "api/test/network_emulation/schedulable_network_node_builder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-06-19T08:20:50Z",
+      "side": 1,
+      "message": "Maybe CHECK that the seed is non-zero? Or does the SimulatedNetwork already do that?",
+      "range": {
+        "startLine": 37,
+        "startChar": 28,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "90afc42f3b079bedf2e7a7a2e682b69a3960da02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d39349_69cae908",
+        "filename": "api/test/network_emulation/schedulable_network_node_builder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-06-19T08:20:50Z",
+      "side": 1,
+      "message": "Comment removed by: Jeremy Leconte; Reason: _",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 64
+      },
+      "revId": "90afc42f3b079bedf2e7a7a2e682b69a3960da02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -136,15 +136,13 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::FindFrames(
   Packet* packet = GetPacket(unwrapped_seq_num).get();
   RTC_CHECK(packet != nullptr);
 
-  // Check if the packet is continuous or the beginning of a new coded video
-  // sequence.
-  if (unwrapped_seq_num - 1 != last_continuous_unwrapped_seq_num_) {
-    if (unwrapped_seq_num <= last_continuous_unwrapped_seq_num_ ||
-        !BeginningOfStream(*packet)) {
+  if (!last_continuous_unwrapped_seq_num_.has_value()) {
+    if (!BeginningOfStream(*packet)) {
       return result;
     }
-
     last_continuous_unwrapped_seq_num_ = unwrapped_seq_num;
+  } else if (unwrapped_seq_num - 1 != last_continuous_unwrapped_seq_num_) {
+    return result;
   }
 
   for (int64_t seq_num = unwrapped_seq_num;
@@ -162,13 +160,17 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::FindFrames(
     // Last packet of the frame, try to assemble the frame.
     if (packet->marker_bit) {
       uint32_t rtp_timestamp = packet->timestamp;
-
+      Packet* first_packet = packet;
       // Iterate backwards to find where the frame starts.
       for (int64_t seq_num_start = seq_num;
-           seq_num_start > seq_num - kBufferSize; --seq_num_start) {
+           first_packet && seq_num_start > seq_num - kBufferSize;
+           --seq_num_start) {
         auto& prev_packet = GetPacket(seq_num_start - 1);
 
-        if (prev_packet == nullptr || prev_packet->timestamp != rtp_timestamp) {
+        if ((prev_packet == nullptr &&
+             first_packet->is_first_packet_in_frame()) ||
+            (prev_packet != nullptr &&
+             prev_packet->timestamp != rtp_timestamp)) {
           if (MaybeAssembleFrame(seq_num_start, seq_num, result)) {
             // Frame was assembled, continue to look for more frames.
             break;
@@ -177,6 +179,7 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::FindFrames(
             return result;
           }
         }
+        first_packet = prev_packet.get();
       }
     }
 

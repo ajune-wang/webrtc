@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7069d05d_d24b17cc",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-19T10:02:23Z",
+      "side": 1,
+      "message": "I was wondering if raising level may break negotiation with old clients. But, IIUC, we ignore level and only care about profile: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/h264_profile_level_id.cc;l\u003d254",
+      "range": {
+        "startLine": 93,
+        "startChar": 69,
+        "endLine": 93,
+        "endChar": 78
+      },
+      "revId": "71f60701358d33115d3259c717011558ac8c4788",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

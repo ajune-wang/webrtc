@@ -271,7 +271,14 @@ declare_args() {
 
   # When true, include the Perfetto library.
   rtc_use_perfetto = false
+
+  # Use the AV1 decoder in VideoToolBox
+  rtc_use_videotoolbox_av1_decoder = false
 }
+
+assert(
+    !rtc_use_videotoolbox_av1_decoder || (is_mac || is_ios),
+    "rtc_use_videotoolbox_av1_decoder should be set to true only on macOS or iOS")
 
 if (!build_with_mozilla) {
   import("//testing/test.gni")

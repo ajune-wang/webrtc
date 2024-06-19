@@ -15,4 +15,5 @@ include_rules = [
   "+modules/audio_processing",
   "+native",
   "+third_party/libyuv",
+  "+third_party/libgav1",
 ]

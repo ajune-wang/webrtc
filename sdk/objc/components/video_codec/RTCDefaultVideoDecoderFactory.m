@@ -21,6 +21,10 @@
 #import "api/video_codec/RTCVideoDecoderAV1.h"  // nogncheck
 #endif
 
+#if defined(RTC_USE_VIDEOTOOLBOX_AV1_DECODER)
+#import "RTCVideoVTDecoderAV1.h"
+#endif
+
 @implementation RTC_OBJC_TYPE (RTCDefaultVideoDecoderFactory)
 
 - (NSArray<RTC_OBJC_TYPE(RTCVideoCodecInfo) *> *)supportedCodecs {
@@ -56,9 +60,20 @@
         addObject:[[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecVp9Name]];
   }
 
-#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
-  [result addObject:[[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecAv1Name]];
+  bool isSupportedAV1 = false;
+
+#if defined(RTC_USE_VIDEOTOOLBOX_AV1_DECODER)
+  isSupportedAV1 = [RTC_OBJC_TYPE(RTCVideoVTDecoderAV1) isSupported];
 #endif
+
+#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
+  isSupportedAV1 = true;
+#endif
+
+  if (isSupportedAV1) {
+    [result
+        addObject:[[RTC_OBJC_TYPE(RTCVideoCodecInfo) alloc] initWithName:kRTCVideoCodecAv1Name]];
+  }
 
   return result;
 }
@@ -71,13 +86,20 @@
   } else if ([info.name isEqualToString:kRTCVideoCodecVp9Name] &&
              [RTC_OBJC_TYPE(RTCVideoDecoderVP9) isSupported]) {
     return [RTC_OBJC_TYPE(RTCVideoDecoderVP9) vp9Decoder];
-  }
-
-#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
-  if ([info.name isEqualToString:kRTCVideoCodecAv1Name]) {
-    return [RTC_OBJC_TYPE(RTCVideoDecoderAV1) av1Decoder];
-  }
+  } else if ([info.name isEqualToString:kRTCVideoCodecAv1Name]) {
+#if defined(RTC_USE_VIDEOTOOLBOX_AV1_DECODER)
+    RTC_OBJC_TYPE(RTCVideoVTDecoderAV1) *av1VTDecoder = nil;
+    if ([RTC_OBJC_TYPE(RTCVideoVTDecoderAV1) isSupported]) {
+      av1VTDecoder = [[RTC_OBJC_TYPE(RTCVideoVTDecoderAV1) alloc] init];
+      if (av1VTDecoder) {
+        return av1VTDecoder;
+      }
+    }
 #endif
+#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
+    return [RTC_OBJC_TYPE(RTCVideoDecoderAV1) av1Decoder];
+#endif
+  }
 
   return nil;
 }

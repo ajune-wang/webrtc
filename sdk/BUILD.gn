@@ -15,6 +15,9 @@ if (is_ios) {
 if (is_mac) {
   import("//build/config/mac/rules.gni")
 }
+if (is_apple) {
+  import("//third_party/libgav1/options.gni")
+}
 
 group("sdk") {
   public_deps = []
@@ -1356,6 +1359,11 @@ if (is_ios || is_mac) {
           ]
         }
 
+        if (rtc_use_videotoolbox_av1_decoder) {
+          common_objc_headers +=
+              [ "objc/components/video_codec/RTCVideoVTDecoderAV1.h" ]
+        }
+
         sources = common_objc_headers
         public_headers = common_objc_headers
 
@@ -1519,6 +1527,10 @@ if (is_ios || is_mac) {
             ":callback_logger_objc",
             ":file_logger_objc",
           ]
+        }
+
+        if (rtc_use_videotoolbox_av1_decoder) {
+          sources += [ "objc/components/video_codec/RTCVideoVTDecoderAV1.h" ]
         }
 
         frameworks = [
@@ -1748,6 +1760,14 @@ if (is_ios || is_mac) {
         "../rtc_base:timeutils",
         "//third_party/libyuv",
       ]
+
+      if (rtc_use_videotoolbox_av1_decoder) {
+        sources += [
+          "objc/components/video_codec/RTCVideoVTDecoderAV1.h",
+          "objc/components/video_codec/RTCVideoVTDecoderAV1.mm",
+        ]
+        deps += [ "//third_party/libgav1:libgav1_parser" ]
+      }
 
       frameworks = [
         "CoreFoundation.framework",

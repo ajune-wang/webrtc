@@ -511,6 +511,10 @@ config("common_config") {
   if (rtc_use_perfetto) {
     defines += [ "RTC_USE_PERFETTO" ]
   }
+
+  if (rtc_use_videotoolbox_av1_decoder) {
+    defines += [ "RTC_USE_VIDEOTOOLBOX_AV1_DECODER" ]
+  }
 }
 
 config("common_objc") {

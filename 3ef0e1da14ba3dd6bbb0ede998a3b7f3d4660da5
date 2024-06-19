@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc09274c_f7b354d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-19T09:11:14Z",
+      "side": 1,
+      "message": "This CL fixes this behavior introduced on the new packet buffer and makes it work like the old packet buffer.\n\nIt would be a good idea to add a window in ms to discard old packets and not have to wait until the buffer is full in case a packet is completely lost.",
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

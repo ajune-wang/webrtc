@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "801b4d69_f580acea",
+        "filename": "api/test/network_emulation/schedulable_network_node_builder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2024-06-19T08:33:44Z",
+      "side": 1,
+      "message": "Good point, I\u0027ll add a check in SimulatedNetwork in a follow up CL.",
+      "parentUuid": "329e660b_a41851bb",
+      "range": {
+        "startLine": 37,
+        "startChar": 28,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "90afc42f3b079bedf2e7a7a2e682b69a3960da02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "87d39349_69cae908",
         "filename": "api/test/network_emulation/schedulable_network_node_builder.cc",
         "patchSetId": 6

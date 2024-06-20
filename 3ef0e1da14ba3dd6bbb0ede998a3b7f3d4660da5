@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d8935ca_0eb741be",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-06-20T09:53:31Z",
+      "side": 1,
+      "message": "\u003e Not sure exactly what you mean, could you elaborate?\n \nSorry, I thought the test you added wouldn\u0027t pass even with these changes, but now after reading the test again I realize why it works. Just disregard my first comment 😊.\n \n \u003e In absence of this window, we should use the buffer size and advance the...\n \nThe H26XPacketBuffer works like this for a very specific reason. In short the H264/H265 RTP spec does not have any start of frame information, so the only way for a receiver to know if it has received all packets of a frame is to make sure the RTP packet sequence is continuous (all packets have been received).\n\nAFAICT there is no way to solve this using the H264/H265 RTP descriptors. The way I would solve this is by using the DependencyDescriptor.",
+      "parentUuid": "c8a61d94_c9ea2fe1",
+      "range": {
+        "startLine": 144,
+        "startChar": 13,
+        "endLine": 144,
+        "endChar": 72
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c22f576c_2fc7af05",
         "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
         "patchSetId": 1

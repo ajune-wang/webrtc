@@ -16,6 +16,52 @@
       "message": "This CL fixes this behavior introduced on the new packet buffer and makes it work like the old packet buffer.\n\nIt would be a good idea to add a window in ms to discard old packets and not have to wait until the buffer is full in case a packet is completely lost.",
       "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0611edaf_4700ca11",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-06-20T05:23:52Z",
+      "side": 1,
+      "message": "Two things:\n\n1) This doesn\u0027t really solve reordering in general. If a keyframe is found then no frames prior to that can be found.\n\n2) AFAICT this completely breaks the packet buffer. In this situation for example:\n\n    1: keyframe\n    2: \u003cpacket lost\u003e\n    3: keyframe\n\nThe keyframe contained in packet 3 would never be found as we would always return here.",
+      "range": {
+        "startLine": 144,
+        "startChar": 13,
+        "endLine": 144,
+        "endChar": 72
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22f576c_2fc7af05",
+        "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-06-20T05:23:52Z",
+      "side": 1,
+      "message": "Please write out these comments with regular text, or just remove them. This syntax is not really related to these tests.",
+      "range": {
+        "startLine": 1058,
+        "startChar": 2,
+        "endLine": 1058,
+        "endChar": 46
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

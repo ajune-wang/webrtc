@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e46bc29b_10546de3",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-06-20T14:14:06Z",
+      "side": 1,
+      "message": "The idea is that the `PacketBuffer` and `H26XPacketBuffer` will live alongside each other. The `PacketBuffer` will handle \"sane\" decsriptors, and `H26XPacketBuffer` will handle H264/H265. The reason we split it is so that we can gather all H26X specific hacks into one place.\n\n \u003e My last questions are that I have been reviewing the old packet buffer code, and it has several functionalities not included in the new H26XPacketBuffer, like the possibility or recovering out of order full frames, or detecting seq number jumps. I would assume that the new H26XPacketBuffer should provide similar functionality.\n \nThat functionality is only active for codecs other than H264, the `PacketBuffer` impose the same requirement that no packet may be lost when receiving H264.",
+      "parentUuid": "56e1a0c7_988aaf0c",
+      "range": {
+        "startLine": 144,
+        "startChar": 13,
+        "endLine": 144,
+        "endChar": 72
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c22f576c_2fc7af05",
         "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
         "patchSetId": 1

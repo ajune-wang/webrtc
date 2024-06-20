@@ -125,6 +125,8 @@ VideoCodec VideoCodecInitializer::SetupCodec(
     // TODO(bugs.webrtc.org/11607): Since scalability mode is a top-level
     // setting on VideoCodec, setting it makes sense only if it is the same for
     // all active simulcast streams.
+    // XXX: Why is scalability mode at the VideoCodec level at all?
+    /*
     if (streams[i].active &&
         streams[0].scalability_mode != streams[i].scalability_mode) {
       scalability_mode.reset();
@@ -132,6 +134,25 @@ VideoCodec VideoCodecInitializer::SetupCodec(
       // is based on the per-simulcast stream configuration of temporal layers.
       if (video_codec.codecType != kVideoCodecVP8) {
         RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
+      }
+    }*/
+    // XXX: Instead try to get the scalability mode of the codec?
+    if (streams[i].active) {
+      if (!scalability_mode) {
+        scalability_mode = streams[i].scalability_mode;
+      } else if (streams[i].scalability_mode) {
+        int s = ScalabilityModeToNumSpatialLayers(*scalability_mode);
+        int stream_s =
+            ScalabilityModeToNumSpatialLayers(*streams[i].scalability_mode);
+        int t = ScalabilityModeToNumTemporalLayers(*scalability_mode);
+        int stream_t =
+            ScalabilityModeToNumTemporalLayers(*streams[i].scalability_mode);
+        if (s != stream_s) {
+          RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
+        }
+        if (t != stream_t) {
+          RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
+        }
       }
     }
   }

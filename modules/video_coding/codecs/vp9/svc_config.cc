@@ -246,4 +246,63 @@ std::vector<SpatialLayer> GetSvcConfig(
   }
 }
 
+void ConvertSimulcastConfigToSvc(VideoCodec& codec) {
+  if (codec.IsSinglecast())
+    return;
+  for (size_t i = 0; i < codec.numberOfSimulcastStreams; ++i) {
+    codec.spatialLayers[i].width = codec.simulcastStream[i].width;
+    codec.spatialLayers[i].height = codec.simulcastStream[i].height;
+    codec.spatialLayers[i].maxFramerate = codec.simulcastStream[i].maxFramerate;
+    codec.spatialLayers[i].numberOfTemporalLayers =
+        codec.simulcastStream[i].numberOfTemporalLayers;
+    codec.spatialLayers[i].maxBitrate = codec.simulcastStream[i].maxBitrate;
+    codec.spatialLayers[i].targetBitrate =
+        codec.simulcastStream[i].targetBitrate;
+    codec.spatialLayers[i].minBitrate = codec.simulcastStream[i].minBitrate;
+    codec.spatialLayers[i].qpMax = codec.simulcastStream[i].qpMax;
+    codec.spatialLayers[i].active = codec.simulcastStream[i].active;
+  }
+  codec.simulcastStream[0] =
+      codec.simulcastStream[codec.numberOfSimulcastStreams - 1];
+  codec.VP9()->numberOfSpatialLayers = codec.numberOfSimulcastStreams;
+  codec.numberOfSimulcastStreams = 1;
+  codec.UnsetScalabilityMode();
+}
+
+void ConvertSvcFrameToSimulcast(EncodedImage& encoded_image,
+                                CodecSpecificInfo& codec_specific) {
+  // In SVC structure, only the top layer has end_of_picture flag.
+  // For simulcast frames, all of the streams must have it.
+  encoded_image.SetSimulcastIndex(encoded_image.SpatialIndex().value_or(0));
+  encoded_image.SetSpatialIndex(0);
+  codec_specific.end_of_picture = true;
+  if (codec_specific.scalability_mode) {
+    switch (*codec_specific.scalability_mode) {
+      case ScalabilityMode::kL1T1:
+      case ScalabilityMode::kS2T1:
+      case ScalabilityMode::kS2T1h:
+      case ScalabilityMode::kS3T1:
+      case ScalabilityMode::kS3T1h:
+        codec_specific.scalability_mode = ScalabilityMode::kL1T1;
+        break;
+      case ScalabilityMode::kL1T2:
+      case ScalabilityMode::kS2T2:
+      case ScalabilityMode::kS2T2h:
+      case ScalabilityMode::kS3T2:
+      case ScalabilityMode::kS3T2h:
+        codec_specific.scalability_mode = ScalabilityMode::kL1T2;
+        break;
+      case ScalabilityMode::kL1T3:
+      case ScalabilityMode::kS2T3:
+      case ScalabilityMode::kS2T3h:
+      case ScalabilityMode::kS3T3:
+      case ScalabilityMode::kS3T3h:
+        codec_specific.scalability_mode = ScalabilityMode::kL1T3;
+        break;
+      default:
+        break;
+    }
+  }
+}
+
 }  // namespace webrtc

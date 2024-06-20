@@ -16,6 +16,52 @@
       "message": "@ssilkin@webrtc.org could you run the tryjobs, please? I think everything should be fine noe",
       "revId": "77d742c62508d31c9121bed9c86f29b9968fa1f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9eafeb9_453dce13",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-20T08:34:37Z",
+      "side": 1,
+      "message": "chroma_array_type",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 198,
+        "endChar": 27
+      },
+      "revId": "77d742c62508d31c9121bed9c86f29b9968fa1f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5da05d_e0ecb0c0",
+        "filename": "common_video/h264/h264_bitstream_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-20T08:34:37Z",
+      "side": 1,
+      "message": "nit: It would be good to test this code path (as well as paths under `if (chroma_weight_l0_flag)`, and under `if (slice_type % 5 \u003d\u003d 1)`). Visually everything looks correct. But up to you.",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 45
+      },
+      "revId": "77d742c62508d31c9121bed9c86f29b9968fa1f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

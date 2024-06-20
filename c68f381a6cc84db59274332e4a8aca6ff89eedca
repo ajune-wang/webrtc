@@ -16,6 +16,23 @@
       "message": "I have fixed the last errors on the tryjobs, could anyone rerun them, please?",
       "revId": "c68f381a6cc84db59274332e4a8aca6ff89eedca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc68343e_cd43a975",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-20T07:47:52Z",
+      "side": 1,
+      "message": "would we need approval from anyone else before merging the CL?",
+      "revId": "c68f381a6cc84db59274332e4a8aca6ff89eedca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

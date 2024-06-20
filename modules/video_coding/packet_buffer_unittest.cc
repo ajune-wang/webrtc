@@ -28,6 +28,7 @@ namespace webrtc {
 namespace video_coding {
 namespace {
 
+using ::testing::AllOf;
 using ::testing::ElementsAre;
 using ::testing::ElementsAreArray;
 using ::testing::IsEmpty;
@@ -266,6 +267,25 @@ TEST_F(PacketBufferTest, ThreePacketReorderingOneFrame) {
               IsEmpty());
   EXPECT_THAT(Insert(seq_num + 1, kKeyFrame, kNotFirst, kNotLast),
               StartSeqNumsAre(seq_num));
+}
+
+TEST_F(PacketBufferTest, FivePacketReorderingTreeFrames) {
+  const uint16_t seq_num = Rand();
+
+  EXPECT_THAT(Insert(seq_num, kKeyFrame, kFirst, kLast),
+              StartSeqNumsAre(seq_num));
+
+  EXPECT_THAT(Insert(seq_num + 1, kDeltaFrame, kFirst, kNotLast).packets,
+              IsEmpty());
+
+  EXPECT_THAT(Insert(seq_num + 3, kKeyFrame, kFirst, kNotLast).packets,
+              IsEmpty());
+
+  EXPECT_THAT(Insert(seq_num + 2, kDeltaFrame, kNotFirst, kLast),
+              StartSeqNumsAre(seq_num + 1));
+
+  EXPECT_THAT(Insert(seq_num + 4, kKeyFrame, kNotFirst, kLast),
+              StartSeqNumsAre(seq_num + 3));
 }
 
 TEST_F(PacketBufferTest, Frames) {

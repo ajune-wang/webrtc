@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8a61d94_c9ea2fe1",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-20T08:00:58Z",
+      "side": 1,
+      "message": "\u003e 1) This doesn\u0027t really solve reordering in general. If a keyframe is found then no frames prior to that can be found.\n\nNot sure exactly what you mean, could you elaborate?\n\n\u003e 2) AFAICT this completely breaks the packet buffer. In this situation for example:\n\u003e\n\u003e1: keyframe\n\u003e2: \u003cpacket lost\u003e\n\u003e3: keyframe\n\u003eThe keyframe contained in packet 3 would never be found as we would always return here.\n\nYes, it you are right. As I said earlier, we should have a reordering window in which we wait for the missing packets and discard the ones that are out of it.\n\nIn absence of this window, we should use the buffer size and advance the `last_continuous_unwrapped_seq_num_` when it gets full, which is not done and causes the issue you describe.\n\nI will try to add this and also unit tests to verify the behaviour",
+      "parentUuid": "0611edaf_4700ca11",
+      "range": {
+        "startLine": 144,
+        "startChar": 13,
+        "endLine": 144,
+        "endChar": 72
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c22f576c_2fc7af05",
         "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-20T05:23:52Z",
       "side": 1,
       "message": "Please write out these comments with regular text, or just remove them. This syntax is not really related to these tests.",
+      "range": {
+        "startLine": 1058,
+        "startChar": 2,
+        "endLine": 1058,
+        "endChar": 46
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee8979c3_1289aecf",
+        "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-20T08:00:58Z",
+      "side": 1,
+      "message": "ups, yes, I was only adding the test to compare to the test I added to the packet_buffer_unittest, will remove.",
+      "parentUuid": "c22f576c_2fc7af05",
       "range": {
         "startLine": 1058,
         "startChar": 2,

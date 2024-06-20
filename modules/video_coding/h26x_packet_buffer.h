@@ -73,7 +73,8 @@ class H26xPacketBuffer {
 
   static constexpr int kBufferSize = 2048;
 
-  std::unique_ptr<Packet>& GetPacket(int64_t unwrapped_seq_num);
+  std::unique_ptr<Packet>& GetSlot(int64_t unwrapped_seq_num);
+  Packet* GetPacket(int64_t unwrapped_seq_num);
   bool BeginningOfStream(const Packet& packet) const;
   InsertResult FindFrames(int64_t unwrapped_seq_num);
   bool MaybeAssembleFrame(int64_t start_seq_num_unwrapped,

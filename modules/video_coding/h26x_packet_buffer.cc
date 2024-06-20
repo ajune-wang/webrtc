@@ -53,15 +53,7 @@ bool BeginningOfIdr(const H26xPacketBuffer::Packet& packet) {
       absl::c_any_of(h264_header.nalus, [](const auto& nalu_info) {
         return nalu_info.type == H264::NaluType::kIdr;
       });
-  switch (h264_header.packetization_type) {
-    case kH264StapA:
-    case kH264SingleNalu: {
-      return contains_idr_nalu;
-    }
-    case kH264FuA: {
-      return contains_idr_nalu && IsFirstPacketOfFragment(h264_header);
-    }
-  }
+  return contains_idr_nalu && packet.is_first_packet_in_frame();
 }
 
 bool HasSps(const H26xPacketBuffer::Packet& packet) {
@@ -98,7 +90,7 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::InsertPacket(
   InsertResult result;
 
   int64_t unwrapped_seq_num = seq_num_unwrapper_.Unwrap(packet->seq_num);
-  auto& packet_slot = GetPacket(unwrapped_seq_num);
+  auto& packet_slot = GetSlot(unwrapped_seq_num);
   if (packet_slot != nullptr &&
       AheadOrAt(packet_slot->timestamp, packet->timestamp)) {
     // The incoming `packet` is old or a duplicate.
@@ -107,12 +99,33 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::InsertPacket(
     packet_slot = std::move(packet);
   }
 
+  // Check if previous packets are from different frame.
+  auto prev_packet = GetPacket(unwrapped_seq_num - 1);
+  auto prev_prev_packet = GetPacket(unwrapped_seq_num - 2);
+  if ((prev_packet != nullptr && prev_packet->marker_bit) ||
+      (prev_prev_packet != nullptr && !prev_prev_packet->marker_bit &&
+       prev_prev_packet->timestamp != packet_slot->timestamp)) {
+    packet_slot->video_header.is_first_packet_in_frame = true;
+  }
+
   return FindFrames(unwrapped_seq_num);
 }
 
-std::unique_ptr<H26xPacketBuffer::Packet>& H26xPacketBuffer::GetPacket(
+std::unique_ptr<H26xPacketBuffer::Packet>& H26xPacketBuffer::GetSlot(
     int64_t unwrapped_seq_num) {
   return buffer_[EuclideanMod(unwrapped_seq_num, kBufferSize)];
+}
+
+H26xPacketBuffer::Packet* H26xPacketBuffer::GetPacket(
+    int64_t unwrapped_seq_num) {
+  auto& slot = GetSlot(unwrapped_seq_num);
+  // Packets that were never assembled into a completed frame will stay in
+  // the 'buffer_'. Check that the `packet` sequence number match the expected
+  // unwrapped sequence number.
+  if (!slot || static_cast<uint16_t>(unwrapped_seq_num) != slot->seq_num) {
+    return nullptr;
+  }
+  return slot.get();
 }
 
 bool H26xPacketBuffer::BeginningOfStream(
@@ -133,42 +146,63 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::FindFrames(
     int64_t unwrapped_seq_num) {
   InsertResult result;
 
-  Packet* packet = GetPacket(unwrapped_seq_num).get();
-  RTC_CHECK(packet != nullptr);
+  Packet* packet = GetPacket(unwrapped_seq_num);
+  if (packet == nullptr) {
+    return result;
+  }
 
-  // Check if the packet is continuous or the beginning of a new coded video
-  // sequence.
-  if (unwrapped_seq_num - 1 != last_continuous_unwrapped_seq_num_) {
-    if (unwrapped_seq_num <= last_continuous_unwrapped_seq_num_ ||
-        !BeginningOfStream(*packet)) {
+  if (!last_continuous_unwrapped_seq_num_.has_value()) {
+    // We need to start with a proper IDR frame.
+    if (!BeginningOfStream(*packet)) {
+      return result;
+    }
+    last_continuous_unwrapped_seq_num_ = unwrapped_seq_num;
+  } else if (unwrapped_seq_num <= last_continuous_unwrapped_seq_num_) {
+    // Discard old packets.
+    return result;
+  } else if (unwrapped_seq_num - 1 != last_continuous_unwrapped_seq_num_) {
+    // No continous seq num.
+    if (unwrapped_seq_num - last_continuous_unwrapped_seq_num_.value() <
+        kBufferSize) {
       return result;
     }
 
-    last_continuous_unwrapped_seq_num_ = unwrapped_seq_num;
+    // Buffer is full, we have to find next IDR.
+    last_continuous_unwrapped_seq_num_.reset();
+    for (int64_t seq_num = unwrapped_seq_num - kBufferSize + 1;
+         seq_num != unwrapped_seq_num; ++seq_num) {
+      packet = GetPacket(seq_num);
+      if (packet && BeginningOfStream(*packet)) {
+        last_continuous_unwrapped_seq_num_ = seq_num;
+        unwrapped_seq_num = seq_num;
+        break;
+      }
+    }
+
+    if (!last_continuous_unwrapped_seq_num_.has_value()) {
+      return result;
+    }
   }
 
   for (int64_t seq_num = unwrapped_seq_num;
        seq_num < unwrapped_seq_num + kBufferSize;) {
     RTC_DCHECK_GE(seq_num, *last_continuous_unwrapped_seq_num_);
 
-    // Packets that were never assembled into a completed frame will stay in
-    // the 'buffer_'. Check that the `packet` sequence number match the expected
-    // unwrapped sequence number.
-    if (static_cast<uint16_t>(seq_num) != packet->seq_num) {
-      return result;
-    }
-
     last_continuous_unwrapped_seq_num_ = seq_num;
     // Last packet of the frame, try to assemble the frame.
     if (packet->marker_bit) {
       uint32_t rtp_timestamp = packet->timestamp;
-
+      Packet* first_packet = packet;
       // Iterate backwards to find where the frame starts.
       for (int64_t seq_num_start = seq_num;
-           seq_num_start > seq_num - kBufferSize; --seq_num_start) {
-        auto& prev_packet = GetPacket(seq_num_start - 1);
+           first_packet && seq_num_start > seq_num - kBufferSize;
+           --seq_num_start) {
+        auto prev_packet = GetPacket(seq_num_start - 1);
 
-        if (prev_packet == nullptr || prev_packet->timestamp != rtp_timestamp) {
+        if ((prev_packet == nullptr &&
+             first_packet->is_first_packet_in_frame()) ||
+            (prev_packet != nullptr &&
+             prev_packet->timestamp != rtp_timestamp)) {
           if (MaybeAssembleFrame(seq_num_start, seq_num, result)) {
             // Frame was assembled, continue to look for more frames.
             break;
@@ -177,11 +211,12 @@ H26xPacketBuffer::InsertResult H26xPacketBuffer::FindFrames(
             return result;
           }
         }
+        first_packet = prev_packet;
       }
     }
 
     seq_num++;
-    packet = GetPacket(seq_num).get();
+    packet = GetPacket(seq_num);
     if (packet == nullptr) {
       return result;
     }
@@ -206,7 +241,7 @@ bool H26xPacketBuffer::MaybeAssembleFrame(int64_t start_seq_num_unwrapped,
 
   for (int64_t seq_num = start_seq_num_unwrapped;
        seq_num <= end_sequence_number_unwrapped; ++seq_num) {
-    const auto& packet = GetPacket(seq_num);
+    const auto packet = GetPacket(seq_num);
     if (packet->codec() == kVideoCodecH264) {
       const auto& h264_header =
           absl::get<RTPVideoHeaderH264>(packet->video_header.video_type_header);
@@ -247,7 +282,7 @@ bool H26xPacketBuffer::MaybeAssembleFrame(int64_t start_seq_num_unwrapped,
 
   for (int64_t seq_num = start_seq_num_unwrapped;
        seq_num <= end_sequence_number_unwrapped; ++seq_num) {
-    auto& packet = GetPacket(seq_num);
+    auto& packet = GetSlot(seq_num);
 
     packet->video_header.is_first_packet_in_frame =
         (seq_num == start_seq_num_unwrapped);

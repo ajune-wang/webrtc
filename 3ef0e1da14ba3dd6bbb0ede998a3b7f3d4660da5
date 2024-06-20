@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56e1a0c7_988aaf0c",
+        "filename": "modules/video_coding/h26x_packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-20T13:44:12Z",
+      "side": 1,
+      "message": "Just to reword your comment, the issue is detecting the first packet (n) of a frame if the previous two packets have not been received. If the n-1 has been received (with a mark) or the n-2 is is received (without it), we can detect the start of the frame with the rtp timestamp jump.\n\nThe current H26xPacketBuffer tries to detect it based on the SPS/PPS or single nal IDR presence of FU with start packet mark. That would work with the risk of loosing some non-slice nal units.\n\nHowever, the question is if what to do in case of detecting the first packet of an iframe. The current code discards any previous packet, loosing the ability to recover them with subsequent RTX/FEC received packets.\n\nThis CL is incomplete in a way that it does not solve the case in which a rtp packet is completely lost and that\u0027s when we would require a mechanism to discard old non-complete frames either when the queue gets full or after a time window.\n\nMy last questions are that I have been reviewing the old packet buffer code, and it has several functionalities not included in the new H26XPacketBuffer, like the possibility or recovering out of order full frames, or detecting seq number jumps. I would assume that the new H26XPacketBuffer should provide similar functionality.",
+      "parentUuid": "4d8935ca_0eb741be",
+      "range": {
+        "startLine": 144,
+        "startChar": 13,
+        "endLine": 144,
+        "endChar": 72
+      },
+      "revId": "3ef0e1da14ba3dd6bbb0ede998a3b7f3d4660da5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c22f576c_2fc7af05",
         "filename": "modules/video_coding/h26x_packet_buffer_unittest.cc",
         "patchSetId": 1

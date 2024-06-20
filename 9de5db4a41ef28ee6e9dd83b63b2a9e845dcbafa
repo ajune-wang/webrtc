@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a843bc6_ed90c3aa",
+        "filename": "modules/video_coding/video_codec_initializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-20T11:36:55Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 508,
+        "startChar": 46,
+        "endLine": 508,
+        "endChar": 59
+      },
+      "revId": "9de5db4a41ef28ee6e9dd83b63b2a9e845dcbafa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

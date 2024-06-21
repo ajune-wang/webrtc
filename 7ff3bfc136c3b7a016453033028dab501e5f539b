@@ -16,6 +16,24 @@
       "message": "Hi Hyesung, thanks for the CL!\n\nWe added the injectable encoder factory interface specifically for the purpose of clients being able to supply their own codec implementations. We don\u0027t feel that the WebRTC library needs to contain all possible implementations for current and future codecs. We ship with a set of default codecs that are widely supported, but beyond that I believe the responsibility should lie with the client.\n\nAdding hta@ for comment here too.",
       "revId": "7ff3bfc136c3b7a016453033028dab501e5f539b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d61a9b5_9f3ea768",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2024-06-21T10:24:14Z",
+      "side": 1,
+      "message": "Having an extensible design is a good thing, and I really appreciate it for Encoder/Decoder factories. However, we believe we can add a bit more abstraction to support various VideoToolbox implementations. As you can see in the next CL, there are many common parts between different VideoToolbox implementations, and this CL aims to make them as common as possible. I believe this is a good approach to make the codebase more maintainable and extensible.\n\nAdditionally, Google-made or related codecs, like VP9 and AV1, are supported, at least in some Apple devices, making it possible to use them in WebRTC. That\u0027s why we uploaded these CLs.",
+      "parentUuid": "80488048_ecf0490f",
+      "revId": "7ff3bfc136c3b7a016453033028dab501e5f539b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

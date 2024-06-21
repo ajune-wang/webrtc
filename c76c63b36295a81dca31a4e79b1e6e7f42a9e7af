@@ -68,6 +68,24 @@
       "parentUuid": "4b276e19_697ec658",
       "revId": "c76c63b36295a81dca31a4e79b1e6e7f42a9e7af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d8bdd7_6704a05e",
+        "filename": "pc/test/srtp_test_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-21T14:17:02Z",
+      "side": 1,
+      "message": "Since it is only used in test, CHECK (RTC_CHECK_NOTREACHED) is even better since we are not worried about the runtime penalty.",
+      "parentUuid": "ae000b4d_497ac0be",
+      "revId": "c76c63b36295a81dca31a4e79b1e6e7f42a9e7af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

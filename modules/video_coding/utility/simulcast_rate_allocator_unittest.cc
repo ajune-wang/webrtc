@@ -653,6 +653,7 @@ class ScreenshareRateAllocationTest : public SimulcastRateAllocatorTest {
  public:
   void SetupConferenceScreenshare(bool use_simulcast, bool active = true) {
     codec_.mode = VideoCodecMode::kScreensharing;
+    codec_.legacy_conference_mode = true;
     codec_.minBitrate = kMinBitrateKbps;
     codec_.maxBitrate =
         kLegacyScreenshareMaxBitrateKbps + kSimulcastScreenshareMaxBitrateKbps;
@@ -688,7 +689,6 @@ INSTANTIATE_TEST_SUITE_P(ScreenshareTest,
 TEST_P(ScreenshareRateAllocationTest, ConferenceBitrateBelowTl0) {
   SetupConferenceScreenshare(GetParam());
   CreateAllocator();
-  allocator_->SetLegacyConferenceMode(true);
 
   VideoBitrateAllocation allocation =
       allocator_->Allocate(VideoBitrateAllocationParameters(
@@ -704,7 +704,6 @@ TEST_P(ScreenshareRateAllocationTest, ConferenceBitrateBelowTl0) {
 TEST_P(ScreenshareRateAllocationTest, ConferenceBitrateAboveTl0) {
   SetupConferenceScreenshare(GetParam());
   CreateAllocator();
-  allocator_->SetLegacyConferenceMode(true);
 
   uint32_t target_bitrate_kbps =
       (kLegacyScreenshareTargetBitrateKbps + kLegacyScreenshareMaxBitrateKbps) /
@@ -726,7 +725,6 @@ TEST_F(ScreenshareRateAllocationTest, ConferenceBitrateAboveTl1) {
   // This test is only for the non-simulcast case.
   SetupConferenceScreenshare(false);
   CreateAllocator();
-  allocator_->SetLegacyConferenceMode(true);
 
   VideoBitrateAllocation allocation =
       allocator_->Allocate(VideoBitrateAllocationParameters(

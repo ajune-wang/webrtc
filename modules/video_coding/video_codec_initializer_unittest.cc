@@ -182,9 +182,9 @@ TEST_F(VideoCodecInitializerTest, SingleStreamVp8ScreenshareInactive) {
 
 TEST_F(VideoCodecInitializerTest, TemporalLayeredVp8ScreenshareConference) {
   SetUpFor(VideoCodecType::kVideoCodecVP8, 1, absl::nullopt, 2, true);
+  config_.legacy_conference_mode = true;
   streams_.push_back(DefaultScreenshareStream());
   InitializeCodec();
-  bitrate_allocator_->SetLegacyConferenceMode(true);
 
   EXPECT_EQ(1u, codec_out_.numberOfSimulcastStreams);
   EXPECT_EQ(2u, codec_out_.VP8()->numberOfTemporalLayers);

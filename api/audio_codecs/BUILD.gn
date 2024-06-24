@@ -14,19 +14,22 @@ if (is_android) {
 
 rtc_library("audio_codecs_api") {
   visibility = [ "*" ]
-  sources = [
-    "audio_codec_pair_id.cc",
+  public = [
     "audio_codec_pair_id.h",
-    "audio_decoder.cc",
     "audio_decoder.h",
     "audio_decoder_factory.h",
     "audio_decoder_factory_template.h",
-    "audio_encoder.cc",
     "audio_encoder.h",
     "audio_encoder_factory.h",
     "audio_encoder_factory_template.h",
-    "audio_format.cc",
     "audio_format.h",
+  ]
+  sources = [
+    "audio_codec_pair_id.cc",
+    "audio_decoder.cc",
+    "audio_encoder.cc",
+    "audio_encoder_factory_template_impl.h",
+    "audio_format.cc",
   ]
   deps = [
     "..:array_view",

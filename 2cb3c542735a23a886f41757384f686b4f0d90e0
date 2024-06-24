@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9fbb108_64560d18",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-06-24T20:49:29Z",
+      "side": 1,
+      "message": "Update: Once https://chromium-review.googlesource.com/c/chromium/src/+/5649982 lands and sticks, it will be a no-op in BoringSSL!\n\nhttps://chromium-review.googlesource.com/c/chromium/src/+/5650103 is the corresponding Chromium cleanup.",
+      "revId": "2cb3c542735a23a886f41757384f686b4f0d90e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28d32784_4acc8595",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2024-06-24T20:49:29Z",
+      "side": 1,
+      "message": "Oh, I missed this before it lands, but it is definitely not a no-op in OpenSSL. OpenSSL\u0027s docs claim it\u0027s not *necessary* to call it (though I don\u0027t know if I fully believe them, having seen some of the internals), but if you do call it, it definitely does something.\n\nI\u0027ll leave to you all whether you want to take OpenSSL at their word, once the BoringSSL blocker is resolved. 😊",
+      "revId": "2cb3c542735a23a886f41757384f686b4f0d90e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

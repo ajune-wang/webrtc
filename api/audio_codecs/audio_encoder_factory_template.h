@@ -11,136 +11,13 @@
 #ifndef API_AUDIO_CODECS_AUDIO_ENCODER_FACTORY_TEMPLATE_H_
 #define API_AUDIO_CODECS_AUDIO_ENCODER_FACTORY_TEMPLATE_H_
 
-#include <memory>
-#include <type_traits>
-#include <vector>
-
-#include "absl/base/nullability.h"
-#include "absl/types/optional.h"
-#include "api/audio_codecs/audio_codec_pair_id.h"
-#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
-#include "api/audio_codecs/audio_format.h"
-#include "api/environment/environment.h"
+#include "api/audio_codecs/audio_encoder_factory_impl.h"
 #include "api/field_trials_view.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
 
 namespace webrtc {
-
-namespace audio_encoder_factory_template_impl {
-
-template <typename... Ts>
-struct Helper;
-
-// Base case: 0 template parameters.
-template <>
-struct Helper<> {
-  static void AppendSupportedEncoders(std::vector<AudioCodecSpec>* specs) {}
-  static absl::optional<AudioCodecInfo> QueryAudioEncoder(
-      const SdpAudioFormat& format) {
-    return absl::nullopt;
-  }
-  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
-      int payload_type,
-      const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id,
-      const FieldTrialsView* field_trials) {
-    return nullptr;
-  }
-  static absl::Nullable<std::unique_ptr<AudioEncoder>> CreateAudioEncoder(
-      const Environment& env,
-      const SdpAudioFormat& format,
-      const AudioEncoderFactory::Options& options) {
-    return nullptr;
-  }
-};
-
-// Inductive case: Called with n + 1 template parameters; calls subroutines
-// with n template parameters.
-template <typename T, typename... Ts>
-struct Helper<T, Ts...> {
-  static void AppendSupportedEncoders(std::vector<AudioCodecSpec>* specs) {
-    T::AppendSupportedEncoders(specs);
-    Helper<Ts...>::AppendSupportedEncoders(specs);
-  }
-  static absl::optional<AudioCodecInfo> QueryAudioEncoder(
-      const SdpAudioFormat& format) {
-    auto opt_config = T::SdpToConfig(format);
-    static_assert(std::is_same<decltype(opt_config),
-                               absl::optional<typename T::Config>>::value,
-                  "T::SdpToConfig() must return a value of type "
-                  "absl::optional<T::Config>");
-    return opt_config ? absl::optional<AudioCodecInfo>(
-                            T::QueryAudioEncoder(*opt_config))
-                      : Helper<Ts...>::QueryAudioEncoder(format);
-  }
-  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
-      int payload_type,
-      const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id,
-      const FieldTrialsView* field_trials) {
-    auto opt_config = T::SdpToConfig(format);
-    if (opt_config) {
-      return T::MakeAudioEncoder(*opt_config, payload_type, codec_pair_id);
-    } else {
-      return Helper<Ts...>::MakeAudioEncoder(payload_type, format,
-                                             codec_pair_id, field_trials);
-    }
-  }
-
-  static absl::Nullable<std::unique_ptr<AudioEncoder>> CreateAudioEncoder(
-      const Environment& env,
-      const SdpAudioFormat& format,
-      const AudioEncoderFactory::Options& options) {
-    if (auto opt_config = T::SdpToConfig(format); opt_config.has_value()) {
-      // TODO: bugs.webrtc.org/343086059 - propagate `env` to the individual
-      // encoder factory functions.
-      return T::MakeAudioEncoder(*opt_config, options.payload_type,
-                                 options.codec_pair_id);
-    }
-    return Helper<Ts...>::CreateAudioEncoder(env, format, options);
-  }
-};
-
-template <typename... Ts>
-class AudioEncoderFactoryT : public AudioEncoderFactory {
- public:
-  explicit AudioEncoderFactoryT(const FieldTrialsView* field_trials) {
-    field_trials_ = field_trials;
-  }
-
-  std::vector<AudioCodecSpec> GetSupportedEncoders() override {
-    std::vector<AudioCodecSpec> specs;
-    Helper<Ts...>::AppendSupportedEncoders(&specs);
-    return specs;
-  }
-
-  absl::optional<AudioCodecInfo> QueryAudioEncoder(
-      const SdpAudioFormat& format) override {
-    return Helper<Ts...>::QueryAudioEncoder(format);
-  }
-
-  std::unique_ptr<AudioEncoder> MakeAudioEncoder(
-      int payload_type,
-      const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) override {
-    return Helper<Ts...>::MakeAudioEncoder(payload_type, format, codec_pair_id,
-                                           field_trials_);
-  }
-
-  absl::Nullable<std::unique_ptr<AudioEncoder>> Create(
-      const Environment& env,
-      const SdpAudioFormat& format,
-      Options options) override {
-    return Helper<Ts...>::CreateAudioEncoder(env, format, options);
-  }
-
-  const FieldTrialsView* field_trials_;
-};
-
-}  // namespace audio_encoder_factory_template_impl
-
 // Make an AudioEncoderFactory that can create instances of the given encoders.
 //
 // Each encoder type is given as a template argument to the function; it should
@@ -161,7 +38,7 @@ class AudioEncoderFactoryT : public AudioEncoderFactory {
 //
 //   // Creates an AudioEncoder for the specified format. Used to implement
 //   // AudioEncoderFactory::MakeAudioEncoder().
-//   std::unique_ptr<AudioDecoder> MakeAudioEncoder(
+//   std::unique_ptr<AudioEncoder> MakeAudioEncoder(
 //       const ConfigType& config,
 //       int payload_type,
 //       absl::optional<AudioCodecPairId> codec_pair_id);

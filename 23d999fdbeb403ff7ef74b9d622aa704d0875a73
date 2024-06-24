@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a8ef94d_04bcf3b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2024-06-24T22:10:50Z",
+      "side": 1,
+      "message": "Here is one with merge conflicts fixed: https://webrtc-review.googlesource.com/c/src/+/355441",
+      "revId": "23d999fdbeb403ff7ef74b9d622aa704d0875a73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

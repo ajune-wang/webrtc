@@ -347,6 +347,30 @@
       },
       "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03fe814b_af498481",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-24T18:45:30Z",
+      "side": 1,
+      "message": "You are right. Changed.\n\nHowever, if someone adds S3T4, for example, the new code won\u0027t catch that either.\n\nI\u0027m adding RTC_DCHECK for that case.",
+      "parentUuid": "d1004ddd_eed18bb5",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 304,
+        "endChar": 5
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

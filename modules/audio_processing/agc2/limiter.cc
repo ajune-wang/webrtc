@@ -73,13 +73,12 @@ void ComputePerSampleSubframeFactors(
   }
 }
 
-void ScaleSamples(MonoView<const float> per_sample_scaling_factors,
+void ScaleSamples(rtc::ArrayView<const float> per_sample_scaling_factors,
                   AudioFrameView<float> signal) {
   const int samples_per_channel = signal.samples_per_channel();
-  RTC_DCHECK_EQ(samples_per_channel,
-                SamplesPerChannel(per_sample_scaling_factors));
+  RTC_DCHECK_EQ(samples_per_channel, per_sample_scaling_factors.size());
   for (int i = 0; i < signal.num_channels(); ++i) {
-    MonoView<float> channel = signal.channel(i);
+    rtc::ArrayView<float> channel = signal.channel(i);
     for (int j = 0; j < samples_per_channel; ++j) {
       channel[j] = rtc::SafeClamp(channel[j] * per_sample_scaling_factors[j],
                                   kMinFloatS16Value, kMaxFloatS16Value);
@@ -120,8 +119,8 @@ void Limiter::Process(AudioFrameView<float> signal) {
   const int samples_per_channel = signal.samples_per_channel();
   RTC_DCHECK_LE(samples_per_channel, kMaximalNumberOfSamplesPerChannel);
 
-  auto per_sample_scaling_factors =
-      MonoView<float>(&per_sample_scaling_factors_[0], samples_per_channel);
+  auto per_sample_scaling_factors = rtc::ArrayView<float>(
+      &per_sample_scaling_factors_[0], samples_per_channel);
   ComputePerSampleSubframeFactors(scaling_factors_, samples_per_channel,
                                   per_sample_scaling_factors);
   ScaleSamples(per_sample_scaling_factors, signal);

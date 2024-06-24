@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d45bc9_e33de807",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-24T13:52:01Z",
+      "side": 1,
+      "message": "I\u0027ve drafted \nhttps://webrtc-review.googlesource.com/c/src/+/355420\nbut then realized it is doing 3 separate things, so splitting it into 3 individual changes, one thing at a time.",
+      "revId": "2389eb340448686db59b32d39be82e62f3f6d7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a3b0f48_7ecd9279",
+        "filename": "api/audio_codecs/audio_encoder_factory_template.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-24T13:52:01Z",
+      "side": 1,
+      "message": "`field_trials` is not passed here, thus not really used.",
+      "revId": "2389eb340448686db59b32d39be82e62f3f6d7d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -3745,7 +3745,7 @@ class Vp9SettingsTest : public WebRtcVideoChannelTest {
       : WebRtcVideoChannelTest(field_trials) {
     encoder_factory_->AddSupportedVideoCodecType("VP9");
   }
-  virtual ~Vp9SettingsTest() {}
+  ~Vp9SettingsTest() override = default;
 
  protected:
   void TearDown() override {

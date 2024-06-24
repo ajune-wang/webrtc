@@ -20,6 +20,7 @@
 #include "api/field_trials_view.h"
 #include "api/scoped_refptr.h"
 #include "api/units/data_rate.h"
+#include "api/video/video_codec_type.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/codecs/av1/av1_svc_config.h"
 #include "modules/video_coding/codecs/vp8/vp8_scalability.h"
@@ -127,9 +128,16 @@ VideoCodec VideoCodecInitializer::SetupCodec(
     // all active simulcast streams.
     if (streams[i].active &&
         streams[0].scalability_mode != streams[i].scalability_mode) {
-      scalability_mode.reset();
-      // For VP8, top-level scalability mode doesn't matter, since configuration
-      // is based on the per-simulcast stream configuration of temporal layers.
+      // If VP9 simulcast then ensure that stream does not have multiple
+      // spatial layers.
+      if (video_codec.codecType != kVideoCodecVP9 ||
+          !streams[i].scalability_mode ||
+          ScalabilityModeToNumSpatialLayers(*streams[i].scalability_mode) > 1) {
+        scalability_mode.reset();
+      }
+      // For VP8, top-level scalability mode doesn't matter, since
+      // configuration is based on the per-simulcast stream configuration of
+      // temporal layers.
       if (video_codec.codecType != kVideoCodecVP8) {
         RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
       }

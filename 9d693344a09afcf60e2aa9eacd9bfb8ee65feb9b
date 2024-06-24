@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9b7446_532d586d",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-24T16:10:02Z",
+      "side": 1,
+      "message": "interestingly this does not get triggered if there are no compatible SRTP cipher suites. I had such a nice test with a MockFunction, all in vain (but might bring it back if coverage shows it is needed)",
+      "revId": "9d693344a09afcf60e2aa9eacd9bfb8ee65feb9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

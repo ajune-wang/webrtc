@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78542170_5e8c9583",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-06-24T16:49:58Z",
+      "side": 1,
+      "message": "Looking at the tests, it seems like AV1 only supports a single stream at this time, so I will leave that.",
+      "parentUuid": "4514dde5_2e21015e",
+      "range": {
+        "startLine": 133,
+        "startChar": 35,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "1cfa1832e6af995ce34b3725eccbbd9a1ae49e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "527b752f_b3e586de",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-06-24T15:33:59Z",
       "side": 1,
       "message": "Also check that `codec_out_.ScalabilityMode()` is nullopt?",
+      "revId": "1cfa1832e6af995ce34b3725eccbbd9a1ae49e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90139874_8e221328",
+        "filename": "modules/video_coding/video_codec_initializer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2024-06-24T16:49:58Z",
+      "side": 1,
+      "message": "Not clear to me at all how ScalabilityMode at the codec level relates to the streams. It seems like it is not clearly defined. In the code I change it will remain set actually, to be `stream[0].scalability_mode`. Does that make sense?\n\nI have added these expectation to the tests.",
+      "parentUuid": "527b752f_b3e586de",
       "revId": "1cfa1832e6af995ce34b3725eccbbd9a1ae49e85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

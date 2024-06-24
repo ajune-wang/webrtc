@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "137e9918_445b8897",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T16:23:37Z",
+      "side": 1,
+      "message": "Maybe just *simulcast_* then? But up to you.",
+      "parentUuid": "3db5a550_31cd53a7",
+      "range": {
+        "startLine": 532,
+        "startChar": 42,
+        "endLine": 532,
+        "endChar": 66
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70332736_1793a976",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
         "patchSetId": 5
@@ -161,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "824e6589_cf4aecaa",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T16:23:37Z",
+      "side": 1,
+      "message": "forgot to upload patch?",
+      "parentUuid": "78bba336_4307f1fb",
+      "range": {
+        "startLine": 1743,
+        "startChar": 6,
+        "endLine": 1743,
+        "endChar": 32
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de58bfe8_d9a43e43",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 5
@@ -243,6 +291,30 @@
       "side": 1,
       "message": "There\u0027s no num_temporal_layers on the encoded image metadata. I\u0027ll have to pass it from the encoder. It\u0027s a little awkward from the caller site. It\u0027s more neat when the function just does something with the encoded image itself.\n\nDo you still want me to change the code accordingly?",
       "parentUuid": "1366cd6a_5a81aba1",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 304,
+        "endChar": 5
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1004ddd_eed18bb5",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T16:23:37Z",
+      "side": 1,
+      "message": "\u003e There\u0027s no num_temporal_layers on the encoded image metadata\n\nYou can get it from codec_specific.scalability_mode: ScalabilityModeStringToNumTemporalLayers(*codec_specific.scalability_mode)\n\nOne problem with the current implementation is that the switch has default case. If someone adds another scalability mode they may forget to update this place (there won\u0027t be compilation error).",
+      "parentUuid": "cc4aead4_77cc804e",
       "range": {
         "startLine": 280,
         "startChar": 4,

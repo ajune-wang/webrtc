@@ -63,8 +63,6 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
 
     ssl_adapter_.reset(rtc::SSLAdapter::Create(socket));
 
-    ssl_adapter_->SetMode(ssl_mode_);
-
     // Ignore any certificate errors for the purpose of testing.
     // Note: We do this only because we don't have a real certificate.
     // NEVER USE THIS IN PRODUCTION CODE!
@@ -345,7 +343,6 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
     ssl_stream_adapter_ =
         rtc::SSLStreamAdapter::Create(std::make_unique<SocketStream>(socket));
 
-    ssl_stream_adapter_->SetMode(ssl_mode_);
     ssl_stream_adapter_->SetServerRole();
 
     // SSLStreamAdapter is normally used for peer-to-peer communication, but
@@ -430,11 +427,6 @@ class SSLAdapterTestBase : public ::testing::Test, public sigslot::has_slots<> {
     // Now the state should be CS_CONNECTING
     ASSERT_EQ(rtc::Socket::CS_CONNECTING, client_->GetState());
 
-    if (ssl_mode_ == rtc::SSL_MODE_DTLS) {
-      // For DTLS, call AcceptConnection() with the client's address.
-      server_->AcceptConnection(client_->GetAddress());
-    }
-
     if (expect_success) {
       // If expecting success, the client should end up in the CS_CONNECTED
       // state after handshake.
@@ -494,20 +486,6 @@ class SSLAdapterTestTLS_ECDSA : public SSLAdapterTestBase {
   SSLAdapterTestTLS_ECDSA()
       : SSLAdapterTestBase(rtc::SSL_MODE_TLS, rtc::KeyParams::ECDSA()) {}
 };
-
-class SSLAdapterTestDTLS_RSA : public SSLAdapterTestBase {
- public:
-  SSLAdapterTestDTLS_RSA()
-      : SSLAdapterTestBase(rtc::SSL_MODE_DTLS, rtc::KeyParams::RSA()) {}
-};
-
-class SSLAdapterTestDTLS_ECDSA : public SSLAdapterTestBase {
- public:
-  SSLAdapterTestDTLS_ECDSA()
-      : SSLAdapterTestBase(rtc::SSL_MODE_DTLS, rtc::KeyParams::ECDSA()) {}
-};
-
-// Basic tests: TLS
 
 // Test that handshake works, using RSA
 TEST_F(SSLAdapterTestTLS_RSA, TestTLSConnect) {
@@ -625,71 +603,5 @@ TEST_F(SSLAdapterTestTLS_ECDSA, TestTLSEllipticCurves) {
   std::vector<std::string> elliptic_curves{"X25519", "P-256", "P-384", "P-521"};
   SetEllipticCurves(elliptic_curves);
   TestHandshake(true);
-  TestTransfer("Hello, world!");
-}
-
-// Basic tests: DTLS
-
-// Test that handshake works, using RSA
-TEST_F(SSLAdapterTestDTLS_RSA, TestDTLSConnect) {
-  TestHandshake(true);
-}
-
-// Test that handshake works with a custom verifier that returns true. DTLS_RSA.
-TEST_F(SSLAdapterTestDTLS_RSA, TestDTLSConnectCustomCertVerifierSucceeds) {
-  SetMockCertVerifier(/*return_value=*/true);
-  TestHandshake(/*expect_success=*/true);
-}
-
-// Test that handshake fails with a custom verifier that returns false.
-// DTLS_RSA.
-TEST_F(SSLAdapterTestDTLS_RSA, TestTLSConnectCustomCertVerifierFails) {
-  SetMockCertVerifier(/*return_value=*/false);
-  TestHandshake(/*expect_success=*/false);
-}
-
-// Test that handshake works, using ECDSA
-TEST_F(SSLAdapterTestDTLS_ECDSA, TestDTLSConnect) {
-  TestHandshake(true);
-}
-
-// Test that handshake works with a custom verifier that returns true.
-// DTLS_ECDSA.
-TEST_F(SSLAdapterTestDTLS_ECDSA, TestDTLSConnectCustomCertVerifierSucceeds) {
-  SetMockCertVerifier(/*return_value=*/true);
-  TestHandshake(/*expect_success=*/true);
-}
-
-// Test that handshake fails with a custom verifier that returns false.
-// DTLS_ECDSA.
-TEST_F(SSLAdapterTestDTLS_ECDSA, TestTLSConnectCustomCertVerifierFails) {
-  SetMockCertVerifier(/*return_value=*/false);
-  TestHandshake(/*expect_success=*/false);
-}
-
-// Test transfer between client and server, using RSA
-TEST_F(SSLAdapterTestDTLS_RSA, TestDTLSTransfer) {
-  TestHandshake(true);
-  TestTransfer("Hello, world!");
-}
-
-// Test transfer between client and server, using RSA with custom cert verifier.
-TEST_F(SSLAdapterTestDTLS_RSA, TestDTLSTransferCustomCertVerifier) {
-  SetMockCertVerifier(/*return_value=*/true);
-  TestHandshake(/*expect_success=*/true);
-  TestTransfer("Hello, world!");
-}
-
-// Test transfer between client and server, using ECDSA
-TEST_F(SSLAdapterTestDTLS_ECDSA, TestDTLSTransfer) {
-  TestHandshake(true);
-  TestTransfer("Hello, world!");
-}
-
-// Test transfer between client and server, using ECDSA with custom cert
-// verifier.
-TEST_F(SSLAdapterTestDTLS_ECDSA, TestDTLSTransferCustomCertVerifier) {
-  SetMockCertVerifier(/*return_value=*/true);
-  TestHandshake(/*expect_success=*/true);
   TestTransfer("Hello, world!");
 }

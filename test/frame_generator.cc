@@ -177,13 +177,11 @@ YuvFileGenerator::~YuvFileGenerator() {
 FrameGeneratorInterface::VideoFrameData YuvFileGenerator::NextFrame() {
   // Empty update by default.
   VideoFrame::UpdateRect update_rect{0, 0, 0, 0};
-  if (current_display_count_ == 0) {
-    const bool got_new_frame = ReadNextFrame();
-    // Full update on a new frame from file.
-    if (got_new_frame) {
-      update_rect = VideoFrame::UpdateRect{0, 0, static_cast<int>(width_),
-                                           static_cast<int>(height_)};
-    }
+  const bool got_new_frame = ReadNextFrame();
+  // Full update on a new frame from file.
+  if (got_new_frame) {
+    update_rect = VideoFrame::UpdateRect{0, 0, static_cast<int>(width_),
+                                         static_cast<int>(height_)};
   }
   if (++current_display_count_ >= frame_display_count_)
     current_display_count_ = 0;

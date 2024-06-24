@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3db5a550_31cd53a7",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-24T15:30:40Z",
+      "side": 1,
+      "message": "I\u0027d like to keep the config consistent. It\u0027s converted to SVC, which has exactly one simulcast stream, so it should be 1. Also, having a more explicit check is clearer than checking the number of simulcast streams.",
+      "parentUuid": "3661e8de_64b82021",
+      "range": {
+        "startLine": 532,
+        "startChar": 42,
+        "endLine": 532,
+        "endChar": 66
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70332736_1793a976",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
         "patchSetId": 5
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b2218e3_42f4d3ec",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-24T15:30:40Z",
+      "side": 1,
+      "message": "It happens to be set to kOff somewhere by default. But you are right, I\u0027ve added explicitly setting kOff in ConvertSimulcastConfigToSvc.",
+      "parentUuid": "70332736_1793a976",
+      "range": {
+        "startLine": 570,
+        "startChar": 22,
+        "endLine": 570,
+        "endChar": 51
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "350ad3d5_f087662a",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
         "patchSetId": 5
@@ -77,6 +125,30 @@
       "writtenOn": "2024-06-24T11:14:04Z",
       "side": 1,
       "message": "Add a test for this?",
+      "range": {
+        "startLine": 1743,
+        "startChar": 6,
+        "endLine": 1743,
+        "endChar": 32
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78bba336_4307f1fb",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-24T15:30:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "350ad3d5_f087662a",
       "range": {
         "startLine": 1743,
         "startChar": 6,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bdd5e60_9e31ab19",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-24T15:30:40Z",
+      "side": 1,
+      "message": "To make the config exactly equivalent to the SVC config, which has 1 simulcast stream.\n\nI\u0027d like to keep the config consistent, so what any future change to the libvpx wrapper can be completely agnostic of this simulcat-to-svc conversion.",
+      "parentUuid": "de58bfe8_d9a43e43",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 266,
+        "endChar": 64
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1366cd6a_5a81aba1",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 5
@@ -123,6 +219,30 @@
       "writtenOn": "2024-06-24T11:14:04Z",
       "side": 1,
       "message": "Simplify this?\n\nnum_temporal_layers \u003d ScalabilityModeStringToNumTemporalLayers(codec_specific.scalability_mode);\nif (num_temporal_layers \u003d\u003d 1) {\n  codec_specific.scalability_mode \u003d ScalabilityMode::kL1T1;\n}\n...",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 304,
+        "endChar": 5
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc4aead4_77cc804e",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-24T15:30:40Z",
+      "side": 1,
+      "message": "There\u0027s no num_temporal_layers on the encoded image metadata. I\u0027ll have to pass it from the encoder. It\u0027s a little awkward from the caller site. It\u0027s more neat when the function just does something with the encoded image itself.\n\nDo you still want me to change the code accordingly?",
+      "parentUuid": "1366cd6a_5a81aba1",
       "range": {
         "startLine": 280,
         "startChar": 4,

@@ -34,8 +34,12 @@
 #include "test/gtest.h"
 
 namespace webrtc {
-
 namespace {
+
+using ::testing::Eq;
+using ::testing::Ne;
+using ::testing::Optional;
+
 static const int kDefaultWidth = 1280;
 static const int kDefaultHeight = 720;
 static const int kDefaultFrameRate = 30;
@@ -51,13 +55,12 @@ static const uint32_t kScreenshareDefaultFramerate = 5;
 // Bitrates for the temporal layers of the higher screenshare simulcast stream.
 static const uint32_t kHighScreenshareTl0Bps = 800000;
 static const uint32_t kHighScreenshareTl1Bps = 1200000;
-}  // namespace
 
 // TODO(sprang): Extend coverage to handle the rest of the codec initializer.
 class VideoCodecInitializerTest : public ::testing::Test {
  public:
-  VideoCodecInitializerTest() {}
-  virtual ~VideoCodecInitializerTest() {}
+  VideoCodecInitializerTest() = default;
+  ~VideoCodecInitializerTest() override = default;
 
  protected:
   void SetUpFor(VideoCodecType type,
@@ -77,13 +80,13 @@ class VideoCodecInitializerTest : public ::testing::Test {
       config_.number_of_streams = num_simulcast_streams.value();
     }
     if (type == VideoCodecType::kVideoCodecVP8) {
-      ASSERT_FALSE(num_spatial_streams.has_value());
+      ASSERT_THAT(num_spatial_streams, Eq(absl::nullopt));
       VideoCodecVP8 vp8_settings = VideoEncoder::GetDefaultVp8Settings();
       vp8_settings.numberOfTemporalLayers = num_temporal_streams;
       config_.encoder_specific_settings = rtc::make_ref_counted<
           webrtc::VideoEncoderConfig::Vp8EncoderSpecificSettings>(vp8_settings);
     } else if (type == VideoCodecType::kVideoCodecVP9) {
-      ASSERT_TRUE(num_spatial_streams.has_value());
+      ASSERT_THAT(num_spatial_streams, Ne(absl::nullopt));
       VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
       vp9_settings.numberOfSpatialLayers = num_spatial_streams.value();
       vp9_settings.numberOfTemporalLayers = num_temporal_streams;
@@ -498,6 +501,50 @@ TEST_F(VideoCodecInitializerTest, Vp9SimulcastResolutions) {
   EXPECT_EQ(codec_out_.simulcastStream[1].height, 360);
   EXPECT_EQ(codec_out_.simulcastStream[2].width, 1280);
   EXPECT_EQ(codec_out_.simulcastStream[2].height, 720);
+  // `spatialLayers` should not be set.
+  EXPECT_EQ(codec_out_.VP9()->numberOfSpatialLayers, 1);
+}
+
+TEST_F(VideoCodecInitializerTest, Vp9SimulcastSameScalabilityModes) {
+  SetUpFor(VideoCodecType::kVideoCodecVP9, /*num_simulcast_streams=*/3,
+           /*num_spatial_streams=*/3, /*num_temporal_streams=*/1,
+           /*screenshare=*/false);
+  streams_ = {
+      DefaultStream(320, 180, ScalabilityMode::kL1T1),
+      DefaultStream(640, 360, ScalabilityMode::kL1T1),
+      DefaultStream(1280, 720),
+  };
+  streams_[2].active = false;
+
+  InitializeCodec();
+  EXPECT_EQ(codec_out_.width, 1280);
+  EXPECT_EQ(codec_out_.height, 720);
+  EXPECT_EQ(codec_out_.numberOfSimulcastStreams, 3);
+  // `spatialLayers` should not be set.
+  EXPECT_EQ(codec_out_.VP9()->numberOfSpatialLayers, 1);
+  EXPECT_THAT(codec_out_.GetScalabilityMode(),
+              Optional(ScalabilityMode::kL1T1));
+}
+
+TEST_F(VideoCodecInitializerTest, Vp9SimulcastDifferentScalabilityModes) {
+  SetUpFor(VideoCodecType::kVideoCodecVP9, /*num_simulcast_streams=*/3,
+           /*num_spatial_streams=*/3, /*num_temporal_streams=*/1,
+           /*screenshare=*/false);
+  streams_ = {
+      DefaultStream(320, 180, ScalabilityMode::kL1T3),
+      DefaultStream(640, 360, ScalabilityMode::kL1T1),
+      DefaultStream(1280, 720),
+  };
+  streams_[2].active = false;
+
+  InitializeCodec();
+  EXPECT_EQ(codec_out_.width, 1280);
+  EXPECT_EQ(codec_out_.height, 720);
+  EXPECT_EQ(codec_out_.numberOfSimulcastStreams, 3);
+  // `spatialLayers` should not be set.
+  EXPECT_EQ(codec_out_.VP9()->numberOfSpatialLayers, 1);
+  EXPECT_THAT(codec_out_.GetScalabilityMode(),
+              Optional(ScalabilityMode::kL1T3));
 }
 
 TEST_F(VideoCodecInitializerTest, Av1SingleSpatialLayerBitratesAreConsistent) {
@@ -644,4 +691,5 @@ TEST_F(VideoCodecInitializerTest, UpdatesVp9SpecificFieldsWithScalabilityMode) {
   EXPECT_EQ(codec.VP9()->interLayerPred, InterLayerPredMode::kOff);
 }
 
+}  // namespace
 }  // namespace webrtc

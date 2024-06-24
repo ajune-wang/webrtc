@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4514dde5_2e21015e",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-24T15:33:59Z",
+      "side": 1,
+      "message": "Is this VP9 specific or will it impact e.g. AV1 as well?",
+      "range": {
+        "startLine": 133,
+        "startChar": 35,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "1cfa1832e6af995ce34b3725eccbbd9a1ae49e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "527b752f_b3e586de",
+        "filename": "modules/video_coding/video_codec_initializer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-24T15:33:59Z",
+      "side": 1,
+      "message": "Also check that `codec_out_.ScalabilityMode()` is nullopt?",
+      "revId": "1cfa1832e6af995ce34b3725eccbbd9a1ae49e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

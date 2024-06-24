@@ -16,6 +16,121 @@
       "message": "Sergey, Erik, PTAL.",
       "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3661e8de_64b82021",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T11:14:04Z",
+      "side": 1,
+      "message": "Is numberOfSimulcastStreams expected to be \u003d0 or \u003d1 currently? If yes, then maybe get rid of svc_for_simulcast_ and use (codec_.numberOfSimulcastStreams \u003e 1).\n\nIf (codec_.numberOfSimulcastStreams \u003e 1) and enable_svc_for_simulcast_\u003dfalse then return an error from InitEncode().",
+      "range": {
+        "startLine": 532,
+        "startChar": 42,
+        "endLine": 532,
+        "endChar": 66
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70332736_1793a976",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T11:14:04Z",
+      "side": 1,
+      "message": "What scalability mode will we get in case of simulcast?\n\nSeems that interLayerPred \u003d webrtc::InterLayerPredMode::kOnKeyPic by default https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d990;drc\u003d752a2b8afb530c1125fa3dda9276e53cd2924760. Will we get an LxTx_KEY mode?",
+      "range": {
+        "startLine": 570,
+        "startChar": 22,
+        "endLine": 570,
+        "endChar": 51
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "350ad3d5_f087662a",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1743,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T11:14:04Z",
+      "side": 1,
+      "message": "Add a test for this?",
+      "range": {
+        "startLine": 1743,
+        "startChar": 6,
+        "endLine": 1743,
+        "endChar": 32
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de58bfe8_d9a43e43",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T11:14:04Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 266,
+        "endChar": 64
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1366cd6a_5a81aba1",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-24T11:14:04Z",
+      "side": 1,
+      "message": "Simplify this?\n\nnum_temporal_layers \u003d ScalabilityModeStringToNumTemporalLayers(codec_specific.scalability_mode);\nif (num_temporal_layers \u003d\u003d 1) {\n  codec_specific.scalability_mode \u003d ScalabilityMode::kL1T1;\n}\n...",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 304,
+        "endChar": 5
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

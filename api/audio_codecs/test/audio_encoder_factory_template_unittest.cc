@@ -31,14 +31,17 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_encoder.h"
-#include "test/scoped_key_value_config.h"
+#include "test/testsupport/rtc_expect_death.h"
 
 namespace webrtc {
 namespace {
 
 using ::testing::IsNull;
+using ::testing::NiceMock;
 using ::testing::Pointer;
 using ::testing::Property;
+using ::testing::Return;
+using ::testing::StrictMock;
 
 struct BogusParams {
   static SdpAudioFormat AudioFormat() { return {"bogus", 8000, 1}; }
@@ -85,15 +88,22 @@ struct AudioEncoderFakeApi {
         .WillOnce(::testing::Return(Params::CodecInfo().sample_rate_hz));
     return std::move(enc);
   }
+
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(const Environment& env,
+                                                        const Config& config,
+                                                        int payload_type) {
+    auto encoder = std::make_unique<StrictMock<MockAudioEncoder>>();
+    EXPECT_CALL(*encoder, SampleRateHz)
+        .WillOnce(Return(Params::CodecInfo().sample_rate_hz));
+    return encoder;
+  }
 };
 
 TEST(AudioEncoderFactoryTemplateTest, NoEncoderTypes) {
-  test::ScopedKeyValueConfig field_trials;
-  const Environment env = CreateEnvironment(&field_trials);
+  const Environment env = CreateEnvironment();
   rtc::scoped_refptr<AudioEncoderFactory> factory(
       rtc::make_ref_counted<
-          audio_encoder_factory_template_impl::AudioEncoderFactoryT<>>(
-          &field_trials));
+          audio_encoder_factory_template_impl::AudioEncoderFactoryT<>>());
   EXPECT_THAT(factory->GetSupportedEncoders(), ::testing::IsEmpty());
   EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
   EXPECT_EQ(nullptr,
@@ -248,6 +258,119 @@ TEST(AudioEncoderFactoryTemplateTest, Opus) {
   ASSERT_NE(nullptr, enc);
   EXPECT_EQ(48000, enc->SampleRateHz());
 }
+
+struct TraitBase {
+  struct Config {};
+
+  static SdpAudioFormat AudioFormat() {
+    return {"fake", 16000, 2, {{"param", "value"}}};
+  }
+  static AudioCodecInfo CodecInfo() { return {16000, 2, 23456}; }
+
+  static absl::optional<Config> SdpToConfig(
+      const SdpAudioFormat& audio_format) {
+    return Config();
+  }
+
+  static void AppendSupportedEncoders(std::vector<AudioCodecSpec>* specs) {
+    specs->push_back({AudioFormat(), CodecInfo()});
+  }
+
+  static AudioCodecInfo QueryAudioEncoder(const Config&) { return CodecInfo(); }
+};
+
+struct TraitWithBothMakeV1AndV2 : TraitBase {
+  // V1 signature.
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      const Config&,
+      int payload_type,
+      absl::optional<AudioCodecPairId> /*codec_pair_id*/ = absl::nullopt,
+      void* unused_extra_parameter = nullptr) {
+    auto encoder = std::make_unique<NiceMock<MockAudioEncoder>>();
+    ON_CALL(*encoder, SampleRateHz()).WillByDefault(Return(10'000));
+    return encoder;
+  }
+
+  // V2 signature.
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      const Environment& env,
+      const Config& config,
+      const AudioEncoderFactory::Options& options) {
+    auto encoder = std::make_unique<NiceMock<MockAudioEncoder>>();
+    ON_CALL(*encoder, SampleRateHz).WillByDefault(Return(20'000));
+    return encoder;
+  }
+};
+
+struct TraitWithMakeV1 : TraitBase {
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      const Config&,
+      int payload_type,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    auto encoder = std::make_unique<NiceMock<MockAudioEncoder>>();
+    ON_CALL(*encoder, SampleRateHz()).WillByDefault(Return(10'000));
+    return encoder;
+  }
+};
+
+struct TraitWithMakeV2 : TraitBase {
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      const Environment& env,
+      const Config& config,
+      const AudioEncoderFactory::Options& options) {
+    auto encoder = std::make_unique<NiceMock<MockAudioEncoder>>();
+    ON_CALL(*encoder, SampleRateHz).WillByDefault(Return(20'000));
+    return encoder;
+  }
+};
+
+TEST(AudioEncoderFactoryTemplateTest,
+     UsesV1MakeAudioEncoderWhenV2IsNotAvailable) {
+  const Environment env = CreateEnvironment();
+  auto factory = CreateAudioEncoderFactory<TraitWithMakeV1>();
+
+  EXPECT_THAT(factory->MakeAudioEncoder(17, TraitBase::AudioFormat(), {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 10'000)));
+
+  EXPECT_THAT(factory->Create(env, TraitBase::AudioFormat(), {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 10'000)));
+}
+
+TEST(AudioEncoderFactoryTemplateTest,
+     PreferV2MakeAudioEncoderWhenBothAreAvailable) {
+  const Environment env = CreateEnvironment();
+  auto factory = CreateAudioEncoderFactory<TraitWithBothMakeV1AndV2>();
+
+  // TraitWithBothMakeV1AndV2 create different Encoders depending if you using
+  // legacy (V1) method without Environment, or new one (V2) with Environment to
+  // allow testing which one is used.
+  EXPECT_THAT(factory->Create(env, TraitBase::AudioFormat(), {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 20'000)));
+
+  // For backward compatibility legacy AudioEncoderFactory::MakeAudioEncoder
+  // still can be used, and uses older signature of the Trait::MakeAudioEncoder.
+  EXPECT_THAT(factory->MakeAudioEncoder(17, TraitBase::AudioFormat(), {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 10'000)));
+}
+
+TEST(AudioEncoderFactoryTemplateTest, CanUseTraitWithOnlyNewMakeWithNewerApi) {
+  const Environment env = CreateEnvironment();
+  auto factory = CreateAudioEncoderFactory<TraitWithMakeV2>();
+
+  EXPECT_THAT(factory->Create(env, TraitBase::AudioFormat(), {}),
+              Pointer(Property(&AudioEncoder::SampleRateHz, 20'000)));
+}
+
+#if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+TEST(AudioEncoderFactoryTemplateTest, CrashesWhenUsedThroughOlderApi) {
+  auto factory = CreateAudioEncoderFactory<TraitWithMakeV2>();
+
+  // V2 signature requires Environment that
+  // AudioEncoderFactory::MakeAudioEncoder doesn't provide.
+  RTC_EXPECT_DEATH(factory->MakeAudioEncoder(17, TraitBase::AudioFormat(), {}),
+                   "");
+}
+#endif
 
 }  // namespace
 }  // namespace webrtc

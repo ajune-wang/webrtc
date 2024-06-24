@@ -1,0 +1,187 @@
+/*
+ *  Copyright (c) 2024 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#ifndef API_AUDIO_CODECS_AUDIO_ENCODER_FACTORY_TEMPLATE_IMPL_H_
+#define API_AUDIO_CODECS_AUDIO_ENCODER_FACTORY_TEMPLATE_IMPL_H_
+
+#include <memory>
+#include <type_traits>
+#include <vector>
+
+#include "absl/base/nullability.h"
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_codec_pair_id.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
+#include "api/audio_codecs/audio_format.h"
+#include "api/environment/environment.h"
+
+namespace webrtc::audio_encoder_factory_template_impl {
+
+template <typename... Ts>
+struct Helper;
+
+// Base case: 0 template parameters.
+template <>
+struct Helper<> {
+  static void AppendSupportedEncoders(std::vector<AudioCodecSpec>* specs) {}
+  static absl::optional<AudioCodecInfo> QueryAudioEncoder(
+      const SdpAudioFormat& format) {
+    return absl::nullopt;
+  }
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      int payload_type,
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    return nullptr;
+  }
+  static absl::Nullable<std::unique_ptr<AudioEncoder>> MakeAudioEncoder(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      const AudioEncoderFactory::Options& options) {
+    return nullptr;
+  }
+};
+
+// Use go/ranked-overloads for dispatching.
+struct Rank0 {};
+struct Rank1 : Rank0 {};
+
+template <typename Trait,
+          typename = std::enable_if_t<std::is_convertible_v<
+              decltype(Trait::MakeAudioEncoder(
+                  std::declval<Environment>(),
+                  std::declval<typename Trait::Config>(),
+                  std::declval<AudioEncoderFactory::Options>())),
+              std::unique_ptr<AudioEncoder>>>>
+std::unique_ptr<AudioEncoder> CreateEncoder(
+    Rank1,
+    const Environment& env,
+    const typename Trait::Config& config,
+    const AudioEncoderFactory::Options& options) {
+  return Trait::MakeAudioEncoder(env, config, options);
+}
+
+template <typename Trait,
+          typename = std::enable_if_t<std::is_convertible_v<
+              decltype(Trait::MakeAudioEncoder(
+                  std::declval<typename Trait::Config>(),
+                  int{},
+                  std::declval<absl::optional<AudioCodecPairId>>())),
+              std::unique_ptr<AudioEncoder>>>>
+std::unique_ptr<AudioEncoder> CreateEncoder(
+    Rank0,
+    const Environment& env,
+    const typename Trait::Config& config,
+    const AudioEncoderFactory::Options& options) {
+  return Trait::MakeAudioEncoder(config, options.payload_type,
+                                 options.codec_pair_id);
+}
+
+template <typename Trait,
+          typename = std::enable_if_t<std::is_convertible_v<
+              decltype(Trait::MakeAudioEncoder(
+                  std::declval<typename Trait::Config>(),
+                  int{},
+                  std::declval<absl::optional<AudioCodecPairId>>())),
+              std::unique_ptr<AudioEncoder>>>>
+std::unique_ptr<AudioEncoder> LegacyCreateEncoder(
+    Rank1,
+    const typename Trait::Config& config,
+    int payload_type,
+    absl::optional<AudioCodecPairId> codec_pair_ids) {
+  return Trait::MakeAudioEncoder(config, payload_type, codec_pair_ids);
+}
+
+template <typename Trait>
+std::unique_ptr<AudioEncoder> LegacyCreateEncoder(
+    Rank0,
+    const typename Trait::Config& config,
+    int payload_type,
+    absl::optional<AudioCodecPairId> codec_pair_ids) {
+  RTC_CHECK_NOTREACHED();
+}
+
+// Inductive case: Called with n + 1 template parameters; calls subroutines
+// with n template parameters.
+template <typename T, typename... Ts>
+struct Helper<T, Ts...> {
+  static void AppendSupportedEncoders(std::vector<AudioCodecSpec>* specs) {
+    T::AppendSupportedEncoders(specs);
+    Helper<Ts...>::AppendSupportedEncoders(specs);
+  }
+  static absl::optional<AudioCodecInfo> QueryAudioEncoder(
+      const SdpAudioFormat& format) {
+    auto opt_config = T::SdpToConfig(format);
+    static_assert(std::is_same<decltype(opt_config),
+                               absl::optional<typename T::Config>>::value,
+                  "T::SdpToConfig() must return a value of type "
+                  "absl::optional<T::Config>");
+    return opt_config ? absl::optional<AudioCodecInfo>(
+                            T::QueryAudioEncoder(*opt_config))
+                      : Helper<Ts...>::QueryAudioEncoder(format);
+  }
+  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      int payload_type,
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    auto opt_config = T::SdpToConfig(format);
+    if (opt_config) {
+      return LegacyCreateEncoder<T>(Rank1{}, *opt_config, payload_type,
+                                    codec_pair_id);
+    } else {
+      return Helper<Ts...>::MakeAudioEncoder(payload_type, format,
+                                             codec_pair_id);
+    }
+  }
+
+  static absl::Nullable<std::unique_ptr<AudioEncoder>> MakeAudioEncoder(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      const AudioEncoderFactory::Options& options) {
+    if (auto opt_config = T::SdpToConfig(format); opt_config.has_value()) {
+      return CreateEncoder<T>(Rank1{}, env, *opt_config, options);
+    }
+    return Helper<Ts...>::MakeAudioEncoder(env, format, options);
+  }
+};
+
+template <typename... Ts>
+class AudioEncoderFactoryT : public AudioEncoderFactory {
+ public:
+  std::vector<AudioCodecSpec> GetSupportedEncoders() override {
+    std::vector<AudioCodecSpec> specs;
+    Helper<Ts...>::AppendSupportedEncoders(&specs);
+    return specs;
+  }
+
+  absl::optional<AudioCodecInfo> QueryAudioEncoder(
+      const SdpAudioFormat& format) override {
+    return Helper<Ts...>::QueryAudioEncoder(format);
+  }
+
+  std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      int payload_type,
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) override {
+    return Helper<Ts...>::MakeAudioEncoder(payload_type, format, codec_pair_id);
+  }
+
+  absl::Nullable<std::unique_ptr<AudioEncoder>> Create(
+      const Environment& env,
+      const SdpAudioFormat& format,
+      Options options) override {
+    return Helper<Ts...>::MakeAudioEncoder(env, format, options);
+  }
+};
+
+}  // namespace webrtc::audio_encoder_factory_template_impl
+
+#endif  // API_AUDIO_CODECS_AUDIO_ENCODER_FACTORY_TEMPLATE_IMPL_H_

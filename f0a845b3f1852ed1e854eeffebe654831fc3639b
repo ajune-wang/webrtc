@@ -16,6 +16,24 @@
       "message": "I am on PTO for the following two weeks, so can\u0027t test this in depth. Overall seems fine.\n\nI have one concern with the fixed kNumTrackedSequences, currently we are using high playout delay values (around 500ms) to be able to recover from packet losses as some of our customers prefer loosing a bit of realtime and enhance playback quality.\n\n5 frames at 60fps are merely 100ms, and with even a quite low rtt of 40ms that would mean that the reordering buffer would be quite small. Ideally we should be able to make this configurable (using the nack history time delta + rtt values maybe?) and if not increase the hardcoded value",
       "revId": "f0a845b3f1852ed1e854eeffebe654831fc3639b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "262a4e56_5964542a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2024-06-25T18:26:49Z",
+      "side": 1,
+      "message": "This is not a 5 packet window to allow for reodering, instead this is the equivalent of having 5 `last_continuous_unwrapped_seq_num_` at the same time.\n\nEvery time we receive a packet we check if it is continuous with any sequence. If it is not then we check if it is a `BeginningOfStream`, and if it is then we use the next index in `last_continuous_in_sequence_` to start a new sequence of continuous packets. In case of reordering around an IRAP we can then still determine if a packet previous to that IRAP is continuous.",
+      "parentUuid": "5c3620ee_3829a5f0",
+      "revId": "f0a845b3f1852ed1e854eeffebe654831fc3639b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

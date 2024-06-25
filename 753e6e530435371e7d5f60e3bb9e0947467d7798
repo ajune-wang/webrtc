@@ -34,6 +34,93 @@
       "parentUuid": "dba54063_0715a6c7",
       "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5107a1a_71aa8cc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-25T11:12:05Z",
+      "side": 1,
+      "message": "Ack, so tl;dr it\u0027s because our whole video encoder api pipeline is completely borked and impossible to work with, so constraining to a single implementation that will in practice be the most used anyway 😊",
+      "parentUuid": "54df03d0_be3faefb",
+      "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea5788b_ecb55923",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-25T11:12:05Z",
+      "side": 1,
+      "message": "nit: shouldn\u0027t this just be an INFO level log?",
+      "range": {
+        "startLine": 537,
+        "startChar": 12,
+        "endLine": 537,
+        "endChar": 22
+      },
+      "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a922a78_c752e7a4",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-25T11:12:05Z",
+      "side": 1,
+      "message": "should there be an `else { svc_for_simulcast_ \u003d false; }` here?\nOtherwise it looks like we can get in trouble if we `Release()` an instance used for simulcast and then `InitEncode()` it again in a different mode.",
+      "range": {
+        "startLine": 540,
+        "startChar": 2,
+        "endLine": 540,
+        "endChar": 3
+      },
+      "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "677d5f7c_682b8667",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-25T11:12:05Z",
+      "side": 1,
+      "message": "Should we validate that the different simulcast streams all have the same scalability mode? Otherwise if they e.g. have different temporal layer count the resulting SVC config might be incorrect? Or is it perhaps enough that we set `codec.VP9()-\u003enumberOfTemporalLayers` to the max of those?",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 3
+      },
+      "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

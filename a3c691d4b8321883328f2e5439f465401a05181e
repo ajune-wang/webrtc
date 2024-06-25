@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c759901f_32b468d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-25T02:21:24Z",
+      "side": 1,
+      "message": "Hi Mirko, could you review this CL? This CL aligns the video encoder tool with some features from Chromium\u0027s video_encode_accelerator_tests. This alignment will make it easier to compare the quality of HW and SW encoding outputs between the two tools.",
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

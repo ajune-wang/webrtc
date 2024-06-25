@@ -46,6 +46,30 @@
       },
       "revId": "40ba6c10213181ef563d10cf4bd392019c2abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff692a5_32525675",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-25T15:35:27Z",
+      "side": 1,
+      "message": "Now that changes to AudioEncoderFactoryTemplate already landed, I\u0027ve extended AudioEncoderOpus trait with a new signature right away,\n\nso with this change 3/4 of opus field trials would be queried from the propagated rather than global field trials.",
+      "parentUuid": "d5bb5e16_961e97bf",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "40ba6c10213181ef563d10cf4bd392019c2abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

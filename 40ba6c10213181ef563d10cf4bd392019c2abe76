@@ -22,6 +22,30 @@
       },
       "revId": "40ba6c10213181ef563d10cf4bd392019c2abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5bb5e16_961e97bf",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2024-06-25T11:19:08Z",
+      "side": 1,
+      "message": "CreateEnvironment is poisonous by design: in prod code Environment must be propagated instead of created ad-hoc to avoid risk falling back to some defaults.\n\nIn a follow up sure I\u0027ll add version of the MakeAudioEncoder that propagates the Environment and delete this one once I\u0027m sure AudioEncoderFactory::MakeAudioEncoder is not used.",
+      "parentUuid": "73fae264_16b8e730",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "40ba6c10213181ef563d10cf4bd392019c2abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

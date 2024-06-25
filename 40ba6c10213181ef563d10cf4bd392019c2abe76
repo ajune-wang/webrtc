@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73fae264_16b8e730",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2024-06-25T11:06:33Z",
+      "side": 1,
+      "message": "What prevents us from calling the env version here (i.e. implement the Create method instead)?",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "40ba6c10213181ef563d10cf4bd392019c2abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

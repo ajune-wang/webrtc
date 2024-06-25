@@ -22,6 +22,30 @@
       },
       "revId": "f214bc83f045ec15929f4383f7225ea854f29032",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5456d5c_15642eb8",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2245,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-25T08:01:45Z",
+      "side": 1,
+      "message": "Yes, I think having logic that sets max_qp to codec defaults in EncoderStreamFactory::CreateDefaultVideoStreams() and CreateSimulcastOrConferenceModeScreenshareStreams() is enough. From there max_qp goes to VideoCodec::qpMax and VideoCodec::simulcastStreams[]::qpMax and then to the encoders. There are no other components in WebRTC that source max_qp from VideoEncoderConfig.",
+      "parentUuid": "9eeb98fe_227efa70",
+      "range": {
+        "startLine": 2243,
+        "startChar": 2,
+        "endLine": 2245,
+        "endChar": 3
+      },
+      "revId": "f214bc83f045ec15929f4383f7225ea854f29032",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

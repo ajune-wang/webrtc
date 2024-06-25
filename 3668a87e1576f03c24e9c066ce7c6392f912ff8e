@@ -22,6 +22,30 @@
       },
       "revId": "3668a87e1576f03c24e9c066ce7c6392f912ff8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fea3f40e_b8784ff7",
+        "filename": "video/config/encoder_stream_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-25T08:01:45Z",
+      "side": 0,
+      "message": "I moved these checks to IsConferenceModeScreenshare: https://screenshot.googleplex.com/6kSKvAzkTvrjHyW\n\nShould probably wait until that CL is landed or use the same reviewers (that\u0027s slow).",
+      "parentUuid": "fd6a0db5_024f88d1",
+      "range": {
+        "startLine": 149,
+        "startChar": 23,
+        "endLine": 150,
+        "endChar": 76
+      },
+      "revId": "3668a87e1576f03c24e9c066ce7c6392f912ff8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

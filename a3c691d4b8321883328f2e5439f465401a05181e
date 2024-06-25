@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2985634_c749bfd2",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-25T08:24:41Z",
+      "side": 1,
+      "message": "Yes, Both SW and HW encoder set the key frame interval as 3000 currently.",
+      "parentUuid": "933531f4_fc2cce23",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b29d4667_30f97f50",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-06-25T07:50:46Z",
       "side": 1,
       "message": "I think an RTC_CHECK that the area is not 0 is good to have and prevents issues later on when kBitrateTable[index - 1] is used.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 34
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de4bd1c9_64a88b91",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-25T08:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b29d4667_30f97f50",
       "range": {
         "startLine": 192,
         "startChar": 0,
@@ -112,6 +160,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29cb9c10_a8ff88f6",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-25T08:24:41Z",
+      "side": 1,
+      "message": "Thanks Mirko, please take another look.",
+      "parentUuid": "3692b378_332505c1",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 3
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd2b2011_e7bd3eb7",
         "filename": "rtc_tools/video_encoder/video_encoder.cc",
         "patchSetId": 2
@@ -123,6 +195,30 @@
       "writtenOn": "2024-06-25T07:50:46Z",
       "side": 1,
       "message": "Why not using a std::vector and have the index of the element as implicit frame ID?",
+      "range": {
+        "startLine": 321,
+        "startChar": 2,
+        "endLine": 321,
+        "endChar": 33
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e68296eb_5b239a24",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-25T08:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd2b2011_e7bd3eb7",
       "range": {
         "startLine": 321,
         "startChar": 2,

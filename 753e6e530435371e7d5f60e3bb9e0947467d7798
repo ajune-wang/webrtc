@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba54063_0715a6c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-25T09:28:44Z",
+      "side": 1,
+      "message": "General question - why is this implemented in the libvpx wrapper rather than in SimulcastEncoderAdapter? As it is now other implementations that also support S-modes (e.g. the Vaapi VP9 encoder) will not be used in this manner?",
+      "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

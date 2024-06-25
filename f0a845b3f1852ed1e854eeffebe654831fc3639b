@@ -34,6 +34,24 @@
       "parentUuid": "5c3620ee_3829a5f0",
       "revId": "f0a845b3f1852ed1e854eeffebe654831fc3639b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f04be9b_937eeb21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2024-06-25T18:32:17Z",
+      "side": 1,
+      "message": "yes, I know it is not 5 packets, but that would be equivalent of having 5 incomplete frames. I will make some tests when i am back, but my gut feeling is that it will be a bit low if rtt is a bit high.",
+      "parentUuid": "262a4e56_5964542a",
+      "revId": "f0a845b3f1852ed1e854eeffebe654831fc3639b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

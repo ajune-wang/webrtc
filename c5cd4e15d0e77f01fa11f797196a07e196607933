@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a56a0f3c_58380fbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-25T16:36:57Z",
+      "side": 1,
+      "message": "LGTM with a change to the time used.",
+      "revId": "c5cd4e15d0e77f01fa11f797196a07e196607933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d704a7_03b58d2f",
+        "filename": "modules/desktop_capture/mac/screen_capturer_sck.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2024-06-25T16:36:57Z",
+      "side": 1,
+      "message": "Let\u0027s just use https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/time_utils.h;drc\u003dd8b6b06e70718e4fd9bde65d6c5951860e7affae;l\u003d87 instead here and on line 172 so that we then avoid the division.",
+      "range": {
+        "startLine": 144,
+        "startChar": 42,
+        "endLine": 144,
+        "endChar": 51
+      },
+      "revId": "c5cd4e15d0e77f01fa11f797196a07e196607933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

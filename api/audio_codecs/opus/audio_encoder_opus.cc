@@ -13,6 +13,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_encoder.h"
@@ -48,7 +49,11 @@ std::unique_ptr<AudioEncoder> AudioEncoderOpus::MakeAudioEncoder(
     RTC_DCHECK_NOTREACHED();
     return nullptr;
   }
-  return AudioEncoderOpusImpl::MakeAudioEncoder(config, payload_type);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  // Use WrapUnique to call deprecated constructor.
+  return absl::WrapUnique(new AudioEncoderOpusImpl(config, payload_type));
+#pragma clang diagnostic pop
 }
 
 }  // namespace webrtc

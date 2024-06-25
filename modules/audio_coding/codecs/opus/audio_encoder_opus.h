@@ -124,9 +124,6 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
       const SdpAudioFormat& format);
   static void AppendSupportedEncoders(std::vector<AudioCodecSpec>* specs);
   static AudioCodecInfo QueryAudioEncoder(const AudioEncoderOpusConfig& config);
-  static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
-      const AudioEncoderOpusConfig&,
-      int payload_type);
 
   size_t Num10msFramesPerPacket() const;
   size_t SamplesPer10msFrame() const;

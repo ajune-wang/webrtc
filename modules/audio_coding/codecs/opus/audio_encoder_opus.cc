@@ -227,16 +227,6 @@ AudioCodecInfo AudioEncoderOpusImpl::QueryAudioEncoder(
   return info;
 }
 
-std::unique_ptr<AudioEncoder> AudioEncoderOpusImpl::MakeAudioEncoder(
-    const AudioEncoderOpusConfig& config,
-    int payload_type) {
-  if (!config.IsOk()) {
-    RTC_DCHECK_NOTREACHED();
-    return nullptr;
-  }
-  return std::make_unique<AudioEncoderOpusImpl>(config, payload_type);
-}
-
 absl::optional<AudioEncoderOpusConfig> AudioEncoderOpusImpl::SdpToConfig(
     const SdpAudioFormat& format) {
   if (!absl::EqualsIgnoreCase(format.name, "opus") ||

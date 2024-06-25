@@ -48,7 +48,10 @@ std::unique_ptr<AudioEncoder> AudioEncoderOpus::MakeAudioEncoder(
     RTC_DCHECK_NOTREACHED();
     return nullptr;
   }
-  return AudioEncoderOpusImpl::MakeAudioEncoder(config, payload_type);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  return std::make_unique<AudioEncoderOpusImpl>(config, payload_type);
+#pragma clang diagnostic pop
 }
 
 }  // namespace webrtc

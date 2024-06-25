@@ -16,6 +16,121 @@
       "message": "Hi Mirko, could you review this CL? This CL aligns the video encoder tool with some features from Chromium\u0027s video_encode_accelerator_tests. This alignment will make it easier to compare the quality of HW and SW encoding outputs between the two tools.",
       "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "933531f4_fc2cce23",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-25T07:50:46Z",
+      "side": 1,
+      "message": "This new default means that there are no key frames by default (--frames defaults to 300).\n\nI think this is OK, and it also looks like a good default. I just want to check this is by design.",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b29d4667_30f97f50",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-25T07:50:46Z",
+      "side": 1,
+      "message": "I think an RTC_CHECK that the area is not 0 is good to have and prevents issues later on when kBitrateTable[index - 1] is used.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 34
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3613cfe2_881844c9",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-25T07:50:46Z",
+      "side": 1,
+      "message": "Sergey, can you take a look at this part?",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 64
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3692b378_332505c1",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-25T07:50:46Z",
+      "side": 1,
+      "message": "This function is doing 2 things:\n\n1. Calculate/Accumulate PSNR.\n2. Print the results at the end.\n\nI suggest to only do 1, and have another function to invoke to get the average PSNR when needed.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 3
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd2b2011_e7bd3eb7",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2024-06-25T07:50:46Z",
+      "side": 1,
+      "message": "Why not using a std::vector and have the index of the element as implicit frame ID?",
+      "range": {
+        "startLine": 321,
+        "startChar": 2,
+        "endLine": 321,
+        "endChar": 33
+      },
+      "revId": "a3c691d4b8321883328f2e5439f465401a05181e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

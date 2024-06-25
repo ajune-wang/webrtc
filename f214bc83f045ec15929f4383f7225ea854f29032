@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eeb98fe_227efa70",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2245,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-25T07:33:40Z",
+      "side": 1,
+      "message": "THis also changes the behavior. Now maxQp will be unset if not speficied by the user. \n\nI see you now set default maxqp in video/config/encoder_stream_factory.cc, but is it used in all scenarios?",
+      "range": {
+        "startLine": 2243,
+        "startChar": 2,
+        "endLine": 2245,
+        "endChar": 3
+      },
+      "revId": "f214bc83f045ec15929f4383f7225ea854f29032",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

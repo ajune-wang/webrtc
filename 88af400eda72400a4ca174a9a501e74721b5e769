@@ -278,6 +278,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e50d71c_e61851f4",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-25T06:57:41Z",
+      "side": 1,
+      "message": "Ok, makes sense.",
+      "parentUuid": "0bdd5e60_9e31ab19",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 266,
+        "endChar": 64
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1366cd6a_5a81aba1",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba9ee649_b6af86ed",
+        "filename": "rtc_base/ssl_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-25T00:03:45Z",
+      "side": 0,
+      "message": "so this one was using SSLStreamAdapter (the one that normally does DTLS). I suspect because SSLAdapter does not implement Listen()/Accept().\n\nNeeds to take some rather wild turns but once you understand how this stacks the SSL adapter on top of the plain socket it is ok.",
+      "revId": "feea82fad5d472cf787c54455f147d86b219196f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

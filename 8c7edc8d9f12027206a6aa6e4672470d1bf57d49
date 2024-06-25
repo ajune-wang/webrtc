@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31499dea_150ebc83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3350241
+      },
+      "writtenOn": "2024-06-25T00:03:45Z",
+      "side": 1,
+      "message": "lots of tests deleted but I think they are not needed.\n\nIn theory it is cool to have the SSLAdapter also support DTLS but then it does not support SRTP cipher negotiation so is not useful for our purposes.",
+      "revId": "8c7edc8d9f12027206a6aa6e4672470d1bf57d49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

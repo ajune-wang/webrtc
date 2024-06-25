@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "457822ba_13a0bd59",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-25T10:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d32d0cc5_6123ab1f",
+      "range": {
+        "startLine": 253,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 68
+      },
+      "revId": "c0b2d605b15478c80207a154c93f33def65b8f35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c708d37_908d10e8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-25T06:57:41Z",
       "side": 1,
       "message": "Move this a couple lines up, above VP9()-\u003e.. ?",
+      "range": {
+        "startLine": 270,
+        "startChar": 2,
+        "endLine": 270,
+        "endChar": 37
+      },
+      "revId": "c0b2d605b15478c80207a154c93f33def65b8f35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe9bb07_6f449593",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-25T10:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c708d37_908d10e8",
       "range": {
         "startLine": 270,
         "startChar": 2,

@@ -16,6 +16,24 @@
       "message": "General question - why is this implemented in the libvpx wrapper rather than in SimulcastEncoderAdapter? As it is now other implementations that also support S-modes (e.g. the Vaapi VP9 encoder) will not be used in this manner?",
       "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54df03d0_be3faefb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-25T10:27:55Z",
+      "side": 1,
+      "message": "The other wrappers will have to implement the same checkes and call the same functions to convert config and encodedimage.\n\nIt\u0027s done this way mainly because this is the safest way forward.\nNot all encoders, which support S-modes would benifit from this optimization. Then, someone adding S-modes functionalinty to a new encoder won\u0027t get it suddenly enabled outside of their control.\n\nAlso, doing it on the SEA level would require to do it completely codec agnostic, which would be more edge-case ridden. E.g. AV1 libaom wrapper doesn\u0027t even look at spatialLayers, so conversion there would have to only set the correct scalability mode based on simulcast configuration.",
+      "parentUuid": "dba54063_0715a6c7",
+      "revId": "753e6e530435371e7d5f60e3bb9e0947467d7798",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

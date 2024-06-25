@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9c07014_4200e29e",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-25T10:27:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "137e9918_445b8897",
+      "range": {
+        "startLine": 532,
+        "startChar": 42,
+        "endLine": 532,
+        "endChar": 66
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70332736_1793a976",
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "It happens to be set to kOff somewhere by default. But you are right, I\u0027ve added explicitly setting kOff in ConvertSimulcastConfigToSvc.",
       "parentUuid": "70332736_1793a976",
+      "range": {
+        "startLine": 570,
+        "startChar": 22,
+        "endLine": 570,
+        "endChar": 51
+      },
+      "revId": "88af400eda72400a4ca174a9a501e74721b5e769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "528275c9_037c8506",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2024-06-25T10:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b2218e3_42f4d3ec",
       "range": {
         "startLine": 570,
         "startChar": 22,

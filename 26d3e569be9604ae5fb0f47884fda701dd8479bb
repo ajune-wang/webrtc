@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75bb0b21_87a143c4",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2024-06-25T10:06:34Z",
+      "side": 0,
+      "message": "Philipp, could you try relanding without removing these?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 37
+      },
+      "revId": "26d3e569be9604ae5fb0f47884fda701dd8479bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

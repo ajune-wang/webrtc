@@ -16,6 +16,23 @@
       "message": "I really don\u0027t know this code that well. I can RSLGTM if it LG to you Erik.",
       "revId": "1b5f29f17958aeb4c9b37998b9575b12ac7b032b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "875cdfba_f6862b02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2024-06-25T12:15:39Z",
+      "side": 1,
+      "message": "Is it needed? Can\u0027t we just nuke conference mode entirely at this time?\n(Needs a PSA likely, but I don\u0027t think there\u0027s really any usage anymore)",
+      "revId": "1b5f29f17958aeb4c9b37998b9575b12ac7b032b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

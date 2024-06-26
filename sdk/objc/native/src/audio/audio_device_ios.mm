@@ -91,8 +91,11 @@ static void LogDeviceInfo() {
 }
 #endif  // !defined(NDEBUG)
 
-AudioDeviceIOS::AudioDeviceIOS(bool bypass_voice_processing)
+AudioDeviceIOS::AudioDeviceIOS(
+    bool bypass_voice_processing
+        AudioDeviceModule::MutedSpeechEventHandler muted_speech_event_handler)
     : bypass_voice_processing_(bypass_voice_processing),
+      muted_speech_event_handler_(muted_speech_event_handler),
       audio_device_buffer_(nullptr),
       audio_unit_(nullptr),
       recording_(0),
@@ -475,6 +478,17 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
       rtc::ArrayView<int16_t>(static_cast<int16_t*>(audio_buffer->mData), num_frames),
       kFixedPlayoutDelayEstimate);
   return noErr;
+}
+
+void AudioDeviceIOS::OnReceivedMutedSpeechActivity(AUVoiceIOSpeechActivityEvent event) {
+  RTCLog(@"Received muted speech activity %d.", event);
+  if (muted_speech_event_delegate_ != 0) {
+    if (event == kAUVoiceIOSpeechActivityHasStarted) {
+      muted_speech_event_delegate_(AudioDeviceModule::kMutedSpeechStarted);
+    } else if (event == kAUVoiceIOSpeechActivityHasEnded) {
+      muted_speech_event_delegate_(AudioDeviceModule::kMutedSpeechEnded);
+    }
+  }
 }
 
 void AudioDeviceIOS::HandleInterruptionBegin() {

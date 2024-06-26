@@ -34,6 +34,11 @@ class VoiceProcessingAudioUnitObserver {
                                     UInt32 num_frames,
                                     AudioBufferList* io_data) = 0;
 
+  // Callback function called when a user speaking during muted is detected by
+  // system.
+  virtual void OnReceivedMutedSpeechActivity(
+      AUVoiceIOSpeechActivityEvent event) = 0;
+
  protected:
   ~VoiceProcessingAudioUnitObserver() {}
 };

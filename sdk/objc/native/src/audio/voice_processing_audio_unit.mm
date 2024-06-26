@@ -252,6 +252,21 @@ bool VoiceProcessingAudioUnit::Initialize(Float64 sample_rate) {
     RTCLog(@"Voice Processing I/O unit is now initialized.");
   }
 
+  // Set listener for muted speech event.
+  AUVoiceIOMutedSpeechActivityEventListener listener = ^(AUVoiceIOSpeechActivityEvent event) {
+    observer_->OnReceivedMutedSpeechActivity(event);
+  };
+
+  result = AudioUnitSetProperty(vpio_unit_,
+                                kAUVoiceIOProperty_MutedSpeechActivityEventListener,
+                                kAudioUnitScope_Global,
+                                0,
+                                &listener,
+                                sizeof(AUVoiceIOMutedSpeechActivityEventListener));
+  if (result != noErr) {
+    RTCLog(@"Failed to set muted speech activity event listener. Error=%ld.", (long)result);
+  }
+
   if (bypass_voice_processing_) {
     // Attempt to disable builtin voice processing.
     UInt32 toggle = 1;

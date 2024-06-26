@@ -16,6 +16,29 @@
       "message": "LGTM but let\u0027s also wait for Sergey\u0027s feedback.",
       "revId": "4aae5804c8ef09001de5dc33022376b41f03451b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145145a8_1e3ed02a",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-26T09:49:41Z",
+      "side": 1,
+      "message": "Does this validate or simply compute and print PSNR? Consider changing name here and in other places.",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 29
+      },
+      "revId": "4aae5804c8ef09001de5dc33022376b41f03451b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

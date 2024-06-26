@@ -16,6 +16,24 @@
       "message": "I do not really understand this check,\nI\u0027ll trust it is helpful.",
       "revId": "8a2dc282f5caeb1eebaf2bfc663c26a5061cd6a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5fcc49_6e04547d",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-26T09:59:21Z",
+      "side": 1,
+      "message": "Thanks - yes, it\u0027s meant to catch issues with code outside of webrtc where AudioFrame is being used, but the properties that describe the dimensions of the `data_view()` buffer, have not been set. As we\u0027re swapping out use of raw pointers in favour of views, we\u0027re catching more of those sort of issues.\n\nThe recent change to this code, replaced a call to `data()`, which returns a raw pointer, with `data_view()` which returns a view of the buffer as dictated by `num_channels() * samples_per_channel()`. However, if either of those two properties are 0 (uninitialized), then the returned view will be empty.",
+      "parentUuid": "bb09b6e6_e4ac175c",
+      "revId": "8a2dc282f5caeb1eebaf2bfc663c26a5061cd6a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

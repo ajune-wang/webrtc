@@ -16,6 +16,24 @@
       "message": "I don\u0027t know enough about this code to understand why GainCurveIsSmoothForAlternatingNumberOfStreams is failing. Reverting https://webrtc-review.googlesource.com/c/src/+/352581 as well doesn\u0027t make a difference. Would you be able to take this over tommi?",
       "revId": "deac4e5b32a365612bbeca6fc0862748c72fb72b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f13f0ae9_d58e2a48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2024-06-26T09:47:29Z",
+      "side": 1,
+      "message": "Yes - TomasL and I are looking into this",
+      "parentUuid": "2993d5ea_8231b244",
+      "revId": "deac4e5b32a365612bbeca6fc0862748c72fb72b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

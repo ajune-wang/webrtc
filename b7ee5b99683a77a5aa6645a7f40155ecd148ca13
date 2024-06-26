@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3b2cb56_e7b5394e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2024-06-26T11:26:18Z",
+      "side": 1,
+      "message": "Suggest Åsa as well....",
+      "revId": "b7ee5b99683a77a5aa6645a7f40155ecd148ca13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

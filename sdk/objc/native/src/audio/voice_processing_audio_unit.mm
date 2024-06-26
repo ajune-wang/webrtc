@@ -193,6 +193,8 @@ VoiceProcessingAudioUnit::State VoiceProcessingAudioUnit::GetState() const {
   return state_;
 }
 
+
+
 bool VoiceProcessingAudioUnit::Initialize(Float64 sample_rate) {
   RTC_DCHECK_GE(state_, kUninitialized);
   RTCLog(@"Initializing audio unit with sample rate: %f", sample_rate);
@@ -250,6 +252,18 @@ bool VoiceProcessingAudioUnit::Initialize(Float64 sample_rate) {
   }
   if (result == noErr) {
     RTCLog(@"Voice Processing I/O unit is now initialized.");
+  }
+
+  // Set listener for muted speech event.
+  AUVoiceIOMutedSpeechActivityEventListener listener = ^(AUVoiceIOSpeechActivityEvent event) {
+    observer_->OnReceivedMutedSpeechActivity(event);
+  };
+
+  result = AudioUnitSetProperty(vpio_unit_, kAUVoiceIOProperty_MutedSpeechActivityEventListener,
+                                kAudioUnitScope_Global, 0, &listener,
+                                sizeof(AUVoiceIOMutedSpeechActivityEventListener));
+  if (result != noErr) {
+    RTCLog(@"Failed to set muted speech activity event listener. Error=%ld.", (long)result);
   }
 
   if (bypass_voice_processing_) {

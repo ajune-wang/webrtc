@@ -63,6 +63,7 @@ class AudioEncoderFactory : public RefCountInterface {
   virtual absl::Nullable<std::unique_ptr<AudioEncoder>>
   Create(const Environment& env, const SdpAudioFormat& format, Options options);
 
+ private:
   // TODO: bugs.webrtc.org/343086059 - Update all callers to use `Create`
   // instead, update implementations not to override it, then delete.
   virtual std::unique_ptr<AudioEncoder> MakeAudioEncoder(

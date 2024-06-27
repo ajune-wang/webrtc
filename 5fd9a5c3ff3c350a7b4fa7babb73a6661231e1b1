@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ce99c9d_4c7ee02a",
+        "filename": "video/end_to_end_tests/resolution_bitrate_limits_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2024-06-27T09:38:10Z",
+      "side": 1,
+      "message": "30 is a default max bitrate: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/experiments/min_video_bitrate_experiment.cc;l\u003d22\n\nMaybe use other, more exotic, value to ensure that your and not default value was actually applied? Here and in other tests.",
+      "range": {
+        "startLine": 564,
+        "startChar": 61,
+        "endLine": 564,
+        "endChar": 63
+      },
+      "revId": "5fd9a5c3ff3c350a7b4fa7babb73a6661231e1b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -87,6 +87,30 @@
       },
       "revId": "4aae5804c8ef09001de5dc33022376b41f03451b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20a3401_a56f1028",
+        "filename": "rtc_tools/video_encoder/video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T08:59:06Z",
+      "side": 1,
+      "message": "Now we validate the PSNR with a threshold borrowed from chromium video_encode_accelerator_tests, so I would like to keep it as `validate_psnr`",
+      "parentUuid": "259151bb_825996d7",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 29
+      },
+      "revId": "4aae5804c8ef09001de5dc33022376b41f03451b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

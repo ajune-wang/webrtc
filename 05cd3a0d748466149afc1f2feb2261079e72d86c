@@ -16,6 +16,24 @@
       "message": "+1. But want to say that quality of code in this tool is somewhat low. Don\u0027t want to be too picky here given that this is a test tool we do not rely on in prod.",
       "revId": "05cd3a0d748466149afc1f2feb2261079e72d86c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe776a8_36d27d46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2024-06-27T08:59:06Z",
+      "side": 1,
+      "message": "Thanks Sergey, this tool is more easy to use for the comparison for different codec between HW/SW encoder. I hope that this tool will be more comprehensive and easy to use in the future. In fact, there are more features that Chromium\u0027s HW video encoder tool has, but this SW encoder tool does not support them yet.",
+      "parentUuid": "44b33ce8_48deb485",
+      "revId": "05cd3a0d748466149afc1f2feb2261079e72d86c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }
